@@ -32,8 +32,4 @@ The general **Nebula Graph** documentation structure is as follows:
 
 ## Contributing
 
-See **Nebula Graph** [How to Contribute](docs/manual-EN/4.contributions/developer-documentation-style-guide.md) Guide to get started. :)
-
-
-
-
+See **Nebula Graph** [CONTRIBUTING](CONTRIBUTING.md) guide to get started. :)
