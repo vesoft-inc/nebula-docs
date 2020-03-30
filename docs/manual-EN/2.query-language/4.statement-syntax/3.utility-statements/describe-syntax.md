@@ -9,7 +9,7 @@ DESCRIBE {TAG | EDGE} INDEX <index_name>
 
 The DESCRIBE keyword is used to obtain information about space, tag and edge structure.
 
-Also notice that DESCRIBE is different from SHOW. Refer [SHOW](show-syntax.md).
+Also notice that DESCRIBE is different from SHOW. Refer [SHOW](show-statements/show-charset-syntax.md).
 
 ## Example
 
