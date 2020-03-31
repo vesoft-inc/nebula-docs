@@ -4,9 +4,12 @@
 
 ttl 功能需要 `ttl_col` 和 `ttl_duration` 一起使用。自从 `ttl_col` 指定的字段的值起，经过 `ttl_duration` 指定的秒数后，该条数据过期。即，到期阈值是 `ttl_col` 指定的 property 的值加上 `ttl_duration` 设置的秒数。其中 `ttl_col` 指定的字段的类型需为 integer 或者 timestamp。
 
+!!! note "NOTE"
+    请注意 TTL 目前仅适用于 [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md)、[GO](../2.data-query-and-manipulation-statements/go-syntax.md) 和 compaction。
+
 ## TTL 配置
 
-- `ttl_duration` 单位为秒，当 `ttl_duration` 被设置为 -1 或者 0，则点的此 tag 属性不会过期。
+- `ttl_duration` 单位为秒，范围为 0 ~ max(int64)，当 `ttl_duration` 被设置为 0，则点的此 tag 属性不会过期。
 
 - 当 `ttl_col` 指定的字段的值 + `ttl_duration` 值 < 当前时间时，该条数据此 tag 属性值过期。
 
@@ -63,7 +66,7 @@ nebula> FETCH PROP ON * 200;
 
 ## 删除 TTL
 
-如果想要删除 TTL，可以设置 `ttl_col` 字段为空，或删除配置的 `ttl_col` 字段，或者设置 `ttl_duration` 为 0 或者 -1。
+如果想要删除 TTL，可以设置 `ttl_col` 字段为空，或删除配置的 `ttl_col` 字段，或者设置 `ttl_duration` 为 0。
 
 ```ngql
 nebula> ALTER TAG t1 ttl_col = ""; -- drop ttl attribute;
@@ -75,7 +78,7 @@ nebula> ALTER TAG t1 ttl_col = ""; -- drop ttl attribute;
 nebula> ALTER TAG t1 DROP (a); -- drop ttl_col
 ```
 
-设置 ttl_duration 为 0 或者 -1：
+设置 ttl_duration 为 0：
 
 ```ngql
 nebula> ALTER TAG t1 ttl_duration = 0; -- keep the ttl but the data never expires
