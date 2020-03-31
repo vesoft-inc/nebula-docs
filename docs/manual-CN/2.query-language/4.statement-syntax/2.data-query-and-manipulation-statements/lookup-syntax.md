@@ -34,7 +34,7 @@ nebula> LOOKUP ON player WHERE player.name == "Tony Parker";
 ------------
 
 nebula> LOOKUP ON player WHERE player.name == "Tony Parker" \
-YIELD person.name, person.age;
+YIELD player.name, player.age;
 =======================================
 | VertexID | player.name | player.age |
 =======================================
