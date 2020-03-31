@@ -4,9 +4,12 @@ With **TTL**, **Nebula Graph** provides the ability to delete the expired vertic
 
 TTl requires `ttl_col` and `ttl_duration` together. `ttl_col` indicates the TTL column, while `ttl_duration` indicates the duration of the TTL. When the sum of the TTL column and the ttl_duration is less than the current time, we consider the data as expired. The `ttl_col` type is integer or timestamp, and is set in seconds. `ttl_duration` is also set in seconds.
 
+!!! note "Note"
+    Please be noted that TTL currently available fot [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md), [GO](../2.data-query-and-manipulation-statements/go-syntax.md) and compaction.
+
 ## TTL configuration
 
-- The `ttl_duration` is set in seconds. If it is set to -1 or 0, the vertex properties of this tag does not expire.
+- The `ttl_duration` is set in seconds and ranges from 0 to max(int64). If it is set to 0, the vertex properties of this tag does not expire.
 
 - If TTL is set, when the sum of the `ttl_col` and the `ttl_duration` is less than the current time, we consider the vertex properties of this tag as expired after the specified seconds configured by `ttl_duration` has passed since the `ttl_col` field value.
 
@@ -63,7 +66,7 @@ nebula> FETCH PROP ON * 200;
 
 ## Dropping TTL
 
-If you have set a TTL value for a field and later decide do not want it to ever automatically expire, you can drop the TTL value, set it to an empty string or invalidate it by setting it to 0 or -1.
+If you have set a TTL value for a field and later decide do not want it to ever automatically expire, you can drop the TTL value, set it to an empty string or invalidate it by setting it to 0.
 
 ```ngql
 nebula> ALTER TAG t1 ttl_col = ""; -- drop ttl attribute;
