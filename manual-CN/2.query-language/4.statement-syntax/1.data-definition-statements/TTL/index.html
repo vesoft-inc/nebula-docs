@@ -2270,9 +2270,13 @@
                 <h1 id="ttl_time-to-live">TTL (time-to-live)<a class="headerlink" href="#ttl_time-to-live" title="Permanent link">&para;</a></h1>
 <p><strong>Nebula Graph</strong> 支持 <strong>TTL</strong> ，在一定时间后自动从数据库中删除点或者边。过期数据会在下次 compaction 时被删除，在下次 compaction 前，query 会过滤掉过期的点和边。</p>
 <p>ttl 功能需要 <code>ttl_col</code> 和 <code>ttl_duration</code> 一起使用。自从 <code>ttl_col</code> 指定的字段的值起，经过 <code>ttl_duration</code> 指定的秒数后，该条数据过期。即，到期阈值是 <code>ttl_col</code> 指定的 property 的值加上 <code>ttl_duration</code> 设置的秒数。其中 <code>ttl_col</code> 指定的字段的类型需为 integer 或者 timestamp。</p>
+<div class="admonition note">
+<p class="admonition-title">NOTE</p>
+<p>请注意 TTL 目前仅适用于 <a href="../../2.data-query-and-manipulation-statements/fetch-syntax/">FETCH</a>、<a href="../../2.data-query-and-manipulation-statements/go-syntax/">GO</a> 和 compaction。</p>
+</div>
 <h2 id="ttl">TTL 配置<a class="headerlink" href="#ttl" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>ttl_duration</code> 单位为秒，当 <code>ttl_duration</code> 被设置为 -1 或者 0，则点的此 tag 属性不会过期。</li>
+<li><code>ttl_duration</code> 单位为秒，范围为 0 ~ max(int64)，当 <code>ttl_duration</code> 被设置为 0，则点的此 tag 属性不会过期。</li>
 </ul>
 <ul>
 <li>当 <code>ttl_col</code> 指定的字段的值 + <code>ttl_duration</code> 值 &lt; 当前时间时，该条数据此 tag 属性值过期。</li>
@@ -2329,7 +2333,7 @@ nebula&gt; FETCH PROP ON * 200;
 
 
 <h2 id="ttl_2">删除 TTL<a class="headerlink" href="#ttl_2" title="Permanent link">&para;</a></h2>
-<p>如果想要删除 TTL，可以设置 <code>ttl_col</code> 字段为空，或删除配置的 <code>ttl_col</code> 字段，或者设置 <code>ttl_duration</code> 为 0 或者 -1。</p>
+<p>如果想要删除 TTL，可以设置 <code>ttl_col</code> 字段为空，或删除配置的 <code>ttl_col</code> 字段，或者设置 <code>ttl_duration</code> 为 0。</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_col = &quot;&quot;; -- drop ttl attribute;
 </code></pre></div>
 
@@ -2339,7 +2343,7 @@ nebula&gt; FETCH PROP ON * 200;
 </code></pre></div>
 
 
-<p>设置 ttl_duration 为 0 或者 -1：</p>
+<p>设置 ttl_duration 为 0：</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_duration = 0; -- keep the ttl but the data never expires
 </code></pre></div>
 
