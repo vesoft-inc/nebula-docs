@@ -13,10 +13,22 @@
 
 ## gflag Parameters
 
-**Nebula Graph** uses `gflags` for run-time configurations.
+**Nebula Graph** uses `gflags` for run-time configurations. `gflags` parameters see the following table.
 
-There are four gflags related parameters, among which, `max_edge_returned_per_vertex` is used to control the max edges returned by a certain vertex, `rocksdb_db_options`, `rocksdb_column_family_options` and `rocksdb_block_based_table_options`
- are all in json format, and the key and value of them are in string format. For example, you can set as follows in the conf file of storage:
+Name                              | Type
+--------------------------------- | -------
+max_edge_returned_per_vertex      | MUTABLE
+minloglevel                       | MUTABLE
+v                                 | MUTABLE
+heartbeat_interval_secs           | MUTABLE
+meta_client_retry_times           | MUTABLE
+slow_op_threshhold_ms             | MUTABLE
+wal_ttl                           | MUTABLE
+rocksdb_db_options                | NESTED
+rocksdb_column_family_options     | NESTED
+rocksdb_block_based_table_options | NESTED
+
+Among which, the default value of `wal_ttl` is `14400` secondes, `max_edge_returned_per_vertex` is used to control the max edges returned by a certain vertex, `rocksdb_db_options`, `rocksdb_column_family_options` and `rocksdb_block_based_table_options` are all in json format, and the key and value of them are in string format. For example, you can set as follows in the conf file of storage:
 
 ```text
     rocksdb_db_options = {"stats_dump_period_sec":"200", "enable_write_thread_adaptive_yield":"false", "write_thread_max_yield_usec":"600"}
@@ -29,6 +41,7 @@ There are four gflags related parameters, among which, `max_edge_returned_per_ve
 
 ```text
     // rocksdb_column_family_options
+    disable_auto_compactions
     write_buffer_size
     max_write_buffer_number
     level0_file_num_compaction_trigger
@@ -38,7 +51,6 @@ There are four gflags related parameters, among which, `max_edge_returned_per_ve
     target_file_size_multiplier
     max_bytes_for_level_base
     max_bytes_for_level_multiplier
-    disable_auto_compactions
 
     // rocksdb_db_options
     max_total_wal_size
