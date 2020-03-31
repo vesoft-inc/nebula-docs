@@ -42,13 +42,14 @@
 查看[图可视化](https://github.com/vesoft-inc/nebula-web-docker)，开启图数据可视化探索之旅。
 
 ## 支持的客户端
+
 * [Go](https://github.com/vesoft-inc/nebula-go)
 * [Python](https://github.com/vesoft-inc/nebula-python)
 * [Java](https://github.com/vesoft-inc/nebula-java)
 
 ## 快速使用
 
-请查看[快速使用手册](docs/manual-CN/1.overview/2.quick-start/1.get-started.md)，开始使用 **Nebula Graph**。
+请查看[快速使用手册](manual-CN/1.overview/2.quick-start/1.get-started.md)，开始使用 **Nebula Graph**。
 
 在开始使用 **Nebula Graph** 之前，必须通过[编译源码](https://github.com/vesoft-inc/nebula/blob/master/docs/manual-EN/3.build-develop-and-administration/1.build/1.build-source-code.md)，[rpm/deb 包](https://github.com/vesoft-inc/nebula/tree/master/docs/manual-CN/3.build-develop-and-administration/3.deploy-and-administrations/deployment/install-with-rpm-deb.md) 或者 [docker compose](https://github.com/vesoft-inc/nebula-docker-compose) 方式安装 **Nebula Graph**。您也可以观看[视频](https://space.bilibili.com/472621355)学习如何安装 **Nebula Graph**。
 
@@ -72,8 +73,9 @@
 ## 如何贡献
 
 **Nebula Graph** 是一个完全开源的项目，欢迎开源爱好者通过以下方式参与到 **Nebula Graph** 社区：
+
 * 从标记为 [good first issues](https://github.com/vesoft-inc/nebula/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 的问题入手
-* 贡献代码，详情请参见 [如何贡献](docs/manual-CN/4.contributions/how-to-contribute.md)
+* 贡献代码，详情请参见 [如何贡献](manual-EN/4.contributions/how-to-contribute.md)
 * 直接在GitHub上提 [Issue](https://github.com/vesoft-inc/nebula/issues)
 
 ## 许可证
