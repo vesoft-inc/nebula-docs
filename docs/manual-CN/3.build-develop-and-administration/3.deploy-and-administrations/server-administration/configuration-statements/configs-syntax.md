@@ -29,6 +29,7 @@
 
 ```text
     // rocksdb_column_family_options
+    write_buffer_size
     max_write_buffer_number
     level0_file_num_compaction_trigger
     level0_slowdown_writes_trigger
@@ -37,15 +38,12 @@
     target_file_size_multiplier
     max_bytes_for_level_base
     max_bytes_for_level_multiplier
-    ttl
     disable_auto_compactions
 
     // rocksdb_db_options
     max_total_wal_size
     delete_obsolete_files_period_micros
     max_background_jobs
-    base_background_compactions
-    max_background_compactions
     stats_dump_period_sec
     compaction_readahead_size
     writable_file_max_buffer_size
