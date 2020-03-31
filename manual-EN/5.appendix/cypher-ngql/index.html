@@ -2419,7 +2419,7 @@
 </tr>
 <tr>
 <td>Get the N-Hop along a specified edge type</td>
-<td>MATCH (n)-[r:edge_type*N]-&gt;() <br/> WHERE ID(a) = vid <br/> return r</td>
+<td>MATCH (n)-[r:edge_type*N]-&gt;() <br/> WHERE ID(n) = vid <br/> return r</td>
 <td>GO N STEPS FROM \<vid> OVER \<edge_type></td>
 </tr>
 <tr>
@@ -2447,76 +2447,90 @@ cypher&gt; CREATE (src:character {name:&quot;saturn&quot;, age: 10000, type:&quo
       &gt; CREATE (src)-[rel:father]-&gt;(dst)
  ```
 
-
 - Delete vertex
+
+```ngql
+nebula&gt; DELETE VERTEX hash(&quot;prometheus&quot;);
+
+cypher&gt; MATCH (n:character {name:&quot;prometheus&quot;})
+        &gt; DETACH DELETE n
 </code></pre></div>
 
 
-<p>nebula&gt; DELETE VERTEX hash("prometheus");</p>
-<p>cypher&gt; MATCH (n:character {name:"prometheus"})
-        &gt; DETACH DELETE n </p>
-<div class="codehilite"><pre><span></span><code>- Update vertex
+<ul>
+<li>Update vertex</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX hash(&quot;jesus&quot;) SET character.type = &#39;titan&#39;;
+
+cypher&gt; MATCH (n:character {name:&quot;jesus&quot;})
+      &gt; SET n.type = &#39;titan&#39;
 </code></pre></div>
 
 
-<p>nebula&gt; UPDATE VERTEX hash("jesus") SET character.type = 'titan';</p>
-<p>cypher&gt; MATCH (n:character {name:"jesus"})
-      &gt; SET n.type = 'titan'</p>
-<div class="codehilite"><pre><span></span><code>- Fetch vertice properties
-</code></pre></div>
-
-
-<p>nebula&gt; FETCH PROP ON character hash("saturn");
+<ul>
+<li>Fetch vertices properties</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON character hash(&quot;saturn&quot;);
   ===================================================
   | character.name | character.age | character.type |
   ===================================================
-  | saturn         | 10000         | titan          |</p>
-<hr />
-<p>cypher&gt; MATCH (n:character {name:"saturn"})
+  | saturn         | 10000         | titan          |
+  ---------------------------------------------------
+
+cypher&gt; MATCH (n:character {name:&quot;saturn&quot;})
       &gt; RETURN properties(n)
   ╒════════════════════════════════════════════╕
-  │"properties(n)"                             │
+  │&quot;properties(n)&quot;                             │
   ╞════════════════════════════════════════════╡
-  │{"name":"saturn","type":"titan","age":10000}│
-  └────────────────────────────────────────────┘</p>
-<div class="codehilite"><pre><span></span><code>- Find the name of hercules&#39;s grandfather
+  │{&quot;name&quot;:&quot;saturn&quot;,&quot;type&quot;:&quot;titan&quot;,&quot;age&quot;:10000}│
+  └────────────────────────────────────────────┘
 </code></pre></div>
 
 
-<p>nebula&gt; GO 2 STEPS FROM hash("hercules") OVER father YIELD  $$.character.name;
+<ul>
+<li>Find the name of hercules's grandfather</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM hash(&quot;hercules&quot;) OVER father YIELD  $$.character.name;
     =====================
     | $$.character.name |
     =====================
     | saturn            |
-    ---------------------</p>
-<p>cypher&gt; MATCH (src:character{name:"hercules"})-[r:father*2]-&gt;(dst:character)
+    ---------------------
+
+cypher&gt; MATCH (src:character{name:&quot;hercules&quot;})-[r:father*2]-&gt;(dst:character)
       &gt; RETURN dst.name
       ╒══════════╕
-      │"dst.name"│
+      │&quot;dst.name&quot;│
       ╞══════════╡
-      │"satun"   │
-      └──────────┘</p>
-<div class="codehilite"><pre><span></span><code>- Find the name of hercules&#39;s father
+      │&quot;satun&quot;   │
+      └──────────┘
 </code></pre></div>
 
 
-<p>nebula&gt; GO FROM hash("hercules") OVER father YIELD $$.character.name;
+<ul>
+<li>Find the name of hercules's father</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;hercules&quot;) OVER father YIELD $$.character.name;
     =====================
     | $$.character.name |
     =====================
     | jupiter           |
-    ---------------------</p>
-<p>cypher&gt; MATCH (src:character{name:"hercules"})-[r:father]-&gt;(dst:character)
+    ---------------------
+
+cypher&gt; MATCH (src:character{name:&quot;hercules&quot;})-[r:father]-&gt;(dst:character)
       &gt; RETURN dst.name
       ╒══════════╕
-      │"dst.name"│
+      │&quot;dst.name&quot;│
       ╞══════════╡
-      │"jupiter" │
-      └──────────┘</p>
-<div class="codehilite"><pre><span></span><code>- Find the the centenarians&#39; name.
+      │&quot;jupiter&quot; │
+      └──────────┘
+</code></pre></div>
 
- ```
-nebula&gt; # coming soon
+
+<ul>
+<li>Find the the centenarians' name.</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>nebula&gt; # coming soon
 
 cypher&gt; MATCH (src:character)
       &gt; WHERE src.age &gt; 100
@@ -2559,8 +2573,7 @@ cypher&gt; MATCH (src:character{name:&quot;pluto&quot;})-[r1:lives]-&gt;()&lt;-[
 <ul>
 <li>Find pluto's brother and their habitations?</li>
 </ul>
-<p>```
-nebula&gt; GO FROM hash("pluto") OVER brother YIELD brother._dst AS god | \
+<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;pluto&quot;) OVER brother YIELD brother._dst AS god | \
       &gt; GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name AS Habitations;
     =========================
     | Brother | Habitations |
@@ -2568,17 +2581,18 @@ nebula&gt; GO FROM hash("pluto") OVER brother YIELD brother._dst AS god | \
     | jupiter | sky         |
     -------------------------
     | neptune | sea         |
-    -------------------------</p>
-<p>cypher&gt; MATCH (src:Character{name:"pluto"})-[r1:brother]-&gt;(bro:Character)-[r2:lives]-&gt;(dst)
+    -------------------------
+
+cypher&gt; MATCH (src:Character{name:&quot;pluto&quot;})-[r1:brother]-&gt;(bro:Character)-[r2:lives]-&gt;(dst)
       &gt; RETURN bro.name, dst.name
       ╒═════════════════════════╕
-      │"bro.name"    │"dst.name"│
+      │&quot;bro.name&quot;    │&quot;dst.name&quot;│
       ╞═════════════════════════╡
-      │ "jupiter"    │  "sky"   │
+      │ &quot;jupiter&quot;    │  &quot;sky&quot;   │
       ├─────────────────────────┤
-      │ "neptune"    │ "sea"    │
+      │ &quot;neptune&quot;    │ &quot;sea&quot;    │
       └─────────────────────────┘
-```</p>
+</code></pre></div>
                 
                   
                 
