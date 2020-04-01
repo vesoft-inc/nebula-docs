@@ -4,8 +4,8 @@ With **TTL**, **Nebula Graph** provides the ability to delete the expired vertic
 
 TTl requires `ttl_col` and `ttl_duration` together. `ttl_col` indicates the TTL column, while `ttl_duration` indicates the duration of the TTL. When the sum of the TTL column and the ttl_duration is less than the current time, we consider the data as expired. The `ttl_col` type is integer or timestamp, and is set in seconds. `ttl_duration` is also set in seconds.
 
-!!! note "Note"
-    Please be noted that TTL currently available fot [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md), [GO](../2.data-query-and-manipulation-statements/go-syntax.md) and compaction.
+<!-- !!! note "Note"
+    Please be noted that TTL currently available fot [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md), [GO](../2.data-query-and-manipulation-statements/go-syntax.md) and compaction. -->
 
 ## TTL configuration
 

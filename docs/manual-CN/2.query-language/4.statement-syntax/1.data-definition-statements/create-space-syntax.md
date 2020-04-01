@@ -30,9 +30,13 @@ CREATE SPACE [IF NOT EXISTS] <space_name>
 * _replica_factor_
 
     _replica_factor_ 表示副本数量。默认值是 1，集群建议为 3。
+
 * _charset_
+
     _charset_ 表示字符集，定义了字符以及字符的编码，默认为 utf8。
+
 * _collate_
+
     _collate_ 表示字符序，定义了字符的比较规则，默认为 utf8_bin。
 
 如果没有自定义选项，**Nebula Graph** 会使用默认的值（partition_number、replica_factor、charset 和 collate）来创建图空间。

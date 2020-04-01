@@ -37,7 +37,7 @@
   * [位运算](2.query-language/2.functions-and-operators/bitwise-operators.md)
   * [内置函数](2.query-language/2.functions-and-operators/built-in-functions.md)
   * [比较运算](2.query-language/2.functions-and-operators/comparison-functions-and-operators.md)
-  * [聚合运算](2.query-language/2.functions-and-operators/group-by-function.md)
+  * [聚合运算 (Group by)](2.query-language/2.functions-and-operators/group-by-function.md)
   * [分页 (Limit)](2.query-language/2.functions-and-operators/limit-syntax.md)
   * [逻辑运算](2.query-language/2.functions-and-operators/logical-operators.md)
   * [排序 (Order By)](2.query-language/2.functions-and-operators/order-by-function.md)
@@ -151,6 +151,7 @@
 * [C++ 编程风格](4.contributions/cpp-coding-style.md)
 * [开发者文档风格](4.contributions/developer-documentation-style-guide.md)
 * [如何贡献](4.contributions/how-to-contribute.md)
+* [PR 和 Commit 信息指南](4.contributions/pull-request-commit-message-guidelines.md)
 
 ## 附录
 
