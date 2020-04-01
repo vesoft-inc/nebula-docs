@@ -4,8 +4,8 @@
 
 ttl 功能需要 `ttl_col` 和 `ttl_duration` 一起使用。自从 `ttl_col` 指定的字段的值起，经过 `ttl_duration` 指定的秒数后，该条数据过期。即，到期阈值是 `ttl_col` 指定的 property 的值加上 `ttl_duration` 设置的秒数。其中 `ttl_col` 指定的字段的类型需为 integer 或者 timestamp。
 
-!!! note "NOTE"
-    请注意 TTL 目前仅适用于 [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md)、[GO](../2.data-query-and-manipulation-statements/go-syntax.md) 和 compaction。
+<!-- !!! note "NOTE"
+    请注意 TTL 目前仅适用于 [FETCH](../2.data-query-and-manipulation-statements/fetch-syntax.md)、[GO](../2.data-query-and-manipulation-statements/go-syntax.md) 和 compaction。 -->
 
 ## TTL 配置
 

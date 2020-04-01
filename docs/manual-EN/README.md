@@ -118,7 +118,6 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
     <!-- * [Connect Prometheus](3.build-develop-and-administration/3.deploy-and-administrations/deployment/connect-prometheus.md) -->
     * [Installation With rpm](3.build-develop-and-administration/3.deploy-and-administrations/deployment/install-with-rpm-deb.md)
 
-
   * Server Administration
     * Account Management Statements
       * [Alter User Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/alter-user-syntax.md)
@@ -154,6 +153,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * [Cpp Coding Style](4.contributions/cpp-coding-style.md)
 * [Developer Documentation Style Guide](4.contributions/developer-documentation-style-guide.md)
 * [How to Contribute](4.contributions/how-to-contribute.md)
+* [Pull Request Commit Message Guidelines](4.contributions/pull-request-commit-message-guidelines.md)
 
 ## Appendix
 
