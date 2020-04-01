@@ -15,20 +15,20 @@
 
 **Nebula Graph** 使用 `gflags` 进行运行时配置。`gflags` 参数见下表。
 
-Name                              | Type
---------------------------------- | -------
-max_edge_returned_per_vertex      | MUTABLE
-minloglevel                       | MUTABLE
-v                                 | MUTABLE
-heartbeat_interval_secs           | MUTABLE
-meta_client_retry_times           | MUTABLE
-slow_op_threshhold_ms             | MUTABLE
-wal_ttl                           | MUTABLE
-rocksdb_db_options                | NESTED
-rocksdb_column_family_options     | NESTED
-rocksdb_block_based_table_options | NESTED
+Name                              | Type    | Description
+--------------------------------- | ------- | -----------
+max_edge_returned_per_vertex      | MUTABLE | 用来控制一个点最多可以搜索返回的边数
+minloglevel                       | MUTABLE | 最小日志级别
+v                                 | MUTABLE | debug 日志级别
+heartbeat_interval_secs           | MUTABLE | 心跳间隔
+meta_client_retry_times           | MUTABLE | meta 客户端重试次数
+slow_op_threshhold_ms             | MUTABLE | 慢速运行的默认阈值，单位为 ms
+wal_ttl                           | MUTABLE | 默认值为 `14400` 秒
+rocksdb_db_options                | NESTED  | 参数为 json 格式，其中每个参数 key 和 value 均为 string 格式
+rocksdb_column_family_options     | NESTED  | 参数为 json 格式，其中每个参数 key 和 value 均为 string 格式
+rocksdb_block_based_table_options | NESTED  | 参数为 json 格式，其中每个参数 key 和 value 均为 string 格式
 
-其中，`wal_ttl` 默认值为 `14400` 秒，`max_edge_returned_per_vertex` 用来控制一个点最多可以搜索返回的边数，`rocksdb_db_options`，`rocksdb_column_family_options`，`rocksdb_block_based_table_options` 三个参数均为 json 格式，其中每个参数 key 和 value 均为 string 格式。例如可以在 storage 的 conf 文件中做如下设置：
+例如可以在 storage 的 conf 文件中做如下设置：
 
 ```text
     rocksdb_db_options = {"stats_dump_period_sec":"200", "enable_write_thread_adaptive_yield":"false", "write_thread_max_yield_usec":"600",

@@ -15,20 +15,20 @@
 
 **Nebula Graph** uses `gflags` for run-time configurations. `gflags` parameters see the following table.
 
-Name                              | Type
---------------------------------- | -------
-max_edge_returned_per_vertex      | MUTABLE
-minloglevel                       | MUTABLE
-v                                 | MUTABLE
-heartbeat_interval_secs           | MUTABLE
-meta_client_retry_times           | MUTABLE
-slow_op_threshhold_ms             | MUTABLE
-wal_ttl                           | MUTABLE
-rocksdb_db_options                | NESTED
-rocksdb_column_family_options     | NESTED
-rocksdb_block_based_table_options | NESTED
+Name                              | Type    | Description
+--------------------------------- | ------- | -----------
+max_edge_returned_per_vertex      | MUTABLE | Control the max edges returned by a certain vertex.
+minloglevel                       | MUTABLE | Minimum log level.
+v                                 | MUTABLE | Debug log level.
+heartbeat_interval_secs           | MUTABLE | Heartbeat interval.
+meta_client_retry_times           | MUTABLE | Meta client retry times.
+slow_op_threshhold_ms             | MUTABLE | Default threshold for slow operation, set in ms
+wal_ttl                           | MUTABLE | Default value is `14400` secondes
+rocksdb_db_options                | NESTED  | Parameter in json format, and the key and value of them are in string format.
+rocksdb_column_family_options     | NESTED  | Parameter in json format, and the key and value of them are in string format.
+rocksdb_block_based_table_options | NESTED  | Parameter in json format, and the key and value of them are in string format.
 
-Among which, the default value of `wal_ttl` is `14400` secondes, `max_edge_returned_per_vertex` is used to control the max edges returned by a certain vertex, `rocksdb_db_options`, `rocksdb_column_family_options` and `rocksdb_block_based_table_options` are all in json format, and the key and value of them are in string format. For example, you can set as follows in the conf file of storage:
+For example, you can set as follows in the conf file of storage:
 
 ```text
     rocksdb_db_options = {"stats_dump_period_sec":"200", "enable_write_thread_adaptive_yield":"false", "write_thread_max_yield_usec":"600"}
