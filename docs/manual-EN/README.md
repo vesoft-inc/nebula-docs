@@ -23,7 +23,6 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Import .csv File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
   * [Ingest .sst File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
-  * [Upgrading Nebula Graph](1.overview/2.quick-start/5.upgrade-guide.md)
 
 * Design and Architecture
   * [Design Overview](1.overview/3.design-and-architecture/1.design-and-architecture.md)
@@ -160,6 +159,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 * [Gremlin V.S. nGQL](5.appendix/gremlin-ngql.md)
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
+* [Upgrading Nebula Graph](5.appendix/upgrade-guide.md)
 
 ## Misc
 
