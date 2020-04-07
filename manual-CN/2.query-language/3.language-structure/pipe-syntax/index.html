@@ -2250,15 +2250,14 @@
 <p>nGQL 和 SQL 的主要区别之一是子查询的组合方式。</p>
 <p>SQL 中的查询语句通常由子查询嵌套组成，而 nGQL 则使用类似于 shell 的管道方式 <code>PIPE(|)</code> 来组合子查询。</p>
 <h2 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow | GO FROM $-.id OVER follow | GO FROM $-.id ...
-
-nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS dstid, $$.player.name AS Name  | GO FROM $-.dstid OVER follow YIELD follow._dst, follow.degree, $-.Name
+<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS dstid, $$.player.name AS Name  | \
+GO FROM $-.dstid OVER follow YIELD follow._dst, follow.degree, $-.Name
 </code></pre></div>
 
 
 <p>如未使用 <code>YIELD</code>，则默认返回终点 <code>id</code>。</p>
 <p>如果使用 <code>YIELD</code> 明确声明返回结果，则不会返回默认值 <code>id</code>。</p>
-<p><code>$-.</code> 后的别名必须为准确的点 <code>id</code> 或前一个子句 <code>YIELD</code> 定义的值，如本例中的 <code>dstid</code> 和 <code>Name</code>。（作为语法糖，<code>$-.id</code> 可简化为 <code>$-</code>。）</p>
+<p><code>$-.</code> 后的别名必须为前一个子句 <code>YIELD</code> 定义的值，如本例中的 <code>dstid</code> 和 <code>Name</code>。</p>
                 
                   
                 

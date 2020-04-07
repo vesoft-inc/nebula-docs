@@ -2293,15 +2293,14 @@
 <p>In SQL, sub-queries are nested (embedded) to form a statement.
 Meanwhile, nGQL uses shell style <code>PIPE (|)</code>.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow | GO FROM $-.id OVER follow | GO FROM $-.id ...
-
-nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS dstid, $$.player.name AS Name | GO FROM $-.dstid OVER follow YIELD follow._dst, follow.degree, $-.Name
+<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS dstid, $$.player.name AS Name | \
+GO FROM $-.dstid OVER follow YIELD follow._dst, follow.degree, $-.Name
 </code></pre></div>
 
 
 <p>The dest (vertex) <code>id</code> will be given as the default value if no <code>YIELD</code> is used.</p>
 <p>But if <code>YIELD</code> is declared explicitly, (the default value) <code>id</code> will not be given.</p>
-<p>The alias name mentioned right after placeholder <code>$-.</code> must be either exactly <code>id</code> or already defined in the previews <code>YIELD</code> statement, such as <code>dstid</code> or <code>Name</code> as shown in the above example (As a syntactic sugar, you can use <code>$-</code> to <code>$-.id</code> for short).</p>
+<p>The alias name mentioned right after placeholder <code>$-.</code> must be defined in the previews <code>YIELD</code> statement, such as <code>dstid</code> or <code>Name</code> as shown in the above example.</p>
                 
                   
                 
