@@ -23,6 +23,7 @@
   * [导入 .csv 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
   * [加载 .sst 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
   * [Nebula Graph 客户端](1.overview/2.quick-start/3.supported-clients.md)
+
 * 系统设计与架构
   * [设计总览](1.overview/3.design-and-architecture/1.design-and-architecture.md)
   * [存储层架构](1.overview/3.design-and-architecture/2.storage-design.md)
@@ -157,6 +158,7 @@
 
 * [Gremlin VS nGQL](5.appendix/gremlin-ngql.md)
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
+* [升级 Nebula Graph](5.appendix/upgrade-guide.md)
 
 ## 其他
 
