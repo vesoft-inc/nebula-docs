@@ -2385,9 +2385,69 @@
 <li>Configuration changes in console take effect in real time.</li>
 </ul>
 <h2 id="gflag_parameters">gflag Parameters<a class="headerlink" href="#gflag_parameters" title="Permanent link">&para;</a></h2>
-<p><strong>Nebula Graph</strong> uses <code>gflags</code> for run-time configurations.</p>
-<p>There are four gflags related parameters, among which, <code>max_edge_returned_per_vertex</code> is used to control the max edges returned by a certain vertex, <code>rocksdb_db_options</code>, <code>rocksdb_column_family_options</code> and <code>rocksdb_block_based_table_options</code>
- are all in json format, and the key and value of them are in string format. For example, you can set as follows in the conf file of storage:</p>
+<p><strong>Nebula Graph</strong> uses <code>gflags</code> for run-time configurations. <code>gflags</code> parameters see the following table.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max_edge_returned_per_vertex</td>
+<td>MUTABLE</td>
+<td>Control the max edges returned by a certain vertex.</td>
+</tr>
+<tr>
+<td>minloglevel</td>
+<td>MUTABLE</td>
+<td>Minimum log level.</td>
+</tr>
+<tr>
+<td>v</td>
+<td>MUTABLE</td>
+<td>Debug log level.</td>
+</tr>
+<tr>
+<td>heartbeat_interval_secs</td>
+<td>MUTABLE</td>
+<td>Heartbeat interval.</td>
+</tr>
+<tr>
+<td>meta_client_retry_times</td>
+<td>MUTABLE</td>
+<td>Meta client retry times.</td>
+</tr>
+<tr>
+<td>slow_op_threshhold_ms</td>
+<td>MUTABLE</td>
+<td>Default threshold for slow operation, set in ms</td>
+</tr>
+<tr>
+<td>wal_ttl</td>
+<td>MUTABLE</td>
+<td>Default value is <code>14400</code> secondes</td>
+</tr>
+<tr>
+<td>rocksdb_db_options</td>
+<td>NESTED</td>
+<td>Parameter in json format, and the key and value of them are in string format.</td>
+</tr>
+<tr>
+<td>rocksdb_column_family_options</td>
+<td>NESTED</td>
+<td>Parameter in json format, and the key and value of them are in string format.</td>
+</tr>
+<tr>
+<td>rocksdb_block_based_table_options</td>
+<td>NESTED</td>
+<td>Parameter in json format, and the key and value of them are in string format.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, you can set as follows in the conf file of storage:</p>
 <div class="codehilite"><pre><span></span><code>    rocksdb_db_options = {&quot;stats_dump_period_sec&quot;:&quot;200&quot;, &quot;enable_write_thread_adaptive_yield&quot;:&quot;false&quot;, &quot;write_thread_max_yield_usec&quot;:&quot;600&quot;}
     rocksdb_column_family_options = {&quot;max_write_buffer_number&quot;:&quot;4&quot;, &quot;min_write_buffer_number_to_merge&quot;:&quot;2&quot;, &quot;max_write_buffer_number_to_maintain&quot;:&quot;1&quot;}
     rocksdb_block_based_table_options = {&quot;block_restart_interval&quot;:&quot;2&quot;}
@@ -2397,6 +2457,8 @@
 
 <p><strong>Nebula Graph</strong> supports changing some rocksdb parameters in storage service as follows:</p>
 <div class="codehilite"><pre><span></span><code>    // rocksdb_column_family_options
+    disable_auto_compactions
+    write_buffer_size
     max_write_buffer_number
     level0_file_num_compaction_trigger
     level0_slowdown_writes_trigger
@@ -2405,15 +2467,11 @@
     target_file_size_multiplier
     max_bytes_for_level_base
     max_bytes_for_level_multiplier
-    ttl
-    disable_auto_compactions
 
     // rocksdb_db_options
     max_total_wal_size
     delete_obsolete_files_period_micros
     max_background_jobs
-    base_background_compactions
-    max_background_compactions
     stats_dump_period_sec
     compaction_readahead_size
     writable_file_max_buffer_size
