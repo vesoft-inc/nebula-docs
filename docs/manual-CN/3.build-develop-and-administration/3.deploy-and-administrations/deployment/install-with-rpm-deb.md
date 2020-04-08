@@ -17,19 +17,7 @@
 
 1. 下载安装包
 
-   * 方式一：通过 GitHub 获取安装包
-
-    1. 登录到 GitHub 并单击 [rpm/deb](https://github.com/vesoft-inc/nebula/actions) 链接。
-
-    2. 在 **Actions** 选项卡下，单击左侧的 **package**，显示所有可用的包。
-
-    3. 单击列表顶部最新的包。
-    ![action-page](https://user-images.githubusercontent.com/40747875/71390992-59d1be80-263d-11ea-9d61-1d7fbeb1d8c5.png)
-
-    4. 单击右上角 **Artifacts**， 选择要下载的安装包。
-    ![select-a-package](https://user-images.githubusercontent.com/40747875/71389414-415ea580-2637-11ea-8930-eaef1e8a5d17.png)
-
-   * 方式二：通过阿里云 OSS 获取安装包
+   * 方式一：通过阿里云 OSS 获取安装包。（国内用户可优先考虑使用 OSS 下载）
 
     1. 获取 release 版本，URL 格式如下：
 
@@ -59,9 +47,21 @@
 
      * 链接中 `${date}` 为具体的日期，例如要下载 2020年4月1日的 Centos 7 的安装包，那么可以直接通过命令下载
 
-  ```bash
-  $ wget https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/2020.04.01/nebula-2020.04.01-nightly.el7-5.x86_64.rpm
-  ```
+   ```bash
+   $ wget https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/2020.04.01/nebula-2020.04.01-nightly.el7-5.x86_64.rpm
+   ```
+
+   * 方式二：通过 GitHub 获取安装包
+
+    1. 登录到 GitHub 并单击 [rpm/deb](https://github.com/vesoft-inc/nebula/actions) 链接。
+
+    2. 在 **Actions** 选项卡下，单击左侧的 **package**，显示所有可用的包。
+
+    3. 单击列表顶部最新的包。
+    ![action-page](https://user-images.githubusercontent.com/40747875/71390992-59d1be80-263d-11ea-9d61-1d7fbeb1d8c5.png)
+
+    4. 单击右上角 **Artifacts**， 选择要下载的安装包。
+    ![select-a-package](https://user-images.githubusercontent.com/40747875/71389414-415ea580-2637-11ea-8930-eaef1e8a5d17.png)
 
 2. 安装 **Nebula Graph**。
 
