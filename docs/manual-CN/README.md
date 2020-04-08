@@ -100,7 +100,7 @@
   * 图算法
     * [查找路径](2.query-language/4.statement-syntax/4.graph-algorithms/find-path-syntax.md)
 
-## 编译、部署与运维 (程序员和 DBA )
+## 编译、部署与运维 (程序员和 DBA)
 
 * 编译
   * [编译源代码](3.build-develop-and-administration/1.build/1.build-source-code.md)
