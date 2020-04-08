@@ -38,7 +38,7 @@
   * [位运算](2.query-language/2.functions-and-operators/bitwise-operators.md)
   * [内置函数](2.query-language/2.functions-and-operators/built-in-functions.md)
   * [比较运算](2.query-language/2.functions-and-operators/comparison-functions-and-operators.md)
-  * [聚合运算 (Group by)](2.query-language/2.functions-and-operators/group-by-function.md)
+  * [聚合运算](2.query-language/2.functions-and-operators/group-by-function.md)
   * [分页 (Limit)](2.query-language/2.functions-and-operators/limit-syntax.md)
   * [逻辑运算](2.query-language/2.functions-and-operators/logical-operators.md)
   * [排序 (Order By)](2.query-language/2.functions-and-operators/order-by-function.md)
@@ -51,6 +51,7 @@
     * [字符串类型](2.query-language/3.language-structure/literal-values/string-literals.md)
   * [注释语法](2.query-language/3.language-structure/comment-syntax.md)
   * [标识符大小写](2.query-language/3.language-structure/identifier-case-sensitivity.md)
+  * [关键字和保留字](2.query-language/3.language-structure/keywords-and-reserved-words.md)
   * [管道](2.query-language/3.language-structure/pipe-syntax.md)
   * [属性引用](2.query-language/3.language-structure/property-reference.md)
   * [标识符命名规则](2.query-language/3.language-structure/schema-object-names.md)
@@ -152,11 +153,10 @@
 * [C++ 编程风格](4.contributions/cpp-coding-style.md)
 * [开发者文档风格](4.contributions/developer-documentation-style-guide.md)
 * [如何贡献](4.contributions/how-to-contribute.md)
-* [PR 和 Commit 信息指南](4.contributions/pull-request-commit-message-guidelines.md)
 
 ## 附录
 
-* [Gremlin VS nGQL](5.appendix/gremlin-ngql.md)
+* [Gremlin V.S. nGQL](5.appendix/gremlin-ngql.md)
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
 * [升级 Nebula Graph](5.appendix/upgrade-guide.md)
 
