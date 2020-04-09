@@ -3,8 +3,10 @@
 **Nebula Graph** 角色可分为以下几类：
 
 - God
-  - 初始 Root 用户，与 Linux 系统中的 Root 用户类似。
+  - 初始 Root 用户（类似于 Linux 系统中的 Root，和 Windows 系统中的 Administrator）。
   - 拥有所有操作权限。
+  - 一个集群只能有一个 God。God 可管理集群内所有 space。
+  - God 角色由 meta 自动初始化，且不支持用户自行授权成为 God。
 - Admin
   - 管理员用户。
   - 对权限内的 space 拥有 schema 和 data 的读/写权限。
