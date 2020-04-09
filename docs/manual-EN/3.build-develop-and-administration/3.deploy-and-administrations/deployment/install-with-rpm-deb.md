@@ -15,19 +15,55 @@ Before getting started, ensure that you meet the following requirements:
 
 To install **Nebula Graph** with a `rpm/deb` package, you must complete the following steps:
 
-1. Log in to GitHub and click [rpm/deb](https://github.com/vesoft-inc/nebula/actions) to locate the `rpm/deb` package.
+1. Download packages.
 
-2. Under the **Actions** tab, click **package** on the left. All packages available are displayed.
+   * Method one: Download via GitHub.
 
-3. Click the latest package on the top of the package list.
+    1. Log in to GitHub and click [rpm/deb](https://github.com/vesoft-inc/nebula/actions) to locate the `rpm/deb` package
 
-![action-page](https://user-images.githubusercontent.com/40747875/71390992-59d1be80-263d-11ea-9d61-1d7fbeb1d8c5.png)
+    2. Under the **Actions** tab, click **package** on the left. All packages available are displayed.
 
-4. Click the **Artifacts** list on the upper right corner to select a package to download.
+    3. Click the latest package on the top of the package list.
+    ![action-page](https://user-images.githubusercontent.com/40747875/71390992-59d1be80-263d-11ea-9d61-1d7fbeb1d8c5.png)
 
-![select-a-package](https://user-images.githubusercontent.com/40747875/71389414-415ea580-2637-11ea-8930-eaef1e8a5d17.png)
+    4. Click the **Artifacts** list on the upper right corner to select a package to download.
+    ![select-a-package](https://user-images.githubusercontent.com/40747875/71389414-415ea580-2637-11ea-8930-eaef1e8a5d17.png)
 
-5. Install **Nebula Graph**.
+   * Method two: Download via OSS.
+
+    1. Obtaining the release version information. The URL format is as follows:
+
+     * [Centos 6](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/${release_version}/nebula-${release_version}.el6-5.x86_64.rpm)
+
+     * [Centos 7](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/${release_version}/nebula-${release_version}.el7-5.x86_64.rpm)
+
+     * [Ubuntu 1604](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/${release_version}/nebula-${release_version}.ubuntu1604.amd64.deb)
+
+     * [Ubuntu 1604](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/${release_version}/nebula-${release_version}.ubuntu1804.amd64.deb)
+
+     * The `${release_version}` in the link is the release version information. For example, use the follow command to download the 1.0.0-rc2 Centos 7 package.
+
+     ```bash
+     $ wget https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/1.0.0-rc2/nebula-1.0.0-rc2.el7-5.x86_64.rpm
+     ```
+
+     b. Obtaining the nightly version. The URL format is as follows:
+
+     * [Centos 6](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/${date}/nebula-${date}-nightly.el6-5.x86_64.rpm)
+
+     * [Centos 7](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/${date}/nebula-${date}-nightly.el7-5.x86_64.rpm)
+
+     * [Ubuntu 1604](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/${date}/nebula-${date}-nightly.ubuntu1604.amd64.deb)
+
+     * [Ubuntu 1804](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/${date}/nebula-${date}-nightly.ubuntu1804.amd64.deb)
+
+     * The `${date}` in the link specifies the date.  For example, use the follow command to download the April 1st 2020 Centos 7 package.
+
+    ```bash
+    $ wget https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/package/nightly/2020.  04.01/nebula-2020.04.01-nightly.el7-5.x86_64.rpm
+    ```
+
+2. Install **Nebula Graph**.
 
 * For a `rpm` file, install **Nebula Graph** with the following command:
 
