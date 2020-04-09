@@ -3,8 +3,10 @@
 **Nebula Graph** provides the following roles:
 
 - God
-  - The initial root user similar to the root in Linux.
+  - The initial root user (similar to the Root in Linux and Administrator in Windows).
   - All the operation access.
+  - A cluster can only have one God. God manages all the spaces in the cluster.
+  - The God role is automatically initialized by meta and cannot be granted by users.
 - Admin
   - The administration user.
   - Read/write access to both the schema and data limited to its authorized space.
