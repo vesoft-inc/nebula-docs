@@ -5,7 +5,7 @@
 ## Update Vertex
 
 ```ngql
-UPDATE VERTEX <vid> SET <update_columns> WHEN <condition> YIELD <columns>
+UPDATE VERTEX <vid> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
 ```
 
 **NOTE:** `WHEN` and `YIELD` are optional.
@@ -21,15 +21,17 @@ UPDATE VERTEX <vid> SET <update_columns> WHEN <condition> YIELD <columns>
 Consider the following example:
 
 ```ngql
-nebula> UPDATE VERTEX 101 SET course.credits = $^.course.credits + 1, building.name = "No8" WHEN $^.course.name == "Math" && $^.course.credits > 2 YIELD $^.course.name AS Name, $^.course.credits AS Credits, $^.building.name
+nebula> UPDATE VERTEX 101 SET player.age = $^.player.age + 1 \
+WHEN $^.player.name == "Tony Parker" \
+YIELD $^.player.name AS name, $^.player.age AS age;
 ```
 
-There are two tags in vertex 101, namely course and building.
+There are one tag in vertex 101, namely player.
 
 ## Update Edge
 
 ```ngql
-UPDATE EDGE <edge> SET <update_columns> WHEN <condition> YIELD <columns>
+UPDATE EDGE <edge> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
 ```
 
 **NOTE:** `WHEN` and `YIELD` are optional.
@@ -42,7 +44,6 @@ UPDATE EDGE <edge> SET <update_columns> WHEN <condition> YIELD <columns>
 Consider the following example:
 
 ```ngql
-nebula> UPDATE EDGE 200 -> 101@0 OF select SET grade = select.grade + 1, year = 2000 WHEN select.grade > 4 && $^.student.age > 15 YIELD $^.student.name AS Name, select.grade AS Grade, select.year AS Year
+nebula> UPDATE EDGE 100 -> 200@0 OF serve SET start_year = serve.start_year + 1 \
+YIELD $^.player.name AS name, serve.start_year AS start;
 ```
-
-> **NOTE:** The constraints are the source student's age, the returns are properties of the vertex and edge.

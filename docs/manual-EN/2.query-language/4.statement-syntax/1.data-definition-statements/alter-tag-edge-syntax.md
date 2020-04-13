@@ -4,7 +4,7 @@
 ALTER TAG | EDGE <tag_name> | <edge_name>
     <alter_definition> [, alter_definition] ...]
     [ttl_definition [, ttl_definition] ... ]
-  
+
 alter_definition:
 | ADD    (prop_name data_type)
 | DROP   (prop_name)
@@ -23,13 +23,15 @@ Please refer to [Index Documentation](index.md) on details about index.
 Multiple `ADD`, `DROP`, and `CHANGE` clauses are permitted in a single `ALTER` statements, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the `ALTER` statement.
 
 ```ngql
-ALTER TAG t1 ADD (id int, name string)
+nebula> CREATE TAG t1 (name string, age int);
+nebula> ALTER TAG t1 ADD (id int, address string);
 
-ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* add prop1 */
-              CHANGE (prop3 string),            /* change prop3 to string */
-              DROP (prop4, prop5)               /* remove prop4 and prop5 */
+nebula> CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
+nebula> ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
+              CHANGE (prop3 string),            /* 将 prop3 类型更改为字符 */
+              DROP (prop4, prop5);               /* 删除 prop4 和 prop5 */
 
-ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = prop1
+nebula> ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = prop1;
 ```
 
 Notice that TTL_COL only support INT and TIMESTAMP types.
