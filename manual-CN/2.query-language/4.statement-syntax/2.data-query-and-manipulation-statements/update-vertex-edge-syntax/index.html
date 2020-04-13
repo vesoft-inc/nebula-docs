@@ -2239,38 +2239,12 @@
     更新点
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    示例
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     更新边
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    示例
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2294,7 +2268,7 @@
                 <h1 id="update">UPDATE 语法<a class="headerlink" href="#update" title="Permanent link">&para;</a></h1>
 <p><strong>Nebula Graph</strong> 支持 <code>UPDATE</code> 一个点或者一条边的属性，支持 CAS 操作，支持返回相关的属性。</p>
 <h2 id="_1">更新点<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;update_columns&gt; WHEN &lt;condition&gt; YIELD &lt;columns&gt;
+<div class="codehilite"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
 
 
@@ -2308,14 +2282,16 @@
 <li><code>condition</code> 是一些约束条件，只有满足这个条件，<code>UPDATE</code> 才会真正执行，支持表达式操作。</li>
 <li><code>columns</code> 表示需要返回的 columns，此处 <code>YIELD</code> 可返回 update 以后最新的 columns 值。</li>
 </ul>
-<h3 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX 101 SET course.credits = $^.course.credits + 1, building.name = &quot;No8&quot; WHEN $^.course.name == &quot;Math&quot; &amp;&amp; $^.course.credits &gt; 2 YIELD $^.course.name AS Name, $^.course.credits AS Credits, $^.building.name
+<p>举例如下：</p>
+<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX 101 SET player.age = $^.player.age + 1 \
+WHEN $^.player.name == &quot;Tony Parker&quot; \
+YIELD $^.player.name AS name, $^.player.age AS age;
 </code></pre></div>
 
 
-<p>这个例子里面，101 共有两个 tag，即 course 和 building。</p>
-<h2 id="_3">更新边<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>UPDATE EDGE &lt;edge&gt; SET &lt;update_columns&gt; WHEN &lt;condition&gt; YIELD &lt;columns&gt;
+<p>这个例子里面，101 有一个 tag，即 player。</p>
+<h2 id="_2">更新边<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>UPDATE EDGE &lt;edge&gt; SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
 
 
@@ -2326,14 +2302,10 @@
 <li><code>condition</code> 是一些约束条件，只有满足这个条件，update 才会真正执行，支持表达式操作。</li>
 <li><code>columns</code> 表示需要返回的 columns，此处 YIELD 可返回 update 以后最新的 columns 值。</li>
 </ul>
-<h3 id="_4">示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE EDGE 200 -&gt; 101@0 OF select SET grade = select.grade + 1, \
-  year = 2000 WHEN select.grade &gt; 4 &amp;&amp; $^.student.age &gt; 15 \
-  YIELD $^.student.name AS Name, select.grade AS Grade, select.year AS Year
+<p>举例如下：</p>
+<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE EDGE 100 -&gt; 200@0 OF serve SET start_year = serve.start_year + 1 \
+YIELD $^.player.name AS name, serve.start_year AS start;
 </code></pre></div>
-
-
-<p><strong>注意</strong>：本例中 <code>WHEN</code> 后面的约束条件为起点 student 这个 tag 的 age 属性，同时也返回了点和边的属性。</p>
                 
                   
                 

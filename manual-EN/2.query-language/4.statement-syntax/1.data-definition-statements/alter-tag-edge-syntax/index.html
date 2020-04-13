@@ -2276,13 +2276,15 @@ ttl_definition:
 <p><strong>Note:</strong> <strong>Nebula Graph</strong> automatically examines indexes when altering a tag or edge. When altering a tag or edge, <strong>Nebula Graph</strong> first checks whether the tag or edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.</p>
 <p>Please refer to <a href="../">Index Documentation</a> on details about index.</p>
 <p>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER</code> statements, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the <code>ALTER</code> statement.</p>
-<div class="codehilite"><pre><span></span><code>ALTER TAG t1 ADD (id int, name string)
+<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1 (name string, age int);
+nebula&gt; ALTER TAG t1 ADD (id int, address string);
 
-ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* add prop1 */
-              CHANGE (prop3 string),            /* change prop3 to string */
-              DROP (prop4, prop5)               /* remove prop4 and prop5 */
+nebula&gt; CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
+nebula&gt; ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
+              CHANGE (prop3 string),            /* 将 prop3 类型更改为字符 */
+              DROP (prop4, prop5);               /* 删除 prop4 和 prop5 */
 
-ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = prop1
+nebula&gt; ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = prop1;
 </code></pre></div>
 
 
