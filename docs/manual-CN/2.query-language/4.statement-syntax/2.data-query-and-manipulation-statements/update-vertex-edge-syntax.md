@@ -5,7 +5,7 @@
 ## 更新点
 
 ```ngql
-UPDATE VERTEX <vid> SET <update_columns> WHEN <condition> YIELD <columns>
+UPDATE VERTEX <vid> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
 ```
 
 **注意：**`WHEN` 和 `YIELD` 是可选的。
@@ -18,18 +18,20 @@ UPDATE VERTEX <vid> SET <update_columns> WHEN <condition> YIELD <columns>
 - `condition` 是一些约束条件，只有满足这个条件，`UPDATE` 才会真正执行，支持表达式操作。
 - `columns` 表示需要返回的 columns，此处 `YIELD` 可返回 update 以后最新的 columns 值。
 
-### 示例
+举例如下：
 
 ```ngql
-nebula> UPDATE VERTEX 101 SET course.credits = $^.course.credits + 1, building.name = "No8" WHEN $^.course.name == "Math" && $^.course.credits > 2 YIELD $^.course.name AS Name, $^.course.credits AS Credits, $^.building.name
+nebula> UPDATE VERTEX 101 SET player.age = $^.player.age + 1 \
+WHEN $^.player.name == "Tony Parker" \
+YIELD $^.player.name AS name, $^.player.age AS age;
 ```
 
-这个例子里面，101 共有两个 tag，即 course 和 building。
+这个例子里面，101 有一个 tag，即 player。
 
 ## 更新边
 
 ```ngql
-UPDATE EDGE <edge> SET <update_columns> WHEN <condition> YIELD <columns>
+UPDATE EDGE <edge> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
 ```
 
 **注意：**`WHEN` 和 `YIELD` 是可选的。
@@ -39,12 +41,9 @@ UPDATE EDGE <edge> SET <update_columns> WHEN <condition> YIELD <columns>
 - `condition` 是一些约束条件，只有满足这个条件，update 才会真正执行，支持表达式操作。
 - `columns` 表示需要返回的 columns，此处 YIELD 可返回 update 以后最新的 columns 值。
 
-### 示例
+举例如下：
 
 ```ngql
-nebula> UPDATE EDGE 200 -> 101@0 OF select SET grade = select.grade + 1, \
-  year = 2000 WHEN select.grade > 4 && $^.student.age > 15 \
-  YIELD $^.student.name AS Name, select.grade AS Grade, select.year AS Year
+nebula> UPDATE EDGE 100 -> 200@0 OF serve SET start_year = serve.start_year + 1 \
+YIELD $^.player.name AS name, serve.start_year AS start;
 ```
-
-**注意**：本例中 `WHEN` 后面的约束条件为起点 student 这个 tag 的 age 属性，同时也返回了点和边的属性。
