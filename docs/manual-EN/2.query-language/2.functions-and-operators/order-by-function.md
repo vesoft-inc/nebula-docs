@@ -29,13 +29,13 @@ nebula> FETCH PROP ON player 100,101,102,103 YIELD player.age AS age, player.nam
 --------------------------------------
 ```
 
-(see [FETCH](../4.statement-syntax/2.data-query-and-manipulation-statements/fetch-syntax.md) for the usage)
+(See [FETCH](../4.statement-syntax/2.data-query-and-manipulation-statements/fetch-syntax.md) for the usage.)
 
 ```ngql
 nebula> GO FROM 100 OVER follow YIELD $$.player.age AS age, $$.player.name AS name | ORDER BY age DESC, name ASC;
 
 -- Search all the players followed by vertex 100 and return their ages and names. The age is in descending order; the name is in ascending order if they have the same name.
--- The following result is returned:  
+-- The following result is returned:
 ===========================
 | age | name              |
 ===========================
