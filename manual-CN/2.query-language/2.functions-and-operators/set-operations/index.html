@@ -2297,14 +2297,14 @@
 <h3 id="_1">示例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 \
         UNION \
-        GO FROM 2 OVER e1
+        GO FROM 2 OVER e1;
 </code></pre></div>
 
 
 <p>以上语句返回点 <code>1</code> 和 <code>2</code> (沿边 <code>e1</code>) 关联的唯一的点。</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 \
         UNION ALL\
-        GO FROM 2 OVER e1
+        GO FROM 2 OVER e1;
 </code></pre></div>
 
 
@@ -2319,7 +2319,7 @@
 | 215 |    4   |    3    |    -- line 3
 --------------------------
 
-nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2  -- query 2
+nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2;  -- query 2
 ===========================
 | id  | right_1 | right_2 |
 ===========================
@@ -2332,7 +2332,7 @@ nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.
 
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
         UNION /* DISTINCT */     \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2;
 </code></pre></div>
 
 
@@ -2353,7 +2353,7 @@ nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.
 <code>UNION ALL</code> 返回结果为</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
         UNION ALL   \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2;
 
 =========================
 | id  | left_1 | left_2 |    -- UNION ALL
@@ -2379,7 +2379,7 @@ nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.
 此外，只返回 <code>&lt;left&gt;</code> 右 <code>&lt;right&gt;</code> 相同的行。例如：</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
 INTERSECT
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2;
 </code></pre></div>
 
 
@@ -2396,7 +2396,7 @@ GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS ri
 <p>返回 A - B 数据的差集，此处请注意运算顺序。例如：</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
 MINUS
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2;
 </code></pre></div>
 
 
@@ -2412,7 +2412,7 @@ GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS ri
 <p>如果更改 <code>MINUS</code> 顺序</p>
 <div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
 MINUS
-GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2;
 </code></pre></div>
 
 

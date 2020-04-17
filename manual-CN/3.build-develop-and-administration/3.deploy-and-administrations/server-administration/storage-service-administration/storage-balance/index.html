@@ -2340,7 +2340,7 @@
 <h3 id="step_1">Step 1 准备<a class="headerlink" href="#step_1" title="Permanent link">&para;</a></h3>
 <p>部署一个三副本的集群，1个 graphd，1个 metad，3个 storaged（具体部署方式请参考集群部署文档），通过 <strong>SHOW HOSTS</strong> 命令可以看到集群的状态信息：</p>
 <h4 id="step_11">Step 1.1<a class="headerlink" href="#step_11" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -2364,12 +2364,12 @@ Got 3 rows (Time spent: 5886/6835 us)
 </ul>
 <h4 id="step_12">Step 1.2<a class="headerlink" href="#step_12" title="Permanent link">&para;</a></h4>
 <p>创建一个名为 test 的图空间，包含 100 个 partition 和 3 个 replica。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE test(PARTITION_NUM=100, REPLICA_FACTOR=3)
+<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE test(PARTITION_NUM=100, REPLICA_FACTOR=3);
 </code></pre></div>
 
 
 <p>片刻后，使用 <code>SHOW HOSTS</code> 命令显示集群的分布。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -2384,7 +2384,7 @@ Got 3 rows (Time spent: 5886/6835 us)
 
 <h3 id="step_2">Step 2 上线新机器<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h3>
 <p>启动 5 个新 storaged 进程进行扩容。启动完毕后，使用 <code>SHOW HOSTS</code> 命令查看新的状态：</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -2410,7 +2410,7 @@ Got 3 rows (Time spent: 5886/6835 us)
 <p>新启动的 storage instance 此时还没有任何 partition。</p>
 <h3 id="step_3">Step 3 迁移数据<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h3>
 <p>运行 <code>BALANCE DATA</code> 命令， 查看当前的 balance 计划 id。如果当前集群有新机器加入，则会生成一个新的计划 id。对于已经平衡的集群，重复运行 <code>BALANCE DATA</code> 不会有任何新操作。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA
+<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA;
 ==============
 | ID         |
 ==============
@@ -2420,7 +2420,7 @@ Got 3 rows (Time spent: 5886/6835 us)
 
 
 <p>也可通过 <code>BALANCE DATA $id</code> 查看具 balance 的具体执行进度。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA 1570761786
+<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA 1570761786;
 ===============================================================================
 | balanceId, spaceId:partId, src-&gt;dst                           | status      |
 ===============================================================================
@@ -2460,7 +2460,7 @@ Got 3 rows (Time spent: 5886/6835 us)
 <p>最后一行为对所有 task 运行状态的统计，部分 partition 尚未完成迁移。</p>
 <h3 id="step_4">Step 4 查看结果<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h3>
 <p>大多数情况下，搬迁数据是个比较漫长的过程。但是搬迁过程不会影响已有服务。运行结束后，进度会提示 100%。如果有运行失败的 task，可再次运行 <code>BALANCE DATA</code> 命令进行修复。如果多次运行仍无法修复，请与社区联系 <a href="https://github.com/vesoft-inc/nebula/issues">GitHub</a>。最后，通过 <code>SHOW HOSTS</code> 查看运行后的 partition 分布。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -2505,7 +2505,7 @@ Got 8 rows (Time spent: 5074/6488 us)
 
 
 <p>片刻后，使用 <code>SHOW HOSTS</code> 命令查看，此时 Raft leader 已均匀分布至所有的实例。</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
