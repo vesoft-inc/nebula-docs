@@ -6,7 +6,7 @@
 
 ```ngql
 nebula> CREATE SPACE my_space;
-nebula> use MY_SPACE;   ---- my_space 和 MY_SPACE 是两个不同的 space
+nebula> USE MY_SPACE;   ---- my_space 和 MY_SPACE 是两个不同的 space
 ```
 
 ## 关键词和保留关键词为大小写不敏感

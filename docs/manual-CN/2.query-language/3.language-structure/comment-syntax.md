@@ -11,15 +11,15 @@
 注释方式示例如下：
 
 ```ngql
-nebula> -- Do nothing this line
-nebula> YIELD 1+1     # 注释在本行末结束
-nebula> YIELD 1+1     -- 注释在本行末结束
-nebula> YIELD 1+1     // 注释在本行末结束
-nebula> YIELD 1  /* 这是行内注释 */ + 1
-nebula> YIELD 11 +  \  
+nebula> -- Do nothing in this line
+nebula> YIELD 1+1;     # 注释在本行末结束
+nebula> YIELD 1+1;    -- 注释在本行末结束
+nebula> YIELD 1+1;     // 注释在本行末结束
+nebula> YIELD 1  /* 这是行内注释 */ + 1;
+nebula> YIELD 11 +  \
 /* 多行注释使用      \
 隔开  \
-*/ 12
+*/ 12;
 ```
 
 行内 `\` 表示换行符。

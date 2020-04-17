@@ -47,7 +47,7 @@ nebula> YIELD 1 || !1;
 | true      |
 ```
 
-* ^
+* XOR
 
 逻辑异或 XOR:
 

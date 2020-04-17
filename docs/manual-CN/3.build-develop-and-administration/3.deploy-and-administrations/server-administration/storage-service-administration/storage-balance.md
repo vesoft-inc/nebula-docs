@@ -13,7 +13,7 @@
 #### Step 1.1
 
 ```ngql
-nebula> SHOW HOSTS
+nebula> SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -33,19 +33,19 @@ Got 3 rows (Time spent: 5886/6835 us)
 - Leader count：表示当前实例 Raft leader 数目。
 - Leader distribution：表示当前 leader 在每个图空间上的分布，目前尚未创建任何图空间。
 - Partition distribution：不同 space 中 partition 的数目。
-  
+
 #### Step 1.2
 
 创建一个名为 test 的图空间，包含 100 个 partition 和 3 个 replica。
 
 ```ngql
-nebula> CREATE SPACE test(PARTITION_NUM=100, REPLICA_FACTOR=3)
+nebula> CREATE SPACE test(PARTITION_NUM=100, REPLICA_FACTOR=3);
 ```
 
 片刻后，使用 `SHOW HOSTS` 命令显示集群的分布。
 
 ```ngql
-nebula> SHOW HOSTS
+nebula> SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -62,7 +62,7 @@ nebula> SHOW HOSTS
 启动 5 个新 storaged 进程进行扩容。启动完毕后，使用 `SHOW HOSTS` 命令查看新的状态：
 
 ```ngql
-nebula> SHOW HOSTS
+nebula> SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -91,7 +91,7 @@ nebula> SHOW HOSTS
 运行 `BALANCE DATA` 命令， 查看当前的 balance 计划 id。如果当前集群有新机器加入，则会生成一个新的计划 id。对于已经平衡的集群，重复运行 `BALANCE DATA` 不会有任何新操作。
 
 ```ngql
-nebula> BALANCE DATA
+nebula> BALANCE DATA;
 ==============
 | ID         |
 ==============
@@ -102,7 +102,7 @@ nebula> BALANCE DATA
 也可通过 `BALANCE DATA $id` 查看具 balance 的具体执行进度。
 
 ```ngql
-nebula> BALANCE DATA 1570761786
+nebula> BALANCE DATA 1570761786;
 ===============================================================================
 | balanceId, spaceId:partId, src->dst                           | status      |
 ===============================================================================
@@ -125,7 +125,7 @@ nebula> BALANCE DATA 1570761786
   - 1570761786 为 balance ID
   - 1:88，1 表示当前的 spaceId，88 表示迁移的 partId
   - 192.168.8.210:34700->192.168.8.210:3594，表示数据从192.168.8.210:34700 搬迁至 192.168.8.210:35940
-  
+
 - 第二列表示当前 task 的运行状态，目前有 4 种状态
   - Succeeded：运行成功
   - Failed：运行失败
@@ -139,7 +139,7 @@ nebula> BALANCE DATA 1570761786
 大多数情况下，搬迁数据是个比较漫长的过程。但是搬迁过程不会影响已有服务。运行结束后，进度会提示 100%。如果有运行失败的 task，可再次运行 `BALANCE DATA` 命令进行修复。如果多次运行仍无法修复，请与社区联系 [GitHub](https://github.com/vesoft-inc/nebula/issues)。最后，通过 `SHOW HOSTS` 查看运行后的 partition 分布。
 
 ```ngql
-nebula> SHOW HOSTS
+nebula> SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -193,7 +193,7 @@ nebula> BALANCE LEADER
 片刻后，使用 `SHOW HOSTS` 命令查看，此时 Raft leader 已均匀分布至所有的实例。
 
 ```ngql
-nebula> SHOW HOSTS
+nebula> SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================

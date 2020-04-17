@@ -70,7 +70,7 @@ rocksdb_block_based_table_options | NESTED  | 参数为 json 格式，其中每�
 
 ```ngql
 nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = \
-        { disable_auto_compactions = false ,         level0_file_num_compaction_trigger = 10 }
+        { disable_auto_compactions = false ,         level0_file_num_compaction_trigger = 10 };
 ```
 
 ### Reservoir Sampling 参数
@@ -96,7 +96,7 @@ SHOW CONFIGS [graph|meta|storage]
 例如
 
 ```ngql
-nebula> SHOW CONFIGS meta
+nebula> SHOW CONFIGS meta;
 ============================================================================================================================
 | module | name                                        | type   | mode      | value                                        |
 ============================================================================================================================
@@ -117,7 +117,7 @@ GET CONFIGS [graph|meta|storage :] var
 例如
 
 ```ngql
-nebula> GET CONFIGS storage:local_ip
+nebula> GET CONFIGS storage:local_ip;
 =======================================================
 | module  | name     | type   | mode      | value     |
 =======================================================
@@ -126,7 +126,7 @@ nebula> GET CONFIGS storage:local_ip
 ```
 
 ```ngql
-nebula> GET CONFIGS heartbeat_interval_secs
+nebula> GET CONFIGS heartbeat_interval_secs;
 =================================================================
 | module  | name                    | type  | mode      | value |
 =================================================================
@@ -149,8 +149,8 @@ UPDATE CONFIGS [graph|meta|storage :] var = value
 例如
 
 ```ngql
-nebula> UPDATE CONFIGS storage:heartbeat_interval_secs=1
-nebula> GET CONFIGS storage:heartbeat_interval_secs
+nebula> UPDATE CONFIGS storage:heartbeat_interval_secs=1;
+nebula> GET CONFIGS storage:heartbeat_interval_secs;
 ===============================================================
 | module  | name                    | type  | mode    | value |
 ===============================================================

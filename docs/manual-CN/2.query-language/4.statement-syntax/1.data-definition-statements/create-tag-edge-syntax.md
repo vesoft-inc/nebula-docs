@@ -31,7 +31,7 @@ CREATE {TAG | EDGE} [IF NOT EXISTS] {<tag_name> | <edge_name>}
 
 * **tag_name 和 edge_name**
 
-    tags 和 edgeTypes 的名称在图中必须 **唯一**，且名称被定义后无法被修改。Tag 和 edgeType 的命名规则和 space 的命名规则一致。参见 [Schema Object Name](../../3.language-structure/schema-object-names.md)。
+    tags 和 edgeTypes 的名称在图中必须**唯一**，且名称被定义后无法被修改。Tag 和 edgeType 的命名规则和 space 的命名规则一致。参见 [Schema Object Name](../../3.language-structure/schema-object-names.md)。
 
 ### 属性名和数据类型
 
@@ -72,25 +72,25 @@ TTL 详细用法参见 [TTL 文档](TTL.md)。
 ### 示例
 
 ```ngql
-nebula> CREATE TAG course(name string, credits int)
-nebula> CREATE TAG notag()  -- 属性为空
+nebula> CREATE TAG course(name string, credits int);
+nebula> CREATE TAG notag();  -- 属性为空
 
-nebula> CREATE EDGE follow(start_time timestamp, grade double)
-nebula> CREATE EDGE noedge()  -- 属性为空
+nebula> CREATE EDGE follow(start_time timestamp, grade double);
+nebula> CREATE EDGE noedge();  -- 属性为空
 
-nebula> CREATE TAG player_with_default(name string, age int DEFAULT 20)  -- 默认年龄设置为 20 岁
-nebula> CREATE EDGE follow_with_default(start_time timestamp DEFAULT 0, grade double DEFAULT 0.0)  -- 默认 start_time 设置为 0，默认 grade 设置为 0.0
+nebula> CREATE TAG player_with_default(name string, age int DEFAULT 20);  -- 默认年龄设置为 20 岁
+nebula> CREATE EDGE follow_with_default(start_time timestamp DEFAULT 0, grade double DEFAULT 0.0);  -- 默认 start_time 设置为 0，默认 grade 设置为 0.0
 ```
 
 ```ngql
 nebula> CREATE TAG woman(name string, age int,
    married bool, salary double, create_time timestamp)
-   TTL_DURATION = 100, TTL_COL = "create_time" -- 时间间隔是 100s，从 create_time 字段的值开始
+   TTL_DURATION = 100, TTL_COL = "create_time"; -- 时间间隔是 100s，从 create_time 字段的值开始
 
 nebula> CREATE EDGE marriage(location string, since timestamp)
-    TTL_DURATION = 0, TTL_COL = "since" -- 负值或 0 数据不会失效
+    TTL_DURATION = 0, TTL_COL = "since"; -- 负值或 0 数据不会失效
 
 nebula> CREATE TAG icecream(made timestamp, temperature int)
-   TTL_DURATION = 100, TTL_COL = "made",
+   TTL_DURATION = 100, TTL_COL = "made";
    --  超过 TTL_DURATION 数据即失效
 ```

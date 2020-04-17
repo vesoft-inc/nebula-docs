@@ -80,5 +80,3 @@ nebula> GO FROM 100 OVER follow YIELD follow._src AS s, serve._dst AS d \
 nebula> $var = GO FROM 100 OVER follow YIELD follow._src AS s, follow._dst AS d;\
  FETCH PROP ON follow $var.s -> $var.d YIELD follow.degree;
 ```
-
-
