@@ -10,7 +10,7 @@
 $^.tag_name.prop_name
 ```
 
-其中符号 `$^` 用于获取起点属性，`tag_name` 表示起点的`标签`，`prop_name` 为指定属性的名称。
+其中符号 `$^` 用于获取起点属性，`tag_name` 表示起点的 `tag`，`prop_name` 为指定属性的名称。
 
 ### 引用终点的属性
 
@@ -18,7 +18,7 @@ $^.tag_name.prop_name
 $$.tag_name.prop_name
 ```
 
-其中符号 `$$` 用于获取终点属性，`tag_name` 表示终点的 `标签`，`prop_name` 为指定属性的名称。
+其中符号 `$$` 用于获取终点属性，`tag_name` 表示终点的 `tag`，`prop_name` 为指定属性的名称。
 
 ### 示例
 
@@ -51,7 +51,7 @@ nebula> GO FROM 100 OVER follow YIELD follow.degree;
 - _src: 边起点 ID
 - _dst: 边终点 ID
 - _type: 边类型
-- _ranking: 边的权重
+- _ranking: 边的 ranking 值
 
 获取起点和终点 ID 可通过 `_src` 和 `_dst` 获取，这在显示图路径时经常会用到。
 

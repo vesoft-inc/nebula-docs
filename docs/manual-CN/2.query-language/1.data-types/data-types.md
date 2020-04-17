@@ -6,7 +6,7 @@
 
 ### 整型
 
-整型的关键字为 `int`，为 64 位*有符号*整型，范围是[-9223372036854775808, 9223372036854775807]，且在基于 int64 的计算中不存在溢出。整型常量支持多种格式：
+整型的关键字为 `int`，为 64 位*有符号*整型，范围是 `[-9223372036854775808, 9223372036854775807]`，且在基于 int64 的计算中不存在溢出。整型常量支持多种格式：
 
   1. 十进制，例如 `123456`
   1. 十六进制，例如 `0xdeadbeaf`
@@ -33,7 +33,7 @@
 
 ## 时间戳类型
 
-- 时间戳类型的取值范围为 '1970-01-01 00:00:01' UTC  到  '2262-04-11 23:47:16' UTC
+- 时间戳类型的取值范围为 `1970-01-01 00:00:01 UTC` 到 `2262-04-11 23:47:16 UTC`
 - 时间戳单位为秒
 - 插入数据的时候，支持插入方式
   - 调用函数 now()
@@ -53,11 +53,11 @@ nebula> CREATE TAG school(name string , create_time timestamp);
 插入一个点，名为 "xiwang"，建校时间为 "2010-09-01 08:00:00"
 
 ```ngql
-nebula> INSERT VERTEX school(name, create_time) VALUES hash("xiwang"):("xiwang", "2010-09-01 08:00:00")
+nebula> INSERT VERTEX school(name, create_time) VALUES hash("xiwang"):("xiwang", "2010-09-01 08:00:00");
 ```
 
 插入一个点，名为 "guangming"，建校时间为现在
 
 ```ngql
-nebula> INSERT VERTEX school(name, create_time) VALUES hash("guangming"):("guangming", now())
+nebula> INSERT VERTEX school(name, create_time) VALUES hash("guangming"):("guangming", now());
 ```

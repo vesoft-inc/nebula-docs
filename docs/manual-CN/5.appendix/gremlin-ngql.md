@@ -56,7 +56,7 @@ Gremlin 和 nGQL 均使用唯一标识符标记顶点和边。在 **Nebula Graph
 ![image](https://user-images.githubusercontent.com/42762957/71503167-0e264b80-28af-11ea-87c5-76f4fd1275cd.png)
 
 - 插入数据
-  
+
 ```bash
 # 插入点
 nebula> INSERT VERTEX character(name, age, type) VALUES hash("saturn"):("saturn", 10000, "titan"), hash("jupiter"):("jupiter", 5000, "god");
@@ -77,7 +77,7 @@ gremlin> g.addE("father").from(jupiter).to(saturn).property(T.id, 13);
 ```
 
 - 删除数据
-  
+
 ```bash
 nebula> DELETE VERTEX hash("prometheus");
 gremlin> g.V(prometheus).drop();
@@ -91,7 +91,7 @@ gremlin> g.V(jesus).property('age', 6000);
 ```
 
 - 查看数据
-  
+
 ```bash
 nebula> FETCH PROP ON character hash("saturn");
 ===================================================

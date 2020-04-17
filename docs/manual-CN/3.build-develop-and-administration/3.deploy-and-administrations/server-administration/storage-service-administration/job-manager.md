@@ -31,7 +31,7 @@ nebula> SUBMIT JOB FLUSH;
 命令 `SHOW JOB <job_id>` 用于返回对应 ID 作业及其所有任务。作业到达 Meta 层后，Meta 会将作业分成多个任务并发送至 storage 层。
 
 ```ngql
-nebula> SHOW JOB 40
+nebula> SHOW JOB 40;
 =====================================================================================
 | Job Id(TaskId) | Command(Dest) | Status   | Start Time        | Stop Time         |
 =====================================================================================
@@ -71,7 +71,7 @@ Queue -- running -- finished -- removed
 命令 `SHOW JOBS` 用于列出所有未过期的作业信息。默认作业过期时长为一周。用户可通过 `job_expired_secs` 参数更改过期时长。
 
 ```ngql
-nebula> SHOW JOBS
+nebula> SHOW JOBS;
 =============================================================================
 | Job Id | Command       | Status   | Start Time        | Stop Time         |
 =============================================================================
@@ -92,7 +92,7 @@ nebula> SHOW JOBS
 命令 `STOP JOB` 用于在停止未完成的作业。
 
 ```ngql
-nebula> STOP JOB 22
+nebula> STOP JOB 22;
 =========================
 | STOP Result         |
 =========================
@@ -105,7 +105,7 @@ nebula> STOP JOB 22
 命令 `RECOVER JOB` 用于重新失败执行作业，并返回 recover 的作业数目。
 
 ```ngql
-nebula> RECOVER JOB
+nebula> RECOVER JOB;
 =====================
 | Recovered job num |
 =====================

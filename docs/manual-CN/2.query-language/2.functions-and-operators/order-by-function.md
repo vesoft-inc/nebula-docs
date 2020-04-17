@@ -11,7 +11,7 @@ ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
 ## 示例
 
 ```ngql
-nebula> FETCH PROP ON player 100,101,102,103 YIELD player.age AS age, player.name AS name | ORDER BY age, name DESC;  
+nebula> FETCH PROP ON player 100,101,102,103 YIELD player.age AS age, player.name AS name | ORDER BY age, name DESC;
 
 -- 取 4 个顶点并将他们以 age 从小到大的顺序排列，如 age 相同，则 name 按降序排列。
 -- 返回如下结果:

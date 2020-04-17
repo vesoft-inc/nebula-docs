@@ -49,8 +49,8 @@
 在 console 中，使用如下命令获取当前日志级别并将日志级别设置为**最详细**。
 
 ```ngql
-nebula> GET CONFIGS graph:minloglevel
-nebula> UPDATE CONFIGS graph:minloglevel=0
+nebula> GET CONFIGS graph:minloglevel;
+nebula> UPDATE CONFIGS graph:minloglevel=0;
 ```
 
 如需更改 storage 日志级别，将上述命令中的 `graph` 更换为 `storage` 即可，注意，**Nebula Graph** 仅支持通过 console 修改 graph 和 storage 日志级别，meta 日志不能更改。
