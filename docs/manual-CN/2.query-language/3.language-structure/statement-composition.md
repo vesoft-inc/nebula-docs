@@ -15,7 +15,7 @@
 
 ```ngql
 nebula> SHOW TAGS; SHOW EDGES;          -- 仅列出边
-  INSERT VERTEX player(name, age) VALUES 100:("Tim Duncan", 42); \
+nebula> INSERT VERTEX player(name, age) VALUES 100:("Tim Duncan", 42); \
   INSERT VERTEX player(name, age) VALUES 101:("Tony Parker", 36); \
   INSERT VERTEX player(name, age) VALUES 102:("LaMarcus Aldridge", 33);  /* 通过复合语句插入多个点*/
 ```

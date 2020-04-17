@@ -3,8 +3,8 @@
 字符串由一串字节或字符组成，并由一对单引号 (') 或双引号 (") 包装。
 
 ```ngql
-nebula> YIELD 'a string'
-nebula> YIELD "another string"
+nebula> YIELD 'a string';
+nebula> YIELD "another string";
 ```
 
 一些转义字符 (\\) 已被支持，如下表所示:
@@ -21,7 +21,7 @@ nebula> YIELD "another string"
 示例:
 
 ```ngql
-nebula> YIELD 'This\nIs\nFour\nLines'
+nebula> YIELD 'This\nIs\nFour\nLines';
 ========================
 | "This
 Is
@@ -34,7 +34,7 @@ Four
 Lines   |
 ------------------------
 
-nebula> YIELD 'disappearing\ backslash'  
+nebula> YIELD 'disappearing\ backslash';
 ============================
 | "disappearing backslash" |
 ============================

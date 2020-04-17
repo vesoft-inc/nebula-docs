@@ -100,8 +100,11 @@ nebula> GO FROM <node_list> OVER *    //这里 * 意味着沿着任意类型的�
 
 ```ngql
 nebula> GO FROM 100 OVER follow, serve YIELD follow.degree, serve.start_year;
+```
 
 返回如下结果：
+
+```ngql
 ====================================
 | follow.degree | serve.start_year |
 ====================================
@@ -113,11 +116,13 @@ nebula> GO FROM 100 OVER follow, serve YIELD follow.degree, serve.start_year;
 ------------------------------------
 | 90            | 0                |
 ------------------------------------
+```
 
 没有的属性当前会填充默认值， 数值型的默认值为 0， 字符型的默认值为空字符串。bool 类型默认值为 false，timestamp 类型默认值为 0 (即 "1970-01-01 00:00:00")，double 类型默认值为 0.0。
 
 当然也可以不指定 `YIELD`， 这时会返回每条边目标点的 vid。如果目标点不存在，同样用默认值(此处为 0)填充。比如 `GO FROM 100 OVER follow, serve;`，返回结果如下：
 
+```ngql
 ============================
 | follow._dst | serve._dst |
 ============================
