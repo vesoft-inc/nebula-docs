@@ -15,9 +15,9 @@ FETCH PROP ON * <vertex_id>
 
 `<tag_name>` is the tag name. It must be the same tag within return_list.
 
-`<vertex_id_list>::=[vertex_id [, vertex_id]]` is a list of vertex IDs separated by comma(,).
+`<vertex_id_list>::=[vertex_id [, vertex_id]]` is a list of vertex IDs separated by comma (,).
 
-`[YIELD [DISTINCT] <return_list>]` is the property list returned. Please refer here [YIELD Syntax](yield-syntax.md).
+`[YIELD [DISTINCT] <return_list>]` is the property list returned. Please refer [YIELD Syntax](yield-syntax.md) for usage.
 
 ### Examples
 
@@ -81,5 +81,3 @@ nebula> GO FROM 100 OVER follow YIELD follow._src AS s, follow._dst AS d \
 nebula> $var = GO FROM 100 OVER follow YIELD follow._src AS s, follow._dst AS d;\
  FETCH PROP ON follow $var.s -> $var.d YIELD follow.degree;
 ```
-
-

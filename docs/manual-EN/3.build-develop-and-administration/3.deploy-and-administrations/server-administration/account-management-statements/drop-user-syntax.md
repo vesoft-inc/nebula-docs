@@ -1,6 +1,8 @@
 # Drop User Syntax
 
-> DROP USER [IF EXISTS] user_name
+```ngql
+DROP USER [IF EXISTS] <user_name>
+```
 
 Only `God` and `Admin` users have the DROP privilege for the sentence.
 

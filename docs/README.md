@@ -1,30 +1,3 @@
-<!-- <p align="center">
-  <img src="docs/logo.png"/>
-  <br> English | <a href="docs/README-CN.md">中文</a>
-  <br>A distributed, scalable, lightning-fast graph database<br>
-</p>
-<p align="center">
-  <a href="https://github.com/vesoft-inc/nebula/actions?workflow=build">
-    <img src="https://github.com/vesoft-inc/nebula/workflows/build/badge.svg" alt="build and test workflow"/>
-  </a>
-  <a href="https://hub.docker.com/u/vesoft">
-    <img src="https://github.com/vesoft-inc/nebula/workflows/docker/badge.svg" alt="build docker image workflow"/>
-  </a>
-  <a href="https://github.com/vesoft-inc/nebula/actions?workflow=package">
-    <img src="https://github.com/vesoft-inc/nebula/workflows/package/badge.svg" alt="make nebula packages workflow"/>
-  </a>
-  <a href="http://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default">
-    <img src="http://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default" alt="nebula star"/>
-  </a>
-  <a href="http://githubbadges.com/fork.svg?user=vesoft-inc&repo=nebula&style=default">
-    <img src="http://githubbadges.com/fork.svg?user=vesoft-inc&repo=nebula&style=default" alt="nebula fork"/>
-  </a>
-  <a href="https://codecov.io/gh/vesoft-inc/nebula">
-    <img src="https://codecov.io/gh/vesoft-inc/nebula/branch/master/graph/badge.svg" alt="codecov"/>
-  </a>
-  <br>
-</p> -->
-
 # What is Nebula Graph
 
 **Nebula Graph** is an open-source graph database capable of hosting super large scale graphs with dozens of billions of vertices (nodes) and trillions of edges, with milliseconds of latency.
