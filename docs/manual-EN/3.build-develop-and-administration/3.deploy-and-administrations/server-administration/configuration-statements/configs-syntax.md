@@ -97,7 +97,7 @@ SHOW CONFIGS [graph|meta|storage]
 For example
 
 ```ngql
-nebula> SHOW CONFIGS meta
+nebula> SHOW CONFIGS meta;
 ============================================================================================================================
 | module | name                                        | type   | mode      | value                                        |
 ============================================================================================================================
@@ -118,7 +118,7 @@ GET CONFIGS [graph|meta|storage :] var
 For example
 
 ```ngql
-nebula> GET CONFIGS storage:local_ip
+nebula> GET CONFIGS storage:local_ip;
 =======================================================
 | module  | name     | type   | mode      | value     |
 =======================================================
@@ -127,7 +127,7 @@ nebula> GET CONFIGS storage:local_ip
 ```
 
 ```ngql
-nebula> GET CONFIGS heartbeat_interval_secs
+nebula> GET CONFIGS heartbeat_interval_secs;
 =================================================================
 | module  | name                    | type  | mode      | value |
 =================================================================
@@ -149,8 +149,8 @@ UPDATE CONFIGS [graph|meta|storage :] var = value
 For example
 
 ```ngql
-nebula> UPDATE CONFIGS storage:heartbeat_interval_secs=1
-nebula> GET CONFIGS storage:heartbeat_interval_secs
+nebula> UPDATE CONFIGS storage:heartbeat_interval_secs=1;
+nebula> GET CONFIGS storage:heartbeat_interval_secs;
 ===============================================================
 | module  | name                    | type  | mode    | value |
 ===============================================================
