@@ -2333,6 +2333,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#centos_65_nebula" class="md-nav__link">
+    使用 CentOS 6.5 Nebula 服务失败
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2376,7 +2383,7 @@
                 
                 
                 <h1 id="_1">常见问题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>本文档列出了 <strong>Nebula Graph</strong> 常见问题。</p>
+<p>本文档列出了 <strong>Nebula Graph</strong> 常见问题。如果您没有在文档中找到需要的信息，请尝试在 Nebula Graph <a href="https://discuss.nebula-graph.com.cn/">官方论坛</a>搜索<a href="https://discuss.nebula-graph.com.cn/c/users/5">用户问答</a>标签。</p>
 <ul>
 <li><a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98">常见问题</a><ul>
 <li><a href="#trouble-shooting">Trouble Shooting</a><ul>
@@ -2393,6 +2400,7 @@
 <li><a href="#%e5%a6%82%e4%bd%95%e6%9f%a5%e7%9c%8b-nebula-graph-%e7%89%88%e6%9c%ac%e4%bf%a1%e6%81%af">如何查看 Nebula Graph 版本信息</a></li>
 <li><a href="#%e4%bf%ae%e6%94%b9%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e4%b8%8d%e7%94%9f%e6%95%88">修改配置文件不生效</a></li>
 <li><a href="#%e4%bf%ae%e6%94%b9-rocksdb-block-cache">修改  RocksDB block cache</a></li>
+<li><a href="#%e4%bd%bf%e7%94%a8-centos-65-nebula-%e6%9c%8d%e5%8a%a1%e5%a4%b1%e8%b4%a5">使用 CentOS 6.5 Nebula 服务失败</a></li>
 </ul>
 </li>
 <li><a href="#general-information">General Information</a><ul>
@@ -2524,6 +2532,33 @@ nebula&gt; GET CONFIGS graph:heartbeat_interval_secs;
 
 
 <p><a href="#常见问题">[↑] 回到顶部</a></p>
+<h3 id="centos_65_nebula">使用 CentOS 6.5 Nebula 服务失败<a class="headerlink" href="#centos_65_nebula" title="Permanent link">&para;</a></h3>
+<p>在 CentOS 6.5 部署 Nebula Graph 失败，报错信息如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># storage 日志</span>
+Heartbeat failed, status:RPC failure in MetaClient: N6apache6thrift9transport19TTransportExceptionE: AsyncSocketException: connect failed, <span class="nb">type</span> <span class="o">=</span> Socket not open, <span class="nv">errno</span> <span class="o">=</span> <span class="m">111</span> <span class="o">(</span>Connection refused<span class="o">)</span>: Connection refused
+
+<span class="c1"># meta 日志</span>
+Log line format: <span class="o">[</span>IWEF<span class="o">]</span>mmdd hh:mm:ss.uuuuuu threadid file:line<span class="o">]</span> msg
+E0415 <span class="m">22</span>:32:38.944437 <span class="m">15532</span> AsyncServerSocket.cpp:762<span class="o">]</span> failed to <span class="nb">set</span> SO_REUSEPORT on async server socket Protocol not available
+E0415 <span class="m">22</span>:32:38.945001 <span class="m">15510</span> ThriftServer.cpp:440<span class="o">]</span> Got an exception <span class="k">while</span> setting up the server: 92failed to <span class="nb">bind</span> to async server socket: <span class="o">[</span>::<span class="o">]</span>:0: Protocol not available
+E0415 <span class="m">22</span>:32:38.945057 <span class="m">15510</span> RaftexService.cpp:90<span class="o">]</span> Setup the Raftex Service failed, error: 92failed to <span class="nb">bind</span> to async server socket: <span class="o">[</span>::<span class="o">]</span>:0: Protocol not available
+E0415 <span class="m">22</span>:32:38.949586 <span class="m">15463</span> NebulaStore.cpp:47<span class="o">]</span> Start the raft service failed
+E0415 <span class="m">22</span>:32:38.949597 <span class="m">15463</span> MetaDaemon.cpp:88<span class="o">]</span> Nebula store init failed
+E0415 <span class="m">22</span>:32:38.949796 <span class="m">15463</span> MetaDaemon.cpp:215<span class="o">]</span> Init kv failed!
+</code></pre></div>
+
+
+<p>此时服务状态为：</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@redhat6 scripts<span class="o">]</span><span class="c1"># ./nebula.service status  all</span>
+<span class="o">[</span>WARN<span class="o">]</span> The maximum files allowed to open might be too few: <span class="m">1024</span>
+<span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Exited
+<span class="o">[</span>INFO<span class="o">]</span> nebula-graphd: Exited
+<span class="o">[</span>INFO<span class="o">]</span> nebula-storaged: Running as <span class="m">15547</span>, Listening on <span class="m">44500</span>
+</code></pre></div>
+
+
+<p>出错原因：CentOS 6.5 系统内核版本为 2.6.32，小于3.9，SO_REUSEPORT 仅支持 Linux3.9 及以上版本。</p>
+<p>将系统升级到 CentOS 7.5 问题可自行解决。</p>
 <h2 id="general_information">General Information<a class="headerlink" href="#general_information" title="Permanent link">&para;</a></h2>
 <p>General Information 部分列出了关于 <strong>Nebula Graph</strong> 的概念性问题。</p>
 <h3 id="_6">查询返回时间解释<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>

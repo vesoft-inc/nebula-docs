@@ -479,6 +479,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nebula_fails_on_centos_65" class="md-nav__link">
+    Nebula fails on CentOS 6.5
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2492,6 +2499,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nebula_fails_on_centos_65" class="md-nav__link">
+    Nebula fails on CentOS 6.5
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2535,7 +2549,7 @@
                 
                 
                 <h1 id="frequently_asked_questions">Frequently Asked Questions<a class="headerlink" href="#frequently_asked_questions" title="Permanent link">&para;</a></h1>
-<p>Common questions about <strong>Nebula Graph</strong> and more.</p>
+<p>Common questions about <strong>Nebula Graph</strong> and more. If you do not find the information you need in this documentation, please try searching the <a href="https://discuss.nebula-graph.io/c/users/5">Users</a> tab in the Nebula Graph <a href="https://discuss.nebula-graph.io/">official forum</a>.</p>
 <ul>
 <li><a href="#frequently-asked-questions">Frequently Asked Questions</a><ul>
 <li><a href="#trouble-shooting">Trouble Shooting</a><ul>
@@ -2552,6 +2566,7 @@
 <li><a href="#how-to-check-nebula-graph-version">How to Check Nebula Graph Version</a></li>
 <li><a href="#modifying-the-configuration-file-does-not-take-effect">Modifying the Configuration File Does not Take Effect</a></li>
 <li><a href="#modify-rocksdb-block-cache">Modify RocksDB block cache</a></li>
+<li><a href="#nebula-fails-on-centos-65">Nebula fails on CentOS 6.5</a></li>
 </ul>
 </li>
 <li><a href="#general-information">General Information</a><ul>
@@ -2685,6 +2700,34 @@ nebula&gt; UPDATE CONFIGS graph:heartbeat_interval_secs=1
 </code></pre></div>
 
 
+<p><a href="#frequently-asked-questions">[↑] Back to top</a></p>
+<h3 id="nebula_fails_on_centos_65">Nebula fails on CentOS 6.5<a class="headerlink" href="#nebula_fails_on_centos_65" title="Permanent link">&para;</a></h3>
+<p>Nebula Graph fails on CentOS 6.5, the error message is as follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># storage log</span>
+Heartbeat failed, status:RPC failure in MetaClient: N6apache6thrift9transport19TTransportExceptionE: AsyncSocketException: connect failed, <span class="nb">type</span> <span class="o">=</span> Socket not open, <span class="nv">errno</span> <span class="o">=</span> <span class="m">111</span> <span class="o">(</span>Connection refused<span class="o">)</span>: Connection refused
+
+<span class="c1"># meta log</span>
+Log line format: <span class="o">[</span>IWEF<span class="o">]</span>mmdd hh:mm:ss.uuuuuu threadid file:line<span class="o">]</span> msg
+E0415 <span class="m">22</span>:32:38.944437 <span class="m">15532</span> AsyncServerSocket.cpp:762<span class="o">]</span> failed to <span class="nb">set</span> SO_REUSEPORT on async server socket Protocol not available
+E0415 <span class="m">22</span>:32:38.945001 <span class="m">15510</span> ThriftServer.cpp:440<span class="o">]</span> Got an exception <span class="k">while</span> setting up the server: 92failed to <span class="nb">bind</span> to async server socket: <span class="o">[</span>::<span class="o">]</span>:0: Protocol not available
+E0415 <span class="m">22</span>:32:38.945057 <span class="m">15510</span> RaftexService.cpp:90<span class="o">]</span> Setup the Raftex Service failed, error: 92failed to <span class="nb">bind</span> to async server socket: <span class="o">[</span>::<span class="o">]</span>:0: Protocol not available
+E0415 <span class="m">22</span>:32:38.949586 <span class="m">15463</span> NebulaStore.cpp:47<span class="o">]</span> Start the raft service failed
+E0415 <span class="m">22</span>:32:38.949597 <span class="m">15463</span> MetaDaemon.cpp:88<span class="o">]</span> Nebula store init failed
+E0415 <span class="m">22</span>:32:38.949796 <span class="m">15463</span> MetaDaemon.cpp:215<span class="o">]</span> Init kv failed!
+</code></pre></div>
+
+
+<p>Nebula service status is as follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@redhat6 scripts<span class="o">]</span><span class="c1"># ./nebula.service status  all</span>
+<span class="o">[</span>WARN<span class="o">]</span> The maximum files allowed to open might be too few: <span class="m">1024</span>
+<span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Exited
+<span class="o">[</span>INFO<span class="o">]</span> nebula-graphd: Exited
+<span class="o">[</span>INFO<span class="o">]</span> nebula-storaged: Running as <span class="m">15547</span>, Listening on <span class="m">44500</span>
+</code></pre></div>
+
+
+<p>Reason for error: CentOS 6.5 system kernel version is 2.6.32, which is less than 3.9. However, SO_REUSEPORT only supports Linux 3.9 and above.</p>
+<p>Upgrading the system to CentOS 7.5 can solve the problem by itself.</p>
 <p><a href="#frequently-asked-questions">[↑] Back to top</a></p>
 <h2 id="general_information">General Information<a class="headerlink" href="#general_information" title="Permanent link">&para;</a></h2>
 <p>General Information lists the conceptual questions about <strong>Nebula Graph</strong>.</p>
