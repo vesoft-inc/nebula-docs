@@ -6,7 +6,6 @@
 
 * CONTAINS
 
-The `CONTAINS` operator is used to perform case-insensitive matching regardless of location within a string. All non-string data are forced to convert to strings.
 `CONTAINS` 运算符用来搜索包含指定字段的字符串，且大小写不敏感。所有非字符串数据均强制转换为字符串。
 
 ```ngql
