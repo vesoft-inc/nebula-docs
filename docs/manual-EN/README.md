@@ -43,6 +43,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Logical Operators](2.query-language/2.functions-and-operators/logical-operators.md)
   * [Order By Function](2.query-language/2.functions-and-operators/order-by-function.md)
   * [Set Operations](2.query-language/2.functions-and-operators/set-operations.md)
+  * [String Comparison Functions and Operators](2.query-language/2.functions-and-operators/string-comparison-functions-and-operators.md)
   * [uuid Function](2.query-language/2.functions-and-operators/uuid.md)
 * Language Structure
   * Literal Values

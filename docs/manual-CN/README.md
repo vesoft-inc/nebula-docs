@@ -43,6 +43,7 @@
   * [逻辑运算](2.query-language/2.functions-and-operators/logical-operators.md)
   * [排序 (Order By)](2.query-language/2.functions-and-operators/order-by-function.md)
   * [集合运算](2.query-language/2.functions-and-operators/set-operations.md)
+  * [字符比较函数和运算符](2.query-language/2.functions-and-operators/string-comparison-functions-and-operators.md)
   * [uuid 函数](2.query-language/2.functions-and-operators/uuid.md)
 * 语言结构
   * 字面值常量
