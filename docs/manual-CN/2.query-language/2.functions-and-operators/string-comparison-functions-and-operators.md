@@ -2,11 +2,11 @@
 
 | 名称      | 描述                 |
 |:-----    | :------------------: |
-| CONTAINS | 搜索包含指定字段的字符串，大小写不敏感 |
+| CONTAINS | 搜索包含指定字段的字符串，大小写敏感 |
 
 * CONTAINS
 
-`CONTAINS` 运算符用来搜索包含指定字段的字符串，且大小写不敏感。所有非字符串数据均强制转换为字符串。
+`CONTAINS` 运算符用来搜索包含指定字段的字符串，且大小写敏感。所有非字符串数据均强制转换为字符串。
 
 ```ngql
 nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
