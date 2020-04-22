@@ -23,7 +23,7 @@ v                                 | MUTABLE | Debug log level.
 heartbeat_interval_secs           | MUTABLE | Heartbeat interval.
 meta_client_retry_times           | MUTABLE | Meta client retry times.
 slow_op_threshhold_ms             | MUTABLE | Default threshold for slow operation, set in ms
-wal_ttl                           | MUTABLE | Default value is `14400` secondes
+wal_ttl                           | MUTABLE | Life time of write-ahead-log in disks. Default value is `14400` secondes
 rocksdb_db_options                | NESTED  | Parameter in json format, and the key and value of them are in string format.
 rocksdb_column_family_options     | NESTED  | Parameter in json format, and the key and value of them are in string format.
 rocksdb_block_based_table_options | NESTED  | Parameter in json format, and the key and value of them are in string format.
@@ -70,7 +70,7 @@ For example
 
 ```ngql
 nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = \
-        { disable_auto_compactions = false ,         level0_file_num_compaction_trigger = 10 }
+        { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 }
 ```
 
 ### Reservoir Sampling Parameters
