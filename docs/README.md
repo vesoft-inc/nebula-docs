@@ -41,9 +41,9 @@ In case you encounter any problems playing around **Nebula Graph**, please reach
 
 ## Documentation
 
-* [English](https://github.com/vesoft-inc/nebula/blob/master/docs/manual-EN/README.md)
+* [English](manual-CN/README.md)
 * [English Manual PDF](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/doc/RC4-EN.pdf)
-* [简体中文](https://github.com/vesoft-inc/nebula/blob/master/docs/manual-CN/README.md)
+* [简体中文](manual-EN/README.md)
 * [中文手册 PDF](https://nebula-graph.oss-cn-hangzhou.aliyuncs.com/doc/RC4-CN.pdf)
 
 ## Architecture
