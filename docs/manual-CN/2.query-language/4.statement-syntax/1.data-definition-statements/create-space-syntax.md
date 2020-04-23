@@ -70,4 +70,4 @@ nebula> SHOW HOSTS;
 nebula> BALANCE LEADER;
 ```
 
-具体见[SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md)和[BALANCE](../../../3.build-develop-and-administration/4.server-administration/storage-service-administration/storage-balance.md)
+具体见[SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md)和[BALANCE](../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance.md)

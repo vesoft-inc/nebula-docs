@@ -1,12 +1,12 @@
-# 作业管理（Job Manager）
+# 作业管理（flush 和 compact）
 
 作业特指在存储层运行的一些长任务。比如 `compact`，`flush`等。管理指对作业进行管理。比如让作业排队执行、查看作业状态、停止作业、恢复作业等。
 
 ## 命令列表
 
-### submit job compact / flush
+### submit job compact
 
-`submit job compact/flush` 命令在作业管理中新建作业并返回作业 ID，在存储层中执行 `compact/flush` 命令。示例返回结果如下：
+`SUBMIT JOB COMPACT` 命令触发长耗时的 `RocksDB compact` 操作。示例返回结果如下：
 
 ```ngql
 nebula> SUBMIT JOB COMPACT;
@@ -15,9 +15,15 @@ nebula> SUBMIT JOB COMPACT;
 ==============
 | 40         |
 --------------
+```
 
-> 请参考[这里](../../../3.build-develop-and-administration/3.configurations/5.storage-config.md)修改默认 compaction 线程数量。
+修改默认 compact 线程数量请参考[这里](../../3.build-develop-and-administration/3.configurations/5.storage-config.md)。
 
+### submit job flush
+
+`SUBMIT JOB FLUSH` 命令将内存中的 RocksDB memfile 写入到硬盘中。
+
+```ngql
 nebula> SUBMIT JOB FLUSH;
 ==============
 | New Job Id |
@@ -43,7 +49,7 @@ nebula> SHOW JOB 40;
 -------------------------------------------------------------------------------------
 ```
 
-执行上述命令将返回 1 到多行结果，取决于 space 所在的 storage 个数。
+执行上述命令将返回 1 到多行结果，取决于 space 所在的 storaged 个数。
 
 返回结果说明：
 
@@ -113,4 +119,12 @@ nebula> RECOVER JOB;
 =====================
 | 5 job recovered   |
 ---------------------
+```
+
+## FAQ
+
+`SUBMIT JOB` 使用 HTTP 端口。请检查 Storage 之间的 HTTP 端口是否正常。你可以使用如下命令调试
+
+```bash
+curl "http://{storaged-ip}:12000/admin?space={test}&op=compact"
 ```
