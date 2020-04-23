@@ -16,7 +16,7 @@ nebula> SUBMIT JOB COMPACT;
 | 40         |
 --------------
 
-> 请参考 storage-config 一节修改默认 compaction 线程数量。
+> 请参考[这里](../../../3.build-develop-and-administration/3.configurations/5.storage-config.md)修改默认 compaction 线程数量。
 
 nebula> SUBMIT JOB FLUSH;
 ==============
