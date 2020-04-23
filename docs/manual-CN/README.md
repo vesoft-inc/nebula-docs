@@ -20,9 +20,9 @@
   * [常见问题 FAQ](1.overview/2.quick-start/2.FAQ.md)
   * [编译源代码](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [部署集群](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster.md)
-  * [导入 .csv 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
-  * [加载 .sst 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
-  * [Nebula Graph 客户端](1.overview/2.quick-start/3.supported-clients.md)
+  * [导入 .csv 文件](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-import/import-csv-file.md)
+  * [加载 .sst 文件](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
+  * [Nebula Graph SDK](1.overview/2.quick-start/3.supported-clients.md)
 
 * 系统设计与架构
   * [设计总览](1.overview/3.design-and-architecture/1.design-and-architecture.md)
@@ -101,52 +101,54 @@
     * [Use](2.query-language/4.statement-syntax/3.utility-statements/use-syntax.md)
   * 图算法
     * [查找路径](2.query-language/4.statement-syntax/4.graph-algorithms/find-path-syntax.md)
+   <!-- * [边采样]() -->
 
 ## 编译、部署与运维 (程序员和 DBA)
 
 * 编译
   * [编译源代码](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [使用 Docker 编译](3.build-develop-and-administration/1.build/2.build-by-docker.md)
-* 源码开发和 API
-  * [Key Value 接口](3.build-develop-and-administration/2.develop-and-interface/kv-interfaces.md)
-  * [Nebula Graph 客户端](1.overview/2.quick-start/3.supported-clients.md)
 
-* 部署与运维
-  * 部署
-    * [配置文件说明](3.build-develop-and-administration/3.deploy-and-administrations/deployment/configuration-description.md)
-    * [用 Docker 部署](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster-on-docker.md)
-    * [部署集群](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster.md)
-    <!-- * [接入 Prometheus](3.build-develop-and-administration/3.deploy-and-administrations/deployment/connect-prometheus.md) -->
-    * [rpm 安装](3.build-develop-and-administration/3.deploy-and-administrations/deployment/install-with-rpm-deb.md)
+* 安装
+  * [rpm 安装](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
+  * [起停服务](3.build-develop-and-administration/2.install/2.start-stop-service.md)
+* 配置
+  * [系统要求](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
+  * [配置持久化与优先级](3.build-develop-and-administration/3.configurations/1.config-persistency-and-priority.md)
+  * [CONFIG 语法](3.build-develop-and-administration/3.configurations/2.configs-syntax.md)
+  * [Metad 配置](3.build-develop-and-administration/3.configurations/3.meta-config.md)
+  * [Graphd 配置](3.build-develop-and-administration/3.configurations/4.graph-config.md)
+  * [Storaged 配置](3.build-develop-and-administration/3.configurations/5.storage-config.md)
+  * [命令行终端配置](3.build-develop-and-administration/3.configurations/6.console-config.md)
+
   * 服务器管理操作
     * 账号管理
-      * [Alter User Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/alter-user-syntax.md)
-      * [Built-in Roles](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/built-in-roles.md)
-      * [Change Password](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/change-password.md)
-      * [Create User](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/create-user-syntax.md)
-      * [Drop User](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/drop-user-syntax.md)
-      * [Grant Role](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/grant-role-syntax.md)
-      * [Revoke](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/revoke-syntax.md)
+      * [Alter User Syntax](3.build-develop-and-administration/4.server-administration/account-management-statements/alter-user-syntax.md)
+      * [Built-in Roles](3.build-develop-and-administration/4.server-administration/account-management-statements/built-in-roles.md)
+      * [Change Password](3.build-develop-and-administration/4.server-administration/account-management-statements/change-password.md)
+      * [Create User](3.build-develop-and-administration/4.server-administration/account-management-statements/create-user-syntax.md)
+      * [Drop User](3.build-develop-and-administration/4.server-administration/account-management-statements/drop-user-syntax.md)
+      * [Grant Role](3.build-develop-and-administration/4.server-administration/account-management-statements/grant-role-syntax.md)
+      * [Revoke](3.build-develop-and-administration/4.server-administration/account-management-statements/revoke-syntax.md)
     * 服务器配置
-      * [服务器配置](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/configs-syntax.md)
-      <!-- * [RocksDB Compaction 和 Flush](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/rocksdb-compaction-flush.md) -->
-      * [日志](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/log.md)
-    * 计算服务相关运维
-      * [计算层运行统计 (metrics)](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/graph-service-administration/graph-metrics.md)
+      * [计算层运行统计 (metrics)](3.build-develop-and-administration/4.server-administration/graph-service-administration/graph-metrics.md)
     * meta 服务相关运维
-      * [meta 层运行统计 (metrics)](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/meta-service-administration/meta-metrics.md)
+      * [meta 层运行统计 (metrics)](3.build-develop-and-administration/4.server-administration/meta-service-administration/meta-metrics.md)
     * 存储服务相关运维
       * 离线数据加载
-        * [加载 .sst 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
-        * [读取 .csv 文件](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
-        * [Spark 导入工具](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/spark-writer.md)
+        * [加载 .sst 文件](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
+        * [读取 .csv 文件](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-import/import-csv-file.md)
+        * [Spark 导入工具](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-import/spark-writer.md)
       * 离线数据转储
-        * [Dump Tool](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-export/dump-tool.md)
-      * [负载均衡和数据迁移](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/storage-balance.md)
-      * [存储层运行统计 (metrics)](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/storage-metrics.md)
-      * [集群快照](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/cluster-snapshot.md)
-      * [作业管理](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/job-manager.md)
-
+        * [Dump Tool](3.build-develop-and-administration/4.server-administration/storage-service-administration/data-export/dump-tool.md)
+      * [负载均衡和数据迁移](3.build-develop-and-administration/4.server-administration/storage-service-administration/storage-balance.md)
+      * [存储层运行统计 (metrics)](3.build-develop-and-administration/4.server-administration/storage-service-administration/storage-metrics.md)
+      * [集群快照](3.build-develop-and-administration/4.server-administration/storage-service-administration/cluster-snapshot.md)
+      * [作业管理](3.build-develop-and-administration/4.server-administration/storage-service-administration/job-manager.md)
+* 源码开发和 API
+  * [Key Value 接口](3.build-develop-and-administration/5.develop-and-interface/kv-interfaces.md)
+  * [Nebula Graph 客户端](1.overview/2.quick-start/3.supported-clients.md)
+  
 ## 社区贡献 (开源社区爱好者)
 
 * [贡献文档](4.contributions/contribute-to-documentation.md)
