@@ -6,7 +6,7 @@
 
 * CONTAINS
 
-`CONTAINS` 运算符用来搜索包含指定字段的字符串，且大小写敏感。所有非字符串数据均强制转换为字符串。
+`CONTAINS` 运算符用来搜索包含指定字段的字符串，且大小写敏感。`CONTAINS` 运算符左右两侧必须为字符串类型。
 
 ```ngql
 nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
@@ -19,7 +19,7 @@ nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
 ```
 
 ```ngql
-nebula> GO FROM 107 OVER serve WHERE serve.start_year CONTAINS "07" && \
+nebula> GO FROM 107 OVER serve WHERE (STRING)serve.start_year CONTAINS "07" && \
         $^.player.name CONTAINS "Aron" \
         YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 =====================================================================

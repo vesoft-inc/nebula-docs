@@ -6,7 +6,7 @@
 
 * CONTAINS
 
-The `CONTAINS` operator is used to perform case-sensitive matching regardless of location within a string. All non-string type are forced to convert to strings.
+The `CONTAINS` operator is used to perform case-sensitive matching regardless of location within a string. All non-string type are forced to convert to strings. The `CONTAINS` operator requires string type in both left and right side.
 
 ```ngql
 nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
@@ -19,7 +19,7 @@ nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
 ```
 
 ```ngql
-nebula> GO FROM 107 OVER serve WHERE serve.start_year CONTAINS "07" && \
+nebula> GO FROM 107 OVER serve WHERE (STRING)serve.start_year CONTAINS "07" && \
         $^.player.name CONTAINS "Aron" \
         YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 =====================================================================
