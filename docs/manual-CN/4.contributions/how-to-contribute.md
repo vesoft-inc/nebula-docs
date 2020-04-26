@@ -97,11 +97,13 @@ git push --force origin master
 此时可在 `myfeature` 分支编辑代码， 编辑时请遵循 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。
 
 ### 对修改的代码进行验证
+
 #### 编译源码
 
-请参考文档[build-source-code](https://github.com/vesoft-inc/nebula/blob/master/docs/manual-CN/3.build-develop-and-administration/1.build/1.build-source-code.md)
+请参考文档[build-source-code](..\3.build-develop-and-administration\1.build\1.build-source-code.md)
 
 #### 验证
+
 - 替换二进制文件
 
 编译好的三个服务的二进制文件在 `nebula/build/src/daemon/_build/` 目录下面，编译好的 console 在 `nebula/build/src/console/_build` 目录下面。可以把二进制替换到安装目录 `bin` 下面，重启服务并做验证。
