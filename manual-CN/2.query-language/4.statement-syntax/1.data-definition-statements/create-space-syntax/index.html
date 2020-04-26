@@ -2262,6 +2262,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#partition" class="md-nav__link">
+    检查 partition 分布正常
+  </a>
+  
+</li>
+      
       
       
       
@@ -2297,11 +2304,11 @@
 <h2 id="_1">自定义图空间选项<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>在创建图空间的时候，可以传入如下两个自定义选项：</p>
 <ul>
-<li><em>partition_num</em><p><em>partition_num</em> 表示数据分片数量。默认值为 100。</p>
+<li><em>partition_num</em><p><em>partition_num</em> 表示数据分片数量。默认值为 100。建议为硬盘数量的 5 倍。</p>
 </li>
 </ul>
 <ul>
-<li><em>replica_factor</em><p><em>replica_factor</em> 表示副本数量。默认值是 1，集群建议为 3。</p>
+<li><em>replica_factor</em><p><em>replica_factor</em> 表示副本数量。默认值是 1，生产集群建议为 3。</p>
 </li>
 </ul>
 <ul>
@@ -2319,6 +2326,26 @@ nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- 使用默认 replica_fa
 nebula&gt; CREATE SPACE my_space_3(replica_factor=1);  -- 使用默认 partition_number 创建图空间
 nebula&gt; CREATE SPACE my_space_4(partition_num=10, replica_factor=1);
 </code></pre></div>
+
+
+<h2 id="partition">检查 partition 分布正常<a class="headerlink" href="#partition" title="Permanent link">&para;</a></h2>
+<p>在某些大集群上，由于启动时间先后不一，可能会导致 partition 分布不均，可以通过如下命令（SHOW HOSTS）检查机器和分布。</p>
+<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 34600 | online | 13           | test: 13            | test: 37               |
+------------------------------------------------------------------------------------------------
+| 192.168.8.210 | 34900 | online | 12           | test: 12            | test: 38               |
+</code></pre></div>
+
+
+<p>若发现机器都已在线，但 partition 分布不均，可以通过如下命令 （BALANCE LEADER）来命令 partition 重分布</p>
+<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+</code></pre></div>
+
+
+<p>具体见<a href="../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md">SHOW HOSTS</a>和<a href="../../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance/">BALANCE</a></p>
                 
                   
                 

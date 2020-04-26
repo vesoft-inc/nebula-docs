@@ -2277,13 +2277,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#nebula_graph" class="md-nav__link">
-    启动 Nebula Graph 服务
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2440,6 +2433,7 @@
 <h2 id="_2">前言<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>我们已经针对多种不同的环境做过编译测试，包括 CentOS 6/7/8、Ubuntu 16.04/18.04/19.04、Fedora 28/29/30、GCC 7/8/9 以及较新版本的 LLVM/Clang。然而，由于编译环境及依赖的复杂性，很难保证覆盖到所有场景。如果在编译过程遇到任何问题，欢迎通过 Issue 或者 Pull Request 联系我们。</p>
 <h2 id="_3">系统要求<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>以下为编译<strong>Nebula Graph</strong>机器所需配置要求，运行环境所需配置要求见<a href="">这里</a>。</p>
 <ul>
 <li>处理器: x86_64</li>
 <li>内存: 至少 4GB</li>
@@ -2528,39 +2522,6 @@ etc/ bin/ share/ scripts/
 
 
 <p>由于 <strong>Nebula Graph</strong> 使用了大量的 C++ 模板，尤其是 Folly，fbthrift 和 boost，因此编译会非常耗时。比如，如果使用 Intel E5-2697 v3 处理器，在 16 个任务并发运行的情况下，需要花费大约 4 分钟完成编译，总的 CPU 时间大约 35 分钟。</p>
-<h3 id="nebula_graph">启动 <strong>Nebula Graph</strong> 服务<a class="headerlink" href="#nebula_graph" title="Permanent link">&para;</a></h3>
-<p>在编译安装 <strong>Nebula Graph</strong> 后，可以启动 <strong>Nebula Graph</strong> 服务。默认情况下，<strong>Nebula Graph</strong> 安装在 <code>/home/username/nebula/build/install</code> 路径下，其中 <em>username</em> 需要替换成您自己的用户名。</p>
-<ol>
-<li>把您当前的路径切换到 <strong>Nebula Graph</strong> 的安装路径下。</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>$ <span class="nb">cd</span> /home/username/nebula/build/install
-</code></pre></div>
-
-
-<ol>
-<li>重命名 <strong>Nebula Graph</strong> 服务的配置文件。</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>$ cp etc/nebula-graphd.conf.default etc/nebula-graphd.conf
-$ cp etc/nebula-metad.conf.default etc/nebula-metad.conf
-$ cp etc/nebula-storaged.conf.default etc/nebula-storaged.conf
-</code></pre></div>
-
-
-<ol>
-<li>启动 <strong>Nebula Graph</strong> 服务。</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>$ ./scripts/nebula.service start all
-</code></pre></div>
-
-
-<ol>
-<li>连接到 <strong>Nebula Graph</strong> 服务。</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>$ ./bin/nebula -u user -p password --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
-</code></pre></div>
-
-
-<p><strong>注意</strong>：如果您成功连接到 <strong>Nebula Graph</strong> 服务，则可以看到 <code>Welcome to Nebula Graph</code> 信息，并自动进入到 <code>ngql</code> 命令行界面。</p>
 <h2 id="_8">编译选项<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>除默认选项外，<strong>Nebula Graph</strong> 的编译系统还提供诸多选项来调整编译行为。</p>
 <h3 id="cmake">CMake 参数<a class="headerlink" href="#cmake" title="Permanent link">&para;</a></h3>
