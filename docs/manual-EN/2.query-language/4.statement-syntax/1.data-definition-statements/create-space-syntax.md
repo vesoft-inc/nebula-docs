@@ -25,11 +25,11 @@ When creating a space, the following two customized options can be given:
 
 * _partition_num_
 
-    _partition_num_ specifies the number of partitions in one replica. The default value is 100.
+    _partition_num_ specifies the number of partitions in one replica. The default value is 100. It is usually 5 times the number of the cluster hard disk.
 
 * _replica_factor_
 
-    _replica_factor_ specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in cluster.
+    _replica_factor_ specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in cluster. It is usually 3 in production.
 
 * _charset_
 
@@ -49,3 +49,25 @@ nebula> CREATE SPACE my_space_2(partition_num=10); -- create space with default 
 nebula> CREATE SPACE my_space_3(replica_factor=1); -- create space with default partition number
 nebula> CREATE SPACE my_space_4(partition_num=10, replica_factor=1);
 ```
+
+## Checking Partition Distribution
+
+On some large clusters, due to the different startup times, the partition distribution may be unbalanced. You can check the machine and distribution by the following command (SHOW HOSTS).
+
+```ngql
+nebula> SHOW HOSTS;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 34600 | online | 13           | test: 13            | test: 37               |
+------------------------------------------------------------------------------------------------
+| 192.168.8.210 | 34900 | online | 12           | test: 12            | test: 38               |
+```
+
+If all the machines are online, but the partition distribution is unbalanced, you can use the following command (BALANCE LEADER) to redistribute the partitions.
+
+```ngql
+nebula> BALANCE LEADER;
+```
+
+Details see SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) and [BALANCE](../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance.md).

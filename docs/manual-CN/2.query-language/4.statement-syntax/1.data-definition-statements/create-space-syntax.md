@@ -64,10 +64,10 @@ nebula> SHOW HOSTS;
 | 192.168.8.210 | 34900 | online | 12           | test: 12            | test: 38               |
 ```
 
-若发现机器都已在线，但 partition 分布不均，可以通过如下命令 （BALANCE LEADER）来命令 partition 重分布
+若发现机器都已在线，但 partition 分布不均，可以通过如下命令 （BALANCE LEADER）来命令 partition 重分布。
 
 ```ngql
 nebula> BALANCE LEADER;
 ```
 
-具体见[SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md)和[BALANCE](../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance.md)
+具体见 [SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) 和 [BALANCE](../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance.md)。
