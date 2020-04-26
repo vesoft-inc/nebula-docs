@@ -16,6 +16,10 @@ nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "riors" \
 =====================================================================
 | Aron Baynes    | 2001             | 2009           | Warriors     |
 ---------------------------------------------------------------------
+
+# 以下语句返回为空。
+nebula> GO FROM 107 OVER serve WHERE $$.team.name CONTAINS "Riors" \
+        YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 ```
 
 ```ngql
