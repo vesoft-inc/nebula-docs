@@ -51,7 +51,7 @@ Find path between two vertices | g.V(\<vid>).repeat(out()).until(\<vid>).path() 
 
 ## Example Queries
 
-The examples in this section make extensive use of the toy graph distributed with [Janus Graph](https://janusgraph.org/) called [_The Graphs of Gods_](https://docs.janusgraph.org/#getting-started). This graph is diagrammed below. The abstract data model is known as a [Property Graph Model](](../1.overview/1.concepts/1.data-model.md) and this particular instance describes the relationships between the beings and places of the Roman pantheon.
+The examples in this section make extensive use of the toy graph distributed with [Janus Graph](https://janusgraph.org/) called [_The Graphs of Gods_](https://docs.janusgraph.org/#getting-started). This graph is diagrammed below. The abstract data model is known as a [Property Graph Model](../1.overview/1.concepts/1.data-model.md) and this particular instance describes the relationships between the beings and places of the Roman pantheon.
 
 ![image](https://user-images.githubusercontent.com/42762957/71503167-0e264b80-28af-11ea-87c5-76f4fd1275cd.png)
 
