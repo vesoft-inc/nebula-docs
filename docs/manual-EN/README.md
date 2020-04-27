@@ -20,7 +20,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [FAQ](1.overview/2.quick-start/2.FAQ.md)
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
-  * [Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+  <!-- * [Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
 
 * Design and Architecture
@@ -127,7 +127,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Revoke](3.build-develop-and-administration/4.account-management-statements/revoke-syntax.md)
 * Batch Data Management
   * Data Import
-    * [Download And Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+    <!-- * [Download And Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
     * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
     * [Spark Writer](3.build-develop-and-administration/5.storage-service-administration/data-import/spark-writer.md)
   * Data Export
