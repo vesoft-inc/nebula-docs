@@ -21,4 +21,4 @@ nebula> SHOW CONFIGS meta;
 ----------------------------------------------------------------------------------------------------------------------------
 ```
 
-更多关于 `SHOW CONFIGS [graph|meta|storage]` 的信息，参见 [configs syntax](../../../../3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/configs-syntax.md)。
+更多关于 `SHOW CONFIGS [graph|meta|storage]` 的信息，参见 [configs syntax](../../../../3.build-develop-and-administration/3.configurations/2.configs-syntax.md)。

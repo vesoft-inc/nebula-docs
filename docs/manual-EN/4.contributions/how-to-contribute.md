@@ -103,7 +103,7 @@ You can now edit the code on `myfeature` branch. Please be noted that we are fol
 
 #### Compiling the Source Code
 
-Please refer to the [build source code](..\3.build-develop-and-administration\1.build\1.build-source-code.md) documentation to compile.
+Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile.
 
 #### Code Verification
 

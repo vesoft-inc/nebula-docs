@@ -62,6 +62,7 @@ nebula> SHOW HOSTS;
 | 192.168.8.210 | 34600 | online | 13           | test: 13            | test: 37               |
 ------------------------------------------------------------------------------------------------
 | 192.168.8.210 | 34900 | online | 12           | test: 12            | test: 38               |
+------------------------------------------------------------------------------------------------
 ```
 
 If all the machines are online, but the partition distribution is unbalanced, you can use the following command (BALANCE LEADER) to redistribute the partitions.
@@ -70,4 +71,4 @@ If all the machines are online, but the partition distribution is unbalanced, yo
 nebula> BALANCE LEADER;
 ```
 
-Details see SHOW HOSTS](../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) and [BALANCE](../../../3.build-develop-and-administration/4.storage-service-administration/storage-balance.md).
+Details see [SHOW HOSTS](../3.utility-statements/show-statements/show-hosts-syntax.md) and [BALANCE](../../../3.build-develop-and-administration/5.storage-service-administration/storage-balance.md).
