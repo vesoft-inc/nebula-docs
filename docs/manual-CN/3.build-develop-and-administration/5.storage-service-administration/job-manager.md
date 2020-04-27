@@ -4,7 +4,7 @@
 
 ## 命令列表
 
-### submit job compact
+### SUBMIT JOB COMPACT
 
 `SUBMIT JOB COMPACT` 命令触发长耗时的 `RocksDB compact` 操作。示例返回结果如下：
 
@@ -19,7 +19,7 @@ nebula> SUBMIT JOB COMPACT;
 
 修改默认 compact 线程数量请参考[这里](../../3.build-develop-and-administration/3.configurations/5.storage-config.md)。
 
-### submit job flush
+### SUBMIT JOB FLUSH
 
 `SUBMIT JOB FLUSH` 命令将内存中的 RocksDB memfile 写入到硬盘中。
 
@@ -123,7 +123,7 @@ nebula> RECOVER JOB;
 
 ## FAQ
 
-`SUBMIT JOB` 使用 HTTP 端口。请检查 Storage 之间的 HTTP 端口是否正常。你可以使用如下命令调试
+`SUBMIT JOB` 使用 HTTP 端口。请检查 Storage 之间的 HTTP 端口是否正常。你可以使用如下命令调试。
 
 ```bash
 curl "http://{storaged-ip}:12000/admin?space={test}&op=compact"

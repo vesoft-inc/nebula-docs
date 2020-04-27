@@ -4,9 +4,9 @@ The job here refers to the long tasks running at the storage layer. For example,
 
 ## Statements List
 
-### submit job compact / flush
+### SUBMIT JOB COMPACT
 
-The `submit job compact/flush` statement creates a new job and returns the job ID in the job manager, and executes the `compact/flush` command in the storage. The example is as follows:
+The `SUBMIT JOB COMPACT` command triggers the long time `RocksDB compact` operation. The example returns the results as follows:
 
 ```ngql
 nebula> SUBMIT JOB COMPACT;
@@ -15,7 +15,15 @@ nebula> SUBMIT JOB COMPACT;
 ==============
 | 40         |
 --------------
+```
 
+See [here](../../3.build-develop-and-administration/3.configurations/5.storage-config.md) to modify the default compact thread number.
+
+### SUBMIT JOB FLUSH
+
+The `SUBMIT JOB FLUSH` command writes the RocksDB memfile in memory to the hard disk.
+
+```ngql
 nebula> SUBMIT JOB FLUSH;
 ==============
 | New Job Id |
@@ -41,7 +49,7 @@ nebula> SHOW JOB 40
 -------------------------------------------------------------------------------------
 ```
 
-The above statement returns one to multiple rows, which is determined by the storage number where the space is located.
+The above statement returns one to multiple rows, which is determined by the `storaged` number where the space is located.
 
 What's in the returned results:
 
@@ -111,4 +119,12 @@ nebula> RECOVER JOB
 =====================
 | 5 job recovered   |
 ---------------------
+```
+
+## FAQ
+
+`SUBMIT JOB` uses HTTP port. Please check if the HTTP ports among the storages are normal. You can use the following command to debug.
+
+```bash
+curl "http://{storaged-ip}:12000/admin?space={test}&op=compact"
 ```

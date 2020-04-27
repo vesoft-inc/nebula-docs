@@ -32,7 +32,7 @@ Or you can download from OSS.
 ### Download From Cloud Storage OSS
 
 ```bash
-wget https://nebula-graph.oss-accelerate.aliyuncs.com/jar-packages/sst.generator-1.0.0-beta.jar
+wget https://oss-cdn.nebula-graph.io/jar-packages/sst.generator-1.0.0-beta.jar
 ```
 
 ## User Guide
@@ -46,7 +46,7 @@ This section includes the following steps:
 
 ### Create Graph Space
 
-Please refer to the example graph in [Quick Start](../../../../../1.overview/2.quick-start/1.get-started.md).
+Please refer to the example graph in [Quick Start](../../../1.overview/2.quick-start/1.get-started.md).
 
 Note: Please create a space and define the schema in Nebula Graph first, then use this tool to import data to Nebula Graph.
 
