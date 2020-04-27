@@ -107,7 +107,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [Build By Docker](3.build-develop-and-administration/1.build/2.build-by-docker.md)
 * Install
-  * [prm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
+  * [rpm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
   * [Start and Stop Services](3.build-develop-and-administration/2.install/2.start-stop-service.md)
 * Configuration
   * [System Requirement](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
