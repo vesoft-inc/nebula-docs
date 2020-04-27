@@ -20,7 +20,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [FAQ](1.overview/2.quick-start/2.FAQ.md)
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
-  * [Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+  <!-- * [Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
 
 * Design and Architecture
@@ -107,7 +107,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [Build By Docker](3.build-develop-and-administration/1.build/2.build-by-docker.md)
 * Install
-  * [prm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
+  * [rpm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
   * [Start and Stop Services](3.build-develop-and-administration/2.install/2.start-stop-service.md)
 * Configuration
   * [System Requirement](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
@@ -127,7 +127,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Revoke](3.build-develop-and-administration/4.account-management-statements/revoke-syntax.md)
 * Batch Data Management
   * Data Import
-    * [Download And Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+    <!-- * [Download And Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
     * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
     * [Spark Writer](3.build-develop-and-administration/5.storage-service-administration/data-import/spark-writer.md)
   * Data Export

@@ -20,7 +20,7 @@
   * [常见问题 FAQ](1.overview/2.quick-start/2.FAQ.md)
   * [编译源代码](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [导入 .csv 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
-  * [加载 .sst 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+  <!-- * [加载 .sst 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
   * [Nebula Graph SDK](1.overview/2.quick-start/3.supported-clients.md)
 
 * 系统设计与架构
@@ -127,7 +127,7 @@
   * [Revoke](3.build-develop-and-administration/4.account-management-statements/revoke-syntax.md)
 * 批量数据管理
   * 离线数据导入
-    * [加载 .sst 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)
+    <!-- * [加载 .sst 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
     * [读取 .csv 文件](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
     * [Spark 导入工具](3.build-develop-and-administration/5.storage-service-administration/data-import/spark-writer.md)
   * 离线数据转储
