@@ -21,4 +21,4 @@ nebula> SHOW CONFIGS meta;
 ----------------------------------------------------------------------------------------------------------------------------
 ```
 
-For more information about `SHOW CONFIGS [graph|meta|storage]`, please refer to [configs syntax](../../../../3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/configs-syntax.md).
+For more information about `SHOW CONFIGS [graph|meta|storage]`, please refer to [configs syntax](../../../../3.build-develop-and-administration/3.configurations/2.configs-syntax.md).

@@ -100,7 +100,7 @@ git push --force origin master
 
 #### 编译源码
 
-请参考文档[build-source-code](..\3.build-develop-and-administration\1.build\1.build-source-code.md)
+请参考文档 [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md)
 
 #### 验证
 

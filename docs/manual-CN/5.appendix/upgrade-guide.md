@@ -18,5 +18,5 @@
 - 启动 Nebula Graph 服务
   - 在所有机器执行 `scripts/nebula.service start all` 命令
   - 然后执行 `scripts/nebula.service status all` 确认进程正常启动
-  - 或者Nebula终端运行 `nebula> SHOW HOSTS` 查看服务状态
+  - 或者 Nebula 终端运行 `nebula> SHOW HOSTS` 查看服务状态
 - **重新导入数据**

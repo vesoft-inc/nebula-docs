@@ -1,16 +1,16 @@
 # Dump Tool
 
-Dump Tool is a single-machine off-line data dumping tool that can be used to dump or count data with specified conditions.
+Dump Tool 是一个单机离线数据导出工具，可以用于导出或统计指定条件的数据。
 
-## How to Get
+## 如何获得
 
-The source code of the dump tool is under `nebula/src/tools/db_dump`. You can use command `make db_dump` to compile it. Before using this tool, you can use the [SHOW HOSTS](../../../../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) statement in the **Nebula Graph** CLI to check the distribution of the partitions. Also, you can use the `vertex_id % partition_num` statement to calculate which partition the vertex's corresponding [key](../../../../../1.overview/3.design-and-architecture/2.storage-design.md) is located.
+Dump Tool 源码位于 `nebula/src/tools/db_dump` 下，用户可以执行 `make db_dump` 命令来编译生成该工具。在使用本工具前，你可以使用 **Nebula Graph** CLI 的 [SHOW HOSTS](../../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) 命令查看分区的分布。使用 `vertex_id % partition_num` 来计算点对应的 [key](../../../1.overview/3.design-and-architecture/2.storage-design.md) 位于哪个分区。
 
-**Note:** The _Dump Tool_ is located in the rpm package and its directory is `nebula/bin/`. Since the tool dumps data by opening the RockDB, you need to use it on the machines that have the storage service deployed and make sure the meta_server is started. Please refer to the following section on detailed usage.
+**注意：** Dump Tool 位于 rpm 包中，目录是 `nebula/bin/`。该工具通过直接打开 RocksDB 转储数据，因此需要离线使用，关闭该 storaged 进程，并同时保持 meta_server 已启动。具体用法请参考下方说明。
 
-## How to Use
+## 如何使用
 
-The `db_dump` command displays information about how to use the dump tool. Parameter `space` is required. Parameters `db_path` and `meta_server` both have default values and you can configure them based on your actual situation. You can combine parameters `vids`, `parts`, `tags` and `edges` arbitrarily to dump the data you want.
+具体用法如下所示，用户可以通过执行不带参数的 `db_dump` 命令获得帮助。其中 `space` 参数是必须的，而 `db_path` 以及 `meta_server` 具有默认值，用户可以按照实际配置。`vids`、`parts`、`tags`、`edges` 可以任意组合，导出你需要的数据。
 
 ```bash
   ./db_dump --space=<space name>
@@ -54,43 +54,43 @@ optional:
          # Default: 1000
 ```
 
-Following is an example:
+下面是一些示例：
 
 ```bash
-// Specify a space to dump data
+// 指定 space 导出数据
 ./db_dump --space=space_name
 
-// Specify space, db_path, meta_server
+// 指定space, db_path, meta_server
 ./db_dump --space=space_name --db_path=/usr/local/nebula/data/storage/nebula/ --meta_server=127.0.0.1:45513
 
-// Set mode to stat, only stats are returned, no data is printed
+// 指定 mode=stat(统计模式)，此时只返回统计信息，不打印数据
 ./db_dump --space=space_name --mode=stat --db_path=/usr/local/nebula/data/storage/nebula/ --meta_server=127.0.0.1:45513
 
-// Specify vid to dump the vertex and the edges sourcing from it
+// 指定 vid 导出该点以及以该点为起始点的边
 ./db_dump --space=space_name --mode=stat --db_path=/usr/local/nebula/data/storage/nebula/ --meta_server=127.0.0.1:45513 --vids=123,456
 
-// Specify tag and dump vertices with the tag 
+// 指定 tag 类型，导出具有该 tag 的点
 ./db_dump --space=space_name --mode=stat --db_path=/usr/local/nebula/data/storage/nebula/ --meta_server=127.0.0.1:45513 --tags=tag1,tag2
 
 ```
 
-The returned data format:
+返回的数据格式：
 
 ```bash
-// vertices, key: part_id, vertex_id, tag_name, value: <prop_list>
+// 点，key: part_id, vertex_id, tag_name, value: <prop_list>
 [vertex] key: 1, 0, poi value:mid:0,8191765721868409651,8025713627522363385,1993089399535188613,3926276052777355165,5123607763506443893,2990089379644866415,poi_name_0,上海,华东,30.2824,120.016,poi_stat_0,poi_fc_0,poi_sc_0,0,poi_star_0,
 
-// edges, key: part_id, src_id, edge_name, ranking, dst_id, value: <prop_list>
+// 边, key: part_id, src_id, edge_name, ranking, dst_id, value: <prop_list>
 [edge] key: 1, 0, consume_poi_reverse, 0, 656384 value:mid:656384,mid:0,7.19312,mid:656384,3897457441682646732,mun:656384,4038264117233984707,dun:656384,empe:656384,mobile:656384,gender:656384,age:656384,rs:656384,fpd:656384,0.75313,1.34433,fpd:656384,0.03567,7.56212,
 
-// stats
+// 统计
 =======================================================
-COUNT: 10           # total number of data dumped
-VERTEX COUNT: 1     # number of vertices dumped
-EDGE COUNT: 9       # number of edges dumped
-TAG STATISTICS:     # number of tags dumped
+COUNT: 10           #本次导出记录数量
+VERTEX COUNT: 1     #本次导出点数量
+EDGE COUNT: 9       #本次导出边数量
+TAG STATISTICS:     #本次导出tag统计
         poi : 1
-EDGE STATISTICS:    # number of edge types dumped
+EDGE STATISTICS:    #本次导出edge统计
         consume_poi_reverse : 9
 =======================================================
 ```

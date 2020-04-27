@@ -32,7 +32,7 @@ mvn compile package
 ### 从云存储 OSS 下载
 
 ```bash
-wget https://nebula-graph.oss-accelerate.aliyuncs.com/jar-packages/sst.generator-1.0.0-beta.jar
+wget https://oss-cdn.nebula-graph.com.cn/jar-packages/sst.generator-1.0.0-beta.jar
 ```
 
 ## 使用流程
@@ -46,7 +46,7 @@ wget https://nebula-graph.oss-accelerate.aliyuncs.com/jar-packages/sst.generator
 
 ### 构图
 
-构图请参考[快速试用](../../../../../1.overview/2.quick-start/1.get-started.md)中的示例构图。
+构图请参考[快速试用](../../../1.overview/2.quick-start/1.get-started.md)中的示例构图。
 
 注意：请先在 Nebula Graph 中完成构图（创建图空间和定义图数据 Schema），再通过本工具向 Nebula Graph 中写入数据。
 
