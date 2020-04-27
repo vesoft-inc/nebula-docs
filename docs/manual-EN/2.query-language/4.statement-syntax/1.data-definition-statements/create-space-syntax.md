@@ -25,7 +25,7 @@ When creating a space, the following two customized options can be given:
 
 * _partition_num_
 
-    _partition_num_ specifies the number of partitions in one replica. The default value is 100. It is usually 5 times the number of the cluster hard disk.
+    _partition_num_ specifies the number of partitions in one replica. The default value is 100. It is usually 5 times the number of hard disks in the cluster.
 
 * _replica_factor_
 
@@ -52,7 +52,7 @@ nebula> CREATE SPACE my_space_4(partition_num=10, replica_factor=1);
 
 ## Checking Partition Distribution
 
-On some large clusters, due to the different startup times, the partition distribution may be unbalanced. You can check the machine and distribution by the following command (SHOW HOSTS).
+On some large clusters, due to the different startup time, the partition distribution may be unbalanced. You can check the machine and distribution by the following command (SHOW HOSTS).
 
 ```ngql
 nebula> SHOW HOSTS;
@@ -65,7 +65,7 @@ nebula> SHOW HOSTS;
 ------------------------------------------------------------------------------------------------
 ```
 
-If all the machines are online, but the partition distribution is unbalanced, you can use the following command (BALANCE LEADER) to redistribute the partitions.
+If all the machines are online status, but the partition distribution is unbalanced, you can use the following command (BALANCE LEADER) to redistribute the partitions.
 
 ```ngql
 nebula> BALANCE LEADER;

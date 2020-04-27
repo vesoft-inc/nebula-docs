@@ -6,7 +6,7 @@ The job here refers to the long tasks running at the storage layer. For example,
 
 ### SUBMIT JOB COMPACT
 
-The `SUBMIT JOB COMPACT` command triggers the long time-consuming `RocksDB compact` operation. The example returns the results as follows:
+The `SUBMIT JOB COMPACT` command triggers the long time `RocksDB compact` operation. The example returns the results as follows:
 
 ```ngql
 nebula> SUBMIT JOB COMPACT;
@@ -49,7 +49,7 @@ nebula> SHOW JOB 40
 -------------------------------------------------------------------------------------
 ```
 
-The above statement returns one to multiple rows, which is determined by the storaged number where the space is located.
+The above statement returns one to multiple rows, which is determined by the `storaged` number where the space is located.
 
 What's in the returned results:
 
