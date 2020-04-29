@@ -41,9 +41,9 @@ In case you encounter any problems playing around **Nebula Graph**, please reach
 
 ## Documentation
 
-* [English](manual-CN/README.md)
+* [English](manual-EN/README.md)
 * [English Manual PDF](https://oss-cdn.nebula-graph.com.cn/doc/RC4-EN.pdf)
-* [简体中文](manual-EN/README.md)
+* [简体中文](manual-CN/README.md)
 * [中文手册 PDF](https://oss-cdn.nebula-graph.com.cn/doc/RC4-CN.pdf)
 
 ## Architecture
