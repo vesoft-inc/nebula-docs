@@ -19,9 +19,8 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Get Started](1.overview/2.quick-start/1.get-started.md)
   * [FAQ](1.overview/2.quick-start/2.FAQ.md)
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
-  * [Deploy Cluster](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster.md)
-  * [Import .csv File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
-  * [Ingest .sst File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
+  * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
+  <!-- * [Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
 
 * Design and Architecture
@@ -43,6 +42,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Logical Operators](2.query-language/2.functions-and-operators/logical-operators.md)
   * [Order By Function](2.query-language/2.functions-and-operators/order-by-function.md)
   * [Set Operations](2.query-language/2.functions-and-operators/set-operations.md)
+  * [String Comparison Functions and Operators](2.query-language/2.functions-and-operators/string-comparison-functions-and-operators.md)
   * [uuid Function](2.query-language/2.functions-and-operators/uuid.md)
 * Language Structure
   * Literal Values
@@ -107,46 +107,44 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * Build
   * [Build Source Code](3.build-develop-and-administration/1.build/1.build-source-code.md)
   * [Build By Docker](3.build-develop-and-administration/1.build/2.build-by-docker.md)
-* Develop and Interface
-  * [Key Value API](3.build-develop-and-administration/2.develop-and-interface/kv-interfaces.md)
+* Install
+  * [rpm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
+  * [Start and Stop Services](3.build-develop-and-administration/2.install/2.start-stop-service.md)
+* Configuration
+  * [System Requirement](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
+  * [Config Persistency and Priority](3.build-develop-and-administration/3.configurations/1.config-persistency-and-priority.md)
+  * [CONFIG Syntax](3.build-develop-and-administration/3.configurations/2.configs-syntax.md)
+  * [Metad Configuration](3.build-develop-and-administration/3.configurations/3.meta-config.md)
+  * [Graphd Configuration](3.build-develop-and-administration/3.configurations/4.graph-config.md)
+  * [Storaged Configuration](3.build-develop-and-administration/3.configurations/5.storage-config.md)
+  * [Console Configuration](3.build-develop-and-administration/3.configurations/6.console-config.md)
+* Account Management Statement
+  * [Alter User Syntax](3.build-develop-and-administration/4.account-management-statements/alter-user-syntax.md)
+  * [Built-in Roles](3.build-develop-and-administration/4.account-management-statements/built-in-roles.md)
+  * [Change Password](3.build-develop-and-administration/4.account-management-statements/change-password.md)
+  * [Create User](3.build-develop-and-administration/4.account-management-statements/create-user-syntax.md)
+  * [Drop User](3.build-develop-and-administration/4.account-management-statements/drop-user-syntax.md)
+  * [Grant Role](3.build-develop-and-administration/4.account-management-statements/grant-role-syntax.md)
+  * [Revoke](3.build-develop-and-administration/4.account-management-statements/revoke-syntax.md)
+* Batch Data Management
+  * Data Import
+    <!-- * [Download And Ingest .sst File](3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md) -->
+    * [Import .csv File](3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file.md)
+    * [Spark Writer](3.build-develop-and-administration/5.storage-service-administration/data-import/spark-writer.md)
+  * Data Export
+    * [Dump Tool](3.build-develop-and-administration/5.storage-service-administration/data-export/dump-tool.md)
+  * [Storage Balance](3.build-develop-and-administration/5.storage-service-administration/storage-balance.md)
+  * [Cluster Snapshot](3.build-develop-and-administration/5.storage-service-administration/cluster-snapshot.md)
+  * [Long Time-Consuming Task Management](3.build-develop-and-administration/5.storage-service-administration/job-manager.md)
+* Monitoring and Statistics
+  * [Connect Prometheus](3.build-develop-and-administration/7.minor/0.connect-prometheus.md)
+  * [Metrics](3.build-develop-and-administration/7.minor/1.metrics-exposer.md)
+  * [Meta Metrics](3.build-develop-and-administration/7.minor/2.meta-metrics.md)
+  * [Storage Metrics](3.build-develop-and-administration/7.minor/3.storage-metrics.md)
+  * [Graph Metrics](3.build-develop-and-administration/7.minor/4.graph-metrics.md)
+* Development and API
+  * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md)
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
-
-* Deploy and Administrations
-  * Deployment
-    * [Configuration Description](3.build-develop-and-administration/3.deploy-and-administrations/deployment/configuration-description.md)
-    * [Deploy Cluster On Docker](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster-on-docker.md)
-    * [Deploy Cluster](3.build-develop-and-administration/3.deploy-and-administrations/deployment/deploy-cluster.md)
-    <!-- * [Connect Prometheus](3.build-develop-and-administration/3.deploy-and-administrations/deployment/connect-prometheus.md) -->
-    * [Installation With rpm](3.build-develop-and-administration/3.deploy-and-administrations/deployment/install-with-rpm-deb.md)
-
-  * Server Administration
-    * Account Management Statements
-      * [Alter User Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/alter-user-syntax.md)
-      * [Built-in Roles](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/built-in-roles.md)
-      * [Change Password](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/change-password.md)
-      * [Create User Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/create-user-syntax.md)
-      * [Drop User Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/drop-user-syntax.md)
-      * [Grant Role Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/grant-role-syntax.md)
-      * [Revoke Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/account-management-statements/revoke-syntax.md)
-    * Configuration Statements
-      * [Configs Syntax](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/configs-syntax.md)
-      <!-- * [RocksDB Compaction and Flush](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/rocksdb-compaction-flush.md) -->
-      * [Logs](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/configuration-statements/log.md)
-    * Graph Service Administration
-      * [Graph Metrics](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/graph-service-administration/graph-metrics.md)
-    * Meta Service Administration
-      * [Meta Metrics](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/meta-service-administration/meta-metrics.md)
-    * Storage Service Administration
-      * Data Import
-        * [Download And Ingest .sst File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/download-and-ingest-sst-file.md)
-        * [Import .csv File](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/import-csv-file.md)
-        * [Spark Writer](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-import/spark-writer.md)
-      * Data Export
-        * [Dump Tool](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/data-export/dump-tool.md)
-      * [Storage Balance](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/storage-balance.md)
-      * [Storage Metrics](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/storage-metrics.md)
-      * [Cluster Snapshot](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/cluster-snapshot.md)
-      * [Job Manager](3.build-develop-and-administration/3.deploy-and-administrations/server-administration/storage-service-administration/job-manager.md)
 
 ## Contributions (for Contributors)
 

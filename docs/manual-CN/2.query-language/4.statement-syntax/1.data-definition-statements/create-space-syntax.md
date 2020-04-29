@@ -25,11 +25,11 @@ CREATE SPACE [IF NOT EXISTS] <space_name>
 
 * _partition_num_
 
-    _partition_num_ 表示数据分片数量。默认值为 100。
+    _partition_num_ 表示数据分片数量。默认值为 100。建议为硬盘数量的 5 倍。
 
 * _replica_factor_
 
-    _replica_factor_ 表示副本数量。默认值是 1，集群建议为 3。
+    _replica_factor_ 表示副本数量。默认值是 1，生产集群建议为 3。
 
 * _charset_
 
@@ -49,3 +49,25 @@ nebula> CREATE SPACE my_space_2(partition_num=10); -- 使用默认 replica_facto
 nebula> CREATE SPACE my_space_3(replica_factor=1);  -- 使用默认 partition_number 创建图空间
 nebula> CREATE SPACE my_space_4(partition_num=10, replica_factor=1);
 ```
+
+## 检查 partition 分布正常
+
+在某些大集群上，由于启动时间先后不一，可能会导致 partition 分布不均，可以通过如下命令（SHOW HOSTS）检查机器和分布。
+
+```ngql
+nebula> SHOW HOSTS;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 34600 | online | 13           | test: 13            | test: 37               |
+------------------------------------------------------------------------------------------------
+| 192.168.8.210 | 34900 | online | 12           | test: 12            | test: 38               |
+```
+
+若发现机器都已在线，但 partition 分布不均，可以通过如下命令 （BALANCE LEADER）来命令 partition 重分布。
+
+```ngql
+nebula> BALANCE LEADER;
+```
+
+具体见 [SHOW HOSTS](../3.utility-statements/show-statements/show-hosts-syntax.md) 和 [BALANCE](../../../3.build-develop-and-administration/5.storage-service-administration/storage-balance.md)。
