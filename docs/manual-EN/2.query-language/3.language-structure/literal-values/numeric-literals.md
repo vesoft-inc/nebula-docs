@@ -16,6 +16,10 @@ The range for double is about `-1.79769e+308` to `1.79769e+308`.
 
 Scientific notations is not supported yet.
 
+## Scientific Notations
+
+Scientific notations are numbers represented with a mantissa and exponent. Either or both parts may be signed. Examples: `1.2E3`, `1.2E-3`, `-1.2E3`, `-1.2E-3`.
+
 ## Examples
 
 Here are some examples:
@@ -23,4 +27,5 @@ Here are some examples:
 ```ngql
 1, -5, +10000100000
 -2.3, +1.00000000000
+1.2E3
 ```
