@@ -2423,7 +2423,7 @@
                 
                 
                 <h1 id="insert_vertex_syntax">Insert Vertex Syntax<a class="headerlink" href="#insert_vertex_syntax" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; [, &lt;tag_name&gt;, ...] (prop_name_list[, prop_name_list])
+<div class="highlight"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; [, &lt;tag_name&gt;, ...] (prop_name_list[, prop_name_list])
      {VALUES | VALUE} vid: (prop_value_list[, prop_value_list])
 
 prop_name_list:
@@ -2433,7 +2433,6 @@ prop_value_list:
   [prop_value [, prop_value] ...]
 </code></pre></div>
 
-
 <p>INSERT VERTEX statement inserts one vertex into <strong>Nebula Graph</strong>.</p>
 <ul>
 <li><code>tag_name</code> denotes the <code>tag</code> (vertex type), which must be created before <code>INSERT VERTEX</code>.</li>
@@ -2441,26 +2440,23 @@ prop_value_list:
 <li><code>prop_value_list</code> must provide the value list according to the <code>prop_name_list</code>. If no value matches the type, an error will be returned.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1()                   -- create tag t1 with empty property
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1()                   -- create tag t1 with empty property
 nebula&gt; INSERT VERTEX t1 () VALUES 10:()    -- insert vertex 10 with no property
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t2 (name string, age int)                -- create tag t2 with two properties
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (name string, age int)                -- create tag t2 with two properties
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 11:(&quot;n1&quot;, 12)     -- insert vertex 11 with two properties
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 12:(&quot;n1&quot;, &quot;a13&quot;)  -- ERROR. &quot;a13&quot; is not int
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 13:(&quot;n3&quot;, 12), 14:(&quot;n4&quot;, 8)    -- insert two vertices
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(i1 int)
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(i1 int)
 nebula&gt; CREATE TAG t2(s2 string)
 nebula&gt; INSERT VERTEX  t1 (i1), t2(s2) VALUES 21: (321, &quot;hello&quot;)   -- insert vertex 21 with two tags.
 </code></pre></div>
 
-
 <p>A vertex can be inserted/wrote multiple times. Only the last written values can be read.</p>
-<div class="codehilite"><pre><span></span><code>-- insert vertex 11 with the new values.
+<div class="highlight"><pre><span></span><code>-- insert vertex 11 with the new values.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 11:(&quot;n2&quot;, 13)
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 11:(&quot;n3&quot;, 14)
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES 11:(&quot;n4&quot;, 15)  -- the last version can be read

@@ -2664,9 +2664,8 @@
 </tbody>
 </table>
 <p>For example, change the storage log level to v=1 with the following command.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:v=1;
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:v=1;
 </code></pre></div>
-
 
 <h2 id="networking_configurations">Networking Configurations<a class="headerlink" href="#networking_configurations" title="Permanent link">&para;</a></h2>
 <table>
@@ -2755,9 +2754,8 @@
 <blockquote>
 <p>Seperate directories When using multiple hard disks. Each directory corresponds to a RocksDB instance for better concurrency. For example:</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>--data_path=/disk1/storage/,/disk2/storage/,/disk3/storage/
+<div class="highlight"><pre><span></span><code>--data_path=/disk1/storage/,/disk2/storage/,/disk3/storage/
 </code></pre></div>
-
 
 <h2 id="rocksdb_options">RocksDB Options<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
 <table>
@@ -2815,7 +2813,7 @@
 </tbody>
 </table>
 <h3 id="rocksdb_db_options"><code>rocksdb_db_options</code><a class="headerlink" href="#rocksdb_db_options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>max_total_wal_size
+<div class="highlight"><pre><span></span><code>max_total_wal_size
 delete_obsolete_files_period_micros
 max_background_jobs
 stats_dump_period_sec
@@ -2832,12 +2830,11 @@ max_subcompactions              -- The compact from level0 to level1 enables mul
 max_background_jobs             -- Use multi-thread for compacting. The default value is 1. Dynamic modification takes effect after restarting.
 </code></pre></div>
 
-
 <blockquote>
 <p>The above parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
 </blockquote>
 <h3 id="rocksdb_column_family_options"><code>rocksdb_column_family_options</code><a class="headerlink" href="#rocksdb_column_family_options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>write_buffer_size
+<div class="highlight"><pre><span></span><code>write_buffer_size
 max_write_buffer_number
 level0_file_num_compaction_trigger
 level0_slowdown_writes_trigger
@@ -2849,12 +2846,11 @@ max_bytes_for_level_multiplier
 disable_auto_compactions       -- Compact automatically when writing data is stopped, default value is false. Dynamic modification takes effect immediately.
 </code></pre></div>
 
-
 <blockquote>
 <p>The above parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
 </blockquote>
 <h3 id="the_above_parameters_can_be_set_via_the_command_line_as_follows">The Above Parameters can be set via the Command Line as Follows<a class="headerlink" href="#the_above_parameters_can_be_set_via_the_command_line_as_follows" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = \
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = \
         { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 };
         -- The command overwrites rocksdb_column_family_options. Please note whether other sub-items will be overwritten
 
@@ -2863,13 +2859,11 @@ nebula&gt; UPDATE CONFIGS storage:rocksdb_db_options  = \
 nebula&gt; UPDATE CONFIGS storage:max_edge_returned_per_vertex = 10; -- The parameter is explained below
 </code></pre></div>
 
-
 <h3 id="configurations_done_with_the_configuration_file">Configurations Done With the Configuration File<a class="headerlink" href="#configurations_done_with_the_configuration_file" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>    rocksdb_db_options = {&quot;stats_dump_period_sec&quot;:&quot;200&quot;, &quot;&quot;:&quot;false&quot;, &quot;write_thread_max_yield_usec&quot;:&quot;600&quot;}
+<div class="highlight"><pre><span></span><code>    rocksdb_db_options = {&quot;stats_dump_period_sec&quot;:&quot;200&quot;, &quot;&quot;:&quot;false&quot;, &quot;write_thread_max_yield_usec&quot;:&quot;600&quot;}
     rocksdb_column_family_options = {&quot;max_write_buffer_number&quot;:&quot;4&quot;, &quot;min_write_buffer_number_to_merge&quot;:&quot;2&quot;, &quot;max_write_buffer_number_to_maintain&quot;:&quot;1&quot;}
     rocksdb_block_based_table_options = {&quot;block_restart_interval&quot;:&quot;2&quot;}
 </code></pre></div>
-
 
 <h2 id="description_on_super-large_vertices">Description on Super-Large Vertices<a class="headerlink" href="#description_on_super-large_vertices" title="Permanent link">&para;</a></h2>
 <p>For super vertex with a large number of edges, currently there are two truncation strategies:</p>

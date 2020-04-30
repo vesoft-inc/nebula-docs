@@ -2567,7 +2567,7 @@
 <ul>
 <li>Insert data</li>
 </ul>
-<div class="codehilite"><pre><span></span><code># insert vertex
+<div class="highlight"><pre><span></span><code># insert vertex
 nebula&gt; INSERT VERTEX character(name, age, type) VALUES hash(&quot;saturn&quot;):(&quot;saturn&quot;, 10000, &quot;titan&quot;), hash(&quot;jupiter&quot;):(&quot;jupiter&quot;, 5000, &quot;god&quot;);
 
 # insert edge
@@ -2588,21 +2588,19 @@ cypher&gt; MATCH (n:character {name:&quot;prometheus&quot;})
         &gt; DETACH DELETE n
 </code></pre></div>
 
-
 <ul>
 <li>Update vertex</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX hash(&quot;jesus&quot;) SET character.type = &#39;titan&#39;;
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX hash(&quot;jesus&quot;) SET character.type = &#39;titan&#39;;
 
 cypher&gt; MATCH (n:character {name:&quot;jesus&quot;})
       &gt; SET n.type = &#39;titan&#39;
 </code></pre></div>
 
-
 <ul>
 <li>Fetch vertices properties</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON character hash(&quot;saturn&quot;);
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON character hash(&quot;saturn&quot;);
   ===================================================
   | character.name | character.age | character.type |
   ===================================================
@@ -2618,11 +2616,10 @@ cypher&gt; MATCH (n:character {name:&quot;saturn&quot;})
   └────────────────────────────────────────────┘
 </code></pre></div>
 
-
 <ul>
 <li>Find the name of hercules's grandfather</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM hash(&quot;hercules&quot;) OVER father YIELD  $$.character.name;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM hash(&quot;hercules&quot;) OVER father YIELD  $$.character.name;
     =====================
     | $$.character.name |
     =====================
@@ -2638,11 +2635,10 @@ cypher&gt; MATCH (src:character{name:&quot;hercules&quot;})-[r:father*2]-&gt;(ds
       └──────────┘
 </code></pre></div>
 
-
 <ul>
 <li>Find the name of hercules's father</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;hercules&quot;) OVER father YIELD $$.character.name;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;hercules&quot;) OVER father YIELD $$.character.name;
     =====================
     | $$.character.name |
     =====================
@@ -2658,11 +2654,10 @@ cypher&gt; MATCH (src:character{name:&quot;hercules&quot;})-[r:father]-&gt;(dst:
       └──────────┘
 </code></pre></div>
 
-
 <ul>
 <li>Find the the centenarians' name.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; # coming soon
+<div class="highlight"><pre><span></span><code>nebula&gt; # coming soon
 
 cypher&gt; MATCH (src:character)
       &gt; WHERE src.age &gt; 100
@@ -2680,11 +2675,10 @@ cypher&gt; MATCH (src:character)
       └───────────┘
 </code></pre></div>
 
-
 <ul>
 <li>Find who live with pluto</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;pluto&quot;) OVER lives YIELD lives._dst AS place | GO FROM $-.place OVER lives REVERSELY WHERE \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;pluto&quot;) OVER lives YIELD lives._dst AS place | GO FROM $-.place OVER lives REVERSELY WHERE \
       &gt; $$.character.name != &quot;pluto&quot; YIELD $$.character.name AS cohabitants;
     ===============
     | cohabitants |
@@ -2701,11 +2695,10 @@ cypher&gt; MATCH (src:character{name:&quot;pluto&quot;})-[r1:lives]-&gt;()&lt;-[
       └──────────┘
 </code></pre></div>
 
-
 <ul>
 <li>Find pluto's brother and their habitations?</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;pluto&quot;) OVER brother YIELD brother._dst AS god | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM hash(&quot;pluto&quot;) OVER brother YIELD brother._dst AS god | \
       &gt; GO FROM $-.god OVER lives YIELD $^.character.name AS Brother, $$.location.name AS Habitations;
     =========================
     | Brother | Habitations |

@@ -2989,7 +2989,7 @@
 <h3 id="installing_dependencies">Installing Dependencies<a class="headerlink" href="#installing_dependencies" title="Permanent link">&para;</a></h3>
 <p>Please note that it requires root privileges to install packages.</p>
 <p>For CentOS, RedHat and Fedora users:</p>
-<div class="codehilite"><pre><span></span><code>$ yum update
+<div class="highlight"><pre><span></span><code>$ yum update
 $ yum install -y make <span class="se">\</span>
                  m4 <span class="se">\</span>
                  git <span class="se">\</span>
@@ -3010,9 +3010,8 @@ $ yum install -y make <span class="se">\</span>
 $ yum install -y libstdc++-static libasan
 </code></pre></div>
 
-
 <p>For Debian and Ubuntu users:</p>
-<div class="codehilite"><pre><span></span><code>$ apt-get update
+<div class="highlight"><pre><span></span><code>$ apt-get update
 $ apt-get install -y make <span class="se">\</span>
                      m4 <span class="se">\</span>
                      git <span class="se">\</span>
@@ -3028,27 +3027,23 @@ $ apt-get install -y make <span class="se">\</span>
                      gettext
 </code></pre></div>
 
-
 <p>For Arch and Gentoo users, you can definitely handle all of these on your own, right?</p>
 <p>To make sure your GCC and CMake are in the right version:</p>
-<div class="codehilite"><pre><span></span><code>$ g++ --version
+<div class="highlight"><pre><span></span><code>$ g++ --version
 $ cmake --version
 </code></pre></div>
 
-
 <p>If not, please refer to <a href="#install-an-applicable-cmake">Install an Applicable CMake</a> and <a href="#install-an-applicable-gcc">Install an Applicable GCC</a>.</p>
 <h3 id="cloning_the_repo">Cloning the Repo<a class="headerlink" href="#cloning_the_repo" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula.git
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula.git
 </code></pre></div>
-
 
 <p>If you don't care about the commit history of the repo, and to make the cloning faster, you could perform a shallow clone:</p>
-<div class="codehilite"><pre><span></span><code>$ git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/vesoft-inc/nebula.git
+<div class="highlight"><pre><span></span><code>$ git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/vesoft-inc/nebula.git
 </code></pre></div>
 
-
 <h3 id="configuring_and_building">Configuring and Building<a class="headerlink" href="#configuring_and_building" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>$ <span class="nb">cd</span> nebula
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula
 $ mkdir build
 $ <span class="nb">cd</span> build
 $ cmake -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$PWD</span>/install ..
@@ -3059,7 +3054,6 @@ $ make install
 $ ls install/
 etc/ bin/ share/ scripts/
 </code></pre></div>
-
 
 <p>Since C++ templates are heavily used by <strong>Nebula Graph</strong> and its third party dependencies, especially Folly, fbthrift and boost, the building is very time-consuming.</p>
 <p>For your reference, it is expected to take about 35 minutes in CPU time(less than 4 minutes with <code>-j16</code>), given an Intel E5-2697 v3 processor and unit tests are disabled.</p>
@@ -3086,10 +3080,9 @@ Options are <code>ON</code> and <code>OFF</code>, and the default value is <code
 <p>This option is to specify the location where the service modules, scripts, configuration files and tools are installed when <code>make install</code> is performed. It is set to <code>/usr/local/nebula</code> by default.</p>
 <h4 id="cmake_cxx_compiler">CMAKE_CXX_COMPILER<a class="headerlink" href="#cmake_cxx_compiler" title="Permanent link">&para;</a></h4>
 <p>Normally, CMake will figure out and locate an applicable C++ compiler for us. But if your compiler installation is not at the standard location, or if you want to use a different one, you have to specify it explicitly as follows:</p>
-<div class="codehilite"><pre><span></span><code>$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/gcc/bin/gcc -DCMAKE_CXX_COMPILER<span class="o">=</span>/path/to/gcc/bin/g++ ..
+<div class="highlight"><pre><span></span><code>$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/gcc/bin/gcc -DCMAKE_CXX_COMPILER<span class="o">=</span>/path/to/gcc/bin/g++ ..
 $ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/clang/bin/clang -DCMAKE_CXX_COMPILER<span class="o">=</span>/path/to/clang/bin/clang++ ..
 </code></pre></div>
-
 
 <h4 id="enable_ccache">ENABLE_CCACHE<a class="headerlink" href="#enable_ccache" title="Permanent link">&para;</a></h4>
 <p>This option is to enable the use of <code>ccache</code>, which is for speeding up the compilation during daily development.</p>
@@ -3102,10 +3095,9 @@ $ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/clang/bin/clang -DCMA
 <p>This option is to explicitly specify the location of the third party.</p>
 <h3 id="installing_third_party_manually">Installing Third Party Manually<a class="headerlink" href="#installing_third_party_manually" title="Permanent link">&para;</a></h3>
 <p>By default, at the configure(cmake) stage, a prebuilt third party will be downloaded and installed to the current build directory. If you would like to install it into another location for some reason, e.g. to rebuild by removing the whole build directory without downloading the third party again, you could perform the installation manually. Assume you are now at the build directory, run:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># To install third party to /opt requires root privilege, you could change it to another location with --prefix.</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># To install third party to /opt requires root privilege, you could change it to another location with --prefix.</span>
 $ ../third-party/install-third-party.sh --prefix<span class="o">=</span>/opt/vesoft/third-party
 </code></pre></div>
-
 
 <p>If the third party is installed to <code>/opt/vesoft/third-party</code>, which is by default if no <code>--prefix</code> given, the building system of <strong>Nebula Graph</strong> would find it automatically. Otherwise, you need to specify the location with the CMake argument <code>NEBULA_THIRDPARTY_ROOT</code> as mentioned above, or set an environment variable to the location and export it. The precedence for <strong>Nebula Graph</strong> to find and choose the third party is:</p>
 <ol>
@@ -3116,7 +3108,7 @@ $ ../third-party/install-third-party.sh --prefix<span class="o">=</span>/opt/ves
 </ol>
 <h2 id="install_an_applicable_cmake">Install an Applicable CMake<a class="headerlink" href="#install_an_applicable_cmake" title="Permanent link">&para;</a></h2>
 <p>For users who don't have a usable CMake installation, we provide a script to automatically download and install one for you. Assuming you are now at the build directory, run:</p>
-<div class="codehilite"><pre><span></span><code>$ ../third-party/install-cmake.sh cmake-install
+<div class="highlight"><pre><span></span><code>$ ../third-party/install-cmake.sh cmake-install
 CMake has been installed to <span class="nv">prefix</span><span class="o">=</span>cmake-install
 Run <span class="s1">&#39;source cmake-install/bin/enable-cmake.sh&#39;</span> to make it ready to use.
 Run <span class="s1">&#39;source cmake-install/bin/disable-cmake.sh&#39;</span> to disable it.
@@ -3126,11 +3118,10 @@ $ cmake --version
 cmake version <span class="m">3</span>.15.5
 </code></pre></div>
 
-
 <p>Now you have an applicable CMake ready to use. At any time, you could run the command <code>source cmake-install/bin/disable-cmake.sh</code> to disable it.</p>
 <h2 id="install_an_applicable_gcc">Install an Applicable GCC<a class="headerlink" href="#install_an_applicable_gcc" title="Permanent link">&para;</a></h2>
 <p>For users who don't have a usable GCC installation, we provide a prebuilt GCC and a script to automatically download and install it. Assuming you are now at the build directory, run:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># To install GCC to /opt requires root privilege, you could change it to other locations</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># To install GCC to /opt requires root privilege, you could change it to other locations</span>
 $ ../third-party/install-gcc.sh --prefix<span class="o">=</span>/opt
 GCC-7.5.0 has been installed to /opt/vesoft/toolset/gcc/7.5.0
 Performing usability tests
@@ -3149,12 +3140,11 @@ g++ <span class="o">(</span>Nebula Graph Build<span class="o">)</span> <span cla
 Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2017</span> Free Software Foundation, Inc.
 </code></pre></div>
 
-
 <p>Now you have an applicable GCC compiler ready to use. At any time, you could run the command <code>source /opt/vesoft/toolset/gcc/7.5.0/disable</code> to disable it.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="error_invalid_argument_type_auto_to_unary_expression"><code>error: invalid argument type 'auto' to unary expression</code><a class="headerlink" href="#error_invalid_argument_type_auto_to_unary_expression" title="Permanent link">&para;</a></h3>
 <p>This error happens when building with Clang 9.0, as shown below:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>  <span class="m">5</span>%<span class="o">]</span> Building CXX object src/common/fs/CMakeFiles/fs_obj.dir/FileUtils.cpp.o
+<div class="highlight"><pre><span></span><code><span class="o">[</span>  <span class="m">5</span>%<span class="o">]</span> Building CXX object src/common/fs/CMakeFiles/fs_obj.dir/FileUtils.cpp.o
 In file included from src/common/fs/FileUtils.cpp:8:
 In file included from src/common/fs/FileUtils.h:12:
 src/common/base/StatusOr.h:57:19: error: invalid argument <span class="nb">type</span> <span class="s1">&#39;auto&#39;</span> to unary expression
@@ -3164,7 +3154,6 @@ src/common/fs/FileUtils.cpp:90:34: note: in instantiation of template class <spa
 StatusOr&lt;std::string&gt; FileUtils::readLink<span class="o">(</span>const char *path<span class="o">)</span> <span class="o">{</span>
 ...
 </code></pre></div>
-
 
 <p>It is due to a known bug of Clang 9.0 to deal with <em>auto template variables</em>, which has not been fixed until now(2020-01-20).</p>
                 

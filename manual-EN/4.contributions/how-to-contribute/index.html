@@ -2656,18 +2656,16 @@
 </ol>
 <h2 id="step_2_clone_fork_to_local_storage">Step 2: Clone Fork to Local Storage<a class="headerlink" href="#step_2_clone_fork_to_local_storage" title="Permanent link">&para;</a></h2>
 <p>Define a local working directory:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Define your working directory</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Define your working directory</span>
 <span class="nv">working_dir</span><span class="o">=</span><span class="nv">$HOME</span>/Workspace
 </code></pre></div>
 
-
 <p>Set <code>user</code> to match your Github profile name:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">user</span><span class="o">={</span>your Github profile name<span class="o">}</span>
+<div class="highlight"><pre><span></span><code><span class="nv">user</span><span class="o">={</span>your Github profile name<span class="o">}</span>
 </code></pre></div>
 
-
 <p>Create your clone:</p>
-<div class="codehilite"><pre><span></span><code>mkdir -p <span class="nv">$working_dir</span>
+<div class="highlight"><pre><span></span><code>mkdir -p <span class="nv">$working_dir</span>
 <span class="nb">cd</span> <span class="nv">$working_dir</span>
 git clone https://github.com/<span class="nv">$user</span>/nebula.git
 <span class="c1"># the following is recommended</span>
@@ -2689,46 +2687,40 @@ git remote set-url --push upstream no_push
 git remote -v
 </code></pre></div>
 
-
 <h3 id="define_a_pre-commit_hook">Define a Pre-Commit Hook<a class="headerlink" href="#define_a_pre-commit_hook" title="Permanent link">&para;</a></h3>
 <p>Please link the <strong>Nebula Graph</strong> pre-commit hook into your <code>.git</code> directory.</p>
 <p>This hook checks your commits for formatting, building, doc generation, etc.</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula/.git/hooks
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula/.git/hooks
 ln -s ../../.linters/cpp/hooks/pre-commit.sh .
 </code></pre></div>
 
-
 <p>Sometimes, pre-commit hook can not be executable. In such case, you have to make it executable manually.</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula/.git/hooks
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula/.git/hooks
 chmod +x pre-commit
 </code></pre></div>
 
-
 <h2 id="step_3_branch">Step 3: Branch<a class="headerlink" href="#step_3_branch" title="Permanent link">&para;</a></h2>
 <p>Get your local master up to date:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$working_dir</span>/nebula
 git fetch upstream
 git checkout master
 git rebase upstream/master
 </code></pre></div>
 
-
 <p>Checkout a new branch from master:</p>
-<div class="codehilite"><pre><span></span><code>git checkout -b myfeature
+<div class="highlight"><pre><span></span><code>git checkout -b myfeature
 </code></pre></div>
-
 
 <p><strong>NOTE</strong>: Because your PR often consists of several commits, which might be squashed while being merged into upstream,
 we strongly suggest you open a separate topic branch to make your changes on. After merged,
 this topic branch could be just abandoned, thus you could synchronize your master branch with
 upstream easily with a rebase like above. Otherwise, if you commit your changes directly into master,
 maybe you must use a hard reset on the master branch, like:</p>
-<div class="codehilite"><pre><span></span><code>git fetch upstream
+<div class="highlight"><pre><span></span><code>git fetch upstream
 git checkout master
 git reset --hard upstream/master
 git push --force origin master
 </code></pre></div>
-
 
 <h3 id="step_4_develop">Step 4: Develop<a class="headerlink" href="#step_4_develop" title="Permanent link">&para;</a></h3>
 <h4 id="edit_the_code">Edit the Code<a class="headerlink" href="#edit_the_code" title="Permanent link">&para;</a></h4>
@@ -2742,31 +2734,29 @@ git push --force origin master
 - Add unit tests</p>
 <p>There is a <code>test</code> directory in the modified code module. You can add unit tests in it, then compile and run the unit tests. Please make sure your submitted codes pass all the unit tests.
 - Run all the unit tests</p>
-<p><code>bash
-  cd nebula/build
-  ctest -j$(nproc)</code></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula/build
+ctest -j<span class="k">$(</span>nproc<span class="k">)</span>
+</code></pre></div>
+
 </li>
 </ul>
 <h3 id="step_5_keep_your_branch_in_sync">Step 5: Keep Your Branch in Sync<a class="headerlink" href="#step_5_keep_your_branch_in_sync" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># While on your myfeature branch.</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># While on your myfeature branch.</span>
 git fetch upstream
 git rebase upstream/master
 </code></pre></div>
 
-
 <h3 id="step_6_commit">Step 6: Commit<a class="headerlink" href="#step_6_commit" title="Permanent link">&para;</a></h3>
 <p>Commit your changes.</p>
-<div class="codehilite"><pre><span></span><code>git commit
+<div class="highlight"><pre><span></span><code>git commit
 </code></pre></div>
-
 
 <p>Likely you'll go back and edit/build/test some more than <code>commit --amend</code> in a few cycles.</p>
 <h3 id="step_7_push">Step 7: Push<a class="headerlink" href="#step_7_push" title="Permanent link">&para;</a></h3>
 <p>When ready to review (or just to establish an offsite backup or your work),
 push your branch to your fork on <code>github.com</code>:</p>
-<div class="codehilite"><pre><span></span><code>git push -f origin myfeature
+<div class="highlight"><pre><span></span><code>git push -f origin myfeature
 </code></pre></div>
-
 
 <h3 id="step_8_create_a_pull_request">Step 8: Create a Pull Request<a class="headerlink" href="#step_8_create_a_pull_request" title="Permanent link">&para;</a></h3>
 <ol>

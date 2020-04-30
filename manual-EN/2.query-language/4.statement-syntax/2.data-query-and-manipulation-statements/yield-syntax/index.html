@@ -2479,15 +2479,14 @@
                 <h1 id="yield_clause_and_statement">Yield Clause and Statement<a class="headerlink" href="#yield_clause_and_statement" title="Permanent link">&para;</a></h1>
 <p>Keyword <code>YIELD</code> can be used as a clause in a <code>FETCH</code> or <code>GO</code> statement, or as a separate statement in <code>PIPE</code>(<code>|</code>), or as a stand-alone statement for calculation.</p>
 <h2 id="as_clause_with_go-syntax">As Clause (With GO-Syntax)<a class="headerlink" href="#as_clause_with_go-syntax" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>YIELD
+<div class="highlight"><pre><span></span><code>YIELD
     [DISTINCT]
     &lt;col_name&gt; [AS &lt;col_alias&gt;]
     [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
 </code></pre></div>
 
-
 <p><code>YIELD</code> is commonly used to return results generated with <code>GO</code> (Refer <a href="../go-syntax/">GO</a>).</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD $$.player.name AS Friend, $$.player.age AS Age;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD $$.player.name AS Friend, $$.player.age AS Age;
 ===========================
 | Friend            | Age |
 ===========================
@@ -2499,7 +2498,6 @@
 ---------------------------
 </code></pre></div>
 
-
 <p>For example: <code>$$.player.name</code> is used to get the property of the dest vertex ($$).</p>
 <h2 id="as_statement">As Statement<a class="headerlink" href="#as_statement" title="Permanent link">&para;</a></h2>
 <h3 id="reference_inputs_or_variables">Reference Inputs or Variables<a class="headerlink" href="#reference_inputs_or_variables" title="Permanent link">&para;</a></h3>
@@ -2508,15 +2506,14 @@
 <li>You can use the <code>YIELD</code> statement to reference variables.</li>
 <li>For statements that do not support <code>YIELD</code> statement, you can use it as a tool to control the output.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>YIELD
+<div class="highlight"><pre><span></span><code>YIELD
     [DISTINCT]
     &lt;col_name&gt; [AS &lt;col_alias&gt;]
     [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
     [WHERE &lt;conditions&gt;]
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | YIELD $-.* WHERE $-.id == 106;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | YIELD $-.* WHERE $-.id == 106;
 
 =========
 | $-.id |
@@ -2539,10 +2536,9 @@ nebula&gt; $var1 = GO FROM 101 OVER follow; $var2 = GO FROM 105 OVER follow; YIE
 ---------------------
 </code></pre></div>
 
-
 <h3 id="as_stand-alone_statement">As Stand-alone Statement<a class="headerlink" href="#as_stand-alone_statement" title="Permanent link">&para;</a></h3>
 <p><code>YIELD</code> statement can be used independently to retrieve computation results without reference to any graph. You can use <code>AS</code> to rename it an alias.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; YIELD 1 + 1;
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD 1 + 1;
 =========
 | (1+1) |
 =========
@@ -2564,9 +2560,8 @@ nebula&gt; YIELD hash(&quot;Tim&quot;) % 100;
 ---------------------
 </code></pre></div>
 
-
 <p><strong>Note:</strong> You can not use <code>YIELD DISTINCT</code> as a stand-alone statement. The following is a syntax error.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; YIELD DISTINCT 1     --- syntax error!
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD DISTINCT 1     --- syntax error!
 </code></pre></div>
                 
                   

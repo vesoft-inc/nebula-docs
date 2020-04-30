@@ -2423,7 +2423,7 @@
                 
                 
                 <h1 id="insert_edge_syntax">Insert Edge Syntax<a class="headerlink" href="#insert_edge_syntax" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>INSERT EDGE &lt;edge_name&gt; ( &lt;prop_name_list&gt; ) VALUES | VALUE
+<div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_name&gt; ( &lt;prop_name_list&gt; ) VALUES | VALUE
 &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;ranking&gt;] : ( &lt;prop_value_list&gt; )
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; : ( &lt;prop_value_list&gt; ), ...]
 
@@ -2434,7 +2434,6 @@
   [ &lt;prop_value&gt; [, &lt;prop_value&gt; ] ...]
 </code></pre></div>
 
-
 <p><code>INSERT EDGE</code> statement inserts a (directed) edge from a starting vertex (given by src_vid) to an ending vertex (given by dst_vid).</p>
 <ul>
 <li><code>&lt;edge_name&gt;</code> denotes the edge type, which must be created before <code>INSERT EDGE</code>.</li>
@@ -2443,22 +2442,20 @@
 <li><code>ranking</code> is optional, it specifies the edge ranking of the same edge type, if not specified, the default value is 0.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE e1()                    -- create edge t1 with empty property or default values
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1()                    -- create edge t1 with empty property or default values
 nebula&gt; INSERT EDGE e1 () VALUES 10-&gt;11:()    -- insert an edge from vertex 10 to vertex 11 with empty property
 nebula&gt; INSERT EDGE e1 () VALUES 10-&gt;11@1:()  -- insert an edge from vertex 10 to vertex 11 with empty property, the edge ranking is 1
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE e2 (name string, age int)                     -- create edge e2 with two properties
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e2 (name string, age int)                     -- create edge e2 with two properties
 nebula&gt; INSERT EDGE e2 (name, age) VALUES 11-&gt;13:(&quot;n1&quot;, 1)          -- insert edge from 11 to 13 with two properties
 nebula&gt; INSERT EDGE e2 (name, age) VALUES \
 12-&gt;13:(&quot;n1&quot;, 1), 13-&gt;14:(&quot;n2&quot;, 2)                           -- insert two edges
 nebula&gt; INSERT EDGE e2 (name, age) VALUES 11-&gt;13:(&quot;n1&quot;, &quot;a13&quot;)      -- ERROR. &quot;a13&quot; is not int
 </code></pre></div>
 
-
 <p>An edge can be inserted/wrote multiple times. Only the last written values can be read.</p>
-<div class="codehilite"><pre><span></span><code>-- insert edge with the new values.
+<div class="highlight"><pre><span></span><code>-- insert edge with the new values.
 nebula&gt; INSERT EDGE e2 (name, age) VALUES 11-&gt;13:(&quot;n1&quot;, 12)
 nebula&gt; INSERT EDGE e2 (name, age) VALUES 11-&gt;13:(&quot;n1&quot;, 13)
 nebula&gt; INSERT EDGE e2 (name, age) VALUES 11-&gt;13:(&quot;n1&quot;, 14) -- the last version can be read

@@ -2365,7 +2365,7 @@
 <p><strong>Nebula Graph</strong> provides <code>Spark-SSTFile-Generator</code> tool.</p>
 <p><code>Spark-SSTFile-Generator</code> generates SST files from the hive table via the mapping files. For details on how to use it, please refer <a href="https://github.com/vesoft-inc/nebula/blob/master/src/tools/spark-sstfile-generator/README.md">Spark application command line reference</a>.</p>
 <p>The execution will generate SST files on <code>HDFS</code>. The directory structure is as follows:</p>
-<div class="codehilite"><pre><span></span><code>|---1 (this is partition number)
+<div class="highlight"><pre><span></span><code>|---1 (this is partition number)
 |        | ---- vertex-${FIRST_KEY_IN_THIS_FILE}.sst
 |        | ---- edge-${FIRST_KEY_IN_THIS_FILE}.sst
 |---2
@@ -2374,14 +2374,12 @@
 ....
 </code></pre></div>
 
-
 <p>Each directory is a partition number.</p>
 <p>SST file name format is <code>{TYPE}-${FIRST_KEY_IN_THIS_FILE}.sst</code>, where <code>TYPE</code> is data type, <code>FIRST_KEY_IN_THIS_FILE</code> is the start Key of the file. (If you want to write your own tools to generate SST files, you need to ensure that the keys in each <code>SST</code> file are ordered.)</p>
 <p>Please confirm that all servers have <code>Hadoop</code> installed and <code>HADOOP_HOME</code> set.</p>
 <p>Run <strong>Nebula Graph</strong> console and execute the download command:</p>
-<div class="codehilite"><pre><span></span><code>nebula &gt; DOWNLOAD HDFS &quot;hdfs://${HADOOP_HOST}:${HADOOP_PORT}/${HADOOP_PATH}&quot;
+<div class="highlight"><pre><span></span><code>nebula &gt; DOWNLOAD HDFS &quot;hdfs://${HADOOP_HOST}:${HADOOP_PORT}/${HADOOP_PATH}&quot;
 </code></pre></div>
-
 
 <p>Download the <code>SST</code> files of each server into directory <code>data/download</code> respectively via the <code>DOWNLOAD</code> command and <code>meta</code> in the storage servers. Explanation of the above command:</p>
 <ul>
@@ -2392,9 +2390,8 @@
 <p>If error occurs when downloading, delete the corresponding data files in <code>data/download</code> directory and try to download again. If error occurs again, please raise us an issue on <a href="https://github.com/vesoft-inc/nebula/issues">GitHub</a>. When data download is done, re-execute the command leads to no actions.</p>
 <p>When the offline SST data download is done, it can be ingested into the storage service via <code>INGEST</code> command.
 <code>INGEST</code> command is as follows:</p>
-<div class="codehilite"><pre><span></span><code>nebula &gt; INGEST
+<div class="highlight"><pre><span></span><code>nebula &gt; INGEST
 </code></pre></div>
-
 
 <p>The command will ingest the <code>SST</code> files in <code>data/download</code> directory.</p>
 <p><strong>Note:</strong> <code>ingest</code> will block <code>RocksDB</code> when the data amount is large, please avoid running the command at requirement peak.</p>
