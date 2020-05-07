@@ -1,4 +1,4 @@
-# Create TAG / EDGE Syntax
+# CREATE TAG/EDGE Syntax
 
 ```ngql
 CREATE {TAG | EDGE} [IF NOT EXISTS] {<tag_name> | <edge_name>}

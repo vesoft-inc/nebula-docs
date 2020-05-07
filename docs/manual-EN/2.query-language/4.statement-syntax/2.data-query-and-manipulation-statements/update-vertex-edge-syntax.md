@@ -1,4 +1,4 @@
-# Update Syntax
+# UPDATE Syntax
 
 **Nebula Graph** supports `UPDATE` properties of a vertex or an edge, as well as CAS operation and returning related properties.
 

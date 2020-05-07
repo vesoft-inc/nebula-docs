@@ -1,4 +1,4 @@
-# Alter Tag/Edge Syntax
+# ALTER TAG/EDGE Syntax
 
 ```ngql
 ALTER TAG | EDGE <tag_name> | <edge_name>

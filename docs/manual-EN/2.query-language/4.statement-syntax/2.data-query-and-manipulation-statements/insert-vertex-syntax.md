@@ -1,4 +1,4 @@
-# Insert Vertex Syntax
+# INSERT VERTEX Syntax
 
 ```ngql
 INSERT VERTEX <tag_name> [, <tag_name>, ...] (prop_name_list[, prop_name_list])

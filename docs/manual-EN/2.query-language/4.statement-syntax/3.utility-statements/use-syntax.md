@@ -1,4 +1,4 @@
-# Use Syntax
+# USE Syntax
 
 ```ngql
 USE <graph_space_name>
