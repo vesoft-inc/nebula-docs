@@ -1,4 +1,4 @@
-# Go Syntax
+# GO Syntax
 
 `GO` statement is the MOST commonly used clause in **Nebula Graph**.
 

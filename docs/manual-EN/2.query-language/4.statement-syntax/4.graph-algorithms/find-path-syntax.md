@@ -1,4 +1,4 @@
-# Find Path Syntax
+# FIND PATH Syntax
 
 `FIND PATH` statement can be used to get the shortest path and all paths.
 

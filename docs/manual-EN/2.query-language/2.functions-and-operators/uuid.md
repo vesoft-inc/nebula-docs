@@ -1,6 +1,6 @@
 # UUID
 
-`UUID` is used to generate the global unique identifiers.  
+`UUID` is used to generate the global unique identifiers.
 
 When the number of vertices reaches billions, using `Hash` Function to generate vids has a certain conflict probability. Therefore, **Nebula Graph** provides `UUID` Function to avoid vid conflicts in a large number of vertices. `UUID` Function is composed of the `Murmur` hash function and the current timestamp (in seconds).
 

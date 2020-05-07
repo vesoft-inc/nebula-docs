@@ -1,4 +1,4 @@
-# Yield Clause and Statement
+# YIELD Syntax
 
  Keyword `YIELD` can be used as a clause in a `FETCH` or `GO` statement, or as a separate statement in `PIPE`(`|`), or as a stand-alone statement for calculation.
 

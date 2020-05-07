@@ -1,4 +1,4 @@
-# Lookup Syntax
+# LOOKUP Syntax
 
 The `LOOKUP` statement is used to search for the filter condition in it. `LOOKUP` is often coupled with a `WHERE` clause which adds filters or predicates.
 

@@ -1,4 +1,4 @@
-# Create Space Syntax
+# CREATE SPACE Syntax
 
 ```ngql
 CREATE SPACE [IF NOT EXISTS] <space_name>

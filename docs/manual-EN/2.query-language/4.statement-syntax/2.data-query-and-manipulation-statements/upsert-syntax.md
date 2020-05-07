@@ -1,4 +1,4 @@
-# Upsert Syntax
+# UPSERT Syntax
 
 `UPSERT` is used to insert a new vertex or edge or update an existing one. If the vertex or edge doesn’t exist it will be created. `UPSERT` is a combination of `INSERT` and `UPDATE`.
 
