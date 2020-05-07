@@ -1,4 +1,4 @@
-# Limit Syntax
+# LIMIT Syntax
 
 `LIMIT` works the same as in `SQL`, and must be used with pipe `|`. The `LIMIT` clause accepts one or two arguments. The values of both arguments must be zero or positive integers.
 

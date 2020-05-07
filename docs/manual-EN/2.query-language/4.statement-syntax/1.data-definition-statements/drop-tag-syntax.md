@@ -1,4 +1,4 @@
-# Drop Tag Syntax
+# DROP TAG Syntax
 
 ```ngql
 DROP TAG [IF EXISTS] <tag_name>

@@ -1,4 +1,4 @@
-# Describe Syntax
+# DESCRIBE Syntax
 
 ```ngql
 DESCRIBE SPACE <space_name>
@@ -21,7 +21,7 @@ nebula> DESCRIBE SPACE nba;
 | ID |     Name    | Partition number | Replica Factor |
 ========================================================
 |  1 |     nba     |             100  |              1 |
---------------------------------------------------------  
+--------------------------------------------------------
 ```
 
 Obtain information about tag in a given space.

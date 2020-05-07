@@ -1,4 +1,4 @@
-# Drop Space Syntax
+# DROP SPACE Syntax
 
 ```ngql
 DROP SPACE [IF EXISTS] <space_name>
