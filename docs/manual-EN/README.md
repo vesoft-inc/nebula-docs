@@ -137,11 +137,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Cluster Snapshot](3.build-develop-and-administration/5.storage-service-administration/cluster-snapshot.md)
   * [Long Time-Consuming Task Management](3.build-develop-and-administration/5.storage-service-administration/job-manager.md)
 * Monitoring and Statistics
-  * [Connect Prometheus](3.build-develop-and-administration/7.minor/0.connect-prometheus.md)
-  * [Metrics](3.build-develop-and-administration/7.minor/1.metrics-exposer.md)
-  * [Meta Metrics](3.build-develop-and-administration/7.minor/2.meta-metrics.md)
-  * [Storage Metrics](3.build-develop-and-administration/7.minor/3.storage-metrics.md)
-  * [Graph Metrics](3.build-develop-and-administration/7.minor/4.graph-metrics.md)
+  * [Connect Prometheus](3.build-develop-and-administration/7.monitor/0.connect-prometheus.md)
+  * [Metrics](3.build-develop-and-administration/7.monitor/1.metrics-exposer.md)
+  * [Meta Metrics](3.build-develop-and-administration/7.monitor/2.meta-metrics.md)
+  * [Storage Metrics](3.build-develop-and-administration/7.monitor/3.storage-metrics.md)
+  * [Graph Metrics](3.build-develop-and-administration/7.monitor/4.graph-metrics.md)
 * Development and API
   * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md)
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
