@@ -2,7 +2,7 @@
 
 This document describes how to upgrade Nebula Graph. Find the corresponding upgrade guide to your version below.
 
-## Upgrading From Nebula Graph RC3 t RC4
+## Upgrading From Nebula Graph RC3 to RC4
 
 - Stop all the Nebula Graph services
   - Run `scripts/nebula.service stop all` command on each machine
