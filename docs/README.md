@@ -26,6 +26,7 @@ In case you encounter any problem, be sure to ask us on our [official forum](htt
 ## Documentation
 
 * [English](https://docs.nebula-graph.io/)
+* [Documentation Index](manual-EN/README.md)
 * [简体中文](https://docs.nebula-graph.com.cn/)
 
 ## Roadmap
