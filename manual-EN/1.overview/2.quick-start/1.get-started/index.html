@@ -550,6 +550,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upsert" class="md-nav__link">
+    UPSERT
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -586,6 +593,33 @@
   <a href="#sample_queries" class="md-nav__link">
     Sample Queries
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    Example 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    Example 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2643,6 +2677,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upsert" class="md-nav__link">
+    UPSERT
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2679,6 +2720,33 @@
   <a href="#sample_queries" class="md-nav__link">
     Sample Queries
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    Example 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    Example 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    Example 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2740,17 +2808,54 @@
 <p>You can create and use a graph space by the following steps:</p>
 <ol>
 <li>
+<p>Check the cluster machine status:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 44500 | online |              |                     |                        |
+------------------------------------------------------------------------------------------------
+| 192.168.8.211 | 44500 | online |              |                     |                        |
+------------------------------------------------------------------------------------------------
+</code></pre></div>
+
+<p>The status <code>online</code> indicates that the <strong>storage service</strong> <code>storaged</code> has successfully connected to the <strong>metadata service process</strong> <code>metad</code>.</p>
+</li>
+<li>
 <p>Enter the following statement to create a graph space:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=10, replica_factor=1);
 </code></pre></div>
 
-<p><strong>Note</strong>:</p>
+<p><strong>Here</strong>:</p>
 <ul>
 <li><code>partition_num</code> specifies the number of partitions in one replica. It is usually 5 times the number of hard disks in the cluster.</li>
 </ul>
 <ul>
 <li><code>replica_factor</code> specifies the number of replicas in the cluster. It is usually 3 in production, 1 in test.</li>
 </ul>
+<p>You can also check machine and partition distribution with <code>SHOW HOSTS</code> statement:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 44500 | online | 8            | nba: 8              | test: 8                |
+------------------------------------------------------------------------------------------------
+| 192.168.8.211 | 44500 | online | 2            | nba: 2              | test: 2                |
+------------------------------------------------------------------------------------------------
+</code></pre></div>
+
+<p>If all the machines are online, but the leader distribution is unbalanced (see above), re-distribute partitions with <code>BALANCE LEADER</code> statement:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
+================================================================================================
+| 192.168.8.210 | 44500 | online | 5            | nba: 5              | test: 5                |
+------------------------------------------------------------------------------------------------
+| 192.168.8.211 | 44500 | online | 5            | nba: 5              | test: 5                |
+------------------------------------------------------------------------------------------------
+</code></pre></div>
+
+<p>See <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax/">here</a> for details.</p>
 </li>
 <li>
 <p>Enter the following statement to use the graph space:</p>
@@ -2758,6 +2863,20 @@
 </code></pre></div>
 
 <p>Now you can check the space you just created by the following statement:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
+</code></pre></div>
+
+<p>The following information is returned:</p>
+<div class="highlight"><pre><span></span><code>========
+| Name |
+========
+| nba  |
+--------
+</code></pre></div>
+
+</li>
+<li>
+<p>Now you can check the graph space you just created:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
 
@@ -2798,8 +2917,10 @@
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 
+</li>
+<li>
 <p>Now you can check the tags and edge types you just created.</p>
-<p>To show the tags you just created, enter the following statement:</p>
+<p>5.1 To show the tags you just created, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW TAGS;
 </code></pre></div>
 
@@ -2813,9 +2934,7 @@
 ------------
 </code></pre></div>
 
-</li>
-</ol>
-<p>To show the edge types you just created, enter the following statement:</p>
+<p>5.2 To show the edge types you just created, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW EDGES;
 </code></pre></div>
 
@@ -2829,7 +2948,7 @@
 ----------
 </code></pre></div>
 
-<p>To show the properties of the <strong>player</strong> tag, enter the following statement:</p>
+<p>5.3 To show the properties of the <strong>player</strong> tag, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE TAG player;
 </code></pre></div>
 
@@ -2843,7 +2962,7 @@
 -------------------
 </code></pre></div>
 
-<p>To show the properties of the <strong>follow</strong> edge type, enter the following statement:</p>
+<p>5.4 To show the properties of the <strong>follow</strong> edge type, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE EDGE follow;
 </code></pre></div>
 
@@ -2855,6 +2974,8 @@
 ---------------------
 </code></pre></div>
 
+</li>
+</ol>
 <h2 id="crud">CRUD<a class="headerlink" href="#crud" title="Permanent link">&para;</a></h2>
 <h3 id="inserting_data">Inserting Data<a class="headerlink" href="#inserting_data" title="Permanent link">&para;</a></h3>
 <p>You can insert vertices and edges based on relations in the <a href="#overview">illustration figure</a>.</p>
@@ -2872,10 +2993,10 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES 121:(&quot;Useless&quot;, 60);
 <p><strong>Note</strong>:</p>
 <ol>
 <li>
-<p>In the above vertices inserted, the number after the keyword <code>VALUES</code> is the vertex ID (abbreviated for <code>VID</code>). The <code>VID</code> must be unique in the space.</p>
+<p>In the above vertices inserted, the number after the keyword <code>VALUES</code> is the vertex ID (abbreviated for <code>VID</code>, int64). The <code>VID</code> must be unique in the space.</p>
 </li>
 <li>
-<p>The last vertex inserted will be deleted in the <a href="#deleting-data">deleting data</a> section.</p>
+<p>The last vertex (VID: 121)inserted will be deleted in the <a href="#deleting-data">deleting data</a> section.</p>
 </li>
 <li>
 <p>If you want to insert multiple vertices for the same tag by a single <code>INSERT VERTEX</code> operation, you can enter the following statement:</p>
@@ -2886,7 +3007,7 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES 121:(&quot;Useless&quot;, 60);
 </code></pre></div>
 
 <h4 id="inserting_edges">Inserting Edges<a class="headerlink" href="#inserting_edges" title="Permanent link">&para;</a></h4>
-<p>The <code>INSERT EDGE</code> statement inserts an edge by specifying the edge type name, properties, source vertex ID and target vertex ID, and property values.</p>
+<p>The <code>INSERT EDGE</code> statement inserts an edge by specifying the edge type name, properties, source vertex VID and target vertex VID, and property values.</p>
 <p>You can insert some edges by the following statements:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95);
 nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 102:(90);
@@ -2895,13 +3016,13 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 100 -&gt; 200:(1997, 2
 nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2018);
 </code></pre></div>
 
-<p><strong>Note</strong>: If you want to insert multiple edges for the same edge type by a single <code>INSERT EDGES</code> operation, you can enter the following statement:</p>
-<div class="highlight"><pre><span></span><code>INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95),100 -&gt; 102:(90),102 -&gt; 101:(75);
+<p><strong>Similarly</strong>: If you want to insert multiple edges for the same edge type by a single <code>INSERT EDGES</code> operation, you can enter the following statement:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95),100 -&gt; 102:(90),102 -&gt; 101:(75);
 </code></pre></div>
 
 <h3 id="fetching_data">Fetching Data<a class="headerlink" href="#fetching_data" title="Permanent link">&para;</a></h3>
 <p>After you insert some data in <strong>Nebula Graph</strong>, you can retrieve any data from your graph space.</p>
-<p>The <code>FETCH PROP ON</code> statement retrieve data from your graph space. If you want to fetch vertex data, you must specify the vertex tag and vertex ID; if you want to fetch edge data, you must specify the edge type name, source vertex ID and target vertex ID.</p>
+<p>The <code>FETCH PROP ON</code> statement retrieve data from your graph space. If you want to fetch vertex data, you must specify the vertex tag and vertex VID; if you want to fetch edge data, you must specify the edge type name, source vertex VID and target vertex VID.</p>
 <p>To fetch the data of the player whose <code>VID</code> is <code>100</code>, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player 100;
 </code></pre></div>
@@ -2950,7 +3071,7 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2
 <h4 id="updating_edges">Updating Edges<a class="headerlink" href="#updating_edges" title="Permanent link">&para;</a></h4>
 <p>The <code>UPDATE EDGE</code> statement updates data for your edge by specifying the source vertex ID and the target vertex ID of the edge and then setting the property value with an equal sign to assign it a new value.</p>
 <p>The following example shows you how to change the value of the <code>degree</code> property in the <strong>follow</strong> edge between <code>VID</code> <code>100</code> and <code>VID</code> <code>101</code>. Now we change the <code>degree</code> property from <code>95</code> to <code>96</code>.</p>
-<p>Enter the following statement to update the <code>degree</code> value:</p>
+<p>Now we add the <code>degree</code> value by 1:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE 100 -&gt; 101 OF follow SET degree = 96;
 </code></pre></div>
 
@@ -2966,10 +3087,23 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2
 ------------------------------------------------------------
 </code></pre></div>
 
+<h4 id="upsert">UPSERT<a class="headerlink" href="#upsert" title="Permanent link">&para;</a></h4>
+<p><code>UPSERT</code> is used to insert a new vertex or edge or update an existing one. If the vertex or edge doesn’t exist it will be created. <code>UPSERT</code> is a combination of <code>INSERT</code> and <code>UPDATE</code>.</p>
+<p>Consider the following example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 111:(&quot;Ben Simmons&quot;, 22); -- Insert a new vertex.
+nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player.age = $^.player.age + 11 WHEN $^.player.name == &quot;Ben Simmons&quot; &amp;&amp; $^.player.age &gt; 20 YIELD $^.player.name AS Name, $^.player.age AS Age; -- Do upsert on the vertex.
+=======================
+| Name          | Age |
+=======================
+| Dwight Howard | 33  |
+-----------------------
+</code></pre></div>
+
+<p>See <a href="../../../2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/upsert-syntax/">UPSERT Doc</a> for details.</p>
 <h3 id="deleting_data">Deleting Data<a class="headerlink" href="#deleting_data" title="Permanent link">&para;</a></h3>
 <p>If you have some data that you do not need, you can delete it from your graph space.</p>
 <h4 id="deleting_vertices">Deleting Vertices<a class="headerlink" href="#deleting_vertices" title="Permanent link">&para;</a></h4>
-<p>You can delete any vertex from your graph space. The <code>DELETE VERTEX</code> statement deletes a vertex by specifying the vertex ID.</p>
+<p>You can delete any vertex from your graph space. The <code>DELETE VERTEX</code> statement deletes a vertex by specifying the vertex VID.</p>
 <p>To delete a vertex whose <code>VID</code> is <code>121</code>, enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX 121;
 </code></pre></div>
@@ -2982,7 +3116,7 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2
 <div class="highlight"><pre><span></span><code>Execution succeeded (Time spent: 1571/1910 us)
 </code></pre></div>
 
-<p><strong>Note</strong>: The above information with an empty return result indicates the query operation is successful but no data is queried from your graph space because the data is deleted.</p>
+<p>The above information with an empty return result indicates the query operation is successful but no data is queried from your graph space because the data is deleted.</p>
 <h4 id="deleting_edges">Deleting Edges<a class="headerlink" href="#deleting_edges" title="Permanent link">&para;</a></h4>
 <p>You can delete any edge from your graph space. The <code>DELETE EDGE</code> statement deletes an edge by specifying the edge type name and the source vertex ID and target vertex ID.</p>
 <p>To delete a <strong>follow</strong> edge between <code>VID</code> <code>100</code> and <code>VID</code> <code>200</code>, enter the following statement:</p>
@@ -2992,7 +3126,8 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2
 <p><strong>Note</strong>: If you delete a vertex, all the out-going and in-coming edges of this vertex are deleted.</p>
 <h3 id="sample_queries">Sample Queries<a class="headerlink" href="#sample_queries" title="Permanent link">&para;</a></h3>
 <p>This section gives more query examples for your reference.</p>
-<p><strong>Example 1</strong>. Find the vertices that <code>VID</code> <code>100</code> follows.</p>
+<h4 id="example_1">Example 1<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<p>Find the vertices that <code>VID</code> <code>100</code> follows.</p>
 <p>Enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow;
 </code></pre></div>
@@ -3007,7 +3142,8 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2
 ---------------
 </code></pre></div>
 
-<p><strong>Example 2</strong>. Find the vertex that <code>VID</code> <code>100</code> follows, whose age is greater than <code>35</code>.
+<h4 id="example_2">Example 2<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<p>Find the vertex that <code>VID</code> <code>100</code> follows, whose age is greater than <code>35</code>.
 Return his name and age, and set the column names to <strong>Teammate</strong> and <strong>Age</strong> respectively.</p>
 <p>Enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow WHERE $$.player.age &gt;= 35 \
@@ -3022,18 +3158,21 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 ---------------------
 </code></pre></div>
 
-<p><strong>Note</strong>:</p>
+<p><strong>Here</strong>:</p>
 <ul>
 <li><code>YIELD</code> specifies what values or results you want to return from the query.</li>
 <li><code>$$</code> represents the target vertex.</li>
 <li><code>\</code> represents a line break.</li>
 </ul>
-<p><strong>Example 3</strong>. Find the team which is served by the player who is followed by <code>100</code>.</p>
+<h4 id="example_3">Example 3<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<p>Find the team which is served by the player who is followed by <code>100</code>.</p>
 <p>There are two ways to get the same result. First, we can use a <code>pipe</code> to retrieve the team. Then we use a <code>temporary variable</code> to retrieve the same team.</p>
+<ol>
+<li>
 <p>Enter the following statement with a <code>pipe</code>:</p>
-<div class="highlight"><pre><span></span><code>GO FROM 100 OVER follow YIELD follow._dst AS id | \
-GO FROM $-.id OVER serve YIELD $$.team.name \
-AS Team, $^.player.name AS Player;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | \
+        GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
 </code></pre></div>
 
 <p>The following information is returned.</p>
@@ -3044,10 +3183,16 @@ AS Team, $^.player.name AS Player;
 -------------------------------
 </code></pre></div>
 
+<p><strong>Here</strong>:</p>
+<p><code>$^</code> indicates the source vertex of the edge.</p>
+<p><code>|</code> indicates the pipe.</p>
+<p><code>$-</code> indicates the input flow. The output of the previous query <code>(id)</code> is used as the input of the next query <code>($-.id)</code>.</p>
+</li>
+<li>
 <p>Enter the following statement with a <code>temporary variable</code>:</p>
-<div class="highlight"><pre><span></span><code>$var=GO FROM 100 OVER follow YIELD follow._dst AS id; \
-GO FROM $var.id OVER serve YIELD $$.team.name \
-AS Team, $^.player.name AS Player;
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM 100 OVER follow YIELD follow._dst AS id; \
+        GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
 </code></pre></div>
 
 <p>The following information is returned.</p>
@@ -3058,13 +3203,9 @@ AS Team, $^.player.name AS Player;
 -------------------------------
 </code></pre></div>
 
-<p><strong>Note</strong>:</p>
-<ul>
-<li><code>$^</code> represents the source vertex.</li>
-<li><code>|</code> denotes a pipe. The output of the previous query acts as an input to the next query.</li>
-<li><code>$-</code> refers to the input stream.</li>
-<li>The second approach adopts a user-defined variable <code>$var</code>. The scope of this variable is within the compound statement.</li>
-</ul>
+</li>
+</ol>
+<p>When a composition statement is submitted to the server as a whole, the custom variables in the statement have ended their life cycle.</p>
 <h2 id="batch_inserting">Batch Inserting<a class="headerlink" href="#batch_inserting" title="Permanent link">&para;</a></h2>
 <p>To insert multiple data, you can put all the DDL (Data Definition Language) statements in a <code>.ngql</code> file as follows.</p>
 <div class="highlight"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
@@ -3088,16 +3229,13 @@ CREATE EDGE serve(start_year int, end_year int);
 vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127</span>.0.0.1 --port<span class="o">=</span><span class="m">3699</span>
 </code></pre></div>
 
-<p><strong>Note</strong>:</p>
+<p><strong>Here</strong>:</p>
 <ul>
 <li>You must change the IP address and the port number to yours.</li>
 <li>You can download the <code>nba.ngql</code> file <a href="https://oss-cdn.nebula-graph.io/doc/nba.ngql">here</a>.</li>
 </ul>
-<p>Likewise, you can put hundreds or thousands DML (Data Manipulation Language) statements in a <em>data.ngql</em> file to insert data.</p>
 <h2 id="data_import_tools">Data Import Tools<a class="headerlink" href="#data_import_tools" title="Permanent link">&para;</a></h2>
-<p>If you have millions of records to insert, it is recommended to use the <a href="../../../3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file/">csv importer</a>.</p>
-<!-- (or [sst ingest tool](../../3.build-develop-and-administration/5.storage-service-administration/data-import/download-and-ingest-sst-file.md)) -->
-
+<p>If you have millions of records to insert, it is recommended to use the <a href="../../../3.build-develop-and-administration/5.storage-service-administration/data-import/import-csv-file/">csv importer</a> or <a href="../../../3.build-develop-and-administration/5.storage-service-administration/data-import/spark-writer/">Spark Writer</a>.</p>
 <p>Again, if you come across any problem following the steps in this guide, please head over to our <a href="https://discuss.nebula-graph.io">official forum</a> and our on-call developers are more than happy to answer your questions!</p>
 <p>Finish the steps in this guide and feel Nebula Graph is good? Please <a href="https://github.com/vesoft-inc/nebula">star us on GitHub</a> and make our day!</p>
                 
