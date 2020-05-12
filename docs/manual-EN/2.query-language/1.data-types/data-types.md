@@ -6,19 +6,19 @@ The built-in data types supported by **Nebula Graph** are as follows:
 
 ### Integer
 
-An integer is declared with keyword `int` , which is 64-bit *signed*, the range is [-9223372036854775808, 9223372036854775807], and there is no overflow in int64-based calculation. Integer constants support multiple formats:
+An integer is declared with keyword `int` , which is 64-bit *signed*, the range is [-9223372036854775808, 9223372036854775807]. Integer constants support multiple formats:
 
 1. Decimal, for example `123456`
-1. Hexadecimal, for example `0xdeadbeaf`
-1. Octal, for example `01234567`
+2. Hexadecimal, for example `0xdeadbeaf`
+3. Octal, for example `01234567`
 
 <!-- ### Floating Point
 
-Floating point data type is used for storing single precision floating point values. Keyword used for floating point data type is `float`, which is only meaningful for schema definitions and the number of bytes stored. Floating point literal constants are treated as double precision floating point numbers during parsing and arithmetic operations.
+Floating point data type is used for storing single precision floating point values. Keyword used for floating point data type is `float`, which is only meaningful for schema definitions and the number of bytes stored. Floating point literal constants are treated as double precision floating point numbers during parsing and arithmetic operations. -->
 
 ### Double Floating Point
 
-Double floating point data type is used for storing double precision floating point values. Keyword used for double floating point data type is `double`. There are no upper and lower ranges. -->
+Double floating point data type is used for storing double precision floating point values. Keyword used for double floating point data type is `double`. There are no upper and lower ranges.
 
 ## Boolean
 

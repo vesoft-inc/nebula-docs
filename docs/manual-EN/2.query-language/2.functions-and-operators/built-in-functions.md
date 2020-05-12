@@ -12,7 +12,7 @@ double ceil(double x) | Return the smallest integer greater than or equal to the
 double round(double x) | Return integral value nearest to the argument, returns a number farther away from 0 if the parameter is in the middle|
 double sqrt(double x) | Return the square root of the argument |
 double cbrt(double x) | Return the cubic root of the argument |
-double hypot(double x, double x) | Return the hypotenuse of a right-angled triangle |
+double hypot(double x, double y) | Return the hypotenuse of a right-angled triangle |
 double pow(double x, double y) | Compute the power of the argument |
 double exp(double x) | Return the value of e raised to the x power |
 double exp2(double x) | Return 2 raised to the argument |

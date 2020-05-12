@@ -1,4 +1,4 @@
-# Aggregate (Group By) Function
+# Group By Function
 
 The `GROUP BY` functions are similar with SQL. It can only be applied in the `YIELD` syntax.
 
