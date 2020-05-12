@@ -1748,19 +1748,6 @@
     gflag Parameters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reservoir_sampling_parameters" class="md-nav__link">
-    Reservoir Sampling Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2449,19 +2436,6 @@
     gflag Parameters
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reservoir_sampling_parameters" class="md-nav__link">
-    Reservoir Sampling Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2556,7 +2530,7 @@
 <tr>
 <td>wal_ttl</td>
 <td>MUTABLE</td>
-<td>Life time of write-ahead-log in disks. Default value is <code>14400</code> secondes</td>
+<td>Life time of write-ahead-log in disks. Default value is <code>14400</code> secondes. The minimum value is <code>3600</code> seconds. When the setting is less than the minimum value, Nebula will ignore the value and regard it as <code>3600</code>.</td>
 </tr>
 <tr>
 <td>rocksdb_db_options</td>
@@ -2614,21 +2588,6 @@
         { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 }
 </code></pre></div>
 
-<h3 id="reservoir_sampling_parameters">Reservoir Sampling Parameters<a class="headerlink" href="#reservoir_sampling_parameters" title="Permanent link">&para;</a></h3>
-<p>Set the following parameters in the configuration file <code>storaged-conf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">enable_reservoir_sampling</span> <span class="o">=</span> true/false <span class="c1"># Enable reservoir sampling with true.</span>
-<span class="nv">max_edge_returned_per_vertex</span> <span class="o">=</span> number <span class="c1"># Set the sampling number.</span>
-</code></pre></div>
-
-<p>For super vertex with a large number of edges, currently there are two truncation strategies:</p>
-<ol>
-<li>
-<p>Truncate directly. Set the <code>enable_reservoir_sampling</code> parameter to <code>false</code>. A certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated by default.</p>
-</li>
-<li>
-<p>Truncate with the reservoir sampling algorithm. Based on the algorithm, a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated with equal probability from the total n edges. Equal probability sampling is useful in some business scenarios. However, the performance is effected compared to direct truncation due to the probability calculation.</p>
-</li>
-</ol>
 <h2 id="show_configs">SHOW CONFIGS<a class="headerlink" href="#show_configs" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>SHOW CONFIGS [graph|meta|storage]
 </code></pre></div>
