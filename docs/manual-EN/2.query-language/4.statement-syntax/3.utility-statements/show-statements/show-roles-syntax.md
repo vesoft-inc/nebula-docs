@@ -6,6 +6,9 @@ SHOW ROLES IN <space_name>
 
 `SHOW ROLES` statement displays the roles that are assigned to a user account. `SHOW ROLES` output has these columns: account and role type.
 
+If the user is `GOD` or `ADMIN`, **Nebula Graph** shows all roles limited to its authorized space.
+If the user is `DBA`, `USER` or `GUEST`, **Nebula Graph** shows only his own role.
+
 For example:
 
 ```ngql
