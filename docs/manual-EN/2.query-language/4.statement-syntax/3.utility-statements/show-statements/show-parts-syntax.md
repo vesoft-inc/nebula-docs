@@ -4,7 +4,7 @@
 SHOW PARTS <part_id>
 ```
 
-`SHOW PARTS` lists the partition information of the given SPACE.
+`SHOW PARTS` lists the partition information of the given SPACE. `<part_id>` is optional, if not specified, all parts information is returned.
 
 ```ngql
 nebula> SHOW PARTS 1;

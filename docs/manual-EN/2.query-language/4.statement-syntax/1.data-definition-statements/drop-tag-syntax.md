@@ -8,7 +8,7 @@ You must have the DROP privilege for the tag.
 
 > Be careful with this statement.
 
-**Note:** When dropping a tag, **Nebula Graph** only checks whether the tag is associated with any indexes. If so the deletion is rejected.
+**Note:** When dropping a tag, **Nebula Graph** will only check whether the tag is associated with any indexes. If so the deletion is rejected.
 
 Please refer to [Index Documentation](index.md) on details about index.
 
