@@ -64,6 +64,6 @@ In case you encounter any problems playing around **Nebula Graph**, please reach
 * [Facebook page](https://www.facebook.com/NebulaGraph/)
 * [LinkedIn page](https://www.linkedin.com/company/vesoft-nebula-graph/)
 
-If you like **Nebula Graph**, please leave us a star.<a href="http://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default">
-    <img src="http://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default" alt="nebula star"/>
+If you like **Nebula Graph**, please leave us a star.<a href="https://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default">
+    <img src="https://githubbadges.com/star.svg?user=vesoft-inc&repo=nebula&style=default" alt="nebula star"/>
   </a>
