@@ -95,11 +95,11 @@ git push --force origin master
 
 ### Step 4: Develop
 
-### Code style
+#### Code style
 
 We provide [clang-format](https://github.com/vesoft-inc/nebula/blob/master/.clang-format) to format your code.
 
-### Testing
+#### Unit Tests Required
 
 Please add unit tests for your new features or bugfixes.
 
