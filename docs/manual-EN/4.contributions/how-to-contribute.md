@@ -97,7 +97,7 @@ git push --force origin master
 
 #### Code style
 
-We provide [clang-format](https://github.com/vesoft-inc/nebula/blob/master/.clang-format) to format your code.
+We adopts `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
 
 #### Unit Tests Required
 
