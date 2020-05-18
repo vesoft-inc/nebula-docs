@@ -143,7 +143,7 @@ When ready to review (or just to establish an offsite backup or your work),
 push your branch to your fork on `github.com`:
 
 ```bash
-git push -f origin myfeature
+git push origin myfeature
 ```
 
 ### Step 8: Create a Pull Request
