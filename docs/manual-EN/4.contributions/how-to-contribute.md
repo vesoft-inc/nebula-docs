@@ -95,7 +95,7 @@ git push --force origin master
 
 ### Step 4: Develop
 
-#### Code style
+#### Code Style
 
 We adopts `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
 
@@ -103,7 +103,7 @@ We adopts `cpplint` to ensure that the project conforms to Google's coding style
 
 Please add unit tests for your new features or bugfixes.
 
-#### Build your code with unit tests enable
+#### Build Your Code with Unit Tests Enable
 
 Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile. 
 
