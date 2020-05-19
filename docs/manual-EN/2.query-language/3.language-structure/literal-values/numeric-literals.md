@@ -16,16 +16,11 @@ The range for double is about `-1.79769e+308` to `1.79769e+308`.
 
 Scientific notations is not supported yet.
 
-## Scientific Notations
+### Scientific Notations
 
-Scientific notations are numbers represented with a mantissa and exponent. Either or both parts may be signed. Examples: `1.2E3`, `1.2E-3`, `-1.2E3`, `-1.2E-3`.
-
-## Examples
-
-Here are some examples:
+Nebula Graph supports using scientific notation to represent the Double type. For example:
 
 ```ngql
-1, -5, +10000100000
--2.3, +1.00000000000
-1.2E3
+nebula> CREATE TAG test1(price DOUBLE);
+nebula> INSERT VERTEX test1(price) VALUES 100:(1.2E3);
 ```
