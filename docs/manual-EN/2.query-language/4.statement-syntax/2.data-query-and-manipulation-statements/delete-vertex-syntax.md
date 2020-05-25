@@ -6,4 +6,12 @@ Given a list of vertices IDs, hash IDs or UUIDs, **Nebula Graph** supports `DELE
 DELETE VERTEX <vid_list>
 ```
 
+For example,
+
+```ngql
+nebula> DELETE VERTEX 121;
+```
+
+The above query deletes the vertex whose ID is `121`.
+
 **Nebula Graph** will find the in and out edges associated with the vertices and delete all of them, then delete information related to the vertices. Atomic operation is not guaranteed during the entire process for now, so please retry when failure occurs.
