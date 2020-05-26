@@ -28,26 +28,26 @@ Obtain information about tag in a given space.
 
 ```ngql
 nebula> DESCRIBE TAG player;
-==================================================
-| Field | Type   |  Null | Key | Default | Extra |
-==================================================
-| name  | string | false |     |         |       |
---------------------------------------------------
-|  age  | int    | false |     |         |       |
---------------------------------------------------
+==================
+| Field | Type   |
+==================
+| name  | string |
+------------------
+| age   | int    |
+------------------
 ```
 
 Obtain information about edge in a given space.
 
 ```ngql
 nebula> DESCRIBE EDGE serve;
-======================================================
-|      Field | Type |   Null | Key | Default | Extra |
-======================================================
-| start_year |  int |  false |     |         |       |
-------------------------------------------------------
-|   end_year |  int |  false |     |         |       |
-------------------------------------------------------
+=====================
+| Field      | Type |
+=====================
+| start_year | int  |
+---------------------
+| end_year   | int  |
+---------------------
 ```
 
 Obtain information about the index.
