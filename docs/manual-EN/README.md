@@ -137,7 +137,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Cluster Snapshot](3.build-develop-and-administration/5.storage-service-administration/cluster-snapshot.md)
   * [Long Time-Consuming Task Management](3.build-develop-and-administration/5.storage-service-administration/job-manager.md)
 * Monitoring and Statistics
-  * [Connect Prometheus](3.build-develop-and-administration/7.monitor/0.connect-prometheus.md)
+  <!-- * [Connect Prometheus](3.build-develop-and-administration/7.monitor/0.connect-prometheus.md) -->
   * [Metrics](3.build-develop-and-administration/7.monitor/1.metrics-exposer.md)
   * [Meta Metrics](3.build-develop-and-administration/7.monitor/2.meta-metrics.md)
   * [Storage Metrics](3.build-develop-and-administration/7.monitor/3.storage-metrics.md)
