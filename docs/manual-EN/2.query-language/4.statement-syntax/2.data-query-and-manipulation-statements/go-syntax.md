@@ -24,11 +24,11 @@ It indicates to traverse in a graph with specific filters (the `WHERE` clause), 
     <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
 ```
 
-* [ \<N> STEPS ] specifies the N query hops
-* <node_list> is either a list of node's vid separated by comma(,), or a special place holder `$-.id` (refer `PIPE` syntax).
-* <edge_type_list> is a list of edge types which graph traversal can go through.
-* [ WHERE \<expression> ] extracts only those results that fulfill the specified conditions. WHERE syntax can be conditions for src-vertex, the edges, and dst-vertex. The logical AND, OR, NOT are also supported. See [WHERE Syntax](where-syntax.md) for more information.
-* YIELD [DISTINCT] <return_list> statement returns the result in column format and rename as an alias name. See `YIELD` syntax for more information. The `DISTINCT` syntax works the same as SQL.
+* `<N> STEPS` specifies the N query hops
+* `<node_list>` is either a list of node's vid separated by comma(,), or a special place holder `$-.id` (refer `PIPE` syntax).
+* `<edge_type_list>`is a list of edge types which graph traversal can go through.
+* `WHERE <expression>` extracts only those results that fulfill the specified conditions. WHERE syntax can be conditions for src-vertex, the edges, and dst-vertex. The logical AND, OR, NOT are also supported. See [WHERE Syntax](where-syntax.md) for more information.
+* `YIELD [DISTINCT] <return_list>` statement returns the result in column format and rename as an alias name. See `YIELD` syntax for more information. The `DISTINCT` syntax works the same as SQL.
 
 ## Examples
 
