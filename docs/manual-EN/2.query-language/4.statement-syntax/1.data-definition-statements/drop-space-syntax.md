@@ -6,7 +6,7 @@ DROP SPACE [IF EXISTS] <space_name>
 
 You must have the DROP privilege for the graph space.
 
-DROP SPACE deletes everything in the specific space. Data will be deleted after restarting the services.
+DROP SPACE deletes everything in the specific space.
 
 You can use the `If EXISTS` keywords when dropping spaces. This keyword automatically detects if the corresponding space exists. If it exists, it will be deleted. Otherwise, no space is deleted.
 
