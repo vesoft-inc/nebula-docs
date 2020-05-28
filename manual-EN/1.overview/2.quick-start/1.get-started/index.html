@@ -481,6 +481,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating_index" class="md-nav__link">
+    Creating Index
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -625,6 +632,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    Example 4
+  </a>
   
 </li>
       
@@ -1877,6 +1891,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../3.build-develop-and-administration/2.install/3.install-with-docker/" title="Docker Installation" class="md-nav__link">
+      Docker Installation
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2596,6 +2622,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#creating_index" class="md-nav__link">
+    Creating Index
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2740,6 +2773,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    Example 4
+  </a>
   
 </li>
       
@@ -2964,6 +3004,13 @@
 
 </li>
 </ol>
+<h3 id="creating_index">Creating Index<a class="headerlink" href="#creating_index" title="Permanent link">&para;</a></h3>
+<p>You can add indexes to existing tag/edge-type with the <code>CREATE INDEX</code> keyword.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+</code></pre></div>
+
+<p>The above statement creates an index for the <em>name</em> property on all vertices carrying the <em>player</em> tag.</p>
+<p>See the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Documentation</a> for details.</p>
 <h2 id="crud">CRUD<a class="headerlink" href="#crud" title="Permanent link">&para;</a></h2>
 <h3 id="inserting_data">Inserting Data<a class="headerlink" href="#inserting_data" title="Permanent link">&para;</a></h3>
 <p>You can insert vertices and edges based on relations in the <a href="#overview">illustration figure</a>.</p>
@@ -3194,6 +3241,19 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 </li>
 </ol>
 <p>When a composition statement is submitted to the server as a whole, the custom variables in the statement have ended their life cycle.</p>
+<h2 id="example_4">Example 4<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h2>
+<p>If you have created an index for the data, you can use the <code>LOOKUP ON</code> keyword to query properties.</p>
+<p>The following example returns vertices whose name is <code>Tony Parker</code> and tagged with <em>player</em>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+YIELD player.name, player.age;
+=======================================
+| VertexID | player.name | player.age |
+=======================================
+| 101      | Tony Parker | 36         |
+---------------------------------------
+</code></pre></div>
+
+<p>See <a href="../../../2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax/">LOOKUP Documentation</a> for details.</p>
 <h2 id="batch_inserting">Batch Inserting<a class="headerlink" href="#batch_inserting" title="Permanent link">&para;</a></h2>
 <p>To insert multiple data, you can put all the DDL (Data Definition Language) statements in a <code>.ngql</code> file as follows.</p>
 <div class="highlight"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
