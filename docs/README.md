@@ -21,7 +21,7 @@ Read the [Getting started](https://docs.nebula-graph.io/manual-EN/1.overview/2.q
 
 Please note that you must install **Nebula Graph** by [installing source code](https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/1.build/1.build-source-code/), [rpm/deb packages](https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/2.install/1.install-with-rpm-deb/) or [docker compose](https://github.com/vesoft-inc/nebula-docker-compose), before you can actually start using it. If you prefer a video tutorial, visit our [YouTube channel](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw).
 
-In case you encounter any problem, be sure to ask us on our [official forum](https://discuss.nebula-graph.io).
+If you have any questions, please don't hesitate to contact us on [forum](https://discuss.nebula-graph.io).
 
 ## Documentation
 
