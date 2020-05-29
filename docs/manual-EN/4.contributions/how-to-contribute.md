@@ -56,7 +56,7 @@ cd $working_dir/nebula/.git/hooks
 ln -s ../../.linters/cpp/hooks/pre-commit.sh .
 ```
 
-Sometimes, pre-commit hook can not be executable. In such case, you have to make it executable manually.
+Sometimes, pre-commit hook can not be executable. You have to make it executable manually.
 
 ```bash
 cd $working_dir/nebula/.git/hooks
@@ -97,7 +97,7 @@ git push --force origin master
 
 #### Code Style
 
-We adopts `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
+We adopt `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
 
 #### Unit Tests Required
 
