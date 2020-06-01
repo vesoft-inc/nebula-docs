@@ -3046,15 +3046,26 @@ $ cmake --version
 <div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula
 $ mkdir build
 $ <span class="nb">cd</span> build
-$ cmake -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$PWD</span>/install ..
+$ cmake -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release ..
 <span class="c1"># Assuming cores is the number of cores and mem_gb is the memory size (in GB), the value of N is recommended to select the smaller one from cores and mem_gb / 2</span>
 <span class="c1"># We suggest choosing release build type to speed up compilation</span>
 $ make -jN
-$ make install
-$ ls install/
-etc/ bin/ share/ scripts/
+<span class="c1"># The default installation directory is /usr/local/nebula</span>
+$ sudo make install
+<span class="c1"># If you want to start the services, copy the configuration files under the etc/ directory</span>
+<span class="c1"># For production</span>
+$ <span class="nb">cd</span> /usr/local/nebula
+$ sudo cp etc/nebula-storaged.conf.production etc/nebula-storaged.conf
+$ sudo cp etc/nebula-metad.conf.production etc/nebula-metad.conf
+$ sudo cp etc/nebula-metad.conf.production etc/nebula-metad.conf
+<span class="c1"># For trial</span>
+$ <span class="nb">cd</span> /usr/local/nebula
+$ sudo cp etc/nebula-storaged.conf.default etc/nebula-storaged.conf
+$ sudo cp etc/nebula-metad.conf.default etc/nebula-metad.conf
+$ sudo cp etc/nebula-metad.conf.default etc/nebula-metad.conf
 </code></pre></div>
 
+<p>See the <a href="../../2.install/2.start-stop-service/">Start and Stop Nebula Graph Services Doc</a> for details.</p>
 <p>Since C++ templates are heavily used by <strong>Nebula Graph</strong> and its third party dependencies, especially Folly, fbthrift and boost, the building is very time-consuming.</p>
 <p>For your reference, it is expected to take about 35 minutes in CPU time(less than 4 minutes with <code>-j16</code>), given an Intel E5-2697 v3 processor and unit tests are disabled.</p>
 <h2 id="ways_to_tweak_the_building">Ways to Tweak the Building<a class="headerlink" href="#ways_to_tweak_the_building" title="Permanent link">&para;</a></h2>
