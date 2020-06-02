@@ -1755,34 +1755,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#gflag_parameters" class="md-nav__link">
-    gflag Parameters
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#show_configs" class="md-nav__link">
-    SHOW CONFIGS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get_configs" class="md-nav__link">
-    Get CONFIGS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#update_configs" class="md-nav__link">
-    Update CONFIGS
-  </a>
-  
-</li>
-      
       
       
       
@@ -1848,7 +1820,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../7.kernel-configuration/" title="Kernel Configuration" class="md-nav__link">
+    <a href="../7.kernel-configuration.md" title="Kernel Configuration" class="md-nav__link">
       Kernel Configuration
     </a>
   </li>
@@ -2443,34 +2415,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#gflag_parameters" class="md-nav__link">
-    gflag Parameters
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#show_configs" class="md-nav__link">
-    SHOW CONFIGS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get_configs" class="md-nav__link">
-    Get CONFIGS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#update_configs" class="md-nav__link">
-    Update CONFIGS
-  </a>
-  
-</li>
-      
       
       
       
@@ -2498,77 +2442,33 @@
 <li>Restart the services after changing the configuration files to take effect.</li>
 <li>Configuration changes in console take effect in real time.</li>
 </ul>
-<h2 id="gflag_parameters">gflag Parameters<a class="headerlink" href="#gflag_parameters" title="Permanent link">&para;</a></h2>
-<p><strong>Nebula Graph</strong> uses <code>gflags</code> for run-time configurations. <code>gflags</code> parameters see the following table.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>max_edge_returned_per_vertex</td>
-<td>MUTABLE</td>
-<td>Control the max edges returned by a certain vertex.</td>
-</tr>
-<tr>
-<td>minloglevel</td>
-<td>MUTABLE</td>
-<td>Minimum log level.</td>
-</tr>
-<tr>
-<td>v</td>
-<td>MUTABLE</td>
-<td>Debug log level.</td>
-</tr>
-<tr>
-<td>heartbeat_interval_secs</td>
-<td>MUTABLE</td>
-<td>Heartbeat interval.</td>
-</tr>
-<tr>
-<td>meta_client_retry_times</td>
-<td>MUTABLE</td>
-<td>Meta client retry times.</td>
-</tr>
-<tr>
-<td>slow_op_threshhold_ms</td>
-<td>MUTABLE</td>
-<td>Default threshold for slow operation, set in ms</td>
-</tr>
-<tr>
-<td>wal_ttl</td>
-<td>MUTABLE</td>
-<td>Life time of write-ahead-log in disks. Default value is <code>14400</code> secondes. The minimum value is <code>3600</code> seconds. When the setting is less than the minimum value, Nebula will ignore the value and regard it as <code>3600</code>.</td>
-</tr>
-<tr>
-<td>rocksdb_db_options</td>
-<td>NESTED</td>
-<td>Parameter in json format, and the key and value of them are in string format.</td>
-</tr>
-<tr>
-<td>rocksdb_column_family_options</td>
-<td>NESTED</td>
-<td>Parameter in json format, and the key and value of them are in string format.</td>
-</tr>
-<tr>
-<td>rocksdb_block_based_table_options</td>
-<td>NESTED</td>
-<td>Parameter in json format, and the key and value of them are in string format.</td>
-</tr>
-</tbody>
-</table>
-<p>For example, you can set as follows in the conf file of storage:</p>
+<!-- ## gflag Parameters
+
+**Nebula Graph** uses `gflags` for run-time configurations. `gflags` parameters see the following table.
+
+Name                              | Type    | Description
+--------------------------------- | ------- | -----------
+max_edge_returned_per_vertex      | MUTABLE | Control the max edges returned by a certain vertex.
+minloglevel                       | MUTABLE | Minimum log level.
+v                                 | MUTABLE | Debug log level.
+heartbeat_interval_secs           | MUTABLE | Heartbeat interval.
+meta_client_retry_times           | MUTABLE | Meta client retry times.
+slow_op_threshhold_ms             | MUTABLE | Default threshold for slow operation, set in ms
+wal_ttl                           | MUTABLE | Life time of write-ahead-log in disks. Default value is `14400` secondes. The minimum value is `3600` seconds. When the setting is less than the minimum value, Nebula will ignore the value and regard it as `3600`.
+rocksdb_db_options                | NESTED  | Parameter in json format, and the key and value of them are in string format.
+rocksdb_column_family_options     | NESTED  | Parameter in json format, and the key and value of them are in string format.
+rocksdb_block_based_table_options | NESTED  | Parameter in json format, and the key and value of them are in string format.
+
+For example, you can set as follows in the conf file of storage:
+
 <div class="highlight"><pre><span></span><code>    rocksdb_db_options = {&quot;stats_dump_period_sec&quot;:&quot;200&quot;, &quot;enable_write_thread_adaptive_yield&quot;:&quot;false&quot;, &quot;write_thread_max_yield_usec&quot;:&quot;600&quot;}
     rocksdb_column_family_options = {&quot;max_write_buffer_number&quot;:&quot;4&quot;, &quot;min_write_buffer_number_to_merge&quot;:&quot;2&quot;, &quot;max_write_buffer_number_to_maintain&quot;:&quot;1&quot;}
     rocksdb_block_based_table_options = {&quot;block_restart_interval&quot;:&quot;2&quot;}
     &quot;max_edge_returned_per_vertex&quot;:&quot;INT_MAX&quot;
 </code></pre></div>
 
-<p><strong>Nebula Graph</strong> supports changing some rocksdb parameters in storage service as follows:</p>
+**Nebula Graph** supports changing some rocksdb parameters in storage service as follows:
+
 <div class="highlight"><pre><span></span><code>    // rocksdb_column_family_options
     disable_auto_compactions
     write_buffer_size
@@ -2595,16 +2495,20 @@
     max_open_files
 </code></pre></div>
 
-<p>For example</p>
+For example
+
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = \
         { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 }
+``` --&gt;
+
+## SHOW CONFIGS
+
+```ngql
+SHOW CONFIGS [graph|meta|storage]
 </code></pre></div>
 
-<h2 id="show_configs">SHOW CONFIGS<a class="headerlink" href="#show_configs" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW CONFIGS [graph|meta|storage]
-</code></pre></div>
+For example:
 
-<p>For example</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW CONFIGS meta;
 ============================================================================================================================
 | module | name                                        | type   | mode      | value                                        |
@@ -2617,11 +2521,13 @@
 ----------------------------------------------------------------------------------------------------------------------------
 </code></pre></div>
 
-<h2 id="get_configs">Get CONFIGS<a class="headerlink" href="#get_configs" title="Permanent link">&para;</a></h2>
+## GET CONFIGS
+
 <div class="highlight"><pre><span></span><code>GET CONFIGS [graph|meta|storage :] var
 </code></pre></div>
 
-<p>For example</p>
+For example
+
 <div class="highlight"><pre><span></span><code>nebula&gt; GET CONFIGS storage:local_ip;
 =======================================================
 | module  | name     | type   | mode      | value     |
@@ -2640,16 +2546,16 @@
 -----------------------------------------------------------------
 </code></pre></div>
 
-<h2 id="update_configs">Update CONFIGS<a class="headerlink" href="#update_configs" title="Permanent link">&para;</a></h2>
+## Update CONFIGS
+
 <div class="highlight"><pre><span></span><code>UPDATE CONFIGS [graph|meta|storage :] var = value
 </code></pre></div>
 
-<blockquote>
-<p>The updated CONFIGS will be stored into meta-service permanently.
-If the configuration's mode is <code>MUTABLE</code>, the change will take effects immediately. Otherwise, if the mode is <code>REBOOT</code>, the change will not work until server restart.
-Expression is supported in UPDATE CONFIGS.
-For example</p>
-</blockquote>
+> The updated CONFIGS will be stored into the `meta service` permanently.
+> If the configuration's mode is `MUTABLE`, the change will take effects immediately. Otherwise, if the mode is `REBOOT`, the change will not work until server restart.
+> Expression is supported in UPDATE CONFIGS.
+For example
+
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:heartbeat_interval_secs=1;
 nebula&gt; GET CONFIGS storage:heartbeat_interval_secs;
 ===============================================================
