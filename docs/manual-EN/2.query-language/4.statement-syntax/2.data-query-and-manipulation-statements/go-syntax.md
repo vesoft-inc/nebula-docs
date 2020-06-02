@@ -7,7 +7,7 @@ It indicates to traverse in a graph with specific filters (the `WHERE` clause), 
 > The syntax of `GO` statement is very similar to `SELECT` in SQL. Notice that the major difference is that `GO` must start traversing from a (set of) vertex (vertices).
 
 ```ngql
-  GO [ <N> STEPS ] FROM <node_list>
+  GO [[<M> TO] <N> STEPS ] FROM <node_list>
   OVER <edge_type_list> [REVERSELY] [BIDIRECT]
   [ WHERE <expression> [ AND | OR expression ...]) ]
   YIELD [DISTINCT] <return_list>
@@ -24,7 +24,8 @@ It indicates to traverse in a graph with specific filters (the `WHERE` clause), 
     <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
 ```
 
-* `<N> STEPS` specifies the N query hops
+* `<N> STEPS` specifies the N query hops. If not specified, the default traversal is one hop.
+* `M TO N STEPS` traverses from M to N hops.
 * `<node_list>` is either a list of node's vid separated by comma(,), or a special place holder `$-.id` (refer `PIPE` syntax).
 * `<edge_type_list>`is a list of edge types which graph traversal can go through.
 * `WHERE <expression>` extracts only those results that fulfill the specified conditions. WHERE syntax can be conditions for src-vertex, the edges, and dst-vertex. The logical AND, OR, NOT are also supported. See [WHERE Syntax](where-syntax.md) for more information.
@@ -93,7 +94,7 @@ GO FROM <node_list> OVER <edge_type_list | *> YIELD [DISTINCT] <return_list>
 For example:
 
 ```ngql
-nebula> GO OVER FROM <node_list> edge1, edge2....  // traverse alone edge1 and edge2 or
+nebula> GO OVER FROM <node_list> edge1, edge2....  // traverse along edge1 and edge2 or
 nebula> GO OVER FROM <node_list> *   // * indicates traversing along all edge types
 ```
 
@@ -197,3 +198,64 @@ nebula> GO FROM 102 OVER follow BIDIRECT;
 ```
 
 The above query returns players followed by 102 and follow 102 at the same time.
+
+## Traverse From M to N Hops
+
+**Nebula Graph** supports traversing from M to N hops. When M is equal to N, `GO M TO N STEPS` is equivalent to `GO N STEPS`. The syntax is:
+
+```ngql
+  GO <M> TO <N> STEPS FROM <node_list>
+  OVER <edge_type_list> [REVERSELY] [BIDIRECT]
+  [YIELD [DISTINCT] <return_list>]
+```
+
+For example:
+
+```ngql
+nebula> GO 1 TO 2 STEPS FROM 100 OVER serve;
+==============
+| serve._dst |
+==============
+| 200        |
+--------------
+```
+
+Traverse from vertex 100 along edge type serve, return 1 to 2 hops.
+
+```ngql
+nebula> GO 2 TO 4 STEPS FROM 100 OVER follow REVERSELY YIELD DISTINCT follow._dst;
+===============
+| follow._dst |
+===============
+| 133         |
+---------------
+| 105         |
+---------------
+| 140         |
+---------------
+```
+
+Traverse from vertex 100 along edge type follow reversely, return 2 to 4 hops.
+
+```ngql
+nebula> GO 4 TO 5 STEPS FROM 101 OVER follow BIDIRECT YIELD DISTINCT follow._dst;
+===============
+| follow._dst |
+===============
+| 100         |
+---------------
+| 102         |
+---------------
+| 104         |
+---------------
+| 105         |
+---------------
+| 107         |
+---------------
+| 113         |
+---------------
+| 121         |
+---------------
+```
+
+Traverse from vertex 101 along edge type follow bi-directly, return 4 to 5 hops.
