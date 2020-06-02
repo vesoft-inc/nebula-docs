@@ -1227,6 +1227,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#traverse_from_m_to_n_hops" class="md-nav__link">
+    Traverse From M to N Hops
+  </a>
+  
+</li>
+      
       
       
       
@@ -2471,6 +2478,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#traverse_from_m_to_n_hops" class="md-nav__link">
+    Traverse From M to N Hops
+  </a>
+  
+</li>
+      
       
       
       
@@ -2494,7 +2508,7 @@
 <blockquote>
 <p>The syntax of <code>GO</code> statement is very similar to <code>SELECT</code> in SQL. Notice that the major difference is that <code>GO</code> must start traversing from a (set of) vertex (vertices).</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>  GO [ &lt;N&gt; STEPS ] FROM &lt;node_list&gt;
+<div class="highlight"><pre><span></span><code>  GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;node_list&gt;
   OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
   [ WHERE &lt;expression&gt; [ AND | OR expression ...]) ]
   YIELD [DISTINCT] &lt;return_list&gt;
@@ -2512,7 +2526,8 @@
 </code></pre></div>
 
 <ul>
-<li><code>&lt;N&gt; STEPS</code> specifies the N query hops</li>
+<li><code>&lt;N&gt; STEPS</code> specifies the N query hops. If not specified, the default traversal is one hop.</li>
+<li><code>M TO N STEPS</code> traverses from M to N hops.</li>
 <li><code>&lt;node_list&gt;</code> is either a list of node's vid separated by comma(,), or a special place holder <code>$-.id</code> (refer <code>PIPE</code> syntax).</li>
 <li><code>&lt;edge_type_list&gt;</code>is a list of edge types which graph traversal can go through.</li>
 <li><code>WHERE &lt;expression&gt;</code> extracts only those results that fulfill the specified conditions. WHERE syntax can be conditions for src-vertex, the edges, and dst-vertex. The logical AND, OR, NOT are also supported. See <a href="../where-syntax/">WHERE Syntax</a> for more information.</li>
@@ -2571,7 +2586,7 @@
 </code></pre></div>
 
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO OVER FROM &lt;node_list&gt; edge1, edge2....  // traverse alone edge1 and edge2 or
+<div class="highlight"><pre><span></span><code>nebula&gt; GO OVER FROM &lt;node_list&gt; edge1, edge2....  // traverse along edge1 and edge2 or
 nebula&gt; GO OVER FROM &lt;node_list&gt; *   // * indicates traversing along all edge types
 </code></pre></div>
 
@@ -2661,6 +2676,57 @@ Please note that we can't tell which row belongs to which edge in the results. T
 </code></pre></div>
 
 <p>The above query returns players followed by 102 and follow 102 at the same time.</p>
+<h2 id="traverse_from_m_to_n_hops">Traverse From M to N Hops<a class="headerlink" href="#traverse_from_m_to_n_hops" title="Permanent link">&para;</a></h2>
+<p><strong>Nebula Graph</strong> supports traversing from M to N hops. When M is equal to N, <code>GO M TO N STEPS</code> is equivalent to <code>GO N STEPS</code>. The syntax is:</p>
+<div class="highlight"><pre><span></span><code>  GO &lt;M&gt; TO &lt;N&gt; STEPS FROM &lt;node_list&gt;
+  OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
+  [YIELD [DISTINCT] &lt;return_list&gt;]
+</code></pre></div>
+
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM 100 OVER serve;
+==============
+| serve._dst |
+==============
+| 200        |
+--------------
+</code></pre></div>
+
+<p>Traverse from vertex 100 along edge type serve, return 1 to 2 hops.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 TO 4 STEPS FROM 100 OVER follow REVERSELY YIELD DISTINCT follow._dst;
+===============
+| follow._dst |
+===============
+| 133         |
+---------------
+| 105         |
+---------------
+| 140         |
+---------------
+</code></pre></div>
+
+<p>Traverse from vertex 100 along edge type follow reversely, return 2 to 4 hops.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 4 TO 5 STEPS FROM 101 OVER follow BIDIRECT YIELD DISTINCT follow._dst;
+===============
+| follow._dst |
+===============
+| 100         |
+---------------
+| 102         |
+---------------
+| 104         |
+---------------
+| 105         |
+---------------
+| 107         |
+---------------
+| 113         |
+---------------
+| 121         |
+---------------
+</code></pre></div>
+
+<p>Traverse from vertex 101 along edge type follow bi-directly, return 4 to 5 hops.</p>
                 
                   
                 
