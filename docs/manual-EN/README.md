@@ -118,7 +118,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Graphd Configuration](3.build-develop-and-administration/3.configurations/4.graph-config.md)
   * [Storaged Configuration](3.build-develop-and-administration/3.configurations/5.storage-config.md)
   * [Console Configuration](3.build-develop-and-administration/3.configurations/6.console-config.md)
-  * [Kernel Configuration](3.build-develop-and-administration/3.configurations/7.kernel-configuration.md)
+  * [Kernel Configuration](3.build-develop-and-administration/3.configurations/7.kernel-config.md)
 * Account Management Statement
   * [Alter User Syntax](3.build-develop-and-administration/4.account-management-statements/alter-user-syntax.md)
   * [Built-in Roles](3.build-develop-and-administration/4.account-management-statements/built-in-roles.md)
