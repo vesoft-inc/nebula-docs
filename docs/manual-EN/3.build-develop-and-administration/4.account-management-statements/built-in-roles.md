@@ -6,6 +6,7 @@
   - The initial root user (similar to the Root in Linux and Administrator in Windows).
   - All the operation access.
   - A cluster can only have one God. God manages all the spaces in the cluster.
+  - When a cluster is initialized, a default GOD account named root is created.
   - The God role is automatically initialized by meta and cannot be granted by users.
 - Admin
   - The administration user.
@@ -53,3 +54,5 @@ Divided by operations.
 | Read data | Y | Y | Y | Y | Y |
 | Write data | Y | Y | Y | Y |  |
 | Special operation | Y | Y | Y | Y | Y |
+
+Note: Pay attention to the special operation here. The returned results vary based on the account role. For example, each role have the access to the `SHOW SPACE` statement, but the returned results vary based on the account authentication.
