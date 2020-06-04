@@ -1,6 +1,6 @@
 # UPDATE Syntax
 
-**Nebula Graph** supports `UPDATE` properties of a vertex or an edge, as well as CAS operation and returning related properties.
+**Nebula Graph** supports `UPDATE` properties of a vertex or an edge, as well as CAS operation and returning related properties. The `UPDATE` statement only updates one tag/edge-type of a vertex/edge at a time.
 
 ## Update Vertex
 
