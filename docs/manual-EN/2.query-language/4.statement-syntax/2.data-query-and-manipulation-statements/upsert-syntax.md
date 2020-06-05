@@ -32,3 +32,19 @@ nebula> UPSERT VERTEX 111 SET player.name = "Dwight Howard", player.age = $^.pla
 | Dwight Howard | 33  |
 -----------------------
 ```
+
+```ngql
+nebula> FETCH PROP ON * 111; -- An empty set is returned, indicating vertex 111 does not exist.
+Empty set (Time spent: 3.069/4.382 ms)
+nebula> UPSERT VERTEX 111 SET player.age = $^.player.age + 1;
+```
+
+When vertex 111 does not exist and the player's age has a default value, the player.age of vertex 111 is the default value + 1. If player.age does not have default value, an error will be reported.
+
+```ngql
+nebula> CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
+
+nebula> UPSERT VERTEX 300 SET person.followers = $^.course.age + 1,  person.age = 8; -- followers is 1, age is 8
+
+nebula> UPSERT VERTEX 300 SET person.age = 8, person.followers = $^.followers.age + 1; -- followers is 9, age is 8
+```
