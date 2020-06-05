@@ -2,6 +2,8 @@
 
 `UPSERT` is used to insert a new vertex or edge or update an existing one. If the vertex or edge doesn’t exist it will be created. `UPSERT` is a combination of `INSERT` and `UPDATE`.
 
+The performance of `UPSERT` is much lower than that of `INSERT`, because `UPSERT` is a read-modify-write serialization operation at the partition level, so it is not suitable for large concurrent write scenarios.
+
 - If the vertex or edge does not exist, a new one will be created regardless of whether the condition in WHEN clause is met. The property columns not specified by the `SET` statement use the default values of the columns, if there are no default values, an error will be returned;
 - If the vertex or edge exists and the WHEN condition is met, the vertex or edge will be updated;
 - If the vertex or edge exists and the WHEN condition is not met, nothing will be done.
