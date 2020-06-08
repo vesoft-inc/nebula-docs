@@ -44,7 +44,7 @@ When vertex 111 does not exist and the player's age has a default value, the pla
 ```ngql
 nebula> CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
 
-nebula> UPSERT VERTEX 300 SET person.followers = $^.course.age + 1,  person.age = 8; -- followers is 1, age is 8
+nebula> UPSERT VERTEX 300 SET person.followers = $^.person.age + 1,  person.age = 8; -- followers is 1, age is 8
 
-nebula> UPSERT VERTEX 300 SET person.age = 8, person.followers = $^.followers.age + 1; -- followers is 9, age is 8
+nebula> UPSERT VERTEX 300 SET person.age = 8, person.followers = $^.person.age + 1; -- followers is 9, age is 8
 ```
