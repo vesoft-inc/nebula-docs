@@ -4,6 +4,8 @@ You can combine multiple queries using the set operators `UNION`, `UNION ALL`, `
 
 The return results in the `GO` lists of a compound query must match in number and must be in the same datatype group (such as numeric or character).
 
+Please note that when a query contains pipe `|` and set operations, pipe takes precedence. Refer to the [Pipe Doc](../3.language-structure/pipe-syntax.md) for details.
+
 ## UNION, UNION DISTINCT, and UNION ALL
 
 Operator `UNION DISTINCT` (or by short `UNION`) returns the union of two sets A and B (denoted by `A ⋃ B` in mathematics), with the distinct element belongs to set A or set B, or both.
