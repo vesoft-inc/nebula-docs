@@ -59,9 +59,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [User-Defined Variables](2.query-language/3.language-structure/user-defined-variables.md)
 * Statement Syntax
   * Data Definition Statements
-    * [Alter Tag/Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-tag-edge-syntax.md)
+    * [Alter Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-edge-syntax.md)
+    * [Alter Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-tag-syntax.md)
     * [Create Space Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax.md)
-    * [Create Tag/Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-tag-edge-syntax.md)
+    * [Create Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-edge-syntax.md)
+    * [Create Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-tag-syntax.md)
     * [Drop Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-edge-syntax.md)
     * [Drop Space Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-space-syntax.md)
     * [Drop Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-tag-syntax.md)
@@ -76,7 +78,8 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
     * [Insert Vertex Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/insert-vertex-syntax.md)
     * [Lookup Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax.md)
     * [Return Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/return-syntax.md)
-    * [Update Vertex/Edge Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-vertex-edge-syntax.md)
+    * [Update Edge Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-edge-syntax.md)
+    * [Update Vertex Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-edge-syntax.md)
     * [Upsert Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/upsert-syntax.md)
     * [Where Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/where-syntax.md)
     * [Yield Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/yield-syntax.md)
