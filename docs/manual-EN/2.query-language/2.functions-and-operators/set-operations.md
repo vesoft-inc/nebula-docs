@@ -188,7 +188,7 @@ nebula> GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
 
 ![image](https://user-images.githubusercontent.com/42762957/84130415-d46c8a00-aa75-11ea-8a29-b8bef5e1d55f.png)
 
-The statement in the red bar is executed first, and then the statement in the green box is executed.
+The statements in the red bar are executed first concurrently, and then the statement in the green box is executed.
 
 ```ngql
 nebula> (GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
