@@ -4,8 +4,6 @@ You can combine multiple queries using the set operators `UNION`, `UNION ALL`, `
 
 The return results in the `GO` lists of a compound query must match in number and must be in the same datatype group (such as numeric or character).
 
-Please note that when a query contains pipe `|` and set operations, pipe takes precedence. Refer to the [Pipe Doc](../3.language-structure/pipe-syntax.md) for details.
-
 ## UNION, UNION DISTINCT, and UNION ALL
 
 Operator `UNION DISTINCT` (or by short `UNION`) returns the union of two sets A and B (denoted by `A ⋃ B` in mathematics), with the distinct element belongs to set A or set B, or both.
@@ -174,3 +172,40 @@ returns
 | 104 |    2    |    2    |    -- line 2
 ---------------------------
 ```
+
+## Precedence of the SET Operations and Pipe
+
+Please note that when a query contains pipe `|` and set operations, pipe takes precedence. Refer to the [Pipe Doc](../3.language-structure/pipe-syntax.md) for details.
+
+For example:
+
+```ngql
+nebula> GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+```
+
+The execution order  of the above statements is, first the GO statement before UNION,
+
+```ngql
+nebula> GO FROM 100 OVER follow YIELD follow._dst AS play_dst;
+```
+
+then the PIPE after UNION,
+
+```ngql
+nebula> GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+```
+
+Finally the UNION.
+
+```ngql
+nebula> (GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst) \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+```
+
+In the above query, the parentheses change the execution priority, and the statements within the parentheses take the precedence.
