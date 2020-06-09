@@ -175,7 +175,7 @@ returns
 
 ## Precedence of the SET Operations and Pipe
 
-Please note that when a query contains pipe `|` and set operations, pipe takes precedence. Refer to the [Pipe Doc](../3.language-structure/pipe-syntax.md) for details.
+Please note that when a query contains pipe `|` and set operations, pipe takes precedence. Refer to the [Pipe Doc](../3.language-structure/pipe-syntax.md) for details. Query `GO FROM 1 UNION GO FROM 2 | GO FROM 3` is the same as query `GO FROM 1 UNION (GO FROM 2 | GO FROM 3)`.
 
 For example:
 
@@ -186,20 +186,9 @@ nebula> GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
         | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
 ```
 
-The execution order  of the above statements is, first the GO statement before UNION,
+![image](https://user-images.githubusercontent.com/42762957/84130415-d46c8a00-aa75-11ea-8a29-b8bef5e1d55f.png)
 
-```ngql
-nebula> GO FROM 100 OVER follow YIELD follow._dst AS play_dst;
-```
-
-then the PIPE after UNION,
-
-```ngql
-nebula> GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst \
-        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
-```
-
-Finally the UNION.
+The statement in the red bar is executed first, and then the statement in the green box is executed.
 
 ```ngql
 nebula> (GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
