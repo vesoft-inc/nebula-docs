@@ -1,8 +1,6 @@
-# UPDATE Syntax
+# UPDATE VERTEX Syntax
 
-**Nebula Graph** supports `UPDATE` properties of a vertex or an edge, as well as CAS operation and returning related properties. The `UPDATE` statement only updates one tag/edge-type of a vertex/edge at a time.
-
-## Update Vertex
+**Nebula Graph** supports `UPDATE VERTEX` properties of a vertex, as well as CAS operation and returning related properties. The `UPDATE VERTEX` statement only updates one tag of a vertex at a time.
 
 ```ngql
 UPDATE VERTEX <vid> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
@@ -33,24 +31,4 @@ nebula> UPDATE VERTEX 200 SET player.name = 'Cory Joseph' WHEN $^.team.name == '
 [ERROR (-8)]: Maybe invalid tag or property in SET/YIELD clause!
 ```
 
-`UPDATE` does not support multiple tags, so an error occurs here.
-
-## Update Edge
-
-```ngql
-UPDATE EDGE <edge> SET <update_columns> [WHEN <condition>] [YIELD <columns>]
-```
-
-**NOTE:** `WHEN` and `YIELD` are optional.
-
-- `edge` is the edge to be updated, the syntax is `<src> -> <dst> [@ranking] OF <edge_type>`.
-- `update_columns` is the properties of the edge to be updated.
-- `condition` is some constraints, only when met, `UPDATE` will run successfully and expression operations are supported.
-- `columns` is the columns to be returned, `YIELD` returns the latest updated values.
-
-Consider the following example:
-
-```ngql
-nebula> UPDATE EDGE 100 -> 200@0 OF serve SET start_year = serve.start_year + 1 \
-YIELD $^.player.name AS name, serve.start_year AS start;
-```
+`UPDATE VERTEX` does not support multiple tags, so an error occurs here.
