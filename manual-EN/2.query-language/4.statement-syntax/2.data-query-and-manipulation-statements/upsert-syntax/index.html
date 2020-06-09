@@ -1009,8 +1009,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../1.data-definition-statements/alter-tag-edge-syntax/" title="ALTER TAG EDGE Syntax" class="md-nav__link">
-      ALTER TAG EDGE Syntax
+    <a href="../../1.data-definition-statements/alter-edge-syntax/" title="ALTER EDGE Syntax" class="md-nav__link">
+      ALTER EDGE Syntax
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../1.data-definition-statements/alter-tag-syntax/" title="ALTER TAG Syntax" class="md-nav__link">
+      ALTER TAG Syntax
     </a>
   </li>
 
@@ -1033,8 +1045,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../1.data-definition-statements/create-tag-edge-syntax/" title="CREATE TAG EDGE Syntax" class="md-nav__link">
-      CREATE TAG EDGE Syntax
+    <a href="../../1.data-definition-statements/create-edge-syntax/" title="CREATE EDGE Syntax" class="md-nav__link">
+      CREATE EDGE Syntax
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../1.data-definition-statements/create-tag-syntax/" title="CREATE TAG Syntax" class="md-nav__link">
+      CREATE TAG Syntax
     </a>
   </li>
 
@@ -1057,8 +1081,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../1.data-definition-statements/drop-space-syntax/" title="DROP SPACE Syntax" class="md-nav__link">
-      DROP SPACE Syntax
+    <a href="../../1.data-definition-statements/drop-tag-syntax/" title="DROP TAG Syntax" class="md-nav__link">
+      DROP TAG Syntax
     </a>
   </li>
 
@@ -1069,8 +1093,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../1.data-definition-statements/drop-tag-syntax/" title="DROP TAG Syntax" class="md-nav__link">
-      DROP TAG Syntax
+    <a href="../../1.data-definition-statements/drop-space-syntax/" title="DROP SPACE Syntax" class="md-nav__link">
+      DROP SPACE Syntax
     </a>
   </li>
 
@@ -1227,8 +1251,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../update-vertex-edge-syntax/" title="UPDATE VERTEX EDGE Syntax" class="md-nav__link">
-      UPDATE VERTEX EDGE Syntax
+    <a href="../update-edge-syntax/" title="UPDATE EDGE Syntax" class="md-nav__link">
+      UPDATE EDGE Syntax
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../update-vertex-syntax/" title="UPDATE VERTEX Syntax" class="md-nav__link">
+      UPDATE VERTEX Syntax
     </a>
   </li>
 
@@ -2391,6 +2427,7 @@
                 
                 <h1 id="upsert_syntax">UPSERT Syntax<a class="headerlink" href="#upsert_syntax" title="Permanent link">&para;</a></h1>
 <p><code>UPSERT</code> is used to insert a new vertex or edge or update an existing one. If the vertex or edge doesn’t exist it will be created. <code>UPSERT</code> is a combination of <code>INSERT</code> and <code>UPDATE</code>.</p>
+<p>The performance of <code>UPSERT</code> is much lower than that of <code>INSERT</code>, because <code>UPSERT</code> is a read-modify-write serialization operation at the partition level. So it is not suitable for large concurrent write scenarios.</p>
 <ul>
 <li>If the vertex or edge does not exist, a new one will be created regardless of whether the condition in WHEN clause is met. The property columns not specified by the <code>SET</code> statement use the default values of the columns, if there are no default values, an error will be returned;</li>
 <li>If the vertex or edge exists and the WHEN condition is met, the vertex or edge will be updated;</li>
@@ -2418,6 +2455,19 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 | Dwight Howard | 33  |
 -----------------------
 </code></pre></div>
+
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * 111; -- An empty set is returned, indicating vertex 111 does not exist.
+Empty set (Time spent: 3.069/4.382 ms)
+nebula&gt; UPSERT VERTEX 111 SET player.age = $^.player.age + 1;
+</code></pre></div>
+
+<p>When vertex 111 does not exist and the player's age has a default value, the player.age of vertex 111 is the default value + 1. If player.age does not have default value, an error will be reported.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
+
+nebula&gt; UPSERT VERTEX 300 SET person.followers = $^.person.age + 1,  person.age = 8; -- followers is 1, age is 8
+
+nebula&gt; UPSERT VERTEX 300 SET person.age = 8, person.followers = $^.person.age + 1; -- followers is 9, age is 8
+</code></pre></div>
                 
                   
                 
@@ -2439,7 +2489,7 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../update-vertex-edge-syntax/" title="UPDATE VERTEX EDGE Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../update-vertex-syntax/" title="UPDATE VERTEX Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2448,7 +2498,7 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                UPDATE VERTEX EDGE Syntax
+                UPDATE VERTEX Syntax
               </span>
             </div>
           </a>

@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/alter-tag-edge-syntax/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/alter-edge-syntax/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>ALTER TAG EDGE Syntax - Nebula Graph Manual</title>
+        <title>ALTER EDGE Syntax - Nebula Graph Manual</title>
       
     
     
@@ -91,7 +91,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#alter_tagedge_syntax" tabindex="0" class="md-skip">
+      <a href="#alter_edge_syntax" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -117,7 +117,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                ALTER TAG EDGE Syntax
+                ALTER EDGE Syntax
               
             </span>
           
@@ -1019,10 +1019,22 @@
       
     
     
-    <a href="./" title="ALTER TAG EDGE Syntax" class="md-nav__link md-nav__link--active">
-      ALTER TAG EDGE Syntax
+    <a href="./" title="ALTER EDGE Syntax" class="md-nav__link md-nav__link--active">
+      ALTER EDGE Syntax
     </a>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../alter-tag-syntax/" title="ALTER TAG Syntax" class="md-nav__link">
+      ALTER TAG Syntax
+    </a>
   </li>
 
         
@@ -1044,8 +1056,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../create-tag-edge-syntax/" title="CREATE TAG EDGE Syntax" class="md-nav__link">
-      CREATE TAG EDGE Syntax
+    <a href="../create-edge-syntax/" title="CREATE EDGE Syntax" class="md-nav__link">
+      CREATE EDGE Syntax
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../create-tag-syntax/" title="CREATE TAG Syntax" class="md-nav__link">
+      CREATE TAG Syntax
     </a>
   </li>
 
@@ -1068,8 +1092,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../drop-space-syntax/" title="DROP SPACE Syntax" class="md-nav__link">
-      DROP SPACE Syntax
+    <a href="../drop-tag-syntax/" title="DROP TAG Syntax" class="md-nav__link">
+      DROP TAG Syntax
     </a>
   </li>
 
@@ -1080,8 +1104,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../drop-tag-syntax/" title="DROP TAG Syntax" class="md-nav__link">
-      DROP TAG Syntax
+    <a href="../drop-space-syntax/" title="DROP SPACE Syntax" class="md-nav__link">
+      DROP SPACE Syntax
     </a>
   </li>
 
@@ -1236,8 +1260,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../../2.data-query-and-manipulation-statements/update-vertex-edge-syntax/" title="UPDATE VERTEX EDGE Syntax" class="md-nav__link">
-      UPDATE VERTEX EDGE Syntax
+    <a href="../../2.data-query-and-manipulation-statements/update-edge-syntax/" title="UPDATE EDGE Syntax" class="md-nav__link">
+      UPDATE EDGE Syntax
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../2.data-query-and-manipulation-statements/update-vertex-syntax/" title="UPDATE VERTEX Syntax" class="md-nav__link">
+      UPDATE VERTEX Syntax
     </a>
   </li>
 
@@ -2389,8 +2425,8 @@
               
                 
                 
-                <h1 id="alter_tagedge_syntax">ALTER TAG/EDGE Syntax<a class="headerlink" href="#alter_tagedge_syntax" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>ALTER TAG | EDGE &lt;tag_name&gt; | &lt;edge_name&gt;
+                <h1 id="alter_edge_syntax">ALTER EDGE Syntax<a class="headerlink" href="#alter_edge_syntax" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code>ALTER EDGE &lt;edge_name&gt;
     &lt;alter_definition&gt; [, alter_definition] ...]
     [ttl_definition [, ttl_definition] ... ]
 
@@ -2403,14 +2439,11 @@ ttl_definition:
     TTL_DURATION = ttl_duration, TTL_COL = prop_name
 </code></pre></div>
 
-<p><code>ALTER</code> statement changes the structure of a tag or an edge. For example, you can add or delete properties, change the data type of an existing property. You can also set a property as TTL (Time-To-Live), or change the TTL duration.</p>
-<p><strong>Note:</strong> <strong>Nebula Graph</strong> automatically examines indexes when altering a tag or edge. When altering a tag or edge, <strong>Nebula Graph</strong> first checks whether the tag or edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.</p>
+<p><code>ALTER EDGE</code> statement changes the structure of an edge. For example, you can add or delete properties, change the data type of an existing property. You can also set a property as TTL (Time-To-Live), or change the TTL duration.</p>
+<p><strong>Note:</strong> <strong>Nebula Graph</strong> automatically examines indexes when altering an edge. When altering an edge, <strong>Nebula Graph</strong> first checks whether the edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.</p>
 <p>Please refer to <a href="../">Index Documentation</a> on details about index.</p>
 <p>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER</code> statements, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the <code>ALTER</code> statement.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (name string, age int);
-nebula&gt; ALTER TAG t1 ADD (id int, address string);
-
-nebula&gt; CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
 nebula&gt; ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
               CHANGE (prop3 string),            /* 将 prop3 类型更改为字符 */
               DROP (prop4, prop5);               /* 删除 prop4 和 prop5 */
@@ -2455,13 +2488,13 @@ nebula&gt; ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = prop1;
           </a>
         
         
-          <a href="../create-space-syntax/" title="CREATE SPACE Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../alter-tag-syntax/" title="ALTER TAG Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                CREATE SPACE Syntax
+                ALTER TAG Syntax
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
