@@ -810,6 +810,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#precedence_of_the_set_operations_and_pipe" class="md-nav__link">
+    Precedence of the SET Operations and Pipe
+  </a>
+  
+</li>
+      
       
       
       
@@ -2505,6 +2512,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#precedence_of_the_set_operations_and_pipe" class="md-nav__link">
+    Precedence of the SET Operations and Pipe
+  </a>
+  
+</li>
+      
       
       
       
@@ -2523,6 +2537,8 @@
                 
                 
                 <h1 id="set_operations_union_intersect_and_minus">Set Operations (<code>UNION</code>, <code>INTERSECT</code>, and <code>MINUS</code>)<a class="headerlink" href="#set_operations_union_intersect_and_minus" title="Permanent link">&para;</a></h1>
+<p>You can combine multiple queries using the set operators <code>UNION</code>, <code>UNION ALL</code>, <code>INTERSECT</code>, and <code>MINUS</code>. All set operators have equal precedence. If a nGQL statement contains multiple set operators, then <strong>Nebula Graph</strong> evaluates them from the left to right unless parentheses explicitly specify another order.</p>
+<p>The return results in the <code>GO</code> lists of a compound query must match in number and must be in the same datatype group (such as numeric or character).</p>
 <h2 id="union_union_distinct_and_union_all">UNION, UNION DISTINCT, and UNION ALL<a class="headerlink" href="#union_union_distinct_and_union_all" title="Permanent link">&para;</a></h2>
 <p>Operator <code>UNION DISTINCT</code> (or by short <code>UNION</code>) returns the union of two sets A and B (denoted by <code>A ⋃ B</code> in mathematics), with the distinct element belongs to set A or set B, or both.</p>
 <p>Meanwhile, operation <code>UNION ALL</code> returns the union set with duplicated elements. The <code>UNION</code> syntax is</p>
@@ -2546,60 +2562,60 @@
 
 <p>returns all the neighbors of vertex <code>1</code> and <code>2</code>, with all possible duplications.</p>
 <p><code>UNION</code> can also work with the <code>YIELD</code> statement. For example, let's suppose the results of the following two queries.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2 -- query 1
-==========================
-| id  | left_1 | left_2  |
-==========================
-| 104 |    1   |    2    |    -- line 1
---------------------------
-| 215 |    4   |    3    |    -- line 3
---------------------------
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2; -- query 1
+=======================
+| id  | col_1| col_2  |
+=======================
+| 104 |   1  |    2   |    -- line 1
+-----------------------
+| 215 |   4  |    3   |    -- line 3
+-----------------------
 
-nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2  -- query 2
-===========================
-| id  | right_1 | right_2 |
-===========================
-| 104 |    1    |    2    |    -- line 1
----------------------------
-| 104 |    2    |    2    |    -- line 2
----------------------------
+nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;  -- query 2
+======================
+| id  | col_1| col_2 |
+======================
+| 104 |   1  |    2  |    -- line 1
+----------------------
+| 104 |   2  |    2  |    -- line 2
+----------------------
 </code></pre></div>
 
 <p>And the following statement</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
-        UNION /* DISTINCT */   \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2   \
+        UNION /* DISTINCT */     \
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 </code></pre></div>
 
 <p>will return as follows:</p>
-<div class="highlight"><pre><span></span><code>=========================
-| id  | left_1 | left_2 |    -- UNION or UNION DISTINCT. The column names come from query 1
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    2   |    2   |    -- line 2
--------------------------
-| 215 |    4   |    3   |    -- line 3
--------------------------
+<div class="highlight"><pre><span></span><code>=======================
+| id  | col_1| col_2  |    -- UNION or UNION DISTINCT. The column names come from query 1
+=======================
+| 104 |  1   |    2   |    -- line 1
+-----------------------
+| 104 |  2   |    2   |    -- line 2
+-----------------------
+| 215 |  4   |    3   |    -- line 3
+-----------------------
 </code></pre></div>
 
 <p>Notice that line 1 and line 2 return the same id (104) with different column values. The <code>DISTINCT</code> check duplication by all the columns for every line. So line 1 and line 2 are different.</p>
 <p>You can expect the <code>UNION ALL</code> result</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2   \
         UNION ALL   \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 
-=========================
-| id  | left_1 | left_2 |    -- UNION ALL
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    2   |    2   |    -- line 2
--------------------------
-| 215 |    4   |    3   |    -- line 3
--------------------------
+======================
+| id  | col_1| col_2 |    -- UNION ALL
+======================
+| 104 |   1  |   2   |    -- line 1
+----------------------
+| 104 |   1  |   2   |    -- line 1
+----------------------
+| 104 |   2  |   2   |    -- line 2
+----------------------
+| 215 |   4  |   3   |    -- line 3
+----------------------
 </code></pre></div>
 
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">&para;</a></h2>
@@ -2610,48 +2626,67 @@ nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.
 <p>Alike <code>UNION</code>, <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types.
 Besides, only the same line of <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> will be returned.</p>
 <p>For example, the following query</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 INTERSECT
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 </code></pre></div>
 
 <p>returns</p>
-<div class="highlight"><pre><span></span><code>=========================
-| id  | left_1 | left_2 |
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
+<div class="highlight"><pre><span></span><code>=======================
+| id  | col_1 | col_2 |
+=======================
+| 104 |   1   |    2  |    -- line 1
+-----------------------
 </code></pre></div>
 
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">&para;</a></h2>
 <p>The set subtraction (or difference), A - B, consists of elements that are in A but not in B. So the operation order matters.</p>
 <p>For example, the following query</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 MINUS
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 </code></pre></div>
 
 <p>comes out</p>
-<div class="highlight"><pre><span></span><code>==========================
-| id  | left_1 | left_2  |
-==========================
-| 215 |    4   |    3    |     -- line 3
---------------------------
+<div class="highlight"><pre><span></span><code>========================
+| id  | col_1 | col_2  |
+========================
+| 215 |   4   |    3   |     -- line 3
+------------------------
 </code></pre></div>
 
 <p>And if we reverse the <code>MINUS</code> order, the query</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 MINUS
-GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 </code></pre></div>
 
 <p>returns</p>
-<div class="highlight"><pre><span></span><code>===========================
-| id  | right_1 | right_2 |    -- column named from query 2
-===========================
-| 104 |    2    |    2    |    -- line 2
----------------------------
+<div class="highlight"><pre><span></span><code>=======================
+| id  | col_1 | col_2 |    -- column named from query 2
+=======================
+| 104 |    2  |    2  |    -- line 2
+-----------------------
 </code></pre></div>
+
+<h2 id="precedence_of_the_set_operations_and_pipe">Precedence of the SET Operations and Pipe<a class="headerlink" href="#precedence_of_the_set_operations_and_pipe" title="Permanent link">&para;</a></h2>
+<p>Please note that when a query contains pipe <code>|</code> and set operations, pipe takes precedence. Refer to the <a href="../../3.language-structure/pipe-syntax/">Pipe Doc</a> for details. Query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+</code></pre></div>
+
+<p><img alt="image" src="https://user-images.githubusercontent.com/42762957/84130415-d46c8a00-aa75-11ea-8a29-b8bef5e1d55f.png" /></p>
+<p>The statements in the red bar are executed first concurrently, and then the statement in the green box is executed.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM 100 OVER follow YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM 200 OVER serve REVERSELY YIELD serve._dst AS play_dst) \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+</code></pre></div>
+
+<p>In the above query, the parentheses change the execution priority, and the statements within the parentheses take the precedence.</p>
                 
                   
                 
