@@ -161,7 +161,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 * [Gremlin V.S. nGQL](5.appendix/gremlin-ngql.md)
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
-* [Upgrading Nebula Graph](5.appendix/upgrade-guide.md)
+<!-- * [Upgrading Nebula Graph](5.appendix/upgrade-guide.md) -->
 
 ## Misc
 
