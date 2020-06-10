@@ -1,4 +1,4 @@
-# Fetch Syntax
+# FETCH Syntax
 
 The `FETCH` syntax is used to get vertex/edge's properties.
 

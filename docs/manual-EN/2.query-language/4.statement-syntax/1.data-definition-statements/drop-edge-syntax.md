@@ -1,4 +1,4 @@
-# Drop Edge Syntax
+# DROP EDGE Syntax
 
 ```ngql
 DROP EDGE [IF EXISTS] <edge_type_name>

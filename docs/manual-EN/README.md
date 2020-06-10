@@ -59,9 +59,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [User-Defined Variables](2.query-language/3.language-structure/user-defined-variables.md)
 * Statement Syntax
   * Data Definition Statements
-    * [Alter Tag/Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-tag-edge-syntax.md)
+    * [Alter Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-edge-syntax.md)
+    * [Alter Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/alter-tag-syntax.md)
     * [Create Space Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax.md)
-    * [Create Tag/Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-tag-edge-syntax.md)
+    * [Create Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-edge-syntax.md)
+    * [Create Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/create-tag-syntax.md)
     * [Drop Edge Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-edge-syntax.md)
     * [Drop Space Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-space-syntax.md)
     * [Drop Tag Syntax](2.query-language/4.statement-syntax/1.data-definition-statements/drop-tag-syntax.md)
@@ -76,7 +78,8 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
     * [Insert Vertex Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/insert-vertex-syntax.md)
     * [Lookup Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax.md)
     * [Return Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/return-syntax.md)
-    * [Update Vertex/Edge Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-vertex-edge-syntax.md)
+    * [Update Edge Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-edge-syntax.md)
+    * [Update Vertex Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/update-edge-syntax.md)
     * [Upsert Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/upsert-syntax.md)
     * [Where Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/where-syntax.md)
     * [Yield Syntax](2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/yield-syntax.md)
@@ -118,6 +121,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Graphd Configuration](3.build-develop-and-administration/3.configurations/4.graph-config.md)
   * [Storaged Configuration](3.build-develop-and-administration/3.configurations/5.storage-config.md)
   * [Console Configuration](3.build-develop-and-administration/3.configurations/6.console-config.md)
+  * [Kernel Configuration](3.build-develop-and-administration/3.configurations/7.kernel-config.md)
 * Account Management Statement
   * [Alter User Syntax](3.build-develop-and-administration/4.account-management-statements/alter-user-syntax.md)
   * [Built-in Roles](3.build-develop-and-administration/4.account-management-statements/built-in-roles.md)
@@ -137,11 +141,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Cluster Snapshot](3.build-develop-and-administration/5.storage-service-administration/cluster-snapshot.md)
   * [Long Time-Consuming Task Management](3.build-develop-and-administration/5.storage-service-administration/job-manager.md)
 * Monitoring and Statistics
-  * [Connect Prometheus](3.build-develop-and-administration/7.minor/0.connect-prometheus.md)
-  * [Metrics](3.build-develop-and-administration/7.minor/1.metrics-exposer.md)
-  * [Meta Metrics](3.build-develop-and-administration/7.minor/2.meta-metrics.md)
-  * [Storage Metrics](3.build-develop-and-administration/7.minor/3.storage-metrics.md)
-  * [Graph Metrics](3.build-develop-and-administration/7.minor/4.graph-metrics.md)
+  <!-- * [Connect Prometheus](3.build-develop-and-administration/7.monitor/0.connect-prometheus.md) -->
+  * [Metrics](3.build-develop-and-administration/7.monitor/1.metrics-exposer.md)
+  * [Meta Metrics](3.build-develop-and-administration/7.monitor/2.meta-metrics.md)
+  * [Storage Metrics](3.build-develop-and-administration/7.monitor/3.storage-metrics.md)
+  * [Graph Metrics](3.build-develop-and-administration/7.monitor/4.graph-metrics.md)
 * Development and API
   * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md)
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)

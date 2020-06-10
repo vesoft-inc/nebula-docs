@@ -1,4 +1,4 @@
-# Insert Edge Syntax
+# INSERT EDGE Syntax
 
 ```ngql
 INSERT EDGE <edge_name> ( <prop_name_list> ) VALUES | VALUE

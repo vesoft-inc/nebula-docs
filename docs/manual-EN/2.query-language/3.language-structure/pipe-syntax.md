@@ -16,4 +16,4 @@ The dest (vertex) `id` will be given as the default value if no `YIELD` is used.
 
 But if `YIELD` is declared explicitly, (the default value) `id` will not be given.
 
-The alias name mentioned right after placeholder `$-.` must be defined in the previews `YIELD` statement, such as `dstid` or `Name` as shown in the above example.
+The alias name mentioned right after placeholder `$-.` must be defined in the previous `YIELD` statement, such as `dstid` or `Name` as shown in the above example.

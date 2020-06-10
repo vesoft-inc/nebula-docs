@@ -1,4 +1,4 @@
-# Return Syntax
+# RETURN Syntax
 
 The `RETURN` statement is used to return the result when the condition is true. If the condition is false, no result is returned.
 

@@ -1,4 +1,4 @@
-# Where Syntax
+# WHERE Syntax
 
 Currently, the `WHERE` statement only applies to the `GO` statement.
 
@@ -21,6 +21,7 @@ nebula> GO FROM 100 OVER follow WHERE follow.degree > 90;
 ===============
 | 101         |
 ---------------
+
 -- find the dest vertex whose age is equal to the source vertex, player 104.
 nebula> GO FROM 104 OVER follow WHERE $^.player.age == $$.player.age;
 -- the following result is returned:
@@ -29,6 +30,7 @@ nebula> GO FROM 104 OVER follow WHERE $^.player.age == $$.player.age;
 ===============
 | 103         |
 ---------------
+
 -- logical combination is allowed.
 nebula> GO FROM 100 OVER follow WHERE follow.degree > 90 OR $$.player.age != 33 AND $$.player.name != "Tony Parker";
 -- the following result is returned:
@@ -39,6 +41,7 @@ nebula> GO FROM 100 OVER follow WHERE follow.degree > 90 OR $$.player.age != 33 
 ---------------
 | 106         |
 ---------------
+
 -- the condition in the WHERE clause is always TRUE.
 nebula> GO FROM 101 OVER follow WHERE 1 == 1 OR TRUE;
 -- the following result is returned:

@@ -56,7 +56,7 @@ cd $working_dir/nebula/.git/hooks
 ln -s ../../.linters/cpp/hooks/pre-commit.sh .
 ```
 
-Sometimes, pre-commit hook can not be executable. In such case, you have to make it executable manually.
+Sometimes, pre-commit hook can not be executable. You have to make it executable manually.
 
 ```bash
 cd $working_dir/nebula/.git/hooks
@@ -95,38 +95,37 @@ git push --force origin master
 
 ### Step 4: Develop
 
-#### Edit the Code
+#### Code Style
 
-You can now edit the code on `myfeature` branch. Please be noted that we are following [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
+We adopt `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
 
-### Verifying Your Code
+#### Unit Tests Required
 
-#### Compiling the Source Code
+Please add unit tests for your new features or bugfixes.
 
-Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile.
+#### Build Your Code with Unit Tests Enable
 
-#### Code Verification
+Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile. 
 
-- Replace the binary files
+> Make sure you have enabled the build of unit tests by setting `-DENABLE_TESTING=ON`.
 
-    The compiled binary files of the three services are in `nebula/build/src/daemon/_build/` directory. The compiled console is in `nebula/build/src/console/_build` directory. You can replace the binary files in the bin directory, restart the services and verify.
-- Add unit tests
+#### Run Tests
 
-    There is a `test` directory in the modified code module. You can add unit tests in it, then compile and run the unit tests. Please make sure your submitted codes pass all the unit tests.
-- Run all the unit tests
+In the root folder of `nebula` , run the following command:
 
-    ```bash
-    cd nebula/build
-    ctest -j$(nproc)
-    ```
+```bash
+ctest -j$(nproc)
+```
 
-### Step 5: Keep Your Branch in Sync
+### Step 5: Bring Your Branch Update to Date
 
 ```bash
 # While on your myfeature branch.
 git fetch upstream
 git rebase upstream/master
 ```
+
+You need to bring the head branch up to date after other collaborators merge pull requests to the base branch.
 
 ### Step 6: Commit
 
@@ -144,7 +143,7 @@ When ready to review (or just to establish an offsite backup or your work),
 push your branch to your fork on `github.com`:
 
 ```bash
-git push -f origin myfeature
+git push origin myfeature
 ```
 
 ### Step 8: Create a Pull Request
@@ -156,3 +155,4 @@ git push -f origin myfeature
 
 Once your pull request has been opened, it will be assigned to at least two
 reviewers. Those reviewers will do a thorough code review to ensure the changes meet the repository's contributing guidelines and other quality standards.
+

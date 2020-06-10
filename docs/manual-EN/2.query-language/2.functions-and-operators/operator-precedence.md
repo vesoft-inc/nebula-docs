@@ -3,8 +3,8 @@
 The following list shows the precedence of nGQL operators in descending order. Operators that are shown together on a line have the same precedence.
 
 ```ngql
+- (negative number)
 !
-- (unary minus)
 *, /, %
 -, +
 == , >=, >, <=, <, <>, !=

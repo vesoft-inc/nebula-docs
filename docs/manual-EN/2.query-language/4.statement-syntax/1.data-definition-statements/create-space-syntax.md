@@ -1,4 +1,4 @@
-# Create Space Syntax
+# CREATE SPACE Syntax
 
 ```ngql
 CREATE SPACE [IF NOT EXISTS] <space_name>
@@ -21,7 +21,7 @@ You can use the `If NOT EXISTS` keywords when creating spaces. This keyword auto
 
 ## Customized Space Options
 
-When creating a space, the following two customized options can be given:
+When creating a space, the following four customized options can be given:
 
 * _partition_num_
 
