@@ -41,45 +41,45 @@ returns all the neighbors of vertex `1` and `2`, with all possible duplications.
 `UNION` can also work with the `YIELD` statement. For example, let's suppose the results of the following two queries.
 
 ```ngql
-nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2 -- query 1
-==========================
-| id  | left_1 | left_2  |
-==========================
-| 104 |    1   |    2    |    -- line 1
---------------------------
-| 215 |    4   |    3    |    -- line 3
---------------------------
+nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2; -- query 1
+=======================
+| id  | col_1| col_2  |
+=======================
+| 104 |   1  |    2   |    -- line 1
+-----------------------
+| 215 |   4  |    3   |    -- line 3
+-----------------------
 
-nebula> GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2  -- query 2
-===========================
-| id  | right_1 | right_2 |
-===========================
-| 104 |    1    |    2    |    -- line 1
----------------------------
-| 104 |    2    |    2    |    -- line 2
----------------------------
+nebula> GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;  -- query 2
+======================
+| id  | col_1| col_2 |
+======================
+| 104 |   1  |    2  |    -- line 1
+----------------------
+| 104 |   2  |    2  |    -- line 2
+----------------------
 ```
 
 And the following statement
 
 ```ngql
-nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
-        UNION /* DISTINCT */   \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2   \
+        UNION /* DISTINCT */     \
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 ```
 
 will return as follows:
 
 ```ngql
-=========================
-| id  | left_1 | left_2 |    -- UNION or UNION DISTINCT. The column names come from query 1
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    2   |    2   |    -- line 2
--------------------------
-| 215 |    4   |    3   |    -- line 3
--------------------------
+=======================
+| id  | col_1| col_2  |    -- UNION or UNION DISTINCT. The column names come from query 1
+=======================
+| 104 |  1   |    2   |    -- line 1
+-----------------------
+| 104 |  2   |    2   |    -- line 2
+-----------------------
+| 215 |  4   |    3   |    -- line 3
+-----------------------
 ```
 
 Notice that line 1 and line 2 return the same id (104) with different column values. The `DISTINCT` check duplication by all the columns for every line. So line 1 and line 2 are different.
@@ -87,21 +87,21 @@ Notice that line 1 and line 2 return the same id (104) with different column val
 You can expect the `UNION ALL` result
 
 ```ngql
-nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2   \
+nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2   \
         UNION ALL   \
-        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+        GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 
-=========================
-| id  | left_1 | left_2 |    -- UNION ALL
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    1   |    2   |    -- line 1
--------------------------
-| 104 |    2   |    2   |    -- line 2
--------------------------
-| 215 |    4   |    3   |    -- line 3
--------------------------
+======================
+| id  | col_1| col_2 |    -- UNION ALL
+======================
+| 104 |   1  |   2   |    -- line 1
+----------------------
+| 104 |   1  |   2   |    -- line 1
+----------------------
+| 104 |   2  |   2   |    -- line 2
+----------------------
+| 215 |   4  |   3   |    -- line 3
+----------------------
 ```
 
 ## INTERSECT
@@ -118,19 +118,19 @@ Besides, only the same line of `<left>` and `<right>` will be returned.
 For example, the following query
 
 ```ngql
-nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 INTERSECT
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 ```
 
 returns
 
 ```ngql
-=========================
-| id  | left_1 | left_2 |
-=========================
-| 104 |    1   |    2   |    -- line 1
--------------------------
+=======================
+| id  | col_1 | col_2 |
+=======================
+| 104 |   1   |    2  |    -- line 1
+-----------------------
 ```
 
 ## MINUS
@@ -140,37 +140,37 @@ The set subtraction (or difference), A - B, consists of elements that are in A b
 For example, the following query
 
 ```ngql
-nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+nebula> GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 MINUS
-GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 ```
 
 comes out
 
 ```ngql
-==========================
-| id  | left_1 | left_2  |
-==========================
-| 215 |    4   |    3    |     -- line 3
---------------------------
+========================
+| id  | col_1 | col_2  |
+========================
+| 215 |   4   |    3   |     -- line 3
+------------------------
 ```
 
 And if we reverse the `MINUS` order, the query
 
 ```ngql
-nebula> GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS right_1, $$.tag.prop2 AS right_2
+nebula> GO FROM 2,3 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2
 MINUS
-GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS left_1, $$.tag.prop2 AS left_2
+GO FROM 1 OVER e1 YIELD e1._dst AS id, e1.prop1 AS col_1, $$.tag.prop2 AS col_2;
 ```
 
 returns
 
 ```ngql
-===========================
-| id  | right_1 | right_2 |    -- column named from query 2
-===========================
-| 104 |    2    |    2    |    -- line 2
----------------------------
+=======================
+| id  | col_1 | col_2 |    -- column named from query 2
+=======================
+| 104 |    2  |    2  |    -- line 2
+-----------------------
 ```
 
 ## Precedence of the SET Operations and Pipe
