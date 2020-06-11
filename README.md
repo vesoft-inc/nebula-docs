@@ -33,7 +33,7 @@ The general **Nebula Graph** documentation structure is as follows:
 Detail TOC (table of content) please refer to the following links.
 
 - [Documentation Index](docs/manual-EN/README.md)
-- [中文文档]([docs/manual-CN/README.md](https://docs.nebula-graph.com.cn/))
+- [中文文档](https://docs.nebula-graph.com.cn/)
 - [Official Documentation Site](https://docs.nebula-graph.io/)
 
 ## Contributing
