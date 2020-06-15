@@ -54,5 +54,6 @@ Divided by operations.
 | Read data | Y | Y | Y | Y | Y |
 | Write data | Y | Y | Y | Y |  |
 | Special operation | Y | Y | Y | Y | Y |
+| Show Jobs | Y | Y | Y | Y | Y |
 
 Note: Pay attention to the special operation here. The returned results vary based on the account role. For example, each role have the access to the `SHOW SPACE` statement, but the returned results vary based on the account authentication.
