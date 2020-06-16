@@ -648,6 +648,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#building_without_internet_access" class="md-nav__link">
+    Building Without Internet Access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    Uninstalling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#faq" class="md-nav__link">
     FAQ
   </a>
@@ -2032,6 +2046,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#building_without_internet_access" class="md-nav__link">
+    Building Without Internet Access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    Uninstalling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#faq" class="md-nav__link">
     FAQ
   </a>
@@ -2990,6 +3018,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#building_without_internet_access" class="md-nav__link">
+    Building Without Internet Access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstalling" class="md-nav__link">
+    Uninstalling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#faq" class="md-nav__link">
     FAQ
   </a>
@@ -3035,13 +3077,12 @@
 <li>CPU: x86_64</li>
 <li>Memory: 4GB at least</li>
 <li>Disk space: 10GB at least</li>
-<li>Linux: 3.9 or higher, check with <code>uname -r</code></li>
+<li>Linux: 2.6.32 or higher, check with <code>uname -r</code></li>
 <li>glibc: 2.12 or higher, check with <code>ldd --version</code></li>
 <li>GCC: 7.1.0 or higher, check with <code>g++ --version</code></li>
 <li>CMake: 3.5.0 or higher, check with <code>cmake --version</code></li>
 <li>Access to the Internet</li>
 </ul>
-<p>For the time being, <strong>Nebula Graph</strong> can only run in a x86_64 box, with Linux 2.3.32+ and glibc 2.12+.</p>
 <h2 id="quick_steps_to_build">Quick Steps to Build<a class="headerlink" href="#quick_steps_to_build" title="Permanent link">&para;</a></h2>
 <h3 id="installing_dependencies">Installing Dependencies<a class="headerlink" href="#installing_dependencies" title="Permanent link">&para;</a></h3>
 <p>Please note that it requires root privileges to install packages.</p>
@@ -3224,6 +3265,47 @@ Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2017
 </code></pre></div>
 
 <p>Now you have an applicable GCC compiler ready to use. At any time, you could run the command <code>source /opt/vesoft/toolset/gcc/7.5.0/disable</code> to disable it.</p>
+<h2 id="building_without_internet_access">Building Without Internet Access<a class="headerlink" href="#building_without_internet_access" title="Permanent link">&para;</a></h2>
+<p>For those who don't have an Internet access in the building environment, you have to download the above tools and dependencies manually, including the repo of <strong>Nebula Graph</strong>, GCC compiler, third party and CMake. Then you copy all of these to your building host. Following is a quick guide. Refer to the steps above for more details.</p>
+<p>First, in the downloading host:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Please note that although we use command line to illustrate the process, you could perform all the downloading via a browser.</span>
+
+<span class="c1"># Download GCC</span>
+<span class="c1"># For RedHat or CentOS users</span>
+$ wget https://oss-cdn.nebula-graph.com.cn/toolset/vesoft-gcc-7.5.0-CentOS-x86_64-glibc-2.12.sh
+<span class="c1"># For Debian or Ubuntu users</span>
+$ wget https://oss-cdn.nebula-graph.com.cn/toolset/vesoft-gcc-7.5.0-Debian-x86_64-glibc-2.13.sh
+
+<span class="c1"># Download CMake</span>
+$ wget https://cmake.org/files/v3.15/cmake-3.15.5-Linux-x86_64.sh
+
+<span class="c1"># Download third party</span>
+$ wget https://oss-cdn.nebula-graph.com.cn/third-party/vesoft-third-party-x86_64-libc-2.12-gcc-7.5.0-abi-11.sh
+</code></pre></div>
+
+<p>Then, copy these packages to the building host, and:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install GCC</span>
+<span class="c1"># For RedHat or CentOS users</span>
+$ sudo bash vesoft-gcc-7.5.0-CentOS-x86_64-glibc-2.12.sh
+<span class="c1"># For Debian or Ubuntu users</span>
+$ sudo bash vesoft-gcc-7.5.0-Debian-x86_64-glibc-2.13.sh
+
+<span class="c1"># Enable the GCC installation</span>
+$ <span class="nb">source</span> /opt/vesoft/toolset/gcc/7.5.0/enable
+
+<span class="c1"># Install CMake</span>
+$ sudo bash cmake-3.15.5-Linux-x86_64.sh --skip-license --prefix<span class="o">=</span>/opt/vesoft/toolset/cmake
+
+<span class="c1"># Enable CMake by appending its bin directory to PATH</span>
+$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/opt/vesoft/toolset/cmake:<span class="nv">$PATH</span>
+
+<span class="c1"># Install third party</span>
+$ sudo bash vesoft-third-party-x86_64-libc-2.12-gcc-7.5.0-abi-11.sh
+</code></pre></div>
+
+<p>Now you are ready to download and build the <strong>Nebula Graph</strong> project.</p>
+<h2 id="uninstalling">Uninstalling<a class="headerlink" href="#uninstalling" title="Permanent link">&para;</a></h2>
+<p>Before uninstalling, please stop the services. Use the <code>make uninstall</code> command in the <code>make</code> directory to uninstall <strong>Nebula Graph</strong>. Please note that the configuration file will not be deleted after uninstalling.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="error_invalid_argument_type_auto_to_unary_expression"><code>error: invalid argument type 'auto' to unary expression</code><a class="headerlink" href="#error_invalid_argument_type_auto_to_unary_expression" title="Permanent link">&para;</a></h3>
 <p>This error happens when building with Clang 9.0, as shown below:</p>
