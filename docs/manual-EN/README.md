@@ -147,7 +147,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Storage Metrics](3.build-develop-and-administration/7.monitor/3.storage-metrics.md)
   * [Graph Metrics](3.build-develop-and-administration/7.monitor/4.graph-metrics.md)
 * Development and API
-  * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md)
+  <!-- * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md) -->
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)
 
 ## Contributions (for Contributors)
@@ -161,7 +161,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 * [Gremlin V.S. nGQL](5.appendix/gremlin-ngql.md)
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
-<!-- * [Upgrading Nebula Graph](5.appendix/upgrade-guide.md) -->
+<!-- * [Upgrading Nebula Graph](5.appendix/upgrade-guide.md)-->
 
 ## Misc
 
