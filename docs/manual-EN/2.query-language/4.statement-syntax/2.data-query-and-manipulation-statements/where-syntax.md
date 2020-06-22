@@ -1,6 +1,7 @@
 # WHERE Syntax
 
 Currently, the `WHERE` statement only applies to the `GO` statement.
+Currently, the `WHERE` statement applies to the `GO` and `LOOKUP` statement. Note some `WHERE` filter conditions are not supported in the `LOOKUP` statement. Refer to the [LOOKUP Doc](lookup-syntax.md) for details.
 
 ```ngql
 WHERE <expression> [ AND | OR <expression> ...])
