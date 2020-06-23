@@ -55,7 +55,7 @@ There are four built-in properties in the edge:
 * _src: source vertex ID of the edge
 * _dst: destination ID of the edge
 * _type: edge type
-* _rank: the edge's ranking
+* _rank: the edge's rank
 
 You can use `_src` and `_dst` to get the starting and ending vertices' ID, and they are very commonly used to show a graph path.
 
@@ -66,9 +66,11 @@ nebula> GO FROM 100 OVER follow YIELD follow._src, follow._dst, follow._type, fo
 ===========================================================
 | follow._src | follow._dst | follow._type | follow._rank |
 ===========================================================
-| 100         | 101         | 12           | 0            |
+| 100         | 101         | 26           | 0            |
 -----------------------------------------------------------
-| 100         | 125         | 12           | 0            |
+| 100         | 102         | 26           | 0            |
+-----------------------------------------------------------
+| 100         | 106         | 26           | 0            |
 -----------------------------------------------------------
 ```
 
