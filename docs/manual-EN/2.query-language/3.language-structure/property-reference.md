@@ -55,14 +55,21 @@ There are four built-in properties in the edge:
 * _src: source vertex ID of the edge
 * _dst: destination ID of the edge
 * _type: edge type
-* _ranking: the edge's ranking
+* _rank: the edge's ranking
 
 You can use `_src` and `_dst` to get the starting and ending vertices' ID, and they are very commonly used to show a graph path.
 
 For example,
 
 ```ngql
-nebula> GO FROM 100 OVER follow YIELD follow._src AS startVID /* starting vertex is 100 */, follow._dst AS endVID;
+nebula> GO FROM 100 OVER follow YIELD follow._src, follow._dst, follow._type, follow._rank;
+===========================================================
+| follow._src | follow._dst | follow._type | follow._rank |
+===========================================================
+| 100         | 101         | 12           | 0            |
+-----------------------------------------------------------
+| 100         | 125         | 12           | 0            |
+-----------------------------------------------------------
 ```
 
 This statement returns all the neighbors of vertex `100` over edge type `follow`, by referencing `follow._src` as the starting vertex ID (which, of course, is `100`) and `follow._dst` as the ending vertex ID.
