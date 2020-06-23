@@ -23,7 +23,7 @@ FIND SHORTEST | ALL PATH FROM <vertex_id_list> TO <vertex_id_list> OVER <edge_ty
 
 ## Examples
 
-Path is displayed as `id <edge_name, ranking> id` in console.
+Path is displayed as `id <edge_name, rank> id` in console.
 
 ```ngql
 nebula> FIND SHORTEST PATH FROM 100 to 200 OVER *;
