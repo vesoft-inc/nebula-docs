@@ -57,7 +57,7 @@ FETCH PROP ON <edge_type> <vid> -> <vid>[@<rank>] [, <vid> -> <vid> ...] [YIELD 
 
 `<vid> -> <vid>` denotes a starting vertex to (->) an ending vertex. Multiple edges are separated by comma(,).
 
-`<rank>` specifies the edge weight of the same edge type; it's optional.
+`<rank>` specifies the edge rank of the same edge type; it's optional. If not specified, the edge ranked 0 is returned by default.
 
 `[YIELD [DISTINCT] <return_list>]` is the property list returned.
 
