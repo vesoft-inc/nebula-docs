@@ -15,6 +15,7 @@ INSERT VERTEX statement inserts one vertex into **Nebula Graph**.
 
 * `tag_name` denotes the `tag` (vertex type), which must be created before `INSERT VERTEX`.
 * `prop_name_list` is the property name list in the given `tag_name`.
+* `vid` is the vertex ID. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775807, -9223372036854775806, ..., -1. `vid` supports specifying ID manually or using hash to generate.
 * `prop_value_list` must provide the value list according to the `prop_name_list`. If no value matches the type, an error will be returned.
 
 ## Examples
