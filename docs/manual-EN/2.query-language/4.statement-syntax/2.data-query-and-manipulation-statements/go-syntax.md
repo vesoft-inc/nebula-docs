@@ -24,7 +24,7 @@ It indicates to traverse in a graph with specific filters (the `WHERE` clause), 
     <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
 ```
 
-* `<N> STEPS` specifies the N query hops. If not specified, the default traversal is one hop.
+* `<N> STEPS` specifies the N query hops. If not specified, the default traversal is one hop. When `N` is zero, **Nebula Graph** will not traverse any edges, so the returned result is empty.
 * `M TO N STEPS` traverses from M to N hops.
 * `<node_list>` is either a list of node's vid separated by comma(,), or a special place holder `$-.id` (refer `PIPE` syntax).
 * `<edge_type_list>`is a list of edge types which graph traversal can go through.
