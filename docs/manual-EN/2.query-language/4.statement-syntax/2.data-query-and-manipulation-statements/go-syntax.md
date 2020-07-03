@@ -25,7 +25,7 @@ It indicates to traverse in a graph with specific filters (the `WHERE` clause), 
 ```
 
 * `<N> STEPS` specifies the N query hops. If not specified, the default traversal is one hop. When `N` is zero, **Nebula Graph** will not traverse any edges, so the returned result is empty.
-* `M TO N STEPS` traverses from M to N hops.
+* `M TO N STEPS` traverses from M to N hops. When `M` is zero, the return result is the same to `M` is one. That is, the return result of `GO 0 TO 2` and `GO 1 TO 2` are the same.
 * `<node_list>` is either a list of node's vid separated by comma(,), or a special place holder `$-.id` (refer `PIPE` syntax).
 * `<edge_type_list>`is a list of edge types which graph traversal can go through.
 * `WHERE <expression>` extracts only those results that fulfill the specified conditions. WHERE syntax can be conditions for src-vertex, the edges, and dst-vertex. The logical AND, OR, NOT are also supported. See [WHERE Syntax](where-syntax.md) for more information.
