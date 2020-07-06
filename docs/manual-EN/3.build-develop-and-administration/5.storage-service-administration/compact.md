@@ -2,4 +2,12 @@
 
 This document will walk you through the concept of Compact.
 
-There are two types of Compact in code. One is **minor compact** (disable_auto_compactions=false). Small-scale sst files are merged when writing during the minor compact, which mainly guarantees the reading speed in a short time. The other one is **major compact** (i.e. the `SUBMIT JOB COMPACT` in **Nebula Graph**). Usually, major compact is performed in the early morning, and all sst files are merged, which mainly ensures the reading speed in the next few hours.
+1. Start or stop compact with the `UPDATE CONFIG disable_auto_compactions=false/true` command. This method calls the default RocksDB compact. You can use it to merge sst files in small scale during data writing to ensure the read speed in a short time. This kind of compact is usually performed in the day time.
+2. Start compact with the `SUBMIT JOB COMPACT` command. This method calls the customized compact of **Nebula Graph**. You can use it perform large scale background operations such as sst files merging in large scale or TTL. This kind of compact is usually performed in the early morning.
+
+In addition, you can modify the number of threads in both methods by the following command.
+
+```ngql
+nebula> UPDATE CONFIGS storage:rocksdb_db_options  = \
+        { max_subcompactions = 4, max_background_jobs = 4};
+```
