@@ -113,6 +113,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * Install
   * [rpm Installation](3.build-develop-and-administration/2.install/1.install-with-rpm-deb.md)
   * [Start and Stop Services](3.build-develop-and-administration/2.install/2.start-stop-service.md)
+  * [Deploying Cluster](3.build-develop-and-administration/2.install/4.cluster-deploy.md)
 * Configuration
   * [System Requirement](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
   * [Config Persistency and Priority](3.build-develop-and-administration/3.configurations/1.config-persistency-and-priority.md)
