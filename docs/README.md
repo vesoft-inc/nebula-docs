@@ -23,6 +23,11 @@ Please note that you must install **Nebula Graph** by [installing source code](h
 
 If you have any questions, please don't hesitate to contact us on [forum](https://discuss.nebula-graph.io).
 
+## FAQ
+
+* [Explanations on the Time Return in Queries](manual-EN/1.overview/2.quick-start/2.FAQ.md)
+* [About HDD and Gigabit Networks](https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/3.configurations/0.system-requirement/#about_hdd_and_gigabit_networks)
+
 ## Documentation
 
 * [English](https://docs.nebula-graph.io/)
