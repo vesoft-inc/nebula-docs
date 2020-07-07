@@ -2837,8 +2837,8 @@
 </li>
 <li><strong>Edge</strong> : A Link between two vertices<ul>
 <li>Each edge can be uniquely identified by a tuple <strong><src_vid, dst_vid, edge_type, rank></strong></li>
-<li><strong><em>Edge type (ET)</em></strong> is a human readable string, internally it will be assigned a 32-bit integer. The edge type decides the property list (schema) on the edge</li>
-<li><strong><em>Edge rank</em></strong> is an immutable user-assigned 64-bit signed integer. It affects the edge order between two vertices. The edge with a higher rank value comes first. When not specified, the default rank value is zero.</li>
+<li><strong><em>Edge type (ET)</em></strong> is a human readable string, internally it will be assigned a 32-bit integer. The edge type decides the property list (schema) on the edge.</li>
+<li><strong><em>Edge rank</em></strong> is an immutable user-assigned 64-bit signed integer. It affects the edge order of the same edge type between two vertices. The edge with a higher rank value comes first. When not specified, the default rank value is zero. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1.</li>
 <li>Each edge can only be of one type</li>
 </ul>
 </li>
@@ -2933,7 +2933,7 @@
 <h4 id="insert_edges">Insert Edges<a class="headerlink" href="#insert_edges" title="Permanent link">&para;</a></h4>
 <p>The following statement inserts one or more edges</p>
 <p><span style="color:blue"><strong>INSERT EDGE</strong></span> [<span style="color:blue"><strong>NO OVERWRITE</strong></span>] <edge\_type\_name> [(<prop\_list>)] <span style="color:blue"><strong>VALUES</strong></span> (<edge\_value>)+</p>
-<p>edge_value ::= <vertex\_id> -&gt; <vertex\_id> [@ &lt;weight>] : <prop\_value\_list></p>
+<p>edge_value ::= <vertex\_id> -&gt; <vertex\_id> [@ &lt;rank>] : <prop\_value\_list></p>
 <h4 id="update_a_vertex">Update a Vertex<a class="headerlink" href="#update_a_vertex" title="Permanent link">&para;</a></h4>
 <p>The following statement updates a vertex</p>
 <p><span style="color:blue"><strong>UPDATE VERTEX</strong></span>  <vertex\_id>
@@ -2945,7 +2945,7 @@
 <update\_form2> ::= (<prop\_list>) = (<value\_list>) | (<prop\_list>) = &lt;var> <br></p>
 <h4 id="update_an_edge">Update an Edge<a class="headerlink" href="#update_an_edge" title="Permanent link">&para;</a></h4>
 <p>The following statement updates an edge</p>
-<p><span style="color:blue"><strong>UPDATE EDGE</strong></span>  <vertex\_id> -&gt; <vertex\_id> [@&lt;weight>] <span style="color:blue"><strong>OF</strong></span> <edge\_type>
+<p><span style="color:blue"><strong>UPDATE EDGE</strong></span>  <vertex\_id> -&gt; <vertex\_id> [@&lt;rank>] <span style="color:blue"><strong>OF</strong></span> <edge\_type>
 <span style="color:blue"><strong>SET</strong></span> <update\_decl>
 [<span style="color:blue"><strong>WHERE</strong></span> &lt;conditions>]
 [<span style="color:blue"><strong>YIELD</strong></span> <field\_list>]</p>
@@ -3016,11 +3016,13 @@ The following statement does a pattern match, and can return tuple list or paths
 <p>$- refers to the input stream, while $$ refers to the destination objects</p>
 <p>All property names start with a letter. There are a few system property names starting with "_". All properties names starting with "_" are reserved.</p>
 <h3 id="built-in_properties">Built-in Properties<a class="headerlink" href="#built-in_properties" title="Permanent link">&para;</a></h3>
-<p>_id : Vertex id
-_type : Edge type
-_src : Source ID of the edge
-_dst : Destination ID of the edge
-_rank : Edge rank number</p>
+<ul>
+<li>_id : Vertex id</li>
+<li>_type : Edge type</li>
+<li>_src : Source ID of the edge</li>
+<li>_dst : Destination ID of the edge</li>
+<li>_rank : Edge rank number</li>
+</ul>
                 
                   
                 

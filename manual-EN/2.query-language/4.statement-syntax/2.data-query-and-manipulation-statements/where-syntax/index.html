@@ -1332,6 +1332,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#filtering_edge_rank_with_where" class="md-nav__link">
+    Filtering Edge Rank with WHERE
+  </a>
+  
+</li>
+      
       
       
       
@@ -2453,6 +2460,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#filtering_edge_rank_with_where" class="md-nav__link">
+    Filtering Edge Rank with WHERE
+  </a>
+  
+</li>
+      
       
       
       
@@ -2471,11 +2485,11 @@
                 
                 
                 <h1 id="where_syntax">WHERE Syntax<a class="headerlink" href="#where_syntax" title="Permanent link">&para;</a></h1>
-<p>Currently, the <code>WHERE</code> statement only applies to the <code>GO</code> statement.
-Currently, the <code>WHERE</code> statement applies to the <code>GO</code> and <code>LOOKUP</code> statement. Note some <code>WHERE</code> filter conditions are not supported in the <code>LOOKUP</code> statement. Refer to the <a href="../lookup-syntax/">LOOKUP Doc</a> for details.</p>
+<p>The <code>WHERE</code> clause allows you to specify a search condition for the data returned by a query. The following shows the syntax of the WHERE clause:</p>
 <div class="highlight"><pre><span></span><code>WHERE &lt;expression&gt; [ AND | OR &lt;expression&gt; ...])
 </code></pre></div>
 
+<p>Currently, the <code>WHERE</code> statement applies to the <code>GO</code> and <code>LOOKUP</code> statement. Note some <code>WHERE</code> filter conditions are not supported in the <code>LOOKUP</code> statement. Refer to the <a href="../lookup-syntax/">LOOKUP Doc</a> for details.</p>
 <p>Usually, <code>WHERE</code> is a set of logical combination that filters vertex or edge properties.</p>
 <blockquote>
 <p>As syntactic sugar, logic AND is represented by <code>AND</code> or <code>&amp;&amp;</code> and logic OR is represented by <code>OR</code> or <code>||</code>.</p>
@@ -2520,6 +2534,35 @@ nebula&gt; GO FROM 101 OVER follow WHERE 1 == 1 OR TRUE;
 ---------------
 | 102         |
 ---------------
+</code></pre></div>
+
+<h2 id="filtering_edge_rank_with_where">Filtering Edge Rank with WHERE<a class="headerlink" href="#filtering_edge_rank_with_where" title="Permanent link">&para;</a></h2>
+<p>You can filter the edge rank with the <code>WHERE</code> clause. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE test;
+nebula&gt; USE test;
+nebula&gt; CREATE EDGE e1(p1 int);
+nebula&gt; CREATE TAG person(p1 int);
+nebula&gt; INSERT VERTEX person(p1) VALUES 1:(1);
+nebula&gt; INSERT VERTEX person(p1) VALUES 2:(2);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@0:(10);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@1:(11);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@2:(12);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@3:(13);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@4:(14);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@5:(15);
+nebula&gt; INSERT EDGE e1(p1) VALUES 1-&gt;2@6:(16);
+nebula&gt; GO FROM 1 OVER e1 WHERE e1._rank&gt;2 YIELD e1._src, e1._dst, e1._rank AS Rank, e1.p1 | ORDER BY Rank DESC;
+====================================
+| e1._src | e1._dst | Rank | e1.p1 |
+====================================
+| 1       | 2       | 6    | 16    |
+------------------------------------
+| 1       | 2       | 5    | 15    |
+------------------------------------
+| 1       | 2       | 4    | 14    |
+------------------------------------
+| 1       | 2       | 3    | 13    |
+------------------------------------
 </code></pre></div>
                 
                   
