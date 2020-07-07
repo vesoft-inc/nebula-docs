@@ -1,11 +1,12 @@
 # WHERE Syntax
 
-Currently, the `WHERE` statement only applies to the `GO` statement.
-Currently, the `WHERE` statement applies to the `GO` and `LOOKUP` statement. Note some `WHERE` filter conditions are not supported in the `LOOKUP` statement. Refer to the [LOOKUP Doc](lookup-syntax.md) for details.
+The `WHERE` clause allows you to specify a search condition for the data returned by a query. The following shows the syntax of the WHERE clause:
 
 ```ngql
 WHERE <expression> [ AND | OR <expression> ...])
 ```
+
+Currently, the `WHERE` statement applies to the `GO` and `LOOKUP` statement. Note some `WHERE` filter conditions are not supported in the `LOOKUP` statement. Refer to the [LOOKUP Doc](lookup-syntax.md) for details.
 
 Usually, `WHERE` is a set of logical combination that filters vertex or edge properties.
 
@@ -53,4 +54,36 @@ nebula> GO FROM 101 OVER follow WHERE 1 == 1 OR TRUE;
 ---------------
 | 102         |
 ---------------
+```
+
+## Filtering Edge Rank with WHERE
+
+You can filter the edge rank with the `WHERE` clause. For example:
+
+```ngql
+nebula> CREATE SPACE test;
+nebula> USE test;
+nebula> CREATE EDGE e1(p1 int);
+nebula> CREATE TAG person(p1 int);
+nebula> INSERT VERTEX person(p1) VALUES 1:(1);
+nebula> INSERT VERTEX person(p1) VALUES 2:(2);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@0:(10);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@1:(11);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@2:(12);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@3:(13);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@4:(14);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@5:(15);
+nebula> INSERT EDGE e1(p1) VALUES 1->2@6:(16);
+nebula> GO FROM 1 OVER e1 WHERE e1._rank>2 YIELD e1._src, e1._dst, e1._rank AS Rank, e1.p1 | ORDER BY Rank DESC;
+====================================
+| e1._src | e1._dst | Rank | e1.p1 |
+====================================
+| 1       | 2       | 6    | 16    |
+------------------------------------
+| 1       | 2       | 5    | 15    |
+------------------------------------
+| 1       | 2       | 4    | 14    |
+------------------------------------
+| 1       | 2       | 3    | 13    |
+------------------------------------
 ```
