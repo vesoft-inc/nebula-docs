@@ -111,7 +111,7 @@ Save and close the file. Restart the services:
 
 ## Disabling LDAP Authentication in Nebula Graph
 
-You can disable LDAP authentication in **Nebula Graph** by setting the  `--enable_authorize` parameter to `false` in the `nebula-graphd.conf` file.
+You can disable LDAP authentication in **Nebula Graph** by setting the  `--enable_authorize` parameter to `false` in the `nebula-graphd.conf` file and restarting the services.
 
 ## Connecting to Nebula Graph Through LDAP Authentication
 
