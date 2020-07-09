@@ -1,4 +1,4 @@
-# Integration with LDAP
+# Integrating LDAP
 
 This document describes how to connect **Nebula Graph** to a LDAP server for authentication and authorization (only available with the Enterprise Edition).
 
@@ -17,7 +17,7 @@ LDAP integration allows you to share user identity information and passwords def
     ```
 
 2. Put the `auth_ldap.so` file in the shared directory of the installation path.
-3. Create a shadow account to install the plugin.
+3. Create a shadow account to install the `auth_ldap` plugin.
 
     Login to **Nebula Graph** as root with password `nebula` and the `auth_type` is `password`:
 
@@ -51,7 +51,7 @@ LDAP integration allows you to share user identity information and passwords def
     ./bin/nebula -u root  -p nebula   --port 3699 --addr="127.0.0.1"
     ```
 
-2. Run the following command to uninstall the auth_ldap plugin:
+2. Run the following command to uninstall the `auth_ldap` plugin:
 
     ```ngql
     nebula> UNINSTALL PLUGIN auth_ldap;
