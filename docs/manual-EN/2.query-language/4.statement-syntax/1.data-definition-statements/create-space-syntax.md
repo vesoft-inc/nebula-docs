@@ -29,7 +29,7 @@ When creating a space, the following four customized options can be given:
 
 * _replica_factor_
 
-    _replica_factor_ specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in cluster. It is usually 3 in production.
+    _replica_factor_ specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in cluster. It is usually 3 in production. Due to the majority voting principle, it must set to be odd.
 
 * _charset_
 
