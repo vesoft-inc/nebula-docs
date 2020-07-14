@@ -125,6 +125,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Kernel Configuration](3.build-develop-and-administration/3.configurations/7.kernel-config.md)
 * Account Management Statement
   * [Alter User Syntax](3.build-develop-and-administration/4.account-management-statements/alter-user-syntax.md)
+  * [Authentication](3.build-develop-and-administration/4.account-management-statements/authentication.md)
   * [Built-in Roles](3.build-develop-and-administration/4.account-management-statements/built-in-roles.md)
   * [Change Password](3.build-develop-and-administration/4.account-management-statements/change-password.md)
   * [Create User](3.build-develop-and-administration/4.account-management-statements/create-user-syntax.md)
