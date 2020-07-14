@@ -1,4 +1,4 @@
-# Comparison Between MySQL and nGQL
+# Comparison Between SQL and nGQL
 
 ## Conceptual Comparisons
 
