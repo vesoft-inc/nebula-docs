@@ -37,17 +37,17 @@ Name                   | Gremlin         | nGQL          |
 -----                  |---------        |   -----       |
 Create a new graph     | g = TinkerGraph.open().traversal() | CREATE SPACE gods |
 Show vertices' types   | g.V().label()   | SHOW TAGS |
-Insert a vertex with a specified type | g.addV(String vertexLabel).property() | INSERT VERTEX <tag_name> (prop_name_list) VALUES \<vid>:(prop_value_list) |
-Insert an edge with specified edge type | g.addE(String edgeLabel).from(v1).to(v2).property()| INSERT EDGE <edge_name> ( <prop_name_list> ) VALUES <src_vid> -> <dst_vid>: ( <prop_value_list> ) |
-Delete a vertex | g.V(\<vid>).drop() | DELETE VERTEX \<vid> |
-Delete an edge  | g.E(\<vid>).outE(\<type>).where(otherV().is(\<vid>))drop() | DELETE EDGE <edge_type> \<src_vid> -> \<dst_vid> |
-Update a vertex property | g.V(\<vid>).property() | UPDATE VERTEX \<vid> SET <update_columns> |
-Fetch vertices with ID | g.V(\<vid>) | FETCH PROP ON <tag_name> \<vid>|
-Fetch edges with ID    | g.E(<src_vid> >> <dst_vid>) | FETCH PROP ON <edge_name> <src_vid> -> <dst_vid> |
-Query a vertex along specified edge type | g.V(\<vid>).outE( \<edge>) | GO FROM \<vid> OVER  \<edge> |
-Query a vertex along specified edge type reversely | g.V(\<vid>).in( \<edge>) | GO FROM \<vid>  OVER \<edge> REVERSELY |
-Query N hops along a specified edge | g.V(\<vid>).repeat(out(\<edge>)).times(N) | GO N STEPS FROM \<vid> OVER \<edge> |
-Find path between two vertices | g.V(\<vid>).repeat(out()).until(\<vid>).path() | FIND ALL PATH FROM \<vid> TO \<vid> OVER * |
+Insert a vertex with a specified type | g.addV(String vertexLabel).property() | INSERT VERTEX `<tag_name>` (prop_name_list) VALUES `<vid>`:(prop_value_list) |
+Insert an edge with specified edge type | g.addE(String edgeLabel).from(v1).to(v2).property()| INSERT EDGE `<edge_name>` ( `<prop_name_list>` ) VALUES `<src_vid>` -> `<dst_vid>`: ( `<prop_value_list>` ) |
+Delete a vertex | g.V(`<vid>`).drop() | DELETE VERTEX `<vid>` |
+Delete an edge  | g.E(`<vid>`).outE(`<type>`).where(otherV().is(`<vid>`))drop() | DELETE EDGE `<edge_type>` `<src_vid>` -> `<dst_vid>` |
+Update a vertex property | g.V(`<vid>`).property() | UPDATE VERTEX `<vid>` SET `<update_columns>` |
+Fetch vertices with ID | g.V(`<vid>`) | FETCH PROP ON `<tag_name>` `<vid>`|
+Fetch edges with ID    | g.E(`<src_vid>` >> `<dst_vid>`) | FETCH PROP ON `<edge_name>` `<src_vid>` -> `<dst_vid>` |
+Query a vertex along specified edge type | g.V(`<vid>`).outE( `<edge>`) | GO FROM `<vid>` OVER  `<edge>` |
+Query a vertex along specified edge type reversely | g.V(`<vid>`).in( `<edge>`) | GO FROM `<vid>`  OVER `<edge>` REVERSELY |
+Query N hops along a specified edge | g.V(`<vid>`).repeat(out(`<edge>`)).times(N) | GO N STEPS FROM `<vid>` OVER `<edge>` |
+Find path between two vertices | g.V(`<vid>`).repeat(out()).until(`<vid>`).path() | FIND ALL PATH FROM `<vid>` TO `<vid>` OVER * |
 
 ## Example Queries
 
