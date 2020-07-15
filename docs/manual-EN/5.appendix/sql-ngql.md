@@ -13,48 +13,133 @@
 | column | column | \ |
 | row | row | \ |
 
-## Basic Data Operations
+## Syntax Comparisons
+
+### Data Definition Language (DDL)
+
+DDL or Data Definition Language can be used to define the database schema. It simply deals with descriptions of the database schema and is used to create and modify the structure of database objects in the database.
 
 Name                    | SQL                   | nGQL
 -------------------------| ------------------------ | -----------
 Create (graph) database              | CREATE DATABASE `<database_name>`                    | CREATE SPACE `<space_name>`
 Show (graph) database              | SHOW DATABASES | SHOW SPACES
 Use (graph) database  | USE `<database_name>` | USE `<space_name>`
-Create tag | \ | CREATE TAG `<tag_name>`
-Create edge | \ | CREATE EDGE `<edge_name>`
+Drop (graph) database | DROP DATABASE `<database_name>` | DROP SPACE `<space_name>`
+Alter (graph) database | ALTER DATABASE `<database_name>` alter_option | \
+Create tags/edges | \ | CREATE TAG \| EDGE `<tag_name>`
 Crete table | CREATE TABLE `<tbl_name>` (create_definition,...) | \
 Show columns | SHOW COLUMNS FROM `<tbl_name>` | \
 Show tags/edges | \ | SHOW TAGS \| EDGES
 Describe tags/edges | \ | DESCRIBE TAG \| EDGE `<tag_name | edge_name>`
+Alter tags/edges | \ | ALTER TAG \| EDGE `<tag_name | edge_name>`
+Alter table | ALTER TABLE `<tbl_name>` | \
+
+### Data Manipulation Language (DML)
+
+DML deals with the manipulation of data present in the database.
+
+Name                    | SQL                   | nGQL
+-------------------------| ------------------------ | -----------
 Insert data | INSERT INTO `<tbl_name>` [(col_name [, col_name] ...)] {VALUES \| VALUE} [(value_list) [, (value_list)] | INSERT VERTEX `<tag_name>` (prop_name_list[, prop_name_list]) {VALUES \| VALUE} vid: (prop_value_list[, prop_value_list]) <br/> INSERT EDGE `<edge_name>` ( `<prop_name_list>` ) VALUES \| VALUE `<src_vid>` -> `<dst_vid>`[`@<rank>`] : ( `<prop_value_list>` )
 Query data | SELECT | GO, FETCH
 Update data | UPDATE `<tbl_name>` SET field1=new-value1, field2=new-value2 [WHERE Clause] | UPDATE VERTEX `<vid>` SET `<update_columns>` [WHEN `<condition>`] <br/> UPDATE EDGE `<edge>` SET `<update_columns>` [WHEN `<condition>`]
 Delete data | DELETE FROM `<tbl_name>` [WHERE Clause] | DELETE EDGE `<edge_type>` `<vid>` -> `<vid>`[`@<rank>`] [, `<vid>` -> `<vid>` ...] <br/> DELETE VERTEX `<vid_list>`
+Join data| JOIN | `|` |
 
-## Sample Queries
+### Data Query Language (DQL)
+
+DML statements are used for performing queries on the data. This section compares the how SQL and nGQL query data.
+
+```sql
+SELECT
+ [DISTINCT]
+ select_expr [, select_expr] ...
+ [FROM table_references]
+ [WHERE where_condition]
+ [GROUP BY {col_name | expr | position}]
+ [HAVING  where_condition]
+ [ORDER BY {col_name | expr | position} [ASC | DESC]]
+```
+
+```SQL
+GO [[<M> TO] <N> STEPS ] FROM <node_list>
+ OVER <edge_type_list> [REVERSELY] [BIDIRECT]
+ [WHERE where_condition]
+ [YIELD [DISTINCT] <return_list>]
+ [| ORDER BY <expression> [ASC | DESC]]
+ [| LIMIT [<offset_value>,] <number_rows>]
+ [| GROUP BY {col_name | expr | position} YIELD <col_name>]
+
+<node_list>
+   | <vid> [, <vid> ...]
+   | $-.id
+
+<edge_type_list>
+   edge_type [, edge_type ...]
+
+<return_list>
+    <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
+```
+
+### Data Control Language (DCL)
+
+DCL includes commands such as `GRANT` and `REVOKE` which mainly deals with the rights, permissions and other controls of the database system.
+
+Name                    | SQL                   | nGQL
+-------------------------| ------------------------ | -----------
+Create user | CREATE USER | CREATE USER
+Drop user | DROP USER | DROP USER
+Change password | SET PASSWORD | CHANGE PASSWORD
+Grant privileges | GRANT `<priv_type>` ON [object_type] TO `<user>`| GRANT ROLE `<role_type>` ON `<space>` TO `<user>`
+Revoke privileges | REVOKE `<priv_type>` ON [object_type] TO `<user>` | REVOKE ROLE `<role_type>` ON `<space>` FROM `<user>`
+
+## CRUD
 
 This section gives some query examples for your reference.
 
-### Query 1
+### Inserting Data
+
+```sql
+mysql> INSERT INTO player VALUES (100, 'Tim Duncan', 42);
+
+nebula> INSERT VERTEX player(name, age) VALUES 100: ('Tim Duncan', 42);
+```
+
+### Querying Data
 
 Find the player in the `player` table whose id is 100 and output the `name` property in RDBMS:
 
 ```sql
-SELECT player.name
-FROM player
-WHERE player.id = 100;
-```
+mysql> SELECT player.name FROM player WHERE player.id = 100;
 
-```ngql
 nebula> FETCH PROP ON player 100 YIELD player.name;
 ```
 
-### Query 2
+### Updating Data
+
+```sql
+mysql> UPDATE player SET name = 'Tim';
+
+nebula> UPDATE VERTEX 100 SET player.name = "Tim";
+```
+
+### Deleting Data
+
+```sql
+mysql> DELETE FROM player WHERE name = 'Tim';
+
+nebula> DELETE VERTEX 121;
+nebula> DELETE EDGE follow 100 -> 200;
+```
+
+## Sample Queries
+
+### Query 1
 
 Find players who are younger than 36.
 
 ```sql
-SELECT player.name
+mysql> SELECT player.name
 FROM player
 WHERE player.age < 36;
 ```
@@ -67,12 +152,12 @@ nebula> REBUILD TAG INDEX player_age OFFLINE;
 nebula> LOOKUP ON player WHERE player.age < 36;
 ```
 
-### Query 3
+### Query 2
 
 List Tim Duncan and the team he served.
 
 ```sql
-SELECT a.id, a.name, c.name
+mysql> SELECT a.id, a.name, c.name
 FROM player a
 JOIN serve b ON a.id=b.player_id
 JOIN team c ON c.id=b.team_id
@@ -85,12 +170,12 @@ nebula> REBUILD TAG INDEX player_name OFFLINE;
 nebula> LOOKUP ON player WHERE player.name == 'Tim Duncan' YIELD player.name AS name | GO FROM $-.VertexID OVER serve YIELD $-.name, $$.team.name;
 ```
 
-### Query 4
+### Query 3
 
 Search Tim Duncan's player mates.
 
 ```sql
-SELECT a.id, a.name, c.name
+mysql> SELECT a.id, a.name, c.name
 FROM player a
 JOIN serve b ON a.id=b.player_id
 JOIN team c ON c.id=b.team_id
