@@ -11,7 +11,7 @@ prop_value_list:
   [prop_value [, prop_value] ...]
 ```
 
-INSERT VERTEX statement inserts vertex into **Nebula Graph**.
+The `INSERT VERTEX` statement inserts a vertex or vertices into **Nebula Graph**.
 
 * `tag_name` denotes the `tag` (vertex type), which must be created before `INSERT VERTEX`.
 * `prop_name_list` is the property name list in the given `tag_name`.
