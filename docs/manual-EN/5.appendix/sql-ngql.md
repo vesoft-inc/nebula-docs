@@ -33,6 +33,7 @@ Show tags/edges | \ | SHOW TAGS \| EDGES
 Describe tags/edges | \ | DESCRIBE TAG \| EDGE `<tag_name | edge_name>`
 Alter tags/edges | \ | ALTER TAG \| EDGE `<tag_name | edge_name>`
 Alter table | ALTER TABLE `<tbl_name>` | \
+Create index | CREATE INDEX | CREATE {TAG \| EDGE} INDEX
 
 ### Data Manipulation Language (DML)
 
