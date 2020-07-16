@@ -2418,6 +2418,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../5.appendix/sql-ngql/" title="SQL & nGQL" class="md-nav__link">
+      SQL & nGQL
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2535,7 +2547,7 @@
 <li>The <code>ttl_duration</code> is set in seconds and ranges from 0 to max(int64). If it is set to 0, the vertex properties of this tag does not expire.</li>
 </ul>
 <ul>
-<li>If TTL is set, when the sum of the <code>ttl_col</code> and the <code>ttl_duration</code> is less than the current time, we consider the vertex properties of this tag as expired after the specified seconds configured by <code>ttl_duration</code> has passed since the <code>ttl_col</code> field value.</li>
+<li>If TTL is set, when the sum of the <code>ttl_col</code> and the <code>ttl_duration</code> is less than the current time, we consider the vertex properties of this tag as expired in the specified seconds configured by <code>ttl_duration</code> has passed since the <code>ttl_col</code> field value.</li>
 </ul>
 <ul>
 <li>When the vertex has multiple tags, the TTL of each tag is processed separately.</li>
@@ -2549,7 +2561,7 @@ nebula&gt; ALTER TAG t1 ttl_col = &quot;a&quot;, ttl_duration = 5; -- Setting tt
 nebula&gt; INSERT VERTEX t1(a) values 101:(now());
 </code></pre></div>
 
-<p>The vertex 101 property in tag t1 will expire after 5 seconds since specified by now().</p>
+<p>The vertex 101 property in tag t1 will expire in 5 seconds since specified by now().</p>
 <ul>
 <li>Or you can set the TTL attribute when creating the tag.</li>
 </ul>
@@ -2557,7 +2569,7 @@ nebula&gt; INSERT VERTEX t1(a) values 101:(now());
 nebula&gt; INSERT VERTEX t2(a, b, c) values 102:(1584441231, 30, &quot;Word&quot;);
 </code></pre></div>
 
-<p>The vertex 102 property in tag t2 will expire after 100 seconds since March 17 2020 at 18:33:51 CST i.e. the timestamp is 1584441231.</p>
+<p>The vertex 102 property in tag t2 will expire in 100 seconds since March 17 2020 at 18:33:51 CST i.e. the timestamp is 1584441231.</p>
 <ul>
 <li>When a vertex has multiple TAGs, the TTL of each TAG is independent from each other.</li>
 </ul>
@@ -2565,7 +2577,7 @@ nebula&gt; INSERT VERTEX t2(a, b, c) values 102:(1584441231, 30, &quot;Word&quot
 nebula&gt; INSERT VERTEX t1(a),t3(a) values 200:(now(), &quot;hello&quot;);
 </code></pre></div>
 
-<p>The vertex 200 property in tag t1 will expire after 5 seconds.</p>
+<p>The vertex 200 property in tag t1 will expire in 5 seconds.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON t1 200;
 Execution succeeded (Time spent: 5.945/7.492 ms)
 
