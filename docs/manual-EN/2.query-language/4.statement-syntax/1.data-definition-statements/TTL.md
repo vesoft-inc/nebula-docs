@@ -11,7 +11,7 @@ TTl requires `ttl_col` and `ttl_duration` together. `ttl_col` indicates the TTL 
 
 - The `ttl_duration` is set in seconds and ranges from 0 to max(int64). If it is set to 0, the vertex properties of this tag does not expire.
 
-- If TTL is set, when the sum of the `ttl_col` and the `ttl_duration` is less than the current time, we consider the vertex properties of this tag as expired after the specified seconds configured by `ttl_duration` has passed since the `ttl_col` field value.
+- If TTL is set, when the sum of the `ttl_col` and the `ttl_duration` is less than the current time, we consider the vertex properties of this tag as expired in the specified seconds configured by `ttl_duration` has passed since the `ttl_col` field value.
 
 - When the vertex has multiple tags, the TTL of each tag is processed separately.
 
@@ -25,7 +25,7 @@ nebula> ALTER TAG t1 ttl_col = "a", ttl_duration = 5; -- Setting ttl
 nebula> INSERT VERTEX t1(a) values 101:(now());
 ```
 
-The vertex 101 property in tag t1 will expire after 5 seconds since specified by now().
+The vertex 101 property in tag t1 will expire in 5 seconds since specified by now().
 
 - Or you can set the TTL attribute when creating the tag.
 
@@ -34,7 +34,7 @@ nebula> CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 nebula> INSERT VERTEX t2(a, b, c) values 102:(1584441231, 30, "Word");
 ```
 
-The vertex 102 property in tag t2 will expire after 100 seconds since March 17 2020 at 18:33:51 CST i.e. the timestamp is 1584441231.
+The vertex 102 property in tag t2 will expire in 100 seconds since March 17 2020 at 18:33:51 CST i.e. the timestamp is 1584441231.
 
 - When a vertex has multiple TAGs, the TTL of each TAG is independent from each other.
 
@@ -43,7 +43,7 @@ nebula> CREATE TAG t3(a string);
 nebula> INSERT VERTEX t1(a),t3(a) values 200:(now(), "hello");
 ```
 
-The vertex 200 property in tag t1 will expire after 5 seconds.
+The vertex 200 property in tag t1 will expire in 5 seconds.
 
 ```ngql
 nebula> FETCH PROP ON t1 200;
