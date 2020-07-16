@@ -49,7 +49,7 @@ Data Manipulation Language (DML) is used to manipulate data in a database.
 
 Items                    | SQL                   | nGQL
 -------------------------| ------------------------ | -----------
-Insert data | INSERT INTO `<tbl_name>` [(col_name [, col_name] ...)] {VALUES \| VALUE} [(value_list) [, (value_list)] | INSERT VERTEX `<tag_name>` (prop_name_list[, prop_name_list]) {VALUES \| VALUE} vid: (prop_value_list[, prop_value_list]) <br/> INSERT EDGE `<edge_name>` ( `<prop_name_list>` ) VALUES \| VALUE `<src_vid>` -> `<dst_vid>`[`@<rank>`] : ( `<prop_value_list>` )
+Insert data | INSERT IGNORE INTO `<tbl_name>` [(col_name [, col_name] ...)] {VALUES \| VALUE} [(value_list) [, (value_list)] | INSERT VERTEX `<tag_name>` (prop_name_list[, prop_name_list]) {VALUES \| VALUE} vid: (prop_value_list[, prop_value_list]) <br/> INSERT EDGE `<edge_name>` ( `<prop_name_list>` ) VALUES \| VALUE `<src_vid>` -> `<dst_vid>`[`@<rank>`] : ( `<prop_value_list>` )
 Query data | SELECT | GO, FETCH
 Update data | UPDATE `<tbl_name>` SET field1=new-value1, field2=new-value2 [WHERE Clause] | UPDATE VERTEX `<vid>` SET `<update_columns>` [WHEN `<condition>`] <br/> UPDATE EDGE `<edge>` SET `<update_columns>` [WHEN `<condition>`]
 Delete data | DELETE FROM `<tbl_name>` [WHERE Clause] | DELETE EDGE `<edge_type>` `<vid>` -> `<vid>`[`@<rank>`] [, `<vid>` -> `<vid>` ...] <br/> DELETE VERTEX `<vid_list>`
