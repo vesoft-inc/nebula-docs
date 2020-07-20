@@ -34,7 +34,7 @@ ObjectClass attribute specifies the object classes of an entry, which (among oth
 | groupOfNames | A LDAP group. |
 | olcModuleList | Object of the configured module list. |
 
-### LDAP Keywords
+<!-- ### LDAP Keywords
 
 | Keywords | Full Name | Description |
 | --- | --- | --- |
@@ -46,4 +46,4 @@ ObjectClass attribute specifies the object classes of an entry, which (among oth
 | dn | Distinguished Name | The unique identifier for an entry in the tree, similar to the absolute path in the Linux file system. For example “uid= tom,ou=market,dc=example,dc=com” is unique in a tree.|
 | rdn | Relative dn | Each entry has a unique name relative to its parent called RDN. For example “uid=tom” or “cn= Thomas Johnson”. |
 | c | Country | c is an LDAP attribute that means country name. For example "CN" and "US".|
-| o | Organization | Organization name. For example “Example, Inc.” |
+| o | Organization | Organization name. For example “Example, Inc.” | -->
