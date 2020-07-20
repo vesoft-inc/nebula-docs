@@ -1,12 +1,12 @@
 # Integrating LDAP
 
-This document describes how to connect **Nebula Graph** to a LDAP server for authentication and authorization (only available with the Enterprise Edition).
+This document describes how to connect **Nebula Graph** to a LDAP server for authentication (only available with the Enterprise Edition).
 
 ## About LDAP Integration
 
-LDAP integration allows you to share user identity information and passwords defined in LDAP with **Nebula Graph**. You can also assign roles for LDAP users or across an entire LDAP group rather than configuring **Nebula Graph** users individually.
+LDAP integration allows you to share user identity information and passwords defined in LDAP with **Nebula Graph**.
 
-## Installing LDAP
+## Installing LDAP Plugin
 
 1. Build the LDAP server and insert the corresponding record.
 
@@ -28,6 +28,7 @@ LDAP integration allows you to share user identity information and passwords def
     Create a shadow account:
 
     ```ngql
+    # You need to authorize the shadow account test2 first
     nebula> CREATE USER test2 WITH PASSWORD "";
     ```
 
@@ -43,7 +44,7 @@ LDAP integration allows you to share user identity information and passwords def
     nebula> SHOW PLUGINS;
     ```
 
-## Uninstalling LDAP
+## Uninstalling LDAP Plugin
 
 1. Login to **Nebula Graph** as root with password `nebula` and the `auth_type` is `password`:
 
