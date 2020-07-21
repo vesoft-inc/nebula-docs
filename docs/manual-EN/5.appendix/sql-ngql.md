@@ -31,7 +31,7 @@ Create a table | CREATE TABLE `<tbl_name>` (create_definition,...) | \
 Show columns | SHOW COLUMNS FROM `<tbl_name>` | \
 Show tags/edges | \ | SHOW TAGS \| EDGES
 Describe tags/edge | \ | DESCRIBE TAG \| EDGE `<tag_name | edge_name>`
-Alter a tags/edge | \ | ALTER TAG \| EDGE `<tag_name | edge_name>`
+Alter a tag/edge | \ | ALTER TAG \| EDGE `<tag_name | edge_name>`
 Alter a table | ALTER TABLE `<tbl_name>` | \
 
 #### Index

@@ -12,7 +12,7 @@ Normally, you create indexes on a tag/edge-type at the time the tag/edge-type it
 
 ## Create Index
 
-`CREATE INDEX` enables you to add indexes to existing tag/edge-type.
+`CREATE INDEX` enables you to add indexes to existing tag/edge-type. **Note: Creating index will affect the write performance**. We suggest you import data first and then rebuild the index in batch.
 
 ### Create Single-Property Index
 
