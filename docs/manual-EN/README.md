@@ -118,7 +118,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [System Requirement](3.build-develop-and-administration/3.configurations/0.system-requirement.md)
   * [Config Persistency and Priority](3.build-develop-and-administration/3.configurations/1.config-persistency-and-priority.md)
   * [CONFIG Syntax](3.build-develop-and-administration/3.configurations/2.configs-syntax.md)
-  * [Metad Configuration](3.build-develop-and-administration/3.configurations/3.meta-config.md)
+  <!-- * [Metad Configuration](3.build-develop-and-administration/3.configurations/3.meta-config.md) -->
   * [Graphd Configuration](3.build-develop-and-administration/3.configurations/4.graph-config.md)
   * [Storaged Configuration](3.build-develop-and-administration/3.configurations/5.storage-config.md)
   * [Console Configuration](3.build-develop-and-administration/3.configurations/6.console-config.md)
