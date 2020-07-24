@@ -4,16 +4,16 @@ The `FETCH` syntax is used to get vertex/edge's properties.
 
 ## Fetch Vertex property
 
-Use `FETCH PROP ON` to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement.
+Use `FETCH PROP ON` to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement. You can use `FETCH` together with [pipe](../../3.language-structure/pipe-syntax.md) and [user defined variables](../../3.language-structure/user-defined-variables.md).
 
 ```ngql
-FETCH PROP ON <tag_name> <vertex_id_list> [YIELD [DISTINCT] <return_list>]
-FETCH PROP ON * <vertex_id>
+FETCH PROP ON <tag_name_list> <vertex_id_list> [YIELD [DISTINCT] <return_list>]
+FETCH PROP ON * <vertex_id_list>
 ```
 
 `*` indicates returning all the properties of the given vertex.
 
-`<tag_name>` is the tag name. It must be the same tag within return_list.
+`<tag_name>::=[tag_name [, tag_name]]` is the tag name. It must be the same tag within return_list.
 
 `<vertex_id_list>::=[vertex_id [, vertex_id]]` is a list of vertex IDs separated by comma (,).
 
@@ -22,8 +22,14 @@ FETCH PROP ON * <vertex_id>
 ### Examples
 
 ```ngql
--- return all the properties of vertex id 100.
+-- return all the properties of vertex 100.
 nebula> FETCH PROP ON * 100;
+
+-- return all the properties of vertex 100, 102
+nebula> FETCH PROP ON * 100, 102;
+
+-- return all properties of vertex 100, 201。
+nebula> FETCH PROP ON player, team 100, 201;
 
 -- return all the properties in tag player of vertex id 100 if no yield field is given.
 nebula> FETCH PROP ON player 100;
@@ -33,6 +39,9 @@ nebula> FETCH PROP ON player 100 YIELD player.name, player.age;
 
 -- hash string to int64 as vertex id, fetch name and player.
 nebula> FETCH PROP ON player hash("nebula")  YIELD player.name, player.age;
+
+-- you can use fetch with pipe.
+nebula> YIELD 100 AS id | FETCH PROP ON player $-.id;
 
 -- find all neighbors of vertex 100 through edge follow. Then get the neighbors' name and age.
 nebula> GO FROM 100 OVER follow YIELD follow._dst AS id | FETCH PROP ON player $-.id YIELD player.name, player.age;
