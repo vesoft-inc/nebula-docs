@@ -1968,6 +1968,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../8.single-node-log/" title="Single Node Log" class="md-nav__link">
+      Single Node Log
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2913,9 +2925,7 @@ max_subcompactions              -- The compact from level0 to level1 enables mul
 max_background_jobs             -- Use multi-thread for compacting. The default value is 1. Dynamic modification takes effect after restarting.
 </code></pre></div>
 
-<blockquote>
-<p>The above parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
-</blockquote>
+<p>The parameters above can either be dynamically modified by the <code>UPDATE CONFIGS</code> syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
 <h3 id="rocksdb_column_family_options"><code>rocksdb_column_family_options</code><a class="headerlink" href="#rocksdb_column_family_options" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>write_buffer_size
 max_write_buffer_number
@@ -2930,9 +2940,9 @@ disable_auto_compactions       -- Compact automatically when writing data is sto
 </code></pre></div>
 
 <blockquote>
-<p>The above parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
+<p>The preceding parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
 </blockquote>
-<p>The above parameters can be set via the command line as follows:</p>
+<p>The preceding parameters can be set via the command line as follows:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = \
         { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 };
         -- The command overwrites rocksdb_column_family_options. Please note whether other sub-items will be overwritten
@@ -2942,7 +2952,7 @@ nebula&gt; UPDATE CONFIGS storage:rocksdb_db_options  = \
 nebula&gt; UPDATE CONFIGS storage:max_edge_returned_per_vertex = 10; -- The parameter is explained below
 </code></pre></div>
 
-<p>Configurations done with the configuration file</p>
+<p>We recommend the following configuration:</p>
 <div class="highlight"><pre><span></span><code>    rocksdb_db_options = {&quot;stats_dump_period_sec&quot;:&quot;200&quot;, &quot;write_thread_max_yield_usec&quot;:&quot;600&quot;}
     rocksdb_column_family_options = {&quot;max_write_buffer_number&quot;:&quot;4&quot;, &quot;min_write_buffer_number_to_merge&quot;:&quot;2&quot;, &quot;max_write_buffer_number_to_maintain&quot;:&quot;1&quot;}
     rocksdb_block_based_table_options = {&quot;block_restart_interval&quot;:&quot;2&quot;}
