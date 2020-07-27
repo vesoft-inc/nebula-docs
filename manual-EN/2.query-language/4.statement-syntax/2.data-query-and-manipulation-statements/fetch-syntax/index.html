@@ -2587,18 +2587,24 @@
                 <h1 id="fetch_syntax">FETCH Syntax<a class="headerlink" href="#fetch_syntax" title="Permanent link">&para;</a></h1>
 <p>The <code>FETCH</code> syntax is used to get vertex/edge's properties.</p>
 <h2 id="fetch_vertex_property">Fetch Vertex property<a class="headerlink" href="#fetch_vertex_property" title="Permanent link">&para;</a></h2>
-<p>Use <code>FETCH PROP ON</code> to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement.</p>
-<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;tag_name&gt; &lt;vertex_id_list&gt; [YIELD [DISTINCT] &lt;return_list&gt;]
-FETCH PROP ON * &lt;vertex_id&gt;
+<p>Use <code>FETCH PROP ON</code> to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement. You can use <code>FETCH</code> together with <a href="../../../3.language-structure/pipe-syntax/">pipe</a> and <a href="../../../3.language-structure/user-defined-variables/">user defined variables</a>.</p>
+<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;tag_name_list&gt; &lt;vertex_id_list&gt; [YIELD [DISTINCT] &lt;return_list&gt;]
+FETCH PROP ON * &lt;vertex_id_list&gt;
 </code></pre></div>
 
 <p><code>*</code> indicates returning all the properties of the given vertex.</p>
-<p><code>&lt;tag_name&gt;</code> is the tag name. It must be the same tag within return_list.</p>
+<p><code>&lt;tag_name&gt;::=[tag_name [, tag_name]]</code> is the tag name. It must be the same tag within return_list.</p>
 <p><code>&lt;vertex_id_list&gt;::=[vertex_id [, vertex_id]]</code> is a list of vertex IDs separated by comma (,).</p>
 <p><code>[YIELD [DISTINCT] &lt;return_list&gt;]</code> is the property list returned. Please refer <a href="../yield-syntax/">YIELD Syntax</a> for usage.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>-- return all the properties of vertex id 100.
+<div class="highlight"><pre><span></span><code>-- return all the properties of vertex 100.
 nebula&gt; FETCH PROP ON * 100;
+
+-- return all the properties on tag player and team of vertex 100, 102
+nebula&gt; FETCH PROP ON * 100, 102;
+
+-- return all properties of vertex 100, 201。
+nebula&gt; FETCH PROP ON player, team 100, 201;
 
 -- return all the properties in tag player of vertex id 100 if no yield field is given.
 nebula&gt; FETCH PROP ON player 100;
@@ -2608,6 +2614,9 @@ nebula&gt; FETCH PROP ON player 100 YIELD player.name, player.age;
 
 -- hash string to int64 as vertex id, fetch name and player.
 nebula&gt; FETCH PROP ON player hash(&quot;nebula&quot;)  YIELD player.name, player.age;
+
+-- you can use fetch with pipe.
+nebula&gt; YIELD 100 AS id | FETCH PROP ON player $-.id;
 
 -- find all neighbors of vertex 100 through edge follow. Then get the neighbors&#39; name and age.
 nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | FETCH PROP ON player $-.id YIELD player.name, player.age;
