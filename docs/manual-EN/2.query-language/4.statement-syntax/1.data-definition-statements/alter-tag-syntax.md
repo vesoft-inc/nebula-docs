@@ -28,4 +28,4 @@ nebula> ALTER TAG t1 ADD (id int, address string);
 nebula> ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "age";
 ```
 
-Notice that TTL_COL only support INT and TIMESTAMP types.
+**Note:** `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.

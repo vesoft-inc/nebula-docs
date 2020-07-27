@@ -31,4 +31,4 @@ nebula> ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
 nebula> ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = "prop1";
 ```
 
-Notice that TTL_COL only support INT and TIMESTAMP types.
+**Note:** `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.
