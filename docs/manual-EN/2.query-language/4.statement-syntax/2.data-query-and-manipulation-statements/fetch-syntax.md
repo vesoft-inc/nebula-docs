@@ -25,7 +25,7 @@ FETCH PROP ON * <vertex_id_list>
 -- return all the properties of vertex 100.
 nebula> FETCH PROP ON * 100;
 
--- return all the properties of vertex 100, 102
+-- return all the properties on tag player and team of vertex 100, 102
 nebula> FETCH PROP ON * 100, 102;
 
 -- return all properties of vertex 100, 201。
