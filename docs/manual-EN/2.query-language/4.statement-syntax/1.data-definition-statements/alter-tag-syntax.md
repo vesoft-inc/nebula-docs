@@ -25,7 +25,7 @@ Multiple `ADD`, `DROP`, and `CHANGE` clauses are permitted in a single `ALTER` s
 ```ngql
 nebula> CREATE TAG t1 (name string, age int);
 nebula> ALTER TAG t1 ADD (id int, address string);
-nebula> ALTER TAG t1 TTL_DURATION = 2, TTL_COL = age;
+nebula> ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "age";
 ```
 
-Notice that TTL_COL only support INT and TIMESTAMP types.
+**Note:** `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.
