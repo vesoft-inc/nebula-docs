@@ -2,7 +2,7 @@
 
 ```ngql
 INSERT VERTEX <tag_name> [, <tag_name>, ...] (prop_name_list[, prop_name_list])
-     {VALUES | VALUE} vid: (prop_value_list[, prop_value_list])
+     {VALUES | VALUE} VID: (prop_value_list[, prop_value_list])
 
 prop_name_list:
   [prop_name [, prop_name] ...]
@@ -15,7 +15,7 @@ The `INSERT VERTEX` statement inserts a vertex or vertices into **Nebula Graph**
 
 * `tag_name` denotes the `tag` (vertex type), which must be created before `INSERT VERTEX`.
 * `prop_name_list` is the property name list in the given `tag_name`.
-* `vid` is the vertex ID. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1. `vid` supports specifying ID manually, or call hash() function to generate.
+* `VID` is the vertex ID. The `VID` must be unique in the graph space. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1. `VID` supports specifying ID manually, or call hash() function to generate.
 
 * `prop_value_list` must provide the value list according to the `prop_name_list`. If no value matches the type, an error will be returned.
 
