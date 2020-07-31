@@ -7,8 +7,7 @@ The `FETCH` syntax is used to get vertex/edge's properties.
 Use `FETCH PROP ON` to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement. You can use `FETCH` together with [pipe](../../3.language-structure/pipe-syntax.md) and [user defined variables](../../3.language-structure/user-defined-variables.md).
 
 ```ngql
-FETCH PROP ON <tag_name_list> <vertex_id_list> [YIELD [DISTINCT] <return_list>]
-FETCH PROP ON * <vertex_id_list>
+FETCH PROP ON {<tag_name_list> | *} <vertex_id_list> [YIELD [DISTINCT] <return_list>]
 ```
 
 `*` indicates returning all the properties of the given vertex.
