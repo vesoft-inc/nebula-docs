@@ -2,10 +2,22 @@
 
 This document provides some introductions on vertex identifier (`VID` for short) and partition.
 
-In **Nebula Graph**, vertices are identified with vertex identifiers (i.e. VIDs). When inserting a vertex, you can either assign an id manually or use the hash function to generate an id for the vertex. The `VID` must be unique in the graph space.
+In **Nebula Graph**, vertices are identified with vertex identifiers (i.e. `VID`s). When inserting a vertex, you must specify a `VID` for it. You can generate `VID`s either with your own application or with the hash function provided by **Nebula Graph**.
 
-When querying in a **Nebula Graph** cluster, data has to be exchanged between different cluster nodes if the data is sharded into different partitions and therefore residing on multiple nodes. In particular graph traversals are usually executed on a Coordinator, because they need global information. This results in a lot of network traffic and potentially slow query execution.
+`VID`s must be unique in a graph space. That is, in the same graph space, vertices with the same `VID` are considered as the same vertex. `VID`s in different graph spaces are independent of each other. In addition, one `VID` can have multiple `TAG`s.
 
-To achieve single-server alike query execution times for graph queries in a cluster, you need to shard vertices based on their tags so that vertices with the same tags are stored on the same partition. This can improve data locality and reduce the number of network hops between cluster nodes.
+The relation between `VID` and partition is:
 
-If you want all the vertices with the same tag to store on the same partition, you need to make sure that all the vertex VIDs have the same modulus. And all edges connecting these vertices are stored on this partition as well.
+```text
+VID mod partition_number = partition ID
+```
+
+In the preceding formula,
+
+- `mod` is the modulo operation.
+- `partition_number` is the number of partition for the graph space where the `VID` is located, namely the value of `partition_num` in the [CREATE SPACE](../2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax.md) statement.
+- `partition ID` the ID for the partition where the `VID` is located.
+
+Therefore, if you want some certain vertices to locate on the same partition (i.e. on the same machine), you can control the generation of the `VID`s by using the preceding formula.
+
+In addition, the correspondence between the `partition ID` and the machines are random. Therefore, you can't assume that any two partitions are located on the same machine.
