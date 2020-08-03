@@ -159,7 +159,6 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 * [Contribute to Documentation](4.contributions/contribute-to-documentation.md)
 * [Cpp Coding Style](4.contributions/cpp-coding-style.md)
-* [Developer Documentation Style Guide](4.contributions/developer-documentation-style-guide.md)
 * [How to Contribute](4.contributions/how-to-contribute.md)
 
 ## Appendix
