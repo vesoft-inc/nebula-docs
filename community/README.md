@@ -2,7 +2,7 @@
 
 The Nebula Graph community is organized as shown below:
 
-![1](https://user-images.githubusercontent.com/51590253/89169949-8d9c9b80-d5b1-11ea-8fd6-f92532f42c87.png)
+![Nebula Community Architecture](./images/structure.png)
 
 ## PMC
 
@@ -30,7 +30,7 @@ Recommended by Maintainer or Project Management Committee (PMC) as a Committer w
 
 > Note: Each repository requires at least 2 approvals for each PR to be merged into the master branch.
 
-### Hot to become a Committer of a Repository
+### How to become a Committer of a Repository
 
 - Generated from Active Contributors.
 - Has more than 5 PRs merged to the master branch of the repository within a year.
