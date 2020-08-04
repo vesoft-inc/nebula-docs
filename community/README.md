@@ -1,12 +1,13 @@
 ## Nebula Graph Community Architecture
 
-The Nebula Graph community is organized as shown below:
+The Nebula Graph community is organized as shown below.
 
 ![Nebula Community Architecture](./images/structure.png)
 
 ### PMC
 
-The PMC (Project Management Committee) is the entity the controls and leads the whole Nebula Graph projects. PMC members is reponsible for voting in new maintainers or committers, and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
+The PMC (Project Management Committee) is the entity that controls and leads the whole Nebula Graph projects. 
+PMC members are responsible for voting in new maintainers or committers, and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
 
 
 ### Maintainer
@@ -14,7 +15,7 @@ The PMC (Project Management Committee) is the entity the controls and leads the 
 Maintainers are the planner and designer of the repository, with the right to merge branches into the master. A Maintainer should:
 
 - Set technical directions, roadmap, and priorities for the repository
-- Drive the development forward and ensure newcomers as well as long-time contributors have a great experience
+- Drive the development forward and ensure newcomers, as well as long-time contributors have a great experience
 - Ensure the overall quality of the repository
 
 #### How to become a Maintainer of a Repository
@@ -35,17 +36,18 @@ Committers come from those Active Contributors who have made a significant contr
 
 - Generated from Active Contributors
 - Has more than 5 PRs merged to the master branch of the repository within a year
-- Self-recommended or Nominated by the Matainter of the repository or PMC and gained majority (1/2) votes from the Decision-Making Group (consists of Maintainers of the repository and the PMC)
+- Self-recommended or Nominated by a Maintainer of the repository or PMC
+- Gain majority (1/2) votes from the Decision-Making Group (consists of Maintainers of the repository and the PMC)
 - The appointment is for one year
 
 
 ### Active Contributor
 
-Active Contributors are continuously active contributors in the community. They can have issues and PRs assigned to them, participate in the development. See [Active Contributor List](active-contributor-list.md) for the list of Active Contributors.
+Active Contributors are continuously active contributors in the community. They can have issues and PRs assigned to them, participate in development. See [Active Contributor List](active-contributor-list.md) for the list of Active Contributors.
 
 #### How to become an Active Contributor of a Repository
 
-- Contributes at least 5 PRs to a specific repository within one year will become an active contributor automatically
+- If you contribute at least 5 PRs to a specific repository within one year, you will become an active contributor automatically
 
 ### Contributor
 
