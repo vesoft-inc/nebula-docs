@@ -13,7 +13,7 @@ FETCH PROP ON * <vertex_id_list>
 
 `*` indicates returning all the properties of the given vertex.
 
-`<tag_name>::=[tag_name [, tag_name]]` is the tag name. It must be the same tag within return_list.
+`<tag_name_list>::=[tag_name [, tag_name]]` is the tag name. It must be the same tag within return_list.
 
 `<vertex_id_list>::=[vertex_id [, vertex_id]]` is a list of vertex IDs separated by comma (,).
 
