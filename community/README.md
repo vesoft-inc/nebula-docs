@@ -12,23 +12,22 @@ PMC members are responsible for voting in new maintainers or committers, and the
 
 ### Maintainer
 
-Maintainers are the planner and designer of the repository, with the right to merge branches into the master. A Maintainer should:
+Maintainers are the planner and designer of the repository, with the right to merge branches into the master. The appointment is for one year. A Maintainer should:
 
 - Set technical directions, roadmap, and priorities for the repository
-- Drive the development forward and ensure newcomers, as well as long-time contributors have a great experience
+- Drive the development forward and ensure newcomers, as well as long-time contributors, have a great experience
 - Ensure the overall quality of the repository
 
 #### How to become a Maintainer of a Repository
 
 - Must be a committer of the repository
 - Nominated by and obtained consensus approval from the PMC
-- The appointment is for one year
 
 See [Maintainer List](./maintainer-list.md) for the Maintainers of each repository.
 
 ### Committer
 
-Committers come from those Active Contributors who have made a significant contribution to the repository. A committer has approval permission for code reviews of the repository. See [Committer List](./committer-list.md) for the Committers of each repository.
+Committers come from those Active Contributors who have made significant contributions to the repository. A committer has approval permission for code reviews of the repository. See [Committer List](./committer-list.md) for the Committers of each repository.
 
 > Note: Each repository requires at least 2 approvals for each PR to be merged into the master branch.
 
@@ -43,11 +42,11 @@ Committers come from those Active Contributors who have made a significant contr
 
 ### Active Contributor
 
-Active Contributors are continuously active contributors in the community. They can have issues and PRs assigned to them, participate in development. See [Active Contributor List](active-contributor-list.md) for the list of Active Contributors.
+Active Contributors are continuously active contributors in the community. They can have issues and PRs assigned to them and participate in development. See [Active Contributor List](active-contributor-list.md) for the list of Active Contributors.
 
 #### How to become an Active Contributor of a Repository
 
-- If you contribute at least 5 PRs to a specific repository within one year, you will become an active contributor automatically
+If you contribute at least 5 PRs to a specific repository within one year, you will become an active contributor automatically.
 
 ### Contributor
 
@@ -55,7 +54,7 @@ Anyone who contributes one PR for any repository is a Contributor.
 
 #### How to become a Contributor
 
-- contributes at least 1 PR for any project in the [vesoft-inc organization](https://github.com/vesoft-inc)
+To become a Contributor, you should contribute at least 1 PR for any project in the [vesoft-inc organization](https://github.com/vesoft-inc).
 
 There are various ways of contributing. See [Contributing Guide](../CONTRIBUTING.md) to get started.
 
