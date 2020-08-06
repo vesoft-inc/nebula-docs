@@ -7,7 +7,7 @@ The Nebula Graph community is organized as shown below.
 ### PMC
 
 The PMC (Project Management Committee) is the entity that controls and leads the whole Nebula Graph projects. 
-PMC members are responsible for voting in new maintainers or committers, and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
+PMC members are responsible for voting new maintainers or committers, and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
 
 
 ### Maintainer
