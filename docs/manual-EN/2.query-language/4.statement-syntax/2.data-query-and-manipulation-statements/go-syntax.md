@@ -259,3 +259,20 @@ nebula> GO 4 TO 5 STEPS FROM 101 OVER follow BIDIRECT YIELD DISTINCT follow._dst
 ```
 
 Traverse from vertex 101 along edge type follow bi-directly, return 4 to 5 hops.
+
+## Passing INT Type to GO Queries
+
+```ngql
+... | GO FROM $-.id OVER <edge_type_list>
+```
+
+For example:
+
+```ngql
+nebula> YIELD 100 AS id | GO FROM $-.id OVER serve;
+==============
+| serve._dst |
+==============
+| 200        |
+--------------
+```
