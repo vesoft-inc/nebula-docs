@@ -4,4 +4,4 @@
 
 | GitHub ID| Name |Company|
 |:------------------------------------:|:------------:|:-------------:|
-| [kent](https://github.com/xuguruogu)   |  Kent   | Tencent          |
+| [kent](https://github.com/xuguruogu)   |  BENLI LI   | Tencent      |
