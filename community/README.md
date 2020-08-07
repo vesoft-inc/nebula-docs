@@ -7,7 +7,7 @@ The Nebula Graph community is organized as shown below.
 ### PMC
 
 The PMC (Project Management Committee) is the entity that controls and leads the whole Nebula Graph projects. 
-PMC members are responsible for voting new Maintainers or Committers, and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
+PMC members are responsible for voting new Maintainers or Committers and the authority to make all major decisions for Nebula Graph. See [PMC List](./pmc-list.md) for the list of PMC members.
 
 
 ### Maintainer
@@ -21,7 +21,8 @@ Maintainers are the planner and designer of the repository, with the right to me
 #### How to become a Maintainer of a Repository
 
 - Must be a Committer of the repository
-- Nominated by and obtained consensus approval from the PMC
+- Nominated by the PMC
+- Obtain consensus approval from the PMC
 
 See [Maintainer List](./maintainer-list.md) for the Maintainers of each repository.
 
