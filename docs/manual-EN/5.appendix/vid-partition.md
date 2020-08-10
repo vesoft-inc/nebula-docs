@@ -9,7 +9,7 @@ In **Nebula Graph**, vertices are identified with vertex identifiers (i.e. `VID`
 The relation between `VID` and partition is:
 
 ```text
-VID mod partition_number = partition ID
+VID mod partition_number = partition ID + 1
 ```
 
 In the preceding formula,
