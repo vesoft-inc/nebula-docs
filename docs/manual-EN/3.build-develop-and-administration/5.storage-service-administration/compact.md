@@ -12,7 +12,7 @@ By default, the `disable_auto_compactions` parameter is set to `false`. Before d
 
 - The customized compact style for **Nebula Graph**. You can run the `SUBMIT JOB COMPACT` command to start it. You can use it to perform large scale background operations such as sst files merging in large scale or TTL. This kind of compact is usually performed after midnight.
 
-In addition, you can modify the number of threads in both methods by the following command. You can decrease the threads during daytime and increase it at night.
+In addition, you can modify the number of threads in both methods by the following command.
 
 ```ngql
 nebula> UPDATE CONFIGS storage:rocksdb_db_options  = \
