@@ -14,10 +14,12 @@ You can start from any of the documents in this repository:
 
 ## Before Contributing
 
-Before contributing, please take a quick look at some general information about **Nebula Graph** documentation maintenance.
+Before contributing, please take a quick look at the rules described in these documents to keep the style consistent.
 
 - [Markdown Rules](https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md)
-- [Developer Documentation Style Guide](docs/manual-EN/4.contributions/developer-documentation-style-guide.md)
+- [About This Manual](https://docs.nebula-graph.io/manual-EN/0.about-this-manual/)
+- [Introduction to Query Language](https://docs.nebula-graph.io/manual-EN/2.query-language/0.README/)
+<!-- - [Developer Documentation Style Guide](docs/manual-EN/4.contributions/developer-documentation-style-guide.md)-->
 
 ## How to Contribute
 
