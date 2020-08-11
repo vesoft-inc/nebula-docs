@@ -459,8 +459,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
+  <a href="#properties_of_vertices_and_edges" class="md-nav__link">
+    Properties of Vertices and Edges
   </a>
   
 </li>
@@ -2499,6 +2499,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../5.appendix/vid-partition/" title="Vertex Identifier and Partition" class="md-nav__link">
+      Vertex Identifier and Partition
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2603,8 +2615,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
+  <a href="#properties_of_vertices_and_edges" class="md-nav__link">
+    Properties of Vertices and Edges
   </a>
   
 </li>
@@ -2654,20 +2666,24 @@ where <strong>V</strong> is a set of nodes aka vertices, <strong>E</strong> is a
 <p>In the preceding picture, we have a data set about the players and teams information of NBA. We can see the eleven vertices are classified to two kinds, i.e. <strong>player</strong> and <strong>name</strong> while the fifteen edges are classified to <strong><em>serve</em></strong> and <strong><em>like</em></strong>.</p>
 <p>To better understand the elements of a graph data model, let us walk through each concept of the example graph.</p>
 <h2 id="vertices">Vertices<a class="headerlink" href="#vertices" title="Permanent link">&para;</a></h2>
-<p>Vertices are typically used to represent entities in the real world. In the preceding example, the graph contains eleven vertices.</p>
+<p>Vertices are typically used to represent entities in the real world. In <strong>Nebula Graph</strong>, vertices are identified with vertex identifiers (i.e. VIDs). The <code>VID</code> must be unique in the graph space. In the preceding example, the graph contains eleven vertices.</p>
 <p><img src="https://user-images.githubusercontent.com/42762957/64932628-00eecf00-d873-11e9-844b-6b2a535ca734.png" width="15%" height="20%"></p>
 <h2 id="tags">Tags<a class="headerlink" href="#tags" title="Permanent link">&para;</a></h2>
-<p>In <strong>Nebula Graph</strong>, vertex properties are clustered by <strong>tags</strong>. In the example above, the vertices have tags <strong>player</strong> and <strong>team</strong>.</p>
+<p>In <strong>Nebula Graph</strong>, vertex properties are clustered by <strong>tags</strong>. One vertex can have one or more tags. In the preceding example, the vertices have tags <strong>player</strong> and <strong>team</strong>.</p>
 <p><img src="https://user-images.githubusercontent.com/42762957/64932330-bff5bb00-d870-11e9-9940-4ff76ceca353.png" width="50%" height="25%"></p>
 <h2 id="edge">Edge<a class="headerlink" href="#edge" title="Permanent link">&para;</a></h2>
 <p>Edges are used to connect vertices. Each edge usually represents a relationship or a behavior between two vertices. In the preceding example, edges are <em><strong>serve</strong></em> and <em><strong>like</strong></em>.</p>
 <p><img src="https://user-images.githubusercontent.com/42762957/64932285-68efe600-d870-11e9-8dc7-051f7b43c4aa.png" width="50%" height="25%"></p>
 <h2 id="edge_type">Edge Type<a class="headerlink" href="#edge_type" title="Permanent link">&para;</a></h2>
 <p><code>Each edge</code> is an instance of an edge type. Our example uses <em><strong>serve</strong></em> and <em><strong>like</strong></em> as edge types. Take edge <em><strong>serve</strong></em> for example, in the preceding picture, vertex <code>101</code> (represents a <strong>player</strong>) is the source vertex and vertex <code>215</code> (represents a <strong>team</strong>) is the target vertex. We see that vertex <code>101</code> has an outgoing edge while vertex <code>215</code> has an incoming edge.</p>
-<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
-<p>Properties are named-value pairs within vertices and edges. In our example graph, we have used the properties <code>id</code>, <code>name</code> and <code>age</code> on <strong>player</strong>, <code>id</code> and <code>name</code> on <strong>team</strong>, and <code>likeness</code> on <em><strong>like</strong></em> edge.</p>
+<h2 id="properties_of_vertices_and_edges">Properties of Vertices and Edges<a class="headerlink" href="#properties_of_vertices_and_edges" title="Permanent link">&para;</a></h2>
+<p>Both vertices and edges can have properties. Properties are described with key value pairs. In our example graph, we have used the properties <code>id</code>, <code>name</code> and <code>age</code> on <strong>player</strong>, <code>id</code> and <code>name</code> on <strong>team</strong>, and <code>likeness</code> on <em><strong>like</strong></em> edge.</p>
 <h2 id="edge_rank">Edge Rank<a class="headerlink" href="#edge_rank" title="Permanent link">&para;</a></h2>
-<p>Edge rank is an immutable user-assigned 64-bit signed integer. It affects the edge order of the same edge type between two vertices. The edge with a higher rank value comes first. When not specified, the default rank value is zero. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1.</p>
+<p>Edge rank is an immutable user-assigned 64-bit signed integer. It affects the edge order of the same edge type between two vertices. The edge with a higher rank value comes first. When not specified, the default rank value is zero. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1.
+In addition to an edge type, the edge between two vertices must have an edge rank. The edge rank is a 64-bit integer assigned by the user; if not specified, the edge rank defaults to 0.</p>
+<p>An edge can be represented uniquely with the [source vertex, edge type, edge rank and the dest vertex].</p>
+<p>The edge rank affects the edge order of the same edge type between two vertices. The edge with a higher rank value comes first.</p>
+<p>The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1.</p>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
 <p>In <strong>Nebula Graph</strong>, schema refers to the definition of properties (name, type, etc.). Like <code>MySQL</code>, <strong>Nebula Graph</strong> is a <strong>strong typed</strong> database. The name and data type of the properties should be determined before the data is written.</p>
                 
