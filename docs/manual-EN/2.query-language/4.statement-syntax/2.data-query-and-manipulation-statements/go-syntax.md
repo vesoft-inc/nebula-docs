@@ -121,7 +121,7 @@ The following result is returned:
 
 If there is no property, the default value will be placed. The default value for numeric type is 0, and for string type is an empty string, for bool is false, for timestamp is 0 (namely “1970-01-01 00:00:00”) and for double is 0.0.
 
-Of course, you can query without specifying `YIELD`, which returns the vids of the dest vertices of each edge. Again, default values (here is 0) will be placed if there is no property. For example, query `GO FROM 100 OVER follow, serve;` returns the follow lines:
+Of course, you can query without specifying `YIELD`, which returns the vids of the destination vertices of each edge. Again, default values (here is 0) will be placed if there is no property. For example, query `GO FROM 100 OVER follow, serve;` returns the follow lines:
 
 ============================
 | follow._dst | serve._dst |
@@ -169,7 +169,7 @@ nebula> GO FROM 100 OVER follow REVERSELY YIELD follow._dst AS id | \
 ----------------------------
 ```
 
-The above query first traverses players that follow player 100 and finds the teams they serve, then filter players who are older than 20, and finally it returns their names and teams. Of course, you can query without specifying YIELD, which will return the vids of the dest vertices of each edge by default.
+The above query first traverses players that follow player 100 and finds the teams they serve, then filter players who are older than 20, and finally it returns their names and teams. Of course, you can query without specifying YIELD, which will return the vids of the destination vertices of each edge by default.
 
 ## Traverse Bidirect
 

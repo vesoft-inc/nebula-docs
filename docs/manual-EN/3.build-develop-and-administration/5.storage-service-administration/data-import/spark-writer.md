@@ -66,7 +66,7 @@ A vertex data file consists of multiple rows, with each line in the file represe
 
 #### Edges
 
-An edge data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the dest vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.
+An edge data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the destination vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.
 
 Take edge _**follow**_ as example:
 
@@ -312,7 +312,7 @@ The options for tag and edge mapping are very similar. The following describes t
   * `vertex` is a required field that specifies a column as the vertex ID column
 * **unique options for edge mapping**
   * `source` is a required field that specifies a column in the input source as the **source vertex** ID column
-  * `target` is a required field that specifies a column as the **dest vertex** ID column
+  * `target` is a required field that specifies a column as the **destination vertex** ID column
   * `ranking` is an optional field that specifies a column as the edge ranking column when the inserted edge has a ranking value
 
 #### Data Source Mapping

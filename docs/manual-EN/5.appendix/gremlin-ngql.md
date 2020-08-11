@@ -450,7 +450,7 @@ Exclude cycles path | simplePath() | \ |
 Only cycles path | cyclicPath() | \ |
 Shortest path   | \    | FIND SHORTEST PATH |
 
-**NOTE:** **Nebula Graph** requires the source vertex and the dest vertex to find path while Gremlin only needs the source vertex.
+**NOTE:** **Nebula Graph** requires the source vertex and the destination vertex to find path while Gremlin only needs the source vertex.
 
 ```bash
 # Find path from vertex pluto to the out adjacent vertices
@@ -501,7 +501,7 @@ nebula> LOOKUP ON character WHERE character.name== "pluto" YIELD character.name 
 ----------------------------------------------------------------------------------------------------------------
 
 # Find path between vertex hercules and vertex cerberus
-# Stop traversing when the dest vertex is cerberus
+# Stop traversing when the destination vertex is cerberus
 gremlin> g.V().hasLabel('character').has('name','hercules').repeat(out()).until(has('name', 'cerberus')).path();
 ==>[v[6],v[11]]
 ==>[v[6],v[2],v[8],v[11]]
@@ -510,7 +510,7 @@ gremlin> g.V().hasLabel('character').has('name','hercules').repeat(out()).until(
 nebula> # Coming soon
 
 # Find path sourcing from vertex hercules
-# And the dest vertex type is character
+# And the destination vertex type is character
 gremlin> g.V().hasLabel('character').has('name','hercules').repeat(out()).emit(hasLabel('character')).path();
 ==>[v[6],v[7]]
 ==>[v[6],v[2]]
@@ -586,7 +586,7 @@ GROUP BY $-.Name YIELD $-.Name, COUNT(*);
 | neptune | 1        |
 ----------------------
 
-# Find the distinct dest vertices sourcing from vertex jupiter
+# Find the distinct destination vertices sourcing from vertex jupiter
 gremlin> g.V(jupiter).out().hasLabel('character').dedup();
 ==>v[1]
 ==>v[8]

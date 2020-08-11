@@ -12,7 +12,7 @@ nebula> GO FROM 100 OVER follow YIELD follow._dst AS dstid, $$.player.name AS Na
 GO FROM $-.dstid OVER follow YIELD follow._dst, follow.degree, $-.Name
 ```
 
-The dest (vertex) `id` will be given as the default value if no `YIELD` is used.
+The destination (vertex) `id` will be given as the default value if no `YIELD` is used.
 
 But if `YIELD` is declared explicitly, (the default value) `id` will not be given.
 
