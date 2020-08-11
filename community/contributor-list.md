@@ -39,7 +39,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [BradyBromley](https://github.com/BradyBromley)
 
 
-### Nebula-JAVA Contributors
+### Nebula-Java Repository Contributors
 
 -   [chenxu14](https://github.com/chenxu14)
 -   [nildot](https://github.com/nildot)
@@ -48,16 +48,16 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [gcameo](https://github.com/gcameo)
 
 
-### Nebula-GO Contributors
+### Nebula-Go Repository Contributors
 
 -   [SnakeHacker](https://github.com/SnakeHacker)
 
 
-### Nebula-Python Contributors
+### Nebula-Python Repository Contributors
 
 -   [ownthink](https://github.com/ownthink)
 
 
-### Nebula-Website Contributors
+### Nebula-Website Repository Contributors
 
 -   [hoop33](https://github.com/hoop33)
