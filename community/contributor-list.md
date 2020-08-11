@@ -4,7 +4,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula Repository Contributors
 
-- 	[chenxu14](https://github.com/chenxu14)
+-   [chenxu14](https://github.com/chenxu14)
 -   [Crazyinging](https://github.com/Crazyinging)
 -   [GestureWei](https://github.com/GestureWei)
 -   [knightjya](https://github.com/knightjya)
@@ -41,7 +41,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula-JAVA Contributors
 
-- 	[chenxu14](https://github.com/chenxu14)
+-   [chenxu14](https://github.com/chenxu14)
 -   [nildot](https://github.com/nildot)
 -   [Anyzm](https://github.com/Anyzm)
 -   [VoisLp](https://github.com/VoisLp)
