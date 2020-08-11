@@ -20,6 +20,6 @@ In the preceding formula,
 - `partition_number` is the number of partition for the graph space where the `VID` is located, namely the value of `partition_num` in the [CREATE SPACE](../2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax.md) statement.
 - `partition ID` the ID for the partition where the `VID` is located.
 
-For example, if there are 100 partitions, the vertices with `VID` 1, 11, 101, 1001 will be stored on the same partition.
+For example, if there are 100 partitions, the vertices with `VID` 1, 101, 1001 will be stored on the same partition.
 
 In addition, the correspondence between the `partition ID` and the machines are random. Therefore, you can't assume that any two partitions are located on the same machine.
