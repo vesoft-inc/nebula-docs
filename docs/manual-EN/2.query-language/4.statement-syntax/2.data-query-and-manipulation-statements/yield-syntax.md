@@ -26,7 +26,7 @@ nebula> GO FROM 100 OVER follow YIELD $$.player.name AS Friend, $$.player.age AS
 ---------------------------
 ```
 
-For example: `$$.player.name` is used to get the property of the dest vertex ($$).
+For example: `$$.player.name` is used to get the property of the destination vertex ($$).
 
 ## As Statement
 

@@ -8,9 +8,9 @@ Implicit conversions are automatically performed when a value is copied to a com
 
 1. Following types can implicitly converted to `bool`:
 
-   - The conversions from/to bool consider `false` equivalent to `0` for empty string types, true is equivalent to all other values.
-   - The conversions from/to bool consider `false` equivalent to `0` for int types, true is equivalent to all other values.
-   - The conversions from/to bool consider `false` equivalent to `0.0` for float types, true is equivalent to all other values.
+   - The conversions from/to bool consider `false` equivalent to `0` for empty string types, `true` is equivalent to all other values.
+   - The conversions from/to bool consider `false` equivalent to `0` for int types, `true` is equivalent to all other values.
+   - The conversions from/to bool consider `false` equivalent to `0.0` for float types, `true` is equivalent to all other values.
 
 2. `int` can implicitly converted to `double`.
 

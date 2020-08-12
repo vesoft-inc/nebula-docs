@@ -17,7 +17,7 @@ LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND | OR expression 
   - `$-` and `$^`
   - In relational expressions, expressions with field-names on both sides of the operator are not currently supported, such as (tagName.column1> tagName.column2)
   - Nested AliasProp expressions in operation expressions and function expressions are not supported at this time.
-- `YIELD` clause returns particular results. If not specified, vertex ID is returned when `LOOKUP` tags, source vertex ID, dest vertex ID and ranking of the edges are returned when `LOOKUP` edges.
+- `YIELD` clause returns particular results. If not specified, vertex ID is returned when `LOOKUP` tags, source vertex ID, destination vertex ID and ranking of the edges are returned when `LOOKUP` edges.
 
 ## Retrieve Vertices
 

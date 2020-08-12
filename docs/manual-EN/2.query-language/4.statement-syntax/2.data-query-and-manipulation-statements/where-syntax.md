@@ -24,7 +24,7 @@ nebula> GO FROM 100 OVER follow WHERE follow.degree > 90;
 | 101         |
 ---------------
 
--- find the dest vertex whose age is equal to the source vertex, player 104.
+-- find the destination vertex whose age is equal to the source vertex, player 104.
 nebula> GO FROM 104 OVER follow WHERE $^.player.age == $$.player.age;
 -- the following result is returned:
 ===============
