@@ -2872,12 +2872,12 @@
                 
                 <h1 id="spark_writer">Spark Writer<a class="headerlink" href="#spark_writer" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Spark Writer is Nebula Graph's Spark-based distributed data import tool that converts data from multiple data repositories into vertices and edges of graphs and batch imports data into the graph database. Currently supported data repositories are:</p>
+<p>Spark Writer is a Spark-based distributed data importer for <a href="https://github.com/vesoft-inc/nebula">Nebula Graph</a>. It converts data from multiple data sources into vertices and edges for graphs and batch imports data into the graph database. Currently supported data sources are:</p>
 <ul>
 <li>HDFS, including Parquet, JSON, ORC and CSV</li>
 <li>HIVE</li>
 </ul>
-<p>Spark Writer supports concurrent importing multiple tags and edges, and configuring different data repositories on different tags and edges.</p>
+<p>Spark Writer supports concurrent importing multiple tags and edges, and configuring different data sources for different tags and edges.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p><strong>Note:</strong> To use <strong>Nebula Graph Spark Writer</strong>, please make sure you have:</p>
 <ul>
@@ -2910,7 +2910,7 @@ mvn compile package
 <p>Note: Please create a space and define the schema in Nebula Graph first, then use this tool to import data to Nebula Graph.</p>
 <h3 id="example_data">Example Data<a class="headerlink" href="#example_data" title="Permanent link">&para;</a></h3>
 <h4 id="vertices">Vertices<a class="headerlink" href="#vertices" title="Permanent link">&para;</a></h4>
-<p>A vertex data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. Other columns are the properties of the vertex. Consider the following example in JSON format.</p>
+<p>A vertex data file consists of multiple rows. Each line in the file represents a vertex and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. Other columns are the properties of the vertex. Consider the following example in JSON format.</p>
 <ul>
 <li><strong>Player</strong> data</li>
 </ul>
@@ -2920,7 +2920,7 @@ mvn compile package
 </code></pre></div>
 
 <h4 id="edges">Edges<a class="headerlink" href="#edges" title="Permanent link">&para;</a></h4>
-<p>An edge data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the destination vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.</p>
+<p>An edge data file consists of multiple rows. Each line in the file represents a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the destination vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.</p>
 <p>Take edge <em><strong>follow</strong></em> as example:</p>
 <ul>
 <li>Edge without rank</li>
@@ -3010,123 +3010,123 @@ mvn compile package
 </tbody>
 </table>
 <h3 id="write_configuration_files">Write Configuration Files<a class="headerlink" href="#write_configuration_files" title="Permanent link">&para;</a></h3>
-<p>The configuration files consist of Spark related information, Nebula Graph related information, and tags mapping and edges mapping blocks. Spark information is configured with the associated parameters running Spark. Nebula Graph information is configured with information such as user name and password to connect Nebula Graph. Tags mapping and edges mapping correspond to the input source mapping of multiple tag/edges respectively, describing the basic information like each tag/edge's data source. It's possible that different tag/edge come from different data sources.</p>
+<p>The configuration files consist of the Spark field, the Nebula Graph field, the tags mapping field, and the edges mapping field. The Spark related parameters are configure in the Spark field. The username and password information for Nebula are configured in the Nebula field. Basic data source information for each tag/edge is described in the tag/edge mapping field. The tag/edge mapping field corresponds to multiple tag/edge inputting sources. Different tag/edge can come from different data sources.</p>
 <p>Example of a mapping file for the input source:</p>
-<div class="highlight"><pre><span></span><code>{
-  # Spark related configurations.
-  # See also: http://spark.apache.org/docs/latest/configuration.html
-  spark: {
-    app: {
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+  <span class="c1"># Spark related configurations.</span>
+  <span class="c1"># See also: http://spark.apache.org/docs/latest/configuration.html</span>
+  spark: <span class="o">{</span>
+    app: <span class="o">{</span>
       name: Spark Writer
-    }
+    <span class="o">}</span>
 
-    driver: {
-      cores: 1
+    driver: <span class="o">{</span>
+      cores: <span class="m">1</span>
       maxResultSize: 1G
-    }
+    <span class="o">}</span>
 
-    cores {
-      max: 16
-    }
-  }
+    cores <span class="o">{</span>
+      max: <span class="m">16</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
-  # Nebula Graph related configurations.
-  nebula: {
-    # Query engine address list.
-    addresses: [&quot;127.0.0.1:3699&quot;]
+  <span class="c1"># Nebula Graph related configurations.</span>
+  nebula: <span class="o">{</span>
+    <span class="c1"># Query engine IP list  </span>
+    addresses: <span class="o">[</span><span class="s2">&quot;127.0.0.1:3699&quot;</span><span class="o">]</span>
 
-    # Nebula Graph access user name and password.
+    <span class="c1"># Username and password to connect to Nebula Graph service</span>
     user: user
     pswd: password
 
-    # Nebula Graph space&#39;s name.
-    space: test
+    <span class="c1"># Graph space name for Nebula Graph</span>
+    space: <span class="nb">test</span>
 
-    # The thrift connection timeout and retry times.
-    # If no configurations are set, the default values are 3000 and 3 respectively.
-    connection {
-      timeout: 3000
-      retry: 3
-    }
+    <span class="c1"># The thrift connection timeout and retry times.</span>
+    <span class="c1"># If no configurations are set, the default values are 3000 and 3 respectively.</span>
+    connection <span class="o">{</span>
+      timeout: <span class="m">3000</span>
+      retry: <span class="m">3</span>
+    <span class="o">}</span>
 
-  # The nGQL execution retry times.
-  # If no configuration is set, the default value is 3.
-    execution {
-      retry: 3
-    }
-  }
+  <span class="c1"># The nGQL execution retry times.</span>
+  <span class="c1"># If no configuration is set, the default value is 3.</span>
+    execution <span class="o">{</span>
+      retry: <span class="m">3</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
 
-  # Processing tags
-  tags: [
+  <span class="c1"># Processing tags</span>
+  tags: <span class="o">[</span>
 
-    # Loading tag from HDFS and the data type is parquet.
-    # The tag&#39;s name is tag_name_0.
-    # field_0, field_1 and field_2 from HDFS&#39;s Parquet file are written into tag_name_0
-    # and the vertex column is vertex_key_field.
-    {
+    <span class="c1"># Loading tag from HDFS and the data type is parquet.</span>
+    <span class="c1"># The tag&#39;s name is tag_name_0.</span>
+    <span class="c1"># field_0, field_1 and field_2 from HDFS&#39;s Parquet file are written into tag_name_0</span>
+    <span class="c1"># and the vertex column is vertex_key_field.</span>
+    <span class="o">{</span>
       name: tag_name_0
       type: parquet
       path: hdfs_path
-      fields: {
+      fields: <span class="o">{</span>
         field_0: nebula_field_0,
         field_1: nebula_field_1,
         field_2: nebula_field_2
-      }
+      <span class="o">}</span>
       vertex: vertex_key_field
-      batch : 16
-    }
+      batch : <span class="m">16</span>
+    <span class="o">}</span>
 
-    # Similar to the above.
-    # Loading from Hive will execute command ${exec} as data set.
-    {
+    <span class="c1"># Similar to the preceding section.</span>
+    <span class="c1"># Loaded from Hive. The execution command $ {EXEC} is the dataset.</span>
+    <span class="o">{</span>
       name: tag_name_1
       type: hive
-      exec: &quot;select hive_field_0, hive_field_1, hive_field_2 from database.table&quot;
-      fields: {
+      exec: <span class="s2">&quot;select hive_field_0, hive_field_1, hive_field_2 from database.table&quot;</span>
+      fields: <span class="o">{</span>
         hive_field_0: nebula_field_0,
         hive_field_1: nebula_field_1,
         hive_field_2: nebula_field_2
-      }
+      <span class="o">}</span>
       vertex: vertex_id_field
-    }
-  ]
+    <span class="o">}</span>
+  <span class="o">]</span>
 
-  # Processing edges
-  edges: [
-    # Loading edge from HDFS and data type is JSON.
-    # The edge&#39;s name is edge_name_0.
-    # field_0, field_1 and field_2 from HDFS&#39;s JSON file are written into edge_name_0
-    # The source column is source_field, target column is target_field and ranking column is ranking_field.
-    {
+  <span class="c1"># Processing edges</span>
+  edges: <span class="o">[</span>
+    <span class="c1"># Loading edge from HDFS and data type is JSON.</span>
+    <span class="c1"># The edge&#39;s name is edge_name_0.</span>
+    <span class="c1"># field_0, field_1 and field_2 from HDFS&#39;s JSON file are written into edge_name_0</span>
+    <span class="c1"># The source column is source_field, target column is target_field and ranking column is ranking_field.</span>
+    <span class="o">{</span>
       name: edge_name_0
       type: json
       path: hdfs_path
-      fields: {
+      fields: <span class="o">{</span>
         field_0: nebula_field_0,
         field_1: nebula_field_1,
         field_2: nebula_field_2
-      }
+      <span class="o">}</span>
       source:  source_field
       target:  target_field
       ranking: ranking_field
-    }
+    <span class="o">}</span>
 
-    # Loading from Hive will execute command ${exec} as data set.
-    # Ranking is optional.
-    {
+    <span class="c1"># Loading from Hive will execute command ${exec} as data set.</span>
+    <span class="c1"># Ranking is optional.</span>
+    <span class="o">{</span>
       name: edge_name_1
       type: hive
-      exec: &quot;select hive_field_0, hive_field_1, hive_field_2 from database.table&quot;
-      fields: {
+      exec: <span class="s2">&quot;select hive_field_0, hive_field_1, hive_field_2 from database.table&quot;</span>
+      fields: <span class="o">{</span>
         hive_field_0: nebula_field_0,
         hive_field_1: nebula_field_1,
         hive_field_2: nebula_field_2
-      }
+      <span class="o">}</span>
       source:  source_id_field
       target:  target_id_field
-    }
-  ]
-}
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </code></pre></div>
 
 <h4 id="spark_properties">Spark Properties<a class="headerlink" href="#spark_properties" title="Permanent link">&para;</a></h4>
@@ -3274,7 +3274,7 @@ mvn compile package
 </li>
 </ul>
 <h3 id="import_data">Import Data<a class="headerlink" href="#import_data" title="Permanent link">&para;</a></h3>
-<p>Input data with the following command:</p>
+<p>Import data with the following command:</p>
 <div class="highlight"><pre><span></span><code>bin/spark-submit <span class="se">\</span>
  --class com.vesoft.nebula.tools.generator.v2.SparkClientGenerator <span class="se">\</span>
  --master <span class="si">${</span><span class="nv">MASTER</span><span class="p">-URL</span><span class="si">}</span> <span class="se">\</span>
