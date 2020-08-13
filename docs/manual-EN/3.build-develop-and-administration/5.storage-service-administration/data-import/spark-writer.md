@@ -2,12 +2,12 @@
 
 ## Overview
 
-Spark Writer is Nebula Graph's Spark-based distributed data import tool that converts data from multiple data repositories into vertices and edges of graphs and batch imports data into the graph database. Currently supported data repositories are:
+Spark Writer is a Spark-based distributed data importer for [Nebula Graph](https://github.com/vesoft-inc/nebula). It converts data from multiple data sources into vertices and edges for graphs and batch imports data into the graph database. Currently supported data sources are:
 
 * HDFS, including Parquet, JSON, ORC and CSV
 * HIVE
 
-Spark Writer supports concurrent importing multiple tags and edges, and configuring different data repositories on different tags and edges.
+Spark Writer supports concurrent importing multiple tags and edges, and configuring different data sources for different tags and edges.
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ Note: Please create a space and define the schema in Nebula Graph first, then us
 
 #### Vertices
 
-A vertex data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. Other columns are the properties of the vertex. Consider the following example in JSON format.
+A vertex data file consists of multiple rows. Each line in the file represents a vertex and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. Other columns are the properties of the vertex. Consider the following example in JSON format.
 
 * **Player** data
 
@@ -66,7 +66,7 @@ A vertex data file consists of multiple rows, with each line in the file represe
 
 #### Edges
 
-An edge data file consists of multiple rows, with each line in the file representing a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the destination vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.
+An edge data file consists of multiple rows. Each line in the file represents a point and its properties. In general, the first column is the ID of the source vertex, the second column is the ID of the destination vertex. These ID columns are specified in the mapping file. Other columns are the properties of the edge. Consider the following example in JSON format.
 
 Take edge _**follow**_ as example:
 
@@ -153,11 +153,11 @@ Player format as follows:
 
 ### Write Configuration Files
 
-The configuration files consist of Spark related information, Nebula Graph related information, and tags mapping and edges mapping blocks. Spark information is configured with the associated parameters running Spark. Nebula Graph information is configured with information such as user name and password to connect Nebula Graph. Tags mapping and edges mapping correspond to the input source mapping of multiple tag/edges respectively, describing the basic information like each tag/edge's data source. It's possible that different tag/edge come from different data sources.
+The configuration files consist of the Spark field, the Nebula Graph field, the tags mapping field, and the edges mapping field. The Spark related parameters are configure in the Spark field. The username and password information for Nebula are configured in the Nebula field. Basic data source information for each tag/edge is described in the tag/edge mapping field. The tag/edge mapping field corresponds to multiple tag/edge inputting sources. Different tag/edge can come from different data sources.
 
 Example of a mapping file for the input source:
 
-```text
+```bash
 {
   # Spark related configurations.
   # See also: http://spark.apache.org/docs/latest/configuration.html
@@ -178,14 +178,14 @@ Example of a mapping file for the input source:
 
   # Nebula Graph related configurations.
   nebula: {
-    # Query engine address list.
+    # Query engine IP list  
     addresses: ["127.0.0.1:3699"]
 
-    # Nebula Graph access user name and password.
+    # Username and password to connect to Nebula Graph service
     user: user
     pswd: password
 
-    # Nebula Graph space's name.
+    # Graph space name for Nebula Graph
     space: test
 
     # The thrift connection timeout and retry times.
@@ -222,8 +222,8 @@ Example of a mapping file for the input source:
       batch : 16
     }
 
-    # Similar to the above.
-    # Loading from Hive will execute command ${exec} as data set.
+    # Similar to the preceding section.
+    # Loaded from Hive. The execution command $ {EXEC} is the dataset.
     {
       name: tag_name_1
       type: hive
@@ -335,7 +335,7 @@ The options for tag and edge mapping are very similar. The following describes t
 
 ### Import Data
 
-Input data with the following command:
+Import data with the following command:
 
 ```bash
 bin/spark-submit \
