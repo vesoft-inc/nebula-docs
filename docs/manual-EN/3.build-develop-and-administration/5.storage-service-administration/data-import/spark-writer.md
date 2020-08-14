@@ -2,7 +2,7 @@
 
 ## Overview
 
-Spark Writer is a Spark-based distributed data importer for [Nebula Graph](https://github.com/vesoft-inc/nebula). It converts data from multiple data sources into vertices and edges for graphs and batch imports data into the graph database. Currently supported data sources are:
+Spark Writer is a Spark-based distributed data importer for [Nebula Graph](https://github.com/vesoft-inc/nebula). It converts data from multiple data sources into vertices and edges for graphs and batch imports data into the graph database. Currently, the supported data sources are:
 
 * HDFS, including Parquet, JSON, ORC and CSV
 * HIVE
@@ -54,7 +54,7 @@ Note: Please create a space and define the schema in Nebula Graph first, then us
 
 #### Vertices
 
-A vertex data file consists of multiple rows. Each line in the file represents a vertex and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. Other columns are the properties of the vertex. Consider the following example in JSON format.
+A vertex data file consists of multiple rows. Each line in the file represents a vertex and its properties. In general, the first column is the ID of the vertex. This ID column is specified in the mapping file. The other columns are the properties of the vertex. Consider the following example in JSON format.
 
 * **Player** data
 
@@ -153,7 +153,7 @@ Player format as follows:
 
 ### Write Configuration Files
 
-The configuration files consist of the Spark field, the Nebula Graph field, the tags mapping field, and the edges mapping field. The Spark related parameters are configure in the Spark field. The username and password information for Nebula are configured in the Nebula field. Basic data source information for each tag/edge is described in the tag/edge mapping field. The tag/edge mapping field corresponds to multiple tag/edge inputting sources. Different tag/edge can come from different data sources.
+The configuration files consist of the Spark field, the Nebula Graph field, the tags mapping field, and the edges mapping field. The Spark related parameters are configured in the Spark field. The username and password information for Nebula Graph are configured in the Nebula Graph field. Basic data source information for each tag or edge is described in the tag/edge mapping field. The tag/edge mapping field corresponds to multiple tag/edge inputting sources. Different tag/edge can come from different data sources.
 
 Example of a mapping file for the input source:
 

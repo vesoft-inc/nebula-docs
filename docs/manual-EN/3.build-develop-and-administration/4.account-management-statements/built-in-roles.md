@@ -56,4 +56,4 @@ Divided by operations.
 | Special operation | Y | Y | Y | Y | Y |
 | Show Jobs | Y | Y | Y | Y | Y |
 
-**Note:** Pay attention to the special operation here. The returned results vary based on the account role. For example, each role have the access to the `SHOW SPACE` statement, but the returned results vary based on the account authentication. Only the `GOD` user have the authority to run the `SHOW USERS` and the `SHOW SNAPSHOTS` statement.
+**Note:** Pay attention to the special operation here. The returned results vary based on the account role. For example, each role has the access to the `SHOW SPACE` statement, but the returned results vary based on the account authentication. Only the `GOD` user has the authority to run the `SHOW USERS` and the `SHOW SNAPSHOTS` statements.
