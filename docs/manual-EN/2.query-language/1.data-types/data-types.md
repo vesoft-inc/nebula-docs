@@ -26,10 +26,10 @@ A boolean data type is declared with the `bool` keyword and can only take the va
 
 ## String
 
-The string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. Line breaks are not allowed in a string. For example `"Shaquile O'Neal"`,`'"This is a double-quoted literal string"'`. Embedding escape sequences are supported within strings, for example:
+The string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. Line breaks are not allowed in a string. For example `"Shaquile O'Neal"`,`'"This is a double-quoted literal string"'`. Embedded escape sequences are supported within strings, for example:
 
-  1. `"\n\t\r\b\f"`
-  1. `"\110ello world"`
+- `"\n\t\r\b\f"`
+- `"\110ello world"`
 
 ## Timestamp
 
