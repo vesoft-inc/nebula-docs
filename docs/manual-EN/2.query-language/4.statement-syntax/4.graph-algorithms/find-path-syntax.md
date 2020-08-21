@@ -16,8 +16,6 @@ FIND SHORTEST | ALL PATH FROM <vertex_id_list> TO <vertex_id_list> OVER <edge_ty
 
 `<N>` is hop number, and the default value is 5.
 
-## Note
-
 - When source and destination vertices are id lists, it means to find the shortest path from any source vertices to the destination vertices.
 - There may be cycles when searching all paths.
 

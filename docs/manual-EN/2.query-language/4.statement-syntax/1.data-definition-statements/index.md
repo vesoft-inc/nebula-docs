@@ -12,7 +12,11 @@ Normally, you create indexes on a tag/edge-type at the time the tag/edge-type it
 
 ## Create Index
 
-`CREATE INDEX` enables you to add indexes to existing tag/edge-type. **Note: Creating index will affect the write performance**. We suggest you import data first and then rebuild the index in batch.
+`CREATE INDEX` enables you to add indexes to existing tag/edge-type.
+
+> **NOTE**: Creating index will affect the write performance.
+
+We suggest you import data first and then rebuild the index in batch.
 
 ### Create Single-Property Index
 
@@ -32,7 +36,7 @@ The above statement creates an index for the _degree_ property on all edges carr
 
 The schema indexes also support spawning over multiple properties. An index on multiple properties is called a composite index.
 
-**Note:** Index across multiple tags is not yet supported.
+> **NOTE**: Index across multiple tags is not yet supported.
 
 Consider the following example:
 
@@ -121,7 +125,7 @@ nebula> DROP TAG INDEX player_index_0;
 REBUILD {TAG | EDGE} INDEX <index_name> [OFFLINE]
 ```
 
-[Create Index](#create-index) section describes how to build indexes to improve query performance. If the index is created before inserting the data, there is no need to rebuild index and this section can be skipped; if data is updated or newly inserted before the index creation, it is necessary to rebuild the indexes in order to ensure that the indexes contain the previously added data. If the current database does not provide any services, use the `OFFLINE` keyword to speed up the rebuilding.
+[Create Index](#create-index) section describes how to build indexes to improve query performance. If the index is created before inserting the data, there is no need to rebuild index and this section can be skipped; if data is updated or newly inserted before the index creation, it is necessary to rebuild the indexes in order to make sure that the indexes contain the previously added data. If the current database does not provide any services, use the `OFFLINE` keyword to speed up the rebuilding.
 
 <!-- > During the rebuilding, any idempotent queries will skip the index and perform sequential scans. This means that queries run slower during this operation. Non-idempotent commands, such as INSERT, UPDATE, and DELETE are blocked until the indexes are rebuilt. -->
 

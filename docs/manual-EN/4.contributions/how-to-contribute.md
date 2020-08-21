@@ -97,7 +97,7 @@ git push --force origin master
 
 #### Code Style
 
-We adopt `cpplint` to ensure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed 
+We adopt `cpplint` to make sure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed.
 
 #### Unit Tests Required
 
@@ -105,7 +105,7 @@ Please add unit tests for your new features or bugfixes.
 
 #### Build Your Code with Unit Tests Enable
 
-Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile. 
+Please refer to the [build source code](../3.build-develop-and-administration/1.build/1.build-source-code.md) documentation to compile.
 
 > Make sure you have enabled the build of unit tests by setting `-DENABLE_TESTING=ON`.
 
@@ -154,5 +154,4 @@ git push origin myfeature
 ### Step 9: Get a Code Review
 
 Once your pull request has been opened, it will be assigned to at least two
-reviewers. Those reviewers will do a thorough code review to ensure the changes meet the repository's contributing guidelines and other quality standards.
-
+reviewers. Those reviewers will do a thorough code review to make sure that the changes meet the repository's contributing guidelines and other quality standards.

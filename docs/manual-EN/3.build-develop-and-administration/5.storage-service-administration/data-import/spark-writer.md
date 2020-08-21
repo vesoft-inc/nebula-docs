@@ -11,7 +11,7 @@ Spark Writer supports concurrent importing multiple tags and edges, and configur
 
 ## Prerequisites
 
-**Note:** To use **Nebula Graph Spark Writer**, please make sure you have:
+> **NOTE**: To use **Nebula Graph Spark Writer**, please make sure you have:
 
 * Spark 2.0 or above
 * Hive 2.3 or above
@@ -48,7 +48,7 @@ This section includes the following steps:
 
 Please refer to the example graph in [Quick Start](../../../1.overview/2.quick-start/1.get-started.md).
 
-Note: Please create a space and define the schema in Nebula Graph first, then use this tool to import data to Nebula Graph.
+> **NOTE**: Please create a space and define the schema in Nebula Graph first, then use this tool to import data to Nebula Graph.
 
 ### Example Data
 
@@ -348,7 +348,7 @@ Parameter descriptions:
 
 | Abbreviation | Required | Default | Description | Example |
 | --- | --- | --- | --- | --- |
-| --class | yes | / | Specify the program's main class |  |
+| --class | yes | / | Specify the program's primary class |  |
 | --master | yes | / | Specify spark cluster master url. Refer to [master urls](https://spark.apache.org/docs/latest/submitting-applications.html#master-urls) for detail | e.g. `spark://23.195.26.187:7077` |
 | -c / --config  | yes | / | The configuration file path in the context |  |
 | -h / --hive | no | false | Used to specify whether to support Hive |  |

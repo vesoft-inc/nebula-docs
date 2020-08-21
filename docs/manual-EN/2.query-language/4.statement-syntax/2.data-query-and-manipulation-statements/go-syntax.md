@@ -98,7 +98,7 @@ nebula> GO OVER FROM <node_list> edge1, edge2....  // traverse along edge1 and 
 nebula> GO OVER FROM <node_list> *   // * indicates traversing along all edge types
 ```
 
-> Please note that when traversing along multiple edges, there are some special restrictions on the use of filters(namely the `WHERE` statement), for example filters like `WHERE edge1.prop1 > edge2.prop2` is not supported.
+> **NOTE**: Please note that when traversing along multiple edges, there are some special restrictions on the use of filters(namely the `WHERE` statement), for example filters like `WHERE edge1.prop1 > edge2.prop2` is not supported.
 
 As for return results, if multiple edge properties are to be returned, **Nebula Graph** will place them in different rows. For example:
 
