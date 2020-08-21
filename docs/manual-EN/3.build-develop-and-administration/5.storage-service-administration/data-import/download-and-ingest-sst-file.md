@@ -20,7 +20,7 @@ The execution will generate SST files on `HDFS`. The directory structure is as f
 
 Each directory is a partition number.
 
-SST file name format is `{TYPE}-${FIRST_KEY_IN_THIS_FILE}.sst`, where `TYPE` is data type, `FIRST_KEY_IN_THIS_FILE` is the start Key of the file. (If you want to write your own tools to generate SST files, you need to ensure that the keys in each `SST` file are ordered.)
+SST file name format is `{TYPE}-${FIRST_KEY_IN_THIS_FILE}.sst`, where `TYPE` is data type, `FIRST_KEY_IN_THIS_FILE` is the start Key of the file. (If you want to write your own tools to generate SST files, make sure that the keys in each `SST` file are ordered.)
 
 Please confirm that all servers have `Hadoop` installed and `HADOOP_HOME` set.
 
@@ -47,4 +47,4 @@ nebula > INGEST
 
 The command will ingest the `SST` files in `data/download` directory.
 
-**Note:** `ingest` will block `RocksDB` when the data amount is large, please avoid running the command at requirement peak.
+> **NOTE**: `ingest` will block `RocksDB` when the data amount is large, please avoid running the command at requirement peak.

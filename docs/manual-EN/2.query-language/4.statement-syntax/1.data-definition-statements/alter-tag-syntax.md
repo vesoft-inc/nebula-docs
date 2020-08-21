@@ -16,7 +16,7 @@ ttl_definition:
 
 `ALTER TAG` statement changes the structure of a tag. For example, you can add or delete properties, change the data type of an existing property. You can also set a property as TTL (Time-To-Live), or change the TTL duration.
 
-**Note:** **Nebula Graph** automatically examines indexes when altering a tag. When altering a tag, **Nebula Graph** first checks whether the tag is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.
+> **NOTE**: **Nebula Graph** automatically examines indexes when altering a tag. When altering a tag, **Nebula Graph** first checks whether the tag is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.
 
 Please refer to [Index Documentation](index.md) on details about index.
 
@@ -28,4 +28,4 @@ nebula> ALTER TAG t1 ADD (id int, address string);
 nebula> ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "age";
 ```
 
-**Note:** `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.
+> **NOTE**: `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.

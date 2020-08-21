@@ -16,7 +16,7 @@ ttl_definition:
 
 `ALTER EDGE` statement changes the structure of an edge. For example, you can add or delete properties, change the data type of an existing property. You can also set a property as TTL (Time-To-Live), or change the TTL duration.
 
-**Note:** **Nebula Graph** automatically examines indexes when altering an edge. When altering an edge, **Nebula Graph** first checks whether the edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.
+> **NOTE**: **Nebula Graph** automatically examines indexes when altering an edge. When altering an edge, **Nebula Graph** first checks whether the edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.
 
 Please refer to [Index Documentation](index.md) on details about index.
 
@@ -31,4 +31,4 @@ nebula> ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
 nebula> ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = "prop1";
 ```
 
-**Note:** `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.
+> **NOTE**: `TTL_COL` only supports the properties whose values are of the `INT` or the `TIMESTAMP` type.

@@ -25,7 +25,7 @@ The features of this syntax are described in the following sections:
 
 You can use the `If NOT EXISTS` keywords when creating edge types. This keyword automatically detects if the corresponding edge type exists. If it does not exist, a new one is created. Otherwise, no edge type is created.
 
-**Note:** The edge type existence detection here only compares the edge edge name (excluding properties).
+> **NOTE**: The edge type existence detection here only compares the edge edge name (excluding properties).
 
 ## Edge Type Name
 

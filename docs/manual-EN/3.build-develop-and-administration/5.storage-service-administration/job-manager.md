@@ -64,7 +64,7 @@ What's in the returned results:
 - `12/17/19 17:21:30` is the start time, which can never be empty because the initial status is running
 - `12/17/19 17:21:30` is the end time, which is empty when the job status is running. The value is set when the job status is finished, failed and stopped
 
-**Note:** There are five job status, i.e. QUEUE, RUNNING, FINISHED, FAILED, STOPPED. Status switching is described below:
+> **NOTE**: There are five job status, i.e. QUEUE, RUNNING, FINISHED, FAILED, STOPPED. Status switching is described below:
 
 ```ngql
 Queue -- running -- finished -- removed

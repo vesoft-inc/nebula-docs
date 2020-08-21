@@ -36,7 +36,7 @@ To generate TOC, you should first change directory to the merged file and type t
 pandoc -s --toc merged.md -o merged.md
 ```
 
-**Note**: The default number of section levels is 3 in the table of contents (which means that level-1, 2, and 3 headings will be listed in the contents), use `--toc-depth=NUMBER` to specify that number.
+> **NOTE**: The default number of section levels is 3 in the table of contents (which means that level-1, 2, and 3 headings will be listed in the contents), use `--toc-depth=NUMBER` to specify that number.
 
 ## Step Three: Generate PDF
 
@@ -46,6 +46,6 @@ You can convert the merged markdown file into PDF and print it out for easy-read
 pandoc merged.md  -o merged.pdf
 ```
 
-**Note:** Make sure [MiKTeX](https://miktex.org/howto/install-miktex) is installed.
+> **NOTE**: Make sure [MiKTeX](https://miktex.org/howto/install-miktex) is installed.
 
 Now you've got your PDF documentation and have fun with **Nebula Graph**.

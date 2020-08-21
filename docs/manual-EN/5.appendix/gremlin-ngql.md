@@ -561,7 +561,7 @@ Group by items | group().by()    | GROUP BY         |
 Remove repeated items | dedup() | DISTINCT |
 Group by items and count | groupCount() | GROUP BY COUNT  |
 
-**Note:** The GROUP BY function can only be applied in the YIELD clause.
+> **NOTE**: The GROUP BY function can only be applied in the YIELD clause.
 
 ```bash
 # Group vertices by label then count

@@ -6,7 +6,7 @@ DROP EDGE [IF EXISTS] <edge_type_name>
 
 You must have the DROP privilege for the edge type.
 
-**Note:** When dropping an edge, **Nebula Graph** only checks whether the edge is associated with any indexes. If so the deletion is rejected.
+> **NOTE**: When dropping an edge, **Nebula Graph** only checks whether the edge is associated with any indexes. If so the deletion is rejected.
 
 Please refer to [Index Documentation](index.md) on details about index.
 
