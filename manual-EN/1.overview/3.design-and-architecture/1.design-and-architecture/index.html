@@ -2326,6 +2326,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../3.build-develop-and-administration/7.monitor/5.rocksdb-statistics/" title="RocksDB Statistics" class="md-nav__link">
+      RocksDB Statistics
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2670,7 +2682,7 @@
 <h3 id="olap_oltp_in_graph">OLAP &amp; OLTP in Graph<a class="headerlink" href="#olap_oltp_in_graph" title="Permanent link">&para;</a></h3>
 <p><img alt="meetup1-04" src="https://user-images.githubusercontent.com/42762957/64223265-dc573680-cf05-11e9-98bc-93de4fd32463.jpg" /></p>
 <p>The axis in the above picture shows the different requirements for query latency. Like a traditional database, graph database can be divided into two parts: OLAP and OLTP. OLAP cares more about offline analysis while OLTP prefers online processing. Graph computing framework in OLAP is used to analyse data based on graph structure. And it's similar to OLAP in traditional database. But it has features which are not available in traditional database, one is iterative algorithm based on graph. A typical example is the PageRank algorithm from Google, which obtains the relevance of web pages through constant iterative computing. Another example is the commonly-used LPA algorithm.</p>
-<p>Along the axis to right, there comes the graph streaming field, which is the combination of basic computing and streaming computing. A relational network is not a static structure, rather, it constantly changes in the business: be it graph structure or graph properties. Computing in this filed 
+<p>Along the axis to right, there comes the graph streaming field, which is the combination of basic computing and streaming computing. A relational network is not a static structure, rather, it constantly changes in the business: be it graph structure or graph properties. Computing in this filed
 is often triggered by events and its latency is in second.</p>
 <p>Right beside the graph streaming is the online response system, whose requirement for latency is extremely high, which should be in millisecond.</p>
 <p>The rightmost field is graph database and its use cases are completely different from the one on the left. The <strong>Nebula Graph</strong> we're working on can find its usage here in OLTP.</p>
@@ -2681,7 +2693,7 @@ is often triggered by events and its latency is in second.</p>
 <p><strong>G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;</strong></p>
 <p>Here <strong>V</strong> is a set of nodes, aka vertices, <strong>E</strong> is a set of directional edges, <strong>P<sub>V</sub></strong> represents properties on vertices, and <strong>P<sub>E</sub></strong> is the properties on edges.</p>
 <h2 id="nebula_graph_architecture">Nebula Graph Architecture<a class="headerlink" href="#nebula_graph_architecture" title="Permanent link">&para;</a></h2>
-<p>Designed based on the above features, <strong>Nebula Graph</strong> is an open source, distributed, lightning-fast graph database, it is composed of four components: storage service, meta service, query engine and client. </p>
+<p>Designed based on the above features, <strong>Nebula Graph</strong> is an open source, distributed, lightning-fast graph database, it is composed of four components: storage service, meta service, query engine and client.</p>
 <p><img alt="meetup1-13" src="https://user-images.githubusercontent.com/42762957/64231577-9c527c80-cf22-11e9-9044-9a739a22c42a.jpg" /></p>
 <p>The dashed line in the above picture divided computing and storage as two independent parts, the upper is the computing service, each machine or virtual machine is stateless and never talks to other so it's easy to scale in or out; the lower is the storage service, it's stateful since data is stored there. Storage service can turn graph semantics into key-values and pass them to the KV-store below it. Between the two is the Raft protocol.</p>
 <p>The right side is the meta service, similar to the NameNode in HDFS, it stores all metadata like schema and controls scaling.</p>
@@ -2711,7 +2723,7 @@ is often triggered by events and its latency is in second.</p>
 </ul>
 <p>Migrating the partitions on an overworked server to other relatively idle servers to increases availability and capacity of the system.</p>
 <h3 id="design-thinking_meta_service">Design-Thinking: Meta Service<a class="headerlink" href="#design-thinking_meta_service" title="Permanent link">&para;</a></h3>
-<p>The binary of the meta service is <strong>nebula-metad</strong>. Here is the list of its main functionalities:</p>
+<p>The binary of the meta service is <strong>nebula-metad</strong>. Here is the list of its primary functionalities:</p>
 <ul>
 <li>
 <p>User management</p>
@@ -2733,13 +2745,13 @@ The meta service is stateful, and just like the storage service, it persists dat
 <h3 id="design-thinking_query_engine">Design-Thinking: Query Engine<a class="headerlink" href="#design-thinking_query_engine" title="Permanent link">&para;</a></h3>
 <p><strong>Nebula Graph</strong>'s query language <strong>nGQL</strong> is a SQL-like descriptive language rather than an imperative one. It's compossible but not embeddable, it uses Shell pipe as an alternative, aka output in the former query acts as the input in the latter one. Key features of nGQL are as follows:</p>
 <ul>
-<li>Main algorithms are built in the query engine</li>
+<li>Primary algorithms are built in the query engine</li>
 <li>Duplicate queries can be avoided by supporting user-defined function (UDF)</li>
 <li>Programmable</li>
 </ul>
 <p>The binary of the query engine is <strong>nebula-graphd</strong>. Each nebula-graphd instance is stateless and never talks to other nebula-graphd. nebula-graphd only talks to the storage service and the meta service. That makes it trivial to expand or shrink the query engine cluster.</p>
 <p>The query engine accepts the message from the client and generates the execution plan after the lexical parsing (Lexer), semantic analysis (Parser) and the query optimization. Then the execution plan will be passed to the execution engine. The query execution engine takes the query plans and interacts with meta server and the storage engine to retrieve the schema and data.</p>
-<p>The main optimizations of the query engine are:</p>
+<p>The primary optimizations of the query engine are:</p>
 <ul>
 <li>Asynchronous and parallel execution<p>I/O operations and network transmission are time-consuming. Thus asynchronous and parallel operations are widely adopted in the query engine to reduce the latency and to improve the overall throughput. Also, a separate resource pool is set for each query to avoid the long-tail effect of those time-consuming queries.</p>
 </li>

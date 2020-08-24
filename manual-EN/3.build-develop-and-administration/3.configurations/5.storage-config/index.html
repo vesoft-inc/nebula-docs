@@ -2340,6 +2340,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../7.monitor/5.rocksdb-statistics/" title="RocksDB Statistics" class="md-nav__link">
+      RocksDB Statistics
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2828,7 +2840,9 @@
 </tr>
 </tbody>
 </table>
-<p>Note: We recommend you using the actual IP in the <code>meta_server_addrs</code> parameter because sometimes <code>127.0.0.1</code> will not be parsed correctly.</p>
+<blockquote>
+<p><strong>NOTE</strong>: We recommend you using the actual IP in the <code>meta_server_addrs</code> parameter because sometimes <code>127.0.0.1</code> will not be parsed correctly.</p>
+</blockquote>
 <h2 id="consistency_seedings_for_storage">Consistency Seedings for storage<a class="headerlink" href="#consistency_seedings_for_storage" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2919,10 +2933,9 @@ wal_bytes_per_sync
 delayed_write_rate
 avoid_flush_during_shutdown
 max_open_files
-enable_write_thread_adaptive_yield
-max_subcompactions              -- The compact from level0 to level1 enables multi-thread. The default value is 1. Dynamic modification takes effect after restarting.
-
-max_background_jobs             -- Use multi-thread for compacting. The default value is 1. Dynamic modification takes effect after restarting.
+stats_persist_period_sec
+stats_history_buffer_size
+strict_bytes_per_sync
 </code></pre></div>
 
 <p>The parameters above can either be dynamically modified by the <code>UPDATE CONFIGS</code> syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
@@ -2939,9 +2952,7 @@ max_bytes_for_level_multiplier
 disable_auto_compactions       -- Compact automatically when writing data is stopped, default value is false. Dynamic modification takes effect immediately.
 </code></pre></div>
 
-<blockquote>
 <p>The preceding parameters can either be dynamically modified by UPDATE CONFIGS syntax, or written in the local configuration file. Please refer to the RocksDB manual for specific functions and whether restarting is needed.</p>
-</blockquote>
 <p>The preceding parameters can be set via the command line as follows:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = \
         { disable_auto_compactions = false, level0_file_num_compaction_trigger = 10 };
