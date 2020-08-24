@@ -15,7 +15,7 @@ Maintainers are the planner and designer of the repository, with the right to me
 
 - Set technical directions, roadmap, and priorities for the repository
 - Drive the development forward and ensure newcomers, as well as long-time contributors, have a great experience
-- Make sure the overall quality of the repository
+- Pay attention to the overall quality of the repository
 
 ### How to become a Maintainer of a Repository
 
