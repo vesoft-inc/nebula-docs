@@ -4,9 +4,9 @@ Dump Tool is a single-machine off-line data dumping tool that can be used to dum
 
 ## How to Get
 
-The source code of the dump tool is under `nebula/src/tools/db_dump` directory. You can use command `make db_dump` to compile it. Before using this tool, you can use the [SHOW HOSTS](../../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) statement in the **Nebula Graph** console to check the distribution of the partitions. Also, you can use the `vertex_id % partition_num - 1` formula to calculate which partition the vertex's corresponding [key](../../../1.overview/3.design-and-architecture/2.storage-design.md) is located.
+The source code of the dump tool is under `nebula/src/tools/db_dump` directory. You can use command `make db_dump` to compile it. Before using this tool, you can use the [SHOW HOSTS](../../../2.query-language/4.statement-syntax/3.utility-statements/show-statements/show-hosts-syntax.md) statement in the **Nebula Graph** console to check the distribution of the partitions. Also, you can use the `vertex_id % partition_num - 1` formula to calculate in which partition the vertex's corresponding [key](../../../1.overview/3.design-and-architecture/2.storage-design.md) is located.
 
-**Note:** The _Dump Tool_ is located in the rpm package and its directory is `nebula/bin/`. Because this tool dumps data by directly opening the RockDB, you need to use it offline. Stop the storaged process and make sure the meta service is started. Please refer to the following section on detailed usage.
+**Note:** The _Dump Tool_ is located in the rpm package and its directory is `nebula/bin/`. Because this tool dumps data by directly opening the RocksDB, you need to use it offline. Stop the storaged process and make sure that the metad service is started. Please refer to the following section for detailed usage.
 
 ## How to Use
 
