@@ -2,7 +2,7 @@
 
 The `LOOKUP` statement is used to search for the filter condition in it. `LOOKUP` is often coupled with a `WHERE` clause which adds filters or predicates.
 
-**Note:** Before using the `LOOKUP` statement, please make sure that indexes are created. Read more about indexes in [Index Documentation](../1.data-definition-statements/index.md).
+> **NOTE**: Before using the `LOOKUP` statement, please make sure that indexes are created. Read more about indexes in [Index Documentation](../1.data-definition-statements/index.md).
 
 ```ngql
 LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND | OR expression ...]) ] [YIELD <return_list>]
@@ -13,7 +13,7 @@ LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND | OR expression 
 
 - `LOOKUP` clause finds the vertices or edges.
 - `WHERE` extracts only those results that fulfill the specified conditions. The logical AND, OR, NOT are also supported. See [WHERE Syntax](where-syntax.md) for more information.
-  **Note:** `WHERE` clause does not support the following operations in `LOOKUP`:
+  > **NOTE**: `WHERE` clause does not support the following operations in `LOOKUP`:
   - `$-` and `$^`
   - In relational expressions, expressions with field-names on both sides of the operator are not currently supported, such as (tagName.column1> tagName.column2)
   - Nested AliasProp expressions in operation expressions and function expressions are not supported at this time.

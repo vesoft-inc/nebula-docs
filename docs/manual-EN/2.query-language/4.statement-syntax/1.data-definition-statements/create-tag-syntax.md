@@ -25,7 +25,7 @@ The features of this syntax are described in the following sections:
 
 You can use the `If NOT EXISTS` keywords when creating tags. This keyword automatically detects if the corresponding tag exists. If it does not exist, a new one is created. Otherwise, no tag is created.
 
-**Note:** The tag existence detection here only compares the tag name (excluding properties).
+> **NOTE**: The tag existence detection here only compares the tag name (excluding properties).
 
 ## Tag Name
 

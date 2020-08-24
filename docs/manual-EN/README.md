@@ -151,6 +151,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Meta Metrics](3.build-develop-and-administration/7.monitor/2.meta-metrics.md)
   * [Storage Metrics](3.build-develop-and-administration/7.monitor/3.storage-metrics.md)
   * [Graph Metrics](3.build-develop-and-administration/7.monitor/4.graph-metrics.md)
+  * [RocksDB Statistics](3.build-develop-and-administration/7.monitor/5.rocksdb-statistics.md)
 * Development and API
   <!-- * [Key Value API](3.build-develop-and-administration/6.develop-and-interface/kv-interfaces.md) -->
   * [Nebula Graph Clients](1.overview/2.quick-start/3.supported-clients.md)

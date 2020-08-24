@@ -95,7 +95,7 @@ nebula> YIELD hash("Tim") % 100;
 ---------------------
 ```
 
-**Note:** You can not use `YIELD DISTINCT` as a stand-alone statement. The following is a syntax error.
+> **NOTE**: You can not use `YIELD DISTINCT` as a stand-alone statement. The following is a syntax error.
 
 ```ngql
 nebula> YIELD DISTINCT 1     --- syntax error!

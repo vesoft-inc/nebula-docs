@@ -11,7 +11,7 @@ This statement creates a new space with the given name. SPACE is a region that p
 
 You can use the `If NOT EXISTS` keywords when creating spaces. This keyword automatically detects if the corresponding space exists. If it does not exist, a new one is created. Otherwise, no space is created.
 
-**Note:** The space existence detection here only compares the space name (excluding properties).
+> **NOTE**: The space existence detection here only compares the space name (excluding properties).
 
 ## Space Name
 
