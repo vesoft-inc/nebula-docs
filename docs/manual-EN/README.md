@@ -4,6 +4,11 @@
 
 It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges with millisecond latency.
 
+## Tutorial Video
+
+* [YouTube](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw/)
+* [bilibili](https://space.bilibili.com/472621355)
+
 ## Preface
 
 * [About This Manual](0.about-this-manual.md)
@@ -168,10 +173,3 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * [Cypher V.S. nGQL](5.appendix/cypher-ngql.md)
 * [SQL V.S. nGQL](5.appendix/sql-ngql.md)
 * [Vertex Identifier and Partition](5.appendix/vid-partition.md)
-
-## Misc
-
-### Video
-
-* [YouTube](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw/)
-* [bilibili](https://space.bilibili.com/472621355)
