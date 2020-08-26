@@ -15,6 +15,13 @@ Compared with other graph database solutions, **Nebula Graph** has the following
 * SQL-like query language
 * Role-based access control for higher level security
 
+## [Video Tutorials](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
+
+If you prefer learning Nebula Graph by watching videos, go to our [YouTube Channel](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw). At present, we have two series for you:
+
+* [Getting started with Nebula Graph](https://www.youtube.com/playlist?list=PL4ArMmsAnb84uB2d9L46eXpIi7Epz2cfp)
+* [Nebula Graph studio](https://www.youtube.com/playlist?list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)
+
 ## [Quick start](manual-EN/1.overview/2.quick-start/1.get-started.md)
 
 Read the [Getting started](manual-EN/1.overview/2.quick-start/1.get-started.md) guide to quickly get going with **Nebula Graph**.
