@@ -10,6 +10,8 @@ Use `FETCH PROP ON` to return a (list of) vertex's properties. Currently, you ca
 FETCH PROP ON {<tag_name_list> | *} <vertex_id_list> [YIELD [DISTINCT] <return_list>]
 ```
 
+Fetch `<tag_name_list>` is only available for version 1.0.1 or later version. If your **Nebula Graph** is earlier than 1.0.1, you can only fetch one type of vertices in a single query.
+
 `*` indicates returning all the properties of the given vertex.
 
 `<tag_name_list>::=[tag_name [, tag_name]]` is the tag name. It must be the same tag within return_list.
