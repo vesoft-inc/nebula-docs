@@ -1,16 +1,16 @@
-# VEsoft Inc. Contributor License Agreement
+# vesoft inc. Contributor License Agreement
 
-This VEsoft Inc. Contributor License Agreement ("Agreement") applies to any contribution you make to any open source projects owned or managed by VEsoft Inc. If you are representing your employer to sign this Agreement, please warrant you have the authority to grant the Agreement.
+This **vesoft inc.** Contributor License Agreement ("Agreement") applies to any contribution you make to any open source projects owned or managed by **vesoft inc.** If you are representing your employer to sign this Agreement, please warrant you have the authority to grant the Agreement.
 
 ## Definitions
 
-* "we", "our", "us", and "VEsoft" shall mean VEsoft Inc.
+* "we", "our", "us", and "**vesoft**" shall mean **vesoft inc.**
 * "You" and "Your" shall mean you or the organization you are on behalf of.
-* "Contribution" shall mean any original work of authorship, including any modifications or additions to an existing work, that is intentionally submitted by you or the organization you represent to VEsoft for inclusion in, or documentation of, any of the products owned or managed by VEsoft (the "Work").
+* "Contribution" shall mean any original work of authorship, including any modifications or additions to an existing work, that is intentionally submitted by you or the organization you represent to **vesoft** for inclusion in, or documentation of, any of the products owned or managed by **vesoft** (the "Work").
 
 ## Grant of Copyright License
 
-All rights of Your contribution submitted to VEsoft in any manner are granted to VEsoft and to recipients of software distributed by VEsoft. You waive any rights that affect our ownership of the copyright and grant to us a perpetual, worldwide, transferable, non-exclusive, no-charge, royalty-free, irrevocable and sublicensable license to use, reproduce, prepare derivative works, publicly display and perform, sublicense, and distribute contributions and any derivative works.
+All rights of Your contribution submitted to **vesoft** in any manner are granted to **vesoft** and to recipients of software distributed by **vesoft**. You waive any rights that affect our ownership of the copyright and grant to us a perpetual, worldwide, transferable, non-exclusive, no-charge, royalty-free, irrevocable and sublicensable license to use, reproduce, prepare derivative works, publicly display and perform, sublicense, and distribute contributions and any derivative works.
 
 ## Grant of Patent License
 
@@ -22,4 +22,4 @@ You represent and warrant that:
 
 * You represent that each of Your contributions is Your original creation that You can legally grant the rights set out in this Agreement.
 * The contribution You submit and licenses You grant do not and will not infringe the rights of any third party.
-* You are not aware of any pending or threatened claims, suits, actions, or charges pertaining to the contributions. You also warrant to notify VEsoft immediately if You become aware of any such actual or potential claims, suits, actions, allegations, or charges.
+* You are not aware of any pending or threatened claims, suits, actions, or charges pertaining to the contributions. You also warrant to notify **vesoft** immediately if You become aware of any such actual or potential claims, suits, actions, allegations, or charges.
