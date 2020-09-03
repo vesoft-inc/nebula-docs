@@ -122,7 +122,7 @@ nebula> DROP TAG INDEX player_index_0;
 ## REBUILD INDEX
 
 ```ngql
-REBUILD {TAG | EDGE} INDEX <index_name> [OFFLINE]
+REBUILD {TAG | EDGE} INDEX <index_name> OFFLINE
 ```
 
 [Create Index](#create-index) section describes how to build indexes to improve query performance. If the index is created before inserting the data, there is no need to rebuild index and this section can be skipped; if data is updated or newly inserted before the index creation, it is necessary to rebuild the indexes in order to make sure that the indexes contain the previously added data. If the current database does not provide any services, use the `OFFLINE` keyword to speed up the rebuilding.
