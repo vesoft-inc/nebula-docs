@@ -18,6 +18,9 @@ FIND SHORTEST | ALL PATH FROM <vertex_id_list> TO <vertex_id_list> OVER <edge_ty
 
 - When source and destination vertices are id lists, it means to find the shortest path from any source vertices to the destination vertices.
 - There may be cycles when searching all paths.
+- `FIND PATH` does not support searching with property filtering.
+- `FIND PATH` does not support searching with specified direction.
+- `FIND PATH` is sing process, so it hurts the memory resource.
 
 ## Examples
 

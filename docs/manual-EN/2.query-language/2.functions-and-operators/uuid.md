@@ -4,7 +4,9 @@
 
 When the number of vertices reaches billions, using `Hash` Function to generate vids has a certain conflict probability. Therefore, **Nebula Graph** provides `UUID` Function to avoid vid conflicts in a large number of vertices. `UUID` Function is composed of the `Murmur` hash function and the current timestamp (in seconds).
 
-Values generated with the `UUID` are stored in the **Nebula Graph** Storage service in key-value mode. When called, it checks whether this key exists or conflicts. So the performance may be slower than hash.
+## Low Performance and compatibility issues for UUID
+
+Values generated with the `UUID` are stored in the **Nebula Graph** Storage service in key-value mode. When called, it checks whether this key exists or conflicts. So the performance may be lower than hash. In addition, `UUID` may not be available in future versions.
 
 Insert with `UUID`:
 
