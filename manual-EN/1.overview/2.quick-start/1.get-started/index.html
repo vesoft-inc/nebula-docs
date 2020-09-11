@@ -493,13 +493,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#creating_index" class="md-nav__link">
-    Creating Index
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -608,7 +601,19 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating_index" class="md-nav__link">
+    Creating Index
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sample_queries" class="md-nav__link">
     Sample Queries
   </a>
@@ -641,11 +646,6 @@
   <a href="#example_4" class="md-nav__link">
     Example 4
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2742,13 +2742,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#creating_index" class="md-nav__link">
-    Creating Index
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2857,7 +2850,19 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating_index" class="md-nav__link">
+    Creating Index
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sample_queries" class="md-nav__link">
     Sample Queries
   </a>
@@ -2890,11 +2895,6 @@
   <a href="#example_4" class="md-nav__link">
     Example 4
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3124,14 +3124,6 @@
 
 </li>
 </ol>
-<h3 id="creating_index">Creating Index<a class="headerlink" href="#creating_index" title="Permanent link">&para;</a></h3>
-<p>You can add indexes to existing tag/edge-type with the <code>CREATE INDEX</code> keyword.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
-</code></pre></div>
-
-<p>The above statement creates an index for the <em>name</em> property on all vertices carrying the <em>player</em> tag.</p>
-<p><strong>Creating index will affect the write performance</strong>. We suggest you import data first and then rebuild the index in batch.</p>
-<p>See the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Documentation</a> for details.</p>
 <h2 id="crud">CRUD<a class="headerlink" href="#crud" title="Permanent link">&para;</a></h2>
 <h3 id="inserting_data">Inserting Data<a class="headerlink" href="#inserting_data" title="Permanent link">&para;</a></h3>
 <p>You can insert vertices and edges based on relations in the <a href="#overview">illustration figure</a>.</p>
@@ -3279,9 +3271,20 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 <blockquote>
 <p><strong>NOTE</strong>: If you delete a vertex, all the out-going and in-coming edges of this vertex are deleted.</p>
 </blockquote>
-<h3 id="sample_queries">Sample Queries<a class="headerlink" href="#sample_queries" title="Permanent link">&para;</a></h3>
+<h2 id="creating_index">Creating Index<a class="headerlink" href="#creating_index" title="Permanent link">&para;</a></h2>
+<p>You can add indexes to existing tag/edge-type with the <code>CREATE INDEX</code> keyword.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+</code></pre></div>
+
+<p>The above statement creates an index for the <em>name</em> property on all vertices carrying the <em>player</em> tag.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_index_0 OFFLINE;
+</code></pre></div>
+
+<p><strong>Creating index will affect the write performance</strong>. We suggest you import data first and then rebuild the index in batch.</p>
+<p>See the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Documentation</a> for details.</p>
+<h2 id="sample_queries">Sample Queries<a class="headerlink" href="#sample_queries" title="Permanent link">&para;</a></h2>
 <p>This section gives more query examples for your reference.</p>
-<h4 id="example_1">Example 1<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<h3 id="example_1">Example 1<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <p>Find the vertices that <code>VID</code> <code>100</code> follows.</p>
 <p>Enter the following statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow;
@@ -3297,7 +3300,7 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 ---------------
 </code></pre></div>
 
-<h4 id="example_2">Example 2<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<h3 id="example_2">Example 2<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <p>Find the vertex that <code>VID</code> <code>100</code> follows, whose age is greater than <code>35</code>.
 Return his name and age, and set the column names to <strong>Teammate</strong> and <strong>Age</strong> respectively.</p>
 <p>Enter the following statement:</p>
@@ -3319,7 +3322,7 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 <li><code>$$</code> represents the target vertex.</li>
 <li><code>\</code> represents a line break.</li>
 </ul>
-<h4 id="example_3">Example 3<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<h3 id="example_3">Example 3<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
 <p>Find the team which is served by the player who is followed by <code>100</code>.</p>
 <p>There are two ways to get the same result. First, we can use a <code>pipe</code> to retrieve the team. Then we use a <code>temporary variable</code> to retrieve the same team.</p>
 <ol>
@@ -3361,8 +3364,12 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 </li>
 </ol>
 <p>When a composition statement is submitted to the server as a whole, the custom variables in the statement have ended their life cycle.</p>
-<h4 id="example_4">Example 4<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
+<h3 id="example_4">Example 4<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <p>If you have created and rebuilt an index for the data, you can use the <code>LOOKUP ON</code> keyword to query properties.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+nebula&gt; REBUILD TAG INDEX player_index_0 OFFLINE;
+</code></pre></div>
+
 <p>Refer to the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Doc</a> to create an index.</p>
 <p>The following example returns vertices whose name is <code>Tony Parker</code> and tagged with <em>player</em>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
