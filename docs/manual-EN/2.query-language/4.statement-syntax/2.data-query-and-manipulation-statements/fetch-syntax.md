@@ -2,13 +2,15 @@
 
 The `FETCH` syntax is used to get vertex/edge's properties.
 
-## Fetch Vertex property
+## Fetch Vertex Properties
 
 Use `FETCH PROP ON` to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement. You can use `FETCH` together with [pipe](../../3.language-structure/pipe-syntax.md) and [user defined variables](../../3.language-structure/user-defined-variables.md).
 
 ```ngql
-FETCH PROP ON {<tag_name_list> | *} <vertex_id_list> [YIELD [DISTINCT] <return_list>]
+FETCH PROP ON {<tag_name> | <tag_name_list> | *} <vertex_id_list> [YIELD [DISTINCT] <return_list>]
 ```
+
+Fetch `<tag_name_list>` is only available for version 1.0.1 or later version. If your **Nebula Graph** is earlier than 1.0.1, you can only fetch one type of vertices in a single query.
 
 `*` indicates returning all the properties of the given vertex.
 
