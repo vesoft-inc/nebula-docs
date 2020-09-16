@@ -41,7 +41,7 @@ Unlike local authentication, besides enabling the `--enable_authorize` parameter
 
 ### Error information: Authentication fails, Invalid data length
 
-Authentication fails because you do not enable the authentication. Follow the preceding steps to enable the authentication.
+Authentication fails because you had not enable the authentication. Follow the preceding steps to enable the authentication.
 
 <!-- restrict the attributes and values returned by the server to just those required. -->
 <!-- When LDAP is turned on, the following security settings can be used to configure it:
