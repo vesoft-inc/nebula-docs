@@ -6,19 +6,23 @@ Authentication is the process of mapping this session to a specific user. Once t
 
 **Nebula Graph** supports two authentication methods, explained in detail below - local and LDAP.
 
-## Local Authentication
+## Local authentication
 
 The local database stores usernames, encrypted passwords, local user settings and remote LDAP user settings. When a user tries to access the database, they will be met with a security challenge.
 
-You need to enable the local authentication by setting the `--enable_authorize` property in the `nebula-graphd.conf` file (the directory is `/usr/local/nebula/etc/` by default) to `true`.
+To enable the local authentication, follow these steps:
 
-## LDAP Authentication
+1. Set the `--enable_authorize` property in the `nebula-graphd.conf` configuration file (the directory is `/usr/local/nebula/etc/` by default) to `true`.
+2. Save your modification in step one and close the `nebula-graphd.conf` configuration file.
+3. Restart the Nebula Graph services.
+
+## LDAP authentication
 
 Lightweight Directory Access Protocol (LDAP) is a lightweight client-server protocol for accessing directory services. Users stored inside LDAP take precedence over the local database users. For example, if both providers have a user called “Amber”, the settings and roles for this user will be sourced from LDAP.
 
 Unlike local authentication, besides enabling the `--enable_authorize` parameter, LDAP needs to be configured in the `nebula-graphd.conf` file (the directory is `/usr/local/nebula/etc/` by default). Refer to the [Integrating LDAP Document](LDAP.md) for details.
 
-### LDAP Parameters
+### LDAP parameters
 
 | Parameter            | Type   | Default Value                                                             | Description                                                                                            |
 | -------------------- | ------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -32,6 +36,12 @@ Unlike local authentication, besides enabling the `--enable_authorize` parameter
 | ldap_bindpasswd      | string | ""                                                                        | The password of the user who is mentioned in the bind DN.                                              |
 | ldap_searchattribute | string | ""                                                                        | An array of the required attributes.                                                                   |
 | ldap_searchfilter    | string | ""                                                                        | Specifies a search filter by defining what to search for. It is more flexible than the searchattribut. |
+
+## FAQ
+
+### Error information: Authentication fails, Invalid data length
+
+Authentication fails because you do not enable the authentication. Follow the preceding steps to enable the authentication.
 
 <!-- restrict the attributes and values returned by the server to just those required. -->
 <!-- When LDAP is turned on, the following security settings can be used to configure it:
@@ -62,4 +72,4 @@ ObjectClass attribute specifies the object classes of an entry, which (among oth
 | dn       | Distinguished Name | The unique identifier for an entry in the tree, similar to the absolute path in the Linux file system. For example “uid= tom,ou=market,dc=example,dc=com” is unique in a tree. |
 | rdn      | Relative dn        | Each entry has a unique name relative to its parent called RDN. For example “uid=tom” or “cn= Thomas Johnson”.                                                                 |
 | c        | Country            | c is an LDAP attribute that means country name. For example "CN" and "US".                                                                                                     |
-| o        | Organization       | Organization name. For example “Example, Inc.”                                                                                                                                 | --> |
+| o        | Organization       | Organization name. For example “Example, Inc.”                                                                                                                                 |  | -->
