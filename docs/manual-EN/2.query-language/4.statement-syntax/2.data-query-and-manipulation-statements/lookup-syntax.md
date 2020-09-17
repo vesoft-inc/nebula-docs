@@ -13,14 +13,16 @@ LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND | OR expression 
 
 - `LOOKUP` clause finds the vertices or edges.
 - `WHERE` extracts only those results that fulfill the specified conditions. The logical AND is also supported. See [WHERE Syntax](where-syntax.md) for more information.
-  > **NOTE**: `WHERE` clause does not support the following operations in `LOOKUP`:
-  >
-  > - `$-` and `$^`
-  > - In relational expressions, expressions with field-names on both sides of the operator are not currently supported, such as (tagName.column1> tagName.column2)
-  > - Nested AliasProp expressions in operation expressions and function expressions are not supported at this time.
-  > - Range scan is not supported in the string type index.
-  >
 - `YIELD` clause returns particular results. If not specified, vertex ID is returned when `LOOKUP` tags, source vertex ID, destination vertex ID and ranking of the edges are returned when `LOOKUP` edges.
+
+## Restrictions for index usage
+
+The `WHERE` clause does not support the following operations in `LOOKUP`:
+
+- `$-` and `$^`
+- In relational expressions, expressions with field-names on both sides of the operator are not currently supported, such as (tagName.column1> tagName.column2)
+- Nested AliasProp expressions in operation expressions and function expressions are not supported at this time.
+- Range scan is not supported in the string type index.
 
 ## Retrieve Vertices
 
