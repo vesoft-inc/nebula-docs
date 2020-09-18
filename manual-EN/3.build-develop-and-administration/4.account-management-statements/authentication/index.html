@@ -1930,14 +1930,14 @@
       
         <li class="md-nav__item">
   <a href="#local_authentication" class="md-nav__link">
-    Local Authentication
+    Local authentication
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#ldap_authentication" class="md-nav__link">
-    LDAP Authentication
+    LDAP authentication
   </a>
   
     <nav class="md-nav">
@@ -1945,7 +1945,27 @@
         
           <li class="md-nav__item">
   <a href="#ldap_parameters" class="md-nav__link">
-    LDAP Parameters
+    LDAP parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error_information_authentication_fails_invalid_data_length" class="md-nav__link">
+    Error information: Authentication fails, Invalid data length
   </a>
   
 </li>
@@ -2538,14 +2558,14 @@
       
         <li class="md-nav__item">
   <a href="#local_authentication" class="md-nav__link">
-    Local Authentication
+    Local authentication
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#ldap_authentication" class="md-nav__link">
-    LDAP Authentication
+    LDAP authentication
   </a>
   
     <nav class="md-nav">
@@ -2553,7 +2573,27 @@
         
           <li class="md-nav__item">
   <a href="#ldap_parameters" class="md-nav__link">
-    LDAP Parameters
+    LDAP parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error_information_authentication_fails_invalid_data_length" class="md-nav__link">
+    Error information: Authentication fails, Invalid data length
   </a>
   
 </li>
@@ -2584,13 +2624,18 @@
 <p>Whenever a client connects to <strong>Nebula Graph</strong>, a session is created. The session stores various contextual information about the connection. Each session is always associated with a single user.</p>
 <p>Authentication is the process of mapping this session to a specific user. Once the session is mapped to a user, a set of permissions can be associated with it, using authorization.</p>
 <p><strong>Nebula Graph</strong> supports two authentication methods, explained in detail below - local and LDAP.</p>
-<h2 id="local_authentication">Local Authentication<a class="headerlink" href="#local_authentication" title="Permanent link">&para;</a></h2>
+<h2 id="local_authentication">Local authentication<a class="headerlink" href="#local_authentication" title="Permanent link">&para;</a></h2>
 <p>The local database stores usernames, encrypted passwords, local user settings and remote LDAP user settings. When a user tries to access the database, they will be met with a security challenge.</p>
-<p>You need to enable the local authentication by setting the <code>--enable_authorize</code> property in the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default) to <code>true</code>.</p>
-<h2 id="ldap_authentication">LDAP Authentication<a class="headerlink" href="#ldap_authentication" title="Permanent link">&para;</a></h2>
+<p>To enable the local authentication, follow these steps:</p>
+<ol>
+<li>Set the <code>--enable_authorize</code> property in the <code>nebula-graphd.conf</code> configuration file (the directory is <code>/usr/local/nebula/etc/</code> by default) to <code>true</code>.</li>
+<li>Save your modification in step one and close the <code>nebula-graphd.conf</code> configuration file.</li>
+<li>Restart the Nebula Graph services.</li>
+</ol>
+<h2 id="ldap_authentication">LDAP authentication<a class="headerlink" href="#ldap_authentication" title="Permanent link">&para;</a></h2>
 <p>Lightweight Directory Access Protocol (LDAP) is a lightweight client-server protocol for accessing directory services. Users stored inside LDAP take precedence over the local database users. For example, if both providers have a user called “Amber”, the settings and roles for this user will be sourced from LDAP.</p>
 <p>Unlike local authentication, besides enabling the <code>--enable_authorize</code> parameter, LDAP needs to be configured in the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default). Refer to the <a href="../LDAP/">Integrating LDAP Document</a> for details.</p>
-<h3 id="ldap_parameters">LDAP Parameters<a class="headerlink" href="#ldap_parameters" title="Permanent link">&para;</a></h3>
+<h3 id="ldap_parameters">LDAP parameters<a class="headerlink" href="#ldap_parameters" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2663,6 +2708,9 @@
 </tr>
 </tbody>
 </table>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="error_information_authentication_fails_invalid_data_length">Error information: Authentication fails, Invalid data length<a class="headerlink" href="#error_information_authentication_fails_invalid_data_length" title="Permanent link">&para;</a></h3>
+<p>Authentication fails because you had not enable the authentication. Follow the preceding steps to enable the authentication.</p>
 <!-- restrict the attributes and values returned by the server to just those required. -->
 
 <!-- When LDAP is turned on, the following security settings can be used to configure it:
@@ -2693,9 +2741,7 @@ ObjectClass attribute specifies the object classes of an entry, which (among oth
 | dn       | Distinguished Name | The unique identifier for an entry in the tree, similar to the absolute path in the Linux file system. For example “uid= tom,ou=market,dc=example,dc=com” is unique in a tree. |
 | rdn      | Relative dn        | Each entry has a unique name relative to its parent called RDN. For example “uid=tom” or “cn= Thomas Johnson”.                                                                 |
 | c        | Country            | c is an LDAP attribute that means country name. For example "CN" and "US".                                                                                                     |
-| o        | Organization       | Organization name. For example “Example, Inc.”                                                                                                                                 | -->
-
-<p>|</p>
+| o        | Organization       | Organization name. For example “Example, Inc.”                                                                                                                                 |  | -->
                 
                   
                 
