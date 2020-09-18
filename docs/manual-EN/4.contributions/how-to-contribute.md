@@ -1,5 +1,13 @@
 # How to Contribute
 
+## Before you get started
+
+### Sign the CLA
+
+Click the **Sign in with Github to agree** button to sign the CLA.
+
+What is [CLA](https://www.apache.org/licenses/contributor-agreements.html)?
+
 ## Step 1: Fork in the Cloud
 
 1. Visit https://github.com/vesoft-inc/nebula
