@@ -89,3 +89,36 @@ GO FROM $-.DstVID OVER serve YIELD $-.DstVID, serve.start_year, serve.end_year, 
 | 105       | 2018             | 2019           | Raptors      |
 ----------------------------------------------------------------
 ```
+
+## FAQ
+
+### Error code 411
+
+```bash
+[ERROR (-8)]: Unknown error(411):
+```
+
+Error code `411` shows there is no valid index for the current `WHERE` filter. Nebula Graph uses the left matching mode to select indexes. That is, columns in the `WHERE` filter must be in the first N columns of the index. For example:
+
+```ngql
+nebula> CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
+nebula> LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
+nebula> LOOKUP ON t WHERE p1 == 1;  -- Supported
+nebula> LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
+nebula> LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
+```
+
+### No valid index found
+
+```bash
+No valid index found
+```
+
+If your query filter contains a string type field, Nebula Graph selects the index that matches all the fields. For example:
+
+```ngql
+nebula> CREATE TAG t1 (c1 string, c2 int);
+nebula> CREATE TAG INDEX i1 ON t1 (c1, c2);
+nebula> LOOKUP ON t1 WHERE t1.c1 == "a"; -- Index i1 is invalid
+nebula> LOOKUP ON t1 WHERE t1.c1 == "a" and t1.c2 == 1;  -- Index i1 is valid
+```
