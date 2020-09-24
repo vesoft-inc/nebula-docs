@@ -1286,6 +1286,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error_code_411" class="md-nav__link">
+    Error code 411
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no_valid_index_found" class="md-nav__link">
+    No valid index found
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2553,6 +2580,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error_code_411" class="md-nav__link">
+    Error code 411
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no_valid_index_found" class="md-nav__link">
+    No valid index found
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2652,6 +2706,30 @@ GO FROM $-.DstVID OVER serve YIELD $-.DstVID, serve.start_year, serve.end_year, 
 ----------------------------------------------------------------
 | 105       | 2018             | 2019           | Raptors      |
 ----------------------------------------------------------------
+</code></pre></div>
+
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="error_code_411">Error code 411<a class="headerlink" href="#error_code_411" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>ERROR <span class="o">(</span>-8<span class="o">)]</span>: Unknown error<span class="o">(</span><span class="m">411</span><span class="o">)</span>:
+</code></pre></div>
+
+<p>Error code <code>411</code> shows there is no valid index for the current <code>WHERE</code> filter. Nebula Graph uses the left matching mode to select indexes. That is, columns in the <code>WHERE</code> filter must be in the first N columns of the index. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
+nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
+</code></pre></div>
+
+<h3 id="no_valid_index_found">No valid index found<a class="headerlink" href="#no_valid_index_found" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>No valid index found
+</code></pre></div>
+
+<p>If your query filter contains a string type field, Nebula Graph selects the index that matches all the fields. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (c1 string, c2 int);
+nebula&gt; CREATE TAG INDEX i1 ON t1 (c1, c2);
+nebula&gt; LOOKUP ON t1 WHERE t1.c1 == &quot;a&quot;; -- Index i1 is invalid
+nebula&gt; LOOKUP ON t1 WHERE t1.c1 == &quot;a&quot; and t1.c2 == 1;  -- Index i1 is valid
 </code></pre></div>
                 
                   
