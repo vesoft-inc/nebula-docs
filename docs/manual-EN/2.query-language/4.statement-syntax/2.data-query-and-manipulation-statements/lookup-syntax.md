@@ -5,7 +5,7 @@ The `LOOKUP` statement is used to search for the filter condition in it. `LOOKUP
 > **NOTE**: Before using the `LOOKUP` statement, please make sure that indexes are created. Read more about indexes in [Index Documentation](../1.data-definition-statements/index.md).
 
 ```ngql
-LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND | OR expression ...]) ] [YIELD <return_list>]
+LOOKUP ON {<vertex_tag> | <edge_type>} WHERE <expression> [ AND expression ...]) ] [YIELD <return_list>]
 
 <return_list>
     <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
