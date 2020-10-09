@@ -4,7 +4,7 @@ This document gives the introduction on deploying a Nebula Graph cluster with Do
 
 ## Prerequisites
 
-Before deploying cluster, make sure that you have installed Nebula Graph, Docker, Docker Compose, HAProxy, and Keepalived on each host of your cluster.
+Before deploying cluster, make sure that you have installed Nebula Graph, Docker, Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.
 
 The hosts used in this document are as follow:
 
@@ -88,9 +88,9 @@ Execute the following command to start the Nebula Graph cluster:
 $ docker stack deploy nebula -c docker-stack.yml
 ```
 
-## Configure cluster for load balancing and high availability
+## Configure cluster for load balancing and high availability (for production)
 
-Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment.
+Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment. The load balancing and high availability solution in this document is only for demonstration. Add other third party solutions based on your requirements.
 
 ### Configure load balancing
 
