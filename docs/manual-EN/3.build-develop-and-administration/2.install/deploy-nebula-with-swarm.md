@@ -8,11 +8,11 @@ Before deploying cluster, make sure that you have installed Nebula Graph, Docker
 
 The hosts used in this document are as follow:
 
-| IP | Memory (GB) | CPU (CORES) |
-| --- | --- | --- |
-| 192.168.1.166 | 16 | 4 |
-| 192.168.1.167 | 16 | 4 |
-| 192.168.1.168 | 16 | 4 |
+| IP            | Memory (GB) | CPU (CORES) | Role    |
+| ------------- | ----------- | ----------- | ------- |
+| 192.168.1.166 | 16          | 4           | manager |
+| 192.168.1.167 | 16          | 4           | worker  |
+| 192.168.1.168 | 16          | 4           | worker  |
 
 ## Create Nebula Graph cluster
 
@@ -46,9 +46,15 @@ $ docker swarm join \
  192.168.1.166:2377
 ```
 
+The following information is returned:
+
+```bash
+This node joined a swarm as a worker.
+```
+
 ### Authenticate the cluster
 
-Execute the following command to list the Docker nodes:
+Execute the following command on the manager node to list the Docker Swarm nodes:
 
 ```bash
 $ docker node ls
@@ -65,7 +71,7 @@ h1iql1uvm7123h3gon9so69dy     KF2-DATA-168        Ready               Active    
 
 ### Configure Docker Stack
 
-Execute the following command to open the Docker Stack configuration file:
+Execute the following command on the manager node to add the Docker Stack configuration file:
 
 ```bash
 vi docker-stack.yml
@@ -73,7 +79,13 @@ vi docker-stack.yml
 
 You must configure with your own IPs and port numbers. For the sample configuration file, refer to [here](docker-stack.yml).
 
-Add the following content in the `nebula.env` file:
+Execute the following command on the manager node to add the `nebula.env` file:
+
+```bash
+$ vi nebula.env
+```
+
+Add the following content to the `nebula.env` file:
 
 ```yml
 TZ=UTC
@@ -82,13 +94,13 @@ USER=root
 
 ### Start the cluster
 
-Execute the following command to start the Nebula Graph cluster:
+Execute the following command on the manager node to start the Nebula Graph cluster:
 
 ```bash
 $ docker stack deploy nebula -c docker-stack.yml
 ```
 
-## Configure cluster for load balancing and high availability (for production)
+## Configure cluster for load balancing and high availability (optional)
 
 Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment. The load balancing and high availability solution in this document is only for demonstration. Add other third party solutions based on your requirements.
 
