@@ -2636,7 +2636,6 @@
 &lt;return_list&gt;
     &lt;col_name&gt; [AS &lt;col_alias&gt;] [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
 </code></pre></div>
-
 <ul>
 <li><code>LOOKUP</code> clause finds the vertices or edges.</li>
 <li><code>WHERE</code> extracts only those results that fulfill the specified conditions. Only logical AND is supported. See <a href="../where-syntax/">WHERE Syntax</a> for more information.</li>
@@ -2678,7 +2677,6 @@ GO FROM $-.VertexID OVER serve YIELD $-.name, serve.start_year, serve.end_year, 
 | Kobe Bryant | 1996             | 2016           | Lakers       |
 ------------------------------------------------------------------
 </code></pre></div>
-
 <h2 id="retrieve_edges">Retrieve Edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">&para;</a></h2>
 <p>The following example returns edges whose <code>degree</code> is 90 and the edge type is <em>follow</em>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
@@ -2709,12 +2707,10 @@ GO FROM $-.DstVID OVER serve YIELD $-.DstVID, serve.start_year, serve.end_year, 
 | 105       | 2018             | 2019           | Raptors      |
 ----------------------------------------------------------------
 </code></pre></div>
-
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="error_code_411">Error code 411<a class="headerlink" href="#error_code_411" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>ERROR <span class="o">(</span>-8<span class="o">)]</span>: Unknown error<span class="o">(</span><span class="m">411</span><span class="o">)</span>:
 </code></pre></div>
-
 <p>Error code <code>411</code> shows there is no valid index for the current <code>WHERE</code> filter. Nebula Graph uses the left matching mode to select indexes. That is, columns in the <code>WHERE</code> filter must be in the first N columns of the index. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
 nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
@@ -2722,11 +2718,9 @@ nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
 nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
 nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
 </code></pre></div>
-
 <h3 id="no_valid_index_found">No valid index found<a class="headerlink" href="#no_valid_index_found" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>No valid index found
 </code></pre></div>
-
 <p>If your query filter contains a string type field, Nebula Graph selects the index that matches all the fields. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (c1 string, c2 int);
 nebula&gt; CREATE TAG INDEX i1 ON t1 (c1, c2);

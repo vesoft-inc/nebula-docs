@@ -2509,7 +2509,6 @@
 </ul>
 <div class="highlight"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge&gt;} SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
-
 <ul>
 <li><code>vid</code> is the ID of the vertex to be updated.</li>
 <li><code>edge</code> is the edge to be updated, the syntax is <code>&lt;src&gt; -&gt; &lt;dst&gt; [@rank] OF &lt;edge_type&gt;</code>.</li>
@@ -2529,12 +2528,10 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 | Dwight Howard | 33  |
 -----------------------
 </code></pre></div>
-
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * 111; -- An empty set is returned, indicating vertex 111 does not exist.
 Empty set (Time spent: 3.069/4.382 ms)
 nebula&gt; UPSERT VERTEX 111 SET player.age = $^.player.age + 1;
 </code></pre></div>
-
 <p>When vertex 111 does not exist and the player's age has a default value, the player.age of vertex 111 is the default value + 1. If player.age does not have default value, an error will be reported.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
 
