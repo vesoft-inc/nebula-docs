@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/7.monitor/2.meta-metrics/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/2.install/deploy-nebula-with-swarm/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Meta Metrics - Nebula Graph Database Manual</title>
+        <title>Deploying Cluster - Nebula Graph Database Manual</title>
       
     
     
@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#meta_metrics" tabindex="0" class="md-skip">
+      <a href="#deploy_nebula_graph_cluster_with_docker_swarm" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -119,7 +119,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Meta Metrics
+                Deploying Cluster
               
             </span>
           
@@ -1665,10 +1665,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" checked>
     
     <label class="md-nav__link" for="nav-3-2">
       Installation
@@ -1686,7 +1688,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../2.install/1.install-with-rpm-deb/" title="rpm Installation" class="md-nav__link">
+    <a href="../1.install-with-rpm-deb/" title="rpm Installation" class="md-nav__link">
       rpm Installation
     </a>
   </li>
@@ -1698,7 +1700,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../2.install/2.start-stop-service/" title="Start and Stop Services" class="md-nav__link">
+    <a href="../2.start-stop-service/" title="Start and Stop Services" class="md-nav__link">
       Start and Stop Services
     </a>
   </li>
@@ -1708,11 +1710,171 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../2.install/deploy-nebula-with-swarm/" title="Deploying Cluster" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Deploying Cluster
+      </label>
+    
+    <a href="./" title="Deploying Cluster" class="md-nav__link md-nav__link--active">
       Deploying Cluster
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_nebula_graph_cluster" class="md-nav__link">
+    Create Nebula Graph cluster
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize_the_docker_swarm_cluster" class="md-nav__link">
+    Initialize the Docker Swarm cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_a_worker_node" class="md-nav__link">
+    Add a worker node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authenticate_the_cluster" class="md-nav__link">
+    Authenticate the cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_docker_stack" class="md-nav__link">
+    Configure Docker Stack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_the_cluster" class="md-nav__link">
+    Start the cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure_cluster_for_load_balancing_and_high_availability_optional" class="md-nav__link">
+    Configure cluster for load balancing and high availability (optional)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure_load_balancing" class="md-nav__link">
+    Configure load balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_haproxy" class="md-nav__link">
+    Start HAProxy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_high_availability" class="md-nav__link">
+    Configure high availability
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install_keepalived" class="md-nav__link">
+    Install Keepalived
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_keepalived" class="md-nav__link">
+    Configure Keepalived
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how_to_deploy_offline" class="md-nav__link">
+    How to deploy offline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1722,7 +1884,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../2.install/3.install-with-docker/" title="Docker Installation" class="md-nav__link">
+    <a href="../3.install-with-docker/" title="Docker Installation" class="md-nav__link">
       Docker Installation
     </a>
   </li>
@@ -2157,12 +2319,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
     
     <label class="md-nav__link" for="nav-3-6">
       Monitoring and Statistics
@@ -2180,7 +2340,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../1.metrics-exposer/" title="Metrics" class="md-nav__link">
+    <a href="../../7.monitor/1.metrics-exposer/" title="Metrics" class="md-nav__link">
       Metrics
     </a>
   </li>
@@ -2190,83 +2350,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Meta Metrics
-      </label>
-    
-    <a href="./" title="Meta Metrics" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../7.monitor/2.meta-metrics/" title="Meta Metrics" class="md-nav__link">
       Meta Metrics
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#counter_names" class="md-nav__link">
-    Counter Names
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#statistics_type" class="md-nav__link">
-    Statistics Type
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#time_range" class="md-nav__link">
-    Time Range
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#obtain_the_corresponding_metrics_via_http_interface" class="md-nav__link">
-    Obtain the Corresponding Metrics via HTTP Interface
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -2276,7 +2364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../3.storage-metrics/" title="Storage Metrics" class="md-nav__link">
+    <a href="../../7.monitor/3.storage-metrics/" title="Storage Metrics" class="md-nav__link">
       Storage Metrics
     </a>
   </li>
@@ -2288,7 +2376,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../4.graph-metrics/" title="Graph Metrics" class="md-nav__link">
+    <a href="../../7.monitor/4.graph-metrics/" title="Graph Metrics" class="md-nav__link">
       Graph Metrics
     </a>
   </li>
@@ -2300,7 +2388,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../5.rocksdb-statistics/" title="RocksDB Statistics" class="md-nav__link">
+    <a href="../../7.monitor/5.rocksdb-statistics/" title="RocksDB Statistics" class="md-nav__link">
       RocksDB Statistics
     </a>
   </li>
@@ -2553,30 +2641,51 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_nebula_graph_cluster" class="md-nav__link">
+    Create Nebula Graph cluster
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#counter_names" class="md-nav__link">
-    Counter Names
+  <a href="#initialize_the_docker_swarm_cluster" class="md-nav__link">
+    Initialize the Docker Swarm cluster
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#statistics_type" class="md-nav__link">
-    Statistics Type
+  <a href="#add_a_worker_node" class="md-nav__link">
+    Add a worker node
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#time_range" class="md-nav__link">
-    Time Range
+  <a href="#authenticate_the_cluster" class="md-nav__link">
+    Authenticate the cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_docker_stack" class="md-nav__link">
+    Configure Docker Stack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_the_cluster" class="md-nav__link">
+    Start the cluster
   </a>
   
 </li>
@@ -2587,9 +2696,76 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#obtain_the_corresponding_metrics_via_http_interface" class="md-nav__link">
-    Obtain the Corresponding Metrics via HTTP Interface
+  <a href="#configure_cluster_for_load_balancing_and_high_availability_optional" class="md-nav__link">
+    Configure cluster for load balancing and high availability (optional)
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure_load_balancing" class="md-nav__link">
+    Configure load balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start_haproxy" class="md-nav__link">
+    Start HAProxy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_high_availability" class="md-nav__link">
+    Configure high availability
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install_keepalived" class="md-nav__link">
+    Install Keepalived
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure_keepalived" class="md-nav__link">
+    Configure Keepalived
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    FAQ
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how_to_deploy_offline" class="md-nav__link">
+    How to deploy offline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2610,49 +2786,174 @@
               
                 
                 
-                <h1 id="meta_metrics">Meta Metrics<a class="headerlink" href="#meta_metrics" title="Permanent link">&para;</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Currently, <strong>Nebula Graph</strong> supports obtaining the basic performance metrics for the meta service via HTTP.</p>
-<p>Each performance metric consists of three parts, namely <code>&lt;counter_name&gt;.&lt;statistic_type&gt;.&lt;time_range&gt;</code>.</p>
-<h3 id="counter_names">Counter Names<a class="headerlink" href="#counter_names" title="Permanent link">&para;</a></h3>
-<p>Each counter name is composed of the interface name and the counter name. Meta service only counts the heartbeat. Currently, the supported interfaces are:</p>
-<div class="highlight"><pre><span></span><code>meta_heartbeat_qps
-meta_heartbeat_error_qps
-meta_heartbeat_latency
+                <h1 id="deploy_nebula_graph_cluster_with_docker_swarm">Deploy Nebula Graph cluster with Docker Swarm<a class="headerlink" href="#deploy_nebula_graph_cluster_with_docker_swarm" title="Permanent link">&para;</a></h1>
+<p>This document gives the introduction on deploying a Nebula Graph cluster with Docker Swarm.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before deploying cluster, make sure that you have installed Nebula Graph, Docker, Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.</p>
+<p>The hosts used in this document are as follow:</p>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>Memory (GB)</th>
+<th>CPU (CORES)</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.1.166</td>
+<td>16</td>
+<td>4</td>
+<td>manager</td>
+</tr>
+<tr>
+<td>192.168.1.167</td>
+<td>16</td>
+<td>4</td>
+<td>worker</td>
+</tr>
+<tr>
+<td>192.168.1.168</td>
+<td>16</td>
+<td>4</td>
+<td>worker</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create_nebula_graph_cluster">Create Nebula Graph cluster<a class="headerlink" href="#create_nebula_graph_cluster" title="Permanent link">&para;</a></h2>
+<h3 id="initialize_the_docker_swarm_cluster">Initialize the Docker Swarm cluster<a class="headerlink" href="#initialize_the_docker_swarm_cluster" title="Permanent link">&para;</a></h3>
+<p>Execute the following command on host <code>192.168.1.166</code>:</p>
+<div class="highlight"><pre><span></span><code>$ docker swarm init --advertise-addr <span class="m">192</span>.168.1.166
 </code></pre></div>
-<h3 id="statistics_type">Statistics Type<a class="headerlink" href="#statistics_type" title="Permanent link">&para;</a></h3>
-<p>Currently supported types are SUM, COUNT, AVG, RATE and P quantiles (P99, P999, ..., P999999). Among which:</p>
-<ul>
-<li>Metrics have suffixes <code>_qps</code> and <code>_error_qps</code> support SUM, COUNT, AVG, RATE but don't support P quantiles.</li>
-<li>Metrics have suffixes <code>_latency</code> support SUM, COUNT, AVG, RATE, and P quantiles.</li>
-</ul>
-<h3 id="time_range">Time Range<a class="headerlink" href="#time_range" title="Permanent link">&para;</a></h3>
-<p>Currently, the supported time ranges are 60s, 600s, and 3600s, which correspond to the last minute, the last ten minutes, and the last hour till now.</p>
-<h2 id="obtain_the_corresponding_metrics_via_http_interface">Obtain the Corresponding Metrics via HTTP Interface<a class="headerlink" href="#obtain_the_corresponding_metrics_via_http_interface" title="Permanent link">&para;</a></h2>
-<p>Here are some examples:</p>
-<div class="highlight"><pre><span></span><code><span class="n">meta_heartbeat_qps</span><span class="p">.</span><span class="n">avg</span><span class="mf">.60</span>         <span class="c1">// the average QPS of the heart beat in the last minute</span>
-<span class="n">meta_heartbeat_error_qps</span><span class="p">.</span><span class="n">count</span><span class="mf">.60</span>   <span class="c1">// the total errors occurred of the heart beat in the last minute</span>
-<span class="n">meta_heartbeat_latency</span><span class="p">.</span><span class="n">avg</span><span class="mf">.60</span>     <span class="c1">// the average latency of the heart beat in the last minute</span>
+<p>The following information is returned:</p>
+<div class="highlight"><pre><span></span><code>Swarm initialized: current node <span class="o">(</span>dxn1zf6l61qsb1josjja83ngz<span class="o">)</span> is now a manager.
+To add a worker to this swarm, run the following command:
+ docker swarm join <span class="se">\</span>
+ --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c <span class="se">\</span>
+ <span class="m">192</span>.168.1.166:2377
+
+To add a manager to this swarm, run <span class="s1">&#39;docker swarm join-token manager&#39;</span> and follow the instructions.
 </code></pre></div>
-<p>Assume that a <strong>Nebula Graph</strong> meta service is started locally, and the <code>ws_http_port</code> port number is set to 11000 when starting. It is sent through the <strong>GET</strong> interface of HTTP. The method name is <strong>get_stats</strong>, and the parameter is stats plus the corresponding metrics name. Here's an example of getting metrics via the HTTP interface:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># obtain a metrics</span>
-curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats?stats=meta_heartbeat_qps.avg.60&quot;</span>
-<span class="c1"># meta_heartbeat_qps.avg.60=580</span>
-
-<span class="c1"># obtain multiple metrics at the same time</span>
-curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats?stats=meta_heartbeat_qps.avg.60,meta_heartbeat_error_qps.avg.60&quot;</span>
-<span class="c1"># meta_heartbeat_qps.avg.60=537</span>
-<span class="c1"># meta_heartbeat_error_qps.avg.60=579</span>
-
-<span class="c1"># obtain multiple metrics at the same time and return in json format</span>
-curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats?stats=meta_heartbeat_qps.avg.60,meta_heartbeat_error_qps.avg.60&amp;returnjson&quot;</span>
-<span class="c1"># [{&quot;value&quot;:533,&quot;name&quot;:&quot;meta_heartbeat_qps.avg.60&quot;},{&quot;value&quot;:574,&quot;name&quot;:&quot;meta_heartbeat_error_qps.avg.60&quot;}]</span>
-
-<span class="c1"># obtain all the metrics</span>
-curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats?stats&quot;</span>
-<span class="c1"># or</span>
-curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats&quot;</span>
+<h3 id="add_a_worker_node">Add a worker node<a class="headerlink" href="#add_a_worker_node" title="Permanent link">&para;</a></h3>
+<p>Add a Swarm worker node based on the notification message of the preceding <code>docker swarm init</code> command. Execute the following command on <code>192.168.1.167</code> and <code>192.168.1.168</code> respectively.</p>
+<div class="highlight"><pre><span></span><code>$ docker swarm join <span class="se">\</span>
+ --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c <span class="se">\</span>
+ <span class="m">192</span>.168.1.166:2377
 </code></pre></div>
+<p>The following information is returned:</p>
+<div class="highlight"><pre><span></span><code>This node joined a swarm as a worker.
+</code></pre></div>
+<h3 id="authenticate_the_cluster">Authenticate the cluster<a class="headerlink" href="#authenticate_the_cluster" title="Permanent link">&para;</a></h3>
+<p>Execute the following command on the manager node to list the Docker Swarm nodes:</p>
+<div class="highlight"><pre><span></span><code>$ docker node ls
+</code></pre></div>
+<p>The following information is returned:</p>
+<div class="highlight"><pre><span></span><code>ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+h0az2wzqetpwhl9ybu76yxaen *   KF2-DATA-166        Ready               Active              Reachable           <span class="m">18</span>.06.1-ce
+q6jripaolxsl7xqv3cmv5pxji     KF2-DATA-167        Ready               Active              Leader              <span class="m">18</span>.06.1-ce
+h1iql1uvm7123h3gon9so69dy     KF2-DATA-168        Ready               Active                                  <span class="m">18</span>.06.1-ce
+</code></pre></div>
+<h3 id="configure_docker_stack">Configure Docker Stack<a class="headerlink" href="#configure_docker_stack" title="Permanent link">&para;</a></h3>
+<p>Execute the following command on the manager node to add the Docker Stack configuration file:</p>
+<div class="highlight"><pre><span></span><code>vi docker-stack.yml
+</code></pre></div>
+<p>You must configure with your own IPs and port numbers. For the sample configuration file, refer to <a href="../docker-stack.yml">here</a>.</p>
+<p>Execute the following command on the manager node to add the <code>nebula.env</code> file:</p>
+<div class="highlight"><pre><span></span><code>$ vi nebula.env
+</code></pre></div>
+<p>Add the following content to the <code>nebula.env</code> file:</p>
+<div class="highlight"><pre><span></span><code>TZ=UTC
+USER=root
+</code></pre></div>
+<h3 id="start_the_cluster">Start the cluster<a class="headerlink" href="#start_the_cluster" title="Permanent link">&para;</a></h3>
+<p>Execute the following command on the manager node to start the Nebula Graph cluster:</p>
+<div class="highlight"><pre><span></span><code>$ docker stack deploy nebula -c docker-stack.yml
+</code></pre></div>
+<h2 id="configure_cluster_for_load_balancing_and_high_availability_optional">Configure cluster for load balancing and high availability (optional)<a class="headerlink" href="#configure_cluster_for_load_balancing_and_high_availability_optional" title="Permanent link">&para;</a></h2>
+<p>Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment. The load balancing and high availability solution in this document is only for demonstration. Add other third party solutions based on your requirements.</p>
+<h3 id="configure_load_balancing">Configure load balancing<a class="headerlink" href="#configure_load_balancing" title="Permanent link">&para;</a></h3>
+<p>HAProxy uses Docker compose for configuration. Edit the following three files respectively:</p>
+<p>Add the following content in the <code>Dockerfile</code> file:</p>
+<div class="highlight"><pre><span></span><code>FROM haproxy:1.7
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+EXPOSE <span class="m">3640</span>
+</code></pre></div>
+<p>Add the following content in the <code>docker-compose.yml</code> file:</p>
+<div class="highlight"><pre><span></span><code>version: &quot;3.2&quot;
+services:
+  haproxy:
+    container_name: haproxy
+    build: .
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 3640:3640
+    restart: always
+    networks:
+      - app_net
+networks:
+  app_net:
+    external: true
+</code></pre></div>
+<p>Add the following content in the <code>haproxy.cfg</code> file:</p>
+<p>You must configure with your own IPs and port numbers.</p>
+<div class="highlight"><pre><span></span><code><span class="na">global</span>
+    <span class="na">daemon</span>
+    <span class="na">maxconn 30000</span>
+    <span class="na">log 127.0.0.1 local0 info</span>
+    <span class="na">log 127.0.0.1 local1 warning</span>
+
+<span class="na">defaults</span>
+    <span class="na">log-format %hr\ %ST\ %B\ %Ts</span>
+    <span class="na">log  global</span>
+    <span class="na">mode http</span>
+    <span class="na">option http-keep-alive</span>
+    <span class="na">timeout connect 5000ms</span>
+    <span class="na">timeout client 10000ms</span>
+    <span class="na">timeout server 50000ms</span>
+    <span class="na">timeout http-request 20000ms</span>
+
+<span class="c1"># custom your own frontends &amp;&amp; backends &amp;&amp; listen conf</span>
+<span class="c1">#CUSTOM</span>
+
+<span class="na">listen graphd-cluster</span>
+    <span class="na">bind *:3640</span>
+    <span class="na">mode tcp</span>
+    <span class="na">maxconn 300</span>
+    <span class="na">balance roundrobin</span>
+    <span class="na">server server1 192.168.1.166:3699 maxconn 300 check</span>
+    <span class="na">server server2 192.168.1.167:3699 maxconn 300 check</span>
+    <span class="na">server server3 192.168.1.168:3699 maxconn 300 check</span>
+
+<span class="na">listen stats</span>
+    <span class="na">bind *:1080</span>
+    <span class="na">stats refresh 30s</span>
+    <span class="na">stats uri /stats</span>
+</code></pre></div>
+<h3 id="start_haproxy">Start HAProxy<a class="headerlink" href="#start_haproxy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>$ docker-compose up -d
+</code></pre></div>
+<h3 id="configure_high_availability">Configure high availability<a class="headerlink" href="#configure_high_availability" title="Permanent link">&para;</a></h3>
+<p>Do the following operations on <code>192.168.1.166</code>, <code>192.168.1.167</code>, and <code>192.168.1.168</code>.</p>
+<h4 id="install_keepalived">Install Keepalived<a class="headerlink" href="#install_keepalived" title="Permanent link">&para;</a></h4>
+<p>Execute the following command to install Keepalived:</p>
+<div class="highlight"><pre><span></span><code>apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade <span class="o">&amp;&amp;</span> apt-get install keepalived -y
+</code></pre></div>
+<h4 id="configure_keepalived">Configure Keepalived<a class="headerlink" href="#configure_keepalived" title="Permanent link">&para;</a></h4>
+<p>Modify the Keepalived configuration file <code>/etc/keepalived/keepalived.conf</code>. To ensure that there is a priority in the three hosts, you must set the priority parameters to different values. For the sample configuration file, refer to <a href="../keepalived.conf">here</a>.</p>
+<p><strong>NOTE</strong>: To configure Keepalive, you need a virtual IP. In the sample configurations, <code>192.168.1.99</code> is the virtual IP.</p>
+<p>Relevant commands used in Keepalived:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start Keepalived</span>
+systemctl start keepalived
+<span class="c1"># Start Keepalived automatically</span>
+systemctl <span class="nb">enable</span> keeplived
+<span class="c1"># Re-start Keepalived</span>
+systemctl restart keepalived
+</code></pre></div>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="how_to_deploy_offline">How to deploy offline<a class="headerlink" href="#how_to_deploy_offline" title="Permanent link">&para;</a></h3>
+<p>Changing the Docker image to private image repo.</p>
                 
                   
                 
@@ -2674,7 +2975,7 @@ curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats&quot;</span>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../1.metrics-exposer/" title="Metrics" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../2.start-stop-service/" title="Start and Stop Services" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2683,19 +2984,19 @@ curl -G <span class="s2">&quot;http://127.0.0.1:11000/get_stats&quot;</span>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Metrics
+                Start and Stop Services
               </span>
             </div>
           </a>
         
         
-          <a href="../3.storage-metrics/" title="Storage Metrics" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../3.install-with-docker/" title="Docker Installation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Storage Metrics
+                Docker Installation
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
