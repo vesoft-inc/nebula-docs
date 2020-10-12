@@ -4,7 +4,6 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula Repository Contributors
 
--   [chenxu14](https://github.com/chenxu14)
 -   [Crazyinging](https://github.com/Crazyinging)
 -   [GestureWei](https://github.com/GestureWei)
 -   [knightjya](https://github.com/knightjya)
@@ -37,15 +36,23 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [Mondemen-J](https://github.com/Mondemen-J)
 -   [moneytoyang](https://github.com/moneytoyang)
 -   [BradyBromley](https://github.com/BradyBromley)
+-   [KinhanS](https://github.com/KinhanS)
+-   [Sasasu](https://github.com/Sasasu)
+-   [wadeliuyi](https://github.com/wadeliuyi)
+-   [boshengchen](https://github.com/boshengchen)
+-   [zlcook](https://github.com/zlcook)
+-   [lilydjwg](https://github.com/lilydjwg)
+-   [0xflotus](https://github.com/0xflotus)
+-   [PatrickNicholas](https://github.com/PatrickNicholas)
 
 
 ### Nebula-Java Repository Contributors
-
 -   [chenxu14](https://github.com/chenxu14)
 -   [nildot](https://github.com/nildot)
--   [Anyzm](https://github.com/Anyzm)
 -   [VoisLp](https://github.com/VoisLp)
 -   [gcameo](https://github.com/gcameo)
+-   [datian9966](https://github.com/datian9966)
+-   [firepation](https://github.com/firepation)
 
 
 ### Nebula-Go Repository Contributors
@@ -56,8 +63,3 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 ### Nebula-Python Repository Contributors
 
 -   [ownthink](https://github.com/ownthink)
-
-
-### Nebula-Website Repository Contributors
-
--   [hoop33](https://github.com/hoop33)
