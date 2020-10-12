@@ -651,6 +651,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    Example 5
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2900,6 +2907,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example_5" class="md-nav__link">
+    Example 5
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3322,6 +3336,31 @@ YIELD player.name, player.age;
 ---------------------------------------
 </code></pre></div>
 <p>See <a href="../../../2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax/">LOOKUP Documentation</a> for details.</p>
+<h3 id="example_5">Example 5<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
+<p>The <code>SUBMIT JOB COMPACT</code> command triggers the long-term <code>RocksDB compact</code> operation. There are a lot of IO operations during the running of this command. After the command is executed successfully (the job status is stopped, see the example below), the read performance is improved.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
+==============
+| New Job Id |
+==============
+| 40         |
+--------------
+</code></pre></div>
+<p>The <code>SHOW JOBS</code> statement lists all the jobs that are not expired. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
+=============================================================================
+| Job Id | Command       | Status   | Start Time        | Stop Time         |
+=============================================================================
+| 22     | flush test2   | failed   | 12/06/19 14:46:22 | 12/06/19 14:46:22 |
+-----------------------------------------------------------------------------
+| 23     | compact test2 | stopped  | 12/06/19 15:07:09 | 12/06/19 15:07:33 |
+-----------------------------------------------------------------------------
+| 24     | compact test2 | stopped  | 12/06/19 15:07:11 | 12/06/19 15:07:20 |
+-----------------------------------------------------------------------------
+| 25     | compact test2 | stopped  | 12/06/19 15:07:13 | 12/06/19 15:07:24 |
+-----------------------------------------------------------------------------
+</code></pre></div>
+<p>For more information about the <code>COMPACT</code> and <code>JOB</code> statements, refer to <a href="../../../3.build-develop-and-administration/5.storage-service-administration/job-manager/">Job manager</a>.</p>
 <h2 id="batch_inserting">Batch Inserting<a class="headerlink" href="#batch_inserting" title="Permanent link">&para;</a></h2>
 <p>To insert multiple data, you can put all the DDL (Data Definition Language) statements in a <code>.ngql</code> file as follows.</p>
 <div class="highlight"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
