@@ -6,7 +6,7 @@ The job here refers to the long tasks running at the storage layer. For example,
 
 ### SUBMIT JOB COMPACT
 
-The `SUBMIT JOB COMPACT` command triggers the long time `RocksDB compact` operation. The example returns the results as follows:
+The `SUBMIT JOB COMPACT` command triggers the long-term `RocksDB compact` operation. The example returns the results as follows:
 
 ```ngql
 nebula> SUBMIT JOB COMPACT;
