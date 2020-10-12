@@ -1,4 +1,4 @@
-### Nebula Graph (vesoft-inc/nebula) Active Contributors
+### vesoft-inc/nebula Active Contributors
 
 | GitHub ID| Name |
 |:------------------------------------:|:------------:|
@@ -6,7 +6,7 @@
 | [zhangguoqing](https://github.com/zhangguoqing)   |  Guoqing Zhang |
 
 
-### Nebula Java (vesoft-inc/nebula-java) Active Contributors
+### vesoft-inc/nebula-java Active Contributors
 
 | GitHub ID| Name |
 |:------------------------------------:|:------------:|

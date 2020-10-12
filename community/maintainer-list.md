@@ -1,6 +1,6 @@
 ## Maintainer List
 
-### Nebula Graph (vesoft-inc/nebula) Maintainers
+### vesoft-inc/nebula Maintainers
 
 |                    GitHub ID                    |  Name  | Company |
 | :---------------------------------------------: | :----: | :-----: |
@@ -8,7 +8,7 @@
 | [dangleptr](https://github.com/dangleptr)|  Heng | vesoft |
 | [dutor](https://github.com/dutor)|  Dutor  | vesoft |
 
-### Nebula Storage (vesoft-inc/nebula-storage) Maintainers
+### vesoft-inc/nebula-storage Maintainers
 
 |                    GitHub ID                    |  Name  | Company |
 | :---------------------------------------------: | :----: | :-----: |
@@ -18,7 +18,7 @@
 | [Doodle](https://github.com/critical27)|  Doodle | vesoft |
 | [bright-starry-sky](https://github.com/bright-starry-sky)|  Sky  | vesoft |
 
-### Nebula Query (vesoft-inc/nebula-graph) Maintainers
+### vesoft-inc/nebula-graph Maintainers
 
 |                    GitHub ID                    |  Name  | Company |
 | :---------------------------------------------: | :----: | :-----: |
@@ -28,7 +28,7 @@
 | [Yee](https://github.com/yixinglu)|  Yee | vesoft |
 | [cpw](https://github.com/CPWstatic)|  William chen  | vesoft |
 
-### Nebula Common (vesoft-inc/nebula-common) Maintainers
+### vesoft-inc/nebula-common Maintainers
 
 |                    GitHub ID                    |  Name  | Company |
 | :---------------------------------------------: | :----: | :-----: |
