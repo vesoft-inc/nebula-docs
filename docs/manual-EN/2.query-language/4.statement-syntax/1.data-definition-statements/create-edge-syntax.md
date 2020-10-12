@@ -17,7 +17,7 @@ CREATE EDGE [IF NOT EXISTS] <edge_name>
     | DEFAULT <default_value>
 ```
 
-**Nebula Graph**'s schema is composed of tags and edges, either of which may have properties. `CREATE EDGE` statement defines an edge type with the given name.
+The schema for Nebula Graph is composed of tags and edges, either of which can have properties. The `CREATE EDGE` statement defines an edge type with the given name.
 
 The features of this syntax are described in the following sections:
 
@@ -41,13 +41,13 @@ You can use the `If NOT EXISTS` keywords when creating edge types. This keyword 
 
 * **data_type**
 
-    data_type represents the data type of each property. For more information about data types that **Nebula Graph** supports, see [data-type](../../1.data-types/data-types.md) section.
+    data_type represents the data type of each property. For more information about data types that Nebula Graph supports, see the [data-type](../../1.data-types/data-types.md) section.
 
     > NULL and NOT NULL constrain are not supported yet when creating edge types (comparing with relational databases).
 
 * **Default Constraint**
 
-    You can set the default value of a property when creating an edge type with the `DEFAULT` constraint. The default value will be added to all new edges if no other value is specified. The default value can be any of the data type supported by  **Nebula Graph** or  expressions. Also you can write a user-specified value if you don't want to use the default one.
+    You can set the default value of a property when creating an edge type with the `DEFAULT` constraint. The default value will be added to all new edges if no value is specified. The default value can be any of the data type supported by Nebula Graph or expressions. Also, you can specify a value if you don't want to use the default one.
 
     > Using `Alter` to change the default value is not supported.
 
