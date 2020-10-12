@@ -1,6 +1,6 @@
 ## Committer List
 
-### Nebula Graph Committers
+### Nebula Graph (vesoft-inc/nebula) Committers
 
 | GitHub ID| Name |Company|
 |:------------------------------------:|:------------:|:-------------:|
