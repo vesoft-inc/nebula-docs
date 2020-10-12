@@ -4,7 +4,7 @@ This document gives the introduction on deploying a Nebula Graph cluster with Do
 
 ## Prerequisites
 
-Before deploying cluster, make sure that you have installed Nebula Graph, Docker, Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.
+Before deploying cluster, make sure that you have installed Docker and Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.
 
 The hosts used in this document are as follow:
 
@@ -98,6 +98,29 @@ Execute the following command on the manager node to start the Nebula Graph clu
 
 ```bash
 $ docker stack deploy nebula -c docker-stack.yml
+```
+
+### List the cluster services
+
+Execute the following command on the manager node to list the cluster services:
+
+```bash
+$ docker service ls
+```
+
+The following information is returned:
+
+```bash
+ID                  NAME                MODE                REPLICAS            IMAGE                            PORTS
+43abplqq0h2z        nebula_graphd1      replicated          1/1                 vesoft/nebula-graphd:nightly
+jkmnyzy2772s        nebula_graphd2      replicated          1/1                 vesoft/nebula-graphd:nightly
+uo79ebcp41uw        nebula_graphd3      replicated          1/1                 vesoft/nebula-graphd:nightly
+p50k0l1pvth0        nebula_metad0       replicated          1/1                 vesoft/nebula-metad:nightly
+oafq5jph8e65        nebula_metad1       replicated          1/1                 vesoft/nebula-metad:nightly
+qr4t5a8u5vjv        nebula_metad2       replicated          1/1                 vesoft/nebula-metad:nightly
+ivs5i0o69505        nebula_storaged0    replicated          1/1                 vesoft/nebula-storaged:nightly
+y1xlsym8q90s        nebula_storaged1    replicated          1/1                 vesoft/nebula-storaged:nightly
+xwgu2sfi2qso        nebula_storaged2    replicated          1/1                 vesoft/nebula-storaged:nightly
 ```
 
 ## Configure cluster for load balancing and high availability (optional)
@@ -198,17 +221,6 @@ apt-get update && apt-get upgrade && apt-get install keepalived -y
 Modify the Keepalived configuration file `/etc/keepalived/keepalived.conf`. To ensure that there is a priority in the three hosts, you must set the priority parameters to different values. For the sample configuration file, refer to [here](keepalived.conf).
 
 **NOTE**: To configure Keepalive, you need a virtual IP. In the sample configurations, `192.168.1.99` is the virtual IP.
-
-Relevant commands used in Keepalived:
-
-```bash
-# Start Keepalived
-systemctl start keepalived
-# Start Keepalived automatically
-systemctl enable keeplived
-# Re-start Keepalived
-systemctl restart keepalived
-```
 
 ## FAQ
 
