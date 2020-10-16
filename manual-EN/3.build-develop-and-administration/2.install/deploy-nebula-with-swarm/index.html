@@ -1788,6 +1788,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#list_the_cluster_services" class="md-nav__link">
+    List the cluster services
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2690,6 +2697,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#list_the_cluster_services" class="md-nav__link">
+    List the cluster services
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2789,7 +2803,7 @@
                 <h1 id="deploy_nebula_graph_cluster_with_docker_swarm">Deploy Nebula Graph cluster with Docker Swarm<a class="headerlink" href="#deploy_nebula_graph_cluster_with_docker_swarm" title="Permanent link">&para;</a></h1>
 <p>This document gives the introduction on deploying a Nebula Graph cluster with Docker Swarm.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Before deploying cluster, make sure that you have installed Nebula Graph, Docker, Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.</p>
+<p>Before deploying cluster, make sure that you have installed Docker and Docker Compose. To customize load balancing and high availability, you need to install HAProxy, and Keepalived.</p>
 <p>The hosts used in this document are as follow:</p>
 <table>
 <thead>
@@ -2870,6 +2884,22 @@ USER=root
 <p>Execute the following command on the manager node to start the Nebula Graph cluster:</p>
 <div class="highlight"><pre><span></span><code>$ docker stack deploy nebula -c docker-stack.yml
 </code></pre></div>
+<h3 id="list_the_cluster_services">List the cluster services<a class="headerlink" href="#list_the_cluster_services" title="Permanent link">&para;</a></h3>
+<p>Execute the following command on the manager node to list the cluster services:</p>
+<div class="highlight"><pre><span></span><code>$ docker service ls
+</code></pre></div>
+<p>The following information is returned:</p>
+<div class="highlight"><pre><span></span><code>ID                  NAME                MODE                REPLICAS            IMAGE                            PORTS
+43abplqq0h2z        nebula_graphd1      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
+jkmnyzy2772s        nebula_graphd2      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
+uo79ebcp41uw        nebula_graphd3      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
+p50k0l1pvth0        nebula_metad0       replicated          <span class="m">1</span>/1                 vesoft/nebula-metad:nightly
+oafq5jph8e65        nebula_metad1       replicated          <span class="m">1</span>/1                 vesoft/nebula-metad:nightly
+qr4t5a8u5vjv        nebula_metad2       replicated          <span class="m">1</span>/1                 vesoft/nebula-metad:nightly
+ivs5i0o69505        nebula_storaged0    replicated          <span class="m">1</span>/1                 vesoft/nebula-storaged:nightly
+y1xlsym8q90s        nebula_storaged1    replicated          <span class="m">1</span>/1                 vesoft/nebula-storaged:nightly
+xwgu2sfi2qso        nebula_storaged2    replicated          <span class="m">1</span>/1                 vesoft/nebula-storaged:nightly
+</code></pre></div>
 <h2 id="configure_cluster_for_load_balancing_and_high_availability_optional">Configure cluster for load balancing and high availability (optional)<a class="headerlink" href="#configure_cluster_for_load_balancing_and_high_availability_optional" title="Permanent link">&para;</a></h2>
 <p>Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment. The load balancing and high availability solution in this document is only for demonstration. Add other third party solutions based on your requirements.</p>
 <h3 id="configure_load_balancing">Configure load balancing<a class="headerlink" href="#configure_load_balancing" title="Permanent link">&para;</a></h3>
@@ -2943,14 +2973,6 @@ networks:
 <h4 id="configure_keepalived">Configure Keepalived<a class="headerlink" href="#configure_keepalived" title="Permanent link">&para;</a></h4>
 <p>Modify the Keepalived configuration file <code>/etc/keepalived/keepalived.conf</code>. To ensure that there is a priority in the three hosts, you must set the priority parameters to different values. For the sample configuration file, refer to <a href="../keepalived.conf">here</a>.</p>
 <p><strong>NOTE</strong>: To configure Keepalive, you need a virtual IP. In the sample configurations, <code>192.168.1.99</code> is the virtual IP.</p>
-<p>Relevant commands used in Keepalived:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start Keepalived</span>
-systemctl start keepalived
-<span class="c1"># Start Keepalived automatically</span>
-systemctl <span class="nb">enable</span> keeplived
-<span class="c1"># Re-start Keepalived</span>
-systemctl restart keepalived
-</code></pre></div>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="how_to_deploy_offline">How to deploy offline<a class="headerlink" href="#how_to_deploy_offline" title="Permanent link">&para;</a></h3>
 <p>Changing the Docker image to private image repo.</p>
