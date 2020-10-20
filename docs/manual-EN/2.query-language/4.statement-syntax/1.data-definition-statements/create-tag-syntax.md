@@ -59,7 +59,7 @@ You can use the `If NOT EXISTS` keywords when creating tags. This keyword automa
 
     ttl_duration specifies the life cycle of vertices (or edges). Data that exceeds the specified TTL will expire. The expiration threshold is the specified TTL_COL value plus the TTL_DURATION.
 
-    > If the value for ttl_duration is zero or negative, the vertices or edges will not expire.
+    > If the value for ttl_duration is zero, the vertices or edges will not expire.
 
 * TTL_COL
 
