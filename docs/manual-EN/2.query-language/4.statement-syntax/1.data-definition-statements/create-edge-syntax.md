@@ -59,7 +59,7 @@ You can use the `If NOT EXISTS` keywords when creating edge types. This keyword 
 
     ttl_duration specifies the life cycle of vertices (or edges). Data that exceeds the specified TTL will expire. The expiration threshold is the specified TTL_COL value plus the TTL_DURATION.
 
-    > If the value for ttl_duration is zero or negative, the vertices or edges will not expire.
+    > If the value for ttl_duration is zero, the vertices or edges will not expire.
 
 * TTL_COL
 
@@ -83,5 +83,5 @@ nebula> CREATE EDGE follow_with_default(start_time timestamp DEFAULT 0, grade do
 
 ```ngql
 nebula> CREATE EDGE marriage(location string, since timestamp)
-    TTL_DURATION = 0, TTL_COL = "since"; -- negative or zero, will not expire
+    TTL_DURATION = 0, TTL_COL = "since"; -- zero, will not expire
 ```
