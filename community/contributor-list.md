@@ -44,6 +44,23 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [lilydjwg](https://github.com/lilydjwg)
 -   [0xflotus](https://github.com/0xflotus)
 -   [PatrickNicholas](https://github.com/PatrickNicholas)
+-   [Yichen Wang](https://github.com/Aiee)
+-   [bright-starry-sky](https://github.com/bright-starry-sky)
+-   [cpw](https://github.com/CPWstatic)
+-   [Doodle](https://github.com/critical27)
+-   [Yichen Wang](https://github.com/Aiee)
+-   [dangleptr](https://github.com/dangleptr)
+-   [yaphet](https://github.com/darionyaphet)
+-   [dutor](https://github.com/dutor)
+-   [jie.wang](https://github.com/jievince)
+-   [flyingcat](https://github.com/knightXun)
+-   [laura-ding](https://github.com/laura-ding)
+-   [Simon Liu](https://github.com/monadbobo)
+-   [jimingquan](https://github.com/nevermore3)
+-   [panda-sheep](https://github.com/panda-sheep)
+-   [Shylock Hg](https://github.com/Shylock-Hg)
+-   [min.wu](https://github.com/whitewum)
+-   [Yee](https://github.com/yixinglu)
 
 
 ### Nebula-Java Repository Contributors
@@ -53,13 +70,24 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [gcameo](https://github.com/gcameo)
 -   [datian9966](https://github.com/datian9966)
 -   [firepation](https://github.com/firepation)
-
+-   [Anqi](https://github.com/Nicole00)
+-   [jude-zhu](https://github.com/firepation)
+-   [yaphet](https://github.com/darionyaphet)
+-   [shawdan](https://github.com/oldLady344)
+-   [Mengjie](https://github.com/ImportMengjie)
+-   [Doodle](https://github.com/critical27)
 
 ### Nebula-Go Repository Contributors
 
 -   [SnakeHacker](https://github.com/SnakeHacker)
-
+-   [cpw](https://github.com/CPWstatic)
+-   [Yee](https://github.com/yixinglu)
+-   [Simon Liu](https://github.com/monadbobo)
+-   [Shylock Hg](https://github.com/Shylock-Hg)
+-   [yaphet](https://github.com/darionyaphet)
 
 ### Nebula-Python Repository Contributors
 
 -   [ownthink](https://github.com/ownthink)
+-   [jie.wang](https://github.com/jievince)
+-   [laura-ding](https://github.com/laura-ding)
