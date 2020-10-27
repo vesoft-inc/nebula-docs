@@ -2897,9 +2897,40 @@ Got 3 rows (Time spent: 7431/10406 us)
 <h3 id="connection_refused">Connection Refused<a class="headerlink" href="#connection_refused" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>E1121 04:49:34.563858   256 GraphClient.cpp:54] Thrift rpc call failed: AsyncSocketException: connect failed, type = Socket not open, errno = 111 (Connection refused): Connection refused
 </code></pre></div>
-<p>Check service status by</p>
+<p>Check service status by using the following command:</p>
 <div class="highlight"><pre><span></span><code>$ /usr/local/nebula/scripts/nebula.service status all
 </code></pre></div>
+<p>Or list the hosts:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+</code></pre></div>
+<p>Please make sure that the following ports are available and not blocked by your firewall. You can find them in the configuration files in <code>/usr/local/nebula/etc/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Service Name</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta Service</td>
+<td>45500, 11000, 11002</td>
+</tr>
+<tr>
+<td>Storage Service</td>
+<td>44500, 12000, 12002</td>
+</tr>
+<tr>
+<td>Graph Service</td>
+<td>3699, 13000, 13002</td>
+</tr>
+</tbody>
+</table>
+<p>Besides, remember to restart the services if you change the default value of the ports.</p>
+<p>To check if the ports are available, run the following command:</p>
+<div class="highlight"><pre><span></span><code>$ telnet <span class="nv">$ip</span> <span class="nv">$port</span>
+</code></pre></div>
+<p>Make sure that the port in every host of the cluster is available.</p>
 <h3 id="could_not_create_logging_file_too_many_open_files">Could not create logging file:... Too many open files<a class="headerlink" href="#could_not_create_logging_file_too_many_open_files" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Check your disk space <code>df -h</code></li>
