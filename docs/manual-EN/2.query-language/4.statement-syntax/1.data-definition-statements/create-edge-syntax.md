@@ -25,7 +25,7 @@ The features of this syntax are described in the following sections:
 
 You can use the `If NOT EXISTS` keywords when creating edge types. This keyword automatically detects if the corresponding edge type exists. If it does not exist, a new one is created. Otherwise, no edge type is created.
 
-> **NOTE**: The edge type existence detection here only compares the edge edge name (excluding properties).
+> **NOTE**: The edge type existence detection here only compares the edge names (excluding properties).
 
 ## Edge Type Name
 
@@ -48,8 +48,6 @@ You can use the `If NOT EXISTS` keywords when creating edge types. This keyword 
 * **Default Constraint**
 
     You can set the default value of a property when creating an edge type with the `DEFAULT` constraint. The default value will be added to all new edges if no value is specified. The default value can be any of the data type supported by Nebula Graph or expressions. Also, you can specify a value if you don't want to use the default one.
-
-    > Using `Alter` to change the default value is not supported.
 
     <!-- > Since it's so error-prone to modify the default value with new one, using `Alter` to change the default value is not supported. -->
 

@@ -18,3 +18,12 @@ In addition, you can modify the number of threads in both methods by the followi
 nebula> UPDATE CONFIGS storage:rocksdb_db_options  = \
         { max_subcompactions = 4, max_background_jobs = 4};
 ```
+
+## Compact rate limiter
+
+RocksDB runs the compact operation in the background in real time. The compact operation produces a lot of write operations on the disk. To avoid read latency caused by these write operations, use the rate limiter to limit the maximum write speed.
+
+Modify the following rate limiter parameters in the RocksEngineConfig file:
+
+- num_compaction_threads: Total number of compact threads. When set to 0, there is no threshold.
+- rate_limit: Write limit. The unit is MB per second. When set to 0, there is no threshold.

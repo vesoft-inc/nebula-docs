@@ -49,8 +49,6 @@ You can use the `If NOT EXISTS` keywords when creating tags. This keyword automa
 
     You can set the default value of a property when creating a tag with the `DEFAULT` constraint. The default value will be added to all new vertices if no other value is specified. The default value can be any of the data type supported by  **Nebula Graph** or  expressions. Also you can write a user-specified value if you don't want to use the default one.
 
-    > Using `Alter` to change the default value is not supported.
-
     <!-- > Since it's so error-prone to modify the default value with new one, using `Alter` to change the default value is not supported. -->
 
 ### Time-to-Live (TTL) Syntax
