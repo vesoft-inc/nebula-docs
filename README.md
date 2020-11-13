@@ -2,69 +2,15 @@
 
 This repository holds all the source files of Nebula Graph Documentations at the [Documentation Site](https://docs.nebula-graph.io/).
 
-## Documentation structure for 1.0
+## Documentation index
 
-The general Nebula Graph 1.0 documentation structure is as follows:
-
-```bash
-├── Language
-├── Overview
-    ├── Introduction
-    ├── Concepts
-    ├── Quick Start
-        ├── Get Started
-        ├── ...
-├── Query Language
-    ├── Data Types
-        ├── ...
-    ├── Functions and Operators
-        ├── ...
-    ├── Language Structure
-        ├── ...
-    ├── Statement Syntax
-        ├── ...
-├── Build Develop and Administration
-    ├── Build
-        ├── ...
-    ├── ...
-...
-```
-
-## Documentation structure for 2.0
-
-The general Nebula Graph 2.0 documentation structure is as follows:
-
-```bash
-├── Introduction
-├── Quick start
-    ├── Quick start workflow
-    ├── Deploy Nebula Graph with docker compose
-    ├── Connect to Nebula Graph
-    ├── Nebula Graph crud
-├── nGQL guide
-    ...
-    ├── Operators
-        ├── ...
-    ├── Functions and expressions
-        ├── ...
-    ├── General query statements
-    ...
-    ├── Subgraph and path
-    ...
-
-├── Deployment and installation
-    ...
-    ├── Compile and install Nebula Graph
-        ├── ...
-    ├── ...
-...
-```
-
-For detail TOC (table of content), see the following links.
-
-- [Documentation Index](docs/manual-EN/README.md)
+- Documentation index for [Nebula Graph 1.0](docs/manual-EN/README.md)
+- Documentation index for Nebula Graph 2.0
 - [中文文档](https://docs.nebula-graph.com.cn/)
 - [Official Documentation Site](https://docs.nebula-graph.io/)
+- Clients (TODO)
+- [Nebula Graph Cloud](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/)
+- [Nebula Graph Studio](https://github.com/vesoft-inc/nebula-web-docker/tree/master/docs/en)
 
 ## Contributing
 
