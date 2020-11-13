@@ -128,7 +128,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Storaged Configuration](3.build-develop-and-administration/3.configurations/5.storage-config.md)
   * [Console Configuration](3.build-develop-and-administration/3.configurations/6.console-config.md)
   * [Kernel Configuration](3.build-develop-and-administration/3.configurations/7.kernel-config.md)
-  * [Single Node Log](3.build-develop-and-administration/3.configurations/8.single-node-log.md)
+  * [Change Log Severity on a Host](3.build-develop-and-administration/3.configurations/8.single-node-log.md)
 * Account Management Statement
   * [Alter User Syntax](3.build-develop-and-administration/4.account-management-statements/alter-user-syntax.md)
   * [Authentication](3.build-develop-and-administration/4.account-management-statements/authentication.md)

@@ -42,7 +42,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Case expressions](docs-2.0/3.ngql-guide/6.funtions-and-expressions/5.case-expressions.md)
 
 * General query statements
-  * [Math](docs-2.0/3.ngql-guide/7.general-query-statements/2.match.md)
+  * [Match](docs-2.0/3.ngql-guide/7.general-query-statements/2.match.md)
 
 * Space statements
   * [Create space](docs-2.0/3.ngql-guide/9.space-statements.md/1.create-space.md)
