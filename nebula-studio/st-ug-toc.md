@@ -1,14 +1,14 @@
 # Nebula Graph Studio User Guide
 
 - About Nebula Graph Studio
-  - [What is Nebula Graph Studio](../nebula-graph-studio-user-guide-en.md)
+  - [What is Nebula Graph Studio](about-studio/st-ug-what-is-graph-studio.md)
   - [Glossary] [TODO]
-  - [Limitations] [TODO]
+  - [Limitations](about-studio/st-ug-limitations.md)
   - [Updates] [TODO]
   - [FAQ] [TODO]
 - Insall and connect
-  - [Install Studio](../nebula-graph-studio-user-guide-en.md)
-  - [Connect to Nebula Graph](../nebula-graph-studio-user-guide-en.md)
+  - [Deploy Studio](install-configure/st-ug-install.md)
+  - [Connect to Nebula Graph](install-configure/st-ug-connect.md)
   - [Clear connection] [TODO]
 - Quick start
   - [Design a schema](quick-start/st-ug-create-schema.md)
@@ -26,7 +26,7 @@
   - Use Console
     - [Introduce Console][TODO]
     - [Open in Explore](use-console/st-ug-open-in-explore.md)
-    - [View subgraph][TODO]
+    - [View subgraphs](use-console/st-ug-visualize-findpath.md)
     - [Export as CSV files][TODO]
 - Best practices [TODO]
 - Troubleshooting [TODO]

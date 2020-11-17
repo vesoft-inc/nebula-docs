@@ -1,6 +1,6 @@
 # Create a schema
 
-To bulk import data into a Nebula Graph database, you must have a schema. You can create a schema with the **Console** module or the **Schema** module of Studio.
+To bulk import data into Nebula Graph, you must have a schema. You can create a schema with the **Console** module or the **Schema** module of Studio.
 
 > **NOTE**: You can use nebula-console to create a schema. For more information, see [Deploy Nebula Graph with Docker Compose
 ](https://github.com/vesoft-inc/nebula-docker-compose/blob/master/README.md "Click to go to GitHub website") and [Get started with Nebula Graph](https://docs.nebula-graph.io/manual-EN/1.overview/2.quick-start/1.get-started/ "Click to go to Nebula Graph website").
@@ -13,14 +13,14 @@ To create a schema on Studio, you must do a check of these:
 - Your account has the privileges of GOD, ADMIN, or DBA. For more information, see [Nebula Graph roles](https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/4.account-management-statements/built-in-roles/ "Click to go to Nebula Graph website").
 - The schema is designed.
 - A graph space is created.
-  > **NOTE**: If no graph space exists, and your account has GOD privileges, you can create a graph space with **Console** or **Schema**.
+  > **NOTE**: If no graph space exists, and your account has GOD privileges, you can create a graph space on the **Console** or **Schema** page.
 
 ## Create a schema with Schema
 
 To create a schema on the **Schema** page, make sure that the version of Studio is v1.2.0-beta or later then follow these steps:
 
-1. Create tags. For more information, see [Operate tags](../manage-schema/st-ug-crud-tag.md).
-2. Create edge types. For more information, see [Operate edge types](../manage-schema/st-ug-crud-edge-type.md).
+1. Create tags. For more information, see [Manipulate tags](../manage-schema/st-ug-crud-tag.md).
+2. Create edge types. For more information, see [Manipulate edge types](../manage-schema/st-ug-crud-edge-type.md).
 
 ## Create a schema with Console
 
@@ -31,7 +31,7 @@ To create a schema on the **Console** page, follow these steps:
 
    ![Choose a graph space name for the Current Graph Space field](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-031.png "Choose a graph space")
 
-3. In the input box, enter these statements one by one and click the ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run") icon.
+3. In the input box, enter these statements one by one and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
 
    ```nGQL
     nebula> CREATE TAG user (userId int); -- To create a tag named "user", with one property

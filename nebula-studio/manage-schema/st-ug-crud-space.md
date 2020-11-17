@@ -1,6 +1,6 @@
 # Operate graph spaces
 
-When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the **Console** tab page or the **Schema** tab page to do these operations. This article only introduces how to use the **Schema** tab page to operate graph spaces in Nebula Graph.
+When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in Nebula Graph.
 
 ## Studio version
 
@@ -12,7 +12,7 @@ docker-compose pull && docker-compose up
 
 ## Prerequisites
 
-To operate a graph space on Studio, you must do a check of these:
+To operate a graph space on the **Schema** page of Studio, you must do a check of these:
 
 - The version of Studio is v1.2.0-beta or later.
 - Studio is connected to Nebula Graph.
@@ -22,7 +22,7 @@ To operate a graph space on Studio, you must do a check of these:
 
 ## Create a graph space
 
-To create a graph space on the **Schema** tab page, follow these steps:
+To create a graph space on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 2. On the **Graph Space List** page, click the **+ Create** button.
@@ -43,7 +43,7 @@ To create a graph space on the **Schema** tab page, follow these steps:
 To delete a graph space on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
-2. In the graph space list, find a graph space and then the ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") icon in the **Operations** column.
+2. In the graph space list, find a graph space and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
    ![Graph space list with the graph space to be deleted](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-029.png "Delete a graph space")
 3. On the dialog box, confirm the information and then click the **OK** button.  
@@ -53,6 +53,6 @@ To delete a graph space on the **Schema** page, follow these steps:
 
 After a graph space is created, you can create or edit a schema, including:
 
-- [Operate tags](st-ug-crud-tag.md)
-- [Operate edge types](st-ug-crud-edge-type.md)
-- [Operate indexes](st-ug-crud-index.md)
+- [Manipulate tags](st-ug-crud-tag.md)
+- [Manipulate edge types](st-ug-crud-edge-type.md)
+- [Manipulate indexes](st-ug-crud-index.md)

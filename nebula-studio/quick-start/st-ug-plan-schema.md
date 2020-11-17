@@ -1,8 +1,8 @@
 # Design a schema
 
-To operate graph data in a Nebula Graph database with Nebula Graph Studio, you must have a graph schema. This article introduces how to design a graph schema for a Nebula Graph database.
+To operate graph data in Nebula Graph with Studio, you must have a graph schema. This article introduces how to design a graph schema for Nebula Graph.
 
-A graph schema for Nebula Graph database must have these essential elements:
+A graph schema for Nebula Graph must have these essential elements:
 
 - Tags (namely vertex types) and their properties.
 - Edge types and their properties
