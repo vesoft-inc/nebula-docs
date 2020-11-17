@@ -48,7 +48,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Create space](3.ngql-guide/9.space-statements.md/1.create-space.md)
   * [Use space](3.ngql-guide/9.space-statements.md/2.use-space.md)
   * [Show spaces](3.ngql-guide/9.space-statements.md/3.show-spaces.md)
-  * [Describe space](2.query-language/4.statement-syntax/1.data-definition-statements/create-edge-syntax.md)
+  * [Describe space](3.ngql-guide/9.space-statements.md/4.describe-space.md)
   * [Drop space](3.ngql-guide/9.space-statements.md/5.drop-space.md)
 
 * Vertex statements
