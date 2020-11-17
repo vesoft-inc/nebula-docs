@@ -19,8 +19,8 @@ To create a schema on Studio, you must do a check of these:
 
 To create a schema on the **Schema** page, make sure that the version of Studio is v1.2.0-beta or later then follow these steps:
 
-1. Create tags. For more information, see [Manipulate tags](../manage-schema/st-ug-crud-tag.md).
-2. Create edge types. For more information, see [Manipulate edge types](../manage-schema/st-ug-crud-edge-type.md).
+1. Create tags. For more information, see [Operate tags](../manage-schema/st-ug-crud-tag.md).
+2. Create edge types. For more information, see [Operate edge types](../manage-schema/st-ug-crud-edge-type.md).
 
 ## Create a schema with Console
 
