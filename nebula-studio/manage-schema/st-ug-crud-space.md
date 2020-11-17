@@ -53,6 +53,6 @@ To delete a graph space on the **Schema** page, follow these steps:
 
 After a graph space is created, you can create or edit a schema, including:
 
-- [Manipulate tags](st-ug-crud-tag.md)
-- [Manipulate edge types](st-ug-crud-edge-type.md)
-- [Manipulate indexes](st-ug-crud-index.md)
+- [Operate tags](st-ug-crud-tag.md)
+- [Operate edge types](st-ug-crud-edge-type.md)
+- [Operate indexes](st-ug-crud-index.md)
