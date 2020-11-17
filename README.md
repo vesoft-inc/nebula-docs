@@ -5,7 +5,7 @@ This repository holds all the source files of Nebula Graph Documentations at the
 ## Documentation index
 
 - Documentation index for [Nebula Graph 1.0](docs/manual-EN/README.md)
-- Documentation index for Nebula Graph 2.0
+- Documentation index for [Nebula Graph 2.0](docs-2.0/README.md)
 - [中文文档](https://docs.nebula-graph.com.cn/)
 - [Official Documentation Site](https://docs.nebula-graph.io/)
 - Clients (TODO)
