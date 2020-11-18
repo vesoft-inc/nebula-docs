@@ -4,10 +4,10 @@
   - [What is Nebula Graph Studio](about-studio/st-ug-what-is-graph-studio.md)
   - [Glossary] [TODO]
   - [Limitations](about-studio/st-ug-limitations.md)
-  - [Updates] [TODO]
+  - [Check updates](about-studio/st-ug-check-updates.md)
   - [FAQ] [TODO]
-- Insall and connect
-  - [Deploy Studio](install-configure/st-ug-install.md)
+- Deploy and connect
+  - [Deploy Studio](install-configure/st-ug-deploy.md)
   - [Connect to Nebula Graph](install-configure/st-ug-connect.md)
   - [Clear connection] [TODO]
 - Quick start
