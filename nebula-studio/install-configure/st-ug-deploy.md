@@ -49,7 +49,7 @@ To deploy and start Docker-based Studio, run these commands one by one:
     ```
 
 5. When Docker-based Studio is started, use `http://ip address:7001` to get access to Studio.
-   > **NOTE**: You can use the public or private IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
+   > **NOTE**: Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
 
     If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 

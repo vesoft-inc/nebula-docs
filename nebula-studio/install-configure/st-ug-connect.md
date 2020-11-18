@@ -8,8 +8,8 @@ Before you connect Docker-based Studio to Nebula Graph, you must do a check of t
 
 - The Nebula Graph services and Studio are started. For more information, see [Deploy Studio](st-ug-deploy.md).  
 
-- You have the real IP address and the port used by the Graph service of Nebula Graph. The default port is `3699`.  
-  > **NOTE**: You can use a public or private IP address for connection, which depends on the network configuration of Nebula Graph and its environment.  
+- You have the IP address and the port used by the Graph service of Nebula Graph. The default port is `3699`.  
+  > **NOTE**: Run `ifconfig` or `ipconfig` on the machine to get the IP address.  
 
 - You have a Nebula Graph account and its password.
   > **NOTE**: If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the default username (`user`) and the default password (`password`) to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/manual-EN/3.build-develop-and-administration/4.account-management-statements/authentication/ "Click to go to Nebula Graph website").
@@ -19,8 +19,8 @@ Before you connect Docker-based Studio to Nebula Graph, you must do a check of t
 To connect Docker-based Studio to Nebula Graph, follow these steps:
 
 1. On the **Config Server** page of Studio, configure these fields:
-   - **Host**: Enter the real IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `3699`.  
-     > **NOTE**: When Nebula Graph and Studio are deployed on the same machine, you must enter the public or private IP address of the machine, but not `127.0.0.1`, in the **Host** field.
+   - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `3699`.  
+     > **NOTE**: When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
    - **Username** and **Password**: Enter a valid Nebula Graph account and its password.
      - If authentication is not enabled, you can use `user` and `password`.
      - If authentication is enabled and no accounts are created, you must use `root` and its password `nebula`.
