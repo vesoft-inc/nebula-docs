@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - jerry-dev
 
 jobs:
   deploy:
@@ -21,11 +22,11 @@ jobs:
           pip install --upgrade pip
           pip install -r ./requirements.txt
 
-      - name: Build
-        run: mike install && mike deploy 2.0 && mike set-default 1.1 
+      - name: Mike Deploy 2.0
+        run: mike deploy 2.0 -p -f
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.DEPLOY_TOKEN }}
-          publish_dir: ./site
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.DEPLOY_TOKEN }}
+      #     publish_dir: ./site
