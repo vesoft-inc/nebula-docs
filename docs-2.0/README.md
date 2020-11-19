@@ -35,11 +35,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Precedence](3.ngql-guide/5.operators/9.precedence.md)
 
 * Functions and expressions
-  * [Math](3.ngql-guide/6.funtions-and-expressions/1.math.md)
-  * [String](3.ngql-guide/6.funtions-and-expressions/2.string.md)
-  * [Date and time](3.ngql-guide/6.funtions-and-expressions/3.date-and-time.md)
-  * [Schema](3.ngql-guide/6.funtions-and-expressions/4.schema.md)
-  * [Case expressions](3.ngql-guide/6.funtions-and-expressions/5.case-expressions.md)
+  * [Math](3.ngql-guide/6.functions-and-expressions/1.math.md)
+  * [String](3.ngql-guide/6.functions-and-expressions/2.string.md)
+  * [Date and time](3.ngql-guide/6.functions-and-expressions/3.date-and-time.md)
+  * [Schema](3.ngql-guide/6.functions-and-expressions/4.schema.md)
+  * [Case expressions](3.ngql-guide/6.functions-and-expressions/5.case-expressions.md)
 
 * General query statements
   * [Match](3.ngql-guide/7.general-query-statements/2.match.md)
