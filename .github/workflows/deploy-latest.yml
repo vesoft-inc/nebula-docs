@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-      - jerry-dev
-
 
 jobs:
   deploy:
@@ -24,7 +22,7 @@ jobs:
           pip install -r ./requirements.txt
 
       - name: Build
-        run: mkdocs build
+        run: mike install && mike deploy 2.0 && mike set-default 1.1 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
