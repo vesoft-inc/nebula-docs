@@ -16,8 +16,6 @@ Both release distributions have different limitations. For more information, see
 
 Studio provides these features:
 
-- Flexible deployment meets your different requirements.
-
 - Graphical user interface (GUI) makes Nebula Graph management more user-friendly:
 
   - On the **Schema** page, you can manage schemas with a graphical user interface. It helps you quickly get started with Nebula Graph.
