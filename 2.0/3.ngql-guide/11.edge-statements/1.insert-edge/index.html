@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/12.vertex-statements/4.delete-vertex/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/11.edge-statements/1.insert-edge/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>DELETE VERTEX - Nebula Graph Database Manual</title>
+        <title>INSERT EDGE - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#delete_vertex" tabindex="0" class="md-skip">
+      <a href="#insert_edge" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                DELETE VERTEX
+                INSERT EDGE
               
             </span>
           
@@ -189,9 +189,7 @@
       
         
 
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+<nav class="md-tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -421,12 +419,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       nGQL guide
@@ -538,12 +534,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
     
     <label class="md-nav__link" for="nav-3-2">
       Functions and expressions
@@ -739,12 +733,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2-8" type="checkbox" id="nav-3-2-8" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2-8" type="checkbox" id="nav-3-2-8">
     
     <label class="md-nav__link" for="nav-3-2-8">
       Vertex statements
@@ -762,7 +754,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../1.insert-vertex/" title="INSERT VERTEX" class="md-nav__link">
+    <a href="../../12.vertex-statements/1.insert-vertex/" title="INSERT VERTEX" class="md-nav__link">
       INSERT VERTEX
     </a>
   </li>
@@ -774,7 +766,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../2.update-vertex/" title="UPDATE VERTEX" class="md-nav__link">
+    <a href="../../12.vertex-statements/2.update-vertex/" title="UPDATE VERTEX" class="md-nav__link">
       UPDATE VERTEX
     </a>
   </li>
@@ -786,7 +778,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../3.upsert-vertex/" title="UPSERT VERTEX" class="md-nav__link">
+    <a href="../../12.vertex-statements/3.upsert-vertex/" title="UPSERT VERTEX" class="md-nav__link">
       UPSERT VERTEX
     </a>
   </li>
@@ -796,49 +788,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        DELETE VERTEX
-      </label>
-    
-    <a href="./" title="DELETE VERTEX" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../12.vertex-statements/4.delete-vertex/" title="DELETE VERTEX" class="md-nav__link">
       DELETE VERTEX
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -1081,21 +1035,47 @@
               
                 
                 
-                <h1 id="delete_vertex">DELETE VERTEX<a class="headerlink" href="#delete_vertex" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid&gt; [, &lt;vid&gt; ...]
+                <h1 id="insert_edge">INSERT EDGE<a class="headerlink" href="#insert_edge" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES | VALUE}
+&lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; )
+[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...]
+
+&lt;prop_name_list&gt; ::=
+  [ &lt;prop_name&gt; [, &lt;prop_name&gt; ] ...]
+
+&lt;prop_value_list&gt; ::=
+  [ &lt;prop_value&gt; [, &lt;prop_value&gt; ] ...]
 </code></pre></div>
-<p>Use <code>DELETE VERTEX</code> to delete vertices and the related incoming and outgoing edges of the vertices. The <code>DELETE VERTEX</code> statement deletes one vertex or multiple vertices at a time. You can use <code>DELETE VERTEX</code> together with pipe. For more information about pipe, see <a href="../../5.operators/4.pipe/">Pipe operator</a>.</p>
+<p>The <code>INSERT EDGE</code> statement inserts an edge from a source vertex (given by src_vid) to a destination vertex (given by dst_vid).</p>
+<ul>
+<li><code>&lt;edge_type&gt;</code> denotes the edge type, which must be created before <code>INSERT EDGE</code>. Only one edge type can be specified in this statement.</li>
+<li><code>&lt;prop_name_list&gt;</code> is the property name list in the given <code>&lt;edge_type&gt;</code>.</li>
+<li><code>&lt;prop_value_list&gt;</code> must provide the value list according to <code>&lt;prop_name_list&gt;</code>. If the property values do not match the data type in the edge type, an error is returned. When the <code>NOT NULL</code> constraint is set for a given property, an error is returned if no property is given. When the default value for a property is <code>NULL</code>, you can omit to specify the property value. (TODO: create edge doc)</li>
+<li><code>rank</code> is optional. It specifies the edge rank of the same edge type. If not specified, the default value is 0. You can insert many edges with the same edge type for two vertices by using different rank values.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX &quot;team1&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1();                    -- create edge type t1 with empty property
+nebula&gt; INSERT EDGE e1 () VALUES &quot;10&quot;-&gt;&quot;11&quot;:();    -- insert an edge from vertex &quot;10&quot; to vertex &quot;11&quot; with empty property
+nebula&gt; INSERT EDGE e1 () VALUES &quot;10&quot;-&gt;&quot;11&quot;@1:();  -- insert an edge from vertex &quot;10&quot; to vertex &quot;11&quot; with empty property, the edge rank is 1
 </code></pre></div>
-<p>This query deletes the vertex whose ID is "team1".</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER serve YIELD serve._dst AS id | DELETE VERTEX $-.id;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e2 (name string, age int);                     -- create edge type e2 with two properties
+nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 1);          -- insert edge from &quot;11&quot; to &quot;13&quot; with two properties
+nebula&gt; INSERT EDGE e2 (name, age) VALUES \
+&quot;12&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 1), &quot;13&quot;-&gt;&quot;14&quot;:(&quot;n2&quot;, 2);                           -- insert two edges
+nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, &quot;a13&quot;);      -- ERROR. &quot;a13&quot; is not int
 </code></pre></div>
-<p>This query shows that you can use <code>DELETE VERTEX</code> together with pipe.</p>
-<p>Nebula Graph traverses the incoming and outgoing edges related to the vertices and deletes them all. Then Nebula Graph deletes information related to the vertices.</p>
-<blockquote>
-<p><strong>NOTE:</strong> Atomic operation is not guaranteed during the entire process for now, so please retry when a failure occurs.</p>
-</blockquote>
+<p>An edge can be inserted/written multiple times. Only the last written values can be read.</p>
+<div class="highlight"><pre><span></span><code>-- insert edge with the new values.
+nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 12);
+nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 13);
+nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 14);
+nebula&gt; FETCH PROP ON e2 &quot;11&quot;-&gt;&quot;13&quot;;
++---------+---------+----------+---------+--------+
+| e2._src | e2._dst | e2._rank | e2.name | e2.age |
++---------+---------+----------+---------+--------+
+| &quot;11&quot;    | &quot;13&quot;    | 0        | &quot;n1&quot;    | 14     |
++---------+---------+----------+---------+--------+      -- Only the last write can be read
+</code></pre></div>
                 
                   
                 
@@ -1113,41 +1093,6 @@
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../3.upsert-vertex/" title="UPSERT VERTEX" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                UPSERT VERTEX
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../../15.subgraph-and-path/1.get-subgraph/" title="GET SUBGRAPH" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                GET SUBGRAPH
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
