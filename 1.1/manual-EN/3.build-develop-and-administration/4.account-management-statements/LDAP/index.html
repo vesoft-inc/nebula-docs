@@ -2677,60 +2677,52 @@
 <li>
 <p>Build the LDAP server and insert the corresponding record.</p>
 <p>For example, insert the username <code>test2</code>  with the corresponding password <code>passwdtest2</code>. Then check the user by the following command:</p>
-<div class="codehilite"><pre><span></span><code>ldapsearch -x -b <span class="s1">&#39;uid=test2,ou=it,dc=sys,dc=com&#39;</span>
+<div class="highlight"><pre><span></span><code>ldapsearch -x -b <span class="s1">&#39;uid=test2,ou=it,dc=sys,dc=com&#39;</span>
 </code></pre></div>
-
 </li>
 <li>
 <p>Put the <code>auth_ldap.so</code> file in the shared directory of the installation path.</p>
 </li>
 <li>Create a shadow account to install the <code>auth_ldap</code> plugin.<p>Login to <strong>Nebula Graph</strong> as root with password <code>nebula</code> and the <code>auth_type</code> is <code>password</code>:</p>
-<div class="codehilite"><pre><span></span><code>./bin/nebula -u root  -p nebula   --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
+<div class="highlight"><pre><span></span><code>./bin/nebula -u root  -p nebula   --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
 </code></pre></div>
-
 <p>Create a shadow account:</p>
-<div class="codehilite"><pre><span></span><code># You need to authorize the shadow account test2 first
+<div class="highlight"><pre><span></span><code># You need to authorize the shadow account test2 first
 nebula&gt; CREATE USER test2 WITH PASSWORD &quot;&quot;;
 </code></pre></div>
-
 <p>Install the <code>auth_ldap</code> plugin:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSTALL PLUGIN auth_ldap SONMAE &quot;auth_ldap.so&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; INSTALL PLUGIN auth_ldap SONMAE &quot;auth_ldap.so&quot;;
 </code></pre></div>
-
 <p>Check whether the plugin is installed successfully:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW PLUGINS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW PLUGINS;
 </code></pre></div>
-
 </li>
 </ol>
 <h2 id="uninstalling_ldap_plugin">Uninstalling LDAP Plugin<a class="headerlink" href="#uninstalling_ldap_plugin" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Login to <strong>Nebula Graph</strong> as root with password <code>nebula</code> and the <code>auth_type</code> is <code>password</code>:</p>
-<div class="codehilite"><pre><span></span><code>./bin/nebula -u root  -p nebula   --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
+<div class="highlight"><pre><span></span><code>./bin/nebula -u root  -p nebula   --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
 </code></pre></div>
-
 </li>
 <li>
 <p>Run the following command to uninstall the <code>auth_ldap</code> plugin:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UNINSTALL PLUGIN auth_ldap;
+<div class="highlight"><pre><span></span><code>nebula&gt; UNINSTALL PLUGIN auth_ldap;
 </code></pre></div>
-
 </li>
 </ol>
 <h2 id="enabling_ldap_authentication_in_nebula_graph">Enabling LDAP Authentication in Nebula Graph<a class="headerlink" href="#enabling_ldap_authentication_in_nebula_graph" title="Permanent link">&para;</a></h2>
 <p>LDAP authentication in <strong>Nebula Graph</strong> is disabled by default. To enable LDAP authentication in <strong>Nebula Graph</strong>:</p>
 <h3 id="enabling_the_authorization">Enabling the Authorization<a class="headerlink" href="#enabling_the_authorization" title="Permanent link">&para;</a></h3>
 <p>First, enable the authorization. Open the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default), and locate the <code>--enable_authorize</code> property. Change the value of the property to true:</p>
-<div class="codehilite"><pre><span></span><code>########## Authorization ##########
+<div class="highlight"><pre><span></span><code>########## Authorization ##########
 # Enable authorization
 --enable_authorize=true
 </code></pre></div>
-
 <h3 id="configuring_nebula_graph">Configuring Nebula Graph<a class="headerlink" href="#configuring_nebula_graph" title="Permanent link">&para;</a></h3>
 <p>Then configure <strong>Nebula Graph</strong> to use LDAP. There are two LDAP methods that you use to authenticate your <strong>Nebula Graph</strong> services against an LDAP server.</p>
 <ul>
-<li><strong>Simple bind authentication</strong>. Open the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default), and locate the <code>Authentication</code> section. Change the value of the <code>auth_type</code> to <code>ldap</code> and add the following properties:<div class="codehilite"><pre><span></span><code>########## Authentication ##########
+<li><strong>Simple bind authentication</strong>. Open the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default), and locate the <code>Authentication</code> section. Change the value of the <code>auth_type</code> to <code>ldap</code> and add the following properties:<div class="highlight"><pre><span></span><code>########## Authentication ##########
 # User login authentication type, password for nebula authentication, ldap for ldap authentication, cloud for cloud authentication
 --auth_type=ldap
 --ldap_server=127.0.0.1
@@ -2739,11 +2731,10 @@ nebula&gt; CREATE USER test2 WITH PASSWORD &quot;&quot;;
 --ldap_prefix=uid=
 --ldap_suffix=,ou=it,dc=sys,dc=com
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li><strong>Search and bind authentication</strong>. Open the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default), and locate the <code>Authentication</code> section. Change the value of the <code>auth_type</code> to <code>ldap</code> and add the following properties:<div class="codehilite"><pre><span></span><code>########## Authentication ##########
+<li><strong>Search and bind authentication</strong>. Open the <code>nebula-graphd.conf</code> file (the directory is <code>/usr/local/nebula/etc/</code> by default), and locate the <code>Authentication</code> section. Change the value of the <code>auth_type</code> to <code>ldap</code> and add the following properties:<div class="highlight"><pre><span></span><code>########## Authentication ##########
 # User login authentication type, password for nebula authentication, ldap for ldap authentication, cloud for cloud authentication
 --auth_type=ldap
 --ldap_server=127.0.0.1
@@ -2752,19 +2743,17 @@ nebula&gt; CREATE USER test2 WITH PASSWORD &quot;&quot;;
 --ldap_prefix=uid=
 --ldap_suffix=,ou=it,dc=sys,dc=com
 </code></pre></div>
-
 </li>
 </ul>
 <h3 id="restart_services">Restart Services<a class="headerlink" href="#restart_services" title="Permanent link">&para;</a></h3>
 <p>Save and close the file. Restart the services:</p>
-<div class="codehilite"><pre><span></span><code>/usr/local/nebula/scripts/nebula.service restart all
+<div class="highlight"><pre><span></span><code>/usr/local/nebula/scripts/nebula.service restart all
 </code></pre></div>
-
 <h2 id="disabling_ldap_authentication_in_nebula_graph">Disabling LDAP Authentication in Nebula Graph<a class="headerlink" href="#disabling_ldap_authentication_in_nebula_graph" title="Permanent link">&para;</a></h2>
 <p>You can disable LDAP authentication in <strong>Nebula Graph</strong> by setting the  <code>--enable_authorize</code> parameter to <code>false</code> in the <code>nebula-graphd.conf</code> file and restarting the services.</p>
 <h2 id="connecting_to_nebula_graph_through_ldap_authentication">Connecting to Nebula Graph Through LDAP Authentication<a class="headerlink" href="#connecting_to_nebula_graph_through_ldap_authentication" title="Permanent link">&para;</a></h2>
 <p>Once configuration completes, you can connect to <strong>Nebula Graph</strong> through LDAP authentication with the following command:</p>
-<div class="codehilite"><pre><span></span><code>./bin/nebula -u test2 -p passwdtest2 --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
+<div class="highlight"><pre><span></span><code>./bin/nebula -u test2 -p passwdtest2 --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
 </code></pre></div>
                 
                   

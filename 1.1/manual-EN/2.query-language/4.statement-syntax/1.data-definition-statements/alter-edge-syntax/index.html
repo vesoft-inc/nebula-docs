@@ -2502,7 +2502,7 @@
                 
                 
                 <h1 id="alter_edge_syntax">ALTER EDGE Syntax<a class="headerlink" href="#alter_edge_syntax" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>ALTER EDGE &lt;edge_name&gt;
+<div class="highlight"><pre><span></span><code>ALTER EDGE &lt;edge_name&gt;
     &lt;alter_definition&gt; [, alter_definition] ...]
     [ttl_definition [, ttl_definition] ... ]
 
@@ -2514,21 +2514,19 @@ alter_definition:
 ttl_definition:
     TTL_DURATION = ttl_duration, TTL_COL = prop_name
 </code></pre></div>
-
 <p><code>ALTER EDGE</code> statement changes the structure of an edge. For example, you can add or delete properties, change the data type of an existing property. You can also set a property as TTL (Time-To-Live), or change the TTL duration.</p>
 <blockquote>
 <p><strong>NOTE</strong>: <strong>Nebula Graph</strong> automatically examines indexes when altering an edge. When altering an edge, <strong>Nebula Graph</strong> first checks whether the edge is associated with any indexes then traverses all of them to check whether the column item to be dropped or changed exists in the index column. If existed, the alter is rejected. Otherwise, it is allowed.</p>
 </blockquote>
 <p>Please refer to <a href="../">Index Documentation</a> on details about index.</p>
 <p>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER</code> statements, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the <code>ALTER</code> statement.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
 nebula&gt; ALTER EDGE e1 ADD (prop1 int, prop2 string),    /* 添加 prop1 */
               CHANGE (prop3 string),            /* 将 prop3 类型更改为字符 */
               DROP (prop4, prop5);               /* 删除 prop4 和 prop5 */
 
 nebula&gt; ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = &quot;prop1&quot;;
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: <code>TTL_COL</code> only supports the properties whose values are of the <code>INT</code> or the <code>TIMESTAMP</code> type.</p>
 </blockquote>

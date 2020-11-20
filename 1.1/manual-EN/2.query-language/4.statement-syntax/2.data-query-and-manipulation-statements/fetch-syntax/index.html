@@ -2616,16 +2616,15 @@
 <p>The <code>FETCH</code> syntax is used to get vertex/edge's properties.</p>
 <h2 id="fetch_vertex_properties">Fetch Vertex Properties<a class="headerlink" href="#fetch_vertex_properties" title="Permanent link">&para;</a></h2>
 <p>Use <code>FETCH PROP ON</code> to return a (list of) vertex's properties. Currently, you can get multiple vertices' properties with the same tag in one statement. You can use <code>FETCH</code> together with <a href="../../../3.language-structure/pipe-syntax/">pipe</a> and <a href="../../../3.language-structure/user-defined-variables/">user defined variables</a>.</p>
-<div class="codehilite"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vertex_id_list&gt; [YIELD [DISTINCT] &lt;return_list&gt;]
+<div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vertex_id_list&gt; [YIELD [DISTINCT] &lt;return_list&gt;]
 </code></pre></div>
-
 <p>Fetch <code>&lt;tag_name_list&gt;</code> is only available for version 1.0.1 or later version. If your <strong>Nebula Graph</strong> is earlier than 1.0.1, you can only fetch one type of vertices in a single query.</p>
 <p><code>*</code> indicates returning all the properties of the given vertex.</p>
 <p><code>&lt;tag_name_list&gt;::=[tag_name [, tag_name]]</code> is the tag name. It must be the same tag within return_list.</p>
 <p><code>&lt;vertex_id_list&gt;::=[vertex_id [, vertex_id]]</code> is a list of vertex IDs separated by comma (,).</p>
 <p><code>[YIELD [DISTINCT] &lt;return_list&gt;]</code> is the property list returned. Please refer <a href="../yield-syntax/">YIELD Syntax</a> for usage.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>-- return all the properties of vertex 100.
+<div class="highlight"><pre><span></span><code>-- return all the properties of vertex 100.
 nebula&gt; FETCH PROP ON * 100;
 
 -- return all the properties on tag player and team of vertex 100, 102
@@ -2655,19 +2654,17 @@ nebula&gt; $var = GO FROM 100 OVER follow YIELD follow._dst AS id; FETCH PROP ON
 -- get three vertices 100, 101, 102 and return by unique(distinct) name and age.
 nebula&gt; FETCH PROP ON player 100,101,102 YIELD DISTINCT player.name, player.age;
 </code></pre></div>
-
 <h2 id="fetch_edge_property">Fetch Edge Property<a class="headerlink" href="#fetch_edge_property" title="Permanent link">&para;</a></h2>
 <p>The <code>FETCH</code> usage of an edge is almost the same with vertex.
 You can get properties from multiple edges with the same type.</p>
-<div class="codehilite"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;vid&gt; -&gt; &lt;vid&gt;[@&lt;rank&gt;] [, &lt;vid&gt; -&gt; &lt;vid&gt; ...] [YIELD [DISTINCT] &lt;return_list&gt;]
+<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;vid&gt; -&gt; &lt;vid&gt;[@&lt;rank&gt;] [, &lt;vid&gt; -&gt; &lt;vid&gt; ...] [YIELD [DISTINCT] &lt;return_list&gt;]
 </code></pre></div>
-
 <p><code>&lt;edge_type&gt;</code> specifies the edge's type. It must be the same as those in <code>&lt;return_list&gt;</code>.</p>
 <p><code>&lt;vid&gt; -&gt; &lt;vid&gt;</code> denotes a starting vertex to (-&gt;) an ending vertex. Multiple edges are separated by comma(,).</p>
 <p><code>&lt;rank&gt;</code> specifies the edge rank of the same edge type; it's optional. If not specified, the edge ranked 0 is returned by default.</p>
 <p><code>[YIELD [DISTINCT] &lt;return_list&gt;]</code> is the property list returned.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>-- from vertex 100 to 200 with edge type serve, get all the properties since no YIELD is given.
+<div class="highlight"><pre><span></span><code>-- from vertex 100 to 200 with edge type serve, get all the properties since no YIELD is given.
 nebula&gt; FETCH PROP ON serve 100 -&gt; 200;
 
 -- only return property start_year.

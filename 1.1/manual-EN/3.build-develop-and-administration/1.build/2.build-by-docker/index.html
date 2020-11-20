@@ -2589,40 +2589,35 @@
                 <h1 id="building_with_docker_container">Building With Docker Container<a class="headerlink" href="#building_with_docker_container" title="Permanent link">&para;</a></h1>
 <p><strong>Nebula Graph</strong> has provided a docker image with the whole compiling environment <a href="https://hub.docker.com/r/vesoft/nebula-dev">vesoft/nebula-dev</a>, which will make it possible to change source code locally, build and debug within the container. Performing the following steps to start quick development:</p>
 <h2 id="pull_image_from_docker_hub">Pull Image From Docker Hub<a class="headerlink" href="#pull_image_from_docker_hub" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>bash&gt; docker pull vesoft/nebula-dev
+<div class="highlight"><pre><span></span><code>bash&gt; docker pull vesoft/nebula-dev
 </code></pre></div>
-
 <h2 id="run_docker_container">Run Docker Container<a class="headerlink" href="#run_docker_container" title="Permanent link">&para;</a></h2>
 <p>Run docker container and mount your local source code directory into the container working_dir <code>/home/nebula</code> with the following command.</p>
-<div class="codehilite"><pre><span></span><code>bash&gt; docker run --rm -ti <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>bash&gt; docker run --rm -ti <span class="se">\</span>
   --security-opt <span class="nv">seccomp</span><span class="o">=</span>unconfined <span class="se">\</span>
   -v /path/to/nebula/directory:/home/nebula <span class="se">\</span>
   -w /home/nebula <span class="se">\</span>
   vesoft/nebula-dev <span class="se">\</span>
   bash
 </code></pre></div>
-
 <p>Replace <code>/path/to/nebula/directory</code> with your <strong>local nebula source code directory</strong>.</p>
 <h2 id="compiling_within_the_container">Compiling Within the Container<a class="headerlink" href="#compiling_within_the_container" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>docker&gt; mkdir _build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> _build
+<div class="highlight"><pre><span></span><code>docker&gt; mkdir _build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> _build
 docker&gt; cmake ..
 docker&gt; make
 docker&gt; make install
 </code></pre></div>
-
 <h2 id="run_nebula_graph_service">Run Nebula Graph service<a class="headerlink" href="#run_nebula_graph_service" title="Permanent link">&para;</a></h2>
 <p>Once the preceding installation is completed, you can run <strong>Nebula Graph</strong> service within the container, the default installation directory is <code>/usr/local/nebula/</code>.</p>
-<div class="codehilite"><pre><span></span><code>docker&gt; <span class="nb">cd</span> /usr/local/nebula
+<div class="highlight"><pre><span></span><code>docker&gt; <span class="nb">cd</span> /usr/local/nebula
 </code></pre></div>
-
 <p>Rename config files of <strong>Nebula Graph</strong> service.</p>
-<div class="codehilite"><pre><span></span><code>docker&gt; cp etc/nebula-graphd.conf.default etc/nebula-graphd.conf
+<div class="highlight"><pre><span></span><code>docker&gt; cp etc/nebula-graphd.conf.default etc/nebula-graphd.conf
 docker&gt; cp etc/nebula-metad.conf.default etc/nebula-metad.conf
 docker&gt; cp etc/nebula-storaged.conf.default etc/nebula-storaged.conf
 </code></pre></div>
-
 <p>Start service.</p>
-<div class="codehilite"><pre><span></span><code>docker&gt; ./scripts/nebula.service start all
+<div class="highlight"><pre><span></span><code>docker&gt; ./scripts/nebula.service start all
 docker&gt; ./bin/nebula -u root -p nebula --port <span class="m">3699</span> --addr<span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span>
 nebula&gt; SHOW HOSTS<span class="p">;</span>
 </code></pre></div>

@@ -2840,11 +2840,10 @@
 <h2 id="create_nebula_graph_cluster">Create Nebula Graph cluster<a class="headerlink" href="#create_nebula_graph_cluster" title="Permanent link">&para;</a></h2>
 <h3 id="initialize_the_docker_swarm_cluster">Initialize the Docker Swarm cluster<a class="headerlink" href="#initialize_the_docker_swarm_cluster" title="Permanent link">&para;</a></h3>
 <p>Execute the following command on host <code>192.168.1.166</code>:</p>
-<div class="codehilite"><pre><span></span><code>$ docker swarm init --advertise-addr <span class="m">192</span>.168.1.166
+<div class="highlight"><pre><span></span><code>$ docker swarm init --advertise-addr <span class="m">192</span>.168.1.166
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>Swarm initialized: current node <span class="o">(</span>dxn1zf6l61qsb1josjja83ngz<span class="o">)</span> is now a manager.
+<div class="highlight"><pre><span></span><code>Swarm initialized: current node <span class="o">(</span>dxn1zf6l61qsb1josjja83ngz<span class="o">)</span> is now a manager.
 To add a worker to this swarm, run the following command:
  docker swarm join <span class="se">\</span>
  --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c <span class="se">\</span>
@@ -2852,57 +2851,47 @@ To add a worker to this swarm, run the following command:
 
 To add a manager to this swarm, run <span class="s1">&#39;docker swarm join-token manager&#39;</span> and follow the instructions.
 </code></pre></div>
-
 <h3 id="add_a_worker_node">Add a worker node<a class="headerlink" href="#add_a_worker_node" title="Permanent link">&para;</a></h3>
 <p>Add a Swarm worker node based on the notification message of the preceding <code>docker swarm init</code> command. Execute the following command on <code>192.168.1.167</code> and <code>192.168.1.168</code> respectively.</p>
-<div class="codehilite"><pre><span></span><code>$ docker swarm join <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$ docker swarm join <span class="se">\</span>
  --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c <span class="se">\</span>
  <span class="m">192</span>.168.1.166:2377
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>This node joined a swarm as a worker.
+<div class="highlight"><pre><span></span><code>This node joined a swarm as a worker.
 </code></pre></div>
-
 <h3 id="authenticate_the_cluster">Authenticate the cluster<a class="headerlink" href="#authenticate_the_cluster" title="Permanent link">&para;</a></h3>
 <p>Execute the following command on the manager node to list the Docker Swarm nodes:</p>
-<div class="codehilite"><pre><span></span><code>$ docker node ls
+<div class="highlight"><pre><span></span><code>$ docker node ls
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+<div class="highlight"><pre><span></span><code>ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 h0az2wzqetpwhl9ybu76yxaen *   KF2-DATA-166        Ready               Active              Reachable           <span class="m">18</span>.06.1-ce
 q6jripaolxsl7xqv3cmv5pxji     KF2-DATA-167        Ready               Active              Leader              <span class="m">18</span>.06.1-ce
 h1iql1uvm7123h3gon9so69dy     KF2-DATA-168        Ready               Active                                  <span class="m">18</span>.06.1-ce
 </code></pre></div>
-
 <h3 id="configure_docker_stack">Configure Docker Stack<a class="headerlink" href="#configure_docker_stack" title="Permanent link">&para;</a></h3>
 <p>Execute the following command on the manager node to add the Docker Stack configuration file:</p>
-<div class="codehilite"><pre><span></span><code>vi docker-stack.yml
+<div class="highlight"><pre><span></span><code>vi docker-stack.yml
 </code></pre></div>
-
 <p>You must configure with your own IPs and port numbers. For the sample configuration file, refer to <a href="../docker-stack.yml">here</a>.</p>
 <p>Execute the following command on the manager node to add the <code>nebula.env</code> file:</p>
-<div class="codehilite"><pre><span></span><code>$ vi nebula.env
+<div class="highlight"><pre><span></span><code>$ vi nebula.env
 </code></pre></div>
-
 <p>Add the following content to the <code>nebula.env</code> file:</p>
-<div class="codehilite"><pre><span></span><code>TZ=UTC
+<div class="highlight"><pre><span></span><code>TZ=UTC
 USER=root
 </code></pre></div>
-
 <h3 id="start_the_cluster">Start the cluster<a class="headerlink" href="#start_the_cluster" title="Permanent link">&para;</a></h3>
 <p>Execute the following command on the manager node to start the Nebula Graph cluster:</p>
-<div class="codehilite"><pre><span></span><code>$ docker stack deploy nebula -c docker-stack.yml
+<div class="highlight"><pre><span></span><code>$ docker stack deploy nebula -c docker-stack.yml
 </code></pre></div>
-
 <h3 id="list_the_cluster_services">List the cluster services<a class="headerlink" href="#list_the_cluster_services" title="Permanent link">&para;</a></h3>
 <p>Execute the following command on the manager node to list the cluster services:</p>
-<div class="codehilite"><pre><span></span><code>$ docker service ls
+<div class="highlight"><pre><span></span><code>$ docker service ls
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>ID                  NAME                MODE                REPLICAS            IMAGE                            PORTS
+<div class="highlight"><pre><span></span><code>ID                  NAME                MODE                REPLICAS            IMAGE                            PORTS
 43abplqq0h2z        nebula_graphd1      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
 jkmnyzy2772s        nebula_graphd2      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
 uo79ebcp41uw        nebula_graphd3      replicated          <span class="m">1</span>/1                 vesoft/nebula-graphd:nightly
@@ -2913,19 +2902,17 @@ ivs5i0o69505        nebula_storaged0    replicated          <span class="m">1</s
 y1xlsym8q90s        nebula_storaged1    replicated          <span class="m">1</span>/1                 vesoft/nebula-storaged:nightly
 xwgu2sfi2qso        nebula_storaged2    replicated          <span class="m">1</span>/1                 vesoft/nebula-storaged:nightly
 </code></pre></div>
-
 <h2 id="configure_cluster_for_load_balancing_and_high_availability_optional">Configure cluster for load balancing and high availability (optional)<a class="headerlink" href="#configure_cluster_for_load_balancing_and_high_availability_optional" title="Permanent link">&para;</a></h2>
 <p>Currently, the Nebula Graph clients (1.X) do not provide load balancing. The clients select any graphd to connect the database randomly. Therefore, you need to configure load balancing and high availability for production environment. The load balancing and high availability solution in this document is only for demonstration. Add other third party solutions based on your requirements.</p>
 <h3 id="configure_load_balancing">Configure load balancing<a class="headerlink" href="#configure_load_balancing" title="Permanent link">&para;</a></h3>
 <p>HAProxy uses Docker compose for configuration. Edit the following three files respectively:</p>
 <p>Add the following content in the <code>Dockerfile</code> file:</p>
-<div class="codehilite"><pre><span></span><code>FROM haproxy:1.7
+<div class="highlight"><pre><span></span><code>FROM haproxy:1.7
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 EXPOSE <span class="m">3640</span>
 </code></pre></div>
-
 <p>Add the following content in the <code>docker-compose.yml</code> file:</p>
-<div class="codehilite"><pre><span></span><code>version: &quot;3.2&quot;
+<div class="highlight"><pre><span></span><code>version: &quot;3.2&quot;
 services:
   haproxy:
     container_name: haproxy
@@ -2941,10 +2928,9 @@ networks:
   app_net:
     external: true
 </code></pre></div>
-
 <p>Add the following content in the <code>haproxy.cfg</code> file:</p>
 <p>You must configure with your own IPs and port numbers.</p>
-<div class="codehilite"><pre><span></span><code><span class="na">global</span>
+<div class="highlight"><pre><span></span><code><span class="na">global</span>
     <span class="na">daemon</span>
     <span class="na">maxconn 30000</span>
     <span class="na">log 127.0.0.1 local0 info</span>
@@ -2977,18 +2963,15 @@ networks:
     <span class="na">stats refresh 30s</span>
     <span class="na">stats uri /stats</span>
 </code></pre></div>
-
 <h3 id="start_haproxy">Start HAProxy<a class="headerlink" href="#start_haproxy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>$ docker-compose up -d
+<div class="highlight"><pre><span></span><code>$ docker-compose up -d
 </code></pre></div>
-
 <h3 id="configure_high_availability">Configure high availability<a class="headerlink" href="#configure_high_availability" title="Permanent link">&para;</a></h3>
 <p>Do the following operations on <code>192.168.1.166</code>, <code>192.168.1.167</code>, and <code>192.168.1.168</code>.</p>
 <h4 id="install_keepalived">Install Keepalived<a class="headerlink" href="#install_keepalived" title="Permanent link">&para;</a></h4>
 <p>Execute the following command to install Keepalived:</p>
-<div class="codehilite"><pre><span></span><code>apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade <span class="o">&amp;&amp;</span> apt-get install keepalived -y
+<div class="highlight"><pre><span></span><code>apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade <span class="o">&amp;&amp;</span> apt-get install keepalived -y
 </code></pre></div>
-
 <h4 id="configure_keepalived">Configure Keepalived<a class="headerlink" href="#configure_keepalived" title="Permanent link">&para;</a></h4>
 <p>Modify the Keepalived configuration file <code>/etc/keepalived/keepalived.conf</code>. To ensure that there is a priority in the three hosts, you must set the priority parameters to different values. For the sample configuration file, refer to <a href="../keepalived.conf">here</a>.</p>
 <p><strong>NOTE</strong>: To configure Keepalive, you need a virtual IP. In the sample configurations, <code>192.168.1.99</code> is the virtual IP.</p>

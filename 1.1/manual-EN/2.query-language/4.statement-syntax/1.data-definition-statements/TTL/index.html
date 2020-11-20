@@ -2608,29 +2608,26 @@
 <ul>
 <li>Setting a TTL value for the existed tag.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(a timestamp);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(a timestamp);
 nebula&gt; ALTER TAG t1 ttl_col = &quot;a&quot;, ttl_duration = 5; -- Setting ttl
 nebula&gt; INSERT VERTEX t1(a) values 101:(now());
 </code></pre></div>
-
 <p>The vertex 101 property in tag t1 will expire in 5 seconds since specified by now().</p>
 <ul>
 <li>Or you can set the TTL attribute when creating the tag.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = &quot;a&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = &quot;a&quot;;
 nebula&gt; INSERT VERTEX t2(a, b, c) values 102:(1584441231, 30, &quot;Word&quot;);
 </code></pre></div>
-
 <p>The vertex 102 property in tag t2 will expire in 100 seconds since March 17 2020 at 18:33:51 CST i.e. the timestamp is 1584441231.</p>
 <ul>
 <li>When a vertex has multiple TAGs, the TTL of each TAG is independent from each other.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t3(a string);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t3(a string);
 nebula&gt; INSERT VERTEX t1(a),t3(a) values 200:(now(), &quot;hello&quot;);
 </code></pre></div>
-
 <p>The vertex 200 property in tag t1 will expire in 5 seconds.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON t1 200;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON t1 200;
 Execution succeeded (Time spent: 5.945/7.492 ms)
 
 nebula&gt; FETCH PROP ON t3 200;
@@ -2647,44 +2644,36 @@ nebula&gt; FETCH PROP ON * 200;
 | 200      | hello   |
 ----------------------
 </code></pre></div>
-
 <h2 id="dropping_ttl">Dropping TTL<a class="headerlink" href="#dropping_ttl" title="Permanent link">&para;</a></h2>
 <p>If you have set a TTL value for a field and later decide do not want it to ever automatically expire, you can drop the TTL value, set it to an empty string or invalidate it by setting it to 0.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_col = &quot;&quot;; -- drop ttl attribute;
+<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_col = &quot;&quot;; -- drop ttl attribute;
 </code></pre></div>
-
 <p>Drop the field a with the ttl attribute:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; ALTER TAG t1 DROP (a); -- drop ttl_col
+<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 DROP (a); -- drop ttl_col
 </code></pre></div>
-
 <p>Invalidate the TTL:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_duration = 0; -- keep the ttl but the data never expires
+<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 ttl_duration = 0; -- keep the ttl but the data never expires
 </code></pre></div>
-
 <h2 id="tips_on_ttl">Tips on TTL<a class="headerlink" href="#tips_on_ttl" title="Permanent link">&para;</a></h2>
 <ul>
 <li>If a field contains a <code>ttl_col</code> field, you can't make any change on the field.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
 nebula&gt; ALTER TAG t1 CHANGE (a string); -- failed
 </code></pre></div>
-
 <ul>
 <li>Note that the a tag or an edge cannot have both the TTL attribute and index at the same time, even if the <code>ttl_col</code> column is different from that of the index.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
 nebula&gt; CREATE TAG INDEX id1 ON t1(a); -- failed
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string) ttl_duration = 100, ttl_col = &quot;a&quot;;
 nebula&gt; CREATE TAG INDEX id1 ON t1(b); -- failed
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1(a int, b int, c string);
 nebula&gt; CREATE TAG INDEX id1 ON t1(a);
 nebula&gt; ALTER TAG t1 ttl_col = &quot;a&quot;, ttl_duration = 100; -- failed
 </code></pre></div>
-
 <ul>
 <li>Adding TTL to an edge is similar to a tag.</li>
 </ul>

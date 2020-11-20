@@ -2550,14 +2550,13 @@
 <h2 id="low_performance_and_compatibility_issues_for_uuid">Low Performance and compatibility issues for UUID<a class="headerlink" href="#low_performance_and_compatibility_issues_for_uuid" title="Permanent link">&para;</a></h2>
 <p>Values generated with the <code>UUID</code> are stored in the <strong>Nebula Graph</strong> Storage service in key-value mode. When called, it checks whether this key exists or conflicts. So the performance may be lower than hash. In addition, <code>UUID</code> may not be available in future versions.</p>
 <p>Insert with <code>UUID</code>:</p>
-<div class="codehilite"><pre><span></span><code>-- Insert a vertex with the UUID function.
+<div class="highlight"><pre><span></span><code>-- Insert a vertex with the UUID function.
 nebula&gt; INSERT VERTEX player (name, age) VALUES uuid(&quot;n0&quot;):(&quot;n0&quot;, 21);
 -- Insert an edge with the UUID function.
 nebula&gt; INSERT EDGE follow(degree) VALUES uuid(&quot;n0&quot;) -&gt; uuid(&quot;n1&quot;): (90);
 </code></pre></div>
-
 <p>Fetch with <code>UUID</code>:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player uuid(&quot;n0&quot;) YIELD player.name, player.age;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player uuid(&quot;n0&quot;) YIELD player.name, player.age;
 -- The following result is returned:
 ===================================================
 | VertexID             | player.name | player.age |
@@ -2572,9 +2571,8 @@ nebula&gt; FETCH PROP ON follow uuid(&quot;n0&quot;) -&gt; uuid(&quot;n1&quot;);
 | -5057115778034027261 | 4039977434270020867 | 0            | 90            |
 -----------------------------------------------------------------------------
 </code></pre></div>
-
 <p><code>Go</code> with <code>UUID</code>:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM uuid(&quot;n0&quot;) OVER follow;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM uuid(&quot;n0&quot;) OVER follow;
 --The following result is returned:
 =======================
 | follow._dst         |

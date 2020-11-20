@@ -2975,7 +2975,7 @@
 <ol>
 <li>
 <p>Check the cluster machine status:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -2984,14 +2984,12 @@
 | 192.168.8.211 | 44500 | online |              |                     |                        |
 ------------------------------------------------------------------------------------------------
 </code></pre></div>
-
 <p>The status <code>online</code> indicates that the <strong>storage service</strong> <code>storaged</code> has successfully connected to the <strong>metadata service process</strong> <code>metad</code>.</p>
 </li>
 <li>
 <p>Enter the following statement to create a graph space:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=10, replica_factor=1);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=10, replica_factor=1);
 </code></pre></div>
-
 <p><strong>Here</strong>:</p>
 <ul>
 <li><code>partition_num</code> specifies the number of partitions in one replica. It is usually 5 times the number of hard disks in the cluster.</li>
@@ -3000,7 +2998,7 @@
 <li><code>replica_factor</code> specifies the number of replicas in the cluster. It is usually 3 in production, 1 in test. Due to the majority voting principle, it must set to be odd.</li>
 </ul>
 <p>You can also check machine and partition distribution with <code>SHOW HOSTS</code> statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -3009,9 +3007,8 @@
 | 192.168.8.211 | 44500 | online | 2            | nba: 2              | test: 2                |
 ------------------------------------------------------------------------------------------------
 </code></pre></div>
-
 <p>If all the machines are online, but the leader distribution is unbalanced (see above), re-distribute partitions with <code>BALANCE LEADER</code> statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 ================================================================================================
 | Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
 ================================================================================================
@@ -3020,28 +3017,24 @@
 | 192.168.8.211 | 44500 | online | 5            | nba: 5              | test: 5                |
 ------------------------------------------------------------------------------------------------
 </code></pre></div>
-
 <p>See <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax/">here</a> for details.</p>
 </li>
 <li>
 <p>Enter the following statement to use the graph space:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; USE nba;
+<div class="highlight"><pre><span></span><code>nebula&gt; USE nba;
 </code></pre></div>
-
 </li>
 <li>
 <p>Now you can check the graph space you just created:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW SPACES;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>========
+<div class="highlight"><pre><span></span><code>========
 | Name |
 ========
 | nba  |
 --------
 </code></pre></div>
-
 </li>
 </ol>
 <h3 id="defining_the_schema_for_your_data">Defining the Schema for Your Data<a class="headerlink" href="#defining_the_schema_for_your_data" title="Permanent link">&para;</a></h3>
@@ -3050,36 +3043,31 @@
 <ol>
 <li>
 <p>Enter the following statement to create the <strong>player</strong> tag:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
 </code></pre></div>
-
 </li>
 <li>
 <p>Enter the following statement to create the <strong>team</strong> tag:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG team(name string);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG team(name string);
 </code></pre></div>
-
 </li>
 <li>
 <p>Enter the following statement to create the <strong>follow</strong> edge type:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE follow(degree int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE follow(degree int);
 </code></pre></div>
-
 </li>
 <li>
 <p>Enter the following statement to create the <strong>serve</strong> edge type:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE serve(start_year int, end_year int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
-
 </li>
 <li>
 <p>Now you can check the tags and edge types you just created.</p>
 <p>5.1 To show the tags you just created, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW TAGS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW TAGS;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>============
+<div class="highlight"><pre><span></span><code>============
 | Name     |
 ============
 | player   |
@@ -3087,13 +3075,11 @@
 | team     |
 ------------
 </code></pre></div>
-
 <p>5.2 To show the edge types you just created, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW EDGES;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW EDGES;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>==========
+<div class="highlight"><pre><span></span><code>==========
 | Name   |
 ==========
 | serve  |
@@ -3101,13 +3087,11 @@
 | follow |
 ----------
 </code></pre></div>
-
 <p>5.3 To show the properties of the <strong>player</strong> tag, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DESCRIBE TAG player;
+<div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE TAG player;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>===================
+<div class="highlight"><pre><span></span><code>===================
 | Field  | Type   |
 ===================
 | name   | string |
@@ -3115,19 +3099,16 @@
 | age    | int    |
 -------------------
 </code></pre></div>
-
 <p>5.4 To show the properties of the <strong>follow</strong> edge type, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DESCRIBE EDGE follow;
+<div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE EDGE follow;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>=====================
+<div class="highlight"><pre><span></span><code>=====================
 | Field    | Type   |
 =====================
 | degree   | int    |
 ---------------------
 </code></pre></div>
-
 </li>
 </ol>
 <h2 id="crud">CRUD<a class="headerlink" href="#crud" title="Permanent link">&para;</a></h2>
@@ -3136,14 +3117,13 @@
 <h4 id="inserting_vertices">Inserting Vertices<a class="headerlink" href="#inserting_vertices" title="Permanent link">&para;</a></h4>
 <p>The <code>INSERT VERTEX</code> statement inserts a vertex by specifying the vertex tag, properties, vertex ID and property values.</p>
 <p>You can insert some vertices by the following statements:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 100:(&quot;Tim Duncan&quot;, 42);
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 100:(&quot;Tim Duncan&quot;, 42);
 nebula&gt; INSERT VERTEX player(name, age) VALUES 101:(&quot;Tony Parker&quot;, 36);
 nebula&gt; INSERT VERTEX player(name, age) VALUES 102:(&quot;LaMarcus Aldridge&quot;, 33);
 nebula&gt; INSERT VERTEX team(name) VALUES 200:(&quot;Warriors&quot;);
 nebula&gt; INSERT VERTEX team(name) VALUES 201:(&quot;Nuggets&quot;);
 nebula&gt; INSERT VERTEX player(name, age) VALUES 121:(&quot;Useless&quot;, 60);
 </code></pre></div>
-
 <ul>
 <li>In the above vertices inserted, the number after the keyword <code>VALUES</code> is the vertex ID (abbreviated for <code>VID</code>, int64). The <code>VID</code> must be unique in the space.</li>
 </ul>
@@ -3153,95 +3133,82 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES 121:(&quot;Useless&quot;, 60);
 <ul>
 <li>If you want to insert multiple vertices for the same tag by a single <code>INSERT VERTEX</code> operation, you can enter the following statement:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 100:(&quot;Tim Duncan&quot;, 42), \
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 100:(&quot;Tim Duncan&quot;, 42), \
 101:(&quot;Tony Parker&quot;, 36), 102:(&quot;LaMarcus Aldridge&quot;, 33);
 </code></pre></div>
-
 <h4 id="inserting_edges">Inserting Edges<a class="headerlink" href="#inserting_edges" title="Permanent link">&para;</a></h4>
 <p>The <code>INSERT EDGE</code> statement inserts an edge by specifying the edge type name, properties, source vertex VID and target vertex VID, and property values.</p>
 <p>You can insert some edges by the following statements:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95);
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95);
 nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 102:(90);
 nebula&gt; INSERT EDGE follow(degree) VALUES 102 -&gt; 101:(75);
 nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 100 -&gt; 200:(1997, 2016);
 nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES 101 -&gt; 201:(1999, 2018);
 </code></pre></div>
-
 <p><strong>Similarly</strong>: If you want to insert multiple edges for the same edge type by a single <code>INSERT EDGES</code> operation, you can enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95),100 -&gt; 102:(90),102 -&gt; 101:(75);
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES 100 -&gt; 101:(95),100 -&gt; 102:(90),102 -&gt; 101:(75);
 </code></pre></div>
-
 <h3 id="fetching_data">Fetching Data<a class="headerlink" href="#fetching_data" title="Permanent link">&para;</a></h3>
 <p>After you insert some data in <strong>Nebula Graph</strong>, you can retrieve any data from your graph space.</p>
 <p>The <code>FETCH PROP ON</code> statement retrieve data from your graph space. If you want to fetch vertex data, you must specify the vertex tag and vertex VID; if you want to fetch edge data, you must specify the edge type name, source vertex VID and target vertex VID.</p>
 <p>To fetch the data of the player whose <code>VID</code> is <code>100</code>, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player 100;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player 100;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>=======================================
+<div class="highlight"><pre><span></span><code>=======================================
 | VertexID | player.name | player.age |
 =======================================
 | 100      | Tim Duncan  | 42         |
 ---------------------------------------
 </code></pre></div>
-
 <p>To fetch the data of the <strong>serve</strong> edge between <code>VID</code> <code>100</code> and <code>VID</code> <code>200</code>, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON serve 100 -&gt; 200;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve 100 -&gt; 200;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>=============================================================================
+<div class="highlight"><pre><span></span><code>=============================================================================
 | serve._src | serve._dst | serve._rank | serve.start_year | serve.end_year |
 =============================================================================
 | 100        | 200        | 0           | 1997             | 2016           |
 -----------------------------------------------------------------------------
 </code></pre></div>
-
 <h3 id="updating_data">Updating Data<a class="headerlink" href="#updating_data" title="Permanent link">&para;</a></h3>
 <p>You can update the vertices and edges you just inserted.</p>
 <h4 id="updating_vertices">Updating Vertices<a class="headerlink" href="#updating_vertices" title="Permanent link">&para;</a></h4>
 <p>The <code>UPDATE VERTEX</code> statement updates data for your vertex by selecting the vertex that you want to update and then setting the property value with an equal sign to assign it a new value.</p>
 <p>The following example shows you how to change the <code>name</code> value of <code>VID</code> <code>100</code> from <code>Tim Duncan</code> to <code>Tim</code>.</p>
 <p>Enter the following statement to update the <code>name</code> value:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX 100 SET player.name = &quot;Tim&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX 100 SET player.name = &quot;Tim&quot;;
 </code></pre></div>
-
 <p>To check whether the <code>name</code> value is updated, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player 100;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player 100;
 </code></pre></div>
-
 <p>The following information is displayed:</p>
-<div class="codehilite"><pre><span></span><code>=======================================
+<div class="highlight"><pre><span></span><code>=======================================
 | VertexID | player.name | player.age |
 =======================================
 | 100      | Tim         | 42         |
 ---------------------------------------
 </code></pre></div>
-
 <h4 id="updating_edges">Updating Edges<a class="headerlink" href="#updating_edges" title="Permanent link">&para;</a></h4>
 <p>The <code>UPDATE EDGE</code> statement updates data for your edge by specifying the source vertex ID and the target vertex ID of the edge and then setting the property value with an equal sign to assign it a new value.</p>
 <p>The following example shows you how to change the value of the <code>degree</code> property in the <strong>follow</strong> edge between <code>VID</code> <code>100</code> and <code>VID</code> <code>101</code>. Now we change the <code>degree</code> property from <code>95</code> to <code>96</code>.</p>
 <p>Now we add the <code>degree</code> value by 1:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE EDGE 100 -&gt; 101 OF follow SET degree = 96;
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE 100 -&gt; 101 OF follow SET degree = 96;
 </code></pre></div>
-
 <p>To check whether the <code>degree</code> value is updated, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON follow 100 -&gt; 101;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON follow 100 -&gt; 101;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>============================================================
+<div class="highlight"><pre><span></span><code>============================================================
 | follow._src | follow._dst | follow._rank | follow.degree |
 ============================================================
 | 100         | 101         | 0            | 96            |
 ------------------------------------------------------------
 </code></pre></div>
-
 <h4 id="upsert">UPSERT<a class="headerlink" href="#upsert" title="Permanent link">&para;</a></h4>
 <p><code>UPSERT</code> is used to insert a new vertex or edge or update an existing one. If the vertex or edge doesn’t exist it will be created. <code>UPSERT</code> is a combination of <code>INSERT</code> and <code>UPDATE</code>.</p>
 <p>Consider the following example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 111:(&quot;Ben Simmons&quot;, 22); -- Insert a new vertex.
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES 111:(&quot;Ben Simmons&quot;, 22); -- Insert a new vertex.
 nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player.age = $^.player.age + 11 WHEN $^.player.name == &quot;Ben Simmons&quot; &amp;&amp; $^.player.age &gt; 20 YIELD $^.player.name AS Name, $^.player.age AS Age; -- Do upsert on the vertex.
 =======================
 | Name          | Age |
@@ -3249,43 +3216,36 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 | Dwight Howard | 33  |
 -----------------------
 </code></pre></div>
-
 <p>See <a href="../../../2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/upsert-syntax/">UPSERT Doc</a> for details.</p>
 <h3 id="deleting_data">Deleting Data<a class="headerlink" href="#deleting_data" title="Permanent link">&para;</a></h3>
 <p>If you have some data that you do not need, you can delete it from your graph space.</p>
 <h4 id="deleting_vertices">Deleting Vertices<a class="headerlink" href="#deleting_vertices" title="Permanent link">&para;</a></h4>
 <p>You can delete any vertex from your graph space. The <code>DELETE VERTEX</code> statement deletes a vertex by specifying the vertex VID.</p>
 <p>To delete a vertex whose <code>VID</code> is <code>121</code>, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DELETE VERTEX 121;
+<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX 121;
 </code></pre></div>
-
 <p>To check whether the vertex is deleted, enter the following statement;</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player 121;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player 121;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>Execution succeeded (Time spent: 1571/1910 us)
+<div class="highlight"><pre><span></span><code>Execution succeeded (Time spent: 1571/1910 us)
 </code></pre></div>
-
 <p>The above information with an empty return result indicates the query operation is successful but no data is queried from your graph space because the data is deleted.</p>
 <h4 id="deleting_edges">Deleting Edges<a class="headerlink" href="#deleting_edges" title="Permanent link">&para;</a></h4>
 <p>You can delete any edge from your graph space. The <code>DELETE EDGE</code> statement deletes an edge by specifying the edge type name and the source vertex ID and target vertex ID.</p>
 <p>To delete a <strong>follow</strong> edge between <code>VID</code> <code>100</code> and <code>VID</code> <code>200</code>, enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DELETE EDGE follow 100 -&gt; 200;
+<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow 100 -&gt; 200;
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: If you delete a vertex, all the out-going and in-coming edges of this vertex are deleted.</p>
 </blockquote>
 <h2 id="creating_index">Creating Index<a class="headerlink" href="#creating_index" title="Permanent link">&para;</a></h2>
 <p>You can add indexes to existing tag/edge-type with the <code>CREATE INDEX</code> keyword.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
 </code></pre></div>
-
 <p>The above statement creates an index for the <em>name</em> property on all vertices carrying the <em>player</em> tag.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_index_0 OFFLINE;
+<div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_index_0 OFFLINE;
 </code></pre></div>
-
 <p><strong>Creating index will affect the write performance</strong>. We suggest you import data first and then rebuild the index in batch.</p>
 <p>See the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Documentation</a> for details.</p>
 <h2 id="sample_queries">Sample Queries<a class="headerlink" href="#sample_queries" title="Permanent link">&para;</a></h2>
@@ -3293,11 +3253,10 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 <h3 id="example_1">Example 1<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <p>Find the vertices that <code>VID</code> <code>100</code> follows.</p>
 <p>Enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>===============
+<div class="highlight"><pre><span></span><code>===============
 | follow._dst |
 ===============
 | 101         |
@@ -3305,23 +3264,20 @@ nebula&gt; UPSERT VERTEX 111 SET player.name = &quot;Dwight Howard&quot;, player
 | 102         |
 ---------------
 </code></pre></div>
-
 <h3 id="example_2">Example 2<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <p>Find the vertex that <code>VID</code> <code>100</code> follows, whose age is greater than <code>35</code>.
 Return his name and age, and set the column names to <strong>Teammate</strong> and <strong>Age</strong> respectively.</p>
 <p>Enter the following statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow WHERE $$.player.age &gt;= 35 \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow WHERE $$.player.age &gt;= 35 \
 YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 </code></pre></div>
-
 <p>The following information is returned:</p>
-<div class="codehilite"><pre><span></span><code>=====================
+<div class="highlight"><pre><span></span><code>=====================
 | Teammate    | Age |
 =====================
 | Tony Parker | 36  |
 ---------------------
 </code></pre></div>
-
 <p><strong>Here</strong>:</p>
 <ul>
 <li><code>YIELD</code> specifies what values or results you want to return from the query.</li>
@@ -3334,19 +3290,17 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 <ol>
 <li>
 <p>Enter the following statement with a <code>pipe</code>:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow YIELD follow._dst AS id | \
         GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
         $^.player.name AS Player;
 </code></pre></div>
-
 <p>The following information is returned.</p>
-<div class="codehilite"><pre><span></span><code>===============================
+<div class="highlight"><pre><span></span><code>===============================
 | Team    | Player            |
 ===============================
 | Nuggets | Tony Parker       |
 -------------------------------
 </code></pre></div>
-
 <p><strong>Here</strong>:</p>
 <p><code>$^</code> indicates the source vertex of the edge.</p>
 <p><code>|</code> indicates the pipe.</p>
@@ -3354,31 +3308,28 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 </li>
 <li>
 <p>Enter the following statement with a <code>temporary variable</code>:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; $var = GO FROM 100 OVER follow YIELD follow._dst AS id; \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM 100 OVER follow YIELD follow._dst AS id; \
         GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
         $^.player.name AS Player;
 </code></pre></div>
-
 <p>The following information is returned.</p>
-<div class="codehilite"><pre><span></span><code>===============================
+<div class="highlight"><pre><span></span><code>===============================
 | Team    | Player            |
 ===============================
 | Nuggets | Tony Parker       |
 -------------------------------
 </code></pre></div>
-
 </li>
 </ol>
 <p>When a composition statement is submitted to the server as a whole, the custom variables in the statement have ended their life cycle.</p>
 <h3 id="example_4">Example 4<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <p>If you have created and rebuilt an index for the data, you can use the <code>LOOKUP ON</code> keyword to query properties.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
 nebula&gt; REBUILD TAG INDEX player_index_0 OFFLINE;
 </code></pre></div>
-
 <p>Refer to the <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/">Index Doc</a> to create an index.</p>
 <p>The following example returns vertices whose name is <code>Tony Parker</code> and tagged with <em>player</em>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
 YIELD player.name, player.age;
 =======================================
 | VertexID | player.name | player.age |
@@ -3386,21 +3337,19 @@ YIELD player.name, player.age;
 | 101      | Tony Parker | 36         |
 ---------------------------------------
 </code></pre></div>
-
 <p>See <a href="../../../2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax/">LOOKUP Documentation</a> for details.</p>
 <h3 id="example_5">Example 5<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
 <p>The <code>SUBMIT JOB COMPACT</code> command triggers the long-term <code>RocksDB compact</code> operation. There are a lot of IO operations during the running of this command. After the command is executed successfully (the job status is stopped, see the example below), the read performance is improved.</p>
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
 ==============
 | New Job Id |
 ==============
 | 40         |
 --------------
 </code></pre></div>
-
 <p>The <code>SHOW JOBS</code> statement lists all the jobs that are not expired. For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOBS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
 =============================================================================
 | Job Id | Command       | Status   | Start Time        | Stop Time         |
 =============================================================================
@@ -3413,31 +3362,27 @@ YIELD player.name, player.age;
 | 25     | compact test2 | stopped  | 12/06/19 15:07:13 | 12/06/19 15:07:24 |
 -----------------------------------------------------------------------------
 </code></pre></div>
-
 <p>For more information about the <code>COMPACT</code> and <code>JOB</code> statements, refer to <a href="../../../3.build-develop-and-administration/5.storage-service-administration/job-manager/">Job manager</a>.</p>
 <h2 id="batch_inserting">Batch Inserting<a class="headerlink" href="#batch_inserting" title="Permanent link">&para;</a></h2>
 <p>To insert multiple data, you can put all the DDL (Data Definition Language) statements in a <code>.ngql</code> file as follows.</p>
-<div class="codehilite"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
+<div class="highlight"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
 USE nba;
 CREATE TAG player(name string, age int);
 CREATE TAG team(name string);
 CREATE EDGE follow(degree int);
 CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
-
 <ul>
 <li>If you install <strong>Nebula Graph</strong> by compiling the source code, you can batch write to console by the following command:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>$ cat schema.ngql <span class="p">|</span> ./bin/nebula -u root -p nebula
+<div class="highlight"><pre><span></span><code>$ cat schema.ngql <span class="p">|</span> ./bin/nebula -u root -p nebula
 </code></pre></div>
-
 <ul>
 <li>If you are using <strong>Nebula Graph</strong> by docker-compose, you can batch write to console by the following command:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>$ cat nba.ngql <span class="p">|</span> sudo docker run --rm -i --network<span class="o">=</span>host <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$ cat nba.ngql <span class="p">|</span> sudo docker run --rm -i --network<span class="o">=</span>host <span class="se">\</span>
 vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127</span>.0.0.1 --port<span class="o">=</span><span class="m">3699</span>
 </code></pre></div>
-
 <p><strong>Here</strong>:</p>
 <ul>
 <li>You must change the IP address and the port number to yours.</li>

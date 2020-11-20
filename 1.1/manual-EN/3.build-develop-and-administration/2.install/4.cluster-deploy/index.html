@@ -2565,11 +2565,10 @@
 </ul>
 <p>Because <strong>Nebula Graph</strong> have a lot of dependencies, we recommend installing with packages.</p>
 <p>In this document, we prepared 3 machines with CentOS 7.5 system, the IPs are as follows:</p>
-<div class="codehilite"><pre><span></span><code>192.168.8.14 # cluster-14
+<div class="highlight"><pre><span></span><code>192.168.8.14 # cluster-14
 192.168.8.15 # cluster-15
 192.168.8.16 # cluster-16
 </code></pre></div>
-
 <h2 id="services_of_nebula_graph_to_be_deployed">Services of Nebula Graph to Be Deployed<a class="headerlink" href="#services_of_nebula_graph_to_be_deployed" title="Permanent link">&para;</a></h2>
 <p>In this document, we are going to deploy the following services of <strong>Nebula Graph</strong>:</p>
 <ul>
@@ -2577,45 +2576,41 @@
 <li>3 replicas of <code>nebula-storaged</code> service</li>
 <li>3 replica of <code>nebula-graphd</code> service</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>- cluster-14: metad/storaged/graphd
+<div class="highlight"><pre><span></span><code>- cluster-14: metad/storaged/graphd
 - cluster-15: metad/storaged/graphd
 - cluster-16: metad/storaged/graphd
 </code></pre></div>
-
 <h2 id="modifying_the_configuration_files">Modifying the Configuration Files<a class="headerlink" href="#modifying_the_configuration_files" title="Permanent link">&para;</a></h2>
 <p>All configuration files of <strong>Nebula Graph</strong> are located in the <code>/usr/local/nebula/etc</code> directory. <strong>Nebula Graph</strong> provides three default configurations.</p>
 <h3 id="nebula-metadconf">nebula-metad.conf<a class="headerlink" href="#nebula-metadconf" title="Permanent link">&para;</a></h3>
 <p>When deploying a cluster, you need to modify two parameters in the <code>nebula-metad.conf</code> file according to the services deployed on each node: <code>local_ip</code> and <code>meta_server_addrs</code>. <code>local_ip</code> needs to be changed to the node's IP, <code>meta_server_addrs</code> needs to be changed to ip:port of the meta service on the cluster. Multiple ip:port pairs need to be separated by commas.</p>
 <p>Following is the two configuration on <code>cluster-14</code> :</p>
-<div class="codehilite"><pre><span></span><code># Peers
+<div class="highlight"><pre><span></span><code># Peers
 --meta_server_addrs=192.168.8.14:45500,192.168.8.15:45500,192.168.8.16:45500
 # Local ip
 --local_ip=192.168.8.14
 # Meta daemon listening port
 --port=45500
 </code></pre></div>
-
 <h3 id="nebula-graphdconf">nebula-graphd.conf<a class="headerlink" href="#nebula-graphdconf" title="Permanent link">&para;</a></h3>
 <p>When deploying a cluster, you need to configure the metad address and port <code>meta_server_addrs</code> for the graphd service. Following is part of the configuration on <code>cluster-14</code>:</p>
-<div class="codehilite"><pre><span></span><code># Meta Server Address
+<div class="highlight"><pre><span></span><code># Meta Server Address
 --meta_server_addrs=192.168.8.14:45500,192.168.8.15:45500,192.168.8.16:45500
 </code></pre></div>
-
 <h3 id="nebula-storagedconf">nebula-storaged.conf<a class="headerlink" href="#nebula-storagedconf" title="Permanent link">&para;</a></h3>
 <p>When deploying a cluster, you need to configure the metad address and port <code>meta_server_addrs</code> and the local address <code>local_ip</code> for the storaged service. Following is part of the configuration on <code>cluster-14</code>:</p>
-<div class="codehilite"><pre><span></span><code># Meta server address
+<div class="highlight"><pre><span></span><code># Meta server address
 --meta_server_addrs=192.168.8.14:45500,192.168.8.15:45500,192.168.8.16:45500
 # Local ip
 --local_ip=192.168.8.14
 # Storage daemon listening port
 --port=44500
 </code></pre></div>
-
 <h2 id="starting_your_cluster">Starting Your Cluster<a class="headerlink" href="#starting_your_cluster" title="Permanent link">&para;</a></h2>
 <p>Please refer to the <a href="../2.start-stop-service/">Start and stop Nebula Graph service documentation</a> to start your cluster.</p>
 <h2 id="testing_your_cluster">Testing Your Cluster<a class="headerlink" href="#testing_your_cluster" title="Permanent link">&para;</a></h2>
 <p>Log in to one host in the cluster and execute the following command:</p>
-<div class="codehilite"><pre><span></span><code>[(none)]&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>[(none)]&gt; SHOW HOSTS;
 ==================================================================================================
 | Ip         | Port  | Status | Leader count | Leader distribution     | Partition distribution  |
 ==================================================================================================

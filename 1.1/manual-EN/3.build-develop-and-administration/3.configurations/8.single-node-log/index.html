@@ -2629,34 +2629,30 @@
 <p>The default severity level for the metad, graphd, and storaged logs can be found in the configuration files (usually in <code>/usr/local/nebula/etc/</code>).</p>
 <h2 id="check_and_change_the_severity_levels_dynamically">Check and Change the Severity Levels Dynamically<a class="headerlink" href="#check_and_change_the_severity_levels_dynamically" title="Permanent link">&para;</a></h2>
 <p>Check all the flag values (log values included) of the current gflags with the following command. <code>curl</code> is only available when the <code>local_config</code> parameter is set to <code>true</code>.</p>
-<div class="codehilite"><pre><span></span><code>&gt; curl <span class="si">${</span><span class="nv">ws_ip</span><span class="si">}</span>:<span class="si">${</span><span class="nv">ws_port</span><span class="si">}</span>/get_flags
+<div class="highlight"><pre><span></span><code>&gt; curl <span class="si">${</span><span class="nv">ws_ip</span><span class="si">}</span>:<span class="si">${</span><span class="nv">ws_port</span><span class="si">}</span>/get_flags
 </code></pre></div>
-
 <p>In the command:</p>
 <ul>
 <li><code>ws_ip</code> is the IP address for the HTTP service, which can be found in the configuration files above. The default value is 127.0.0.1.</li>
 <li><code>ws_port</code> is the port for the HTTP service, the default values for <code>metad</code>, <code>storaged</code>, and <code>graphd</code> are 11000, 12000，and 13000, respectively.</li>
 </ul>
 <p>For example, check the minloglevel for the <code>storaged</code> service:</p>
-<div class="codehilite"><pre><span></span><code>&gt; curl <span class="m">127</span>.0.0.1:12000/get_flags <span class="p">|</span> grep minloglevel
+<div class="highlight"><pre><span></span><code>&gt; curl <span class="m">127</span>.0.0.1:12000/get_flags <span class="p">|</span> grep minloglevel
 </code></pre></div>
-
 <p>You can also change the logs' severity level to <strong>the most detailed</strong> with the following command.</p>
-<div class="codehilite"><pre><span></span><code>&gt; curl <span class="s2">&quot;http://127.0.0.1:12000/set_flags?flag=v&amp;value=4&quot;</span>
+<div class="highlight"><pre><span></span><code>&gt; curl <span class="s2">&quot;http://127.0.0.1:12000/set_flags?flag=v&amp;value=4&quot;</span>
 &gt; curl <span class="s2">&quot;http://127.0.0.1:12000/set_flags?flag=minloglevel&amp;value=0&quot;</span>
 </code></pre></div>
-
 <p>In the Nebula console, check the severity minloglevel of graphd and set it to <strong>the most detailed</strong> with the following commands.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GET CONFIGS graph:minloglevel;
+<div class="highlight"><pre><span></span><code>nebula&gt; GET CONFIGS graph:minloglevel;
 nebula&gt; UPDATE CONFIGS graph:minloglevel=0;
 </code></pre></div>
-
 <p>To change the severity of the storage log, replace the <code>graph</code> in the preceding command with <code>storage</code>.</p>
 <blockquote>
 <p><strong>NOTE</strong>: <strong>Nebula Graph</strong> only supports modifying the graph and storage log severity by using console. And the severity level of meta logs can only be modified with the <code>curl</code> command.</p>
 </blockquote>
 <p><strong>Close</strong> all logs print (FATAL only) with the following command.</p>
-<div class="codehilite"><pre><span></span><code>&gt; curl <span class="s2">&quot;http://127.0.0.1:12000/set_flags?flag=minloglevel&amp;value=4&quot;</span>
+<div class="highlight"><pre><span></span><code>&gt; curl <span class="s2">&quot;http://127.0.0.1:12000/set_flags?flag=minloglevel&amp;value=4&quot;</span>
 </code></pre></div>
                 
                   

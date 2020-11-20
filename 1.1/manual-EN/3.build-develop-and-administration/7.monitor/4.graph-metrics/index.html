@@ -2618,7 +2618,7 @@
 <p>Each performance metrics consists of three parts, namely <code>&lt;counter_name&gt;.&lt;statistic_type&gt;.&lt;time_range&gt;</code>.</p>
 <h3 id="counter_names">Counter Names<a class="headerlink" href="#counter_names" title="Permanent link">&para;</a></h3>
 <p>Each counter name is composed of the interface name and the counter name. Currently, the supported interfaces are:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph_storageClient</span> <span class="c1">// Requests sent via storageClient, when sending requests to multiple storages concurrently, counted as one</span>
+<div class="highlight"><pre><span></span><code><span class="n">graph_storageClient</span> <span class="c1">// Requests sent via storageClient, when sending requests to multiple storages concurrently, counted as one</span>
 <span class="n">graph_metaClient</span> <span class="c1">// Requests sent via metaClient</span>
 <span class="n">graph_graph_all</span> <span class="c1">// Requests sent by the client to the graph, when a request contains multiple queries, counted as one</span>
 <span class="n">graph_insertVertex</span> <span class="c1">// Insert a vertex</span>
@@ -2632,13 +2632,11 @@
 <span class="n">graph_fetchVertex</span> <span class="c1">// Fetch the vertex&#39;s properties. Only count the commands executed rather than the total number of fetched vertices.</span>
 <span class="n">graph_fetchEdge</span> <span class="c1">// Fetch the edge&#39;s properties. Only count the commands executed rather than the total number of fetched edges.</span>
 </code></pre></div>
-
 <p>Each interface has three metrics, namely latency (in the units of us), QPS and QPS with errors. The suffixes are as follows:</p>
-<div class="codehilite"><pre><span></span><code>_latency
+<div class="highlight"><pre><span></span><code>_latency
 _qps
 _error_qps
 </code></pre></div>
-
 <p>The complete metric concatenates the interface name with the corresponding metric, such as <code>graph_insertVertex_latency</code>, <code>graph_insertVertex_qps</code> and <code>graph_insertVertex_error_qps</code>, representing the latency of inserting a vertex, QPS and the QPS with errors, respectively.</p>
 <h3 id="statistics_type">Statistics Type<a class="headerlink" href="#statistics_type" title="Permanent link">&para;</a></h3>
 <p>Currently supported types are SUM, COUNT, AVG, RATE and P quantiles (P99, P999, ..., P999999). Among which:</p>
@@ -2650,12 +2648,11 @@ _error_qps
 <p>Currently, the supported time ranges are 60s, 600s, and 3600s, which correspond to the last minute, the last ten minutes, and the last hour till now.</p>
 <h2 id="obtain_the_corresponding_metrics_via_http_interface">Obtain the Corresponding Metrics via HTTP Interface<a class="headerlink" href="#obtain_the_corresponding_metrics_via_http_interface" title="Permanent link">&para;</a></h2>
 <p>According to the above introduction, you can make a complete metrics name. Here are some examples:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph_insertVertex_latency</span><span class="p">.</span><span class="n">avg</span><span class="mf">.60</span>   <span class="c1">// the average latency of successfully inserting a vertex in the last minute</span>
+<div class="highlight"><pre><span></span><code><span class="n">graph_insertVertex_latency</span><span class="p">.</span><span class="n">avg</span><span class="mf">.60</span>   <span class="c1">// the average latency of successfully inserting a vertex in the last minute</span>
 <span class="n">graph_updateEdge_error_qps</span><span class="p">.</span><span class="n">count</span><span class="mf">.3600</span>  <span class="c1">// total number of failures in updating an edge in the last hour</span>
 </code></pre></div>
-
 <p>Assume that a graph service is started locally, and the <code>ws_http_port</code> port number is set to 13000 when starting. It is sent through the <strong>GET</strong> interface of HTTP. The method name is <strong>get_stats</strong>, and the parameter is stats plus the corresponding metrics name. Here's an example of getting metrics via the HTTP interface:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># obtain a metrics</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># obtain a metrics</span>
 curl -G <span class="s2">&quot;http://127.0.0.1:13000/get_stats?stats=graph_insertVertex_qps.rate.60&quot;</span>
 <span class="c1"># graph_insertVertex_qps.rate.60=3069</span>
 

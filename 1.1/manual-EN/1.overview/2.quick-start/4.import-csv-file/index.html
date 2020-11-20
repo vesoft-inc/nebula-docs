@@ -2570,27 +2570,24 @@
 <li>On a command line interface, go to the <code>nebula-docker-compose</code> directory.</li>
 <li>Execute the following command to start <strong>Nebula Graph</strong> services:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>$ sudo docker-compose up -d
+<div class="highlight"><pre><span></span><code>$ sudo docker-compose up -d
 </code></pre></div>
-
 <ol>
 <li>Execute the following command to pull the <strong>Nebula Graph</strong> image:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>$ sudo docker pull vesoft/nebula-console:nightly
+<div class="highlight"><pre><span></span><code>$ sudo docker pull vesoft/nebula-console:nightly
 </code></pre></div>
-
 <ol>
 <li>Execute the following command to connect to your <strong>Nebula Graph</strong> server:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>$ sudo docker run --rm -ti --network<span class="o">=</span>host vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127</span>.0.0.1 --port<span class="o">=</span><span class="m">3699</span>
+<div class="highlight"><pre><span></span><code>$ sudo docker run --rm -ti --network<span class="o">=</span>host vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127</span>.0.0.1 --port<span class="o">=</span><span class="m">3699</span>
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: Make sure your IP address and port number are configured correctly.</p>
 </blockquote>
 <h2 id="creating_the_schema_for_vertices_and_edges">Creating the Schema for Vertices and Edges<a class="headerlink" href="#creating_the_schema_for_vertices_and_edges" title="Permanent link">&para;</a></h2>
 <p>Before you can input your schema, you must create a space and use it. In this example we create a <strong>nba</strong> space and use it. We create two tags and two edge types with the following commands:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG player (name string, age int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player (name string, age int);
 
 nebula&gt; CREATE TAG team (name string);
 
@@ -2598,11 +2595,10 @@ nebula&gt; CREATE EDGE serve (start_year int, end_year int);
 
 nebula&gt; CREATE EDGE follow (degree, int);
 </code></pre></div>
-
 <h2 id="preparing_your_configuration_file">Preparing Your Configuration File<a class="headerlink" href="#preparing_your_configuration_file" title="Permanent link">&para;</a></h2>
 <p>You must configure the <code>.yaml</code> configuration file, which regulates how data is organized in the CSV files. In this example, we create a <code>config.yaml</code> file.</p>
 <p>In this example, we configure the <code>config.yaml</code> configuration file as follows:</p>
-<div class="codehilite"><pre><span></span><code>version: v1rc1
+<div class="highlight"><pre><span></span><code>version: v1rc1
 description: example
 clientSettings:
   concurrency: 2 # number of graph clients
@@ -2679,7 +2675,6 @@ files:
               - name: name
                 type: string
 </code></pre></div>
-
 <ul>
 <li>In the above configuration file, you must change the IP address and the port number to yours.</li>
 </ul>
@@ -2689,16 +2684,15 @@ files:
 <h2 id="preparing_the_csv_data">Preparing the CSV Data<a class="headerlink" href="#preparing_the_csv_data" title="Permanent link">&para;</a></h2>
 <p>In this example, we prepare four CSV data files: <code>player.csv</code>, <code>team.csv</code>, <code>serve.csv</code>, and <code>follow.csv</code>.</p>
 <p>The data in the <code>serve.csv</code> file is as follows:</p>
-<div class="codehilite"><pre><span></span><code>100,200,1997,2016
+<div class="highlight"><pre><span></span><code>100,200,1997,2016
 101,201,1999,2018
 102,203,2006,2015
 102,204,2015,2019
 103,204,2017,2019
 104,200,2007,2009
 </code></pre></div>
-
 <p>The data in the <code>follow.csv</code> file is as follows:</p>
-<div class="codehilite"><pre><span></span><code>100,101,95
+<div class="highlight"><pre><span></span><code>100,101,95
 100,102,90
 101,100,95
 102,101,75
@@ -2708,9 +2702,8 @@ files:
 104,105,60
 105,104,83
 </code></pre></div>
-
 <p>The data in the <code>player.csv</code> file is as follows:</p>
-<div class="codehilite"><pre><span></span><code>100,Tim Duncan,42
+<div class="highlight"><pre><span></span><code>100,Tim Duncan,42
 101,Tony Parker,36
 102,LaMarcus Aldridge,33
 103,Rudy Gay,32
@@ -2720,9 +2713,8 @@ files:
 107,Aron Baynes,32
 108,Boris Diaw,36
 </code></pre></div>
-
 <p>The data in the <code>team.csv</code> file is as follows:</p>
-<div class="codehilite"><pre><span></span><code>200,Warriors
+<div class="highlight"><pre><span></span><code>200,Warriors
 201,Nuggets
 202,Rockets
 203,Trail
@@ -2732,7 +2724,6 @@ files:
 207,Clippers
 208,Kings
 </code></pre></div>
-
 <ul>
 <li>In the <strong>serve</strong> and <strong>follow</strong> CSV files, the first column is the source vertex ID, the second column is the destination vertex ID, and the other columns are consistent with the <code>config.yaml</code> file.</li>
 </ul>
@@ -2747,27 +2738,24 @@ files:
 <ol>
 <li>Change your current directory to the directory where the <code>import.go</code> file is located by the following command:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>$ <span class="nb">cd</span> /home/nebula/nebula-importer/cmd
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/nebula/nebula-importer/cmd
 </code></pre></div>
-
 <ol>
 <li>Execute the following command to import the CSV data:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>$ go run importer.go --config /home/nebula/config.yaml
+<div class="highlight"><pre><span></span><code>$ go run importer.go --config /home/nebula/config.yaml
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: You must change the directory for the <code>import.go</code> file and the directory for the <code>config.yaml</code> file to yours, otherwise, the importing operation might fail.</p>
 </blockquote>
 <h3 id="importing_the_csv_data_with_docker">Importing the CSV Data With Docker<a class="headerlink" href="#importing_the_csv_data_with_docker" title="Permanent link">&para;</a></h3>
 <p>Before you import the CSV data with <code>Docker</code>, make sure that <code>Docker</code> is running.</p>
 <p>You can import the CSV data with <code>Docker</code> by the following command:</p>
-<div class="codehilite"><pre><span></span><code>$ sudo docker run --rm -ti --network<span class="o">=</span>host <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$ sudo docker run --rm -ti --network<span class="o">=</span>host <span class="se">\</span>
 -v /home/nebula/config.yaml:/home/nebula/config.yaml <span class="se">\</span>
 -v /home/nebula/:/home/nebula/ vesoft/nebula-importer <span class="se">\</span>
 --config /home/nebula/config.yaml
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: You must change the directory for the <code>config.yaml</code> file to yours, otherwise the importing operation might fail.</p>
 </blockquote>

@@ -2634,7 +2634,7 @@
 <blockquote>
 <p>The syntax of <code>GO</code> statement is very similar to <code>SELECT</code> in SQL. Notice that the major difference is that <code>GO</code> must start traversing from a (set of) vertex (vertices).</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>  GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;node_list&gt;
+<div class="highlight"><pre><span></span><code>  GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;node_list&gt;
   OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
   [ WHERE &lt;expression&gt; [ AND | OR expression ...]) ]
   YIELD [DISTINCT] &lt;return_list&gt;
@@ -2650,7 +2650,6 @@
 &lt;return_list&gt;
     &lt;col_name&gt; [AS &lt;col_alias&gt;] [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
 </code></pre></div>
-
 <ul>
 <li><code>&lt;N&gt; STEPS</code> specifies the N query hops. If not specified, the default traversal is one hop. When <code>N</code> is zero, <strong>Nebula Graph</strong> will not traverse any edges, so the returned result is empty.</li>
 <li><code>M TO N STEPS</code> traverses from M to N hops. When <code>M</code> is zero, the return result is the same to <code>M</code> is one. That is, the return result of <code>GO 0 TO 2</code> and <code>GO 1 TO 2</code> are the same.</li>
@@ -2660,7 +2659,7 @@
 <li><code>YIELD [DISTINCT] &lt;return_list&gt;</code> statement returns the result in column format and rename as an alias name. See <code>YIELD</code> syntax for more information. The <code>DISTINCT</code> syntax works the same as SQL.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 107 OVER serve;  \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 107 OVER serve;  \
    /* start from vertex 107 along with edge type serve, and get vertex 200, 201 */
 ==============
 | serve._dst |
@@ -2670,8 +2669,7 @@
 | 201        |
 --------------
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM 103 OVER follow; \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM 103 OVER follow; \
   /* return the 2 hop friends of the vertex 103 */
 ===============
 | follow._dst |
@@ -2679,8 +2677,7 @@
 | 101         |
 ---------------
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 109 OVER serve  \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 109 OVER serve  \
    WHERE serve.start_year &gt; 1990       /* check edge (serve) property ( start_year) */ \
    YIELD $$.team.name AS team_name, serve.start_year as start_year;   /* target vertex (team) property serve.start_year */
 ==========================
@@ -2691,8 +2688,7 @@
 | Rockets   | 2017       |
 --------------------------
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100,102 OVER serve           \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100,102 OVER serve           \
         WHERE serve.start_year &gt; 1995             /* check edge property */ \
         YIELD DISTINCT $$.team.name AS team_name, /* DISTINCT as SQL */ \
         serve.start_year as start_year,           /* edge property */ \
@@ -2705,22 +2701,19 @@
 | Warriors  | 1997       | Tim Duncan        |
 ----------------------------------------------
 </code></pre></div>
-
 <h3 id="traverse_along_multiple_edges_types">Traverse Along Multiple Edges Types<a class="headerlink" href="#traverse_along_multiple_edges_types" title="Permanent link">&para;</a></h3>
 <p>Currently, <strong>Nebula Graph</strong> also supports traversing via multiple edge types with <code>GO</code>. The syntax is:</p>
-<div class="codehilite"><pre><span></span><code>GO FROM &lt;node_list&gt; OVER &lt;edge_type_list | *&gt; YIELD [DISTINCT] &lt;return_list&gt;
+<div class="highlight"><pre><span></span><code>GO FROM &lt;node_list&gt; OVER &lt;edge_type_list | *&gt; YIELD [DISTINCT] &lt;return_list&gt;
 </code></pre></div>
-
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO OVER FROM &lt;node_list&gt; edge1, edge2....  // traverse along edge1 and edge2 or
+<div class="highlight"><pre><span></span><code>nebula&gt; GO OVER FROM &lt;node_list&gt; edge1, edge2....  // traverse along edge1 and edge2 or
 nebula&gt; GO OVER FROM &lt;node_list&gt; *   // * indicates traversing along all edge types
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: Please note that when traversing along multiple edges, there are some special restrictions on the use of filters(namely the <code>WHERE</code> statement), for example filters like <code>WHERE edge1.prop1 &gt; edge2.prop2</code> is not supported.</p>
 </blockquote>
 <p>As for return results, if multiple edge properties are to be returned, <strong>Nebula Graph</strong> will place them in different rows. For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow, serve YIELD follow.degree, serve.start_year;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow, serve YIELD follow.degree, serve.start_year;
 
 The following result is returned:
 
@@ -2752,22 +2745,19 @@ Of course, you can query without specifying `YIELD`, which returns the vids of t
 | 106         | 0          |
 ----------------------------
 </code></pre></div>
-
 <p>For query statement <code>GO FROM 100 OVER *</code>, the result is similar to the above example: the non-existing property or vid is populated with default values.
 Please note that we can't tell which row belongs to which edge in the results. The future version will show the edge type in the result.</p>
 <h2 id="traverse_reversely">Traverse Reversely<a class="headerlink" href="#traverse_reversely" title="Permanent link">&para;</a></h2>
 <p>Currently, <strong>Nebula Graph</strong> supports traversing reversely using keyword <code>REVERSELY</code>. The syntax is:</p>
-<div class="codehilite"><pre><span></span><code>  GO FROM &lt;node_list&gt;
+<div class="highlight"><pre><span></span><code>  GO FROM &lt;node_list&gt;
   OVER &lt;edge_type_list&gt; REVERSELY
   WHERE (expression [ AND | OR expression ...])  
   YIELD [DISTINCT] &lt;return_list&gt;
 </code></pre></div>
-
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow REVERSELY YIELD follow._src; -- returns 100
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow REVERSELY YIELD follow._src; -- returns 100
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow REVERSELY YIELD follow._dst AS id | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 100 OVER follow REVERSELY YIELD follow._dst AS id | \
         GO FROM $-.id OVER serve WHERE $^.player.age &gt; 20 YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
 
 ============================
@@ -2778,18 +2768,16 @@ Please note that we can't tell which row belongs to which edge in the results. T
 | Kyle Anderson | Warriors |
 ----------------------------
 </code></pre></div>
-
 <p>The above query first traverses players that follow player 100 and finds the teams they serve, then filter players who are older than 20, and finally it returns their names and teams. Of course, you can query without specifying YIELD, which will return the vids of the destination vertices of each edge by default.</p>
 <h2 id="traverse_bidirect">Traverse Bidirect<a class="headerlink" href="#traverse_bidirect" title="Permanent link">&para;</a></h2>
 <p>Currently, <strong>Nebula Graph</strong> supports traversing along in and out edges using keyword <code>BIDIRECT</code>, the syntax is:</p>
-<div class="codehilite"><pre><span></span><code>  GO FROM &lt;node_list&gt;
+<div class="highlight"><pre><span></span><code>  GO FROM &lt;node_list&gt;
   OVER &lt;edge_type_list&gt; BIDIRECT
   WHERE (expression [ AND | OR expression ...])  
   YIELD [DISTINCT] &lt;return_list&gt;
 </code></pre></div>
-
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM 102 OVER follow BIDIRECT;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM 102 OVER follow BIDIRECT;
 ===============
 | follow._dst |
 ===============
@@ -2800,26 +2788,23 @@ Please note that we can't tell which row belongs to which edge in the results. T
 | 135         |
 ---------------
 </code></pre></div>
-
 <p>The above query returns players followed by 102 and follow 102 at the same time.</p>
 <h2 id="traverse_from_m_to_n_hops">Traverse From M to N Hops<a class="headerlink" href="#traverse_from_m_to_n_hops" title="Permanent link">&para;</a></h2>
 <p><strong>Nebula Graph</strong> supports traversing from M to N hops. When M is equal to N, <code>GO M TO N STEPS</code> is equivalent to <code>GO N STEPS</code>. The syntax is:</p>
-<div class="codehilite"><pre><span></span><code>  GO &lt;M&gt; TO &lt;N&gt; STEPS FROM &lt;node_list&gt;
+<div class="highlight"><pre><span></span><code>  GO &lt;M&gt; TO &lt;N&gt; STEPS FROM &lt;node_list&gt;
   OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
   [YIELD [DISTINCT] &lt;return_list&gt;]
 </code></pre></div>
-
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM 100 OVER serve;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM 100 OVER serve;
 ==============
 | serve._dst |
 ==============
 | 200        |
 --------------
 </code></pre></div>
-
 <p>Traverse from vertex 100 along edge type serve, return 1 to 2 hops.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 2 TO 4 STEPS FROM 100 OVER follow REVERSELY YIELD DISTINCT follow._dst;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 TO 4 STEPS FROM 100 OVER follow REVERSELY YIELD DISTINCT follow._dst;
 ===============
 | follow._dst |
 ===============
@@ -2830,9 +2815,8 @@ Please note that we can't tell which row belongs to which edge in the results. T
 | 140         |
 ---------------
 </code></pre></div>
-
 <p>Traverse from vertex 100 along edge type follow reversely, return 2 to 4 hops.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 4 TO 5 STEPS FROM 101 OVER follow BIDIRECT YIELD DISTINCT follow._dst;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 4 TO 5 STEPS FROM 101 OVER follow BIDIRECT YIELD DISTINCT follow._dst;
 ===============
 | follow._dst |
 ===============
@@ -2851,14 +2835,12 @@ Please note that we can't tell which row belongs to which edge in the results. T
 | 121         |
 ---------------
 </code></pre></div>
-
 <p>Traverse from vertex 101 along edge type follow bi-directly, return 4 to 5 hops.</p>
 <h2 id="passing_int_type_to_go_queries">Passing INT Type to GO Queries<a class="headerlink" href="#passing_int_type_to_go_queries" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>... | GO FROM $-.id OVER &lt;edge_type_list&gt;
+<div class="highlight"><pre><span></span><code>... | GO FROM $-.id OVER &lt;edge_type_list&gt;
 </code></pre></div>
-
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; YIELD 100 AS id | GO FROM $-.id OVER serve;
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD 100 AS id | GO FROM $-.id OVER serve;
 ==============
 | serve._dst |
 ==============

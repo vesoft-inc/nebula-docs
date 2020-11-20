@@ -2685,29 +2685,27 @@
 <h2 id="statements_list">Statements List<a class="headerlink" href="#statements_list" title="Permanent link">&para;</a></h2>
 <h3 id="submit_job_compact">SUBMIT JOB COMPACT<a class="headerlink" href="#submit_job_compact" title="Permanent link">&para;</a></h3>
 <p>The <code>SUBMIT JOB COMPACT</code> command triggers the long-term <code>RocksDB compact</code> operation. The example returns the results as follows:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
 ==============
 | New Job Id |
 ==============
 | 40         |
 --------------
 </code></pre></div>
-
 <p>See <a href="../../3.configurations/5.storage-config/">here</a> to modify the default compact thread number.</p>
 <h3 id="submit_job_flush">SUBMIT JOB FLUSH<a class="headerlink" href="#submit_job_flush" title="Permanent link">&para;</a></h3>
 <p>The <code>SUBMIT JOB FLUSH</code> command writes the RocksDB memfile in memory to the hard disk.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB FLUSH;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB FLUSH;
 ==============
 | New Job Id |
 ==============
 | 2          |
 --------------
 </code></pre></div>
-
 <h3 id="show_job">SHOW JOB<a class="headerlink" href="#show_job" title="Permanent link">&para;</a></h3>
 <h4 id="list_single_job_information">List Single Job Information<a class="headerlink" href="#list_single_job_information" title="Permanent link">&para;</a></h4>
 <p>The <code>SHOW JOB &lt;job_id&gt;</code> statement shows a job with certain ID and all its tasks. After a job arrives to Meta, Meta will split the job to tasks, and send them to storage.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOB 40
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 40
 =====================================================================================
 | Job Id(TaskId) | Command(Dest) | Status   | Start Time        | Stop Time         |
 =====================================================================================
@@ -2716,7 +2714,6 @@
 | 40-0           | 192.168.8.5   | finished | 12/17/19 17:21:30 | 12/17/19 17:21:30 |
 -------------------------------------------------------------------------------------
 </code></pre></div>
-
 <p>The above statement returns one to multiple rows, which is determined by the <code>storaged</code> number where the space is located.</p>
 <p>What's in the returned results:</p>
 <ul>
@@ -2734,16 +2731,15 @@
 <blockquote>
 <p><strong>NOTE</strong>: There are five job states, i.e. QUEUE, RUNNING, FINISHED, FAILED, STOPPED. Status switching is described below:</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>Queue -- running -- finished -- removed
+<div class="highlight"><pre><span></span><code>Queue -- running -- finished -- removed
      \          \                /
       \          \ -- failed -- /
        \          \            /
         \ ---------- stopped -/
 </code></pre></div>
-
 <h4 id="list_all_jobs">List All Jobs<a class="headerlink" href="#list_all_jobs" title="Permanent link">&para;</a></h4>
 <p>The <code>SHOW JOBS</code> statement lists all the jobs that are not expired. The default job expiration time is one week. You can change it with meta flag <code>job_expired_secs</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOBS
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS
 =============================================================================
 | Job Id | Command       | Status   | Start Time        | Stop Time         |
 =============================================================================
@@ -2756,31 +2752,28 @@
 | 25     | compact test2 | stopped  | 12/06/19 15:07:13 | 12/06/19 15:07:24 |
 -----------------------------------------------------------------------------
 </code></pre></div>
-
 <p>For details on the returned results, please refer to the previous section <a href="#list-single-job-information">List Single Job Information</a>.</p>
 <h3 id="stop_job">STOP JOB<a class="headerlink" href="#stop_job" title="Permanent link">&para;</a></h3>
 <p>The <code>STOP JOB</code> statement stops jobs that are not finished.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; STOP JOB 22
+<div class="highlight"><pre><span></span><code>nebula&gt; STOP JOB 22
 =========================
 | STOP Result         |
 =========================
 | stop 1 jobs 2 tasks |
 -------------------------
 </code></pre></div>
-
 <h3 id="recover_job">RECOVER JOB<a class="headerlink" href="#recover_job" title="Permanent link">&para;</a></h3>
 <p>The <code>RECOVER JOB</code> statement re-executes the failed jobs and returns the number of the recovered jobs.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RECOVER JOB
+<div class="highlight"><pre><span></span><code>nebula&gt; RECOVER JOB
 =====================
 | Recovered job num |
 =====================
 | 5 job recovered   |
 ---------------------
 </code></pre></div>
-
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <p><code>SUBMIT JOB</code> uses HTTP port. Please check if the HTTP ports among the storages are normal. You can use the following command to debug.</p>
-<div class="codehilite"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:12000/admin?space={test}&amp;op=compact&quot;</span>
+<div class="highlight"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:12000/admin?space={test}&amp;op=compact&quot;</span>
 </code></pre></div>
                 
                   
