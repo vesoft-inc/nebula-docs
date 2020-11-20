@@ -1,6 +1,6 @@
 # Open in Explore
 
-With the **Open in Explore** function, you can run nGQL statements on the **Console** tab page to query vertex or edge data and then view the result on the **Explore** page in a visualized way.
+With the **Open in Explore** function, you can run nGQL statements on the **Console** page to query vertex or edge data and then view the result on the **Explore** page in a visualized way.
 
 ## Studio version
 
@@ -20,11 +20,11 @@ To use the **Open in Explore** function, you must do a check of these:
 
 ## Query and visualize edge data
 
-To query edge data on the **Console** tab page and then view the result on the **Explore** tab page, follow these steps:
+To query edge data on the **Console** page and then view the result on the **Explore** page, follow these steps:
 
 1. In the toolbar, click the **Console** tab.
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
-3. In the input box, enter an nGQL statement and click the ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run") icon.  
+3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").  
    > **NOTE**: The queried result must contain the VIDs of the source vertex and the destination vertex of an edge.
 
    Here is an nGQL statement example.
@@ -58,11 +58,11 @@ When the data is inserted, you can view the visualized representation of the edg
 
 ## Query and visualize vertex data
 
-To query vertex data on the **Console** tab page and then view the result on the **Explore** tab page, follow these steps:
+To query vertex data on the **Console** page and then view the result on the **Explore** page, follow these steps:
 
 1. In the toolbar, click the **Console** tab.
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
-3. In the input box, enter an nGQL statement and click the ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run") icon.
+3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
    > **NOTE**: The queried result must contain the VIDs of the vertices.
 
    Here is an nGQL statement example.
@@ -91,4 +91,4 @@ When the data is inserted, you can view the visualized representation of the ver
 
 ## Next to do
 
-On the **Explore** tab page, you can expand the board to explore and analyze graph data.
+On the **Explore** page, you can expand the board to explore and analyze graph data.
