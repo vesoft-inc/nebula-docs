@@ -1037,9 +1037,8 @@
                 
                 
                 <h1 id="upsert_vertex">UPSERT VERTEX<a class="headerlink" href="#upsert_vertex" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>UPSERT VERTEX &lt;vid&gt; SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
+<div class="highlight"><pre><span></span><code>UPSERT VERTEX &lt;vid&gt; SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
-
 <ul>
 <li><code>vid</code> is the ID of the vertex to be updated.</li>
 <li><code>update_columns</code> is the properties of the vertex to be updated. For example, <code>tag1.col1 = $^.tag2.col2 + 1</code> means to update <code>tag1.col1</code> to <code>tag2.col2+1</code>.<blockquote>
@@ -1062,7 +1061,7 @@
 <li>If the vertex exists and the <code>WHEN</code> condition is not met, Nebula Graph does nothing.</li>
 </ul>
 <p>Consider the following example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player111&quot;:(&quot;Ben Simmons&quot;, 22); -- Insert a new vertex.
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player111&quot;:(&quot;Ben Simmons&quot;, 22); -- Insert a new vertex.
 nebula&gt; UPSERT VERTEX &quot;player111&quot; SET player.name = &quot;Dwight Howard&quot;, player.age = $^.player.age + 11 WHEN $^.player.name == &quot;Ben Simmons&quot; AND $^.player.age &gt; 20 YIELD $^.player.name AS Name, $^.player.age AS Age; -- Do an upsert operation on the vertex.
 
 +-----------------+-----+
@@ -1071,14 +1070,12 @@ nebula&gt; UPSERT VERTEX &quot;player111&quot; SET player.name = &quot;Dwight Ho
 | &quot;Dwight Howard&quot; | 33  |
 +-----------------+-----+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON * &quot;player123&quot;; -- An empty set is returned, indicating vertex &quot;player123&quot; does not exist.
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * &quot;player123&quot;; -- An empty set is returned, indicating vertex &quot;player123&quot; does not exist.
 Empty set (Time spent: 3.069/4.382 ms)
 nebula&gt; UPSERT VERTEX &quot;player123&quot; SET player.age = $^.player.age + 1;
 </code></pre></div>
-
 <p>If the vertex "player123" does not exist and the default value of age is <code>NULL</code>, the <code>player.age</code> of vertex "player123" is <code>NULL</code>. If <code>player.age</code> has a default value, the <code>player.age</code> of vertex "player123" is the default value plus one.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
 
 nebula&gt; UPSERT VERTEX &quot;300&quot; SET person.followers = $^.person.age + 1,  person.age = 8; -- the number of followers is 1, age is 8
 

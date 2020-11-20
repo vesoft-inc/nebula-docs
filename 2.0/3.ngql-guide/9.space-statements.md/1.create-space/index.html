@@ -1138,11 +1138,10 @@
                 
                 
                 <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
+<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
     [(partition_num = &lt;partition_number&gt;, replica_factor = &lt;replica_number&gt;, charset = &lt;charset&gt;, collate = &lt;collate&gt;,
     vid_type = FIXED_STRING(&lt;max_string_length&gt;))]
 </code></pre></div>
-
 <p>The <code>CREATE SPACE</code> statement creates a new graph space with the given name. A <code>SPACE</code> is a region that provides physically isolated graphs in Nebula Graph. An error occurs if a graph space with the same name exists if you did not specify <code>IF NOT EXISTS</code>.</p>
 <h2 id="if_not_exists">IF NOT EXISTS<a class="headerlink" href="#if_not_exists" title="Permanent link">&para;</a></h2>
 <p>You can use the <code>IF NOT EXISTS</code> keywords when creating graph spaces. These keywords automatically detects if the related graph space exists. If it does not exist, a new one is created. Otherwise, no graph space is created.</p>
@@ -1175,15 +1174,14 @@
 </ul>
 <p>If no option is given, Nebula Graph creates the graph space with the default options.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
 nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- create a graph space with customized partition number
 nebula&gt; CREATE SPACE my_space_3(replica_factor=1); -- create a graph space with customized replica factor
 nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a graph space with customized VID maximum length
 </code></pre></div>
-
 <h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">&para;</a></h2>
 <p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup time. You can run the command to do a check of the machine distribution.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-----------+-------+--------+--------------+---------------------+------------------------+
 | Host      | Port  | Status | Leader count | Leader distribution | Partition distribution |
 +-----------+-------+--------+--------------+---------------------+------------------------+
@@ -1194,11 +1192,9 @@ nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a gra
 | storaged2 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
 +-----------+-------+--------+--------------+---------------------+------------------------+
 </code></pre></div>
-
 <p>To balance the request loads, use the following command.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 </code></pre></div>
-
 <!-- Details see [SHOW HOSTS](../3.utility-statements/show-statements/show-hosts-syntax.md) and [BALANCE](../../../3.build-develop-and-administration/5.storage-service-administration/storage-balance.md). -->
                 
                   
