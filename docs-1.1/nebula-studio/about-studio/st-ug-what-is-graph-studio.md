@@ -6,7 +6,7 @@ Nebula Graph Studio (Studio in short) is a browser-based visualization tool to m
 
 Studio has two release distributions:
 
-- Docker-based Studio: You can deploy Studio with Docker and connect Studio to Nebula Graph. For more information, see [Deploy Studio](../install-configure/st-ug-deploy.md).  
+- Docker-based Studio: You can deploy Studio with Docker and connect Studio to Nebula Graph. For more information, see [Deploy Studio](../install-configure/st-ug-deploy.md).
 
 - Studio on Cloud: When you created a Nebula Graph instance on Nebula Graph Cloud Service, you can connect to Studio on Cloud with one click. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-cloud.io/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/ "Click to go to Nebula Graph Cloud Service User Guide").
 
@@ -30,11 +30,11 @@ Studio provides these features:
 
 You can use Studio in one of these scenarios:
 
-- You have a dataset, and you want to explore and analyze data in a visualized way. You can use Docker Compose or Nebula Graph Cloud Service to deploy Nebula Graph and then use Studio to explore or analyze data in a visualized way.  
+- You have a dataset, and you want to explore and analyze data in a visualized way. You can use Docker Compose or Nebula Graph Cloud Service to deploy Nebula Graph and then use Studio to explore or analyze data in a visualized way.
 
-- You have deployed Nebula Graph and imported a dataset. You want to use a GUI to run nGQL statements or explore and analyze graph data in a visualized way.  
+- You have deployed Nebula Graph and imported a dataset. You want to use a GUI to run nGQL statements or explore and analyze graph data in a visualized way.
 
-- You are a beginner of nGQL (Nebula Graph Query Language) and you prefer to use a GUI rather than a command-line interface (CLI) to learn the language.  
+- You are a beginner of nGQL (Nebula Graph Query Language) and you prefer to use a GUI rather than a command-line interface (CLI) to learn the language.
 
 ## Authentication
 
