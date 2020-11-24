@@ -7,7 +7,7 @@ When Studio is connected to Nebula Graph, you can create or delete a graph space
 Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
-docker-compose pull && docker-compose up
+docker-compose pull && docker-compose up -d
 ```
 
 ## Prerequisites
@@ -46,7 +46,8 @@ To delete a graph space on the **Schema** page, follow these steps:
 2. In the graph space list, find a graph space and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
    ![Graph space list with the graph space to be deleted](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-029.png "Delete a graph space")
-3. On the dialog box, confirm the information and then click the **OK** button.  
+
+3. On the dialog box, confirm the information and then click the **OK** button.
    When the graph space is deleted successfully, it is removed from the graph space list.
 
 ## Next to do

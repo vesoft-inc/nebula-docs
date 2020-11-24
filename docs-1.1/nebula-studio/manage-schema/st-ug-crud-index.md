@@ -9,7 +9,7 @@ You can create an index for a tag and/or an edge type. An index lets traversal s
 Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
-docker-compose pull && docker-compose up
+docker-compose pull && docker-compose up -d
 ```
 
 ## Prerequisites
