@@ -9,7 +9,7 @@ For more information about `FIND SHORTEST | ALL PATH`, see [nGQL User Guide](htt
 Studio of v1.2.1-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
-$ docker-compose pull && docker-compose up
+$ docker-compose pull && docker-compose up -d
 ```
 
 ## Prerequisites

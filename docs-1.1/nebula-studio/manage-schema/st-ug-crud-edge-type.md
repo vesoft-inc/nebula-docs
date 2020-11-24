@@ -7,7 +7,7 @@ After a graph space is created in Nebula Graph, you can create edge types. With 
 Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
-docker-compose pull && docker-compose up
+docker-compose pull && docker-compose up -d
 ```
 
 ## Prerequisites

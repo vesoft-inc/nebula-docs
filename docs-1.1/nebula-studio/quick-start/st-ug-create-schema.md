@@ -33,20 +33,31 @@ To create a schema on the **Console** page, follow these steps:
 
 3. In the input box, enter these statements one by one and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
 
-   ```nGQL
-    nebula> CREATE TAG user (userId int); -- To create a tag named "user", with one property
-    nebula> CREATE TAG course (courseId int, courseName string); -- To create a tag named "course", with two properties
-    nebula> CREATE EDGE action (actionId int, duration double, label bool, feature0 double, feature1 double, feature2 double, feature3 double); -- To create an edge type named "action", with seven properties
-    ```
+```nGQL
+-- To create a tag named "user", with one property
+nebula> CREATE TAG user (userId int);
+
+-- To create a tag named "course", with two properties
+nebula> CREATE TAG course (courseId int, courseName string);
+
+-- To create an edge type named "action", with seven properties
+nebula> CREATE EDGE action (actionId int, duration double, label bool, \
+feature0 double, feature1 double, feature2 double, feature3 double);
+```
 
 If the preceding statements are executed successfully, the schema is created. You can run the statements as follows to view the schema.
 
 ```nGQL
-nebula> SHOW TAGS; -- To list all the tags in the current graph space
-nebula> SHOW EDGES; -- To list all the edge types in the current graph space
+ -- To list all the tags in the current graph space
+nebula> SHOW TAGS;
+
+-- To list all the edge types in the current graph space
+nebula> SHOW EDGES;
+
+-- To view the definition of the tags and edge types
 nebula> DESCRIBE TAG user;
 nebula> DESCRIBE TAG course;
-nebula> DESCRIBE EDGE action; -- To view the definition of the tags and edge types
+nebula> DESCRIBE EDGE action;
 ```
 
 If the schema is created successfully, in the result window, you can see the definition of the tags and edge types. For example, this figure shows the result of the `DESCRIBE EDGE action` statement.

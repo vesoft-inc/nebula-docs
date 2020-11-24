@@ -7,7 +7,7 @@ With the **Open in Explore** function, you can run nGQL statements on the **Cons
 Studio of v1.2.1-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
-docker-compose pull && docker-compose up
+docker-compose pull && docker-compose up -d
 ```
 
 ## Prerequisites
@@ -24,7 +24,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
 1. In the toolbar, click the **Console** tab.
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
-3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").  
+3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
    > **NOTE**: The queried result must contain the VIDs of the source vertex and the destination vertex of an edge.
 
    Here is an nGQL statement example.
@@ -38,15 +38,15 @@ To query edge data on the **Console** page and then view the result on the **Exp
     ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-037.png "Edge data")
 
 4. Click the **Open in Explore** button.
-5. In the dialog box, configure as follows:  
-   a. Click **Edge Type**.  
-   b. In the **Edge Type** field, enter an edge type name. In this example, `action` is used.  
-   c. In the **Src ID** field, choose a column name from the result table representing the VIDs of the source vertices. In this example, `action._src` is chosen.  
-   d. In the **Dst ID** field, choose a column name from the result table representing the VIDs of the destination vertices. In this example, `action._dst` is chosen.  
-   e. (Optional) If the result table contains the ranking information of the edges, in the **Rank** field, choose a column name representing the `rank` of the edges. If no ranking information exists in the result, leave the **Rank** field blank.  
-   f. When the configuration is done, click the **Import** button.  
+5. In the dialog box, configure as follows:
+   a. Click **Edge Type**.
+   b. In the **Edge Type** field, enter an edge type name. In this example, `action` is used.
+   c. In the **Src ID** field, choose a column name from the result table representing the VIDs of the source vertices. In this example, `action._src` is chosen.
+   d. In the **Dst ID** field, choose a column name from the result table representing the VIDs of the destination vertices. In this example, `action._dst` is chosen.
+   e. (Optional) If the result table contains the ranking information of the edges, in the **Rank** field, choose a column name representing the `rank` of the edges. If no ranking information exists in the result, leave the **Rank** field blank.
+   f. When the configuration is done, click the **Import** button.
 
-      ![The dialog box for you to configure the edge data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-038.png "Configure edge data")  
+      ![The dialog box for you to configure the edge data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-038.png "Configure edge data")
 6. (Optional) If some data exists on the board of **Explore**, choose a method to insert data:
 
    - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
@@ -76,12 +76,13 @@ To query vertex data on the **Console** page and then view the result on the **E
     ![The Result window shows the queried vertex data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-039.png "Vertex data")
 
 4. Click the **Open in Explore** button.
-5. In the dialog box, configure as follows:  
-   a. Click **Vertex**.  
-   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `VertexID` is chosen.  
+5. In the dialog box, configure as follows:
+   a. Click **Vertex**.
+   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `VertexID` is chosen.
    c. When the configuration is done, click the **Import** button.
 
-      ![The dialog box for you to configure the vertex data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-047.png "Configure vertex data")  
+   ![The dialog box for you to configure the vertex data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-047.png "Configure vertex data")
+
 6. (Optional) If some data exists on the board of **Explore**, choose a method to insert data:
 
    - **Incremental Insertion**: Click this button to add the queried result to the existing data on the board.
