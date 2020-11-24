@@ -77,10 +77,10 @@ To query vertex data on the **Console** page and then view the result on the **E
     ![The Result window shows the queried vertex data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-039.png "Vertex data")
 
 4. Click the **Open in Explore** button.
-5. In the dialog box, configure as follows:
-   a. Click **Vertex**.
-   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `VertexID` is chosen.
-   c. When the configuration is done, click the **Import** button.
+5. In the dialog box, configure as follows:  
+   a. Click **Vertex**.  
+   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `VertexID` is chosen.  
+   c. When the configuration is done, click the **Import** button.  
 
    ![The dialog box for you to configure the vertex data](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-047.png "Configure vertex data")
 
