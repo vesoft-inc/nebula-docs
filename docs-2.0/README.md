@@ -58,10 +58,10 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Delete vertex](3.ngql-guide/12.vertex-statements/4.delete-vertex.md)
 
 * Subgraph and path
-  * [Get subgraph](3.ngql-guide/15.subgraph-and-path/1.get-subgraph.md)
+  * [Get subgraph](3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md)
 
 * Query tuning statements
-  * [Explain and profile](3.ngql-guide/16.query-tuning-statements/1.explain-and-profile.md)
+  * [Explain and profile](3.ngql-guide/17.query-tuning-statements/1.explain-and-profile.md)
 
 ## Deployment and installation (for Developers and DBA)
 
