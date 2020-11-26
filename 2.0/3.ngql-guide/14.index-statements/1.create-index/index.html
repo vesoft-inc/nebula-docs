@@ -1409,8 +1409,13 @@
                 <h1 id="create_index">CREATE INDEX<a class="headerlink" href="#create_index" title="Permanent link">&para;</a></h1>
 <div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list)
 </code></pre></div>
+<p><code>prop_name_list</code>:</p>
+<ul>
+<li>To index a variable string type property, you must use the <code>prop_name(length)</code> syntax to specify an index prefix length</li>
+<li>To index a fixed length string type property, you must use the <code>prop_name</code> syntax because the string length can be read from the property</li>
+</ul>
 <p>Use <code>CREATE INDEX</code> to add indexes to the existing tag or edge-type.</p>
-<p>Before you create indexes on a tag or edge-type, make sure that the tag or edge-type is created with <code>CREATE TAG/EDGE</code> statement. Creating an existent index results in an error. You can use the <code>IF NOT EXISTS</code> option to conditionally create the index and avoid the error.</p>
+<p>Before you create indexes on a tag or an edge-type, make sure that the tag or edge-type is created with <code>CREATE TAG/EDGE</code> statement. Creating an existent index results in an error. You can use the <code>IF NOT EXISTS</code> option to conditionally create the index and avoid the error.</p>
 <p>Indexes are built to fast process graph queries. Nebula Graph supports two different kinds of indexing to speed up query processing: <strong>tag indexes</strong> and <strong>edge type indexes</strong>.</p>
 <p>Most graph queries start the traversal from a list of vertices or edges that are identified by their properties. Indexes make these global retrieval operations efficient on large graphs.</p>
 <blockquote>
@@ -1421,9 +1426,6 @@
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(10));
 </code></pre></div>
 <p>The preceding statement creates an index for the <code>name</code> property on all vertices carrying the <code>player</code> tag. This statement creates an index using the first 10 characters of the name property.</p>
-<blockquote>
-<p><strong>NOTE</strong>: To index a variable string type property, you must use the <code>col_name(length)</code> syntax to specify an index prefix length. To index a fixed length string type property, you must not need to specify the <code>col_name(length)</code>.</p>
-</blockquote>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG var_string(p1 string);
 nebula&gt; CREATE TAG INDEX var ON var_string(p1(10));
 
