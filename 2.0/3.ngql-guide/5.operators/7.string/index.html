@@ -1403,6 +1403,10 @@
 <td align="left">(NOT) ENDS WITH</td>
 <td align="center">Perform case-sensitive matching on the ending of a string</td>
 </tr>
+<tr>
+<td align="left">Regular expressions</td>
+<td align="center">Perform regular expression matching on a string</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -1526,6 +1530,20 @@ nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;b&#39;;
 +---------------------+
 | false               |
 +---------------------+
+</code></pre></div>
+<ul>
+<li>Regular expressions</li>
+</ul>
+<p>Nebula Graph supports filtering by using regular expressions. The regular expression syntax is inherited from <code>st::regex</code>. You can match on regular expressions by using <code>=~ 'regexp'</code>. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player WHERE player.name =~ &#39;Tony.*&#39; YIELD player.name;
+</code></pre></div>
+<p>The preceding statement returns the players whose name starts with 'Tony'.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
++----------------------------+
+| (384748.39=~\d+(\.\d{2})?) |
++----------------------------+
+| true                       |
++----------------------------+
 </code></pre></div>
                 
                   
