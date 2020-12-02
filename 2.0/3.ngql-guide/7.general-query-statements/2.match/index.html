@@ -1530,7 +1530,7 @@ Got 1 rows (time spent 2849/3256 us)
 </ul>
 <ul>
 <li>Example 2: Search for the players whose ages are above 30 and names start with "T", and return their names and ages. Use <code>STARTS WITH</code> or <code>ENDS WITH</code> to filter strings.<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.age &gt; 30 AND v.name STARTS WITH &quot;T&quot; \
-     -&gt;RETURN v.name AS Name, v.age AS Age;
+       RETURN v.name AS Name, v.age AS Age;
 +-------------+-----+
 | Name        | Age |
 +-------------+-----+
@@ -1544,7 +1544,7 @@ Got 2 rows (time spent 2407/3244 us)
 </ul>
 <ul>
 <li>Example 3: Search for the player whose name is "Tim", and return the player's relationships (edges) with others and the names of these people. The <code>r</code> is a user-defined variable that represents an edge. The <code>type(e)</code> function returns to the edge type.<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v1:player{name: &quot;Tim&quot;}) -[e]-&gt; (v2) \
-     -&gt; RETURN type(e) AS Relationship, v2.name AS Name;
+        RETURN type(e) AS Relationship, v2.name AS Name;
 +--------------+-------------------+
 | Relationship | Name              |
 +--------------+-------------------+
@@ -1560,7 +1560,7 @@ Got 3 rows (time spent 4844/6660 us)
 </ul>
 <ul>
 <li>Example 3: Search for the team that "Tim" serves, and return the team name, the start year, and the end year. <code>e:serve</code> represents edges with the <code>serve</code> type.<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v1:player{name: &quot;Tim&quot;}) -[e:serve]-&gt; (v2) \
-     -&gt; RETURN v2.name AS Team_Name, e.start_year AS Start_Year, e.end_year AS End_Year;
+        RETURN v2.name AS Team_Name, e.start_year AS Start_Year, e.end_year AS End_Year;
 +-----------+------------+----------+
 | Team_Name | Start_Year | End_Year |
 +-----------+------------+----------+
@@ -1572,8 +1572,8 @@ Got 1 rows (time spent 2768/3412 us)
 </ul>
 <ul>
 <li>Example 4: Search for the player whose name is "Tim", find the people that "Tim" follows with age above 35 and the teams they serve, and return the names of the people and teams.<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v1:player) -[:follow]-&gt; (v2) -[:serve]-&gt; (v3) \
-     -&gt; WHERE v1.name == &quot;Tim&quot; AND v2.age &gt; 35 \
-     -&gt; RETURN v1.name AS Player, v2.name AS Friend, v3.name AS Friends_Team;
+        WHERE v1.name == &quot;Tim&quot; AND v2.age &gt; 35 \
+        RETURN v1.name AS Player, v2.name AS Friend, v3.name AS Friends_Team;
 +--------+-------------+--------------+
 | Player | Friend      | Friends_Team |
 +--------+-------------+--------------+
@@ -1585,12 +1585,10 @@ Got 1 rows (time spent 3623/4220 us)
 </ul>
 <h3 id="examples_for_matching_on_id">Examples for matching on ID<a class="headerlink" href="#examples_for_matching_on_id" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Example 1: Search for the vertex with VID "player100" and return all its information.</li>
-</ul>
-<blockquote>
+<li>Example 1: Search for the vertex with VID "player100" and return all its information.<blockquote>
 <p><strong>NOTE</strong>:</p>
 <ul>
-<li>In nGQL, <code>id()</code> returns a vertex ID that is a string.</li>
+<li>In nGQL, <code>id()</code> returns a vertex ID, which is a string.</li>
 <li>In openCypher 9, <code>id()</code> returns an integer.</li>
 </ul>
 </blockquote>
@@ -1602,10 +1600,10 @@ Got 1 rows (time spent 3623/4220 us)
 +---------------------------------------------------+
 Got 1 rows (time spent 1710/2406 us)
 </code></pre></div>
-<ul>
-<li>Example 2: Search for the vertices with VIDs in a specific list and return all their information. A non-existing VID returns nothing.</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) IN [&#39;player100&#39;, &#39;player101&#39;, &#39;no_one&#39;] RETURN v;
+<ul>
+<li>Example 2: Search for the vertices with VIDs in a specific list and return all their information. A non-existing VID returns nothing.<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) IN [&#39;player100&#39;, &#39;player101&#39;, &#39;no_one&#39;] RETURN v;
 +---------------------------------------------------+
 | v                                                 |
 +---------------------------------------------------+
@@ -1614,6 +1612,28 @@ Got 1 rows (time spent 1710/2406 us)
 | (player100) player.name:Tim,player.age:42         |
 +---------------------------------------------------+
 Got 2 rows (time spent 1307/2079 us)
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Example 3: Search for the players with age above 35, and return the VID of the vertices representing these players.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.age &gt; 35 RETURN v.name AS Name, id(v) AS VID;
++---------------------+-------------+
+| Name                | VID         |
++---------------------+-------------+
+| &quot;Steve Nash&quot;        | &quot;player136&quot; |
++---------------------+-------------+
+| &quot;Amar&#39;e Stoudemire&quot; | &quot;player147&quot; |
++---------------------+-------------+
+| &quot;Vince Carter&quot;      | &quot;player127&quot; |
++---------------------+-------------+
+| &quot;Jason Kidd&quot;        | &quot;player148&quot; |
++---------------------+-------------+
+| &quot;Dwyane Wade&quot;       | &quot;player129&quot; |
++---------------------+-------------+
+| &quot;Paul Gasol&quot;        | &quot;player138&quot; |
++---------------------+-------------+
 </code></pre></div>
                 
                   
