@@ -1,6 +1,6 @@
 # Index overview
 
-Indexes are built to fast process graph queries. Nebula Graph supports two kinds of indexes: native indexes and full-text indexes. This topics introduces the index types and helps choose the right index.
+Indexes are built to fast process graph queries. Nebula Graph supports two kinds of indexes: native indexes and full-text indexes. This topic introduces the index types and helps choose the right index.
 
 ## Native indexes
 
@@ -8,9 +8,9 @@ Native indexes allow querying data based on a given property. There are two kind
 
 You can do partial match search by using composite indexes. Only use composite indexes for partial match searches when the declared fields in the composite index are used from left to right. For more information, see [LOOKUP FAQ](../7.general-query-statements/5.lookup.md#FAQ).
 
-String operators like `CONTAINS`, `STARTS WITH` are not allowed in native index searching. Use full-text indexes to search.
+String operators like `CONTAINS`, `STARTS WITH` are not allowed in native index searching. Use full-text indexes to do fuzzy search.
 
-### Operations against native indexes
+### Operations on native indexes
 
 You can do the following operations against native indexes:
 
@@ -24,11 +24,11 @@ You can do the following operations against native indexes:
 
 ## Full-text indexes
 
-Full-text indexes are used to index the string properties for vertices or edges. A full-text index allows you to write queries to retrieve data within the contents of indexed string properties. You can use full-text index to do prefix, wildcard, regexp, and fuzzy search on string property. Full-text indexes do not support indexing multiple properties a tag or an edge type.
+Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Full-text indexes allow indexing just one property. Only strings within a specified (no longer than 256 bytes) length are indexed. Full-text indexes do not support logical operations such as `AND`, `OR` and `NOT`. To do complete text match, use native indexes.
 
-### Operations against full-text indexes
+### Operations on full-text indexes
 
-At this time, full-text indexes are created automatically in the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see [Search with full-text indexes](7.search-with-text-based-index.md)
+At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see [Search with full-text indexes](7.search-with-text-based-index.md).
 
 ## Null values
 
