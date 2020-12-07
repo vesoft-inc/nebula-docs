@@ -28,7 +28,7 @@ Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a
 
 ### Operations on full-text indexes
 
-At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see [Search with full-text indexes](7.search-with-text-based-index.md).
+Before doing any operations on full-text indexes, please mak sure that you deploy full-text indexes. Details on full-text indexes deployment, see [Deploy full-text index](../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy.md). At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see [Search with full-text indexes](7.search-with-text-based-index.md).
 
 ## Null values
 
