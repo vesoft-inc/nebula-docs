@@ -42,7 +42,7 @@
     
     
       
-        <title>When to use - Nebula Graph Database Manual</title>
+        <title>Index overview - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#when_to_use" tabindex="0" class="md-skip">
+      <a href="#index_overview" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                When to use
+                Index overview
               
             </span>
           
@@ -1391,6 +1391,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#native_indexes" class="md-nav__link">
+    Native indexes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operations_on_native_indexes" class="md-nav__link">
+    Operations on native indexes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-text_indexes" class="md-nav__link">
+    Full-text indexes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operations_on_full-text_indexes" class="md-nav__link">
+    Operations on full-text indexes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#null_values" class="md-nav__link">
+    Null values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#range_queries" class="md-nav__link">
+    Range queries
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1402,9 +1465,31 @@
               
                 
                 
-                <h1 id="when_to_use">When to use<a class="headerlink" href="#when_to_use" title="Permanent link">&para;</a></h1>
-<p>Full-text indexes are used to index the string properties for vertices or edges. A full-text index allows you to write queries to retrieve data within the contents of indexed string properties.</p>
-<p>TODO</p>
+                <h1 id="index_overview">Index overview<a class="headerlink" href="#index_overview" title="Permanent link">&para;</a></h1>
+<p>Indexes are built to fast process graph queries. Nebula Graph supports two kinds of indexes: native indexes and full-text indexes. This topic introduces the index types and helps choose the right index.</p>
+<h2 id="native_indexes">Native indexes<a class="headerlink" href="#native_indexes" title="Permanent link">&para;</a></h2>
+<p>Native indexes allow querying data based on a given property. There are two kinds of native indexes: tag index and edge type index. Native indexes must be updated manually. You can use the <code>REBUILD INDEX</code> statement to update native indexes. Native indexes support indexing multiple properties on a tag or an edge type (composite indexes), but do not support indexing across multiple tags or edge types.</p>
+<p>You can do partial match search by using composite indexes. Use composite indexes only for partial match searches when the declared fields in the composite index are used from left to right. For more information, see <a href="../7.general-query-statements/5.lookup/#FAQ">LOOKUP FAQ</a>.</p>
+<p>String operators like <code>CONTAINS</code> and <code>STARTS WITH</code> are not allowed in native index searching. Use full-text indexes to do fuzzy search.</p>
+<h3 id="operations_on_native_indexes">Operations on native indexes<a class="headerlink" href="#operations_on_native_indexes" title="Permanent link">&para;</a></h3>
+<p>You can do the following operations against native indexes:</p>
+<ul>
+<li><a href="1.create-native-index/">Create index</a></li>
+<li><a href="2.show-native-indexes/">Show index</a></li>
+<li><a href="3.describe-native-index/">Describe index</a></li>
+<li><a href="4.rebuild-native-index/">Rebuild index</a></li>
+<li><a href="5.show-native-index-status/">Show index status</a></li>
+<li><a href="6.drop-native-index/">Drop index</a></li>
+<li><a href="../7.general-query-statements/5.lookup/">Query index</a></li>
+</ul>
+<h2 id="full-text_indexes">Full-text indexes<a class="headerlink" href="#full-text_indexes" title="Permanent link">&para;</a></h2>
+<p>Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Full-text indexes allow indexing just one property. Only strings within a specified length (no longer than 256 bytes) are indexed. Full-text indexes do not support logical operations such as <code>AND</code>, <code>OR</code> and <code>NOT</code>. To do complete text match, use native indexes.</p>
+<h3 id="operations_on_full-text_indexes">Operations on full-text indexes<a class="headerlink" href="#operations_on_full-text_indexes" title="Permanent link">&para;</a></h3>
+<p>Before doing any operations on full-text indexes, please mak sure that you deploy full-text indexes. Details on full-text indexes deployment, see <a href="../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy/">Deploy full-text index</a>. At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see <a href="7.search-with-text-based-index/">Search with full-text indexes</a>.</p>
+<h2 id="null_values">Null values<a class="headerlink" href="#null_values" title="Permanent link">&para;</a></h2>
+<p>Indexes do not support indexing null values at this time.</p>
+<h2 id="range_queries">Range queries<a class="headerlink" href="#range_queries" title="Permanent link">&para;</a></h2>
+<p>In addition to querying single results from native indexes, you can also do range queries. Not all the native indexes support range queries. You can only do range search for numeric, date, and time type properties.</p>
                 
                   
                 
