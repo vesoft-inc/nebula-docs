@@ -6,9 +6,9 @@ Indexes are built to fast process graph queries. Nebula Graph supports two kind
 
 Native indexes allow querying data based on a given property. There are two kinds of native indexes: tag index and edge type index. Native indexes must be updated manually. You can use the `REBUILD INDEX` statement to update native indexes. Native indexes support indexing multiple properties on a tag or an edge type (composite indexes), but do not support indexing across multiple tags or edge types.
 
-You can do partial match search by using composite indexes. Only use composite indexes for partial match searches when the declared fields in the composite index are used from left to right. For more information, see [LOOKUP FAQ](../7.general-query-statements/5.lookup.md#FAQ).
+You can do partial match search by using composite indexes. Use composite indexes only for partial match searches when the declared fields in the composite index are used from left to right. For more information, see [LOOKUP FAQ](../7.general-query-statements/5.lookup.md#FAQ).
 
-String operators like `CONTAINS`, `STARTS WITH` are not allowed in native index searching. Use full-text indexes to do fuzzy search.
+String operators like `CONTAINS` and `STARTS WITH` are not allowed in native index searching. Use full-text indexes to do fuzzy search.
 
 ### Operations on native indexes
 
@@ -24,7 +24,7 @@ You can do the following operations against native indexes:
 
 ## Full-text indexes
 
-Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Full-text indexes allow indexing just one property. Only strings within a specified (no longer than 256 bytes) length are indexed. Full-text indexes do not support logical operations such as `AND`, `OR` and `NOT`. To do complete text match, use native indexes.
+Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Full-text indexes allow indexing just one property. Only strings within a specified length (no longer than 256 bytes) are indexed. Full-text indexes do not support logical operations such as `AND`, `OR` and `NOT`. To do complete text match, use native indexes.
 
 ### Operations on full-text indexes
 
