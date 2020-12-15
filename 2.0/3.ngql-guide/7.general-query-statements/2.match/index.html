@@ -969,8 +969,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common_retrieves" class="md-nav__link">
-    Common retrieves
+  <a href="#common_retrieving_operations" class="md-nav__link">
+    Common retrieving operations
   </a>
   
     <nav class="md-nav">
@@ -1960,8 +1960,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common_retrieves" class="md-nav__link">
-    Common retrieves
+  <a href="#common_retrieving_operations" class="md-nav__link">
+    Common retrieving operations
   </a>
   
     <nav class="md-nav">
@@ -2061,7 +2061,7 @@
                 
                 <h1 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">&para;</a></h1>
 <p>The <code>MATCH</code> statement provides the searching ability based on pattern matching.</p>
-<p>A <code>MATCH</code> statement defines a search pattern (doc TODO) and uses it to match data stored in the Nebula Graph database and to retrieve the data in the form defined in the <code>RETURN</code> clause. A <code>WHERE</code> clause (doc TODO) is often used together with the pattern as a filter to the search result.</p>
+<p>A <code>MATCH</code> statement defines a search pattern (doc TODO) and uses it to match data stored in Nebula Graph and to retrieve them in the form defined in the <code>RETURN</code> clause. A <code>WHERE</code> clause (doc TODO) is often used together with the pattern as a filter to the search result.</p>
 <p>The examples in this topic use the <code>nba</code> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. But generally, it can be summarized as follows.</p>
@@ -2076,14 +2076,14 @@
 <p>At last, it retrieves data according to the <code>RETURN</code> clause.</p>
 <blockquote>
 <p><strong>OpenCypher compatibility</strong></p>
-<p>For now, nGQL does not support the following operations:</p>
+<p>For now, nGQL DOES NOT support the following operations:</p>
 <ul>
 <li>Scan all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</li>
 <li>Scan all vertices with one tag or all edges of one edge type with <code>MATCH</code>. For example, <code>MATCH (v:player) RETURN v</code>.</li>
 </ul>
 </blockquote>
 <h2 id="use_patterns_in_match_statements">Use patterns in MATCH statements<a class="headerlink" href="#use_patterns_in_match_statements" title="Permanent link">&para;</a></h2>
-<p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If there are existing data, rebuild the index to make it takes effect on all data.</p>
+<p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If you want to create an index on a property, but there are already vertices or edges with that property, rebuild the index after creation to make it take effect on existing data.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
 Execution succeeded (time spent 2957/3986 us)
 
@@ -2113,7 +2113,7 @@ Got 4 rows (time spent 1186/2998 us)
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
 <h3 id="match_on_vertex_tag_and_property">Match on vertex tag and property<a class="headerlink" href="#match_on_vertex_tag_and_property" title="Permanent link">&para;</a></h3>
 <p>Tags are specified with <code>:&lt;tag_name&gt;</code> and tag properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;tag_name&gt;</code>.</p>
-<p>The following example uses the name property to match a vertex.</p>
+<p>The following example uses the <code>name</code> property to match a vertex.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +----------------------------------------------------+
 | v                                                  |
@@ -2146,7 +2146,7 @@ Got 4 rows (time spent 1186/2998 us)
 +---------------------------------------------------+
 Got 1 rows (time spent 1710/2406 us)
 </code></pre></div>
-<p>To match on multiple VIDS, use <code>WHERE id(v) IN [vid_list]</code>.</p>
+<p>To match on multiple VIDs, use <code>WHERE id(v) IN [vid_list]</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
         WHERE id(v2) IN [&quot;player101&quot;, &quot;player102&quot;] RETURN v2;
 +-----------------------------------------------------------+
@@ -2162,7 +2162,7 @@ Got 3 rows (time spent 3107/3683 us)
 </code></pre></div>
 <blockquote>
 <p><strong>OpenCypher compatibility</strong></p>
-<p>For now, nGQL 2.0 only supports string-type VIDs.</p>
+<p>For now (till 2.0.0-beta), nGQL supports string-type VIDs only. (TODO: int VID)</p>
 </blockquote>
 <h3 id="match_connected_vertices">Match connected vertices<a class="headerlink" href="#match_connected_vertices" title="Permanent link">&para;</a></h3>
 <p>You can use the <code>--</code> symbol to represent edges of both directions and match vertices connected by these edges.</p>
@@ -2190,7 +2190,7 @@ Got 3 rows (time spent 3107/3683 us)
 ...
 Got 13 rows (time spent 6029/8976 us)
 </code></pre></div>
-<p>And you can add a <code>&gt;</code> or <code>&lt;</code> symbol to specify the direction of the edge.</p>
+<p>And you can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN v2.name AS Name;
 +-----------------+
 | Name            |
@@ -2203,6 +2203,7 @@ Got 13 rows (time spent 6029/8976 us)
 +-----------------+
 Got 3 rows (time spent 2897/5993 us)
 </code></pre></div>
+<p>In the preceding example, <code>--&gt;</code> represents an edge that starts from <code>v</code> and points to <code>v2</code>. To <code>v</code>, this is an outgoing edge, and to <code>v2</code> this is an incoming edge.</p>
 <p>To extend the pattern, add more edges and vertices.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) RETURN v3.name AS Name;
 +---------------------+
@@ -2239,9 +2240,9 @@ Got 3 rows (time spent 2897/5993 us)
 </code></pre></div>
 <h3 id="match_paths">Match paths<a class="headerlink" href="#match_paths" title="Permanent link">&para;</a></h3>
 <p>Connected vertices and edges form a path. You can use a user-defined variable as follows to name a path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN p;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN p;
 +-----------------------------------------+
-| p                                    |
+| p                                       |
 +-----------------------------------------+
 | (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) |
 +-----------------------------------------+
@@ -2251,8 +2252,12 @@ Got 3 rows (time spent 2897/5993 us)
 +-----------------------------------------+
 Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
+<blockquote>
+<p><strong>OpenCypher compatibility</strong></p>
+<p>In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such a concept.</p>
+</blockquote>
 <h3 id="match_edges">Match edges<a class="headerlink" href="#match_edges" title="Permanent link">&para;</a></h3>
-<p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-&gt;</code>.</p>
+<p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
@@ -2352,7 +2357,7 @@ Got 3 rows (time spent 4863/5591 us)
 <p><strong>OpenCypher compatibility</strong></p>
 <ul>
 <li>In nGQL, <code>maxHop</code> is required. And <code>..</code> cannot be omitted.</li>
-<li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given <code>..</code> can be omitted.</li>
+<li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given, <code>..</code> can be omitted.</li>
 </ul>
 </blockquote>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like*1..3]-&gt;(v2) \
@@ -2384,7 +2389,7 @@ Got 3 rows (time spent 4863/5591 us)
 +-----------------------------------------------------------+
 Got 11 rows (time spent 5426/6473 us)
 </code></pre></div>
-<p>You can use the <code>DISTINCT</code> keyword to remove duplicated results.</p>
+<p>You can use the <code>DISTINCT</code> keyword to remove duplicate results.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like*1..3]-&gt;(v2) \
         RETURN DISTINCT v2 AS Friends;
 +-----------------------------------------------------------+
@@ -2401,7 +2406,7 @@ Got 11 rows (time spent 5426/6473 us)
 Got 4 rows (time spent 4549/5162 us)
 </code></pre></div>
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">&para;</a></h3>
-<p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>maxHop</code>, and <code>maxHop</code> takes effect on all edge types.</p>
+<p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like|serve*2]-&gt;(v2) \
         RETURN DISTINCT v2;
 +-----------------------------------------------------------+
@@ -2419,7 +2424,7 @@ Got 4 rows (time spent 4549/5162 us)
 +-----------------------------------------------------------+
 Got 5 rows (time spent 3834/4571 us)
 </code></pre></div>
-<h2 id="common_retrieves">Common retrieves<a class="headerlink" href="#common_retrieves" title="Permanent link">&para;</a></h2>
+<h2 id="common_retrieving_operations">Common retrieving operations<a class="headerlink" href="#common_retrieving_operations" title="Permanent link">&para;</a></h2>
 <p>This section shows how to retrieve commonly used items with <code>MATCH</code> statements.</p>
 <h3 id="retrieve_vertex_or_edge_information">Retrieve vertex or edge information<a class="headerlink" href="#retrieve_vertex_or_edge_information" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}</code> to retrieve all the information of a vertex or an edge.</p>
@@ -2463,7 +2468,7 @@ Got 1 rows (time spent 2070/2747 us)
 +------------+
 Got 1 rows (time spent 2198/2941 us)
 </code></pre></div>
-<p>The following example shows how to retrieve the first tag in the list.</p>
+<p>To retrieve the nth element in the <code>labels(v)</code> list, use <code>labels(v)[n-1]</code>. The following example shows how to use <code>labels(v)[0]</code> to retrieve the first tag in the list.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN labels(v)[0];
 +--------------+
 | labels(v)[0] |
@@ -2564,30 +2569,30 @@ Got 3 rows (time spent 2715/3363 us)
 <h3 id="retrieve_path_length">Retrieve path length<a class="headerlink" href="#retrieve_path_length" title="Permanent link">&para;</a></h3>
 <p>Use the <code>length()</code> function to retrieve the length of a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
-        RETURN v2.name AS Name, length(p) AS Length;
-+---------------------+--------+
-| Name                | Length |
-+---------------------+--------+
-| &quot;Spurs&quot;             | 2      |
-+---------------------+--------+
-| &quot;Hornets&quot;           | 2      |
-+---------------------+--------+
-| &quot;Tim Duncan&quot;        | 2      |
-+---------------------+--------+
-| &quot;LaMarcus Aldridge&quot; | 2      |
-+---------------------+--------+
-| &quot;Manu Ginobili&quot;     | 2      |
-+---------------------+--------+
-| &quot;Spurs&quot;             | 2      |
-+---------------------+--------+
-| &quot;Tim Duncan&quot;        | 2      |
-+---------------------+--------+
-| &quot;Spurs&quot;             | 1      |
-+---------------------+--------+
-| &quot;Tony Parker&quot;       | 1      |
-+---------------------+--------+
-| &quot;Manu Ginobili&quot;     | 1      |
-+---------------------+--------+
+        RETURN p AS Paths, length(p) AS Length;
++------------------------------------------------------------------+--------+
+| Paths                                                            | Length |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player215&quot;) | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player100&quot;)  | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player102&quot;)  | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player125&quot;)  | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:like@0]-&gt;(&quot;player100&quot;)  | 2      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)                          | 1      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)                           | 1      |
++------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)                           | 1      |
++------------------------------------------------------------------+--------+
 Got 10 rows (time spent 3774/4516 us)
 </code></pre></div>
                 
