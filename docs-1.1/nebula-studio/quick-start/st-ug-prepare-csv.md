@@ -4,7 +4,7 @@ With Studio, you can bulk import vertex and edge data into Nebula Graph. Current
 
 To create applicable CSV files, process the source data as follows:
 
-1. Generate CSV files for vertex and edge data:
+1. Generate CSV files for vertex and edge data. Only a single character separator is supported.
 
    - `user.csv`: Contains the vertices representing users with the `userId` property.
    - `course.csv`: Contains the vertices representing courses with the `courseId` and `courseName` properties.
