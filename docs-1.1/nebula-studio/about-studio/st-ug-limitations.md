@@ -14,7 +14,7 @@ For now, Docker-based Studio supports x86_64 architecture only.
 
 During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these limitations:
 
-- Only CSV files without headers are supported.
+- Only CSV files without headers are supported, and only commas are acceptable separator.
 - Each file of a maximum of 100 MB is supported.
 - A total amount of a maximum of 1 GB is supported for each Nebula graph instance.
 - Each file is stored for only one calendar day.
