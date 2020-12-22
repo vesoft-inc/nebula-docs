@@ -34,26 +34,26 @@ To create a schema on the **Console** page, follow these steps:
 3. In the input box, enter these statements one by one and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
 
    ```nGQL
-   -- To create a tag named "user", with no property
+   // To create a tag named "user", with no property
    nebula> CREATE TAG user ();
    
-   -- To create a tag named "course", with one property
+   // To create a tag named "course", with one property
    nebula> CREATE TAG course (courseId int);
 
-   -- To create an edge type named "action", with seven properties
+   // To create an edge type named "action", with seven properties
    nebula> CREATE EDGE action (actionId int, duration double, label bool, feature0 double, feature1 double, feature2 double, feature3 double);
    ```
 
 If the preceding statements are executed successfully, the schema is created. You can run the statements as follows to view the schema.
 
 ```nGQL
--- To list all the tags in the current graph space
+// To list all the tags in the current graph space
 nebula> SHOW TAGS;
 
--- To list all the edge types in the current graph space
+// To list all the edge types in the current graph space
 nebula> SHOW EDGES;
 
--- To view the definition of the tags and edge types
+// To view the definition of the tags and edge types
 nebula> DESCRIBE TAG user;
 nebula> DESCRIBE TAG course;
 nebula> DESCRIBE EDGE action;

@@ -12,10 +12,9 @@ If you are using Nebula Graph v1.x, please use Studio v1.x. For more information
 
 For now, Docker-based Studio supports x86_64 architecture only.
 
-<!-- NOT READY on Studio v2.0.0-alpha
 ## Upload data
 
-On Docker-based Studio, only CSV files without headers can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.-->
+On Docker-based Studio, only CSV files without headers and comma-separated data can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
 
 ## Data backup
 
