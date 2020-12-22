@@ -1,8 +1,6 @@
-<!-- will be updated when Import and Schema modules can work as expected.
-
 # Prepare CSV files
 
-With Studio, you can bulk import vertex and edge data into Nebula Graph. Currently, only CSV files without headers are supported. Each file represents vertex or edge data of one type.
+With Studio, you can batch import vertex and edge data into Nebula Graph. Currently, only CSV files without headers and comma-separated data are supported. Each file represents vertex or edge data of one type.
 
 To create applicable CSV files, process the source data as follows:
 

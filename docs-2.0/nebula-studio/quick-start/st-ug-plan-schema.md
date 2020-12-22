@@ -1,8 +1,6 @@
-<!-- will be updated when Import and Schema modules can work as expected.
-
 # Design a schema
 
-To operate graph data in Nebula Graph with Studio, you must have a graph schema. This article introduces how to design a graph schema for Nebula Graph.
+To manipulate graph data in Nebula Graph with Studio, you must have a graph schema. This article introduces how to design a graph schema for Nebula Graph.
 
 A graph schema for Nebula Graph must have these essential elements:
 
@@ -16,11 +14,9 @@ This table gives all the essential elements of the schema.
 | Element  | Name  | Property name (Data type)  |  Description  |
 | :---  | :---  | :---  | :---  |
 | Tag  | **user**  | `userId` (`int`). The `userId` values are used as VIDs of user vertices. | Represents users of the specified MOOC platform.   |
-| Tag  | **course** | `courseId` (`int`) and `courseName` (`string`). The `courseName` values are used as the VIDs of the course vertices. Because the VIDs of vertices must be distinct in a graph space, so `courseId` cannot be used as VIDs. | Represents the courses on the specified MOOC platform. |
+| Tag  | **course** | `courseId` (`int`) and `courseName` (`string`). The `courseName` values are used as the VIDs of the course vertices. | Represents the courses on the specified MOOC platform. |
 | Edge type | **action**  | - `actionId` (`int`) <br /> - `duration` (`double`): Represents the duration of an action measured in seconds from the beginning. Its values are equal to the `timestamp` values in the data source.  <br /> - `label` (`bool`): Represents whether a user drops out after an action. `TRUE` indicates a drop-out action, `FALSE` otherwise. <br /> - `feature0` (`double`) <br /> - `feature1` (`double`) <br /> - `feature2` (`double`) <br /> - `feature3` (`double`) |  Represents actions taken by users on the specified MOOC platform. An action links a user and a course and the direction is from a user to a course. It has four features.   |
 
 This figure shows the relationship (**action**) between a **user** and a **course** on the MOOC platform.
 
 ![Users take actions on a MOOC platform](../figs/st-ug-006.png "Relationship between users and courses in the example dataset")
-
--->
