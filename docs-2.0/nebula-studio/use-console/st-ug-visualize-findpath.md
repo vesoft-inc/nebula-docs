@@ -30,23 +30,25 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
    ```nGQL
    // Run FIND ALL PATH
-   nebula> FIND ALL PATH FROM 1,2,4,6,42 to hash("History of Ecology"),"Neurobiology" OVER action;
+   nebula> FIND ALL PATH FROM "1","2","4","6","42" to "History of Ecology","Neurobiology" OVER action;
 
    // Run FIND SHORTEST PATH
-
+   nebula> FIND SHORTEST PATH FROM "1","2","4","6","42" to "History of Ecology","Neurobiology" OVER action;
 
    // Run GET SUBGRAPH
+   nebula> GET SUBGRAPH 1 STEPS FROM "1";
    ```
 
-    The queried result gives all the paths from the specified user vertices to the course vertices, as shown in this figure.
+    Take the `FIND ALL PATH` for example, the queried result gives all the paths from the specified user vertices to the course vertices, as shown in this figure.
 
-    ![The result window shows the queried paths](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-049.png "The queried PATHs")
+    ![The result window shows the queried paths](../figs/st-ug-049.png "The queried PATHs")
 
 4. Click the **View Subgraphs** button.
 
 5. (Optional) If some data exists on the board of **Explore**, choose a method to insert data:
 
     - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
+
     - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
 
 When the data is inserted, you can view the visualized representation of the paths.

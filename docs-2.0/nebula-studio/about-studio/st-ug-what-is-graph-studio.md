@@ -4,7 +4,7 @@ Nebula Graph Studio (Studio in short) is a browser-based visualization tool to m
 
 ## Release distributions
 
-For now, Studio v2.0.0-alpha has only Docker-based distribution. You can deploy Studio v2.x with Docker and connect it to Nebula Graph v2.x. For more information, see [Deploy Studio](../install-configure/st-ug-deploy.md).
+For now, Studio v2.x has only Docker-based distribution. You can deploy Studio v2.x with Docker and connect it to Nebula Graph v2.x. For more information, see [Deploy Studio](../install-configure/st-ug-deploy.md).
 
 Studio on Cloud is not available now.
 
@@ -18,7 +18,7 @@ Studio provides these features:
 
 ## Scenarios
 
-You can use Studio in one of these scenarios:
+You can use Studio v2.x in one of these scenarios:
 
 - You have a dataset, and you want to explore and analyze data in a visualized way. You can use Docker Compose or Nebula Graph Cloud Service to deploy Nebula Graph and then use Studio to explore or analyze data in a visualized way.  
 

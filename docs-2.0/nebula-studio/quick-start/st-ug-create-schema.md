@@ -7,19 +7,23 @@ To batch import data into Nebula Graph, you must have a graph schema. You can cr
 
 ## Prerequisites
 
-To create a graph schema on Studio, you must do a check of these:
+To create a graph schema on Studio v2.x, you must do a check of these:
 
-- Studio is connected to Nebula Graph.
-- Your account has the privileges of GOD, ADMIN, or DBA.
+- Studio is connected to Nebula Graph v2.x.
+
+- Your account has the privilege of GOD, ADMIN, or DBA.
+
 - The schema is designed.
+
 - A graph space is created.
-  > **NOTE**: If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** or **Schema** page.
+  > **NOTE**: If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** page. For more information, see [CREATE SPACE](../../3.ngql-guide/9.space-statements.md/1.create-space.md). In this example, we recommend that you set `vid_type=FIXED_STRING(100)` in the `CREATE SPACE` statement.
 
 ## Create a schema with Schema
 
 To create a schema on the **Schema** page, follow these steps:
 
 1. Create tags. For more information, see [Operate tags](../manage-schema/st-ug-crud-tag.md).
+
 2. Create edge types. For more information, see [Operate edge types](../manage-schema/st-ug-crud-edge-type.md).
 
 ## Create a schema with Console
@@ -27,6 +31,7 @@ To create a schema on the **Schema** page, follow these steps:
 To create a schema on the **Console** page, follow these steps:
 
 1. In the toolbar, click the **Console** tab.
+
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is used.
 
    ![Choose a graph space name for the Current Graph Space field](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-031.png "Choose a graph space")
@@ -60,6 +65,8 @@ nebula> DESCRIBE EDGE action;
 ```
 
 If the schema is created successfully, in the result window, you can see the definition of the tags and edge types.
+
+![The result window shows the definition of the action edge](../figs/st-ug-048.png "Result of the DESCRIBE EDGE action statement")
 
 ## Next to do
 

@@ -10,11 +10,11 @@ If you are using Nebula Graph v1.x, please use Studio v1.x. For more information
 
 ## Architecture
 
-For now, Docker-based Studio supports x86_64 architecture only.
+For now, Docker-based Studio v2.x supports x86_64 architecture only.
 
 ## Upload data
 
-On Docker-based Studio, only CSV files without headers and comma-separated data can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
+On Docker-based Studio v2.x, only CSV files with comma-separated data and without headers can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
 
 ## Data backup
 
@@ -22,11 +22,11 @@ For now, you can export the queried results in the CSV format on the **Console**
 
 ## nGQL statements
 
-On the **Console** page of Docker-based Studio, all the nGQL syntaxes except these are supported:
+On the **Console** page of Docker-based Studio v2.x, all the nGQL syntaxes except these are supported:
 
-- `USE <space_name>`: You cannot run such a statement on the **Console** page to select a graph space. As an alternative, you can click a graph space name in the drop-down list of **Current Graph Space**.
+- `USE <space_name>`: You cannot run such a statement on the **Console** page to choose a graph space. As an alternative, you can click a graph space name in the drop-down list of **Current Graph Space**.
 - You cannot use line breaks (\\). As an alternative, you can use the Enter key to split a line.
 
 ## Browser
 
-We recommend that you use Chrome to get access to Studio.
+We recommend that you use the latest version of Chrome to get access to Studio v2.x.
