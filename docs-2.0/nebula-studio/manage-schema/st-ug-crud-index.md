@@ -1,3 +1,5 @@
+<!-- will be updated when Import and Schema modules can work as expected. 
+
 # Operate Indexes
 
 You can create an index for a tag and/or an edge type. An index lets traversal start from vertices or edges with the same property and it can make a query more efficient. You can create two index types: Tag Index and Edge Type Index. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, and delete indexes. This article introduces how to use the **Schema** page to operate an index.
@@ -64,3 +66,5 @@ To delete an index on **Schema**, follow these steps:
 2. In the graph space list, find a graph space, and then click its name or the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Set") in the **Operations** column.
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 4. Click the **Index** tab, find an index and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
+
+-->

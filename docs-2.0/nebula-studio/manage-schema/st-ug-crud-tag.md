@@ -1,3 +1,4 @@
+<!-- will be updated when Import and Schema modules can work as expected. 
 # Operate tags
 
 After a graph space is created in Nebula Graph, you can create tags. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, update, or delete tags. This article only introduces how to use the **Schema** page to operate tags in a graph space.
@@ -96,3 +97,5 @@ To delete a tag on the **Schema** page, follow these steps:
 ## Next to do
 
 After the tag is created, you can use the **Console** page to insert vertex data one by one manually or use the **Import** page to bulk import vertex data.
+
+-->
