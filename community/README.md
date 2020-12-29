@@ -45,15 +45,15 @@ Active Contributors are continuously active contributors in the community. They 
 
 ### How to become an Active Contributor of a Repository
 
-If you contribute at least 5 PRs to a specific repository within one year, you will become an active contributor automatically.
+If you have at least 3 PRs merged to a specific repository within one year, you will become an active contributor automatically.
 
 ## Contributor
 
-Anyone who contributes one PR for any repository is a Contributor.
+Anyone with at least on PR merged to any repository under [vesoft-inc organization](https://github.com/vesoft-inc) is a Contributor.
 
 ### How to become a Contributor
 
-To become a Contributor, you should contribute at least 1 PR for any project in the [vesoft-inc organization](https://github.com/vesoft-inc).
+To become a Contributor, you should contribute at least 1 PR to any project under [vesoft-inc organization](https://github.com/vesoft-inc).
 
 There are various ways of contributing. See [Contributing Guide](../docs/manual-EN/4.contributions/how-to-contribute.md) to get started.
 
