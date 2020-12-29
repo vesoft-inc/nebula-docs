@@ -1894,7 +1894,7 @@
                 <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">&para;</a></h1>
 <div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
     [(partition_num = &lt;partition_number&gt;, replica_factor = &lt;replica_number&gt;, charset = &lt;charset&gt;, collate = &lt;collate&gt;,
-    vid_type = FIXED_STRING(&lt;max_string_length&gt;))]
+    vid_type = {FIXED_STRING(&lt;max_string_length&gt;))] | INT64}
 </code></pre></div>
 <p>The <code>CREATE SPACE</code> statement creates a new graph space with the given name. A <code>SPACE</code> is a region that provides physically isolated graphs in Nebula Graph. An error occurs if a graph space with the same name exists if you did not specify <code>IF NOT EXISTS</code>.</p>
 <h2 id="if_not_exists">IF NOT EXISTS<a class="headerlink" href="#if_not_exists" title="Permanent link">&para;</a></h2>
@@ -1923,7 +1923,7 @@
 </li>
 </ul>
 <ul>
-<li><code>vid_type</code><p>Specifies the data type of vertex IDs (VIDs) in a graph space. In Nebula Graph 2.0.0-alpha, only <code>fixed_string(N)</code> is valid, indicating VIDs must be string type. <code>N</code> represents the maximum length of the VIDs. You must set the <code>fixed_string</code> to a positive integer. The default value is 8. If your VID length is greater than the maximum VID length, Nebula Graph throws an error.</p>
+<li><code>vid_type</code><p>Specifies the data type of vertex IDs (VIDs) in a graph space. The default value is <code>FIXED_STRING(8)</code>. This shows that the default VID data type is <code>FIXED_STRING</code> and the default length is <code>8</code>. In Nebula Graph 2.0.0-RC, only <code>FIXED_STRING(N)</code> and <code>INT64</code> are supported. <code>N</code> represents the maximum length of the VIDs. You must set the <code>fixed_string</code> to a positive integer. If your VID length is greater than the maximum VID length, Nebula Graph throws an error. To set the integer VID for vertices, specify the <code>vid_type</code> to <code>INT64</code>.</p>
 </li>
 </ul>
 <p>If no option is given, Nebula Graph creates the graph space with the default options.</p>
