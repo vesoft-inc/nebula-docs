@@ -1,3 +1,4 @@
+<!-- will be updated when Import and Schema modules can work as expected. 
 # Operate graph spaces
 
 When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in Nebula Graph.
@@ -56,3 +57,4 @@ After a graph space is created, you can create or edit a schema, including:
 - [Operate tags](st-ug-crud-tag.md)
 - [Operate edge types](st-ug-crud-edge-type.md)
 - [Operate indexes](st-ug-crud-index.md)
+-->
