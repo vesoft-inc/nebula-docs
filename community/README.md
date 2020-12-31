@@ -11,9 +11,9 @@ PMC members are responsible for voting new Maintainers or Committers and the aut
 
 ## Maintainer
 
-Maintainers are the planners and designers of the repository, with the right to merge branches into the master. The appointment is for one year. A Maintainer should:
+Maintainers are the planners and designers of a repository, with the right to merge branches into the master. The appointment is for one year. A Maintainer should:
 
-- Set technical directions, roadmap, and priorities for the repository
+- Set technical directions, road maps, and priorities for the repository
 - Drive the development forward and ensure newcomers, as well as long-time contributors, have a great experience
 - Make sure of the overall quality of the repository
 
@@ -51,7 +51,7 @@ If you have at least three PRs merged to a specific repository within one year, 
 
 Anyone with at least one PR merged to any repository under [vesoft-inc organization](https://github.com/vesoft-inc) is a Contributor.
 
-### How to become a contributor
+### How to become a Contributor
 
 To become a Contributor, you should contribute at least one PR to any project under [vesoft-inc organization](https://github.com/vesoft-inc).
 
