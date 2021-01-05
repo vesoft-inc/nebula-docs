@@ -2283,7 +2283,10 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To back up data with the BR, do a check of these:</p>
 <ul>
-<li>The BR is compiled. For more information, see <a href="../2.compile-br/">Compile BR</a>.</li>
+<li>The BR is compiled. For more information, see <a href="../2.compile-br/">Compile BR</a>.<blockquote>
+<p><strong>NOTE</strong>: If you want to store the backup files locally, we recommend that you compile the BR on one meta server of the target Nebula Graph cluster where you will perform data restoration. For more information, see <a href="../4.br-restore-data/">Restore data from backup files</a>.</p>
+</blockquote>
+</li>
 </ul>
 <ul>
 <li>The Nebula Graph services are running and we recommend that the backup is performed when the application request traffic is very low.</li>
@@ -2308,20 +2311,17 @@
 <li>Your account on the BR machine can log on via SSH to the meta and the storage servers without a password. Here is a <a href="http://alexander.holbreich.org/ssh-tunnel-without-password/" title="Click and leave Nebula Graph Docs">configuration reference</a>. In this example, such an account named <code>nebula</code> on the BR machine is used.</li>
 </ul>
 <ul>
-<li>If you use Amazon S3 to store the backup files, make sure that the S3 CLI client is installed and configured on the meta servers, the storage servers, and the BR machine. For more information, see <a href="https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-services-s3.html" title="Click to go to AWS website">Using Amazon S3 with CLI</a>.</li>
-</ul>
-<ul>
-<li>If you use Alibaba Cloud OSS to store the backup files, make sure that the ossutil is installed on the meta server, the storage servers, and the BR machine. For more information, see <a href="https://www.alibabacloud.com/help/doc-detail/120075.htm#concept-303829" title="Click to go to Alibaba Cloud website">Download and install ossutil</a>.<blockquote>
-<p><strong>NOTE</strong>: If ossutil64 is used, create a symbolic link from ossutil64 to ossutil. For example, run <code>ln -s /usr/local/bin/ossutil64 /usr/local/bin/ossutil</code>.</p>
+<li>If you use Amazon S3 or Alibaba Cloud OSS to store the backup files, make sure that the S3 CLI client or ossutil is installed and configured on the meta servers, the storage servers, and the BR machine. For more information, see <a href="https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-services-s3.html" title="Click to go to AWS website">Amazon S3 CLI Documentation</a> and <a href="https://www.alibabacloud.com/help/doc-detail/120075.htm#concept-303829" title="Click to go to Alibaba Cloud website">Alibaba Cloud ossutil Documentation</a>.<blockquote>
+<p><strong>NOTE</strong>: Run <code>ln -s /&lt;ossutil_tool_installation_path&gt;/&lt;ossutil64 or ossutil&gt; /usr/local/bin/ossutil</code> to make the <code>ossutil</code> command effective.</p>
 </blockquote>
 </li>
 </ul>
 <ul>
-<li>Create a directory with the same absolute path on the meta and the storage servers for the backup files and get the absolute path. In this example, <code>/home/user/backup/</code> is used.</li>
-</ul>
-<blockquote>
-<p><strong>NOTE</strong>: In the production environment, we recommend that you mount Network File System (NFS) storage to the meta and the storage servers for local backup or use S3 or OSS for remote backup. If the backup files are stored on the meta and the storage servers, you must manually move these backup files to a specified directory, which causes redundant data and troubles for maintenance.</p>
+<li>If you store the backup files locally, create a directory with the same absolute path on the meta and the storage servers and the BR machine for the backup files and get the absolute path. In this example, <code>/home/user/backup/</code> is used.<blockquote>
+<p><strong>NOTE</strong>: In the production environment, we recommend that you mount Network File System (NFS) storage to the meta and the storage servers and the BR machine for local backup, or use S3 or OSS for remote backup. When you restore the data from local files, you must manually move these backup files to a specified directory, which causes redundant data and troubles. For more information, see <a href="../4.br-restore-data/">Restore data from backup files</a>.</p>
 </blockquote>
+</li>
+</ul>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <p>To back up data of the specified graph spaces:</p>
 <ol>
@@ -2398,7 +2398,7 @@
 <blockquote>
 <p><strong>NOTE</strong>: During the backup process, if the leader changes, an error occurs. You can clean the temporary files with the <code>br cleanup</code> command as in Step 4, and then run the <code>br backup</code> command again.</p>
 </blockquote>
-<p>When the backup is successful, you can find a backup folder with a name in the <code>BACKUP_YY_MM_DD_HH_mm_SS</code> format in the backup store directory. In this example, in the <code>/home/user/backup/</code> directory, you can find a folder named <code>BACKUP_2020_11_30_20_47_44</code>.</p>
+<p>When the backup is successful, you can find a backup folder with a name in the <code>BACKUP_YY_MM_DD_HH_mm_SS</code> format in the backup store directory on the BR machine and all the servers of the cluster. In this example, in the <code>/home/user/backup/</code> directory, you can find a folder named <code>BACKUP_2020_11_30_20_47_44</code>. All these backup files on all the machines are required for data restoration.</p>
 </li>
 <li>
 <p>(Optional) By default, all the snapshots will be deleted when the backup is done. If errors occur during the deletion of these files, run this command to delete them.</p>
