@@ -612,8 +612,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_3" class="md-nav__link">
-    Examples
+  <a href="#examples_of_go" class="md-nav__link">
+    Examples of GO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_of_fetch" class="md-nav__link">
+    Example of FETCH
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_of_lookup_and_match" class="md-nav__link">
+    Examples of LOOKUP and MATCH
   </a>
   
 </li>
@@ -639,7 +653,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_4" class="md-nav__link">
+  <a href="#examples_3" class="md-nav__link">
     Examples
   </a>
   
@@ -666,7 +680,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_5" class="md-nav__link">
+  <a href="#examples_4" class="md-nav__link">
     Examples
   </a>
   
@@ -700,7 +714,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_6" class="md-nav__link">
+  <a href="#examples_5" class="md-nav__link">
     Examples
   </a>
   
@@ -2558,8 +2572,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_3" class="md-nav__link">
-    Examples
+  <a href="#examples_of_go" class="md-nav__link">
+    Examples of GO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_of_fetch" class="md-nav__link">
+    Example of FETCH
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_of_lookup_and_match" class="md-nav__link">
+    Examples of LOOKUP and MATCH
   </a>
   
 </li>
@@ -2585,7 +2613,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_4" class="md-nav__link">
+  <a href="#examples_3" class="md-nav__link">
     Examples
   </a>
   
@@ -2612,7 +2640,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_5" class="md-nav__link">
+  <a href="#examples_4" class="md-nav__link">
     Examples
   </a>
   
@@ -2646,7 +2674,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples_6" class="md-nav__link">
+  <a href="#examples_5" class="md-nav__link">
     Examples
   </a>
   
@@ -2948,13 +2976,19 @@ Wed, 21 Oct 2020 07:08:59 UTC
 </li>
 </ul>
 <h2 id="read_data">Read data<a class="headerlink" href="#read_data" title="Permanent link">&para;</a></h2>
-<p>You can use the statements GO (doc TODO), FETCH (doc TODO), and <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> to retrieve vertex and edge data.</p>
 <ul>
-<li><code>GO</code> is the most commonly used read statement. It traverses the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and return information in a form specified in the <code>YIELD</code> clause.</li>
+<li>The <code>GO</code> statement traverses the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and return information in a form specified in the <code>YIELD</code> clause.</li>
 <li><code>FETCH</code> is used to get properties from vertices or edges.</li>
-<li>The <code>LOOKUP</code> statement is based on <a href="#about_indexes">indexes</a>. It is used together with the <code>WHERE</code> clause to search for the data that meet the specific conditions.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statement is based on <a href="#about_indexes">indexes</a>. It is used together with the <code>WHERE</code> clause to search for the data that meet the specific conditions.</li>
+<li><a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> is the most commonly used statement for graph data querying. It relies on native indexes and patterns to match data stored in Nebula Graph.
+    &gt; <strong>CAUTION:</strong> Improper use of indexes can <strong>reduce</strong> the writing performance by 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
 </ul>
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
+</code></pre></div>
+</li>
+</ul>
 <ul>
 <li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
@@ -2991,9 +3025,9 @@ YIELD [DISTINCT] &lt;return_list&gt;
 </code></pre></div>
 </li>
 </ul>
-<h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
+<h3 id="examples_of_go">Examples of GO<a class="headerlink" href="#examples_of_go" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Use <code>GO</code>: Find the vertices that VID "player100" follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow;
+<li>Find the vertices that VID "player100" follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -3006,7 +3040,7 @@ Got 2 rows (time spent 1935/2420 us)
 </li>
 </ul>
 <ul>
-<li>Use <code>GO</code>: Search for the players that the player with VID "player100" follows. Filter the the players that the player with VID "player100" follows whose age is equal to or greater than 35. Rename the columns in the result with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE $$.player.age &gt;= 35 \
+<li>Search for the players that the player with VID "player100" follows. Filter the players that the player with VID "player100" follows whose age is equal to or greater than 35. Rename the columns in the result with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE $$.player.age &gt;= 35 \
 YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 +-------------+-----+
 | Teammate    | Age |
@@ -3041,7 +3075,7 @@ Got 1 rows (time spent 3871/4349 us)
 </ul>
 <ul>
 <li>
-<p>Use <code>GO</code>: Search for the players that the player with VID "player100" follows. Then Retrieve the teams of the players that the player with VID "player100" follows. To combine the two queries, use a pipe or a temporary variable.</p>
+<p>Search for the players that the player with VID "player100" follows. Then Retrieve the teams of the players that the player with VID "player100" follows. To combine the two queries, use a pipe or a temporary variable.</p>
 <ul>
 <li>
 <p>With a pipe:</p>
@@ -3099,8 +3133,9 @@ Got 1 rows (time spent 3103/3711 us)
 </ul>
 </li>
 </ul>
-<ul>
-<li>Use <code>FETCH</code>: Fetch the properties of the player with VID player100.<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;;
+<h3 id="example_of_fetch">Example of FETCH<a class="headerlink" href="#example_of_fetch" title="Permanent link">&para;</a></h3>
+<p>Use <code>FETCH</code>: Fetch the properties of the player with VID player100.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;;
 +----------+-------------+------------+
 | VertexID  | player.name | player.age |
 +----------+-------------+------------+
@@ -3108,14 +3143,40 @@ Got 1 rows (time spent 3103/3711 us)
 +----------+-------------+------------+
 Got 1 rows (time spent 2006/2406 us)
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>Use <code>LOOKUP</code>: Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>"Tony Parker"</code>.<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+<h3 id="examples_of_lookup_and_match">Examples of LOOKUP and MATCH<a class="headerlink" href="#examples_of_lookup_and_match" title="Permanent link">&para;</a></h3>
+<p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first. Indexes can <strong>reduce</strong> the writing performance by 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+<p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>"Tony Parker"</code>.</p>
+<div class="highlight"><pre><span></span><code>// Create an index on the player name property.
+CREATE TAG INDEX player_name_0 on player(name(10))
+Execution succeeded (time spent 3465/4150 us)
+
+// Rebuild the index to make sure it takes effect on pre-existing data.
+nebula&gt; REBUILD TAG INDEX player_name_0
++------------+
+| New Job Id |
++------------+
+| 31         |
++------------+
+Got 1 rows (time spent 2379/3033 us)
+
+// Use LOOKUP to retrieve the vertex information.
+nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
 YIELD player.name, player.age;
++-------------+---------------+------------+
+| VertexID    | player.name   | player.age |
++-------------+---------------+------------+
+| &quot;player101&quot; | &quot;Tony Parker&quot; | 36         |
++-------------+---------------+------------+
+
+// Use MATCH to retrieve the vertex information.
+nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;}) RETURN v;
++-----------------------------------------------------+
+| v                                                   |
++-----------------------------------------------------+
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}) |
++-----------------------------------------------------+
+Got 1 rows (time spent 5132/6246 us)
 </code></pre></div>
-</li>
-</ul>
 <h2 id="update_vertices_and_edges">Update vertices and edges<a class="headerlink" href="#update_vertices_and_edges" title="Permanent link">&para;</a></h2>
 <p>You can use the <code>UPDATE</code> statement or the <code>UPSERT</code> statement to update existing data.</p>
 <p><code>UPSERT</code> is the combination of <code>UPDATE</code> and <code>INSERT</code>. If you update a vertex or an edge with <code>UPSERT</code>, it inserts a new vertex or edge if it does not exist.</p>
@@ -3138,7 +3199,7 @@ SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns
 <div class="highlight"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge_type&gt;} SET &lt;update_columns&gt;
 [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
-<h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h3>
+<h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>UPDATE</code> the <code>name</code> property of the vertex with VID "player100" and check the result with the <code>FETCH</code> statement:<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX &quot;player100&quot; SET player.name = &quot;Tim&quot;;
 Execution succeeded (time spent 3483/3914 us)
@@ -3200,7 +3261,7 @@ Got 1 rows (time spent 1815/2329 us)
 <div class="highlight"><pre><span></span><code>DELETE EDGE &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;...]
 </code></pre></div>
-<h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h3>
+<h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Delete vertices:</li>
 </ul>
@@ -3217,7 +3278,7 @@ Execution succeeded (time spent 3700/4101 us)
 <p>You can add indexes to tags or edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
 <h3 id="must-read_for_using_index">Must-read for using index<a class="headerlink" href="#must-read_for_using_index" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Applicable use of indexes can speed up queries, but indexes also decrease the write performance. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
+<li>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
 </ul>
 <ul>
 <li>Rebuild indexes for pre-existing data. Otherwise, the pre-existing data can't be indexed. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a>.</li>
@@ -3230,7 +3291,7 @@ ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list);
 <p>Rebuild an index:</p>
 <div class="highlight"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX &lt;index_name&gt;
 </code></pre></div>
-<h3 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h3>
+<h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h3>
 <p>Create an index for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
 nebula&gt; REBUILD TAG INDEX player_index_0;
@@ -3247,7 +3308,7 @@ nebula&gt; REBUILD TAG INDEX player_index_0;
 Got 1 rows (time spent 1235/1934 us)
 </code></pre></div>
 <ul>
-<li>The first number 1235 shows the time spent by the database itself, that is, the time it takes for the query engine to receive a query from the client, fetch the data from the storage server and perform a series of calculation.</li>
+<li>The first number 1235 shows the time spent by the database itself, that is, the time it takes for the query engine to receive a query from the client, fetch the data from the storage server and perform a series of calculations.</li>
 </ul>
 <ul>
 <li>The second number 1934 shows the time spent from the client's perspective, that is, the time it takes for the client from sending a request, receiving a response, and displaying the result on the screen.</li>

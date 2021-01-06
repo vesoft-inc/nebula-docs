@@ -1032,8 +1032,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#match_on_vertex_tag_and_property" class="md-nav__link">
-    Match on vertex tag and property
+  <a href="#match_on_tag" class="md-nav__link">
+    Match on tag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match_on_vertex_property" class="md-nav__link">
+    Match on vertex property
   </a>
   
 </li>
@@ -2443,8 +2450,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#match_on_vertex_tag_and_property" class="md-nav__link">
-    Match on vertex tag and property
+  <a href="#match_on_tag" class="md-nav__link">
+    Match on tag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match_on_vertex_property" class="md-nav__link">
+    Match on vertex property
   </a>
   
 </li>
@@ -2633,22 +2647,29 @@
 <div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
 </code></pre></div>
 <h2 id="the_workflow_of_match">The workflow of MATCH<a class="headerlink" href="#the_workflow_of_match" title="Permanent link">&para;</a></h2>
-<p>The <code>MATCH</code> statement relies on a <strong>native index</strong> to find a vertex as the origin of the search process. In other words, in a valid <code>MATCH</code> statement, <strong>there must be an indexed property or a specific VID.</strong> For how to index a property, see <a href="../../14.native-index-statements/1.create-native-index/">Create native index</a>.</p>
+<ol>
+<li>
+<p>The <code>MATCH</code> statement uses a <strong>native index</strong> to locate a source vertex. The vertex can be in any position in a pattern. In other words, in a valid <code>MATCH</code> statement, <strong>there must be an indexed property or tag, or a specific VID.</strong> For how to index a property, see <a href="../../14.native-index-statements/1.create-native-index/">Create native index</a>.</p>
 <blockquote>
-<p><strong>NOTE:</strong> The native index for VID is created by default.</p>
+<p><strong>NOTE:</strong> The native index for VID is created by default, so you don't need to create an extra index if you want to match on VID.</p>
 </blockquote>
-<p>Then, the <code>MATCH</code> statement searches through the pattern to match edges and other vertices.</p>
-<p>At last, it retrieves data according to the <code>RETURN</code> clause.</p>
+</li>
+<li>
+<p>The <code>MATCH</code> statement searches through the pattern to match edges and other vertices.</p>
+</li>
+<li>
+<p>The <code>MATCH</code> statement retrieves data according to the <code>RETURN</code> clause.</p>
+</li>
+</ol>
 <blockquote>
 <p><strong>OpenCypher compatibility</strong></p>
-<p>For now, nGQL DOES NOT support the following operations:</p>
-<ul>
-<li>Scan all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</li>
-<li>Scan all vertices with one tag or all edges of one edge type with <code>MATCH</code>. For example, <code>MATCH (v:player) RETURN v</code>.</li>
-</ul>
+<p>For now, nGQL DOES NOT support scanning all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</p>
 </blockquote>
 <h2 id="use_patterns_in_match_statements">Use patterns in MATCH statements<a class="headerlink" href="#use_patterns_in_match_statements" title="Permanent link">&para;</a></h2>
-<p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If you want to create an index on a property, but there are already vertices or edges with that property, rebuild the index after creation to make it take effect on existing data.</p>
+<p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If you want to create an index, but there are already vertices or edges related to the tag, edge type, or property that you want to create the index for, you have to rebuild the index after creation to make it take effect on existing vertices or edges.</p>
+<blockquote>
+<p><strong>CAUTION:</strong> Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
 Execution succeeded (time spent 2957/3986 us)
 
@@ -2676,8 +2697,26 @@ Got 4 rows (time spent 1186/2998 us)
 </code></pre></div>
 <h3 id="match_a_vertex">Match a vertex<a class="headerlink" href="#match_a_vertex" title="Permanent link">&para;</a></h3>
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
-<h3 id="match_on_vertex_tag_and_property">Match on vertex tag and property<a class="headerlink" href="#match_on_vertex_tag_and_property" title="Permanent link">&para;</a></h3>
-<p>Tags are specified with <code>:&lt;tag_name&gt;</code> and tag properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;tag_name&gt;</code>.</p>
+<h3 id="match_on_tag">Match on tag<a class="headerlink" href="#match_on_tag" title="Permanent link">&para;</a></h3>
+<p>To match on a tag, make sure there is an applicable <strong>tag index</strong>. For how to create a tag index, see <a href="../../14.native-index-statements/1.create-native-index/#create_tagedge_type_indexes">Create tag indexes</a>.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Tag indexes are different from property indexes. If there is an index for a property of a tag, but no index for the tag, you cannot match on the tag.</p>
+</blockquote>
+<p>A vertex tag is specified with <code>:&lt;tag_name&gt;</code> in a pattern.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v
++---------------------------------------------------------------+
+| v                                                             |
++---------------------------------------------------------------+
+| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})     |
++---------------------------------------------------------------+
+| (&quot;player106&quot; :player{age: 25, name: &quot;Kyle Anderson&quot;})         |
++---------------------------------------------------------------+
+| (&quot;player115&quot; :player{age: 40, name: &quot;Kobe Bryant&quot;})           |
++---------------------------------------------------------------+
+...
+</code></pre></div>
+<h3 id="match_on_vertex_property">Match on vertex property<a class="headerlink" href="#match_on_vertex_property" title="Permanent link">&para;</a></h3>
+<p>Tag properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> in a pattern after a tag.</p>
 <p>The following example uses the <code>name</code> property to match a vertex.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +----------------------------------------------------+
