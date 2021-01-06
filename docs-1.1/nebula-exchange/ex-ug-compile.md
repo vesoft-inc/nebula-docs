@@ -13,6 +13,7 @@ To compile Exchange, follow these steps:
    ```bash
    cd nebula-java
    mvn clean install -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
+   ```
 
 3. Change to the `tools/exchange` directory and compile Exchange.
 
