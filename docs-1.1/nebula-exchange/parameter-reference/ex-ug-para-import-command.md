@@ -1,4 +1,4 @@
-# Parameters for the import command
+# Import command parameters
 
 When the configuration file is ready, replace `master-node-url` and `exchange-1.x.y.jar` in this command and run it to import the data from the specified source into Nebula Graph.
 
