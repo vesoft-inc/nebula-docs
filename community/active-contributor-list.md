@@ -9,5 +9,4 @@
 
 | GitHub ID| Name |
 |:------------------------------------:|:------------:|
--   [datian9966](https://github.com/datian9966)
--   [wfystx](https://github.com/wfystx)
+|[datian9966](https://github.com/datian9966)| Kouichi |
