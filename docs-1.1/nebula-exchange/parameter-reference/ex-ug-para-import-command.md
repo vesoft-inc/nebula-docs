@@ -14,4 +14,4 @@ This table lists all the parameters in the preceding command.
 | `--master`  | Yes | None | Specifies the URL of the Master node of the specified Spark cluster. For more information, see [master-urls in Spark Documentation](https://spark.apache.org/docs/latest/submitting-applications.html#master-urls "Click to go to Apache Spark Documentation")。 |
 | `-c`  / `--config`  | Yes | None | Specifies the path of the Exchange configuration file. |
 | `-h`  / `--hive`  | No | `false` | If you want to import data from HIVE, add this parameter. |
-| `-D`  / `--dry`  | No | `true` | Before data import, add this parameter to do a check of the format of the configuration file, but not the configuration of `tags` and `edges`. Do not use this parameter when you import data. |
+| `-D`  / `--dry`  | No | `false` | Before data import, add this parameter to do a check of the format of the configuration file, but not the configuration of `tags` and `edges`. Do not use this parameter when you import data. |
