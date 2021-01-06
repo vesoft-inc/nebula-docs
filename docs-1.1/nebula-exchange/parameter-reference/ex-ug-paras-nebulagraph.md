@@ -11,6 +11,6 @@ To import data, you must set parameters for Nebula Graph. This table lists all t
 | `nebula.space` | None | `string` | Yes | Specifies the name of the graph space to import data. |
 | `nebula.connection.timeout` | 3000 | `int` | No | Specifies the period of timeout for Thrift connection. Unit: ms. |
 | `nebula.connection.retry` | 3 | `int` | No | Specifies the number of retries for Thrift connection. |
-| `nebula.execution.retry` | 3 | `int` | No | Specifies the nubmer of execution retries of an nGQL statements |
+| `nebula.execution.retry` | 3 | `int` | No | Specifies the number of execution retries of an nGQL statements |
 | `nebula.error.max` | 32 | `int` | No | Specifies the maximum number of failures during the import process. When the specified number of failures occur, the submitted Spark job stops automatically.  |
 | `nebula.error.output` | None | `string` | Yes | Specifies a logging directory on the Nebula Graph cluster for the error message. |
