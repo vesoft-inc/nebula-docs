@@ -23,8 +23,10 @@ Exchange has these features:
 - Adaptable: Exchange supports importing data from different sources into Nebula Graph, which is convenient for you to migrate data.
 
 - SST files supported: Exchange supports converting data from different sources into SST files for data import.
+  > **NOTE**: Importing SST files with Exchange v1.x is supported in Linux only.
 
 - Resuming broken transfer: Exchange supports resuming an interrupted transfer from a broken point during the data import process, which saves your time and improves efficiency.
+  > **NOTE**: Exchange v1.x supports resuming broken transfer for Neo4j only.
 
 - Asynchronous: Exchange enables you to set an insertion statement for the source and sends it to the Graph Service of Nebula Graph for data insertion.
 

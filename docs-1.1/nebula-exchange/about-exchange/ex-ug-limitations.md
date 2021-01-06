@@ -11,7 +11,9 @@ Exchange v1.x supports Nebula Graph v1.x only. If you are using Nebula Graph v2.
 You can use Exchange v1.x in these operation systems:
 
 - CentOS 7
-- Mac OS
+- macOS
+
+> **NOTE**: Importing SST files with Exchange v1.x is supported in Linux only.
 
 ## Software dependencies
 
