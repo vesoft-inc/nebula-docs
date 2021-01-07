@@ -27,7 +27,7 @@ To import data from a source to Nebula Graph, follow these steps:
 3. Edit the configuration file for Spark, Nebula Graph, vertices, and edges.
    > **NOTE**: After compiling of Exchange, refer to the example configuration files in the `nebula-java/tools/exchange/target/classes` directory for the configuration for different sources.
 
-4. (Optional) Run the import command with the `-D` parameter to do a check of the configuration file. For more information, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
+4. (Optional) Run the import command with the `-D` parameter to verify the configuration. For more information, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
 
 5. Run the import command to import data into Nebula Graph.
 
