@@ -4,7 +4,7 @@ This article introduces the limitations of Exchange v2.x.
 
 ## Supported Nebula Graph versions
 
-Exchange v2.x supports Nebula Graph v2.x only. If you are using Nebula Graph v1.x, please use [Nebula Exchange v2.x](https://github.com/vesoft-inc/nebula-spark-utils "Click to go to GitHub").
+Exchange v2.x supports Nebula Graph v2.x only. If you are using Nebula Graph v1.x, please use [Nebula Exchange v1.x](https://github.com/vesoft-inc/nebula-java/tree/v1.0/tools "Click to go to GitHub").
 
 ## Supported operation systems
 
