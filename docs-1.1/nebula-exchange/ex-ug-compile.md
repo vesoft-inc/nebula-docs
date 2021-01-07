@@ -19,7 +19,7 @@ To compile Exchange, follow these steps:
 
    ```bash
    cd tools/exchange
-   mvn package -DskipTests
+   mvn clean package -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
    ```
 
 After compiling, you can see the structure of the Exchange directory as follows.
