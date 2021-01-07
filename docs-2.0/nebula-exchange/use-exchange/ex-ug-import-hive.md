@@ -174,6 +174,17 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       max: 16
     }
   }
+
+  # If Spark and HIVE are deployed in the different clusters, 
+  # configure these parameters for HIVE. Otherwise, ignore them. 
+  #hive: {
+  #  waredir: "hdfs://NAMENODE_IP:9000/apps/svr/hive-xxx/warehouse/"
+  #  connectionURL: "jdbc:mysql://your_ip:3306/hive_spark?characterEncoding=UTF-8"
+  #  connectionDriverName: "com.mysql.jdbc.Driver"
+  #  connectionUserName: "user"
+  #  connectionPassword: "password"
+  #}
+
   # Nebula Graph related configuration
   nebula: {
     address:{
