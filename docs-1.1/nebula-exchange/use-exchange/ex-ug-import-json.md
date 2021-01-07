@@ -113,13 +113,13 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
   # Nebula Graph related configuration
   nebula: {
     address:{
-      # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph
-      # If multiple servers are used, separate the addresses with commas,
-      # "ip1:port,ip2:port,ip3:port"
+      # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph.
+      # If multiple servers are used, separate the addresses with commas.
+      # Format: "ip1:port,ip2:port,ip3:port"
       graph:["127.0.0.1:3699"]
       meta:["127.0.0.1:45500"]
     }
-    # Specifies an account that has the WriteData privilege in Nebula Graph and its password
+    # Specifies an account that has the WriteData privilege in Nebula Graph and its password.
     user: user
     pswd: password
 
@@ -156,26 +156,26 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
         # Specifies the data source. json is used.
         source: json
 
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst.
+        # For more information about importing sst files, see Import SST files (doc to do).
         sink: client
       }
 
       # Specifies the HDFS path of the JSON file. 
-      # Enclose the path with double quotes and start the path with hdfs://
+      # Enclose the path with double quotes and start the path with hdfs://.
       path: "hdfs://namenode_ip:port/path/to/test.json"
 
       # Specifies the keys in the JSON file. 
-      # Their values are used as the source of the srcId property defined in Nebula Graph
+      # Their values are used as the source of the srcId property 
+      # defined in Nebula Graph.
       # If more than one key is specified, separate them with commas.
       fields: ["source"]
       nebula.fields: ["srcId"]
 
-      # Specifies the values of a key in the JSON file as the source of the VID in Nebula Graph
-      # If the values are not of the int type, use vertex.policy to set the mapping policy. "hash" is preferred.
+      # Specifies the values of a key in the JSON file as 
+      # the source of the VID in Nebula Graph.
+      # If the values are not of the int type, use vertex.policy to
+      # set the mapping policy. "hash" is preferred.
       # 
       # vertex: {
       #   field: key_name_in_json
@@ -186,7 +186,8 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       batch: 256
       partition: 32
 
-      # For the isImplicit information, refer to the application.conf file in the nebula-java/tools/exchange/target/classes directory
+      # For the isImplicit information, refer to the application.conf file
+      # in the nebula-java/tools/exchange/target/classes directory.
       isImplicit: true
     }
     # Sets for the target tag
@@ -217,26 +218,25 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
         # Specifies the data source. json is used.
         source: json
 
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst.
+        # For more information about importing sst files, see Import SST files (doc to do).
         sink: client
       }
 
       # Specifies the HDFS path of the JSON file. 
-      # Enclose the path with double quotes and start the path with hdfs://
+      # Enclose the path with double quotes and start the path with hdfs://.
       path: "hdfs://namenode_ip:port/path/to/test.json"
 
       # Specifies the keys in the JSON file. 
-      # Their values are used as the source of the likeness property defined in Nebula Graph
+      # Their values are used as the source of the likeness property defined in Nebula Graph.
       # If more than one key is specified, separate them with commas.
       fields: ["likeness"]
       nebula.fields: ["likeness"]
 
-      # Specifies the values of two keys in the JSON file as the source of the IDs of source and destination vertices of the like edges in Nebula Graph
-      # If the values are not of the int type, use source.policy and/or target.policy to set the mapping policy. "hash" is preferred.
+      # Specifies the values of two keys in the JSON file as the source
+      # of the IDs of source and destination vertices of the like edges in Nebula Graph.
+      # If the values are not of the int type, use source.policy and/or
+      # target.policy to set the mapping policy. "hash" is preferred.
       # source: {
       #   field: key_name_in_json
       #   policy: "hash"

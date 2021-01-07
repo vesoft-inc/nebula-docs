@@ -110,14 +110,14 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
   # Nebula Graph related configuration
   nebula: {
     address:{
-      # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph
-      # If multiple servers are used, separate the addresses with commas,
-      # "ip1:port,ip2:port,ip3:port"
+      # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph.
+      # If multiple servers are used, separate the addresses with commas. 
+      # Format: "ip1:port,ip2:port,ip3:port". 
       graph:["127.0.0.1:3699"]
       meta:["127.0.0.1:45500"]
     }
 
-    # Specifies an account that has the WriteData privilege in Nebula Graph and its password
+    # Specifies an account that has the WriteData privilege in Nebula Graph and its password.
     user: user
     pswd: password
 
@@ -144,31 +144,29 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
   tags: [
     # Sets for the course tag
     {
-      # Specifies a tag name defined in Nebula Graph
+      # Specifies a tag name defined in Nebula Graph.
       name: course
       type: {
         # Specifies the data source. csv is used.
         source: csv
 
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst.
+        # For more information about importing sst files, see Import SST files (doc_to_do).
         sink: client
       }
 
       # Specifies the HDFS path of the CSV file. 
-      # Enclose the path with double quotes and start the path with hdfs://
+      # Enclose the path with double quotes and start the path with hdfs://.
       path: "hdfs://namenode_ip:port/path/to/course.csv"
       
-      # If the CSV file has no header, use [_c0, _c1, _c2, ..., _cn]
-      # to represent its header and to indicate columns as the source of the property values
+      # If the CSV file has no header, use [_c0, _c1, _c2, ..., _cn] to 
+      # represent its header and to indicate columns as the source of the property values.
       fields: [_c0, _c1]
-      # If the CSV file has a header, use the actual column names
+      # If the CSV file has a header, use the actual column names.
 
       # Specifies property names defined in Nebula Graph.
-      # fields for the CSV file and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
+      # fields for the CSV file and nebula.fields for Nebula Graph must 
+      # have the one-to-one correspondence relationship.
       nebula.fields: [courseId, courseName]
 
       # Since from Exchange 1.1.0, csv.fields is available.
@@ -177,7 +175,8 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
 
       # Specifies a column as the source of VIDs.
       # The value of vertex.field must be one column of the CSV file.
-      # If the values are not of the int type, use vertex.policy to set the mapping policy. "hash" is preferred.
+      # If the values are not of the int type, use vertex.policy to 
+      # set the mapping policy. "hash" is preferred.
       vertex: {
         field: _c1,
         policy: "hash"
@@ -190,13 +189,15 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       # If the CSV file has no header, set header to false (default value).
       header: false
 
-      # Specifies the maximum number of vertex data to be written into Nebula Graph in a single batch.
+      # Specifies the maximum number of vertex data to be written into 
+      # Nebula Graph in a single batch.
       batch: 256
 
       # Specifies the partition number of Spark.
       partition: 32
 
-      # For the isImplicit information, refer to the application.conf file in the nebula-java/tools/exchange/target/classes directory 
+      # For the isImplicit information, refer to the application.conf file in 
+      # the nebula-java/tools/exchange/target/classes directory. 
       isImplicit: true
     }
 
@@ -210,17 +211,19 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       path: "hdfs://namenode_ip:port/path/to/user.csv"
 
       # Since from Exchange 1.1.0, csv.fields is available.
-      # If csv.fields is used, Exchange uses the values of csv.fields as the header of the CSV file
-      # and fields must have the same values as csv.fields.
-      # fields for the CSV file and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
+      # If csv.fields is used, Exchange uses the values of csv.fields as 
+      # the header of the CSV file, and fields must have the same values as csv.fields.
+      # fields for the CSV file and nebula.fields for Nebula Graph must 
+      # have the one-to-one correspondence relationship.
       fields: [userId]
 
       # Specifies property names defined in Nebula Graph.
-      # fields for the CSV file and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
+      # fields for the CSV file and nebula.fields for Nebula Graph must 
+      # have the one-to-one correspondence relationship.
       nebula.fields: [userId]
 
-      # If csv.fields is set, its value is used to represent the header of the CSV file, 
-      # even though the CSV file has its own header.
+      # If csv.fields is set, its value is used to represent the header of 
+      # the CSV file, even though the CSV file has its own header.
       # fields and csv.fields must have the same value.
       # The value of vertex must be one of the values of csv.fields.
       csv.fields: [userId]
@@ -232,7 +235,8 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       batch: 256
       partition: 32
 
-      # For the isImplicit information, refer to the application.conf file in the nebula-java/tools/exchange/target/classes directory 
+      # For the isImplicit information, refer to the application.conf file in
+      # the nebula-java/tools/exchange/target/classes directory.
       isImplicit: true
     }
 
@@ -248,30 +252,28 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
         # Specifies the data source. csv is used.
         source: csv
 
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst.
+        # For more information about importing sst files, see Import SST files (doc_to_do).
         sink: client
       }
 
       # Specifies the HDFS path of the CSV file. 
-      # Enclose the path with double quotes and start the path with hdfs://
+      # Enclose the path with double quotes and start the path with hdfs://.
       path: "hdfs://namenode_ip:port/path/to/actions.csv"
 
-      # If the CSV file has no header, use [_c0, _c1, _c2, ..., _cn]
-      # to represent its header and to indicate columns as the source of the property values
+      # If the CSV file has no header, use [_c0, _c1, _c2, ..., _cn] to 
+      # represent its header and to indicate columns as the source of the property values.
       fields: [_c0, _c3, _c4, _c5, _c6, _c7, _c8]
-      # If the CSV file has a header, use the actual column names
+      # If the CSV file has a header, use the actual column names.
 
       # Specifies property names defined in Nebula Graph.
-      # fields for the CSV file and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
+      # fields for the CSV file and nebula.fields for Nebula Graph must 
+      # have the one-to-one correspondence relationship.
       nebula.fields: [actionId, duration, feature0, feature1, feature2, feature3, label]
 
       # Since from Exchange 1.1.0, csv.fields is available.
-      # If csv.fields is used, Exchange uses the values of csv.fields as the header of the CSV file
-      # and fields must have the same values as csv.fields.
+      # If csv.fields is used, Exchange uses the values of csv.fields as 
+      # the header of the CSV file and fields must have the same values as csv.fields.
       # csv.fields: [actionId, duration, feature0, feature1, feature2, feature3, label]
 
       # Specifies the columns as the source of the IDs of the source and target vertices.
@@ -289,13 +291,15 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       # If the CSV file has no header, set header to false (default value).
       header: false
 
-      # Specifies the maximum number of vertex data to be written into Nebula Graph in a single batch.
+      # Specifies the maximum number of vertex data to be written into
+      # Nebula Graph in a single batch.
       batch: 256
 
       # Specifies the partition number of Spark.
       partition: 32
 
-      # For the isImplicit information, refer to the application.conf file in the nebula-java/tools/exchange/target/classes directory 
+      # For the isImplicit information, refer to the application.conf file
+      # in the nebula-java/tools/exchange/target/classes directory.
       isImplicit: true
     }
   ]

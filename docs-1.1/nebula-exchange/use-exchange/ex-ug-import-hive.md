@@ -213,11 +213,8 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       type: {
         # Specifies the data source. hive is used.
         source: hive
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst.
+        # For more information about importing sst files, see Import SST files (doc to do).
         sink: client
       }
 
@@ -225,7 +222,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       exec: "select userid from mooc.users"
 
       # Specifies the column names from the users table to fields. 
-      # Their values are used as the source of the userId (nebula.fields) property defined in Nebula Graph
+      # Their values are used as the source of the userId (nebula.fields) property defined in Nebula Graph.
       # If more than one column name is specified, separate them with commas.
       # fields for the HIVE and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
       fields: [userid]
@@ -233,17 +230,20 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
 
       # Specifies a column as the source of VIDs.
       # The value of vertex must be one column name in the exec sentence. 
-      # If the values are not of the int type, use vertex.policy to set the mapping policy. "hash" is preferred. 
+      # If the values are not of the int type, use vertex.policy to 
+      # set the mapping policy. "hash" is preferred. 
       # Refer to the configuration of the course tag.
       vertex: userid
 
-      # Specifies the maximum number of vertex data to be written into Nebula Graph in a single batch.
+      # Specifies the maximum number of vertex data to be written into 
+      # Nebula Graph in a single batch.
       batch: 256
 
       # Specifies the partition number of Spark.
       partition: 32
 
-      # For the isImplicit information, refer to the application.conf file in the nebula-java/tools/exchange/target/classes directory 
+      # For the isImplicit information, refer to the application.conf file in
+      # the nebula-java/tools/exchange/target/classes directory. 
       isImplicit: true
     }
 
@@ -260,7 +260,8 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
 
       # Specifies a column as the source of VIDs.
       # The value of vertex.field must be one column name in the exec sentence. 
-      # If the values are not of the int type, use vertex.policy to set the mapping policy. "hash" is preferred. 
+      # If the values are not of the int type, use vertex.policy to 
+      # set the mapping policy. "hash" is preferred. 
       vertex: {
         field: coursename
         policy: "hash"
@@ -283,35 +284,41 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
         # Specifies the data source. hive is used.
         source: hive
 
-        # Specifies how to import vertex data into Nebula Graph
-        # client or sst
-        # For more information about importing sst files, see
-        # Import SST files (https://docs.nebula-graph.io/1.1/nebula-exchange/
-        # use-exchange/ex-ug-import-sst/)
+        # Specifies how to import vertex data into Nebula Graph: client or sst
+        # For more information about importing sst files, 
+        # see Import SST files (doc to do).
         sink: client
       }
 
-      # Specifies the SQL statement to read data from the actions table in the mooc database
+      # Specifies the SQL statement to read data from the actions table in
+      # the mooc database.
       exec: "select actionid, srcid, dstid, duration, feature0, feature1, feature2, feature3, label from mooc.actions"
 
       # Specifies the column names from the actions table to fields. 
-      # Their values are used as the source of the properties of the action edge type defined in Nebula Graph.
+      # Their values are used as the source of the properties of 
+      # the action edge type defined in Nebula Graph.
       # If more than one column name is specified, separate them with commas.
-      # fields for the HIVE and nebula.fields for Nebula Graph must have the one-to-one correspondence relationship.
+      # fields for the HIVE and nebula.fields for Nebula Graph must 
+      # have the one-to-one correspondence relationship.
       fields: [actionid, duration, feature0, feature1, feature2, feature3, label]
       nebula.fields: [actionId, duration, feature0, feature1, feature2, feature3, label]
 
-      # source specifies a column as the source of the IDs of the source vertex of an edge.
-      # target specifies a column as the source of the IDs of the target vertex of an edge.
-      # The value of source.field and target.field must be column names set in the exec sentence. 
-      # If the values are not of the int type, use vertex.policy to set the mapping policy. "hash" is preferred. 
+      # source specifies a column as the source of the IDs of
+      # the source vertex of an edge.
+      # target specifies a column as the source of the IDs of
+      # the target vertex of an edge.
+      # The value of source.field and target.field must be
+      # column names set in the exec sentence. 
+      # If the values are not of the int type, use vertex.policy to
+      # set the mapping policy. "hash" is preferred. 
       source: srcid
       target: {
         field: dstid
         policy: "hash"
       }
 
-      # Specifies the maximum number of vertex data to be written into Nebula Graph in a single batch.
+      # Specifies the maximum number of vertex data to be 
+      # written into Nebula Graph in a single batch.
       batch: 256
 
       # Specifies the partition number of Spark.
