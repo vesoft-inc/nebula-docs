@@ -59,6 +59,8 @@ The practice is done in macOS. Here is the environment information:
 
 - Hadoop 2.9.2, deployed in the Pseudo-Distributed mode
 
+- HIVE 2.3.7, with MySQL 8.0.22
+
 - Nebula Graph v2-nightly, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
 
 ## Prerequisites
