@@ -59,7 +59,9 @@ The practice is done in macOS. Here is the environment information:
 
 - Hadoop 2.9.2, deployed in the Pseudo-Distributed mode
 
-- Nebula Graph v1.1.0, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
+- HIVE 2.3.7, with MySQL 8.0.22
+
+- Nebula Graph v1.2.0, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
 
 ## Prerequisites
 
@@ -176,7 +178,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
     address:{
       # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph
       # If multiple servers are used, separate the addresses with commas,
-      # "ip1:port,ip2:port,ip3:port"
+      # "ip1:port","ip2:port","ip3:port"
       graph:["127.0.0.1:3699"]
       meta:["127.0.0.1:45500"]
     }
