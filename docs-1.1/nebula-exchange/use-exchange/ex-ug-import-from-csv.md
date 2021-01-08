@@ -112,7 +112,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
     address:{
       # Specifies the IP addresses and ports of the Graph Service and the Meta Service of Nebula Graph.
       # If multiple servers are used, separate the addresses with commas. 
-      # Format: "ip1:port,ip2:port,ip3:port". 
+      # Format: "ip1:port","ip2:port","ip3:port". 
       graph:["127.0.0.1:3699"]
       meta:["127.0.0.1:45500"]
     }

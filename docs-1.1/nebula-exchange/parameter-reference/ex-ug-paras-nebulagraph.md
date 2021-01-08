@@ -4,8 +4,8 @@ To import data, you must set parameters for Nebula Graph. This table lists all t
 
 | Parameters | Default | Data Type | Required? | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `nebula.address.graph` | None | `list[string]` | Yes | Specifies the addresses and ports used by the Graph Service of Nebula Graph. Multiple addresses must be separated with commas. In the format of `"ip1:port, ip2:port"`.  |
-| `nebula.address.meta` | None | `list[string]` | Yes | Specifies the addresses and ports used by the Meta Service of Nebula Graph. Multiple addresses must be separated with commas. In the format of `"ip1:port, ip2:port"`. |
+| `nebula.address.graph` | None | `list[string]` | Yes | Specifies the addresses and ports used by the Graph Service of Nebula Graph. Multiple addresses must be separated with commas. In the format of `"ip1:port","ip2:port","ip3:port"`.  |
+| `nebula.address.meta` | None | `list[string]` | Yes | Specifies the addresses and ports used by the Meta Service of Nebula Graph. Multiple addresses must be separated with commas. In the format of `"ip1:port","ip2:port","ip3:port"`. |
 | `nebula.user` | `user` | `string` | Yes | Specifies an account of Nebula Graph. The default value is `user`. If authentication is enabled in Nebula Graph: <br />- If no account is created, use `root`.<br />- If a specified account is created and given the write permission to a graph space, you can use this account. |
 | `nebula.pswd` | `password` | `string` | Yes | Specifies the password of the specified account. The default password for the `user` account is `password`. If authentication is enabled in Nebula Graph: <br />- For the `root` account, use `nebula`. <br />- For another account, use the specified password. |
 | `nebula.space` | None | `string` | Yes | Specifies the name of the graph space to import data. |
