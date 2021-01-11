@@ -1,6 +1,6 @@
 # View subgraphs
 
-With the **View Subgraphs** function, you can run a [`FIND SHORTEST | ALL PATH`](doc TODO) or a [`GET SUBGRAPH`](../../3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md) statement on the **Console** page and then view the result on the **Explore** page.
+With the **View Subgraphs** function, you can run a [FIND SHORTEST | ALL PATH](../../3.ngql-guide/16.subgraph-and-path/2.find-path.md) or a [`GET SUBGRAPH`](../../3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md) statement on the **Console** page and then view the result on the **Explore** page.
 
 ## Studio version
 
