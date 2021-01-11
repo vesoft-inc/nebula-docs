@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/9.space-statements.md/4.describe-space/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/9.space-statements/1.create-space/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>DESCRIBE SPACE - Nebula Graph Database Manual</title>
+        <title>CREATE SPACE - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#describe_space" tabindex="0" class="md-skip">
+      <a href="#create_space" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                DESCRIBE SPACE
+                CREATE SPACE
               
             </span>
           
@@ -1251,11 +1251,77 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../1.create-space/" title="CREATE SPACE" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        CREATE SPACE
+      </label>
+    
+    <a href="./" title="CREATE SPACE" class="md-nav__link md-nav__link--active">
       CREATE SPACE
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#if_not_exists" class="md-nav__link">
+    IF NOT EXISTS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph_space_name" class="md-nav__link">
+    Graph space name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customized_graph_space_options" class="md-nav__link">
+    Customized graph space options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check_partition_distribution" class="md-nav__link">
+    Check partition distribution
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1287,49 +1353,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        DESCRIBE SPACE
-      </label>
-    
-    <a href="./" title="DESCRIBE SPACE" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../4.describe-space/" title="DESCRIBE SPACE" class="md-nav__link">
       DESCRIBE SPACE
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -2516,8 +2544,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#if_not_exists" class="md-nav__link">
+    IF NOT EXISTS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graph_space_name" class="md-nav__link">
+    Graph space name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customized_graph_space_options" class="md-nav__link">
+    Customized graph space options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check_partition_distribution" class="md-nav__link">
+    Check partition distribution
   </a>
   
 </li>
@@ -2539,22 +2595,65 @@
               
                 
                 
-                <h1 id="describe_space">DESCRIBE SPACE<a class="headerlink" href="#describe_space" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>DESC[RIBE] SPACE &lt;graph_space_name&gt;
+                <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
+    [(partition_num = &lt;partition_number&gt;, replica_factor = &lt;replica_number&gt;, charset = &lt;charset&gt;, collate = &lt;collate&gt;,
+    vid_type = {FIXED_STRING(&lt;max_string_length&gt;))] | INT64}
 </code></pre></div>
-<p>The <code>DESCRIBE SPACE</code> statement returns information about a graph space.</p>
-<p>The <code>DESCRIBE SPACE</code> statement is different from the <code>SHOW SPACES</code> statement. For details about <code>SHOW SPACES</code>, see <a href="../3.show-spaces/">SHOW SPACES document</a>.</p>
-<p>You can use <code>DESC</code> instead of <code>DESCRIBE</code> for short.</p>
+<p>The <code>CREATE SPACE</code> statement creates a new graph space with the given name. A <code>SPACE</code> is a region that provides physically isolated graphs in Nebula Graph. An error occurs if a graph space with the same name exists if you did not specify <code>IF NOT EXISTS</code>.</p>
+<h2 id="if_not_exists">IF NOT EXISTS<a class="headerlink" href="#if_not_exists" title="Permanent link">&para;</a></h2>
+<p>You can use the <code>IF NOT EXISTS</code> keywords when creating graph spaces. These keywords automatically detects if the related graph space exists. If it does not exist, a new one is created. Otherwise, no graph space is created.</p>
+<blockquote>
+<p><strong>NOTE</strong>: The graph space existence detection here only compares the graph space name (excluding properties).</p>
+</blockquote>
+<h2 id="graph_space_name">Graph space name<a class="headerlink" href="#graph_space_name" title="Permanent link">&para;</a></h2>
+<p>The <code>graph_space_name</code> uniquely identifies a graph space in a Nebula Graph instance.</p>
+<h2 id="customized_graph_space_options">Customized graph space options<a class="headerlink" href="#customized_graph_space_options" title="Permanent link">&para;</a></h2>
+<p>You can set four optional options for a new graph space:</p>
+<ul>
+<li><code>partition_num</code><p>Specifies the number of partitions in each replica. The suggested number is five times the number of the hard disks in the cluster. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.</p>
+</li>
+</ul>
+<ul>
+<li><code>replica_factor</code><p>Specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in a production environment and 1 in a test environment. Always set the replica to an odd number for the need of quorum-based voting.</p>
+</li>
+</ul>
+<ul>
+<li><code>charset</code><p>Short for character set. A character set is a set of symbols and encodings. The default value is <code>utf8</code>.</p>
+</li>
+</ul>
+<ul>
+<li><code>collate</code><p>A set of rules for comparing characters in a character set. The default value is <code>utf8_bin</code>.</p>
+</li>
+</ul>
+<ul>
+<li><code>vid_type</code><p>Specifies the data type of vertex IDs (VIDs) in a graph space. The default value is <code>FIXED_STRING(8)</code>. This shows that the default VID data type is <code>FIXED_STRING</code> and the default length is <code>8</code>. In Nebula Graph 2.0.0-RC, only <code>FIXED_STRING(N)</code> and <code>INT64</code> are supported. <code>N</code> represents the maximum length of the VIDs. You must set the <code>fixed_string</code> to a positive integer. If your VID length is greater than the maximum VID length, Nebula Graph throws an error. To set the integer VID for vertices, specify the <code>vid_type</code> to <code>INT64</code>.</p>
+</li>
+</ul>
+<p>If no option is given, Nebula Graph creates the graph space with the default options.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>Get information about a graph space.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE SPACE nba;
-
-+----+-------+------------------+----------------+---------+------------+--------------------+
-| ID | Name  | Partition Number | Replica Factor | Charset | Collate    | Vid Type           |
-+----+-------+------------------+----------------+---------+------------+--------------------+
-| 8  | &quot;nba&quot; | 15               | 1              | &quot;utf8&quot;  | &quot;utf8_bin&quot; | &quot;FIXED_STRING(30)&quot; |
-+----+-------+------------------+----------------+---------+------------+--------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
+nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- create a graph space with customized partition number
+nebula&gt; CREATE SPACE my_space_3(replica_factor=1); -- create a graph space with customized replica factor
+nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a graph space with customized VID maximum length
 </code></pre></div>
+<h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">&para;</a></h2>
+<p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup time. You can run the command to do a check of the machine distribution.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
++-----------+-------+--------+--------------+---------------------+------------------------+
+| Host      | Port  | Status | Leader count | Leader distribution | Partition distribution |
++-----------+-------+--------+--------------+---------------------+------------------------+
+| storaged0 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
++-----------+-------+--------+--------------+---------------------+------------------------+
+| storaged1 | 44500 | ONLINE | 2            | test:1, nba:5       | nba:5, test:1          |
++-----------+-------+--------+--------------+---------------------+------------------------+
+| storaged2 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
++-----------+-------+--------+--------------+---------------------+------------------------+
+</code></pre></div>
+<p>To balance the request loads, use the following command.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+</code></pre></div>
+<!-- Details see [SHOW HOSTS](../3.utility-statements/show-statements/show-hosts-syntax.md) and [BALANCE](../../../3.build-develop-and-administration/5.storage-service-administration/storage-balance.md). -->
                 
                   
                 
@@ -2576,7 +2675,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../3.show-spaces/" title="SHOW SPACES" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../7.general-query-statements/6.show/16.show-users/" title="SHOW USERS" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2585,19 +2684,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                SHOW SPACES
+                SHOW USERS
               </span>
             </div>
           </a>
         
         
-          <a href="../5.drop-space/" title="DROP SPACE" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../2.use-space/" title="USE SPACE" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                DROP SPACE
+                USE SPACE
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

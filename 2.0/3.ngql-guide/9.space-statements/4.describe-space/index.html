@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/9.space-statements.md/2.use-space/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/9.space-statements/4.describe-space/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>USE SPACE - Nebula Graph Database Manual</title>
+        <title>DESCRIBE SPACE - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#use" tabindex="0" class="md-skip">
+      <a href="#describe_space" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                USE SPACE
+                DESCRIBE SPACE
               
             </span>
           
@@ -1263,20 +1263,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="USE SPACE" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../2.use-space/" title="USE SPACE" class="md-nav__link">
       USE SPACE
     </a>
-    
   </li>
 
         
@@ -1296,11 +1287,49 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../4.describe-space/" title="DESCRIBE SPACE" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        DESCRIBE SPACE
+      </label>
+    
+    <a href="./" title="DESCRIBE SPACE" class="md-nav__link md-nav__link--active">
       DESCRIBE SPACE
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -2483,6 +2512,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2494,22 +2539,22 @@
               
                 
                 
-                <h1 id="use">USE<a class="headerlink" href="#use" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>USE &lt;graph_space_name&gt;
+                <h1 id="describe_space">DESCRIBE SPACE<a class="headerlink" href="#describe_space" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code>DESC[RIBE] SPACE &lt;graph_space_name&gt;
 </code></pre></div>
-<p>The <code>USE</code> statement specifies a graph space as the current working space for subsequent queries. To manage multiple graph spaces, use the <code>USE</code> statement. The <code>USE</code> statement requires some privileges. (TODO: authentication doc)</p>
-<p>The graph space remains the same unless another <code>USE</code> statement is executed.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE space1;
--- Traverse in graph space1.
-nebula&gt; GO FROM 1 OVER edge1;
-nebula&gt; USE space2;
--- Traverse in graph space2. These vertices and edges have no relevance with space1.
-nebula&gt; GO FROM 2 OVER edge2;
--- Now you are back to space1. Hereafter, you can not read any data from space2.
-nebula&gt; USE space1;
+<p>The <code>DESCRIBE SPACE</code> statement returns information about a graph space.</p>
+<p>The <code>DESCRIBE SPACE</code> statement is different from the <code>SHOW SPACES</code> statement. For details about <code>SHOW SPACES</code>, see <a href="../3.show-spaces/">SHOW SPACES document</a>.</p>
+<p>You can use <code>DESC</code> instead of <code>DESCRIBE</code> for short.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>Get information about a graph space.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; DESCRIBE SPACE nba;
+
++----+-------+------------------+----------------+---------+------------+--------------------+
+| ID | Name  | Partition Number | Replica Factor | Charset | Collate    | Vid Type           |
++----+-------+------------------+----------------+---------+------------+--------------------+
+| 8  | &quot;nba&quot; | 15               | 1              | &quot;utf8&quot;  | &quot;utf8_bin&quot; | &quot;FIXED_STRING(30)&quot; |
++----+-------+------------------+----------------+---------+------------+--------------------+
 </code></pre></div>
-<p>Different from SQL, making a graph space as the working graph space prevents you from accessing other spaces. The only way to traverse in a new graph space is to switch by the <code>USE</code> statement.</p>
-<p>Graph spaces are <code>FULLY ISOLATED</code> from each other. Unlike MySQL, you can only use one graph space at a time in Nebula Graph. But in MySQL, you can select two tables from different databases in one statement.</p>
                 
                   
                 
@@ -2531,7 +2576,7 @@ nebula&gt; USE space1;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../1.create-space/" title="CREATE SPACE" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../3.show-spaces/" title="SHOW SPACES" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2540,19 +2585,19 @@ nebula&gt; USE space1;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                CREATE SPACE
+                SHOW SPACES
               </span>
             </div>
           </a>
         
         
-          <a href="../3.show-spaces/" title="SHOW SPACES" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../5.drop-space/" title="DROP SPACE" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                SHOW SPACES
+                DROP SPACE
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
