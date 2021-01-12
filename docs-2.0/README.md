@@ -45,11 +45,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Match](3.ngql-guide/7.general-query-statements/2.match.md)
 
 * Space statements
-  * [Create space](3.ngql-guide/9.space-statements.md/1.create-space.md)
-  * [Use space](3.ngql-guide/9.space-statements.md/2.use-space.md)
-  * [Show spaces](3.ngql-guide/9.space-statements.md/3.show-spaces.md)
-  * [Describe space](3.ngql-guide/9.space-statements.md/4.describe-space.md)
-  * [Drop space](3.ngql-guide/9.space-statements.md/5.drop-space.md)
+  * [Create space](3.ngql-guide/9.space-statements/1.create-space.md)
+  * [Use space](3.ngql-guide/9.space-statements/2.use-space.md)
+  * [Show spaces](3.ngql-guide/9.space-statements/3.show-spaces.md)
+  * [Describe space](3.ngql-guide/9.space-statements/4.describe-space.md)
+  * [Drop space](3.ngql-guide/9.space-statements/5.drop-space.md)
 
 * Vertex statements
   * [Insert vertex](3.ngql-guide/12.vertex-statements/1.insert-vertex.md)

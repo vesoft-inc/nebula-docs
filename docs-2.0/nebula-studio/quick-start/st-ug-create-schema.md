@@ -16,7 +16,7 @@ To create a graph schema on Studio v2.x, you must do a check of these:
 - The schema is designed.
 
 - A graph space is created.
-  > **NOTE**: If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** page. For more information, see [CREATE SPACE](../../3.ngql-guide/9.space-statements.md/1.create-space.md). In this example, we recommend that you set `vid_type=FIXED_STRING(100)` in the `CREATE SPACE` statement.
+  > **NOTE**: If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** page. For more information, see [CREATE SPACE](../../3.ngql-guide/9.space-statements/1.create-space.md). In this example, we recommend that you set `vid_type=FIXED_STRING(100)` in the `CREATE SPACE` statement.
 
 ## Create a schema with Schema
 
