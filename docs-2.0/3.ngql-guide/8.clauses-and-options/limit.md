@@ -79,7 +79,7 @@ You can use an expression to specify the number of rows to be returned. The expr
 nebula> MATCH (v:player) \
         RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age \
-        LIMIT rand32(5)
+        LIMIT rand32(5);
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
