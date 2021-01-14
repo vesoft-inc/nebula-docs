@@ -10,17 +10,20 @@ LIMIT [<offset>,] <number_rows>
 
 |Parameter|Description|
 |-|-|
-|`offset`|Optional. It specifies the start row in the output. The offset starts from zero.|
+|`offset`|Optional. It specifies the number of rows to be skipped. The offset starts from zero.|
 |`number_rows`|It specifies the number of rows to be returned. It can be an expression that outputs a non-negative integer.|
 
-> **NOTE:** In a MATCH statement, you can use a LIMIT clause with or without a pipe symbol, but in other statements, you must add a pipe before the LIMIT clause.
+> **NOTE:** In a `MATCH` statement, you can use a `LIMIT` clause with or without a pipe symbol, but in other statements, you must add a pipe symbol before the `LIMIT` clause.
 
 ## Return a specific number of rows
 
 To return the top N rows from the result, use `LIMIT <N>` as follows:
 
 ```nGQL
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age ORDER BY Age | LIMIT 5
+nebula> MATCH (v:player) \
+        RETURN v.name AS Name, v.age AS Age \
+        ORDER BY Age | \
+        LIMIT 5;
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
@@ -42,7 +45,10 @@ Got 5 rows (time spent 2841/3511 us)
 To skip the top M rows and return the next N rows, use `LIMIT <M,> <N>` as follows:
 
 ```nGQL
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age ORDER BY Age | LIMIT 2,5
+nebula> MATCH (v:player) \
+        RETURN v.name AS Name, v.age AS Age \
+        ORDER BY Age | \
+        LIMIT 2,5;
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
@@ -65,12 +71,15 @@ You can also use [`SKIP`](./skip.md) to skip the top M rows.
 
 ## Use an expression to specify the number of rows
 
-You can use an nGQL expression to specify the number of rows to be returned. This expression must output a non-negative integer.
+You can use an expression to specify the number of rows to be returned. The expression must output a non-negative integer.
 
 > **NOTE:** Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
 
 ```nGQL
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age ORDER BY Age LIMIT rand32(5)
+nebula> MATCH (v:player) \
+        RETURN v.name AS Name, v.age AS Age \
+        ORDER BY Age \
+        LIMIT rand32(5)
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
