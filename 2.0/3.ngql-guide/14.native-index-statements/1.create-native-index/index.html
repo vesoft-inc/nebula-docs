@@ -2842,11 +2842,11 @@
                 <h1 id="create_index">CREATE INDEX<a class="headerlink" href="#create_index" title="Permanent link">&para;</a></h1>
 <p>Use <code>CREATE INDEX</code> to add native indexes for existing tags, edge types or properties.</p>
 <blockquote>
-<p><strong>NOTE:</strong> For how to create text-based indexes, see CREATE FULLTEXT INDEX (doc TODO).</p>
+<p><strong>NOTE:</strong> For how to create text-based indexes, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy full-text index</a>.</p>
 </blockquote>
 <p>Most graph queries start the traversal from a list of vertices or edges that are identified by their properties. Indexes make these global retrieval operations efficient on large graphs.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Before you create an index, make sure that the relative tag or edge type is created. For how to create tags or edge types, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and CREATE EDGE (doc TODO).</p>
+<p>Before you create an index, make sure that the relative tag or edge type is created. For how to create tags or edge types, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
 <h2 id="must-read_for_using_index">Must-read for using index<a class="headerlink" href="#must-read_for_using_index" title="Permanent link">&para;</a></h2>
 <p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
 <p>If you must use indexes, we suggest that you:</p>
@@ -2866,9 +2866,15 @@
 <li>
 <p><code>prop_name_list</code>:</p>
 <ul>
-<li>To index a variable string property, you must use the <code>prop_name(length)</code> syntax to specify an index prefix length.</li>
-<li>To index a fixed-length string property, you must use the <code>prop_name</code> syntax, and the string length is read from the property.</li>
-<li>To index a tag or an edge type, omit the <code>prop_name_list</code> in the parentheses.</li>
+<li>To index a <strong>variable</strong> string property, you must use the <code>prop_name(length)</code> syntax to specify an index length.<blockquote>
+<p><strong>NOTE:</strong> Long indexes decrease the scan performance of the Storage Service and use more memory. We suggest that you set the indexing length the same as that of the longest string to be indexed. The longest indexing length is 255. Strings longer than 255 are truncated.</p>
+</blockquote>
+</li>
+<li>To index a <strong>fixed-length</strong> string property, you must use the <code>prop_name</code> syntax, and the index length is the string length you set.</li>
+<li>To index a tag or an edge type, ignore the <code>prop_name_list</code> in the parentheses.<blockquote>
+<p><strong>DON'T:</strong> DO NOT index a tag or an edge type if you have indexed any properties in the tag or edge type.</p>
+</blockquote>
+</li>
 </ul>
 </li>
 </ul>
