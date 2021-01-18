@@ -11,7 +11,7 @@ LIMIT [<offset>,] <number_rows>
 |Parameter|Description|
 |-|-|
 |`offset`|Optional. It specifies the number of rows to be skipped. The offset starts from zero.|
-|`number_rows`|It specifies the number of rows to be returned. It can be an expression that outputs a non-negative integer.|
+|`number_rows`|It specifies the number of rows to be returned. It can be a non-negative integer or an expression that outputs a non-negative integer.|
 
 > **NOTE:** In a `MATCH` statement, you can use a `LIMIT` clause with or without a pipe symbol, but in other statements, you must add a pipe symbol before the `LIMIT` clause.
 
