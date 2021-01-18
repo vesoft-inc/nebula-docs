@@ -10,7 +10,7 @@ The SKIP clause specifies the number of rows to be skipped in the output.
 SKIP <number_rows>
 ```
 
-`number_rows` specifies the number of rows to be skipped. It can be a non-negative integer integer or an expression that outputs a non-negative integer.
+`number_rows` specifies the number of rows to be skipped. It can be a non-negative integer or an expression that outputs a non-negative integer.
 
 ## Skip top N rows
 
