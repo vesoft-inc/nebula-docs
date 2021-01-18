@@ -67,7 +67,7 @@ Got 5 rows (time spent 2922/3854 us)
 
 > **NOTE:** To use a `LIMIT` offset in `MATCH`, you must add a pipe before `LIMIT`.
 
-You can also use [`SKIP`](./skip.md) to skip the top M rows.
+You can also use [`SKIP`](skip.md) to skip the top M rows.
 
 ## Use an expression to specify the number of rows
 
