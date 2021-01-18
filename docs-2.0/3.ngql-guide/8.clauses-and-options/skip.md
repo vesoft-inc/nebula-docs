@@ -2,7 +2,7 @@
 
 The SKIP clause specifies the number of rows to be skipped in the output.
 
-For now, only in `MATCH` statements can you use `SKIP`.
+> **CAUTION:** For now, only in `MATCH` statements can you use `SKIP`.
 
 ## Syntax
 
@@ -10,7 +10,7 @@ For now, only in `MATCH` statements can you use `SKIP`.
 SKIP <number_rows>
 ```
 
-`number_rows` specifies the number of rows to be skipped. It can be an expression that outputs a non-negative integer.
+`number_rows` specifies the number of rows to be skipped. It can be a non-negative integer integer or an expression that outputs a non-negative integer.
 
 ## Skip top N rows
 
