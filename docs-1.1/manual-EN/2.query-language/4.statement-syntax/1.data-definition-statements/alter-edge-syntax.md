@@ -20,7 +20,7 @@ ttl_definition:
 
 Please refer to [Index Documentation](index.md) on details about index.
 
-Multiple `ADD`, `DROP`, and `CHANGE` clauses are permitted in a single `ALTER` statements, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the `ALTER` statement.
+Multiple `ADD`, `DROP`, and `CHANGE` clauses are permitted in a single `ALTER` statement, separated by commas. But do NOT add, drop, change the same property in one statement. If you have to do so, make each operation as a clause of the `ALTER` statement.
 
 ```ngql
 nebula> CREATE EDGE e1 (prop3 int, prop4 int, prop5 int);
