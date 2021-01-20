@@ -1,6 +1,6 @@
 # Keywords and Reserved Words
 
-Keywords have significance in nGQL. Certain keywords are reserved and require special treatment for using as identifiers.
+Keywords have significance in nGQL. Certain keywords are reserved and require special treatment for use as identifiers.
 
 Non-reserved keywords are permitted as identifiers without quoting. Non-reserved keywords are case-insensitive. To use reserved keywords as identifiers, quote them with back quotes such as \`AND\`.
 
@@ -13,7 +13,7 @@ nebula> CREATE TAG SPACE(name string);
 Execution succeeded
 ```
 
-`TAG` is a reserved keyword. To use `TAG` as an identifier, you must quote it with backtick. `SPACE` is a non-reserved keyword. You can use `SPACE` as an identifier without quoting it.
+`TAG` is a reserved keyword. To use `TAG` as an identifier, you must quote it with a backtick. `SPACE` is a non-reserved keyword. You can use `SPACE` as an identifier without quoting it.
 
 ```ngql
 // TAG is a reserved keyword here.
