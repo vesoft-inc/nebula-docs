@@ -1392,6 +1392,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check_partition_distribution" class="md-nav__link">
     Check partition distribution
   </a>
@@ -2848,6 +2855,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check_partition_distribution" class="md-nav__link">
     Check partition distribution
   </a>
@@ -2913,6 +2927,14 @@ nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- create a graph space wi
 nebula&gt; CREATE SPACE my_space_3(replica_factor=1); -- create a graph space with customized replica factor
 nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a graph space with customized VID maximum length
 </code></pre></div>
+<h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
+<p>Trying to use a newly created graph space may fail, because the creation is implemented asynchronously.</p>
+<p>Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
+<ul>
+<li>Find the new graph space in the result of <a href="../3.ngql-guide/7.general-query-statements/6.show/12.show-spaces.md"><code>SHOW SPACES</code></a> or <a href="../3.ngql-guide/9.space-statements/4.describe-space.md"><code>DESCRIBE SPACE</code></a>. If you can't, wait a few seconds and try again.</li>
+<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
+</ul>
+<p>To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
 <h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">&para;</a></h2>
 <p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup time. You can run the command to do a check of the machine distribution.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;

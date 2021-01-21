@@ -1481,6 +1481,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
       
       
       
@@ -2852,6 +2859,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
       
       
       
@@ -2943,6 +2957,14 @@ nebula&gt; CREATE TAG woman(name string, age int, \
 nebula&gt; CREATE TAG icec_ream(made timestamp, temperature int) \
    TTL_DURATION = 100, TTL_COL = &quot;made&quot;;
 </code></pre></div>
+<h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
+<p>Trying to insert vertices with a newly created tag may fail, because the creation of the tag is implemented asynchronously.</p>
+<p>Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
+<ul>
+<li>Find the new tag in the result of <a href="../3.ngql-guide/10.tag-statements/4.show-tags.md"><code>SHOW TAGS</code></a>. If you can't, wait a few seconds and try again.</li>
+<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
+</ul>
+<p>To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
                 
                   
                 

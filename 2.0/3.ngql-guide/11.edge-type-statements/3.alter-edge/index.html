@@ -1569,6 +1569,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
       
       
       
@@ -2812,6 +2819,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation_of_the_operation" class="md-nav__link">
+    Implementation of the operation
+  </a>
+  
+</li>
+      
       
       
       
@@ -2848,14 +2862,19 @@ ttl_definition:
 <p>For information about index, see <a href="../../14.native-index-statements/1.create-native-index/">Index</a>.</p>
 <p>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER</code> statement, separated by commas.</p>
 <h2 id="edge_type_name">Edge type name<a class="headerlink" href="#edge_type_name" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>edge_type_name</code>: Specifies the edge type name that you want to alter. You can alter only one edge type in one statement. Before you alter an edge type, make sure that the edge type exists in the graph space. If the edge type does not exist, an error occurs when you alter it.</li>
-</ul>
+<p><code>edge_type_name</code> specifies the edge type name that you want to alter. You can alter only one edge type in one statement. Before you alter an edge type, make sure that the edge type exists in the graph space. If the edge type does not exist, an error occurs when you alter it.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1(p1 string, p2 int);
 nebula&gt; ALTER EDGE e1 ADD (p3 int, p4 string);
 nebula&gt; ALTER EDGE e1 TTL_DURATION = 2, TTL_COL = &quot;p2&quot;;
 </code></pre></div>
+<h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
+<p>Nebula Graph implements the alteration asynchronously in the next heartbeat cycle. Before the process finishes, the alteration does not take effect. To make sure the alteration is successful, take the following approaches:</p>
+<ul>
+<li>Use <a href="../5.describe-edge/"><code>DESCRIBE EDGE</code></a> to confirm that the edge information is updated. If it is not, wait a few seconds and try again.</li>
+<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
+</ul>
+<p>To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
                 
                   
                 

@@ -550,6 +550,19 @@
     Check the machine status in the Nebula Graph cluster
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous_implementation_of_creation_and_alteration" class="md-nav__link">
+    Asynchronous implementation of creation and alteration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3038,6 +3051,19 @@
     Check the machine status in the Nebula Graph cluster
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous_implementation_of_creation_and_alteration" class="md-nav__link">
+    Asynchronous implementation of creation and alteration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3337,6 +3363,23 @@
 Got 3 rows (time spent 1775/2334 us)
 </code></pre></div>
 <p>From the <strong>Status</strong> column of the table in the return message, you can see that all the Storage services are online.</p>
+<h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">&para;</a></h3>
+<p>Nebula Graph implements the following creation or alteration operations asynchronously in the next heartbeat cycle. The operations won't take effect until they finish.</p>
+<ul>
+<li><code>CREATE SPACE</code></li>
+<li><code>CREATE TAG</code></li>
+<li><code>CREATE EDGE</code></li>
+<li><code>ALTER TAG</code></li>
+<li><code>ALTER EDGE</code></li>
+<li><code>CREATE TAG INDEX</code></li>
+<li><code>CREATE EDGE INDEX</code></li>
+</ul>
+<p>The default heartbeat interval is 10 seconds. To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
+<p>To make sure the follow-up operations work as expected, take one of the following approaches:</p>
+<ul>
+<li>Run <code>SHOW</code> or <code>DESCRIBE</code> statements accordingly to check the status of the objects, and make sure the creation or alteration is complete. If it is not, wait a few seconds and try again.</li>
+<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
+</ul>
 <h2 id="create_and_use_a_graph_space">Create and use a graph space<a class="headerlink" href="#create_and_use_a_graph_space" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax">nGQL syntax<a class="headerlink" href="#ngql_syntax" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3367,7 +3410,7 @@ Got 3 rows (time spent 1775/2334 us)
 </li>
 </ul>
 <ul>
-<li>List graph spaces:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
+<li>List graph spaces and check if the creation is successful:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
 </li>
 </ul>
