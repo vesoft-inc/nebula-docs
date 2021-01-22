@@ -2,7 +2,7 @@
 
 The `WITH` clause can take the output from a query part, process it, and pass it to the next query part as the input.
 
-`WITH` has the similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL, but they work in different ways. This topic describes some common practices of `WITH`.
+`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL, but they work in different ways. This topic describes some common practices of `WITH`.
 
 ## OpenCypher compatibility
 
