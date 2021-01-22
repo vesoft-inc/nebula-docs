@@ -4,64 +4,87 @@ The `WITH` clause can take the output from a query part, process it, and pass it
 
 `WITH` has the similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL, but they work in different ways. This topic describes some common practices of `WITH`.
 
-> **NOTE:** `WITH` only works in openCypher syntax. In nGQL syntax, use pipe symbols instead.
+## OpenCypher compatibility
+
+* In nGQL, `WITH` must work with an alias. In openCypher, `WITH` can work with or without an alias.
+
+* `WITH` only works in the openCypher syntax in nGQL, such as in `MATCH` or `UNWIND`. In the nGQL extensions such as `GO` or `FETCH`, use pipe symbols instead.
+   > **DON'T:** Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions.
 
 ## Combine statements and form a composite query
 
 Use a `WITH` clause to combine statements and transfer the output of a statement as the input of another statement.
 
-* Example 1:
+### Example 1
 
-    ```ngql
-    nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
-            WITH nodes(p) AS n \
-            UNWIND n AS n1 \
-            RETURN DISTINCT n1;
-    +----------------------------------------------------------------------+
-    | n1                                                                   |
-    +----------------------------------------------------------------------+
-    | ("player100" :star{} :person{} :player{age: 42, name: "Tim Duncan"}) |
-    +----------------------------------------------------------------------+
-    | ("player101" :player{age: 36, name: "Tony Parker"})                  |
-    +----------------------------------------------------------------------+
-    | ("team204" :team{name: "Spurs"})                                     |
-    +----------------------------------------------------------------------+
-    | ("player102" :player{age: 33, name: "LaMarcus Aldridge"})            |
-    +----------------------------------------------------------------------+
-    | ("player125" :player{age: 41, name: "Manu Ginobili"})                |
-    +----------------------------------------------------------------------+
-    | ("player104" :player{age: 32, name: "Marco Belinelli"})              |
-    +----------------------------------------------------------------------+
-    | ("player144" :player{age: 47, name: "Shaquile O'Neal"})              |
-    +----------------------------------------------------------------------+
-    | ("player105" :player{age: 31, name: "Danny Green"})                  |
-    +----------------------------------------------------------------------+
-    | ("player113" :player{age: 29, name: "Dejounte Murray"})              |
-    +----------------------------------------------------------------------+
-    | ("player107" :player{age: 32, name: "Aron Baynes"})                  |
-    +----------------------------------------------------------------------+
-    | ("player109" :player{age: 34, name: "Tiago Splitter"})               |
-    +----------------------------------------------------------------------+
-    | ("player108" :player{age: 36, name: "Boris Diaw"})                   |
-    +----------------------------------------------------------------------+
-    Got 12 rows (time spent 3795/4487 us)
-    ```
+The following statement:
 
-* Example 2:
+1. Matches a path.
+2. Outputs all the vertices on the path to a list with the `nodes()` function.
+3. Unwinds the list into rows.
+4. Removes duplicated vertices and returns a set of distinct vertices.
 
-    ```ngql
-    nebula> MATCH (v) WHERE id(v)=="player100" WITH labels(v) AS tags_unf UNWIND tags_unf AS tags_f RETURN tags_f;
-    +----------+
-    | tags_f   |
-    +----------+
-    | "star"   |
-    +----------+
-    | "player" |
-    +----------+
-    | "person" |
-    +----------+
-    Got 3 rows (time spent 1709/2495 us)
-    ```
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
+        WITH nodes(p) AS n \
+        UNWIND n AS n1 \
+        RETURN DISTINCT n1;
++----------------------------------------------------------------------+
+| n1                                                                   |
++----------------------------------------------------------------------+
+| ("player100" :star{} :person{} :player{age: 42, name: "Tim Duncan"}) |
++----------------------------------------------------------------------+
+| ("player101" :player{age: 36, name: "Tony Parker"})                  |
++----------------------------------------------------------------------+
+| ("team204" :team{name: "Spurs"})                                     |
++----------------------------------------------------------------------+
+| ("player102" :player{age: 33, name: "LaMarcus Aldridge"})            |
++----------------------------------------------------------------------+
+| ("player125" :player{age: 41, name: "Manu Ginobili"})                |
++----------------------------------------------------------------------+
+| ("player104" :player{age: 32, name: "Marco Belinelli"})              |
++----------------------------------------------------------------------+
+| ("player144" :player{age: 47, name: "Shaquile O'Neal"})              |
++----------------------------------------------------------------------+
+| ("player105" :player{age: 31, name: "Danny Green"})                  |
++----------------------------------------------------------------------+
+| ("player113" :player{age: 29, name: "Dejounte Murray"})              |
++----------------------------------------------------------------------+
+| ("player107" :player{age: 32, name: "Aron Baynes"})                  |
++----------------------------------------------------------------------+
+| ("player109" :player{age: 34, name: "Tiago Splitter"})               |
++----------------------------------------------------------------------+
+| ("player108" :player{age: 36, name: "Boris Diaw"})                   |
++----------------------------------------------------------------------+
+Got 12 rows (time spent 3795/4487 us)
+```
+
+### Example 2
+
+The following statement:
+
+1. Matches a vertex with the VID "player100".
+2. Outputs all the tags of the vertex into a list with the `labels()` function.
+3. Unwinds the list into rows.
+4. Returns the rows.
+
+```ngql
+nebula> MATCH (v) \
+        WHERE id(v)=="player100" \
+        WITH labels(v) AS tags_unf \
+        UNWIND tags_unf AS tags_f \
+        RETURN tags_f;
++----------+
+| tags_f   |
++----------+
+| "star"   |
++----------+
+| "player" |
++----------+
+| "person" |
++----------+
+Got 3 rows (time spent 1709/2495 us)
+```
 
 ## Filter aggregated queries
 
@@ -102,8 +125,3 @@ nebula> MATCH (v:player) \
 +-----------------------------------------------+
 Got 1 rows (time spent 3498/4222 us)
 ```
-
-> **openCypher Compatibility:**
->
-> * In nGQL, `WITH` must work with an alias like in the preceding example.
-> * In openCypher, `WITH` can work with or without aliases.
