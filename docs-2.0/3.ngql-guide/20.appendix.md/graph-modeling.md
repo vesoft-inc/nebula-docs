@@ -4,7 +4,7 @@ This document gives some generic suggestions for graph modeling that are success
 
 ## Model for performance
 
-There is no perfect method to model in Nebula Graph. Graph modeling depends on the questions that you want to know from the data. Your data drives your graph model. Graph data modeling is intuitive and convenient. **DO NOT** model for convenience. Model for performance. Please note that your model can not be the right one for your business sometimes. Test your model and gradually optimize it to fit your business.
+There is no perfect method to model in Nebula Graph. Graph modeling depends on the questions that you want to know from the data. Your data drives your graph model. Graph data modeling is intuitive and convenient. Create your data model based on you business model. Test your model and gradually optimize it to fit your business. To get better performance, you can change or re-design your model for multiple times.
 
 ## Edges as properties
 
