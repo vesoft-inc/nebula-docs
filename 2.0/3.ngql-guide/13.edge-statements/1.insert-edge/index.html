@@ -2822,12 +2822,14 @@ nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(
 nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 12);
 nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 13);
 nebula&gt; INSERT EDGE e2 (name, age) VALUES &quot;11&quot;-&gt;&quot;13&quot;:(&quot;n1&quot;, 14);
+
+// Only the last write can be read
 nebula&gt; FETCH PROP ON e2 &quot;11&quot;-&gt;&quot;13&quot;;
-+---------+---------+----------+---------+--------+
-| e2._src | e2._dst | e2._rank | e2.name | e2.age |
-+---------+---------+----------+---------+--------+
-| &quot;11&quot;    | &quot;13&quot;    | 0        | &quot;n1&quot;    | 14     |
-+---------+---------+----------+---------+--------+      -- Only the last write can be read
++-------------------------------------------+
+| edges_                                    |
++-------------------------------------------+
+| [:e2 &quot;11&quot;-&gt;&quot;13&quot; @0 {age: 14, name: &quot;n1&quot;}] |
++-------------------------------------------+
 </code></pre></div>
                 
                   

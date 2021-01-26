@@ -2819,36 +2819,41 @@ nebula&gt; CREATE TAG t4(p2 string);
 nebula&gt; INSERT VERTEX  t3 (p1), t4(p2) VALUES &quot;21&quot;: (321, &quot;hello&quot;);   -- Insert vertex &quot;21&quot; with two tags.
 </code></pre></div>
 <p>A vertex can be inserted/written multiple times. Only the last written values can be read.</p>
-<div class="highlight"><pre><span></span><code>-- insert vertex &quot;11&quot; with the new values.
+<div class="highlight"><pre><span></span><code>// Insert vertex &quot;11&quot; with the new values.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n2&quot;, 13);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n3&quot;, 14);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n4&quot;, 15);
-nebula&gt; FETCH PROP ON t2 &quot;11&quot;;
 
-+----------+---------+--------+
-| VertexID | t2.name | t2.age |
-+----------+---------+--------+
-| &quot;11&quot;     | &quot;n4&quot;    | 15     |         -- Only the last version can be read
-+----------+---------+--------+
+// Only the last version can be read
+nebula&gt; FETCH PROP ON t2 &quot;11&quot;;
++---------------------------------+
+| vertices_                       |
++---------------------------------+
+| (&quot;11&quot; :t2{age: 15, name: &quot;n4&quot;}) |
++---------------------------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;001&quot;:(&quot;Abe&quot;, 2, 3);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;002&quot;:(NULL, 4, 5);
 [ERROR (-8)]: Storage Error: The not null field cannot be null.
 nebula&gt; INSERT VERTEX t5(p1, p2) VALUES &quot;003&quot;:(&quot;cd&quot;, 5);
+
+// The value for p3 is the default NULL.
 nebula&gt; FETCH PROP ON t5 &quot;003&quot;;
-+----------+-------+-------+-------+
-| VertexID | t5.p1 | t5.p2 | t5.p3 |
-+----------+-------+-------+-------+
-| &quot;003&quot;    | &quot;cd&quot;  | 5     | NULL  |       -- The value for p3 is the default NULL.
-+----------+-------+-------+-------+
++--------------------------------------------+
+| vertices_                                  |
++--------------------------------------------+
+| (&quot;003&quot; :t5{p1: &quot;cd&quot;, p2: 5, p3: __NULL__}) |
++--------------------------------------------+
 nebula&gt; INSERT VERTEX t5(p1, p2) VALUES &quot;004&quot;:(&quot;shalalalala&quot;, 4);
+
+// The allowed maximum length for property p1 is 5.
 nebula&gt; FETCH PROP on t5 &quot;004&quot;;
-+----------+---------+-------+-------+
-| VertexID | t5.p1   | t5.p2 | t5.p3 |
-+----------+---------+-------+-------+
-| &quot;004&quot;    | &quot;shala&quot; | 4     | NULL  |     -- The allowed maximum length for property p1 is 5.
-+----------+---------+-------+-------+
++-----------------------------------------------+
+| vertices_                                     |
++-----------------------------------------------+
+| (&quot;004&quot; :t5{p1: &quot;shala&quot;, p2: 4, p3: __NULL__}) |
++-----------------------------------------------+
 </code></pre></div>
                 
                   

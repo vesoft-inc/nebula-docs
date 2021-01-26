@@ -2763,7 +2763,8 @@
 <li>If the edge exists and the <code>WHEN</code> condition is not met, Nebula Graph does nothing.</li>
 </ul>
 <p>Consider the following example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES &quot;player100&quot; -&gt; &quot;team200&quot;:(1997, 2016);  -- Insert a new edge.
+<div class="highlight"><pre><span></span><code>//Insert a new edge.
+nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES &quot;player100&quot; -&gt; &quot;team200&quot;:(1997, 2016);  -- 
 
 nebula&gt; UPSERT EDGE &quot;player100&quot; -&gt; &quot;team200&quot; OF serve SET start_year = serve.start_year + 2 WHEN serve.end_year == 2016 YIELD serve.start_year AS Start, serve.end_year AS End;
 +-------+------+
@@ -2773,11 +2774,11 @@ nebula&gt; UPSERT EDGE &quot;player100&quot; -&gt; &quot;team200&quot; OF serve 
 +-------+------+
 
 nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team200&quot;;
-+-------------+------------+-------------+------------------+----------------+
-| serve._src  | serve._dst | serve._rank | serve.start_year | serve.end_year |
-+-------------+------------+-------------+------------------+----------------+
-| &quot;player100&quot; | &quot;team200&quot;  | 0           | 1999             | 2016           |
-+-------------+------------+-------------+------------------+----------------+
++-----------------------------------------------------------------------+
+| edges_                                                                |
++-----------------------------------------------------------------------+
+| [:serve &quot;player100&quot;-&gt;&quot;team200&quot; @0 {end_year: 2016, start_year: 1999}] |
++-----------------------------------------------------------------------+
 </code></pre></div>
                 
                   

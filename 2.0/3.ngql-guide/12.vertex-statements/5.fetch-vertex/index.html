@@ -2804,52 +2804,55 @@ return_list ::=
 <li><code>YIELD</code> specifies the properties to be returned. For more information, see YIELD (doc TODO).</li>
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>```nql
-nebula&gt; FETCH PROP ON player "player101";
-+-------------+---------------+------------+
-| VertexID    | player.name   | player.age |
-+-------------+---------------+------------+
-| "player101" | "Tony Parker" | 36         |
-+-------------+---------------+------------+</p>
-<p>// Two tags: team and player.
-nebula&gt; FETCH PROP ON * "player101", "team202", "player103";
-+-------------+---------------+------------+-----------+
-| VertexID    | player.name   | player.age | team.name |
-+-------------+---------------+------------+-----------+
-| "player101" | "Tony Parker" | 36         | <strong>EMPTY</strong> |
-+-------------+---------------+------------+-----------+
-| "team202"   | <strong>EMPTY</strong>     | <strong>EMPTY</strong>  | "Rockets" |
-+-------------+---------------+------------+-----------+
-| "player103" | "Rudy Gay"    | 32         | <strong>EMPTY</strong> |
-+-------------+---------------+------------+-----------+</p>
-<p>nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot;;
++-----------------------------------------------------+
+| vertices_                                           |
++-----------------------------------------------------+
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}) |
++-----------------------------------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>// Two tags: team and player.
+nebula&gt; FETCH PROP ON * &quot;player101&quot;, &quot;team202&quot;, &quot;player103&quot;;
++-----------------------------------------------------+
+| vertices_                                           |
++-----------------------------------------------------+
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}) |
++-----------------------------------------------------+
+| (&quot;team202&quot; :team{name: &quot;Rockets&quot;})                  |
++-----------------------------------------------------+
+| (&quot;player103&quot; :player{age: 32, name: &quot;Rudy Gay&quot;})    |
++-----------------------------------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id | \
 FETCH PROP ON player $-.id YIELD player.name, player.age;
 +-------------+-----------------+------------+
 | VertexID    | player.name     | player.age |
 +-------------+-----------------+------------+
-| "player101" | "Tony Parker"   | 36         |
+| &quot;player101&quot; | &quot;Tony Parker&quot;   | 36         |
 +-------------+-----------------+------------+
-| "player125" | "Manu Ginobili" | 41         |
-+-------------+-----------------+------------+</p>
-<p>nebula&gt; GO FROM "player100" OVER follow \
+| &quot;player125&quot; | &quot;Manu Ginobili&quot; | 41         |
++-------------+-----------------+------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
 YIELD follow._dst, $$.player.name, $$.player.age;
 +-------------+-----------------+---------------+
 | follow._dst | $$.player.name  | $$.player.age |
 +-------------+-----------------+---------------+
-| "player101" | "Tony Parker"   | 36            |
+| &quot;player101&quot; | &quot;Tony Parker&quot;   | 36            |
 +-------------+-----------------+---------------+
-| "player125" | "Manu Ginobili" | 41            |
-+-------------+-----------------+---------------+</p>
-<p>nebula&gt; $var = GO FROM "player100" OVER follow YIELD follow._dst AS id; \
+| &quot;player125&quot; | &quot;Manu Ginobili&quot; | 41            |
++-------------+-----------------+---------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; $var=GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id; \
 FETCH PROP ON player $var.id YIELD player.name, player.age;
 +-------------+-----------------+------------+
 | VertexID    | player.name     | player.age |
 +-------------+-----------------+------------+
-| "player101" | "Tony Parker"   | 36         |
+| &quot;player101&quot; | &quot;Tony Parker&quot;   | 36         |
 +-------------+-----------------+------------+
-| "player125" | "Manu Ginobili" | 41         |
+| &quot;player125&quot; | &quot;Manu Ginobili&quot; | 41         |
 +-------------+-----------------+------------+
-````</p>
+</code></pre></div>
                 
                   
                 
