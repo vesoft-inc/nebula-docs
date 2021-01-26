@@ -3379,15 +3379,15 @@ Got 3 rows (time spent 2897/5993 us)
 <h3 id="match_paths">Match paths<a class="headerlink" href="#match_paths" title="Permanent link">&para;</a></h3>
 <p>Connected vertices and edges form a path. You can use a user-defined variable as follows to name a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN p;
-+-----------------------------------------+
-| p                                       |
-+-----------------------------------------+
-| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) |
-+-----------------------------------------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)  |
-+-----------------------------------------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)  |
-+-----------------------------------------+
++-------------------------------------------+
+| p                                         |
++-------------------------------------------+
+| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
++-------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)  |
++-------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)  |
++-------------------------------------------+
 Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
 <blockquote>
@@ -3400,11 +3400,11 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player101&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player100&quot;)                      |
+| (&quot;player101&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player100&quot;)                    |
 +---------------------------------------------------------------------------+
-| (&quot;player102&quot;)-[:like@0{likeness: 75}]-&gt;(&quot;player100&quot;)                      |
+| (&quot;player102&quot;)-[:follow@0{likeness: 75}]-&gt;(&quot;player100&quot;)                    |
 +---------------------------------------------------------------------------+
-| (&quot;player104&quot;)-[:like@0{likeness: 55}]-&gt;(&quot;player100&quot;)                      |
+| (&quot;player104&quot;)-[:follow@0{likeness: 55}]-&gt;(&quot;player100&quot;)                    |
 +---------------------------------------------------------------------------+
 ...
 </code></pre></div>
@@ -3418,26 +3418,26 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 Got 1 rows (time spent 5041/5630 us)
 </code></pre></div>
-<p>And edge type properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;edge_type&gt;</code>. For example: <code>[e:like{likeness:95}]</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:like{likeness:95}]-&gt;(v2) RETURN e;
-+------------------------------------------------------+
-| e                                                    |
-+------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player101&quot;) |
-+------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player125&quot;) |
-+------------------------------------------------------+
+<p>And edge type properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;edge_type&gt;</code>. For example: <code>[e:follow{likeness:95}]</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow{likeness:95}]-&gt;(v2) RETURN e;
++--------------------------------------------------------+
+| e                                                      |
++--------------------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;) |
++--------------------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;) |
++--------------------------------------------------------+
 Got 2 rows (time spent 6080/6728 us)
 </code></pre></div>
 <h3 id="match_on_multiple_edge_types">Match on multiple edge types<a class="headerlink" href="#match_on_multiple_edge_types" title="Permanent link">&para;</a></h3>
-<p>The <code>|</code> symbol can help matching on multiple edge types. For example: <code>[e:like|:serve]</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:like|:serve]-&gt;(v2) RETURN e;
+<p>The <code>|</code> symbol can help matching on multiple edge types. For example: <code>[e:follow|:serve]</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow|:serve]-&gt;(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player101&quot;)                      |
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)                    |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player125&quot;)                      |
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)                    |
 +---------------------------------------------------------------------------+
 | (&quot;player100&quot;)-[:serve@0{end_year: 2016, start_year: 1997}]-&gt;(&quot;player204&quot;) |
 +---------------------------------------------------------------------------+
@@ -3459,7 +3459,7 @@ Got 3 rows (time spent 4264/4976 us)
 </code></pre></div>
 <h3 id="match_fixed-length_paths">Match fixed-length paths<a class="headerlink" href="#match_fixed-length_paths" title="Permanent link">&para;</a></h3>
 <p>To match a fixed-length path, use the <code>:&lt;edge_type&gt;*&lt;hop&gt;</code> pattern.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like*2]-&gt;(v2) RETURN DISTINCT v2 AS Friends;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) RETURN DISTINCT v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
@@ -3498,7 +3498,7 @@ Got 3 rows (time spent 4863/5591 us)
 <li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given, <code>..</code> can be omitted.</li>
 </ul>
 </blockquote>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like*1..3]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2) \
         RETURN v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
@@ -3528,24 +3528,24 @@ Got 3 rows (time spent 4863/5591 us)
 Got 11 rows (time spent 5426/6473 us)
 </code></pre></div>
 <p>You can use the <code>DISTINCT</code> keyword to remove duplicate results.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like*1..3]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2:player) \
         RETURN DISTINCT v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
-| (&quot;player101&quot; :player{name: &quot;Tony Parker&quot;, age: 36})       |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
 +-----------------------------------------------------------+
-| (&quot;player125&quot; :player{name: &quot;Manu Ginobili&quot;, age: 41})     |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
 +-----------------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42})        |
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
 +-----------------------------------------------------------+
-| (&quot;player102&quot; :player{name: &quot;LaMarcus Aldridge&quot;, age: 33}) |
+| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 Got 4 rows (time spent 4549/5162 us)
 </code></pre></div>
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:like|serve*2]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow|serve*2]-&gt;(v2) \
         RETURN DISTINCT v2;
 +-----------------------------------------------------------+
 | v2                                                        |
@@ -3580,9 +3580,9 @@ Got 1 rows (time spent 1863/2545 us)
 +---------------------------------------------------------------------------+
 | (&quot;player100&quot;)-[:serve@0{start_year: 1997, end_year: 2016}]-&gt;(&quot;player204&quot;) |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player101&quot;)                      |
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)                    |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player125&quot;)                      |
+| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)                    |
 +---------------------------------------------------------------------------+
 Got 3 rows (time spent 3139/3773 us)
 </code></pre></div>
@@ -3650,30 +3650,28 @@ Got 3 rows (time spent 2943/3541 us)
 </code></pre></div>
 <h3 id="retrieve_edge_types">Retrieve edge types<a class="headerlink" href="#retrieve_edge_types" title="Permanent link">&para;</a></h3>
 <p>Use the <code>type()</code> function to retrieve the types of the matched edges.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() RETURN type(e);
-+---------+
-| type(e) |
-+---------+
-| &quot;serve&quot; |
-+---------+
-| &quot;like&quot;  |
-+---------+
-| &quot;like&quot;  |
-+---------+
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() RETURN DISTINCT type(e);
++----------+
+| type(e)  |
++----------+
+| &quot;follow&quot; |
++----------+
+| &quot;serve&quot;  |
++----------+
 Got 3 rows (time spent 3776/4660 us)
 </code></pre></div>
 <h3 id="retrieve_paths">Retrieve paths<a class="headerlink" href="#retrieve_paths" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN &lt;path_name&gt;</code> to retrieve all the information of the matched paths.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*3]-&gt;() RETURN p;
-+-------------------------------------------------------------------------------------------+
-| p                                                                                         |
-+-------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) |
-+-------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:like@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) |
-+-------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:like@0]-&gt;(&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)  |
-+-------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------+
+| p                                                                                               |
++-------------------------------------------------------------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
++-------------------------------------------------------------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
++-------------------------------------------------------------------------------------------------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)  |
++-------------------------------------------------------------------------------------------------+
 ...
 </code></pre></div>
 <h3 id="retrieve_vertices_in_a_path">Retrieve vertices in a path<a class="headerlink" href="#retrieve_vertices_in_a_path" title="Permanent link">&para;</a></h3>
@@ -3698,9 +3696,9 @@ Got 3 rows (time spent 2529/3128 us)
 +-----------------------------------------------------------------------------+
 | [(&quot;player100&quot;)-[:serve@0{end_year: 2016, start_year: 1997}]-&gt;(&quot;player204&quot;)] |
 +-----------------------------------------------------------------------------+
-| [(&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player101&quot;)]                      |
+| [(&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)]                    |
 +-----------------------------------------------------------------------------+
-| [(&quot;player100&quot;)-[:like@0{likeness: 95}]-&gt;(&quot;player125&quot;)]                      |
+| [(&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)]                    |
 +-----------------------------------------------------------------------------+
 Got 3 rows (time spent 2715/3363 us)
 </code></pre></div>
@@ -3708,29 +3706,29 @@ Got 3 rows (time spent 2715/3363 us)
 <p>Use the <code>length()</code> function to retrieve the length of a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
         RETURN p AS Paths, length(p) AS Length;
-+------------------------------------------------------------------+--------+
-| Paths                                                            | Length |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player215&quot;) | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player100&quot;)  | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player102&quot;)  | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)-[:like@0]-&gt;(&quot;player125&quot;)  | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:serve@0]-&gt;(&quot;player204&quot;) | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)-[:like@0]-&gt;(&quot;player100&quot;)  | 2      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)                          | 1      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player101&quot;)                           | 1      |
-+------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:like@0]-&gt;(&quot;player125&quot;)                           | 1      |
-+------------------------------------------------------------------+--------+
++----------------------------------------------------------------------+--------+
+| Paths                                                                | Length |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player215&quot;)   | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)  | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player102&quot;)  | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)  | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)  | 2      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)                              | 1      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)                             | 1      |
++----------------------------------------------------------------------+--------+
+| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)                             | 1      |
++----------------------------------------------------------------------+--------+
 Got 10 rows (time spent 3774/4516 us)
 </code></pre></div>
                 
