@@ -663,6 +663,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#where_can_i_find_more_ngql_examples" class="md-nav__link">
+    Where can I find more nGQL examples?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_ngql_compatible_with_opencypher" class="md-nav__link">
+    Is nGQL compatible with openCypher?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3260,6 +3274,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#where_can_i_find_more_ngql_examples" class="md-nav__link">
+    Where can I find more nGQL examples?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_ngql_compatible_with_opencypher" class="md-nav__link">
+    Is nGQL compatible with openCypher?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3890,6 +3918,78 @@ Got 1 rows (time spent 1235/1934 us)
 <ul>
 <li>The second number 1934 shows the time spent from the client's perspective, that is, the time it takes for the client from sending a request, receiving a response, and displaying the result on the screen.</li>
 </ul>
+<h3 id="where_can_i_find_more_ngql_examples">Where can I find more nGQL examples?<a class="headerlink" href="#where_can_i_find_more_ngql_examples" title="Permanent link">&para;</a></h3>
+<p>Find more than 2500 nGQL examples in the <a href="https://github.com/vesoft-inc/nebula-graph/tree/master/tests/tck/features">features directory</a> on the Nebula Graph GitHub page.</p>
+<p>The <code>features</code> directory consists of <code>.feature</code> files. Each file records scenarios that you can use as nGQL examples.</p>
+<p>Here is an example:</p>
+<div class="highlight"><pre><span></span><code>Feature: Match seek by tag
+
+  Background: Prepare space
+    Given a graph with space named &quot;nba&quot;
+
+  Scenario: seek by empty tag index
+    When executing query:
+      &quot;&quot;&quot;
+      MATCH (v:bachelor)
+      RETURN id(v) AS vid
+      &quot;&quot;&quot;
+    Then the result should be, in any order:
+      | vid          |
+      | &#39;Tim Duncan&#39; |
+    And no side effects
+    When executing query:
+      &quot;&quot;&quot;
+      MATCH (v:bachelor)
+      RETURN id(v) AS vid, v.age AS age
+      &quot;&quot;&quot;
+    Then the result should be, in any order:
+      | vid          | age |
+      | &#39;Tim Duncan&#39; | 42  |
+    And no side effects
+</code></pre></div>
+<p>The keywords in the preceding example are described as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Feature</code></td>
+<td>Describes the topic of the current <code>.feature</code> file.</td>
+</tr>
+<tr>
+<td><code>Background</code></td>
+<td>Describes the background information of the current <code>.feature</code> file.</td>
+</tr>
+<tr>
+<td><code>Given</code></td>
+<td>Describes the prerequisites of running the test statements in the current <code>.feature</code> file.</td>
+</tr>
+<tr>
+<td><code>Scenario</code></td>
+<td>Describes the purpose of the scenario. If there is the <code>@skip</code> before <code>Scenario</code>, this scenario may not work and don't use it as a working example.</td>
+</tr>
+<tr>
+<td><code>When</code></td>
+<td>Describes the nGQL statement to be executed.</td>
+</tr>
+<tr>
+<td><code>Then</code></td>
+<td>Describes the expected result of running the statement in the <code>When</code> clause. If the result in your environment does not match the result described in the <code>.feature</code> file, submit an <a href="https://github.com/vesoft-inc/nebula-graph/issues">issue</a> to inform the Nebula Graph team.</td>
+</tr>
+<tr>
+<td><code>And</code></td>
+<td>Describes the side effects of running the statement in the <code>When</code> clause.</td>
+</tr>
+</tbody>
+</table>
+<p>Welcome to <a href="https://docs.nebula-graph.io/1.1/manual-EN/4.contributions/how-to-contribute/">add more practical scenarios</a> and become a Nebula Graph contributor.</p>
+<h3 id="is_ngql_compatible_with_opencypher">Is nGQL compatible with openCypher?<a class="headerlink" href="#is_ngql_compatible_with_opencypher" title="Permanent link">&para;</a></h3>
+<p>nGQL is partially compatible with openCypher 9. Known incompatible items are listed in <a href="https://github.com/vesoft-inc/nebula-graph/issues">Nebula Graph Issues</a>. Submit an issue with the <code>incompatible</code> tag if you find a new issue of this type.</p>
+<p>The Nebula Graph team is striving for higher compatibility with openCypher 9.</p>
                 
                   
                 
