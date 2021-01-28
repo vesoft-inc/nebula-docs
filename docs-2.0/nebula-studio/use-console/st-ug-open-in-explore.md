@@ -25,7 +25,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
    Here is an nGQL statement example.
 
-    ```nGQL
+    ```ngql
     nebula> MATCH (u:user {userId: 1}) - [:action] -> (c) RETURN u.userId AS UserID, c.courseName AS Course;
     ```
 
@@ -74,7 +74,7 @@ To query vertex data on the **Console** page and then view the result on the **E
 
    Here is an nGQL statement example.
 
-   ```nGQL
+   ```ngql
    nebula> GO FROM "1" OVER action YIELD action._dst AS Course;
    ```
 

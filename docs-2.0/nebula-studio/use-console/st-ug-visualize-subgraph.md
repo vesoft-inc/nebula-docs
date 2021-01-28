@@ -28,7 +28,7 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
    Here is an nGQL statement example.
 
-   ```nGQL
+   ```ngql
    // Run FIND ALL PATH
    nebula> FIND ALL PATH FROM "1","2","4","6","42" to "History of Ecology","Neurobiology" OVER action;
 

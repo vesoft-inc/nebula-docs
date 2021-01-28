@@ -4,7 +4,7 @@ The LIMIT clause constrains the number of rows in the output.
 
 ## Syntax
 
-```nGQL
+```ngql
 LIMIT [<offset>,] <number_rows>
 ```
 
@@ -19,7 +19,7 @@ LIMIT [<offset>,] <number_rows>
 
 To return the top N rows from the result, use `LIMIT <N>` as follows:
 
-```nGQL
+```ngql
 nebula> MATCH (v:player) \
         RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age | \
@@ -44,7 +44,7 @@ Got 5 rows (time spent 2841/3511 us)
 
 To skip the top M rows and return the next N rows, use `LIMIT <M,> <N>` as follows:
 
-```nGQL
+```ngql
 nebula> MATCH (v:player) \
         RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age | \
@@ -75,7 +75,7 @@ You can use an expression to specify the number of rows to be returned. The expr
 
 > **NOTE:** Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player) \
         RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age \

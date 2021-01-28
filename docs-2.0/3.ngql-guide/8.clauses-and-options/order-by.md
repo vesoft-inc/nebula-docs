@@ -4,7 +4,7 @@ The `ORDER BY` clause specifies the order of the rows in the output. You can use
 
 ## Syntax
 
-```nGQL
+```ngql
 {<RETURN clause> | <YIELD clause>} ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
 ```
 
@@ -19,7 +19,7 @@ An order option takes effect only when the expression before it is used for sort
 
 You can sort rows in the output by a specific expression.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age | ORDER BY Name DESC | LIMIT 5;
 +-----------------+-----+
 | Name            | Age |
@@ -41,7 +41,7 @@ Got 5 rows (time spent 2908/3751 us)
 
 You can sort rows in the output by multiple expressions. nGQL will order the rows by the sequence of the expressions listed in the statement.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name | ORDER BY Age DESC, Name ASC | LIMIT 10
 +-----+-------------------+
 | Age | Name              |
@@ -75,7 +75,7 @@ In the preceding example, nGQL sorts the rows by `Age` first. If multiple people
 
 nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age | \
         ORDER BY Age;
@@ -91,7 +91,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 Got 3 rows (time spent 3089/3719 us)
 ```
 
-```nGQL
+```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age | \
         ORDER BY Age DESC;

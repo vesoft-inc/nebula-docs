@@ -44,7 +44,7 @@ Got 10 rows (time spent 3527/4423 us)
 
 The following statement finds the follower number of players, groups the output by player names, and sorts the output by the follower number.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player)<-[:follow]-(:player) \
         RETURN v.name AS Name | \
         GROUP BY $-.Name \
