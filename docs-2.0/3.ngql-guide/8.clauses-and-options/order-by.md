@@ -1,12 +1,9 @@
 # ORDER BY
 
-The `ORDER BY` clause specifies the order of the rows in the output. You can use a pipe and an `ORDER BY` clause after a `RETURN` or `YIELD` clause to do the sorting.
+The `ORDER BY` clause specifies the order of the rows in the output.
 
-## Syntax
-
-```ngql
-{<RETURN clause> | <YIELD clause>} ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
-```
+- nGQL-extension: You must use a pipe (`|`) and an `ORDER BY` clause after `YIELD` clause.
+- OpenCypher style: no pipe is permitted. `ORDER BY` follows a `RETURN` clause.
 
 There are two order options:
 
@@ -15,12 +12,44 @@ There are two order options:
 
 An order option takes effect only when the expression before it is used for sorting the results.
 
-## Order output by one expression
-
-You can sort rows in the output by a specific expression.
+## nGQL-extension Syntax
 
 ```ngql
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age | ORDER BY Name DESC | LIMIT 5;
+<YIELD clause>
+ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
+```
+
+### Examples
+
+```ngql
+nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" YIELD player.age AS age, player.name AS name \
+| ORDER BY age ASC, name DESC;
++-------------+-----+---------------------+
+| VertexID    | age | name                |
++-------------+-----+---------------------+
+| "player103" | 32  | "Rudy Gay"          |
++-------------+-----+---------------------+
+| "player102" | 33  | "LaMarcus Aldridge" |
++-------------+-----+---------------------+
+| "player101" | 36  | "Tony Parker"       |
++-------------+-----+---------------------+
+| "player100" | 42  | "Tim Duncan"        |
++-------------+-----+---------------------+
+```
+
+## OpenCypher Syntax
+
+```ngql
+<RETURN clause>
+ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
+```
+
+An order option takes effect only when the expression before it is used for sorting the results.
+
+### Examples
+
+```ngql
+nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age  ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
@@ -34,15 +63,11 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age | ORDER BY Name DES
 +-----------------+-----+
 | "Tim Duncan"    | 42  |
 +-----------------+-----+
-Got 5 rows (time spent 2908/3751 us)
+...
 ```
 
-## Order output by multiple expressions
-
-You can sort rows in the output by multiple expressions. nGQL will order the rows by the sequence of the expressions listed in the statement.
-
 ```ngql
-nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name | ORDER BY Age DESC, Name ASC | LIMIT 10
+nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name  ORDER BY Age DESC, Name ASC
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
@@ -54,19 +79,7 @@ nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name | ORDER BY Age DESC
 +-----+-------------------+
 | 45  | "Steve Nash"      |
 +-----+-------------------+
-| 43  | "Ray Allen"       |
-+-----+-------------------+
-| 42  | "Tim Duncan"      |
-+-----+-------------------+
-| 42  | "Vince Carter"    |
-+-----+-------------------+
-| 41  | "Manu Ginobili"   |
-+-----+-------------------+
-| 40  | "Dirk Nowitzki"   |
-+-----+-------------------+
-| 40  | "Kobe Bryant"     |
-+-----+-------------------+
-Got 10 rows (time spent 2697/3360 us)
+...
 ```
 
 In the preceding example, nGQL sorts the rows by `Age` first. If multiple people are of the same age, nGQL sorts them by `Name`.
@@ -77,7 +90,7 @@ nGQL lists NULL values at the end of the output for ascending sorting, and at th
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
-        RETURN v2.name AS Name, v2.age AS Age | \
+        RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age;
 +-----------------+----------+
 | Name            | Age      |
@@ -93,7 +106,7 @@ Got 3 rows (time spent 3089/3719 us)
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
-        RETURN v2.name AS Name, v2.age AS Age | \
+        RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+----------+
 | Name            | Age      |
