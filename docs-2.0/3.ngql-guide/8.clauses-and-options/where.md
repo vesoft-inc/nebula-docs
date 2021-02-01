@@ -15,11 +15,11 @@ WHERE <expression> [ AND|OR|XOR <expression> ...])
 
 ## OpenCypher compatibility
 
-The following features are not supported in nGQL yet:
+The following features are not supported (TODO: planning):
 
 * Filter on dynamically-calculated property, for example `WHERE v[toLower("AGE")] < 30`.
 * Use the `exists()` function to filter on the existence of a property.
-* Use patterns in `WHERE`.
+* Use patterns in `WHERE`, for example `WHERE (v)-->(v2)`.
 * Use `IS NULL` to filter on null.
 
 [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. It only applies to nGQL extensions such as `GO` and `LOOKUP` because the concept edge rank does not exist in openCypher.
@@ -264,7 +264,7 @@ Got 3 rows (time spent 4934/5832 us)
 
 ### Match any part of a string
 
-Use `CONTAINS "Pa"` to match a player name that ends with `Pa`.
+Use `CONTAINS "Pa"` to match a player name that contains `Pa`.
 
 ```ngql
 nebula> MATCH (v:player) \
