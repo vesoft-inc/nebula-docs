@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/6.functions-and-expressions/7.count/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/6.functions-and-expressions/10.collect/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>count() - Nebula Graph Database Manual</title>
+        <title>collect() - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#the_count_function" tabindex="0" class="md-skip">
+      <a href="#collect" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                count()
+                collect()
               
             </span>
           
@@ -410,12 +410,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       nGQL guide
@@ -779,12 +777,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
     
     <label class="md-nav__link" for="nav-3-6">
       Functions and expressions
@@ -872,69 +868,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        count()
-      </label>
-    
-    <a href="./" title="count()" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../7.count/" title="count()" class="md-nav__link">
       count()
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#countnull" class="md-nav__link">
-    count(NULL)
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -2877,28 +2815,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#countnull" class="md-nav__link">
-    count(NULL)
   </a>
   
 </li>
@@ -2920,111 +2838,63 @@
               
                 
                 
-                <h1 id="the_count_function">The count() function<a class="headerlink" href="#the_count_function" title="Permanent link">&para;</a></h1>
-<p>The <code>count()</code> function calculates the number of the specified values or rows.</p>
-<ul>
-<li>(nGQL-extension) You can use <code>count()</code> and <code>GROUP BY</code> together to group and count the number of specific values. Use <code>YIELD</code> to return.</li>
-<li>(OpenCypher style) You can use <code>count()</code> and <code>RETURN</code>. <code>GROUP BY</code> is not necessary.</li>
-</ul>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>count({expr | *})
+                <h1 id="collect">collect()<a class="headerlink" href="#collect" title="Permanent link">&para;</a></h1>
+<p><code>collect()</code> returns a list containing the values returned by an expression. Using this function
+aggregates data by amalgamating multiple records or values into a single list.</p>
+<p><code>collect()</code> is an aggregation function. Like <code>GROUP BY</code> in SQL.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>This example works like <code>GROUP BY</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a RETURN a;
++---+
+| a |
++---+
+| 1 |
++---+
+| 2 |
++---+
+| 1 |
++---+
+nebula&gt; UNWIND [1, 2, 1] AS a RETURN collect(a);
++------------+
+| COLLECT(a) |
++------------+
+| [1, 2, 1]  |
++------------+
+nebula&gt; UNWIND [1, 2, 1] AS a RETURN a, collect(a);
++---+------------+
+| a | COLLECT(a) |
++---+------------+
+| 2 | [2]        |
++---+------------+
+| 1 | [1, 1]     |
++---+------------+
 </code></pre></div>
-<ul>
-<li>count(*) returns the number of rows (including NULL),</li>
-<li>count(expr) return non-NULL values return by an expression.</li>
-</ul>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b RETURN count(b), count(*), count(DISTINCT b)
-+----------+----------+-------------------+
-| COUNT(b) | COUNT(*) | COUNT(distinct b) |
-+----------+----------+-------------------+
-| 4        | 5        | 2                 |
-+----------+----------+-------------------+
+<p>You can sort reversely, limit output rows to 3, and collect the output into a list.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] AS p WITH p AS q ORDER BY q DESC LIMIT 3 RETURN collect(q);
++-----------------+
+| COLLECT(q)      |
++-----------------+
+| [&quot;d&quot;, &quot;c&quot;, &quot;b&quot;] |
++-----------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT YIELD $$.player.name as Name | \
-        GROUP BY $-.Name YIELD $-.Name, count(*);
-+---------------------+----------+
-| $-.Name             | COUNT(*) |
-+---------------------+----------+
-| &quot;Dejounte Murray&quot;   | 1        |
-+---------------------+----------+
-| &quot;LaMarcus Aldridge&quot; | 2        |
-+---------------------+----------+
-| &quot;Tim Duncan&quot;        | 2        |
-+---------------------+----------+
-| &quot;Marco Belinelli&quot;   | 1        |
-+---------------------+----------+
-| &quot;Manu Ginobili&quot;     | 1        |
-+---------------------+----------+
-| &quot;Boris Diaw&quot;        | 1        |
-+---------------------+----------+
-</code></pre></div>
-<p>The statement in the preceding example searches for:</p>
-<ul>
-<li>People whom <code>player101</code> follows.</li>
-<li>People who follow <code>player101</code>.</li>
-</ul>
-<p>And retrieves two columns:</p>
-<ul>
-<li><code>$-.Name</code>, the names of the people.</li>
-<li><code>COUNT(*)</code>, how many times the names show up.</li>
-</ul>
-<p>Because there are no duplicate names in the <code>nba</code> dataset, the number <code>2</code> in the result shows that the person in that row and <code>player101</code> have followed each other.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD player.age As playerage \|
- GROUP BY $-.playerage YIELD $-.playerage as age, count(*) AS number | ORDER BY number DESC, age DESC
-+-----+--------+
-| age | number |
-+-----+--------+
-| 34  | 4      |
-+-----+--------+
-| 33  | 4      |
-+-----+--------+
-| 30  | 4      |
-+-----+--------+
-| 29  | 4      |
-+-----+--------+
-| 38  | 3      |
-+-----+--------+
+<p>This example aggregates all players' names by their ages.</p>
+<p>```ngql
+nebula&gt; MATCH (n:player) RETURN collect(n.age);
++---------------------------------------------------------------+
+| COLLECT(n.age)                                                |
+----------------------------------------------------------------+
+| [32, 32, 34, 29, 41, 40, 33, 25, 40, 37, ...
 ...
-
-nebula&gt; MATCH (n:player) RETURN n.age as age, count(*) as number ORDER BY number DESC, age DESC
-+-----+--------+
-| age | number |
-+-----+--------+
-| 34  | 4      |
-+-----+--------+
-| 33  | 4      |
-+-----+--------+
-| 30  | 4      |
-+-----+--------+
-| 29  | 4      |
-+-----+--------+
-| 38  | 3      |
-+-----+--------+
-</code></pre></div>
-<p>The two statements in the preceding examples retrieves the age distribution of the players in the dataset.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -- (v2) RETURN count(DISTINCT v2)
-+--------------------+
-| COUNT(distinct v2) |
-+--------------------+
-| 11                 |
-+--------------------+
-nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:player)-[]-&gt;(fof:player) RETURN count(fof), count(DISTINCT fof)
-+------------+---------------------+
-| COUNT(fof) | COUNT(distinct fof) |
-+------------+---------------------+
-| 4          | 3                   |
-+------------+---------------------+
-</code></pre></div>
-<h2 id="countnull">count(NULL)<a class="headerlink" href="#countnull" title="Permanent link">&para;</a></h2>
-<p><div class="highlight"><pre><span></span><code>nebula&gt; YIELD count(NULL);
-+-----------------+
-| COUNT(__NULL__) |
-+-----------------+
-| 0               |
-+-----------------+
-</code></pre></div>
-Counting NULL returns 0.</p>
+nebula&gt; MATCH (n:player) RETURN n.age AS age, collect(n.name);
+...
++-----+--------------------------------------------------------------------------+
+| 27  | ["Cory Joseph"]                                                          |
++-----+--------------------------------------------------------------------------+
+| 28  | ["Damian Lillard", "Paul George", "Ricky Rubio"]                         |
++-----+--------------------------------------------------------------------------+
+| 29  | ["Dejounte Murray", "James Harden", "Klay Thompson", "Jonathon Simmons"] |
++-----+--------------------------------------------------------------------------+
+...</p>
                 
                   
                 
@@ -3042,41 +2912,6 @@ Counting NULL returns 0.</p>
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../6.list/" title="List" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                List
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../../7.general-query-statements/2.match/" title="Match" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Match
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

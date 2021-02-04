@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#built-in_list_functions" tabindex="0" class="md-skip">
+      <a href="#list_functions" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -870,9 +870,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        List
+      </label>
+    
     <a href="./" title="List" class="md-nav__link md-nav__link--active">
       List
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -2824,6 +2853,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2835,8 +2880,7 @@
               
                 
                 
-                <h1 id="built-in_list_functions">Built-in list functions<a class="headerlink" href="#built-in_list_functions" title="Permanent link">&para;</a></h1>
-<p>Nebula Graph supports the following built-in list functions:</p>
+                <h1 id="list_functions">List functions<a class="headerlink" href="#list_functions" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
@@ -2846,19 +2890,87 @@
 </thead>
 <tbody>
 <tr>
-<td>empty head(list)</td>
+<td>keys(expr)</td>
+<td>Returns a list containing the string representations for all the property names of a vertex, edge, or map.</td>
+</tr>
+<tr>
+<td>labels(vertex)</td>
+<td>Returns the tags of a vertex.</td>
+</tr>
+<tr>
+<td>nodes(path)</td>
+<td>Returns a list containing all the nodes in a path.</td>
+</tr>
+<tr>
+<td>range(start, end [, step])</td>
+<td>A list of Integer elements.</td>
+</tr>
+<tr>
+<td>relationships(path)</td>
+<td>Returns a list containing all the relationships in a path.</td>
+</tr>
+<tr>
+<td>reverse(list)</td>
+<td>returns a list in which the order of all elements in the original list have been reversed.</td>
+</tr>
+<tr>
+<td>tail(list)</td>
+<td>returns all the elements, excluding the first one.</td>
+</tr>
+<tr>
+<td>head(list)</td>
 <td>Returns the first element of a list.</td>
 </tr>
 <tr>
-<td>empty last(list)</td>
+<td>last(list)</td>
 <td>Returns the last element of a list.</td>
 </tr>
 <tr>
-<td>empty coalesce(list)</td>
+<td>coalesce(list)</td>
 <td>Returns the first not null value in a list.</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>NOTE</strong>: If the parameter is <code>NULL</code>, the output is undefined.</p>
+</blockquote>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 4923, &#39;abc&#39;, 521, 487] AS ids RETURN reverse(ids), tail(ids), head(ids), last(ids), coalesce(ids)
++-----------------------------------+-------------------------+-----------+-----------+---------------+
+| reverse(ids)                      | tail(ids)               | head(ids) | last(ids) | coalesce(ids) |
++-----------------------------------+-------------------------+-----------+-----------+---------------+
+| [487, 521, &quot;abc&quot;, 4923, __NULL__] | [4923, &quot;abc&quot;, 521, 487] | __NULL__  | 487       | 4923          |
++-----------------------------------+-------------------------+-----------+-----------+---------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (a:player)-[r]-&gt;() WHERE id(a) == &quot;player100&quot; RETURN labels(a),  keys(r)
++------------+----------------------------+
+| labels(a)  | keys(r)                    |
++------------+----------------------------+
+| [&quot;player&quot;] | [&quot;degree&quot;]                 |
++------------+----------------------------+
+| [&quot;player&quot;] | [&quot;degree&quot;]                 |
++------------+----------------------------+
+| [&quot;player&quot;] | [&quot;end_year&quot;, &quot;start_year&quot;] |
++------------+----------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == &quot;Tim Duncan&quot; AND c.name == &quot;Spurs&quot; RETURN nodes(p)
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+| nodes(p)                                                                                                                                      |
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}), (&quot;team204&quot; :team{name: &quot;Spurs&quot;})]   |
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;}), (&quot;team204&quot; :team{name: &quot;Spurs&quot;})] |
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == &quot;Tim Duncan&quot; AND c.name == &quot;Spurs&quot; RETURN relationships(p)
++-----------------------------------------------------------------------------------------------------------------------------+
+| relationships(p)                                                                                                            |
++-----------------------------------------------------------------------------------------------------------------------------+
+| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}], [:serve &quot;player101&quot;-&gt;&quot;team204&quot; @0 {end_year: 2018, start_year: 1999}]] |
++-----------------------------------------------------------------------------------------------------------------------------+
+| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}], [:serve &quot;player125&quot;-&gt;&quot;team204&quot; @0 {end_year: 2018, start_year: 2002}]] |
++-----------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
                 
                   
                 

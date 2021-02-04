@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#built-in_schema_functions" tabindex="0" class="md-skip">
+      <a href="#schema_functions" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -846,9 +846,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Schema
+      </label>
+    
     <a href="./" title="Schema" class="md-nav__link md-nav__link--active">
       Schema
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -2824,6 +2853,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2835,7 +2880,7 @@
               
                 
                 
-                <h1 id="built-in_schema_functions">Built-in schema functions<a class="headerlink" href="#built-in_schema_functions" title="Permanent link">&para;</a></h1>
+                <h1 id="schema_functions">Schema functions<a class="headerlink" href="#schema_functions" title="Permanent link">&para;</a></h1>
 <p>Nebula Graph supports the following built-in schema functions:</p>
 <table>
 <thead>
@@ -2858,7 +2903,7 @@
 <td>Returns the tags of a vertex.</td>
 </tr>
 <tr>
-<td>map properties()</td>
+<td>map properties(verter_or_edge)</td>
 <td>Takes in a vertex or an edge and returns its properties.</td>
 </tr>
 <tr>
@@ -2866,11 +2911,11 @@
 <td>Returns the edge type of an edge.</td>
 </tr>
 <tr>
-<td>vertex startNode()</td>
+<td>vertex startNode(path)</td>
 <td>Takes in an edge or a path and returns its source vertex ID.</td>
 </tr>
 <tr>
-<td>string endNode()</td>
+<td>string endNode(path)</td>
 <td>Takes in an edge or a path and returns its  destination vertex ID.</td>
 </tr>
 <tr>
@@ -2879,6 +2924,28 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (a:player) WHERE id(a) == &quot;player100&quot; RETURN tags(a), labels(a), properties(a)
++------------+------------+-------------------------------+
+| tags(a)    | labels(a)  | properties(a)                 |
++------------+------------+-------------------------------+
+| [&quot;player&quot;] | [&quot;player&quot;] | {age: 42, name: &quot;Tim Duncan&quot;} |
++------------+------------+-------------------------------+
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a :player {name : &quot;Tim Duncan&quot;})-[r:serve]-(t) RETURN type(r), rank(r)
++---------+---------+
+| type(r) | rank(r) |
++---------+---------+
+| &quot;serve&quot; | 0       |
++---------+---------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a :player {name : &quot;Tim Duncan&quot;})-[r:serve]-(t) RETURN startNode(p), endNode(p)
++----------------------------------------------------+----------------------------------+
+| startNode(p)                                       | endNode(p)                       |
++----------------------------------------------------+----------------------------------+
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) | (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) |
++----------------------------------------------------+----------------------------------+
+</code></pre></div></p>
                 
                   
                 
