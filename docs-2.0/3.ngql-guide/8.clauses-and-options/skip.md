@@ -6,7 +6,7 @@ The SKIP clause specifies the number of rows to be skipped in the output.
 
 ## Syntax
 
-```nGQL
+```ngql
 SKIP <number_rows>
 ```
 
@@ -16,7 +16,7 @@ SKIP <number_rows>
 
 You can use `SKIP N` to skip the top N rows from the result and return the rest of the result.
 
-```nGQL
+```ngql
 // This is an nGQL query without SKIP.
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
@@ -51,7 +51,7 @@ Got 2 rows (time spent 3712/4861 us)
 
 You can use `SKIP` and `LIMIT` together to return the middle N rows.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC \
@@ -73,7 +73,7 @@ You can use an expression to specify the number of rows to be skipped. The expre
 
 > **NOTE:** Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
 
-```nGQL
+```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC \

@@ -38,7 +38,7 @@ To create a schema on the **Console** page, follow these steps:
 
 3. In the input box, enter these statements one by one and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
 
-   ```nGQL
+   ```ngql
    // To create a tag named "user", with no property
    nebula> CREATE TAG user ();
    
@@ -51,7 +51,7 @@ To create a schema on the **Console** page, follow these steps:
 
 If the preceding statements are executed successfully, the schema is created. You can run the statements as follows to view the schema.
 
-```nGQL
+```ngql
 // To list all the tags in the current graph space
 nebula> SHOW TAGS;
 
