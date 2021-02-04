@@ -27,7 +27,7 @@ Please confirm that all servers have `Hadoop` installed and `HADOOP_HOME` set.
 Run **Nebula Graph** console and execute the download command:
 
 ```ngql
-nebula > DOWNLOAD HDFS "hdfs://${HADOOP_HOST}:${HADOOP_PORT}/${HADOOP_PATH}"
+nebula> DOWNLOAD HDFS "hdfs://${HADOOP_HOST}:${HADOOP_PORT}/${HADOOP_PATH}"
 ```
 
 Download the `SST` files of each server into directory `data/download` respectively via the `DOWNLOAD` command and `meta` in the storage servers. Explanation of the above command:
@@ -42,7 +42,7 @@ When the offline SST data download is done, it can be ingested into the storage 
 `INGEST` command is as follows:
 
 ```ngql
-nebula > INGEST
+nebula> INGEST
 ```
 
 The command will ingest the `SST` files in `data/download` directory.
