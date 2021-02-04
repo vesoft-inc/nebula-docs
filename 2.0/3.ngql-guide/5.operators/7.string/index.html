@@ -2890,6 +2890,10 @@
 </thead>
 <tbody>
 <tr>
+<td align="left">+</td>
+<td align="center">concatenating strings</td>
+</tr>
+<tr>
 <td align="left">CONTAINS</td>
 <td align="center">Perform case-sensitive inclusion searching in strings</td>
 </tr>
@@ -2912,9 +2916,25 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>NOTE:</strong> All the string matchings are case-sensitive.</p>
+<p><strong>NOTE</strong>: All the string matchings are case-sensitive.</p>
 </blockquote>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<ul>
+<li>concatenation (+)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &#39;a&#39; + &#39;b&#39;;
++-------+
+| (a+b) |
++-------+
+| &quot;ab&quot;  |
++-------+
+nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
++-------+
+| (a+b) |
++-------+
+| &quot;ab&quot;  |
++-------+
+</code></pre></div>
 <ul>
 <li>CONTAINS</li>
 </ul>
@@ -2961,7 +2981,7 @@ nebula&gt; YIELD &quot;Yao&quot; IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe
 | false                  |
 +------------------------+
 
-nebula&gt; YIELD NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;];
+nebula&gt; YIELD NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;]; //TODO(coding)
 +-----------------------------+
 | (__NULL__ IN [Yi,Tim,Kobe]) |
 +-----------------------------+
@@ -3041,9 +3061,6 @@ nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;b&#39;;
 <li>Regular expressions</li>
 </ul>
 <p>Nebula Graph supports filtering by using regular expressions. The regular expression syntax is inherited from <code>st::regex</code>. You can match on regular expressions by using <code>=~ 'regexp'</code>. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player WHERE player.name =~ &#39;Tony.*&#39; YIELD player.name;
-</code></pre></div>
-<p>The preceding statement returns the players whose name starts with 'Tony'.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; YIELD &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
 +----------------------------+
 | (384748.39=~\d+(\.\d{2})?) |
@@ -3051,6 +3068,16 @@ nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;b&#39;;
 | true                       |
 +----------------------------+
 </code></pre></div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name =~ &#39;Tony.*&#39; RETURN v.name;
++---------------+
+| v.name        |
++---------------+
+| &quot;Tony Parker&quot; |
++---------------+
+</code></pre></div>
+<blockquote>
+<p><strong>NOTE</strong>: Regular expressions <strong>CAN NOT</strong> work with nGQL-extensions (GO/FETCH clause will return syntax error). Use it in openCypher only (e.g., in MATCH-WHERE clause).</p>
+</blockquote>
                 
                   
                 
