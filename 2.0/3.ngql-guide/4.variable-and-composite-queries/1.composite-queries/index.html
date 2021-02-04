@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#composite_queries" tabindex="0" class="md-skip">
+      <a href="#composite_queries_clause_structure" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -647,6 +647,20 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composite_queries_are_not_transactional_queries_as_in_sqlcypher" class="md-nav__link">
+    Composite queries are not transactional queries (as in SQL/Cypher)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
@@ -2833,6 +2847,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composite_queries_are_not_transactional_queries_as_in_sqlcypher" class="md-nav__link">
+    Composite queries are not transactional queries (as in SQL/Cypher)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -2856,18 +2884,33 @@
               
                 
                 
-                <h1 id="composite_queries">Composite queries<a class="headerlink" href="#composite_queries" title="Permanent link">&para;</a></h1>
-<p>Composite queries put data from different queries together. They then use filters, group bys, or sorting before returning the combined return results. A composite query retrieves multiple levels of related information on existing queries and presents data as a single return result.</p>
-<p>Nebula Graph supports two ways to compose queries (or sub-queries):</p>
+                <h1 id="composite_queries_clause_structure">Composite queries (clause structure)<a class="headerlink" href="#composite_queries_clause_structure" title="Permanent link">&para;</a></h1>
+<p>Composite queries put data from different queries together. They then use filters, group-bys, or sorting before returning the combined return results. A composite query retrieves multiple levels of related information on existing queries and presents data as a single return result.</p>
+<p>Nebula Graph supports three methods to compose queries (or sub-queries):</p>
 <ul>
-<li>More than one queries can be batched together, separated by semicolons (;). The result of the last query is returned as the result of the batch.</li>
-<li>Queries can be piped together by using the pipe operator <code>|</code>. The result of the previous query can be used as the input of the next query.</li>
+<li>(OpenCypher style) Clauses are chained together, and they feed intermediate result sets between each other.</li>
+<li>(nGQL extension) More than one queries can be batched together, separated by semicolons (;). The result of the last query is returned as the result of the batch.</li>
+<li>(nGQL extension) Queries can be piped together by using the pipe operator (<code>|</code>). The result of the previous query can be used as the input of the next query.</li>
 </ul>
+<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<p>In a composite query, choose the openCypher-style or nGQL-extension. <strong>NOT BOTH</strong>.</p>
+<p>For example, if you're in the openCypher way (<code>MATCH</code>, <code>RETURN</code>, <code>WITH</code>, etc), don't introduce any pipe or semicolons to combine the sub-clauses.</p>
+<p>If you're in the nGQL-extension way (<code>FETCH</code>, <code>GO</code>, <code>LOOKUP</code>, etc), you must use pipe or semicolons to combine the sub-clauses.</p>
+<p>Further more, don't put together openCypher and nGQL-extension clauses in one statement. E.g., This statement is undefined: <code>MATCH ... | GO ... | YIELD ...</code>.</p>
+<h2 id="composite_queries_are_not_transactional_queries_as_in_sqlcypher">Composite queries are not <code>transactional</code> queries (as in SQL/Cypher)<a class="headerlink" href="#composite_queries_are_not_transactional_queries_as_in_sqlcypher" title="Permanent link">&para;</a></h2>
+<p>For example, a query composed of three sub-queries: <code>A B C</code>, <code>A | B | C</code> or <code>A; B; C</code>. In that A is a read operation, B is a computation operation, and C is a write operation. If any part fails in the execution, the whole result is undefined. There is no rollback. What is written depends on the query executor.</p>
 <blockquote>
-<p><strong>NOTE:</strong> Composition queries are not <code>Transactional</code> queries.</p>
+<p>Tips: openCypher has no requirement of <code>transaction</code>.</p>
 </blockquote>
-<p>For example, a query composed of three sub-queries: A | B | C. In that A is a read operation, B is a computation operation, and C is a write operation. If any part fails in the execution, the whole result can be undefined. Currently, there is no rollback. What is written depends on the query executor.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<ul>
+<li>OpenCypher style</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--() \
+        WITH nodes(p) AS n \
+        UNWIND n AS n1 \
+        RETURN DISTINCT n1;
+</code></pre></div>
 <ul>
 <li>Semicolon queries</li>
 </ul>
@@ -2875,7 +2918,8 @@
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42); \
 INSERT VERTEX player(name, age) VALUES &quot;player101&quot;:(&quot;Tony Parker&quot;, 36); \
-INSERT VERTEX player(name, age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);  // Multiple vertices are inserted in a compose statement.
+INSERT VERTEX player(name, age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);  
+// Multiple vertices are inserted in a composite statement.
 </code></pre></div>
 <ul>
 <li>Pipe queries</li>
@@ -2889,9 +2933,6 @@ INSERT VERTEX player(name, age) VALUES &quot;player102&quot;:(&quot;LaMarcus Ald
     | Nuggets | Tony Parker |
     +---------+-------------+
 </code></pre></div>
-<blockquote>
-<p><strong>NOTE:</strong> Placeholder <code>$-.id</code> is not supported in Nebula Graph 2.0 or later versions.</p>
-</blockquote>
                 
                   
                 
