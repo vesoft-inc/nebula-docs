@@ -21,7 +21,7 @@ The default severity level for the metad, graphd, and storaged logs can be found
 
 ## Check and Change the Severity Levels Dynamically
 
-Check all the flag values (log values included) of the current gflags with the following command. `curl` is only available when the `local_config` parameter is set to `true`.
+Check all the flag values (log values included) of the current gflags with the following command. `curl` is only available when the `local_config` parameter is set to `true`. Not all flags are listed because changing some flags can be dangerous. Read the response explanation and the source code before you change these not documented parameters. To get all the available flags for a process, use this command:
 
 ```bash
 > curl ${ws_ip}:${ws_port}/get_flags
@@ -30,34 +30,36 @@ Check all the flag values (log values included) of the current gflags with the f
 In the command:
 
 - `ws_ip` is the IP address for the HTTP service, which can be found in the configuration files above. The default value is 127.0.0.1.
-- `ws_port` is the port for the HTTP service, the default values for `metad`, `storaged`, and `graphd` are 11000, 12000，and 13000, respectively.
+- `ws_port` is the port for the HTTP service, the default values for `metad`, `storaged`, and `graphd` are `19559`, `19779`, and `19669`, respectively.
+
+> **NOTE:** If you changed the runtime log level, then restart the services, the log level changes to the configuration file specifications. For more information, see [Storage Service configurations](../1.configurations/4.storage-config.md).
 
 For example, check the minloglevel for the `storaged` service:
 
 ```bash
-> curl 127.0.0.1:12000/get_flags | grep minloglevel
+> curl 127.0.0.1:19559/get_flags | grep minloglevel
 ```
 
-You can also change the logs' severity level to **the most detailed** with the following command.
+To change the log level for a process, use these commands. For example, you can change the log severity level the **the most detailed**.
 
 ```bash
-> curl "http://127.0.0.1:12000/set_flags?flag=v&value=4"
-> curl "http://127.0.0.1:12000/set_flags?flag=minloglevel&value=0"
+> curl "http://127.0.0.1:19559/set_flags?flag=v&value=4"
+> curl "http://127.0.0.1:19559/set_flags?flag=minloglevel&value=0"
 ```
 
-In the Nebula console, check the severity minloglevel of graphd and set it to **the most detailed** with the following commands.
+<!-- In the Nebula Console, check the severity minloglevel of `graphd` and set it to **the most detailed** with the these commands.
 
 ```ngql
 nebula> GET CONFIGS graph:minloglevel;
 nebula> UPDATE CONFIGS graph:minloglevel=0;
-```
+``` -->
 
-To change the severity of the storage log, replace the `graph` in the preceding command with `storage`.
+To change the severity of the storage log, replace the port in the preceding command with `storage` port.
 
-> **NOTE**: **Nebula Graph** only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
+> **NOTE**: Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
 
 **Close** all logs print (FATAL only) with the following command.
 
 ```bash
-> curl "http://127.0.0.1:12000/set_flags?flag=minloglevel&value=4"
+> curl "http://127.0.0.1:19559/set_flags?flag=minloglevel&value=4"
 ```
