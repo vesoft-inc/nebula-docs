@@ -1,15 +1,16 @@
 # WITH
 
-The `WITH` clause can take the output from a query part, process it, and pass it to the next query part as the input.
-
-`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL, but they work in different ways. This topic describes some common practices of `WITH`.
-
 ## OpenCypher compatibility
 
-* In nGQL, `WITH` must work with an alias. In openCypher, `WITH` can work with or without an alias.
+The `WITH` clause can take the output from a query part, process it, and pass it to the next query part as the input.
 
-* `WITH` only works in the openCypher syntax in nGQL, such as in `MATCH` or `UNWIND`. In the nGQL extensions such as `GO` or `FETCH`, use pipe symbols instead.
-   > **DON'T:** Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions.
+`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL-extension, but they work in different ways.
+
+`WITH` only works in the openCypher syntax, such as in `MATCH` or `UNWIND`.
+
+In the nGQL-extensions such as `GO` or `FETCH`, use pipe symbols (`|`) instead.
+
+> **DON'T:** Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions.
 
 ## Combine statements and form a composite query
 
@@ -110,7 +111,7 @@ Got 3 rows (time spent 7444/8467 us)
 
 ## Process the output before using collect() on it
 
-Use a `WITH` clause to sort and limit the output before using collect() to transform the output into a list.
+Use a `WITH` clause to sort and limit the output before using `collect()` to transform the output into a list.
 
 ```ngql
 nebula> MATCH (v:player) \
