@@ -1,10 +1,10 @@
-# Vertex Identifier and Partition ID
+# Vertex identifier and partition ID
 
 ## VID
 
-Vertex identifier is short for `VID`.
+`VID` is short for vertex identifier.
 
-In **Nebula Graph**, vertices are identified with vertex identifiers (i.e. `VID`s). 
+In Nebula Graph, vertices are identified with vertex identifiers (i.e. `VID`s). 
 The VID can be an int64 or a fixed length string.
 When inserting a vertex, you must specify a `VID` for it. 
 
@@ -12,7 +12,7 @@ You can also call `hash()` to generate an int64 VID if the graph has less than o
 
 > `VID` must be unique in a graph space.
 
-That is, in the same graph space, two vertices which have the same `VID` are considered as the same vertex.
+That is, in the same graph space, two vertices that have the same `VID` are considered as the same vertex.
 
 In addition, one `VID` can have multiple `TAG`s. E.g., One person (`VID`) can have two roles (`tags`).
 
@@ -20,7 +20,7 @@ Two `VID`s in two different graph spaces are totally independent of each other.
 
 ## Partition ID
 
-When inserting into **Nebula Graph**, vertices and edges are distributed across different partitions. And the partitions are located on different machines. If you want some certain vertices to locate on the same partition (i.e., on the same machine), you can control the generation of the `VID`s by using the following [formula / code](https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp).
+When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. If you want certain vertices to locate on the same partition (i.e., on the same machine), you can control the generation of the `VID`s by using the following [formula / code](https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp).
 
 ```C++
     // If the length of the id is 8, we will treat it as int64_t to be compatible
@@ -49,4 +49,4 @@ In the preceding formula,
 
 For example, if there are 100 partitions, the vertices with `VID` 1, 101, 1001 will be stored on the same partition.
 
-But, the mapping between the `partition ID` and the machine address are random. Therefore, you can't assume that any two partitions are located on the same machine.
+But, the mapping between the `partition ID` and the machine address is random. Therefore, you can't assume that any two partitions are located on the same machine.

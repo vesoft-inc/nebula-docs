@@ -27,5 +27,4 @@ nebula> YIELD hash(-1)
 +------------+
 ```
 
-> **NOTE**: Roughly, the collision rate is high (~1/10) for 1 billion.
-
+> **NOTE**: Roughly, The change of collision is about 1/10 in the case of 1 billion vertices. (The number of edges are irrelevant to the collision possibility).
