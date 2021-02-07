@@ -21,7 +21,7 @@ The default severity level for the metad, graphd, and storaged logs can be found
 
 ## Check and Change the Severity Levels Dynamically
 
-Check all the flag values (log values included) of the current gflags with the following command. `curl` is only available when the `local_config` parameter is set to `true`. Not all flags are listed because changing some flags can be dangerous. Read the response explanation and the source code before you change these not documented parameters. To get all the available flags for a process, use this command:
+Check all the flag values (log values included) of the current gflags with the following command. Not all flags are listed because changing some flags can be dangerous. Read the response explanation and the source code before you change these not documented parameters. To get all the available flags for a process, use this command:
 
 ```bash
 > curl ${ws_ip}:${ws_port}/get_flags
