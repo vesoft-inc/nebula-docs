@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/6.functions-and-expressions/6.list/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/6.functions-and-expressions/11.reduce/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>List - Nebula Graph Database Manual</title>
+        <title>reduce() function - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#list_functions" tabindex="0" class="md-skip">
+      <a href="#reduce_function" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                List
+                reduce() function
               
             </span>
           
@@ -410,12 +410,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       nGQL guide
@@ -827,12 +825,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
     
     <label class="md-nav__link" for="nav-3-6">
       Functions and expressions
@@ -908,49 +904,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        List
-      </label>
-    
-    <a href="./" title="List" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../6.list/" title="List" class="md-nav__link">
       List
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -2893,8 +2851,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -2916,100 +2888,98 @@
               
                 
                 
-                <h1 id="list_functions">List functions<a class="headerlink" href="#list_functions" title="Permanent link">&para;</a></h1>
+                <h1 id="reduce_function">reduce() function<a class="headerlink" href="#reduce_function" title="Permanent link">&para;</a></h1>
+<h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<p>In openCypher, the function <code>reduce()</code> is not defined. nGQL implements <code>reduce()</code> function as the Cypher way.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p><code>reduce()</code> returns the value resulting from the application of an expression on each successive element in a list in conjunction with the result of the computation thus far. This function will iterate through each element <code>e</code> in the given list, run the expression on <code>e</code> — taking into account the current partial result — and store the new partial result in the accumulator. This function is analogous to the fold or reduce method in functional languages such as Lisp and Scala.</p>
+<div class="highlight"><pre><span></span><code>reduce(accumulator = initial, variable IN list | expression)
+</code></pre></div>
+<ul>
+<li>Arguments:</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>Function</th>
+<th>Name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>keys(expr)</td>
-<td>Returns a list containing the string representations for all the property names of a vertex, edge, or map.</td>
+<td>accumulator</td>
+<td>A variable that will hold the result and the partial results as the list is iterated.</td>
 </tr>
 <tr>
-<td>labels(vertex)</td>
-<td>Returns the tags of a vertex.</td>
+<td>initial</td>
+<td>An expression that runs once to give a starting value to the accumulator.</td>
 </tr>
 <tr>
-<td>nodes(path)</td>
-<td>Returns a list containing all the nodes in a path.</td>
+<td>list</td>
+<td>An expression that returns a list.</td>
 </tr>
 <tr>
-<td>range(start, end [, step])</td>
-<td>A list of Integer elements.</td>
+<td>variable</td>
+<td>The closure will have a variable introduced in its context. We decide here which variable to use.</td>
 </tr>
 <tr>
-<td>relationships(path)</td>
-<td>Returns a list containing all the relationships in a path.</td>
-</tr>
-<tr>
-<td>reverse(list)</td>
-<td>returns a list in which the order of all elements in the original list have been reversed.</td>
-</tr>
-<tr>
-<td>tail(list)</td>
-<td>returns all the elements, excluding the first one.</td>
-</tr>
-<tr>
-<td>head(list)</td>
-<td>Returns the first element of a list.</td>
-</tr>
-<tr>
-<td>last(list)</td>
-<td>Returns the last element of a list.</td>
-</tr>
-<tr>
-<td>coalesce(list)</td>
-<td>Returns the first not null value in a list.</td>
-</tr>
-<tr>
-<td>reduce()</td>
-<td>See <a href="../11.reduce/">reduce() function</a>.</td>
+<td>expression</td>
+<td>This expression will run once per value in the list, and produce the result value.</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>NOTE</strong>: If the parameter is <code>NULL</code>, the output is undefined.</p>
-</blockquote>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 4923, &#39;abc&#39;, 521, 487] AS ids RETURN reverse(ids), tail(ids), head(ids), last(ids), coalesce(ids)
-+-----------------------------------+-------------------------+-----------+-----------+---------------+
-| reverse(ids)                      | tail(ids)               | head(ids) | last(ids) | coalesce(ids) |
-+-----------------------------------+-------------------------+-----------+-----------+---------------+
-| [487, 521, &quot;abc&quot;, 4923, __NULL__] | [4923, &quot;abc&quot;, 521, 487] | __NULL__  | 487       | 4923          |
-+-----------------------------------+-------------------------+-----------+-----------+---------------+
+<ul>
+<li>Returns:</li>
+</ul>
+<p>The type of the value returned depends on the arguments provided, along with the semantics of expression.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD reduce(totalNum = 10, n IN range(1, 3) | totalNum + n) AS r;
++----+
+| r  |
++----+
+| 16 |
++----+
+
+nebula&gt; YIELD reduce(totalNum = -4 * 5, n IN [1, 2] | totalNum + n * 2) AS r;
++-----+
+| r   |
++-----+
+| -14 |
++-----+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (a:player)-[r]-&gt;() WHERE id(a) == &quot;player100&quot; RETURN labels(a),  keys(r)
-+------------+----------------------------+
-| labels(a)  | keys(r)                    |
-+------------+----------------------------+
-| [&quot;player&quot;] | [&quot;degree&quot;]                 |
-+------------+----------------------------+
-| [&quot;player&quot;] | [&quot;degree&quot;]                 |
-+------------+----------------------------+
-| [&quot;player&quot;] | [&quot;end_year&quot;, &quot;start_year&quot;] |
-+------------+----------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (n:player{name:&quot;LeBron James&quot;})&lt;-[:follow]-(m) \
+        RETURN      nodes(p)[0].age AS src1,  \
+                    nodes(p)[1].age AS dst2,  \
+                    reduce(totalAge = 100, n IN nodes(p) | totalAge + n.age) AS sum
++------+------+-----+
+| src1 | dst2 | sum |
++------+------+-----+
+| 34   | 31   | 165 |
++------+------+-----+
+| 34   | 29   | 163 |
++------+------+-----+
+| 34   | 33   | 167 |
++------+------+-----+
+| 34   | 26   | 160 |
++------+------+-----+
+| 34   | 34   | 168 |
++------+------+-----+
+| 34   | 37   | 171 |
++------+------+-----+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == &quot;Tim Duncan&quot; AND c.name == &quot;Spurs&quot; RETURN nodes(p)
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-| nodes(p)                                                                                                                                      |
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}), (&quot;team204&quot; :team{name: &quot;Spurs&quot;})]   |
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;}), (&quot;team204&quot; :team{name: &quot;Spurs&quot;})] |
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == &quot;Tim Duncan&quot; AND c.name == &quot;Spurs&quot; RETURN relationships(p)
-+-----------------------------------------------------------------------------------------------------------------------------+
-| relationships(p)                                                                                                            |
-+-----------------------------------------------------------------------------------------------------------------------------+
-| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}], [:serve &quot;player101&quot;-&gt;&quot;team204&quot; @0 {end_year: 2018, start_year: 1999}]] |
-+-----------------------------------------------------------------------------------------------------------------------------+
-| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}], [:serve &quot;player125&quot;-&gt;&quot;team204&quot; @0 {end_year: 2018, start_year: 2002}]] |
-+-----------------------------------------------------------------------------------------------------------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; |\
+        GO FROM $-.VertexID over follow \ 
+        WHERE follow.degree != reduce(totalNum = 5, n IN range(1, 3) | $$.player.age + totalNum + n) \
+        YIELD $$.player.name AS id $$.player.age AS age, follow.degree AS degree
++---------------------+-----+--------+
+| id                  | age | degree |
++---------------------+-----+--------+
+| &quot;Tim Duncan&quot;        | 42  | 95     |
++---------------------+-----+--------+
+| &quot;LaMarcus Aldridge&quot; | 33  | 90     |
++---------------------+-----+--------+
+| &quot;Manu Ginobili&quot;     | 41  | 95     |
++---------------------+-----+--------+
 </code></pre></div>
                 
                   
@@ -3028,41 +2998,6 @@
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../5.case-expressions/" title="Case expressions" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Case expressions
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../7.count/" title="count()" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                count()
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
