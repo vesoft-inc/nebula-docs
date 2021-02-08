@@ -1254,7 +1254,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/8.clauses-and-options/skip/" title="SKIP" class="md-nav__link">
+    <a href="../../3.ngql-guide/8.clauses-and-options/skip.md" title="SKIP" class="md-nav__link">
       SKIP
     </a>
   </li>
@@ -2227,8 +2227,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimize_the_configuration_for_hdd" class="md-nav__link">
-    Optimize the configuration for HDD
+  <a href="#about_storage_devices" class="md-nav__link">
+    About storage devices
   </a>
   
 </li>
@@ -3137,8 +3137,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimize_the_configuration_for_hdd" class="md-nav__link">
-    Optimize the configuration for HDD
+  <a href="#about_storage_devices" class="md-nav__link">
+    About storage devices
   </a>
   
 </li>
@@ -3634,42 +3634,43 @@ $ cmake --version
 <li>Question 3: What is the <em>disk_partition_num_multiplier</em>?<p>Answer: <em>disk_partition_num_multiplier</em> is a value between 2 to 10, the better performance of the hard disk, the larger the value. Use 2 for HDD.</p>
 </li>
 </ul>
-<h2 id="optimize_the_configuration_for_hdd">Optimize the configuration for HDD<a class="headerlink" href="#optimize_the_configuration_for_hdd" title="Permanent link">&para;</a></h2>
-<p>[This part might be moved to the configuration doc map later.]</p>
-<p>Nebula Graph is intended for NVMe SSD, but if you don't have a choice, optimizing the configuration as follows may better accommodate HDD.</p>
-<ul>
-<li>
-<p>etc/nebula-storage.conf:</p>
-<ul>
-<li><code>--raft_rpc_timeout_ms</code> = 5000 ~ 10000</li>
-<li><code>--rocksdb_batch_size</code> = 4096 ~ 16384</li>
-<li><code>--heartbeat_interval_secs</code> = 30 ~ 60</li>
-<li><code>--raft_heartbeat_interval_secs</code> = 30 ~ 60</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>etc/nebula-meta.conf:<div class="highlight"><pre><span></span><code>--heartbeat_interval_secs is the same as etc/nebula-storage.conf
+<h2 id="about_storage_devices">About storage devices<a class="headerlink" href="#about_storage_devices" title="Permanent link">&para;</a></h2>
+<p>Nebula Graph is designed and implemented for NVMe SSD. All default parameters are optimized for the SSD devices.</p>
+<p>Due to the poor IOPS capability and long random seek latency, HDD is not recommended. You may encounter many problems when using HDD.</p>
+<p>And remote storage devices, such as NAS or SAN, are not recommended/tested as well.</p>
+<p>Use local SSD device.</p>
+<!--
+## Optimize the configuration for HDD
+
+[This part might be moved to the configuration doc map later.]
+
+Nebula Graph is intended for NVMe SSD, but if you don't have a choice, optimizing the configuration as follows may better accommodate HDD.
+
+* etc/nebula-storage.conf:
+
+  * `--raft_rpc_timeout_ms` = 5000 ~ 10000
+  * `--rocksdb_batch_size` = 4096 ~ 16384
+  * `--heartbeat_interval_secs` = 30 ~ 60
+  * `--raft_heartbeat_interval_secs` = 30 ~ 60
+
+* etc/nebula-meta.conf:
+
+    <div class="highlight"><pre><span></span><code>--heartbeat_interval_secs is the same as etc/nebula-storage.conf
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>Spark Writer:<div class="highlight"><pre><span></span><code><span class="err">ra</span><span class="kc">te</span><span class="p">:</span> <span class="p">{</span>
+
+* Spark Writer:
+
+    <div class="highlight"><pre><span></span><code><span class="err">ra</span><span class="kc">te</span><span class="p">:</span> <span class="p">{</span>
     <span class="kc">t</span><span class="err">imeou</span><span class="kc">t</span><span class="p">:</span> <span class="mi">5000</span> <span class="kc">t</span><span class="err">o</span> <span class="mi">10000</span>
     <span class="p">}</span>
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
-<p>go-importer:</p>
-<ul>
-<li><code>batchSize</code>: 10 to 50</li>
-<li><code>concurrency</code>: 1 to 10</li>
-<li><code>channelBufferSize</code>: 100 to 500</li>
-</ul>
-</li>
-</ul>
+
+* go-importer:
+
+  * `batchSize`: 10 to 50
+  * `concurrency`: 1 to 10
+  * `channelBufferSize`: 100 to 500
+-->
                 
                   
                 

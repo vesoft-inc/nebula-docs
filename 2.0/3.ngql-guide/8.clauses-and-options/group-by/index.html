@@ -1249,15 +1249,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#group_and_count_the_output" class="md-nav__link">
-    Group and count the output
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#group_and_sort_the_output" class="md-nav__link">
-    Group and sort the output
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -1310,7 +1317,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../skip/" title="SKIP" class="md-nav__link">
+    <a href="../skip.md" title="SKIP" class="md-nav__link">
       SKIP
     </a>
   </li>
@@ -2907,15 +2914,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#group_and_count_the_output" class="md-nav__link">
-    Group and count the output
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#group_and_sort_the_output" class="md-nav__link">
-    Group and sort the output
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -2945,15 +2959,45 @@
                 
                 
                 <h1 id="group_by">GROUP BY<a class="headerlink" href="#group_by" title="Permanent link">&para;</a></h1>
+<h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<p>This page applies to nGQL extensions only.</p>
+<p>Use <code>GROUP BY</code> in nGQL-extensions <strong>ONLY</strong> to aggregate data.</p>
+<p>The openCypher uses <a href="../../6.functions-and-expressions/7.count/">count() function</a> to aggregate data.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt;  MATCH (v:player)&lt;-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
++----------------------+--------------+
+| Name                 | Follower_Num |
++----------------------+--------------+
+| &quot;Tim Duncan&quot;         | 10           |
++----------------------+--------------+
+| &quot;LeBron James&quot;       | 6            |
++----------------------+--------------+
+| &quot;Tony Parker&quot;        | 5            |
++----------------------+--------------+
+| &quot;Manu Ginobili&quot;      | 4            |
++----------------------+--------------+
+| &quot;Chris Paul&quot;         | 4            |
++----------------------+--------------+
+| &quot;Tracy McGrady&quot;      | 3            |
++----------------------+--------------+
+| &quot;Dwyane Wade&quot;        | 3            |
++----------------------+--------------+
+...
+</code></pre></div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The <code>GROUP BY</code> clause groups the rows with the same value into summary rows. Then operations such as counting, sorting, and calculation can be applied.</p>
-<p><code>GROUP BY</code> works after the pipe symbol and before a <code>YIELD</code> or <code>RETURN</code> clause.</p>
-<h2 id="group_and_count_the_output">Group and count the output<a class="headerlink" href="#group_and_count_the_output" title="Permanent link">&para;</a></h2>
+<p><code>GROUP BY</code> works after the pipe symbol and before a <code>YIELD</code> clause.</p>
+<div class="highlight"><pre><span></span><code>| GROUP BY &lt;var&gt; YIELD &lt;var&gt;, &lt;aggregation_function(var)&gt;
+</code></pre></div>
+<ul>
+<li>aggregation_function can be <code>avg(), sum(), max(), min(), count(), collect(), std()</code>.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts the times that the names show up in the result set.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
         OVER follow BIDIRECT \
         YIELD $$.player.name as Name | \
         GROUP BY $-.Name \
-        YIELD $-.Name as Player, COUNT(*) AS Name_Count;
+        YIELD $-.Name as Player, count(*) AS Name_Count;
 +---------------------+------------+
 | Player              | Name_Count |
 +---------------------+------------+
@@ -2979,38 +3023,11 @@
 +---------------------+------------+
 Got 10 rows (time spent 3527/4423 us)
 </code></pre></div>
-<h2 id="group_and_sort_the_output">Group and sort the output<a class="headerlink" href="#group_and_sort_the_output" title="Permanent link">&para;</a></h2>
-<p>The following statement finds the follower number of players, groups the output by player names, and sorts the output by the follower number.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)&lt;-[:follow]-(:player) \
-        RETURN v.name AS Name | \
-        GROUP BY $-.Name \
-        YIELD $-.Name AS Name, count(*) AS Follower_Num | \
-        ORDER BY Follower_Num DESC;
-+----------------------+--------------+
-| Name                 | Follower_Num |
-+----------------------+--------------+
-| &quot;Tim Duncan&quot;         | 10           |
-+----------------------+--------------+
-| &quot;LeBron James&quot;       | 6            |
-+----------------------+--------------+
-| &quot;Tony Parker&quot;        | 5            |
-+----------------------+--------------+
-| &quot;Manu Ginobili&quot;      | 4            |
-+----------------------+--------------+
-| &quot;Chris Paul&quot;         | 4            |
-+----------------------+--------------+
-| &quot;Tracy McGrady&quot;      | 3            |
-+----------------------+--------------+
-| &quot;Dwyane Wade&quot;        | 3            |
-+----------------------+--------------+
-...
-Got 35 rows (time spent 5150/5881 us)
-</code></pre></div>
 <h2 id="group_and_calculate_with_functions">Group and calculate with functions<a class="headerlink" href="#group_and_calculate_with_functions" title="Permanent link">&para;</a></h2>
 <p>The following statement finds all the players followed by <code>"player100"</code>, returns these players as <code>player</code> and the property of the follow edge as <code>degree</code>. These players are grouped and the sum of their degree values is returned.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD SUM($-.degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD sum($-.degree);
 +----------------+
-| SUM($-.degree) |
+| sum($-.degree) |
 +----------------+
 | 190            |
 +----------------+

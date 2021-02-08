@@ -1273,23 +1273,42 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
+  <a href="#ngql-extension_syntax" class="md-nav__link">
+    nGQL-extension Syntax
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#order_output_by_one_expression" class="md-nav__link">
-    Order output by one expression
+  <a href="#opencypher_syntax" class="md-nav__link">
+    OpenCypher Syntax
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    Examples
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#order_output_by_multiple_expressions" class="md-nav__link">
-    Order output by multiple expressions
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1317,7 +1336,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../skip/" title="SKIP" class="md-nav__link">
+    <a href="../skip.md" title="SKIP" class="md-nav__link">
       SKIP
     </a>
   </li>
@@ -2914,23 +2933,42 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
+  <a href="#ngql-extension_syntax" class="md-nav__link">
+    nGQL-extension Syntax
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#order_output_by_one_expression" class="md-nav__link">
-    Order output by one expression
+  <a href="#opencypher_syntax" class="md-nav__link">
+    OpenCypher Syntax
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    Examples
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#order_output_by_multiple_expressions" class="md-nav__link">
-    Order output by multiple expressions
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2959,19 +2997,43 @@
                 
                 
                 <h1 id="order_by">ORDER BY<a class="headerlink" href="#order_by" title="Permanent link">&para;</a></h1>
-<p>The <code>ORDER BY</code> clause specifies the order of the rows in the output. You can use a pipe and an <code>ORDER BY</code> clause after a <code>RETURN</code> or <code>YIELD</code> clause to do the sorting.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>{&lt;RETURN clause&gt; | &lt;YIELD clause&gt;} ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
-</code></pre></div>
+<p>The <code>ORDER BY</code> clause specifies the order of the rows in the output.</p>
+<ul>
+<li>nGQL-extension: You must use a pipe (<code>|</code>) and an <code>ORDER BY</code> clause after <code>YIELD</code> clause.</li>
+<li>OpenCypher style: no pipe is permitted. <code>ORDER BY</code> follows a <code>RETURN</code> clause.</li>
+</ul>
 <p>There are two order options:</p>
 <ul>
 <li><code>ASC</code>: Ascending. <code>ASC</code> is the default order.</li>
 <li><code>DESC</code>: Descending.</li>
 </ul>
 <p>An order option takes effect only when the expression before it is used for sorting the results.</p>
-<h2 id="order_output_by_one_expression">Order output by one expression<a class="headerlink" href="#order_output_by_one_expression" title="Permanent link">&para;</a></h2>
-<p>You can sort rows in the output by a specific expression.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age | ORDER BY Name DESC | LIMIT 5;
+<h2 id="ngql-extension_syntax">nGQL-extension Syntax<a class="headerlink" href="#ngql-extension_syntax" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>&lt;YIELD clause&gt;
+ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
+</code></pre></div>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;, &quot;player101&quot;, &quot;player102&quot;, &quot;player103&quot; YIELD player.age AS age, player.name AS name \
+| ORDER BY age ASC, name DESC;
++-------------+-----+---------------------+
+| VertexID    | age | name                |
++-------------+-----+---------------------+
+| &quot;player103&quot; | 32  | &quot;Rudy Gay&quot;          |
++-------------+-----+---------------------+
+| &quot;player102&quot; | 33  | &quot;LaMarcus Aldridge&quot; |
++-------------+-----+---------------------+
+| &quot;player101&quot; | 36  | &quot;Tony Parker&quot;       |
++-------------+-----+---------------------+
+| &quot;player100&quot; | 42  | &quot;Tim Duncan&quot;        |
++-------------+-----+---------------------+
+</code></pre></div>
+<h2 id="opencypher_syntax">OpenCypher Syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>&lt;RETURN clause&gt;
+ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
+</code></pre></div>
+<p>An order option takes effect only when the expression before it is used for sorting the results.</p>
+<h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age  ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
@@ -2985,11 +3047,9 @@
 +-----------------+-----+
 | &quot;Tim Duncan&quot;    | 42  |
 +-----------------+-----+
-Got 5 rows (time spent 2908/3751 us)
+...
 </code></pre></div>
-<h2 id="order_output_by_multiple_expressions">Order output by multiple expressions<a class="headerlink" href="#order_output_by_multiple_expressions" title="Permanent link">&para;</a></h2>
-<p>You can sort rows in the output by multiple expressions. nGQL will order the rows by the sequence of the expressions listed in the statement.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name | ORDER BY Age DESC, Name ASC | LIMIT 10
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  ORDER BY Age DESC, Name ASC
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
@@ -3001,25 +3061,13 @@ Got 5 rows (time spent 2908/3751 us)
 +-----+-------------------+
 | 45  | &quot;Steve Nash&quot;      |
 +-----+-------------------+
-| 43  | &quot;Ray Allen&quot;       |
-+-----+-------------------+
-| 42  | &quot;Tim Duncan&quot;      |
-+-----+-------------------+
-| 42  | &quot;Vince Carter&quot;    |
-+-----+-------------------+
-| 41  | &quot;Manu Ginobili&quot;   |
-+-----+-------------------+
-| 40  | &quot;Dirk Nowitzki&quot;   |
-+-----+-------------------+
-| 40  | &quot;Kobe Bryant&quot;     |
-+-----+-------------------+
-Got 10 rows (time spent 2697/3360 us)
+...
 </code></pre></div>
 <p>In the preceding example, nGQL sorts the rows by <code>Age</code> first. If multiple people are of the same age, nGQL sorts them by <code>Name</code>.</p>
 <h2 id="order_by_null_values">Order by NULL values<a class="headerlink" href="#order_by_null_values" title="Permanent link">&para;</a></h2>
 <p>nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age | \
+        RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age;
 +-----------------+----------+
 | Name            | Age      |
@@ -3033,7 +3081,7 @@ Got 10 rows (time spent 2697/3360 us)
 Got 3 rows (time spent 3089/3719 us)
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age | \
+        RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+----------+
 | Name            | Age      |
@@ -3082,13 +3130,13 @@ Got 3 rows (time spent 2851/3360 us)
           </a>
         
         
-          <a href="../skip/" title="SKIP" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../where/" title="WHERE" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                SKIP
+                WHERE
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

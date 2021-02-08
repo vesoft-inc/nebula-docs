@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#limit" tabindex="0" class="md-skip">
+      <a href="#limit_and_skip" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -1261,30 +1261,56 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#return_a_specific_number_of_rows" class="md-nav__link">
-    Return a specific number of rows
+  <a href="#ngql-extension_syntax" class="md-nav__link">
+    nGQL-extension syntax
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#use_an_offset_to_skip_the_top_m_rows" class="md-nav__link">
-    Use an offset to skip the top M rows
+  <a href="#opencypher_syntax" class="md-nav__link">
+    OpenCypher Syntax
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    Examples
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#use_an_expression_to_specify_the_number_of_rows" class="md-nav__link">
-    Use an expression to specify the number of rows
+        
+          <li class="md-nav__item">
+  <a href="#skip-syntax" class="md-nav__link">
+    SKIP-syntax
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1317,7 +1343,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../skip/" title="SKIP" class="md-nav__link">
+    <a href="../skip.md" title="SKIP" class="md-nav__link">
       SKIP
     </a>
   </li>
@@ -2914,30 +2940,56 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#return_a_specific_number_of_rows" class="md-nav__link">
-    Return a specific number of rows
+  <a href="#ngql-extension_syntax" class="md-nav__link">
+    nGQL-extension syntax
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#use_an_offset_to_skip_the_top_m_rows" class="md-nav__link">
-    Use an offset to skip the top M rows
+  <a href="#opencypher_syntax" class="md-nav__link">
+    OpenCypher Syntax
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    Examples
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#use_an_expression_to_specify_the_number_of_rows" class="md-nav__link">
-    Use an expression to specify the number of rows
+        
+          <li class="md-nav__item">
+  <a href="#skip-syntax" class="md-nav__link">
+    SKIP-syntax
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2958,10 +3010,43 @@
               
                 
                 
-                <h1 id="limit">LIMIT<a class="headerlink" href="#limit" title="Permanent link">&para;</a></h1>
-<p>The LIMIT clause constrains the number of rows in the output.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;
+                <h1 id="limit_and_skip">LIMIT AND SKIP<a class="headerlink" href="#limit_and_skip" title="Permanent link">&para;</a></h1>
+<p>The <code>LIMIT</code> clause constrains the number of rows in the output.</p>
+<h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<p>The Syntax in openCypher and nGQL-extension are different.</p>
+<ul>
+<li>nGQL-extension: A pipe <code>|</code> must be used. And an offset can be ignored.</li>
+<li>openCypher: No pipes are permitted. Use <code>Skip</code> to indicate offset.</li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong>: When using <code>LIMIT</code>(in either syntax above), it is important to use an <code>ORDER BY</code> clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.</p>
+</blockquote>
+<h2 id="ngql-extension_syntax">nGQL-extension syntax<a class="headerlink" href="#ngql-extension_syntax" title="Permanent link">&para;</a></h2>
+<p>In nGQL-extension, <code>LIMIT</code> works the same as in <code>SQL</code>, and must be used with pipe <code>|</code>. The <code>LIMIT</code> clause accepts one or two arguments. The values of both arguments must be non-negative integers.</p>
+<div class="highlight"><pre><span></span><code>YIELD &lt;var&gt;
+[| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]
+</code></pre></div>
+<ul>
+<li>var: The columns or calculations that you wish to sort.</li>
+<li>number_rows: It constrains the number of rows to return. For example, <code>LIMIT 10</code> would return the first 10 rows.</li>
+<li>offset_value(Optional): It defines from which row to start including the rows in the output. The offset starts from zero.</li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY YIELD $$.player.name AS Friend, $$.player.age AS Age | ORDER BY Age,Friend | LIMIT 1, 3;
++-------------------+-----+
+| Friend            | Age |
++-------------------+-----+
+| &quot;Danny Green&quot;     | 31  |
++-------------------+-----+
+| &quot;Aron Baynes&quot;     | 32  |
++-------------------+-----+
+| &quot;Marco Belinelli&quot; | 32  |
++-------------------+-----+
+</code></pre></div>
+<h2 id="opencypher_syntax">OpenCypher Syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RETURN &lt;var&gt;
+[SKIP &lt;offset&gt;]
+[LIMIT &lt;number_rows&gt;]
 </code></pre></div>
 <table>
 <thead>
@@ -2981,64 +3066,14 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>NOTE:</strong> In a <code>MATCH</code> statement, you can use a <code>LIMIT</code> clause with or without a pipe symbol, but in other statements, you must add a pipe symbol before the <code>LIMIT</code> clause.</p>
-</blockquote>
-<h2 id="return_a_specific_number_of_rows">Return a specific number of rows<a class="headerlink" href="#return_a_specific_number_of_rows" title="Permanent link">&para;</a></h2>
-<p>To return the top N rows from the result, use <code>LIMIT &lt;N&gt;</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        RETURN v.name AS Name, v.age AS Age \
-        ORDER BY Age | \
-        LIMIT 5;
-+-------------------------+-----+
-| Name                    | Age |
-+-------------------------+-----+
-| &quot;Luka Doncic&quot;           | 20  |
-+-------------------------+-----+
-| &quot;Ben Simmons&quot;           | 22  |
-+-------------------------+-----+
-| &quot;Kristaps Porzingis&quot;    | 23  |
-+-------------------------+-----+
-| &quot;Giannis Antetokounmpo&quot; | 24  |
-+-------------------------+-----+
-| &quot;Kyle Anderson&quot;         | 25  |
-+-------------------------+-----+
-Got 5 rows (time spent 2841/3511 us)
-</code></pre></div>
-<h2 id="use_an_offset_to_skip_the_top_m_rows">Use an offset to skip the top M rows<a class="headerlink" href="#use_an_offset_to_skip_the_top_m_rows" title="Permanent link">&para;</a></h2>
-<p>To skip the top M rows and return the next N rows, use <code>LIMIT &lt;M,&gt; &lt;N&gt;</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        RETURN v.name AS Name, v.age AS Age \
-        ORDER BY Age | \
-        LIMIT 2,5;
-+-------------------------+-----+
-| Name                    | Age |
-+-------------------------+-----+
-| &quot;Kristaps Porzingis&quot;    | 23  |
-+-------------------------+-----+
-| &quot;Giannis Antetokounmpo&quot; | 24  |
-+-------------------------+-----+
-| &quot;Kyle Anderson&quot;         | 25  |
-+-------------------------+-----+
-| &quot;Joel Embiid&quot;           | 25  |
-+-------------------------+-----+
-| &quot;Kyrie Irving&quot;          | 26  |
-+-------------------------+-----+
-Got 5 rows (time spent 2922/3854 us)
-</code></pre></div>
-<blockquote>
-<p><strong>NOTE:</strong> To use a <code>LIMIT</code> offset in <code>MATCH</code>, you must add a pipe before <code>LIMIT</code>.</p>
-</blockquote>
-<p>You can also use <a href="../skip/"><code>SKIP</code></a> to skip the top M rows.</p>
-<h2 id="use_an_expression_to_specify_the_number_of_rows">Use an expression to specify the number of rows<a class="headerlink" href="#use_an_expression_to_specify_the_number_of_rows" title="Permanent link">&para;</a></h2>
-<p>You can use an expression to specify the number of rows to be returned. The expression must output a non-negative integer.</p>
+<p>Either <code>offset</code> or <code>number_rows</code> can accept an expression, which value must be a non-negative integer.</p>
 <blockquote>
 <p><strong>NOTE:</strong> Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        RETURN v.name AS Name, v.age AS Age \
-        ORDER BY Age \
-        LIMIT rand32(5);
+<h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
+<p>Return a specific number of rows. To return the top N rows from the result, use <code>LIMIT &lt;N&gt;</code> as follows:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
+        ORDER BY Age LIMIT 5;
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
@@ -3050,11 +3085,53 @@ Got 5 rows (time spent 2922/3854 us)
 +-------------------------+-----+
 | &quot;Giannis Antetokounmpo&quot; | 24  |
 +-------------------------+-----+
-Got 4 rows (time spent 2621/3343 us)
+| &quot;Kyle Anderson&quot;         | 25  |
++-------------------------+-----+
+nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
+        ORDER BY Age LIMIT rand32(5);
++-------------------------+-----+
+| Name                    | Age |
++-------------------------+-----+
+| &quot;Luka Doncic&quot;           | 20  |
++-------------------------+-----+
+| &quot;Ben Simmons&quot;           | 22  |
++-------------------------+-----+
+| &quot;Kristaps Porzingis&quot;    | 23  |
++-------------------------+-----+
+| &quot;Giannis Antetokounmpo&quot; | 24  |
++-------------------------+-----+
 </code></pre></div>
-<blockquote>
-<p><strong>NOTE:</strong> For now, only in <code>MATCH</code> statements can you use an expression with <code>LIMIT</code>. And you must omit the pipe symbol.</p>
-</blockquote>
+<h3 id="skip-syntax">SKIP-syntax<a class="headerlink" href="#skip-syntax" title="Permanent link">&para;</a></h3>
+<p>You can use <code>SKIP &lt;N&gt;</code> to skip the top N rows from the result and return the rest of the result.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+        RETURN v2.name AS Name, v2.age AS Age \
+        ORDER BY Age DESC SKIP 1;
++-----------------+-----+
+| Name            | Age |
++-----------------+-----+
+| &quot;Manu Ginobili&quot; | 41  |
++-----------------+-----+
+| &quot;Tony Parker&quot;   | 36  |
++-----------------+-----+
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+        RETURN v2.name AS Name, v2.age AS Age \
+        ORDER BY Age DESC SKIP 1+1;
++---------------+-----+
+| Name          | Age |
++---------------+-----+
+| &quot;Tony Parker&quot; | 36  |
++---------------+-----+
+</code></pre></div>
+<p>You can use <code>SKIP</code> and <code>LIMIT</code> together to return the middle N rows.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+        RETURN v2.name AS Name, v2.age AS Age \
+        ORDER BY Age DESC SKIP 1 LIMIT 1;
++-----------------+-----+
+| Name            | Age |
++-----------------+-----+
+| &quot;Manu Ginobili&quot; | 41  |
++-----------------+-----+
+</code></pre></div>
                 
                   
                 
