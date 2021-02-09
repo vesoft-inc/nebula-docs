@@ -1,6 +1,6 @@
 # TTL
 
-TTL indicates time to live. Use the [TTL options](#ttl_options) to specify a timeout for a vertex property or an edge property. Once the timeout is reached, the property expires.
+TTL indicates time to live. Use the [TTL options](#ttl_options) to specify a timeout for a property. Once timed out, the property expires.
 
 ## OpenCypher Compatibility
 
