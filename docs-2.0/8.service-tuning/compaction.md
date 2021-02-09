@@ -20,7 +20,7 @@ nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_com
 
 ## Full compaction
 
-Full compaction enables large scale background operations for a graph space such as merging files, deleting the data evicted by TTL. Use these statements to enable full compaction:
+Full compaction enables large scale background operations for a graph space such as merging files, deleting the data expired by TTL. Use these statements to enable full compaction:
 
 ```ngql
 nebula> USE <your_graph_space>;
