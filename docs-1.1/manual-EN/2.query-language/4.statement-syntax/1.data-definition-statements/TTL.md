@@ -11,7 +11,7 @@ TTl requires `ttl_col` and `ttl_duration` together. `ttl_col` indicates the TTL 
 
 - The `ttl_duration` is set in seconds and ranges from 0 to max(int64). If it is set to 0, the vertex properties of this tag does not expire.
 
-- If TTL is set, when the sum of the `ttl_col` and the `ttl_duration` is less than the current time, we consider the vertex properties of this tag as expired in the specified seconds configured by `ttl_duration` has passed since the `ttl_col` field value.
+- If TTL is set, when the sum of the `ttl_col` and the `ttl_duration` is greater than the current time, we consider the vertex properties of this tag as expired in the specified seconds configured by `ttl_duration` has passed since the `ttl_col` field value.
 
 - When the vertex has multiple tags, the TTL of each tag is processed separately.
 
