@@ -10,7 +10,7 @@ This topic applies to nGQL extensions only.
 
 * You CANNOT modify a property with TTL options on it.
 
-* TTL options and indexes CANNOT coexist on a tag or an edge. Not even if you try to set them on different properties.
+* TTL options and indexes CANNOT coexist on a tag or an edge type. Not even if you try to set them on different properties.
 
 ## Data expiration and deletion
 
@@ -69,7 +69,7 @@ Use TTL options in the `CREATE` statement to set a timeout when creating a tag o
 
 ```ngql
 // Create a tag and set the TTL options.
-CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
+nebula> CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 Execution succeeded (time spent 3173/3753 us)
 
 // Insert a vertex with tag t2.
@@ -97,7 +97,7 @@ To disable TTL and remove the timeout on a property, use the following approache
 * Set `ttl_duration` to 0. This operation keeps the TTL options and prevents the property from expiring.
 
     ```ngql
-    ALTER TAG t1 ttl_duration = 0;
+    nebula> ALTER TAG t1 ttl_duration = 0;
     ```
 
     > **CAUTION:** Even when `ttl_duration` is 0, you CANNOT alter the property because it still has TTL options.
