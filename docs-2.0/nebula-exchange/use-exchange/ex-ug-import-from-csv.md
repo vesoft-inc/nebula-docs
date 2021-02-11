@@ -181,7 +181,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       # vertex: {
       #  field: _c1,
       #  policy: "hash"
-      }
+      # }
 
       # Specifies the separator. The default value is commas.
       separator: ","
