@@ -24,8 +24,9 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * [Connect to Nebula Graph](2.quick-start/3.connect-to-nebula-graph.md)
 * [Nebula Graph CRUD](2.quick-start/4.nebula-graph-crud.md)
 
-## nGQL guide (for all users)
+## nGQL guide (for all users) [doc TODO]
 
+<!-- to be updated -->
 * Operators
   * [Comparison](3.ngql-guide/5.operators/1.comparison.md)
   * [Pipe](3.ngql-guide/5.operators/4.pipe.md)
@@ -35,21 +36,21 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Precedence](3.ngql-guide/5.operators/9.precedence.md)
 
 * Functions and expressions
-  * [Math](3.ngql-guide/6.funtions-and-expressions/1.math.md)
-  * [String](3.ngql-guide/6.funtions-and-expressions/2.string.md)
-  * [Date and time](3.ngql-guide/6.funtions-and-expressions/3.date-and-time.md)
-  * [Schema](3.ngql-guide/6.funtions-and-expressions/4.schema.md)
-  * [Case expressions](3.ngql-guide/6.funtions-and-expressions/5.case-expressions.md)
+  * [Math](3.ngql-guide/6.functions-and-expressions/1.math.md)
+  * [String](3.ngql-guide/6.functions-and-expressions/2.string.md)
+  * [Date and time](3.ngql-guide/6.functions-and-expressions/3.date-and-time.md)
+  * [Schema](3.ngql-guide/6.functions-and-expressions/4.schema.md)
+  * [Case expressions](3.ngql-guide/6.functions-and-expressions/5.case-expressions.md)
 
 * General query statements
   * [Match](3.ngql-guide/7.general-query-statements/2.match.md)
 
 * Space statements
-  * [Create space](3.ngql-guide/9.space-statements.md/1.create-space.md)
-  * [Use space](3.ngql-guide/9.space-statements.md/2.use-space.md)
-  * [Show spaces](3.ngql-guide/9.space-statements.md/3.show-spaces.md)
-  * [Describe space](3.ngql-guide/9.space-statements.md/4.describe-space.md)
-  * [Drop space](3.ngql-guide/9.space-statements.md/5.drop-space.md)
+  * [Create space](3.ngql-guide/9.space-statements/1.create-space.md)
+  * [Use space](3.ngql-guide/9.space-statements/2.use-space.md)
+  * [Show spaces](3.ngql-guide/9.space-statements/3.show-spaces.md)
+  * [Describe space](3.ngql-guide/9.space-statements/4.describe-space.md)
+  * [Drop space](3.ngql-guide/9.space-statements/5.drop-space.md)
 
 * Vertex statements
   * [Insert vertex](3.ngql-guide/12.vertex-statements/1.insert-vertex.md)
@@ -58,10 +59,10 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
   * [Delete vertex](3.ngql-guide/12.vertex-statements/4.delete-vertex.md)
 
 * Subgraph and path
-  * [Get subgraph](3.ngql-guide/15.subgraph-and-path/1.get-subgraph.md)
+  * [Get subgraph](3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md)
 
 * Query tuning statements
-  * [Explain and profile](3.ngql-guide/16.query-tuning-statements/1.explain-and-profile.md)
+  * [Explain and profile](3.ngql-guide/17.query-tuning-statements/1.explain-and-profile.md)
 
 ## Deployment and installation (for Developers and DBA)
 

@@ -1,13 +1,12 @@
-### vesoft-inc/nebula Active Contributors
+### nebula Active Contributors
 
 | GitHub ID| Name |
 |:------------------------------------:|:------------:|
-| [chenxu14](https://github.com/chenxu14) |  Chen Xu |
-| [zhangguoqing](https://github.com/zhangguoqing)   |  Guoqing Zhang |
+| [xs-li](https://github.com/xs-li) | Xiaosen Li |
+| [wadeliuyi](https://github.com/wadeliuyi) | wade liu |
 
-
-### vesoft-inc/nebula-java Active Contributors
+### nebula-java Active Contributors
 
 | GitHub ID| Name |
 |:------------------------------------:|:------------:|
-| [Anyzm](https://github.com/Anyzm) |  Anyzm |
+|[datian9966](https://github.com/datian9966)| Kouichi |
