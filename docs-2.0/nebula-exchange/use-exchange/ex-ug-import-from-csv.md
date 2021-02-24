@@ -314,4 +314,4 @@ You can run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.s
 
 ### Step 7. (Optional) Create and rebuild indexes in Nebula Graph
 
-After the data is imported, you can create and rebuild indexes in Nebula Graph. For more information, see [nGQL User Guide](../../3.ngql-guide/2.nav.md/1.search-guide.md).
+After the data is imported, you can create and rebuild indexes in Nebula Graph. For more information, see [nGQL User Guide](../../3.ngql-guide/1.nGQL-overview/4.search-guide.md).
