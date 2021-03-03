@@ -1,18 +1,17 @@
 # RETURN
 
-The `RETURN` clause defines the output of openCypher statements such as `MATCH` or `UNWIND`. To return multiple fields, separate them with commas.
+`RETURN` defines the output of an nGQL query. To return multiple fields, separate them with commas.
+
+`RETURN` can lead a clause or a statement:
+
+* A `RETURN` clause works in openCypher statements in nGQL, such as `MATCH` or `UNWIND`.
+* A `RETURN` statement works independently to output the result of an expression.
 
 ## OpenCypher compatibility
 
 This topic applies to the openCypher syntax in nGQL only. For nGQL extensions, use [`YIELD`](yield.md).
 
 `RETURN` does not support the following openCypher features yet.
-
-* Lead a standalone statement, for example:
-
-  ```ngql
-  RETURN 1+1;
-  ```
 
 * Return variables with uncommon characters, for example:
 
@@ -143,6 +142,14 @@ nebula> MATCH (v:player{name:"Tim Duncan"})-[:serve]->(v2) \
 | "Spurs" |
 +---------+
 Got 1 rows (time spent 2370/3017 us)
+
+nebula> RETURN "Amber" AS Name;
++---------+
+| Name    |
++---------+
+| "Amber" |
++---------+
+Got 1 rows (time spent 380/1097 us)
 ```
 
 ## Return a non-existing property
@@ -181,6 +188,30 @@ nebula> MATCH (v:player{name:"Tony Parker"})-->(v2:player) \
 | "Manu Ginobili"     | "Hello graphs!"  | true        |
 +---------------------+------------------+-------------+
 Got 3 rows (time spent 2645/3237 us)
+
+nebula> RETURN 1+1;
++-------+
+| (1+1) |
++-------+
+| 2     |
++-------+
+Got 1 rows (time spent 319/1238 us)
+
+nebula> RETURN 3 > 1;
++-------+
+| (3>1) |
++-------+
+| true  |
++-------+
+Got 1 rows (time spent 205/751 us)
+
+RETURN 1+1, rand32(1, 5);
++-------+-------------+
+| (1+1) | rand32(1,5) |
++-------+-------------+
+| 2     | 1           |
++-------+-------------+
+Got 1 rows (time spent 258/1098 us)
 ```
 
 ## Return unique fields
