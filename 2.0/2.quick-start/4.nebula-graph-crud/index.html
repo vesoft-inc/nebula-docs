@@ -3579,17 +3579,19 @@
 <p><img alt="The demo dataset" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/demo-dataset-for-quick-start.png" /></p>
 <h2 id="check_the_machine_status_in_the_nebula_graph_cluster">Check the machine status in the Nebula Graph cluster<a class="headerlink" href="#check_the_machine_status_in_the_nebula_graph_cluster" title="Permanent link">&para;</a></h2>
 <p>First, we recommend that you check the machine status to make sure that all the Storage services are connected to the Meta Services. Run <code>SHOW HOSTS</code> as follows.</p>
-<div class="highlight"><pre><span></span><code>(root@nebula) [(none)]&gt; SHOW HOSTS;
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| Host      | Port  | Status | Leader count | Leader distribution | Partition distribution |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged0 | 44500 | ONLINE | 0            | No valid partition  | No valid partition     |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged1 | 44500 | ONLINE | 0            | No valid partition  | No valid partition     |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged2 | 44500 | ONLINE | 0            | No valid partition  | No valid partition     |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-Got 3 rows (time spent 1775/2334 us)
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+| Host        | Port      | Status    | Leader count | Leader distribution  | Partition distribution |
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+| &quot;storaged0&quot; | 9779      | &quot;ONLINE&quot;  | 0            | &quot;No valid partition&quot; | &quot;No valid partition&quot;   |
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+| &quot;storaged1&quot; | 9779      | &quot;ONLINE&quot;  | 0            | &quot;No valid partition&quot; | &quot;No valid partition&quot;   |
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+| &quot;storaged2&quot; | 9779      | &quot;ONLINE&quot;  | 0            | &quot;No valid partition&quot; | &quot;No valid partition&quot;   |
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+| &quot;Total&quot;     | __EMPTY__ | __EMPTY__ | 0            | __EMPTY__            | __EMPTY__              |
++-------------+-----------+-----------+--------------+----------------------+------------------------+
+Got 4 rows (time spent 1061/2251 us)
 </code></pre></div>
 <p>From the <strong>Status</strong> column of the table in the return message, you can see that all the Storage services are online.</p>
 <h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">&para;</a></h3>
@@ -3603,16 +3605,20 @@ Got 3 rows (time spent 1775/2334 us)
 <li><code>CREATE TAG INDEX</code></li>
 <li><code>CREATE EDGE INDEX</code></li>
 </ul>
-<p>The default heartbeat interval is 10 seconds. To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
+<blockquote>
+<p><strong>NOTE</strong>:The default heartbeat interval is 10 seconds. To modify the heartbeat interval, see Adjust heartbeat cycle (doc TODO).</p>
+</blockquote>
 <p>To make sure the follow-up operations work as expected, take one of the following approaches:</p>
 <ul>
 <li>Run <code>SHOW</code> or <code>DESCRIBE</code> statements accordingly to check the status of the objects, and make sure the creation or alteration is complete. If it is not, wait a few seconds and try again.</li>
+</ul>
+<ul>
 <li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
 </ul>
 <h2 id="create_and_use_a_graph_space">Create and use a graph space<a class="headerlink" href="#create_and_use_a_graph_space" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax">nGQL syntax<a class="headerlink" href="#ngql_syntax" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE &lt;graph_space_name&gt; [(partition_num=&lt;partition number&gt;, replica_factor=&lt;replica number&gt;), vid_type=fixed_string(&lt;string_number&gt;))]
+<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE &lt;graph_space_name&gt; [(partition_num=&lt;partition number&gt;, replica_factor=&lt;replica number&gt;, vid_type=fixed_string(&lt;string_number&gt;))]
 </code></pre></div>
 <table>
 <thead>
@@ -3659,16 +3665,18 @@ Execution succeeded (time spent 2817/3280 us)
 <li>
 <p>Check the partition distribution with <code>SHOW HOSTS</code> to make sure that the partitions are distributed in a balanced way.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| Host      | Port  | Status | Leader count | Leader distribution | Partition distribution |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged0 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged1 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-| storaged2 | 44500 | ONLINE | 1            | nba:5               | nba:5                  |
-+-----------+-------+--------+--------------+---------------------+------------------------+
-Got 3 rows (time spent 744/1123 us)
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+| Host        | Port      | Status    | Leader count | Leader distribution | Partition distribution |
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+| &quot;storaged0&quot; | 9779      | &quot;ONLINE&quot;  | 5            | &quot;nba:5&quot;             | &quot;nba:5&quot;                |
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+| &quot;storaged1&quot; | 9779      | &quot;ONLINE&quot;  | 5            | &quot;nba:5&quot;             | &quot;nba:5&quot;                |
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+| &quot;storaged2&quot; | 9779      | &quot;ONLINE&quot;  | 5            | &quot;nba:5&quot;             | &quot;nba:5&quot;                |
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+| &quot;Total&quot;     | __EMPTY__ | __EMPTY__ | 15           | &quot;nba:15&quot;            | &quot;nba:15&quot;               |
++-------------+-----------+-----------+--------------+---------------------+------------------------+
+Got 4 rows (time spent 1633/2867 us)
 </code></pre></div>
 <p>If the <strong>Leader distribution</strong> is uneven, use <code>BALANCE LEADER</code> to redistribute the partitions. For more information, see BALANCE (doc TODO).</p>
 </li>
@@ -3814,10 +3822,10 @@ Wed, 21 Oct 2020 07:08:59 UTC
 </ul>
 <h2 id="read_data">Read data<a class="headerlink" href="#read_data" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The <code>GO</code> statement traverses the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and return information in a form specified in the <code>YIELD</code> clause.</li>
-<li><code>FETCH</code> is used to get properties from vertices or edges.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> statement traverses the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and return information in a form specified in the <code>YIELD</code> clause.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/4.fetch/">FETCH</a> statement is used to get properties from vertices or edges.</li>
 <li>The <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statement is based on <a href="#about_indexes">indexes</a>. It is used together with the <code>WHERE</code> clause to search for the data that meet the specific conditions.</li>
-<li><a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a>  is the most commonly used statement for graph data querying. But, it relies on indexes to match data patterns in Nebula Graph.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement is the most commonly used statement for graph data querying. But, it relies on indexes to match data patterns in Nebula Graph.</li>
 </ul>
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3851,7 +3859,8 @@ YIELD [DISTINCT] &lt;return_list&gt;
 </li>
 </ul>
 <ul>
-<li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} WHERE &lt;expression&gt; [AND expression ...])]
+<li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} 
+WHERE &lt;expression&gt; [AND expression ...])]
 [YIELD &lt;return_list&gt;]
 </code></pre></div>
 </li>
@@ -3938,7 +3947,7 @@ Got 1 rows (time spent 2902/3496 us)
 <td>Represents the source vertex of the edge.</td>
 </tr>
 <tr>
-<td><code>|</code></td>
+<td><code>\|</code></td>
 <td>A pipe symbol that can combine multiple queries.</td>
 </tr>
 <tr>
@@ -4099,9 +4108,12 @@ ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list);
 </code></pre></div>
 <h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h3>
 <p>Create an index for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(20));
 nebula&gt; REBUILD TAG INDEX player_index_0;
 </code></pre></div>
+<blockquote>
+<p><strong>NOTE:</strong> Define the index length when creating an index for a variable-length property. For more information, see <a href="../3.ngql-guide/14.native-index-statements/1.create-native-index/#create_single-property_indexes">CREATE INDEX</a></p>
+</blockquote>
 <h3 id="examples_of_lookup_and_match_index-based">Examples of LOOKUP and MATCH (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">&para;</a></h3>
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
 <p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>"Tony Parker"</code>.</p>

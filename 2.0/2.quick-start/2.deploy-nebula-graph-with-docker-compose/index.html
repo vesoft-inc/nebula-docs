@@ -459,8 +459,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_update_the_nebula-console_client" class="md-nav__link">
-    How to update the nebula-console client?
+  <a href="#how_to_update_the_nebula_console_client" class="md-nav__link">
+    How to update the Nebula Console client?
   </a>
   
 </li>
@@ -3234,8 +3234,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_update_the_nebula-console_client" class="md-nav__link">
-    How to update the nebula-console client?
+  <a href="#how_to_update_the_nebula_console_client" class="md-nav__link">
+    How to update the Nebula Console client?
   </a>
   
 </li>
@@ -3341,7 +3341,12 @@
 <li>You have started the Docker service on your host.</li>
 </ul>
 <ul>
-<li>If you have already deployed another version of Nebula Graph with Docker Compose on your host, to avoid compatibility issues，back up <a href="#check_the_service_data_and_logs">the service data</a> if you need, and delete the <code>nebula-docker-compose/data</code> directory.</li>
+<li>
+<p>If you have already deployed another version of Nebula Graph with Docker Compose on your host, to avoid compatibility issues，back up <a href="#check_the_service_data_and_logs">the service data</a> if you need, and delete the <code>nebula-docker-compose/data</code> directory.</p>
+<blockquote>
+<p><strong>NOTE:</strong> To backup the Nebula Graph data, see Use B&amp;R to backup data (TODO: doc).</p>
+</blockquote>
+</li>
 </ul>
 <h2 id="how_to_deploy">How to deploy<a class="headerlink" href="#how_to_deploy" title="Permanent link">&para;</a></h2>
 <ol>
@@ -3360,6 +3365,9 @@
 </li>
 <li>
 <p>Run the following command to start all the Nebula Graph services.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Update the <a href="#how-to-upgrade-nebula-graph-services">Nebula Graph images</a> and <a href="#how-to-update-the-nebula-console-client">Nebula Console images</a> first if they are out of date.</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code>nebula-docker-compose<span class="o">]</span>$ docker-compose up -d
 Creating nebula-docker-compose_metad0_1 ... <span class="k">done</span>
 Creating nebula-docker-compose_metad2_1 ... <span class="k">done</span>
@@ -3377,24 +3385,24 @@ Creating nebula-docker-compose_storaged1_1 ... <span class="k">done</span>
 </li>
 <li>
 <p>Connect to Nebula Graph.</p>
-<p>1. Start a Nebula Graph service in a Docker container.</p>
+<p>1. Run the following command to start a new docker container with the Nebula Console image, and connect the container to the network where Nebula Graph is deployed.</p>
 <div class="highlight"><pre><span></span><code>$ docker run --rm -ti --network nebula-docker-compose_nebula-net --entrypoint<span class="o">=</span>/bin/sh vesoft/nebula-console:v2-nightly
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong>: Your local network  (nebula-docker-compose_nebula-net) may be different from the example above. Use the following command.</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code>$ docker network  ls
-NETWORK ID          NAME                             DRIVER              SCOPE
-a74c312b1d16        bridge                           bridge              <span class="nb">local</span>
-dbfa82505f0e        host                             host                <span class="nb">local</span>
-ed55ccf356ae        nebuladockercompose_nebula-net   bridge              <span class="nb">local</span>
-93ba48b4b288        none                             null                <span class="nb">local</span>
+NETWORK ID          NAME                               DRIVER              SCOPE
+a74c312b1d16        bridge                             bridge              <span class="nb">local</span>
+dbfa82505f0e        host                               host                <span class="nb">local</span>
+ed55ccf356ae        nebula-docker-compose_nebula-net   bridge              <span class="nb">local</span>
+93ba48b4b288        none                               null                <span class="nb">local</span>
 </code></pre></div>
 <p>2. Connect to Nebula Graph with Nebula Console.</p>
 <div class="highlight"><pre><span></span><code>docker&gt; nebula-console -u user -p password --address<span class="o">=</span>graphd --port<span class="o">=</span><span class="m">9669</span>
 </code></pre></div>
 <blockquote>
-<p><strong>Note</strong>: By default, the authentication is off. Check Enable authentication (TODO: doc) to turn it on.</p>
+<p><strong>Note</strong>: By default, the authentication is off, you can log in with any user name and password. Check Enable authentication (TODO: doc) to turn it on.</p>
 </blockquote>
 <p>3. Run the <code>SHOW HOSTS</code> statement to check the status of the <code>nebula-storaged</code> processes.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS<span class="p">;</span>
@@ -3504,8 +3512,8 @@ Removing network nebula-docker-compose_nebula-net
 <p>You may meet the following error.</p>
 <p><code>ERROR: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading: https://www.docker.com/increase-rate-limit</code>.</p>
 <p>You have met the rate limit of Docker Hub. Learn more on <a href="https://www.docker.com/increase-rate-limit">Understanding Docker Hub Rate Limiting</a>.</p>
-<h3 id="how_to_update_the_nebula-console_client">How to update the nebula-console client?<a class="headerlink" href="#how_to_update_the_nebula-console_client" title="Permanent link">&para;</a></h3>
-<p>To update the nebula-console client, run the following command.</p>
+<h3 id="how_to_update_the_nebula_console_client">How to update the Nebula Console client?<a class="headerlink" href="#how_to_update_the_nebula_console_client" title="Permanent link">&para;</a></h3>
+<p>To update the Nebula Console client, run the following command.</p>
 <div class="highlight"><pre><span></span><code>docker pull vesoft/nebula-console:v2-nightly
 </code></pre></div>
 <h3 id="how_to_upgrade_nebula_graph_services">How to upgrade Nebula Graph services?<a class="headerlink" href="#how_to_upgrade_nebula_graph_services" title="Permanent link">&para;</a></h3>

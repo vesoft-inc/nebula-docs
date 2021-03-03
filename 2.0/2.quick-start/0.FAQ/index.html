@@ -3323,7 +3323,9 @@ Got 1 rows (time spent 1235/1934 us)
 </ul>
 <h3 id="can_i_set_replica_factor_as_an_even_number_in_create_space_eg_replica_factor_2">Can I set <code>replica_factor</code> as an even number in <code>CREATE SPACE</code> (e.g., replica_factor = 2) ?<a class="headerlink" href="#can_i_set_replica_factor_as_an_even_number_in_create_space_eg_replica_factor_2" title="Permanent link">&para;</a></h3>
 <p>NO.</p>
-<p>The storage service uses the Raft protocol (quorum-based voting) to elect a leader replica. When replica_factor is 2, both replicas take part in voting. The majority of 2 is 2, not 1. And when one replica is out of service, the other one can not start an election. Thus your system can not work.</p>
+<p>The Storage Service garantees its availability based on the Raft consensus protocol. The number of failed replicas must not exceed half of the total replica number.</p>
+<p>When <code>replica_factor=2</code>, if one replica fails, the Storage Service fails. No matter <code>replica_factor=3</code> or <code>replica_factor=4</code>, if more than one replica fails, the Storage Service fails, so <code>replica_factor=3</code> is recommended. </p>
+<p>To prevent unnecessary waste of resources, we recommend that you set an odd replica number.</p>
 <p>We suggest that you set replica_factor to 3 for the production environment and 1 for the test environment. Do not use an even number.</p>
 <h3 id="error_-7_syntaxerror_syntax_error_near"><code>[ERROR (-7)]: SyntaxError: syntax error near</code> '`<a class="headerlink" href="#error_-7_syntaxerror_syntax_error_near" title="Permanent link">&para;</a></h3>
 <p>In most cases, a query statement requires a <code>YIELD</code> or a <code>RETURN</code>. Check your query statement to see if <code>YIELD</code> or <code>RETURN</code>is provided.</p>
