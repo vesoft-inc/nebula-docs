@@ -3319,7 +3319,7 @@
 </li>
 </ul>
 <ul>
-<li>To install a specific version of Nebula Graph 2.x, use the <code>--branch &lt;branch_name&gt;</code> option to specify the correct branch. For example, to install 2.0.0 beta, run the following command.<div class="highlight"><pre><span></span><code>$ git clone --branch v2.0.0-beta https://github.com/vesoft-inc/nebula-graph.git
+<li>To install a specific version of Nebula Graph 2.x, use the <code>--branch</code> option to specify the correct branch. For example, to install 2.0.0, run the following command.<div class="highlight"><pre><span></span><code>$ git clone --branch v2.0.0 https://github.com/vesoft-inc/nebula-graph.git
 </code></pre></div>
 </li>
 </ul>
@@ -3340,7 +3340,7 @@
 <p><strong>NOTE</strong>:</p>
 <ul>
 <li>The installation path is <code>/user/local/nebula</code> by default. To customize it, add the <code>-DCMAKE_INSTALL_PREFIX=/your/install/path/</code> CMake variable in the following command.</li>
-<li>For more information about CMake variables, see <a href="#cmake-variables">CMake variables</a>.</li>
+<li>For more information about CMake variables, see <a href="#cmake_variables">CMake variables</a>.</li>
 </ul>
 </blockquote>
 <ul>
@@ -3349,27 +3349,27 @@
 </li>
 </ul>
 <ul>
-<li>If you are installing a specific version of Nebula Graph 2.x and has cloned the corresponding branch in step 1, use the <code>-DNEBULA_COMMON_REPO_TAG</code> and <code>-DNEBULA_STORAGE_REPO_TAG</code> options to specify the correct branches of the <a href="https://github.com/vesoft-inc/nebula-common" title="GitHub page of the nebula-common repository">nebula-common</a> and <a href="https://github.com/vesoft-inc/nebula-storage" title="GitHub page of the nebula-storage repository">nebula-storage</a> repositories. For example, to install 2.0.0 beta, run the following command.<div class="highlight"><pre><span></span><code>$ cmake -DENABLE_BUILD_STORAGE<span class="o">=</span>on -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release <span class="se">\</span>
--DNEBULA_COMMON_REPO_TAG<span class="o">=</span>v2.0.0-beta -DNEBULA_STORAGE_REPO_TAG<span class="o">=</span>v2.0.0-beta ..
+<li>If you are installing a specific version of Nebula Graph 2.x and has cloned the corresponding branch in step 1, use the <code>-DNEBULA_COMMON_REPO_TAG</code> and <code>-DNEBULA_STORAGE_REPO_TAG</code> options to specify the correct branches of the <a href="https://github.com/vesoft-inc/nebula-common" title="GitHub page of the nebula-common repository">nebula-common</a> and <a href="https://github.com/vesoft-inc/nebula-storage" title="GitHub page of the nebula-storage repository">nebula-storage</a> repositories. For example, to install 2.0.0 GA, run the following command.<div class="highlight"><pre><span></span><code>$ cmake -DENABLE_BUILD_STORAGE<span class="o">=</span>on -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release <span class="se">\</span>
+-DNEBULA_COMMON_REPO_TAG<span class="o">=</span>v2.0.0 -DNEBULA_STORAGE_REPO_TAG<span class="o">=</span>v2.0.0 ..
 </code></pre></div>
 </li>
 </ul>
 </li>
 <li>
 <p>Compile Nebula Graph.</p>
-<p>Assuming <em>cores</em> is the number of CPU cores and <em>mem_gb</em> is the memory size (in GB), to appropriately speed up the compiling, you can use the value of the smaller one between cores and mem_gb/2 as the value of N in the following command.</p>
+<p>To speed up the compiling, use the <code>-j</code> option to set a concurrent number <code>N</code>. Devide the memory size in GB by 2, and compare the result with the CPU core number. Set the smaller number between them as the concurrent number <code>N</code>.</p>
 <div class="highlight"><pre><span></span><code>$ make -j<span class="o">{</span>N<span class="o">}</span>
 </code></pre></div>
 </li>
 <li>
 <p>Install Nebula Graph.</p>
-<div class="highlight"><pre><span></span><code>$ make install-all
+<div class="highlight"><pre><span></span><code>$ sudo make install-all
 </code></pre></div>
 </li>
 </ol>
 <h2 id="cmake_variables">CMake variables<a class="headerlink" href="#cmake_variables" title="Permanent link">&para;</a></h2>
 <p>Usage of CMake variables:</p>
-<div class="highlight"><pre><span></span><code>$ cmake -DVariable<span class="o">=</span>&lt;value&gt; ...
+<div class="highlight"><pre><span></span><code>$ cmake -D&lt;variable&gt;<span class="o">=</span>&lt;value&gt; ...
 </code></pre></div>
 <p>The following CMake variables can be used at the configure (cmake) stage to adjust the compiling settings.</p>
 <h3 id="enable_build_storage">ENABLE_BUILD_STORAGE<a class="headerlink" href="#enable_build_storage" title="Permanent link">&para;</a></h3>
@@ -3393,8 +3393,8 @@
 </ul>
 <h3 id="cmake_c_compilercmake_cxx_compiler">CMAKE_C_COMPILER/CMAKE_CXX_COMPILER<a class="headerlink" href="#cmake_c_compilercmake_cxx_compiler" title="Permanent link">&para;</a></h3>
 <p>Usually, CMake locates and uses a C/C++ compiler installed in the host automatically. But if your compiler is not installed at the standard path, or if you want to use a different one, run the command as follows to specify the installation path of the target compiler:</p>
-<div class="highlight"><pre><span></span><code>$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/gcc/bin/gcc -DCMAKE_CXX_COMPILER<span class="o">=</span>/path/to/gcc/bin/g++ ..
-$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/clang/bin/clang -DCMAKE_CXX_COMPILER<span class="o">=</span>/path/to/clang/bin/clang++ ..
+<div class="highlight"><pre><span></span><code>$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>&lt;path_to_gcc/bin/gcc&gt; -DCMAKE_CXX_COMPILER<span class="o">=</span>&lt;path_to_gcc/bin/g++&gt; ..
+$ cmake -DCMAKE_C_COMPILER<span class="o">=</span>&lt;path_to_clang/bin/clang&gt; -DCMAKE_CXX_COMPILER<span class="o">=</span>&lt;path_to_clang/bin/clang++&gt; ..
 </code></pre></div>
 <h3 id="enable_ccache">ENABLE_CCACHE<a class="headerlink" href="#enable_ccache" title="Permanent link">&para;</a></h3>
 <p><code>ENABLE_CCACHE</code> is <code>ON</code> by default and ccache is used to speed up the compiling of Nebula Graph.</p>
@@ -3404,7 +3404,7 @@ $ cmake -DCMAKE_C_COMPILER<span class="o">=</span>/path/to/clang/bin/clang -DCMA
 <p><code>NEBULA_THIRDPARTY_ROOT</code> specifies the path where the third party software is installed. By default it is <code>/opt/vesoft/third-party</code>.</p>
 <h2 id="what_to_do_next">What to do next<a class="headerlink" href="#what_to_do_next" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="./5.start-stop-service.md">Start and Stop Nebula Graph</a></li>
+<li><a href="../../2.quickstart/5.start-stop-service.md">Manage Nebula Graph services</a></li>
 <li><a href="../../../2.quick-start/3.connect-to-nebula-graph/">Connect to Nebula Graph</a></li>
 <li><a href="../../../2.quick-start/4.nebula-graph-crud/">Try Nebula Graph CRUD</a></li>
 </ul>
