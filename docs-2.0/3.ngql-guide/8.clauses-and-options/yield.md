@@ -9,7 +9,7 @@
 
 ## OpenCypher Compatibility
 
-This topic applies to nGQL extensions only.
+This topic applies to nGQL extensions only. For the openCypher syntax, use [`RETURN`](return.md).
 
 `YIELD` has different functions in openCypher and nGQL.
 
