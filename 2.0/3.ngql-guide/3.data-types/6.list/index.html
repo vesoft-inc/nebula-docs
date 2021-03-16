@@ -633,7 +633,7 @@
       
         <li class="md-nav__item">
   <a href="#opencypher_compatibility" class="md-nav__link">
-    openCypher compatibility
+    OpenCypher compatibility
   </a>
   
 </li>
@@ -3232,7 +3232,7 @@
       
         <li class="md-nav__item">
   <a href="#opencypher_compatibility" class="md-nav__link">
-    openCypher compatibility
+    OpenCypher compatibility
   </a>
   
 </li>
@@ -3256,61 +3256,58 @@
                 
                 <h1 id="lists">Lists<a class="headerlink" href="#lists" title="Permanent link">&para;</a></h1>
 <p>The list is a composite data type. A list is a sequence of values. Individual list elements can be accessed by their positions.</p>
-<blockquote>
-<p><strong>OpenCypher compatibility</strong>: A composite data type (i.e. set, map, and list) <strong>CANNOT</strong> be stored as properties for vertices or edges.</p>
-</blockquote>
 <p>A list starts with a left square bracket <code>[</code> and ends with a right square bracket <code>]</code>. A list contains zero, one, or more expressions. List elements are separated from each other with commas (<code>,</code>). Whitespace around elements is ignored in list, thus line breaks, tab stops, and blanks can be used for formatting.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD [1, 2, 3] AS List;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN [1, 2, 3] AS List;
 +-----------+
 | List      |
 +-----------+
 | [1, 2, 3] |
 +-----------+
 
-nebula&gt; YIELD range(1,5)[3];
+nebula&gt; RETURN range(1,5)[3];
 +---------------+
 | range(1,5)[3] |
 +---------------+
 | 4             |
 +---------------+
 
-nebula&gt; YIELD range(1,5)[-2];
+nebula&gt; RETURN range(1,5)[-2];
 +------------------+
 | range(1,5)[-(2)] |
 +------------------+
 | 4                |
 +------------------+
 
-nebula&gt; YIELD [n IN range(1,5) WHERE n &gt; 2] AS a;
+nebula&gt; RETURN [n IN range(1,5) WHERE n &gt; 2] AS a;
 +-----------+
 | a         |
 +-----------+
 | [3, 4, 5] |
 +-----------+
 
-nebula&gt; YIELD [n IN range(1,5) WHERE n &gt; 2 | n + 10] AS a;
+nebula&gt; RETURN [n IN range(1,5) WHERE n &gt; 2 | n + 10] AS a;
 +--------------+
 | a            |
 +--------------+
 | [13, 14, 15] |
 +--------------+
 
-nebula&gt; YIELD [n IN range(1,5) | n + 10] AS a;
+nebula&gt; RETURN [n IN range(1,5) | n + 10] AS a;
 +----------------------+
 | a                    |
 +----------------------+
 | [11, 12, 13, 14, 15] |
 +----------------------+
 
-nebula&gt; YIELD tail([n IN range(1, 5) | 2 * n - 10]) AS a;
+nebula&gt; RETURN tail([n IN range(1, 5) | 2 * n - 10]) AS a;
 +-----------------+
 | a               |
 +-----------------+
 | [-6, -4, -2, 0] |
 +-----------------+
 
-nebula&gt; YIELD [n IN range(1, 3) WHERE true | n] AS r;
+nebula&gt; RETURN [n IN range(1, 3) WHERE true | n] AS r;
 +-----------+
 | r         |
 +-----------+
@@ -3328,7 +3325,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE follow.degree NOT IN 
 +-------------+--------+
 
 nebula&gt; MATCH p = (n:player{name:&quot;Tim Duncan&quot;})-[:follow]-&gt;(m) \
-                -&gt; RETURN [n IN nodes(p) | n.age + 100] AS r;
+        RETURN [n IN nodes(p) | n.age + 100] AS r;
 +------------+
 | r          |
 +------------+
@@ -3337,34 +3334,33 @@ nebula&gt; MATCH p = (n:player{name:&quot;Tim Duncan&quot;})-[:follow]-&gt;(m) \
 | [142, 133] |
 +------------+
 
-nebula&gt; YIELD size([1,2,3]);
+nebula&gt; RETURN size([1,2,3]);
 +---------------+
 | size([1,2,3]) |
 +---------------+
 | 3             |
 +---------------+
 </code></pre></div>
-<h2 id="opencypher_compatibility">openCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
-<p>TODO(coding)</p>
-<!--
-List has many incompatible with openCypher. Refer to github.
-
-At this time, Nebula Graph does not support using ranges inside the brackets to return ranges of the list.
-
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD range(0,5)[0..3];
+<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A composite data type (i.e., set, map, and list) <strong>CAN NOT</strong> be stored as properties for vertices or edges.</li>
+</ul>
+<ul>
+<li>Use the range() function to return the range of a list.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN range(0,5)[0..3];
 [ERROR (-7)]: SyntaxError: syntax error near `3]&#39;
 </code></pre></div>
-
-In openCypher, out-of-bound single elements returns `null`. However, in nGQL, out-of-bound single elements returns `OUT_OF_RANGE`.
-
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD range(0,5)[-12];
+<ul>
+<li>In openCypher, out-of-bound single elements returns <code>null</code>. However, in nGQL, out-of-bound single elements returns <code>OUT_OF_RANGE</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN range(0,5)[-12];
 +-------------------+
 | range(0,5)[-(12)] |
 +-------------------+
 | OUT_OF_RANGE      |
 +-------------------+
 </code></pre></div>
--->
                 
                   
                 

@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#type_conversion" tabindex="0" class="md-skip">
+      <a href="#type_conversiontype_coercions" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -661,15 +661,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#explicit_type_conversion" class="md-nav__link">
-    Explicit type conversion
+  <a href="#legacy_compatibility_issues" class="md-nav__link">
+    Legacy compatibility issues
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#type_conversion_functions" class="md-nav__link">
-    Type conversion functions
+  <a href="#type_coercions_functions" class="md-nav__link">
+    Type coercions functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -3224,15 +3231,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#explicit_type_conversion" class="md-nav__link">
-    Explicit type conversion
+  <a href="#legacy_compatibility_issues" class="md-nav__link">
+    Legacy compatibility issues
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#type_conversion_functions" class="md-nav__link">
-    Type conversion functions
+  <a href="#type_coercions_functions" class="md-nav__link">
+    Type coercions functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -3254,36 +3268,91 @@
               
                 
                 
-                <h1 id="type_conversion">Type Conversion<a class="headerlink" href="#type_conversion" title="Permanent link">&para;</a></h1>
-<p>Converting an expression of a given type to another type is known as type conversion. In nGQL, type conversion is divided into explicit conversion.</p>
-<!-- Converting an expression of a given type to another type is known as type conversion. In nGQL, type conversion is divided into implicit conversion and explicit conversion. -->
+                <h1 id="type_conversiontype_coercions">Type Conversion/Type coercions<a class="headerlink" href="#type_conversiontype_coercions" title="Permanent link">&para;</a></h1>
+<p>Converting an expression of a given type to another type is known as type conversion. </p>
+<h2 id="legacy_compatibility_issues">Legacy compatibility issues<a class="headerlink" href="#legacy_compatibility_issues" title="Permanent link">&para;</a></h2>
+<p>NGQL 1.0 adopted the <code>C</code>-style of type conversion (implicitly or explicitly). <code>(type_name)expression</code>. For example, The results of <code>YIELD (int)(TRUE)</code> is <code>1</code>.</p>
+<p>But it is error-prone to users who are not familiar with C language.</p>
+<p>NGQL 2.0 chooses the openCypher way of type coercions.</p>
+<h2 id="type_coercions_functions">Type coercions functions<a class="headerlink" href="#type_coercions_functions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toBoolean()</td>
+<td>Converts a string value to a boolean value.</td>
+</tr>
+<tr>
+<td>toFloat()</td>
+<td>Converts an integer or string value to a floating point number.</td>
+</tr>
+<tr>
+<td>toInteger()</td>
+<td>Converts a floating point or string value to an integer value.</td>
+</tr>
+<tr>
+<td>type()</td>
+<td>Returns the string representation of the relationship type.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b RETURN toBoolean(b) AS b
++----------+
+| b        |
++----------+
+| true     |
++----------+
+| false    |
++----------+
+| true     |
++----------+
+| false    |
++----------+
+| __NULL__ |
++----------+
 
-<!-- ## Implicit type conversion
+nebula&gt; RETURN toFloat(1), toFloat(&#39;1.3&#39;), toFloat(&#39;1e3&#39;), toFloat(&#39;not a number&#39;)
++------------+----------------+----------------+-------------------------+
+| toFloat(1) | toFloat(&quot;1.3&quot;) | toFloat(&quot;1e3&quot;) | toFloat(&quot;not a number&quot;) |
++------------+----------------+----------------+-------------------------+
+| 1.0        | 1.3            | 1000.0         | __NULL__                |
++------------+----------------+----------------+-------------------------+
 
-Implicit conversions are automatically performed when a value is copied to a compatible type.
+nebula&gt; RETURN toInteger(1), toInteger(&#39;1&#39;), toInteger(&#39;1e3&#39;), toInteger(&#39;not a number&#39;)
++--------------+----------------+------------------+---------------------------+
+| toInteger(1) | toInteger(&quot;1&quot;) | toInteger(&quot;1e3&quot;) | toInteger(&quot;not a number&quot;) |
++--------------+----------------+------------------+---------------------------+
+| 1            | 1              | 1000             | __NULL__                  |
++--------------+----------------+------------------+---------------------------+
 
-1. Following types can implicitly converted to `bool`:
+nebula&gt; match (a:player)-[e]-() return type(e)
++----------+
+| type(e)  |
++----------+
+| &quot;follow&quot; |
++----------+
+| &quot;follow&quot; |
 
-   - The conversions from/to bool consider `false` equivalent to `0` for empty string types, and `true` is equivalent to all other values.
-   - The conversions from/to bool consider `false` equivalent to `0` for int types, and `true` is equivalent to all other values.
-   - The conversions from/to bool consider `false` equivalent to `0.0` for float types, and `true` is equivalent to all other values.
+nebula&gt; match (a:player {name: &quot;Tim Duncan&quot;}) WHERE toInteger(id(a)) == 100 RETURN a
++----------------------------------------------+
+| a                                            |
++----------------------------------------------+
+| (&quot;100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
++----------------------------------------------+
 
-2. `int` can be implicitly converted to `double`. -->
-
-<h2 id="explicit_type_conversion">Explicit type conversion<a class="headerlink" href="#explicit_type_conversion" title="Permanent link">&para;</a></h2>
-<p>In addition to implicit type conversion, explicit type conversion is also supported in case of semantics compliance. The syntax is similar to the <code>C</code> language:</p>
-<p><code>(type_name)expression</code>.</p>
-<p>For example, the results of <code>YIELD length((string)(123)), (int)"123" + 1</code> are <code>3, 124</code> respectively. The results of <code>YIELD (int)(TRUE)</code> is <code>1</code>. And <code>YIELD (int)("12ab3")</code> fails in conversion.</p>
-<h2 id="type_conversion_functions">Type conversion functions<a class="headerlink" href="#type_conversion_functions" title="Permanent link">&para;</a></h2>
-<p>TODO(coding)</p>
-<!-- the following standard opencypher functions are not implemented yet.
-| Function | Description |
-| - | - |
-| toBoolean() | Converts a string value to a boolean value. | 
-| toFloat() | Converts an integer or string value to a floating point number. |
-| toInteger() | Converts a floating point or string value to an integer value. |
-| type() | Returns the string representation of the relationship type.  |
--->
+nebula&gt; match (n:player) WITH n LIMIT toInteger(ceil(1.8)) RETURN count(*) AS count
++-------+
+| count |
++-------+
+| 2     |
++-------+
+</code></pre></div>
                 
                   
                 

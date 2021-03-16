@@ -601,6 +601,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#date" class="md-nav__link">
     DATE
   </a>
@@ -3245,6 +3252,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher Compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#date" class="md-nav__link">
     DATE
   </a>
@@ -3298,7 +3312,17 @@
                 
                 <h1 id="date_and_time_types">Date and time types<a class="headerlink" href="#date_and_time_types" title="Permanent link">&para;</a></h1>
 <p>This document describes the <code>DATE</code>, <code>TIME</code>, <code>DATETIME</code>, and <code>TIMESTAMP</code> types. Nebula Graph converts the <code>DATE</code>, <code>TIME</code>, <code>DATETIME</code>, and <code>TIMESTAMP</code> values from the current time zone to <strong>UTC</strong> for storage. Nebula Graph converts back from UTC to the current time zone for retrieval.</p>
-<p>Combined with <code>YIELD</code>, functions <code>date()</code>, <code>time()</code>, <code>datetime()</code> all accept empty parameters to return the current date, time and datetime.</p>
+<p>Combined with <code>RETURN</code>, functions <code>date()</code>, <code>time()</code>, <code>datetime()</code> all accept empty parameters to return the current date, time and datetime.</p>
+<h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Parameters <code>year, month, day, hour, minute, second</code> are supported. But <code>nanosecond, timezone</code> are not supported.</li>
+</ul>
+<ul>
+<li><code>localdatetime()</code>, <code>duration()</code> are not supported.</li>
+</ul>
+<ul>
+<li>Most string time formats are not supported. The only exception is <code>2017-03-04T22:30:40</code>.</li>
+</ul>
 <h2 id="date">DATE<a class="headerlink" href="#date" title="Permanent link">&para;</a></h2>
 <p>The <code>DATE</code> type is used for values with a date part but no time part. Nebula Graph retrieves and displays <code>DATE</code> values in the <code>YYYY-MM-DD</code> format. The supported range is <code>-32768-01-01</code> to <code>32767-12-31</code>.</p>
 <h2 id="time">TIME<a class="headerlink" href="#time" title="Permanent link">&para;</a></h2>
@@ -3347,6 +3371,14 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 +------------+
 | 1984-10-12 |
 +------------+
+
+nebula&gt; WITH datetime({year: 1984, month: 10, day: 11, hour: 12, minute: 31, second: 14}) AS d \
+        RETURN toString(d) AS ts, datetime(toString(d)) == d AS b
++-------------------------+------+
+| ts                      | b    |
++-------------------------+------+
+| &quot;1984-10-11T12:31:14.0&quot; | true |
++-------------------------+------+
 </code></pre></div>
                 
                   

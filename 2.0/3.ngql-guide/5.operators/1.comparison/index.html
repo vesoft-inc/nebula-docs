@@ -3260,34 +3260,34 @@
 </table>
 <p>Comparison operations result in a value of <em>true</em> and <em>false</em>.</p>
 <blockquote>
-<p>Tips: Comparability between values of different types is often undefined.</p>
+<p>Tips: Comparability between values of different types is often undefined. The result could be NULL or others.</p>
 </blockquote>
 <ul>
 <li><code>==</code></li>
 </ul>
-<p>Equal. String comparisons are case-sensitive. Values of different types are not equal.</p>
+<p>Equal. String comparisons are case-sensitive. Values of different types are not equal. </p>
 <blockquote>
 <p><strong>NOTE:</strong> The equality operator is <code>==</code> in nGQL and is <code>=</code> in openCypher.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &#39;A&#39; == &#39;a&#39;;
-+--------+
-| (A==a) |
-+--------+
-| false  |
-+--------+
+<div class="highlight"><pre><span></span><code>nebula&gt;  RETURN &#39;A&#39; == &#39;a&#39;, toUpper(&#39;A&#39;) == toUpper(&#39;a&#39;), toLower(&#39;A&#39;) == toLower(&#39;a&#39;)
++------------+------------------------------+------------------------------+
+| (&quot;A&quot;==&quot;a&quot;) | (toUpper(&quot;A&quot;)==toUpper(&quot;a&quot;)) | (toLower(&quot;A&quot;)==toLower(&quot;a&quot;)) |
++------------+------------------------------+------------------------------+
+| false      | true                         | true                         |
++------------+------------------------------+------------------------------+
 
-nebula&gt; YIELD &#39;2&#39; == 2;
-+--------+
-| (2==2) |
-+--------+
-| false  |
-+--------+
+nebula&gt; RETURN &#39;2&#39; == 2, toInteger(&#39;2&#39;) == 2;
++----------+---------------------+
+| (&quot;2&quot;==2) | (toInteger(&quot;2&quot;)==2) |
++----------+---------------------+
+| false    | true                |
++----------+---------------------+
 </code></pre></div>
 <ul>
 <li><code>&gt;</code></li>
 </ul>
 <p>Greater than:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD 3 &gt; 2;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN 3 &gt; 2;
 +-------+
 | (3&gt;2) |
 +-------+
@@ -3305,19 +3305,12 @@ nebula&gt;  WITH 4 AS one, 3 AS two RETURN one &gt; two AS result;
 <li><code>&gt;=</code></li>
 </ul>
 <p>Greater than or equal to:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD 2 &gt;= &quot;2&quot;;
-+--------+
-| (2&gt;=2) |
-+--------+
-| false  |
-+--------+
-
-nebula&gt; YIELD 2 &gt;= 2;
-+--------+
-| (2&gt;=2) |
-+--------+
-| true   |
-+--------+
+<div class="highlight"><pre><span></span><code>nebula&gt;  RETURN 2 &gt;= &quot;2&quot;, 2 &gt;= 2
++----------+--------+
+| (2&gt;=&quot;2&quot;) | (2&gt;=2) |
++----------+--------+
+| __NULL__ | true   |
++----------+--------+
 </code></pre></div>
 <ul>
 <li><code>&lt;</code></li>
