@@ -3826,11 +3826,11 @@ Got 3 rows (time spent 2897/5993 us)
 +-------------------------------------------+
 | p                                         |
 +-------------------------------------------+
-| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;   |
 +-------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)  |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt; |
 +-------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)  |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt; |
 +-------------------------------------------+
 Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
@@ -3844,11 +3844,11 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player101&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player100&quot;)                    |
+| [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {degree: 95}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player102&quot;)-[:follow@0{likeness: 75}]-&gt;(&quot;player100&quot;)                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player104&quot;)-[:follow@0{likeness: 55}]-&gt;(&quot;player100&quot;)                    |
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 ...
 </code></pre></div>
@@ -3858,18 +3858,18 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:serve@0{end_year: 2016, start_year: 1997}]-&gt;(&quot;player204&quot;) |
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 Got 1 rows (time spent 5041/5630 us)
 </code></pre></div>
 <p>And edge type properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;edge_type&gt;</code>. For example: <code>[e:follow{likeness:95}]</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow{likeness:95}]-&gt;(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow{degree:95}]-&gt;(v2) RETURN e;
 +--------------------------------------------------------+
 | e                                                      |
 +--------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;) |
+| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]     |
 +--------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;) |
+| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]     |
 +--------------------------------------------------------+
 Got 2 rows (time spent 6080/6728 us)
 </code></pre></div>
@@ -3879,11 +3879,11 @@ Got 2 rows (time spent 6080/6728 us)
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)                    |
+| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)                    |
+| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:serve@0{end_year: 2016, start_year: 1997}]-&gt;(&quot;player204&quot;) |
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 Got 3 rows (time spent 4264/4976 us)
 </code></pre></div>
@@ -3916,7 +3916,7 @@ Got 3 rows (time spent 4264/4976 us)
 Got 3 rows (time spent 4863/5591 us)
 </code></pre></div>
 <p>If <code>hop</code> is 0, the pattern matches the source vertex on the path.</p>
-<div class="highlight"><pre><span></span><code>MATCH (v:player{name:&quot;Tim Duncan&quot;}) -[*0]-&gt; (v2) RETURN v2;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -[*0]-&gt; (v2) RETURN v2;
 +----------------------------------------------------+
 | v2                                                 |
 +----------------------------------------------------+
@@ -4033,11 +4033,11 @@ Got 1 rows (time spent 1863/2545 us)
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:serve@0{start_year: 1997, end_year: 2016}]-&gt;(&quot;player204&quot;) |
+| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)                    |
+| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]                        |
 +---------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)                    |
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 Got 3 rows (time spent 3139/3773 us)
 </code></pre></div>
@@ -4072,7 +4072,7 @@ Got 1 rows (time spent 2609/3481 us)
 </code></pre></div>
 <h3 id="retrieve_a_single_property_on_a_vertex_or_an_edge">Retrieve a single property on a vertex or an edge<a class="headerlink" href="#retrieve_a_single_property_on_a_vertex_or_an_edge" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}.&lt;property&gt;</code> to retrieve a single property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age AS Age;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age;
 +-------+
 | v.age |
 +-------+
@@ -4121,11 +4121,11 @@ Got 3 rows (time spent 3776/4660 us)
 +-------------------------------------------------------------------------------------------------+
 | p                                                                                               |
 +-------------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2019, start_year: 2015}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;           |
 +-------------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2015, start_year: 2006}]-&gt;(&quot;team203&quot; :team{name: &quot;Trail Blazers&quot;})&gt;   |
 +-------------------------------------------------------------------------------------------------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)  |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:follow@0 {degree: 75}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;             |
 +-------------------------------------------------------------------------------------------------+
 ...
 </code></pre></div>
@@ -4149,11 +4149,11 @@ Got 3 rows (time spent 2529/3128 us)
 +-----------------------------------------------------------------------------+
 | relationships(p)                                                            |
 +-----------------------------------------------------------------------------+
-| [(&quot;player100&quot;)-[:serve@0{end_year: 2016, start_year: 1997}]-&gt;(&quot;player204&quot;)] |
+| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]]                        |
 +-----------------------------------------------------------------------------+
-| [(&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player101&quot;)]                    |
+| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]]                        |
 +-----------------------------------------------------------------------------+
-| [(&quot;player100&quot;)-[:follow@0{likeness: 95}]-&gt;(&quot;player125&quot;)]                    |
+| [[:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]]     |
 +-----------------------------------------------------------------------------+
 Got 3 rows (time spent 2715/3363 us)
 </code></pre></div>
@@ -4164,27 +4164,24 @@ Got 3 rows (time spent 2715/3363 us)
 +----------------------------------------------------------------------+--------+
 | Paths                                                                | Length |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:serve@0 {end_year: 2018, start_year: 2002}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;   | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:serve@0]-&gt;(&quot;player215&quot;)   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;      | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)  | 2      |
+|  &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;(&quot;team215&quot; :team{name: &quot;Hornets&quot;})&gt;  | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player102&quot;)  | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2018, start_year: 1999}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;     | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)  | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;     | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})&gt; | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)-[:follow@0]-&gt;(&quot;player100&quot;)  | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;        | 2      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:serve@0]-&gt;(&quot;player204&quot;)                              | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;                                                                                   | 1      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player101&quot;)                             | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;                                                                                   | 1      |
 +----------------------------------------------------------------------+--------+
-| (&quot;player100&quot;)-[:follow@0]-&gt;(&quot;player125&quot;)                             | 1      |
-+----------------------------------------------------------------------+--------+
-Got 10 rows (time spent 3774/4516 us)
 </code></pre></div>
                 
                   
