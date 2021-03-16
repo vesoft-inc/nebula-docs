@@ -24,8 +24,8 @@ You only need to modify the configuration for the corresponding service on the m
 For how to prepare the configuration files, see:
 
 * [Meta Service configurations](../5.configurations-and-logs/1.configurations/2.meta-config.md)
-* [Graph Service configurations](../5.configurations-and-logs/1.configurations/2.graph-config.md)
-* [Storage Service configurations](../5.configurations-and-logs/1.configurations/2.storage-config.md)
+* [Graph Service configurations](../5.configurations-and-logs/1.configurations/3.graph-config.md)
+* [Storage Service configurations](../5.configurations-and-logs/1.configurations/4.storage-config.md)
 
 ## Step 3: Start the cluster
 
