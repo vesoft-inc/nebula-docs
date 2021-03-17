@@ -2472,7 +2472,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3257,16 +3257,33 @@
                 <h1 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h1>
 <p>This document gives some introduction to configurations in Nebula Graph.</p>
 <h2 id="get_configurations">Get configurations<a class="headerlink" href="#get_configurations" title="Permanent link">&para;</a></h2>
-<p>By default, Nebula Graph gets configurations from the Meta Service. But we suggest that you get configurations from local. To get configurations from local, follow these steps:</p>
+<p>Most configurations are gflags. You can get all the gflags and the explanations by command like</p>
+<div class="highlight"><pre><span></span><code>binary --help
+</code></pre></div>
+<p>E.g.,
+<div class="highlight"><pre><span></span><code>./nebula-metad  --help
+./nebula-graphd --help
+./nebula-storaged --help
+./nebula-console --help
+</code></pre></div></p>
+<p>Besides, you can get the running flags' value by <code>curl</code>-ing to the service.</p>
+<p>E.g.,
+<div class="highlight"><pre><span></span><code>curl <span class="m">127</span>.0.0.1:19779/flags <span class="c1"># to metad</span>
+curl <span class="m">127</span>.0.0.1:19669/flags <span class="c1"># to graphd</span>
+curl <span class="m">127</span>.0.0.1:19559/flags <span class="c1"># to storaged</span>
+</code></pre></div></p>
+<h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">&para;</a></h2>
+<p>We suggest that you change configurations from local configure files. To change configurations from local files, follow these steps:</p>
 <ol>
 <li>Add <code>--local_config=true</code> to each configuration file.
     The configuration files are stored in <code>/usr/local/nebula/etc/</code> by default. If you have customized your Nebula Graph installation directory, the path to your configuration files is <code>$pwd/nebula/etc/</code>.</li>
-<li>Save your modification in step one and close the configuration file.</li>
-<li>Restart the Nebula Graph services.
-    To make your modifications take effect, restart all the Nebula Graph services.</li>
+<li>Save your modification to the files.</li>
+<li>Restart the Nebula Graph services.</li>
 </ol>
-<h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">&para;</a></h2>
-<p>To modify configurations, edit the configuration files. To make your modifications take effect, add <code>--local_config=true</code> to each configuration file. For more information, see <a href="#get_configuration">Get configuration</a>.</p>
+<blockquote>
+<p><strong>NOTE</strong>: Remember to add  <code>--local_config=true</code> to each configuration file.
+To make your modifications take effect, restart all the Nebula Graph services.</p>
+</blockquote>
                 
                   
                 

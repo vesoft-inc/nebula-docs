@@ -2436,7 +2436,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3250,17 +3250,18 @@
 </tr>
 <tr>
 <td align="left"><code>IS NULL</code></td>
-<td align="center">NULL test TODO(coding)</td>
+<td align="center">NULL check</td>
 </tr>
 <tr>
 <td align="left"><code>IS NOT NULL</code></td>
-<td align="center">not NULL test TODO(coding)</td>
+<td align="center">not NULL check</td>
 </tr>
 </tbody>
 </table>
 <p>Comparison operations result in a value of <em>true</em> and <em>false</em>.</p>
 <blockquote>
 <p>Tips: Comparability between values of different types is often undefined. The result could be NULL or others.</p>
+<p><strong>OpenCypher compatibility</strong>: Comparing with NULL is different from openCypher. The behavior may change. <code>IS [NOT] NULL</code> is often used with <code>OPTIONAL MATCH</code>. But <code>OPTIONAL MATCH</code> is not support in nGQL.</p>
 </blockquote>
 <ul>
 <li><code>==</code></li>
@@ -3346,9 +3347,49 @@ nebula&gt;  WITH 4 AS one, 3 AS two RETURN one &gt; two AS result;
 +--------+
 </code></pre></div>
 <ul>
-<li><code>NULL</code></li>
+<li><code>IS [NOT] NULL</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; TODO
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN null IS NULL AS value1, null == null AS value2, null != null AS value3
++--------+----------+----------+
+| value1 | value2   | value3   |
++--------+----------+----------+
+| true   | __NULL__ | __NULL__ |
++--------+----------+----------+
+
+nebula&gt; RETURN length(NULL), size(NULL), count(NULL), NULL IS NULL, NULL IS NOT NULL, sin(NULL), NULL + NULL, [1, NULL] IS NULL
++--------------+------------+-------------+--------------+------------------+-----------+-------------+------------------+
+| length(NULL) | size(NULL) | COUNT(NULL) | NULL IS NULL | NULL IS NOT NULL | sin(NULL) | (NULL+NULL) | [1,NULL] IS NULL |
++--------------+------------+-------------+--------------+------------------+-----------+-------------+------------------+
+| BAD_TYPE     | __NULL__   | 0           | true         | false            | BAD_TYPE  | __NULL__    | false            |
++--------------+------------+-------------+--------------+------------------+-----------+-------------+------------------+
+
+nebula&gt; WITH {name: null} AS map RETURN map.name IS NOT NULL
++----------------------+
+| map.name IS NOT NULL |
++----------------------+
+| false                |
++----------------------+
+
+nebula&gt; WITH {name: &#39;Mats&#39;, name2: &#39;Pontus&#39;} AS map1, \
+       {name: null} AS map2, {notName: 0, notName2: null } AS map3 \
+       RETURN map1.name IS NULL, map2.name IS NOT NULL, map3.name IS NULL
++-------------------+-----------------------+-------------------+
+| map1.name IS NULL | map2.name IS NOT NULL | map3.name IS NULL |
++-------------------+-----------------------+-------------------+
+| false             | false                 | true              |
++-------------------+-----------------------+-------------------+
+
+nebula&gt; MATCH (n:player) RETURN n.age IS NULL, n.name IS NOT NULL, n.empty IS NULL
++---------------+--------------------+-----------------+
+| n.age IS NULL | n.name IS NOT NULL | n.empty IS NULL |
++---------------+--------------------+-----------------+
+| false         | true               | true            |
++---------------+--------------------+-----------------+
+| false         | true               | true            |
++---------------+--------------------+-----------------+
+| false         | true               | true            |
++---------------+--------------------+-----------------+
+...
 </code></pre></div>
                 
                   

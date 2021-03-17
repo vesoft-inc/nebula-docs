@@ -2465,7 +2465,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3282,7 +3282,7 @@
 <ul>
 <li>concatenation (+)</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &#39;a&#39; + &#39;b&#39;;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;a&#39; + &#39;b&#39;;
 +-------+
 | (a+b) |
 +-------+
@@ -3299,25 +3299,25 @@ nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
 <li>CONTAINS</li>
 </ul>
 <p>The <code>CONTAINS</code> operator requires string type in both left and right side.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE $$.team.name CONTAINS &quot;ets&quot; \
-YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
+    AND t.name CONTAINS &quot;ets&quot; RETURN s.name, e.start_year, e.end_year, t.name;
++---------------+--------------+------------+-----------+
+| s.name        | e.start_year | e.end_year | t.name    |
++---------------+--------------+------------+-----------+
+| &quot;Tony Parker&quot; | 2018         | 2019       | &quot;Hornets&quot; |
++---------------+--------------+------------+-----------+
+
+nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE (STRING)serve.start_year CONTAINS &quot;19&quot; AND \
+    $^.player.name CONTAINS &quot;ny&quot; \
+    YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 +----------------+------------------+----------------+--------------+
 | $^.player.name | serve.start_year | serve.end_year | $$.team.name |
 +----------------+------------------+----------------+--------------+
-| &quot;Tony Parker&quot;  | 1999             | 2018           | &quot;Nuggets&quot;    |
+| &quot;Tony Parker&quot;  | 1999             | 2018           | &quot;Spurs&quot;      |
 +----------------+------------------+----------------+--------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE (STRING)serve.start_year CONTAINS &quot;19&quot; AND \
-$^.player.name CONTAINS &quot;ny&quot; \
-YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
-+----------------+------------------+----------------+--------------+
-| $^.player.name | serve.start_year | serve.end_year | $$.team.name |
-+----------------+------------------+----------------+--------------+
-| &quot;Tony Parker&quot;  | 1999             | 2018           | &quot;Nuggets&quot;    |
-+----------------+------------------+----------------+--------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !($$.team.name CONTAINS &quot;ets&quot;) \
-YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+
+nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !($$.team.name CONTAINS &quot;ets&quot;) \
+    YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 +----------------+------------------+----------------+--------------+
 | $^.player.name | serve.start_year | serve.end_year | $$.team.name |
 +----------------+------------------+----------------+--------------+
@@ -3327,101 +3327,45 @@ YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 <ul>
 <li>IN</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD 1 IN [1,2,3];
-+----------------+
-| (1 IN [1,2,3]) |
-+----------------+
-| true           |
-+----------------+
-
-nebula&gt; YIELD &quot;Yao&quot; IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;];
-+------------------------+
-| (Yao IN [Yi,Tim,Kobe]) |
-+------------------------+
-| false                  |
-+------------------------+
-
-nebula&gt; YIELD NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;]; //TODO(coding)
-+-----------------------------+
-| (__NULL__ IN [Yi,Tim,Kobe]) |
-+-----------------------------+
-| NULL                        |
-+-----------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], &quot;Yao&quot; IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;], NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;]
++----------------+--------------------------------+-------------------------------+
+| (1 IN [1,2,3]) | (&quot;Yao&quot; IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) | (NULL IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) |
++----------------+--------------------------------+-------------------------------+
+| true           | false                          | false                         |
++----------------+--------------------------------+-------------------------------+
 </code></pre></div>
 <ul>
 <li>(NOT) STARTS WITH</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &#39;apple&#39; STARTS WITH &#39;app&#39;;
-+-------------------------+
-| (apple STARTS WITH app) |
-+-------------------------+
-| true                    |
-+-------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;app&#39;, &#39;apple&#39; STARTS WITH &#39;a&#39;, &#39;apple&#39; STARTS WITH toUpper(&#39;a&#39;)
++-----------------------------+---------------------------+------------------------------------+
+| (&quot;apple&quot; STARTS WITH &quot;app&quot;) | (&quot;apple&quot; STARTS WITH &quot;a&quot;) | (&quot;apple&quot; STARTS WITH toUpper(&quot;a&quot;)) |
++-----------------------------+---------------------------+------------------------------------+
+| true                        | true                      | false                              |
++-----------------------------+---------------------------+------------------------------------+
 
-nebula&gt; YIELD &#39;apple&#39; STARTS WITH &#39;a&#39;;
-+-----------------------+
-| (apple STARTS WITH a) |
-+-----------------------+
-| true                  |
-+-----------------------+
-
-nebula&gt; YIELD &#39;apple&#39; STARTS WITH &#39;A&#39;;
-+-----------------------+
-| (apple STARTS WITH A) |
-+-----------------------+
-| false                 |
-+-----------------------+
-
-nebula&gt; YIELD &#39;apple&#39; STARTS WITH &#39;b&#39;;
-+-----------------------+
-| (apple STARTS WITH b) |
-+-----------------------+
-| false                 |
-+-----------------------+
-
-nebula&gt; YIELD &#39;apple&#39; NOT STARTS WITH &#39;app&#39;;
-+-----------------------------+
-| (apple NOT STARTS WITH app) |
-+-----------------------------+
-| false                       |
-+-----------------------------+
+nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;b&#39;,&#39;apple&#39; NOT STARTS WITH &#39;app&#39;
++---------------------------+---------------------------------+
+| (&quot;apple&quot; STARTS WITH &quot;b&quot;) | (&quot;apple&quot; NOT STARTS WITH &quot;app&quot;) |
++---------------------------+---------------------------------+
+| false                     | false                           |
++---------------------------+---------------------------------+
 </code></pre></div>
 <ul>
 <li>(NOT) ENDS WITH</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;app&#39;;
-+-----------------------+
-| (apple ENDS WITH app) |
-+-----------------------+
-| false                 |
-+-----------------------+
-
-nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;e&#39;;
-+---------------------+
-| (apple ENDS WITH e) |
-+---------------------+
-| true                |
-+---------------------+
-
-nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;E&#39;;
-+---------------------+
-| (apple ENDS WITH E) |
-+---------------------+
-| false               |
-+---------------------+
-
-nebula&gt; YIELD &#39;apple&#39; ENDS WITH &#39;b&#39;;
-+---------------------+
-| (apple ENDS WITH b) |
-+---------------------+
-| false               |
-+---------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; ENDS WITH &#39;app&#39;, &#39;apple&#39; ENDS WITH &#39;e&#39;, &#39;apple&#39; ENDS WITH &#39;E&#39;, &#39;apple&#39; ENDS WITH &#39;b&#39;
++---------------------------+-------------------------+-------------------------+-------------------------+
+| (&quot;apple&quot; ENDS WITH &quot;app&quot;) | (&quot;apple&quot; ENDS WITH &quot;e&quot;) | (&quot;apple&quot; ENDS WITH &quot;E&quot;) | (&quot;apple&quot; ENDS WITH &quot;b&quot;) |
++---------------------------+-------------------------+-------------------------+-------------------------+
+| false                     | true                    | false                   | false                   |
++---------------------------+-------------------------+-------------------------+-------------------------+
 </code></pre></div>
 <ul>
 <li>Regular expressions</li>
 </ul>
 <p>Nebula Graph supports filtering by using regular expressions. The regular expression syntax is inherited from <code>st::regex</code>. You can match on regular expressions by using <code>=~ 'regexp'</code>. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
 +----------------------------+
 | (384748.39=~\d+(\.\d{2})?) |
 +----------------------------+

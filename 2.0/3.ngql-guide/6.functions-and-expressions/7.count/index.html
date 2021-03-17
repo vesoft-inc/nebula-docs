@@ -2485,7 +2485,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3290,8 +3290,9 @@
 <div class="highlight"><pre><span></span><code>count({expr | *})
 </code></pre></div>
 <ul>
-<li>count(*) returns the number of rows (including NULL),</li>
+<li>count(*) returns the number of rows (including NULL).</li>
 <li>count(expr) return non-NULL values return by an expression.</li>
+<li>count() and size() are different.</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b RETURN count(b), count(*), count(DISTINCT b)
@@ -3301,7 +3302,7 @@
 | 4        | 5        | 2                 |
 +----------+----------+-------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT YIELD $$.player.name as Name | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT YIELD $$.player.name AS Name | \
         GROUP BY $-.Name YIELD $-.Name, count(*);
 +---------------------+----------+
 | $-.Name             | COUNT(*) |
@@ -3377,14 +3378,13 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 +------------+---------------------+
 </code></pre></div>
 <h2 id="countnull">count(NULL)<a class="headerlink" href="#countnull" title="Permanent link">&para;</a></h2>
-<p><div class="highlight"><pre><span></span><code>nebula&gt; YIELD count(NULL);
-+-----------------+
-| COUNT(__NULL__) |
-+-----------------+
-| 0               |
-+-----------------+
+<div class="highlight"><pre><span></span><code>nebula&gt;  RETURN count(NULL), size(NULL)
++-------------+------------+
+| COUNT(NULL) | size(NULL) |
++-------------+------------+
+| 0           | __NULL__   |
++-------------+------------+
 </code></pre></div>
-Counting NULL returns 0.</p>
                 
                   
                 

@@ -2465,7 +2465,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3262,22 +3262,34 @@ nebula&gt; UNWIND [1, 2, 1] AS a RETURN collect(a);
 +------------+
 | [1, 2, 1]  |
 +------------+
-nebula&gt; UNWIND [1, 2, 1] AS a RETURN a, collect(a);
-+---+------------+
-| a | COLLECT(a) |
-+---+------------+
-| 2 | [2]        |
-+---+------------+
-| 1 | [1, 1]     |
-+---+------------+
+nebula&gt; UNWIND [1, 2, 1] AS a RETURN a, collect(a), size(collect(a))
++---+------------+------------------+
+| a | COLLECT(a) | size(COLLECT(a)) |
++---+------------+------------------+
+| 2 | [2]        | 1                |
++---+------------+------------------+
+| 1 | [1, 1]     | 2                |
++---+------------+------------------+
 </code></pre></div>
 <p>You can sort reversely, limit output rows to 3, and collect the output into a list.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] AS p WITH p AS q ORDER BY q DESC LIMIT 3 RETURN collect(q);
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] AS p \
+    WITH p AS q \
+    ORDER BY q DESC LIMIT 3 \
+    RETURN collect(q);
 +-----------------+
 | COLLECT(q)      |
 +-----------------+
 | [&quot;d&quot;, &quot;c&quot;, &quot;b&quot;] |
 +-----------------+
+nebula&gt; WITH [1, 1, 2, 2] AS coll \
+    UNWIND coll AS x \
+    WITH DISTINCT x \
+    RETURN collect(x) AS ss
++--------+
+| ss     |
++--------+
+| [1, 2] |
++--------+
 </code></pre></div>
 <p>This example aggregates all players' names by their ages.</p>
 <p>```ngql

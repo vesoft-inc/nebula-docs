@@ -2513,7 +2513,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../6.monitor%20and%20metrics/1.query-performance-metrics/" title="Query Nebula Graph metrics" class="md-nav__link">
+    <a href="../../../6.monitor and metrics/1.query-performance-metrics.md" title="Query Nebula Graph metrics" class="md-nav__link">
       Query Nebula Graph metrics
     </a>
   </li>
@@ -3352,9 +3352,8 @@
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>The following statement</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
-UNION \
-GO FROM &quot;player100&quot; OVER follow;
-
+    UNION \
+    GO FROM &quot;player100&quot; OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -3365,10 +3364,9 @@ GO FROM &quot;player100&quot; OVER follow;
 </code></pre></div>
 <p>returns the neighbors' id of vertex <code>"player102"</code> and <code>"player100</code> (along with edge <code>follow</code>) without duplication.</p>
 <p>While</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
-UNION ALL \
-GO FROM &quot;player100&quot; OVER follow;
-
+<p><div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+    UNION ALL \
+    GO FROM &quot;player100&quot; OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -3379,7 +3377,7 @@ GO FROM &quot;player100&quot; OVER follow;
 | &quot;player102&quot; |
 +-------------+
 </code></pre></div>
-<p>returns all the neighbors of vertex <code>"player102"</code> and <code>"player100</code>, with all possible duplications.</p>
+returns all the neighbors of vertex <code>"player102"</code> and <code>"player100</code>, with all possible duplications.</p>
 <p><code>UNION</code> can also work with the <code>YIELD</code> statement. For example, let's suppose the results of the following two queries.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age; -- query 1
 
@@ -3401,8 +3399,8 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, fo
 </code></pre></div>
 <p>And the following statement</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
-UNION /* DISTINCT */ \
-GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
+    UNION /* DISTINCT */ \
+    GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
 </code></pre></div>
 <p>returns the follows:</p>
 <div class="highlight"><pre><span></span><code>+-------------+--------+-----+
