@@ -142,17 +142,17 @@ Use vertex or edge properties to define conditions in WHERE clauses.
     Got 2 rows (time spent 2815/3571 us)
     ```
 
-<!--
-
 ### Filter on dynamically-calculated property
-
-[Not supported yet.]
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v[toLower("AGE")] < 30 \
+        WHERE v[toLower("AGE")] < 21 \
         RETURN v.name, v.age;
-
++---------------+-------+
+| v.name        | v.age |
++---------------+-------+
+| "Luka Doncic" | 20    |
++---------------+-------+
 ```
 
 ### Filter on the existence of a property
@@ -161,10 +161,14 @@ nebula> MATCH (v:player) \
 nebula> MATCH (v:player) \
         WHERE exists(v.age) \
         RETURN v.name, v.age;
-
++-------------------------+-------+
+| v.name                  | v.age |
++-------------------------+-------+
+| "Boris Diaw"            | 36    |
++-------------------------+-------+
+| "DeAndre Jordan"        | 30    |
++-------------------------+-------+
 ```
-
--->
 
 ### Filter on edge rank
 
