@@ -27,4 +27,4 @@ nebula> YIELD hash(-1)
 +------------+
 ```
 
-> **NOTE**: Roughly, The change of collision is about 1/10 in the case of 1 billion vertices. (The number of edges are irrelevant to the collision possibility).
+> **NOTE**: Roughly, The chance of collision is about 1/10 in the case of 1 billion vertices. (The number of edges are irrelevant to the collision possibility).
