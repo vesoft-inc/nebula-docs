@@ -1417,6 +1417,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filter_on_dynamically-calculated_property" class="md-nav__link">
+    Filter on dynamically-calculated property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_on_the_existence_of_a_property" class="md-nav__link">
+    Filter on the existence of a property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filter_on_edge_rank" class="md-nav__link">
     Filter on edge rank
   </a>
@@ -3398,6 +3412,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filter_on_dynamically-calculated_property" class="md-nav__link">
+    Filter on dynamically-calculated property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_on_the_existence_of_a_property" class="md-nav__link">
+    Filter on the existence of a property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filter_on_edge_rank" class="md-nav__link">
     Filter on edge rank
   </a>
@@ -3616,26 +3644,28 @@ Got 2 rows (time spent 2815/3571 us)
 </code></pre></div>
 </li>
 </ul>
-<!--
-
-### Filter on dynamically-calculated property
-
-[Not supported yet.]
-
+<h3 id="filter_on_dynamically-calculated_property">Filter on dynamically-calculated property<a class="headerlink" href="#filter_on_dynamically-calculated_property" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v[toLower(&quot;AGE&quot;)] &lt; 30 \
+        WHERE v[toLower(&quot;AGE&quot;)] &lt; 21 \
         RETURN v.name, v.age;
++---------------+-------+
+| v.name        | v.age |
++---------------+-------+
+| &quot;Luka Doncic&quot; | 20    |
++---------------+-------+
 </code></pre></div>
-
-### Filter on the existence of a property
-
+<h3 id="filter_on_the_existence_of_a_property">Filter on the existence of a property<a class="headerlink" href="#filter_on_the_existence_of_a_property" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE exists(v.age) \
         RETURN v.name, v.age;
++-------------------------+-------+
+| v.name                  | v.age |
++-------------------------+-------+
+| &quot;Boris Diaw&quot;            | 36    |
++-------------------------+-------+
+| &quot;DeAndre Jordan&quot;        | 30    |
++-------------------------+-------+
 </code></pre></div>
-
--->
-
 <h3 id="filter_on_edge_rank">Filter on edge rank<a class="headerlink" href="#filter_on_edge_rank" title="Permanent link">&para;</a></h3>
 <p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> to filter such edges.</p>
 <p>The following example creates a group of edges. The differences among the edges are their ranks and properties. Then the example uses a <code>GO</code> statement with a <code>WHERE</code> clause to filter the edges on ranks.</p>
