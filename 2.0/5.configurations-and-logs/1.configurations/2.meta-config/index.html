@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#meta_service_configurations" tabindex="0" class="md-skip">
+      <a href="#meta_service_configuration" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -2377,6 +2377,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how_to_use_the_configuration_files" class="md-nav__link">
+    How to use the configuration files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about_parameter_values" class="md-nav__link">
+    About parameter values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic_configurations" class="md-nav__link">
     Basic configurations
   </a>
@@ -2407,6 +2421,13 @@
         <li class="md-nav__item">
   <a href="#misc_configurations" class="md-nav__link">
     Misc configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
   </a>
   
 </li>
@@ -3281,6 +3302,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how_to_use_the_configuration_files" class="md-nav__link">
+    How to use the configuration files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about_parameter_values" class="md-nav__link">
+    About parameter values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic_configurations" class="md-nav__link">
     Basic configurations
   </a>
@@ -3315,6 +3350,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
+  </a>
+  
+</li>
+      
       
       
       
@@ -3332,21 +3374,24 @@
               
                 
                 
-                <h1 id="meta_service_configurations">Meta Service configurations<a class="headerlink" href="#meta_service_configurations" title="Permanent link">&para;</a></h1>
-<p>This document gives some introductions to Meta Service configurations. Meta Service configurations are stored in <code>nebula-metad.conf.default</code> and <code>nebula-metad.conf.production</code>. The configuration files are stored in <code>/usr/local/nebula/etc/</code> by default. If you have customized your Nebula Graph installation directory, the path to your configuration files is <code>$pwd/nebula/etc/</code>.</p>
-<ul>
-<li>The <code>nebula-metad.conf.default</code> file is the <strong>default configuration file</strong> for the Meta Service. We suggest that you use it for <strong>debugging</strong>. When you start Nebula Graph for the first time, Nebula Graph uses the default configuration files.</li>
-<li>The <code>nebula-metad.conf.production</code> file is the <strong>production configuration file</strong> for the Meta Service. We suggest that you use it for the <strong>production environment</strong>. To use it, you must remove the <code>.production</code> suffix.</li>
-</ul>
+                <h1 id="meta_service_configuration">Meta Service configuration<a class="headerlink" href="#meta_service_configuration" title="Permanent link">&para;</a></h1>
+<p>Nebula Graph provides two initial configuration files for the Meta Service: <code>nebula-metad.conf.default</code> and <code>nebula-metad.conf.production</code>. You can use them in different scenarios. The default file path is <code>/usr/local/nebula/etc/</code>.</p>
+<h2 id="how_to_use_the_configuration_files">How to use the configuration files<a class="headerlink" href="#how_to_use_the_configuration_files" title="Permanent link">&para;</a></h2>
+<p>The Meta Service gets its configuration from the <code>nebula-metad.conf</code> file. You have to remove the suffix <code>.default</code> or <code>.production</code> from an initial configuration file for the Meta Service to apply the configuration defined in it.</p>
+<p>If you have modified the configuration in the file and want new configuration to take effect, add <code>--local_conf=true</code> at the top of the file. Otherwise, Nebula Graph reads the cached configuration.</p>
+<h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">&para;</a></h2>
+<p>If a parameter is not set in the configuration file, Nebula Graph uses the default value.</p>
 <blockquote>
-<p><strong>NOTE:</strong> To change these parameters, you must add <code>--local_conf=true</code> at the top of the configuration file.</p>
+<p><strong>NOTE:</strong> The default value of a parameter in Nebula Graph may be different from the predefined value in the <code>.default</code> and <code>.production</code> files.</p>
 </blockquote>
+<p>The predefined parameters in <code>nebula-metad.conf.default</code> and <code>nebula-metad.conf.production</code> are different. And not all parameters are predefined. This topic uses the parameters in <code>nebula-metad.conf.default</code>.</p>
+<p>Nebula Graph provides two initial configuration files for the Meta Service: <code>nebula-metad.conf.default</code> and <code>nebula-metad.conf.production</code>. You can use them in different scenarios. The default file path is <code>/usr/local/nebula/etc/</code>.</p>
 <h2 id="basic_configurations">Basic configurations<a class="headerlink" href="#basic_configurations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3368,7 +3413,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3381,7 +3426,7 @@
 <tr>
 <td><code>minloglevel</code></td>
 <td><code>0</code></td>
-<td>Specifies the minimum log level. Available values are 0-3. <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code> are <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, and <code>FATAL</code>. We suggest that you set <code>minloglevel</code> to <code>0</code> for debugging and <code>1</code> for production. When you set it to <code>4</code>, Nebula Graph does not print any logs.</td>
+<td>Specifies the minimum log level. Available values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), and <code>3</code> (FATAL). We suggest that you set <code>minloglevel</code> to <code>0</code> for debugging and <code>1</code> for production. When you set it to <code>4</code>, Nebula Graph does not print any logs.</td>
 </tr>
 <tr>
 <td><code>v</code></td>
@@ -3406,7 +3451,7 @@
 <tr>
 <td><code>stderrthreshold</code></td>
 <td><code>2</code></td>
-<td>Specifies the minimum level to copy the log messages to stderr. Available values are 0-3. <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code> are <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, and <code>FATAL</code>.</td>
+<td>Specifies the minimum level to copy the log messages to stderr.</td>
 </tr>
 </tbody>
 </table>
@@ -3415,7 +3460,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3423,7 +3468,7 @@
 <tr>
 <td><code>meta_server_addrs</code></td>
 <td><code>127.0.0.1:9559</code></td>
-<td>Specifies the IP addresses for the Meta Services. Multiple addresses are permitted, separated by commas.</td>
+<td>Specifies the IP addresses for the Meta Services. Separate multiple addresses with commas.</td>
 </tr>
 <tr>
 <td><code>local_ip</code></td>
@@ -3433,7 +3478,7 @@
 <tr>
 <td><code>port</code></td>
 <td><code>9559</code></td>
-<td>Specifies RPC daemon listening port. The external port for Meta Service is <code>9559</code>. The internal port is <code>port+1</code>, namely <code>9560</code>. Nebula Graph uses the internal port for multi-replica interactions.</td>
+<td>Specifies RPC daemon listening port. The external port for Meta Service is <code>9559</code>. The internal port is <code>external_port + 1</code>, i.e., <code>9560</code>. Nebula Graph uses the internal port for multi-replica interactions.</td>
 </tr>
 <tr>
 <td><code>ws_ip</code></td>
@@ -3450,6 +3495,11 @@
 <td><code>19560</code></td>
 <td>Specifies the port for the HTTP2 service.</td>
 </tr>
+<tr>
+<td><code>heartbeat_interval_secs</code></td>
+<td><code>10</code></td>
+<td>Specifies the default heartbeat interval in seconds. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise Nebula Graph <strong>CANNOT</strong> work normally.</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -3460,7 +3510,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3477,7 +3527,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3492,16 +3542,25 @@
 <td><code>1</code></td>
 <td>Specifies the default replica factor number when you create a new graph space.</td>
 </tr>
+</tbody>
+</table>
+<h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
 <tr>
-<td><code>heartbeat_interval_secs</code></td>
-<td><code>10</code></td>
-<td>Specifies the default heartbeat interval time. The configuration is measured in seconds.</td>
+<th>Name</th>
+<th>Predefine Value</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rocksdb_wal_sync</code></td>
+<td><code>true</code></td>
+<td>Enable or disable RocksDB WAL synchronization. Available values are <code>true</code> (enable) and <code>false</code> (disable).</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>CAUTION:</strong> Make sure that the <code>heartbeat_interval_secs</code> values for all the services are the same. If these values are not the same, the system behavior is undefined.</p>
-</blockquote>
                 
                   
                 

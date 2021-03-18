@@ -2401,6 +2401,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how_to_use_the_configuration_files" class="md-nav__link">
+    How to use the configuration files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about_parameter_values" class="md-nav__link">
+    About parameter values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic_configurations" class="md-nav__link">
     Basic configurations
   </a>
@@ -2431,6 +2445,13 @@
         <li class="md-nav__item">
   <a href="#disk_configurations" class="md-nav__link">
     Disk configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
   </a>
   
 </li>
@@ -3295,6 +3316,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how_to_use_the_configuration_files" class="md-nav__link">
+    How to use the configuration files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about_parameter_values" class="md-nav__link">
+    About parameter values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic_configurations" class="md-nav__link">
     Basic configurations
   </a>
@@ -3325,6 +3360,13 @@
         <li class="md-nav__item">
   <a href="#disk_configurations" class="md-nav__link">
     Disk configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
   </a>
   
 </li>
@@ -3361,23 +3403,25 @@
                 
                 
                 <h1 id="storage_service_configurations">Storage Service configurations<a class="headerlink" href="#storage_service_configurations" title="Permanent link">&para;</a></h1>
-<p>This document gives some introductions to Storage Service configurations. Storage Service configurations are stored in <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code>. The configuration files are stored in <code>/usr/local/nebula/etc/</code> by default. If you have customized your Nebula Graph installation directory, the path to your configuration files is <code>$pwd/nebula/etc/</code>.</p>
+<p>Nebula Graph provides two initial configuration files for the Storage Service: <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code>. You can use them in different scenarios. The default file path is <code>/usr/local/nebula/etc/</code>.</p>
 <blockquote>
 <p><strong>NOTE:</strong> Raft Listener is different from the Storage Service. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Raft Listener</a>.</p>
 </blockquote>
-<ul>
-<li>The <code>nebula-storaged.conf.default</code> file is the <strong>default configuration file</strong> for the Storage Service. We suggest that you use it for <strong>debugging</strong>. When you start Nebula Graph for the first time, Nebula Graph uses the default configuration files.</li>
-<li>The <code>nebula-storaged.conf.production</code> file is the <strong>production configuration file</strong> for the Storage Service. We suggest that you use it for the <strong>production environment</strong>. To use it, you must remove the <code>.production</code> suffix.</li>
-</ul>
+<h2 id="how_to_use_the_configuration_files">How to use the configuration files<a class="headerlink" href="#how_to_use_the_configuration_files" title="Permanent link">&para;</a></h2>
+<p>The Storage Service gets its configuration from the <code>nebula-storaged.conf</code> file. You have to remove the suffix <code>.default</code> or <code>.production</code> from an initial configuration file for the Storage Service to apply the configuration defined in it.</p>
+<p>If you have modified the configuration in the file and want the new configuration to take effect, add <code>--local_conf=true</code> at the top of the file. Otherwise, Nebula Graph reads the cached configuration.</p>
+<h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">&para;</a></h2>
+<p>If a parameter is not set in the configuration file, Nebula Graph uses its default value.</p>
 <blockquote>
-<p><strong>NOTE:</strong> To change these parameters, you must add <code>--local_conf=true</code> at the top of the configuration file.</p>
+<p><strong>NOTE:</strong> The default value of a parameter in Nebula Graph may be different from the predefined value in the <code>.default</code> and <code>.production</code> files.</p>
 </blockquote>
+<p>The predefined parameter in <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code> are different. And not all parameters are predefined. This topic uses the parameters in <code>nebula-storaged.conf.default</code>.</p>
 <h2 id="basic_configurations">Basic configurations<a class="headerlink" href="#basic_configurations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3399,7 +3443,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3451,7 +3495,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3459,7 +3503,7 @@
 <tr>
 <td><code>meta_server_addrs</code></td>
 <td><code>127.0.0.1:9559</code></td>
-<td>Specifies the IP addresses for the Meta Services. Multiple addresses are permitted, separated by commas.</td>
+<td>Specifies the IP addresses for the Meta Services. Separate multiple addresses with commas.</td>
 </tr>
 <tr>
 <td><code>local_ip</code></td>
@@ -3487,9 +3531,9 @@
 <td>Specifies the port for the HTTP2 service.</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td><code>heartbeat_interval_secs</code></td>
+<td><code>10</code></td>
+<td>Specifies the default heartbeat interval in seconds. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise Nebula Graph <strong>CANNOT</strong> work normally.</td>
 </tr>
 </tbody>
 </table>
@@ -3501,7 +3545,7 @@
 <thead>
 <tr>
 <th>Name</th>
-<th>Default Value</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3527,8 +3571,8 @@
 <table>
 <thead>
 <tr>
-<th>Property</th>
-<th>Default Value</th>
+<th>Name</th>
+<th>Predefine Value</th>
 <th>Descriptions</th>
 </tr>
 </thead>
@@ -3536,7 +3580,7 @@
 <tr>
 <td><code>data_path</code></td>
 <td><code>data/storage</code></td>
-<td>Specifies the root data path. Multiple paths are permitted, separated commas.</td>
+<td>Specifies the root data path. Separate multiple paths with commas.</td>
 </tr>
 <tr>
 <td><code>rocksdb_batch_size</code></td>
@@ -3555,13 +3599,18 @@
 </tr>
 <tr>
 <td><code>rocksdb_compression</code></td>
-<td><code>snappy</code></td>
+<td><code>lz4</code></td>
 <td>Specifies the compression algorithm for RocksDB. Available values are <code>no</code>, <code>snappy</code>, <code>lz4</code>, <code>lz4hc</code>, <code>zlib</code>, <code>bzip2</code>, and <code>zstd</code>.</td>
 </tr>
 <tr>
 <td><code>rocksdb_compression_per_level</code></td>
 <td>\</td>
 <td>Specifies compression for each level.</td>
+</tr>
+<tr>
+<td><code>enable_rocksdb_statistics</code></td>
+<td><code>false</code></td>
+<td>When set to <code>false</code>, RocksDB statistics is disabled.</td>
 </tr>
 <tr>
 <td><code>rocksdb_stats_level</code></td>
@@ -3580,18 +3629,37 @@
 </tr>
 </tbody>
 </table>
-<!-- ## RocksDB configurations
-
-| Property        | Default Value           | Descriptions                |
-| ----------- | --------------------------------------------------- | -------------------------------------------------------- |
-| `rocksdb_disable_wal` | `true` | When set to `true`, RocksDB wal is enabled. |
-| `rocksdb_db_options` | \ | Specifies the RocksDB options. Multiple options are permitted, separated with commas. For more information, see the next section. |
-| `rocksdb_column_family_options` | \ | Specifies the RocksDB column family options. Multiple options are permitted, separated with commas. For more information, see the next section. |
-| `rocksdb_block_based_table_options` | `"block_size":"8192"` | Specifies the RocksDB block based table options. Multiple options are permitted, separated with commas. For more information, see the next section. |
-
-### `rocksdb_db_options`
-
-<div class="highlight"><pre><span></span><code>max_total_wal_size
+<h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
+<p>The format of the RocksDB options is <code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>. Multiple options are separated with commas.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Predefine Value</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rocksdb_db_options</code></td>
+<td><code>{}</code></td>
+<td>Specifies the RocksDB options.</td>
+</tr>
+<tr>
+<td><code>rocksdb_column_family_options</code></td>
+<td><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
+<td>Specifies the RocksDB column family options.</td>
+</tr>
+<tr>
+<td><code>rocksdb_block_based_table_options</code></td>
+<td><code>{"block_size":"8192"}</code></td>
+<td>Specifies the RocksDB block based table options.</td>
+</tr>
+</tbody>
+</table>
+<p>Available <code>rocksdb_db_options</code> and <code>rocksdb_column_family_options</code> are listed as follows.</p>
+<ul>
+<li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
 delete_obsolete_files_period_micros
 max_background_jobs
 stats_dump_period_sec
@@ -3611,11 +3679,10 @@ rocksdb_filtering_prefix_length
 num_compaction_threads
 rate_limit
 </code></pre></div>
-
-### `rocksdb_column_family_options`
-
-```text
-write_buffer_size
+</li>
+</ul>
+<ul>
+<li><code>rocksdb_column_family_options</code><p><div class="highlight"><pre><span></span><code>write_buffer_size
 max_write_buffer_number
 level0_file_num_compaction_trigger
 level0_slowdown_writes_trigger
@@ -3624,8 +3691,11 @@ target_file_size_base
 target_file_size_multiplier
 max_bytes_for_level_base
 max_bytes_for_level_multiplier
-disable_auto_compactions       -- Compact automatically when writing data is stopped, default value is false. Dynamic modification takes effect immediately. -->
-
+disable_auto_compactions 
+</code></pre></div>
+For more information about RocksDB configuration, see <a href="https://rocksdb.org/">RocksDB official documentation</a>。</p>
+</li>
+</ul>
 <h2 id="for_super-large_vertices">For super-Large vertices<a class="headerlink" href="#for_super-large_vertices" title="Permanent link">&para;</a></h2>
 <p>For super vertex with a large number of edges, currently there are two truncation strategies:</p>
 <ol>
@@ -3633,7 +3703,7 @@ disable_auto_compactions       -- Compact automatically when writing data is sto
 <p>Truncate directly. Set the <code>enable_reservoir_sampling</code> parameter to <code>false</code>. A certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated by default.</p>
 </li>
 <li>
-<p>Truncate with the reservoir sampling algorithm. Based on the algorithm, a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated with equal probability from the total n edges. Equal probability sampling is useful in some business scenarios. However, the performance is effected compared to direct truncation due to the probability calculation.</p>
+<p>Truncate with the reservoir sampling algorithm. Based on the algorithm, a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated with equal probability from the total n edges. Equal probability sampling is useful in some business scenarios. However, the performance is affected compared to direct truncation due to the probability calculation.</p>
 </li>
 </ol>
 <h2 id="storage_configuration_for_large_dataset">Storage configuration for large dataset<a class="headerlink" href="#storage_configuration_for_large_dataset" title="Permanent link">&para;</a></h2>
