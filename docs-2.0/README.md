@@ -24,7 +24,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * [Connect to Nebula Graph](2.quick-start/3.connect-to-nebula-graph.md)
 * [Nebula Graph CRUD](2.quick-start/4.nebula-graph-crud.md)
 
-## nGQL guide (for all users) [doc TODO]
+## nGQL guide (for all users)
 
 <!-- to be updated -->
 * Operators
