@@ -25,6 +25,7 @@ double cos(double x) | Return cosine of the argument |
 double acos(double x) | Return inverse cosine of the argument |
 double tan(double x) | Return tangent of the argument |
 double atan(double x) | Return inverse tangent the argument |
+double rand() | Returns a random floating point number in the range from 0 (inclusive) to 1 (exclusive); i.e.[0,1). |
 int rand32() | Return a random 32 bit integer |
 int rand32(int max) | Return a random 32 bit integer in [0, max)  |
 int rand32(int min, int max) | Return a random 32 bit integer in [min, max)|
