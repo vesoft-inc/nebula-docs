@@ -10,7 +10,7 @@ To scale in or scale out the Nebula Graph Storage Service, use the `BALANCE` sta
 
 Take scaling out Nebula Graph for an example.
 
-After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/12.show-hosts.md) to check the partition distribution.
+After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
 
 ```ngql
 nebual> SHOW HOSTS;
