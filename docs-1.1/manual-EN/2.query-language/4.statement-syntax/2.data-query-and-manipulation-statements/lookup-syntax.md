@@ -58,10 +58,12 @@ GO FROM $-.VertexID OVER serve YIELD $-.name, serve.start_year, serve.end_year, 
 
 ## Retrieve Edges
 
-The following example returns edges whose `degree` is 90 and the edge type is _follow_.
+The following example returns edges whose `degree` is 90 and the edge type is `follow`.
 
 ```ngql
 nebula> CREATE EDGE INDEX index_follow ON follow(degree);
+
+nebula> REBUILD EDGE INDEX index_follow;
 
 nebula> LOOKUP ON follow WHERE follow.degree == 90;
 =============================
