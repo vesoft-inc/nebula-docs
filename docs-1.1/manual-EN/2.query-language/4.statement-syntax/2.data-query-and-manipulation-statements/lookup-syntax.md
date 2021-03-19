@@ -63,6 +63,8 @@ The following example returns edges whose `degree` is 90 and the edge type is `f
 ```ngql
 nebula> CREATE EDGE INDEX index_follow ON follow(degree);
 
+nebula> REBUILD EDGE INDEX index_follow;
+
 nebula> LOOKUP ON follow WHERE follow.degree == 90;
 =============================
 | SrcVID | DstVID | Ranking |
