@@ -1988,6 +1988,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step_1_prepare_the_configuration_file_for_the_listeners" class="md-nav__link">
     Step 1: Prepare the configuration file for the Listeners
   </a>
@@ -2002,8 +2009,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step_3_add_full-text_listeners_to_nebula_graph" class="md-nav__link">
-    Step 3: Add Full-Text Listeners to Nebula Graph
+  <a href="#step_3_add_listeners_to_nebula_graph" class="md-nav__link">
+    Step 3: Add Listeners to Nebula Graph
   </a>
   
 </li>
@@ -3290,6 +3297,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step_1_prepare_the_configuration_file_for_the_listeners" class="md-nav__link">
     Step 1: Prepare the configuration file for the Listeners
   </a>
@@ -3304,8 +3318,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step_3_add_full-text_listeners_to_nebula_graph" class="md-nav__link">
-    Step 3: Add Full-Text Listeners to Nebula Graph
+  <a href="#step_3_add_listeners_to_nebula_graph" class="md-nav__link">
+    Step 3: Add Listeners to Nebula Graph
   </a>
   
 </li>
@@ -3354,14 +3368,18 @@
 <ul>
 <li>You have read and fully understand the <a href="../1.text-based-index-restrictions/">restrictions</a> for using Full-Text indexes.</li>
 </ul>
-<blockquote>
-<p><strong>NOTE:</strong> The version of the Listeners must be the same as or later than the version of all Nebula Graph services.</p>
-</blockquote>
 <ul>
 <li>You have <a href="../../deploy-nebula-graph-cluster/">deployed a Nebula Graph cluster</a>.</li>
 </ul>
 <ul>
 <li>You have prepared at least one extra Storage Server. To use the Full-Text search, you must run one or more Storage Server as the Raft Listener.</li>
+</ul>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The Storage Service that you want to run as a Listener must have the same or later version with all the other Nebula Graph services in the cluster.</li>
+</ul>
+<ul>
+<li>For now, you can only add Listeners to a graph space once and for all. Trying to add listeners to a graph space that already has a listener will fail. To add multiple listeners, set them <a href="#step_3_add_listeners_to_nebula_graph">in one statement</a>.</li>
 </ul>
 <h2 id="step_1_prepare_the_configuration_file_for_the_listeners">Step 1: Prepare the configuration file for the Listeners<a class="headerlink" href="#step_1_prepare_the_configuration_file_for_the_listeners" title="Permanent link">&para;</a></h2>
 <p>You have to prepare a Listener configuration file as follows on the machine that you want to deploy the Listeners. The file name must be <code>nebula-storaged-listener.conf</code>. A template <a href="https://github.com/vesoft-inc/nebula-storage/blob/master/conf/nebula-storaged-listener.conf.production">configuration file</a> is provided for your reference. To use the template configuration file, rename it as <code>nebula-storaged-listener.conf</code>.</p>
@@ -3429,16 +3447,16 @@
 <div class="highlight"><pre><span></span><code>./bin/nebula-storaged --flagfile <span class="si">${</span><span class="nv">listener_config_path</span><span class="si">}</span>/nebula-storaged-listener.conf
 </code></pre></div>
 <p><code>${listener_config_path}</code> is the path where you store the Listener configuration file.</p>
-<h2 id="step_3_add_full-text_listeners_to_nebula_graph">Step 3: Add Full-Text Listeners to Nebula Graph<a class="headerlink" href="#step_3_add_full-text_listeners_to_nebula_graph" title="Permanent link">&para;</a></h2>
+<h2 id="step_3_add_listeners_to_nebula_graph">Step 3: Add Listeners to Nebula Graph<a class="headerlink" href="#step_3_add_listeners_to_nebula_graph" title="Permanent link">&para;</a></h2>
 <p><a href="../../../2.quick-start/3.connect-to-nebula-graph/">Connect to Nebula Graph</a> and run <a href="../../../3.ngql-guide/9.space-statements/2.use-space/"><code>USE &lt;space&gt;</code></a> to enter the graph space that you want to create Full-Text indexes for. Then run the following statement to add the Listener into Nebula Graph.</p>
+<blockquote>
+<p><strong>NOTE:</strong> You must use real IPs for the listeners.</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code>ADD LISTENER ELASTICSEARCH &lt;listener_ip:port&gt; [,&lt;listener_ip:port&gt;, ...]
 </code></pre></div>
-<p>Multiple <code>listener_ip:port</code> pairs are separated with commas. You must use real IPs. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:46780;
+<p>Multiple <code>listener_ip:port</code> pairs are separated with commas. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:46780,192.168.8.6:46780;
 </code></pre></div>
-<blockquote>
-<p><strong>NOTE:</strong> Listeners are bound to the partitions. You must add all the Listeners in one statement or you receive an error.</p>
-</blockquote>
 <h2 id="show_listeners">Show Listeners<a class="headerlink" href="#show_listeners" title="Permanent link">&para;</a></h2>
 <p>Run the <code>SHOW LISTENER</code> statement to list the Listeners.</p>
 <p>For example:</p>
