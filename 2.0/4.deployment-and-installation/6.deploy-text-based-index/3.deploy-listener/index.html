@@ -1981,36 +1981,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#before_you_start" class="md-nav__link">
-    Before you start
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure_listener" class="md-nav__link">
-    Configure Listener
+  <a href="#step_1_prepare_the_configuration_file_for_the_listeners" class="md-nav__link">
+    Step 1: Prepare the configuration file for the Listeners
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#add_full-text_listeners" class="md-nav__link">
-    Add full-text Listeners
+  <a href="#step_2_start_the_listeners" class="md-nav__link">
+    Step 2: Start the Listeners
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#show_full-text_listeners" class="md-nav__link">
-    Show full-text Listeners
+  <a href="#step_3_add_full-text_listeners_to_nebula_graph" class="md-nav__link">
+    Step 3: Add Full-Text Listeners to Nebula Graph
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#remove_full-text_listeners" class="md-nav__link">
-    Remove full-text Listeners
+  <a href="#show_listeners" class="md-nav__link">
+    Show Listeners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove_listeners" class="md-nav__link">
+    Remove Listeners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what_to_do_next" class="md-nav__link">
+    What to do next
   </a>
   
 </li>
@@ -3269,36 +3283,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#before_you_start" class="md-nav__link">
-    Before you start
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure_listener" class="md-nav__link">
-    Configure Listener
+  <a href="#step_1_prepare_the_configuration_file_for_the_listeners" class="md-nav__link">
+    Step 1: Prepare the configuration file for the Listeners
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#add_full-text_listeners" class="md-nav__link">
-    Add full-text Listeners
+  <a href="#step_2_start_the_listeners" class="md-nav__link">
+    Step 2: Start the Listeners
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#show_full-text_listeners" class="md-nav__link">
-    Show full-text Listeners
+  <a href="#step_3_add_full-text_listeners_to_nebula_graph" class="md-nav__link">
+    Step 3: Add Full-Text Listeners to Nebula Graph
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#remove_full-text_listeners" class="md-nav__link">
-    Remove full-text Listeners
+  <a href="#show_listeners" class="md-nav__link">
+    Show Listeners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove_listeners" class="md-nav__link">
+    Remove Listeners
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what_to_do_next" class="md-nav__link">
+    What to do next
   </a>
   
 </li>
@@ -3321,51 +3349,99 @@
                 
                 
                 <h1 id="deploy_raft_listener_for_nebula_storage_service">Deploy Raft Listener for Nebula Storage service<a class="headerlink" href="#deploy_raft_listener_for_nebula_storage_service" title="Permanent link">&para;</a></h1>
-<h2 id="before_you_start">Before you start<a class="headerlink" href="#before_you_start" title="Permanent link">&para;</a></h2>
-<p>Before you start using the full-text index, please make sure that you know the <a href="../1.text-based-index-restrictions/">restrictions</a>.</p>
-<p>Full-text index data is written to the Elasticsearch cluster asynchronously. To use the full-text index search, you must run one or more nebula-storaged processes as the Raft Listener (short for Listener). The Listener is a separate process and receives requests from Nebula Graph clients. It manages the traffic of these requests to the database server.</p>
+<p>Full-Text index data is written to the Elasticsearch cluster asynchronously. The Raft Listener (hereinafter shortened as Listener) is a separate process that fetches data from the Storage Service and writes them into the Elasticsearch cluster.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>You have read and fully understand the <a href="../1.text-based-index-restrictions/">restrictions</a> for using Full-Text indexes.</li>
+</ul>
 <blockquote>
-<p><strong>NOTE:</strong> The version of the listener must be the same as or later than the version of all Nebula Graph services.</p>
+<p><strong>NOTE:</strong> The version of the Listeners must be the same as or later than the version of all Nebula Graph services.</p>
 </blockquote>
-<h2 id="configure_listener">Configure Listener<a class="headerlink" href="#configure_listener" title="Permanent link">&para;</a></h2>
-<p>The Listener writes the data into the Elasticsearch cluster. Configure the following parameters for the Listener. For example:</p>
+<ul>
+<li>You have <a href="../../deploy-nebula-graph-cluster/">deployed a Nebula Graph cluster</a>.</li>
+</ul>
+<ul>
+<li>You have prepared at least one extra Storage Server. To use the Full-Text search, you must run one or more Storage Server as the Raft Listener.</li>
+</ul>
+<h2 id="step_1_prepare_the_configuration_file_for_the_listeners">Step 1: Prepare the configuration file for the Listeners<a class="headerlink" href="#step_1_prepare_the_configuration_file_for_the_listeners" title="Permanent link">&para;</a></h2>
+<p>You have to prepare a Listener configuration file as follows on the machine that you want to deploy the Listeners. The file name must be <code>nebula-storaged-listener.conf</code>. A template <a href="https://github.com/vesoft-inc/nebula-storage/blob/master/conf/nebula-storaged-listener.conf.production">configuration file</a> is provided for your reference. To use the template configuration file, rename it as <code>nebula-storaged-listener.conf</code>.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Use real IP addresses in the configuration file instead of domain names or loopback IP addresses such as 127.0.0.1.</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code>########## basics ##########
+# Whether to run as a daemon process
+--daemonize=true
 # The file to host the process id
 --pid_file=pids_listener/nebula-storaged.pid
-# The directory to host logging files, which must already exists
+
+########## logging ##########
+# The directory to host logging files, which must already exist
 --log_dir=logs_listener
+# Log level, 0, 1, 2, 3 for INFO, WARNING, ERROR, FATAL respectively
+--minloglevel=0
+# Verbose log level, 1, 2, 3, 4, the higher of the level, the more verbose of the logging
+--v=0
+# Maximum seconds to buffer the log messages
+--logbufsecs=0
+# Whether to redirect stdout and stderr to separate output files
+--redirect_stdout=true
+# Destination filename of stdout and stderr, which will also reside in log_dir.
+--stdout_log_file=storaged-stdout.log
+--stderr_log_file=storaged-stderr.log
+# Copy log messages at or above this level to stderr in addition to logfiles. The numbers of severity levels INFO, WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively.
+--stderrthreshold=2
 
 ########## networking ##########
 # Meta server address
---meta_server_addrs=192.168.8.5:68833
+--meta_server_addrs=192.168.2.1:45500
 # Local ip
---local_ip=192.168.8.5
+--local_ip=192.168.2.4
 # Storage daemon listening port
---port=66780
+--port=44510
 # HTTP service ip
---ws_ip=192.168.8.5
+--ws_ip=192.168.2.4
 # HTTP service port
---ws_http_port=65219
+--ws_http_port=12021
 # HTTP2 service port
---ws_h2_port=65211
+--ws_h2_port=12031
+# heartbeat with meta service
+--heartbeat_interval_secs=10
+
+########## storage ##########
+# Listener wal directory. only one path is allowed.
+--listener_path=data/listener
+# This parameter can be ignored for compatibility. let&#39;s fill A default value of &quot;data&quot;
+--data_path=data
+# The type of part manager, [memory | meta]
+--part_man_type=memory
+# The default reserved bytes for one batch operation
+--rocksdb_batch_size=4096
+# The default block cache size used in BlockBasedTable.
+# The unit is MB.
+--rocksdb_block_cache=4
+# The type of storage engine, `rocksdb&#39;, `memory&#39;, etc.
+--engine_type=rocksdb
+# The type of part, `simple&#39;, `consensus&#39;...
+--part_type=simple
 </code></pre></div>
-<p>Use the real IP in the configuration file. There is a sample Listener <a href="https://github.com/vesoft-inc/nebula-storage/blob/master/conf/nebula-storaged-listener.conf.production">configuration file</a> for your reference. Modify the preceding configurations in the Listener configuration file.</p>
-<p>Run the following command to start the Listener:</p>
-<div class="highlight"><pre><span></span><code>./bin/nebula-storaged --flagfile /path/to/your/listener/nebula-storaged-listener.conf
+<h2 id="step_2_start_the_listeners">Step 2: Start the Listeners<a class="headerlink" href="#step_2_start_the_listeners" title="Permanent link">&para;</a></h2>
+<p>Run the following command to start the Listeners.</p>
+<div class="highlight"><pre><span></span><code>./bin/nebula-storaged --flagfile <span class="si">${</span><span class="nv">listener_config_path</span><span class="si">}</span>/nebula-storaged-listener.conf
 </code></pre></div>
-<h2 id="add_full-text_listeners">Add full-text Listeners<a class="headerlink" href="#add_full-text_listeners" title="Permanent link">&para;</a></h2>
+<p><code>${listener_config_path}</code> is the path where you store the Listener configuration file.</p>
+<h2 id="step_3_add_full-text_listeners_to_nebula_graph">Step 3: Add Full-Text Listeners to Nebula Graph<a class="headerlink" href="#step_3_add_full-text_listeners_to_nebula_graph" title="Permanent link">&para;</a></h2>
+<p><a href="../../../2.quick-start/3.connect-to-nebula-graph/">Connect to Nebula Graph</a> and run <a href="../../../3.ngql-guide/9.space-statements/2.use-space/"><code>USE &lt;space&gt;</code></a> to enter the graph space that you want to create Full-Text indexes for. Then run the following statement to add the Listener into Nebula Graph.</p>
 <div class="highlight"><pre><span></span><code>ADD LISTENER ELASTICSEARCH &lt;listener_ip:port&gt; [,&lt;listener_ip:port&gt;, ...]
 </code></pre></div>
-<p>When Listeners are started, use the <code>ADD LISTENER ELASTICSEARCH</code> statement to add the Listeners for a graph space. Multiple <code>listener_ip:port</code> pairs are separated with commas. You must use the real IPs. For example:</p>
+<p>Multiple <code>listener_ip:port</code> pairs are separated with commas. You must use real IPs. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:46780;
 </code></pre></div>
 <blockquote>
-<p><strong>NOTE:</strong> Listeners are bound to the partitions. You must add all the Listeners in one sentence or you receive an error.</p>
+<p><strong>NOTE:</strong> Listeners are bound to the partitions. You must add all the Listeners in one statement or you receive an error.</p>
 </blockquote>
-<h2 id="show_full-text_listeners">Show full-text Listeners<a class="headerlink" href="#show_full-text_listeners" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW LISTENER
-</code></pre></div>
-<p>Use the <code>SHOW LISTENER</code> statement to list the Listeners. For example:</p>
+<h2 id="show_listeners">Show Listeners<a class="headerlink" href="#show_listeners" title="Permanent link">&para;</a></h2>
+<p>Run the <code>SHOW LISTENER</code> statement to list the Listeners.</p>
+<p>For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW LISTENER;
 +--------+-----------------+-----------------------+----------+
 | PartId | Type            | Host                  | Status   |
@@ -3377,13 +3453,13 @@
 | 3      | &quot;ELASTICSEARCH&quot; | &quot;[192.168.8.5:46780]&quot; | &quot;ONLINE&quot; |
 +--------+-----------------+-----------------------+----------+
 </code></pre></div>
-<h2 id="remove_full-text_listeners">Remove full-text Listeners<a class="headerlink" href="#remove_full-text_listeners" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>REMOVE LISTENER ELASTICSEARCH
-</code></pre></div>
-<p>Use the <code>REMOVE LISTENER ELASTICSEARCH</code> statement to remove all the Elasticsearch Listeners for a graph space. For example:</p>
+<h2 id="remove_listeners">Remove Listeners<a class="headerlink" href="#remove_listeners" title="Permanent link">&para;</a></h2>
+<p>Run the <code>REMOVE LISTENER ELASTICSEARCH</code> statement to remove all the Elasticsearch Listeners for a graph space.</p>
+<p>For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; REMOVE LISTENER ELASTICSEARCH;
 </code></pre></div>
-<p>When you are done with the deployment of the Elasticsearch cluster and the Listener, full-text indexes are created automatically on the Elasticsearch. You can do full-text search now. For more information, see <a href="../../../3.ngql-guide/15.full-text-index-statements/1.search-with-text-based-index/">Full-text search</a>.</p>
+<h2 id="what_to_do_next">What to do next<a class="headerlink" href="#what_to_do_next" title="Permanent link">&para;</a></h2>
+<p>After deploying the <a href="../2.deploy-es/">Elasticsearch cluster</a> and the Listeners, Full-Text indexes are created automatically on the Elasticsearch cluster. You can do Full-Text search now. For more information, see <a href="../../3.ngql-guide/15.Full-Text-index-statements/1.search-with-text-based-index.md">Full-Text search</a>.</p>
                 
                   
                 
