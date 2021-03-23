@@ -30,7 +30,7 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 * Operators
   * [Comparison](3.ngql-guide/5.operators/1.comparison.md)
   * [Pipe](3.ngql-guide/5.operators/4.pipe.md)
-  * [Property reference](3.ngql-guide/5.operators/5.property-reference.md)
+  * [Reference operators](3.ngql-guide/5.operators/5.property-reference.md)
   * [Set](3.ngql-guide/5.operators/6.set.md)
   * [String](3.ngql-guide/5.operators/7.string.md)
   * [Precedence](3.ngql-guide/5.operators/9.precedence.md)
