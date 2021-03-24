@@ -6,7 +6,7 @@ With the **Open in Explore** function, you can run nGQL statements on the **Cons
 
 To use the **Open in Explore** function, you must do a check of these:
 
-- The version of Studio is v2.0.0-alpha or later.
+- The version of Studio is v2.0.0 or later.
 
 - Studio is connected to Nebula Graph v2.x.
 
