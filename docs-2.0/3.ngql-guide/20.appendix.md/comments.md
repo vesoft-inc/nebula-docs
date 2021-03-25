@@ -1,7 +1,9 @@
 # Comments
 
->**Legacy issues**: In Nebula Graph 1.0, four comment styles: `#`, `--`, `//`, `/* */`.
-In Nebula Graph 2.0, `--` represents an edge, and can not be used as comments.
+## Legacy version compatibility
+
+* In Nebula Graph 1.0, four comment styles: `#`, `--`, `//`, `/* */`.
+* In Nebula Graph 2.0, `--` represents an edge, and can not be used as comments.
 
 ## Examples
 ```ngql

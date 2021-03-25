@@ -6,7 +6,7 @@ This page applies to nGQL extensions only.
 
 Use `GROUP BY` in nGQL-extensions **ONLY** to aggregate data.
 
-The openCypher uses [count() function](../6.functions-and-expressions/7.count.md) to aggregate data.
+OpenCypher uses the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
 
 ```ngql
 nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
