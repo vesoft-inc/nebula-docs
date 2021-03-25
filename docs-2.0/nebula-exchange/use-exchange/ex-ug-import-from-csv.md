@@ -64,8 +64,6 @@ Analyze the data in the CSV files and follow these steps to create a schema in N
     CREATE SPACE [IF NOT EXISTS] <graph_space_name>
         [(partition_num = <partition_number>, 
         replica_factor = <replica_number>, 
-        charset = <charset>, 
-        collate = <collate>, 
         vid_type = {FIXED_STRING(<N>)) | INT64}];
     
     -- Choose the csv graph space
