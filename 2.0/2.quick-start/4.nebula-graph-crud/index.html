@@ -312,6 +312,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../1.introduction/3.nebula-graph-architecture/3.graph-service/" title="Graph Service" class="md-nav__link">
+      Graph Service
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/" title="Storage Service" class="md-nav__link">
+      Storage Service
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1341,18 +1365,6 @@
   <li class="md-nav__item">
     <a href="../../3.ngql-guide/7.general-query-statements/6.show/2.show-collation/" title="SHOW COLLATION" class="md-nav__link">
       SHOW COLLATION
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../3.ngql-guide/7.general-query-statements/6.show/3.show-configs/" title="SHOW CONFIGS" class="md-nav__link">
-      SHOW CONFIGS
     </a>
   </li>
 
@@ -3798,7 +3810,12 @@ Got 4 rows (time spent 1061/2251 us)
 <h2 id="create_and_use_a_graph_space">Create and use a graph space<a class="headerlink" href="#create_and_use_a_graph_space" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax">nGQL syntax<a class="headerlink" href="#ngql_syntax" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE &lt;graph_space_name&gt; [(partition_num=&lt;partition number&gt;, replica_factor=&lt;replica number&gt;, vid_type=fixed_string(&lt;string_number&gt;))]
+<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
+    [(partition_num = &lt;partition_number&gt;, 
+    replica_factor = &lt;replica_number&gt;, 
+    charset = &lt;charset&gt;, 
+    collate = &lt;collate&gt;, 
+    vid_type = {FIXED_STRING(&lt;N&gt;)) | INT64}];
 </code></pre></div>
 <table>
 <thead>
@@ -3818,7 +3835,7 @@ Got 4 rows (time spent 1061/2251 us)
 </tr>
 <tr>
 <td>vid_type</td>
-<td>To insert a vertex with a string-typed VID, set the <code>fixed_string</code> length for the maximum VID length. The default <code>fixed_string</code> is 8, and recommend to be less than 64. <code>fix_string(N)</code> is similar to <code>char(N)</code> in SQL.</td>
+<td>Specifies the data type of VIDs in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>N</code> represents the maximum length of the VIDs and it must be a positive integer. The default value is <code>FIXED_STRING(8)</code>. If you set a VID length greater than <code>N</code>, Nebula Graph throws an error. To set the integer VID for vertices, set <code>vid_type</code> to <code>INT64</code>.</td>
 </tr>
 </tbody>
 </table>
