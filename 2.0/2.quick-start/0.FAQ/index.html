@@ -489,6 +489,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#error_cant_solve_the_start_vids_from_the_sentence" class="md-nav__link">
+    Error can’t solve the start vids from the sentence
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3468,6 +3475,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#error_cant_solve_the_start_vids_from_the_sentence" class="md-nav__link">
+    Error can’t solve the start vids from the sentence
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3674,23 +3688,38 @@ Got 1 rows (time spent 1235/1934 us)
 <p>To prevent unnecessary waste of resources, we recommend that you set an odd replica number.</p>
 <p>We suggest that you set replica_factor to 3 for the production environment and 1 for the test environment. Do not use an even number.</p>
 <h3 id="error_-7_syntaxerror_syntax_error_near"><code>[ERROR (-7)]: SyntaxError: syntax error near</code> '`<a class="headerlink" href="#error_-7_syntaxerror_syntax_error_near" title="Permanent link">&para;</a></h3>
-<p>In most cases, a query statement requires a <code>YIELD</code> or a <code>RETURN</code>. Check your query statement to see if <code>YIELD</code> or <code>RETURN</code>is provided.</p>
+<p>In most cases, a query statement requires a <code>YIELD</code> or a <code>RETURN</code>. Check your query statement to see if <code>YIELD</code> or <code>RETURN</code> is provided.</p>
 <h3 id="how_to_count_the_verticesedges_number_of_each_tagedge_type">How to count the vertices/edges number of each tag/edge type?<a class="headerlink" href="#how_to_count_the_verticesedges_number_of_each_tagedge_type" title="Permanent link">&para;</a></h3>
 <p>See <a href="../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/">show-stats</a>.</p>
 <h3 id="how_to_get_all_the_verticesedge_of_each_tagedge_type">How to get all the vertices/edge of each tag/edge type?<a class="headerlink" href="#how_to_get_all_the_verticesedge_of_each_tagedge_type" title="Permanent link">&para;</a></h3>
 <ol>
 <li>create and rebuild index</li>
 </ol>
-<div class="highlight"><pre><span></span><code>CREATE TAG INDEX i_player ON player();
-REBUILD TAG INDEX i_player;
+<div class="highlight"><pre><span></span><code>&gt; CREATE TAG INDEX i_player ON player();
+&gt; REBUILD TAG INDEX i_player;
 </code></pre></div>
 <ol>
 <li>use <code>LOOKUP</code> or <code>MATCH</code></li>
 </ol>
-<div class="highlight"><pre><span></span><code>LOOKUP ON player;
-MATCH (n:player) RETURN n;
+<div class="highlight"><pre><span></span><code>&gt; LOOKUP ON player;
+&gt; MATCH (n:player) RETURN n;
 </code></pre></div>
 <p>See <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/"><code>INDEX</code></a>, <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/"><code>LOOKUP</code></a> and <a href="../../3.ngql-guide/7.general-query-statements/2.match/"><code>MATCH</code></a>.</p>
+<h3 id="error_cant_solve_the_start_vids_from_the_sentence">Error <code>can’t solve the start vids from the sentence</code><a class="headerlink" href="#error_cant_solve_the_start_vids_from_the_sentence" title="Permanent link">&para;</a></h3>
+<p>The graphd requires <code>start vids</code> to begin a graph traversal. The <code>start vids</code> can either be specified by the user, for example,</p>
+<div class="highlight"><pre><span></span><code>&gt; GO FROM ${vids} ...
+&gt; MATCH (src) WHERE id(src) == ${vids}
+# The start vids are explicitly given by ${vids}.
+</code></pre></div>
+<p>or be found from a (property) index, for example, </p>
+<div class="highlight"><pre><span></span><code># CREATE TAG INDEX i_player ON player(name(20));
+# REBUILD TAG INDEX i_player;
+
+&gt; LOOKUP ON player WHERE player.name == &quot;abc&quot; | ... YIELD ...
+&gt; MATCH (src) WHERE src.name == &quot;abc&quot; ... 
+# The start vids are found from the property index on name.
+</code></pre></div>
+<p>Otherwise, an error like <code>can’t solve the start vids from the sentence</code> will be raised.</p>
 <h2 id="about_operations">About operations<a class="headerlink" href="#about_operations" title="Permanent link">&para;</a></h2>
 <h3 id="the_log_files_are_too_large_how_to_recycle_the_logs">The log files are too large. How to recycle the logs<a class="headerlink" href="#the_log_files_are_too_large_how_to_recycle_the_logs" title="Permanent link">&para;</a></h3>
 <p>Nebula Graph uses <a href="https://github.com/google/glog">glog</a> to print logs. <code>glog</code> can't recycle the outdated files. You can use crontab to delete them by yourself. Refer to the discussions of <a href="https://github.com/google/glog/issues/423"><code>Glog should delete old log files automaticly</code></a>.</p>
