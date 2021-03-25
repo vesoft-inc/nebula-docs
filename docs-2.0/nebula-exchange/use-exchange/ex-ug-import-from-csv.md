@@ -61,7 +61,12 @@ Analyze the data in the CSV files and follow these steps to create a schema in N
 
     ```ngql
     -- Create a graph space named csv
-    CREATE SPACE csv(partition_num=10, replica_factor=1, vid_type=fixed_string(100));
+    CREATE SPACE [IF NOT EXISTS] <graph_space_name>
+        [(partition_num = <partition_number>, 
+        replica_factor = <replica_number>, 
+        charset = <charset>, 
+        collate = <collate>, 
+        vid_type = {FIXED_STRING(<N>)) | INT64}];
     
     -- Choose the csv graph space
     USE csv;

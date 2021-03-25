@@ -4,13 +4,13 @@ With the **View Subgraphs** function, you can run a [FIND SHORTEST | ALL PATH](.
 
 ## Studio version
 
-Studio of v2.0.0-alpha or later versions supports this function. To update the version, see [Check updates](../about-studio/st-ug-check-updates.md).
+Studio of v2.0.0 or later versions supports this function. To update the version, see [Check updates](../about-studio/st-ug-check-updates.md).
 
 ## Prerequisites
 
 To use the **View Subgraphs** function, you must do a check of these:
 
-- The version of Studio is v2.0.0-alpha or later.
+- The version of Studio is v2.0.0 or later.
 
 - Studio is connected to Nebula Graph v2.x.
 
