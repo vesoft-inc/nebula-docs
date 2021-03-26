@@ -882,9 +882,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        String
+      </label>
+    
     <a href="./" title="String" class="md-nav__link md-nav__link--active">
       String
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explanations_for_the_return_of_substr_and_substring" class="md-nav__link">
+    Explanations for the return of substr() and substring()
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -3220,6 +3249,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explanations_for_the_return_of_substr_and_substring" class="md-nav__link">
+    Explanations for the return of substr() and substring()
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3233,9 +3278,6 @@
                 
                 <h1 id="built-in_string_functions">Built-in string functions<a class="headerlink" href="#built-in_string_functions" title="Permanent link">&para;</a></h1>
 <p>Nebula Graph supports the following built-in string functions:</p>
-<blockquote>
-<p><strong>NOTE:</strong> Like SQL, the character index (location) for nGQL starts from <code>1</code>. However, the character index (i.e. location in a list) for the C language starts from <code>0</code>.</p>
-</blockquote>
 <table>
 <thead>
 <tr>
@@ -3298,7 +3340,7 @@
 </tr>
 <tr>
 <td>string substr(string a, int pos, int count)</td>
-<td>Extracts a substring from a string, starting at the specified position, extract the specified length characters.</td>
+<td>Returns a substring from a string, starting at the specified position <code>pos</code>, extract <code>count</code> characters.</td>
 </tr>
 <tr>
 <td>string substring(string a, int pos, int count)</td>
@@ -3326,16 +3368,27 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Explanations</strong> on the return results of function <code>substr</code>:</p>
+<blockquote>
+<p><strong>NOTE</strong>: If the argument is <code>NULL</code>, the return is undefined.</p>
+</blockquote>
+<h2 id="explanations_for_the_return_of_substr_and_substring">Explanations for the return of <code>substr()</code> and <code>substring()</code><a class="headerlink" href="#explanations_for_the_return_of_substr_and_substring" title="Permanent link">&para;</a></h2>
 <ul>
-<li>If pos is 0, Returns an empty string.</li>
-<li>If the absolute value of pos is greater than the string, Returns an empty string.</li>
-<li>If pos is greater than 0, Returns substring in [pos, pos + count).</li>
-<li>If pos is less than 0, and set position N as length(a) + pos + 1, Returns substring in [N, N + count).</li>
-<li>If count is greater than length(a), Returns the whole string.</li>
+<li><code>pos</code> uses a 0-based index.</li>
+<li>If <code>pos</code> is 0, the whole string <code>a</code> is returned.</li>
+<li>If <code>pos</code> is greater than the maximum string index, an empty string is returned.</li>
+<li>If <code>pos</code> is a negative number, <code>BAD_DATA</code> is returned.</li>
+<li>If <code>count</code> is omitted, the function returns the substring starting at the position given by <code>pos</code> and
+extending to the end of string <code>a</code>.</li>
+<li>Using <code>NULL</code> as any of the argument of <code>substr()</code> causes <a href="https://github.com/vesoft-inc/nebula-graph/issues/878">an issue</a>.</li>
+<li>If <code>count</code> is 0, an empty string is returned.</li>
 </ul>
 <blockquote>
-<p><strong>NOTE</strong>: If the parameter is <code>NULL</code>, the return is undefined.</p>
+<p><strong>OpenCypher Compatibility:</strong></p>
+<ul>
+<li>In openCypher, if <code>a</code> is <code>null</code>, <code>null</code> is returned.</li>
+<li>In openCypher, if <code>pos</code> is 0, the returned substring starts from the first character, and extend to <code>count</code> characters.</li>
+<li>In openCypher, if either <code>pos</code> or <code>count</code> is null or a negative integer, an error is raised.</li>
+</ul>
 </blockquote>
                 
                   

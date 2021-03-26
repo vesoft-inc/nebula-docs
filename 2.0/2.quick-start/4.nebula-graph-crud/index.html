@@ -3812,35 +3812,23 @@ Got 4 rows (time spent 1061/2251 us)
 <ul>
 <li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
     [(partition_num = &lt;partition_number&gt;, 
-    replica_factor = &lt;replica_number&gt;, 
-    charset = &lt;charset&gt;, 
-    collate = &lt;collate&gt;, 
+    replica_factor = &lt;replica_number&gt;,
     vid_type = {FIXED_STRING(&lt;N&gt;)) | INT64}];
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>partition_num</td>
-<td>Specifies the number of partitions in each replica. The suggested number is the number of hard disks in the cluster times 5. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.</td>
-</tr>
-<tr>
-<td>replica_factor</td>
-<td>Specifies the number of replicas in the Nebula Graph cluster. The suggested number is 3 in a production environment and 1 in a test environment. The replica number must always be an <strong>odd</strong> number for the need of quorum-based voting.</td>
-</tr>
-<tr>
-<td>vid_type</td>
-<td>Specifies the data type of VIDs in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>N</code> represents the maximum length of the VIDs and it must be a positive integer. The default value is <code>FIXED_STRING(8)</code>. If you set a VID length greater than <code>N</code>, Nebula Graph throws an error. To set the integer VID for vertices, set <code>vid_type</code> to <code>INT64</code>.</td>
-</tr>
-</tbody>
-</table>
 </li>
 </ul>
+<!-- `charset` and `collate` now each has only one value. Omit the two options for now.
+    charset = <charset>,
+    collate = <collate>, 
+-->
+
+<div class="codehilite"><pre><span></span><code>| Property       | Description                                                                                                                                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| partition_num  | Specifies the number of partitions in each replica. The suggested number is the number of hard disks in the cluster times 5. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.           |
+| replica_factor | Specifies the number of replicas in the Nebula Graph cluster. The suggested number is 3 in a production environment and 1 in a test environment. The replica number must always be an **odd** number for the need of quorum-based voting. |
+|vid_type | Specifies the data type of VIDs in a graph space. Available values are `FIXED_STRING(N)` and `INT64`. `N` represents the maximum length of the VIDs and it must be a positive integer. The default value is `FIXED_STRING(8)`. If you set a VID length greater than `N`, Nebula Graph throws an error. To set the integer VID for vertices, set `vid_type` to `INT64`. |
+</code></pre></div>
+
 <ul>
 <li>List graph spaces and check if the creation is successful:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
