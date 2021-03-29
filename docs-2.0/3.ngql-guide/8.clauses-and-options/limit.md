@@ -2,12 +2,10 @@
 
 The `LIMIT` clause constrains the number of rows in the output.
 
-## OpenCypher Compatibility
-
 The Syntax in openCypher and nGQL-extension are different.
 
-- nGQL-extension: A pipe `|` must be used. And an offset can be ignored.
-- openCypher: No pipes are permitted. Use `Skip` to indicate offset.
+- NGQL-extension: A pipe `|` must be used. And an offset can be ignored.
+- OpenCypher style: No pipes are permitted. Use `Skip` to indicate offset.
 
 >**NOTE**: When using `LIMIT`(in either syntax above), it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
