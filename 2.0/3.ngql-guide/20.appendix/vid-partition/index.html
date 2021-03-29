@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for Nebula Graph Database">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/20.appendix.md/hash/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/3.ngql-guide/20.appendix/vid-partition/">
       
       
         <meta name="author" content="Nebula Graph">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Hash - Nebula Graph Database Manual</title>
+        <title>Vertex identifier and partition ID - Nebula Graph Database Manual</title>
       
     
     
@@ -95,7 +95,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#hash" tabindex="0" class="md-skip">
+      <a href="#vertex_identifier_and_partition_id" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -121,7 +121,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Hash
+                Vertex identifier and partition ID
               
             </span>
           
@@ -458,12 +458,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       nGQL guide
@@ -2099,12 +2097,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-18" type="checkbox" id="nav-3-18" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-18" type="checkbox" id="nav-3-18">
     
     <label class="md-nav__link" for="nav-3-18">
       Appendix
@@ -2122,7 +2118,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../comments/" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2132,20 +2128,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="Hash" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../20.appendix.md/hash.md" title="Hash" class="md-nav__link">
       Hash
     </a>
-    
   </li>
 
         
@@ -2155,7 +2142,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2167,7 +2154,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2179,7 +2166,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../vid-partition/" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3220,6 +3207,29 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vid" class="md-nav__link">
+    VID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partition_id" class="md-nav__link">
+    Partition ID
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3231,29 +3241,43 @@
               
                 
                 
-                <h1 id="hash">Hash<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h1>
-<p>This document gives some explain about the <code>hash()</code> function used in nGQL.</p>
-<p>The source code of hashing function (<code>MurmurHash2</code>), seed (<code>0xc70f6907UL</code>) and other parameters can be found in <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/base/MurmurHash2.h">this C++ MurmurHahs2.h file</a>.</p>
-<p>For Java, call like follows.</p>
-<div class="highlight"><pre><span></span><code><span class="n">MurmurHash2</span><span class="p">.</span><span class="na">hash64</span><span class="p">(</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">().</span><span class="na">length</span><span class="p">,</span> <span class="mh">0xc70f6907</span><span class="p">)</span>
-</code></pre></div>
-<p>In nGQL text, call like follows.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(&quot;to_be_hashed&quot;)
-+----------------------+
-| hash(to_be_hashed)   |
-+----------------------+
-| -1098333533029391540 |
-+----------------------+
-nebula&gt; YIELD hash(-1)
-+------------+
-| hash(-(1)) |
-+------------+
-| -1         |
-+------------+
-</code></pre></div>
+                <h1 id="vertex_identifier_and_partition_id">Vertex identifier and partition ID<a class="headerlink" href="#vertex_identifier_and_partition_id" title="Permanent link">&para;</a></h1>
+<h2 id="vid">VID<a class="headerlink" href="#vid" title="Permanent link">&para;</a></h2>
+<p><code>VID</code> is short for vertex identifier.</p>
+<p>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>s). 
+The VID can be an int64 or a fixed length string.
+When inserting a vertex, you must specify a <code>VID</code> for it. </p>
+<p>You can also call <code>hash()</code> to generate an int64 VID if the graph has less than one billion vertices.</p>
 <blockquote>
-<p><strong>NOTE</strong>: Roughly, The chance of collision is about 1/10 in the case of 1 billion vertices. (The number of edges are irrelevant to the collision possibility).</p>
+<p><code>VID</code> must be unique in a graph space.</p>
 </blockquote>
+<p>That is, in the same graph space, two vertices that have the same <code>VID</code> are considered as the same vertex.</p>
+<p>In addition, one <code>VID</code> can have multiple <code>TAG</code>s. E.g., One person (<code>VID</code>) can have two roles (<code>tags</code>).</p>
+<p>Two <code>VID</code>s in two different graph spaces are totally independent of each other.</p>
+<h2 id="partition_id">Partition ID<a class="headerlink" href="#partition_id" title="Permanent link">&para;</a></h2>
+<p>When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. If you want certain vertices to locate on the same partition (i.e., on the same machine), you can control the generation of the <code>VID</code>s by using the following <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">formula / code</a>.</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1">// If the length of the id is 8, we will treat it as int64_t to be compatible</span>
+    <span class="c1">// with the version 1.0</span>
+    <span class="kt">uint64_t</span> <span class="n">vid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vid</span><span class="p">),</span> <span class="n">id</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">MurmurHash2</span> <span class="n">hash</span><span class="p">;</span>
+        <span class="n">vid</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">id</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="n">PartitionID</span> <span class="n">pId</span> <span class="o">=</span> <span class="n">vid</span> <span class="o">%</span> <span class="n">numParts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>Roughly say, after hashing a fixed string to int64, (the hashing of int64 is the number itself), do modulo and then plus one.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pId</span> <span class="o">=</span> <span class="n">vid</span> <span class="o">%</span> <span class="n">numParts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>In the preceding formula,</p>
+<ul>
+<li><code>%</code> is the modulo operation.</li>
+<li><code>numParts</code> is the number of partition for the graph space where the <code>VID</code> is located, namely the value of <code>partition_num</code> in the <a href="../../9.space-statements/1.create-space/">CREATE SPACE</a> statement.</li>
+<li><code>pId</code> is the ID for the partition where the <code>VID</code> is located.</li>
+</ul>
+<p>For example, if there are 100 partitions, the vertices with <code>VID</code> 1, 101, 1001 will be stored on the same partition.</p>
+<p>But, the mapping between the <code>partition ID</code> and the machine address is random. Therefore, you can't assume that any two partitions are located on the same machine.</p>
                 
                   
                 
@@ -3271,41 +3295,6 @@ nebula&gt; YIELD hash(-1)
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../comments/" title="Comments" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Comments
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Identifier Case Sensitivity
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
