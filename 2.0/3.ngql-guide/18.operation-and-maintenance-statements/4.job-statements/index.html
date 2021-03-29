@@ -3475,17 +3475,17 @@
 <p>The Meta Service parses a <code>SUBMIT JOB</code> request into tasks and assigns them to the nebula-storaged processes. The <code>SHOW JOB &lt;job_id&gt;</code> statement shows the information about a specific job and all its tasks.</p>
 <p>The job ID is created when you run the <code>SUBMIT JOB</code> statement.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 96;
-+----------------+---------------+------------+------------+------------+
-| Job Id(TaskId) | Command(Dest) | Status     | Start Time | Stop Time  |
-+----------------+---------------+------------+------------+------------+
-| 96             | &quot;FLUSH&quot;       | &quot;FINISHED&quot; | 1606544069 | 1606544069 |
-+----------------+---------------+------------+------------+------------+
-| 0              | &quot;storaged2&quot;   | &quot;FINISHED&quot; | 1606544069 | 1606544069 |
-+----------------+---------------+------------+------------+------------+
-| 1              | &quot;storaged0&quot;   | &quot;FINISHED&quot; | 1606544069 | 1606544069 |
-+----------------+---------------+------------+------------+------------+
-| 2              | &quot;storaged1&quot;   | &quot;FINISHED&quot; | 1606544069 | 1606544069 |
-+----------------+---------------+------------+------------+------------+
++----------------+---------------+------------+-------------------------+-------------------------+
+| Job Id(TaskId) | Command(Dest) | Status     | Start Time              | Stop Time               |
++----------------+---------------+------------+-------------------------+-------------------------+
+| 96             | &quot;FLUSH&quot;       | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
++----------------+---------------+------------+-------------------------+-------------------------+
+| 0              | &quot;storaged2&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
++----------------+---------------+-------------------------+------------+-------------------------+
+| 1              | &quot;storaged0&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
++----------------+---------------+------------+-------------------------+-------------------------+
+| 2              | &quot;storaged1&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
++----------------+---------------+------------+-------------------------+-------------------------+
 </code></pre></div>
 <p>The description of the return message is as follows.</p>
 <table>
@@ -3564,17 +3564,17 @@
 <h2 id="show_jobs">SHOW JOBS<a class="headerlink" href="#show_jobs" title="Permanent link">&para;</a></h2>
 <p>The <code>SHOW JOBS</code> statement lists all the unexpired jobs. The default job expiration interval is one week. You can change it by modifying the <code>job_expired_secs</code> parameter of the Meta Service. For how to modify <code>job_expired_secs</code>, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta Service configuration</a>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
-+--------+----------------------+------------+------------+------------+
-| Job Id | Command              | Status     | Start Time | Stop Time  |
-+--------+----------------------+------------+------------+------------+
-| 97     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 1606546132 | 1606546132 |
-+--------+----------------------+------------+------------+------------+
-| 96     | &quot;FLUSH&quot;              | &quot;FINISHED&quot; | 1606544069 | 1606544069 |
-+--------+----------------------+------------+------------+------------+
-| 95     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 1606539731 | 1606539731 |
-+--------+----------------------+------------+------------+------------+
-| 86     | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 1606369104 | 1606369104 |
-+--------+----------------------+------------+------------+------------+
++--------+----------------------+------------+-------------------------+-------------------------+
+| Job Id | Command              | Status     | Start Time              | Stop Time               |
++--------+----------------------+------------+-------------------------+-------------------------+
+| 97     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 2020-11-28T14:48:52.000 | 2020-11-28T14:48:52.000 |
++--------+----------------------+------------+-------------------------+-------------------------+
+| 96     | &quot;FLUSH&quot;              | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
++--------+----------------------+------------+-------------------------+-------------------------+
+| 95     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 2020-11-28T13:02:11.000 | 2020-11-28T13:02:11.000 |
++--------+----------------------+------------+-------------------------+-------------------------+
+| 86     | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2020-11-26T13:38:24.000 | 2020-11-26T13:38:24.000 |
++--------+----------------------+------------+-------------------------+-------------------------+
 </code></pre></div>
 <h3 id="stop_job">STOP JOB<a class="headerlink" href="#stop_job" title="Permanent link">&para;</a></h3>
 <p>The <code>STOP JOB</code> statement stops jobs that are not finished.</p>
@@ -3597,7 +3597,7 @@
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="how_to_troubleshoot_job_problems">How to troubleshoot job problems<a class="headerlink" href="#how_to_troubleshoot_job_problems" title="Permanent link">&para;</a></h3>
 <p>The <code>SUBMIT JOB</code> operations use the HTTP port. Please check if the HTTP ports on the machines where the Storage Service is running are working well. You can use the following command to debug.</p>
-<div class="highlight"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:12000/admin?space={test}&amp;op=compact&quot;</span>
+<div class="highlight"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:19779/admin?space={space_name}&amp;op=compact&quot;</span>
 </code></pre></div>
                 
                   
