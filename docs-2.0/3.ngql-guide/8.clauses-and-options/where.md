@@ -7,12 +7,6 @@ The `WHERE` clause filters the outputs by conditions.
 * nGQL extensions such as `GO` and `LOOKUP`.
 * OpenCypher syntax such as `MATCH` and `WITH`.
 
-## Syntax
-
-```ngql
-WHERE <expression> [ AND|OR|XOR <expression> ...])
-```
-
 ## OpenCypher compatibility
 
 * Using patterns in `WHERE` is not supported (TODO: planning), for example `WHERE (v)-->(v2)`.
