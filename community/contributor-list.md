@@ -4,11 +4,15 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula Repository Contributors
 
+-   [czpmango](https://github.com/czpmango)
 -   [Crazyinging](https://github.com/Crazyinging)
+-   [MMyheart](https://github.com/MMyheart)
+-   [LuconYang](https://github.com/LuconYang)
 -   [charlygao](https://github.com/charlygao)
 -   [runnerls](https://github.com/runnerls)
 -   [lorinlee](https://github.com/lorinlee)
 -   [amosbird](https://github.com/amosbird)
+-   [KinhanS](https://github.com/KinhanS)
 -   [nevermore3](https://github.com/nevermore3)
 -   [GestureWei](https://github.com/GestureWei)
 -   [knightjya](https://github.com/knightjya)
@@ -27,7 +31,6 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [moneytoyang](https://github.com/moneytoyang)
 -   [lilydjwg](https://github.com/lilydjwg)
 -   [boyuanfang](https://github.com/boyuanfang)
--   [spacewalkman](https://github.com/spacewalkman)
 -   [0xflotus](https://github.com/0xflotus)
 -   [PatrickNicholas](https://github.com/PatrickNicholas)
 -   [dutor](https://github.com/dutor)
@@ -55,8 +58,12 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [boshengchen](https://github.com/boshengchen)
 -   [Liuxue-Yang](https://github.com/Liuxue-Yang)
 -   [andychow01](https://github.com/andychow01)
+-   [spacewalkman](https://github.com/spacewalkman)
 
 ### Nebula-Graph Repository Contributors
+-   [guojun85](https://github.com/guojun85)
+-   [HarrisChu](https://github.com/HarrisChu)
+-   [whitewum](https://github.com/whitewum)
 -   [tom-chensf](https://github.com/tom-chensf)
 -   [liuyu85cn](https://github.com/liuyu85cn)
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
@@ -80,6 +87,8 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 
 ### Nebula-Storage Repository Contributors
+-   [guojun85](https://github.com/guojun85)
+-   [czpmango](https://github.com/czpmango)
 -   [yixinglu](https://github.com/yixinglu)
 -   [liuyu85cn](https://github.com/liuyu85cn)
 -   [darionyaphet](https://github.com/darionyaphet)
@@ -100,6 +109,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [sherman-the-tank](https://github.com/sherman-the-tank)
 
 ### Nebula-Common Repository Contributors
+-   [guojun85](https://github.com/guojun85)
 -   [jude-zhu](https://github.com/jude-zhu)
 -   [dangleptr](https://github.com/dangleptr)
 -   [czpmango](https://github.com/czpmango)
@@ -119,9 +129,25 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [Aiee](https://github.com/Aiee)
 -   [panda-sheep](https://github.com/panda-sheep)
 
+### Nebula-Console Repository Contributors
+
+-   [whitewum](https://github.com/whitewum)
+-   [laura-ding](https://github.com/laura-ding)
+-   [Amber1990Zhang](https://github.com/Amber1990Zhang)
+-   [dutor](https://github.com/dutor)
+-   [Shylock-Hg](https://github.com/Shylock-Hg)
+-   [jude-zhu](https://github.com/jude-zhu)
+-   [Aiee](https://github.com/Aiee)
+-   [jievince](https://github.com/jievince)
+-   [CPWstatic](https://github.com/CPWstatic)
+-   [yixinglu](https://github.com/yixinglu)
 
 ### Nebula-Docs Repository Contributors
 
+-   [HarrisChu](https://github.com/HarrisChu)
+-   [xrfinbupt](https://github.com/xrfinbupt)
+-   [SbstnErhrdt](https://github.com/SbstnErhrdt)
+-   [cooper-lzy](https://github.com/cooper-lzy)
 -   [hy9125](https://github.com/hy9125)
 -   [jamieliu1023](https://github.com/jamieliu1023)
 -   [nianiaJR](https://github.com/nianiaJR)
@@ -132,8 +158,24 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [oldLady344](https://github.com/oldLady344)
 -   [whitewum](https://github.com/whitewum)
 
+### Nebula-Docs-CN Repository Contributors
+
+-   [Aiee](https://github.com/Aiee)
+-   [everywan](https://github.com/everywan)
+-   [xrfinbupt](https://github.com/xrfinbupt)
+-   [hy9125](https://github.com/hy9125)
+-   [gumupaier](https://github.com/gumupaier)
+-   [jude-zhu](https://github.com/jude-zhu)
+-   [randomJoe211](https://github.com/randomJoe211)
+-   [cooper-lzy](https://github.com/cooper-lzy)
+-   [whitewum](https://github.com/whitewum)
+-   [Amber1990Zhang](https://github.com/Amber1990Zhang)
+-   [oldLady344](https://github.com/oldLady344)
+-   [nianiaJR](https://github.com/nianiaJR)
 
 ### Nebula-Java Repository Contributors
+-   [sekingme](https://github.com/sekingme)
+-   [guojun85](https://github.com/guojun85)
 -   [everywan](https://github.com/everywan)
 -   [mz223032](https://github.com/mz223032)
 -   [xrfinbupt](https://github.com/xrfinbupt)
@@ -146,6 +188,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [whitewum](https://github.com/whitewum)
 -   [Anyzm](https://github.com/Anyzm)
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
+-   [wfystx](https://github.com/wfystx)
 -   [laura-ding](https://github.com/laura-ding)
 -   [Nicole00](https://github.com/Nicole00)
 -   [oldLady344](https://github.com/oldLady344)
@@ -157,6 +200,7 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula-Go Repository Contributors
 
+-   [SbstnErhrdt](https://github.com/SbstnErhrdt)
 -   [laura-ding](https://github.com/laura-ding)
 -   [jievince](https://github.com/jievince)
 -   [CPWstatic](https://github.com/CPWstatic)
@@ -173,6 +217,11 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula-Python Repository Contributors
 
+-   [defp](https://github.com/defp)
+-   [whitewum](https://github.com/whitewum)
+-   [xiaoronghuang](https://github.com/xiaoronghuang)
+-   [yixinglu](https://github.com/yixinglu)
+-   [wey-gu](https://github.com/wey-gu)
 -   [gumupaier](https://github.com/gumupaier)
 -   [darionyaphet](https://github.com/darionyaphet)
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
@@ -180,17 +229,39 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [jievince](https://github.com/jievince)
 
 
+### Nebula-Spark-Utils Repository Contributors
+
+-   [riverzzz](https://github.com/riverzzz)
+-   [guojun85](https://github.com/guojun85)
+-   [oldLady344](https://github.com/oldLady344)
+-   [Nicole00](https://github.com/Nicole00)
+
+### Nebula-Flink-Connector Repository Contributors
+-   [Nicole00](https://github.com/Nicole00)
+
 ### Nebula-Docker-Compose Repository Contributors
+
+-   [codlin](https://github.com/codlin)
+-   [nevermore3](https://github.com/nevermore3)
+-   [matrixji](https://github.com/matrixji)
 -   [hetao92](https://github.com/hetao92)
 -   [monadbobo](https://github.com/monadbobo)
 -   [wilsonyou](https://github.com/wilsonyou)
--   [jude-zhu](https://github.com/jude-zhu)
 -   [laura-ding](https://github.com/laura-ding)
--   [randomJoe211](https://github.com/randomJoe211)
+-   [MegaByte875](https://github.com/MegaByte875)
 -   [jievince](https://github.com/jievince)
+-   [jude-zhu](https://github.com/jude-zhu)
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
+-   [randomJoe211](https://github.com/randomJoe211)
 -   [yixinglu](https://github.com/yixinglu)
 
+### Nebula-Chaos Repository Contributors
+
+-   [bright-starry-sky](https://github.com/bright-starry-sky)
+-   [darionyaphet](https://github.com/darionyaphet)
+-   [panda-sheep](https://github.com/panda-sheep)
+-   [critical27](https://github.com/critical27)
+-   [dangleptr](https://github.com/dangleptr)
 
 ### Nebula-Dev-Docker Repository Contributors
 
@@ -207,6 +278,8 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 
 ### Nebula-Importer Repository Contributors
 
+-   [Aiee](https://github.com/Aiee)
+-   [SbstnErhrdt](https://github.com/SbstnErhrdt)
 -   [laishzh](https://github.com/laishzh)
 -   [knightXun](https://github.com/knightXun)
 -   [laura-ding](https://github.com/laura-ding)
@@ -218,9 +291,13 @@ A lot of people have made a contribution to Nebula Graph. These contributors are
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
 
 ### Nebula-Stats-Exporter Repository Contributors
+
+-   [Aiee](https://github.com/Aiee)
 -   [MegaByte875](https://github.com/MegaByte875)
 -   [Amber1990Zhang](https://github.com/Amber1990Zhang)
 -   [knightXun](https://github.com/knightXun)
 
-### Nebula-Flink-Connector Repository Contributors
--   [Nicole00](https://github.com/Nicole00)
+### Nebula-Bench Repository Contributors
+
+-   [tom-chensf](https://github.com/tom-chensf)
+-   [monadbobo](https://github.com/monadbobo)
