@@ -18,6 +18,8 @@ Automatic compaction is done when the system reads data, writes data, or the sys
 nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
 ```
 
+> **CAUTION**: The command overwrites all `rocksdb_column_family_options` items. Other items besides `disable_auto_compactions` is overwritten to the default value. You may have to read all the items before the updates.
+
 ## Full compaction
 
 Full compaction enables large scale background operations for a graph space such as merging files, deleting the data expired by TTL. Use these statements to enable full compaction:
