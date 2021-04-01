@@ -3412,6 +3412,9 @@
 <p>Automatic compaction is done when the system reads data, writes data, or the system restarts. The automatic compaction is enabled by default. But once triggered during peak hours, it can cause unexpected IO occupancy that has an unwanted effect on the performance. To disable automatic compaction, use this statement:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
 </code></pre></div>
+<blockquote>
+<p><strong>CAUTION</strong>: The command overwrites all <code>rocksdb_column_family_options</code> items. Other items besides <code>disable_auto_compactions</code> is overwritten to the default value. You may have to read all the items before the updates.</p>
+</blockquote>
 <h2 id="full_compaction">Full compaction<a class="headerlink" href="#full_compaction" title="Permanent link">&para;</a></h2>
 <p>Full compaction enables large scale background operations for a graph space such as merging files, deleting the data expired by TTL. Use these statements to enable full compaction:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; USE &lt;your_graph_space&gt;;
