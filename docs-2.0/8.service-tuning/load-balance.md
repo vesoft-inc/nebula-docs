@@ -1,6 +1,6 @@
 # Storage load balance
 
-To scale in or scale out the Nebula Graph Storage Service, use the `BALANCE` statements.
+You can use the `BALANCE` statements to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.
 
 ## Balance partition distribution
 
