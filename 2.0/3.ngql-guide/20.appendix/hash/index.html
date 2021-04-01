@@ -3219,6 +3219,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#legacy_version_compatibility" class="md-nav__link">
+    Legacy version compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_a_number" class="md-nav__link">
+    Hash a number
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_a_string" class="md-nav__link">
+    Hash a string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_a_list" class="md-nav__link">
+    Hash a list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_a_boolean" class="md-nav__link">
+    Hash a boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_null" class="md-nav__link">
+    Hash NULL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash_an_expression" class="md-nav__link">
+    Hash an expression
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3231,28 +3289,71 @@
                 
                 
                 <h1 id="hash">Hash<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h1>
-<p>This document gives some explain about the <code>hash()</code> function used in nGQL.</p>
-<p>The source code of hashing function (<code>MurmurHash2</code>), seed (<code>0xc70f6907UL</code>) and other parameters can be found in <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/base/MurmurHash2.h">this C++ MurmurHahs2.h file</a>.</p>
+<p>The <code>hash()</code> function returns the hash value of the argument. The argument can be a number, a string, a list, a boolean, null, or an expression that evaluates to a value of the preceding data types.</p>
+<p>The source code of the <code>hash()</code> function (MurmurHash2), seed (<code>0xc70f6907UL</code>), and other parameters can be found in <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/base/MurmurHash2.h"><code>MurmurHahs2.h</code></a>.</p>
+<blockquote>
+<p><strong>NOTE</strong>: Roughly, The chance of collision is about 1/10 in the case of 1 billion vertices. The number of edges is irrelevant to the collision possibility.</p>
+</blockquote>
 <p>For Java, call like follows.</p>
 <div class="highlight"><pre><span></span><code><span class="n">MurmurHash2</span><span class="p">.</span><span class="na">hash64</span><span class="p">(</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">().</span><span class="na">length</span><span class="p">,</span> <span class="mh">0xc70f6907</span><span class="p">)</span>
 </code></pre></div>
-<p>In nGQL text, call like follows.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(&quot;to_be_hashed&quot;)
+<h2 id="legacy_version_compatibility">Legacy version compatibility<a class="headerlink" href="#legacy_version_compatibility" title="Permanent link">&para;</a></h2>
+<p>In nGQL 1.0, when nGQL does not support string VIDs, a common practice is to hash the strings first and then use the values as VIDs. But in nGQL 2.0, both string VIDs and integer VIDs are supported, you don't have to use <code>hash()</code> to make VIDs.</p>
+<h2 id="hash_a_number">Hash a number<a class="headerlink" href="#hash_a_number" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(-123);
++--------------+
+| hash(-(123)) |
++--------------+
+| -123         |
++--------------+
+</code></pre></div>
+<h2 id="hash_a_string">Hash a string<a class="headerlink" href="#hash_a_string" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(&quot;to_be_hashed&quot;);
 +----------------------+
 | hash(to_be_hashed)   |
 +----------------------+
 | -1098333533029391540 |
 +----------------------+
-nebula&gt; YIELD hash(-1)
+</code></pre></div>
+<h2 id="hash_a_list">Hash a list<a class="headerlink" href="#hash_a_list" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash([1,2,3]);
++----------------+
+| hash([1,2,3])  |
++----------------+
+| 11093822460243 |
++----------------+
+</code></pre></div>
+<h2 id="hash_a_boolean">Hash a boolean<a class="headerlink" href="#hash_a_boolean" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(true);
 +------------+
-| hash(-(1)) |
+| hash(true) |
++------------+
+| 1          |
++------------+
+
+nebula&gt; YIELD hash(false);
++-------------+
+| hash(false) |
++-------------+
+| 0           |
++-------------+
+</code></pre></div>
+<h2 id="hash_null">Hash NULL<a class="headerlink" href="#hash_null" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(NULL);
++------------+
+| hash(NULL) |
 +------------+
 | -1         |
 +------------+
 </code></pre></div>
-<blockquote>
-<p><strong>NOTE</strong>: Roughly, The chance of collision is about 1/10 in the case of 1 billion vertices. (The number of edges are irrelevant to the collision possibility).</p>
-</blockquote>
+<h2 id="hash_an_expression">Hash an expression<a class="headerlink" href="#hash_an_expression" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD hash(toLower(&quot;HELLO NEBULA&quot;));
++-------------------------------+
+| hash(toLower(&quot;HELLO NEBULA&quot;)) |
++-------------------------------+
+| -8481157362655072082          |
++-------------------------------+
+</code></pre></div>
                 
                   
                 
