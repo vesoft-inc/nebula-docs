@@ -80,7 +80,7 @@ The syntax is described as follows.
 
 ## YIELD Statements
 
-## Syntax
+### Syntax
 
 ```ngql
 YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...]
