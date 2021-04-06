@@ -13,7 +13,7 @@ What is [CLA](https://www.apache.org/licenses/contributor-agreements.html)?
 
 Here is the [vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/).
 
-Click the **Sign in with Github to agree** button to sign the CLA.
+Click the **Sign in with GitHub to agree** button to sign the CLA.
 
 If you have any question, send an email to `info@vesoft.com`.
 
@@ -112,23 +112,23 @@ git reset --hard upstream/master
 git push --force origin master
 ```
 
-### Step 4: Develop
+## Step 4: Develop
 
-#### Code Style
+### Code Style
 
 We adopt `cpplint` to make sure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed.
 
-#### Unit Tests Required
+### Unit Tests Required
 
 Please add unit tests for your new features or bug fixes.
 
-#### Build Your Code with Unit Tests Enable
+### Build Your Code with Unit Tests Enable
 
 Please refer to the [build source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) documentation to compile.
 
 > Make sure you have enabled the build of unit tests by setting `-DENABLE_TESTING=ON`.
 
-#### Run Tests
+### Run Tests
 
 In the root folder of `nebula-graph` , run the following command:
 
@@ -136,7 +136,7 @@ In the root folder of `nebula-graph` , run the following command:
 ctest -j$(nproc)
 ```
 
-### Step 5: Bring Your Branch Update to Date
+## Step 5: Bring Your Branch Update to Date
 
 ```bash
 # While on your myfeature branch.
@@ -146,7 +146,7 @@ git rebase upstream/master
 
 You need to bring the head branch up to date after other collaborators merge pull requests to the base branch.
 
-### Step 6: Commit
+## Step 6: Commit
 
 Commit your changes.
 
@@ -156,7 +156,7 @@ git commit -a
 
 Likely you'll go back and edit/build/test some more than `--amend` in a few cycles.
 
-### Step 7: Push
+## Step 7: Push
 
 When ready to review (or just to establish an offsite backup or your work),
 push your branch to your fork on `github.com`:
@@ -165,12 +165,12 @@ push your branch to your fork on `github.com`:
 git push origin myfeature
 ```
 
-### Step 8: Create a Pull Request
+## Step 8: Create a Pull Request
 
 1. Visit your fork at https://github.com/$user/nebula-graph (replace `$user` obviously).
 2. Click the `Compare & pull request` button next to your `myfeature` branch.
 
-### Step 9: Get a Code Review
+## Step 9: Get a Code Review
 
 Once your pull request has been opened, it will be assigned to at least two
 reviewers. Those reviewers will do a thorough code review to make sure that the changes meet the repository's contributing guidelines and other quality standards.
