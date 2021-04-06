@@ -2118,7 +2118,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2130,7 +2130,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2142,7 +2142,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2154,7 +2154,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3374,22 +3374,19 @@
 <p>Nebula Graph has two types of compaction: automatic compaction and full compaction.</p>
 <h2 id="automatic_compaction">Automatic compaction<a class="headerlink" href="#automatic_compaction" title="Permanent link">&para;</a></h2>
 <p>Automatic compaction is done when the system reads data, writes data, or the system restarts. The automatic compaction is enabled by default. But once triggered during peak hours, it can cause unexpected IO occupancy that has an unwanted effect on the performance. To disable automatic compaction, use this statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
+<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
 </code></pre></div>
-
 <blockquote>
 <p><strong>CAUTION</strong>: The command overwrites all <code>rocksdb_column_family_options</code> items. Other items besides <code>disable_auto_compactions</code> is overwritten to the default value. You may have to read all the items before the updates.</p>
 </blockquote>
 <h2 id="full_compaction">Full compaction<a class="headerlink" href="#full_compaction" title="Permanent link">&para;</a></h2>
 <p>Full compaction enables large scale background operations for a graph space such as merging files, deleting the data expired by TTL. Use these statements to enable full compaction:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; USE &lt;your_graph_space&gt;;
+<div class="highlight"><pre><span></span><code>nebula&gt; USE &lt;your_graph_space&gt;;
 nebula&gt; SUBMIT JOB COMPACT;
 </code></pre></div>
-
 <p>The preceding statement returns a job_id. To show the compaction progress, use this statement:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOB &lt;job_id&gt;;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB &lt;job_id&gt;;
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE:</strong> Do the full compaction during off-peak hours because full compaction has a lot of IO operations.</p>
 </blockquote>
@@ -3400,11 +3397,10 @@ nebula&gt; SUBMIT JOB COMPACT;
 <li>After data import is done, run <code>SUBMIT JOB COMPACT</code>.</li>
 <li>Run <code>SUBMIT JOB COMPACT</code> periodically during off-peak hours, for example, early morning.</li>
 <li>Set <code>disable_auto_compactions</code> to <code>false</code> during day time.</li>
-<li>To control the read and write traffic limitation for compactions, set these two parameters in the <code>nebula-storaged.conf</code> configuration file.<div class="codehilite"><pre><span></span><code><span class="c1"># read from the local configuration file and start</span>
+<li>To control the read and write traffic limitation for compactions, set these two parameters in the <code>nebula-storaged.conf</code> configuration file.<div class="highlight"><pre><span></span><code><span class="c1"># read from the local configuration file and start</span>
 --local-config<span class="o">=</span><span class="nb">true</span>
---rate_limit<span class="o">=</span><span class="m">20</span> <span class="o">(</span>in MB/s<span class="o">)</span>
+--rate_limit<span class="o">=</span><span class="m">20</span> <span class="o">(</span><span class="k">in</span> MB/s<span class="o">)</span>
 </code></pre></div>
-
 </li>
 </ul>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>

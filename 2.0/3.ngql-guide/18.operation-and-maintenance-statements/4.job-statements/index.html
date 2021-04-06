@@ -2241,7 +2241,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2253,7 +2253,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2265,7 +2265,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2277,7 +2277,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3478,42 +3478,39 @@
 <p>The long-term tasks running by the Storage Service are called jobs. For example, there are jobs for <code>COMPACT</code>, <code>FLUSH</code>, and <code>STATS</code>. These jobs can be time-consuming if the data size in the graph space is large. The job manager helps you run, show, stop, and recover the jobs.</p>
 <h2 id="submit_job_compact">SUBMIT JOB COMPACT<a class="headerlink" href="#submit_job_compact" title="Permanent link">&para;</a></h2>
 <p>The <code>SUBMIT JOB COMPACT</code> statement triggers the long-term RocksDB compact operation.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB COMPACT;
 +------------+
 | New Job Id |
 +------------+
 | 40         |
 +------------+
 </code></pre></div>
-
 <p>For more information about compact configuration, see <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage Service configuration</a>.</p>
 <h2 id="submit_job_flush">SUBMIT JOB FLUSH<a class="headerlink" href="#submit_job_flush" title="Permanent link">&para;</a></h2>
 <p>The <code>SUBMIT JOB FLUSH</code> statement writes the RocksDB memfile in memory to the hard disk.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB FLUSH;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB FLUSH;
 +------------+
 | New Job Id |
 +------------+
 | 96         |
 +------------+
 </code></pre></div>
-
 <h2 id="submit_job_stats">SUBMIT JOB STATS<a class="headerlink" href="#submit_job_stats" title="Permanent link">&para;</a></h2>
 <p>The <code>SUBMIT JOB STATS</code> statement starts a job that makes the statistics of the current graph space. Once this job succeeds, you can use the <code>SHOW STATS</code> statement to list the statistics. For more information, see <a href="../../7.general-query-statements/6.show/14.show-stats/">SHOW STATS</a>.</p>
 <blockquote>
 <p><strong>NOTE:</strong> If the data stored in the graph space changes, in order to get the latest statistics, you have to run <code>SUBMIT JOB STATS</code> again.</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SUBMIT JOB STATS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB STATS;
 +------------+
 | New Job Id |
 +------------+
 | 97         |
 +------------+
 </code></pre></div>
-
 <h2 id="show_job">SHOW JOB<a class="headerlink" href="#show_job" title="Permanent link">&para;</a></h2>
 <p>The Meta Service parses a <code>SUBMIT JOB</code> request into tasks and assigns them to the nebula-storaged processes. The <code>SHOW JOB &lt;job_id&gt;</code> statement shows the information about a specific job and all its tasks.</p>
 <p>The job ID is created when you run the <code>SUBMIT JOB</code> statement.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOB 96;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 96;
 +----------------+---------------+------------+-------------------------+-------------------------+
 | Job Id(TaskId) | Command(Dest) | Status     | Start Time              | Stop Time               |
 +----------------+---------------+------------+-------------------------+-------------------------+
@@ -3526,7 +3523,6 @@
 | 2              | &quot;storaged1&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
 +----------------+---------------+------------+-------------------------+-------------------------+
 </code></pre></div>
-
 <p>The description of the return message is as follows.</p>
 <table>
 <thead>
@@ -3595,16 +3591,15 @@
 </tbody>
 </table>
 <p>Status switching is described as follows.</p>
-<div class="codehilite"><pre><span></span><code>Queue -- running -- finished -- removed
+<div class="highlight"><pre><span></span><code>Queue -- running -- finished -- removed
      \          \                /
       \          \ -- failed -- /
        \          \            /
         \ ---------- stopped -/
 </code></pre></div>
-
 <h2 id="show_jobs">SHOW JOBS<a class="headerlink" href="#show_jobs" title="Permanent link">&para;</a></h2>
 <p>The <code>SHOW JOBS</code> statement lists all the unexpired jobs. The default job expiration interval is one week. You can change it by modifying the <code>job_expired_secs</code> parameter of the Meta Service. For how to modify <code>job_expired_secs</code>, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta Service configuration</a>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW JOBS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
 +--------+----------------------+------------+-------------------------+-------------------------+
 | Job Id | Command              | Status     | Start Time              | Stop Time               |
 +--------+----------------------+------------+-------------------------+-------------------------+
@@ -3617,31 +3612,28 @@
 | 86     | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2020-11-26T13:38:24.000 | 2020-11-26T13:38:24.000 |
 +--------+----------------------+------------+-------------------------+-------------------------+
 </code></pre></div>
-
 <h3 id="stop_job">STOP JOB<a class="headerlink" href="#stop_job" title="Permanent link">&para;</a></h3>
 <p>The <code>STOP JOB</code> statement stops jobs that are not finished.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; STOP JOB 22;
+<div class="highlight"><pre><span></span><code>nebula&gt; STOP JOB 22;
 +---------------+
 | Result        |
 +---------------+
 | &quot;Job stopped&quot; |
 +---------------+
 </code></pre></div>
-
 <h3 id="recover_job">RECOVER JOB<a class="headerlink" href="#recover_job" title="Permanent link">&para;</a></h3>
 <p>The <code>RECOVER JOB</code> statement re-executes the failed jobs and returns the number of recovered jobs.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RECOVER JOB;
+<div class="highlight"><pre><span></span><code>nebula&gt; RECOVER JOB;
 +-------------------+
 | Recovered job num |
 +-------------------+
 | 5 job recovered   |
 +-------------------+
 </code></pre></div>
-
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="how_to_troubleshoot_job_problems">How to troubleshoot job problems<a class="headerlink" href="#how_to_troubleshoot_job_problems" title="Permanent link">&para;</a></h3>
 <p>The <code>SUBMIT JOB</code> operations use the HTTP port. Please check if the HTTP ports on the machines where the Storage Service is running are working well. You can use the following command to debug.</p>
-<div class="codehilite"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:19779/admin?space={space_name}&amp;op=compact&quot;</span>
+<div class="highlight"><pre><span></span><code>curl <span class="s2">&quot;http://{storaged-ip}:19779/admin?space={space_name}&amp;op=compact&quot;</span>
 </code></pre></div>
                 
                   
@@ -3679,13 +3671,13 @@
           </a>
         
         
-          <a href="../../../4.deployment-and-installation/1.resource-preparations/" title="Resource preparations" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../20.appendix/comments/" title="Comments" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Resource preparations
+                Comments
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

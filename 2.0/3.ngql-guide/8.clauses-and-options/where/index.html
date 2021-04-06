@@ -2276,7 +2276,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2288,7 +2288,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2300,7 +2300,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2312,7 +2312,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3561,7 +3561,7 @@
 <h2 id="basic_usage">Basic usage<a class="headerlink" href="#basic_usage" title="Permanent link">&para;</a></h2>
 <h3 id="define_conditions_with_boolean_operators">Define conditions with boolean operators<a class="headerlink" href="#define_conditions_with_boolean_operators" title="Permanent link">&para;</a></h3>
 <p>Use the boolean operators <code>NOT</code>, <code>AND</code>, <code>OR</code>, and <code>XOR</code> to define conditions in <code>WHERE</code> clauses. For the precedence of the operators, see <a href="../../5.operators/9.precedence/">Precedence</a>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name == &quot;Tim Duncan&quot; \
         XOR (v.age &lt; 30 AND v.name == &quot;Yao Ming&quot;) \
         OR NOT (v.name == &quot;Yao Ming&quot; OR v.name == &quot;Tim Duncan&quot;) \
@@ -3582,8 +3582,7 @@
 ...
 Got 50 rows (time spent 6152/6994 us)
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
         OVER follow \
         WHERE follow.degree &gt; 90 \
         OR $$.player.age != 33 \
@@ -3597,11 +3596,10 @@ Got 50 rows (time spent 6152/6994 us)
 +-------------+
 Got 2 rows (time spent 3198/3877 us)
 </code></pre></div>
-
 <h3 id="filter_on_properties">Filter on properties<a class="headerlink" href="#filter_on_properties" title="Permanent link">&para;</a></h3>
 <p>Use vertex or edge properties to define conditions in WHERE clauses.</p>
 <ul>
-<li>Filter on a vertex property:<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;(v2) \
+<li>Filter on a vertex property:<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;(v2) \
         WHERE v2.age &lt; 25 \
         RETURN v2.name, v2.age;
 +----------------------+--------+
@@ -3615,8 +3613,7 @@ Got 2 rows (time spent 3198/3877 us)
 +----------------------+--------+
 Got 3 rows (time spent 7382/8080 us)
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
         OVER follow \
         WHERE $^.player.age &gt;= 42;
 +-------------+
@@ -3628,11 +3625,10 @@ Got 3 rows (time spent 7382/8080 us)
 +-------------+
 Got 2 rows (time spent 1051/1668 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Filter on an edge property:<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;() \
+<li>Filter on an edge property:<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;() \
         WHERE e.start_year &lt; 2000 \
         RETURN DISTINCT v.name, v.age;
 +--------------------+-------+
@@ -3651,8 +3647,7 @@ Got 2 rows (time spent 1051/1668 us)
 ...
 Got 11 rows (time spent 7585/8154 us)
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
         OVER follow \
         WHERE follow.degree &gt; 90;
 +-------------+
@@ -3664,11 +3659,10 @@ Got 11 rows (time spent 7585/8154 us)
 +-------------+
 Got 2 rows (time spent 2815/3571 us)
 </code></pre></div>
-
 </li>
 </ul>
 <h3 id="filter_on_dynamically-calculated_property">Filter on dynamically-calculated property<a class="headerlink" href="#filter_on_dynamically-calculated_property" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v[toLower(&quot;AGE&quot;)] &lt; 21 \
         RETURN v.name, v.age;
 +---------------+-------+
@@ -3677,9 +3671,8 @@ Got 2 rows (time spent 2815/3571 us)
 | &quot;Luka Doncic&quot; | 20    |
 +---------------+-------+
 </code></pre></div>
-
 <h3 id="filter_on_the_existence_of_a_property">Filter on the existence of a property<a class="headerlink" href="#filter_on_the_existence_of_a_property" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE exists(v.age) \
         RETURN v.name, v.age;
 +-------------------------+-------+
@@ -3690,11 +3683,10 @@ Got 2 rows (time spent 2815/3571 us)
 | &quot;DeAndre Jordan&quot;        | 30    |
 +-------------------------+-------+
 </code></pre></div>
-
 <h3 id="filter_on_edge_rank">Filter on edge rank<a class="headerlink" href="#filter_on_edge_rank" title="Permanent link">&para;</a></h3>
 <p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> to filter such edges.</p>
 <p>The following example creates a group of edges. The differences among the edges are their ranks and properties. Then the example uses a <code>GO</code> statement with a <code>WHERE</code> clause to filter the edges on ranks.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE test;
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE test;
 nebula&gt; USE test;
 nebula&gt; CREATE EDGE e1(p1 int);
 nebula&gt; CREATE TAG person(p1 int);
@@ -3727,12 +3719,11 @@ nebula&gt; GO FROM &quot;1&quot; \
 | 1       | 2       | 3    | 13    |
 ------------------------------------
 </code></pre></div>
-
 <h2 id="filter_on_strings">Filter on strings<a class="headerlink" href="#filter_on_strings" title="Permanent link">&para;</a></h2>
 <p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> to match a specific part of a string. String matching is case-sensitive.</p>
 <h3 id="match_the_beginning_of_a_string">Match the beginning of a string<a class="headerlink" href="#match_the_beginning_of_a_string" title="Permanent link">&para;</a></h3>
 <p>Use <code>STARTS WITH "T"</code> to match a player name that starts with <code>T</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name STARTS WITH &quot;T&quot; \
         RETURN v.name, v.age;
 +------------------+-------+
@@ -3748,17 +3739,15 @@ nebula&gt; GO FROM &quot;1&quot; \
 +------------------+-------+
 Got 4 rows (time spent 5575/7203 us)
 </code></pre></div>
-
 <p>If you use <code>STARTS WITH "t"</code> in the preceding statement, an empty set is returned because no name in the dataset starts with the lowercase <code>t</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name STARTS WITH &quot;t&quot; \
         RETURN v.name, v.age;
 Empty set (time spent 5080/6474 us)
 </code></pre></div>
-
 <h3 id="match_the_ending_of_a_string">Match the ending of a string<a class="headerlink" href="#match_the_ending_of_a_string" title="Permanent link">&para;</a></h3>
 <p>Use <code>ENDS WITH "r"</code> to match a player name that ends with <code>r</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name ENDS WITH &quot;r&quot; \
         RETURN v.name, v.age;
 +------------------+-------+
@@ -3772,10 +3761,9 @@ Empty set (time spent 5080/6474 us)
 +------------------+-------+
 Got 3 rows (time spent 4934/5832 us)
 </code></pre></div>
-
 <h3 id="match_any_part_of_a_string">Match any part of a string<a class="headerlink" href="#match_any_part_of_a_string" title="Permanent link">&para;</a></h3>
 <p>Use <code>CONTAINS "Pa"</code> to match a player name that contains <code>Pa</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name CONTAINS &quot;Pa&quot; \
         RETURN v.name, v.age;
 +---------------+-------+
@@ -3791,10 +3779,9 @@ Got 3 rows (time spent 4934/5832 us)
 +---------------+-------+
 Got 4 rows (time spent 3265/4113 us)
 </code></pre></div>
-
 <h3 id="negative_string_matching">Negative string matching<a class="headerlink" href="#negative_string_matching" title="Permanent link">&para;</a></h3>
 <p>Use the boolean operator <code>NOT</code> to negate a string matching condition.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE NOT v.name ENDS WITH &quot;R&quot; \
         RETURN v.name, v.age;
 +-------------------------+-------+
@@ -3813,7 +3800,6 @@ Got 4 rows (time spent 3265/4113 us)
 ...
 Got 51 rows (time spent 2622/3463 us)
 </code></pre></div>
-
 <!--
 
 [Not supported yet.]
@@ -3833,7 +3819,7 @@ Got 51 rows (time spent 2622/3463 us)
 <h2 id="filter_on_lists">Filter on lists<a class="headerlink" href="#filter_on_lists" title="Permanent link">&para;</a></h2>
 <h3 id="match_values_in_a_list">Match values in a list<a class="headerlink" href="#match_values_in_a_list" title="Permanent link">&para;</a></h3>
 <p>Use the <code>IN</code> operator to check if a value is in a specific list.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.age IN range(20,25) \
         RETURN v.name, v.age;
 +-------------------------+-------+
@@ -3853,10 +3839,9 @@ Got 51 rows (time spent 2622/3463 us)
 +-------------------------+-------+
 Got 6 rows (time spent 5815/7220 us)
 </code></pre></div>
-
 <h3 id="match_values_not_in_a_list">Match values not in a list<a class="headerlink" href="#match_values_not_in_a_list" title="Permanent link">&para;</a></h3>
 <p>Use <code>NOT</code> before <code>IN</code> to rule out the values in a list.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.age NOT IN range(20,25) \
         RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age;
@@ -3876,7 +3861,6 @@ Got 6 rows (time spent 5815/7220 us)
 ...
 Got 45 rows (time spent 2954/3725 us)
 </code></pre></div>
-
 <!--
 [Not supported yet.]
 ## Filter on null

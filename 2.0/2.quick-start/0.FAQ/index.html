@@ -2327,7 +2327,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2339,7 +2339,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2351,7 +2351,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2363,7 +2363,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3692,7 +3692,7 @@ Known incompatible items are listed in <a href="https://github.com/vesoft-inc/ne
 <p>Find more than <strong>2500</strong> nGQL examples in the <a href="https://github.com/vesoft-inc/nebula-graph/tree/master/tests/tck/features">features directory</a> on the Nebula Graph GitHub page.</p>
 <p>The <code>features</code> directory consists of <code>.feature</code> files. Each file records scenarios that you can use as nGQL examples.</p>
 <p>Here is an example:</p>
-<div class="codehilite"><pre><span></span><code>Feature: Match seek by tag
+<div class="highlight"><pre><span></span><code>Feature: Match seek by tag
 
   Background: Prepare space
     Given a graph with space named &quot;nba&quot;
@@ -3717,7 +3717,6 @@ Known incompatible items are listed in <a href="https://github.com/vesoft-inc/ne
       | &#39;Tim Duncan&#39; | 42  |
     And no side effects
 </code></pre></div>
-
 <p>The keywords in the preceding example are described as follows:</p>
 <table>
 <thead>
@@ -3771,7 +3770,7 @@ Known incompatible items are listed in <a href="https://github.com/vesoft-inc/ne
 <h2 id="about_executions">About executions<a class="headerlink" href="#about_executions" title="Permanent link">&para;</a></h2>
 <h3 id="how_is_the_time_spent_value_at_the_end_of_each_return_message_calculated">How is the time spent value at the end of each return message calculated?<a class="headerlink" href="#how_is_the_time_spent_value_at_the_end_of_each_return_message_calculated" title="Permanent link">&para;</a></h3>
 <p>Take the return message of <code>SHOW SPACES</code> as an example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW SPACES;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 +------+
 | Name |
 +------+
@@ -3779,7 +3778,6 @@ Known incompatible items are listed in <a href="https://github.com/vesoft-inc/ne
 +------+
 Got 1 rows (time spent 1235/1934 us)
 </code></pre></div>
-
 <ul>
 <li>The first number 1235 shows the time spent by the database itself, that is, the time it takes for the query engine to receive a query from the client, fetch the data from the storage server and perform a series of calculations.</li>
 </ul>
@@ -3800,34 +3798,30 @@ Got 1 rows (time spent 1235/1934 us)
 <ol>
 <li>create and rebuild index</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>&gt; CREATE TAG INDEX i_player ON player();
+<div class="highlight"><pre><span></span><code>&gt; CREATE TAG INDEX i_player ON player();
 &gt; REBUILD TAG INDEX i_player;
 </code></pre></div>
-
 <ol>
 <li>use <code>LOOKUP</code> or <code>MATCH</code></li>
 </ol>
-<div class="codehilite"><pre><span></span><code>&gt; LOOKUP ON player;
+<div class="highlight"><pre><span></span><code>&gt; LOOKUP ON player;
 &gt; MATCH (n:player) RETURN n;
 </code></pre></div>
-
 <p>See <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/"><code>INDEX</code></a>, <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/"><code>LOOKUP</code></a> and <a href="../../3.ngql-guide/7.general-query-statements/2.match/"><code>MATCH</code></a>.</p>
 <h3 id="error_cant_solve_the_start_vids_from_the_sentence">Error <code>can’t solve the start vids from the sentence</code><a class="headerlink" href="#error_cant_solve_the_start_vids_from_the_sentence" title="Permanent link">&para;</a></h3>
 <p>The graphd requires <code>start vids</code> to begin a graph traversal. The <code>start vids</code> can either be specified by the user, for example,</p>
-<div class="codehilite"><pre><span></span><code>&gt; GO FROM ${vids} ...
+<div class="highlight"><pre><span></span><code>&gt; GO FROM ${vids} ...
 &gt; MATCH (src) WHERE id(src) == ${vids}
 # The start vids are explicitly given by ${vids}.
 </code></pre></div>
-
 <p>or be found from a (property) index, for example, </p>
-<div class="codehilite"><pre><span></span><code># CREATE TAG INDEX i_player ON player(name(20));
+<div class="highlight"><pre><span></span><code># CREATE TAG INDEX i_player ON player(name(20));
 # REBUILD TAG INDEX i_player;
 
 &gt; LOOKUP ON player WHERE player.name == &quot;abc&quot; | ... YIELD ...
 &gt; MATCH (src) WHERE src.name == &quot;abc&quot; ... 
 # The start vids are found from the property index on name.
 </code></pre></div>
-
 <p>Otherwise, an error like <code>can’t solve the start vids from the sentence</code> will be raised.</p>
 <h3 id="error_storage_error_the_vid_must_be_a_64-bit_integer_or_a_string">Error <code>Storage Error: The VID must be a 64-bit integer or a string.</code><a class="headerlink" href="#error_storage_error_the_vid_must_be_a_64-bit_integer_or_a_string" title="Permanent link">&para;</a></h3>
 <p>Check your vid is an integer or a <code>fix_string(N)</code>. If it is a string type, make sure your input is not longer than <code>N</code> (default value is <code>8</code>).
@@ -3866,14 +3860,13 @@ See <a href="../../3.ngql-guide/9.space-statements/1.create-space/">create space
 <p>If you have customized the configuration files and changed the predefined ports, find the port numbers in your configuration files and open them on the firewalls.</p>
 <h3 id="how_to_test_whether_a_port_is_open_or_closed">How to test whether a port is open or closed<a class="headerlink" href="#how_to_test_whether_a_port_is_open_or_closed" title="Permanent link">&para;</a></h3>
 <p>You can use telnet as follows to check for port status.</p>
-<div class="codehilite"><pre><span></span><code>telnet &lt;ip&gt; &lt;port&gt;
+<div class="highlight"><pre><span></span><code>telnet &lt;ip&gt; &lt;port&gt;
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE:</strong> If you cannot use the telnet command, check if telnet is installed or enabled on your host.</p>
 </blockquote>
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>// If the port is open:
+<div class="highlight"><pre><span></span><code>// If the port is open:
 $ telnet <span class="m">192</span>.168.1.10 <span class="m">9669</span>
 Trying <span class="m">192</span>.168.1.10...
 Connected to <span class="m">192</span>.168.1.10.

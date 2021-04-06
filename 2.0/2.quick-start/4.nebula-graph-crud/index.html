@@ -2388,7 +2388,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2400,7 +2400,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2412,7 +2412,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2424,7 +2424,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3807,7 +3807,7 @@
 <p><img alt="The demo dataset" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/demo-dataset-for-quick-start.png" /></p>
 <h2 id="check_the_machine_status_in_the_nebula_graph_cluster">Check the machine status in the Nebula Graph cluster<a class="headerlink" href="#check_the_machine_status_in_the_nebula_graph_cluster" title="Permanent link">&para;</a></h2>
 <p>First, we recommend that you check the machine status to make sure that all the Storage services are connected to the Meta Services. Run <code>SHOW HOSTS</code> as follows.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 | Host        | Port      | Status    | Leader count | Leader distribution  | Partition distribution |
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
@@ -3821,7 +3821,6 @@
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 Got 4 rows (time spent 1061/2251 us)
 </code></pre></div>
-
 <p>From the <strong>Status</strong> column of the table in the return message, you can see that all the Storage services are online.</p>
 <h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">&para;</a></h3>
 <p>Nebula Graph implements the following creation or alteration operations asynchronously in the next heartbeat cycle. The operations won't take effect until they finish.</p>
@@ -3847,12 +3846,11 @@ Got 4 rows (time spent 1061/2251 us)
 <h2 id="create_and_use_a_graph_space">Create and use a graph space<a class="headerlink" href="#create_and_use_a_graph_space" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax">nGQL syntax<a class="headerlink" href="#ngql_syntax" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Create a graph space:<div class="codehilite"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
+<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
     [(partition_num = &lt;partition_number&gt;, 
     replica_factor = &lt;replica_number&gt;,
     vid_type = {FIXED_STRING(&lt;N&gt;)) | INT64}];
 </code></pre></div>
-
 </li>
 </ul>
 <!-- `charset` and `collate` now each has only one value. Omit the two options for now.
@@ -3867,31 +3865,27 @@ Got 4 rows (time spent 1061/2251 us)
 |vid_type | Specifies the data type of VIDs in a graph space. Available values are `FIXED_STRING(N)` and `INT64`. `N` represents the maximum length of the VIDs and it must be a positive integer. The default value is `FIXED_STRING(8)`. If you set a VID length greater than `N`, Nebula Graph throws an error. To set the integer VID for vertices, set `vid_type` to `INT64`. |
 </code></pre></div>
 
-
 <ul>
-<li>List graph spaces and check if the creation is successful:<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW SPACES;
+<li>List graph spaces and check if the creation is successful:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Use a graph space:<div class="codehilite"><pre><span></span><code>USE &lt;graph_space_name&gt;
+<li>Use a graph space:<div class="highlight"><pre><span></span><code>USE &lt;graph_space_name&gt;
 </code></pre></div>
-
 </li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Use the following statement to create a graph space named <code>nba</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
 Execution succeeded (time spent 2817/3280 us)
 </code></pre></div>
-
 </li>
 <li>
 <p>Check the partition distribution with <code>SHOW HOSTS</code> to make sure that the partitions are distributed in a balanced way.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+-----------+-----------+--------------+---------------------+------------------------+
 | Host        | Port      | Status    | Leader count | Leader distribution | Partition distribution |
 +-------------+-----------+-----------+--------------+---------------------+------------------------+
@@ -3905,17 +3899,15 @@ Execution succeeded (time spent 2817/3280 us)
 +-------------+-----------+-----------+--------------+---------------------+------------------------+
 Got 4 rows (time spent 1633/2867 us)
 </code></pre></div>
-
 <p>If the <strong>Leader distribution</strong> is uneven, use <code>BALANCE LEADER</code> to redistribute the partitions. For more information, see <a href="../../8.service-tuning/load-balance/">BALANCE</a>.</p>
 </li>
 <li>
 <p>Use the <code>nba</code> graph space.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; USE nba;
+<div class="highlight"><pre><span></span><code>nebula&gt; USE nba;
 Execution succeeded (time spent 1322/2206 us)
 </code></pre></div>
-
 <p>You can use <code>SHOW SPACES</code> to check the graph space you created.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW SPACES;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 +------+
 | Name |
 +------+
@@ -3923,15 +3915,13 @@ Execution succeeded (time spent 1322/2206 us)
 +------+
 Got 1 rows (time spent 1235/1934 us)
 </code></pre></div>
-
 </li>
 </ol>
 <h2 id="create_tags_and_edge_types">Create tags and edge types<a class="headerlink" href="#create_tags_and_edge_types" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax_1">nGQL syntax<a class="headerlink" href="#ngql_syntax_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>CREATE {TAG | EDGE} {&lt;tag_name&gt; | &lt;edge_type&gt;}(&lt;property_name&gt; &lt;data_type&gt;
+<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} {&lt;tag_name&gt; | &lt;edge_type&gt;}(&lt;property_name&gt; &lt;data_type&gt;
 [, &lt;property_name&gt; &lt;data_type&gt; ...]);
 </code></pre></div>
-
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
 <p>Create tags <code>player</code> and <code>team</code>, edge types <code>follow</code> and <code>serve</code>.</p>
 <table>
@@ -3965,7 +3955,7 @@ Got 1 rows (time spent 1235/1934 us)
 </tr>
 </tbody>
 </table>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
 Execution succeeded (time spent 2694/3116 us)
 
 Thu, 15 Oct 2020 06:22:29 UTC
@@ -3985,31 +3975,28 @@ Execution succeeded (time spent 2645/3123 us)
 
 Thu, 15 Oct 2020 06:22:50 UTC
 </code></pre></div>
-
 <h2 id="insert_vertices_and_edges">Insert vertices and edges<a class="headerlink" href="#insert_vertices_and_edges" title="Permanent link">&para;</a></h2>
 <p>You can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Insert vertices:<div class="codehilite"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
+<li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
 [, &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...]
 {VALUES | VALUE} &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...])
 [, &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...];
 </code></pre></div>
-
 <p><code>VID</code> is short for vertex ID. A <code>VID</code> must be a unique string value in a graph space.</p>
 </li>
 </ul>
 <ul>
-<li>Insert edges:<div class="codehilite"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
+<li>Insert edges:<div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
 {VALUES | VALUE} &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_value&gt;[, &lt;property_value&gt;...])
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt; : (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...]
 </code></pre></div>
-
 </li>
 </ul>
 <h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Insert vertices representing NBA players and teams:<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
+<li>Insert vertices representing NBA players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
 Execution succeeded (time spent 2919/3485 us)
 
 Fri, 16 Oct 2020 03:41:00 UTC
@@ -4029,11 +4016,10 @@ Execution succeeded (time spent 3514/4331 us)
 
 Fri, 16 Oct 2020 03:42:45 UTC
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Insert edges representing the relations between NBA players and teams:<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES &quot;player100&quot; -&gt; &quot;player101&quot;:(95);
+<li>Insert edges representing the relations between NBA players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES &quot;player100&quot; -&gt; &quot;player101&quot;:(95);
 Execution succeeded (time spent 1488/1918 us)
 
 Wed, 21 Oct 2020 06:57:32 UTC
@@ -4053,7 +4039,6 @@ Execution succeeded (time spent 2170/2651 us)
 
 Wed, 21 Oct 2020 07:08:59 UTC
 </code></pre></div>
-
 </li>
 </ul>
 <h2 id="read_data">Read data<a class="headerlink" href="#read_data" title="Permanent link">&para;</a></h2>
@@ -4065,12 +4050,11 @@ Wed, 21 Oct 2020 07:08:59 UTC
 </ul>
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>GO</code><div class="codehilite"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
+<li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
 [WHERE &lt;expression&gt; [AND | OR expression ...])]
 YIELD [DISTINCT] &lt;return_list&gt;
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
@@ -4079,41 +4063,37 @@ YIELD [DISTINCT] &lt;return_list&gt;
 <ul>
 <li>
 <p>Fetch properties on tags:</p>
-<div class="codehilite"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vid_list&gt;
+<div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vid_list&gt;
 [YIELD [DISTINCT] &lt;return_list&gt;]
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
 <li>
 <p>Fetch properties on edges:</p>
-<div class="codehilite"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
+<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
 [YIELD [DISTINCT] &lt;return_list&gt;]
 </code></pre></div>
-
 </li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><code>LOOKUP</code><div class="codehilite"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} 
+<li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} 
 WHERE &lt;expression&gt; [AND expression ...])]
 [YIELD &lt;return_list&gt;]
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li><code>MATCH</code><div class="codehilite"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
+<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
 </code></pre></div>
-
 </li>
 </ul>
 <h3 id="examples_of_go">Examples of GO<a class="headerlink" href="#examples_of_go" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Find the vertices that VID "player100" follows.<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow;
+<li>Find the vertices that VID "player100" follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -4123,11 +4103,10 @@ WHERE &lt;expression&gt; [AND expression ...])]
 +-------------+
 Got 2 rows (time spent 1935/2420 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Search for the players that the player with VID "player100" follows. Filter the players that the player with VID "player100" follows whose age is equal to or greater than 35. Rename the columns in the result with <code>Teammate</code> and <code>Age</code>.<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE $$.player.age &gt;= 35 \
+<li>Search for the players that the player with VID "player100" follows. Filter the players that the player with VID "player100" follows whose age is equal to or greater than 35. Rename the columns in the result with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE $$.player.age &gt;= 35 \
 YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 +-------------+-----+
 | Teammate    | Age |
@@ -4136,7 +4115,6 @@ YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 +-------------+-----+
 Got 1 rows (time spent 3871/4349 us)
 </code></pre></div>
-
 <table>
 <thead>
 <tr>
@@ -4167,7 +4145,7 @@ Got 1 rows (time spent 3871/4349 us)
 <ul>
 <li>
 <p>With a pipe:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id | \
 GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
 $^.player.name AS Player;
 +---------+-------------+
@@ -4177,7 +4155,6 @@ $^.player.name AS Player;
 +---------+-------------+
 Got 1 rows (time spent 2902/3496 us)
 </code></pre></div>
-
 <table>
 <thead>
 <tr>
@@ -4208,7 +4185,7 @@ Got 1 rows (time spent 2902/3496 us)
 <blockquote>
 <p><strong>NOTE</strong>: Once a compound statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; $var = GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id; \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id; \
 GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
 $^.player.name AS Player;
 +---------+-------------+
@@ -4218,14 +4195,13 @@ $^.player.name AS Player;
 +---------+-------------+
 Got 1 rows (time spent 3103/3711 us)
 </code></pre></div>
-
 </li>
 </ul>
 </li>
 </ul>
 <h3 id="example_of_fetch">Example of FETCH<a class="headerlink" href="#example_of_fetch" title="Permanent link">&para;</a></h3>
 <p>Use <code>FETCH</code>: Fetch the properties of the player with VID player100.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;;
 +----------------------------------------------------+
 | vertices_                                          |
 +----------------------------------------------------+
@@ -4233,7 +4209,6 @@ Got 1 rows (time spent 3103/3711 us)
 +----------------------------------------------------+
 Got 1 rows (time spent 2006/2406 us)
 </code></pre></div>
-
 <blockquote>
 <p>Examples of <code>Match</code> and <code>Lookup</code> are provided after <code>index</code> is introduced in the following.</p>
 </blockquote>
@@ -4245,27 +4220,24 @@ Got 1 rows (time spent 2006/2406 us)
 <ul>
 <li><code>UPDATE</code> vertices:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;properties to be updated&gt;
+<div class="highlight"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;properties to be updated&gt;
 [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
-
 <ul>
 <li><code>UPDATE</code> edges:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>UPDATE EDGE &lt;source vid&gt; -&gt; &lt;destination vid&gt; [@rank] OF &lt;edge_type&gt;
+<div class="highlight"><pre><span></span><code>UPDATE EDGE &lt;source vid&gt; -&gt; &lt;destination vid&gt; [@rank] OF &lt;edge_type&gt;
 SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns to be output&gt;]
 </code></pre></div>
-
 <ul>
 <li><code>UPSERT</code> vertices or edges:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge_type&gt;} SET &lt;update_columns&gt;
+<div class="highlight"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge_type&gt;} SET &lt;update_columns&gt;
 [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
 </code></pre></div>
-
 <h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>UPDATE</code> the <code>name</code> property of the vertex with VID "player100" and check the result with the <code>FETCH</code> statement:<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE VERTEX &quot;player100&quot; SET player.name = &quot;Tim&quot;;
+<li><code>UPDATE</code> the <code>name</code> property of the vertex with VID "player100" and check the result with the <code>FETCH</code> statement:<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX &quot;player100&quot; SET player.name = &quot;Tim&quot;;
 Execution succeeded (time spent 3483/3914 us)
 
 Wed, 21 Oct 2020 10:53:14 UTC
@@ -4278,11 +4250,10 @@ nebula&gt; FETCH PROP ON player &quot;player100&quot;;
 +---------------------------------------------+
 Got 1 rows (time spent 2463/3042 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li><code>UPDATE</code> the degree value of an edge and check the result with the <code>FETCH</code> statement:<div class="codehilite"><pre><span></span><code>nebula&gt; UPDATE EDGE &quot;player100&quot; -&gt; &quot;player101&quot; OF follow SET degree = 96;
+<li><code>UPDATE</code> the degree value of an edge and check the result with the <code>FETCH</code> statement:<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE &quot;player100&quot; -&gt; &quot;player101&quot; OF follow SET degree = 96;
 Execution succeeded (time spent 3932/4432 us)
 
 nebula&gt; FETCH PROP ON follow &quot;player100&quot; -&gt; &quot;player101&quot;;
@@ -4293,11 +4264,10 @@ nebula&gt; FETCH PROP ON follow &quot;player100&quot; -&gt; &quot;player101&quot
 +----------------------------------------------------+
 Got 1 rows (time spent 2205/2800 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Insert a vertex with VID "player111" and <code>UPSERT</code> it.<div class="codehilite"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player111&quot;:(&quot;Ben Simmons&quot;, 22);
+<li>Insert a vertex with VID "player111" and <code>UPSERT</code> it.<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player111&quot;:(&quot;Ben Simmons&quot;, 22);
 Execution succeeded (time spent 2115/2900 us)
 
 Wed, 21 Oct 2020 11:11:50 UTC
@@ -4312,7 +4282,6 @@ YIELD $^.player.name AS Name, $^.player.age AS Age;
 +---------------+-----+
 Got 1 rows (time spent 1815/2329 us)
 </code></pre></div>
-
 </li>
 </ul>
 <h2 id="delete_vertices_and_edges">Delete vertices and edges<a class="headerlink" href="#delete_vertices_and_edges" title="Permanent link">&para;</a></h2>
@@ -4320,31 +4289,27 @@ Got 1 rows (time spent 1815/2329 us)
 <ul>
 <li>Delete vertices:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>DELETE VERTEX &lt;vid1&gt;[, &lt;vid2&gt;...]
+<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid1&gt;[, &lt;vid2&gt;...]
 </code></pre></div>
-
 <ul>
 <li>Delete edges:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>DELETE EDGE &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
+<div class="highlight"><pre><span></span><code>DELETE EDGE &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;...]
 </code></pre></div>
-
 <h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Delete vertices:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DELETE VERTEX &quot;team1&quot;, &quot;team2&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX &quot;team1&quot;, &quot;team2&quot;;
 Execution succeeded (time spent 4337/4782 us)
 </code></pre></div>
-
 <ul>
 <li>Delete edges:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; DELETE EDGE follow &quot;team1&quot; -&gt; &quot;team2&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow &quot;team1&quot; -&gt; &quot;team2&quot;;
 Execution succeeded (time spent 3700/4101 us)
 </code></pre></div>
-
 <h2 id="about_indexes">About indexes<a class="headerlink" href="#about_indexes" title="Permanent link">&para;</a></h2>
 <p>You can add indexes to tags or edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
 <h3 id="must-read_for_using_index">Must-read for using index<a class="headerlink" href="#must-read_for_using_index" title="Permanent link">&para;</a></h3>
@@ -4356,27 +4321,24 @@ Execution succeeded (time spent 3700/4101 us)
 </ul>
 <h3 id="ngql_syntax_6">nGQL syntax<a class="headerlink" href="#ngql_syntax_6" title="Permanent link">&para;</a></h3>
 <p>Create an index:</p>
-<div class="codehilite"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt;
+<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt;
 ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list);
 </code></pre></div>
-
 <p>Rebuild an index:</p>
-<div class="codehilite"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX &lt;index_name&gt;
+<div class="highlight"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX &lt;index_name&gt;
 </code></pre></div>
-
 <h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h3>
 <p>Create an index for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(20));
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(20));
 nebula&gt; REBUILD TAG INDEX player_index_0;
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE:</strong> Define the index length when creating an index for a variable-length property. For more information, see <a href="../3.ngql-guide/14.native-index-statements/1.create-native-index/#create_single-property_indexes">CREATE INDEX</a></p>
 </blockquote>
 <h3 id="examples_of_lookup_and_match_index-based">Examples of LOOKUP and MATCH (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">&para;</a></h3>
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
 <p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>"Tony Parker"</code>.</p>
-<div class="codehilite"><pre><span></span><code>// Create an index on the player name property.
+<div class="highlight"><pre><span></span><code>// Create an index on the player name property.
 nebula&gt; CREATE TAG INDEX player_name_0 on player(name(10));
 Execution succeeded (time spent 3465/4150 us)
 

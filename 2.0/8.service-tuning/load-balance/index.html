@@ -2118,7 +2118,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2130,7 +2130,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2142,7 +2142,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2154,7 +2154,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3361,7 +3361,7 @@
 </blockquote>
 <p>Take scaling out Nebula Graph for an example.</p>
 <p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
-<div class="codehilite"><pre><span></span><code>nebual&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+----------------------+------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution  | Partition distribution |
 +-------------+------+----------+--------------+----------------------+------------------------+
@@ -3379,9 +3379,8 @@
 +-------------+------+----------+--------------+----------------------+------------------------+
 Got 6 rows (time spent 1002/1780 us)
 </code></pre></div>
-
 <p>Run <code>BALANCE DATA</code> to start balancing the storage partitions. If the partitions are already balanced, <code>BALANCE DATA</code> fails.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA;
 +------------+
 | ID         |
 +------------+
@@ -3389,9 +3388,8 @@ Got 6 rows (time spent 1002/1780 us)
 +------------+
 Got 1 rows (time spent 3783/4533 us)
 </code></pre></div>
-
 <p>A BALANCE task ID is returned after running <code>BALANCE DATA</code>. Run <code>BALANCE DATA &lt;balance_id&gt;</code> to check the status of the <code>BALANCE</code> task.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE DATA 1614237867;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA 1614237867;
 +--------------------------------------------------------------+-------------------+
 | balanceId, spaceId:partId, src-&gt;dst                          | status            |
 +--------------------------------------------------------------+-------------------+
@@ -3407,12 +3405,11 @@ Got 1 rows (time spent 3783/4533 us)
 +--------------------------------------------------------------+-------------------+
 Got 23 rows (time spent 916/1528 us)
 </code></pre></div>
-
 <p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
 <blockquote>
 <p><strong>NOTE:</strong> <code>BALANCE DATA</code> does not balance the leader distribution.</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+----------------------+------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution  | Partition distribution |
 +-------------+------+----------+--------------+----------------------+------------------------+
@@ -3430,7 +3427,6 @@ Got 23 rows (time spent 916/1528 us)
 +-------------+------+----------+--------------+----------------------+------------------------+
 Got 6 rows (time spent 849/1420 us)
 </code></pre></div>
-
 <p>If any subtask fails, run <code>BALANCE DATA</code> again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
 <h2 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">&para;</a></h2>
 <p>To stop a balance task, run <code>BALANCE DATA STOP</code>.</p>
@@ -3474,18 +3470,16 @@ Got 6 rows (time spent 849/1420 us)
 </tbody>
 </table>
 <p>Run the following statement:</p>
-<div class="codehilite"><pre><span></span><code>BALANCE DATA REMOVE 192.168.0.8:19779,192.168.0.9:19779;
+<div class="highlight"><pre><span></span><code>BALANCE DATA REMOVE 192.168.0.8:19779,192.168.0.9:19779;
 </code></pre></div>
-
 <p>Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.</p>
 <h2 id="balance_leader_distribution">Balance leader distribution<a class="headerlink" href="#balance_leader_distribution" title="Permanent link">&para;</a></h2>
 <p><code>BALANCE DATA</code> only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To load balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 Execution succeeded (time spent 7576/8657 us)
 </code></pre></div>
-
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+----------------------+------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution  | Partition distribution |
 +-------------+------+----------+--------------+----------------------+------------------------+

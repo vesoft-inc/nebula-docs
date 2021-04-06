@@ -2195,7 +2195,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2207,7 +2207,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2219,7 +2219,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2231,7 +2231,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3383,12 +3383,11 @@
                 
                 
                 <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
+<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
     [(partition_num = &lt;partition_number&gt;, 
     replica_factor = &lt;replica_number&gt;, 
     vid_type = {FIXED_STRING(&lt;N&gt;) | INT64})];
 </code></pre></div>
-
 <!-- `charset` and `collate` now each has only one value. Omit the two options for now.
     charset = <charset>,
     collate = <collate>, 
@@ -3428,12 +3427,11 @@
 </ul>
 <p>If no option is given, Nebula Graph creates the graph space with the default options.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
 nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- create a graph space with customized partition number
 nebula&gt; CREATE SPACE my_space_3(replica_factor=1); -- create a graph space with customized replica factor
 nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a graph space with customized VID maximum length
 </code></pre></div>
-
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
 <p>Trying to use a newly created graph space may fail because the creation is implemented asynchronously.</p>
 <p>Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
@@ -3444,7 +3442,7 @@ nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a gra
 <p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</p>
 <h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">&para;</a></h2>
 <p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup times. You can run the command to do a check of the machine distribution.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-----------+-------+--------+--------------+---------------------+------------------------+
 | Host      | Port  | Status | Leader count | Leader distribution | Partition distribution |
 +-----------+-------+--------+--------------+---------------------+------------------------+
@@ -3455,9 +3453,8 @@ nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a gra
 | storaged2 | 9779  | ONLINE | 1            | nba:5               | nba:5                  |
 +-----------+-------+--------+--------------+---------------------+------------------------+
 </code></pre></div>
-
 <p>To balance the request loads, use the following command.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 </code></pre></div>
                 
                   

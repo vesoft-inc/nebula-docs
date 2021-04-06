@@ -2118,7 +2118,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2130,7 +2130,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2142,7 +2142,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2154,7 +2154,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../3.ngql-guide/20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../3.ngql-guide/20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3617,15 +3617,14 @@
 <ol>
 <li>
 <p>Stop all client connections. You can run the following commands on each Graph server to turn off the Graph Service and avoid dirty write.</p>
-<div class="codehilite"><pre><span></span><code>&gt; <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/scripts/nebula.service stop graphd
+<div class="highlight"><pre><span></span><code>&gt; <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/scripts/nebula.service stop graphd
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-graphd...
 <span class="o">[</span>INFO<span class="o">]</span> Done
 </code></pre></div>
-
 </li>
 <li>
 <p>Run the following commands to stop all services of the old version Nebula Graph.</p>
-<div class="codehilite"><pre><span></span><code>&gt; <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/scripts/nebula.service stop all
+<div class="highlight"><pre><span></span><code>&gt; <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/scripts/nebula.service stop all
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-metad...
 <span class="o">[</span>INFO<span class="o">]</span> Done
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-graphd...
@@ -3633,7 +3632,6 @@
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-storaged...
 <span class="o">[</span>INFO<span class="o">]</span> Done
 </code></pre></div>
-
 <p>The Storage Service needs about 1 minute to flush data. Wait 1 minute and then run <code>ps -ef | grep nebula</code> to check and make sure that all the Nebula Graph services are stopped.</p>
 <blockquote>
 <p><strong>NOTE:</strong> If the services are not fully stopped in 20 minutes, stop upgrading and go to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
@@ -3648,7 +3646,6 @@
   ```
 </code></pre></div>
 
-
 <p>* To install with the source code, follow the substeps. For detailed steps, see <a href="../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/">Install Nebula Graph by compiling the source code</a>
     1. Clone the source code.</p>
 <div class="codehilite"><pre><span></span><code>  ```bash
@@ -3662,13 +3659,11 @@
   ```
 </code></pre></div>
 
-
 </li>
 <li>
 <p>Copy the configuration files from the old path to the new path.</p>
-<div class="codehilite"><pre><span></span><code>&gt; cp -rf <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/etc <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/
+<div class="highlight"><pre><span></span><code>&gt; cp -rf <span class="si">${</span><span class="nv">nebula</span><span class="p">-old</span><span class="si">}</span>/etc <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/
 </code></pre></div>
-
 </li>
 <li>
 <p>Follow the substeps to prepare the Meta servers (usually 3 of them in a cluster).</p>
@@ -3682,13 +3677,11 @@
  ```
 </code></pre></div>
 
-
 <p>2. Modify the new Meta configuration files:</p>
 <div class="codehilite"><pre><span></span><code>  ```bash
   &gt; vim ${nebula-new}/nebula-metad.conf
   ```
 </code></pre></div>
-
 
 <p>[Optional] Add the following parameters in the Meta configuration files if you need them.</p>
 <p>* <code>--null_type=false</code>: Disables the support for using <a href="../../3.ngql-guide/3.data-types/5.null/"><code>NULL</code></a> as schema properties after the upgrade. The default value is <code>true</code>. When set to <code>false</code>, you must specify a <a href="../../3.ngql-guide/10.tag-statements/1.create-tag/">default value</a> when altering tags or edge types, otherwise, data reading fails.
@@ -3702,7 +3695,6 @@
   ```
 </code></pre></div>
 
-
 <p>* Create the new Storage data directories.</p>
 <div class="codehilite"><pre><span></span><code>  ```bash
   &gt; mkdir -p ${nebula-new}/data/storage/
@@ -3710,7 +3702,6 @@
 
   &gt; **NOTE:** If the `--data_path` default value has been modified, create the Storage data directories according to the modification.
 </code></pre></div>
-
 
 </li>
 <li>
@@ -3723,25 +3714,22 @@
   ```
 </code></pre></div>
 
-
 <p>2. Check if every nebula-metad process is started normally.</p>
 <div class="codehilite"><pre><span></span><code>  ```bash
   $ ps -ef |grep nebula-metad
   ```
 </code></pre></div>
 
-
 <p>3. Check if there is any error information in the Meta logs in <code>${nebula-new}/logs</code>. If any nebula-metad process cannot start normally, stop upgrading, start the Nebula Graph services from the old directories, and take the error logs to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
 </li>
 <li>
 <p>Run the following commands to upgrade the Storage data format.</p>
-<div class="codehilite"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/bin/db_upgrader  <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/bin/db_upgrader  <span class="se">\</span>
 --src_db_path<span class="o">=</span>&lt;old_storage_directory_path&gt; <span class="se">\</span>
 --dst_db_path<span class="o">=</span>&lt;new_storage_directory_path&gt;  <span class="se">\</span>
 --upgrade_meta_server<span class="o">=</span>&lt;meta_server_ip1&gt;:&lt;port1&gt;<span class="o">[</span>,&lt;meta_server_ip2&gt;:&lt;port2&gt;,...<span class="o">]</span> <span class="se">\</span>
 --upgrade_version<span class="o">=</span>&lt;old_nebula_version&gt; <span class="se">\</span>
 </code></pre></div>
-
 <p>The parameters are described as follows.
   * <code>--src_db_path</code>: Specifies the absolute path of the <strong>OLD</strong> Storage data directories. Separate multiple paths with commas, without spaces.
   * <code>--dst_db_path</code>: Specifies the absolute path of the <strong>NEW</strong> Storage data directories. Separate multiple paths with commas, without spaces. The paths must correspond to the paths set in <code>--src_db_path</code> one by one.</p>
@@ -3752,14 +3740,14 @@
 <strong>DON'T:</strong> Don't set the value to other numbers.</p>
 </blockquote>
 <p>Example of upgrading from v1.2.0:
-  <div class="codehilite"><pre><span></span><code>$ sudo /usr/local/nebula_new/bin/db_upgrader <span class="se">\</span>
+  <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula_new/bin/db_upgrader <span class="se">\</span>
 --src_db_path<span class="o">=</span>/usr/local/nebula/data/storage/data1/,/usr/local/nebula/data/storage/data2/ <span class="se">\</span>
 --dst_db_path<span class="o">=</span>/usr/local/nebula_new/data/storage/data1/,/usr/local/nebula_new/data/storage/data2/<span class="se">\</span>
 --upgrade_meta_server<span class="o">=</span><span class="m">192</span>.168.8.14:45500,192.168.8.15:45500,192.168.8.16:45500 <span class="se">\</span>
 --upgrade_version<span class="o">=</span><span class="m">1</span>
 </code></pre></div></p>
 <p>Example of upgrading from v2.0.0-RC1:
-  <div class="codehilite"><pre><span></span><code>$ sudo /usr/local/nebula_new/bin/db_upgrader <span class="se">\</span>
+  <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula_new/bin/db_upgrader <span class="se">\</span>
 --src_db_path<span class="o">=</span>/usr/local/nebula/data/storage/ <span class="se">\</span>
 --dst_db_path<span class="o">=</span>/usr/local/nebula_new/data/storage/ <span class="se">\</span>
 --upgrade_meta_server<span class="o">=</span><span class="m">192</span>.168.8.14:9559,192.168.8.15:9559,192.168.8.16:9559 <span class="se">\</span>
@@ -3777,10 +3765,9 @@
 </li>
 <li>
 <p>Start the new Storage Service on each Storage server.</p>
-<div class="codehilite"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service start storaged
+<div class="highlight"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service start storaged
 $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service status storaged
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE:</strong> If this step goes wrong on any server:</p>
 <ol>
@@ -3793,10 +3780,9 @@ $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-
 </li>
 <li>
 <p>Start the new Graph Service on each Graph server.</p>
-<div class="codehilite"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service start graphd
+<div class="highlight"><pre><span></span><code>$ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service start graphd
 $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/scripts/nebula.service status graphd
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE:</strong> If this step goes wrong on any server:</p>
 <ol>
@@ -3811,14 +3797,13 @@ $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-
 <p>Connect to Nebula Graph with the new version (v2.0.0 or later) of <a href="https://github.com/vesoft-inc/nebula-console">Nebula Console</a>. Verify if the Nebula Graph services are available and if the data can be accessed normally.</p>
 <p>The command for connection, including the IP address and port of the Graph Service, is the same as the old one.</p>
 <p>The following statements may help in this step.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 nebula&gt; SHOW SPACES;
 nebula&gt; USE &lt;space_name&gt;
 nebula&gt; SHOW PARTS;
 nebula&gt; SUBMIT JOB STATS;
 nebula&gt; SHOW STATS;
 </code></pre></div>
-
 <blockquote>
 <p><strong>DON'T:</strong> Don't use Nebula Console versions prior to v2.0.0.</p>
 </blockquote>

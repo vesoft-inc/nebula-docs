@@ -2221,7 +2221,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2233,7 +2233,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2245,7 +2245,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2257,7 +2257,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3455,9 +3455,8 @@
 </ul>
 <h2 id="yield_clauses">YIELD clauses<a class="headerlink" href="#yield_clauses" title="Permanent link">&para;</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
+<div class="highlight"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
 </code></pre></div>
-
 <p>The syntax is described as follows.</p>
 <table>
 <thead>
@@ -3483,7 +3482,7 @@
 </table>
 <h3 id="use_a_yield_clause_in_a_statement">Use a YIELD clause in a statement<a class="headerlink" href="#use_a_yield_clause_in_a_statement" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Use <code>YIELD</code> with <code>GO</code>:<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<li>Use <code>YIELD</code> with <code>GO</code>:<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
         YIELD $$.player.name AS Friend, $$.player.age AS Age;
 +-----------------+-----+
 | Friend          | Age |
@@ -3494,11 +3493,10 @@
 +-----------------+-----+
 Got 2 rows (time spent 3378/4030 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="codehilite"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; \
+<li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; \
         YIELD player.name;
 +-------------+--------------+
 | VertexID    | player.name  |
@@ -3507,11 +3505,10 @@ Got 2 rows (time spent 3378/4030 us)
 +-------------+--------------+
 Got 1 rows (time spent 2933/5931 us)
 </code></pre></div>
-
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="codehilite"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
         YIELD player.name, player.age;
 =======================================
 | VertexID | player.name | player.age |
@@ -3520,15 +3517,13 @@ Got 1 rows (time spent 2933/5931 us)
 ---------------------------------------
 Got 1 rows (time spent 2963/3778 us)
 </code></pre></div>
-
 </li>
 </ul>
 <h2 id="yield_statements">YIELD Statements<a class="headerlink" href="#yield_statements" title="Permanent link">&para;</a></h2>
 <h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
+<div class="highlight"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
 [WHERE &lt;conditions&gt;]
 </code></pre></div>
-
 <p>The syntax is described as follows.</p>
 <table>
 <thead>
@@ -3559,7 +3554,7 @@ Got 1 rows (time spent 2963/3778 us)
 <h3 id="use_a_yield_statement_in_a_composite_query">Use a YIELD statement in a composite query<a class="headerlink" href="#use_a_yield_statement_in_a_composite_query" title="Permanent link">&para;</a></h3>
 <p>In a <a href="../../4.variable-and-composite-queries/1.composite-queries/">composite query</a>, a <code>YIELD</code> statement accepts, filters, and reforms the result set of the preceding statement, and then outputs it.</p>
 <p>The following query finds the players that "player100" follows and calculates their average age.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
         YIELD follow._dst AS ID | \
         FETCH PROP ON player $-.ID \
         YIELD player.age AS Age | \
@@ -3571,9 +3566,8 @@ Got 1 rows (time spent 2963/3778 us)
 +---------+-------------+
 Got 1 rows (time spent 1846/2426 us)
 </code></pre></div>
-
 <p>The following query finds the players that "player101" follows and the follow degrees are greater than 90.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; $var1 = GO FROM &quot;player101&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var1 = GO FROM &quot;player101&quot; OVER follow \
         YIELD follow.degree AS Degree, follow._dst as ID; \
         YIELD $var1.ID AS ID \
         WHERE $var1.Degree &gt; 90;
@@ -3586,10 +3580,9 @@ Got 1 rows (time spent 1846/2426 us)
 +-------------+
 Got 2 rows (time spent 891/1411 us)
 </code></pre></div>
-
 <h3 id="use_a_standalone_yield_statement">Use a standalone YIELD statement<a class="headerlink" href="#use_a_standalone_yield_statement" title="Permanent link">&para;</a></h3>
 <p>A <code>YIELD</code> statement can calculate a valid expression and output the result.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; YIELD rand32(1, 6);
+<div class="highlight"><pre><span></span><code>nebula&gt; YIELD rand32(1, 6);
 +-------------+
 | rand32(1,6) |
 +-------------+

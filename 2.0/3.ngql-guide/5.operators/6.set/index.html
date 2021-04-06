@@ -2208,7 +2208,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2220,7 +2220,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2232,7 +2232,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2244,7 +2244,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3416,15 +3416,14 @@
 <p>All set operators have equal precedence. If a nGQL statement contains multiple set operators, Nebula Graph evaluates them from the left to right unless parentheses explicitly specify another order.</p>
 <p>To use the set operators, always match the return results of the <code>GO</code> clause with the same number and data type.</p>
 <h2 id="union_union_distinct_and_union_all">UNION, UNION DISTINCT, and UNION ALL<a class="headerlink" href="#union_union_distinct_and_union_all" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]
+<div class="highlight"><pre><span></span><code>&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]
 </code></pre></div>
-
 <p>Operator <code>UNION DISTINCT</code> (or by short <code>UNION</code>) returns the union of two sets A and B without the duplicate elements.</p>
 <p>Operator <code>UNION ALL</code> returns the union of two sets A and B with duplicated elements.</p>
 <p>The <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>The following statement</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
     UNION \
     GO FROM &quot;player100&quot; OVER follow;
 +-------------+
@@ -3435,10 +3434,9 @@
 | &quot;player102&quot; |
 +-------------+
 </code></pre></div>
-
 <p>returns the neighbors' id of vertex <code>"player102"</code> and <code>"player100</code> (along with edge <code>follow</code>) without duplication.</p>
 <p>While</p>
-<p><div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<p><div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
     UNION ALL \
     GO FROM &quot;player100&quot; OVER follow;
 +-------------+
@@ -3453,7 +3451,7 @@
 </code></pre></div>
 returns all the neighbors of vertex <code>"player102"</code> and <code>"player100</code>, with all possible duplications.</p>
 <p><code>UNION</code> can also work with the <code>YIELD</code> statement. For example, let's suppose the results of the following two queries.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age; -- query 1
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age; -- query 1
 
 +-------------+--------+-----+
 | id          | Degree | Age |
@@ -3471,15 +3469,13 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, fo
 | &quot;player102&quot; | 90     | 33  |          -- line 3
 +-------------+--------+-----+
 </code></pre></div>
-
 <p>And the following statement</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
     UNION /* DISTINCT */ \
     GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
 </code></pre></div>
-
 <p>returns the follows:</p>
-<div class="codehilite"><pre><span></span><code>+-------------+--------+-----+
+<div class="highlight"><pre><span></span><code>+-------------+--------+-----+
 | id          | Degree | Age |
 +-------------+--------+-----+
 | &quot;player101&quot; | 75     | 36  |        -- line 1
@@ -3489,57 +3485,48 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, fo
 | &quot;player102&quot; | 90     | 33  |        -- line 3
 +-------------+--------+-----+
 </code></pre></div>
-
 <p>The <code>DISTINCT</code> check duplication by all the columns for every line. So line 1 and line 2 are different.</p>
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>&lt;left&gt; INTERSECT &lt;right&gt;
+<div class="highlight"><pre><span></span><code>&lt;left&gt; INTERSECT &lt;right&gt;
 </code></pre></div>
-
 <p>Operator <code>INTERSECT</code> returns the intersection of two sets A and B (denoted by A ⋂ B).</p>
 <p>Similar to <code>UNION</code>, the <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Only the <code>INTERSECT</code> columns of <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> are returned.</p>
 <p>For example, the following query</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
 INTERSECT \
 GO FROM &quot;player100&quot; OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
 </code></pre></div>
-
 <p>returns</p>
-<div class="codehilite"><pre><span></span><code>Empty set (time spent 5194/6264 us)
+<div class="highlight"><pre><span></span><code>Empty set (time spent 5194/6264 us)
 </code></pre></div>
-
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
+<div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
 </code></pre></div>
-
 <p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by A - B). Always pay attention to the order of the <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code>. The set A - B consists of elements that are in A but not in B.</p>
 <p>For example, the following query</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
 MINUS \
 GO FROM &quot;player102&quot; OVER follow;
 </code></pre></div>
-
 <p>returns</p>
-<div class="codehilite"><pre><span></span><code>+-------------+
+<div class="highlight"><pre><span></span><code>+-------------+
 | follow._dst |
 +-------------+
 | &quot;player102&quot; |
 +-------------+
 </code></pre></div>
-
 <p>If you reverse the <code>MINUS</code> order, the query</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 MINUS \
 GO FROM &quot;player100&quot; OVER follow;
 </code></pre></div>
-
 <p>returns</p>
-<div class="codehilite"><pre><span></span><code>Empty set (time spent 2243/3259 us)
+<div class="highlight"><pre><span></span><code>Empty set (time spent 2243/3259 us)
 </code></pre></div>
-
 <h2 id="precedence_of_the_set_operations_and_pipe">Precedence of the SET Operations and Pipe<a class="headerlink" href="#precedence_of_the_set_operations_and_pipe" title="Permanent link">&para;</a></h2>
 <p>Please note that when a query contains pipe <code>|</code> and set operations, pipe takes precedence. Refer to the <a href="../4.pipe/">Pipe Doc</a> for details. Query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
 <p>For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS play_dst  \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS play_dst  \
 UNION \
 GO FROM &quot;team200&quot; OVER serve REVERSELY YIELD serve._dst AS play_dst \
 | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
@@ -3552,15 +3539,13 @@ GO FROM &quot;team200&quot; OVER serve REVERSELY YIELD serve._dst AS play_dst \
 | &quot;player102&quot; |
 +-------------+
 </code></pre></div>
-
 <p><img alt="image" src="https://user-images.githubusercontent.com/42762957/97955863-3a213000-1de2-11eb-8de3-2c78da30747c.png" /></p>
 <p>The statements in the red bar are executed first. And then the statement in the green box is executed.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; (GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS play_dst  \
+<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM &quot;player102&quot; OVER follow YIELD follow._dst AS play_dst  \
 UNION \
 GO FROM &quot;team200&quot; OVER serve REVERSELY YIELD serve._dst AS play_dst) \
 | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
 </code></pre></div>
-
 <p>In the above query, the parentheses change the execution priority, and the statements within the parentheses take the precedence.</p>
                 
                   

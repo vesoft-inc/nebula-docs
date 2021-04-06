@@ -2180,7 +2180,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2192,7 +2192,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2204,7 +2204,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2216,7 +2216,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3359,24 +3359,22 @@
 <li>(OpenCypher style) You can use <code>count()</code> and <code>RETURN</code>. <code>GROUP BY</code> is not necessary.</li>
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>count({expr | *})
+<div class="highlight"><pre><span></span><code>count({expr | *})
 </code></pre></div>
-
 <ul>
 <li>count(*) returns the number of rows (including NULL).</li>
 <li>count(expr) return non-NULL values return by an expression.</li>
 <li>count() and size() are different.</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b RETURN count(b), count(*), count(DISTINCT b)
+<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b RETURN count(b), count(*), count(DISTINCT b)
 +----------+----------+-------------------+
 | COUNT(b) | COUNT(*) | COUNT(distinct b) |
 +----------+----------+-------------------+
 | 4        | 5        | 2                 |
 +----------+----------+-------------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT YIELD $$.player.name AS Name | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT YIELD $$.player.name AS Name | \
         GROUP BY $-.Name YIELD $-.Name, count(*);
 +---------------------+----------+
 | $-.Name             | COUNT(*) |
@@ -3394,7 +3392,6 @@
 | &quot;Boris Diaw&quot;        | 1        |
 +---------------------+----------+
 </code></pre></div>
-
 <p>The statement in the preceding example searches for:</p>
 <ul>
 <li>People whom <code>player101</code> follows.</li>
@@ -3406,7 +3403,7 @@
 <li><code>COUNT(*)</code>, how many times the names show up.</li>
 </ul>
 <p>Because there are no duplicate names in the <code>nba</code> dataset, the number <code>2</code> in the result shows that the person in that row and <code>player101</code> have followed each other.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD player.age As playerage \|
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD player.age As playerage \|
  GROUP BY $-.playerage YIELD $-.playerage as age, count(*) AS number | ORDER BY number DESC, age DESC
 +-----+--------+
 | age | number |
@@ -3438,9 +3435,8 @@ nebula&gt; MATCH (n:player) RETURN n.age as age, count(*) as number ORDER BY num
 | 38  | 3      |
 +-----+--------+
 </code></pre></div>
-
 <p>The two statements in the preceding examples retrieves the age distribution of the players in the dataset.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -- (v2) RETURN count(DISTINCT v2)
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -- (v2) RETURN count(DISTINCT v2)
 +--------------------+
 | COUNT(distinct v2) |
 +--------------------+
@@ -3453,9 +3449,8 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 | 4          | 3                   |
 +------------+---------------------+
 </code></pre></div>
-
 <h2 id="countnull">count(NULL)<a class="headerlink" href="#countnull" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt;  RETURN count(NULL), size(NULL)
+<div class="highlight"><pre><span></span><code>nebula&gt;  RETURN count(NULL), size(NULL)
 +-------------+------------+
 | COUNT(NULL) | size(NULL) |
 +-------------+------------+

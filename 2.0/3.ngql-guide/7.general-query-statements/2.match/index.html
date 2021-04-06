@@ -2354,7 +2354,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2366,7 +2366,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2378,7 +2378,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2390,7 +2390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3706,9 +3706,8 @@
 <p>The examples in this topic use the <code>nba</code> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. But generally, it can be summarized as follows.</p>
-<div class="codehilite"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
+<div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
 </code></pre></div>
-
 <h2 id="the_workflow_of_match">The workflow of MATCH<a class="headerlink" href="#the_workflow_of_match" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -3732,7 +3731,7 @@
 <blockquote>
 <p><strong>CAUTION:</strong> Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
 Execution succeeded (time spent 2957/3986 us)
 
 nebula&gt; REBUILD TAG INDEX name; // Rebuild the index.
@@ -3757,7 +3756,6 @@ nebula&gt; SHOW JOB 121; // Make sure the rebuild job succeeded.
 +----------------+---------------------+------------+------------+------------+
 Got 4 rows (time spent 1186/2998 us)
 </code></pre></div>
-
 <h3 id="match_a_vertex">Match a vertex<a class="headerlink" href="#match_a_vertex" title="Permanent link">&para;</a></h3>
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
 <h3 id="match_on_tag">Match on tag<a class="headerlink" href="#match_on_tag" title="Permanent link">&para;</a></h3>
@@ -3766,7 +3764,7 @@ Got 4 rows (time spent 1186/2998 us)
 <p><strong>NOTE:</strong> Tag indexes are different from property indexes. If there is an index for a property of a tag, but no index for the tag, you cannot match on the tag.</p>
 </blockquote>
 <p>A vertex tag is specified with <code>:&lt;tag_name&gt;</code> in a pattern.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v
 +---------------------------------------------------------------+
 | v                                                             |
 +---------------------------------------------------------------+
@@ -3778,27 +3776,24 @@ Got 4 rows (time spent 1186/2998 us)
 +---------------------------------------------------------------+
 ...
 </code></pre></div>
-
 <h3 id="match_on_vertex_property">Match on vertex property<a class="headerlink" href="#match_on_vertex_property" title="Permanent link">&para;</a></h3>
 <p>Tag properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> in a pattern after a tag.</p>
 <p>The following example uses the <code>name</code> property to match a vertex.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
 | (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42}) |
 +----------------------------------------------------+
 </code></pre></div>
-
 <p>The <code>WHERE</code> clause can do the same thing:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name == &quot;Tim Duncan&quot; RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name == &quot;Tim Duncan&quot; RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
 | (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42}) |
 +----------------------------------------------------+
 </code></pre></div>
-
 <blockquote>
 <p><strong>OpenCypher compatibility</strong></p>
 <ul>
@@ -3808,7 +3803,7 @@ Got 4 rows (time spent 1186/2998 us)
 </blockquote>
 <h3 id="match_on_vid">Match on VID<a class="headerlink" href="#match_on_vid" title="Permanent link">&para;</a></h3>
 <p>You can use the VID to match a vertex. The <code>id()</code> function can retrieve the VID of a vertex.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) == &#39;player101&#39; RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) == &#39;player101&#39; RETURN v;
 +---------------------------------------------------+
 | v                                                 |
 +---------------------------------------------------+
@@ -3816,9 +3811,8 @@ Got 4 rows (time spent 1186/2998 us)
 +---------------------------------------------------+
 Got 1 rows (time spent 1710/2406 us)
 </code></pre></div>
-
 <p>To match on multiple VIDs, use <code>WHERE id(v) IN [vid_list]</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
         WHERE id(v2) IN [&quot;player101&quot;, &quot;player102&quot;] RETURN v2;
 +-----------------------------------------------------------+
 | v2                                                        |
@@ -3831,7 +3825,6 @@ Got 1 rows (time spent 1710/2406 us)
 +-----------------------------------------------------------+
 Got 3 rows (time spent 3107/3683 us)
 </code></pre></div>
-
 <h3 id="match_connected_vertices">Match connected vertices<a class="headerlink" href="#match_connected_vertices" title="Permanent link">&para;</a></h3>
 <p>You can use the <code>--</code> symbol to represent edges of both directions and match vertices connected by these edges.</p>
 <blockquote>
@@ -3841,7 +3834,7 @@ Got 3 rows (time spent 3107/3683 us)
 <li>Starting from nGQL 2.0, the <code>--</code> symbol represents an incoming or outgoing edge.</li>
 </ul>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) RETURN v2.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) RETURN v2.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -3858,9 +3851,8 @@ Got 3 rows (time spent 3107/3683 us)
 ...
 Got 13 rows (time spent 6029/8976 us)
 </code></pre></div>
-
 <p>And you can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN v2.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN v2.name AS Name;
 +-----------------+
 | Name            |
 +-----------------+
@@ -3872,10 +3864,9 @@ Got 13 rows (time spent 6029/8976 us)
 +-----------------+
 Got 3 rows (time spent 2897/5993 us)
 </code></pre></div>
-
 <p>In the preceding example, <code>--&gt;</code> represents an edge that starts from <code>v</code> and points to <code>v2</code>. To <code>v</code>, this is an outgoing edge, and to <code>v2</code> this is an incoming edge.</p>
 <p>To extend the pattern, add more edges and vertices.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) RETURN v3.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) RETURN v3.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -3891,9 +3882,8 @@ Got 3 rows (time spent 2897/5993 us)
 +---------------------+
 ...
 </code></pre></div>
-
 <p>If you don't need to refer to a vertex, you can omit the variable representing it in the parentheses.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;()&lt;--(v3) RETURN v3.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;()&lt;--(v3) RETURN v3.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -3909,10 +3899,9 @@ Got 3 rows (time spent 2897/5993 us)
 +---------------------+
 ...
 </code></pre></div>
-
 <h3 id="match_paths">Match paths<a class="headerlink" href="#match_paths" title="Permanent link">&para;</a></h3>
 <p>Connected vertices and edges form a path. You can use a user-defined variable as follows to name a path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN p;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) RETURN p;
 +-------------------------------------------+
 | p                                         |
 +-------------------------------------------+
@@ -3924,13 +3913,12 @@ Got 3 rows (time spent 2897/5993 us)
 +-------------------------------------------+
 Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
-
 <blockquote>
 <p><strong>OpenCypher compatibility:</strong> In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such a concept.</p>
 </blockquote>
 <h3 id="match_edges">Match edges<a class="headerlink" href="#match_edges" title="Permanent link">&para;</a></h3>
 <p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -3942,10 +3930,9 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 ...
 </code></pre></div>
-
 <h3 id="match_on_edge_types_and_properties">Match on edge types and properties<a class="headerlink" href="#match_on_edge_types_and_properties" title="Permanent link">&para;</a></h3>
 <p>Just like tags, edge types are specified with <code>:&lt;edge_type&gt;</code>. For example: <code>-[e:serve]-</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:serve]-(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:serve]-(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -3953,9 +3940,8 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 Got 1 rows (time spent 5041/5630 us)
 </code></pre></div>
-
 <p>And edge type properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;edge_type&gt;</code>. For example: <code>[e:follow{likeness:95}]</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow{degree:95}]-&gt;(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow{degree:95}]-&gt;(v2) RETURN e;
 +--------------------------------------------------------+
 | e                                                      |
 +--------------------------------------------------------+
@@ -3965,10 +3951,9 @@ Got 1 rows (time spent 5041/5630 us)
 +--------------------------------------------------------+
 Got 2 rows (time spent 6080/6728 us)
 </code></pre></div>
-
 <h3 id="match_on_multiple_edge_types">Match on multiple edge types<a class="headerlink" href="#match_on_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>The <code>|</code> symbol can help matching on multiple edge types. For example: <code>[e:follow|:serve]</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow|:serve]-&gt;(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow|:serve]-&gt;(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -3980,10 +3965,9 @@ Got 2 rows (time spent 6080/6728 us)
 +---------------------------------------------------------------------------+
 Got 3 rows (time spent 4264/4976 us)
 </code></pre></div>
-
 <h3 id="match_multiple_edges">Match multiple edges<a class="headerlink" href="#match_multiple_edges" title="Permanent link">&para;</a></h3>
 <p>You can expand a pattern to match multiple edges in a path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2)&lt;-[e:serve]-(v3) RETURN v2, v3;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2)&lt;-[e:serve]-(v3) RETURN v2, v3;
 +------------------------------------+-----------------------------------------------------------+
 | v2                                 | v3                                                        |
 +------------------------------------+-----------------------------------------------------------+
@@ -3995,10 +3979,9 @@ Got 3 rows (time spent 4264/4976 us)
 +------------------------------------+-----------------------------------------------------------+
 ...
 </code></pre></div>
-
 <h3 id="match_fixed-length_paths">Match fixed-length paths<a class="headerlink" href="#match_fixed-length_paths" title="Permanent link">&para;</a></h3>
 <p>To match a fixed-length path, use the <code>:&lt;edge_type&gt;*&lt;hop&gt;</code> pattern. <code>hop</code> must be a non-negative integer.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) RETURN DISTINCT v2 AS Friends;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) RETURN DISTINCT v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
@@ -4010,9 +3993,8 @@ Got 3 rows (time spent 4264/4976 us)
 +-----------------------------------------------------------+
 Got 3 rows (time spent 4863/5591 us)
 </code></pre></div>
-
 <p>If <code>hop</code> is 0, the pattern matches the source vertex on the path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -[*0]-&gt; (v2) RETURN v2;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -[*0]-&gt; (v2) RETURN v2;
 +----------------------------------------------------+
 | v2                                                 |
 +----------------------------------------------------+
@@ -4020,7 +4002,6 @@ Got 3 rows (time spent 4863/5591 us)
 +----------------------------------------------------+
 Got 1 rows (time spent 2785/3377 us)
 </code></pre></div>
-
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">&para;</a></h3>
 <p>You can use the <code>:&lt;edge_type&gt;*[minHop]..&lt;maxHop&gt;</code> pattern to match variable-length paths.</p>
 <table>
@@ -4048,7 +4029,7 @@ Got 1 rows (time spent 2785/3377 us)
 <li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given, <code>..</code> can be omitted.</li>
 </ul>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2) \
         RETURN v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
@@ -4063,9 +4044,8 @@ Got 1 rows (time spent 2785/3377 us)
 +-----------------------------------------------------------+
 Got 4 rows (time spent 6166/6887 us)
 </code></pre></div>
-
 <p>You can use the <code>DISTINCT</code> keyword to aggregate duplicate results.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2:player) \
         RETURN DISTINCT v2 AS Friends, count(v2);
 +-----------------------------------------------------------+-----------+
 | Friends                                                   | COUNT(v2) |
@@ -4080,9 +4060,8 @@ Got 4 rows (time spent 6166/6887 us)
 +-----------------------------------------------------------+-----------+
 Got 4 rows (time spent 5502/6556 us)
 </code></pre></div>
-
 <p>If <code>minHop</code> is 0, the pattern matches the source vertex. Compared to the preceding statement, the following statement uses 0 as the <code>minHop</code>, so in the following result set <code>"Tim Duncan"</code> is counted one more time than it is in the preceding result set because it is the source vertex.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*0..3]-&gt;(v2:player) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*0..3]-&gt;(v2:player) \
         RETURN DISTINCT v2 AS Friends, count(v2);
 +-----------------------------------------------------------+-----------+
 | Friends                                                   | COUNT(v2) |
@@ -4097,10 +4076,9 @@ Got 4 rows (time spent 5502/6556 us)
 +-----------------------------------------------------------+-----------+
 Got 4 rows (time spent 5553/6275 us)
 </code></pre></div>
-
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow|serve*2]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow|serve*2]-&gt;(v2) \
         RETURN DISTINCT v2;
 +-----------------------------------------------------------+
 | v2                                                        |
@@ -4117,12 +4095,11 @@ Got 4 rows (time spent 5553/6275 us)
 +-----------------------------------------------------------+
 Got 5 rows (time spent 3834/4571 us)
 </code></pre></div>
-
 <h2 id="common_retrieving_operations">Common retrieving operations<a class="headerlink" href="#common_retrieving_operations" title="Permanent link">&para;</a></h2>
 <p>This section shows how to retrieve commonly used items with <code>MATCH</code> statements.</p>
 <h3 id="retrieve_vertex_or_edge_information">Retrieve vertex or edge information<a class="headerlink" href="#retrieve_vertex_or_edge_information" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}</code> to retrieve all the information of a vertex or an edge.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
@@ -4130,8 +4107,7 @@ Got 5 rows (time spent 3834/4571 us)
 +----------------------------------------------------+
 Got 1 rows (time spent 1863/2545 us)
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) RETURN e;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -4143,10 +4119,9 @@ Got 1 rows (time spent 1863/2545 us)
 +---------------------------------------------------------------------------+
 Got 3 rows (time spent 3139/3773 us)
 </code></pre></div>
-
 <h3 id="retrieve_vids">Retrieve VIDs<a class="headerlink" href="#retrieve_vids" title="Permanent link">&para;</a></h3>
 <p>Use the <code>id()</code> function to retrieve VIDs.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN id(v);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN id(v);
 +-------------+
 | id(v)       |
 +-------------+
@@ -4154,10 +4129,9 @@ Got 3 rows (time spent 3139/3773 us)
 +-------------+
 Got 1 rows (time spent 2070/2747 us)
 </code></pre></div>
-
 <h3 id="retrieve_tags">Retrieve tags<a class="headerlink" href="#retrieve_tags" title="Permanent link">&para;</a></h3>
 <p>Use the <code>labels()</code> function to retrieve the list of tags on a vertex.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN labels(v);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN labels(v);
 +------------+
 | labels(v)  |
 +------------+
@@ -4165,9 +4139,8 @@ Got 1 rows (time spent 2070/2747 us)
 +------------+
 Got 1 rows (time spent 2198/2941 us)
 </code></pre></div>
-
 <p>To retrieve the nth element in the <code>labels(v)</code> list, use <code>labels(v)[n-1]</code>. The following example shows how to use <code>labels(v)[0]</code> to retrieve the first tag in the list.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN labels(v)[0];
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN labels(v)[0];
 +--------------+
 | labels(v)[0] |
 +--------------+
@@ -4175,10 +4148,9 @@ Got 1 rows (time spent 2198/2941 us)
 +--------------+
 Got 1 rows (time spent 2609/3481 us)
 </code></pre></div>
-
 <h3 id="retrieve_a_single_property_on_a_vertex_or_an_edge">Retrieve a single property on a vertex or an edge<a class="headerlink" href="#retrieve_a_single_property_on_a_vertex_or_an_edge" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}.&lt;property&gt;</code> to retrieve a single property.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age;
 +-------+
 | v.age |
 +-------+
@@ -4186,9 +4158,8 @@ Got 1 rows (time spent 2609/3481 us)
 +-------+
 Got 1 rows (time spent 2261/2973 us)
 </code></pre></div>
-
 <p>Use <code>AS</code> to specify an alias for a property.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age AS Age;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v.age AS Age;
 +-----+
 | Age |
 +-----+
@@ -4196,10 +4167,9 @@ Got 1 rows (time spent 2261/2973 us)
 +-----+
 Got 1 rows (time spent 1762/2321 us)
 </code></pre></div>
-
 <h3 id="retrieve_all_properties_on_a_vertex_or_an_edge">Retrieve all properties on a vertex or an edge<a class="headerlink" href="#retrieve_all_properties_on_a_vertex_or_an_edge" title="Permanent link">&para;</a></h3>
 <p>Use the <code>properties()</code> function to retrieve all properties on a vertex or an edge.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN properties(v2);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN properties(v2);
 +------------------------------------+
 | properties(v2)                     |
 +------------------------------------+
@@ -4211,10 +4181,9 @@ Got 1 rows (time spent 1762/2321 us)
 +------------------------------------+
 Got 3 rows (time spent 2943/3541 us)
 </code></pre></div>
-
 <h3 id="retrieve_edge_types">Retrieve edge types<a class="headerlink" href="#retrieve_edge_types" title="Permanent link">&para;</a></h3>
 <p>Use the <code>type()</code> function to retrieve the types of the matched edges.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() RETURN DISTINCT type(e);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() RETURN DISTINCT type(e);
 +----------+
 | type(e)  |
 +----------+
@@ -4224,10 +4193,9 @@ Got 3 rows (time spent 2943/3541 us)
 +----------+
 Got 3 rows (time spent 3776/4660 us)
 </code></pre></div>
-
 <h3 id="retrieve_paths">Retrieve paths<a class="headerlink" href="#retrieve_paths" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN &lt;path_name&gt;</code> to retrieve all the information of the matched paths.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*3]-&gt;() RETURN p;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*3]-&gt;() RETURN p;
 +-------------------------------------------------------------------------------------------------+
 | p                                                                                               |
 +-------------------------------------------------------------------------------------------------+
@@ -4239,10 +4207,9 @@ Got 3 rows (time spent 3776/4660 us)
 +-------------------------------------------------------------------------------------------------+
 ...
 </code></pre></div>
-
 <h3 id="retrieve_vertices_in_a_path">Retrieve vertices in a path<a class="headerlink" href="#retrieve_vertices_in_a_path" title="Permanent link">&para;</a></h3>
 <p>Use the <code>nodes()</code> function to retrieve all vertices in a path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN nodes(p);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN nodes(p);
 +---------------------------------------------------------------------------------------------------------------------+
 | nodes(p)                                                                                                            |
 +---------------------------------------------------------------------------------------------------------------------+
@@ -4254,10 +4221,9 @@ Got 3 rows (time spent 3776/4660 us)
 +---------------------------------------------------------------------------------------------------------------------+
 Got 3 rows (time spent 2529/3128 us)
 </code></pre></div>
-
 <h3 id="retrieve_edges_in_a_path">Retrieve edges in a path<a class="headerlink" href="#retrieve_edges_in_a_path" title="Permanent link">&para;</a></h3>
 <p>Use the <code>relationships()</code> function to retrieve all edges in a path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN relationships(p);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) RETURN relationships(p);
 +-----------------------------------------------------------------------------+
 | relationships(p)                                                            |
 +-----------------------------------------------------------------------------+
@@ -4269,10 +4235,9 @@ Got 3 rows (time spent 2529/3128 us)
 +-----------------------------------------------------------------------------+
 Got 3 rows (time spent 2715/3363 us)
 </code></pre></div>
-
 <h3 id="retrieve_path_length">Retrieve path length<a class="headerlink" href="#retrieve_path_length" title="Permanent link">&para;</a></h3>
 <p>Use the <code>length()</code> function to retrieve the length of a path.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
         RETURN p AS Paths, length(p) AS Length;
 +----------------------------------------------------------------------+--------+
 | Paths                                                                | Length |

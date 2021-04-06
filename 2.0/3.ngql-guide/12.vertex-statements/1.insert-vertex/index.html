@@ -2160,7 +2160,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2172,7 +2172,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2184,7 +2184,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2196,7 +2196,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3313,7 +3313,7 @@
                 
                 
                 <h1 id="insert_vertex">INSERT VERTEX<a class="headerlink" href="#insert_vertex" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; (&lt;prop_name_list&gt;) [, &lt;tag_name&gt; (&lt;prop_name_list&gt;), ...]
+<div class="highlight"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; (&lt;prop_name_list&gt;) [, &lt;tag_name&gt; (&lt;prop_name_list&gt;), ...]
      {VALUES | VALUE} VID: (&lt;prop_value_list&gt;[, &lt;prop_value_list&gt;])
 
 prop_name_list:
@@ -3322,7 +3322,6 @@ prop_name_list:
 prop_value_list:
   [prop_value [, prop_value] ...]
 </code></pre></div>
-
 <p>The <code>INSERT VERTEX</code> statement inserts one or more vertices into a graph space in a Nebula Graph instance.</p>
 <ul>
 <li><code>tag_name</code> denotes the tag (vertex type), which must be created before <code>INSERT VERTEX</code>.</li>
@@ -3335,23 +3334,20 @@ prop_value_list:
 <li><code>prop_value_list</code> must provide the property values according to the <code>prop_name_list</code>. If the property values do not match the data type in the tag, an error is returned. When the <code>NOT NULL</code> constraint is set for a given property, an error is returned if no property is given. When the default value for a property is <code>NULL</code>, you can omit to specify the property value. For details, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a>.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1();                   -- Create tag t1 with no property
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1();                   -- Create tag t1 with no property
 nebula&gt; INSERT VERTEX t1() VALUE &quot;10&quot;:();    -- Insert vertex &quot;10&quot; with no property
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t2 (name string, age int);                -- Create tag t2 with two properties
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (name string, age int);                -- Create tag t2 with two properties
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n1&quot;, 12);     -- Insert vertex &quot;11&quot; with two properties
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;12&quot;:(&quot;n1&quot;, &quot;a13&quot;);  -- Failed. &quot;a13&quot; is not int
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;13&quot;:(&quot;n3&quot;, 12), &quot;14&quot;:(&quot;n4&quot;, 8);    -- Insert two vertices
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t3(p1 int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t3(p1 int);
 nebula&gt; CREATE TAG t4(p2 string);
 nebula&gt; INSERT VERTEX  t3 (p1), t4(p2) VALUES &quot;21&quot;: (321, &quot;hello&quot;);   -- Insert vertex &quot;21&quot; with two tags.
 </code></pre></div>
-
 <p>A vertex can be inserted/written multiple times. Only the last written values can be read.</p>
-<div class="codehilite"><pre><span></span><code>// Insert vertex &quot;11&quot; with the new values.
+<div class="highlight"><pre><span></span><code>// Insert vertex &quot;11&quot; with the new values.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n2&quot;, 13);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n3&quot;, 14);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n4&quot;, 15);
@@ -3364,8 +3360,7 @@ nebula&gt; FETCH PROP ON t2 &quot;11&quot;;
 | (&quot;11&quot; :t2{age: 15, name: &quot;n4&quot;}) |
 +---------------------------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;001&quot;:(&quot;Abe&quot;, 2, 3);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;002&quot;:(NULL, 4, 5);
 [ERROR (-8)]: Storage Error: The not null field cannot be null.

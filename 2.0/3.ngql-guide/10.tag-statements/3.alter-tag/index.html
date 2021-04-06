@@ -2174,7 +2174,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2186,7 +2186,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2198,7 +2198,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2210,7 +2210,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3341,7 +3341,7 @@
                 
                 
                 <h1 id="alter_tag">ALTER TAG<a class="headerlink" href="#alter_tag" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
+<div class="highlight"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
     &lt;alter_definition&gt; [, alter_definition] ...]
     [ttl_definition [, ttl_definition] ... ]
 
@@ -3353,7 +3353,6 @@ alter_definition:
 ttl_definition:
     TTL_DURATION = ttl_duration, TTL_COL = prop_name
 </code></pre></div>
-
 <p><code>ALTER TAG</code> alters the structure of a tag with the given name in a graph space. You must have the <code>ALTER</code> <a href="../../../7.data-security/1.authentication/3.role-list/">privilege</a> for the graph space. To alter a tag in a specific graph space, you must use the graph space first.</p>
 <p>You can add or drop properties, change the data type of an existing property. You can also set TTL (Time-To-Live) for a property, or change the TTL duration. <code>TTL_COL</code> only supports the properties whose values are of the <code>INT</code> or the <code>TIMESTAMP</code> type.</p>
 <p>Before you alter properties for a tag, make sure that the properties are not indexed. If the properties contain any indexes, a conflict error occurs when you alter them.</p>
@@ -3364,11 +3363,10 @@ ttl_definition:
 <li><code>tag_name</code>: Specifies the tag name that you want to alter. You can alter only one tag in one statement. Before you alter a tag, make sure that the tag exists in the graph space. If the tag does not exist, an error occurs when you alter it.</li>
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 string, p2 int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 string, p2 int);
 nebula&gt; ALTER TAG t1 ADD (p3 int, p4 string);
 nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = &quot;p2&quot;;
 </code></pre></div>
-
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
 <p>Nebula Graph implements the alteration asynchronously in the next heartbeat cycle. Before the process finishes, the alteration does not take effect. To make sure the alteration is successful, take the following approaches:</p>
 <ul>

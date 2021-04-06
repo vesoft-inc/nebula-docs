@@ -2243,7 +2243,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2255,7 +2255,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2267,7 +2267,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2279,7 +2279,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3493,12 +3493,11 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before using the <code>LOOKUP</code> statement, make sure that relative indexes are created. For how to create indexes, see <a href="../../14.native-index-statements/1.create-native-index/">CREATE INDEX</a>.</p>
 <h2 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] [YIELD &lt;return_list&gt;]
+<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] [YIELD &lt;return_list&gt;]
 
 &lt;return_list&gt;
     &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...]
 </code></pre></div>
-
 <ul>
 <li>The <code>WHERE</code> clause filters data with the specified conditions. Both <code>AND</code> and <code>OR</code> are supported between different expressions. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</li>
 <li>The <code>YIELD</code> clause specifies the results to be returned and the format of the results.</li>
@@ -3519,7 +3518,7 @@
 </ul>
 <h2 id="retrieve_vertices">Retrieve Vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">&para;</a></h2>
 <p>The following example returns vertices whose name is <code>Tony Parker</code> and tagged with <em>player</em>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
 
 nebula&gt; REBUILD TAG INDEX index_player;
 +------------+
@@ -3552,10 +3551,9 @@ nebula&gt; LOOKUP ON player WHERE player.name == &quot;Kobe Bryant&quot; YIELD p
 | Kobe Bryant | 1996             | 2016           | Lakers       |
 ------------------------------------------------------------------
 </code></pre></div>
-
 <h2 id="retrieve_edges">Retrieve Edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">&para;</a></h2>
 <p>The following example returns edges whose <code>degree</code> is 90 and the edge type is <code>follow</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
 
 nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
@@ -3591,12 +3589,11 @@ nebula&gt; LOOKUP ON follow WHERE follow.degree == 60 YIELD follow.degree AS Deg
 | 105       | 2018             | 2019           | Raptors      |
 ----------------------------------------------------------------
 </code></pre></div>
-
 <h2 id="list_vertices_or_edges_with_a_tag_or_an_edge_type">List vertices or edges with a tag or an edge type<a class="headerlink" href="#list_vertices_or_edges_with_a_tag_or_an_edge_type" title="Permanent link">&para;</a></h2>
 <p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag or the edge type, or its property.</p>
 <p>For example, if there is a <code>player</code> tag with a <code>name</code> property and an <code>age</code> property, to retrieve the VID of all vertices tagged with <code>player</code>, there has to be an index on the <code>player</code> tag itself, the <code>name</code> property, or the <code>age</code> property.</p>
 <p>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
 Execution succeeded (time spent 3235/3865 us)
 
 nebula&gt; CREATE TAG INDEX player_index on player();
@@ -3622,9 +3619,8 @@ nebula&gt; LOOKUP ON player;
 +-------------+
 Got 2 rows (time spent 1514/2070 us)
 </code></pre></div>
-
 <p>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>like</code> edge type.</p>
-<div class="codehilite"><pre><span></span><code>nebula)&gt; CREATE EDGE like(likeness int);
+<div class="highlight"><pre><span></span><code>nebula)&gt; CREATE EDGE like(likeness int);
 Execution succeeded (time spent 3710/4483 us)
 
 nebula)&gt; CREATE EDGE INDEX like_index on like();
@@ -3648,10 +3644,9 @@ nebula)&gt; LOOKUP ON like;
 +-------------+----------+-------------+
 Got 1 rows (time spent 1163/1748 us)
 </code></pre></div>
-
 <h2 id="count_the_numbers_of_vertices_or_edges">Count the numbers of vertices or edges<a class="headerlink" href="#count_the_numbers_of_vertices_or_edges" title="Permanent link">&para;</a></h2>
 <p>The following example shows how to count the number of vertices tagged with <code>player</code> and edges of the <code>like</code> edge type.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; LOOKUP ON player | YIELD COUNT(*) AS Player_Number;
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player | YIELD COUNT(*) AS Player_Number;
 +---------------+
 | Player_Number |
 +---------------+
@@ -3667,26 +3662,22 @@ nebula&gt; LOOKUP ON like | YIELD COUNT(*) AS Like_Number;
 +-------------+
 Got 1 rows (time spent 1190/1970 us)
 </code></pre></div>
-
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="error_code_411">Error code 411<a class="headerlink" href="#error_code_411" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>ERROR <span class="o">(</span>-8<span class="o">)]</span>: Unknown error<span class="o">(</span><span class="m">411</span><span class="o">)</span>:
+<div class="highlight"><pre><span></span><code><span class="o">[</span>ERROR <span class="o">(</span>-8<span class="o">)]</span>: Unknown error<span class="o">(</span><span class="m">411</span><span class="o">)</span>:
 </code></pre></div>
-
 <p>Error code <code>411</code> shows there is no valid index for the current <code>WHERE</code> filter. Nebula Graph uses the left matching mode to select indexes. That is, columns in the <code>WHERE</code> filter must be in the first N columns of the index. For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
 nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
 nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
 nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
 nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
 </code></pre></div>
-
 <h3 id="no_valid_index_found">No valid index found<a class="headerlink" href="#no_valid_index_found" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>No valid index found
+<div class="highlight"><pre><span></span><code>No valid index found
 </code></pre></div>
-
 <p>If your query filter contains a string type field, Nebula Graph selects the index that matches all the fields. For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; CREATE TAG t1 (c1 string, c2 int);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (c1 string, c2 int);
 nebula&gt; CREATE TAG INDEX i1 ON t1 (c1, c2);
 nebula&gt; LOOKUP ON t1 WHERE t1.c1 == &quot;a&quot;; -- Index i1 is invalid
 nebula&gt; LOOKUP ON t1 WHERE t1.c1 == &quot;a&quot; and t1.c2 == 1;  -- Index i1 is valid

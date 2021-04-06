@@ -2160,7 +2160,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2172,7 +2172,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2184,7 +2184,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2196,7 +2196,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3354,7 +3354,7 @@
 <ul>
 <li>concatenation (+)</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RETURN &#39;a&#39; + &#39;b&#39;;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;a&#39; + &#39;b&#39;;
 +-------+
 | (a+b) |
 +-------+
@@ -3367,12 +3367,11 @@ nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
 | &quot;ab&quot;  |
 +-------+
 </code></pre></div>
-
 <ul>
 <li>CONTAINS</li>
 </ul>
 <p>The <code>CONTAINS</code> operator requires string type in both left and right side.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
     AND t.name CONTAINS &quot;ets&quot; RETURN s.name, e.start_year, e.end_year, t.name;
 +---------------+--------------+------------+-----------+
 | s.name        | e.start_year | e.end_year | t.name    |
@@ -3397,22 +3396,20 @@ nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !($$.team.name CONTAIN
 | &quot;Tony Parker&quot;  | 1999             | 2018           | &quot;Spurs&quot;      |
 +----------------+------------------+----------------+--------------+
 </code></pre></div>
-
 <ul>
 <li>IN</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], &quot;Yao&quot; IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;], NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;]
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], &quot;Yao&quot; IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;], NULL in [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;]
 +----------------+--------------------------------+-------------------------------+
 | (1 IN [1,2,3]) | (&quot;Yao&quot; IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) | (NULL IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) |
 +----------------+--------------------------------+-------------------------------+
 | true           | false                          | false                         |
 +----------------+--------------------------------+-------------------------------+
 </code></pre></div>
-
 <ul>
 <li>(NOT) STARTS WITH</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;app&#39;, &#39;apple&#39; STARTS WITH &#39;a&#39;, &#39;apple&#39; STARTS WITH toUpper(&#39;a&#39;)
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;app&#39;, &#39;apple&#39; STARTS WITH &#39;a&#39;, &#39;apple&#39; STARTS WITH toUpper(&#39;a&#39;)
 +-----------------------------+---------------------------+------------------------------------+
 | (&quot;apple&quot; STARTS WITH &quot;app&quot;) | (&quot;apple&quot; STARTS WITH &quot;a&quot;) | (&quot;apple&quot; STARTS WITH toUpper(&quot;a&quot;)) |
 +-----------------------------+---------------------------+------------------------------------+
@@ -3426,38 +3423,34 @@ nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;b&#39;,&#39;apple&#39; NOT ST
 | false                     | false                           |
 +---------------------------+---------------------------------+
 </code></pre></div>
-
 <ul>
 <li>(NOT) ENDS WITH</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; ENDS WITH &#39;app&#39;, &#39;apple&#39; ENDS WITH &#39;e&#39;, &#39;apple&#39; ENDS WITH &#39;E&#39;, &#39;apple&#39; ENDS WITH &#39;b&#39;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; ENDS WITH &#39;app&#39;, &#39;apple&#39; ENDS WITH &#39;e&#39;, &#39;apple&#39; ENDS WITH &#39;E&#39;, &#39;apple&#39; ENDS WITH &#39;b&#39;
 +---------------------------+-------------------------+-------------------------+-------------------------+
 | (&quot;apple&quot; ENDS WITH &quot;app&quot;) | (&quot;apple&quot; ENDS WITH &quot;e&quot;) | (&quot;apple&quot; ENDS WITH &quot;E&quot;) | (&quot;apple&quot; ENDS WITH &quot;b&quot;) |
 +---------------------------+-------------------------+-------------------------+-------------------------+
 | false                     | true                    | false                   | false                   |
 +---------------------------+-------------------------+-------------------------+-------------------------+
 </code></pre></div>
-
 <ul>
 <li>Regular expressions</li>
 </ul>
 <p>Nebula Graph supports filtering by using regular expressions. The regular expression syntax is inherited from <code>std::regex</code>. You can match on regular expressions by using <code>=~ 'regexp'</code>. For example:</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; RETURN &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
 +----------------------------+
 | (384748.39=~\d+(\.\d{2})?) |
 +----------------------------+
 | true                       |
 +----------------------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name =~ &#39;Tony.*&#39; RETURN v.name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name =~ &#39;Tony.*&#39; RETURN v.name;
 +---------------+
 | v.name        |
 +---------------+
 | &quot;Tony Parker&quot; |
 +---------------+
 </code></pre></div>
-
 <blockquote>
 <p><strong>NOTE</strong>: Regular expressions <strong>CAN NOT</strong> work with nGQL-extensions (GO/FETCH clause will return syntax error). Use it in openCypher only (e.g., in MATCH-WHERE clause).</p>
 </blockquote>

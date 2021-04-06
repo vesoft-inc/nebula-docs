@@ -2181,7 +2181,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2193,7 +2193,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2205,7 +2205,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2217,7 +2217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3359,7 +3359,7 @@
 <p>This page applies to nGQL extensions only.</p>
 <p>Use <code>GROUP BY</code> in nGQL-extensions <strong>ONLY</strong> to aggregate data.</p>
 <p>OpenCypher uses the <a href="../../6.functions-and-expressions/7.count/">count()</a> function to aggregate data.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt;  MATCH (v:player)&lt;-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
+<div class="highlight"><pre><span></span><code>nebula&gt;  MATCH (v:player)&lt;-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
 +----------------------+--------------+
 | Name                 | Follower_Num |
 +----------------------+--------------+
@@ -3379,19 +3379,17 @@
 +----------------------+--------------+
 ...
 </code></pre></div>
-
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The <code>GROUP BY</code> clause groups the rows with the same value into summary rows. Then operations such as counting, sorting, and calculation can be applied.</p>
 <p><code>GROUP BY</code> works after the pipe symbol and before a <code>YIELD</code> clause.</p>
-<div class="codehilite"><pre><span></span><code>| GROUP BY &lt;var&gt; YIELD &lt;var&gt;, &lt;aggregation_function(var)&gt;
+<div class="highlight"><pre><span></span><code>| GROUP BY &lt;var&gt; YIELD &lt;var&gt;, &lt;aggregation_function(var)&gt;
 </code></pre></div>
-
 <ul>
 <li>aggregation_function can be <code>avg(), sum(), max(), min(), count(), collect(), std()</code>.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts the times that the names show up in the result set.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
         OVER follow BIDIRECT \
         YIELD $$.player.name as Name | \
         GROUP BY $-.Name \
@@ -3421,10 +3419,9 @@
 +---------------------+------------+
 Got 10 rows (time spent 3527/4423 us)
 </code></pre></div>
-
 <h2 id="group_and_calculate_with_functions">Group and calculate with functions<a class="headerlink" href="#group_and_calculate_with_functions" title="Permanent link">&para;</a></h2>
 <p>The following statement finds all the players followed by <code>"player100"</code>, returns these players as <code>player</code> and the property of the follow edge as <code>degree</code>. These players are grouped and the sum of their degree values is returned.</p>
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD sum($-.degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD sum($-.degree);
 +----------------+
 | sum($-.degree) |
 +----------------+
@@ -3432,7 +3429,6 @@ Got 10 rows (time spent 3527/4423 us)
 +----------------+
 Got 1 rows (time spent 2851/3624 us)
 </code></pre></div>
-
 <p>For more information about functions, see <a href="../../6.functions-and-expressions/1.math/">Functions</a>.</p>
                 
                   

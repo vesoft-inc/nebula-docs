@@ -2174,7 +2174,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/comments.md" title="Comments" class="md-nav__link">
+    <a href="../../20.appendix/comments/" title="Comments" class="md-nav__link">
       Comments
     </a>
   </li>
@@ -2186,7 +2186,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/identifier-case-sensitivity.md" title="Identifier Case Sensitivity" class="md-nav__link">
+    <a href="../../20.appendix/identifier-case-sensitivity/" title="Identifier Case Sensitivity" class="md-nav__link">
       Identifier Case Sensitivity
     </a>
   </li>
@@ -2198,7 +2198,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/keywords-and-reserved-words.md" title="Keywords and reserved words" class="md-nav__link">
+    <a href="../../20.appendix/keywords-and-reserved-words/" title="Keywords and reserved words" class="md-nav__link">
       Keywords and reserved words
     </a>
   </li>
@@ -2210,7 +2210,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../20.appendix.md/vid-partition.md" title="VID and Partition" class="md-nav__link">
+    <a href="../../20.appendix/vid-partition/" title="VID and Partition" class="md-nav__link">
       VID and Partition
     </a>
   </li>
@@ -3344,7 +3344,7 @@
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>This page applies to nGQL extensions only.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
+<div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 [ WHERE &lt;expression&gt; [ {AND | OR} expression ...]) ]
 [YIELD [DISTINCT] &lt;return_list&gt;]
@@ -3366,7 +3366,6 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 &lt;return_list&gt; ::=
     &lt;col_name&gt; [AS &lt;col_alias&gt;] [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
 </code></pre></div>
-
 <p><code>GO</code> traverses in a graph with specified filters and returns results.</p>
 <ul>
 <li><code>&lt;N&gt; STEPS</code> specifies the hop number. If not specified, the default value for N is one. When <code>N</code> is zero, Nebula Graph does not traverse any edges and returns nothing.</li>
@@ -3391,7 +3390,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <li><code>GROUP BY</code> groups outputs into subgroups based on values of the specified properties. For more information, see <a href="../../8.clauses-and-options/group-by/">GROUP BY</a>.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>// Returns teams that player 102 serves.
+<div class="highlight"><pre><span></span><code>// Returns teams that player 102 serves.
 nebula&gt; GO FROM &quot;player102&quot; OVER serve;
 +------------+
 | serve._dst |
@@ -3401,8 +3400,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER serve;
 | &quot;team204&quot;  |
 +------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>// Returns the 2 hop friends of the player 102.
+<div class="highlight"><pre><span></span><code>// Returns the 2 hop friends of the player 102.
 nebula&gt; GO 2 STEPS FROM &quot;player102&quot; OVER follow;
 +-------------+
 | follow._dst |
@@ -3413,8 +3411,7 @@ nebula&gt; GO 2 STEPS FROM &quot;player102&quot; OVER follow;
 +-------------+
 ...
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>// Adds a filter for the traversal then duplicates the output.
+<div class="highlight"><pre><span></span><code>// Adds a filter for the traversal then duplicates the output.
 nebula&gt; GO FROM &quot;player100&quot;, &quot;player102&quot; OVER serve \
 WHERE serve.start_year &gt; 1995 \
 YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.player.name AS player_name;
@@ -3428,8 +3425,7 @@ YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.pla
 | &quot;Spurs&quot;         | 2015       | &quot;LaMarcus Aldridge&quot; |
 +-----------------+------------+---------------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>// Traverses along with multiple edge types.
+<div class="highlight"><pre><span></span><code>// Traverses along with multiple edge types.
 nebula&gt; GO FROM &quot;player100&quot; OVER follow, serve YIELD follow.degree, serve.start_year;
 +---------------+------------------+
 | follow.degree | serve.start_year |
@@ -3441,9 +3437,8 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow, serve YIELD follow.degree,
 | __EMPTY__     | 1997             |
 +---------------+------------------+
 </code></pre></div>
-
 <p>Nebula Graph displays different properties by columns. If there is no value for a property, the output is <code>__EMPTY__</code>.</p>
-<div class="codehilite"><pre><span></span><code>// Returns player 100.
+<div class="highlight"><pre><span></span><code>// Returns player 100.
 nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY YIELD follow._dst AS destination;
 +-------------+
 | destination |
@@ -3465,8 +3460,7 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == &#39;player100&#39; RET
 +-------------+
 ...
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>// Finds player 100&#39;s friends and the teams that they serve.
+<div class="highlight"><pre><span></span><code>// Finds player 100&#39;s friends and the teams that they serve.
 nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
 YIELD follow._dst AS id | \
 GO FROM $-.id OVER serve \
@@ -3492,8 +3486,7 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  WHERE id(v) == &#
 +---------------------+-----------------+
 ...
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow BIDIRECT YIELD follow._dst AS both;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow BIDIRECT YIELD follow._dst AS both;
 +-------------+
 | both        |
 +-------------+
@@ -3514,8 +3507,7 @@ nebula&gt; MATCH (v) -[e:follow]-(v2) WHERE id(v)== &quot;player102&quot; RETURN
 +-------------+
 ...
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM &quot;player100&quot; OVER follow YIELD follow._dst AS destination;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM &quot;player100&quot; OVER follow YIELD follow._dst AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -3535,8 +3527,7 @@ nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) WHERE id(v) == &quot;player100&qu
 | &quot;player102&quot; |
 +-------------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM &quot;player100&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM &quot;player100&quot; OVER follow \
 YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age \
 | GROUP BY $-.dst YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age
 +-------------+----------------------------+----------+
@@ -3549,8 +3540,7 @@ YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age \
 | &quot;player102&quot; | [&quot;player101&quot;]              | [33]     |
 +-------------+----------------------------+----------+
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>nebula&gt; $a = GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS src, follow._dst AS dst; \
+<div class="highlight"><pre><span></span><code>nebula&gt; $a = GO FROM &quot;player100&quot; OVER follow YIELD follow._src AS src, follow._dst AS dst; \
 GO 2 STEPS FROM $a.dst OVER follow YIELD $a.src AS src, $a.dst, follow._src, follow._dst \
 | ORDER BY $-.src | OFFSET 1 LIMIT 2;
 +-------------+-------------+-------------+-------------+
