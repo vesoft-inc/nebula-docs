@@ -2,6 +2,10 @@
 
 You can use the `BALANCE` statements to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.
 
+## Prerequisites
+
+The graph spaces stored in Nebula Graph must have more than one replicas for the system to balance the distribution of partitions and Raft leaders.
+
 ## Balance partition distribution
 
 `BALANCE DATA` starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
