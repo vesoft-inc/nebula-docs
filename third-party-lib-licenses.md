@@ -396,3 +396,25 @@ receive more limited attention and support for such scenario.
 * Project Home: <https://github.com/facebook/zstd>
 * License: Dual-licensed, <https://github.com/facebook/zstd/blob/dev/LICENSE> and <https://github.com/facebook/zstd/blob/dev/COPYING>dual-licensed under BSD and GPLv2.
 * License Name: BSD License and GNU General Public License Version 2
+
+## mkdocs
+
+* Name: mkdocs
+* Project Home: <https://www.mkdocs.org/>
+* License: https://github.com/mkdocs/mkdocs/blob/master/LICENSE
+* License Name: BSD 2-Clause "Simplified" License
+
+
+## mike
+
+* Name: mike
+* Project Home: <https://github.com/jimporter/mike>
+* License: https://github.com/jimporter/mike/blob/master/LICENSE
+* License Name: BSD 3-Clause "New" or "Revised" License
+
+## weasyprint
+
+* Name: weasyprint
+* Project Home: <https://weasyprint.org/>
+* License: https://github.com/Kozea/WeasyPrint/blob/master/LICENSE
+* License Name: BSD 3-Clause "New" or "Revised" License
