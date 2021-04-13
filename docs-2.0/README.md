@@ -1,4 +1,6 @@
-# Welcome to Nebula Graph 2.0 Documentation
+# Welcome to Nebula Graph {{ nebula.release }} Documentation
+
+!!! note "This manual is revised on {{ git_revision_date_localized }}, with GitHub commit {{ git.short_commit }}."
 
 Nebula Graph is a distributed, scalable, and lightning-fast graph database.
 
