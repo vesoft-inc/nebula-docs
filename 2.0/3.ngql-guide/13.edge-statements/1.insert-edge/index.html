@@ -855,6 +855,11 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
@@ -1388,6 +1393,11 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
@@ -1403,6 +1413,9 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="insert_edge">INSERT EDGE<a class="headerlink" href="#insert_edge" title="Permanent link">¶</a></h1>
+<p>The <code>INSERT EDGE</code> statement inserts an edge from a source vertex (given by src_vid) to a destination vertex (given by dst_vid) with a specific rank.</p>
+<p>When inserting an edge that already exists, <code>INSERT VERTEX</code> <strong>overrides</strong> the edge.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES | VALUE}
 &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; )
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...]
@@ -1413,16 +1426,15 @@
 &lt;prop_value_list&gt; ::=
   [ &lt;prop_value&gt; [, &lt;prop_value&gt; ] ...]
 </code></pre></div>
-<p>The <code>INSERT EDGE</code> statement inserts an edge from a source vertex (given by src_vid) to a destination vertex (given by dst_vid).</p>
 <ul>
 <li><code>&lt;edge_type&gt;</code> denotes the edge type, which must be created before <code>INSERT EDGE</code>. Only one edge type can be specified in this statement.</li>
 <li><code>&lt;prop_name_list&gt;</code> is the property name list in the given <code>&lt;edge_type&gt;</code>.</li>
 <li><code>&lt;prop_value_list&gt;</code> must provide the value list according to <code>&lt;prop_name_list&gt;</code>. If the property values do not match the data type in the edge type, an error is returned. When the <code>NOT NULL</code> constraint is set for a given property, an error is returned if no property is given. When the default value for a property is <code>NULL</code>, you can omit to specify the property value.</li>
-<li><code>rank</code> is optional. It specifies the edge rank of the same edge type. If not specified, the default value is 0. You can insert many edges with the same edge type for two vertices by using different rank values.</li>
-</ul>
-<blockquote>
+<li><code>rank</code> is optional. It specifies the edge rank of the same edge type. If not specified, the default value is 0. You can insert many edges with the same edge type for two vertices by using different rank values.<blockquote>
 <p><strong>OpenCypher compatibility:</strong> OpenCypher has no such a concept as rank.</p>
 </blockquote>
+</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1();                    -- create edge type t1 with empty property
 nebula&gt; INSERT EDGE e1 () VALUES "10"-&gt;"11":();    -- insert an edge from vertex "10" to vertex "11" with empty property
@@ -1452,7 +1464,7 @@ nebula&gt; FETCH PROP ON e2 "11"-&gt;"13";
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
 </small>
 </div>
 </article>
