@@ -2165,41 +2165,41 @@ Got 4 rows (time spent 1061/2251 us)
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
 <ol>
 <li>
-<p>Use the following statement to create a graph space named <code>nba</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
+<p>Use the following statement to create a graph space named <code>basketballplayer</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE basketballplayer(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
 Execution succeeded (time spent 2817/3280 us)
 </code></pre></div>
 </li>
 <li>
 <p>Check the partition distribution with <code>SHOW HOSTS</code> to make sure that the partitions are distributed in a balanced way.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
-| Host        | Port      | Status    | Leader count | Leader distribution | Partition distribution |
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
-| "storaged0" | 9779      | "ONLINE"  | 5            | "nba:5"             | "nba:5"                |
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
-| "storaged1" | 9779      | "ONLINE"  | 5            | "nba:5"             | "nba:5"                |
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
-| "storaged2" | 9779      | "ONLINE"  | 5            | "nba:5"             | "nba:5"                |
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
-| "Total"     | __EMPTY__ | __EMPTY__ | 15           | "nba:15"            | "nba:15"               |
-+-------------+-----------+-----------+--------------+---------------------+------------------------+
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
+| Host        | Port      | Status    | Leader count | Leader distribution              | Partition distribution |
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
+| "storaged0" | 9779      | "ONLINE"  | 5            | "basketballplayer:5"             | "basketballplayer:5"   |
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
+| "storaged1" | 9779      | "ONLINE"  | 5            | "basketballplayer:5"             | "basketballplayer:5"   |
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
+| "storaged2" | 9779      | "ONLINE"  | 5            | "basketballplayer:5"             | "basketballplayer:5"   |
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
+| "Total"     | __EMPTY__ | __EMPTY__ | 15           | "basketballplayer:15"            | "basketballplayer:15"  |
++-------------+-----------+-----------+--------------+----------------------------------+------------------------+
 Got 4 rows (time spent 1633/2867 us)
 </code></pre></div>
 <p>If the <strong>Leader distribution</strong> is uneven, use <code>BALANCE LEADER</code> to redistribute the partitions. For more information, see <a href="../../8.service-tuning/load-balance/">BALANCE</a>.</p>
 </li>
 <li>
-<p>Use the <code>nba</code> graph space.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE nba;
+<p>Use the <code>basketballplayer</code> graph space.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
 Execution succeeded (time spent 1322/2206 us)
 </code></pre></div>
 <p>You can use <code>SHOW SPACES</code> to check the graph space you created.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
-+------+
-| Name |
-+------+
-| nba  |
-+------+
++-------------------+
+| Name              |
++-------------------+
+| basketballplayer  |
++-------------------+
 Got 1 rows (time spent 1235/1934 us)
 </code></pre></div>
 </li>
@@ -2283,7 +2283,7 @@ Thu, 15 Oct 2020 06:22:50 UTC
 </ul>
 <h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">¶</a></h3>
 <ul>
-<li>Insert vertices representing NBA players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42);
+<li>Insert vertices representing basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42);
 Execution succeeded (time spent 2919/3485 us)
 
 Fri, 16 Oct 2020 03:41:00 UTC
@@ -2306,7 +2306,7 @@ Fri, 16 Oct 2020 03:42:45 UTC
 </li>
 </ul>
 <ul>
-<li>Insert edges representing the relations between NBA players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player101":(95);
+<li>Insert edges representing the relations between basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player101":(95);
 Execution succeeded (time spent 1488/1918 us)
 
 Wed, 21 Oct 2020 06:57:32 UTC
