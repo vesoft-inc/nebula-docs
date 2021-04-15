@@ -4,11 +4,8 @@ This repository holds all the source files of Nebula Graph Documentations at the
 
 ## Documentation index
 
-- Documentation index for [Nebula Graph 1.1](https://docs.nebula-graph.io/1.1/)
-- Documentation index for [Nebula Graph 2.0](https://docs.nebula-graph.io/2.0/)
+- Documentation index for [Nebula Graph 1.x](https://docs.nebula-graph.io/)
 - [中文文档](https://docs.nebula-graph.com.cn/)
-- Clients (TODO)
-- [Nebula Graph Cloud](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/)
 
 ## Contributing
 

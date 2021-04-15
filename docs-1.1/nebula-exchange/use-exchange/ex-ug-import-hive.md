@@ -61,13 +61,13 @@ The practice is done in macOS. Here is the environment information:
 
 - HIVE 2.3.7, with MySQL 8.0.22
 
-- Nebula Graph v1.2.0, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
+- Nebula Graph v{{ nebula.release }}, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
 
 ## Prerequisites
 
 To import data from HIVE with Exchange v1.x, do a check of these:
 
-- Exchange v1.x is compiled. For more information, see [Compile Exchange v1.x](../ex-ug-compile.md). Exchange 1.1.0 is used in this example.
+- Exchange v1.x is compiled. For more information, see [Compile Exchange v1.x](../ex-ug-compile.md). Exchange {{ nebula.release }} is used in this example.
 
 - Spark is installed.
 
@@ -335,7 +335,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
 After the configuration, run the import command with the `-D` parameter to verify the configuration file. For more information about the parameters, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-1.1.0.jar -c /path/to/conf/hive_application.conf -h -D
+$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-{{ nebula.release }}.jar -c /path/to/conf/hive_application.conf -h -D
 ```
 
 ### Step 5. Import data into Nebula Graph
@@ -343,7 +343,7 @@ $SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.im
 When the configuration is ready, run this command to import data from HIVE into Nebula Graph. For more information about the parameters, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-1.1.0.jar -c /path/to/conf/hive_application.conf -h
+$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-{{ nebula.release }}.jar -c /path/to/conf/hive_application.conf -h
 ```
 
 ### Step 6. (Optional) Verify data in Nebula Graph

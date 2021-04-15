@@ -4,7 +4,7 @@ When Studio is connected to Nebula Graph, you can create or delete a graph space
 
 ## Studio version
 
-Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
+Studio of v{{ nebula.release }}-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
 docker-compose pull && docker-compose up -d
@@ -14,7 +14,7 @@ docker-compose pull && docker-compose up -d
 
 To operate a graph space on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v1.2.0-beta or later.
+- The version of Studio is v{{ nebula.release }}-beta or later.
 - Studio is connected to Nebula Graph.
 - Your account has the authority of GOD. It means that:
   - If the authentication is enabled in Nebula Graph, you can use `user` and `password` to sign in to Studio.

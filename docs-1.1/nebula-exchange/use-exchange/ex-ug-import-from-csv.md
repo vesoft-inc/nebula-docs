@@ -25,13 +25,13 @@ The practice is done in macOS. Here is the environment information:
 
 - Hadoop 2.9.2, deployed in the Pseudo-Distributed mode
 
-- Nebula Graph v1.1.0, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
+- Nebula Graph v{{ nebula.release }}, deployed with Docker Compose. For more information, see [Deploy Nebula Graph with Docker Compose](https://github.com/vesoft-inc/nebula-docker-compose "Click to go to GitHub").
 
 ## Prerequisites
 
 To import data from CSV files on HDFS with Exchange v1.x, do a check of these:
 
-- Exchange v1.x is compiled. For more information, see [Compile Exchange v1.x](../ex-ug-compile.md). Exchange 1.1.0 is used in this example.
+- Exchange v1.x is compiled. For more information, see [Compile Exchange v1.x](../ex-ug-compile.md). Exchange {{ nebula.release }} is used in this example.
 
 - Spark is installed.
 
@@ -169,7 +169,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       # have the one-to-one correspondence relationship.
       nebula.fields: [courseId, courseName]
 
-      # Since from Exchange 1.1.0, csv.fields is available.
+      # Since from Exchange {{ nebula.release }}, csv.fields is available.
       # If csv.fields is specified, fields must have the same values as csv.fields.
       # csv.fields: [courseId, courseName]
 
@@ -210,7 +210,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       }
       path: "hdfs://namenode_ip:port/path/to/user.csv"
 
-      # Since from Exchange 1.1.0, csv.fields is available.
+      # Since from Exchange {{ nebula.release }}, csv.fields is available.
       # If csv.fields is used, Exchange uses the values of csv.fields as 
       # the header of the CSV file, and fields must have the same values as csv.fields.
       # fields for the CSV file and nebula.fields for Nebula Graph must 
@@ -271,7 +271,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
       # have the one-to-one correspondence relationship.
       nebula.fields: [actionId, duration, feature0, feature1, feature2, feature3, label]
 
-      # Since from Exchange 1.1.0, csv.fields is available.
+      # Since from Exchange {{ nebula.release }}, csv.fields is available.
       # If csv.fields is used, Exchange uses the values of csv.fields as 
       # the header of the CSV file and fields must have the same values as csv.fields.
       # csv.fields: [actionId, duration, feature0, feature1, feature2, feature3, label]
@@ -312,7 +312,7 @@ After compiling of Exchange, copy the `target/classes/application.conf` file and
 After the configuration, run the import command with the `-D` parameter to verify the configuration file. For more information about the parameters, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-1.1.0.jar -c /path/to/conf/csv_application.conf -D
+$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-{{ nebula.release }}.jar -c /path/to/conf/csv_application.conf -D
 ```
 
 ### Step 5. Import data into Nebula Graph
@@ -320,7 +320,7 @@ $SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.im
 When the configuration is ready, run this command to import data from CSV files into Nebula Graph. For more information about the parameters, see [Import command parameters](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-1.1.0.jar -c /path/to/conf/csv_application.conf 
+$SPARK_HOME/bin/spark-submit --master "local" --class com.vesoft.nebula.tools.importer.Exchange /path/to/exchange-{{ nebula.release }}.jar -c /path/to/conf/csv_application.conf 
 ```
 
 ### Step 6. (Optional) Verify data in Nebula Graph

@@ -4,7 +4,7 @@ After a graph space is created in Nebula Graph, you can create edge types. With 
 
 ## Studio version
 
-Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
+Studio of v{{ nebula.release }}-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
 docker-compose pull && docker-compose up -d
@@ -14,7 +14,7 @@ docker-compose pull && docker-compose up -d
 
 To operate an edge type on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v1.2.0-beta or later.
+- The version of Studio is v{{ nebula.release }}-beta or later.
 - Studio is connected to Nebula Graph.
 - A graph space is created.
 - Your account has the authority of GOD, ADMIN, or DBA.

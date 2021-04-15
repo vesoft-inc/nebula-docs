@@ -1,4 +1,6 @@
-# What is Nebula Graph
+# What is Nebula Graph {{ nebula.release }}
+
+!!! note "Last updated {{ now().year }}-{{ now().month }}-{{ now().day }}, [GitHub commit](https://github.com/vesoft-inc/nebula-docs/tree/v{{ nebula.release }}) {{ git.short_commit }}."
 
 **Nebula Graph** is an open-source graph database capable of hosting super large-scale graphs with billions of vertices (nodes) and trillions of edges, with milliseconds of latency. It delivers enterprise-grade high performance to simplify the most complex data sets imaginable into meaningful and useful information.
 

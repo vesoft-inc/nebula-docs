@@ -4,7 +4,7 @@ This article introduces the limitations on Studio.
 
 ## Nebula Graph versions
 
-For now, only Nebula Graph v1.1.0 and earlier versions can be used with Studio. Nebula Graph v2.0.0-alpha is not supported.
+For now, only Nebula Graph v{{ nebula.release }} and earlier versions can be used with Studio. Nebula Graph v2.0.0-alpha is not supported.
 
 ## Architecture
 

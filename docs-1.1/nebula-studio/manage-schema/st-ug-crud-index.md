@@ -6,7 +6,7 @@ You can create an index for a tag and/or an edge type. An index lets traversal s
 
 ## Studio version
 
-Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
+Studio of v{{ nebula.release }}-beta or later versions supports this function. To update the version, run this command.
 
 ```bash
 docker-compose pull && docker-compose up -d
@@ -16,7 +16,7 @@ docker-compose pull && docker-compose up -d
 
 To operate an index on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v1.2.0-beta or later.
+- The version of Studio is v{{ nebula.release }}-beta or later.
 - Studio is connected to Nebula Graph.
 - A graph space, tags, and edge types are created.
 - Your account has the authority of GOD, ADMIN, or DBA.

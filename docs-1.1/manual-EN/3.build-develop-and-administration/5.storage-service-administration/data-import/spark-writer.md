@@ -32,7 +32,7 @@ Or you can download from OSS.
 ### Download From Cloud Storage OSS
 
 ```bash
-wget https://oss-cdn.nebula-graph.io/jar-packages/sst.generator-1.0.0-beta.jar
+wget https://oss-cdn.nebula-graph.io/jar-packages/sst.generator-{{ nebula.release }}-beta.jar
 ```
 
 ## User Guide

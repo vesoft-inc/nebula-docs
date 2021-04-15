@@ -1,4 +1,4 @@
-# Welcome to Nebula Graph 1.0 Documentation
+# Welcome to Nebula Graph {{ nebula.release }} Documentation
 
 **Nebula Graph** is a distributed, scalable, and lightning-fast graph database.
 
