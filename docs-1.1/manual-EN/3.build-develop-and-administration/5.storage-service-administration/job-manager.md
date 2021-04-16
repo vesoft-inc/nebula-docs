@@ -40,13 +40,13 @@ The `SHOW JOB <job_id>` statement shows a job with certain ID and all its tasks.
 
 ```ngql
 nebula> SHOW JOB 40
-=====================================================================================
-| Job Id(TaskId) | Command(Dest) | Status   | Start Time        | Stop Time         |
-=====================================================================================
-| 40             | flush nba     | finished | 12/17/19 17:21:30 | 12/17/19 17:21:30 |
--------------------------------------------------------------------------------------
-| 40-0           | 192.168.8.5   | finished | 12/17/19 17:21:30 | 12/17/19 17:21:30 |
--------------------------------------------------------------------------------------
+==================================================================================================
+| Job Id(TaskId) | Command(Dest)              | Status   | Start Time        | Stop Time         |
+==================================================================================================
+| 40             | flush basketballplayer     | finished | 12/17/19 17:21:30 | 12/17/19 17:21:30 |
+--------------------------------------------------------------------------------------------------
+| 40-0           | 192.168.8.5                | finished | 12/17/19 17:21:30 | 12/17/19 17:21:30 |
+--------------------------------------------------------------------------------------------------
 ```
 
 The above statement returns one to multiple rows, which is determined by the `storaged` number where the space is located.
@@ -54,7 +54,7 @@ The above statement returns one to multiple rows, which is determined by the `st
 What's in the returned results:
 
 - `40` is the job ID
-- `flush nba` indicates that a flush operation is performed on space nba
+- `flush basketballplayer` indicates that a flush operation is performed on space basketballplayer
 - `finished` is the job status, which indicates that the job execution is finished and successful. Other job status are Queue, running, failed and stopped
 - `12/17/19 17:21:30` is the start time, which is initially empty(Queue). The value is set if and only if the job status is running.
 - `12/17/19 17:21:30` is the stop time, which is empty when the job status is Queue or running. The value is set when the job status is finished, failed and stopped
