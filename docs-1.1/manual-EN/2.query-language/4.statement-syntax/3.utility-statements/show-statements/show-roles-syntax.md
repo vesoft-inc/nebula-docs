@@ -12,7 +12,7 @@ If the user is `DBA`, `USER` or `GUEST`, **Nebula Graph** shows only his own rol
 For example:
 
 ```ngql
-nebula> SHOW ROLES in NBA;
+nebula> SHOW ROLES in basketballplayer;
 =======================
 | Account | Role Type |
 =======================

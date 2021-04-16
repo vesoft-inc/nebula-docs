@@ -16,12 +16,12 @@ Also notice that DESCRIBE is different from SHOW. Refer [SHOW](show-statements/s
 Obtain information about space.
 
 ```ngql
-nebula> DESCRIBE SPACE nba;
-========================================================
-| ID |     Name    | Partition number | Replica Factor |
-========================================================
-|  1 |     nba     |             100  |              1 |
---------------------------------------------------------
+nebula> DESCRIBE SPACE basketballplayer;
+=====================================================================
+| ID |     Name                 | Partition number | Replica Factor |
+=====================================================================
+|  1 |     basketballplayer     |             100  |              1 |
+---------------------------------------------------------------------
 ```
 
 Obtain information about tag in a given space.
