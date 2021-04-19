@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/3.ngql-guide/14.native-index-statements/1.create-native-index/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.1" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.2" name="generator"/>
 <title>CREATE INDEX - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.9299cb39.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.6f955dcd.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
 <meta content="#ffffff" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1553,14 +1553,21 @@ nebula&gt; CREATE TAG INDEX fix ON fix_string(p1);
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_1 on player(name(10), age);
 </code></pre></div>
 <p>This statement creates a composite index for the <code>name</code> and <code>age</code> property on all vertices carrying the <code>player</code> tag.</p>
+<p>Nebula Graph follows the left matching principle to select indexes. That is, columns in the <code>WHERE</code> conditions must be in the first N columns of the index. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
+nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
+</code></pre></div>
 <h2 id="using_index">Using index<a class="headerlink" href="#using_index" title="Permanent link">¶</a></h2>
-<p>After the index is created and data is inserted, you can use the <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a> statement to query the data.</p>
+<p>After the index is created and data is inserted, you can use <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a> or <a href="../../7.general-query-statements/2.match/">MATCH</a> to query the data.</p>
 <p>You do not need to specify which indexes to use in a query, Nebula Graph figures that out by itself.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2021</span>
 </small>
 </div>
 </article>
@@ -1624,7 +1631,7 @@ nebula&gt; CREATE TAG INDEX fix ON fix_string(p1);
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.7353b375.min.js"></script>
+<script src="../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 </body>
 </html>

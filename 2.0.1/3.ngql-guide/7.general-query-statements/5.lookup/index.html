@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/3.ngql-guide/7.general-query-statements/5.lookup/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.1" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.2" name="generator"/>
 <title>LOOKUP - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.9299cb39.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.6f955dcd.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
 <meta content="#ffffff" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -532,17 +532,12 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax">
-    Syntax
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#prerequisites">
     Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax_1">
+<a class="md-nav__link" href="#syntax">
     Syntax
   </a>
 </li>
@@ -570,25 +565,6 @@
 <a class="md-nav__link" href="#count_the_numbers_of_vertices_or_edges">
     Count the numbers of vertices or edges
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#faq">
-    FAQ
-  </a>
-<nav aria-label="FAQ" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#error_code_411">
-    Error code 411
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#no_valid_index_found">
-    No valid index found
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -1454,17 +1430,12 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax">
-    Syntax
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#prerequisites">
     Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax_1">
+<a class="md-nav__link" href="#syntax">
     Syntax
   </a>
 </li>
@@ -1493,25 +1464,6 @@
     Count the numbers of vertices or edges
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#faq">
-    FAQ
-  </a>
-<nav aria-label="FAQ" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#error_code_411">
-    Error code 411
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#no_valid_index_found">
-    No valid index found
-  </a>
-</li>
-</ul>
-</nav>
-</li>
 </ul>
 </nav>
 </div>
@@ -1523,9 +1475,6 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="lookup">LOOKUP<a class="headerlink" href="#lookup" title="Permanent link">¶</a></h1>
-<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to nGQL extensions only.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <p>The <code>LOOKUP</code> statement retrieves data based on indexes.</p>
 <p>You can use <code>LOOKUP</code> for the following purposes:</p>
 <ul>
@@ -1534,9 +1483,11 @@
 <li>List edges with an edge type: retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges with an edge type.</li>
 <li>Count the number of vertices or edges with a tag or an edge type.</li>
 </ul>
+<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
+<p>This page applies to nGQL extensions only.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Before using the <code>LOOKUP</code> statement, make sure that relative indexes are created. For how to create indexes, see <a href="../../14.native-index-statements/1.create-native-index/">CREATE INDEX</a>.</p>
-<h2 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">¶</a></h2>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] [YIELD &lt;return_list&gt;]
 
 &lt;return_list&gt;
@@ -1706,31 +1657,11 @@ nebula&gt; LOOKUP ON like | YIELD COUNT(*) AS Like_Number;
 +-------------+
 Got 1 rows (time spent 1190/1970 us)
 </code></pre></div>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="error_code_411">Error code 411<a class="headerlink" href="#error_code_411" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>ERROR <span class="o">(</span>-8<span class="o">)]</span>: Unknown error<span class="o">(</span><span class="m">411</span><span class="o">)</span>:
-</code></pre></div>
-<p>Error code <code>411</code> shows there is no valid index for the current <code>WHERE</code> filter. Nebula Graph uses the left matching mode to select indexes. That is, columns in the <code>WHERE</code> filter must be in the first N columns of the index. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
-nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
-</code></pre></div>
-<h3 id="no_valid_index_found">No valid index found<a class="headerlink" href="#no_valid_index_found" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>No valid index found
-</code></pre></div>
-<p>If your query filter contains a string type field, Nebula Graph selects the index that matches all the fields. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (c1 string, c2 int);
-nebula&gt; CREATE TAG INDEX i1 ON t1 (c1, c2);
-nebula&gt; LOOKUP ON t1 WHERE t1.c1 == "a"; -- Index i1 is invalid
-nebula&gt; LOOKUP ON t1 WHERE t1.c1 == "a" and t1.c2 == 1;  -- Index i1 is valid
-</code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 26, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2021</span>
 </small>
 </div>
 </article>
@@ -1794,7 +1725,7 @@ nebula&gt; LOOKUP ON t1 WHERE t1.c1 == "a" and t1.c2 == 1;  -- Index i1 is valid
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.7353b375.min.js"></script>
+<script src="../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 </body>
 </html>
