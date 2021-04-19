@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/manual-EN/1.overview/2.quick-start/1.get-started/" rel="canonical"/>
 <link href="../../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-7.1.1" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.1.2" name="generator"/>
 <title>Get Started - Nebula Graph Database Manual</title>
-<link href="../../../../assets/stylesheets/main.9299cb39.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/main.6f955dcd.min.css" rel="stylesheet"/>
 <link href="../../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
 <meta content="#ffc105" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -949,7 +949,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.build-develop-and-administration/2.install/deploy-nebula-with-swarm/">
+<a class="md-nav__link" href="../../../3.build-develop-and-administration/2.install/4.cluster-deploy/">
         Deploying Cluster
       </a>
 </li>
@@ -1811,7 +1811,7 @@
 <p>In addition to Docker, you can also install <strong>Nebula Graph</strong> by <a href="../../../3.build-develop-and-administration/1.build/1.build-source-code/">installing source code</a> or <a href="../../../3.build-develop-and-administration/2.install/1.install-with-rpm-deb/">rpm/deb packages</a>.</p>
 <p>In case you encounter any problem during the installation, be sure to ask us on our <a href="https://discuss.nebula-graph.io">official forum</a>. We have developers on call to answer your questions.</p>
 <h2 id="data_schema">Data Schema<a class="headerlink" href="#data_schema" title="Permanent link">¶</a></h2>
-<p>In this guide, all operations are based on the NBA dataset below:</p>
+<p>In this guide, all operations are based on the <code>basketballplayer</code> dataset below:</p>
 <p><img alt="image" src="https://user-images.githubusercontent.com/40747875/69605530-4c83dd00-105b-11ea-9ecf-219af8545b16.png"/></p>
 <p>In the above figure, there are two tags (<strong>player</strong>, <strong>team</strong>) and two edge types (<strong>serve</strong> and <strong>follow</strong>).</p>
 <h3 id="creating_and_using_a_graph_space">Creating and Using a Graph Space<a class="headerlink" href="#creating_and_using_a_graph_space" title="Permanent link">¶</a></h3>
@@ -1833,7 +1833,7 @@
 </li>
 <li>
 <p>Enter the following statement to create a graph space:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE nba(partition_num=10, replica_factor=1);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE basketballplayer(partition_num=10, replica_factor=1);
 </code></pre></div>
 <p><strong>Here</strong>:</p>
 <ul>
@@ -1843,30 +1843,32 @@
 <li><code>replica_factor</code> specifies the number of replicas in the cluster. It is usually 3 in production, 1 in test. Due to the majority voting principle, it must set to be odd.</li>
 </ul>
 <p>You can also check machine and partition distribution with <code>SHOW HOSTS</code> statement:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-================================================================================================
-| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
-================================================================================================
-| 192.168.8.210 | 44500 | online | 8            | nba: 8              | test: 8                |
-------------------------------------------------------------------------------------------------
-| 192.168.8.211 | 44500 | online | 2            | nba: 2              | test: 2                |
-------------------------------------------------------------------------------------------------
-</code></pre></div>
-<p>If all the machines are online, but the leader distribution is unbalanced (see above), re-distribute partitions with <code>BALANCE LEADER</code> statement:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
-================================================================================================
-| Ip            | Port  | Status | Leader count | Leader distribution | Partition distribution |
-================================================================================================
-| 192.168.8.210 | 44500 | online | 5            | nba: 5              | test: 5                |
-------------------------------------------------------------------------------------------------
-| 192.168.8.211 | 44500 | online | 5            | nba: 5              | test: 5                |
-------------------------------------------------------------------------------------------------
+<p>```ngql
+  nebula&gt; SHOW HOSTS;
+ ==============================================================================================================
+  | Ip            | Port  | Status | Leader count | Leader distribution              | Partition distribution |
+  =============================================================================================================
+  | 192.168.8.210 | 44500 | online | 8            | basketballplayer: 8              | test: 8                |</p>
+<hr/>
+<p>| 192.168.8.211 | 44500 | online | 2            | basketballplayer: 2              | test: 2                |</p>
+<hr/>
+<div class="highlight"><pre><span></span><code>If all the machines are online, but the leader distribution is unbalanced (see above), re-distribute partitions with `BALANCE LEADER` statement:
+
+```ngql
+nebula&gt; BALANCE LEADER;
+=============================================================================================================
+| Ip            | Port  | Status | Leader count | Leader distribution              | Partition distribution |
+=============================================================================================================
+| 192.168.8.210 | 44500 | online | 5            | basketballplayer: 5              | test: 5                |
+-------------------------------------------------------------------------------------------------------------
+| 192.168.8.211 | 44500 | online | 5            | basketballplayer: 5              | test: 5                |
+-------------------------------------------------------------------------------------------------------------
 </code></pre></div>
 <p>See <a href="../../../2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax/">here</a> for details.</p>
 </li>
 <li>
 <p>Enter the following statement to use the graph space:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE nba;
+<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
 </code></pre></div>
 </li>
 <li>
@@ -1874,11 +1876,11 @@
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
 <p>The following information is returned:</p>
-<div class="highlight"><pre><span></span><code>========
-| Name |
-========
-| nba  |
---------
+<div class="highlight"><pre><span></span><code>=====================
+| Name              |
+=====================
+| basketballplayer  |
+---------------------
 </code></pre></div>
 </li>
 </ol>
@@ -2210,8 +2212,8 @@ YIELD player.name, player.age;
 <p>For more information about the <code>COMPACT</code> and <code>JOB</code> statements, refer to <a href="../../../3.build-develop-and-administration/5.storage-service-administration/job-manager/">Job manager</a>.</p>
 <h2 id="batch_inserting">Batch Inserting<a class="headerlink" href="#batch_inserting" title="Permanent link">¶</a></h2>
 <p>To insert multiple data, you can put all the DDL (Data Definition Language) statements in a <code>.ngql</code> file as follows.</p>
-<div class="highlight"><pre><span></span><code>CREATE SPACE nba(partition_num=10, replica_factor=1);
-USE nba;
+<div class="highlight"><pre><span></span><code>CREATE SPACE basketballplayer(partition_num=10, replica_factor=1);
+USE basketballplayer;
 CREATE TAG player(name string, age int);
 CREATE TAG team(name string);
 CREATE EDGE follow(degree int);
@@ -2225,13 +2227,13 @@ CREATE EDGE serve(start_year int, end_year int);
 <ul>
 <li>If you are using <strong>Nebula Graph</strong> by docker-compose, you can batch write to console by the following command:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ cat nba.ngql <span class="p">|</span> sudo docker run --rm -i --network<span class="o">=</span>host <span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$ cat basketballplayer.ngql <span class="p">|</span> sudo docker run --rm -i --network<span class="o">=</span>host <span class="se">\</span>
 vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127</span>.0.0.1 --port<span class="o">=</span><span class="m">3699</span>
 </code></pre></div>
 <p><strong>Here</strong>:</p>
 <ul>
 <li>You must change the IP address and the port number to yours.</li>
-<li>You can download the <code>nba.ngql</code> file <a href="https://oss-cdn.nebula-graph.io/doc/nba.ngql">here</a>.</li>
+<li>You can download the <code>basketballplayer.ngql</code> file <a href="https://oss-cdn.nebula-graph.com.cn/doc/1.0_basketballplayer.ngql">here</a>.</li>
 </ul>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">¶</a></h2>
 <p>Before you start using Nebula Graph, make sure that you read the following documents. They include most of your questions about Nebula Graph. If you still have questions after reading these documents, please head over to our <a href="https://discuss.nebula-graph.io">official forum</a> to ask.</p>
@@ -2249,7 +2251,7 @@ vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127<
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 8, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2021</span>
 </small>
 </div>
 </article>
@@ -2310,7 +2312,7 @@ vesoft/nebula-console:nightly --addr<span class="o">=</span><span class="m">127<
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../../assets/javascripts/bundle.7353b375.min.js"></script>
+<script src="../../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
 <script src="../../../../js/version-select.js"></script>
 </body>
 </html>

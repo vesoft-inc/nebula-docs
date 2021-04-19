@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/manual-EN/1.overview/1.concepts/1.data-model/" rel="canonical"/>
 <link href="../../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-7.1.1" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.1.2" name="generator"/>
 <title>Data Model - Nebula Graph Database Manual</title>
-<link href="../../../../assets/stylesheets/main.9299cb39.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/main.6f955dcd.min.css" rel="stylesheet"/>
 <link href="../../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
 <meta content="#ffc105" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -845,7 +845,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.build-develop-and-administration/2.install/deploy-nebula-with-swarm/">
+<a class="md-nav__link" href="../../../3.build-develop-and-administration/2.install/4.cluster-deploy/">
         Deploying Cluster
       </a>
 </li>
@@ -1594,14 +1594,51 @@
 <h2 id="graph_space">Graph Space<a class="headerlink" href="#graph_space" title="Permanent link">¶</a></h2>
 <p><strong>Graph Space</strong> is a physically isolated space for different graph. It is similar to database in MySQL.</p>
 <h2 id="directed_property_graph">Directed Property Graph<a class="headerlink" href="#directed_property_graph" title="Permanent link">¶</a></h2>
-<p>The data model handled by the <strong>Nebula Graph</strong> is a <strong><em>directed property graph</em></strong>, whose edges are directional and there could be properties on both edges and vertices. It can be represented as:
-G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;,
-where <strong>V</strong> is a set of nodes aka vertices, <strong>E</strong> is a set of directional edges,
-<strong>P<sub>V</sub></strong> represents properties on vertices, and <strong>P<sub>E</sub></strong> is the properties on edges.</p>
-<p>We will use the example graph below to introduce the basic concepts of property graph:</p>
-<p><img alt="map300" src="https://user-images.githubusercontent.com/42762957/64932536-51b1f800-d872-11e9-9016-c2634b1eeed6.png"/></p>
-<p>In the preceding picture, we have a data set about the players and teams information of NBA. We can see the eleven vertices are classified to two kinds, i.e. <strong>player</strong> and <strong>name</strong> while the fifteen edges are classified to <strong><em>serve</em></strong> and <strong><em>like</em></strong>.</p>
-<p>To better understand the elements of a graph data model, let us walk through each concept of the example graph.</p>
+<p>Nebula Graph stores data in directed property graphs. A directed property graph is a graph of vertices and edges that have a direction. It can be described as follows:</p>
+<p><strong>G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;</strong></p>
+<ul>
+<li><strong>V</strong> is the collection of vertices.</li>
+<li><strong>E</strong> is the collection of edges.</li>
+<li><strong>P<sub>V</sub></strong> represents vertex properties.</li>
+<li><strong>P<sub>E</sub></strong> represents edge properties.</li>
+</ul>
+<p>The following table describes a dataset <code>basketballplayer</code>. It has two types of vertices, i.e., <strong>player</strong> and <strong>team</strong>, and two types of edges, i.e., <strong>serve</strong> and <strong>follow</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Property (data type)</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">tag</td>
+<td align="left">player</td>
+<td align="left">name （string） <br/>age （int）</td>
+<td align="left">Represents players.</td>
+</tr>
+<tr>
+<td align="left">tag</td>
+<td align="left">team</td>
+<td align="left">name （string）</td>
+<td align="left">Represents teams.</td>
+</tr>
+<tr>
+<td align="left">edge type</td>
+<td align="left">serve</td>
+<td align="left">start_year （int） <br/> end_year （int）</td>
+<td align="left">Represents the behavior of players that connects players with teams.<br/> The direction of the serve edges is from players to teams.</td>
+</tr>
+<tr>
+<td align="left">edge type</td>
+<td align="left">follow</td>
+<td align="left">degree （int）</td>
+<td align="left">Represents the behavior of players that connects players.<br/> The direction of the follow edges is from one player to another player.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="vertices">Vertices<a class="headerlink" href="#vertices" title="Permanent link">¶</a></h2>
 <p>Vertices are typically used to represent entities in the real world. In <strong>Nebula Graph</strong>, vertices are identified with vertex identifiers (i.e. VIDs). The <code>VID</code> must be unique in the graph space. In the preceding example, the graph contains eleven vertices.</p>
 <p><img height="20%" src="https://user-images.githubusercontent.com/42762957/64932628-00eecf00-d873-11e9-844b-6b2a535ca734.png" width="15%"/></p>
@@ -1609,12 +1646,12 @@ where <strong>V</strong> is a set of nodes aka vertices, <strong>E</strong> is a
 <p>In <strong>Nebula Graph</strong>, vertex properties are clustered by <strong>tags</strong>. One vertex can have one or more tags. In the preceding example, the vertices have tags <strong>player</strong> and <strong>team</strong>.</p>
 <p><img height="25%" src="https://user-images.githubusercontent.com/42762957/64932330-bff5bb00-d870-11e9-9940-4ff76ceca353.png" width="50%"/></p>
 <h2 id="edge">Edge<a class="headerlink" href="#edge" title="Permanent link">¶</a></h2>
-<p>Edges are used to connect vertices. Each edge usually represents a relationship or a behavior between two vertices. In the preceding example, edges are <em><strong>serve</strong></em> and <em><strong>like</strong></em>.</p>
+<p>Edges are used to connect vertices. Each edge usually represents a relationship or a behavior between two vertices. In the preceding example, edges are <em><strong>serve</strong></em> and <em><strong>follow</strong></em>.</p>
 <p><img height="25%" src="https://user-images.githubusercontent.com/42762957/64932285-68efe600-d870-11e9-8dc7-051f7b43c4aa.png" width="50%"/></p>
 <h2 id="edge_type">Edge Type<a class="headerlink" href="#edge_type" title="Permanent link">¶</a></h2>
-<p><code>Each edge</code> is an instance of an edge type. Our example uses <em><strong>serve</strong></em> and <em><strong>like</strong></em> as edge types. Take edge <em><strong>serve</strong></em> for example, in the preceding picture, vertex <code>101</code> (represents a <strong>player</strong>) is the source vertex and vertex <code>215</code> (represents a <strong>team</strong>) is the target vertex. We see that vertex <code>101</code> has an outgoing edge while vertex <code>215</code> has an incoming edge.</p>
+<p><code>Each edge</code> is an instance of an edge type. Our example uses <em><strong>serve</strong></em> and <em><strong>follow</strong></em> as edge types. Take edge <em><strong>serve</strong></em> for example, in the preceding picture, vertex <code>101</code> (represents a <strong>player</strong>) is the source vertex and vertex <code>215</code> (represents a <strong>team</strong>) is the target vertex. We see that vertex <code>101</code> has an outgoing edge while vertex <code>215</code> has an incoming edge.</p>
 <h2 id="properties_of_vertices_and_edges">Properties of Vertices and Edges<a class="headerlink" href="#properties_of_vertices_and_edges" title="Permanent link">¶</a></h2>
-<p>Both vertices and edges can have properties. Properties are described with key value pairs. In our example graph, we have used the properties <code>id</code>, <code>name</code> and <code>age</code> on <strong>player</strong>, <code>id</code> and <code>name</code> on <strong>team</strong>, and <code>likeness</code> on <em><strong>like</strong></em> edge.</p>
+<p>Both vertices and edges can have properties. Properties are described with key value pairs. In our example graph, we have used the properties <code>id</code>, <code>name</code> and <code>age</code> on <strong>player</strong>, <code>id</code> and <code>name</code> on <strong>team</strong>, and <code>degree</code> on <strong>follow</strong> edge.</p>
 <h2 id="edge_rank">Edge Rank<a class="headerlink" href="#edge_rank" title="Permanent link">¶</a></h2>
 <p>Edge rank is an immutable user-assigned 64-bit signed integer. It affects the edge order of the same edge type between two vertices. The edge with a higher rank value comes first. When not specified, the default rank value is zero. The current sorting basis is "binary coding order", i.e. 0, 1, 2, ... 9223372036854775807, -9223372036854775808, -9223372036854775807, ..., -1.
 In addition to an edge type, the edge between two vertices must have an edge rank. The edge rank is a 64-bit integer assigned by the user; if not specified, the edge rank defaults to 0.</p>
@@ -1627,7 +1664,7 @@ In addition to an edge type, the edge between two vertices must have an edge ran
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 8, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2021</span>
 </small>
 </div>
 </article>
@@ -1688,7 +1725,7 @@ In addition to an edge type, the edge between two vertices must have an edge ran
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../../assets/javascripts/bundle.7353b375.min.js"></script>
+<script src="../../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
 <script src="../../../../js/version-select.js"></script>
 </body>
 </html>
