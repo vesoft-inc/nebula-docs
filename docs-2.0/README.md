@@ -1,3 +1,5 @@
+!!! warning "The Nebula Graph v2.0.1 has been released. Refer to [the new document](https://docs.nebula-graph.io/2.0.1/)."
+
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
 !!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs) {{ git.short_commit }}."
