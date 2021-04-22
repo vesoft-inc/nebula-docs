@@ -10,7 +10,7 @@
 <link href="https://docs.nebula-graph.io/3.ngql-guide/7.general-query-statements/2.match/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
 <meta content="mkdocs-1.1, mkdocs-material-7.1.2" name="generator"/>
-<title>Match - Nebula Graph Database Manual</title>
+<title>MATCH - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.6f955dcd.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
 <meta content="#ffffff" name="theme-color"/>
@@ -52,7 +52,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Match
+              MATCH
             
           </span>
 </div>
@@ -509,11 +509,11 @@
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Match
+          MATCH
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Match
+        MATCH
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -1692,9 +1692,10 @@
 <ol>
 <li>
 <p>The <code>MATCH</code> statement uses a <strong>native index</strong> to locate a source vertex. The vertex can be in any position in a pattern. In other words, in a valid <code>MATCH</code> statement, <strong>there must be an indexed property or tag, or a specific VID.</strong> For how to index a property, see <a href="../../14.native-index-statements/1.create-native-index/">Create native index</a>.</p>
-<blockquote>
-<p><strong>NOTE:</strong> The native index for VID is created by default, so you don't need to create an extra index if you want to match on VID.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The native index for VID is created by default, so you don't need to create an extra index if you want to match on VID.</p>
+</div>
 </li>
 <li>
 <p>The <code>MATCH</code> statement searches through the pattern to match edges and other vertices.</p>
@@ -1703,14 +1704,16 @@
 <p>The <code>MATCH</code> statement retrieves data according to the <code>RETURN</code> clause.</p>
 </li>
 </ol>
-<blockquote>
-<p><strong>OpenCypher compatibility:</strong> For now, nGQL DOES NOT support scanning all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">OpenCypher compatibility</p>
+<p>For now, nGQL DOES NOT support scanning all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</p>
+</div>
 <h2 id="use_patterns_in_match_statements">Use patterns in MATCH statements<a class="headerlink" href="#use_patterns_in_match_statements" title="Permanent link">¶</a></h2>
 <p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If you want to create an index, but there are already vertices or edges related to the tag, edge type, or property that you want to create the index for, you have to rebuild the index after creation to make it take effect on existing vertices or edges.</p>
-<blockquote>
-<p><strong>CAUTION:</strong> Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
-</blockquote>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
 Execution succeeded (time spent 2957/3986 us)
 
@@ -1740,9 +1743,10 @@ Got 4 rows (time spent 1186/2998 us)
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
 <h3 id="match_on_tag">Match on tag<a class="headerlink" href="#match_on_tag" title="Permanent link">¶</a></h3>
 <p>To match on a tag, make sure there is an applicable <strong>tag index</strong>. For how to create a tag index, see <a href="../../14.native-index-statements/1.create-native-index/#create_tagedge_type_indexes">Create tag indexes</a>.</p>
-<blockquote>
-<p><strong>NOTE:</strong> Tag indexes are different from property indexes. If there is an index for a property of a tag, but no index for the tag, you cannot match on the tag.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tag indexes are different from property indexes. If there is an index for a property of a tag, but no index for the tag, you cannot match on the tag.</p>
+</div>
 <p>A vertex tag is specified with <code>:&lt;tag_name&gt;</code> in a pattern.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v
 +---------------------------------------------------------------+
@@ -1774,13 +1778,13 @@ Got 4 rows (time spent 1186/2998 us)
 | ("player100" :player{name: "Tim Duncan", age: 42}) |
 +----------------------------------------------------+
 </code></pre></div>
-<blockquote>
-<p><strong>OpenCypher compatibility</strong></p>
+<div class="admonition note">
+<p class="admonition-title">OpenCypher compatibility</p>
 <ul>
 <li>In nGQL, <code>==</code> is the equality operator and <code>=</code> is the assignment operator (as in C++ or Java).</li>
 <li>In openCypher 9, <code>=</code> is the equality operator.</li>
 </ul>
-</blockquote>
+</div>
 <h3 id="match_on_vid">Match on VID<a class="headerlink" href="#match_on_vid" title="Permanent link">¶</a></h3>
 <p>You can use the VID to match a vertex. The <code>id()</code> function can retrieve the VID of a vertex.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) == 'player101' RETURN v;
@@ -1807,13 +1811,13 @@ Got 3 rows (time spent 3107/3683 us)
 </code></pre></div>
 <h3 id="match_connected_vertices">Match connected vertices<a class="headerlink" href="#match_connected_vertices" title="Permanent link">¶</a></h3>
 <p>You can use the <code>--</code> symbol to represent edges of both directions and match vertices connected by these edges.</p>
-<blockquote>
-<p><strong>Legacy version compatibility:</strong></p>
+<div class="admonition legacy version compatibility">
+<p class="admonition-title">Legacy</p>
 <ul>
 <li>In nGQL 1.x, the <code>--</code> symbol is used for inline comments.</li>
 <li>Starting from nGQL 2.0, the <code>--</code> symbol represents an incoming or outgoing edge.</li>
 </ul>
-</blockquote>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--(v2) RETURN v2.name AS Name;
 +---------------------+
 | Name                |
@@ -1893,9 +1897,10 @@ Got 3 rows (time spent 2897/5993 us)
 +-------------------------------------------+
 Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
-<blockquote>
-<p><strong>OpenCypher compatibility:</strong> In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such a concept.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">OpenCypher compatibility</p>
+<p>In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such a concept.</p>
+</div>
 <h3 id="match_edges">Match edges<a class="headerlink" href="#match_edges" title="Permanent link">¶</a></h3>
 <p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-(v2) RETURN e;
@@ -2002,13 +2007,13 @@ Got 1 rows (time spent 2785/3377 us)
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>OpenCypher compatibility</strong></p>
+<div class="admonition note">
+<p class="admonition-title">OpenCypher compatibility</p>
 <ul>
 <li>In nGQL, <code>maxHop</code> is required. And <code>..</code> cannot be omitted after <code>minHop</code>.</li>
 <li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given, <code>..</code> can be omitted.</li>
 </ul>
-</blockquote>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*1..3]-&gt;(v2) \
         RETURN v2 AS Friends;
 +-----------------------------------------------------------+
@@ -2245,7 +2250,7 @@ Got 3 rows (time spent 2715/3363 us)
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
 </small>
 </div>
 </article>

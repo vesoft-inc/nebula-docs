@@ -508,7 +508,7 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../3.ngql-guide/7.general-query-statements/2.match/">
-        Match
+        MATCH
       </a>
 </li>
 <li class="md-nav__item">
@@ -1450,9 +1450,10 @@
 <p>The graph spaces stored in Nebula Graph must have more than one replicas for the system to balance the distribution of partitions and Raft leaders.</p>
 <h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">¶</a></h2>
 <p><code>BALANCE DATA</code> starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.</p>
-<blockquote>
-<p><strong>DON'T:</strong> DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
-</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
+</div>
 <p>Take scaling out Nebula Graph for an example.</p>
 <p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
 <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
@@ -1500,9 +1501,10 @@ Got 1 rows (time spent 3783/4533 us)
 Got 23 rows (time spent 916/1528 us)
 </code></pre></div>
 <p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
-<blockquote>
-<p><strong>NOTE:</strong> <code>BALANCE DATA</code> does not balance the leader distribution.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>BALANCE DATA</code> does not balance the leader distribution.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
@@ -1594,7 +1596,7 @@ Execution succeeded (time spent 7576/8657 us)
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
 </small>
 </div>
 </article>

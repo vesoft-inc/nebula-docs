@@ -605,7 +605,7 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../3.ngql-guide/7.general-query-statements/2.match/">
-        Match
+        MATCH
       </a>
 </li>
 <li class="md-nav__item">
@@ -1615,18 +1615,20 @@
 <ul>
 <li>
 <p>If you have already deployed another version of Nebula Graph with Docker Compose on your host, to avoid compatibility issues, back up <a href="#check_the_service_data_and_logs">the service data</a> if you need, and delete the <code>nebula-docker-compose/data</code> directory.</p>
-<blockquote>
-<p><strong>NOTE:</strong> To backup the Nebula Graph data, see Use B&amp;R to <a href="../6.useful-links/">backup data</a>. TODO: It is not released.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To backup the Nebula Graph data, see Use B&amp;R to <a href="../6.useful-links/">backup data</a>. TODO: It is not released.</p>
+</div>
 </li>
 </ul>
 <h2 id="how_to_deploy">How to deploy<a class="headerlink" href="#how_to_deploy" title="Permanent link">¶</a></h2>
 <ol>
 <li>
 <p>Clone the <code>master</code> branch of the <code>nebula-docker-compose</code> repository to your host with Git.</p>
-<blockquote>
-<p><strong>DON'T</strong>: The <code>master</code> branch contains the Docker Compose solution for the latest Nebula Graph development release. <strong>DON'T</strong> use this release for production.</p>
-</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The <code>master</code> branch contains the Docker Compose solution for the latest Nebula Graph development release. <strong>DON'T</strong> use this release for production.</p>
+</div>
 <div class="highlight"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula-docker-compose.git
 </code></pre></div>
 </li>
@@ -1637,9 +1639,10 @@
 </li>
 <li>
 <p>Run the following command to start all the Nebula Graph services.</p>
-<blockquote>
-<p><strong>NOTE:</strong> Update the <a href="#how-to-upgrade-nebula-graph-services">Nebula Graph images</a> and <a href="#how-to-update-the-nebula-console-client">Nebula Console images</a> first if they are out of date.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the <a href="#how-to-upgrade-nebula-graph-services">Nebula Graph images</a> and <a href="#how-to-update-the-nebula-console-client">Nebula Console images</a> first if they are out of date.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula-docker-compose<span class="o">]</span>$ docker-compose up -d
 Creating nebula-docker-compose_metad0_1 ... <span class="k">done</span>
 Creating nebula-docker-compose_metad2_1 ... <span class="k">done</span>
@@ -1651,52 +1654,57 @@ Creating nebula-docker-compose_storaged0_1 ... <span class="k">done</span>
 Creating nebula-docker-compose_storaged2_1 ... <span class="k">done</span>
 Creating nebula-docker-compose_storaged1_1 ... <span class="k">done</span>
 </code></pre></div>
-<blockquote>
-<p><strong>NOTE</strong>: For more information of the preceding services, see <a href="../../1.introduction/3.nebula-graph-architecture/1.architecture-overview/">Nebula Graph architecture</a>.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information of the preceding services, see <a href="../../1.introduction/3.nebula-graph-architecture/1.architecture-overview/">Nebula Graph architecture</a>.</p>
+</div>
 </li>
 <li>
 <p>Connect to Nebula Graph.</p>
-<p>1. Run the following command to start a new docker container with the Nebula Console image, and connect the container to the network where Nebula Graph is deployed.</p>
-<div class="codehilite"><pre><span></span><code>  ```bash
-  $ docker run --rm -ti --network nebula-docker-compose_nebula-net \
-  --entrypoint=/bin/sh vesoft/nebula-console:v2-nightly
-  ```
-
-  &gt; **Note**: Your local network  (nebula-docker-compose_nebula-net) may be different from the example above. Use the following command.
-
-  ```bash
-  $ docker network  ls
-  NETWORK ID          NAME                               DRIVER              SCOPE
-  a74c312b1d16        bridge                             bridge              local
-  dbfa82505f0e        host                               host                local
-  ed55ccf356ae        nebula-docker-compose_nebula-net   bridge              local
-  93ba48b4b288        none                               null                local
-  ```
+<ol>
+<li>
+<p>Run the following command to start a new docker container with the Nebula Console image, and connect the container to the network where Nebula Graph is deployed.</p>
+<div class="highlight"><pre><span></span><code>$ docker run --rm -ti --network nebula-docker-compose_nebula-net <span class="se">\</span>
+--entrypoint<span class="o">=</span>/bin/sh vesoft/nebula-console:v2-nightly
 </code></pre></div>
-<p>2. Connect to Nebula Graph with Nebula Console.</p>
-<div class="codehilite"><pre><span></span><code>  ```bash
-  docker&gt; nebula-console -u user -p password --address=graphd --port=9669
-  ```
-
-  &gt; **Note**: By default, the authentication is off, you can log in with any user name and password. To turn it on, see [Enable authentication](../7.data-security/1.authentication/1.authentication.md).
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your local network  (nebula-docker-compose_nebula-net) may be different from the example above. Use the following command.</p>
+<div class="highlight"><pre><span></span><code>$ docker network  ls
+NETWORK ID          NAME                               DRIVER              SCOPE
+a74c312b1d16        bridge                             bridge              <span class="nb">local</span>
+dbfa82505f0e        host                               host                <span class="nb">local</span>
+ed55ccf356ae        nebula-docker-compose_nebula-net   bridge              <span class="nb">local</span>
+93ba48b4b288        none                               null                <span class="nb">local</span>
 </code></pre></div>
-<p>3. Run the <code>SHOW HOSTS</code> statement to check the status of the <code>nebula-storaged</code> processes.</p>
-<div class="codehilite"><pre><span></span><code>  ```bash
-  nebula&gt; SHOW HOSTS;
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  | Host        | Port | Status   | Leader count | Leader distribution  | Partition distribution |
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  | "storaged0" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  | "storaged1" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  | "storaged2" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  | "Total"     |      |          | 0            |                      |                        |
-  +-------------+------+----------+--------------+----------------------+------------------------+
-  ```
+</div>
+</li>
+<li>
+<p>Connect to Nebula Graph with Nebula Console.</p>
+<div class="highlight"><pre><span></span><code>docker&gt; nebula-console -u user -p password --address<span class="o">=</span>graphd --port<span class="o">=</span><span class="m">9669</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the authentication is off, you can log in with any user name and password. To turn it on, see <a href="../../7.data-security/1.authentication/1.authentication/">Enable authentication</a>.</p>
+</div>
+</li>
+<li>
+<p>Run the <code>SHOW HOSTS</code> statement to check the status of the <code>nebula-storaged</code> processes.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS<span class="p">;</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> Host        <span class="p">|</span> Port <span class="p">|</span> Status   <span class="p">|</span> Leader count <span class="p">|</span> Leader distribution  <span class="p">|</span> Partition distribution <span class="p">|</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"storaged0"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"storaged1"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"storaged2"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"Total"</span>     <span class="p">|</span>      <span class="p">|</span>          <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span>                      <span class="p">|</span>                        <span class="p">|</span>
++-------------+------+----------+--------------+----------------------+------------------------+
+</code></pre></div>
+</li>
+</ol>
 </li>
 <li>
 <p>Run <code>exit</code> twice to switch back to your terminal (shell). You can run Step 4 to login Nebula Graph again.</p>
@@ -1770,9 +1778,10 @@ Removing nebula-docker-compose_metad2_1    ... <span class="k">done</span>
 Removing nebula-docker-compose_metad1_1    ... <span class="k">done</span>
 Removing network nebula-docker-compose_nebula-net
 </code></pre></div>
-<blockquote>
-<p><strong>Note</strong>: Command <code>docker-compose down -v</code> will <strong>delete</strong> all your local Nebula Graph storage data. Try this command if you're using a developing/nightly version and having some compatibility issues.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Command <code>docker-compose down -v</code> will <strong>delete</strong> all your local Nebula Graph storage data. Try this command if you're using a developing/nightly version and having some compatibility issues.</p>
+</div>
 <h2 id="other_ways_to_install_nebula_graph">Other ways to install Nebula Graph<a class="headerlink" href="#other_ways_to_install_nebula_graph" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/">Use Source Code</a></li>
@@ -1795,9 +1804,10 @@ Removing network nebula-docker-compose_nebula-net
 <ol>
 <li>
 <p>In the <code>nebula-docker-compose</code> directory, run <code>docker-compose pull</code> to update the Nebula Graph docker images.</p>
-<!--
-    > **CAUTION:** Make sure that you have backed up all important data before following the next step to stop the Nebula Graph services.
-  -->
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Make sure that you have backed up all important data before following the next step to stop the Nebula Graph services.</p>
+</div>
 </li>
 <li>
 <p>Run <code>docker-compose down</code> to stop the Nebula Graph services.</p>
@@ -1818,7 +1828,7 @@ Removing network nebula-docker-compose_nebula-net
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
 </small>
 </div>
 </article>
