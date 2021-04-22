@@ -21,7 +21,10 @@ To query edge data on the **Console** page and then view the result on the **Exp
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
 
 3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").  
-   > **NOTE**: The query result must contain the VIDs of the source vertex and the destination vertex of an edge.
+
+  !!! note
+
+        The query result must contain the VIDs of the source vertex and the destination vertex of an edge.
 
    Here is an nGQL statement example.
 
@@ -29,11 +32,13 @@ To query edge data on the **Console** page and then view the result on the **Exp
     nebula> MATCH (u:user {userId: 1}) - [:action] -> (c) RETURN u.userId AS UserID, c.courseName AS Course;
     ```
 
-   > **NOTE**: For more information about the `MATCH` syntax, see [MATCH in nGQL User Guide](../../3.ngql-guide/7.general-query-statements/2.match.md).
+  !!! note
+
+        For more information about the `MATCH` syntax, see [MATCH in nGQL User Guide](../../3.ngql-guide/7.general-query-statements/2.match.md).
 
    The query result gives the edges between User 1 and the courses that he/she takes on the MOOC platform, as shown in this figure.
 
-    ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](../figs/st-ug-037.png "Edge data")
+   ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](../figs/st-ug-037.png "Edge data")
 
 4. Click the **Open in Explore** button.
 
@@ -70,7 +75,10 @@ To query vertex data on the **Console** page and then view the result on the **E
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
 
 3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").
-   > **NOTE**: The query result must contain the VIDs of the vertices.
+
+  !!! note
+
+        The query result must contain the VIDs of the vertices.
 
    Here is an nGQL statement example.
 

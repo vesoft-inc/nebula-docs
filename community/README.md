@@ -29,7 +29,7 @@ See [Maintainer List](./maintainer-list.md) for the Maintainers of each reposito
 
 Committers come from those Active Contributors who have made significant contributions to the repository. A Committer has approval permission for code reviews of the repository. See [Committer List](./committer-list.md) for the Committers of each repository.
 
-> **NOTE**: Each repository requires at least 2 approvals for each PR to be merged into the master branch.
+> NOTE: Each repository requires at least 2 approvals for each PR to be merged into the master branch.
 
 ### How to become a Committer of a Repository
 

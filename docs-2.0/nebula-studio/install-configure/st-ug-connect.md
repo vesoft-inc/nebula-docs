@@ -9,20 +9,28 @@ Before you connect Docker-based Studio v2.x to Nebula Graph v2.x, you must do a 
 - The Nebula Graph v2.x services and Studio v2.x are started. For more information, see [Deploy Studio](st-ug-deploy.md).
 
 - You have the IP address and the port used by the Graph service of Nebula Graph v2.x. The default port is `9669`.  
-  > **NOTE**: Run `ifconfig` or `ipconfig` on the machine to get the IP address.
+  !!! note
+
+      Run `ifconfig` or `ipconfig` on the machine to get the IP address.
 
 ## Procedure
 
 To connect Docker-based Studio to Nebula Graph, follow these steps:
 
 1. On the **Config Server** page of Studio, configure these fields:
-   - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
-     > **NOTE**: When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+
+    - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
+
+    !!! note
+
+          When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+
    - **Username** and **Password**: You can use `user` and `password` as the username and its password.
 
    ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050.png "Config Server")
 
-2. After the configuration, click the **Connect** button.  
+2. After the configuration, click the **Connect** button.
+
    If you can see the **Console** page, Docker-based Studio is successfully connected to Nebula Graph.
 
    ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")

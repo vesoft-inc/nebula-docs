@@ -6,7 +6,9 @@
 
 The default log directory is `/usr/local/nebula/logs/`.
 
-> **NOTE**: If you deleted the log directory during runtime, the runtime log would not continue to be printed. However, this operation will not affect the services. Restart the services to recover the logs.
+!!! note
+
+    If you deleted the log directory during runtime, the runtime log would not continue to be printed. However, this operation will not affect the services. Restart the services to recover the logs.
 
 ## Parameter Description
 
@@ -32,7 +34,9 @@ In the command:
 - `ws_ip` is the IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.
 - `ws_port` is the port for the HTTP service, the default values for `metad`, `storaged`, and `graphd` are `19559`, `19779`, and `19669`, respectively.
 
-> **NOTE:** If you changed the runtime log level, then restart the services, the log level changes to the configuration file specifications. For more information, see [Storage Service configurations](../1.configurations/4.storage-config.md).
+!!! note
+
+    If you changed the runtime log level, then restart the services, the log level changes to the configuration file specifications. For more information, see [Storage Service configurations](../1.configurations/4.storage-config.md).
 
 For example, check the minloglevel for the `storaged` service:
 
@@ -58,7 +62,9 @@ nebula> UPDATE CONFIGS graph:minloglevel=0;
 
 To change the severity of the storage log, replace the port in the preceding command with `storage` port.
 
-> **NOTE**: Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
+!!! note
+
+    Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
 
 **Close** all logs print (FATAL only) with the following command.
 

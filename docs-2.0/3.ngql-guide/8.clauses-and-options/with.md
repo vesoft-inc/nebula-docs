@@ -10,7 +10,9 @@ The `WITH` clause can take the output from a query part, process it, and pass it
 
 In the nGQL-extensions such as `GO` or `FETCH`, use pipe symbols (`|`) instead.
 
-> **DON'T:** Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions.
+!!! danger
+
+    Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions. Such operations may cause unpredictable results.
 
 ## Combine statements and form a composite query
 
