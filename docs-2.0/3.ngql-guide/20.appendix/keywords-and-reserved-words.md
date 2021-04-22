@@ -15,7 +15,9 @@ Execution succeeded
 
 `TAG` is a reserved keyword. To use `TAG` as an identifier, you must quote it with a backtick. `SPACE` is a non-reserved keyword. You can use `SPACE` as an identifier without quoting it. 
 
-> **NOTE**: There is a small pitfall when you use the non-reserved keyword. Unquoted non-reserved keyword will be converted to **lower-case** words. For example,  `SPACE` or `Space` will become `space`.
+!!! note
+
+    There is a small pitfall when you use the non-reserved keyword. Unquoted non-reserved keyword will be converted to **lower-case** words. For example,  `SPACE` or `Space` will become `space`.
 
 ```ngql
 // TAG is a reserved keyword here.

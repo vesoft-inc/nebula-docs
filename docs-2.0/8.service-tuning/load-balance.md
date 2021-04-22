@@ -10,7 +10,9 @@ The graph spaces stored in Nebula Graph must have more than one replicas for the
 
 `BALANCE DATA` starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
 
->**DON'T:** DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
+!!! danger
+
+    DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
 
 Take scaling out Nebula Graph for an example.
 
@@ -70,7 +72,9 @@ Got 23 rows (time spent 916/1528 us)
 
 When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
 
-> **NOTE:** `BALANCE DATA` does not balance the leader distribution.
+!!! note
+
+    `BALANCE DATA` does not balance the leader distribution.
 
 ```ngql
 nebula> SHOW HOSTS;

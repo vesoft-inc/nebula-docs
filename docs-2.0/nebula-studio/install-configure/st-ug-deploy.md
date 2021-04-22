@@ -7,7 +7,9 @@ This article introduces how to deploy Docker-based Studio v2.x.
 Before you deploy Docker-based Studio v2.x, you must do a check of these:
 
 - The Nebula Graph v2.x services are deployed and started. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
-  > **NOTE**: Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
+  !!! note
+
+      Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
 
 - On the machine where Studio v2.x will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
 
@@ -49,11 +51,13 @@ To deploy and start Docker-based Studio v2.x, run these commands one by one:
     ```
 
 5. When Docker-based Studio v2.x is started, use `http://ip address:7001` to get access to Studio v2.x.
-   > **NOTE**: Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
+  !!! note
 
-    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
+    Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
 
-    ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052.png "Docker-based Studio is started")
+   If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
+
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052.png "Docker-based Studio is started")
 
 ## Next to do
 

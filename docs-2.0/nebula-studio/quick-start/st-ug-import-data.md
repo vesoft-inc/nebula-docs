@@ -23,7 +23,10 @@ To batch import data, follow these steps:
 2. On the **Select Space** page, choose a graph space name. In this example, **mooc_actions** is used. And then click the **Next** button.
 
 3. On the **Upload Files** page, click the **Upload Files** button and then choose CSV files. In this example, `user.csv`, `course.csv`, and `actions.csv` are chosen.
-   > **NOTE**: You can choose multiple CSV files at the same time.
+
+  !!! note
+
+        You can choose multiple CSV files at the same time.
 
 4. On the **Select Files** page, do a check of the file size and click **Preview** or **Delete** in the **Operations** column to make sure that all source data is correct. And then click the **Next** button.
 
@@ -43,7 +46,7 @@ To batch import data, follow these steps:
    b. In the property list, click **Mapping** to choose a data column from the CSV file as the value of a property. In this example, no data is chosen for `user`. For the **course** tag, choose **Column 0** for the `courseId` property and set its type to **int**.  
    ![Data source for the course vertices](../figs/st-ug-033.png "Choose data source for tag properties")  
 
-9. (Optional) If necessary, repeat Step 5 through Step 8 for more tags.  
+9.  (Optional) If necessary, repeat Step 5 through Step 8 for more tags.  
 
 10. When the configuration is done, click the **Next** button.  
    When **Config validation was successful** prompts, data mapping for the vertices is successful.  

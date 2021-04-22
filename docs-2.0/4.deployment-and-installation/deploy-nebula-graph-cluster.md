@@ -2,7 +2,9 @@
 
 This topic describes how to manually deploy a Nebula Graph cluster.
 
-> **NOTE:** For now, Nebula Graph does not have an official deployment tool.
+!!! note
+
+    For now, Nebula Graph does not have an official deployment tool.
 
 ## Prerequisites
 

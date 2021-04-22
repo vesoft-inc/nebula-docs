@@ -18,7 +18,9 @@ Automatic compaction is done when the system reads data, writes data, or the sys
 nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
 ```
 
-> **CAUTION**: The command overwrites all `rocksdb_column_family_options` items. Other items besides `disable_auto_compactions` is overwritten to the default value. You may have to read all the items before the updates.
+!!! caution
+
+    The command overwrites all `rocksdb_column_family_options` items. Other items besides `disable_auto_compactions` is overwritten to the default value. You may have to read all the items before the updates.
 
 ## Full compaction
 
@@ -35,7 +37,9 @@ The preceding statement returns a job_id. To show the compaction progress, use t
 nebula> SHOW JOB <job_id>;
 ```
 
-> **NOTE:** Do the full compaction during off-peak hours because full compaction has a lot of IO operations.
+!!! note
+
+    Do the full compaction during off-peak hours because full compaction has a lot of IO operations.
 
 ## Operation suggestions
 

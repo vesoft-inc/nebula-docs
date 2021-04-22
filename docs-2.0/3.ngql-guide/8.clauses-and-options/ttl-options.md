@@ -32,7 +32,9 @@ The expired data are still stored on the disk, but queries will filter them out.
 
 Nebula Graph automatically deletes the expired data and reclaims the disk space during the next [compaction](../../8.service-tuning/compaction.md).
 
-> **NOTE:** If TTL is [disabled](#remove_a_timeout), the corresponding data deleted after the last compaction can be queried again.
+!!! note
+
+    If TTL is [disabled](#remove_a_timeout), the corresponding data deleted after the last compaction can be queried again.
 
 ## TTL options
 
@@ -102,4 +104,6 @@ To disable TTL and remove the timeout on a property, use the following approache
     nebula> ALTER TAG t1 ttl_duration = 0;
     ```
 
-    > **CAUTION:** Even when `ttl_duration` is 0, you CANNOT alter the property because it still has TTL options.
+  !!! caution
+
+        Even when `ttl_duration` is 0, you CANNOT alter the property because it still has TTL options.

@@ -7,7 +7,9 @@ The Syntax in openCypher and nGQL-extension are different.
 - NGQL-extension: A pipe `|` must be used. And an offset can be ignored.
 - OpenCypher style: No pipes are permitted. Use `Skip` to indicate offset.
 
->**NOTE**: When using `LIMIT`(in either syntax above), it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
+!!! note
+
+    When using `LIMIT`(in either syntax above), it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
 ## nGQL-extension syntax
 
@@ -52,7 +54,9 @@ RETURN <var>
 
 Either `offset` or `number_rows` can accept an expression, which value must be a non-negative integer.
 
-> **NOTE:** Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
+!!! note
+
+    Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
 
 ### Examples
 
