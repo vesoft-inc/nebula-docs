@@ -1,3 +1,6 @@
+> !!! Note: Nebula Graph 1.x is not actively maintained. Please move to Nebula Graph [2.x](https://docs.nebula-graph.io/). 
+> The data format, rpc protocals are not compatible.
+
 # What is Nebula Graph {{ nebula.release }}
 
 !!! note "Last updated {{ now().year }}-{{ now().month }}-{{ now().day }}, [GitHub commit](https://github.com/vesoft-inc/nebula-docs/tree/v{{ nebula.release }}) {{ git.short_commit }}."
