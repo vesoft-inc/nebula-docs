@@ -1,3 +1,6 @@
+> !!! Note: Nebula Graph 1.x is not actively maintained. Please move to Nebula Graph [2.x](https://docs.nebula-graph.io/). 
+> The data format, rpc protocals are not compatible.
+
 # What is Nebula Graph
 
 **Nebula Graph** is an open-source graph database capable of hosting super large-scale graphs with billions of vertices (nodes) and trillions of edges, with milliseconds of latency. It delivers enterprise-grade high performance to simplify the most complex data sets imaginable into meaningful and useful information.
