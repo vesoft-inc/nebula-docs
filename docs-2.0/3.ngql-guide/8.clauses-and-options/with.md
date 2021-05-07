@@ -131,7 +131,7 @@ Got 1 rows (time spent 3498/4222 us)
 
 ## Use with RETURN
 
-Set a alias using a WITH clause, and then output the result through a RETURN clause.
+Set a alias using a `WITH` clause, and then output the result through a `RETURN` clause.
 
 ```ngql
 nebula> WITH [1, 2, 3] AS list  RETURN 3 IN list AS r;
