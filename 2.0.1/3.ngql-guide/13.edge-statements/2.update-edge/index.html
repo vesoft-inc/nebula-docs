@@ -853,9 +853,31 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          UPDATE EDGE
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         UPDATE EDGE
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../3.upsert-edge/">
@@ -1387,6 +1409,22 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -1397,37 +1435,96 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="update_edge">UPDATE EDGE<a class="headerlink" href="#update_edge" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>UPDATE EDGE &lt;src_vid&gt; -&gt; &lt;dest_vid&gt; [@&lt;rank&gt;] OF &lt;edge_type&gt; SET &lt;update_properties&gt; [WHEN &lt;condition&gt;] [YIELD &lt;properties&gt;]
+<p>The <code>UPDATE EDGE</code> statement updates properties on an edge. <code>UPDATE EDGE</code> supports compare-and-set (CAS).</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>UPDATE EDGE ON &lt;edge_type&gt;
+&lt;src_vid&gt; -&gt; &lt;dst_vid&gt; [@&lt;rank&gt;]
+SET &lt;update_prop&gt;
+[WHEN &lt;condition&gt;]
+[YIELD &lt;output&gt;]
 </code></pre></div>
-<p>Use <code>UPDATE EDGE</code> to update properties on an edge. The <code>UPDATE EDGE</code> statement only updates one edge at a time.</p>
-<p>Nebula Graph supports compare-and-set (CAS).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>WHEN</code> and <code>YIELD</code> are optional.</p>
-</div>
-<ul>
-<li>
-<p><code>update_properties</code> is the properties of the edge to be updated. For example, <code>e1.col1 = $^.e1.col2 + 1</code> means to update <code>e1.col1</code> to <code>e1.col2+1</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>$^</code> indicates the edge to be updated.</p>
-</div>
-</li>
-</ul>
-<ul>
-<li><code>condition</code> is some constraints. Only when the <code>condition</code> is met, <code>UPDATE</code> is executed successfully. <code>condition</code> supports expression operations.</li>
-<li><code>properties</code> is the properties to be returned, <code>YIELD</code> returns the latest updated values.</li>
-</ul>
-<p>Consider the following example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE "player100" -&gt; "team204"@0 \
-        OF serve \
-        SET start_year = start_year + 1;
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ON &lt;edge_type&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the type of the edge. The properties to be updated must be on this tag.</td>
+<td><code>ON serve</code></td>
+</tr>
+<tr>
+<td><code>&lt;src_vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the source vertex ID of the edge.</td>
+<td><code>"player100"</code></td>
+</tr>
+<tr>
+<td><code>&lt;dst_vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the destination vertex ID of the edge.</td>
+<td><code>"team204"</code></td>
+</tr>
+<tr>
+<td><code>&lt;rank&gt;</code></td>
+<td>No</td>
+<td>Specifies the rank of the edge.</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>SET &lt;update_prop&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the properties to be updated and how they will be updated.</td>
+<td><code>SET start_year = start_year +1</code></td>
+</tr>
+<tr>
+<td><code>WHEN &lt;condition&gt;</code></td>
+<td>No</td>
+<td>Specifies the filter conditions. If <code>&lt;condition&gt;</code> evaluates to <code>false</code>, the <code>SET</code> clause does not take effect.</td>
+<td><code>WHEN end_year &lt; 2010</code></td>
+</tr>
+<tr>
+<td><code>YIELD &lt;output&gt;</code></td>
+<td>No</td>
+<td>Specifies the output format of the statement.</td>
+<td><code>YIELD start_year AS Start_Year</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>// Check the properties of the edge with the GO statement.
+nebula&gt; GO FROM "player100" \
+        OVER serve \
+        YIELD serve.start_year, serve.end_year;
++------------------+----------------+
+| serve.start_year | serve.end_year |
++------------------+----------------+
+| 1997             | 2016           |
++------------------+----------------+
+
+// Update the start_year property and return end_year and the new start_year.
+
+nebula&gt; UPDATE EDGE on serve "player100" -&gt; "team204"@0 \
+        SET start_year = start_year + 1 \
+        WHEN end_year &gt; 2010 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| 1998       | 2016     |
++------------+----------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
 </small>
 </div>
 </article>

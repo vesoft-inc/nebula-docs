@@ -823,9 +823,36 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          UPSERT VERTEX
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         UPSERT VERTEX
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert_a_vertex_if_it_does_not_exist">
+    Insert a vertex if it does not exist
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#update_a_vertex_if_it_exists">
+    Update a vertex if it exists
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1387,6 +1414,27 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert_a_vertex_if_it_does_not_exist">
+    Insert a vertex if it does not exist
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#update_a_vertex_if_it_exists">
+    Update a vertex if it exists
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -1397,60 +1445,216 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="upsert_vertex">UPSERT VERTEX<a class="headerlink" href="#upsert_vertex" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>UPSERT VERTEX &lt;vid&gt; SET &lt;update_columns&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
-</code></pre></div>
-<ul>
-<li><code>vid</code> is the ID of the vertex to be updated.</li>
-<li>
-<p><code>update_columns</code> is the properties of the vertex to be updated. For example, <code>tag1.col1 = $^.tag2.col2 + 1</code> means to update <code>tag1.col1</code> to <code>tag2.col2+1</code>.</p>
+<p><code>UPSERT</code> is a combination of <code>UPDATE</code> and <code>INSERT</code>. Use <code>UPSERT VERTEX</code> to update properties of a vertex if it exists or insert a new vertex if it does not exist.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>$^</code> indicates the vertex to be updated.</p>
+<p>An <code>UPSERT VERTEX</code> statement can only update properties on <strong>ONE TAG</strong> of a vertex.</p>
 </div>
-</li>
-</ul>
-<ul>
-<li><code>condition</code> is some constraints. Only when the conditions are met, <code>UPSERT</code> is executed successfully. <code>condition</code> supports expression operations.</li>
-<li><code>columns</code> is the columns to be returned, <code>YIELD</code> returns the latest updated values.</li>
-</ul>
-<p><code>UPSERT</code> is a combination of <code>UPDATE</code> and <code>INSERT</code>.  Use <code>UPSERT VERTEX</code> to update properties on a vertex if it exists or insert a new vertex if it does not exist. The <code>UPDATE VERTEX</code> statement only updates one tag of a vertex at a time.</p>
 <p>The performance of <code>UPSERT</code> is much lower than that of <code>INSERT</code>, because <code>UPSERT</code> is a read-modify-write serialization operation at the partition level.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes.</p>
+<p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes. Use <code>UPDATE</code> or <code>INSERT</code> instead.</p>
 </div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>UPSERT VERTEX ON &lt;tag&gt; &lt;vid&gt;
+SET &lt;update_prop&gt;
+[WHEN &lt;condition&gt;]
+[YIELD &lt;output&gt;]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ON &lt;tag&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the tag of the vertex. The properties to be updated must be on this tag.</td>
+<td><code>ON player</code></td>
+</tr>
+<tr>
+<td><code>&lt;vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the ID of the vertex to be updated or inserted.</td>
+<td><code>"player100"</code></td>
+</tr>
+<tr>
+<td><code>SET &lt;update_prop&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the properties to be updated and how they will be updated.</td>
+<td><code>SET age = age +1</code></td>
+</tr>
+<tr>
+<td><code>WHEN &lt;condition&gt;</code></td>
+<td>No</td>
+<td>Specifies the filter conditions.</td>
+<td><code>WHEN name == "Tim"</code></td>
+</tr>
+<tr>
+<td><code>YIELD &lt;output&gt;</code></td>
+<td>No</td>
+<td>Specifies the output format of the statement.</td>
+<td><code>YIELD name AS Name</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="insert_a_vertex_if_it_does_not_exist">Insert a vertex if it does not exist<a class="headerlink" href="#insert_a_vertex_if_it_does_not_exist" title="Permanent link">¶</a></h2>
+<p>If a vertex does not exist, it is created no matter the conditions in the <code>WHEN</code> clause are met or not.</p>
+<p>The property values of the new vertex depends on:</p>
 <ul>
-<li>If the vertex does not exist, a new vertex is created no matter whether the condition in the <code>WHEN</code> clause is met or not. The property columns not specified by the <code>SET</code> statement use the default values of the columns. If there are no default values, an error is returned.</li>
-<li>If the vertex exists and the <code>WHEN</code> condition is met, the vertex is updated.</li>
-<li>If the vertex exists and the <code>WHEN</code> condition is not met, Nebula Graph does nothing.</li>
+<li>Whether the conditions are met</li>
+<li>How the <code>SET</code> clause is defined</li>
+<li>The default value of the properties</li>
 </ul>
-<p>Consider the following example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player111":("Ben Simmons", 22); -- Insert a new vertex.
-nebula&gt; UPSERT VERTEX "player111" SET player.name = "Dwight Howard", player.age = $^.player.age + 11 WHEN $^.player.name == "Ben Simmons" AND $^.player.age &gt; 20 YIELD $^.player.name AS Name, $^.player.age AS Age; -- Do an upsert operation on the vertex.
+<p>For example, if:</p>
+<ul>
+<li>The vertex to be inserted will have properties <code>name</code> and <code>age</code> based on tag <code>player</code>.</li>
+<li>The <code>SET</code> clause specifies that <code>age = 30</code>.</li>
+</ul>
+<p>Then the property values in different cases are listed as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Are <code>WHEN</code> conditions met</th>
+<th>If properties has default values</th>
+<th>Value of <code>name</code></th>
+<th>Value of <code>age</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yes</td>
+<td>Yes</td>
+<td>The default value</td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td>Yes</td>
+<td>No</td>
+<td><code>NULL</code></td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td>No</td>
+<td>Yes</td>
+<td>The default value</td>
+<td>The default value</td>
+</tr>
+<tr>
+<td>No</td>
+<td>No</td>
+<td><code>NULL</code></td>
+<td><code>NULL</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the vertex exists, the <code>WHEN</code> clause always evaluates to <code>true</code>.</p>
+</div>
+<p>Here are some examples:</p>
+<div class="highlight"><pre><span></span><code>// Check if the following three vertices exists.
+nebula&gt; FETCH PROP ON * "player666", "player667", "player668";
+Empty set
 
-+-----------------+-----+
-| Name            | Age |
-+-----------------+-----+
-| "Dwight Howard" | 33  |
-+-----------------+-----+
+// The result Empty set indicates that the vertices don't exist.
+
+nebula&gt; UPSERT VERTEX ON player "player666" \
+        SET age = 30 \
+        WHEN name == "Joe" \
+        YIELD name AS Name, age AS Age;
++----------+----------+
+| Name     | Age      |
++----------+----------+
+| __NULL__ | 30       |
++----------+----------+
+
+nebula&gt; UPSERT VERTEX ON player "player666" SET age = 31 WHEN name == "Joe" YIELD name AS Name, age AS Age;
++----------+-----+
+| Name     | Age |
++----------+-----+
+| __NULL__ | 30  |
++----------+-----+
+
+nebula&gt; UPSERT VERTEX ON player "player667" \
+        SET age = 31 \
+        YIELD name AS Name, age AS Age;
++----------+-----+
+| Name     | Age |
++----------+-----+
+| __NULL__ | 31  |
++----------+-----+
+
+nebula&gt; UPSERT VERTEX ON player "player668" \
+        SET name = "Amber", age = age + 1 \
+        YIELD name AS Name, age AS Age;
++---------+----------+
+| Name    | Age      |
++---------+----------+
+| "Amber" | __NULL__ |
++---------+----------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>// An empty set is returned. Because vertex "player123" does not exist.
-nebula&gt; FETCH PROP ON * "player123";
-Empty set (Time spent: 3.069/4.382 ms)
-nebula&gt; UPSERT VERTEX "player123" SET player.age = $^.player.age + 1;
+<p>In the last query of the preceding example, since <code>age</code> has no default value, when the vertex is created, <code>age</code> is <code>NULL</code>, and <code>age = age + 1</code> does not take effect. But if it has a default value, <code>age = age + 1</code> in the <code>SET</code> clause will take effect. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player_with_default(name string, age int DEFAULT 20);
+Execution succeeded
+
+nebula&gt; UPSERT VERTEX ON player_with_default "player101" \
+        SET age = age + 1 \
+        YIELD name AS Name, age AS Age;
+
++----------+-----+
+| Name     | Age |
++----------+-----+
+| __NULL__ | 21  |
++----------+-----+
 </code></pre></div>
-<p>If the vertex "player123" does not exist and the default value of age is <code>NULL</code>, the <code>player.age</code> of vertex "player123" is <code>NULL</code>. If <code>player.age</code> has a default value, the <code>player.age</code> of vertex "player123" is the default value plus one.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG person(followers int, age int DEFAULT 0); -- Create example tag person
+<h2 id="update_a_vertex_if_it_exists">Update a vertex if it exists<a class="headerlink" href="#update_a_vertex_if_it_exists" title="Permanent link">¶</a></h2>
+<p>If the vertex exists and the <code>WHEN</code> conditions are met, the vertex is updated.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player101";
++-----------------------------------------------------+
+| vertices_                                           |
++-----------------------------------------------------+
+| ("player101" :player{age: 42, name: "Tony Parker"}) |
++-----------------------------------------------------+
 
-nebula&gt; UPSERT VERTEX "300" SET person.followers = $^.person.age + 1,  person.age = 8; -- the number of followers is 1, age is 8
+nebula&gt; UPSERT VERTEX ON player "player101" \
+        SET age = age + 2 \
+        WHEN name == "Tony Parker" \
+        YIELD name AS Name, age AS Age;
++---------------+-----+
+| Name          | Age |
++---------------+-----+
+| "Tony Parker" | 44  |
++---------------+-----+
+</code></pre></div>
+<p>If the vertex exists and the <code>WHEN</code> conditions are not met, the update does not take effect.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player101";
++-----------------------------------------------------+
+| vertices_                                           |
++-----------------------------------------------------+
+| ("player101" :player{age: 44, name: "Tony Parker"}) |
++-----------------------------------------------------+
 
-nebula&gt; UPSERT VERTEX "300" SET person.age = 8, person.followers = $^.person.age + 1; -- the number of followers is 9, age is 8
+nebula&gt; UPSERT VERTEX ON player "player101" \
+        SET age = age + 2 \
+        WHEN name == "Someone else" \
+        YIELD name AS Name, age AS Age;
++---------------+-----+
+| Name          | Age |
++---------------+-----+
+| "Tony Parker" | 44  |
++---------------+-----+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
 </small>
 </div>
 </article>

@@ -1675,6 +1675,18 @@ See <a href="../../3.ngql-guide/9.space-statements/1.create-space/">create space
 </details>
 <details class="faq" open="open"><summary>How to resolve error <code>edge conflict</code> or <code>vertex conflict</code>?</summary><p>Nebula Graph returns such errors when the Storage Service receives multiple requests to insert or update the same vertex or edge within milliseconds. Try the failed requests again later.</p>
 </details>
+<details class="faq" open="open"><summary>Storage Error E_RPC_FAILURE</summary><p>Storaged returns too many data back to graphd。Possible solutions: </p>
+</details>
+<ol>
+<li>In <code>nebula-graphd.conf</code>, modify or add the item <code>--storage_client_timeout_ms=60000</code> to change the timeout(ms)。</li>
+<li>Modify your nGQL to reduce full scans (including limit sentence)。</li>
+<li>Use better hardware (NVMe, more footprint).</li>
+<li>retry。</li>
+</ol>
+<details class="faq" open="open"><summary>The leader has changed. Try again later</summary></details>
+<p>Known Issue. Just retry 1 to N times, where N is the partition number。The reason is that meta client needs some heartbeats to update or errors to trigger the new leader information.</p>
+<details class="faq" open="open"><summary>How to stop a slow query</summary></details>
+<p>You can't. Even killing a client will not stop the running slow query. You have to wait the query to complete.</p>
 <h2 id="about_operation_and_maintenance">About operation and maintenance<a class="headerlink" href="#about_operation_and_maintenance" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>The log files are too large. How to recycle the logs?</summary><p>Nebula Graph uses <a href="https://github.com/google/glog">glog</a> to print logs. <code>glog</code> can't recycle the outdated files. You can use crontab to delete them by yourself. Refer to the discussions of <a href="https://github.com/google/glog/issues/423"><code>Glog should delete old log files automatically</code></a>.</p>
 </details>
@@ -1742,7 +1754,7 @@ telnet: connect to address <span class="m">192</span>.168.1.10: Connection refus
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
 </small>
 </div>
 </article>

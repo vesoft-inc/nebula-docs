@@ -818,9 +818,31 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          UPDATE VERTEX
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         UPDATE VERTEX
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../3.upsert-vertex/">
@@ -1387,6 +1409,22 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -1397,45 +1435,84 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="update_vertex">UPDATE VERTEX<a class="headerlink" href="#update_vertex" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;update_columns&gt;
-[WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
+<p>The <code>UPDATE VERTEX</code> statement updates properties on a vertex. <code>UPDATE VERTEX</code> supports compare-and-set (CAS).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An <code>UPDATE VERTEX</code> statement can only update properties on <strong>ONE TAG</strong> of a vertex.</p>
+</div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>UPDATE VERTEX ON &lt;tag_name&gt; &lt;vid&gt;
+SET &lt;update_prop&gt;
+[WHEN &lt;condition&gt;]
+[YIELD &lt;output&gt;]
 </code></pre></div>
-<p>Use <code>UPDATE VERTEX</code> to update properties on a vertex. The <code>UPDATE VERTEX</code> statement only updates one tag of a vertex at a time.</p>
-<p>Nebula Graph supports compare-and-set (CAS) operation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>WHEN</code> and <code>YIELD</code> are optional.</p>
-</div>
-<ul>
-<li><code>vid</code> is the ID of the vertex to be updated.</li>
-<li>
-<p><code>update_columns</code> is the properties of the vertex to be updated. For example, <code>tag1.col1 = $^.tag2.col2 + 1</code> means to update <code>tag1.col1</code> to <code>tag2.col2+1</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>$^</code> indicates the vertex to be updated.</p>
-</div>
-</li>
-</ul>
-<ul>
-<li><code>condition</code> is some constraints. Only when the constraints are met, <code>UPDATE</code> is executed successfully. <code>condition</code> supports expression operations.</li>
-<li><code>columns</code> is the columns to be returned. <code>YIELD</code> returns the latest updated values.</li>
-</ul>
-<p>Consider the following example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX "player100" \
-        SET player.age = $^.player.age + 1 \
-        WHEN $^.player.name == "Tim Duncan" \
-        YIELD $^.player.name AS name, $^.player.age AS age;
-+--------------+-----+
-| name         | age |
-+--------------+-----+
-| "Tim Duncan" | 43  |
-+--------------+-----+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ON &lt;tag_name&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the tag of the vertex. The properties to be updated must be on this tag.</td>
+<td><code>ON player</code></td>
+</tr>
+<tr>
+<td><code>&lt;vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the ID of the vertex to be updated.</td>
+<td><code>"player100"</code></td>
+</tr>
+<tr>
+<td><code>SET &lt;update_prop&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the properties to be updated and how they will be updated.</td>
+<td><code>SET age = age +1</code></td>
+</tr>
+<tr>
+<td><code>WHEN &lt;condition&gt;</code></td>
+<td>No</td>
+<td>Specifies the filter conditions. If <code>&lt;condition&gt;</code> evaluates to <code>false</code>, the <code>SET</code> clause does not take effect.</td>
+<td><code>WHEN name == "Tim"</code></td>
+</tr>
+<tr>
+<td><code>YIELD &lt;output&gt;</code></td>
+<td>No</td>
+<td>Specifies the output format of the statement.</td>
+<td><code>YIELD name AS Name</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>// Check the properties of vertex "player101".
+nebula&gt; FETCH PROP ON player "player101";
++-----------------------------------------------------+
+| vertices_                                           |
++-----------------------------------------------------+
+| ("player101" :player{age: 36, name: "Tony Parker"}) |
++-----------------------------------------------------+
+
+// Update the age property and return name and the new age.
+nebula&gt; UPDATE VERTEX ON player "player101" \
+        SET age = age + 2 \
+        WHEN name == "Tony Parker" \
+        YIELD name AS Name, age AS Age;
++---------------+-----+
+| Name          | Age |
++---------------+-----+
+| "Tony Parker" | 38  |
++---------------+-----+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
 </small>
 </div>
 </article>

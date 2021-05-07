@@ -858,9 +858,36 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          UPSERT EDGE
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         UPSERT EDGE
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert_an_edge_if_it_does_not_exist">
+    Insert an edge if it does not exist
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#update_an_edge_if_it_exists">
+    Update an edge if it exists
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1387,6 +1414,27 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#insert_an_edge_if_it_does_not_exist">
+    Insert an edge if it does not exist
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#update_an_edge_if_it_exists">
+    Update an edge if it exists
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -1397,55 +1445,239 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="upsert_edge">UPSERT EDGE<a class="headerlink" href="#upsert_edge" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>UPSERT EDGE &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; [@rank] OF &lt;edge_type&gt; SET &lt;update_properties&gt; [WHEN &lt;condition&gt;] [YIELD &lt;properties&gt;]
-</code></pre></div>
-<ul>
-<li>
-<p><code>update_properties</code> is the properties of the edge to be updated. For example, <code>e1.col1 = $^.e1.col2 + 1</code> means to update <code>e1.col1</code> to <code>e1.col2+1</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>$^</code> indicates the edge to be updated.</p>
-</div>
-</li>
-</ul>
-<ul>
-<li><code>condition</code> is some constraints. Only when the <code>condition</code> is met, <code>UPSERT</code> is executed successfully. <code>condition</code> supports expression operations.</li>
-<li><code>properties</code> specifies the properties to be returned, <code>YIELD</code> returns the latest updated values.</li>
-</ul>
-<p><code>UPSERT</code> is a combination of <code>UPDATE</code> and <code>INSERT</code>. Use <code>UPSERT EDGE</code> to update properties on an edge if it exists or insert a new edge if it does not exist. The <code>UPDATE EDGE</code> statement updates only one edge at a time.</p>
+<p><code>UPSERT</code> is a combination of <code>UPDATE</code> and <code>INSERT</code>. Use <code>UPSERT EDGE</code> to update properties of an edge if it exists or insert a new edge if it does not exist.</p>
 <p>The performance of <code>UPSERT</code> is much lower than that of <code>INSERT</code>, because <code>UPSERT</code> is a read-modify-write serialization operation at the partition level.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes.</p>
+<p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes. Use <code>UPDATE</code> or <code>INSERT</code> instead.</p>
 </div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>UPSERT EDGE ON &lt;edge_type&gt;
+&lt;src_vid&gt; -&gt; &lt;dst_vid&gt; [@rank]
+SET &lt;update_prop&gt;
+[WHEN &lt;condition&gt;]
+[YIELD &lt;properties&gt;]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ON &lt;edge_type&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the type of the edge. The properties to be updated must be on this tag.</td>
+<td><code>ON serve</code></td>
+</tr>
+<tr>
+<td><code>&lt;src_vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the source vertex ID of the edge.</td>
+<td><code>"player100"</code></td>
+</tr>
+<tr>
+<td><code>&lt;dst_vid&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the destination vertex ID of the edge.</td>
+<td><code>"team204"</code></td>
+</tr>
+<tr>
+<td><code>&lt;rank&gt;</code></td>
+<td>No</td>
+<td>Specifies the rank of the edge.</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>SET &lt;update_prop&gt;</code></td>
+<td>Yes</td>
+<td>Specifies the properties to be updated and how they will be updated.</td>
+<td><code>SET start_year = start_year +1</code></td>
+</tr>
+<tr>
+<td><code>WHEN &lt;condition&gt;</code></td>
+<td>No</td>
+<td>Specifies the filter conditions.</td>
+<td><code>WHEN end_year &lt; 2010</code></td>
+</tr>
+<tr>
+<td><code>YIELD &lt;output&gt;</code></td>
+<td>No</td>
+<td>Specifies the output format of the statement.</td>
+<td><code>YIELD start_year AS Start_Year</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="insert_an_edge_if_it_does_not_exist">Insert an edge if it does not exist<a class="headerlink" href="#insert_an_edge_if_it_does_not_exist" title="Permanent link">¶</a></h2>
+<p>If an edge does not exist, it is created no matter the conditions in the <code>WHEN</code> clause are met or not.</p>
+<p>The property values of the new edge depends on:</p>
 <ul>
-<li>If the edge does not exist, a new edge is created no matter whether the condition in the <code>WHEN</code> clause is met or not. The properties not specified by the <code>SET</code> statement use the default property values. If there are no default values, an error is returned.</li>
-<li>If the edge exists and the <code>WHEN</code> condition is met, the edge is updated.</li>
-<li>If the edge exists and the <code>WHEN</code> condition is not met, Nebula Graph does nothing.</li>
+<li>Whether the conditions are met</li>
+<li>How the <code>SET</code> clause is defined</li>
+<li>The default value of the properties</li>
 </ul>
-<p>Consider the following example:</p>
-<div class="highlight"><pre><span></span><code>//Insert a new edge.
-nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES "player100" -&gt; "team200":(1997, 2016);  -- 
+<p>For example, if:</p>
+<ul>
+<li>The edge to be inserted will have properties <code>start_year</code> and <code>end_year</code> based on the edge type <code>serve</code>.</li>
+<li>The <code>SET</code> clause specifies that <code>end_year = 2021</code>.</li>
+</ul>
+<p>Then the property values in different cases are listed as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Are <code>WHEN</code> conditions met</th>
+<th>If properties has default values</th>
+<th>Value of <code>start_year</code></th>
+<th>Value of <code>end_year</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yes</td>
+<td>Yes</td>
+<td>The default value</td>
+<td><code>2021</code></td>
+</tr>
+<tr>
+<td>Yes</td>
+<td>No</td>
+<td><code>NULL</code></td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td>No</td>
+<td>Yes</td>
+<td>The default value</td>
+<td>The default value</td>
+</tr>
+<tr>
+<td>No</td>
+<td>No</td>
+<td><code>NULL</code></td>
+<td><code>NULL</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the vertex exists, the <code>WHEN</code> clause always evaluates to <code>true</code>.</p>
+</div>
+<p>Here are some examples:</p>
+<div class="highlight"><pre><span></span><code>// Check if the following three vertices has any outgoing serve edge.
+nebula&gt; GO FROM "player666", "player667", "player668" \
+        OVER serve \
+        YIELD serve.start_year, serve.end_year;
+Empty set
 
-nebula&gt; UPSERT EDGE "player100" -&gt; "team200" OF serve SET start_year = serve.start_year + 2 WHEN serve.end_year == 2016 YIELD serve.start_year AS Start, serve.end_year AS End;
-+-------+------+
-| Start | End  |
-+-------+------+
-| 1999  | 2016 |
-+-------+------+
+// The result Empty set indicates that the edges don't exist.
 
-nebula&gt; FETCH PROP ON serve "player100" -&gt; "team200";
+nebula&gt; UPSERT EDGE on serve \
+        "player666" -&gt; "team200"@0 \
+        SET end_year = 2021 \
+        WHEN end_year == 2010 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| __NULL__   | 2021     |
++------------+----------+
+
+nebula&gt; UPSERT EDGE on serve \
+        "player666" -&gt; "team200"@0 \
+        SET end_year = 2022 \
+        WHEN end_year == 2010 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| __NULL__   | 2021     |
++------------+----------+
+
+nebula&gt; UPSERT EDGE on serve \
+        "player667" -&gt; "team200"@0 \
+        SET end_year = 2022 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| __NULL__   | 2022     |
++------------+----------+
+
+nebula&gt; UPSERT EDGE on serve \
+        "player668" -&gt; "team200"@0 \
+        SET start_year = 2000, end_year = end_year + 1 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| 2000       | __NULL__ |
++------------+----------+
+</code></pre></div>
+<p>In the last query of the preceding example, since <code>end_year</code> has no default value, when the edge is created, <code>end_year</code> is <code>NULL</code>, and <code>end_year = end_year + 1</code> does not take effect. But if it has a default value, <code>end_year = end_year + 1</code> in the <code>SET</code> clause will take effect. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE serve_with_default(start_year int, end_year DEFAULT 2010);
+Execution succeeded
+
+nebula&gt; UPSERT EDGE on serve_with_default \
+        "player668" -&gt; "team200" \
+        SET end_year = end_year + 1 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| __NULL__   | 2011     |
++------------+----------+
+</code></pre></div>
+<h2 id="update_an_edge_if_it_exists">Update an edge if it exists<a class="headerlink" href="#update_an_edge_if_it_exists" title="Permanent link">¶</a></h2>
+<p>If the edge exists and the <code>WHEN</code> conditions are met, the edge is updated.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Ben Simmons"})-[e:serve]-(v2) \
+        RETURN e;
 +-----------------------------------------------------------------------+
-| edges_                                                                |
+| e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve "player100"-&gt;"team200" @0 {end_year: 2016, start_year: 1999}] |
+| [:serve "player149"-&gt;"team219" @0 {end_year: 2019, start_year: 2016}] |
 +-----------------------------------------------------------------------+
+
+nebula&gt; UPSERT EDGE on serve \
+        "player149" -&gt; "team219" \
+        SET end_year = end_year + 1 \
+        WHEN start_year == 2016 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| 2016       | 2020     |
++------------+----------+
+</code></pre></div>
+<p>If the edge exists and the <code>WHEN</code> conditions are not met, the edge does not take effect.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Ben Simmons"})-[e:serve]-(v2) \
+        RETURN e;
++-----------------------------------------------------------------------+
+| e                                                                     |
++-----------------------------------------------------------------------+
+| [:serve "player149"-&gt;"team219" @0 {end_year: 2020, start_year: 2016}] |
++-----------------------------------------------------------------------+
+
+
+nebula&gt; UPSERT EDGE on serve \
+        "player149" -&gt; "team219" \
+        SET end_year = end_year + 1 \
+        WHEN start_year != 2016 \
+        YIELD start_year, end_year;
++------------+----------+
+| start_year | end_year |
++------------+----------+
+| 2016       | 2020     |
++------------+----------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
 </small>
 </div>
 </article>
