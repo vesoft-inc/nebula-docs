@@ -135,6 +135,10 @@ BALANCE DATA REMOVE 192.168.0.8:19779,192.168.0.9:19779;
 
 Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
 
+!!! note 
+
+    The removed server's state will change to `OFFLINE`. 
+
 ## Balance leader distribution
 
 `BALANCE DATA` only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To load balance the raft leaders, run `BALANCE LEADER`.
