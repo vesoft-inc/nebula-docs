@@ -18,9 +18,7 @@
         },
         renderGoogleSearch(){
             var googleHtml="<div class='gcse-search'></div><script src='https://cse.google.com/cse.js?cx=008473639027829005971:tevo895mqp8'>";
-            var googleCNHtml="<div class='gcse-search'></div><script src='https://cse.google.com/cse.js?cx=b97c3704ba815b2bb'>";
             $('#google-search').append(googleHtml);
-            $('#google-searchCN').append(googleCNHtml);
             $('#bing-search').css('display','none');
         },
         renderBingSearch(){
