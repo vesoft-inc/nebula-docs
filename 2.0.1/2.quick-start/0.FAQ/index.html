@@ -19,6 +19,7 @@
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
 <link href="../../stylesheets/logo.css" rel="stylesheet"/>
 <link href="../../css/version-select.css" rel="stylesheet"/>
+<link href="../../css/search.css" rel="stylesheet"/>
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
@@ -35,6 +36,11 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
+<!-- <div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#4051b5;font-size:15px;font-weight: 600;color: #FFFFFF;">
+    Nebula Graph 2.0.1 has been released. It fixed multiple bugs and greatly improved the performance. For more information, see the 
+    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 700;text-decoration:underline;margin-left: 5px;"> latest docs</a>.
+    <a id="delete" style="margin-left: 20px;cursor: pointer;">&#10006</a>
+  </div> -->
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -61,30 +67,7 @@
 <label class="md-header__button md-icon" for="__search">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
 </label>
-<div class="md-search" data-md-component="search" role="dialog">
-<label class="md-search__overlay" for="__search"></label>
-<div class="md-search__inner" role="search">
-<form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
-<label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</label>
-<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
-</button>
-</form>
-<div class="md-search__output">
-<div class="md-search__scrollwrap" data-md-scrollfix="">
-<div class="md-search-result" data-md-component="search-result">
-<div class="md-search-result__meta">
-            Initializing search
-          </div>
-<ol class="md-search-result__list"></ol>
-</div>
-</div>
-</div>
-</div>
+<div class="widget-search widget" id="google-search">
 </div>
 <div class="md-header__source">
 <a class="md-source" data-md-component="source" href="https://github.com/vesoft-inc/nebula-docs/" title="Go to repository">
@@ -98,6 +81,13 @@
 </div>
 </nav>
 </header>
+<script>
+  var symbol = document.getElementById("delete");
+  var banner = document.getElementById("banner");
+  symbol.addEventListener("click",function(){
+    banner.style.display = "none";
+  })
+</script>
 <div class="md-container" data-md-component="container">
 <main class="md-main" data-md-component="main">
 <div class="md-main__inner md-grid">
@@ -1495,13 +1485,6 @@
 <h2 id="about_manual_updates">About manual updates<a class="headerlink" href="#about_manual_updates" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>Why is the behavior of manual not consistent with the system?</summary><p>Nebula Graph  is still under development. Its behavior changes from time to time. Please tell us if the manual and the system are not consistent.</p>
 </details>
-<details class="faq" open="open"><summary>Some errors in this manula</summary><ol>
-<li>Click the <code>pencil</code> button at the top right side of this page.</li>
-<li>Use markdown to fix this error。Then "Commit changes" at the bottom, which will start a Github pull request.</li>
-<li>Sign the <a href="../../15.contribution/how-to-contribute/">CLA</a>. 
-This pull request (and the fix) will be merged after to reviewer's accept.</li>
-</ol>
-</details>
 <h2 id="about_forward_and_backward_compatibility">About forward and backward compatibility<a class="headerlink" href="#about_forward_and_backward_compatibility" title="Permanent link">¶</a></h2>
 <details class="caution" open="open"><summary>Major version compatibility</summary><p>Neubla Graph 2.0.1 is not compatible with Nebula Graph 1.x nor 2.0-RC in both data formats and RPC-protocols, and vice versa. 
 Check <a href="../4.deployment-and-installation/3.upgrade-nebula-graph/">how to upgrade to Neubla Graph 2.0.1</a>.
@@ -1511,7 +1494,7 @@ You must upgrade <a href="6.useful-links/">all clients</a>.</p>
 </details>
 <h2 id="about_opencypher_compatibility">About openCypher compatibility<a class="headerlink" href="#about_opencypher_compatibility" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>Is nGQL compatible with openCypher 9?</summary><p>nGQL is partially compatible with openCypher 9.
-Known incompatible items are listed in <a href="https://github.com/vesoft-inc/nebula-graph/issues?q=is%3Aissue+is%3Aopen+label%3Aincompatible">Nebula Graph Issues</a>. Submit an issue with the <code>incompatible</code> tag if you find a new issue of this type. You can search in this manual with the keyword <code>compatibility</code> to find major compatibility issues.</p>
+Known incompatible items are listed in <a href="https://github.com/vesoft-inc/nebula-graph/issues">Nebula Graph Issues</a>. Submit an issue with the <code>incompatible</code> tag if you find a new issue of this type. You can search in this manual with the keyword <code>compatibility</code> to find major compatibility issues.</p>
 <p>The following are some major differences (by design incompatible) between nGQL and openCypher.</p>
 <table>
 <thead>
@@ -1649,7 +1632,7 @@ Got 1 rows (time spent 1235/1934 us)
 <p>To prevent unnecessary waste of resources, we recommend that you set an odd replica number.</p>
 <p>We suggest that you set replica_factor to 3 for the production environment and 1 for the test environment. Do not use an even number.</p>
 </details>
-<details class="faq" open="open"><summary>How to resolve <code>[ERROR (-7)]: SyntaxError: syntax error near</code>?</summary><p>In most cases, a query statement requires a <code>YIELD</code> or a <code>RETURN</code>. Check your query statement to see if <code>YIELD</code> or <code>RETURN</code> is provided.</p>
+<details class="faq" open="open"><summary>How to resolve <code>[ERROR (-7)]: SyntaxError: syntax error near</code> '`?</summary><p>In most cases, a query statement requires a <code>YIELD</code> or a <code>RETURN</code>. Check your query statement to see if <code>YIELD</code> or <code>RETURN</code> is provided.</p>
 </details>
 <details class="faq" open="open"><summary>How to count the vertices/edges number of each tag/edge type?</summary><p>See <a href="../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/">show-stats</a>.</p>
 </details>
@@ -1691,15 +1674,16 @@ See <a href="../../3.ngql-guide/9.space-statements/1.create-space/">create space
 </details>
 <details class="faq" open="open"><summary>Storage Error E_RPC_FAILURE</summary><p>Storaged returns too many data back to graphd。Possible solutions: </p>
 </details>
-<p>1. Check whether storaged is Out-of-memory. (<code>dmesg| grep nebula</code>).
-   2. In <code>nebula-graphd.conf</code>, modify or add the item <code>--storage_client_timeout_ms=60000</code> to change the timeout(ms)。
-   3. Modify your nGQL to reduce full scans (including limit sentence).
-   4. Use better hardware (NVMe, more memory).
-   5. retry。</p>
-<details class="faq" open="open"><summary>The leader has changed. Try again later</summary><p>Known Issue. Just retry 1 to N times, where N is the partition number。The reason is that meta client needs some heartbeats to update or errors to trigger the new leader information.</p>
-</details>
-<details class="faq" open="open"><summary>How to stop a slow query</summary><p>You can't. Even killing a client will not stop the running slow query. You have to wait the query to complete.</p>
-</details>
+<ol>
+<li>In <code>nebula-graphd.conf</code>, modify or add the item <code>--storage_client_timeout_ms=60000</code> to change the timeout(ms)。</li>
+<li>Modify your nGQL to reduce full scans (including limit sentence)。</li>
+<li>Use better hardware (NVMe, more footprint).</li>
+<li>retry。</li>
+</ol>
+<details class="faq" open="open"><summary>The leader has changed. Try again later</summary></details>
+<p>Known Issue. Just retry 1 to N times, where N is the partition number。The reason is that meta client needs some heartbeats to update or errors to trigger the new leader information.</p>
+<details class="faq" open="open"><summary>How to stop a slow query</summary></details>
+<p>You can't. Even killing a client will not stop the running slow query. You have to wait the query to complete.</p>
 <h2 id="about_operation_and_maintenance">About operation and maintenance<a class="headerlink" href="#about_operation_and_maintenance" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>The log files are too large. How to recycle the logs?</summary><p>Nebula Graph uses <a href="https://github.com/google/glog">glog</a> to print logs. <code>glog</code> can't recycle the outdated files. You can use crontab to delete them by yourself. Refer to the discussions of <a href="https://github.com/google/glog/issues/423"><code>Glog should delete old log files automatically</code></a>.</p>
 </details>
@@ -1720,16 +1704,6 @@ This <span class="nb">source</span> code is licensed under Apache <span class="m
 </li>
 </ol>
 </details>
-<details class="faq" open="open"><summary>How to scale out or scale in?</summary></details>
-<p>Nebula Graph 2.0.1 doesn't provide any commands or tools to support automatic scale out/in. You can do by the following steps：</p>
-<ol>
-<li>metad： metad can not be scale out or scale in;  The process can't be moved to a new machine; You can not add a new metad process to the service.</li>
-</ol>
-<p>2.1 Scale in graphd ： remove graphd from client's code. close this graphd process；</p>
-<p>2.2 Scale out graphd： prepare graphd's binary and config files in the new host. Modify the config files and add all existing metad's adress. Then start the new graphd process.</p>
-<p>3.1 Scale in storaged：（All spaces' replace number must be greater than 1），ref to <a href="../8.service-tuning/load-balance/#storage_1">Balance remove command</a>。After the command finish, stop this storaged process；</p>
-<p>3.2 Scale out storaged：（All spaces' replace number must be greater than 1）prepare storaged's binary and config files in the new host， Modify the config files and add all existing metad's adress. Then start the new storagedd process.</p>
-<p>You may also need to run <a href="../8.service-tuning/load-balance">Balance Data and Balance leader</a> after scaling in/out storaged. </p>
 <h2 id="about_connections">About connections<a class="headerlink" href="#about_connections" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>Which ports should be opened on the firewalls?</summary><p>If you have not changed the predefined ports in the <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">configurations</a>, open the following ports for the Nebula Graph services:</p>
 <table>
@@ -1777,7 +1751,7 @@ telnet: connect to address <span class="m">192</span>.168.1.10: Connection refus
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2021</span>
 </small>
 </div>
 </article>
@@ -1843,8 +1817,7 @@ telnet: connect to address <span class="m">192</span>.168.1.10: Connection refus
 <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": {"method": "mike"}}</script>
 <script src="../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
 <script src="../../js/version-select.js"></script>
-<script src="../../js/config.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/search.js"></script>
 </body>
 </html>
