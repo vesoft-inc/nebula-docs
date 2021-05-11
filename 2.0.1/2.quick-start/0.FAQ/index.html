@@ -1720,6 +1720,16 @@ This <span class="nb">source</span> code is licensed under Apache <span class="m
 </li>
 </ol>
 </details>
+<details class="faq" open="open"><summary>How to scale out or scale in?</summary></details>
+<p>Nebula Graph 2.0.1 doesn't provide any commands or tools to support automatic scale out/in. You can do by the following steps：</p>
+<ol>
+<li>metad： metad can not be scale out or scale in;  The process can't be moved to a new machine; You can not add a new metad process to the service.</li>
+</ol>
+<p>2.1 Scale in graphd ： remove graphd from client's code. close this graphd process；</p>
+<p>2.2 Scale out graphd： prepare graphd's binary and config files in the new host. Modify the config files and add all existing metad's adress. Then start the new graphd process.</p>
+<p>3.1 Scale in storaged：（All spaces' replace number must be greater than 1），ref to <a href="../8.service-tuning/load-balance/#storage_1">Balance remove command</a>。After the command finish, stop this storaged process；</p>
+<p>3.2 Scale out storaged：（All spaces' replace number must be greater than 1）prepare storaged's binary and config files in the new host， Modify the config files and add all existing metad's adress. Then start the new storagedd process.</p>
+<p>You may also need to run <a href="../8.service-tuning/load-balance">Balance Data and Balance leader</a> after scaling in/out storaged. </p>
 <h2 id="about_connections">About connections<a class="headerlink" href="#about_connections" title="Permanent link">¶</a></h2>
 <details class="faq" open="open"><summary>Which ports should be opened on the firewalls?</summary><p>If you have not changed the predefined ports in the <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">configurations</a>, open the following ports for the Nebula Graph services:</p>
 <table>
