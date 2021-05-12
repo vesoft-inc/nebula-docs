@@ -1674,26 +1674,20 @@
 <li>
 <p>Install the new version of Nebula Graph on each machine.</p>
 <ul>
-<li>To install with RPM/DEB packages, run the following command. For detailed steps, see <a href="../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Install Nebula Graph with RPM or DEB package</a>.<div class="highlight"><pre><span></span><code>&gt; sudo rpm --force -i --prefix<span class="o">=</span><span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>  <span class="si">${</span><span class="nv">nebula</span><span class="p">-package-name.rpm</span><span class="si">}</span> <span class="c1"># for CentOS/RedHat</span>
+<li>
+<p>To install with RPM/DEB packages, run the following command. For detailed steps, see <a href="../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Install Nebula Graph with RPM or DEB package</a>.</p>
+<div class="highlight"><pre><span></span><code>&gt; sudo rpm --force -i --prefix<span class="o">=</span><span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>  <span class="si">${</span><span class="nv">nebula</span><span class="p">-package-name.rpm</span><span class="si">}</span> <span class="c1"># for CentOS/RedHat</span>
 &gt; sudo dpkg -i --instdir<span class="o">==</span><span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span> <span class="si">${</span><span class="nv">nebula</span><span class="p">-package-name.deb</span><span class="si">}</span> <span class="c1"># for Ubuntu</span>
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>
-<p>To install with the source code, follow the substeps. For detailed steps, see <a href="../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/">Install Nebula Graph by compiling the source code</a></p>
-<ol>
-<li>
-<p>Clone the source code.</p>
+<li>To install with the source code, follow the substeps. For detailed steps, see <a href="../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/">Install Nebula Graph by compiling the source code</a><p>1. Clone the source code.</p>
 <div class="highlight"><pre><span></span><code>&gt; git clone --branch v2.0.0 https://github.com/vesoft-inc/nebula-graph.git
 </code></pre></div>
-</li>
-<li>
-<p>Configure CMake.</p>
+<p>2. Configure CMake.</p>
 <div class="highlight"><pre><span></span><code>&gt; cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span> -DENABLE_BUILD_STORAGE<span class="o">=</span>on -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release -DNEBULA_COMMON_REPO_TAG<span class="o">=</span>v2.0.0  -DNEBULA_STORAGE_REPO_TAG<span class="o">=</span>v2.0.0 .. 
 </code></pre></div>
-</li>
-</ol>
 </li>
 </ul>
 </li>
@@ -1730,12 +1724,16 @@
 <li>
 <p>Prepare the Storage configuration files on each Storage server.</p>
 <ul>
-<li>If the old Storage data path is not the default setting <code>--data_path=data/storage</code>, Modify the Storage configuration file and change the value of <code>--data_path</code> as the new data path.<div class="highlight"><pre><span></span><code>&gt; vim <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/nebula-storaged.conf
+<li>
+<p>If the old Storage data path is not the default setting <code>--data_path=data/storage</code>, Modify the Storage configuration file and change the value of <code>--data_path</code> as the new data path.</p>
+<div class="highlight"><pre><span></span><code>&gt; vim <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/nebula-storaged.conf
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Create the new Storage data directories.<div class="highlight"><pre><span></span><code>&gt; mkdir -p <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/data/storage/
+<li>
+<p>Create the new Storage data directories.</p>
+<div class="highlight"><pre><span></span><code>&gt; mkdir -p <span class="si">${</span><span class="nv">nebula</span><span class="p">-new</span><span class="si">}</span>/data/storage/
 </code></pre></div>
 </li>
 </ul>
@@ -1813,18 +1811,10 @@
 <p class="admonition-title">Note</p>
 <p>Make sure that all the Storage servers have finished the upgrade. If anything goes wrong:</p>
 <ol>
-<li>
-<p>Stop upgrading.</p>
-</li>
-<li>
-<p>Stop all the Meta servers.</p>
-</li>
-<li>
-<p>Start the Nebula Graph services from the old directories.</p>
-</li>
-<li>
-<p>Go to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
-</li>
+<li>Stop upgrading.</li>
+<li>Stop all the Meta servers.</li>
+<li>Start the Nebula Graph services from the old directories.</li>
+<li>Go to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</li>
 </ol>
 </div>
 </li>
@@ -1837,18 +1827,10 @@ $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-
 <p class="admonition-title">Note</p>
 <p>If this step goes wrong on any server:</p>
 <ol>
-<li>
-<p>Stop upgrading.</p>
-</li>
-<li>
-<p>Stop all the Meta servers and Storage servers.</p>
-</li>
-<li>
-<p>Start the Nebula Graph services from the old directories.</p>
-</li>
-<li>
-<p>Take the logs in <code>${nebula-new}/logs/</code> to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
-</li>
+<li>Stop upgrading.</li>
+<li>Stop all the Meta servers and Storage servers.</li>
+<li>Start the Nebula Graph services from the old directories.</li>
+<li>Take the logs in <code>${nebula-new}/logs/</code> to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</li>
 </ol>
 </div>
 </li>
@@ -1860,20 +1842,10 @@ $ sudo <span class="si">${</span><span class="nv">nebula</span><span class="p">-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If this step goes wrong on any server:</p>
-<ol>
-<li>
-<p>Stop upgrading.</p>
-</li>
-<li>
-<p>Stop all the Meta servers, Storage servers, and Graph servers.</p>
-</li>
-<li>
-<p>Start the Nebula Graph services from the old directories.</p>
-</li>
-<li>
-<p>Take the logs in <code>${nebula-new}/logs/</code> to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
-</li>
-</ol>
+<p>1. Stop upgrading.
+  2. Stop all the Meta servers, Storage servers, and Graph servers.
+  3. Start the Nebula Graph services from the old directories.
+  4. Take the logs in <code>${nebula-new}/logs/</code> to the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a> for help.</p>
 </div>
 </li>
 <li>
@@ -1999,7 +1971,7 @@ nebula&gt; SHOW STATS;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 12, 2021</span>
 </small>
 </div>
 </article>
