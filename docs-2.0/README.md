@@ -1,6 +1,6 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs) {{ git.short_commit }}."
+!!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/tree/v2.0.1) {{ git.short_commit }}."
 
 Nebula Graph is a distributed, scalable, and lightning-fast graph database.
 
@@ -9,7 +9,6 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 ## Tutorial Video
 
 * [YouTube](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw/)
-* [bilibili](https://space.bilibili.com/472621355)
 
 ## Getting started
 
