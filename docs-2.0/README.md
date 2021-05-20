@@ -15,5 +15,5 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
-* [FAQ](2.quick-start/0.FAQ.md)
-* [Links](2.quick-start/6.useful-links.md)
+* [FAQ](19.FAQ/0.FAQ.md)
+* [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
