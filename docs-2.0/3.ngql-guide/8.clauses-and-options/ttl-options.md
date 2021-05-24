@@ -8,7 +8,7 @@ This topic applies to nGQL extensions only.
 
 ## Precautions
 
-* You CANNOT modify a property with TTL options on it.
+* You CANNOT modify a property schema with TTL options on it.
 
 * TTL options and indexes CANNOT coexist on a tag or an edge type. Not even if you try to set them on different properties.
 
@@ -98,12 +98,9 @@ To disable TTL and remove the timeout on a property, use the following approache
     nebula> ALTER TAG t1 DROP (a);
     ```
 
-* Set `ttl_duration` to 0. This operation keeps the TTL options and prevents the property from expiring.
+* Set `ttl_duration` to 0. This operation keeps the TTL options and prevents the property from expiring and the property schema from being modified.
 
     ```ngql
     nebula> ALTER TAG t1 ttl_duration = 0;
     ```
 
-  !!! caution
-
-        Even when `ttl_duration` is 0, you CANNOT alter the property because it still has TTL options.
