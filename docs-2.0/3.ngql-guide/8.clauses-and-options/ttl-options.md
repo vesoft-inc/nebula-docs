@@ -98,12 +98,9 @@ To disable TTL and remove the timeout on a property, use the following approache
     nebula> ALTER TAG t1 DROP (a);
     ```
 
-* Set `ttl_duration` to 0. This operation keeps the TTL options and prevents the property from expiring.
+* Set `ttl_duration` to 0. This operation keeps the TTL options, and prevents the property from expiring and being modified.
 
     ```ngql
     nebula> ALTER TAG t1 ttl_duration = 0;
     ```
 
-  !!! caution
-
-        Even when `ttl_duration` is 0, you CANNOT alter the property because it still has TTL options.
