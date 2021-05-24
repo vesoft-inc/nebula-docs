@@ -11,4 +11,4 @@ This document lists the shortcuts supported in Studio.
 | Show graph in **Schema** | Shift + ‘l’  |
 | Rollback in **Schema** | Shift + ‘z’  |
 | Delete map in **Schema**  | Selected + Shift + 'del'  |
-| Expand a vertex in **Schema**  | Double click the left mouse button or Shift + Enter |
+| Expand a vertex in **Schema**  | Double Left-click or Shift + Enter |

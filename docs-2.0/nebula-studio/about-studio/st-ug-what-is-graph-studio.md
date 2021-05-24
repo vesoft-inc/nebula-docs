@@ -10,9 +10,9 @@ For now, Studio has three release versions:
 
 - RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [Deploy Studio](../install-configure/st-ug-deploy.md).
 
-- Cloud Service. You can connect to Nebula Graph Cloud Service with one-click and create Nebula Graph database instance. For more information, see [Nebula Graph Cloud Service User Guide]([../install-configure/st-ug-deploy.md](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/)).
+- Cloud Service. You can connect to Nebula Graph Cloud Service with one click and create Nebula Graph instance. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/).
 
-The functions of the three releases are about the same. But because of different deployment methods, there will be different usage restrictions. For more information, see [Limitation](../about-studio/st-ug-limitations.md).
+The functions of the three releases are about the same. But because of different deployment methods, there will be different usage limitations. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
 
 ## Features
 
@@ -40,6 +40,6 @@ You can use Studio in one of these scenarios:
 
 ## Authentication
 
-For Studio on Cloud, only the instance creator and the Nebula Graph Cloud Service accounts that are authorized to manipulate data in Nebula Graph can connect to Studio. For more information, see [Nebula Graph Cloud Service User Guide]([../install-configure/st-ug-deploy.md](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/)).
+For Studio on Cloud, only the instance creator and the Nebula Graph Cloud Service accounts that are authorized to manipulate data in Nebula Graph can connect to Studio. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/).
 
-For Docker-based and RPM-based Studio, authentication is not enabled in Nebula Graph by default and you can sign in to Studio with the default account and password (`user` and `password`) to log in to Studio.
+For Docker-based and RPM-based Studio, authentication is not enabled in Nebula Graph by default. You can sign in to Studio with the default account and password (`user` and `password`).
