@@ -2,7 +2,7 @@
 
 The `ORDER BY` clause specifies the order of the rows in the output.
 
-- NGQL-extension: You must use a pipe (`|`) and an `ORDER BY` clause after `YIELD` clause.
+- Native nGQL: You must use a pipe (`|`) and an `ORDER BY` clause after `YIELD` clause.
 - OpenCypher style: no pipe is permitted. `ORDER BY` follows a `RETURN` clause.
 
 There are two order options:
@@ -12,7 +12,7 @@ There are two order options:
 
 An order option takes effect only when the expression before it is used for sorting the results.
 
-## nGQL-extension Syntax
+## Native nGQL Syntax
 
 ```ngql
 <YIELD clause>

@@ -33,7 +33,7 @@ RETURN n
 ```
 
 ```ngql
-/* The ngql style:    \
+/* The native nGQL style:    \
 The following comment \
 spans more than       \
 one line */           \

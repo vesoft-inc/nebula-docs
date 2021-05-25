@@ -9,7 +9,7 @@
 
 ## OpenCypher compatibility
 
-This topic applies to the openCypher syntax in nGQL only. For nGQL extensions, use [`YIELD`](yield.md).
+This topic applies to the openCypher syntax in nGQL only. For native nGQL, use [`YIELD`](yield.md).
 
 `RETURN` does not support the following openCypher features yet.
 
@@ -29,9 +29,9 @@ This topic applies to the openCypher syntax in nGQL only. For nGQL extensions, u
 
 ## NGQL compatibility
 
-* In nGQL 1.0, `RETURN` works with nGQL extensions with the syntax `RETURN <var_ref> IF <var_ref> IS NOT NULL`.
+* In nGQL 1.0, `RETURN` works with native nGQL with the syntax `RETURN <var_ref> IF <var_ref> IS NOT NULL`.
 
-* In nGQL 2.0, `RETURN` does not work with nGQL extensions.
+* In nGQL 2.0, `RETURN` does not work with native nGQL.
 
 ## Return vertices
 

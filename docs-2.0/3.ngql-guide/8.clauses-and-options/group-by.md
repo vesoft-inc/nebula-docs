@@ -2,9 +2,9 @@
 
 ## OpenCypher Compatibility
 
-This page applies to nGQL extensions only.
+This page applies to native nGQL only.
 
-Use `GROUP BY` in nGQL-extensions **ONLY** to aggregate data.
+Use `GROUP BY` in native nGQL statements **ONLY** to aggregate data.
 
 OpenCypher uses the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
 
