@@ -4,14 +4,14 @@ The `WHERE` clause filters the outputs by conditions.
 
 `WHERE` works in the following queries:
 
-* nGQL extensions such as `GO` and `LOOKUP`.
+* Native nGQL such as `GO` and `LOOKUP`.
 * OpenCypher syntax such as `MATCH` and `WITH`.
 
 ## OpenCypher compatibility
 
 * Using patterns in `WHERE` is not supported (TODO: planning), for example `WHERE (v)-->(v2)`.
 
-* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. It only applies to nGQL extensions such as `GO` and `LOOKUP` because the concept edge rank does not exist in openCypher.
+* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. It only applies to native nGQL such as `GO` and `LOOKUP` because the concept edge rank does not exist in openCypher.
 
 ## Basic usage
 

@@ -4,15 +4,15 @@
 
 The `WITH` clause can take the output from a query part, process it, and pass it to the next query part as the input.
 
-`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in nGQL-extension, but they work in different ways.
+`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in native nGQL, but they work in different ways.
 
 `WITH` only works in the openCypher syntax, such as in `MATCH` or `UNWIND`.
 
-In the nGQL-extensions such as `GO` or `FETCH`, use pipe symbols (`|`) instead.
+In the native nGQL statements such as `GO` or `FETCH`, use pipe symbols (`|`) instead.
 
 !!! danger
 
-    Don't use pipe symbols in the openCypher syntax or use `WITH` in the nGQL extensions. Such operations may cause unpredictable results.
+    Don't use pipe symbols in the openCypher syntax or use `WITH` in the native nGQL. Such operations may cause unpredictable results.
 
 ## Combine statements and form a composite query
 

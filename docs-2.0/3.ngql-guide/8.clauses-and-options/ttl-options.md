@@ -4,7 +4,7 @@ TTL indicates time to live. Use the [TTL options](#ttl_options) to specify a tim
 
 ## OpenCypher Compatibility
 
-This topic applies to nGQL extensions only.
+This topic applies to native nGQL only.
 
 ## Precautions
 
@@ -38,7 +38,7 @@ Nebula Graph automatically deletes the expired data and reclaims the disk space 
 
 ## TTL options
 
-The nGQL TTL feature has the following options.
+The native nGQL TTL feature has the following options.
 
 |Option|Description|
 |-|-|
