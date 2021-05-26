@@ -4,8 +4,7 @@ To batch import data into Nebula Graph, you must have a graph schema. You can cr
 
 !!! note
 
-    You can use nebula-console to create a schema. For more information, see [Deploy Nebula Graph with Docker Compose
-](https://docs.nebula-graph.io/2.0/2.quick-start/3.connect-to-nebula-graph/) and [Get started with Nebula Graph](https://docs.nebula-graph.io/2.0/2.quick-start/4.nebula-graph-crud/).
+    You can use nebula-console to create a schema. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/3.connect-to-nebula-graph/) and [Get started with Nebula Graph](https://docs.nebula-graph.io/2.0/2.quick-start/4.nebula-graph-crud/).
 
 ## Prerequisites
 
