@@ -14,7 +14,7 @@ For now, Docker-based and RPM-based Studio v2.x supports x86_64 architecture onl
 
 During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these limitations:
 
-- Only CSV files without headers are supported, and only commas are acceptable separator.
+- Only CSV files without headers are supported, and only commas are separators separator.
 - Each file of a maximum of 100 MB is supported.
 - A total amount of a maximum of 1 GB is supported for each Nebula graph instance.
 - Each file is stored for only one calendar day.
