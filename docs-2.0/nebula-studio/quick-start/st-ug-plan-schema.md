@@ -8,7 +8,7 @@ A graph schema for Nebula Graph must have these essential elements:
 
 - Edge types and their properties.
 
-In this article, you can install the sample data set [basketballplayer](https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip)and it is used to introducing how to design a schema.
+In this article, you can install the sample data set [basketballplayer](https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip) and use it to explore a pre-designed schema.
 
 This table gives all the essential elements of the schema.
 
