@@ -9,10 +9,10 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/nebula-studio/install-configure/st-ug-deploy/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.5" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.7" name="generator"/>
 <title>Deploy Studio - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.bde7dde4.min.css" rel="stylesheet"/>
-<link href="../../../assets/stylesheets/palette.ef6f36e2.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.ca7ac06f.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -1377,6 +1377,12 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#docker-based_studio">
+    Docker-based Studio
+  </a>
+<nav aria-label="Docker-based Studio" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
 <a class="md-nav__link" href="#prerequisites">
     Prerequisites
   </a>
@@ -1385,6 +1391,38 @@
 <a class="md-nav__link" href="#procedure">
     Procedure
   </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rpm-based_studio">
+    RPM-based Studio
+  </a>
+<nav aria-label="RPM-based Studio" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites_1">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install">
+    Install
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uninstall">
+    Uninstall
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exception_handling">
+    Exception handling
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#next_to_do">
@@ -1402,38 +1440,74 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="deploy_studio">Deploy Studio<a class="headerlink" href="#deploy_studio" title="Permanent link">¶</a></h1>
-<p>This article introduces how to deploy Docker-based Studio v2.x.  </p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>Before you deploy Docker-based Studio v2.x, you must do a check of these:</p>
+<p>Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Nebula Graph instance on Nebula Graph Cloud Service, Studio on Cloud is deployed automatically. For more information, see <a href="https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/">Nebula Graph Cloud Service User Guide</a>. For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.</p>
+<h2 id="docker-based_studio">Docker-based Studio<a class="headerlink" href="#docker-based_studio" title="Permanent link">¶</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h3>
+<p>Before you deploy Docker-based Studio, you must do a check of these:</p>
 <ul>
-<li>The Nebula Graph v2.x services are deployed and started. For more information, see <a href="https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.
-  !!! note<div class="codehilite"><pre><span></span><code>Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
-</code></pre></div>
+<li>
+<p>The Nebula Graph services are deployed and started. For more information, see <a href="https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see <a href="https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/">Deploy Nebula Graph with Docker Compose</a>.</p>
+</div>
 </li>
 </ul>
 <ul>
-<li>On the machine where Studio v2.x will run, Docker Compose is installed and started. For more information, see <a href="https://docs.docker.com/compose/install/" title="Click to go to Docker Documentation">Docker Compose Documentation</a>.</li>
+<li>On the machine where Studio will run, Docker Compose is installed and started. For more information, see <a href="https://docs.docker.com/compose/install/" title="Click to go to Docker Documentation">Docker Compose Documentation</a>.</li>
 </ul>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
-<p>To deploy and start Docker-based Studio v2.x, run these commands one by one:</p>
+<ul>
+<li>
+<p>Before the installation starts, the following ports are not occupied.</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7001</td>
+<td>Web service provided by Studio</td>
+</tr>
+<tr>
+<td>8080</td>
+<td>Nebula-http-gateway, Client's HTTP service</td>
+</tr>
+<tr>
+<td>5699</td>
+<td>Nebula importer file import tool, provide data import service</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h3>
+<p>To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:</p>
 <ol>
 <li>
-<p>Download the configuration files for the deployment.</p>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/vesoft-inc/nebula-web-docker.git
-</code></pre></div>
+<p>Download the configuration files for the deployment.
+   | Installation package | Nebula Graph version |
+   | ----- | ----- |
+   | <a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v1.tar.gz">nebula-graph-studio-v1.tar.gz</a> | 1.x |
+   | <a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v2.tar.gz">nebula-graph-studio-v2.tar.gz</a> | 2.x |</p>
 </li>
 <li>
-<p>Change to the <code>nebula-web-docker/v2</code> directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-web-docker/v2
+<p>Create the <code>nebula-graph-studio-v2</code> directory and decompress the installation package to the directory.</p>
+<p><div class="highlight"><pre><span></span><code>mkdir nebula-graph-studio-v2 <span class="o">&amp;&amp;</span> tar -zxvf nebula-graph-studio-v2.gz -C nebula-graph-studio-v2
 </code></pre></div>
+3. Change to the <code>nebula-graph-studio-v2</code> directory.
+ <div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-graph-studio-v2
+</code></pre></div></p>
 </li>
 <li>
-<p>Pull the Docker image of Studio v2.x.</p>
+<p>Pull the Docker image of Studio.</p>
 <div class="highlight"><pre><span></span><code>docker-compose pull
 </code></pre></div>
 </li>
 <li>
-<p>Build and start Docker-based Studio v2.x. In this command, <code>-d</code> is to run the containers in the background.</p>
+<p>Build and start Docker-based Studio. In this command, <code>-d</code> is to run the containers in the background.</p>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
 <p>If these lines return, Docker-based Studio v2.x is deployed and started.</p>
@@ -1448,16 +1522,159 @@ Creating docker_nginx_1    ... <span class="k">done</span>
   !!! note</p>
 <p>Run <code>ifconfig</code> or <code>ipconfig</code> to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use <code>http://localhost:7001</code> to get access to Studio.</p>
 <p>If you can see the <strong>Config Server</strong> page on the browser, Docker-based Studio is started successfully.</p>
-<p><img alt="The Config Server page shows that Docker-based Studio is started successfully" src="https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052.png" title="Docker-based Studio is started"/></p>
+<p><img alt="The Config Server page shows that Docker-based Studio is started successfully" src="https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png" title="Docker-based Studio is started"/></p>
 </li>
 </ol>
+<h2 id="rpm-based_studio">RPM-based Studio<a class="headerlink" href="#rpm-based_studio" title="Permanent link">¶</a></h2>
+<h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">¶</a></h3>
+<p>Before you deploy Docker-based Studio , you must do a check of these:</p>
+<ul>
+<li>
+<p>The Nebula Graph services are deployed and started. For more information, see <a href="https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see <a href="https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/">Deploy Nebula Graph with Docker Compose</a>.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li>
+<p>The Linux distribution is CentOS, installed <code>lsof</code> and <code>Node.js</code> of version above v10.16.0 +.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>node</code> and <code>npm</code> should be installed in <code>/usr/bin/</code> directory. Avoid the situation that the node command cannot be found during RPM installation.
+  For example, the default directory of nodejs12 is in <code>/opt/rh/rh-nodejs12</code>，you can use following commands to build soft link:</p>
+</div>
+<div class="highlight"><pre><span></span><code>$ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
+$ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Before the installation starts, the following ports are not occupied.</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7001</td>
+<td>Web service provided by Studio</td>
+</tr>
+<tr>
+<td>8080</td>
+<td>Nebula-http-gateway, Client's HTTP service</td>
+</tr>
+<tr>
+<td>5699</td>
+<td>Nebula importer, provide data import service</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Installation package</th>
+<th>Checksum</th>
+<th>Nebula version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm">nebula-graph-studio-2.2.1-5.x86_64.rpm</a></td>
+<td><a href="https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256">nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256</a></td>
+<td>2.0.1</td>
+</tr>
+<tr>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm">nebula-graph-studio-2.2.0-1.x86_64.rpm</a></td>
+<td><a href="https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256">nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256</a></td>
+<td>2.0.1</td>
+</tr>
+<tr>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.1.9-1.x86_64.rpm">nebula-graph-studio-2.1.9-1.x86_64.rpm</a></td>
+<td>-</td>
+<td>2.0 GA</td>
+</tr>
+<tr>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm">nebula-graph-studio-1.2.7-2.x86_64.rpm</a></td>
+<td><a href="https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256">nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256</a></td>
+<td>1.x</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Use <code>sudo rpm -i &lt;rpm&gt;</code> to install RPM package.</p>
+<p>For example, install Studio 2.2.1, use the following command:
+ <div class="highlight"><pre><span></span><code>sudo rpm -i nebula-graph-studio-2.2.1-5.x86_64.rpm
+</code></pre></div></p>
+<p>When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
+ <div class="highlight"><pre><span></span><code>--- START OF NEBULA IMPORTER ---
+<span class="o">[</span>INFO<span class="o">]</span> httpserver.go:80: Starting http server on <span class="m">5699</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>When Docker-based Studio v2.x is started, use <code>http://ip address:7001</code> to get access to Studio v2.x.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run <code>ifconfig</code> or <code>ipconfig</code> to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use <code>http://localhost:7001</code> to get access to Studio.</p>
+</div>
+<p>If you can see the <strong>Config Server</strong> page on the browser, Docker-based Studio is started successfully.</p>
+<p><img alt="The Config Server page shows that Docker-based Studio is started successfully" src="https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png" title="Docker-based Studio is started"/></p>
+</li>
+</ol>
+<h3 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">¶</a></h3>
+<p>Users can uninstall Studio using the following command:</p>
+<div class="highlight"><pre><span></span><code>sudo rpm -e nebula-graph-studio-2.2.0-1.x86_64.rpm
+</code></pre></div>
+<h3 id="exception_handling">Exception handling<a class="headerlink" href="#exception_handling" title="Permanent link">¶</a></h3>
+<p>If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:</p>
+<ul>
+<li>Start the service manually.
+<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/start.sh
+</code></pre></div></li>
+</ul>
+<ul>
+<li>Stop the service manually
+<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/stop.sh
+</code></pre></div></li>
+</ul>
+<p>If you encounter an error <code>bind EADDRINUSE 0.0.0.0:7001</code> when starting the service, you can use the following command to check port 7001 usage.
+<div class="highlight"><pre><span></span><code>lsof -i:7001
+</code></pre></div></p>
+<p>If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
+```bash
+ //Open the configuration file
+ $ vi config/config.default.js</p>
+<p>//Change the port number
+ ...
+     config.cluster = {
+         listen: {
+             port: 7001, // Modify this port number and change it to any one currently available
+             hostname: '0.0.0.0',
+         },
+     };
+ ...</p>
+<p>//Restart npm
+ $ npm run start
+ ```</p>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">¶</a></h2>
 <p>On the <strong>Config Server</strong> page, connect Docker-based Studio to Nebula Graph. For more information, see <a href="../st-ug-connect/">Connect to Nebula Graph</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 8, 2021</span>
 </small>
 </div>
 </article>
@@ -1492,8 +1709,8 @@ Creating docker_nginx_1    ... <span class="k">done</span>
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.d351de03.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.b0710199.min.js", "version": {"method": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.76f349be.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>
