@@ -1,41 +1,57 @@
 # Deploy Studio
 
-This article introduces how to deploy Docker-based Studio v2.x.  
+Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Nebula Graph instance on Nebula Graph Cloud Service, Studio on Cloud is deployed automatically. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/). For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.
 
-## Prerequisites
+## Docker-based Studio
 
-Before you deploy Docker-based Studio v2.x, you must do a check of these:
+### Prerequisites
 
-- The Nebula Graph v2.x services are deployed and started. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
+Before you deploy Docker-based Studio, you must do a check of these:
+
+- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
+
   !!! note
 
-      Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
+        Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
 
-- On the machine where Studio v2.x will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
+- On the machine where Studio will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
 
-## Procedure
+- Before the installation starts, the following ports are not occupied.
 
-To deploy and start Docker-based Studio v2.x, run these commands one by one:
+   | Port | Description |
+   | ---- | ---- |
+   | 7001 | Web service provided by Studio |
+   | 8080 | Nebula-http-gateway, Client's HTTP service |
+   | 5699 | Nebula importer file import tool, provide data import service |
+
+
+### Procedure
+
+To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:
 
 1. Download the configuration files for the deployment.
+   | Installation package | Nebula Graph version |
+   | ----- | ----- |
+   | [nebula-graph-studio-v1.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v1.tar.gz) | 1.x |
+   | [nebula-graph-studio-v2.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v2.tar.gz) | 2.x |
+
+2. Create the `nebula-graph-studio-v2` directory and decompress the installation package to the directory.
 
     ```bash
-    git clone https://github.com/vesoft-inc/nebula-web-docker.git
+    mkdir nebula-graph-studio-v2 && tar -zxvf nebula-graph-studio-v2.gz -C nebula-graph-studio-v2
     ```
+3. Change to the `nebula-graph-studio-v2` directory.
+   ```bash
+   cd nebula-graph-studio-v2
+   ```
 
-2. Change to the `nebula-web-docker/v2` directory.
-
-    ```bash
-    cd nebula-web-docker/v2
-    ```
-
-3. Pull the Docker image of Studio v2.x.
+4. Pull the Docker image of Studio.
 
     ```bash
     docker-compose pull
     ```
 
-4. Build and start Docker-based Studio v2.x. In this command, `-d` is to run the containers in the background.
+5. Build and start Docker-based Studio. In this command, `-d` is to run the containers in the background.
 
    ```bash
    docker-compose up -d
@@ -50,15 +66,126 @@ To deploy and start Docker-based Studio v2.x, run these commands one by one:
     Creating docker_nginx_1    ... done
     ```
 
-5. When Docker-based Studio v2.x is started, use `http://ip address:7001` to get access to Studio v2.x.
+6. When Docker-based Studio v2.x is started, use `http://ip address:7001` to get access to Studio v2.x.
   !!! note
 
     Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png "Docker-based Studio is started")
 
+## RPM-based Studio
+
+### Prerequisites
+
+Before you deploy Docker-based Studio , you must do a check of these:
+
+- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
+
+  !!! note
+
+        Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
+
+- The Linux distribution is CentOS, installed `lsof` and `Node.js` of version above v10.16.0 +.
+  
+  !!! note
+
+        `node` and `npm` should be installed in `/usr/bin/` directory. Avoid the situation that the node command cannot be found during RPM installation.
+        For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`，you can use following commands to build soft link:
+
+   ```bash
+   $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
+   $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
+   ```
+
+- Before the installation starts, the following ports are not occupied.
+
+   | Port | Description |
+   | ---- | ---- |
+   | 7001 | Web service provided by Studio |
+   | 8080 | Nebula-http-gateway, Client's HTTP service |
+   | 5699 | Nebula importer, provide data import service |
+
+### Install
+
+1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
+
+   | Installation package | Checksum | Nebula version |
+   | ----- | ----- | ----- |
+   | [nebula-graph-studio-2.2.1-5.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm) |  [nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256) | 2.0.1 |
+   | [nebula-graph-studio-2.2.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm) |  [nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256) | 2.0.1 |
+   | [nebula-graph-studio-2.1.9-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.1.9-1.x86_64.rpm) | - |  2.0 GA |
+   | [nebula-graph-studio-1.2.7-2.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm) | [nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256) |  1.x |
+
+2. Use `sudo rpm -i <rpm>` to install RPM package.
+   
+   For example, install Studio 2.2.1, use the following command:
+   ```bash
+   sudo rpm -i nebula-graph-studio-2.2.1-5.x86_64.rpm
+   ```
+
+   When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
+   ```bash
+   --- START OF NEBULA IMPORTER ---
+   [INFO] httpserver.go:80: Starting http server on 5699
+   ```
+
+3. When Docker-based Studio v2.x is started, use `http://ip address:7001` to get access to Studio v2.x.
+
+  !!! note
+
+        Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
+
+   If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
+
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png "Docker-based Studio is started")
+
+### Uninstall
+
+Users can uninstall Studio using the following command:
+
+```bash
+sudo rpm -e nebula-graph-studio-2.2.0-1.x86_64.rpm
+```
+
+### Exception handling
+
+If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:
+
+- Start the service manually.
+```bash
+bash /usr/local/nebula-graph-studio/scripts/start.sh
+```
+
+- Stop the service manually
+```bash
+bash /usr/local/nebula-graph-studio/scripts/stop.sh
+```
+
+If you encounter an error `bind EADDRINUSE 0.0.0.0:7001` when starting the service, you can use the following command to check port 7001 usage.
+```bash
+lsof -i:7001
+```
+
+If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
+```bash
+ //Open the configuration file
+ $ vi config/config.default.js
+
+ //Change the port number
+ ...
+     config.cluster = {
+         listen: {
+             port: 7001, // Modify this port number and change it to any one currently available
+             hostname: '0.0.0.0',
+         },
+     };
+ ...
+
+ //Restart npm
+ $ npm run start
+ ```
 ## Next to do
 
 On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).
