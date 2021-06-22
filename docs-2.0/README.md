@@ -29,11 +29,11 @@ It is the optimal solution in the world capable of hosting graphs with dozens of
 
 !!! caution
 
-    Cautions that need strict observation. If not, systematic breakdown, data loss and security issue may happen.
+    Cautions that need strict observation. If not, systematic breakdown, data loss, and security issues may happen.
 
 !!! danger
 
-    Operations that may cause danger. If not observed, systematic breakdown, data loss and security issue will happen.
+    Operations that may cause danger. If not observed, systematic breakdown, data loss, and security issues will happen.
 
 !!! performance
 
