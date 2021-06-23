@@ -1422,26 +1422,32 @@
 <h1 id="data_modeling">Data modeling<a class="headerlink" href="#data_modeling" title="Permanent link">¶</a></h1>
 <p>A data model is a model that organizes data and specifies how they are related to one another. This topic describes the Nebula Graph data model and provides suggestions for data modeling with Nebula Graph.</p>
 <h2 id="data_structures">Data structures<a class="headerlink" href="#data_structures" title="Permanent link">¶</a></h2>
-<p>Nebula Graph data model uses five data structures to store data. They are vertices, edges, properties, tags, and edge types.</p>
+<p>Nebula Graph data model uses six data structures to store data. They are spaces, vertices, edges, properties, tags, and edge types.</p>
 <ul>
+<li><strong>Graph spaces</strong>: Graph spaces are used to isolate data from different teams or programs. Data stored in different graph spaces are securely isolated. Storage replications, privileges, and partitions can be assigned.</li>
 <li><strong>Vertices</strong>: Vertices are used to store entities.<ul>
-<li>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>). The <code>VID</code> must be unique in the same graph space.</li>
-<li>A vertex must have at least one tag.</li>
+<li>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>). The <code>VID</code> must be unique in the same graph space. VID should be int64, or fixed_string(N)。</li>
+<li>A vertex must have at least one tag or multiple tags.</li>
 </ul>
 </li>
 <li><strong>Edges</strong>: Edges are used to connect vertices. An edge is a connection or behavior between two vertices.<ul>
-<li>An edge is identified uniquely with a source vertex, an edge type, a rank value, and a destination vertex.</li>
+<li>There can be multiple edges between two vertices.</li>
 <li>Edges are directed. <code>-&gt;</code> identifies the directions of edges. Edges can be traversed in either direction.</li>
+<li>An edge is identified uniquely with a source vertex, an edge type, a rank value, and a destination vertex. Edges have no EID.</li>
 <li>An edge must have one and only one edge type.</li>
 <li>The rank value is an immutable user-assigned 64-bit signed integer. It identifies the edges with the same edge type between two vertices. Edges are sorted by their rank values. The edge with the greatest rank value is listed first. The default rank value is zero.</li>
 </ul>
 </li>
-<li><strong>Properties</strong>: Properties are key-value pairs. Both vertices and edges are containers for properties.</li>
 <li><strong>Tags</strong>: Tags are used to categorize vertices. Vertices that have the same tag share the same definition of properties.</li>
 <li><strong>Edge types</strong>: Edge types are used to categorize edges. Edges that have the same edge type share the same definition of properties.</li>
+<li><strong>Properties</strong>: Properties are key-value pairs. Both vertices and edges are containers for properties.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tag and Edge type are similar to the vertex graph and edge graph in the relational databases.</p>
+</div>
 <h2 id="directed_property_graph">Directed property graph<a class="headerlink" href="#directed_property_graph" title="Permanent link">¶</a></h2>
-<p>Nebula Graph stores data in directed property graphs. A directed property graph has a set of vertices connected by edges. And the edges have directions. A directed property graph is represented as:</p>
+<p>Nebula Graph stores data in directed property graphs. A directed property graph has a set of vertices connected by directed edges. Both vertices and edges can have properties. A directed property graph is represented as:</p>
 <p><strong>G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;</strong></p>
 <ul>
 <li><strong>V</strong> is a set of vertices.</li>
@@ -1449,7 +1455,7 @@
 <li><strong>P<sub>V</sub></strong> is the property of vertices.</li>
 <li><strong>P<sub>E</sub></strong> is the property of edges.</li>
 </ul>
-<p>The following table is an example of the structure of the basketball player dataset. We have two types of vertices, that is <strong>player</strong> and <strong>team</strong>, and two types of edges, that is <strong><em>serve</em></strong> and <strong><em>like</em></strong>.</p>
+<p>The following table is an example of the structure of the basketball player dataset. We have two types of vertices, that is <strong>player</strong> and <strong>team</strong>, and two types of edges, that is <strong><em>serve</em></strong> and <strong><em>follow</em></strong>.</p>
 <table>
 <thead>
 <tr>
@@ -1476,21 +1482,25 @@
 <td align="left">Edge type</td>
 <td align="left"><strong>serve</strong></td>
 <td align="left">start_year (int) <br> end_year (int)</br></td>
-<td align="left">Represents actions taken by players in the team. An action links a player and a team and the direction is from a player to a team.</td>
+<td align="left">Represents actions taken by players in the team. An action links a player with a team, and the direction is from a player to a team.</td>
 </tr>
 <tr>
 <td align="left">Edge type</td>
-<td align="left"><strong>like</strong></td>
-<td align="left">likeness (int)</td>
-<td align="left">Represents actions taken by players in the team. An action links a player and another player and the direction is from one player to the other player.</td>
+<td align="left"><strong>follow</strong></td>
+<td align="left">degree (int)</td>
+<td align="left">Represents actions taken by players in the team. An action links a player with another player, and the direction is from one player to the other player.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nebula Graph supports only directed edges.</p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 20, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 23, 2021</span>
 </small>
 </div>
 </article>
