@@ -7,10 +7,10 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/master/1.introduction/2.data-model/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/1.introduction/2.1.path/" rel="canonical"/>
 <link href="../../assets/images/favicon.ico" rel="icon"/>
 <meta content="mkdocs-1.1, mkdocs-material-7.1.8" name="generator"/>
-<title>Data model - Nebula Graph Database Manual</title>
+<title>Path types - Nebula Graph Database Manual</title>
 <link href="../../assets/stylesheets/main.ca7ac06f.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#data_modeling">
+<a class="md-skip" href="#path_types">
           Skip to content
         </a>
 </div>
@@ -58,7 +58,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Data model
+              Path types
             
           </span>
 </div>
@@ -117,8 +117,8 @@
         About
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_2">
         Introduction
         <span class="md-nav__icon md-icon"></span>
@@ -134,33 +134,10 @@
         What is Nebula Graph
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-          Data model
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2.data-model/">
         Data model
       </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#data_structures">
-    Data structures
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#directed_property_graph">
-    Directed property graph
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
@@ -1400,13 +1377,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#data_structures">
-    Data structures
+<a class="md-nav__link" href="#walk">
+    walk
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#directed_property_graph">
-    Directed property graph
+<a class="md-nav__link" href="#trail">
+    trail
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#path">
+    path
   </a>
 </li>
 </ul>
@@ -1416,86 +1398,45 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/1.introduction/2.data-model.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/1.introduction/2.1.path.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="data_modeling">Data modeling<a class="headerlink" href="#data_modeling" title="Permanent link">¶</a></h1>
-<p>A data model is a model that organizes data and specifies how they are related to one another. This topic describes the Nebula Graph data model and provides suggestions for data modeling with Nebula Graph.</p>
-<h2 id="data_structures">Data structures<a class="headerlink" href="#data_structures" title="Permanent link">¶</a></h2>
-<p>Nebula Graph data model uses six data structures to store data. They are graph spaces, vertices, edges, tags, edge types and properties.</p>
-<ul>
-<li><strong>Graph spaces</strong>: Graph spaces are used to isolate data from different teams or programs. Data stored in different graph spaces are securely isolated. Storage replications, privileges, and partitions can be assigned.</li>
-<li><strong>Vertices</strong>: Vertices are used to store entities.<ul>
-<li>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>). The <code>VID</code> must be unique in the same graph space. VID should be int64, or fixed_string(N).</li>
-<li>A vertex must have at least one tag or multiple tags.</li>
-</ul>
-</li>
-<li><strong>Edges</strong>: Edges are used to connect vertices. An edge is a connection or behavior between two vertices.<ul>
-<li>There can be multiple edges between two vertices.</li>
-<li>Edges are directed. <code>-&gt;</code> identifies the directions of edges. Edges can be traversed in either direction.</li>
-<li>An edge is identified uniquely with a source vertex, an edge type, a rank value, and a destination vertex. Edges have no EID.</li>
-<li>An edge must have one and only one edge type.</li>
-<li>The rank value is an immutable user-assigned 64-bit signed integer. It identifies the edges with the same edge type between two vertices. Edges are sorted by their rank values. The edge with the greatest rank value is listed first. The default rank value is zero.</li>
-</ul>
-</li>
-<li><strong>Tags</strong>: Tags are used to categorize vertices. Vertices that have the same tag share the same definition of properties.</li>
-<li><strong>Edge types</strong>: Edge types are used to categorize edges. Edges that have the same edge type share the same definition of properties.</li>
-<li><strong>Properties</strong>: Properties are key-value pairs. Both vertices and edges are containers for properties.</li>
-</ul>
+<h1 id="path_types">Path types<a class="headerlink" href="#path_types" title="Permanent link">¶</a></h1>
+<p>In graph theory, a path in a graph is a finite or infinite sequence of edges which joins a sequence of vertices. Paths are fundamental concepts of graph theory.</p>
+<p>Paths can be categorized into 3 types: <code>walk</code>, <code>trail</code>, and <code>path</code>. For more information, see <a href="https://en.wikipedia.org/wiki/Path_(graph_theory)#Walk,_trail,_path">Wikipedia</a>.</p>
+<p>The following picture is an example for a brief introduction.</p>
+<p><img alt="path" src="../../images/path1.png"/></p>
+<h2 id="walk">walk<a class="headerlink" href="#walk" title="Permanent link">¶</a></h2>
+<p>A <code>walk</code> is a finite or infinite sequence of edges. Both vertices and edges can be repeatedly visited in graph traversal.</p>
+<p>In the above picture C, D, and E form a cycle. So, this picture contains infinite paths, such as <code>A-&gt;B-&gt;C-&gt;D-&gt;E</code>, <code>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;C</code>, and <code>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;C-&gt;D</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tag and Edge type are similar to the vertex table and edge table in the relational databases.</p>
+<p><code>GO</code> statements use <code>walk</code>.</p>
 </div>
-<h2 id="directed_property_graph">Directed property graph<a class="headerlink" href="#directed_property_graph" title="Permanent link">¶</a></h2>
-<p>Nebula Graph stores data in directed property graphs. A directed property graph has a set of vertices connected by directed edges. Both vertices and edges can have properties. A directed property graph is represented as:</p>
-<p><strong>G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;</strong></p>
-<ul>
-<li><strong>V</strong> is a set of vertices.</li>
-<li><strong>E</strong> is a set of directed edges.</li>
-<li><strong>P<sub>V</sub></strong> is the property of vertices.</li>
-<li><strong>P<sub>E</sub></strong> is the property of edges.</li>
-</ul>
-<p>The following table is an example of the structure of the basketball player dataset. We have two types of vertices, that is <strong>player</strong> and <strong>team</strong>, and two types of edges, that is <strong><em>serve</em></strong> and <strong><em>follow</em></strong>.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Element</th>
-<th align="left">Name</th>
-<th align="left">Property name (Data type)</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Tag</td>
-<td align="left"><strong>player</strong></td>
-<td align="left">name (string) <br/> age (int)</td>
-<td align="left">Represents players in the team.</td>
-</tr>
-<tr>
-<td align="left">Tag</td>
-<td align="left"><strong>team</strong></td>
-<td align="left">name (string)</td>
-<td align="left">Represents the teams.</td>
-</tr>
-<tr>
-<td align="left">Edge type</td>
-<td align="left"><strong>serve</strong></td>
-<td align="left">start_year (int) <br> end_year (int)</br></td>
-<td align="left">Represents actions taken by players in the team. An action links a player with a team, and the direction is from a player to a team.</td>
-</tr>
-<tr>
-<td align="left">Edge type</td>
-<td align="left"><strong>follow</strong></td>
-<td align="left">degree (int)</td>
-<td align="left">Represents actions taken by players in the team. An action links a player with another player, and the direction is from one player to the other player.</td>
-</tr>
-</tbody>
-</table>
+<h2 id="trail">trail<a class="headerlink" href="#trail" title="Permanent link">¶</a></h2>
+<p>A <code>trail</code> is a finite sequence of edges. Only vertices can be repeatedly visited in graph traversal. The Seven Bridges of Königsberg is a typical <code>trail</code>.</p>
+<p>In the above picture, edges cannot be repeatedly visited. So, this picture contains finite paths. The longest path in this picture consists of 5 edges: <code>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;C</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nebula Graph supports only directed edges.</p>
+<p><code>MATCH</code>, <code>FIND PATH</code>, and <code>GET SUBGRAPH</code> statements use <code>trail</code>.</p>
 </div>
+<p>There are two special cases of trail, <code>cycle</code>, and <code>circuit</code>. The following picture is an example for a brief introduction.</p>
+<p><img alt="trail" src="../../images/Circuits1.png"/></p>
+<ul>
+<li>
+<p>cycle</p>
+<p>A <code>cycle</code> refers to a closed <code>trail</code>. Only the terminal vertices can be repeatedly visited. The longest path in this picture consists of 3 edges: <code>A-&gt;B-&gt;C-&gt;A</code> or <code>C-&gt;D-&gt;E-&gt;C</code>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>circuit</p>
+<p>A <code>circuit</code> refers to a closed <code>trail</code>. Edges cannot be repeatedly visited in graph traversal. Apart from the terminal vertices, other vertices can also be repeatedly visited. The longest path in this picture: <code>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;C-&gt;A</code>.</p>
+</li>
+</ul>
+<h2 id="path">path<a class="headerlink" href="#path" title="Permanent link">¶</a></h2>
+<p>A <code>path</code> is a finite sequence of edges. Neither vertices nor edges can be repeatedly visited in graph traversal.</p>
+<p>So, the above picture contains finite paths. The longest path in this picture consists of 4 edges: <code>A-&gt;B-&gt;C-&gt;D-&gt;E</code>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
@@ -1511,34 +1452,6 @@
 </a>
 </main>
 <footer class="md-footer">
-<nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: What is Nebula Graph" class="md-footer__link md-footer__link--prev" href="../1.what-is-nebula-graph/" rel="prev">
-<div class="md-footer__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</div>
-<div class="md-footer__title">
-<div class="md-ellipsis">
-<span class="md-footer__direction">
-                Previous
-              </span>
-              What is Nebula Graph
-            </div>
-</div>
-</a>
-<a aria-label="Next: Architecture overview" class="md-footer__link md-footer__link--next" href="../3.nebula-graph-architecture/1.architecture-overview/" rel="next">
-<div class="md-footer__title">
-<div class="md-ellipsis">
-<span class="md-footer__direction">
-                Next
-              </span>
-              Architecture overview
-            </div>
-</div>
-<div class="md-footer__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
-</div>
-</a>
-</nav>
 <div class="md-footer-meta md-typeset">
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
