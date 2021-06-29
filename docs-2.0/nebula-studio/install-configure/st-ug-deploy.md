@@ -30,9 +30,9 @@ Before you deploy Docker-based Studio, you must do a check of these:
 To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:
 
 1. Download the configuration files for the deployment.
+   
    | Installation package | Nebula Graph version |
    | ----- | ----- |
-   | [nebula-graph-studio-v1.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v1.tar.gz) | 1.x |
    | [nebula-graph-studio-v2.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v2.tar.gz) | 2.x |
 
 2. Create the `nebula-graph-studio-v2` directory and decompress the installation package to the directory.
@@ -67,13 +67,14 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
     ```
 
 6. When Docker-based Studio v2.x is started, use `http://ip address:7001` to get access to Studio v2.x.
+  
   !!! note
 
     Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](../figs/st-ug-025.png "Docker-based Studio is started")
 
 ## RPM-based Studio
 
@@ -113,10 +114,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
    | Installation package | Checksum | Nebula version |
    | ----- | ----- | ----- |
-   | [nebula-graph-studio-2.2.1-5.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm) |  [nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256) | 2.0.1 |
-   | [nebula-graph-studio-2.2.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm) |  [nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.0-1.x86_64.rpm.sha256) | 2.0.1 |
-   | [nebula-graph-studio-2.1.9-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.1.9-1.x86_64.rpm) | - |  2.0 GA |
-   | [nebula-graph-studio-1.2.7-2.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm) | [nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-1.2.7-2.x86_64.rpm.sha256) |  1.x |
+   | [nebula-graph-studio-2.2.1-6.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm) |  [nebula-graph-studio-2.2.1-6.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-2.2.1-5.x86_64.rpm.sha256) | 2.0.1 |
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
    
@@ -169,6 +167,7 @@ lsof -i:7001
 ```
 
 If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
+
 ```bash
  //Open the configuration file
  $ vi config/config.default.js
@@ -185,7 +184,7 @@ If the port is occupied and the process on that port cannot be terminated, you c
 
  //Restart npm
  $ npm run start
- ```
+```
 ## Next to do
 
 On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).

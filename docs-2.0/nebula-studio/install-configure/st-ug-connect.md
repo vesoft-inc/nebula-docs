@@ -9,13 +9,14 @@ Before you connect Docker-based or RPM-based Studio v2.x to Nebula Graph v2.x, y
 - The Nebula Graph v2.x services and Studio v2.x are started. For more information, see [Deploy Studio](st-ug-deploy.md).
 
 - You have the IP address and the port used by the Graph service of Nebula Graph v2.x. The default port is `9669`.  
-  !!! note
+  
+    !!! note
 
         Run `ifconfig` or `ipconfig` on the machine to get the IP address.
 
 - You have a Nebula Graph account and its password.
 
-  !!! note
+    !!! note
 
         If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the default username (user) and the default password (password) to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0.1/).
 
@@ -26,11 +27,11 @@ To connect Docker-based and RPM-based Studio to Nebula Graph, follow these steps
 
 1. On the **Config Server** page of Studio, configure these fields:
 
-    - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
+   - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
 
     !!! note
 
-          When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+        When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
 
    - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph
       - If authentication is not enabled, you can use `user` and `password` as the username and its password.
