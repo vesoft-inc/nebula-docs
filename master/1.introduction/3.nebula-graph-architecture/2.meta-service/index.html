@@ -1643,20 +1643,24 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="meta_service">Meta Service<a class="headerlink" href="#meta_service" title="Permanent link">¶</a></h1>
-<p>This topic describes the architecture and functions of the Meta Service.</p>
+<p>This article will introduce the architecture and functions of the Meta Service.</p>
 <h2 id="the_architecture_of_the_meta_service">The architecture of the Meta Service<a class="headerlink" href="#the_architecture_of_the_meta_service" title="Permanent link">¶</a></h2>
-<p>The architecture of the Meta Service is as follows.</p>
+<p>The architecture of the Meta Service is as follows:</p>
 <p><img alt="The architecture of the Meta Service" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/meta-architecture1.png"/></p>
-<p>The Meta Service is run by the nebula-metad processes. You can deploy nebula-metad processes according to the scenario:</p>
+<p>The Meta Service is run by the nebula-metad processes. Users can deploy nebula-metad processes according to the scenario:</p>
 <ul>
-<li>In a test environment, you can deploy one or three nebula-metad processes on different machines or a single machine.</li>
-<li>In a production environment, we recommend that you deploy three processes on different machines for high availability.</li>
+<li>In a test environment, users can deploy one or three nebula-metad processes on different machines or a single machine.</li>
+<li>In a production environment, we recommend that users deploy three nebula-metad processes on different machines for high availability.</li>
 </ul>
-<p>All the nebula-metad processes form a Raft-based cluster, with one process as the leader and the others as the followers.
-The leader is elected by quorum, and only the leader can provide service to the clients and other components of Nebula Graph. The followers run in a standby way and each has a data replication of the leader. Once the leader fails, one of the followers will be elected as the new leader.</p>
+<p>All the nebula-metad processes form a Raft-based cluster, with one process as the leader and the others as the followers.</p>
+<p>The leader is elected by the majorities and only the leader can provide service to the clients or other components of Nebula Graph. The followers will be run in a standby way and each has a data replication of the leader. Once the leader fails, one of the followers will be elected as the new leader.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The data of the leader and the followers will keep consistent through Raft. Thus the breakdown and election of the leader will not cause data inconsistency. For more information on Raft, see <a href="../4.storage-service/#raft">Storage service architecture</a>.</p>
+</div>
 <h2 id="functions_of_the_meta_service">Functions of the Meta Service<a class="headerlink" href="#functions_of_the_meta_service" title="Permanent link">¶</a></h2>
 <h3 id="manages_user_accounts">Manages user accounts<a class="headerlink" href="#manages_user_accounts" title="Permanent link">¶</a></h3>
-<p>The Meta Service stores the information of user accounts and the privileges granted to the accounts. When the clients send queries to the Graph Service through an account, the Graph Service checks the account information and whether the account has the right privileges to execute the queries or not.</p>
+<p>The Meta Service stores the information of user accounts and the privileges granted to the accounts. When the clients send queries to the Meta Service through an account, the Meta Service checks the account information and whether the account has the right privileges to execute the queries or not.</p>
 <p>For more information on Nebula Graph access control, see <a href="../../../7.data-security/1.authentication/1.authentication/">Authentication and authorization</a>.</p>
 <h3 id="manages_partitions">Manages partitions<a class="headerlink" href="#manages_partitions" title="Permanent link">¶</a></h3>
 <p>The Meta Service stores and manages the locations of the storage partitions and helps balance the partitions.</p>
@@ -1670,12 +1674,12 @@ The leader is elected by quorum, and only the leader can provide service to the 
 <p>The Meta Service provides automatic data eviction and space reclamation based on TTL (time to live) options for Nebula Graph.</p>
 <p>For more information on TTL, see <a href="../../../3.ngql-guide/8.clauses-and-options/ttl-options/">TTL options</a>.</p>
 <h3 id="manages_jobs">Manages jobs<a class="headerlink" href="#manages_jobs" title="Permanent link">¶</a></h3>
-<p>The Job Manager module in the Meta Service is responsible for the creation, queuing, querying and deletion of jobs.</p>
+<p>The Job Management module in the Meta Service is responsible for the creation, queuing, querying and deletion of jobs.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 1, 2021</span>
 </small>
 </div>
 </article>
