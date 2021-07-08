@@ -40,6 +40,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
     ```bash
     mkdir nebula-graph-studio-v2 && tar -zxvf nebula-graph-studio-v2.gz -C nebula-graph-studio-v2
     ```
+
 3. Change to the `nebula-graph-studio-v2` directory.
    ```bash
    cd nebula-graph-studio-v2
@@ -70,7 +71,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
   
   !!! note
 
-    Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
+        Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
@@ -137,7 +138,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-052-1.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](../figs/st-ug-025.png "Docker-based Studio is started")
 
 ### Uninstall
 
