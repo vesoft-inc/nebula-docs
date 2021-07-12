@@ -1,9 +1,8 @@
 # Keywords
 
-Keywords have significance in nGQL. It can be classified into reserved words and non-reserved words.
+Keywords have significance in nGQL. It can be classified into reserved keywords and non-reserved keywords.
 
 Non-reserved keywords are permitted as identifiers without quoting. To use reserved keywords as identifiers, quote them with backticks such as `AND`.
-
 
 !!! Note
 
@@ -24,7 +23,7 @@ Execution succeeded
 
 - `SPACE` is a non-reserved keyword. You can use it as an identifier without quoting it.
 
-## Reserved Words
+## Reserved keywords
 
 ```ngql
 ADD
@@ -122,7 +121,7 @@ XOR
 YIELD
 ```
 
-## Non-Reserved Keywords
+## Non-reserved keywords
 
 ```ngql
 ACCOUNT
