@@ -6,7 +6,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
 
     The styles of nGQL and [Cypher Style Guide](https://s3.amazonaws.com/artifacts.opencypher.org/M15/docs/style-guide.pdf) are different.
 
-## Newline and indentation
+## Newline
 
 1. Start a new line to write a clause.
 
