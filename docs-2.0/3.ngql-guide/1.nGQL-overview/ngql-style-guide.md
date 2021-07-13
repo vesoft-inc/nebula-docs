@@ -87,7 +87,7 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   RETURN nodes(p);
   ```
 
-2. Use snake case to name the identifiers, and connect the words with underscores (_) with all the letters lowercase.
+2. Use the snake case to name identifiers, and connect words with underscores (_) with all the letters lowercase.
 
   Not recommended:
 
@@ -139,7 +139,7 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   RETURN v;
   ```
 
-3. Place non-anonymous vertices in front of anonymous vertices.
+3. Place named vertices in front of anonymous vertices.
 
   Not recommended:
 
