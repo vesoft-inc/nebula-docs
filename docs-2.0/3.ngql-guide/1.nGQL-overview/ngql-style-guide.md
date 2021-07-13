@@ -221,7 +221,7 @@ The strings should be surrounded by double quotes.
   YIELD $$.team.name AS Team, $^.player.name AS Player;
   ```
 
-3. In a composite statement that contains customized variables, use an English semicolon to end the statements that define the variables. If you do not follow the rules to add a semicolon or use a pipe to end the composite statement, the execution will fail.
+3. In a composite statement that contains user-defined variables, use an English semicolon to end the statements that define the variables. If you do not follow the rules to add a semicolon or use a pipe to end the composite statement, the execution will fail.
 
   Not supported:
 
