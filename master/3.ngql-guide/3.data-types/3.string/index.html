@@ -266,6 +266,21 @@
         Comments
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/identifier-case-sensitivity/">
+        Identifier case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/keywords-and-reserved-words/">
+        Keywords
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/ngql-style-guide.md">
+        nGQL style guide
+      </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -306,6 +321,16 @@
       Table of contents
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#string_types">
+    String types
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#escape_characters">
+    Escape Characters
+  </a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#opencypher_compatibility">
     OpenCypher Compatibility
@@ -1565,6 +1590,16 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#string_types">
+    String types
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#escape_characters">
+    Escape Characters
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#opencypher_compatibility">
     OpenCypher Compatibility
   </a>
@@ -1580,20 +1615,30 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="string">String<a class="headerlink" href="#string" title="Permanent link">¶</a></h1>
-<p>The string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. For example <code>"Shaquille O'Neal"</code> or <code>'"This is a double-quoted literal string"'</code>. Line breaks are not allowed in a string. Embedded escape sequences are supported within strings, for example:</p>
+<p>The string type is declared with the keywords of <code>string</code> or <code>fixed_string(&lt;length&gt;)</code>. A string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. For example <code>"Shaquille O'Neal"</code> or <code>'This is a double-quoted literal string'</code>.</p>
+<h2 id="string_types">String types<a class="headerlink" href="#string_types" title="Permanent link">¶</a></h2>
+<p>Nebula Graph supports two string types as follows:</p>
+<ul>
+<li>Fixed-length string type<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 fixed_string(10)); 
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Variable-length string type<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (p2 string); 
+</code></pre></div>
+</li>
+</ul>
+<h2 id="escape_characters">Escape Characters<a class="headerlink" href="#escape_characters" title="Permanent link">¶</a></h2>
+<p>Line breaks are not allowed in a string. Escape characters are supported within strings, for example:</p>
 <ul>
 <li><code>"\n\t\r\b\f"</code></li>
+</ul>
+<ul>
 <li><code>"\110ello world"</code></li>
 </ul>
-<p>Nebula Graph supports two kind of strings: fixed length string and variable length string. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 FIXED_STRING(10)); -- Fixed length string type
-
-nebula&gt; CREATE TAG t2 (p2 string); -- Variable length string type
-</code></pre></div>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>Here is a tiny difference between openCypher and Cypher, as well as nGQL.</p>
-<p>The following is what openCypher requires. Single-quotes can't be converted to double-quotes.</p>
-<div class="highlight"><pre><span></span><code> #File: Literals.feature
+<p>There is some tiny differences between openCypher and Cypher, as well as nGQL. The following is what openCypher requires. Single quotes cannot be converted to double quotes.</p>
+<div class="highlight"><pre><span></span><code># File: Literals.feature
 Feature: Literals
 
 Background:
@@ -1608,7 +1653,7 @@ Background:
       | ''      |    # Note: it should return single-quotes as openCypher required.
     And no side effects
 </code></pre></div>
-<p>While Cypher accepts both single-quotes and double quotes as the return results. nGQL follows the Cypher way.</p>
+<p>While Cypher accepts both single quotes and double quotes as the return results. nGQL follows the Cypher way.</p>
 <div class="highlight"><pre><span></span><code>nebula &gt; YIELD '' AS quote1, "" AS quote2, "'" AS quote3, '"' AS quote4
 +--------+--------+--------+--------+
 | quote1 | quote2 | quote3 | quote4 |
@@ -1620,7 +1665,7 @@ Background:
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 5, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
 </small>
 </div>
 </article>
