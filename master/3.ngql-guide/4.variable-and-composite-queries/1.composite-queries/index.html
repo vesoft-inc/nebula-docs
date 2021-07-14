@@ -1615,60 +1615,70 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="composite_queries_clause_structure">Composite queries (clause structure)<a class="headerlink" href="#composite_queries_clause_structure" title="Permanent link">¶</a></h1>
-<p>Composite queries put data from different queries together. They then use filters, group-bys, or sorting before returning the combined return results. A composite query retrieves multiple levels of related information on existing queries and presents data as a single return result.</p>
-<p>Nebula Graph supports three methods to compose queries (or sub-queries):</p>
+<p>Composite queries put data from different queries together. They then use filters, group-bys, or sorting before returning the combined return results.</p>
+<p>Nebula Graph supports three methods to run composite queries (or sub-queries):</p>
 <ul>
 <li>(openCypher) Clauses are chained together, and they feed intermediate result sets between each other.</li>
-<li>(Native nGQL) More than one queries can be batched together, separated by semicolons (;). The result of the last query is returned as the result of the batch.</li>
-<li>(Native nGQL) Queries can be piped together by using the pipe operator (<code>|</code>). The result of the previous query can be used as the input of the next query.</li>
+</ul>
+<ul>
+<li>(Native nGQL) More than one query can be batched together, separated by semicolons (;). The result of the last query is returned as the result of the batch.</li>
+</ul>
+<ul>
+<li>(Native nGQL) Queries can be piped together by using the pipe (<code>|</code>). The result of the previous query can be used as the input of the next query.</li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>In a composite query, choose the openCypher-style or native nGQL. <strong>NOT BOTH</strong>.</p>
-<p>For example, if you're in the openCypher way (<code>MATCH</code>, <code>RETURN</code>, <code>WITH</code>, etc), don't introduce any pipe or semicolons to combine the sub-clauses.</p>
-<p>If you're in the native nGQL way (<code>FETCH</code>, <code>GO</code>, <code>LOOKUP</code>, etc), you must use pipe or semicolons to combine the sub-clauses.</p>
-<p>Further more, don't put together openCypher and native nGQL clauses in one statement. E.g., This statement is undefined: <code>MATCH ... | GO ... | YIELD ...</code>.</p>
+<p>In a composite query, <strong>do not</strong> put together openCypher and native nGQL clauses in one statement. For example, this statement is undefined: <code>MATCH ... | GO ... | YIELD ...</code>.</p>
+<ul>
+<li>If you are in the openCypher way (<code>MATCH</code>, <code>RETURN</code>, <code>WITH</code>, etc), do not introduce any pipe or semicolons to combine the sub-clauses.</li>
+</ul>
+<ul>
+<li>If you are in the native nGQL way (<code>FETCH</code>, <code>GO</code>, <code>LOOKUP</code>, etc), you must use pipe or semicolons to combine the sub-clauses.</li>
+</ul>
 <h2 id="composite_queries_are_not_transactional_queries_as_in_sqlcypher">Composite queries are not <code>transactional</code> queries (as in SQL/Cypher)<a class="headerlink" href="#composite_queries_are_not_transactional_queries_as_in_sqlcypher" title="Permanent link">¶</a></h2>
-<p>For example, a query composed of three sub-queries: <code>A B C</code>, <code>A | B | C</code> or <code>A; B; C</code>. In that A is a read operation, B is a computation operation, and C is a write operation. If any part fails in the execution, the whole result is undefined. There is no rollback. What is written depends on the query executor.</p>
+<p>For example, a query is composed of three sub-queries: <code>A B C</code>, <code>A | B | C</code> or <code>A; B; C</code>. In that A is a read operation, B is a computation operation, and C is a write operation. If any part fails in the execution, the whole result will be undefined. There is no rollback. What is written depends on the query executor.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>OpenCypher has no requirement of <code>transaction</code>.</p>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <ul>
-<li>OpenCypher style</li>
-</ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--() \
+<li>OpenCypher compatibility statement<div class="highlight"><pre><span></span><code># Connect multiple queries with clauses.
+nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--() \
         WITH nodes(p) AS n \
         UNWIND n AS n1 \
         RETURN DISTINCT n1;
 </code></pre></div>
-<ul>
-<li>Semicolon queries</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW TAGS; SHOW EDGES;   // Only edges are shown.
+<ul>
+<li>Native nGQL (Semicolon queries)<div class="highlight"><pre><span></span><code># Only return edges.
+nebula&gt; SHOW TAGS; SHOW EDGES;
 
+# Insert multiple vertices.
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42); \
-INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36); \
-INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
-// Multiple vertices are inserted in a composite statement.
+        INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36); \
+        INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
 </code></pre></div>
-<ul>
-<li>Pipe queries</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
-    GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
-    $^.player.name AS Player;
-    +---------+-------------+
-    | Team    | Player      |
-    +---------+-------------+
-    | Nuggets | Tony Parker |
-    +---------+-------------+
+<ul>
+<li>Native nGQL (Pipe queries)<div class="highlight"><pre><span></span><code># Connect multiple queries with pipes.
+nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
+        GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
++---------+-------------+
+| Team    | Player      |
++---------+-------------+
+| Nuggets | Tony Parker |
++---------+-------------+
 </code></pre></div>
+</li>
+</ul>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
 </small>
 </div>
 </article>
