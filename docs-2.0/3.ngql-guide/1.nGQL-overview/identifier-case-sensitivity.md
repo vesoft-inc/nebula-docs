@@ -1,4 +1,4 @@
-# Identifier Case Sensitivity
+# Identifier case sensitivity
 
 ## Identifiers are Case-Sensitive
 
