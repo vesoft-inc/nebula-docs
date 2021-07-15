@@ -1,21 +1,18 @@
 (function(){
-    $("img").click(function(){
+    $("img").click(function change(){
+        var $this = $(this)
         $(this).toggleClass("max");
         $("#dialog-bg").toggleClass("dialog-bg");
-        $('.max').css("left",`calc(50vh)-${$(this).width()}`)
-        $(this).each(function () {
-            var $this = $(this);
-            var $img = $this.attr("src");//获取当前点击img的src的值
-            $("#img-box").find("img").attr("src",$img);//将获取的当前点击img的src赋值到弹出层的图片的src
-            // $("#dialog-bg").show();//弹出层显示
-        });
     });
-    // $("#dialog-bg").on("click",function () {
-    //     $(this).hide();
-    //     $("img").click(function(){
-    //         $(this).toggleClass("max");
-    //     })
-    // });
+    $("#dialog-bg").on("click",function () {
+        $("#dialog-bg").toggleClass("dialog-bg");
+        $("img").each(function(){
+            if($(this).hasClass("max")){
+                $(this).toggleClass("max");
+            }
+        })
+    });
+    
     const Search={
         init:function(){
             this.attachEvent();
