@@ -1596,12 +1596,11 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="collect">collect()<a class="headerlink" href="#collect" title="Permanent link">¶</a></h1>
-<p><code>collect()</code> returns a list containing the values returned by an expression. Using this function
-aggregates data by amalgamating multiple records or values into a single list.</p>
-<p><code>collect()</code> is an aggregation function. Like <code>GROUP BY</code> in SQL.</p>
+<p>The <code>collect()</code> function returns a list containing the values returned by an expression. Using this function aggregates data by merging multiple records or values into a single list.</p>
+<p>The aggregate function <code>collect()</code> works like <code>GROUP BY</code> in SQL.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<p>This example works like <code>GROUP BY</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a RETURN a;
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a \
+        RETURN a;
 +---+
 | a |
 +---+
@@ -1611,56 +1610,65 @@ aggregates data by amalgamating multiple records or values into a single list.</
 +---+
 | 1 |
 +---+
-nebula&gt; UNWIND [1, 2, 1] AS a RETURN collect(a);
+
+nebula&gt; UNWIND [1, 2, 1] AS a \
+        RETURN collect(a);
 +------------+
-| COLLECT(a) |
+| collect(a) |
 +------------+
 | [1, 2, 1]  |
 +------------+
-nebula&gt; UNWIND [1, 2, 1] AS a RETURN a, collect(a), size(collect(a))
+
+nebula&gt; UNWIND [1, 2, 1] AS a \
+        RETURN a, collect(a), size(collect(a));
 +---+------------+------------------+
-| a | COLLECT(a) | size(COLLECT(a)) |
+| a | collect(a) | size(COLLECT(a)) |
 +---+------------+------------------+
 | 2 | [2]        | 1                |
 +---+------------+------------------+
 | 1 | [1, 1]     | 2                |
 +---+------------+------------------+
-</code></pre></div>
-<p>You can sort reversely, limit output rows to 3, and collect the output into a list.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND ["c", "b", "a", "d" ] AS p \
-    WITH p AS q \
-    ORDER BY q DESC LIMIT 3 \
-    RETURN collect(q);
+
+# The following examples sort the results in descending order, limit output rows to 3, and collect the output into a list.œ
+nebula&gt; UNWIND ["c", "b", "a", "d" ] AS p \
+        WITH p AS q \
+        ORDER BY q DESC LIMIT 3 \
+        RETURN collect(q);
 +-----------------+
-| COLLECT(q)      |
+| collect(q)      |
 +-----------------+
 | ["d", "c", "b"] |
 +-----------------+
+
 nebula&gt; WITH [1, 1, 2, 2] AS coll \
-    UNWIND coll AS x \
-    WITH DISTINCT x \
-    RETURN collect(x) AS ss
+        UNWIND coll AS x \
+        WITH DISTINCT x \
+        RETURN collect(x) AS ss;
 +--------+
 | ss     |
 +--------+
 | [1, 2] |
 +--------+
-</code></pre></div>
-<p>This example aggregates all players' names by their ages.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (n:player) RETURN collect(n.age);
-+---------------------------------------------------------------+
-| COLLECT(n.age)                                                |
-----------------------------------------------------------------+
-| [32, 32, 34, 29, 41, 40, 33, 25, 40, 37, ...                  |
-----------------------------------------------------------------+
 
-nebula&gt; MATCH (n:player) RETURN n.age AS age, collect(n.name);
+nebula&gt; MATCH (n:player) \
+        RETURN collect(n.age);
++---------------------------------------------------------------+
+| collect(n.age)                                                |
+----------------------------------------------------------------+
+| [32, 32, 34, 29, 41, 40, 33, 25, 40, 37, ...
+...
+
+# The following example aggregates all the players' names by their ages.
+nebula&gt; MATCH (n:player) \
+        RETURN n.age AS age, collect(n.name);
 +-----+--------------------------------------------------------------------------+
-| 27  | ["Cory Joseph"]                                                          |
+| age | collect(n.name)                                                          |
 +-----+--------------------------------------------------------------------------+
-| 28  | ["Damian Lillard", "Paul George", "Ricky Rubio"]                         |
+| 24  | ["Giannis Antetokounmpo"]                                                |
 +-----+--------------------------------------------------------------------------+
-| 29  | ["Dejounte Murray", "James Harden", "Klay Thompson", "Jonathon Simmons"] |
+| 20  | ["Luka Doncic"]                                                          |
++-----+--------------------------------------------------------------------------+
+| 25  | ["Joel Embiid", "Kyle Anderson"]                                         |
 +-----+--------------------------------------------------------------------------+
 ...
 </code></pre></div>
@@ -1668,7 +1676,7 @@ nebula&gt; MATCH (n:player) RETURN n.age AS age, collect(n.name);
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

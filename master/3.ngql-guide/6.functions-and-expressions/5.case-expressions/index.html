@@ -1672,8 +1672,8 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="case_expressions">CASE expressions<a class="headerlink" href="#case_expressions" title="Permanent link">¶</a></h1>
-<p>The <code>CASE</code> expression uses conditions to filter the result of an nGQL query statement. It is usually used in the <code>YIELD</code> or <code>RETURN</code> clause. nGQL provides two forms of <code>CASE</code> expressions just like openCypher: the simple form and the generic form.</p>
-<p>The <code>CASE</code> expression goes through conditions and returns a result when the first condition is met. Then the <code>CASE</code> expression stops reading the conditions and returns the result. If no conditions are met, it returns the result in the <code>ELSE</code> clause. If there is no <code>ELSE</code> clause and no conditions are met, it returns <code>NULL</code>.</p>
+<p>The <code>CASE</code> expression uses conditions to filter the result of an nGQL query statement. It is usually used in the <code>YIELD</code> and <code>RETURN</code> clauses. nGQL provides two forms of <code>CASE</code> expressions just like openCypher: the simple form and the generic form.</p>
+<p>The <code>CASE</code> expression will traverse all the conditions. When the first condition is met, the <code>CASE</code> expression stops reading the conditions and returns the result. If no conditions are met, it returns the result in the <code>ELSE</code> clause. If there is no <code>ELSE</code> clause and no conditions are met, it returns <code>NULL</code>.</p>
 <h2 id="the_simple_form_of_case_expressions">The simple form of CASE expressions<a class="headerlink" href="#the_simple_form_of_case_expressions" title="Permanent link">¶</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>CASE &lt;comparer&gt;
@@ -1684,42 +1684,42 @@ END
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Always remember to end a <code>CASE</code> expression with <code>END</code>.</p>
+<p>Always remember to end the <code>CASE</code> expression with an <code>END</code>.</p>
 </div>
 <table>
 <thead>
 <tr>
-<th>Parameters</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>comparer</code></td>
-<td>A value or a valid expression that outputs a value. This value is used to compare with <code>value</code>.</td>
+<td>A value or a valid expression that outputs a value. This value is used to compare with the <code>value</code>.</td>
 </tr>
 <tr>
 <td><code>value</code></td>
-<td>It will be compared with <code>comparer</code>. If they match, then this condition is met.</td>
+<td>It will be compared with the <code>comparer</code>. If the <code>value</code> matches the <code>comparer</code>, then this condition is met.</td>
 </tr>
 <tr>
 <td><code>result</code></td>
-<td>It is returned by the <code>CASE</code> expression if <code>value</code> matches <code>comparer</code>.</td>
+<td>The <code>result</code> is returned by the <code>CASE</code> expression if the <code>value</code> matches the <code>comparer</code>.</td>
 </tr>
 <tr>
 <td><code>default</code></td>
-<td>It is returned by the <code>CASE</code> expression if no conditions are met.</td>
+<td>The <code>default</code> is returned by the <code>CASE</code> expression if no conditions are met.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN \
-      CASE 2+3 \
-      WHEN 4 THEN 0 \
-      WHEN 5 THEN 1 \
-      ELSE -1 \
-      END \
-      AS result;
+        CASE 2+3 \
+        WHEN 4 THEN 0 \
+        WHEN 5 THEN 1 \
+        ELSE -1 \
+        END \
+        AS result;
 +--------+
 | result |
 +--------+
@@ -1727,13 +1727,13 @@ END
 +--------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-      YIELD $$.player.name AS Name, \
-      CASE $$.player.age &gt; 35 \
-      WHEN true THEN "Yes" \
-      WHEN false THEN "No" \
-      ELSE "Nah" \
-      END \
-      AS Age_above_35;
+        YIELD $$.player.name AS Name, \
+        CASE $$.player.age &gt; 35 \
+        WHEN true THEN "Yes" \
+        WHEN false THEN "No" \
+        ELSE "Nah" \
+        END \
+        AS Age_above_35;
 +---------------------+--------------+
 | Name                | Age_above_35 |
 +---------------------+--------------+
@@ -1753,32 +1753,32 @@ END
 <table>
 <thead>
 <tr>
-<th>Parameters</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>condition</code></td>
-<td>If <code>condition</code> is evaluated as true, <code>result</code> is returned by the <code>CASE</code> expression.</td>
+<td>If the <code>condition</code> is evaluated as true, the <code>result</code> is returned by the <code>CASE</code> expression.</td>
 </tr>
 <tr>
 <td><code>result</code></td>
-<td>It is returned by the <code>CASE</code> expression if <code>condition</code> is evaluated as true.</td>
+<td>The <code>result</code> is returned by the <code>CASE</code> expression if the <code>condition</code> is evaluated as true.</td>
 </tr>
 <tr>
 <td><code>default</code></td>
-<td>It is returned by the <code>CASE</code> expression if no conditions are met.</td>
+<td>The <code>default</code> is returned by the <code>CASE</code> expression if no conditions are met.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; YIELD \
-      CASE WHEN 4 &gt; 5 THEN 0 \
-      WHEN 3+4==7 THEN 1 \
-      ELSE 2 \
-      END \
-      AS result;
+        CASE WHEN 4 &gt; 5 THEN 0 \
+        WHEN 3+4==7 THEN 1 \
+        ELSE 2 \
+        END \
+        AS result;
 +--------+
 | result |
 +--------+
@@ -1786,12 +1786,12 @@ END
 +--------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.age &gt; 30 \
-      RETURN v.name AS Name,  \
-      CASE \
-      WHEN v.name STARTS WITH "T" THEN "Yes" \
-      ELSE "No" \
-      END \
-      AS Starts_with_T;
+        RETURN v.name AS Name,  \
+        CASE \
+        WHEN v.name STARTS WITH "T" THEN "Yes" \
+        ELSE "No" \
+        END \
+        AS Starts_with_T;
 +---------------------+---------------+
 | Name                | Starts_with_T |
 +---------------------+---------------+
@@ -1805,12 +1805,12 @@ END
 <h2 id="differences_between_the_simple_form_and_the_generic_form">Differences between the simple form and the generic form<a class="headerlink" href="#differences_between_the_simple_form_and_the_generic_form" title="Permanent link">¶</a></h2>
 <p>To avoid the misuse of the simple form and the generic form, it is important to understand their differences. The following example can help explain them.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-      YIELD $$.player.name AS Name, $$.player.age AS Age, \
-      CASE $$.player.age \
-      WHEN $$.player.age &gt; 35 THEN "Yes" \
-      ELSE "No" \
-      END \
-      AS Age_above_35;
+        YIELD $$.player.name AS Name, $$.player.age AS Age, \
+        CASE $$.player.age \
+        WHEN $$.player.age &gt; 35 THEN "Yes" \
+        ELSE "No" \
+        END \
+        AS Age_above_35;
 +---------------------+-----+--------------+
 | Name                | Age | Age_above_35 |
 +---------------------+-----+--------------+
@@ -1819,18 +1819,20 @@ END
 | "LaMarcus Aldridge" | 33  | "No"         |
 +---------------------+-----+--------------+
 </code></pre></div>
-<p>The preceding <code>GO</code> query is intended to output "Yes" when the player age is above 35. However, in this example, when the player age is 36, the actual output is not as expected: It is "No" instead of "Yes".</p>
+<p>The preceding <code>GO</code> query is intended to output <code>Yes</code> when the player's age is above 35. However, in this example, when the player's age is 36, the actual output is not as expected: It is <code>No</code> instead of <code>Yes</code>.</p>
 <p>This is because the query uses the <code>CASE</code> expression in the simple form, and a comparison between the values of <code>$$.player.age</code> and <code>$$.player.age &gt; 35</code> is made. When the player age is 36:</p>
 <ul>
 <li>The value of <code>$$.player.age</code> is <code>36</code>. It is an integer.</li>
-<li><code>$$.player.age &gt; 35</code> is evaluated to <code>true</code>. It is a boolean.</li>
 </ul>
-<p>The values of <code>$$.player.age</code> and <code>$$.player.age &gt; 35</code> do not match. This condition is not met and "No" is returned.</p>
+<ul>
+<li><code>$$.player.age &gt; 35</code> is evaluated to be <code>true</code>. It is a boolean.</li>
+</ul>
+<p>The values of <code>$$.player.age</code> and <code>$$.player.age &gt; 35</code> do not match. Therefore, the condition is not met and <code>No</code> is returned.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 20, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

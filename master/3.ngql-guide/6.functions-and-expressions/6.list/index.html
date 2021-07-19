@@ -1596,6 +1596,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="list_functions">List functions<a class="headerlink" href="#list_functions" title="Permanent link">¶</a></h1>
+<p>Nebula Graph supports the following list functions:</p>
 <table>
 <thead>
 <tr>
@@ -1606,31 +1607,31 @@
 <tbody>
 <tr>
 <td>keys(expr)</td>
-<td>Returns a list containing the string representations for all the property names of a vertex, edge, or map.</td>
+<td>Returns a list containing the string representations for all the property names of vertices, edges, or maps.</td>
 </tr>
 <tr>
 <td>labels(vertex)</td>
-<td>Returns the tags of a vertex.</td>
+<td>Returns the list containing all the tags of a vertex.</td>
 </tr>
 <tr>
 <td>nodes(path)</td>
-<td>Returns a list containing all the nodes in a path.</td>
+<td>Returns the list containing all the vertices in a path.</td>
 </tr>
 <tr>
 <td>range(start, end [, step])</td>
-<td>A list of Integer elements.</td>
+<td>Returns the list containing all the fixed-length steps in <code>[start,end]</code>. <code>step</code> is 1 by default.</td>
 </tr>
 <tr>
 <td>relationships(path)</td>
-<td>Returns a list containing all the relationships in a path.</td>
+<td>Returns the list containing all the relationships in a path.</td>
 </tr>
 <tr>
 <td>reverse(list)</td>
-<td>returns a list in which the order of all elements in the original list have been reversed.</td>
+<td>Returns the list reversing the order of all elements in the original list.</td>
 </tr>
 <tr>
 <td>tail(list)</td>
-<td>returns all the elements, excluding the first one.</td>
+<td>Returns all the elements of the original list, excluding the first one.</td>
 </tr>
 <tr>
 <td>head(list)</td>
@@ -1652,17 +1653,20 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the parameter is <code>NULL</code>, the output is undefined.</p>
+<p>If the argument is <code>NULL</code>, the output is undefined.</p>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 4923, 'abc', 521, 487] AS ids RETURN reverse(ids), tail(ids), head(ids), last(ids), coalesce(ids)
+<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 4923, 'abc', 521, 487] AS ids \
+        RETURN reverse(ids), tail(ids), head(ids), last(ids), coalesce(ids);
 +-----------------------------------+-------------------------+-----------+-----------+---------------+
 | reverse(ids)                      | tail(ids)               | head(ids) | last(ids) | coalesce(ids) |
 +-----------------------------------+-------------------------+-----------+-----------+---------------+
 | [487, 521, "abc", 4923, __NULL__] | [4923, "abc", 521, 487] | __NULL__  | 487       | 4923          |
 +-----------------------------------+-------------------------+-----------+-----------+---------------+
 
-nebula&gt; MATCH (a:player)-[r]-&gt;() WHERE id(a) == "player100" RETURN labels(a),  keys(r)
+nebula&gt; MATCH (a:player)-[r]-&gt;() \
+        WHERE id(a) == "player100" \
+        RETURN labels(a),  keys(r);
 +------------+----------------------------+
 | labels(a)  | keys(r)                    |
 +------------+----------------------------+
@@ -1673,7 +1677,9 @@ nebula&gt; MATCH (a:player)-[r]-&gt;() WHERE id(a) == "player100" RETURN labels(
 | ["player"] | ["end_year", "start_year"] |
 +------------+----------------------------+
 
-nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == "Tim Duncan" AND c.name == "Spurs" RETURN nodes(p)
+nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) \
+        WHERE a.name == "Tim Duncan" AND c.name == "Spurs" \
+        RETURN nodes(p);
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
 | nodes(p)                                                                                                                                      |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1695,7 +1701,7 @@ nebula&gt; MATCH p = (a:player)-[]-&gt;(b)-[]-&gt;(c:team) WHERE a.name == "Tim 
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

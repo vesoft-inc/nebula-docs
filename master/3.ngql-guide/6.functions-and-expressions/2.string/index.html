@@ -1597,6 +1597,10 @@
 </a>
 <h1 id="built-in_string_functions">Built-in string functions<a class="headerlink" href="#built-in_string_functions" title="Permanent link">¶</a></h1>
 <p>Nebula Graph supports the following built-in string functions:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Like SQL, the position index of nGQL starts from <code>1</code>, while in C language it starts from <code>0</code>.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -1607,7 +1611,7 @@
 <tbody>
 <tr>
 <td>int strcasecmp(string a, string b)</td>
-<td>Compares strings without case sensitivity, when a = b, Returns 0, when a &gt; b Returnsed value is greater than 0, otherwise less than 0.</td>
+<td>Compares string a and b without case sensitivity. When a = b, the return value is 0. When a &gt; b, the return value is greater than 0. When a &lt; b, the return value is less than 0.</td>
 </tr>
 <tr>
 <td>string lower(string a)</td>
@@ -1615,7 +1619,7 @@
 </tr>
 <tr>
 <td>string toLower(string a)</td>
-<td>The same as lower().</td>
+<td>The same as <code>lower()</code>.</td>
 </tr>
 <tr>
 <td>string upper(string a)</td>
@@ -1623,11 +1627,11 @@
 </tr>
 <tr>
 <td>string toUpper(string a)</td>
-<td>The same as upper().</td>
+<td>The same as <code>upper()</code>.</td>
 </tr>
 <tr>
 <td>int length(string a)</td>
-<td>Returns the length of given string in bytes.</td>
+<td>Returns the length of the given string in bytes.</td>
 </tr>
 <tr>
 <td>string trim(string a)</td>
@@ -1643,31 +1647,31 @@
 </tr>
 <tr>
 <td>string left(string a, int count)</td>
-<td>Returns the substring in [1, count], if length a is less than count, Returns a.</td>
+<td>Returns a substring consisting of <code>count</code> characters from the left side of string a. If string a is shorter than <code>count</code>, the system returns string a.</td>
 </tr>
 <tr>
 <td>string right(string a, int count)</td>
-<td>Returns the substring in [size - count + 1, size], if length a is less than count, Returns a.</td>
+<td>Returns a substring consisting of <code>count</code> characters from the right side of string a. If string a is shorter than <code>count</code>, the system returns string a.</td>
 </tr>
 <tr>
 <td>string lpad(string a, int size, string letters)</td>
-<td>Left-pads a string with another string to a certain length.</td>
+<td>Left-pads string a with string <code>letters</code> and returns a substring with the length of <code>size</code>.</td>
 </tr>
 <tr>
 <td>string rpad(string a, int size, string letters)</td>
-<td>Reft-pads a string with another string to a certain length.</td>
+<td>Right-pads string a with string <code>letters</code> and returns a substring with the length of <code>size</code>.</td>
 </tr>
 <tr>
 <td>string substr(string a, int pos, int count)</td>
-<td>Returns a substring from a string, starting at the specified position <code>pos</code>, extract <code>count</code> characters.</td>
+<td>Returns a substring extracting <code>count</code> characters starting from the specified position <code>pos</code> of string a.</td>
 </tr>
 <tr>
 <td>string substring(string a, int pos, int count)</td>
-<td>The same as substr().</td>
+<td>The same as <code>substr()</code>.</td>
 </tr>
 <tr>
 <td>string reverse(string)</td>
-<td>Returns the reverse of a string.</td>
+<td>Returns a string in reverse order.</td>
 </tr>
 <tr>
 <td>string replace(string a, string b, string c)</td>
@@ -1683,7 +1687,7 @@
 </tr>
 <tr>
 <td>int hash()</td>
-<td>Takes in any data type and encodes it into an integer value.</td>
+<td>Takes in any data type and encodes it into a hash value.</td>
 </tr>
 </tbody>
 </table>
@@ -1693,28 +1697,39 @@
 </div>
 <h2 id="explanations_for_the_return_of_substr_and_substring">Explanations for the return of <code>substr()</code> and <code>substring()</code><a class="headerlink" href="#explanations_for_the_return_of_substr_and_substring" title="Permanent link">¶</a></h2>
 <ul>
-<li><code>pos</code> uses a 0-based index.</li>
-<li>If <code>pos</code> is 0, the whole string <code>a</code> is returned.</li>
+<li>The position index starts from <code>0</code>.</li>
+</ul>
+<ul>
+<li>If <code>pos</code> is 0, the whole string is returned.</li>
+</ul>
+<ul>
 <li>If <code>pos</code> is greater than the maximum string index, an empty string is returned.</li>
+</ul>
+<ul>
 <li>If <code>pos</code> is a negative number, <code>BAD_DATA</code> is returned.</li>
-<li>If <code>count</code> is omitted, the function returns the substring starting at the position given by <code>pos</code> and
-extending to the end of string <code>a</code>.</li>
-<li>Using <code>NULL</code> as any of the argument of <code>substr()</code> causes <a href="https://github.com/vesoft-inc/nebula-graph/issues/878">an issue</a>.</li>
+</ul>
+<ul>
+<li>If <code>count</code> is omitted, the function returns the substring starting at the position given by <code>pos</code> and extending to the end of the string.</li>
+</ul>
+<ul>
 <li>If <code>count</code> is 0, an empty string is returned.</li>
+</ul>
+<ul>
+<li>Using <code>NULL</code> as any of the argument of <code>substr()</code> will cause <a href="https://github.com/vesoft-inc/nebula-graph/issues/878">an issue</a>.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">OpenCypher compatibility</p>
 <ul>
 <li>In openCypher, if <code>a</code> is <code>null</code>, <code>null</code> is returned.</li>
 <li>In openCypher, if <code>pos</code> is 0, the returned substring starts from the first character, and extend to <code>count</code> characters.</li>
-<li>In openCypher, if either <code>pos</code> or <code>count</code> is null or a negative integer, an error is raised.</li>
+<li>In openCypher, if either <code>pos</code> or <code>count</code> is <code>null</code> or a negative integer, an issue is raised.</li>
 </ul>
 </div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

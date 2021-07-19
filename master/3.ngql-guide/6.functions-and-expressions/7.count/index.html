@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#the_count_function">
+<a class="md-skip" href="#count_function">
           Skip to content
         </a>
 </div>
@@ -500,11 +500,6 @@
 </li>
 </ul>
 </nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#countnull">
-    count(NULL)
-  </a>
 </li>
 </ul>
 </nav>
@@ -1608,11 +1603,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#countnull">
-    count(NULL)
-  </a>
-</li>
 </ul>
 </nav>
 </div>
@@ -1623,10 +1613,12 @@
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/6.functions-and-expressions/7.count.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="the_count_function">The count() function<a class="headerlink" href="#the_count_function" title="Permanent link">¶</a></h1>
-<p>The <code>count()</code> function calculates the number of the specified values or rows.</p>
+<h1 id="count_function">count() function<a class="headerlink" href="#count_function" title="Permanent link">¶</a></h1>
+<p>The <code>count()</code> function counts the number of the specified values or rows.</p>
 <ul>
 <li>(Native nGQL) You can use <code>count()</code> and <code>GROUP BY</code> together to group and count the number of specific values. Use <code>YIELD</code> to return.</li>
+</ul>
+<ul>
 <li>(OpenCypher style) You can use <code>count()</code> and <code>RETURN</code>. <code>GROUP BY</code> is not necessary.</li>
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
@@ -1634,21 +1626,28 @@
 </code></pre></div>
 <ul>
 <li>count(*) returns the number of rows (including NULL).</li>
-<li>count(expr) return non-NULL values return by an expression.</li>
-<li>count() and size() are different.</li>
+</ul>
+<ul>
+<li>count(expr) return the number of non-NULL values that meet the expression.</li>
+</ul>
+<ul>
+<li><code>count()</code> and <code>size()</code> are different.</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b RETURN count(b), count(*), count(DISTINCT b)
+<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b \
+        RETURN count(b), count(*), count(DISTINCT b);
 +----------+----------+-------------------+
-| COUNT(b) | COUNT(*) | COUNT(distinct b) |
+| count(b) | count(*) | count(distinct b) |
 +----------+----------+-------------------+
 | 4        | 5        | 2                 |
 +----------+----------+-------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow BIDIRECT YIELD $$.player.name AS Name | \
-        GROUP BY $-.Name YIELD $-.Name, count(*);
+<div class="highlight"><pre><span></span><code># The statement in the following example searches for the people whom `player101` follows and people who follow `player101`, i.e. a bidirectional query.
+nebula&gt; GO FROM "player101" OVER follow BIDIRECT \
+        YIELD $$.player.name AS Name \
+        | GROUP BY $-.Name YIELD $-.Name, count(*);
 +---------------------+----------+
-| $-.Name             | COUNT(*) |
+| $-.Name             | count(*) |
 +---------------------+----------+
 | "Dejounte Murray"   | 1        |
 +---------------------+----------+
@@ -1663,19 +1662,20 @@
 | "Boris Diaw"        | 1        |
 +---------------------+----------+
 </code></pre></div>
-<p>The statement in the preceding example searches for:</p>
+<p>The preceding example retrieves two columns:</p>
 <ul>
-<li>People whom <code>player101</code> follows.</li>
-<li>People who follow <code>player101</code>.</li>
+<li><code>$-.Name</code>: the names of the people.</li>
 </ul>
-<p>And retrieves two columns:</p>
 <ul>
-<li><code>$-.Name</code>, the names of the people.</li>
-<li><code>COUNT(*)</code>, how many times the names show up.</li>
+<li><code>count(*)</code>: how many times the names show up.</li>
 </ul>
-<p>Because there are no duplicate names in the <code>basketballplayer</code> dataset, the number <code>2</code> in the result shows that the person in that row and <code>player101</code> have followed each other.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD player.age As playerage \|
- GROUP BY $-.playerage YIELD $-.playerage as age, count(*) AS number | ORDER BY number DESC, age DESC
+<p>Because there are no duplicate names in the <code>basketballplayer</code> dataset, the number <code>2</code> in the column <code>count(*)</code> shows that the person in that row and <code>player101</code> have followed each other.</p>
+<div class="highlight"><pre><span></span><code># a: The statement in the following example retrieves the age distribution of the players in the dataset.
+nebula&gt; LOOKUP ON player \
+        YIELD player.age As playerage \
+        | GROUP BY $-.playerage \
+        YIELD $-.playerage as age, count(*) AS number \
+        | ORDER BY number DESC, age DESC;
 +-----+--------+
 | age | number |
 +-----+--------+
@@ -1691,7 +1691,10 @@
 +-----+--------+
 ...
 
-nebula&gt; MATCH (n:player) RETURN n.age as age, count(*) as number ORDER BY number DESC, age DESC
+# b: The statement in the following example retrieves the age distribution of the players in the dataset.
+nebula&gt; MATCH (n:player) \
+        RETURN n.age as age, count(*) as number \
+        ORDER BY number DESC, age DESC;
 +-----+--------+
 | age | number |
 +-----+--------+
@@ -1705,34 +1708,31 @@ nebula&gt; MATCH (n:player) RETURN n.age as age, count(*) as number ORDER BY num
 +-----+--------+
 | 38  | 3      |
 +-----+--------+
+...
 </code></pre></div>
-<p>The two statements in the preceding examples retrieves the age distribution of the players in the dataset.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) -- (v2) RETURN count(DISTINCT v2)
+<div class="highlight"><pre><span></span><code># The statement in the following example counts the number of edges that Tim Duncan relates.
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) -- (v2) \
+        RETURN count(DISTINCT v2);
 +--------------------+
-| COUNT(distinct v2) |
+| count(distinct v2) |
 +--------------------+
 | 11                 |
 +--------------------+
-nebula&gt; MATCH (n:player {name : "Tim Duncan"})-[]-&gt;(friend:player)-[]-&gt;(fof:player) RETURN count(fof), count(DISTINCT fof)
+
+# The statement in the following example counts the number of edges that Tim Duncan relates and returns two columns (no DISTINCT and DISTINCT) in multi-hop queries.
+nebula&gt; MATCH (n:player {name : "Tim Duncan"})-[]-&gt;(friend:player)-[]-&gt;(fof:player) \
+        RETURN count(fof), count(DISTINCT fof);
 +------------+---------------------+
-| COUNT(fof) | COUNT(distinct fof) |
+| count(fof) | count(distinct fof) |
 +------------+---------------------+
 | 4          | 3                   |
 +------------+---------------------+
-</code></pre></div>
-<h2 id="countnull">count(NULL)<a class="headerlink" href="#countnull" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt;  RETURN count(NULL), size(NULL)
-+-------------+------------+
-| COUNT(NULL) | size(NULL) |
-+-------------+------------+
-| 0           | __NULL__   |
-+-------------+------------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>
