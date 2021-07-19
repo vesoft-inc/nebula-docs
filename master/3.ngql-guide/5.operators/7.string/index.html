@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/3.ngql-guide/5.operators/7.string/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.10" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.11" name="generator"/>
 <title>String - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.1fe995fd.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.3754935a.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -431,6 +431,40 @@
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
+<nav aria-label="Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+    +
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#contains">
+    CONTAINS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_in">
+    (NOT) IN
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_starts_with">
+    (NOT) STARTS WITH
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_ends_with">
+    (NOT) ENDS WITH
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#regular_expressions">
+    Regular expressions
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1584,6 +1618,40 @@
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
+<nav aria-label="Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+    +
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#contains">
+    CONTAINS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_in">
+    (NOT) IN
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_starts_with">
+    (NOT) STARTS WITH
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#not_ends_with">
+    (NOT) ENDS WITH
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#regular_expressions">
+    Regular expressions
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1596,48 +1664,47 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="string_operators">String operators<a class="headerlink" href="#string_operators" title="Permanent link">¶</a></h1>
+<p>You can use the following string operators for concatenating, querying, and matching.</p>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
-<th align="center">Description</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">+</td>
-<td align="center">concatenating strings</td>
+<td align="left">Concatenates strings.</td>
 </tr>
 <tr>
 <td align="left">CONTAINS</td>
-<td align="center">Perform case-sensitive inclusion searching in strings</td>
+<td align="left">Performs searchings in strings.</td>
 </tr>
 <tr>
 <td align="left">(NOT) IN</td>
-<td align="center">Whether a value is within a set of values</td>
+<td align="left">Checks whether a value is within a set of values.</td>
 </tr>
 <tr>
 <td align="left">(NOT) STARTS WITH</td>
-<td align="center">Perform case-sensitive matching on the beginning of a string</td>
+<td align="left">Performs matchings at the beginning of a string.</td>
 </tr>
 <tr>
 <td align="left">(NOT) ENDS WITH</td>
-<td align="center">Perform case-sensitive matching on the ending of a string</td>
+<td align="left">Performs matchings at the end of a string.</td>
 </tr>
 <tr>
 <td align="left">Regular expressions</td>
-<td align="center">Perform regular expression matching on a string</td>
+<td align="left">Perform string matchings using regular expressions.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All the string matchings are case-sensitive.</p>
+<p>All the string searchings or matchings are case-sensitive.</p>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<ul>
-<li>concatenation (+)</li>
-</ul>
+<h3 id="_1"><code>+</code><a class="headerlink" href="#_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN 'a' + 'b';
 +-------+
 | (a+b) |
@@ -1651,10 +1718,8 @@ nebula&gt; UNWIND 'a' AS a UNWIND 'b' AS b RETURN a + b;
 | "ab"  |
 +-------+
 </code></pre></div>
-<ul>
-<li>CONTAINS</li>
-</ul>
-<p>The <code>CONTAINS</code> operator requires string type in both left and right side.</p>
+<h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">¶</a></h3>
+<p>The <code>CONTAINS</code> operator requires string types on both left and right sides.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == "player101" \
     AND t.name CONTAINS "ets" RETURN s.name, e.start_year, e.end_year, t.name;
 +---------------+--------------+------------+-----------+
@@ -1680,19 +1745,15 @@ nebula&gt; GO FROM "player101" OVER serve WHERE !($$.team.name CONTAINS "ets") \
 | "Tony Parker"  | 1999             | 2018           | "Spurs"      |
 +----------------+------------------+----------------+--------------+
 </code></pre></div>
-<ul>
-<li>IN</li>
-</ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], "Yao" IN ["Yi", "Tim", "Kobe"], NULL in ["Yi", "Tim", "Kobe"]
-+----------------+--------------------------------+-------------------------------+
-| (1 IN [1,2,3]) | ("Yao" IN ["Yi","Tim","Kobe"]) | (NULL IN ["Yi","Tim","Kobe"]) |
-+----------------+--------------------------------+-------------------------------+
-| true           | false                          | false                         |
-+----------------+--------------------------------+-------------------------------+
+<h3 id="not_in"><code>(NOT) IN</code><a class="headerlink" href="#not_in" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], "Yao" NOT IN ["Yi", "Tim", "Kobe"], NULL in ["Yi", "Tim", "Kobe"]
++----------------+------------------------------------+-------------------------------+
+| (1 IN [1,2,3]) | ("Yao" NOT IN ["Yi","Tim","Kobe"]) | (NULL IN ["Yi","Tim","Kobe"]) |
++----------------+------------------------------------+-------------------------------+
+| true           | true                               | false                         |
++----------------+------------------------------------+-------------------------------+
 </code></pre></div>
-<ul>
-<li>(NOT) STARTS WITH</li>
-</ul>
+<h3 id="not_starts_with"><code>(NOT) STARTS WITH</code><a class="headerlink" href="#not_starts_with" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN 'apple' STARTS WITH 'app', 'apple' STARTS WITH 'a', 'apple' STARTS WITH toUpper('a')
 +-----------------------------+---------------------------+------------------------------------+
 | ("apple" STARTS WITH "app") | ("apple" STARTS WITH "a") | ("apple" STARTS WITH toUpper("a")) |
@@ -1707,9 +1768,7 @@ nebula&gt; RETURN 'apple' STARTS WITH 'b','apple' NOT STARTS WITH 'app'
 | false                     | false                           |
 +---------------------------+---------------------------------+
 </code></pre></div>
-<ul>
-<li>(NOT) ENDS WITH</li>
-</ul>
+<h3 id="not_ends_with"><code>(NOT) ENDS WITH</code><a class="headerlink" href="#not_ends_with" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN 'apple' ENDS WITH 'app', 'apple' ENDS WITH 'e', 'apple' ENDS WITH 'E', 'apple' ENDS WITH 'b'
 +---------------------------+-------------------------+-------------------------+-------------------------+
 | ("apple" ENDS WITH "app") | ("apple" ENDS WITH "e") | ("apple" ENDS WITH "E") | ("apple" ENDS WITH "b") |
@@ -1717,9 +1776,11 @@ nebula&gt; RETURN 'apple' STARTS WITH 'b','apple' NOT STARTS WITH 'app'
 | false                     | true                    | false                   | false                   |
 +---------------------------+-------------------------+-------------------------+-------------------------+
 </code></pre></div>
-<ul>
-<li>Regular expressions</li>
-</ul>
+<h3 id="regular_expressions">Regular expressions<a class="headerlink" href="#regular_expressions" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Regular expressions cannot work with native nGQL statements (<code>GO</code>, <code>FETCH</code>, <code>LOOKUP</code>, etc.). Use it in openCypher only (<code>MATCH</code>, <code>WHERE</code>, etc.).</p>
+</div>
 <p>Nebula Graph supports filtering by using regular expressions. The regular expression syntax is inherited from <code>std::regex</code>. You can match on regular expressions by using <code>=~ 'regexp'</code>. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN "384748.39" =~ "\\d+(\\.\\d{2})?";
 +----------------------------+
@@ -1727,23 +1788,19 @@ nebula&gt; RETURN 'apple' STARTS WITH 'b','apple' NOT STARTS WITH 'app'
 +----------------------------+
 | true                       |
 +----------------------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name =~ 'Tony.*' RETURN v.name;
+
+nebula&gt; MATCH (v:player) WHERE v.name =~ 'Tony.*' RETURN v.name;
 +---------------+
 | v.name        |
 +---------------+
 | "Tony Parker" |
 +---------------+
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Regular expressions <strong>CAN NOT</strong> work with native nGQL (GO/FETCH clause will return syntax error). Use it in openCypher only (e.g., in MATCH-WHERE clause).</p>
-</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/3.ngql-guide/5.operators/9.precedence/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.10" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.11" name="generator"/>
 <title>Precedence - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.1fe995fd.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.3754935a.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1607,17 +1607,18 @@
 </a>
 <h1 id="operator_precedence">Operator precedence<a class="headerlink" href="#operator_precedence" title="Permanent link">¶</a></h1>
 <p>The following list shows the precedence of nGQL operators in descending order. Operators that are shown together on a line have the same precedence.</p>
-<div class="highlight"><pre><span></span><code>- (negative number)
-!, NOT
-*, /, %
--, +
-== , &gt;=, &gt;, &lt;=, &lt;, &lt;&gt;, !=
-AND
-OR, XOR
-= (assignment)
-</code></pre></div>
+<ul>
+<li><code>-</code>（negative number)</li>
+<li><code>!</code>, <code>NOT</code></li>
+<li><code>*</code>, <code>/</code>, <code>%</code></li>
+<li><code>-</code>, <code>+</code></li>
+<li><code>==</code>, <code>&gt;=</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&lt;</code>, <code>&lt;&gt;</code>, <code>!=</code></li>
+<li><code>AND</code></li>
+<li><code>OR</code>, <code>XOR</code></li>
+<li><code>=</code> (assignment)</li>
+</ul>
 <p>For operators that occur at the same precedence level within an expression, evaluation proceeds left to right, with the exception that assignments evaluate right to left.</p>
-<p>The precedence of operators determines the order of evaluation of terms in an expression. To override this order and group terms explicitly, use parentheses.</p>
+<p>The precedence of operators determines the order of evaluation of terms in an expression. To modify this order and group terms explicitly, use parentheses.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; RETURN 2+3*5;
 +-----------+
@@ -1634,13 +1635,13 @@ nebula&gt; RETURN (2+3)*5;
 +-----------+
 </code></pre></div>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>In openCypher, comparisons can be chained arbitrarily, e.g., <code>x &lt; y &lt;= z</code> is equivalent to <code>x &lt; y AND y &lt;= z</code> in openCypher.
-But in nGQL, it is equivalent to <code>(x &lt; y) &lt;= z</code>, which is a boolean (x &lt; y) compare again an integer (z). And the result is NULL.</p>
+<p>In openCypher, comparisons can be chained arbitrarily, e.g., <code>x &lt; y &lt;= z</code> is equivalent to <code>x &lt; y AND y &lt;= z</code> in openCypher.</p>
+<p>But in nGQL, <code>x &lt; y &lt;= z</code> is equivalent to <code>(x &lt; y) &lt;= z</code>. The result of <code>(x &lt; y)</code> is a boolean. Compare it with an integer <code>z</code>, and you will get the final result <code>NULL</code>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 17, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

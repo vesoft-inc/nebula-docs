@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/3.ngql-guide/5.operators/4.pipe/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.10" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.11" name="generator"/>
 <title>Pipe - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.1fe995fd.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.3754935a.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#pipe_operator">
+<a class="md-skip" href="#pipe_operators">
           Skip to content
         </a>
 </div>
@@ -425,6 +425,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance_tips">
+    Performance tips
   </a>
 </li>
 </ul>
@@ -1605,6 +1610,11 @@
     Examples
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance_tips">
+    Performance tips
+  </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -1615,16 +1625,21 @@
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/5.operators/4.pipe.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="pipe_operator">Pipe operator<a class="headerlink" href="#pipe_operator" title="Permanent link">¶</a></h1>
+<h1 id="pipe_operators">Pipe operators<a class="headerlink" href="#pipe_operators" title="Permanent link">¶</a></h1>
+<p>Multiple queries can be combined using pipe operators in nGQL.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to native nGQL only.</p>
+<p>Pipe operators apply to native nGQL only.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <p>One major difference between nGQL and SQL is how sub-queries are composed.</p>
-<p>In SQL, to form a statement, sub-queries are nested (embedded).
-In nGQL the shell style <code>PIPE (|)</code> is introduced.</p>
+<ul>
+<li>In SQL, sub-queries are nested in the query statements.</li>
+</ul>
+<ul>
+<li>In nGQL, the shell style <code>PIPE (|)</code> is introduced into the sub-queries.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-YIELD follow._dst AS dstid, $$.player.name AS Name |\
+YIELD follow._dst AS dstid, $$.player.name AS Name | \
 GO FROM $-.dstid OVER follow;
 
 +-------------+
@@ -1635,11 +1650,39 @@ GO FROM $-.dstid OVER follow;
 </code></pre></div>
 <p>If there is no <code>YIELD</code> clause to define the output, the destination vertex ID is returned by default. If a YIELD clause is applied, the output is defined by the YIELD clause.</p>
 <p>You must define aliases in the <code>YIELD</code> clause for the reference operator <code>$-</code> to use, just like <code>$-.dstid</code> in the preceding example.</p>
+<h2 id="performance_tips">Performance tips<a class="headerlink" href="#performance_tips" title="Permanent link">¶</a></h2>
+<p>In Nebula Graph master, pipes will affect the performance. Take <code>A | B</code> as an example, the effects are as follows:</p>
+<ol>
+<li>
+<p>Pipe operators operate synchronously. That is, the data can enter the pipe clause as a whole after the execution of clause <code>A</code> before the pipe operator is completed.</p>
+</li>
+<li>
+<p>Pipe operators need to be serialized and deserialized, which is executed in a single thread.</p>
+</li>
+<li>
+<p>If <code>A</code> sends a large amount of data to <code>|</code>, the entire query request may be very slow. You can try to split this statement.</p>
+<ol>
+<li>
+<p>Send <code>A</code> from the application,</p>
+</li>
+<li>
+<p>Split the return results on the application,</p>
+</li>
+<li>
+<p>Send to multiple graphd processes concurrently,</p>
+</li>
+<li>
+<p>Every graphd process executes part of B.</p>
+</li>
+</ol>
+<p>This is usually much faster than executing a complete <code>A | B</code> with a single graphd process.</p>
+</li>
+</ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>

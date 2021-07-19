@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/3.ngql-guide/5.operators/5.property-reference/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.10" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.1.11" name="generator"/>
 <title>Property reference - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.1fe995fd.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.3754935a.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1616,9 +1616,9 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="reference_operators">Reference operators<a class="headerlink" href="#reference_operators" title="Permanent link">¶</a></h1>
-<p>NGQL provides reference operators to represent a property in a <code>WHERE</code> or <code>YIELD</code> clause, or the output of the statement before the pipe symbol in a composite query.</p>
+<p>NGQL provides reference operators to represent a property in a <code>WHERE</code> or <code>YIELD</code> clause, or the output of the statement before the pipe operator in a composite query.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to native nGQL only.</p>
+<p>Reference operators apply to native nGQL only.</p>
 <h2 id="reference_operator_list">Reference operator List<a class="headerlink" href="#reference_operator_list" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -1638,14 +1638,13 @@
 </tr>
 <tr>
 <td><code>$-</code></td>
-<td>Refers to the output of the statement before the pipe symbol in a composite query. For more information, see <a href="../4.pipe/">Pipe</a>.</td>
+<td>Refers to the output of the statement before the pipe operator in a composite query. For more information, see <a href="../4.pipe/">Pipe</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<p>The following example returns the age of the source vertex and the destination vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-        YIELD $^.player.age AS SrcAge, $$.player.age AS DestAge;
+<div class="highlight"><pre><span></span><code># The following example returns the age of the source vertex and the destination vertex.
+nebula&gt; GO FROM "player100" OVER follow YIELD $^.player.age AS SrcAge, $$.player.age AS DestAge;
 +--------+---------+
 | SrcAge | DestAge |
 +--------+---------+
@@ -1653,9 +1652,9 @@
 +--------+---------+
 | 42     | 41      |
 +--------+---------+
-</code></pre></div>
-<p>The following example returns the name and team of the players that "player100" follows.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
+
+# The following example returns the name and team of the players that player100 follows.
+nebula&gt; GO FROM "player100" OVER follow \
         YIELD follow._dst AS id | \
         GO FROM $-.id OVER serve \
         YIELD $^.player.name AS Player, $$.team.name AS Team;
@@ -1673,7 +1672,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>
