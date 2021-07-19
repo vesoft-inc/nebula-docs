@@ -13,7 +13,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
   
 ## Other Sources
 
-- [Nebula Graph Homepage](https://www.vesoft.com/en/)
+- [Nebula Graph Homepage](https://nebula-graph.io/)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blog](https://nebula-graph.io/posts/)
 - [Video](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
