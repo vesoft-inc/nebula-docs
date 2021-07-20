@@ -67,7 +67,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
 
     If needed, you can also start a new line for better understanding, even if the clause does not exceed 80 characters. 
 
-## Identifier nomenclature
+## Identifier naming
 
 In nGQL statements, characters other than keywords, punctuation marks, and blanks are all identifiers. Recommended methods to name the identifiers are as follows.
 
