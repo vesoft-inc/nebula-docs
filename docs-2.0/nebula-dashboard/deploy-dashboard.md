@@ -1,6 +1,6 @@
 # Deploy Dashboard
 
-The installation and deployment of Dashboard involves five kinds of services. This topic will describe how to install and deploy Dashboard in detail.
+The installation and deployment of Dashboard involve five kinds of services. This topic will describe how to install and deploy Dashboard in detail.
 
 ## Port
 
