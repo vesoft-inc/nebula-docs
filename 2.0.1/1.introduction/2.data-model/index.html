@@ -7,13 +7,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/master/1.introduction/2.data-model/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/1.introduction/2.data-model/" rel="canonical"/>
 <link href="../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.1.10" name="generator"/>
-<title>Data model - Nebula Graph Database Manual</title>
-<link href="../../assets/stylesheets/main.1fe995fd.min.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/palette.f1a3b89f.min.css" rel="stylesheet"/>
-<meta content="#009485" name="theme-color"/>
+<meta content="mkdocs-1.1, mkdocs-material-7.2.1" name="generator"/>
+<title>Date model - Nebula Graph Database Manual</title>
+<link href="../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
+<meta content="#ffffff" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
@@ -23,7 +23,7 @@
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
-<body data-md-color-accent="light-green" data-md-color-primary="teal" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="white" data-md-color-primary="white" data-md-color-scheme="" dir="ltr">
 <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
@@ -36,12 +36,6 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
-<div id="dialog-bg"></div>
-<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
-    This version is under development. For the docs of the latest stable release, see 
-    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
-    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
-</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -59,7 +53,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Data model
+              Date model
             
           </span>
 </div>
@@ -138,11 +132,11 @@
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Data model
+          Date model
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Data model
+        Date model
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -160,27 +154,51 @@
     Directed property graph
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#graph_data_modeling_suggestions">
+    Graph data modeling suggestions
+  </a>
+<nav aria-label="Graph data modeling suggestions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model_for_performance">
+    Model for performance
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edges_as_properties">
+    Edges as properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#granulated_vertices">
+    Granulated vertices
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use_indexes_correctly">
+    Use indexes correctly
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#no_long_string_properties_on_edges">
+    No long string properties on edges
+  </a>
+</li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../2.1.path/">
-        Path
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../3.vid/">
-        VID
-      </a>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_5">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3">
         Nebula Graph architecture
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Nebula Graph architecture" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_5">
+<label class="md-nav__title" for="__nav_2_3">
 <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -224,6 +242,11 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../2.quick-start/0.FAQ/">
+        FAQ
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../2.quick-start/1.quick-start-workflow/">
         Quick start workflow
       </a>
@@ -246,6 +269,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../2.quick-start/4.nebula-graph-crud/">
         Nebula Graph CRUD
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2.quick-start/6.useful-links/">
+        Useful Links
       </a>
 </li>
 </ul>
@@ -283,26 +311,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/3.graph-patterns/">
         Graph patterns
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/identifier-case-sensitivity/">
-        Identifier case sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">
-        Keywords
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/ngql-style-guide/">
-        nGQL style guide
       </a>
 </li>
 </ul>
@@ -1063,6 +1071,41 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_18" id="__nav_4_18" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_18">
+        Appendix
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Appendix" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_18">
+<span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/">
+        Identifier Case Sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/">
+        Keywords and reserved words
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/vid-partition/">
+        VID and Partition
+      </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -1263,6 +1306,41 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" id="__nav_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8_2">
+        Backup &amp; Restore
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Backup &amp; Restore" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_8_2">
+<span class="md-nav__icon md-icon"></span>
+          Backup &amp; Restore
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.data-security/2.backup-restore/1.what-is-br/">
+        What is Backup &amp; Restore
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.data-security/2.backup-restore/2.compile-br/">
+        Compile BR
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.data-security/2.backup-restore/3.br-backup-data/">
+        Use BR to back up data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.data-security/2.backup-restore/4.br-restore-data/">
+        Use BR to restore data
+      </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../7.data-security/3.manage-snapshot/">
         Manage snapshots
@@ -1299,176 +1377,31 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" id="__nav_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_10">
-        Nebula Graph Studio
+        Ecosystem
         <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-label="Nebula Graph Studio" class="md-nav" data-md-level="1">
+<nav aria-label="Ecosystem" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
-          Nebula Graph Studio
+          Ecosystem
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/about-studio/st-ug-release-note/">
-        Release Note
-      </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10_2" id="__nav_10_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_10_2">
-        About Nebula Graph Studio
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="About Nebula Graph Studio" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_10_2">
-<span class="md-nav__icon md-icon"></span>
-          About Nebula Graph Studio
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/about-studio/st-ug-what-is-graph-studio/">
-        What is Studio
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/about-studio/st-ug-limitations/">
-        Limitation
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/about-studio/st-ug-check-updates/">
-        Check updates
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/about-studio/st-ug-shortcuts/">
-        Shortcuts
+<a class="md-nav__link" href="../../16.eco-tools/1.nebula-exchange/">
+        Nebula Exchange
       </a>
 </li>
 </ul>
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10_3" id="__nav_10_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_10_3">
-        Deploy and connect
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Deploy and connect" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_10_3">
-<span class="md-nav__icon md-icon"></span>
-          Deploy and connect
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/install-configure/st-ug-deploy/">
-        Deploy Studio
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/install-configure/st-ug-connect/">
-        Connect to Studio
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/install-configure/st-ug-reset-connection/">
-        Reset connection
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10_4" id="__nav_10_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_10_4">
-        Quick start
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Quick start" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_10_4">
-<span class="md-nav__icon md-icon"></span>
-          Quick start
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/quick-start/st-ug-plan-schema/">
-        Design a schema
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/quick-start/st-ug-create-schema/">
-        Create a schema
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/quick-start/st-ug-import-data/">
-        Import data
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/quick-start/st-ug-explore/">
-        Query graph data
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10_5" id="__nav_10_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_10_5">
-        Operation guide
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Operation guide" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_10_5">
-<span class="md-nav__icon md-icon"></span>
-          Operation guide
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10_5_1" id="__nav_10_5_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_10_5_1">
-        Use Schema
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Use Schema" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_10_5_1">
-<span class="md-nav__icon md-icon"></span>
-          Use Schema
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-studio/manage-schema/st-ug-crud-space/">
-        Operate graph spaces
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-spark-connector/">
-        Nebula Spark Connector
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../nebula-flink-connector/">
-        Nebula Flink Connector
-      </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" id="__nav_13" type="checkbox"/>
-<label class="md-nav__link" for="__nav_13">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" id="__nav_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_11">
         Contribution
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Contribution" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_13">
+<label class="md-nav__title" for="__nav_11">
 <span class="md-nav__icon md-icon"></span>
           Contribution
         </label>
@@ -1476,86 +1409,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../15.contribution/how-to-contribute/">
         How to Contribute
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" id="__nav_14" type="checkbox"/>
-<label class="md-nav__link" for="__nav_14">
-        FAQ
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="FAQ" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_14">
-<span class="md-nav__icon md-icon"></span>
-          FAQ
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../19.FAQ/0.FAQ/">
-        FAQ
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" id="__nav_15" type="checkbox"/>
-<label class="md-nav__link" for="__nav_15">
-        Appendix
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Appendix" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_15">
-<span class="md-nav__icon md-icon"></span>
-          Appendix
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/0.vid/">
-        VID
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/2.graph-modeling/">
-        Graph modeling
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/3.system-design/">
-        System modeling
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/4.raft/">
-        About Raft
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/5.partition/">
-        Partition ID
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/6.eco-tool-version/">
-        Ecosystem tools
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/identifier-case-sensitivity/">
-        Case sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/keywords-and-reserved-words/">
-        Keywords
       </a>
 </li>
 </ul>
@@ -1595,6 +1448,40 @@
     Directed property graph
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#graph_data_modeling_suggestions">
+    Graph data modeling suggestions
+  </a>
+<nav aria-label="Graph data modeling suggestions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#model_for_performance">
+    Model for performance
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edges_as_properties">
+    Edges as properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#granulated_vertices">
+    Granulated vertices
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use_indexes_correctly">
+    Use indexes correctly
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#no_long_string_properties_on_edges">
+    No long string properties on edges
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </div>
@@ -1602,38 +1489,32 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/1.introduction/2.data-model.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.0.1/docs-2.0/1.introduction/2.data-model.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="data_modeling">Data modeling<a class="headerlink" href="#data_modeling" title="Permanent link">¶</a></h1>
 <p>A data model is a model that organizes data and specifies how they are related to one another. This topic describes the Nebula Graph data model and provides suggestions for data modeling with Nebula Graph.</p>
 <h2 id="data_structures">Data structures<a class="headerlink" href="#data_structures" title="Permanent link">¶</a></h2>
-<p>Nebula Graph data model uses six data structures to store data. They are graph spaces, vertices, edges, tags, edge types and properties.</p>
+<p>Nebula Graph data model uses five data structures to store data. They are vertices, edges, properties, tags, and edge types.</p>
 <ul>
-<li><strong>Graph spaces</strong>: Graph spaces are used to isolate data from different teams or programs. Data stored in different graph spaces are securely isolated. Storage replications, privileges, and partitions can be assigned.</li>
 <li><strong>Vertices</strong>: Vertices are used to store entities.<ul>
-<li>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>). The <code>VID</code> must be unique in the same graph space. VID should be int64, or fixed_string(N).</li>
-<li>A vertex must have at least one tag or multiple tags.</li>
+<li>In Nebula Graph, vertices are identified with vertex identifiers (i.e. <code>VID</code>). The <code>VID</code> must be unique in the same graph space.</li>
+<li>A vertex must have at least one tag.</li>
 </ul>
 </li>
 <li><strong>Edges</strong>: Edges are used to connect vertices. An edge is a connection or behavior between two vertices.<ul>
-<li>There can be multiple edges between two vertices.</li>
+<li>An edge is identified uniquely with a source vertex, an edge type, a rank value, and a destination vertex.</li>
 <li>Edges are directed. <code>-&gt;</code> identifies the directions of edges. Edges can be traversed in either direction.</li>
-<li>An edge is identified uniquely with a source vertex, an edge type, a rank value, and a destination vertex. Edges have no EID.</li>
 <li>An edge must have one and only one edge type.</li>
 <li>The rank value is an immutable user-assigned 64-bit signed integer. It identifies the edges with the same edge type between two vertices. Edges are sorted by their rank values. The edge with the greatest rank value is listed first. The default rank value is zero.</li>
 </ul>
 </li>
+<li><strong>Properties</strong>: Properties are key-value pairs. Both vertices and edges are containers for properties.</li>
 <li><strong>Tags</strong>: Tags are used to categorize vertices. Vertices that have the same tag share the same definition of properties.</li>
 <li><strong>Edge types</strong>: Edge types are used to categorize edges. Edges that have the same edge type share the same definition of properties.</li>
-<li><strong>Properties</strong>: Properties are key-value pairs. Both vertices and edges are containers for properties.</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Tag and Edge type are similar to the vertex table and edge table in the relational databases.</p>
-</div>
 <h2 id="directed_property_graph">Directed property graph<a class="headerlink" href="#directed_property_graph" title="Permanent link">¶</a></h2>
-<p>Nebula Graph stores data in directed property graphs. A directed property graph has a set of vertices connected by directed edges. Both vertices and edges can have properties. A directed property graph is represented as:</p>
+<p>Nebula Graph stores data in directed property graphs. A directed property graph has a set of vertices connected by edges. And the edges have directions. A directed property graph is represented as:</p>
 <p><strong>G = &lt; V, E, P<sub>V</sub>, P<sub>E</sub> &gt;</strong></p>
 <ul>
 <li><strong>V</strong> is a set of vertices.</li>
@@ -1641,7 +1522,7 @@
 <li><strong>P<sub>V</sub></strong> is the property of vertices.</li>
 <li><strong>P<sub>E</sub></strong> is the property of edges.</li>
 </ul>
-<p>The following table is an example of the structure of the basketball player dataset. We have two types of vertices, that is <strong>player</strong> and <strong>team</strong>, and two types of edges, that is <strong><em>serve</em></strong> and <strong><em>follow</em></strong>.</p>
+<p>The following table is an example of the structure of the basketball player dataset. We have two types of vertices, that is <strong>player</strong> and <strong>team</strong>, and two types of edges, that is <strong><em>serve</em></strong> and <strong><em>like</em></strong>.</p>
 <table>
 <thead>
 <tr>
@@ -1668,25 +1549,44 @@
 <td align="left">Edge type</td>
 <td align="left"><strong>serve</strong></td>
 <td align="left">start_year (int) <br> end_year (int)</br></td>
-<td align="left">Represents actions taken by players in the team. An action links a player with a team, and the direction is from a player to a team.</td>
+<td align="left">Represents actions taken by players in the team. An action links a player and a team and the direction is from a player to a team.</td>
 </tr>
 <tr>
 <td align="left">Edge type</td>
-<td align="left"><strong>follow</strong></td>
-<td align="left">degree (int)</td>
-<td align="left">Represents actions taken by players in the team. An action links a player with another player, and the direction is from one player to the other player.</td>
+<td align="left"><strong>like</strong></td>
+<td align="left">likeness (int)</td>
+<td align="left">Represents actions taken by players in the team. An action links a player and another player and the direction is from one player to the other player.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="graph_data_modeling_suggestions">Graph data modeling suggestions<a class="headerlink" href="#graph_data_modeling_suggestions" title="Permanent link">¶</a></h2>
+<p>This section provides general suggestions for modeling data in Nebula Graph.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nebula Graph supports only directed edges.</p>
+<p>The following suggestions may not apply to some special scenarios. In these cases, find help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
 </div>
+<h3 id="model_for_performance">Model for performance<a class="headerlink" href="#model_for_performance" title="Permanent link">¶</a></h3>
+<p>There is no perfect method to model in Nebula Graph. Graph modeling depends on the questions that you want to know from the data. Your data drives your graph model. Graph data modeling is intuitive and convenient. Create your data model based on your business model. Test your model and gradually optimize it to fit your business. To get better performance, you can change or re-design your model multiple times.</p>
+<h3 id="edges_as_properties">Edges as properties<a class="headerlink" href="#edges_as_properties" title="Permanent link">¶</a></h3>
+<p>Traversal depth decreases the traversal performance. To decrease the traversal depth, use vertex properties instead of edges.</p>
+<p>For example, to model a graph that have the name, age, and eye color elements, you can:</p>
+<ul>
+<li>(RECOMMENDED) Create a tag <code>person</code>, then add the name, age, and eye color as its properties.</li>
+<li>(WRONG WAY) Create a new tag <code>eye color</code> and a new edge type <code>has</code>, then create an edge to indicate that a person has an eye color.</li>
+</ul>
+<p>The first modeling solution leads to much better performance. DO NOT use the second solution unless you have to.</p>
+<p>Multiple properties under one tag are permitted. But make sure that tags are fine-grained. For more information, see the <a href="#granulated_vertices">Granulated vertices</a> section.</p>
+<h3 id="granulated_vertices">Granulated vertices<a class="headerlink" href="#granulated_vertices" title="Permanent link">¶</a></h3>
+<p>In graph modeling, use the data models with a higher level of granularity. Put a set of parallel properties into one tag, i.e., separate different concepts.</p>
+<h3 id="use_indexes_correctly">Use indexes correctly<a class="headerlink" href="#use_indexes_correctly" title="Permanent link">¶</a></h3>
+<p>Correct use of indexes speeds up queries, but indexes reduce the write performance by 90% or more. <strong>ONLY</strong> use indexes when you locate vertices or edges by their properties.</p>
+<h3 id="no_long_string_properties_on_edges">No long string properties on edges<a class="headerlink" href="#no_long_string_properties_on_edges" title="Permanent link">¶</a></h3>
+<p>Be careful when you create long string properties for edges. Nebula Graph supports storing such properties on edges. But note that these properties are stored both in the outgoing edges and the incoming edges. Thus be careful with the write amplification.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
 </small>
 </div>
 </article>
@@ -1712,13 +1612,13 @@
             </div>
 </div>
 </a>
-<a aria-label="Next: Path" class="md-footer__link md-footer__link--next" href="../2.1.path/" rel="next">
+<a aria-label="Next: Architecture overview" class="md-footer__link md-footer__link--next" href="../3.nebula-graph-architecture/1.architecture-overview/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Path
+              Architecture overview
             </div>
 </div>
 <div class="md-footer__button md-icon">
@@ -1750,8 +1650,8 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": {"method": "mike"}}</script>
-<script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.53c85856.min.js", "version": {"method": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.716f8af4.min.js"></script>
 <script src="../../js/version-select.js"></script>
 <script src="../../js/jquery.js"></script>
 <script src="../../js/search.js"></script>
