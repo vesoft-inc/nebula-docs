@@ -595,8 +595,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -1591,8 +1591,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -1606,46 +1606,62 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="show_hosts">SHOW HOSTS<a class="headerlink" href="#show_hosts" title="Permanent link">¶</a></h1>
-<p>The <code>SHOW HOSTS</code> statement lists graph/storage/meta hosts registered by the Meta Service.</p>
+<p>The <code>SHOW HOSTS</code> statement shows the host and version information of Graph Service, Storage Service, and Meta Service.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW HOSTS [GRAPH/STORAGE/META]
+<div class="highlight"><pre><span></span><code>SHOW HOSTS [GRAPH | STORAGE | META];
 </code></pre></div>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<p>If you return <code>SHOW HOSTS</code> without the service name, it will show the host information of Storage Service, as well as the leader number, leader distribution, and partition distribution.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-------------+-------+----------+--------------+----------------------------------+------------------------------+
-| Host        | Port  | Status   | Leader count | Leader distribution              | Partition distribution       |
-+-------------+-------+----------+--------------+----------------------------------+------------------------------+
-| "storaged0" | 9779  | "ONLINE" | 8            | "docs:5, basketballplayer:3"     | "docs:5, basketballplayer:3" |
-+-------------+-------+----------+--------------+----------------------------------+------------------------------+
-| "storaged1" | 9779  | "ONLINE" | 9            | "basketballplayer:4, docs:5"     | "docs:5, -basketballplayer:4"|
-+-------------+-------+----------+--------------+----------------------------------+------------------------------+
-| "storaged2" | 9779  | "ONLINE" | 8            | "basketballplayer:3, docs:5"     | "docs:5, basketballplayer:3" |
-+-------------+-------+----------+--------------+----------------------------------+------------------------------+
++-------------+-------+----------+--------------+----------------------------------+-----------------------------+
+| Host        | Port  | Status   | Leader count | Leader distribution              | Partition distribution      |
++-------------+-------+----------+--------------+----------------------------------+-----------------------------+
+| "storaged0" | 9779  | "ONLINE" | 8            | "docs:5, basketballplayer:3"     | "docs:5, basketballplayer:3"|
++-------------+-------+----------+--------------+----------------------------------+-----------------------------+
+| "storaged1" | 9779  | "ONLINE" | 9            | "basketballplayer:4, docs:5"     | "docs:5, basketballplayer:4"|
++-------------+-------+----------+--------------+----------------------------------+-----------------------------+
+| "storaged2" | 9779  | "ONLINE" | 8            | "basketballplayer:3, docs:5"     | "docs:5, basketballplayer:3"|
++-------------+-------+----------+--------------+----------------------------------+-----------------------------+
 Got 3 rows (time spent 866/1411 us)
 
 nebula&gt; SHOW HOSTS GRAPH;
-+-------------+------+----------+---------+--------------+
-| Host        | Port | Status   | Role    | Git Info Sha |
-+-------------+------+----------+---------+--------------+
-| "12.16.2.3" | 9669 | "ONLINE" | "GRAPH" | "761f22b"    |
++-----------+------+----------+---------+--------------+---------------------------------------------+
+| Host      | Port | Status   | Role    | Git Info Sha | Version                                     |
++-----------+------+----------+---------+--------------+---------------------------------------------+
+| "graphd"  | 9669 | "ONLINE" | "GRAPH" | "5368115"    | "5368115, Build Time: Jul 19 2021 02:31:12" |
++-----------+------+----------+---------+--------------+---------------------------------------------+
+| "graphd1" | 9669 | "ONLINE" | "GRAPH" | "5368115"    | "5368115, Build Time: Jul 19 2021 02:31:12" |
++-----------+------+----------+---------+--------------+---------------------------------------------+
+| "graphd2" | 9669 | "ONLINE" | "GRAPH" | "5368115"    | "5368115, Build Time: Jul 19 2021 02:31:12" |
++-----------+------+----------+---------+--------------+---------------------------------------------+
 
 nebula&gt; SHOW HOSTS STORAGE;
-+-------------+------+----------+-----------+--------------+
-| Host        | Port | Status   | Role      | Git Info Sha |
-+-------------+------+----------+-----------+--------------+
-| "12.16.2.3" | 9779 | "ONLINE" | "STORAGE" | "761f22b"    |
++-------------+------+----------+-----------+--------------+---------------------------------------------+
+| Host        | Port | Status   | Role      | Git Info Sha | Version                                     |
++-------------+------+----------+-----------+--------------+---------------------------------------------+
+| "storaged0" | 9779 | "ONLINE" | "STORAGE" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:22:45" |
++-------------+------+----------+-----------+--------------+---------------------------------------------+
+| "storaged1" | 9779 | "ONLINE" | "STORAGE" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:22:45" |
++-------------+------+----------+-----------+--------------+---------------------------------------------+
+| "storaged2" | 9779 | "ONLINE" | "STORAGE" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:22:45" |
++-------------+------+----------+-----------+--------------+---------------------------------------------+
 
 nebula&gt; SHOW HOSTS META;
-+-------------+------+----------+--------+--------------+
-| Host        | Port | Status   | Role   | Git Info Sha |
-+-------------+------+----------+--------+--------------+
-| "12.16.2.3" | 9559 | "ONLINE" | "META" | "761f22b"    |
++----------+------+----------+--------+--------------+---------------------------------------------+
+| Host     | Port | Status   | Role   | Git Info Sha | Version                                     |
++----------+------+----------+--------+--------------+---------------------------------------------+
+| "metad2" | 9559 | "ONLINE" | "META" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:23:49" |
++----------+------+----------+--------+--------------+---------------------------------------------+
+| "metad0" | 9559 | "ONLINE" | "META" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:23:49" |
++----------+------+----------+--------+--------------+---------------------------------------------+
+| "metad1" | 9559 | "ONLINE" | "META" | "0dfa699"    | "0dfa699, Build Time: Jul 19 2021 02:23:49" |
++----------+------+----------+--------+--------------+---------------------------------------------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2021</span>
 </small>
 </div>
 </article>

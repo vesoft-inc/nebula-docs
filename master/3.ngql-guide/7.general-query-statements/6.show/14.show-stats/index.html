@@ -635,8 +635,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -1601,8 +1601,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -1617,35 +1617,35 @@
 </a>
 <h1 id="show_stats">SHOW STATS<a class="headerlink" href="#show_stats" title="Permanent link">¶</a></h1>
 <p>The <code>SHOW STATS</code> statement shows the statistics of the graph space collected by the latest <code>STATS</code> job.</p>
-<p>The statistics list the following information:</p>
+<p>The statistics include the following information:</p>
 <ul>
-<li>The number of vertices and edges in the graph space</li>
-<li>The number of vertices with each tag</li>
+<li>The number of vertices in the graph space</li>
+<li>The number of edges in the graph space</li>
+<li>The number of vertices of each tag</li>
 <li>The number of edges of each edge type</li>
 </ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>You have successfully run the <code>SUBMIT JOB STATS</code> statement in the graph space you want to collect statistics. For more information, see <a href="../../../18.operation-and-maintenance-statements/4.job-statements/">SUBMIT JOB STATS</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The result of the <code>SHOW STATS</code> statement is based on the last executed <code>SUBMIT JOB STATS</code> statement. If you want to update the result, run <code>SUBMIT JOB STATS</code> again.</p>
+<p>You have to run the <code>SUBMIT JOB STATS</code> statement in the graph space where you want to collect statistics. For more information, see <a href="../../../18.operation-and-maintenance-statements/4.job-statements/">SUBMIT JOB STATS</a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The result of the <code>SHOW STATS</code> statement is based on the last executed <code>SUBMIT JOB STATS</code> statement. If you want to update the result, run <code>SUBMIT JOB STATS</code> again. Otherwise the statistics will be wrong.</p>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW STATS
+<div class="highlight"><pre><span></span><code>SHOW STATS;
 </code></pre></div>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
-Execution succeeded (time spent 1075/1646 us)
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code># Choose a graph space.
+nebula&gt; USE basketballplayer;
 
---Start a `STATS` job.
+# Start SUBMIT JOB STATS.
 nebula&gt; SUBMIT JOB STATS;
 +------------+
 | New Job Id |
 +------------+
 | 98         |
 +------------+
-Got 1 rows (time spent 2058/2609 us)
 
---Make sure the job is finished.
+# Make sure the job executes successfully.
 nebula&gt; SHOW JOB 98;
 +----------------+---------------+------------+------------+------------+
 | Job Id(TaskId) | Command(Dest) | Status     | Start Time | Stop Time  |
@@ -1658,9 +1658,8 @@ nebula&gt; SHOW JOB 98;
 +----------------+---------------+------------+------------+------------+
 | 2              | "storaged1"   | "FINISHED" | 1606552675 | 1606552675 |
 +----------------+---------------+------------+------------+------------+
-Got 4 rows (time spent 1233/1924 us)
 
---Check the statistics.
+# Show the statistics of the graph space.
 nebula&gt; SHOW STATS;
 +---------+------------+-------+
 | Type    | Name       | Count |
@@ -1677,13 +1676,12 @@ nebula&gt; SHOW STATS;
 +---------+------------+-------+
 | "Space" | "edges"    | 233   |
 +---------+------------+-------+
-Got 6 rows (time spent 996/1637 us)
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2021</span>
 </small>
 </div>
 </article>
