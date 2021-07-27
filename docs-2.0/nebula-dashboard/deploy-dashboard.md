@@ -24,7 +24,7 @@ Download the configuration files for the deployment.
 wget https://oss-cdn.nebula-graph.com.cn/nebula-graph-dashboard/{{dashboard.release}}.tar.gz
 ```
 
-## Directory
+## Service
 
 Run `tar -xvf {{dashboard.release}}.tar.gz` to decompress the installation package. There are 5 services in the `nebula-graph-dashboard`. The descriptions are as follows.
 
