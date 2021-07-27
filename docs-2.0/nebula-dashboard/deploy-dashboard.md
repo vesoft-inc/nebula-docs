@@ -31,7 +31,7 @@ Run `tar -xvf {{dashboard.release}}.tar.gz` to decompress the installation packa
 |Name|Description|
 |:---|:---|
 |node-exporter | Collects the source information of machines in the cluster, including the CPU, memory, load, disk, and network.|
-|nebula-stats-exporter | Collects the performance metrics in the cluster, including the IP addresses, versions, and monitoring metrics (such as the number of queries, the latency of queries, the latency of heartbeats, and so on.|
+|nebula-stats-exporter | Collects the performance metrics in the cluster, including the IP addresses, versions, and monitoring metrics (such as the number of queries, the latency of queries, the latency of heartbeats, and so on).|
 |prometheus | The time series database that stores monitoring data. |
 |nebula-http-gateway | Provides HTTP ports for cluster services to access the prometheus service or execute nGQL statements to interact with the Nebula Graph database.|
 |nebula-graph-dashboard| Provides the Dashboard service. Note that the name of this directory is the same as the root directory. The following `nebula-graph-dashboard` refers to the subdirectory.|
@@ -52,7 +52,7 @@ To start the service, return the following statement in `node-exporter`:
 $ nohup ./node-exporter --web.listen-address=:9200 &
 ```
 
-After the service is started, you can return `<IP>:9200` in the browser to check whether the service is started normally.
+After the service is started, you can enter `<IP>:9200` in the browser to check whether the service is started normally.
 
 ### How to deploy the `nebula-stats-exporter` service
 
@@ -100,7 +100,7 @@ After the service is started, you can return `<IP>:9200` in the browser to check
   $ nohup ./nebula-stats-exporter --bare-metal --bare-metal-config=./config.yaml &
   ```
 
-After the service is started, you can return `<IP>:9100` in the browser to check whether the service is started normally.
+After the service is started, you can enter `<IP>:9100` in the browser to check whether the service is started normally.
 
 ### How to deploy the `prometheus` service
 
@@ -137,7 +137,7 @@ After the service is started, you can return `<IP>:9100` in the browser to check
   $ nohup ./prometheus --config.file=./prometheus.yaml &
   ```
 
-After the service is started, you can return `<IP>:9090` in the browser to check whether the service is started normally.
+After the service is started, you can enter `<IP>:9090` in the browser to check whether the service is started normally.
 
 ### How to deploy the `nebula-http-gateway` service
 
@@ -151,7 +151,7 @@ To start the service, return the following statement in `nebula-http-gateway`:
 $ nohup ./nebula-httpd &
 ```
 
-After the service is started, you can return `<IP>:8090` in the browser to check whether the service is started normally.
+After the service is started, you can enter `<IP>:8090` in the browser to check whether the service is started normally.
 
 ### How to deploy the `nebula-graph-dashboard` service
 
@@ -179,11 +179,11 @@ After the service is started, you can return `<IP>:8090` in the browser to check
   $ npm run start
   ```
 
-After the service is started, you can return `<IP>:7003` in the browser to check whether the service is started normally.
+After the service is started, you can enter `<IP>:7003` in the browser to check whether the service is started normally.
 
 ## Stop Dashboard
 
-You can return `kill <pid>` to stop Dashboard. The examples are as follows:
+You can enter `kill <pid>` to stop Dashboard. The examples are as follows:
 
 ```bash
 $ kill $(lsof -t -i :9200) # stop the node-exporter service
