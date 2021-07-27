@@ -1,6 +1,6 @@
 # Deploy Dashboard
 
-The installation and deployment of Dashboard involve five kinds of services. This topic will describe how to install and deploy Dashboard in detail.
+The deployment of Dashboard involve five services. This topic will describe how to deploy Dashboard in detail.
 
 ## Port
 
@@ -26,27 +26,27 @@ wget https://oss-cdn.nebula-graph.com.cn/nebula-graph-dashboard/{{dashboard.rele
 
 ## Directory
 
-Run `tar -xvf {{dashboard.release}}.tar.gz` to decompress the installation package. There are 5 subdirectories in the `nebula-graph-dashboard`. The descriptions are as follows.
+Run `tar -xvf {{dashboard.release}}.tar.gz` to decompress the installation package. There are 5 services in the `nebula-graph-dashboard`. The descriptions are as follows.
 
 |Name|Description|
 |:---|:---|
-|node-exporter | Collects the source information of machines in the cluster, including the CPU, memory, load, disk, and network.|
-|nebula-stats-exporter | Collects the performance metrics in the cluster, including the IP addresses, versions, and monitoring metrics (such as the number of queries, the latency of queries, the latency of heartbeats, and so on).|
+|node-exporter | Collects the source information of machines in the cluster, including the CPU, memory, load, disk, and network. |
+|nebula-stats-exporter | Collects the performance metrics in the cluster, including the IP addresses, versions, and monitoring metrics (such as the number of queries, the latency of queries, the latency of heartbeats, and so on). |
 |prometheus | The time series database that stores monitoring data. |
-|nebula-http-gateway | Provides HTTP ports for cluster services to access the prometheus service or execute nGQL statements to interact with the Nebula Graph database.|
-|nebula-graph-dashboard| Provides the Dashboard service. Note that the name of this directory is the same as the root directory. The following `nebula-graph-dashboard` refers to the subdirectory.|
+|nebula-http-gateway | Provides HTTP ports for cluster services to access the prometheus service or execute nGQL statements to interact with the Nebula Graph database. |
+|nebula-graph-dashboard| Provides the Dashboard service. Note that its name is the same as its superordinate. The following `nebula-graph-dashboard` refers to this service. |
 
-The above five directories need to be duplicated to each machine according to deployment needs. The details are as follows.
+The above five services should be deployed as follows.
 
 ## Procedure
 
-### How to deploy the `node-exporter` service
+### Deploy `node-exporter`
 
 !!! note
 
     You need to deploy the `node-exporter` service on each machine in the cluster.
 
-To start the service, return the following statement in `node-exporter`:
+To start the service, run the following statement in `node-exporter`:
 
 ```bash
 $ nohup ./node-exporter --web.listen-address=:9200 &
@@ -54,7 +54,7 @@ $ nohup ./node-exporter --web.listen-address=:9200 &
 
 After the service is started, you can enter `<IP>:9200` in the browser to check whether the service is started normally.
 
-### How to deploy the `nebula-stats-exporter` service
+### Deploy `nebula-stats-exporter`
 
 !!! note
 
@@ -94,7 +94,7 @@ After the service is started, you can enter `<IP>:9200` in the browser to check 
         endpointPort: 19779
   ```
 
-2. Return the following statement to start the service:
+2. Run the following statement to start the service:
 
   ```bash
   $ nohup ./nebula-stats-exporter --bare-metal --bare-metal-config=./config.yaml &
@@ -102,7 +102,7 @@ After the service is started, you can enter `<IP>:9200` in the browser to check 
 
 After the service is started, you can enter `<IP>:9100` in the browser to check whether the service is started normally.
 
-### How to deploy the `prometheus` service
+### Deploy `prometheus`
 
 !!! note
 
@@ -131,7 +131,7 @@ After the service is started, you can enter `<IP>:9100` in the browser to check 
 
   - evaluation_interval: The interval for running alarm rules, which is 1 minute by default.
 
-2. Return the following statement to start the service.
+2. Run the following statement to start the service.
 
   ```bash
   $ nohup ./prometheus --config.file=./prometheus.yaml &
@@ -139,13 +139,13 @@ After the service is started, you can enter `<IP>:9100` in the browser to check 
 
 After the service is started, you can enter `<IP>:9090` in the browser to check whether the service is started normally.
 
-### How to deploy the `nebula-http-gateway` service
+### Deploy `nebula-http-gateway`
 
 !!! note
 
     You only need to deploy the `nebula-http-gateway` service on the machine where the `nebula-graph-dashboard` service is installed.
 
-To start the service, return the following statement in `nebula-http-gateway`:
+To start the service, run the following statement in `nebula-http-gateway`:
 
 ```bash
 $ nohup ./nebula-httpd &
@@ -173,7 +173,7 @@ After the service is started, you can enter `<IP>:8090` in the browser to check 
   ...
   ```
 
-2. To start the service, return the following statement in `nebula-graph-dashboard`:
+2. To start the service, run the following statement in `nebula-graph-dashboard`:
 
   ```bash
   $ npm run start
