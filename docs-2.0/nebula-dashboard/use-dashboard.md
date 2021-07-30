@@ -34,7 +34,7 @@ Service consists of the following parts:
 
   You can check the fluctuations of monitoring metrics of various services in the past 24 hours. You can also switch to the **Version** page to view the IP addresses and versions of all services.
   
-  For details of certain monitoring metrics, you can click the eye symbol in the upper right corner, or click the services on the left.
+  For details of certain monitoring metrics, you can click the ![overview](eye.png) symbol in the upper right corner, or click the services on the left.
 
   !!! note
 
