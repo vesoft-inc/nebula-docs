@@ -177,7 +177,7 @@ nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@4:(14);
 nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@5:(15);
 nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@6:(16);
 
-# The following example use rank to filter edges and retrieves edges with rank greater than 2.
+# The following example use rank to filter edges and retrieves edges with a rank greater than 2.
 nebula> GO FROM "1" \
         OVER e1 \
         WHERE e1._rank>2 \
