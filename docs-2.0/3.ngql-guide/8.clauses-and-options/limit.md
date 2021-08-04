@@ -10,7 +10,7 @@ The `LIMIT` clause constrains the number of rows in the output.
 
         When using `LIMIT` in either syntax above, it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
-## Syntax in native nGQL
+## Native nGQL syntax
 
 In native nGQL, `LIMIT` works the same as in `SQL`, and must be used with pipe `|`. The `LIMIT` clause accepts one or two parameters. The values of both arguments must be non-negative integers.
 
@@ -44,7 +44,7 @@ nebula> GO FROM "player100" OVER follow REVERSELY \
 +-------------------+-----+
 ```
 
-## Syntax in OpenCypher style
+## OpenCypher syntax
 
 ```ngql
 RETURN <var>
