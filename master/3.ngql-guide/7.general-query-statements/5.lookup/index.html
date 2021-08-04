@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/master/3.ngql-guide/7.general-query-statements/5.lookup/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/master/3.ngql-guide/7.general-query-statements/5.lookup/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.1" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>LOOKUP - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
@@ -675,6 +675,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1551,30 +1561,43 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="lookup">LOOKUP<a class="headerlink" href="#lookup" title="Permanent link">¶</a></h1>
-<p>The <code>LOOKUP</code> statement retrieves data based on indexes.</p>
-<p>You can use <code>LOOKUP</code> for the following purposes:</p>
+<p>The <code>LOOKUP</code> statement traverses data based on indexes. You can use <code>LOOKUP</code> for the following purposes:</p>
 <ul>
 <li>Search for the specific data based on conditions defined by the <code>WHERE</code> clause.</li>
+</ul>
+<ul>
 <li>List vertices with a tag: retrieve the VID of all vertices with a tag.</li>
-<li>List edges with an edge type: retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges with an edge type.</li>
+</ul>
+<ul>
+<li>List edges with an edge type: retrieve the source vertex IDs, destination vertex IDs, and ranks of all edges with an edge type.</li>
+</ul>
+<ul>
 <li>Count the number of vertices or edges with a tag or an edge type.</li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to native nGQL only.</p>
+<p>This topic applies to native nGQL only.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>Before using the <code>LOOKUP</code> statement, make sure that relative indexes are created. For how to create indexes, see <a href="../../14.native-index-statements/1.create-native-index/">CREATE INDEX</a>.</p>
+<p>Before using the <code>LOOKUP</code> statement, make sure that at least one index is created. If there are already related vertices, edges, or properties before an index is created, the user must <a href="../../14.native-index-statements/4.rebuild-native-index/">rebuild native index</a> after creating the index to make it valid.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+</div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] [YIELD &lt;return_list&gt;]
+<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] [YIELD &lt;return_list&gt;];
 
 &lt;return_list&gt;
-    &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...]
+    &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...];
 </code></pre></div>
 <ul>
-<li>The <code>WHERE</code> clause filters data with the specified conditions. Both <code>AND</code> and <code>OR</code> are supported between different expressions. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</li>
-<li>The <code>YIELD</code> clause specifies the results to be returned and the format of the results.</li>
+<li><code>WHERE &lt;expression&gt;</code>: filters data with specified conditions. Both <code>AND</code> and <code>OR</code> are supported between different expressions. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</li>
+</ul>
+<ul>
+<li><code>YIELD &lt;return_list&gt;</code>: specifies the results to be returned and the format of the results.</li>
+</ul>
+<ul>
 <li>If there is a <code>WHERE</code> clause but no <code>YIELD</code> clause:<ul>
-<li>The Vertex ID is returned when <code>LOOKUP</code> a tag.</li>
-<li>The source vertex ID, destination vertex ID, and rank of the edge is returned when <code>LOOKUP</code> an edge type.</li>
+<li>The Vertex ID is returned when you <code>LOOKUP</code> a tag.</li>
+<li>The source vertex ID, destination vertex ID, and rank of the edge are returned when <code>LOOKUP</code> an edge type.</li>
 </ul>
 </li>
 </ul>
@@ -1582,13 +1605,12 @@
 <p>The <code>WHERE</code> clause in a <code>LOOKUP</code> statement does not support the following operations:</p>
 <ul>
 <li><code>$-</code> and <code>$^</code>.</li>
-<li>In relational expressions, expressions with field names on both sides of the operator are not supported, such as <code>tagName.prop1&gt; tagName.prop2</code>.</li>
 <li>Nested AliasProp expressions in operation expressions and function expressions are not supported.</li>
 <li>Range scan is not supported in the string-type index.</li>
-<li>The <code>OR</code> and <code>XOR</code> operations are not supported.</li>
+<li>The <code>XOR</code> and <code>NOT</code> operations are not supported.</li>
 </ul>
 <h2 id="retrieve_vertices">Retrieve Vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">¶</a></h2>
-<p>The following example returns vertices whose name is <code>Tony Parker</code> and tagged with <em>player</em>.</p>
+<p>The following example returns vertices whose <code>name</code> is <code>Tony Parker</code> and the tag is <code>player</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
 
 nebula&gt; REBUILD TAG INDEX index_player;
@@ -1605,13 +1627,30 @@ nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker";
 | 101      |
 ------------
 
-nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
+# The following example uses regex to retrieve vertices.
+nebula&gt; LOOKUP ON player WHERE player.name =~ "^.{15,20}$" \
         YIELD player.name, player.age;
-=======================================
-| VertexID | player.name | player.age |
-=======================================
-| 101      | Tony Parker | 36         |
----------------------------------------
++-------------+----------------------+------------+
+| VertexID    | player.name          | player.age |
++-------------+----------------------+------------+
+| "player147" | "Amar'e Stoudemire"  | 36         |
++-------------+----------------------+------------+
+| "player144" | "Shaquille O'Neal"   | 47         |
++-------------+----------------------+------------+
+...
+
+nebula&gt; LOOKUP ON player WHERE player.name CONTAINS toLower("L") \
+        YIELD player.name, player.age;
++-------------+---------------------+------------+
+| VertexID    | player.name         | player.age |
++-------------+---------------------+------------+
+| "player145" | "JaVale McGee"      | 31         |
++-------------+---------------------+------------+
+| "player144" | "Shaquille O'Neal"  | 47         |
++-------------+---------------------+------------+
+| "player102" | "LaMarcus Aldridge" | 33         |
++-------------+---------------------+------------+
+...
 
 nebula&gt; LOOKUP ON player WHERE player.name == "Kobe Bryant" YIELD player.name AS name \
         | GO FROM $-.VertexID OVER serve \
@@ -1623,7 +1662,7 @@ nebula&gt; LOOKUP ON player WHERE player.name == "Kobe Bryant" YIELD player.name
 ------------------------------------------------------------------
 </code></pre></div>
 <h2 id="retrieve_edges">Retrieve Edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">¶</a></h2>
-<p>The following example returns edges whose <code>degree</code> is 90 and the edge type is <code>follow</code>.</p>
+<p>The following example returns edges whose <code>degree</code> is <code>90</code> and the edge type is <code>follow</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
 
 nebula&gt; REBUILD EDGE INDEX index_follow;
@@ -1634,41 +1673,49 @@ nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
 
 nebula&gt; LOOKUP ON follow WHERE follow.degree == 90;
-=============================
-| SrcVID | DstVID | Ranking |
-=============================
-| 100    | 106    | 0       |
------------------------------
++-------------+-------------+---------+
+| SrcVID      | DstVID      | Ranking |
++-------------+-------------+---------+
+| "player101" | "player102" | 0       |
++-------------+-------------+---------+
+| "player133" | "player114" | 0       |
++-------------+-------------+---------+
+| "player133" | "player144" | 0       |
++-------------+-------------+---------+
+...
 
 nebula&gt; LOOKUP ON follow WHERE follow.degree == 90 YIELD follow.degree;
-=============================================
-| SrcVID | DstVID | Ranking | follow.degree |
-=============================================
-| 100    | 106    | 0       | 90            |
----------------------------------------------
++-------------+-------------+---------+---------------+
+| SrcVID      | DstVID      | Ranking | follow.degree |
++-------------+-------------+---------+---------------+
+| "player101" | "player102" | 0       | 90            |
++-------------+-------------+---------+---------------+
+| "player133" | "player114" | 0       | 90            |
++-------------+-------------+---------+---------------+
+| "player133" | "player144" | 0       | 90            |
++-------------+-------------+---------+---------------+
+...
 
 nebula&gt; LOOKUP ON follow WHERE follow.degree == 60 YIELD follow.degree AS Degree \
         | GO FROM $-.DstVID OVER serve \
         YIELD $-.DstVID, serve.start_year, serve.end_year, $$.team.name;
-================================================================
-| $-.DstVID | serve.start_year | serve.end_year | $$.team.name |
-================================================================
-| 105       | 2010             | 2018           | Spurs        |
-----------------------------------------------------------------
-| 105       | 2009             | 2010           | Cavaliers    |
-----------------------------------------------------------------
-| 105       | 2018             | 2019           | Raptors      |
-----------------------------------------------------------------
++-------------+------------------+----------------+--------------+
+| $-.DstVID   | serve.start_year | serve.end_year | $$.team.name |
++-------------+------------------+----------------+--------------+
+| "player105" | 2010             | 2018           | "Spurs"      |
++-------------+------------------+----------------+--------------+
+| "player105" | 2009             | 2010           | "Cavaliers"  |
++-------------+------------------+----------------+--------------+
+| "player105" | 2018             | 2019           | "Raptors"    |
++-------------+------------------+----------------+--------------+
 </code></pre></div>
 <h2 id="list_vertices_or_edges_with_a_tag_or_an_edge_type">List vertices or edges with a tag or an edge type<a class="headerlink" href="#list_vertices_or_edges_with_a_tag_or_an_edge_type" title="Permanent link">¶</a></h2>
-<p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag or the edge type, or its property.</p>
+<p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag, the edge type, or its property.</p>
 <p>For example, if there is a <code>player</code> tag with a <code>name</code> property and an <code>age</code> property, to retrieve the VID of all vertices tagged with <code>player</code>, there has to be an index on the <code>player</code> tag itself, the <code>name</code> property, or the <code>age</code> property.</p>
-<p>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
-Execution succeeded (time spent 3235/3865 us)
+<ul>
+<li>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
 
 nebula&gt; CREATE TAG INDEX player_index on player();
-Execution succeeded (time spent 3486/4124 us)
 
 nebula&gt; REBUILD TAG INDEX player_index;
 +------------+
@@ -1678,7 +1725,8 @@ nebula&gt; REBUILD TAG INDEX player_index;
 +------------+
 
 nebula&gt; INSERT VERTEX player(name,age) VALUES "player100":("Tim Duncan", 42), "player101":("Tony Parker", 36);
-Execution succeeded (time spent 1695/2268 us)
+
+# The following statement retrieves the VID of all vertices with the tag of player. It is similar to MATCH (n:player) RETURN id(n) /*, n */.
 
 nebula&gt; LOOKUP ON player;
 +-------------+
@@ -1688,14 +1736,13 @@ nebula&gt; LOOKUP ON player;
 +-------------+
 | "player101" |
 +-------------+
-Got 2 rows (time spent 1514/2070 us)
 </code></pre></div>
-<p>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>like</code> edge type.</p>
-<div class="highlight"><pre><span></span><code>nebula)&gt; CREATE EDGE like(likeness int);
-Execution succeeded (time spent 3710/4483 us)
+</li>
+</ul>
+<ul>
+<li>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>like</code> edge type.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE like(likeness int);
 
-nebula)&gt; CREATE EDGE INDEX like_index on like();
-Execution succeeded (time spent 3422/4026 us)
+nebula&gt; CREATE EDGE INDEX like_index on like();
 
 nebula&gt; REBUILD EDGE INDEX like_index;
 +------------+
@@ -1704,8 +1751,9 @@ nebula&gt; REBUILD EDGE INDEX like_index;
 | 88         |
 +------------+
 
-nebula)&gt; INSERT EDGE like(likeness) values "player100"-&gt;"player101":(95);
-Execution succeeded (time spent 1638/2351 us)
+nebula&gt; INSERT EDGE like(likeness) values "player100"-&gt;"player101":(95);
+
+# The following statement retrieves all edges with the edge type of like. It is similar to MATCH (s)-[e:like]-&gt;(d) RETURN id(s), rank(e), id(d) /*, type(e) */.
 
 nebula)&gt; LOOKUP ON like;
 +-------------+----------+-------------+
@@ -1713,8 +1761,9 @@ nebula)&gt; LOOKUP ON like;
 +-------------+----------+-------------+
 | "player100" | 0        | "player101" |
 +-------------+----------+-------------+
-Got 1 rows (time spent 1163/1748 us)
 </code></pre></div>
+</li>
+</ul>
 <h2 id="count_the_numbers_of_vertices_or_edges">Count the numbers of vertices or edges<a class="headerlink" href="#count_the_numbers_of_vertices_or_edges" title="Permanent link">¶</a></h2>
 <p>The following example shows how to count the number of vertices tagged with <code>player</code> and edges of the <code>like</code> edge type.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player | YIELD COUNT(*) AS Player_Number;
@@ -1723,7 +1772,6 @@ Got 1 rows (time spent 1163/1748 us)
 +---------------+
 | 2             |
 +---------------+
-Got 1 rows (time spent 1158/1864 us)
 
 nebula&gt; LOOKUP ON like | YIELD COUNT(*) AS Like_Number;
 +-------------+
@@ -1731,13 +1779,16 @@ nebula&gt; LOOKUP ON like | YIELD COUNT(*) AS Like_Number;
 +-------------+
 | 1           |
 +-------------+
-Got 1 rows (time spent 1190/1970 us)
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also use <a href="../6.show/14.show-stats/"><code>show-stats</code></a> to count the numbers of vertices or edges.</p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 4, 2021</span>
 </small>
 </div>
 </article>
@@ -1801,8 +1852,8 @@ Got 1 rows (time spent 1190/1970 us)
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": {"method": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.2b46852b.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>

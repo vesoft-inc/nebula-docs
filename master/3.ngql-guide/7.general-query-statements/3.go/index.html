@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/master/3.ngql-guide/7.general-query-statements/3.go/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/master/3.ngql-guide/7.general-query-statements/3.go/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.1" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>GO - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
@@ -650,6 +650,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1501,19 +1511,20 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="go">GO<a class="headerlink" href="#go" title="Permanent link">¶</a></h1>
+<p><code>GO</code> traverses in a graph with specified filters and returns results.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to native nGQL only.</p>
+<p>This topic applies to native nGQL only.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
-[ WHERE &lt;expression&gt; [ {AND | OR} expression ...]) ]
+[ WHERE &lt;conditions&gt; ]
 [YIELD [DISTINCT] &lt;return_list&gt;]
 [| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
 [| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]
 
 GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
-[ WHERE &lt;conditions&gt;]
+[ WHERE &lt;conditions&gt; ]
 [| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
 
 &lt;vertex_list&gt; ::=
@@ -1526,15 +1537,30 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 &lt;return_list&gt; ::=
     &lt;col_name&gt; [AS &lt;col_alias&gt;] [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
 </code></pre></div>
-<p><code>GO</code> traverses in a graph with specified filters and returns results.</p>
 <ul>
-<li><code>&lt;N&gt; STEPS</code> specifies the hop number. If not specified, the default value for N is one. When <code>N</code> is zero, Nebula Graph does not traverse any edges and returns nothing.</li>
-<li><code>M TO N STEPS</code> traverses from M to N hops. When <code>M</code> is zero, the output is the same as that of <code>M</code> is one. That is, the output of <code>GO 0 TO 2</code> and <code>GO 1 TO 2</code> are the same.</li>
-<li><code>&lt;vertex_list&gt;</code> is a list of vertex IDs separated by commas, or a special place holder <code>$-.id</code>. For more information, see <a href="../../5.operators/4.pipe/">Pipe</a>.</li>
-<li><code>&lt;edge_type_list&gt;</code>is a list of edge types which the traversal can go through.</li>
-<li><code>REVERSELY | BIDIRECT</code> defines the direction of the query. By default, <code>GO</code> statements searches for outgoing edges. If <code>REVERSELY</code> is set, <code>GO</code> searches for incoming edges. If <code>BIDIRECT</code> is set, <code>GO</code> searches for edges of both directions.</li>
 <li>
-<p><code>WHERE &lt;expression&gt;</code> specifies the traversal filters. You can use <code>WHERE</code> for the source vertices, the edges, and the destination vertices. You can use <code>WHERE</code> together with <code>AND</code>, <code>OR</code>, and <code>NOT</code>. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</p>
+<p><code>&lt;N&gt; STEPS</code>: specifies the hop number. If not specified, the default value for <code>N</code> is <code>one</code>. When <code>N</code> is <code>zero</code>, Nebula Graph does not traverse any edges and returns nothing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The path type of the <code>GO</code> statement is <code>walk</code>, which means both vertices and edges can be repeatedly visited in graph traversal. For more information, see <a href="../../../1.introduction/2.1.path/">Path</a>.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li><code>M TO N STEPS</code>: traverses <code>from M to N</code> hops. When <code>M</code> is <code>zero</code>, the output is the same as that of <code>M</code> is <code>one</code>. That is, the output of <code>GO 0 TO 2</code> and <code>GO 1 TO 2</code> are the same.</li>
+</ul>
+<ul>
+<li><code>&lt;vertex_list&gt;</code>: represents a list of vertex IDs separated by commas, or a special place holder <code>$-.id</code>. For more information, see <a href="../../5.operators/4.pipe/">Pipe</a>.</li>
+</ul>
+<ul>
+<li><code>&lt;edge_type_list&gt;</code>: represents a list of edge types which the traversal can go through.</li>
+</ul>
+<ul>
+<li><code>REVERSELY | BIDIRECT</code>: defines the direction of the query. By default, the <code>GO</code> statement searches for outgoing edges of <code>&lt;vertex_list&gt;</code>. If <code>REVERSELY</code> is set, <code>GO</code> searches for incoming edges. If <code>BIDIRECT</code> is set, <code>GO</code> searches for edges of both directions.</li>
+</ul>
+<ul>
+<li>
+<p><code>WHERE &lt;expression&gt;</code>: specifies the traversal filters. You can use the <code>WHERE</code> clause for the source vertices, the edges, and the destination vertices. You can use it together with <code>AND</code>, <code>OR</code>, <code>NOT</code>, and <code>XOR</code>. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There are some restrictions for the <code>WHERE</code> clause when you traverse along with multiple edge types. For example, <code>WHERE edge1.prop1 &gt; edge2.prop2</code> is not supported.</p>
@@ -1542,9 +1568,11 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </li>
 </ul>
 <ul>
-<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code> specifies the desired output. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>. When not specified, the destination vertex IDs are returned by default.</li>
+<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code>: specifies the desired output. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>. When not specified, the destination vertex IDs will be returned by default.</li>
+</ul>
+<ul>
 <li>
-<p><code>ORDER BY</code> sorts the outputs with the specified orders. For more information, see <a href="../../8.clauses-and-options/order-by/">ORDER BY</a>.</p>
+<p><code>ORDER BY</code>: sorts outputs with specified orders. For more information, see <a href="../../8.clauses-and-options/order-by/">ORDER BY</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When the sorting method is not specified, the output orders can be different for the same query.</p>
@@ -1552,12 +1580,15 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </li>
 </ul>
 <ul>
-<li><code>LIMIT</code> limits the row numbers for the output. For more information, see <a href="../../8.clauses-and-options/limit/">LIMIT</a>.</li>
-<li><code>GROUP BY</code> groups outputs into subgroups based on values of the specified properties. For more information, see <a href="../../8.clauses-and-options/group-by/">GROUP BY</a>.</li>
+<li><code>LIMIT</code>: limits the number of rows of the output. For more information, see <a href="../../8.clauses-and-options/limit/">LIMIT</a>.</li>
+</ul>
+<ul>
+<li><code>GROUP BY</code>: groups outputs into subgroups based on values of the specified properties. For more information, see <a href="../../8.clauses-and-options/group-by/">GROUP BY</a>.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>// Returns teams that player 102 serves.
-nebula&gt; GO FROM "player102" OVER serve;
+<div class="highlight"><pre><span></span><code># The following example returns the teams that player 102 serves.
+nebula&gt; GO FROM "player102" \
+        OVER serve;
 +------------+
 | serve._dst |
 +------------+
@@ -1566,8 +1597,9 @@ nebula&gt; GO FROM "player102" OVER serve;
 | "team204"  |
 +------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>// Returns the 2 hop friends of the player 102.
-nebula&gt; GO 2 STEPS FROM "player102" OVER follow;
+<div class="highlight"><pre><span></span><code># The following example returns the friends of player 102 with 2 hops.
+nebula&gt; GO 2 STEPS FROM "player102" \
+        OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -1577,10 +1609,11 @@ nebula&gt; GO 2 STEPS FROM "player102" OVER follow;
 +-------------+
 ...
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>// Adds a filter for the traversal then duplicates the output.
-nebula&gt; GO FROM "player100", "player102" OVER serve \
-WHERE serve.start_year &gt; 1995 \
-YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.player.name AS player_name;
+<div class="highlight"><pre><span></span><code># The following example adds a filter for the traversal.
+nebula&gt; GO FROM "player100", "player102" \
+        OVER serve \
+        WHERE serve.start_year &gt; 1995 \
+        YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.player.name AS player_name;
 +-----------------+------------+---------------------+
 | team_name       | start_year | player_name         |
 +-----------------+------------+---------------------+
@@ -1591,8 +1624,10 @@ YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.pla
 | "Spurs"         | 2015       | "LaMarcus Aldridge" |
 +-----------------+------------+---------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>// Traverses along with multiple edge types.
-nebula&gt; GO FROM "player100" OVER follow, serve YIELD follow.degree, serve.start_year;
+<div class="highlight"><pre><span></span><code># The following example traverses along with multiple edge types. If there is no value for a property, the output is __EMPTY__.
+nebula&gt; GO FROM "player100" \
+        OVER follow, serve \
+        YIELD follow.degree, serve.start_year;
 +---------------+------------------+
 | follow.degree | serve.start_year |
 +---------------+------------------+
@@ -1603,9 +1638,10 @@ nebula&gt; GO FROM "player100" OVER follow, serve YIELD follow.degree, serve.sta
 | __EMPTY__     | 1997             |
 +---------------+------------------+
 </code></pre></div>
-<p>Nebula Graph displays different properties by columns. If there is no value for a property, the output is <code>__EMPTY__</code>.</p>
-<div class="highlight"><pre><span></span><code>// Returns player 100.
-nebula&gt; GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS destination;
+<div class="highlight"><pre><span></span><code># The following example returns the incoming edges of player 100.
+nebula&gt; GO FROM "player100" \
+        OVER follow REVERSELY \
+        YIELD follow._dst AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -1615,8 +1651,10 @@ nebula&gt; GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS destin
 +-------------+
 ...
 
-// This MATCH query shares the same semantics with the preceding GO query.
-nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == 'player100' RETURN id(v2) AS destination;
+# This MATCH query shares the same semantics with the preceding GO query.
+nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) \
+        WHERE id(v) == 'player100' \
+        RETURN id(v2) AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -1626,12 +1664,13 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == 'player100' RETURN id(v
 +-------------+
 ...
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>// Finds player 100's friends and the teams that they serve.
-nebula&gt; GO FROM "player100" OVER follow REVERSELY \
-YIELD follow._dst AS id | \
-GO FROM $-.id OVER serve \
-WHERE $^.player.age &gt; 20 \
-YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+<div class="highlight"><pre><span></span><code># The following example retrieves the friends of player 100 and the teams that they serve.
+nebula&gt; GO FROM "player100" \
+        OVER follow REVERSELY \
+        YIELD follow._dst AS id |\
+        GO FROM $-.id OVER serve \
+        WHERE $^.player.age &gt; 20 \
+        YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
 +---------------------+-----------------+
@@ -1641,8 +1680,10 @@ YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
 +---------------------+-----------------+
 ...
 
-// This MATCH query shares the same semantics with the preceding GO query.
-nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  WHERE id(v) == 'player100' RETURN v2.name AS FriendOf, v3.name AS Team;
+# This MATCH query shares the same semantics with the preceding GO query.
+nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  \
+        WHERE id(v) == 'player100' \
+        RETURN v2.name AS FriendOf, v3.name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
 +---------------------+-----------------+
@@ -1652,7 +1693,10 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  WHERE id(v) == 'p
 +---------------------+-----------------+
 ...
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow BIDIRECT YIELD follow._dst AS both;
+<div class="highlight"><pre><span></span><code># The following example returns the outgoing edges and the incoming edges of player 102.
+nebula&gt; GO FROM "player102" \
+        OVER follow BIDIRECT \
+        YIELD follow._dst AS both;
 +-------------+
 | both        |
 +-------------+
@@ -1662,8 +1706,10 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  WHERE id(v) == 'p
 +-------------+
 ...
 
-// This MATCH query shares the same semantics with the preceding GO query.
-nebula&gt; MATCH (v) -[e:follow]-(v2) WHERE id(v)== "player102" RETURN id(v2) AS both;
+# This MATCH query shares the same semantics with the preceding GO query.
+nebula&gt; MATCH (v) -[e:follow]-(v2) \
+        WHERE id(v)== "player102" \
+        RETURN id(v2) AS both;
 +-------------+
 | both        |
 +-------------+
@@ -1673,7 +1719,10 @@ nebula&gt; MATCH (v) -[e:follow]-(v2) WHERE id(v)== "player102" RETURN id(v2) AS
 +-------------+
 ...
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO 1 TO 2 STEPS FROM "player100" OVER follow YIELD follow._dst AS destination;
+<div class="highlight"><pre><span></span><code># The following example retrieves the friends of player 100 within 1 or 2 hops.
+nebula&gt; GO 1 TO 2 STEPS FROM "player100" \
+        OVER follow \
+        YIELD follow._dst AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -1683,8 +1732,10 @@ nebula&gt; MATCH (v) -[e:follow]-(v2) WHERE id(v)== "player102" RETURN id(v2) AS
 +-------------+
 ...
 
-// This MATCH query shares the same semantics with the preceding GO query.
-nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) WHERE id(v) == "player100" RETURN id(v2) AS destination;
+# This MATCH query shares the same semantics with the preceding GO query.
+nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
+        WHERE id(v) == "player100" \
+        RETURN id(v2) AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -1693,9 +1744,12 @@ nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) WHERE id(v) == "player100" RETURN
 | "player102" |
 +-------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO 2 STEPS FROM "player100" OVER follow \
-YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age \
-| GROUP BY $-.dst YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age
+<div class="highlight"><pre><span></span><code># The following example the outputs according to age.
+nebula&gt; GO 2 STEPS FROM "player100" \
+        OVER follow \
+        YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age |\
+        GROUP BY $-.dst \
+        YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age;
 +-------------+----------------------------+----------+
 | dst         | src                        | age      |
 +-------------+----------------------------+----------+
@@ -1706,9 +1760,13 @@ YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age \
 | "player102" | ["player101"]              | [33]     |
 +-------------+----------------------------+----------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; $a = GO FROM "player100" OVER follow YIELD follow._src AS src, follow._dst AS dst; \
-GO 2 STEPS FROM $a.dst OVER follow YIELD $a.src AS src, $a.dst, follow._src, follow._dst \
-| ORDER BY $-.src | OFFSET 1 LIMIT 2;
+<div class="highlight"><pre><span></span><code># The following example groups the outputs and restricts the number of rows of the outputs.
+nebula&gt; $a = GO FROM "player100" \
+        OVER follow YIELD follow._src AS src, follow._dst AS dst; \
+        GO 2 STEPS FROM $a.dst OVER follow \
+        YIELD $a.src AS src, $a.dst, follow._src, follow._dst |\
+        ORDER BY $-.src |\
+        OFFSET 1 LIMIT 2;
 +-------------+-------------+-------------+-------------+
 | src         | $a.dst      | follow._src | follow._dst |
 +-------------+-------------+-------------+-------------+
@@ -1717,11 +1775,24 @@ GO 2 STEPS FROM $a.dst OVER follow YIELD $a.src AS src, $a.dst, follow._src, fol
 | "player100" | "player101" | "player100" | "player125" |
 +-------------+-------------+-------------+-------------+
 </code></pre></div>
+<div class="highlight"><pre><span></span><code># The following example determines if $$.player.name IS NOT EMPTY.
+nebula&gt; GO FROM "player100" \
+        OVER * \
+        WHERE $$.player.name IS NOT EMPTY \
+        YIELD follow._dst;
++-------------+
+| follow._dst |
++-------------+
+| "player125" |
++-------------+
+| "player101" |
++-------------+
+</code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 3, 2021</span>
 </small>
 </div>
 </article>
@@ -1785,8 +1856,8 @@ GO 2 STEPS FROM $a.dst OVER follow YIELD $a.src AS src, $a.dst, follow._src, fol
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": {"method": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.2b46852b.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>

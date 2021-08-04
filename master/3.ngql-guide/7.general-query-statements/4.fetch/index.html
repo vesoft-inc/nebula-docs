@@ -7,9 +7,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/master/3.ngql-guide/7.general-query-statements/4.fetch/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/master/3.ngql-guide/7.general-query-statements/4.fetch/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.1" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>FETCH - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
@@ -718,6 +718,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1646,30 +1656,29 @@
 &lt;vid&gt; [, vid ...] 
 [YIELD &lt;output&gt;]
 </code></pre></div>
-<p>The descriptions of the fields are as follows.</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Description</th>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>tag_name</code></td>
-<td>The name of the tag.</td>
+<td align="left"><code>tag_name</code></td>
+<td align="left">The name of the tag.</td>
 </tr>
 <tr>
-<td><code>*</code></td>
-<td>Represents all the tags in the current graph space.</td>
+<td align="left"><code>*</code></td>
+<td align="left">Represents all the tags in the current graph space.</td>
 </tr>
 <tr>
-<td><code>vid</code></td>
-<td>The vertex ID.</td>
+<td align="left"><code>vid</code></td>
+<td align="left">The vertex ID.</td>
 </tr>
 <tr>
-<td><code>output</code></td>
-<td>Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
+<td align="left"><code>output</code></td>
+<td align="left">Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
 </tr>
 </tbody>
 </table>
@@ -1681,7 +1690,6 @@
 +----------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 913/1629 us)
 </code></pre></div>
 <h3 id="fetch_specific_properties_of_a_vertex">Fetch specific properties of a vertex<a class="headerlink" href="#fetch_specific_properties_of_a_vertex" title="Permanent link">¶</a></h3>
 <p>Use a <code>YIELD</code> clause to specify the properties to be returned.</p>
@@ -1692,7 +1700,6 @@ Got 1 rows (time spent 913/1629 us)
 +-------------+--------------+
 | "player100" | "Tim Duncan" |
 +-------------+--------------+
-Got 1 rows (time spent 2933/5931 us)
 </code></pre></div>
 <h3 id="fetch_properties_of_multiple_vertices">Fetch properties of multiple vertices<a class="headerlink" href="#fetch_properties_of_multiple_vertices" title="Permanent link">¶</a></h3>
 <p>Specify multiple VIDs (vertex IDs) to fetch properties of multiple vertices. Separate the VIDs with commas.</p>
@@ -1706,26 +1713,22 @@ Got 1 rows (time spent 2933/5931 us)
 +-----------------------------------------------------------+
 | ("player103" :player{age: 32, name: "Rudy Gay"})          |
 +-----------------------------------------------------------+
-Got 3 rows (time spent 1786/3135 us)
 </code></pre></div>
 <h3 id="fetch_vertex_properties_by_multiple_tags">Fetch vertex properties by multiple tags<a class="headerlink" href="#fetch_vertex_properties_by_multiple_tags" title="Permanent link">¶</a></h3>
 <p>Specify multiple tags in the <code>FETCH</code> statement to fetch the vertex properties by the tags. Separate the tags with commas.</p>
-<div class="highlight"><pre><span></span><code>// Create a new tag t1.
+<div class="highlight"><pre><span></span><code># The following example creates a new tag t1.
 nebula&gt; CREATE TAG t1(a string, b int);
-Execution succeeded (time spent 4153/5296 us)
 
-// Attach t1 to vertex "player100".
+# The following example attaches t1 to the vertex "player100".
 nebula&gt; INSERT VERTEX t1(a, b) VALUE "player100":("Hello", 100);
-Execution succeeded (time spent 1703/2321 us)
 
-// Fetch the properties of vertex "player100" by the tags player and t1.
+# The following example fetches the properties of vertex "player100" by the tags player and t1.
 nebula&gt; FETCH PROP ON player, t1 "player100";
 +----------------------------------------------------------------------------+
 | vertices_                                                                  |
 +----------------------------------------------------------------------------+
 | ("player100" :t1{a: "Hello", b: 100} :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------------------------------+
-Got 1 rows (time spent 1788/2560 us)
 </code></pre></div>
 <p>You can combine multiple tags with multiple VIDs in a <code>FETCH</code> statement.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player, t1 "player100", "player103";
@@ -1736,10 +1739,9 @@ Got 1 rows (time spent 1788/2560 us)
 +----------------------------------------------------------------------------+
 | ("player103" :player{age: 32, name: "Rudy Gay"})                           |
 +----------------------------------------------------------------------------+
-Got 2 rows (time spent 2971/3748 us)
 </code></pre></div>
 <h3 id="fetch_vertex_properties_by_all_tags">Fetch vertex properties by all tags<a class="headerlink" href="#fetch_vertex_properties_by_all_tags" title="Permanent link">¶</a></h3>
-<p>Set an asterisk symbol (*) to fetch properties by all tags in the current graph space.</p>
+<p>Set an asterisk symbol <code>*</code> to fetch properties by all tags in the current graph space.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * "player100", "player106", "team200";
 +----------------------------------------------------------------------------+
 | vertices_                                                                  |
@@ -1750,41 +1752,39 @@ Got 2 rows (time spent 2971/3748 us)
 +----------------------------------------------------------------------------+
 | ("player100" :t1{a: "Hello", b: 100} :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------------------------------+
-Got 3 rows (time spent 2620/4863 us)
 </code></pre></div>
 <h2 id="fetch_edge_properties">Fetch edge properties<a class="headerlink" href="#fetch_edge_properties" title="Permanent link">¶</a></h2>
 <h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
 [YIELD &lt;output&gt;]
 </code></pre></div>
-<p>The descriptions of the fields are as follows.</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Description</th>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>edge_type</code></td>
-<td>The name of the edge type.</td>
+<td align="left"><code>edge_type</code></td>
+<td align="left">The name of the edge type.</td>
 </tr>
 <tr>
-<td><code>src_vid</code></td>
-<td>The VID of the source vertex. It specifies the start of an edge.</td>
+<td align="left"><code>src_vid</code></td>
+<td align="left">The VID of the source vertex. It specifies the start of an edge.</td>
 </tr>
 <tr>
-<td><code>dst_vid</code></td>
-<td>The VID of the destination vertex. It specifies the end of an edge.</td>
+<td align="left"><code>dst_vid</code></td>
+<td align="left">The VID of the destination vertex. It specifies the end of an edge.</td>
 </tr>
 <tr>
-<td><code>rank</code></td>
-<td>The rank of the edge. It is optional and defaults to 0. It distinguishes an edge from other edges with the same edge type, source vertex, and destination vertex.</td>
+<td align="left"><code>rank</code></td>
+<td align="left">The rank of the edge. It is optional and defaults to <code>0</code>. It distinguishes an edge from other edges with the same edge type, source vertex, destination vertex, and rank.</td>
 </tr>
 <tr>
-<td><code>output</code></td>
-<td>Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
+<td align="left"><code>output</code></td>
+<td align="left">Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
 </tr>
 </tbody>
 </table>
@@ -1796,17 +1796,16 @@ Got 3 rows (time spent 2620/4863 us)
 +-----------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}] |
 +-----------------------------------------------------------------------+
-Got 1 rows (time spent 1048/1632 us)
 </code></pre></div>
 <h3 id="fetch_specific_properties_of_an_edge">Fetch specific properties of an edge<a class="headerlink" href="#fetch_specific_properties_of_an_edge" title="Permanent link">¶</a></h3>
 <p>Use a <code>YIELD</code> clause to fetch specific properties of an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204" YIELD serve.start_year;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"    \
+        YIELD serve.start_year;
 +-------------+------------+-------------+------------------+
 | serve._src  | serve._dst | serve._rank | serve.start_year |
 +-------------+------------+-------------+------------------+
 | "player100" | "team204"  | 0           | 1997             |
 +-------------+------------+-------------+------------------+
-Got 1 rows (time spent 1834/2863 us)
 </code></pre></div>
 <h3 id="fetch_properties_of_multiple_edges">Fetch properties of multiple edges<a class="headerlink" href="#fetch_properties_of_multiple_edges" title="Permanent link">¶</a></h3>
 <p>Specify multiple edge patterns (<code>&lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]</code>) to fetch properties of multiple edges. Separate the edge patterns with commas.</p>
@@ -1818,41 +1817,37 @@ Got 1 rows (time spent 1834/2863 us)
 +-----------------------------------------------------------------------+
 | [:serve "player133"-&gt;"team202" @0 {end_year: 2011, start_year: 2002}] |
 +-----------------------------------------------------------------------+
-Got 2 rows (time spent 1466/2441 us)
 </code></pre></div>
 <h2 id="fetch_properties_based_on_edge_rank">Fetch properties based on edge rank<a class="headerlink" href="#fetch_properties_based_on_edge_rank" title="Permanent link">¶</a></h2>
-<p>If there are multiple edges that have different ranks but the same edge type, source vertex, destination vertex, specify the rank to fetch the properties on the correct edge.</p>
-<div class="highlight"><pre><span></span><code>// Insert edges with different ranks and property values.
+<p>If there are multiple edges with the same edge type, source vertex, and destination vertex, you can specify the rank to fetch the properties on the correct edge.</p>
+<div class="highlight"><pre><span></span><code># The following example inserts edges with different ranks and property values.
 nebula&gt; insert edge serve(start_year,end_year) \
         values "player100"-&gt;"team204"@1:(1998, 2017);
-Execution succeeded (time spent 1679/3192 us)
 
 nebula&gt; insert edge serve(start_year,end_year) \
         values "player100"-&gt;"team204"@2:(1990, 2018);
-Execution succeeded (time spent 1091/1608 us)
 
-// By default, FETCH returns the edge with rank 0.
+# By default, the FETCH statement returns the edge whose rank is 0.
 nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204";
 +-----------------------------------------------------------------------+
 | edges_                                                                |
 +-----------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}] |
 +-----------------------------------------------------------------------+
-Got 1 rows (time spent 2031/2739 us)
 
-// To fetch on an edge with rank other than 0, set its rank in FETCH.
+# To fetch on an edge whose rank is not 0, set its rank in the FETCH statement.
 nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"@1;
 +-----------------------------------------------------------------------+
 | edges_                                                                |
 +-----------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @1 {end_year: 2017, start_year: 1998}] |
 +-----------------------------------------------------------------------+
-Got 1 rows (time spent 1049/1711 us)
 </code></pre></div>
 <h2 id="use_fetch_in_composite_queries">Use FETCH in composite queries<a class="headerlink" href="#use_fetch_in_composite_queries" title="Permanent link">¶</a></h2>
-<p>A common way to use <code>FETCH</code> is to combine it with native nGQL such as GO. The following statement returns the <code>degree</code> values of outgoing <code>follow</code> edges that start from vertex <code>"player101"</code>.</p>
+<p>A common way to use <code>FETCH</code> is to combine it with native nGQL such as <code>GO</code>.</p>
+<p>The following statement returns the <code>degree</code> values of the <code>follow</code> edges that start from vertex <code>"player101"</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow \
-        YIELD follow._src AS s, follow._dst AS d | \
+        YIELD follow._src AS s, follow._dst AS d |\
         FETCH PROP ON follow $-.s -&gt; $-.d \
         YIELD follow.degree;
 +-------------+-------------+--------------+---------------+
@@ -1864,7 +1859,6 @@ Got 1 rows (time spent 1049/1711 us)
 +-------------+-------------+--------------+---------------+
 | "player101" | "player125" | 0            | 95            |
 +-------------+-------------+--------------+---------------+
-Got 3 rows (time spent 3047/3880 us)
 </code></pre></div>
 <p>Or you can use user-defined variables to construct similar queries.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player101" OVER follow \
@@ -1880,14 +1874,13 @@ Got 3 rows (time spent 3047/3880 us)
 +-------------+-------------+--------------+---------------+
 | "player101" | "player125" | 0            | 95            |
 +-------------+-------------+--------------+---------------+
-Got 3 rows (time spent 1891/2509 us)
 </code></pre></div>
 <p>For more information about composite queries, see <a href="../../4.variable-and-composite-queries/1.composite-queries/">Composite queries (clause structure)</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 3, 2021</span>
 </small>
 </div>
 </article>
@@ -1951,8 +1944,8 @@ Got 3 rows (time spent 1891/2509 us)
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.53c85856.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.716f8af4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": {"method": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.2b46852b.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>
