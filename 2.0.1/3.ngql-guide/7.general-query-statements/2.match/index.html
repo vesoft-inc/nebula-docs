@@ -7,13 +7,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/2.0.1/3.ngql-guide/7.general-query-statements/2.match/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/2.0.1/3.ngql-guide/7.general-query-statements/2.match/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>MATCH - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
-<meta content="#ffffff" name="theme-color"/>
+<meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
@@ -23,7 +23,7 @@
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
-<body data-md-color-accent="white" data-md-color-primary="white" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="light-green" data-md-color-primary="teal" data-md-color-scheme="" dir="ltr">
 <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
@@ -36,6 +36,12 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
+<div id="dialog-bg"></div>
+<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
+    This version is under development. For the docs of the latest stable release, see 
+    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
+    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
+</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -134,14 +140,24 @@
         Data model
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../1.introduction/2.1.path/">
+        Path
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../1.introduction/3.vid/">
+        VID
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_3">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5">
         Nebula Graph architecture
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Nebula Graph architecture" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_3">
+<label class="md-nav__title" for="__nav_2_5">
 <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -185,11 +201,6 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/0.FAQ/">
-        FAQ
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/1.quick-start-workflow/">
         Quick start workflow
       </a>
@@ -212,11 +223,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/4.nebula-graph-crud/">
         Nebula Graph CRUD
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/6.useful-links/">
-        Useful Links
       </a>
 </li>
 </ul>
@@ -254,6 +260,26 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../1.nGQL-overview/3.graph-patterns/">
         Graph patterns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/identifier-case-sensitivity/">
+        Identifier case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/keywords-and-reserved-words/">
+        Keywords
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/ngql-style-guide/">
+        nGQL style guide
       </a>
 </li>
 </ul>
@@ -517,29 +543,39 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#use_patterns_in_match_statements">
-    Use patterns in MATCH statements
+<a class="md-nav__link" href="#opencypher_compatibility">
+    OpenCypher compatibility
   </a>
-<nav aria-label="Use patterns in MATCH statements" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using_patterns_in_match_statements">
+    Using patterns in MATCH statements
+  </a>
+<nav aria-label="Using patterns in MATCH statements" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_a_vertex">
-    Match a vertex
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_tag">
-    Match on tag
+<a class="md-nav__link" href="#match_vertices">
+    Match vertices
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_vertex_property">
-    Match on vertex property
+<a class="md-nav__link" href="#match_tags">
+    Match tags
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_vid">
-    Match on VID
+<a class="md-nav__link" href="#match_vertex_properties">
+    Match vertex properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match_vids">
+    Match VIDs
   </a>
 </li>
 <li class="md-nav__item">
@@ -558,13 +594,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_edge_types_and_properties">
-    Match on edge types and properties
+<a class="md-nav__link" href="#match_edge_types">
+    Match edge types
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_multiple_edge_types">
-    Match on multiple edge types
+<a class="md-nav__link" href="#match_edge_type_properties">
+    Match edge type properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match_multiple_edge_types">
+    Match multiple edge types
   </a>
 </li>
 <li class="md-nav__item">
@@ -648,6 +689,11 @@
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance_tips">
+    Performance tips
+  </a>
 </li>
 </ul>
 </nav>
@@ -752,6 +798,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1170,41 +1226,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_18" id="__nav_4_18" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4_18">
-        Appendix
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Appendix" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_4_18">
-<span class="md-nav__icon md-icon"></span>
-          Appendix
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/identifier-case-sensitivity/">
-        Identifier Case Sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/keywords-and-reserved-words/">
-        Keywords and reserved words
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/vid-partition/">
-        VID and Partition
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 </ul>
 </nav>
 </li>
@@ -1405,41 +1426,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" id="__nav_8_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_8_2">
-        Backup &amp; Restore
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Backup &amp; Restore" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_8_2">
-<span class="md-nav__icon md-icon"></span>
-          Backup &amp; Restore
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/1.what-is-br/">
-        What is Backup &amp; Restore
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/2.compile-br/">
-        Compile BR
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/3.br-backup-data/">
-        Use BR to back up data
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/4.br-restore-data/">
-        Use BR to restore data
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../7.data-security/3.manage-snapshot/">
         Manage snapshots
@@ -1476,31 +1462,61 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" id="__nav_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_10">
-        Ecosystem
+        Nebula Graph Dashboard
         <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-label="Ecosystem" class="md-nav" data-md-level="1">
+<nav aria-label="Nebula Graph Dashboard" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
-          Ecosystem
+          Nebula Graph Dashboard
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../16.eco-tools/1.nebula-exchange/">
-        Nebula Exchange
+<a class="md-nav__link" href="../../../nebula-dashboard/1.what-is-dashboard/">
+        What is Nebula Graph Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/2.deploy-dashboard.md">
+        Deploy Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/3.connect-dashboard/">
+        Connect Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/4.use-dashboard.md">
+        Use Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/6.monitor-parameter/">
+        Monitor Parameter
       </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-spark-connector/">
+        Nebula Spark Connector
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-flink-connector/">
+        Nebula Flink Connector
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" id="__nav_11" type="checkbox"/>
-<label class="md-nav__link" for="__nav_11">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" id="__nav_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_13">
         Contribution
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Contribution" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_11">
+<label class="md-nav__title" for="__nav_13">
 <span class="md-nav__icon md-icon"></span>
           Contribution
         </label>
@@ -1508,6 +1524,86 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../15.contribution/how-to-contribute/">
         How to Contribute
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" id="__nav_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_14">
+        FAQ
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="FAQ" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_14">
+<span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../19.FAQ/0.FAQ/">
+        FAQ
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" id="__nav_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_15">
+        Appendix
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Appendix" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_15">
+<span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/0.vid/">
+        VID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+        Graph modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/3.system-design/">
+        System modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/4.raft/">
+        About Raft
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/5.partition/">
+        Partition ID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/6.eco-tool-version/">
+        Ecosystem tools
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/identifier-case-sensitivity/">
+        Case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/keywords-and-reserved-words/">
+        Keywords
       </a>
 </li>
 </ul>
@@ -1548,29 +1644,39 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#use_patterns_in_match_statements">
-    Use patterns in MATCH statements
+<a class="md-nav__link" href="#opencypher_compatibility">
+    OpenCypher compatibility
   </a>
-<nav aria-label="Use patterns in MATCH statements" class="md-nav">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using_patterns_in_match_statements">
+    Using patterns in MATCH statements
+  </a>
+<nav aria-label="Using patterns in MATCH statements" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_a_vertex">
-    Match a vertex
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_tag">
-    Match on tag
+<a class="md-nav__link" href="#match_vertices">
+    Match vertices
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_vertex_property">
-    Match on vertex property
+<a class="md-nav__link" href="#match_tags">
+    Match tags
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_vid">
-    Match on VID
+<a class="md-nav__link" href="#match_vertex_properties">
+    Match vertex properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match_vids">
+    Match VIDs
   </a>
 </li>
 <li class="md-nav__item">
@@ -1589,13 +1695,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_edge_types_and_properties">
-    Match on edge types and properties
+<a class="md-nav__link" href="#match_edge_types">
+    Match edge types
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_on_multiple_edge_types">
-    Match on multiple edge types
+<a class="md-nav__link" href="#match_edge_type_properties">
+    Match edge type properties
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#match_multiple_edge_types">
+    Match multiple edge types
   </a>
 </li>
 <li class="md-nav__item">
@@ -1680,6 +1791,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance_tips">
+    Performance tips
+  </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -1687,13 +1803,13 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.0.1/docs-2.0/3.ngql-guide/7.general-query-statements/2.match.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/7.general-query-statements/2.match.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">¶</a></h1>
-<p>The <code>MATCH</code> statement provides the searching ability based on pattern matching.</p>
-<p>A <code>MATCH</code> statement defines a <a href="../../1.nGQL-overview/3.graph-patterns/">search pattern</a> and uses it to match data stored in Nebula Graph and to retrieve them in the form defined in the <code>RETURN</code> clause. A <a href="../../8.clauses-and-options/where/"><code>WHERE</code> clause</a> is often used together with the pattern as a filter to the search result.</p>
-<p>The examples in this topic use the <code>basketballplayer</code> dataset as the sample dataset.</p>
+<p>The <code>MATCH</code> statement supports searching based on pattern matching.</p>
+<p>A <code>MATCH</code> statement defines a <a href="../../1.nGQL-overview/3.graph-patterns/">search pattern</a> and uses it to match data stored in Nebula Graph and to retrieve them in the form defined in the <code>RETURN</code> clause.</p>
+<p>The examples in this topic use the <a href="../../1.nGQL-overview/1.overview/#basketballplayer">basketballplayer</a> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. But generally, it can be summarized as follows.</p>
 <div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
@@ -1701,64 +1817,89 @@
 <h2 id="the_workflow_of_match">The workflow of MATCH<a class="headerlink" href="#the_workflow_of_match" title="Permanent link">¶</a></h2>
 <ol>
 <li>
-<p>The <code>MATCH</code> statement uses a <strong>native index</strong> to locate a source vertex. The vertex can be in any position in a pattern. In other words, in a valid <code>MATCH</code> statement, <strong>there must be an indexed property or tag, or a specific VID.</strong> For how to index a property, see <a href="../../14.native-index-statements/1.create-native-index/">Create native index</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The native index for VID is created by default, so you don't need to create an extra index if you want to match on VID.</p>
-</div>
+<p>The <code>MATCH</code> statement uses a native index to locate a source vertex or an edge. The source vertex or the edge can be in any position in the pattern. In other words, in a valid <code>MATCH</code> statement, <strong>there must be an indexed property, a tag, or an edge type. Or the VID of a specific vertex must be specified with the id() function in the <code>WHERE</code> clause.</strong> For how to create an index, see <a href="../../14.native-index-statements/1.create-native-index/">create native index</a>.</p>
 </li>
 <li>
-<p>The <code>MATCH</code> statement searches through the pattern to match edges and other vertices.</p>
+<p>The <code>MATCH</code> statement searches through the pattern to match edges or vertices.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The path type of the <code>MATCH</code> statement is <code>trail</code>. That is, only vertices can be repeatedly visited in the graph traversal. Edges cannot be repeatedly visited. For details, see <a href="../../../1.introduction/2.1.path/">path</a>.</p>
+</div>
 </li>
 <li>
 <p>The <code>MATCH</code> statement retrieves data according to the <code>RETURN</code> clause.</p>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">OpenCypher compatibility</p>
-<p>For now, nGQL DOES NOT support scanning all vertices and edges with <code>MATCH</code>. For example, <code>MATCH (v) RETURN v</code>.</p>
-</div>
-<h2 id="use_patterns_in_match_statements">Use patterns in MATCH statements<a class="headerlink" href="#use_patterns_in_match_statements" title="Permanent link">¶</a></h2>
-<p>Make sure there is at least one index for the <code>MATCH</code> statement to use. If you want to create an index, but there are already vertices or edges related to the tag, edge type, or property that you want to create the index for, you have to rebuild the index after creation to make it take effect on existing vertices or edges.</p>
+<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
+<ul>
+<li>For now, nGQL does not support traversing all vertices and edges with <code>MATCH</code>, such as <code>MATCH (v) RETURN v</code>. However, after the index of a certain tag is created, all corresponding vertices can be traversed, such as <code>MATCH (v:T1) RETURN v</code>.</li>
+</ul>
+<ul>
+<li>Graph pattern is not supported in the <code>WHERE</code> clause.</li>
+</ul>
+<h2 id="using_patterns_in_match_statements">Using patterns in MATCH statements<a class="headerlink" href="#using_patterns_in_match_statements" title="Permanent link">¶</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h3>
+<p>Make sure there is at least one index in the <code>MATCH</code> statement, or there is a specified VID. If you want to create an index, but there are already related vertices, edges, or properties, you must rebuild indexes after creating the index to make it valid.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX name ON player(name(20)); // Create an index on the name property.
-Execution succeeded (time spent 2957/3986 us)
+<div class="highlight"><pre><span></span><code># The following example creates an index on both the name property of the tag player and the edge type follow.
+nebula&gt; CREATE TAG INDEX name ON player(name(20)); 
+nebula&gt; CREATE EDGE INDEX follow_index on follow();
 
-nebula&gt; REBUILD TAG INDEX name; // Rebuild the index.
+# The following example rebuilds the index.
+nebula&gt; REBUILD TAG INDEX name; 
 +------------+
 | New Job Id |
 +------------+
 | 121        |
 +------------+
-Got 1 rows  (time spent 2676/3990 us)
 
-nebula&gt; SHOW JOB 121; // Make sure the rebuild job succeeded.
-+----------------+---------------------+------------+------------+------------+
-| Job Id(TaskId) | Command(Dest)       | Status     | Start Time | Stop Time  |
-+----------------+---------------------+------------+------------+------------+
-| 121            | "REBUILD_TAG_INDEX" | "FINISHED" | 1607073046 | 1607073046 |
-+----------------+---------------------+------------+------------+------------+
-| 0              | "storaged2"         | "FINISHED" | 1607073046 | 1607073046 |
-+----------------+---------------------+------------+------------+------------+
-| 1              | "storaged0"         | "FINISHED" | 1607073046 | 1607073046 |
-+----------------+---------------------+------------+------------+------------+
-| 2              | "storaged1"         | "FINISHED" | 1607073046 | 1607073046 |
-+----------------+---------------------+------------+------------+------------+
-Got 4 rows (time spent 1186/2998 us)
+nebula&gt; REBUILD EDGE INDEX follow_index
++------------+
+| New Job Id |
++------------+
+| 122        |
++------------+
+
+
+# The following example makes sure the index is rebuilt successfully.
+nebula&gt; SHOW JOB 121; 
++----------------+---------------------+------------+-------------------------+-------------------------+
+| Job Id(TaskId) | Command(Dest)       | Status     | Start Time              | Stop Time               |
++----------------+---------------------+------------+-------------------------+-------------------------+
+| 121            | "REBUILD_TAG_INDEX" | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
++----------------+---------------------+------------+-------------------------+-------------------------+
+| 0              | "storaged1"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
++----------------+---------------------+------------+-------------------------+-------------------------+
+| 1              | "storaged0"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
++----------------+---------------------+------------+-------------------------+-------------------------+
+| 2              | "storaged2"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
++----------------+---------------------+------------+-------------------------+-------------------------+
+
+nebula&gt; SHOW JOB 122; 
++----------------+----------------------+------------+-------------------------+-------------------------+
+| Job Id(TaskId) | Command(Dest)        | Status     | Start Time              | Stop Time               |
++----------------+----------------------+------------+-------------------------+-------------------------+
+| 122            | "REBUILD_EDGE_INDEX" | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:11.000 |
++----------------+----------------------+------------+-------------------------+-------------------------+
+| 0              | "storaged1"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
++----------------+----------------------+------------+-------------------------+-------------------------+
+| 1              | "storaged0"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
++----------------+----------------------+------------+-------------------------+-------------------------+
+| 2              | "storaged2"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
++----------------+----------------------+------------+-------------------------+-------------------------+
 </code></pre></div>
-<h3 id="match_a_vertex">Match a vertex<a class="headerlink" href="#match_a_vertex" title="Permanent link">¶</a></h3>
+<h3 id="match_vertices">Match vertices<a class="headerlink" href="#match_vertices" title="Permanent link">¶</a></h3>
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
-<h3 id="match_on_tag">Match on tag<a class="headerlink" href="#match_on_tag" title="Permanent link">¶</a></h3>
-<p>To match on a tag, make sure there is an applicable <strong>tag index</strong>. For how to create a tag index, see <a href="../../14.native-index-statements/1.create-native-index/#create_tagedge_type_indexes">Create tag indexes</a>.</p>
+<h3 id="match_tags">Match tags<a class="headerlink" href="#match_tags" title="Permanent link">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Tag indexes are different from property indexes. If there is an index for a property of a tag, but no index for the tag, you cannot match on the tag.</p>
+<p>The prerequisite for matching a tag is that the tag itself has an index or a certain property of the tag has an index. Otherwise, you cannot execute the <code>MATCH</code> statement based on the tag.</p>
 </div>
-<p>A vertex tag is specified with <code>:&lt;tag_name&gt;</code> in a pattern.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v
+<p>You can specify a tag with <code>:&lt;tag_name&gt;</code> after the vertex in a pattern.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v;
 +---------------------------------------------------------------+
 | v                                                             |
 +---------------------------------------------------------------+
@@ -1770,10 +1911,14 @@ Got 4 rows (time spent 1186/2998 us)
 +---------------------------------------------------------------+
 ...
 </code></pre></div>
-<h3 id="match_on_vertex_property">Match on vertex property<a class="headerlink" href="#match_on_vertex_property" title="Permanent link">¶</a></h3>
-<p>Tag properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> in a pattern after a tag.</p>
-<p>The following example uses the <code>name</code> property to match a vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
+<h3 id="match_vertex_properties">Match vertex properties<a class="headerlink" href="#match_vertex_properties" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The prerequisite for matching a vertex property is that the tag itself has an index of the corresponding property. Otherwise, you cannot execute the <code>MATCH</code> statement to match the property.</p>
+</div>
+<p>You can specify a vertex property with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the tag in a pattern.</p>
+<div class="highlight"><pre><span></span><code># The following example uses the name property to match a vertex.
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
@@ -1790,12 +1935,9 @@ Got 4 rows (time spent 1186/2998 us)
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">OpenCypher compatibility</p>
-<ul>
-<li>In nGQL, <code>==</code> is the equality operator and <code>=</code> is the assignment operator (as in C++ or Java).</li>
-<li>In openCypher 9, <code>=</code> is the equality operator.</li>
-</ul>
+<p>In openCypher 9, <code>=</code> is the equality operator. However, in nGQL, <code>==</code> is the equality operator and <code>=</code> is the assignment operator (as in C++ or Java).</p>
 </div>
-<h3 id="match_on_vid">Match on VID<a class="headerlink" href="#match_on_vid" title="Permanent link">¶</a></h3>
+<h3 id="match_vids">Match VIDs<a class="headerlink" href="#match_vids" title="Permanent link">¶</a></h3>
 <p>You can use the VID to match a vertex. The <code>id()</code> function can retrieve the VID of a vertex.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) == 'player101' RETURN v;
 +---------------------------------------------------+
@@ -1803,9 +1945,8 @@ Got 4 rows (time spent 1186/2998 us)
 +---------------------------------------------------+
 | (player101) player.name:Tony Parker,player.age:36 |
 +---------------------------------------------------+
-Got 1 rows (time spent 1710/2406 us)
 </code></pre></div>
-<p>To match on multiple VIDs, use <code>WHERE id(v) IN [vid_list]</code>.</p>
+<p>To match multiple VIDs, use <code>WHERE id(v) IN [vid_list]</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player { name: 'Tim Duncan' })--(v2) \
         WHERE id(v2) IN ["player101", "player102"] RETURN v2;
 +-----------------------------------------------------------+
@@ -1817,18 +1958,15 @@ Got 1 rows (time spent 1710/2406 us)
 +-----------------------------------------------------------+
 | ("player101" :player{name: "Tony Parker", age: 36})       |
 +-----------------------------------------------------------+
-Got 3 rows (time spent 3107/3683 us)
 </code></pre></div>
 <h3 id="match_connected_vertices">Match connected vertices<a class="headerlink" href="#match_connected_vertices" title="Permanent link">¶</a></h3>
 <p>You can use the <code>--</code> symbol to represent edges of both directions and match vertices connected by these edges.</p>
 <div class="admonition legacy version compatibility">
 <p class="admonition-title">Legacy</p>
-<ul>
-<li>In nGQL 1.x, the <code>--</code> symbol is used for inline comments.</li>
-<li>Starting from nGQL 2.0, the <code>--</code> symbol represents an incoming or outgoing edge.</li>
-</ul>
+<p>In nGQL 1.x, the <code>--</code> symbol is used for inline comments. Starting from nGQL 2.x, the <code>--</code> symbol represents an incoming or outgoing edge.</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--(v2) RETURN v2.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--(v2) \
+        RETURN v2.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -1843,10 +1981,11 @@ Got 3 rows (time spent 3107/3683 us)
 | "Aron Baynes"       |
 +---------------------+
 ...
-Got 13 rows (time spent 6029/8976 us)
 </code></pre></div>
-<p>And you can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;(v2) RETURN v2.name AS Name;
+<p>You can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
+<p>In the following example, <code>--&gt;</code> represents an edge that starts from <code>v</code> and points to <code>v2</code>. To <code>v</code>, this is an outgoing edge, and to <code>v2</code> this is an incoming edge.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;(v2) \
+        RETURN v2.name AS Name;
 +-----------------+
 | Name            |
 +-----------------+
@@ -1856,11 +1995,10 @@ Got 13 rows (time spent 6029/8976 us)
 +-----------------+
 | "Manu Ginobili" |
 +-----------------+
-Got 3 rows (time spent 2897/5993 us)
 </code></pre></div>
-<p>In the preceding example, <code>--&gt;</code> represents an edge that starts from <code>v</code> and points to <code>v2</code>. To <code>v</code>, this is an outgoing edge, and to <code>v2</code> this is an incoming edge.</p>
-<p>To extend the pattern, add more edges and vertices.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;(v2)&lt;--(v3) RETURN v3.name AS Name;
+<p>To extend the pattern, you can add more vertices and edges.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;(v2)&lt;--(v3) \
+        RETURN v3.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -1876,8 +2014,9 @@ Got 3 rows (time spent 2897/5993 us)
 +---------------------+
 ...
 </code></pre></div>
-<p>If you don't need to refer to a vertex, you can omit the variable representing it in the parentheses.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;()&lt;--(v3) RETURN v3.name AS Name;
+<p>If you do not need to refer to a vertex, you can omit the variable representing it in the parentheses.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})--&gt;()&lt;--(v3) \
+        RETURN v3.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -1894,8 +2033,9 @@ Got 3 rows (time spent 2897/5993 us)
 ...
 </code></pre></div>
 <h3 id="match_paths">Match paths<a class="headerlink" href="#match_paths" title="Permanent link">¶</a></h3>
-<p>Connected vertices and edges form a path. You can use a user-defined variable as follows to name a path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--&gt;(v2) RETURN p;
+<p>Connected vertices and edges form a path. You can use a user-defined variable to name a path as follows.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--&gt;(v2) \
+        RETURN p;
 +-------------------------------------------+
 | p                                         |
 +-------------------------------------------+
@@ -1905,15 +2045,15 @@ Got 3 rows (time spent 2897/5993 us)
 +-------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;("team204" :team{name: "Spurs"})&gt; |
 +-------------------------------------------+
-Got 3 rows (time spent 3717/4573 us)
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">OpenCypher compatibility</p>
-<p>In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such a concept.</p>
+<p>In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such concept.</p>
 </div>
 <h3 id="match_edges">Match edges<a class="headerlink" href="#match_edges" title="Permanent link">¶</a></h3>
-<p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-(v2) RETURN e;
+<p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a user-defined variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-(v2) \
+        RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -1925,18 +2065,33 @@ Got 3 rows (time spent 3717/4573 us)
 +---------------------------------------------------------------------------+
 ...
 </code></pre></div>
-<h3 id="match_on_edge_types_and_properties">Match on edge types and properties<a class="headerlink" href="#match_on_edge_types_and_properties" title="Permanent link">¶</a></h3>
-<p>Just like tags, edge types are specified with <code>:&lt;edge_type&gt;</code>. For example: <code>-[e:serve]-</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:serve]-(v2) RETURN e;
-+---------------------------------------------------------------------------+
-| e                                                                         |
-+---------------------------------------------------------------------------+
-| [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
-+---------------------------------------------------------------------------+
-Got 1 rows (time spent 5041/5630 us)
+<h3 id="match_edge_types">Match edge types<a class="headerlink" href="#match_edge_types" title="Permanent link">¶</a></h3>
+<p>Just like vertices, you can specify edge types with <code>:&lt;edge_type&gt;</code> in a pattern. For example: <code>-[e:follow]-</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()-[e:follow]-() \
+        RETURN e;
++-----------------------------------------------------+
+| e                                                   |
++-----------------------------------------------------+
+| [:follow "player113"-&gt;"player119" @0 {degree: 99}]  |
++-----------------------------------------------------+
+| [:follow "player130"-&gt;"player149" @0 {degree: 80}]  |
++-----------------------------------------------------+
+| [:follow "player149"-&gt;"player130" @0 {degree: 80}]  |
++-----------------------------------------------------+
+| [:follow "player136"-&gt;"player117" @0 {degree: 90}]  |
++-----------------------------------------------------+
+| [:follow "player142"-&gt;"player117" @0 {degree: 90}]  |
++-----------------------------------------------------+
+...
 </code></pre></div>
-<p>And edge type properties are specified with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the <code>:&lt;edge_type&gt;</code>. For example: <code>[e:follow{likeness:95}]</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:follow{degree:95}]-&gt;(v2) RETURN e;
+<h3 id="match_edge_type_properties">Match edge type properties<a class="headerlink" href="#match_edge_type_properties" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The prerequisite for matching an edge type property is that the edge type itself has an index of the corresponding property. Otherwise, you cannot execute the <code>MATCH</code> statement to match the property.</p>
+</div>
+<p>You can specify edge type properties with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> in a pattern. For example: <code>[e:follow{likeness:95}]</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:follow{degree:95}]-&gt;(v2) \
+        RETURN e;
 +--------------------------------------------------------+
 | e                                                      |
 +--------------------------------------------------------+
@@ -1944,11 +2099,11 @@ Got 1 rows (time spent 5041/5630 us)
 +--------------------------------------------------------+
 | [:follow "player100"-&gt;"player125" @0 {degree: 95}]     |
 +--------------------------------------------------------+
-Got 2 rows (time spent 6080/6728 us)
 </code></pre></div>
-<h3 id="match_on_multiple_edge_types">Match on multiple edge types<a class="headerlink" href="#match_on_multiple_edge_types" title="Permanent link">¶</a></h3>
-<p>The <code>|</code> symbol can help matching on multiple edge types. For example: <code>[e:follow|:serve]</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:follow|:serve]-&gt;(v2) RETURN e;
+<h3 id="match_multiple_edge_types">Match multiple edge types<a class="headerlink" href="#match_multiple_edge_types" title="Permanent link">¶</a></h3>
+<p>The <code>|</code> symbol can help matching multiple edge types. For example: <code>[e:follow|:serve]</code>. The English colon (:) before the first edge type cannot be omitted, but the English colon before the subsequent edge type can be omitted, such as <code>[e:follow|serve]</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:follow|:serve]-&gt;(v2) \
+        RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -1958,11 +2113,11 @@ Got 2 rows (time spent 6080/6728 us)
 +---------------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
-Got 3 rows (time spent 4264/4976 us)
 </code></pre></div>
 <h3 id="match_multiple_edges">Match multiple edges<a class="headerlink" href="#match_multiple_edges" title="Permanent link">¶</a></h3>
-<p>You can expand a pattern to match multiple edges in a path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[]-&gt;(v2)&lt;-[e:serve]-(v3) RETURN v2, v3;
+<p>You can extend a pattern to match multiple edges in a path.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[]-&gt;(v2)&lt;-[e:serve]-(v3) \
+        RETURN v2, v3;
 +------------------------------------+-----------------------------------------------------------+
 | v2                                 | v3                                                        |
 +------------------------------------+-----------------------------------------------------------+
@@ -1975,8 +2130,9 @@ Got 3 rows (time spent 4264/4976 us)
 ...
 </code></pre></div>
 <h3 id="match_fixed-length_paths">Match fixed-length paths<a class="headerlink" href="#match_fixed-length_paths" title="Permanent link">¶</a></h3>
-<p>To match a fixed-length path, use the <code>:&lt;edge_type&gt;*&lt;hop&gt;</code> pattern. <code>hop</code> must be a non-negative integer.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*2]-&gt;(v2) RETURN DISTINCT v2 AS Friends;
+<p>You can use the <code>:&lt;edge_type&gt;*&lt;hop&gt;</code> pattern to match a fixed-length path. <code>hop</code> must be a non-negative integer.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*2]-&gt;(v2) \
+        RETURN DISTINCT v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
@@ -1986,16 +2142,15 @@ Got 3 rows (time spent 4264/4976 us)
 +-----------------------------------------------------------+
 | ("player125" :player{name: "Manu Ginobili", age: 41})     |
 +-----------------------------------------------------------+
-Got 3 rows (time spent 4863/5591 us)
 </code></pre></div>
-<p>If <code>hop</code> is 0, the pattern matches the source vertex on the path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) -[*0]-&gt; (v2) RETURN v2;
+<p>If <code>hop</code> is 0, the pattern will match the source vertex of the path.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) -[*0]-&gt; (v2) \
+        RETURN v2;
 +----------------------------------------------------+
 | v2                                                 |
 +----------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 2785/3377 us)
 </code></pre></div>
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">¶</a></h3>
 <p>You can use the <code>:&lt;edge_type&gt;*[minHop]..&lt;maxHop&gt;</code> pattern to match variable-length paths.</p>
@@ -2009,20 +2164,17 @@ Got 1 rows (time spent 2785/3377 us)
 <tbody>
 <tr>
 <td><code>minHop</code></td>
-<td>Optional. Represents the minimum length of the path. <code>minHop</code> must be a non-negative integer. The default value is 1.</td>
+<td>Optional. It represents the minimum length of the path. <code>minHop</code> must be a non-negative integer. The default value is 1.</td>
 </tr>
 <tr>
 <td><code>maxHop</code></td>
-<td>Required. Represents the maximum length of the path. <code>maxHop</code> must be a non-negative integer. It has no default value.</td>
+<td>Required. It represents the maximum length of the path. <code>maxHop</code> must be a non-negative integer. It has no default value.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">OpenCypher compatibility</p>
-<ul>
-<li>In nGQL, <code>maxHop</code> is required. And <code>..</code> cannot be omitted after <code>minHop</code>.</li>
-<li>In openCypher, <code>maxHop</code> is optional and default to infinity. When no bounds are given, <code>..</code> can be omitted.</li>
-</ul>
+<p>In openCypher, <code>maxHop</code> is optional and defaults to infinity. When no bounds are given, <code>..</code> can be omitted. However, in nGQL, <code>maxHop</code> is required. And <code>..</code> cannot be omitted.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*1..3]-&gt;(v2) \
         RETURN v2 AS Friends;
@@ -2037,13 +2189,12 @@ Got 1 rows (time spent 2785/3377 us)
 +-----------------------------------------------------------+
 | ("player102" :player{age: 33, name: "LaMarcus Aldridge"}) |
 +-----------------------------------------------------------+
-Got 4 rows (time spent 6166/6887 us)
 </code></pre></div>
 <p>You can use the <code>DISTINCT</code> keyword to aggregate duplicate results.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*1..3]-&gt;(v2:player) \
         RETURN DISTINCT v2 AS Friends, count(v2);
 +-----------------------------------------------------------+-----------+
-| Friends                                                   | COUNT(v2) |
+| Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
 | ("player125" :player{age: 41, name: "Manu Ginobili"})     | 3         |
 +-----------------------------------------------------------+-----------+
@@ -2053,13 +2204,12 @@ Got 4 rows (time spent 6166/6887 us)
 +-----------------------------------------------------------+-----------+
 | ("player101" :player{age: 36, name: "Tony Parker"})       | 3         |
 +-----------------------------------------------------------+-----------+
-Got 4 rows (time spent 5502/6556 us)
 </code></pre></div>
-<p>If <code>minHop</code> is 0, the pattern matches the source vertex. Compared to the preceding statement, the following statement uses 0 as the <code>minHop</code>, so in the following result set <code>"Tim Duncan"</code> is counted one more time than it is in the preceding result set because it is the source vertex.</p>
+<p>If <code>minHop</code> is <code>0</code>, the pattern will match the source vertex of the path. Compared to the preceding statement, the following example uses <code>0</code> as the <code>minHop</code>. So in the following result set, <code>"Tim Duncan"</code> is counted one more time than it is in the preceding result set because it is the source vertex.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*0..3]-&gt;(v2:player) \
         RETURN DISTINCT v2 AS Friends, count(v2);
 +-----------------------------------------------------------+-----------+
-| Friends                                                   | COUNT(v2) |
+| Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
 | ("player125" :player{age: 41, name: "Manu Ginobili"})     | 3         |
 +-----------------------------------------------------------+-----------+
@@ -2069,7 +2219,6 @@ Got 4 rows (time spent 5502/6556 us)
 +-----------------------------------------------------------+-----------+
 | ("player100" :player{age: 42, name: "Tim Duncan"})        | 5         |
 +-----------------------------------------------------------+-----------+
-Got 4 rows (time spent 5553/6275 us)
 </code></pre></div>
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">¶</a></h3>
 <p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</p>
@@ -2088,21 +2237,20 @@ Got 4 rows (time spent 5553/6275 us)
 +-----------------------------------------------------------+
 | ("player215" :team{name: "Hornets"})                      |
 +-----------------------------------------------------------+
-Got 5 rows (time spent 3834/4571 us)
 </code></pre></div>
 <h2 id="common_retrieving_operations">Common retrieving operations<a class="headerlink" href="#common_retrieving_operations" title="Permanent link">¶</a></h2>
-<p>This section shows how to retrieve commonly used items with <code>MATCH</code> statements.</p>
 <h3 id="retrieve_vertex_or_edge_information">Retrieve vertex or edge information<a class="headerlink" href="#retrieve_vertex_or_edge_information" title="Permanent link">¶</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}</code> to retrieve all the information of a vertex or an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
 | ("player100" :player{name: "Tim Duncan", age: 42}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 1863/2545 us)
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) RETURN e;
+
+nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
+        RETURN e;
 +---------------------------------------------------------------------------+
 | e                                                                         |
 +---------------------------------------------------------------------------+
@@ -2112,59 +2260,59 @@ Got 1 rows (time spent 1863/2545 us)
 +---------------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
-Got 3 rows (time spent 3139/3773 us)
 </code></pre></div>
 <h3 id="retrieve_vids">Retrieve VIDs<a class="headerlink" href="#retrieve_vids" title="Permanent link">¶</a></h3>
 <p>Use the <code>id()</code> function to retrieve VIDs.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN id(v);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN id(v);
 +-------------+
 | id(v)       |
 +-------------+
 | "player100" |
 +-------------+
-Got 1 rows (time spent 2070/2747 us)
 </code></pre></div>
 <h3 id="retrieve_tags">Retrieve tags<a class="headerlink" href="#retrieve_tags" title="Permanent link">¶</a></h3>
 <p>Use the <code>labels()</code> function to retrieve the list of tags on a vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN labels(v);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN labels(v);
 +------------+
 | labels(v)  |
 +------------+
 | ["player"] |
 +------------+
-Got 1 rows (time spent 2198/2941 us)
 </code></pre></div>
 <p>To retrieve the nth element in the <code>labels(v)</code> list, use <code>labels(v)[n-1]</code>. The following example shows how to use <code>labels(v)[0]</code> to retrieve the first tag in the list.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN labels(v)[0];
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN labels(v)[0];
 +--------------+
 | labels(v)[0] |
 +--------------+
 | "player"     |
 +--------------+
-Got 1 rows (time spent 2609/3481 us)
 </code></pre></div>
 <h3 id="retrieve_a_single_property_on_a_vertex_or_an_edge">Retrieve a single property on a vertex or an edge<a class="headerlink" href="#retrieve_a_single_property_on_a_vertex_or_an_edge" title="Permanent link">¶</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}.&lt;property&gt;</code> to retrieve a single property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v.age;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN v.age;
 +-------+
 | v.age |
 +-------+
 | 42    |
 +-------+
-Got 1 rows (time spent 2261/2973 us)
 </code></pre></div>
 <p>Use <code>AS</code> to specify an alias for a property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v.age AS Age;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN v.age AS Age;
 +-----+
 | Age |
 +-----+
 | 42  |
 +-----+
-Got 1 rows (time spent 1762/2321 us)
 </code></pre></div>
 <h3 id="retrieve_all_properties_on_a_vertex_or_an_edge">Retrieve all properties on a vertex or an edge<a class="headerlink" href="#retrieve_all_properties_on_a_vertex_or_an_edge" title="Permanent link">¶</a></h3>
 <p>Use the <code>properties()</code> function to retrieve all properties on a vertex or an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) RETURN properties(v2);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) \
+        RETURN properties(v2);
 +------------------------------------+
 | properties(v2)                     |
 +------------------------------------+
@@ -2174,11 +2322,11 @@ Got 1 rows (time spent 1762/2321 us)
 +------------------------------------+
 | {"age":41, "name":"Manu Ginobili"} |
 +------------------------------------+
-Got 3 rows (time spent 2943/3541 us)
 </code></pre></div>
 <h3 id="retrieve_edge_types">Retrieve edge types<a class="headerlink" href="#retrieve_edge_types" title="Permanent link">¶</a></h3>
-<p>Use the <code>type()</code> function to retrieve the types of the matched edges.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e]-&gt;() RETURN DISTINCT type(e);
+<p>Use the <code>type()</code> function to retrieve the matched edge types.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e]-&gt;() \
+        RETURN DISTINCT type(e);
 +----------+
 | type(e)  |
 +----------+
@@ -2186,11 +2334,11 @@ Got 3 rows (time spent 2943/3541 us)
 +----------+
 | "serve"  |
 +----------+
-Got 3 rows (time spent 3776/4660 us)
 </code></pre></div>
 <h3 id="retrieve_paths">Retrieve paths<a class="headerlink" href="#retrieve_paths" title="Permanent link">¶</a></h3>
 <p>Use <code>RETURN &lt;path_name&gt;</code> to retrieve all the information of the matched paths.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[*3]-&gt;() RETURN p;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[*3]-&gt;() \
+        RETURN p;
 +-------------------------------------------------------------------------------------------------+
 | p                                                                                               |
 +-------------------------------------------------------------------------------------------------+
@@ -2204,7 +2352,8 @@ Got 3 rows (time spent 3776/4660 us)
 </code></pre></div>
 <h3 id="retrieve_vertices_in_a_path">Retrieve vertices in a path<a class="headerlink" href="#retrieve_vertices_in_a_path" title="Permanent link">¶</a></h3>
 <p>Use the <code>nodes()</code> function to retrieve all vertices in a path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) RETURN nodes(p);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) \
+        RETURN nodes(p);
 +---------------------------------------------------------------------------------------------------------------------+
 | nodes(p)                                                                                                            |
 +---------------------------------------------------------------------------------------------------------------------+
@@ -2214,11 +2363,11 @@ Got 3 rows (time spent 3776/4660 us)
 +---------------------------------------------------------------------------------------------------------------------+
 | [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player125" :player{name: "Manu Ginobili", age: 41})] |
 +---------------------------------------------------------------------------------------------------------------------+
-Got 3 rows (time spent 2529/3128 us)
 </code></pre></div>
 <h3 id="retrieve_edges_in_a_path">Retrieve edges in a path<a class="headerlink" href="#retrieve_edges_in_a_path" title="Permanent link">¶</a></h3>
 <p>Use the <code>relationships()</code> function to retrieve all edges in a path.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) RETURN relationships(p);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[]-&gt;(v2) \
+        RETURN relationships(p);
 +-----------------------------------------------------------------------------+
 | relationships(p)                                                            |
 +-----------------------------------------------------------------------------+
@@ -2228,7 +2377,6 @@ Got 3 rows (time spent 2529/3128 us)
 +-----------------------------------------------------------------------------+
 | [[:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]]     |
 +-----------------------------------------------------------------------------+
-Got 3 rows (time spent 2715/3363 us)
 </code></pre></div>
 <h3 id="retrieve_path_length">Retrieve path length<a class="headerlink" href="#retrieve_path_length" title="Permanent link">¶</a></h3>
 <p>Use the <code>length()</code> function to retrieve the length of a path.</p>
@@ -2256,11 +2404,13 @@ Got 3 rows (time spent 2715/3363 us)
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})&gt;                                                                                   | 1      |
 +----------------------------------------------------------------------+--------+
 </code></pre></div>
+<h2 id="performance_tips">Performance tips<a class="headerlink" href="#performance_tips" title="Permanent link">¶</a></h2>
+<p>In Nebula Graph master, the <code>MATCH</code> statement is not optimized for resource usage and performance. Simpler operations can be replaced by <code>GO</code>, <code>LOOKUP</code>, <code>|</code>, and <code>FETCH</code>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 4, 2021</span>
 </small>
 </div>
 </article>

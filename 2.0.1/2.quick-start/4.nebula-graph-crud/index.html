@@ -7,13 +7,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/2.0.1/2.quick-start/4.nebula-graph-crud/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/2.0.1/2.quick-start/4.nebula-graph-crud/" rel="canonical"/>
 <link href="../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>Nebula Graph CRUD - Nebula Graph Database Manual</title>
 <link href="../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
-<meta content="#ffffff" name="theme-color"/>
+<meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
@@ -23,7 +23,7 @@
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
-<body data-md-color-accent="white" data-md-color-primary="white" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="light-green" data-md-color-primary="teal" data-md-color-scheme="" dir="ltr">
 <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
@@ -36,6 +36,12 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
+<div id="dialog-bg"></div>
+<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
+    This version is under development. For the docs of the latest stable release, see 
+    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
+    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
+</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -134,14 +140,24 @@
         Data model
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.introduction/2.1.path/">
+        Path
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.introduction/3.vid/">
+        VID
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_3">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5">
         Nebula Graph architecture
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Nebula Graph architecture" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_3">
+<label class="md-nav__title" for="__nav_2_5">
 <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -184,11 +200,6 @@
           Quick start
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../0.FAQ/">
-        FAQ
-      </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../1.quick-start-workflow/">
         Quick start workflow
@@ -312,13 +323,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#examples_of_go">
-    Examples of GO
+<a class="md-nav__link" href="#examples_of_go_statement">
+    Examples of GO statement
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example_of_fetch">
-    Example of FETCH
+<a class="md-nav__link" href="#example_of_fetch_statement">
+    Example of FETCH statement
   </a>
 </li>
 </ul>
@@ -394,11 +405,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../6.useful-links/">
-        Useful Links
-      </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -434,6 +440,26 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/3.graph-patterns/">
         Graph patterns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/identifier-case-sensitivity/">
+        Identifier case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">
+        Keywords
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/1.nGQL-overview/ngql-style-guide/">
+        nGQL style guide
       </a>
 </li>
 </ul>
@@ -776,6 +802,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../3.ngql-guide/7.general-query-statements/6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/7.general-query-statements/6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.ngql-guide/7.general-query-statements/6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1194,41 +1230,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_18" id="__nav_4_18" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4_18">
-        Appendix
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Appendix" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_4_18">
-<span class="md-nav__icon md-icon"></span>
-          Appendix
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/identifier-case-sensitivity/">
-        Identifier Case Sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/keywords-and-reserved-words/">
-        Keywords and reserved words
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../3.ngql-guide/20.appendix/vid-partition/">
-        VID and Partition
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 </ul>
 </nav>
 </li>
@@ -1429,41 +1430,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" id="__nav_8_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_8_2">
-        Backup &amp; Restore
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Backup &amp; Restore" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_8_2">
-<span class="md-nav__icon md-icon"></span>
-          Backup &amp; Restore
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../7.data-security/2.backup-restore/1.what-is-br/">
-        What is Backup &amp; Restore
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../7.data-security/2.backup-restore/2.compile-br/">
-        Compile BR
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../7.data-security/2.backup-restore/3.br-backup-data/">
-        Use BR to back up data
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../7.data-security/2.backup-restore/4.br-restore-data/">
-        Use BR to restore data
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../7.data-security/3.manage-snapshot/">
         Manage snapshots
@@ -1500,31 +1466,61 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" id="__nav_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_10">
-        Ecosystem
+        Nebula Graph Dashboard
         <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-label="Ecosystem" class="md-nav" data-md-level="1">
+<nav aria-label="Nebula Graph Dashboard" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
-          Ecosystem
+          Nebula Graph Dashboard
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../16.eco-tools/1.nebula-exchange/">
-        Nebula Exchange
+<a class="md-nav__link" href="../../nebula-dashboard/1.what-is-dashboard/">
+        What is Nebula Graph Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-dashboard/2.deploy-dashboard.md">
+        Deploy Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-dashboard/3.connect-dashboard/">
+        Connect Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-dashboard/4.use-dashboard.md">
+        Use Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-dashboard/6.monitor-parameter/">
+        Monitor Parameter
       </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-spark-connector/">
+        Nebula Spark Connector
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../nebula-flink-connector/">
+        Nebula Flink Connector
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" id="__nav_11" type="checkbox"/>
-<label class="md-nav__link" for="__nav_11">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" id="__nav_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_13">
         Contribution
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Contribution" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_11">
+<label class="md-nav__title" for="__nav_13">
 <span class="md-nav__icon md-icon"></span>
           Contribution
         </label>
@@ -1532,6 +1528,86 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../15.contribution/how-to-contribute/">
         How to Contribute
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" id="__nav_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_14">
+        FAQ
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="FAQ" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_14">
+<span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../19.FAQ/0.FAQ/">
+        FAQ
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" id="__nav_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_15">
+        Appendix
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Appendix" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_15">
+<span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/0.vid/">
+        VID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/2.graph-modeling/">
+        Graph modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/3.system-design/">
+        System modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/4.raft/">
+        About Raft
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/5.partition/">
+        Partition ID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/6.eco-tool-version/">
+        Ecosystem tools
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/identifier-case-sensitivity/">
+        Case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../20.appendix/keywords-and-reserved-words/">
+        Keywords
       </a>
 </li>
 </ul>
@@ -1649,13 +1725,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#examples_of_go">
-    Examples of GO
+<a class="md-nav__link" href="#examples_of_go_statement">
+    Examples of GO statement
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example_of_fetch">
-    Example of FETCH
+<a class="md-nav__link" href="#example_of_fetch_statement">
+    Example of FETCH statement
   </a>
 </li>
 </ul>
@@ -1735,11 +1811,11 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.0.1/docs-2.0/2.quick-start/4.nebula-graph-crud.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/2.quick-start/4.nebula-graph-crud.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="nebula_graph_crud">Nebula Graph CRUD<a class="headerlink" href="#nebula_graph_crud" title="Permanent link">¶</a></h1>
-<p>This topic describes the basic CRUD operations in Nebula Graph.</p>
+<p>This topic will describe the basic CRUD operations in Nebula Graph.</p>
 <h2 id="graph_space_and_nebula_graph_schema">Graph space and Nebula Graph schema<a class="headerlink" href="#graph_space_and_nebula_graph_schema" title="Permanent link">¶</a></h2>
 <p>A Nebula Graph instance consists of one or more graph spaces. Graph spaces are physically isolated from each other. You can use different graph spaces in the same instance to store different datasets.</p>
 <p><img alt="Nebula Graph and graph spaces" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-graph-instance-and-graph-spaces.png"/></p>
@@ -1758,7 +1834,7 @@
 </tr>
 <tr>
 <td>Tag</td>
-<td>The type of a vertex. It defines a group of properties that describes a type of vertices.</td>
+<td>The type of the same group of vertices. It defines a set of properties that describes the types of vertices.</td>
 </tr>
 <tr>
 <td>Edge</td>
@@ -1766,15 +1842,15 @@
 </tr>
 <tr>
 <td>Edge type</td>
-<td>The type of an edge. It defines a group of properties that describes a type of edges.</td>
+<td>The type of an edge. It defines a group of properties that describes the types of edges.</td>
 </tr>
 </tbody>
 </table>
 <p>For more information, see <a href="../../1.introduction/2.data-model/">Data modeling</a>.</p>
-<p>In this topic, we use the following dataset to demonstrate basic CRUD operations.</p>
+<p>In this topic, we will use the following dataset to demonstrate basic CRUD operations.</p>
 <p><img alt="The demo dataset" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/dataset-for-crud.png"/></p>
 <h2 id="check_the_machine_status_in_the_nebula_graph_cluster">Check the machine status in the Nebula Graph cluster<a class="headerlink" href="#check_the_machine_status_in_the_nebula_graph_cluster" title="Permanent link">¶</a></h2>
-<p>First, we recommend that you check the machine status to make sure that all the Storage services are connected to the Meta Services. Run <code>SHOW HOSTS</code> as follows.</p>
+<p>First, we recommend that you check the machine status to make sure that all the Storage services are connected to the Meta services. Run <code>SHOW HOSTS</code> as follows.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 | Host        | Port      | Status    | Leader count | Leader distribution  | Partition distribution |
@@ -1789,7 +1865,7 @@
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 Got 4 rows (time spent 1061/2251 us)
 </code></pre></div>
-<p>From the <strong>Status</strong> column of the table in the return message, you can see that all the Storage services are online.</p>
+<p>From the <strong>Status</strong> column of the table in the return results, you can see that all the Storage services are online.</p>
 <h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">¶</a></h3>
 <p>Nebula Graph implements the following creation or alteration operations asynchronously in the next heartbeat cycle. The operations won't take effect until they finish.</p>
 <ul>
@@ -1815,10 +1891,12 @@ Got 4 rows (time spent 1061/2251 us)
 <h2 id="create_and_use_a_graph_space">Create and use a graph space<a class="headerlink" href="#create_and_use_a_graph_space" title="Permanent link">¶</a></h2>
 <h3 id="ngql_syntax">nGQL syntax<a class="headerlink" href="#ngql_syntax" title="Permanent link">¶</a></h3>
 <ul>
-<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
-    [(partition_num = &lt;partition_number&gt;, 
-    replica_factor = &lt;replica_number&gt;,
-    vid_type = {FIXED_STRING(&lt;N&gt;) | INT64})];
+<li>Create a graph space:<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; (
+[partition_num = &lt;partition_number&gt;,] 
+[replica_factor = &lt;replica_number&gt;,]
+vid_type = {FIXED_STRING(&lt;N&gt;) | INT64}
+)
+[comment = '&lt;space_comment&gt;'];
 </code></pre></div>
 </li>
 </ul>
@@ -1826,19 +1904,39 @@ Got 4 rows (time spent 1061/2251 us)
     charset = <charset>,
     collate = <collate>, 
 -->
-<div class="codehilite"><pre><span></span><code>| Property       | Description                                                                                                                                                                                                                        |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| partition_num  | Specifies the number of partitions in each replica. The suggested number is the number of hard disks in the cluster times 5. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.           |
-| replica_factor | Specifies the number of replicas in the Nebula Graph cluster. The suggested number is 3 in a production environment and 1 in a test environment. The replica number must always be an **odd** number for the need of quorum-based voting. |
-|vid_type | Specifies the data type of VIDs in a graph space. Available values are `FIXED_STRING(N)` and `INT64`. `N` represents the maximum length of the VIDs and it must be a positive integer. The default value is `FIXED_STRING(8)`. If you set a VID length greater than `N`, Nebula Graph throws an error. To set the integer VID for vertices, set `vid_type` to `INT64`. |
-</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>partition_num</code></td>
+<td>Specifies the number of partitions in each space. The suggested number of partitions is 5 times the number of hard disks in the cluster. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.</td>
+</tr>
+<tr>
+<td><code>replica_factor</code></td>
+<td>Specifies the number of replicas in the Nebula Graph cluster. The suggested number of replicas is 3 in a production environment and 1 in a test environment. The number of replicas must always be an <strong>odd</strong> number for the need of quorum-based voting.</td>
+</tr>
+<tr>
+<td><code>vid_type</code></td>
+<td>Specifies the data type of VIDs in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>N</code> represents the maximum length of the VIDs and it must be a positive integer. The default value is <code>FIXED_STRING(8)</code>. If you set a VID length greater than <code>N</code>, Nebula Graph will throw an error. To set integer VIDs for vertices, set <code>vid_type</code> to <code>INT64</code>.</td>
+</tr>
+<tr>
+<td><code>comment</code></td>
+<td>The remarks of graph spaces. Its maximum length is 256 bytes. The default space has no remarks.</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>List graph spaces and check if the creation is successful:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Use a graph space:<div class="highlight"><pre><span></span><code>USE &lt;graph_space_name&gt;
+<li>Use a graph space:<div class="highlight"><pre><span></span><code>USE &lt;graph_space_name&gt;;
 </code></pre></div>
 </li>
 </ul>
@@ -1862,7 +1960,7 @@ Execution succeeded (time spent 2817/3280 us)
 +-------------+-----------+-----------+--------------+----------------------------------+------------------------+
 | "storaged2" | 9779      | "ONLINE"  | 5            | "basketballplayer:5"             | "basketballplayer:5"   |
 +-------------+-----------+-----------+--------------+----------------------------------+------------------------+
-| "Total"     | __EMPTY__ | __EMPTY__ | 15           | "basketballplayer:15"            | "basketballplayer:15"  |
+| "Total"     |           |           | 15           | "basketballplayer:15"            | "basketballplayer:15"  |
 +-------------+-----------+-----------+--------------+----------------------------------+------------------------+
 Got 4 rows (time spent 1633/2867 us)
 </code></pre></div>
@@ -1870,17 +1968,17 @@ Got 4 rows (time spent 1633/2867 us)
 </li>
 <li>
 <p>Use the <code>basketballplayer</code> graph space.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
-Execution succeeded (time spent 1322/2206 us)
+<div class="highlight"><pre><span></span><code>nebula[(none)]&gt; USE basketballplayer;
+Execution succeeded (time spent 1229/2318 us)
 </code></pre></div>
 <p>You can use <code>SHOW SPACES</code> to check the graph space you created.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
-+-------------------+
-| Name              |
-+-------------------+
-| basketballplayer  |
-+-------------------+
-Got 1 rows (time spent 1235/1934 us)
++--------------------+
+| Name               |
++--------------------+
+| "basketballplayer" |
++--------------------+
+Got 1 rows (time spent 977/2000 us)
 </code></pre></div>
 </li>
 </ol>
@@ -1890,7 +1988,7 @@ Got 1 rows (time spent 1235/1934 us)
 [, &lt;property_name&gt; &lt;data_type&gt; ...]);
 </code></pre></div>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
-<p>Create tags <code>player</code> and <code>team</code>, edge types <code>follow</code> and <code>serve</code>.</p>
+<p>Create tags <code>player</code> and <code>team</code>, edge types <code>follow</code> and <code>serve</code>. Descriptions are as follows.</p>
 <table>
 <thead>
 <tr>
@@ -1923,97 +2021,103 @@ Got 1 rows (time spent 1235/1934 us)
 </tbody>
 </table>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
-Execution succeeded (time spent 2694/3116 us)
+Execution succeeded (time spent 20708/22071 us)
 
-Thu, 15 Oct 2020 06:22:29 UTC
+Wed, 24 Feb 2021 03:47:01 EST
 
 nebula&gt; CREATE TAG team(name string);
-Execution succeeded (time spent 2630/3002 us)
+Execution succeeded (time spent 5643/6810 us)
 
-Thu, 15 Oct 2020 06:22:37 UTC
+Wed, 24 Feb 2021 03:47:59 EST
 
 nebula&gt; CREATE EDGE follow(degree int);
-Execution succeeded (time spent 3087/3467 us)
+Execution succeeded (time spent 12665/13934 us)
 
-Thu, 15 Oct 2020 06:22:43 UTC
+Wed, 24 Feb 2021 03:48:07 EST
 
 nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-Execution succeeded (time spent 2645/3123 us)
+Execution succeeded (time spent 5858/6870 us)
 
-Thu, 15 Oct 2020 06:22:50 UTC
+Wed, 24 Feb 2021 03:48:16 EST
 </code></pre></div>
 <h2 id="insert_vertices_and_edges">Insert vertices and edges<a class="headerlink" href="#insert_vertices_and_edges" title="Permanent link">¶</a></h2>
 <p>You can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">¶</a></h3>
 <ul>
-<li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
+<li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
 [, &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...]
 {VALUES | VALUE} &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...])
 [, &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...];
 </code></pre></div>
-<p><code>VID</code> is short for vertex ID. A <code>VID</code> must be a unique string value in a graph space.</p>
+<p><code>VID</code> is short for Vertex ID. A <code>VID</code> must be a unique string value in a graph space.</p>
 </li>
 </ul>
 <ul>
-<li>Insert edges:<div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
+<li>Insert edges:<div class="highlight"><pre><span></span><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
 {VALUES | VALUE} &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_value&gt;[, &lt;property_value&gt;...])
-[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt; : (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...]
+[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...];
 </code></pre></div>
 </li>
 </ul>
 <h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">¶</a></h3>
 <ul>
 <li>Insert vertices representing basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42);
-Execution succeeded (time spent 2919/3485 us)
+Execution succeeded (time spent 28196/30896 us)
 
-Fri, 16 Oct 2020 03:41:00 UTC
+Wed, 24 Feb 2021 03:55:08 EST
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36);
-Execution succeeded (time spent 3007/3539 us)
+Execution succeeded (time spent 2708/3834 us)
 
-Fri, 16 Oct 2020 03:41:58 UTC
+Wed, 24 Feb 2021 03:55:20 EST
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
-Execution succeeded (time spent 2449/2934 us)
+Execution succeeded (time spent 1945/3294 us)
 
-Fri, 16 Oct 2020 03:42:16 UTC
+Wed, 24 Feb 2021 03:55:32 EST
 
 nebula&gt; INSERT VERTEX team(name) VALUES "team200":("Warriors"), "team201":("Nuggets");
-Execution succeeded (time spent 3514/4331 us)
+Execution succeeded (time spent 2269/3310 us)
 
-Fri, 16 Oct 2020 03:42:45 UTC
+Wed, 24 Feb 2021 03:55:47 EST
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>Insert edges representing the relations between basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player101":(95);
-Execution succeeded (time spent 1488/1918 us)
+Execution succeeded (time spent 3362/4542 us)
 
-Wed, 21 Oct 2020 06:57:32 UTC
+Wed, 24 Feb 2021 03:57:36 EST
 
 nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player102":(90);
-Execution succeeded (time spent 2483/2890 us)
+Execution succeeded (time spent 2974/4274 us)
 
-Wed, 21 Oct 2020 07:05:48 UTC
+Wed, 24 Feb 2021 03:57:44 EST
 
 nebula&gt; INSERT EDGE follow(degree) VALUES "player102" -&gt; "player101":(75);
-Execution succeeded (time spent 1208/1689 us)
+Execution succeeded (time spent 1891/3096 us)
 
-Wed, 21 Oct 2020 07:07:12 UTC
+Wed, 24 Feb 2021 03:57:52 EST
 
 nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES "player100" -&gt; "team200":(1997, 2016), "player101" -&gt; "team201":(1999,  2018);
-Execution succeeded (time spent 2170/2651 us)
+Execution succeeded (time spent 6064/7104 us)
 
-Wed, 21 Oct 2020 07:08:59 UTC
+Wed, 24 Feb 2021 03:58:01 EST
 </code></pre></div>
 </li>
 </ul>
 <h2 id="read_data">Read data<a class="headerlink" href="#read_data" title="Permanent link">¶</a></h2>
 <ul>
-<li>The <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> statement traverses the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and return information in a form specified in the <code>YIELD</code> clause.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> statement can traverse the database based on specific conditions. A <code>GO</code> traversal starts from one or more vertices, along one or more edges, and returns information in a form specified in the <code>YIELD</code> clause.</li>
+</ul>
+<ul>
 <li>The <a href="../../3.ngql-guide/7.general-query-statements/4.fetch/">FETCH</a> statement is used to get properties from vertices or edges.</li>
+</ul>
+<ul>
 <li>The <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statement is based on <a href="#about_indexes">indexes</a>. It is used together with the <code>WHERE</code> clause to search for the data that meet the specific conditions.</li>
-<li>The <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement is the most commonly used statement for graph data querying. But, it relies on indexes to match data patterns in Nebula Graph.</li>
+</ul>
+<ul>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement is the most commonly used statement for graph data querying. But, it relies on <a href="#about_indexes">indexes</a> to match data patterns in Nebula Graph.</li>
 </ul>
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">¶</a></h3>
 <ul>
@@ -2031,7 +2135,7 @@ YIELD [DISTINCT] &lt;return_list&gt;
 <li>
 <p>Fetch properties on tags:</p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vid_list&gt;
-[YIELD [DISTINCT] &lt;return_list&gt;]
+[YIELD [DISTINCT] &lt;return_list&gt;];
 </code></pre></div>
 </li>
 </ul>
@@ -2040,7 +2144,7 @@ YIELD [DISTINCT] &lt;return_list&gt;
 <p>Fetch properties on edges:</p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
-[YIELD [DISTINCT] &lt;return_list&gt;]
+[YIELD [DISTINCT] &lt;return_list&gt;];
 </code></pre></div>
 </li>
 </ul>
@@ -2049,38 +2153,38 @@ YIELD [DISTINCT] &lt;return_list&gt;
 <ul>
 <li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} 
 WHERE &lt;expression&gt; [AND expression ...])]
-[YIELD &lt;return_list&gt;]
+[YIELD &lt;return_list&gt;];
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;
+<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;;
 </code></pre></div>
 </li>
 </ul>
-<h3 id="examples_of_go">Examples of GO<a class="headerlink" href="#examples_of_go" title="Permanent link">¶</a></h3>
+<h3 id="examples_of_go_statement">Examples of <code>GO</code> statement<a class="headerlink" href="#examples_of_go_statement" title="Permanent link">¶</a></h3>
 <ul>
-<li>Find the vertices that VID "player100" follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow;
+<li>Search for the players that the player with VID <code>player100</code> follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
-| player101   |
+| "player101" |
 +-------------+
-| player102   |
+| "player102" |
 +-------------+
-Got 2 rows (time spent 1935/2420 us)
+Got 2 rows (time spent 12097/14220 us)
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Search for the players that the player with VID "player100" follows. Filter the players that the player with VID "player100" follows whose age is equal to or greater than 35. Rename the columns in the result with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE $$.player.age &gt;= 35 \
-YIELD $$.player.name AS Teammate, $$.player.age AS Age;
-+-------------+-----+
-| Teammate    | Age |
-+-------------+-----+
-| Tony Parker | 36  |
-+-------------+-----+
-Got 1 rows (time spent 3871/4349 us)
+<li>Filter the players that the player with VID <code>player100</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE $$.player.age &gt;= 35 \
+                -&gt;     YIELD $$.player.name AS Teammate, $$.player.age AS Age;
++---------------+-----+
+| Teammate      | Age |
++---------------+-----+
+| "Tony Parker" | 36  |
++---------------+-----+
+Got 1 rows (time spent 8206/9335 us)
 </code></pre></div>
 <table>
 <thead>
@@ -2108,19 +2212,19 @@ Got 1 rows (time spent 3871/4349 us)
 </ul>
 <ul>
 <li>
-<p>Search for the players that the player with VID "player100" follows. Then Retrieve the teams of the players that the player with VID "player100" follows. To combine the two queries, use a pipe or a temporary variable.</p>
+<p>Search for the players that the player with VID <code>player100</code> follows. Then Retrieve the teams of the players that the player with VID <code>player100</code> follows. To combine the two queries, use a pipe or a temporary variable.</p>
 <ul>
 <li>
 <p>With a pipe:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
-GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
-$^.player.name AS Player;
-+---------+-------------+
-| Team    | Player      |
-+---------+-------------+
-| Nuggets | Tony Parker |
-+---------+-------------+
-Got 1 rows (time spent 2902/3496 us)
+                GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
+                $^.player.name AS Player;
++-----------+---------------+
+| Team      | Player        |
++-----------+---------------+
+| "Nuggets" | "Tony Parker" |
++-----------+---------------+
+Got 1 rows (time spent 5055/8203 us)
 </code></pre></div>
 <table>
 <thead>
@@ -2136,11 +2240,11 @@ Got 1 rows (time spent 2902/3496 us)
 </tr>
 <tr>
 <td><code>|</code></td>
-<td>A pipe symbol that can combine multiple queries.</td>
+<td>A pipe symbol can combine multiple queries.</td>
 </tr>
 <tr>
 <td><code>$-</code></td>
-<td>Represents the output of the query before the pipe symbol.</td>
+<td>Represents the outputs of the query before the pipe symbol.</td>
 </tr>
 </tbody>
 </table>
@@ -2151,7 +2255,7 @@ Got 1 rows (time spent 2902/3496 us)
 <p>With a temporary variable:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Once a compound statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
+<p>Once a composite statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD follow._dst AS id; \
 GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
@@ -2167,8 +2271,8 @@ Got 1 rows (time spent 3103/3711 us)
 </ul>
 </li>
 </ul>
-<h3 id="example_of_fetch">Example of FETCH<a class="headerlink" href="#example_of_fetch" title="Permanent link">¶</a></h3>
-<p>Use <code>FETCH</code>: Fetch the properties of the player with VID player100.</p>
+<h3 id="example_of_fetch_statement">Example of <code>FETCH</code> statement<a class="headerlink" href="#example_of_fetch_statement" title="Permanent link">¶</a></h3>
+<p>Use <code>FETCH</code>: Fetch the properties of the player with VID <code>player100</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100";
 +----------------------------------------------------+
 | vertices_                                          |
@@ -2177,32 +2281,39 @@ Got 1 rows (time spent 3103/3711 us)
 +----------------------------------------------------+
 Got 1 rows (time spent 2006/2406 us)
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The examples of <code>LOOKUP</code> and <code>MATCH</code> statements are in <a href="#about_indexes">indexes</a>.</p>
+</div>
 <h2 id="update_vertices_and_edges">Update vertices and edges<a class="headerlink" href="#update_vertices_and_edges" title="Permanent link">¶</a></h2>
-<p>You can use the <code>UPDATE</code> statement or the <code>UPSERT</code> statement to update existing data.</p>
-<p><code>UPSERT</code> is the combination of <code>UPDATE</code> and <code>INSERT</code>. If you update a vertex or an edge with <code>UPSERT</code>, it inserts a new vertex or edge if it does not exist.</p>
-<p>Note: <code>UPSERT</code> operates in serial a (partition-based) order and therefore is slower comparing with <code>INSERT</code> OR <code>UPDATE</code>.</p>
+<p>You can use the <code>UPDATE</code> or the <code>UPSERT</code> statements to update existing data.</p>
+<p><code>UPSERT</code> is the combination of <code>UPDATE</code> and <code>INSERT</code>. If you update a vertex or an edge with <code>UPSERT</code>, the database will insert a new vertex or edge if it does not exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>UPSERT</code> operates serially in a partition-based order. Therefore, it is slower than <code>INSERT</code> OR <code>UPDATE</code>.</p>
+</div>
 <h3 id="ngql_syntax_4">nGQL syntax<a class="headerlink" href="#ngql_syntax_4" title="Permanent link">¶</a></h3>
 <ul>
-<li><code>UPDATE</code> vertices:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;properties to be updated&gt;
-[WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
+<li><code>UPDATE</code> vertices:<div class="highlight"><pre><span></span><code>UPDATE VERTEX &lt;vid&gt; SET &lt;properties to be updated&gt;
+[WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;];
 </code></pre></div>
+</li>
+</ul>
 <ul>
-<li><code>UPDATE</code> edges:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>UPDATE EDGE &lt;source vid&gt; -&gt; &lt;destination vid&gt; [@rank] OF &lt;edge_type&gt;
-SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns to be output&gt;]
+<li><code>UPDATE</code> edges:<div class="highlight"><pre><span></span><code>UPDATE EDGE &lt;source vid&gt; -&gt; &lt;destination vid&gt; [@rank] OF &lt;edge_type&gt;
+SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns to be output&gt;];
 </code></pre></div>
+</li>
+</ul>
 <ul>
-<li><code>UPSERT</code> vertices or edges:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge_type&gt;} SET &lt;update_columns&gt;
-[WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;]
+<li><code>UPSERT</code> vertices or edges:<div class="highlight"><pre><span></span><code>UPSERT {VERTEX &lt;vid&gt; | EDGE &lt;edge_type&gt;} SET &lt;update_columns&gt;
+[WHEN &lt;condition&gt;] [YIELD &lt;columns&gt;];
 </code></pre></div>
+</li>
+</ul>
 <h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">¶</a></h3>
 <ul>
-<li><code>UPDATE</code> the <code>name</code> property of the vertex with VID "player100" and check the result with the <code>FETCH</code> statement:<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX "player100" SET player.name = "Tim";
+<li><code>UPDATE</code> the <code>name</code> property of the vertex with VID <code>player100</code> and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX "player100" SET player.name = "Tim";
 Execution succeeded (time spent 3483/3914 us)
 
 Wed, 21 Oct 2020 10:53:14 UTC
@@ -2218,7 +2329,7 @@ Got 1 rows (time spent 2463/3042 us)
 </li>
 </ul>
 <ul>
-<li><code>UPDATE</code> the degree value of an edge and check the result with the <code>FETCH</code> statement:<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE "player100" -&gt; "player101" OF follow SET degree = 96;
+<li><code>UPDATE</code> the <code>degree</code> property of an edge and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE "player100" -&gt; "player101" OF follow SET degree = 96;
 Execution succeeded (time spent 3932/4432 us)
 
 nebula&gt; FETCH PROP ON follow "player100" -&gt; "player101";
@@ -2232,7 +2343,7 @@ Got 1 rows (time spent 2205/2800 us)
 </li>
 </ul>
 <ul>
-<li>Insert a vertex with VID "player111" and <code>UPSERT</code> it.<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player111":("Ben Simmons", 22);
+<li>Insert a vertex with VID <code>player111</code> and <code>UPSERT</code> it.<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player111":("Ben Simmons", 22);
 Execution succeeded (time spent 2115/2900 us)
 
 Wed, 21 Oct 2020 11:11:50 UTC
@@ -2252,59 +2363,64 @@ Got 1 rows (time spent 1815/2329 us)
 <h2 id="delete_vertices_and_edges">Delete vertices and edges<a class="headerlink" href="#delete_vertices_and_edges" title="Permanent link">¶</a></h2>
 <h3 id="ngql_syntax_5">nGQL syntax<a class="headerlink" href="#ngql_syntax_5" title="Permanent link">¶</a></h3>
 <ul>
-<li>Delete vertices:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid1&gt;[, &lt;vid2&gt;...]
+<li>Delete vertices:<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid1&gt;[, &lt;vid2&gt;...]
 </code></pre></div>
-<ul>
-<li>Delete edges:</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code>DELETE EDGE &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
+<ul>
+<li>Delete edges:<div class="highlight"><pre><span></span><code>DELETE EDGE &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;...]
 </code></pre></div>
+</li>
+</ul>
 <h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">¶</a></h3>
 <ul>
-<li>Delete vertices:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX "team1", "team2";
+<li>Delete vertices:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX "team1", "team2";
 Execution succeeded (time spent 4337/4782 us)
 </code></pre></div>
-<ul>
-<li>Delete edges:</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow "team1" -&gt; "team2";
+<ul>
+<li>Delete edges:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow "team1" -&gt; "team2";
 Execution succeeded (time spent 3700/4101 us)
 </code></pre></div>
+</li>
+</ul>
 <h2 id="about_indexes">About indexes<a class="headerlink" href="#about_indexes" title="Permanent link">¶</a></h2>
-<p>You can add indexes to tags or edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
+<p>You can add indexes to tags and edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
 <h3 id="must-read_for_using_index">Must-read for using index<a class="headerlink" href="#must-read_for_using_index" title="Permanent link">¶</a></h3>
 <ul>
-<li>Both <code>MATCH</code> and <code>LOOKUP</code> depend on index. But indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
+<li>Both <code>MATCH</code> and <code>LOOKUP</code> statements depend on the indexes. But indexes can dramatically reduce the write performance (as much as 90% or even more). <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
 </ul>
 <ul>
-<li>You <strong>MUST</strong> rebuild indexes for pre-existing data. Otherwise, the pre-existing data can't be indexed (and therefore can't be returned in <code>Match</code> or <code>Lookup</code>). For more information, see <a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a>.</li>
+<li>You <strong>MUST</strong> rebuild indexes for pre-existing data. Otherwise, the pre-existing data cannot be indexed and therefore cannot be returned in <code>MATCH</code> or <code>LOOKUP</code> statements. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a>.</li>
 </ul>
 <h3 id="ngql_syntax_6">nGQL syntax<a class="headerlink" href="#ngql_syntax_6" title="Permanent link">¶</a></h3>
-<p>Create an index:</p>
-<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt;
+<ul>
+<li>Create an index:<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt;
 ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list);
 </code></pre></div>
-<p>Rebuild an index:</p>
-<div class="highlight"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX &lt;index_name&gt;
+</li>
+</ul>
+<ul>
+<li>Rebuild an index:<div class="highlight"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX &lt;index_name&gt;;
 </code></pre></div>
+</li>
+</ul>
 <h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">¶</a></h3>
-<p>Create an index for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
+<p>Create and rebuild indexes for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(20));
 nebula&gt; REBUILD TAG INDEX player_index_0;
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Define the index length when creating an index for a variable-length property. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a></p>
+<p>Define the index length when creating an index for a variable-length property. 
+In UTF-8 encoding, a non-ascii character occupies 3 bytes. You should set an appropriate index length according to the variable-length property. For example, the index should be 30 bytes for 10 non-ascii characters. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a></p>
 </div>
-<h3 id="examples_of_lookup_and_match_index-based">Examples of LOOKUP and MATCH (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">¶</a></h3>
+<h3 id="examples_of_lookup_and_match_index-based">Examples of <code>LOOKUP</code> and <code>MATCH</code> (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">¶</a></h3>
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
-<p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>"Tony Parker"</code>.</p>
-<div class="highlight"><pre><span></span><code>// Create an index on the player name property.
+<p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>Tony Parker</code>.</p>
+<div class="highlight"><pre><span></span><code>// Create an index for the player name property.
 nebula&gt; CREATE TAG INDEX player_name_0 on player(name(10));
 Execution succeeded (time spent 3465/4150 us)
 
@@ -2317,7 +2433,7 @@ nebula&gt; REBUILD TAG INDEX player_name_0
 +------------+
 Got 1 rows (time spent 2379/3033 us)
 
-// Use LOOKUP to retrieve the vertex property.
+// Use LOOKUP statement to retrieve the vertex property.
 nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
 YIELD player.name, player.age;
 +-------------+---------------+------------+
@@ -2326,7 +2442,7 @@ YIELD player.name, player.age;
 | "player101" | "Tony Parker" | 36         |
 +-------------+---------------+------------+
 
-// Use MATCH to retrieve the vertex.
+// Use MATCH statement to retrieve the vertex property.
 nebula&gt; MATCH (v:player{name:"Tony Parker"}) RETURN v;
 +-----------------------------------------------------+
 | v                                                   |
@@ -2339,7 +2455,7 @@ Got 1 rows (time spent 5132/6246 us)
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
 </small>
 </div>
 </article>
@@ -2365,13 +2481,13 @@ Got 1 rows (time spent 5132/6246 us)
             </div>
 </div>
 </a>
-<a aria-label="Next: Useful Links" class="md-footer__link md-footer__link--next" href="../6.useful-links/" rel="next">
+<a aria-label="Next: Overview" class="md-footer__link md-footer__link--next" href="../../3.ngql-guide/1.nGQL-overview/1.overview/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Useful Links
+              Overview
             </div>
 </div>
 <div class="md-footer__button md-icon">

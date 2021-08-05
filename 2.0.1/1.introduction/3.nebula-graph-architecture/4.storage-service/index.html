@@ -7,13 +7,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/2.0.1/1.introduction/3.nebula-graph-architecture/4.storage-service/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/2.0.1/1.introduction/3.nebula-graph-architecture/4.storage-service/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>Storage Service - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
-<meta content="#ffffff" name="theme-color"/>
+<meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
@@ -23,7 +23,7 @@
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
-<body data-md-color-accent="white" data-md-color-primary="white" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="light-green" data-md-color-primary="teal" data-md-color-scheme="" dir="ltr">
 <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
@@ -36,6 +36,12 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
+<div id="dialog-bg"></div>
+<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
+    This version is under development. For the docs of the latest stable release, see 
+    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
+    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
+</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -134,14 +140,24 @@
         Data model
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2.1.path/">
+        Path
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../3.vid/">
+        VID
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_3">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5">
         Nebula Graph architecture
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Nebula Graph architecture" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_3">
+<label class="md-nav__title" for="__nav_2_5">
 <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -163,9 +179,113 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Storage Service
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Storage Service
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advantages">
+    Advantages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the_architecture_of_storage_service">
+    The architecture of Storage Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kvstore">
+    KVStore
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_storage_formats">
+    Data storage formats
+  </a>
+<nav aria-label="Data storage formats" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#property_descriptions">
+    Property descriptions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_partitioning">
+    Data partitioning
+  </a>
+<nav aria-label="Data partitioning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edge_and_storage_amplification">
+    Edge and storage amplification
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#partition_algorithm">
+    Partition algorithm
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#raft">
+    Raft
+  </a>
+<nav aria-label="Raft" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#raft_implementation">
+    Raft implementation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi_group_raft">
+    Multi Group Raft
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batch">
+    Batch
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listener">
+    Listener
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#transfer_leadership">
+    Transfer Leadership
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#peer_changes">
+    Peer changes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#differences_with_hdfs">
+    Differences with HDFS
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -185,11 +305,6 @@
           Quick start
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/0.FAQ/">
-        FAQ
-      </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/1.quick-start-workflow/">
         Quick start workflow
@@ -213,11 +328,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/4.nebula-graph-crud/">
         Nebula Graph CRUD
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/6.useful-links/">
-        Useful Links
       </a>
 </li>
 </ul>
@@ -255,6 +365,26 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../3.ngql-guide/1.nGQL-overview/3.graph-patterns/">
         Graph patterns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/1.nGQL-overview/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/1.nGQL-overview/identifier-case-sensitivity/">
+        Identifier case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">
+        Keywords
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/1.nGQL-overview/ngql-style-guide/">
+        nGQL style guide
       </a>
 </li>
 </ul>
@@ -597,6 +727,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../3.ngql-guide/7.general-query-statements/6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/7.general-query-statements/6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../3.ngql-guide/7.general-query-statements/6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1015,41 +1155,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_18" id="__nav_4_18" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4_18">
-        Appendix
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Appendix" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_4_18">
-<span class="md-nav__icon md-icon"></span>
-          Appendix
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.ngql-guide/20.appendix/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.ngql-guide/20.appendix/identifier-case-sensitivity/">
-        Identifier Case Sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.ngql-guide/20.appendix/keywords-and-reserved-words/">
-        Keywords and reserved words
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../3.ngql-guide/20.appendix/vid-partition/">
-        VID and Partition
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 </ul>
 </nav>
 </li>
@@ -1250,41 +1355,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" id="__nav_8_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_8_2">
-        Backup &amp; Restore
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Backup &amp; Restore" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_8_2">
-<span class="md-nav__icon md-icon"></span>
-          Backup &amp; Restore
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/1.what-is-br/">
-        What is Backup &amp; Restore
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/2.compile-br/">
-        Compile BR
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/3.br-backup-data/">
-        Use BR to back up data
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/4.br-restore-data/">
-        Use BR to restore data
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../7.data-security/3.manage-snapshot/">
         Manage snapshots
@@ -1321,31 +1391,61 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" id="__nav_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_10">
-        Ecosystem
+        Nebula Graph Dashboard
         <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-label="Ecosystem" class="md-nav" data-md-level="1">
+<nav aria-label="Nebula Graph Dashboard" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
-          Ecosystem
+          Nebula Graph Dashboard
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../16.eco-tools/1.nebula-exchange/">
-        Nebula Exchange
+<a class="md-nav__link" href="../../../nebula-dashboard/1.what-is-dashboard/">
+        What is Nebula Graph Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/2.deploy-dashboard.md">
+        Deploy Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/3.connect-dashboard/">
+        Connect Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/4.use-dashboard.md">
+        Use Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/6.monitor-parameter/">
+        Monitor Parameter
       </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-spark-connector/">
+        Nebula Spark Connector
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-flink-connector/">
+        Nebula Flink Connector
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" id="__nav_11" type="checkbox"/>
-<label class="md-nav__link" for="__nav_11">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" id="__nav_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_13">
         Contribution
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Contribution" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_11">
+<label class="md-nav__title" for="__nav_13">
 <span class="md-nav__icon md-icon"></span>
           Contribution
         </label>
@@ -1353,6 +1453,86 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../15.contribution/how-to-contribute/">
         How to Contribute
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" id="__nav_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_14">
+        FAQ
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="FAQ" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_14">
+<span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../19.FAQ/0.FAQ/">
+        FAQ
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" id="__nav_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_15">
+        Appendix
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Appendix" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_15">
+<span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/0.vid/">
+        VID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+        Graph modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/3.system-design/">
+        System modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/4.raft/">
+        About Raft
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/5.partition/">
+        Partition ID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/6.eco-tool-version/">
+        Ecosystem tools
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/identifier-case-sensitivity/">
+        Case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/keywords-and-reserved-words/">
+        Keywords
       </a>
 </li>
 </ul>
@@ -1377,31 +1557,410 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advantages">
+    Advantages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the_architecture_of_storage_service">
+    The architecture of Storage Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kvstore">
+    KVStore
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_storage_formats">
+    Data storage formats
+  </a>
+<nav aria-label="Data storage formats" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#property_descriptions">
+    Property descriptions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_partitioning">
+    Data partitioning
+  </a>
+<nav aria-label="Data partitioning" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edge_and_storage_amplification">
+    Edge and storage amplification
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#partition_algorithm">
+    Partition algorithm
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#raft">
+    Raft
+  </a>
+<nav aria-label="Raft" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#raft_implementation">
+    Raft implementation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi_group_raft">
+    Multi Group Raft
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#batch">
+    Batch
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#listener">
+    Listener
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#transfer_leadership">
+    Transfer Leadership
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#peer_changes">
+    Peer changes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#differences_with_hdfs">
+    Differences with HDFS
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.0.1/docs-2.0/1.introduction/3.nebula-graph-architecture/4.storage-service.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/1.introduction/3.nebula-graph-architecture/4.storage-service.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="storage_service">Storage Service<a class="headerlink" href="#storage_service" title="Permanent link">¶</a></h1>
+<p>The persistent data of Nebula Graph have two parts. One is the <a href="../2.meta-service/">Meta Service</a> that stores the meta-related data.</p>
+<p>The other is Storage Service that stores the data, which is run by the nebula-storaged process. This topic will describe the architecture of Storage Service.</p>
+<h2 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">¶</a></h2>
+<ul>
+<li>High performance (Customized built-in KVStore)</li>
+</ul>
+<ul>
+<li>Great scalability (Shared-nothing architecture, not rely on NAS/SAN-like devices)</li>
+</ul>
+<ul>
+<li>Strong consistency (Raft)</li>
+</ul>
+<ul>
+<li>High availability (Raft)</li>
+</ul>
+<ul>
+<li>Supports synchronizing with the third party systems, such as <a href="../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es.md">Elasticsearch</a>.</li>
+</ul>
+<h2 id="the_architecture_of_storage_service">The architecture of Storage Service<a class="headerlink" href="#the_architecture_of_storage_service" title="Permanent link">¶</a></h2>
+<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/1.overview/3.design-and-architecture/2.storage-design/storage-design.png"/></p>
+<p>Storage Service is run by the nebula-storaged process. Users can deploy nebula-storaged processes on different occasions. For example, users can deploy 1 nebula-storaged process in a test environment and deploy 3 nebula-storaged processes in a production environment.</p>
+<p>All the nebula-storaged processes consist of a Raft-based cluster. There are three layers in the Storage Service:</p>
+<ul>
+<li>
+<p>Storage interface</p>
+<p>The top layer is the storage interface. It defines a set of APIs that are related to the graph concepts. These API requests will be translated into a set of KV operations targeting the corresponding <a href="#data_partitioning">Partition</a>. For example:</p>
+<ul>
+<li><code>getNeighbors</code>: query the in-edge or out-edge of a set of vertices, return the edges and the corresponding properties, and support conditional filtering.</li>
+</ul>
+<ul>
+<li><code>insert vertex/edge</code>：insert a vertex or edge and its properties.</li>
+</ul>
+<ul>
+<li><code>getProps</code>：get the properties of a vertex or an edge.</li>
+</ul>
+<p>It is this layer that makes the Storage Service a real graph storage. Otherwise, it is just a KV storage.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Consensus</p>
+<p>Below the storage interface is the consensus layer that implements <a href="#multi_group_raft">Multi Group Raft</a>, which ensures the strong consistency and high availability of Storage Service.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Store engine</p>
+<p>The bottom layer is the local storage engine library, providing operations like <code>get</code>, <code>put</code>, and <code>scan</code> on local disks. The related interfaces are stored in <code>KVStore.h</code> and <code>KVEngine.h</code> files. Users can develop their own local store plugins based on their needs.</p>
+</li>
+</ul>
+<p>The following will describe some features of Storage Service based on the above architecture.</p>
+<h2 id="kvstore">KVStore<a class="headerlink" href="#kvstore" title="Permanent link">¶</a></h2>
+<p>Nebula Graph develops and customizes its built-in KVStore because:</p>
+<ul>
+<li>It is a high-performance KVStore.</li>
+</ul>
+<ul>
+<li>It is provided as a (kv) library and can be easily developed for the filtering-pushdown purpose. As a strong-typed database, how to provide Schema during pushdown is the key to efficiency for Nebula Graph.</li>
+</ul>
+<ul>
+<li>It has strong data consistency.</li>
+</ul>
+<p>Therefore, Nebula Graph develops its own KVStore with RocksDB as the local storage engine. The advantages are as follows:</p>
+<ul>
+<li>For multiple local hard disks, Nebula Graph can make full use of its concurrent capacities through deploying multiple data directories.</li>
+</ul>
+<ul>
+<li>
+<p>Meta Service manages all the Storage servers. All the partition distribution data and current machine status can be found in the meta service. Accordingly, users can execute a manual load balancing plan in meta service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We are using this topic in recruitment tests. So the official version of it won't be released until the end of April. Feel free to <a href="https://discuss.nebula-graph.io/">contact us</a> if you want to join the team. You may also <a href="https://github.com/vesoft-inc/nebula-docs/tree/master/docs-2.0">contribute to this topic</a> if interested.</p>
-<p>References:</p>
+<p>Nebula Graph does not support auto load balancing because auto data transfer will affect online business.</p>
+</div>
+</li>
+</ul>
 <ul>
-<li><a href="https://nebula-graph.io/posts/nebula-graph-storage-engine-overview/">An Introduction to Nebula Graph's Storage Engine</a></li>
-<li><a href="../1.architecture-overview/">Architecture overview</a></li>
-<li><a href="../2.meta-service/">Meta Service</a></li>
+<li>Nebula Graph provides its own WAL mode so one can customize the WAL. Each partition owns its WAL.</li>
+</ul>
+<ul>
+<li>One Nebula Graph KVStore cluster supports multiple graph spaces, and each graph space has its own partition number and replica copies. Different graph spaces are isolated physically from each other in the same cluster.</li>
+</ul>
+<h2 id="data_storage_formats">Data storage formats<a class="headerlink" href="#data_storage_formats" title="Permanent link">¶</a></h2>
+<p>Nebula Graph stores vertices and edges. Efficient property filtering is critical for a Graph Database. So, Nebula Graph uses keys to store vertices and edges, while uses values to store the related properties.</p>
+<p>Nebula Graph  has changed a lot over its releases. The following will introduce the old and new data storage formats and cover their differences.</p>
+<ul>
+<li>Vertex key format<p><img alt="The vertex format of storage service" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-vertex-format.png"/></p>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Type</code></td>
+<td align="left">One byte, used to indicate the key type.</td>
+</tr>
+<tr>
+<td align="left"><code>PartID</code></td>
+<td align="left">Three bytes, used to indicate the sharding partition and to scan the partition data based on the prefix when re-balancing the partition.</td>
+</tr>
+<tr>
+<td align="left"><code>VertexID</code></td>
+<td align="left">Used to indicate vertex ID. For an integer VertexID, it occupies eight bytes. However, for a string VertexID, it is changed to <code>fixed_string</code> of a fixed length which needs to be specified by users when they create space.</td>
+</tr>
+<tr>
+<td align="left"><code>TagID</code></td>
+<td align="left">Four bytes, used to indicate the tags that vertex relate with.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>Edge Format<p><img alt="The edge format of storage service" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-edge-format.png"/></p>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Type</code></td>
+<td align="left">One byte, used to indicate the key type.</td>
+</tr>
+<tr>
+<td align="left"><code>PartID</code></td>
+<td align="left">Three bytes, used to indicate the sharding partition. This field can be used to scan the partition data based on the prefix when re-balancing the partition.</td>
+</tr>
+<tr>
+<td align="left"><code>VertexID</code></td>
+<td align="left">Used to indicate vertex ID. The former VID refers to source VID in out-edge and dest VID in in-edge, while the latter VID refers to dest VID in out-edge and source VID in in-edge.</td>
+</tr>
+<tr>
+<td align="left"><code>Edge Type</code></td>
+<td align="left">Four bytes, used to indicate edge type. Greater than zero means out-edge, less than zero means in-edge.</td>
+</tr>
+<tr>
+<td align="left"><code>Rank</code></td>
+<td align="left">Eight bytes, used to indicate multiple edges in one edge type. Users can set the field based on needs and store weight, such as transaction time and transaction number.</td>
+</tr>
+<tr>
+<td align="left"><code>PlaceHolder</code></td>
+<td align="left">One byte, used to indicate a placeholder, which is purposely designed for TOSS (Transaction On Storage Side).</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<p>The differences between Nebula Graph 1.x and 2.0 are as follows:</p>
+<ul>
+<li>In Nebula Graph 1.x, a vertex and an edge have the same <code>Type</code> byte, while in Nebula Graph 2.0, the Type byte differs from each other, which separates vertices and edges physically so that all tags of a vertex can be easily queried.</li>
+<li>Nebula Graph 1.x supports only int IDs, while Nebula Graph 2.0 is compatible with both int IDs and string IDs.</li>
+<li>Nebula Graph 2.0 removes <code>Timestamp</code> in both vertex and edge key formats.</li>
+<li>Nebula Graph 2.0 adds <code>PlaceHolder</code> to edge key format.</li>
+<li>Nebula Graph 2.0 has changed the formats of indexes for a range query.</li>
 </ul>
 </div>
+<h3 id="property_descriptions">Property descriptions<a class="headerlink" href="#property_descriptions" title="Permanent link">¶</a></h3>
+<p>Nebula Graph uses strong-typed Schema.</p>
+<p>Nebula Graph will store the properties of vertex and edges in order after encoding them. Since the length of properties is fixed, queries can be made in no time according to offset. Before decoding, Nebula Graph needs to get (and cache) the schema information in the Meta Service. In addition, when encoding properties, Nebula Graph will add the corresponding schema version to support online schema change.</p>
+<h2 id="data_partitioning">Data partitioning<a class="headerlink" href="#data_partitioning" title="Permanent link">¶</a></h2>
+<p>Since in an ultra-large-scale relational network, vertices can be as many as tens to hundreds of billions, and edges are even more than trillions. Even if only vertices and edges are stored, the storage capacity of both exceeds that of ordinary servers. Therefore, Nebula Graph uses hash to shard the graph elements and store them in different partitions.</p>
+<p><img alt="data partitioning" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png"/></p>
+<h3 id="edge_and_storage_amplification">Edge and storage amplification<a class="headerlink" href="#edge_and_storage_amplification" title="Permanent link">¶</a></h3>
+<p>In Nebula Graph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the picture below.</p>
+<p><img alt="edge storage" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/two-edge-format.png"/></p>
+<p>In this example, ScrVertex connects DstVertex via EdgeA, forming the path of <code>(SrcVertex)-[EdgeA]-&gt;(DstVertex)</code>. ScrVertex, DstVertex, and EdgeA will all be stored in Partition x and Partition y as four key-value pairs in the storage layer. Details are as follows:</p>
+<ul>
+<li>The key value of SrcVertex is stored in Partition x. Key fields include Type, PartID(x), VID(Src), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.</li>
+</ul>
+<ul>
+<li>The first key value of EdgeA, namely EdgeA_Out, is stored in the same partition as the ScrVertex. Key fields include Type, PartID(x), VID(Src), EdgeType(+ means out-edge), Rank(0), VID(Dst), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties.</li>
+</ul>
+<ul>
+<li>The key value of DstVertex is stored in Partition y. Key fields include Type, PartID(y), VID(Dst), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.</li>
+</ul>
+<ul>
+<li>The second key value of EdgeA, namely EdgeA_In, is stored in the same partition as the DstVertex. Key fields include Type, PartID(y), VID(Dst), EdgeType(- means in-edge), Rank(0), VID(Src), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties, which is exactly the same as that in EdgeA_Out.</li>
+</ul>
+<p>EdgeA_Out and EdgeA_In are stored in storage layer with opposite directions, constituting EdgeA logically. EdgeA_Out is used for traversal requests starting from SrcVertex, such as <code>(a)-[]-&gt;()</code>; EdgeA_In is used for traversal requests starting from DstVertex, such as <code>()-[]-&gt;(a)</code>.</p>
+<p>Like EdgeA_Out and EdgeA_In, Nebula Graph redundantly stores the information of each edge, which doubles the actual capacities needed for edge storage. The key corresponding to the edge occupies a small hard disk space, but the space occupied by Value is proportional to the length and amount of the property value. Therefore, it will occupy a relatively large hard disk space if the property value of the edge is large or there are many edge property values.</p>
+<h3 id="partition_algorithm">Partition algorithm<a class="headerlink" href="#partition_algorithm" title="Permanent link">¶</a></h3>
+<p>Nebula Graph uses a <strong>static Hash</strong> strategy to shard data through a modulo operation on vertex ID. All the out-keys, in-keys, and tag data will be placed in the same partition. In this way, query efficiency is increased dramatically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of partitions needs to be determined when users are creating a graph space since it cannot be changed afterward. Users are supposed to take into consideration the demands of future business when setting it.</p>
+</div>
+<p>When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. The number of partitions is set in the CREATE SPACE statement and cannot be changed afterward.</p>
+<p>If certain vertices need to be placed on the same partition (i.e., on the same machine), see <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">Formula/code</a>。</p>
+<p>The following code will briefly describe the relationship between VID and partition.</p>
+<div class="highlight"><pre><span></span><code>    // If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
+    uint64_t vid = 0;
+    if (id.size() == 8) {
+        memcpy(static_cast&lt;void*&gt;(&amp;vid), id.data(), 8);
+    } else {
+        MurmurHash2 hash;
+        vid = hash(id.data());
+    }
+    PartitionID pId = vid % numParts + 1;
+</code></pre></div>
+<p>Roughly speaking, after hashing a fixed string to int64, (the hashing of int64 is the number itself), do modulo, and then plus one, namely:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pId</span> <span class="o">=</span> <span class="n">vid</span> <span class="o">%</span> <span class="n">numParts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>Parameters and descriptions of the preceding formula are as follows:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>%</code></td>
+<td align="left">The modulo operation.</td>
+</tr>
+<tr>
+<td align="left"><code>numParts</code></td>
+<td align="left">The number of partitions for the graph space where the <code>VID</code> is located, namely the value of <code>partition_num</code> in the <a href="../../../3.ngql-guide/9.space-statements/1.create-space/">CREATE SPACE</a> statement.</td>
+</tr>
+<tr>
+<td align="left"><code>pId</code></td>
+<td align="left">The ID for the partition where the <code>VID</code> is located.</td>
+</tr>
+</tbody>
+</table>
+<p>Suppose there are 100 partitions, the vertices with <code>VID</code> 1, 101, and 1001 will be stored on the same partition. But, the mapping between the partition ID and the machine address is random. Therefore, we cannot assume that any two partitions are located on the same machine.</p>
+<h2 id="raft">Raft<a class="headerlink" href="#raft" title="Permanent link">¶</a></h2>
+<h3 id="raft_implementation">Raft implementation<a class="headerlink" href="#raft_implementation" title="Permanent link">¶</a></h3>
+<p>In a distributed system, one data usually has multiple replicas so that the system can still run normally even if a few copies fail. It requires certain technical means to ensure consistency between replicas.</p>
+<p>Basic principle: Raft is designed to ensure consistency between replicas. Raft uses election between replicas, and the (candidate) replica that wins more than half of the votes will become the Leader, providing external services on behalf of all replicas. The rest Followers will play backups. When the Leader fails (due to communication failure, operation and maintenance commands, etc.), the rest Followers will conduct a new round of elections and vote for a new Leader. The Leader and Followers will detect each other's survival through heartbeats and write them to the hard disk in Raft-wal mode. Replicas that do not respond to more than multiple heartbeats will be considered faulty.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Raft-wal needs to be written into the hard disk periodically. If hard disk bottlenecks to write, Raft will fail to send a heartbeat and conduct a new round of elections. If the hard disk IO is severely blocked, there will be no Leader for a long time.</p>
+</div>
+<p>Read and write: For every writing request of the clients, the Leader will initiate a Raft-wal and synchronize it with the Followers. Only after over half replicas have received the Raft-wal will it return to the clients successfully. For every reading request of the clients, it will get to the Leader directly, while Followers will not be involved.</p>
+<p>Failure: Scenario 1: Take a (space) cluster of a single replica as an example. If the system has only one replica, the Leader will be itself. If failure happens, the system will be completely unavailable. Scenario 2: Take a (space) cluster of three replicas as an example. If the system has three replicas, one of them will be the Leader and the rest will be the Followers. If the Leader fails, the rest two can still vote for a new Leader (and a Follower), and the system is still available. But if any of the two Followers fails again, the system will be completely unavailable due to inadequate voters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Raft and HDFS have different modes of duplication. Raft is based on a quorum vote, so the number of replicas cannot be even.</p>
+</div>
+<p>Listener: As is a special role in Raft, it cannot vote or keep data consistency. In Nebula Graph, it reads Raft-wal from the Leader and synchronizes it to ElasticSearch cluster.</p>
+<h3 id="multi_group_raft">Multi Group Raft<a class="headerlink" href="#multi_group_raft" title="Permanent link">¶</a></h3>
+<p>Storage Service supports a distributed cluster architecture, so Nebula Graph implements Multi Group Raft according to Raft protocol. Each Raft group stores all the replicas of each partition. One replica is the leader, while others are followers. In this way, Nebula Graph achieves strong consistency and high availability. The functions of Raft are as follows.</p>
+<p>Nebula Graph uses Multi Group Raft to improve performance when there are many partitions because Raft-wal cannot be NULL. When there are too many partitions, costs will increase, such as storing information in Raft group, WAL files, or batch operation in low load.</p>
+<p>There are two key points to implement the Multi Raft Group:</p>
+<ul>
+<li>
+<p>To share transport layer</p>
+<p>Each Raft Group sends messages to its corresponding peers. So if the transport layer cannot be shared, the connection costs will be very high.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>To share thread pool</p>
+<p>Raft Groups share the same thread pool to prevent starting too many threads and a high context switch cost.</p>
+</li>
+</ul>
+<h3 id="batch">Batch<a class="headerlink" href="#batch" title="Permanent link">¶</a></h3>
+<p>For each partition, it is necessary to do a batch to improve throughput when writing the WAL serially. As Nebula Graph uses WAL to implement some special functions, batches need to be grouped, which is a feature of Nebula Graph.</p>
+<p>For example, lock-free CAS operations will execute after all the previous WALs are committed. So for a batch, if there are several WALs in CAS type, we need to divide this batch into several smaller groups and make sure they are committed serially.</p>
+<h3 id="listener">Listener<a class="headerlink" href="#listener" title="Permanent link">¶</a></h3>
+<p>The Listener is designed for <strong>storage horizontal scaling</strong>. It takes a long time for the newly added machines to be synchronized with data. Therefore, these machines cannot join the group followers, otherwise, the availability of the entire cluster will decrease.</p>
+<p>The Listener will write into the command WAL. If the leader finds a command of <code>add learner</code> when writing the WAL, it will add the listener to its peers and mark it as a Listener. Listeners cannot join the quorum votes, but logs will still be sent to them as usual. Listeners themselves will not initiate elections.</p>
+<p>Raft listener can write the data into Elasticsearch cluster after receiving them from Learner to implement full-text search. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Raft Listener</a>。</p>
+<h3 id="transfer_leadership">Transfer Leadership<a class="headerlink" href="#transfer_leadership" title="Permanent link">¶</a></h3>
+<p>Transfer leadership is extremely important for balance. When moving a partition from one machine to another, Nebula Graph first checks if the source is a leader. If so, it should be moved to another peer. After data migration is completed, it is important to <a href="../../../8.service-tuning/load-balance/">balance leader distribution</a> again.</p>
+<p>When a transfer leadership command is committed, the leader will abandon its leadership and the followers will start a leader election.</p>
+<h3 id="peer_changes">Peer changes<a class="headerlink" href="#peer_changes" title="Permanent link">¶</a></h3>
+<p>To avoid split-brain, when members in a Raft Group change, an intermediate state is required. In such a state, the quorum of the old group and new group always have an overlap. Thus it prevents the old or new group from making decisions unilaterally. To make it even simpler, in his doctoral thesis Diego Ongaro suggests adding or removing a peer once to ensure the overlap between the quorum of the new group and the old group. Nebula Graph‘s implementation also uses this approach, except that the way to add or remove a member is different. For details, please refer to addPeer/removePeer in the Raft Part class.</p>
+<h2 id="differences_with_hdfs">Differences with HDFS<a class="headerlink" href="#differences_with_hdfs" title="Permanent link">¶</a></h2>
+<p>Storage Service is a Raft-based distributed architecture, which has certain differences with that of HDFS. For example:</p>
+<ul>
+<li>Storage Service ensures consistency through Raft. Usually, the number of its replicas is odd to elect a leader. However, DataNode used by HDFS ensures consistency through NameNode, which has no limit on the number of replicas.</li>
+</ul>
+<ul>
+<li>In Storage Service, only the replicas of the leader can read and write, while in HDFS all the replicas can do so.</li>
+</ul>
+<ul>
+<li>In Storage Service, the number of replicas needs to be determined when creating a space, since it cannot be changed afterward. But in HDFS, the number of replicas can be changed freely.</li>
+</ul>
+<ul>
+<li>Storage Service can access the file system directly. While the applications of HDFS (such as HBase) have to access HDFS before the file system, which requires more RPC times.</li>
+</ul>
+<p>In a word，Storage Service is more lightweight with some functions simplified and its architecture is simpler than HDFS, which can effectively improve the read and write performance of a smaller block of data.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 8, 2021</span>
 </small>
 </div>
 </article>
@@ -1427,13 +1986,13 @@
             </div>
 </div>
 </a>
-<a aria-label="Next: FAQ" class="md-footer__link md-footer__link--next" href="../../../2.quick-start/0.FAQ/" rel="next">
+<a aria-label="Next: Quick start workflow" class="md-footer__link md-footer__link--next" href="../../../2.quick-start/1.quick-start-workflow/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              FAQ
+              Quick start workflow
             </div>
 </div>
 <div class="md-footer__button md-icon">

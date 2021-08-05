@@ -7,13 +7,13 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for Nebula Graph Database" name="description"/>
 <meta content="Nebula Graph" name="author"/>
-<link href="https://docs.nebula-graph.io/2.0.1/3.ngql-guide/5.operators/6.set/" rel="canonical"/>
+<link href="https://docs.nebula-graph.io/master/2.0.1/3.ngql-guide/5.operators/6.set/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-7.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
 <title>Set - Nebula Graph Database Manual</title>
 <link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
-<meta content="#ffffff" name="theme-color"/>
+<meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
@@ -23,19 +23,25 @@
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-16","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
 <script async="" src="https://www.google-analytics.com/analytics.js"></script>
 </head>
-<body data-md-color-accent="white" data-md-color-primary="white" data-md-color-scheme="" dir="ltr">
+<body data-md-color-accent="light-green" data-md-color-primary="teal" data-md-color-scheme="" dir="ltr">
 <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#set_operations">
+<a class="md-skip" href="#set_operators">
           Skip to content
         </a>
 </div>
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
+<div id="dialog-bg"></div>
+<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
+    This version is under development. For the docs of the latest stable release, see 
+    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
+    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
+</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -134,14 +140,24 @@
         Data model
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../1.introduction/2.1.path/">
+        Path
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../1.introduction/3.vid/">
+        VID
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_3">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5">
         Nebula Graph architecture
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Nebula Graph architecture" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_3">
+<label class="md-nav__title" for="__nav_2_5">
 <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -185,11 +201,6 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/0.FAQ/">
-        FAQ
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/1.quick-start-workflow/">
         Quick start workflow
       </a>
@@ -212,11 +223,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../2.quick-start/4.nebula-graph-crud/">
         Nebula Graph CRUD
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../2.quick-start/6.useful-links/">
-        Useful Links
       </a>
 </li>
 </ul>
@@ -254,6 +260,26 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../1.nGQL-overview/3.graph-patterns/">
         Graph patterns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/identifier-case-sensitivity/">
+        Identifier case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/keywords-and-reserved-words/">
+        Keywords
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../1.nGQL-overview/ngql-style-guide/">
+        nGQL style guide
       </a>
 </li>
 </ul>
@@ -402,15 +428,24 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax">
-    Syntax
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#union_union_distinct_and_union_all">
     UNION, UNION DISTINCT, and UNION ALL
   </a>
 <nav aria-label="UNION, UNION DISTINCT, and UNION ALL" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#intersect">
+    INTERSECT
+  </a>
+<nav aria-label="INTERSECT" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#example">
@@ -421,19 +456,32 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intersect">
-    INTERSECT
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#minus">
     MINUS
   </a>
+<nav aria-label="MINUS" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example_1">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#precedence_of_the_set_operations_and_pipe">
-    Precedence of the SET Operations and Pipe
+<a class="md-nav__link" href="#precedence_of_the_set_operators_and_pipe_operators">
+    Precedence of the set operators and pipe operators
   </a>
+<nav aria-label="Precedence of the set operators and pipe operators" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples_1">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -648,6 +696,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../7.general-query-statements/6.show/16.show-users/">
         SHOW USERS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.general-query-statements/6.show/17.show-sessions/">
+        SHOW SESSIONS
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../7.general-query-statements/6.show/18.show-queries/">
+        SHOW QUERIES
       </a>
 </li>
 </ul>
@@ -1066,41 +1124,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_18" id="__nav_4_18" type="checkbox"/>
-<label class="md-nav__link" for="__nav_4_18">
-        Appendix
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Appendix" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_4_18">
-<span class="md-nav__icon md-icon"></span>
-          Appendix
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/comments/">
-        Comments
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/identifier-case-sensitivity/">
-        Identifier Case Sensitivity
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/keywords-and-reserved-words/">
-        Keywords and reserved words
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../20.appendix/vid-partition/">
-        VID and Partition
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 </ul>
 </nav>
 </li>
@@ -1301,41 +1324,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" id="__nav_8_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_8_2">
-        Backup &amp; Restore
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Backup &amp; Restore" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_8_2">
-<span class="md-nav__icon md-icon"></span>
-          Backup &amp; Restore
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/1.what-is-br/">
-        What is Backup &amp; Restore
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/2.compile-br/">
-        Compile BR
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/3.br-backup-data/">
-        Use BR to back up data
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../7.data-security/2.backup-restore/4.br-restore-data/">
-        Use BR to restore data
-      </a>
-</li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../7.data-security/3.manage-snapshot/">
         Manage snapshots
@@ -1372,31 +1360,61 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" id="__nav_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_10">
-        Ecosystem
+        Nebula Graph Dashboard
         <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-label="Ecosystem" class="md-nav" data-md-level="1">
+<nav aria-label="Nebula Graph Dashboard" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
-          Ecosystem
+          Nebula Graph Dashboard
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../16.eco-tools/1.nebula-exchange/">
-        Nebula Exchange
+<a class="md-nav__link" href="../../../nebula-dashboard/1.what-is-dashboard/">
+        What is Nebula Graph Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/2.deploy-dashboard.md">
+        Deploy Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/3.connect-dashboard/">
+        Connect Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/4.use-dashboard.md">
+        Use Dashboard
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-dashboard/6.monitor-parameter/">
+        Monitor Parameter
       </a>
 </li>
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-spark-connector/">
+        Nebula Spark Connector
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../nebula-flink-connector/">
+        Nebula Flink Connector
+      </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" id="__nav_11" type="checkbox"/>
-<label class="md-nav__link" for="__nav_11">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" id="__nav_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_13">
         Contribution
         <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Contribution" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_11">
+<label class="md-nav__title" for="__nav_13">
 <span class="md-nav__icon md-icon"></span>
           Contribution
         </label>
@@ -1404,6 +1422,86 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../15.contribution/how-to-contribute/">
         How to Contribute
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" id="__nav_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_14">
+        FAQ
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="FAQ" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_14">
+<span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../19.FAQ/0.FAQ/">
+        FAQ
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" id="__nav_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_15">
+        Appendix
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Appendix" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_15">
+<span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/0.vid/">
+        VID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+        Graph modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/3.system-design/">
+        System modeling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/4.raft/">
+        About Raft
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/5.partition/">
+        Partition ID
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/6.eco-tool-version/">
+        Ecosystem tools
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/comments/">
+        Comments
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/identifier-case-sensitivity/">
+        Case sensitivity
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../20.appendix/keywords-and-reserved-words/">
+        Keywords
       </a>
 </li>
 </ul>
@@ -1439,15 +1537,24 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#syntax">
-    Syntax
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#union_union_distinct_and_union_all">
     UNION, UNION DISTINCT, and UNION ALL
   </a>
 <nav aria-label="UNION, UNION DISTINCT, and UNION ALL" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#intersect">
+    INTERSECT
+  </a>
+<nav aria-label="INTERSECT" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#example">
@@ -1458,19 +1565,32 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#intersect">
-    INTERSECT
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#minus">
     MINUS
   </a>
+<nav aria-label="MINUS" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example_1">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#precedence_of_the_set_operations_and_pipe">
-    Precedence of the SET Operations and Pipe
+<a class="md-nav__link" href="#precedence_of_the_set_operators_and_pipe_operators">
+    Precedence of the set operators and pipe operators
   </a>
+<nav aria-label="Precedence of the set operators and pipe operators" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples_1">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1479,25 +1599,29 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.0.1/docs-2.0/3.ngql-guide/5.operators/6.set.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/5.operators/6.set.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="set_operations">Set operations<a class="headerlink" href="#set_operations" title="Permanent link">¶</a></h1>
+<h1 id="set_operators">Set operators<a class="headerlink" href="#set_operators" title="Permanent link">¶</a></h1>
+<p>This topic will describe the set operators, including <code>UNION</code>, <code>UNION ALL</code>, <code>INTERSECT</code>, and <code>MINUS</code>. To combine multiple queries, use these set operators.</p>
+<p>All set operators have equal precedence. If a nGQL statement contains multiple set operators, Nebula Graph will evaluate them from left to right unless parentheses explicitly specify another order.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to nGQL extensions only.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<p>This document descriptions the set operations, including <code>UNION</code>, <code>UNION ALL</code>, <code>INTERSECT</code>, and <code>MINUS</code>. To combine multiple queries, use the set operators.</p>
-<p>All set operators have equal precedence. If a nGQL statement contains multiple set operators, Nebula Graph evaluates them from the left to right unless parentheses explicitly specify another order.</p>
-<p>To use the set operators, always match the return results of the <code>GO</code> clause with the same number and data type.</p>
+<p>Set operators apply to native nGQL only.</p>
 <h2 id="union_union_distinct_and_union_all">UNION, UNION DISTINCT, and UNION ALL<a class="headerlink" href="#union_union_distinct_and_union_all" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]
 </code></pre></div>
-<p>Operator <code>UNION DISTINCT</code> (or by short <code>UNION</code>) returns the union of two sets A and B without the duplicate elements.</p>
-<p>Operator <code>UNION ALL</code> returns the union of two sets A and B with duplicated elements.</p>
-<p>The <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</p>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
-<p>The following statement</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
+<ul>
+<li>Operator <code>UNION DISTINCT</code> (or by short <code>UNION</code>) returns the union of two sets A and B without duplicated elements.</li>
+</ul>
+<ul>
+<li>Operator <code>UNION ALL</code> returns the union of two sets A and B with duplicated elements.</li>
+</ul>
+<ul>
+<li>The <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code># The following statement returns the union of two query results without duplicated elements. 
+nebula&gt; GO FROM "player102" OVER follow \
     UNION \
     GO FROM "player100" OVER follow;
 +-------------+
@@ -1507,10 +1631,9 @@
 +-------------+
 | "player102" |
 +-------------+
-</code></pre></div>
-<p>returns the neighbors' id of vertex <code>"player102"</code> and <code>"player100</code> (along with edge <code>follow</code>) without duplication.</p>
-<p>While</p>
-<p><div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
+
+# The following statement returns the union of two query results with duplicated elements. 
+nebula&gt; GO FROM "player102" OVER follow \
     UNION ALL \
     GO FROM "player100" OVER follow;
 +-------------+
@@ -1522,88 +1645,68 @@
 +-------------+
 | "player102" |
 +-------------+
-</code></pre></div>
-returns all the neighbors of vertex <code>"player102"</code> and <code>"player100</code>, with all possible duplications.</p>
-<p><code>UNION</code> can also work with the <code>YIELD</code> statement. For example, let's suppose the results of the following two queries.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age; -- query 1
 
+# UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
+nebula&gt; GO FROM "player102" OVER follow \
+        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+        UNION /* DISTINCT */ \
+        GO FROM "player100" OVER follow \
+        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
 +-------------+--------+-----+
 | id          | Degree | Age |
 +-------------+--------+-----+
-| "player101" | 75     | 36  |         -- line 1
+| "player101" | 75     | 36  |     
 +-------------+--------+-----+
-
-nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;  -- query 2
-
+| "player101" | 96     | 36  |       
 +-------------+--------+-----+
-| id          | Degree | Age |
-+-------------+--------+-----+
-| "player101" | 96     | 36  |          -- line 2
-+-------------+--------+-----+
-| "player102" | 90     | 33  |          -- line 3
+| "player102" | 90     | 33  |     
 +-------------+--------+-----+
 </code></pre></div>
-<p>And the following statement</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
-    UNION /* DISTINCT */ \
-    GO FROM "player100" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
-</code></pre></div>
-<p>returns the follows:</p>
-<div class="highlight"><pre><span></span><code>+-------------+--------+-----+
-| id          | Degree | Age |
-+-------------+--------+-----+
-| "player101" | 75     | 36  |        -- line 1
-+-------------+--------+-----+
-| "player101" | 96     | 36  |        -- line 2
-+-------------+--------+-----+
-| "player102" | 90     | 33  |        -- line 3
-+-------------+--------+-----+
-</code></pre></div>
-<p>The <code>DISTINCT</code> check duplication by all the columns for every line. So line 1 and line 2 are different.</p>
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; INTERSECT &lt;right&gt;
 </code></pre></div>
-<p>Operator <code>INTERSECT</code> returns the intersection of two sets A and B (denoted by A ⋂ B).</p>
-<p>Similar to <code>UNION</code>, the <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Only the <code>INTERSECT</code> columns of <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> are returned.</p>
-<p>For example, the following query</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
-INTERSECT \
-GO FROM "player100" OVER follow YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
-</code></pre></div>
-<p>returns</p>
-<div class="highlight"><pre><span></span><code>Empty set (time spent 5194/6264 us)
+<ul>
+<li>Operator <code>INTERSECT</code> returns the intersection of two sets A and B (denoted by A ⋂ B).</li>
+</ul>
+<ul>
+<li>Similar to <code>UNION</code>, the <code>left</code> and <code>right</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
+        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+        INTERSECT \
+        GO FROM "player100" OVER follow \
+        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
+Empty set (time spent 2990/3511 us)
 </code></pre></div>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
 </code></pre></div>
-<p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by A - B). Always pay attention to the order of the <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code>. The set A - B consists of elements that are in A but not in B.</p>
-<p>For example, the following query</p>
+<p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by <code>A-B</code>). Always pay attention to the order of <code>left</code> and <code>right</code>. The set <code>A-B</code> consists of elements that are in A but not in B.</p>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-MINUS \
-GO FROM "player102" OVER follow;
-</code></pre></div>
-<p>returns</p>
-<div class="highlight"><pre><span></span><code>+-------------+
+        MINUS \
+        GO FROM "player102" OVER follow;
++-------------+
 | follow._dst |
 +-------------+
 | "player102" |
 +-------------+
+
+nebula&gt; GO FROM "player102" OVER follow \
+        MINUS \
+        GO FROM "player100" OVER follow;
+Empty set (time spent 2243/3259 us)
 </code></pre></div>
-<p>If you reverse the <code>MINUS</code> order, the query</p>
+<h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">¶</a></h2>
+<p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
+<h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
-MINUS \
-GO FROM "player100" OVER follow;
-</code></pre></div>
-<p>returns</p>
-<div class="highlight"><pre><span></span><code>Empty set (time spent 2243/3259 us)
-</code></pre></div>
-<h2 id="precedence_of_the_set_operations_and_pipe">Precedence of the SET Operations and Pipe<a class="headerlink" href="#precedence_of_the_set_operations_and_pipe" title="Permanent link">¶</a></h2>
-<p>Please note that when a query contains pipe <code>|</code> and set operations, pipe takes precedence. Refer to the <a href="../4.pipe/">Pipe Doc</a> for details. Query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow YIELD follow._dst AS play_dst  \
-UNION \
-GO FROM "team200" OVER serve REVERSELY YIELD serve._dst AS play_dst \
-| GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+        YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM "team200" OVER serve REVERSELY \
+        YIELD serve._dst AS play_dst \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
 
 +-------------+
 | play_dst    |
@@ -1614,18 +1717,21 @@ GO FROM "team200" OVER serve REVERSELY YIELD serve._dst AS play_dst \
 +-------------+
 </code></pre></div>
 <p><img alt="image" src="https://user-images.githubusercontent.com/42762957/97955863-3a213000-1de2-11eb-8de3-2c78da30747c.png"/></p>
-<p>The statements in the red bar are executed first. And then the statement in the green box is executed.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM "player102" OVER follow YIELD follow._dst AS play_dst  \
-UNION \
-GO FROM "team200" OVER serve REVERSELY YIELD serve._dst AS play_dst) \
-| GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+<p>The above query executes the statements in the red bar first and then executes the statement in the green box.</p>
+<p>The parentheses can change the execution priority. For example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM "player102" OVER follow \
+        YIELD follow._dst AS play_dst  \
+        UNION \
+        GO FROM "team200" OVER serve REVERSELY \
+        YIELD serve._dst AS play_dst) \
+        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
 </code></pre></div>
-<p>In the above query, the parentheses change the execution priority, and the statements within the parentheses take the precedence.</p>
+<p>In the above query, the statements within the parentheses take precedence. That is, the <code>UNION</code> operation will be executed first, and its output will be executed as the input of the next operation with pipes.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 17, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
 </small>
 </div>
 </article>
