@@ -162,7 +162,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
 
 ## Return expression results
 
-To return the results of expressions such as characters, functions, or predicates, set them in a `RETURN` clause.
+To return the results of expressions such as literals, functions, or predicates, set them in a `RETURN` clause.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tony Parker"})-->(v2:player) \
