@@ -136,7 +136,3 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 | "Manu Ginobili" | 41  |
 +-----------------+-----+
 ```
-
-## Performance tip
-
-In Nebula Graph {{ nebula.release }}, the pushdown of the storage layer in the `LIMIT` statement is not optimized. Statements similar to `MATCH (n:T) RETURN n LIMIT 10` or `LOOKUP on i_T | LIMIT 10` will make graphd resources overoccupied. A graphd process retrieves all T-type vertices from all storage processes and then returns 10 rows. If the total amount of data is large, the graphd process usually will consume a lot of memory at this time, even OOM.
