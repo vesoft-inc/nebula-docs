@@ -714,13 +714,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_on_dynamically-calculated_property">
-    Filter on dynamically-calculated property
+<a class="md-nav__link" href="#filter_on_dynamically-calculated_properties">
+    Filter on dynamically-calculated properties
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_on_the_existence_of_a_property">
-    Filter on the existence of a property
+<a class="md-nav__link" href="#filter_on_existing_properties">
+    Filter on existing properties
   </a>
 </li>
 <li class="md-nav__item">
@@ -738,18 +738,18 @@
 <nav aria-label="Filter on strings" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_the_beginning_of_a_string">
-    Match the beginning of a string
+<a class="md-nav__link" href="#starts_with">
+    STARTS WITH
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_the_ending_of_a_string">
-    Match the ending of a string
+<a class="md-nav__link" href="#ends_with">
+    ENDS WITH
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_any_part_of_a_string">
-    Match any part of a string
+<a class="md-nav__link" href="#contains">
+    CONTAINS
   </a>
 </li>
 <li class="md-nav__item">
@@ -1579,13 +1579,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_on_dynamically-calculated_property">
-    Filter on dynamically-calculated property
+<a class="md-nav__link" href="#filter_on_dynamically-calculated_properties">
+    Filter on dynamically-calculated properties
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_on_the_existence_of_a_property">
-    Filter on the existence of a property
+<a class="md-nav__link" href="#filter_on_existing_properties">
+    Filter on existing properties
   </a>
 </li>
 <li class="md-nav__item">
@@ -1603,18 +1603,18 @@
 <nav aria-label="Filter on strings" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_the_beginning_of_a_string">
-    Match the beginning of a string
+<a class="md-nav__link" href="#starts_with">
+    STARTS WITH
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_the_ending_of_a_string">
-    Match the ending of a string
+<a class="md-nav__link" href="#ends_with">
+    ENDS WITH
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#match_any_part_of_a_string">
-    Match any part of a string
+<a class="md-nav__link" href="#contains">
+    CONTAINS
   </a>
 </li>
 <li class="md-nav__item">
@@ -1655,20 +1655,26 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="where">WHERE<a class="headerlink" href="#where" title="Permanent link">¶</a></h1>
-<p>The <code>WHERE</code> clause filters the outputs by conditions.</p>
-<p><code>WHERE</code> works in the following queries:</p>
+<p>The <code>WHERE</code> clause filters the output by conditions.</p>
+<p>The <code>WHERE</code> clause usually works in the following queries:</p>
 <ul>
-<li>Native nGQL such as <code>GO</code> and <code>LOOKUP</code>.</li>
-<li>OpenCypher syntax such as <code>MATCH</code> and <code>WITH</code>.</li>
+<li>Native nGQL: such as <code>GO</code> and <code>LOOKUP</code>.</li>
+</ul>
+<ul>
+<li>OpenCypher syntax: such as <code>MATCH</code> and <code>WITH</code>.</li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
 <ul>
 <li>Using patterns in <code>WHERE</code> is not supported (TODO: planning), for example <code>WHERE (v)--&gt;(v2)</code>.</li>
 </ul>
 <ul>
-<li><a href="#filter_on_edge_rank">Filtering on edge rank</a> is a native nGQL feature. It only applies to native nGQL such as <code>GO</code> and <code>LOOKUP</code> because the concept edge rank does not exist in openCypher.</li>
+<li><a href="#filter_on_edge_rank">Filtering on edge rank</a> is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as <code>MATCH (:player)-[e:follow]-&gt;() RETURN rank(e);</code>.</li>
 </ul>
 <h2 id="basic_usage">Basic usage<a class="headerlink" href="#basic_usage" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the following examples, <code>$$</code> and <code>$^</code> are reference operators. For more information, see <a href="../../5.operators/5.property-reference/">Operators</a>.</p>
+</div>
 <h3 id="define_conditions_with_boolean_operators">Define conditions with boolean operators<a class="headerlink" href="#define_conditions_with_boolean_operators" title="Permanent link">¶</a></h3>
 <p>Use the boolean operators <code>NOT</code>, <code>AND</code>, <code>OR</code>, and <code>XOR</code> to define conditions in <code>WHERE</code> clauses. For the precedence of the operators, see <a href="../../5.operators/9.precedence/">Precedence</a>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
@@ -1690,7 +1696,6 @@
 | "Manu Ginobili"         | 41    |
 +-------------------------+-------+
 ...
-Got 50 rows (time spent 6152/6994 us)
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
         OVER follow \
@@ -1704,10 +1709,9 @@ Got 50 rows (time spent 6152/6994 us)
 +-------------+
 | "player125" |
 +-------------+
-Got 2 rows (time spent 3198/3877 us)
 </code></pre></div>
 <h3 id="filter_on_properties">Filter on properties<a class="headerlink" href="#filter_on_properties" title="Permanent link">¶</a></h3>
-<p>Use vertex or edge properties to define conditions in WHERE clauses.</p>
+<p>Use vertex or edge properties to define conditions in <code>WHERE</code> clauses.</p>
 <ul>
 <li>Filter on a vertex property:<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;(v2) \
         WHERE v2.age &lt; 25 \
@@ -1721,7 +1725,6 @@ Got 2 rows (time spent 3198/3877 us)
 +----------------------+--------+
 | "Ben Simmons"        | 22     |
 +----------------------+--------+
-Got 3 rows (time spent 7382/8080 us)
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
         OVER follow \
@@ -1733,7 +1736,6 @@ Got 3 rows (time spent 7382/8080 us)
 +-------------+
 | "player125" |
 +-------------+
-Got 2 rows (time spent 1051/1668 us)
 </code></pre></div>
 </li>
 </ul>
@@ -1755,7 +1757,6 @@ Got 2 rows (time spent 1051/1668 us)
 | "Tony Parker"      | 36    |
 +--------------------+-------+
 ...
-Got 11 rows (time spent 7585/8154 us)
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
         OVER follow \
@@ -1767,11 +1768,10 @@ Got 11 rows (time spent 7585/8154 us)
 +-------------+
 | "player125" |
 +-------------+
-Got 2 rows (time spent 2815/3571 us)
 </code></pre></div>
 </li>
 </ul>
-<h3 id="filter_on_dynamically-calculated_property">Filter on dynamically-calculated property<a class="headerlink" href="#filter_on_dynamically-calculated_property" title="Permanent link">¶</a></h3>
+<h3 id="filter_on_dynamically-calculated_properties">Filter on dynamically-calculated properties<a class="headerlink" href="#filter_on_dynamically-calculated_properties" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v[toLower("AGE")] &lt; 21 \
         RETURN v.name, v.age;
@@ -1781,7 +1781,7 @@ Got 2 rows (time spent 2815/3571 us)
 | "Luka Doncic" | 20    |
 +---------------+-------+
 </code></pre></div>
-<h3 id="filter_on_the_existence_of_a_property">Filter on the existence of a property<a class="headerlink" href="#filter_on_the_existence_of_a_property" title="Permanent link">¶</a></h3>
+<h3 id="filter_on_existing_properties">Filter on existing properties<a class="headerlink" href="#filter_on_existing_properties" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE exists(v.age) \
         RETURN v.name, v.age;
@@ -1794,9 +1794,9 @@ Got 2 rows (time spent 2815/3571 us)
 +-------------------------+-------+
 </code></pre></div>
 <h3 id="filter_on_edge_rank">Filter on edge rank<a class="headerlink" href="#filter_on_edge_rank" title="Permanent link">¶</a></h3>
-<p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> to filter such edges.</p>
-<p>The following example creates a group of edges. The differences among the edges are their ranks and properties. Then the example uses a <code>GO</code> statement with a <code>WHERE</code> clause to filter the edges on ranks.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE test;
+<p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> clauses to filter such edges.</p>
+<div class="highlight"><pre><span></span><code># The following example creates test data.
+nebula&gt; CREATE SPACE test (vid_type=FIXED_STRING(30));
 nebula&gt; USE test;
 nebula&gt; CREATE EDGE e1(p1 int);
 nebula&gt; CREATE TAG person(p1 int);
@@ -1810,8 +1810,7 @@ nebula&gt; INSERT EDGE e1(p1) VALUES "1"-&gt;"2"@4:(14);
 nebula&gt; INSERT EDGE e1(p1) VALUES "1"-&gt;"2"@5:(15);
 nebula&gt; INSERT EDGE e1(p1) VALUES "1"-&gt;"2"@6:(16);
 
-// The return messages of the preceding statements are omitted in this example.
-
+# The following example use rank to filter edges and retrieves edges with a rank greater than 2.
 nebula&gt; GO FROM "1" \
         OVER e1 \
         WHERE e1._rank&gt;2 \
@@ -1830,9 +1829,10 @@ nebula&gt; GO FROM "1" \
 ------------------------------------
 </code></pre></div>
 <h2 id="filter_on_strings">Filter on strings<a class="headerlink" href="#filter_on_strings" title="Permanent link">¶</a></h2>
-<p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> to match a specific part of a string. String matching is case-sensitive.</p>
-<h3 id="match_the_beginning_of_a_string">Match the beginning of a string<a class="headerlink" href="#match_the_beginning_of_a_string" title="Permanent link">¶</a></h3>
-<p>Use <code>STARTS WITH "T"</code> to match a player name that starts with <code>T</code>.</p>
+<p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> clauses to match a specific part of a string. String matching is case-sensitive.</p>
+<h3 id="starts_with"><code>STARTS WITH</code><a class="headerlink" href="#starts_with" title="Permanent link">¶</a></h3>
+<p><code>STARTS WITH</code> will match the beginning of a string.</p>
+<p>The following example uses <code>STARTS WITH "T"</code> to retrieve the information of players whose name starts with <code>T</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name STARTS WITH "T" \
         RETURN v.name, v.age;
@@ -1847,7 +1847,6 @@ nebula&gt; GO FROM "1" \
 +------------------+-------+
 | "Tiago Splitter" | 34    |
 +------------------+-------+
-Got 4 rows (time spent 5575/7203 us)
 </code></pre></div>
 <p>If you use <code>STARTS WITH "t"</code> in the preceding statement, an empty set is returned because no name in the dataset starts with the lowercase <code>t</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
@@ -1855,8 +1854,9 @@ Got 4 rows (time spent 5575/7203 us)
         RETURN v.name, v.age;
 Empty set (time spent 5080/6474 us)
 </code></pre></div>
-<h3 id="match_the_ending_of_a_string">Match the ending of a string<a class="headerlink" href="#match_the_ending_of_a_string" title="Permanent link">¶</a></h3>
-<p>Use <code>ENDS WITH "r"</code> to match a player name that ends with <code>r</code>.</p>
+<h3 id="ends_with"><code>ENDS WITH</code><a class="headerlink" href="#ends_with" title="Permanent link">¶</a></h3>
+<p><code>ENDS WITH</code> will match the ending of a string.</p>
+<p>The following example uses <code>ENDS WITH "r"</code> to retrieve the information of players whose name ends with <code>r</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name ENDS WITH "r" \
         RETURN v.name, v.age;
@@ -1869,10 +1869,10 @@ Empty set (time spent 5080/6474 us)
 +------------------+-------+
 | "Tiago Splitter" | 34    |
 +------------------+-------+
-Got 3 rows (time spent 4934/5832 us)
 </code></pre></div>
-<h3 id="match_any_part_of_a_string">Match any part of a string<a class="headerlink" href="#match_any_part_of_a_string" title="Permanent link">¶</a></h3>
-<p>Use <code>CONTAINS "Pa"</code> to match a player name that contains <code>Pa</code>.</p>
+<h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">¶</a></h3>
+<p><code>CONTAINS</code> will match a certain part of a string.</p>
+<p>The following example uses <code>CONTAINS "Pa"</code> to match the information of players whose name contains <code>Pa</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v.name CONTAINS "Pa" \
         RETURN v.name, v.age;
@@ -1887,10 +1887,9 @@ Got 3 rows (time spent 4934/5832 us)
 +---------------+-------+
 | "Chris Paul"  | 33    |
 +---------------+-------+
-Got 4 rows (time spent 3265/4113 us)
 </code></pre></div>
 <h3 id="negative_string_matching">Negative string matching<a class="headerlink" href="#negative_string_matching" title="Permanent link">¶</a></h3>
-<p>Use the boolean operator <code>NOT</code> to negate a string matching condition.</p>
+<p>You can use the boolean operator <code>NOT</code> to negate a string matching condition.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE NOT v.name ENDS WITH "R" \
         RETURN v.name, v.age;
@@ -1908,7 +1907,6 @@ Got 4 rows (time spent 3265/4113 us)
 | "Carmelo Anthony"       | 34    |
 +-------------------------+-------+
 ...
-Got 51 rows (time spent 2622/3463 us)
 </code></pre></div>
 <!--
 
@@ -1921,8 +1919,6 @@ Got 51 rows (time spent 2622/3463 us)
 ### Filter on patterns using NOT
 
 ### Filter on properties in patterns
-
-### Filter on edge type
 
 -->
 <h2 id="filter_on_lists">Filter on lists<a class="headerlink" href="#filter_on_lists" title="Permanent link">¶</a></h2>
@@ -1946,7 +1942,21 @@ Got 51 rows (time spent 2622/3463 us)
 +-------------------------+-------+
 | "Joel Embiid"           | 25    |
 +-------------------------+-------+
-Got 6 rows (time spent 5815/7220 us)
+
+nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD player.name, player.age;
++-------------+------------------+------------+
+| VertexID    | player.name      | player.age |
++-------------+------------------+------------+
+| "player135" | "Damian Lillard" | 28         |
++-------------+------------------+------------+
+| "player131" | "Paul George"    | 28         |
++-------------+------------------+------------+
+| "player130" | "Joel Embiid"    | 25         |
++-------------+------------------+------------+
+| "player123" | "Ricky Rubio"    | 28         |
++-------------+------------------+------------+
+| "player106" | "Kyle Anderson"  | 25         |
++-------------+------------------+------------+
 </code></pre></div>
 <h3 id="match_values_not_in_a_list">Match values not in a list<a class="headerlink" href="#match_values_not_in_a_list" title="Permanent link">¶</a></h3>
 <p>Use <code>NOT</code> before <code>IN</code> to rule out the values in a list.</p>
@@ -1968,18 +1978,12 @@ Got 6 rows (time spent 5815/7220 us)
 | "Ricky Rubio"       | 28  |
 +---------------------+-----+
 ...
-Got 45 rows (time spent 2954/3725 us)
 </code></pre></div>
-<!--
-[Not supported yet.]
-## Filter on null
-
--->
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2021</span>
 </small>
 </div>
 </article>
