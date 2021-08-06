@@ -688,9 +688,9 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#opencypher_syntax">
-    OpenCypher Syntax
+    OpenCypher syntax
   </a>
-<nav aria-label="OpenCypher Syntax" class="md-nav">
+<nav aria-label="OpenCypher syntax" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples_1">
@@ -698,8 +698,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#skip-syntax">
-    SKIP-syntax
+<a class="md-nav__link" href="#examples_of_skip">
+    Examples of SKIP
   </a>
 </li>
 </ul>
@@ -1519,9 +1519,9 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#opencypher_syntax">
-    OpenCypher Syntax
+    OpenCypher syntax
   </a>
-<nav aria-label="OpenCypher Syntax" class="md-nav">
+<nav aria-label="OpenCypher syntax" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples_1">
@@ -1529,8 +1529,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#skip-syntax">
-    SKIP-syntax
+<a class="md-nav__link" href="#examples_of_skip">
+    Examples of SKIP
   </a>
 </li>
 </ul>
@@ -1548,27 +1548,49 @@
 </a>
 <h1 id="limit_and_skip">LIMIT AND SKIP<a class="headerlink" href="#limit_and_skip" title="Permanent link">¶</a></h1>
 <p>The <code>LIMIT</code> clause constrains the number of rows in the output.</p>
-<p>The Syntax in openCypher and native nGQL are different.</p>
 <ul>
 <li>Native nGQL: A pipe <code>|</code> must be used. And an offset can be ignored.</li>
-<li>OpenCypher style: No pipes are permitted. Use <code>Skip</code> to indicate offset.</li>
+</ul>
+<ul>
+<li>OpenCypher style: No pipes are permitted. And you can use <code>SKIP</code> to indicate an offset.</li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When using <code>LIMIT</code>(in either syntax above), it is important to use an <code>ORDER BY</code> clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.</p>
+<p class="admonition-title">Note<p>When using <code>LIMIT</code> in either syntax above, it is important to use an <code>ORDER BY</code> clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.</p>
+</p>
 </div>
 <h2 id="native_ngql_syntax">Native nGQL syntax<a class="headerlink" href="#native_ngql_syntax" title="Permanent link">¶</a></h2>
-<p>In native nGQL, <code>LIMIT</code> works the same as in <code>SQL</code>, and must be used with pipe <code>|</code>. The <code>LIMIT</code> clause accepts one or two arguments. The values of both arguments must be non-negative integers.</p>
+<p>In native nGQL, <code>LIMIT</code> works the same as in <code>SQL</code>, and must be used with pipe <code>|</code>. The <code>LIMIT</code> clause accepts one or two parameters. The values of both arguments must be non-negative integers.</p>
 <div class="highlight"><pre><span></span><code>YIELD &lt;var&gt;
-[| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]
+[| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;];
 </code></pre></div>
-<ul>
-<li>var: The columns or calculations that you wish to sort.</li>
-<li>number_rows: It constrains the number of rows to return. For example, <code>LIMIT 10</code> would return the first 10 rows.</li>
-<li>offset_value(Optional): It defines from which row to start including the rows in the output. The offset starts from zero.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>var</code></td>
+<td align="left">The columns or calculations that you wish to sort.</td>
+</tr>
+<tr>
+<td align="left"><code>offset_value</code></td>
+<td align="left">The offset value. It defines from which row to start returning. The offset starts from <code>0</code>. The default value is <code>0</code>, which returns from the first row.</td>
+</tr>
+<tr>
+<td align="left"><code>number_rows</code></td>
+<td align="left">It constrains the total number of returned rows.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow REVERSELY YIELD $$.player.name AS Friend, $$.player.age AS Age | ORDER BY Age,Friend | LIMIT 1, 3;
+<div class="highlight"><pre><span></span><code># The following example returns the 3 rows of data starting from the second row of the sorted output.
+nebula&gt; GO FROM "player100" OVER follow REVERSELY \
+        YIELD $$.player.name AS Friend, $$.player.age AS Age \
+        | ORDER BY Age,Friend \
+        | LIMIT 1, 3;
 +-------------------+-----+
 | Friend            | Age |
 +-------------------+-----+
@@ -1579,36 +1601,39 @@
 | "Marco Belinelli" | 32  |
 +-------------------+-----+
 </code></pre></div>
-<h2 id="opencypher_syntax">OpenCypher Syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">¶</a></h2>
+<h2 id="opencypher_syntax">OpenCypher syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>RETURN &lt;var&gt;
 [SKIP &lt;offset&gt;]
-[LIMIT &lt;number_rows&gt;]
+[LIMIT &lt;number_rows&gt;];
 </code></pre></div>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>offset</code></td>
-<td>Optional. It specifies the number of rows to be skipped. The offset starts from zero.</td>
+<td align="left"><code>var</code></td>
+<td align="left">The columns or calculations that you wish to sort.</td>
 </tr>
 <tr>
-<td><code>number_rows</code></td>
-<td>It specifies the number of rows to be returned. It can be a non-negative integer or an expression that outputs a non-negative integer.</td>
+<td align="left"><code>offset</code></td>
+<td align="left">The offset value. It defines from which row to start returning. The offset starts from <code>0</code>. The default value is <code>0</code>, which returns from the first row.</td>
+</tr>
+<tr>
+<td align="left"><code>number_rows</code></td>
+<td align="left">It constrains the total number of returned rows.</td>
 </tr>
 </tbody>
 </table>
-<p>Either <code>offset</code> or <code>number_rows</code> can accept an expression, which value must be a non-negative integer.</p>
+<p>Both <code>offset</code> and <code>number_rows</code> accept expressions, but the result of the expression must be a non-negative integer.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.</p>
+<p>Fraction expressions composed of two integers are automatically floored to integers. For example, <code>8/6</code> is floored to 1.</p>
 </div>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
-<p>Return a specific number of rows. To return the top N rows from the result, use <code>LIMIT &lt;N&gt;</code> as follows:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age LIMIT 5;
 +-------------------------+-----+
@@ -1624,6 +1649,7 @@
 +-------------------------+-----+
 | "Kyle Anderson"         | 25  |
 +-------------------------+-----+
+
 nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age LIMIT rand32(5);
 +-------------------------+-----+
@@ -1638,8 +1664,8 @@ nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 | "Giannis Antetokounmpo" | 24  |
 +-------------------------+-----+
 </code></pre></div>
-<h3 id="skip-syntax">SKIP-syntax<a class="headerlink" href="#skip-syntax" title="Permanent link">¶</a></h3>
-<p>You can use <code>SKIP &lt;N&gt;</code> to skip the top N rows from the result and return the rest of the result.</p>
+<h3 id="examples_of_skip">Examples of SKIP<a class="headerlink" href="#examples_of_skip" title="Permanent link">¶</a></h3>
+<p>You can use <code>SKIP &lt;offset&gt;</code> to skip the top N rows of the output and return the rest of the output. So, there is no need to add <code>LIMIT &lt;number_rows&gt;</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC SKIP 1;
@@ -1650,6 +1676,7 @@ nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 +-----------------+-----+
 | "Tony Parker"   | 36  |
 +-----------------+-----+
+
 nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC SKIP 1+1;
@@ -1659,7 +1686,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
 | "Tony Parker" | 36  |
 +---------------+-----+
 </code></pre></div>
-<p>You can use <code>SKIP</code> and <code>LIMIT</code> together to return the middle N rows.</p>
+<p>You can use <code>SKIP &lt;offset&gt;</code> and <code>LIMIT &lt;number_rows&gt;</code> together to return the data of the middle N rows.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC SKIP 1 LIMIT 1;
@@ -1673,7 +1700,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
 </small>
 </div>
 </article>

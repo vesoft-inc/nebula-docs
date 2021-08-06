@@ -727,13 +727,13 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_aggregated_queries">
-    Filter aggregated queries
+<a class="md-nav__link" href="#filter_composite_queries">
+    Filter composite queries
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#process_the_output_before_using_collect_on_it">
-    Process the output before using collect() on it
+<a class="md-nav__link" href="#process_the_output_before_using_collect">
+    Process the output before using collect()
   </a>
 </li>
 <li class="md-nav__item">
@@ -1534,13 +1534,13 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#filter_aggregated_queries">
-    Filter aggregated queries
+<a class="md-nav__link" href="#filter_composite_queries">
+    Filter composite queries
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#process_the_output_before_using_collect_on_it">
-    Process the output before using collect() on it
+<a class="md-nav__link" href="#process_the_output_before_using_collect">
+    Process the output before using collect()
   </a>
 </li>
 <li class="md-nav__item">
@@ -1559,14 +1559,12 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="with">WITH<a class="headerlink" href="#with" title="Permanent link">¶</a></h1>
+<p>The <code>WITH</code> clause can retrieve the output from a query part, process it, and pass it to the next query part as the input.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>The <code>WITH</code> clause can take the output from a query part, process it, and pass it to the next query part as the input.</p>
-<p><code>WITH</code> has a similar function with the <a href="../../5.operators/4.pipe/">pipe</a> symbol in native nGQL, but they work in different ways.</p>
-<p><code>WITH</code> only works in the openCypher syntax, such as in <code>MATCH</code> or <code>UNWIND</code>.</p>
-<p>In native nGQL statements such as <code>GO</code> or <code>FETCH</code>, use pipe symbols (<code>|</code>) instead.</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Don't use pipe symbols in the openCypher syntax or use <code>WITH</code> in native nGQL statements. Such operations may cause unpredictable results.</p>
+<p>This topic applies to openCypher syntax only.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>WITH</code> has a similar function with the <a href="../../5.operators/4.pipe/">Pipe</a> symbol in native nGQL, but they work in different ways. DO NOT use pipe symbols in the openCypher syntax or use <code>WITH</code> in native nGQL statements.</p>
 </div>
 <h2 id="combine_statements_and_form_a_composite_query">Combine statements and form a composite query<a class="headerlink" href="#combine_statements_and_form_a_composite_query" title="Permanent link">¶</a></h2>
 <p>Use a <code>WITH</code> clause to combine statements and transfer the output of a statement as the input of another statement.</p>
@@ -1609,15 +1607,14 @@
 +----------------------------------------------------------------------+
 | ("player108" :player{age: 36, name: "Boris Diaw"})                   |
 +----------------------------------------------------------------------+
-Got 12 rows (time spent 3795/4487 us)
 </code></pre></div>
 <h3 id="example_2">Example 2<a class="headerlink" href="#example_2" title="Permanent link">¶</a></h3>
 <p>The following statement:</p>
 <ol>
-<li>Matches a vertex with the VID "player100".</li>
+<li>Matches the vertex with the VID <code>player100</code>.</li>
 <li>Outputs all the tags of the vertex into a list with the <code>labels()</code> function.</li>
 <li>Unwinds the list into rows.</li>
-<li>Returns the rows.</li>
+<li>Returns the output.</li>
 </ol>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
         WHERE id(v)=="player100" \
@@ -1633,10 +1630,9 @@ Got 12 rows (time spent 3795/4487 us)
 +----------+
 | "person" |
 +----------+
-Got 3 rows (time spent 1709/2495 us)
 </code></pre></div>
-<h2 id="filter_aggregated_queries">Filter aggregated queries<a class="headerlink" href="#filter_aggregated_queries" title="Permanent link">¶</a></h2>
-<p><code>WITH</code> can work as a filter in the middle of an aggregated query.</p>
+<h2 id="filter_composite_queries">Filter composite queries<a class="headerlink" href="#filter_composite_queries" title="Permanent link">¶</a></h2>
+<p><code>WITH</code> can work as a filter in the middle of a composite query.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)--&gt;(v2:player) \
         WITH DISTINCT v2 AS v2, v2.age AS Age \
         ORDER BY Age \
@@ -1651,9 +1647,8 @@ Got 3 rows (time spent 1709/2495 us)
 +----------------------+-----+
 | "Kristaps Porzingis" | 23  |
 +----------------------+-----+
-Got 3 rows (time spent 7444/8467 us)
 </code></pre></div>
-<h2 id="process_the_output_before_using_collect_on_it">Process the output before using collect() on it<a class="headerlink" href="#process_the_output_before_using_collect_on_it" title="Permanent link">¶</a></h2>
+<h2 id="process_the_output_before_using_collect">Process the output before using collect()<a class="headerlink" href="#process_the_output_before_using_collect" title="Permanent link">¶</a></h2>
 <p>Use a <code>WITH</code> clause to sort and limit the output before using <code>collect()</code> to transform the output into a list.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WITH v.name AS Name \
@@ -1661,14 +1656,13 @@ Got 3 rows (time spent 7444/8467 us)
         LIMIT 3 \
         RETURN collect(Name);
 +-----------------------------------------------+
-| COLLECT(Name)                                 |
+| collect(Name)                                 |
 +-----------------------------------------------+
 | ["Yao Ming", "Vince Carter", "Tracy McGrady"] |
 +-----------------------------------------------+
-Got 1 rows (time spent 3498/4222 us)
 </code></pre></div>
 <h2 id="use_with_return">Use with RETURN<a class="headerlink" href="#use_with_return" title="Permanent link">¶</a></h2>
-<p>Set a alias using a <code>WITH</code> clause, and then output the result through a <code>RETURN</code> clause.</p>
+<p>Set an alias using a <code>WITH</code> clause, and then output the result through a <code>RETURN</code> clause.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; WITH [1, 2, 3] AS list  RETURN 3 IN list AS r;
 +------+
 | r    |
@@ -1687,7 +1681,7 @@ nebula&gt; WITH 4 AS one, 3 AS two RETURN one &gt; two AS result;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
 </small>
 </div>
 </article>
