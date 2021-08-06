@@ -706,8 +706,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#order_by_null_values">
-    Order by NULL values
+<a class="md-nav__link" href="#order_of_null_values">
+    Order of NULL values
   </a>
 </li>
 </ul>
@@ -1532,8 +1532,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#order_by_null_values">
-    Order by NULL values
+<a class="md-nav__link" href="#order_of_null_values">
+    Order of NULL values
   </a>
 </li>
 </ul>
@@ -1550,21 +1550,23 @@
 <p>The <code>ORDER BY</code> clause specifies the order of the rows in the output.</p>
 <ul>
 <li>Native nGQL: You must use a pipe (<code>|</code>) and an <code>ORDER BY</code> clause after <code>YIELD</code> clause.</li>
-<li>OpenCypher style: no pipe is permitted. <code>ORDER BY</code> follows a <code>RETURN</code> clause.</li>
+</ul>
+<ul>
+<li>OpenCypher style: No pipes are permitted. The <code>ORDER BY</code> clause follows a <code>RETURN</code> clause.</li>
 </ul>
 <p>There are two order options:</p>
 <ul>
 <li><code>ASC</code>: Ascending. <code>ASC</code> is the default order.</li>
 <li><code>DESC</code>: Descending.</li>
 </ul>
-<p>An order option takes effect only when the expression before it is used for sorting the results.</p>
 <h2 id="native_ngql_syntax">Native nGQL Syntax<a class="headerlink" href="#native_ngql_syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;YIELD clause&gt;
-ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
+ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
 </code></pre></div>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100", "player101", "player102", "player103" YIELD player.age AS age, player.name AS name \
-| ORDER BY age ASC, name DESC;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100", "player101", "player102", "player103" \
+        YIELD player.age AS age, player.name AS name \
+        | ORDER BY age ASC, name DESC;
 +-------------+-----+---------------------+
 | VertexID    | age | name                |
 +-------------+-----+---------------------+
@@ -1579,11 +1581,11 @@ ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
 </code></pre></div>
 <h2 id="opencypher_syntax">OpenCypher Syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;RETURN clause&gt;
-ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
+ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
 </code></pre></div>
-<p>An order option takes effect only when the expression before it is used for sorting the results.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age  ORDER BY Name DESC;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age  \
+        ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
@@ -1598,8 +1600,10 @@ ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
 | "Tim Duncan"    | 42  |
 +-----------------+-----+
 ...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  ORDER BY Age DESC, Name ASC
+
+# In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.
+nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
+        ORDER BY Age DESC, Name ASC;
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
@@ -1613,8 +1617,7 @@ ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
 +-----+-------------------+
 ...
 </code></pre></div>
-<p>In the preceding example, nGQL sorts the rows by <code>Age</code> first. If multiple people are of the same age, nGQL sorts them by <code>Name</code>.</p>
-<h2 id="order_by_null_values">Order by NULL values<a class="headerlink" href="#order_by_null_values" title="Permanent link">¶</a></h2>
+<h2 id="order_of_null_values">Order of NULL values<a class="headerlink" href="#order_of_null_values" title="Permanent link">¶</a></h2>
 <p>nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.name AS Name, v2.age AS Age  \
@@ -1628,9 +1631,8 @@ ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
 +-----------------+----------+
 | "Spurs"         | __NULL__ |
 +-----------------+----------+
-Got 3 rows (time spent 3089/3719 us)
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
+
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+----------+
@@ -1642,13 +1644,12 @@ Got 3 rows (time spent 3089/3719 us)
 +-----------------+----------+
 | "Tony Parker"   | 36       |
 +-----------------+----------+
-Got 3 rows (time spent 2851/3360 us)
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
 </small>
 </div>
 </article>

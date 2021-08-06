@@ -688,8 +688,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#ngql_compatibility">
-    NGQL compatibility
+<a class="md-nav__link" href="#legacy_version_compatibility">
+    Legacy version compatibility
   </a>
 </li>
 <li class="md-nav__item">
@@ -1526,8 +1526,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#ngql_compatibility">
-    NGQL compatibility
+<a class="md-nav__link" href="#legacy_version_compatibility">
+    Legacy version compatibility
   </a>
 </li>
 <li class="md-nav__item">
@@ -1581,11 +1581,13 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="return">RETURN<a class="headerlink" href="#return" title="Permanent link">¶</a></h1>
-<p><code>RETURN</code> defines the output of an nGQL query. To return multiple fields, separate them with commas.</p>
+<p>The <code>RETURN</code> clause defines the output of an nGQL query. To return multiple fields, separate them with commas.</p>
 <p><code>RETURN</code> can lead a clause or a statement:</p>
 <ul>
-<li>A <code>RETURN</code> clause works in openCypher statements in nGQL, such as <code>MATCH</code> or <code>UNWIND</code>.</li>
-<li>A <code>RETURN</code> statement works independently to output the result of an expression.</li>
+<li>A <code>RETURN</code> clause can work in openCypher statements in nGQL, such as <code>MATCH</code> or <code>UNWIND</code>.</li>
+</ul>
+<ul>
+<li>A <code>RETURN</code> statement can work independently to output the result of an expression.</li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
 <p>This topic applies to the openCypher syntax in nGQL only. For native nGQL, use <a href="../yield/"><code>YIELD</code></a>.</p>
@@ -1606,15 +1608,14 @@ RETURN (v)-[e]-&gt;(v2);
 </code></pre></div>
 </li>
 </ul>
-<h2 id="ngql_compatibility">NGQL compatibility<a class="headerlink" href="#ngql_compatibility" title="Permanent link">¶</a></h2>
+<h2 id="legacy_version_compatibility">Legacy version compatibility<a class="headerlink" href="#legacy_version_compatibility" title="Permanent link">¶</a></h2>
 <ul>
-<li>In nGQL 1.0, <code>RETURN</code> works with native nGQL with the syntax <code>RETURN &lt;var_ref&gt; IF &lt;var_ref&gt; IS NOT NULL</code>.</li>
+<li>In nGQL 1.x, <code>RETURN</code> works with native nGQL with the <code>RETURN &lt;var_ref&gt; IF &lt;var_ref&gt; IS NOT NULL</code> syntax.</li>
 </ul>
 <ul>
 <li>In nGQL 2.0, <code>RETURN</code> does not work with native nGQL.</li>
 </ul>
 <h2 id="return_vertices">Return vertices<a class="headerlink" href="#return_vertices" title="Permanent link">¶</a></h2>
-<p>Set a vertex in the <code>RETURN</code> clause to return it.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         RETURN v;
 +---------------------------------------------------------------+
@@ -1631,10 +1632,8 @@ RETURN (v)-[e]-&gt;(v2);
 | ("player125" :player{age: 41, name: "Manu Ginobili"})         |
 +---------------------------------------------------------------+
 ...
-Got 51 rows (time spent 7322/8244 us)
 </code></pre></div>
 <h2 id="return_edges">Return edges<a class="headerlink" href="#return_edges" title="Permanent link">¶</a></h2>
-<p>Set an edge in the <code>RETURN</code> clause to return it.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;() \
         RETURN e;
 +------------------------------------------------------------------------------+
@@ -1651,7 +1650,6 @@ Got 51 rows (time spent 7322/8244 us)
 | [:serve "player104"-&gt;"team208" @0 {end_year: 2016, start_year: 2015}]        |
 +------------------------------------------------------------------------------+
 ...
-Got 233 rows (time spent 14013/16136 us)
 </code></pre></div>
 <h2 id="return_properties">Return properties<a class="headerlink" href="#return_properties" title="Permanent link">¶</a></h2>
 <p>To return a vertex or edge property, use the <code>{&lt;vertex_name&gt;|&lt;edge_name&gt;}.&lt;property&gt;</code> syntax.</p>
@@ -1667,10 +1665,9 @@ Got 233 rows (time spent 14013/16136 us)
 +-------------------+-------+
 | "Dejounte Murray" | 29    |
 +-------------------+-------+
-Got 3 rows (time spent 2663/3260 us)
 </code></pre></div>
 <h2 id="return_all_elements">Return all elements<a class="headerlink" href="#return_all_elements" title="Permanent link">¶</a></h2>
-<p>To return all the elements matched on a pattern, use an asterisk (*).</p>
+<p>To return all the elements that this pattern matches, use an asterisk (*).</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
         RETURN *;
 +----------------------------------------------------+
@@ -1678,7 +1675,6 @@ Got 3 rows (time spent 2663/3260 us)
 +----------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 3332/3954 us)
 
 nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
         RETURN *;
@@ -1691,7 +1687,6 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 +----------------------------------------------------+-----------------------------------------------------------------------+-------------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}] | ("team204" :team{name: "Spurs"})                      |
 +----------------------------------------------------+-----------------------------------------------------------------------+-------------------------------------------------------+
-Got 3 rows (time spent 3957/4696 us)
 </code></pre></div>
 <h2 id="rename_a_field">Rename a field<a class="headerlink" href="#rename_a_field" title="Permanent link">¶</a></h2>
 <p>Use the <code>AS &lt;alias&gt;</code> syntax to rename a field in the output.</p>
@@ -1702,7 +1697,6 @@ Got 3 rows (time spent 3957/4696 us)
 +---------+
 | "Spurs" |
 +---------+
-Got 1 rows (time spent 2370/3017 us)
 
 nebula&gt; RETURN "Amber" AS Name;
 +---------+
@@ -1710,7 +1704,6 @@ nebula&gt; RETURN "Amber" AS Name;
 +---------+
 | "Amber" |
 +---------+
-Got 1 rows (time spent 380/1097 us)
 </code></pre></div>
 <h2 id="return_a_non-existing_property">Return a non-existing property<a class="headerlink" href="#return_a_non-existing_property" title="Permanent link">¶</a></h2>
 <p>If a property matched does not exist, <code>NULL</code> is returned.</p>
@@ -1725,7 +1718,6 @@ Got 1 rows (time spent 380/1097 us)
 +-----------------+----------+----------+
 | "Spurs"         | "serve"  | __NULL__ |
 +-----------------+----------+----------+
-Got 3 rows (time spent 2976/3658 us)
 </code></pre></div>
 <h2 id="return_expression_results">Return expression results<a class="headerlink" href="#return_expression_results" title="Permanent link">¶</a></h2>
 <p>To return the results of expressions such as literals, functions, or predicates, set them in a <code>RETURN</code> clause.</p>
@@ -1740,7 +1732,6 @@ Got 3 rows (time spent 2976/3658 us)
 +---------------------+------------------+-------------+
 | "Manu Ginobili"     | "Hello graphs!"  | true        |
 +---------------------+------------------+-------------+
-Got 3 rows (time spent 2645/3237 us)
 
 nebula&gt; RETURN 1+1;
 +-------+
@@ -1748,7 +1739,6 @@ nebula&gt; RETURN 1+1;
 +-------+
 | 2     |
 +-------+
-Got 1 rows (time spent 319/1238 us)
 
 nebula&gt; RETURN 3 &gt; 1;
 +-------+
@@ -1756,7 +1746,6 @@ nebula&gt; RETURN 3 &gt; 1;
 +-------+
 | true  |
 +-------+
-Got 1 rows (time spent 205/751 us)
 
 RETURN 1+1, rand32(1, 5);
 +-------+-------------+
@@ -1764,11 +1753,10 @@ RETURN 1+1, rand32(1, 5);
 +-------+-------------+
 | 2     | 1           |
 +-------+-------------+
-Got 1 rows (time spent 258/1098 us)
 </code></pre></div>
 <h2 id="return_unique_fields">Return unique fields<a class="headerlink" href="#return_unique_fields" title="Permanent link">¶</a></h2>
 <p>Use <code>DISTINCT</code> to remove duplicate fields in the result set.</p>
-<div class="highlight"><pre><span></span><code>// Before using DISTINCT
+<div class="highlight"><pre><span></span><code># Before using DISTINCT.
 nebula&gt; MATCH (v:player{name:"Tony Parker"})--(v2:player) \
         RETURN v2.name, v2.age;
 +---------------------+--------+
@@ -1790,10 +1778,10 @@ nebula&gt; MATCH (v:player{name:"Tony Parker"})--(v2:player) \
 +---------------------+--------+
 | "Manu Ginobili"     | 41     |
 +---------------------+--------+
-Got 8 rows (time spent 3273/3893 us)
 
-// After using DISTINCT
-MATCH (v:player{name:"Tony Parker"})--(v2:player) RETURN DISTINCT v2.name, v2.age;
+# After using DISTINCT.
+nebula&gt; MATCH (v:player{name:"Tony Parker"})--(v2:player) \
+        RETURN DISTINCT v2.name, v2.age;
 +---------------------+--------+
 | v2.name             | v2.age |
 +---------------------+--------+
@@ -1809,13 +1797,12 @@ MATCH (v:player{name:"Tony Parker"})--(v2:player) RETURN DISTINCT v2.name, v2.ag
 +---------------------+--------+
 | "Manu Ginobili"     | 41     |
 +---------------------+--------+
-Got 6 rows (time spent 3314/3897 us)
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
 </small>
 </div>
 </article>
