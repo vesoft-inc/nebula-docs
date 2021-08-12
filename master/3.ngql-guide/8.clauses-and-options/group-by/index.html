@@ -9,10 +9,10 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/master/3.ngql-guide/8.clauses-and-options/group-by/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-7.2.2" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-7.2.3" name="generator"/>
 <title>GROUP BY - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.1118c9be.min.css" rel="stylesheet"/>
-<link href="../../../assets/stylesheets/palette.ba0d045b.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.f7f47774.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -1521,10 +1521,10 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="group_by">GROUP BY<a class="headerlink" href="#group_by" title="Permanent link">¶</a></h1>
+<p>The <code>GROUP BY</code> clause can be used to aggregate data.</p>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>This page applies to native nGQL only.</p>
-<p>Use <code>GROUP BY</code> in native nGQL statements <strong>ONLY</strong> to aggregate data.</p>
-<p>OpenCypher uses the <a href="../../6.functions-and-expressions/7.count/">count()</a> function to aggregate data.</p>
+<p>This topic applies to native nGQL only.</p>
+<p>You can also use the <a href="../../6.functions-and-expressions/7.count/">count()</a> function to aggregate data.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt;  MATCH (v:player)&lt;-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
 +----------------------+--------------+
 | Name                 | Follower_Num |
@@ -1546,19 +1546,16 @@
 ...
 </code></pre></div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<p>The <code>GROUP BY</code> clause groups the rows with the same value into summary rows. Then operations such as counting, sorting, and calculation can be applied.</p>
-<p><code>GROUP BY</code> works after the pipe symbol and before a <code>YIELD</code> clause.</p>
+<p>The <code>GROUP BY</code> clause groups the rows with the same value. Then operations such as counting, sorting, and calculation can be applied.</p>
+<p>The <code>GROUP BY</code> clause works after the pipe symbol (|) and before a <code>YIELD</code> clause.</p>
 <div class="highlight"><pre><span></span><code>| GROUP BY &lt;var&gt; YIELD &lt;var&gt;, &lt;aggregation_function(var)&gt;
 </code></pre></div>
-<ul>
-<li>aggregation_function can be <code>avg(), sum(), max(), min(), count(), collect(), std()</code>.</li>
-</ul>
+<p>The <code>aggregation_function()</code> function supports <code>avg()</code>, <code>sum()</code>, <code>max()</code>, <code>min()</code>, <code>count()</code>, <code>collect()</code>, and <code>std()</code>.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts the times that the names show up in the result set.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
-        OVER follow BIDIRECT \
-        YIELD $$.player.name as Name | \
-        GROUP BY $-.Name \
+<p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts how many times the name shows up in the result set.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow BIDIRECT \
+        YIELD $$.player.name as Name \
+        | GROUP BY $-.Name \
         YIELD $-.Name as Player, count(*) AS Name_Count;
 +---------------------+------------+
 | Player              | Name_Count |
@@ -1583,24 +1580,25 @@
 +---------------------+------------+
 | "Marco Belinelli"   | 1          |
 +---------------------+------------+
-Got 10 rows (time spent 3527/4423 us)
 </code></pre></div>
 <h2 id="group_and_calculate_with_functions">Group and calculate with functions<a class="headerlink" href="#group_and_calculate_with_functions" title="Permanent link">¶</a></h2>
-<p>The following statement finds all the players followed by <code>"player100"</code>, returns these players as <code>player</code> and the property of the follow edge as <code>degree</code>. These players are grouped and the sum of their degree values is returned.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD sum($-.degree);
+<p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by source vertices, and returns the sum of degree values.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
+        YIELD follow._src AS player, follow.degree AS degree \
+        | GROUP BY $-.player \
+        YIELD sum($-.degree);
 +----------------+
 | sum($-.degree) |
 +----------------+
 | 190            |
 +----------------+
-Got 1 rows (time spent 2851/3624 us)
 </code></pre></div>
-<p>For more information about functions, see <a href="../../6.functions-and-expressions/1.math/">Functions</a>.</p>
+<p>For more information about the <code>sum()</code> function, see <a href="../../6.functions-and-expressions/1.math/">Built-in math functions</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
 </small>
 </div>
 </article>
@@ -1665,7 +1663,7 @@ Got 1 rows (time spent 2851/3624 us)
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.2b46852b.min.js"></script>
+<script src="../../../assets/javascripts/bundle.29db7785.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>
