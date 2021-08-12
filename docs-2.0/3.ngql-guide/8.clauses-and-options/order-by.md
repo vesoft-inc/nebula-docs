@@ -3,27 +3,27 @@
 The `ORDER BY` clause specifies the order of the rows in the output.
 
 - Native nGQL: You must use a pipe (`|`) and an `ORDER BY` clause after `YIELD` clause.
-- OpenCypher style: no pipe is permitted. `ORDER BY` follows a `RETURN` clause.
+
+- OpenCypher style: No pipes are permitted. The `ORDER BY` clause follows a `RETURN` clause.
 
 There are two order options:
 
 * `ASC`: Ascending. `ASC` is the default order.
 * `DESC`: Descending.
 
-An order option takes effect only when the expression before it is used for sorting the results.
-
 ## Native nGQL Syntax
 
 ```ngql
 <YIELD clause>
-ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
+ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...];
 ```
 
 ### Examples
 
 ```ngql
-nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" YIELD player.age AS age, player.name AS name \
-| ORDER BY age ASC, name DESC;
+nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" \
+        YIELD player.age AS age, player.name AS name \
+        | ORDER BY age ASC, name DESC;
 +-------------+-----+---------------------+
 | VertexID    | age | name                |
 +-------------+-----+---------------------+
@@ -41,15 +41,14 @@ nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" 
 
 ```ngql
 <RETURN clause>
-ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...]
+ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...];
 ```
-
-An order option takes effect only when the expression before it is used for sorting the results.
 
 ### Examples
 
 ```ngql
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age  ORDER BY Name DESC;
+nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age  \
+        ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
@@ -64,10 +63,10 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age  ORDER BY Name DESC
 | "Tim Duncan"    | 42  |
 +-----------------+-----+
 ...
-```
 
-```ngql
-nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name  ORDER BY Age DESC, Name ASC
+# In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.
+nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
+        ORDER BY Age DESC, Name ASC;
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
@@ -82,9 +81,7 @@ nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name  ORDER BY Age DESC,
 ...
 ```
 
-In the preceding example, nGQL sorts the rows by `Age` first. If multiple people are of the same age, nGQL sorts them by `Name`.
-
-## Order by NULL values
+## Order of NULL values
 
 nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.
 
@@ -101,10 +98,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 +-----------------+----------+
 | "Spurs"         | __NULL__ |
 +-----------------+----------+
-Got 3 rows (time spent 3089/3719 us)
-```
 
-```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age  \
         ORDER BY Age DESC;
@@ -117,5 +111,4 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 +-----------------+----------+
 | "Tony Parker"   | 36       |
 +-----------------+----------+
-Got 3 rows (time spent 2851/3360 us)
 ```

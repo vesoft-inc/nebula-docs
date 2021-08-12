@@ -1,18 +1,14 @@
 # WITH
 
+The `WITH` clause can retrieve the output from a query part, process it, and pass it to the next query part as the input.
+
 ## OpenCypher compatibility
 
-The `WITH` clause can take the output from a query part, process it, and pass it to the next query part as the input.
+This topic applies to openCypher syntax only.
 
-`WITH` has a similar function with the [pipe](../5.operators/4.pipe.md) symbol in native nGQL, but they work in different ways.
+!!! Note
 
-`WITH` only works in the openCypher syntax, such as in `MATCH` or `UNWIND`.
-
-In native nGQL statements such as `GO` or `FETCH`, use pipe symbols (`|`) instead.
-
-!!! danger
-
-    Don't use pipe symbols in the openCypher syntax or use `WITH` in native nGQL statements. Such operations may cause unpredictable results.
+    `WITH` has a similar function with the [Pipe](../5.operators/4.pipe.md) symbol in native nGQL, but they work in different ways. DO NOT use pipe symbols in the openCypher syntax or use `WITH` in native nGQL statements.
 
 ## Combine statements and form a composite query
 
@@ -59,17 +55,16 @@ nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
 +----------------------------------------------------------------------+
 | ("player108" :player{age: 36, name: "Boris Diaw"})                   |
 +----------------------------------------------------------------------+
-Got 12 rows (time spent 3795/4487 us)
 ```
 
 ### Example 2
 
 The following statement:
 
-1. Matches a vertex with the VID "player100".
+1. Matches the vertex with the VID `player100`.
 2. Outputs all the tags of the vertex into a list with the `labels()` function.
 3. Unwinds the list into rows.
-4. Returns the rows.
+4. Returns the output.
 
 ```ngql
 nebula> MATCH (v) \
@@ -86,12 +81,11 @@ nebula> MATCH (v) \
 +----------+
 | "person" |
 +----------+
-Got 3 rows (time spent 1709/2495 us)
 ```
 
-## Filter aggregated queries
+## Filter composite queries
 
-`WITH` can work as a filter in the middle of an aggregated query.
+`WITH` can work as a filter in the middle of a composite query.
 
 ```ngql
 nebula> MATCH (v:player)-->(v2:player) \
@@ -108,10 +102,9 @@ nebula> MATCH (v:player)-->(v2:player) \
 +----------------------+-----+
 | "Kristaps Porzingis" | 23  |
 +----------------------+-----+
-Got 3 rows (time spent 7444/8467 us)
 ```
 
-## Process the output before using collect() on it
+## Process the output before using collect()
 
 Use a `WITH` clause to sort and limit the output before using `collect()` to transform the output into a list.
 
@@ -122,16 +115,15 @@ nebula> MATCH (v:player) \
         LIMIT 3 \
         RETURN collect(Name);
 +-----------------------------------------------+
-| COLLECT(Name)                                 |
+| collect(Name)                                 |
 +-----------------------------------------------+
 | ["Yao Ming", "Vince Carter", "Tracy McGrady"] |
 +-----------------------------------------------+
-Got 1 rows (time spent 3498/4222 us)
 ```
 
 ## Use with RETURN
 
-Set a alias using a `WITH` clause, and then output the result through a `RETURN` clause.
+Set an alias using a `WITH` clause, and then output the result through a `RETURN` clause.
 
 ```ngql
 nebula> WITH [1, 2, 3] AS list  RETURN 3 IN list AS r;

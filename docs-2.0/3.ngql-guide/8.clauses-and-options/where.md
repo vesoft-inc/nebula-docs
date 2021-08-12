@@ -1,19 +1,23 @@
 # WHERE
 
-The `WHERE` clause filters the outputs by conditions.
+The `WHERE` clause filters the output by conditions.
 
-`WHERE` works in the following queries:
+The `WHERE` clause usually works in the following queries:
 
-* Native nGQL such as `GO` and `LOOKUP`.
-* OpenCypher syntax such as `MATCH` and `WITH`.
+* Native nGQL: such as `GO` and `LOOKUP`.
+
+* OpenCypher syntax: such as `MATCH` and `WITH`.
 
 ## OpenCypher compatibility
 
 * Using patterns in `WHERE` is not supported (TODO: planning), for example `WHERE (v)-->(v2)`.
 
-* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. It only applies to native nGQL such as `GO` and `LOOKUP` because the concept edge rank does not exist in openCypher.
+* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as `MATCH (:player)-[e:follow]->() RETURN rank(e);`.
 
 ## Basic usage
+
+!!! note
+    In the following examples, `$$` and `$^` are reference operators. For more information, see [Operators](../5.operators/5.property-reference.md).
 
 ### Define conditions with boolean operators
 
@@ -39,7 +43,6 @@ nebula> MATCH (v:player) \
 | "Manu Ginobili"         | 41    |
 +-------------------------+-------+
 ...
-Got 50 rows (time spent 6152/6994 us)
 ```
 
 ```ngql
@@ -55,12 +58,11 @@ nebula> GO FROM "player100" \
 +-------------+
 | "player125" |
 +-------------+
-Got 2 rows (time spent 3198/3877 us)
 ```
 
 ### Filter on properties
 
-Use vertex or edge properties to define conditions in WHERE clauses.
+Use vertex or edge properties to define conditions in `WHERE` clauses.
 
 * Filter on a vertex property:
 
@@ -77,7 +79,6 @@ Use vertex or edge properties to define conditions in WHERE clauses.
     +----------------------+--------+
     | "Ben Simmons"        | 22     |
     +----------------------+--------+
-    Got 3 rows (time spent 7382/8080 us)
     ```
 
     ```ngql
@@ -91,7 +92,6 @@ Use vertex or edge properties to define conditions in WHERE clauses.
     +-------------+
     | "player125" |
     +-------------+
-    Got 2 rows (time spent 1051/1668 us)
     ```
 
 * Filter on an edge property:
@@ -114,7 +114,6 @@ Use vertex or edge properties to define conditions in WHERE clauses.
     | "Tony Parker"      | 36    |
     +--------------------+-------+
     ...
-    Got 11 rows (time spent 7585/8154 us)
     ```
 
     ```ngql
@@ -128,10 +127,9 @@ Use vertex or edge properties to define conditions in WHERE clauses.
     +-------------+
     | "player125" |
     +-------------+
-    Got 2 rows (time spent 2815/3571 us)
     ```
 
-### Filter on dynamically-calculated property
+### Filter on dynamically-calculated properties
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -144,7 +142,7 @@ nebula> MATCH (v:player) \
 +---------------+-------+
 ```
 
-### Filter on the existence of a property
+### Filter on existing properties
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -161,12 +159,11 @@ nebula> MATCH (v:player) \
 
 ### Filter on edge rank
 
-In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in `WHERE` to filter such edges.
-
-The following example creates a group of edges. The differences among the edges are their ranks and properties. Then the example uses a `GO` statement with a `WHERE` clause to filter the edges on ranks.
+In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in `WHERE` clauses to filter such edges.
 
 ```ngql
-nebula> CREATE SPACE test;
+# The following example creates test data.
+nebula> CREATE SPACE test (vid_type=FIXED_STRING(30));
 nebula> USE test;
 nebula> CREATE EDGE e1(p1 int);
 nebula> CREATE TAG person(p1 int);
@@ -180,8 +177,7 @@ nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@4:(14);
 nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@5:(15);
 nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@6:(16);
 
-// The return messages of the preceding statements are omitted in this example.
-
+# The following example use rank to filter edges and retrieves edges with a rank greater than 2.
 nebula> GO FROM "1" \
         OVER e1 \
         WHERE e1._rank>2 \
@@ -202,11 +198,13 @@ nebula> GO FROM "1" \
 
 ## Filter on strings
 
-Use `STARTS WITH`, `ENDS WITH`, or `CONTAINS` in `WHERE` to match a specific part of a string. String matching is case-sensitive.
+Use `STARTS WITH`, `ENDS WITH`, or `CONTAINS` in `WHERE` clauses to match a specific part of a string. String matching is case-sensitive.
 
-### Match the beginning of a string
+### `STARTS WITH`
 
-Use `STARTS WITH "T"` to match a player name that starts with `T`.
+`STARTS WITH` will match the beginning of a string.
+
+The following example uses `STARTS WITH "T"` to retrieve the information of players whose name starts with `T`.
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -223,7 +221,6 @@ nebula> MATCH (v:player) \
 +------------------+-------+
 | "Tiago Splitter" | 34    |
 +------------------+-------+
-Got 4 rows (time spent 5575/7203 us)
 ```
 
 If you use `STARTS WITH "t"` in the preceding statement, an empty set is returned because no name in the dataset starts with the lowercase `t`.
@@ -235,9 +232,11 @@ nebula> MATCH (v:player) \
 Empty set (time spent 5080/6474 us)
 ```
 
-### Match the ending of a string
+### `ENDS WITH`
 
-Use `ENDS WITH "r"` to match a player name that ends with `r`.
+`ENDS WITH` will match the ending of a string.
+
+The following example uses `ENDS WITH "r"` to retrieve the information of players whose name ends with `r`.
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -252,12 +251,13 @@ nebula> MATCH (v:player) \
 +------------------+-------+
 | "Tiago Splitter" | 34    |
 +------------------+-------+
-Got 3 rows (time spent 4934/5832 us)
 ```
 
-### Match any part of a string
+### `CONTAINS`
 
-Use `CONTAINS "Pa"` to match a player name that contains `Pa`.
+`CONTAINS` will match a certain part of a string.
+
+The following example uses `CONTAINS "Pa"` to match the information of players whose name contains `Pa`.
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -274,12 +274,11 @@ nebula> MATCH (v:player) \
 +---------------+-------+
 | "Chris Paul"  | 33    |
 +---------------+-------+
-Got 4 rows (time spent 3265/4113 us)
 ```
 
 ### Negative string matching
 
-Use the boolean operator `NOT` to negate a string matching condition.
+You can use the boolean operator `NOT` to negate a string matching condition.
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -299,7 +298,6 @@ nebula> MATCH (v:player) \
 | "Carmelo Anthony"       | 34    |
 +-------------------------+-------+
 ...
-Got 51 rows (time spent 2622/3463 us)
 ```
 
 <!--
@@ -313,8 +311,6 @@ Got 51 rows (time spent 2622/3463 us)
 ### Filter on patterns using NOT
 
 ### Filter on properties in patterns
-
-### Filter on edge type
 
 -->
 
@@ -343,7 +339,21 @@ nebula> MATCH (v:player) \
 +-------------------------+-------+
 | "Joel Embiid"           | 25    |
 +-------------------------+-------+
-Got 6 rows (time spent 5815/7220 us)
+
+nebula> LOOKUP ON player WHERE player.age IN [25,28]  YIELD player.name, player.age;
++-------------+------------------+------------+
+| VertexID    | player.name      | player.age |
++-------------+------------------+------------+
+| "player135" | "Damian Lillard" | 28         |
++-------------+------------------+------------+
+| "player131" | "Paul George"    | 28         |
++-------------+------------------+------------+
+| "player130" | "Joel Embiid"    | 25         |
++-------------+------------------+------------+
+| "player123" | "Ricky Rubio"    | 28         |
++-------------+------------------+------------+
+| "player106" | "Kyle Anderson"  | 25         |
++-------------+------------------+------------+
 ```
 
 ### Match values not in a list
@@ -369,11 +379,4 @@ nebula> MATCH (v:player) \
 | "Ricky Rubio"       | 28  |
 +---------------------+-----+
 ...
-Got 45 rows (time spent 2954/3725 us)
 ```
-
-<!--
-[Not supported yet.]
-## Filter on null
-
--->

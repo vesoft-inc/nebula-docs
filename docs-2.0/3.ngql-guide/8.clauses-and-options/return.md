@@ -1,11 +1,12 @@
 # RETURN
 
-`RETURN` defines the output of an nGQL query. To return multiple fields, separate them with commas.
+The `RETURN` clause defines the output of an nGQL query. To return multiple fields, separate them with commas.
 
 `RETURN` can lead a clause or a statement:
 
-* A `RETURN` clause works in openCypher statements in nGQL, such as `MATCH` or `UNWIND`.
-* A `RETURN` statement works independently to output the result of an expression.
+* A `RETURN` clause can work in openCypher statements in nGQL, such as `MATCH` or `UNWIND`.
+
+* A `RETURN` statement can work independently to output the result of an expression.
 
 ## OpenCypher compatibility
 
@@ -27,15 +28,13 @@ This topic applies to the openCypher syntax in nGQL only. For native nGQL, use [
   RETURN (v)-[e]->(v2);
   ```
 
-## NGQL compatibility
+## Legacy version compatibility
 
-* In nGQL 1.0, `RETURN` works with native nGQL with the syntax `RETURN <var_ref> IF <var_ref> IS NOT NULL`.
+* In nGQL 1.x, `RETURN` works with native nGQL with the `RETURN <var_ref> IF <var_ref> IS NOT NULL` syntax.
 
 * In nGQL 2.0, `RETURN` does not work with native nGQL.
 
 ## Return vertices
-
-Set a vertex in the `RETURN` clause to return it.
 
 ```ngql
 nebula> MATCH (v:player) \
@@ -54,12 +53,9 @@ nebula> MATCH (v:player) \
 | ("player125" :player{age: 41, name: "Manu Ginobili"})         |
 +---------------------------------------------------------------+
 ...
-Got 51 rows (time spent 7322/8244 us)
 ```
 
 ## Return edges
-
-Set an edge in the `RETURN` clause to return it.
 
 ```ngql
 nebula> MATCH (v:player)-[e]->() \
@@ -78,7 +74,6 @@ nebula> MATCH (v:player)-[e]->() \
 | [:serve "player104"->"team208" @0 {end_year: 2016, start_year: 2015}]        |
 +------------------------------------------------------------------------------+
 ...
-Got 233 rows (time spent 14013/16136 us)
 ```
 
 ## Return properties
@@ -98,12 +93,11 @@ nebula> MATCH (v:player) \
 +-------------------+-------+
 | "Dejounte Murray" | 29    |
 +-------------------+-------+
-Got 3 rows (time spent 2663/3260 us)
 ```
 
 ## Return all elements
 
-To return all the elements matched on a pattern, use an asterisk (*).
+To return all the elements that this pattern matches, use an asterisk (*).
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) \
@@ -113,7 +107,6 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) \
 +----------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 3332/3954 us)
 
 nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
         RETURN *;
@@ -126,7 +119,6 @@ nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
 +----------------------------------------------------+-----------------------------------------------------------------------+-------------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) | [:serve "player100"->"team204" @0 {end_year: 2016, start_year: 1997}] | ("team204" :team{name: "Spurs"})                      |
 +----------------------------------------------------+-----------------------------------------------------------------------+-------------------------------------------------------+
-Got 3 rows (time spent 3957/4696 us)
 ```
 
 ## Rename a field
@@ -141,7 +133,6 @@ nebula> MATCH (v:player{name:"Tim Duncan"})-[:serve]->(v2) \
 +---------+
 | "Spurs" |
 +---------+
-Got 1 rows (time spent 2370/3017 us)
 
 nebula> RETURN "Amber" AS Name;
 +---------+
@@ -149,7 +140,6 @@ nebula> RETURN "Amber" AS Name;
 +---------+
 | "Amber" |
 +---------+
-Got 1 rows (time spent 380/1097 us)
 ```
 
 ## Return a non-existing property
@@ -168,7 +158,6 @@ nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
 +-----------------+----------+----------+
 | "Spurs"         | "serve"  | __NULL__ |
 +-----------------+----------+----------+
-Got 3 rows (time spent 2976/3658 us)
 ```
 
 ## Return expression results
@@ -187,7 +176,6 @@ nebula> MATCH (v:player{name:"Tony Parker"})-->(v2:player) \
 +---------------------+------------------+-------------+
 | "Manu Ginobili"     | "Hello graphs!"  | true        |
 +---------------------+------------------+-------------+
-Got 3 rows (time spent 2645/3237 us)
 
 nebula> RETURN 1+1;
 +-------+
@@ -195,7 +183,6 @@ nebula> RETURN 1+1;
 +-------+
 | 2     |
 +-------+
-Got 1 rows (time spent 319/1238 us)
 
 nebula> RETURN 3 > 1;
 +-------+
@@ -203,7 +190,6 @@ nebula> RETURN 3 > 1;
 +-------+
 | true  |
 +-------+
-Got 1 rows (time spent 205/751 us)
 
 RETURN 1+1, rand32(1, 5);
 +-------+-------------+
@@ -211,7 +197,6 @@ RETURN 1+1, rand32(1, 5);
 +-------+-------------+
 | 2     | 1           |
 +-------+-------------+
-Got 1 rows (time spent 258/1098 us)
 ```
 
 ## Return unique fields
@@ -219,7 +204,7 @@ Got 1 rows (time spent 258/1098 us)
 Use `DISTINCT` to remove duplicate fields in the result set.
 
 ```ngql
-// Before using DISTINCT
+# Before using DISTINCT.
 nebula> MATCH (v:player{name:"Tony Parker"})--(v2:player) \
         RETURN v2.name, v2.age;
 +---------------------+--------+
@@ -241,10 +226,10 @@ nebula> MATCH (v:player{name:"Tony Parker"})--(v2:player) \
 +---------------------+--------+
 | "Manu Ginobili"     | 41     |
 +---------------------+--------+
-Got 8 rows (time spent 3273/3893 us)
 
-// After using DISTINCT
-MATCH (v:player{name:"Tony Parker"})--(v2:player) RETURN DISTINCT v2.name, v2.age;
+# After using DISTINCT.
+nebula> MATCH (v:player{name:"Tony Parker"})--(v2:player) \
+        RETURN DISTINCT v2.name, v2.age;
 +---------------------+--------+
 | v2.name             | v2.age |
 +---------------------+--------+
@@ -260,5 +245,4 @@ MATCH (v:player{name:"Tony Parker"})--(v2:player) RETURN DISTINCT v2.name, v2.ag
 +---------------------+--------+
 | "Manu Ginobili"     | 41     |
 +---------------------+--------+
-Got 6 rows (time spent 3314/3897 us)
 ```

@@ -2,32 +2,37 @@
 
 The `LIMIT` clause constrains the number of rows in the output.
 
-The Syntax in openCypher and native nGQL are different.
-
 - Native nGQL: A pipe `|` must be used. And an offset can be ignored.
-- OpenCypher style: No pipes are permitted. Use `Skip` to indicate offset.
+
+- OpenCypher style: No pipes are permitted. And you can use `SKIP` to indicate an offset.
 
 !!! note
 
-    When using `LIMIT`(in either syntax above), it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
+        When using `LIMIT` in either syntax above, it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
 ## Native nGQL syntax
 
-In native nGQL, `LIMIT` works the same as in `SQL`, and must be used with pipe `|`. The `LIMIT` clause accepts one or two arguments. The values of both arguments must be non-negative integers.
+In native nGQL, `LIMIT` works the same as in `SQL`, and must be used with pipe `|`. The `LIMIT` clause accepts one or two parameters. The values of both arguments must be non-negative integers.
 
 ```ngql
 YIELD <var>
-[| LIMIT [<offset_value>,] <number_rows>]
+[| LIMIT [<offset_value>,] <number_rows>];
 ```
 
-- var: The columns or calculations that you wish to sort.
-- number_rows: It constrains the number of rows to return. For example, `LIMIT 10` would return the first 10 rows.
-- offset_value(Optional): It defines from which row to start including the rows in the output. The offset starts from zero.
+|Parameter|Description|
+|:--|:--|
+|`var`|The columns or calculations that you wish to sort.|
+|`offset_value`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`number_rows`|It constrains the total number of returned rows.|
 
 ### Examples
 
 ```ngql
-nebula> GO FROM "player100" OVER follow REVERSELY YIELD $$.player.name AS Friend, $$.player.age AS Age | ORDER BY Age,Friend | LIMIT 1, 3;
+# The following example returns the 3 rows of data starting from the second row of the sorted output.
+nebula> GO FROM "player100" OVER follow REVERSELY \
+        YIELD $$.player.name AS Friend, $$.player.age AS Age \
+        | ORDER BY Age,Friend \
+        | LIMIT 1, 3;
 +-------------------+-----+
 | Friend            | Age |
 +-------------------+-----+
@@ -39,28 +44,27 @@ nebula> GO FROM "player100" OVER follow REVERSELY YIELD $$.player.name AS Friend
 +-------------------+-----+
 ```
 
-## OpenCypher Syntax
+## OpenCypher syntax
 
 ```ngql
 RETURN <var>
 [SKIP <offset>]
-[LIMIT <number_rows>]
+[LIMIT <number_rows>];
 ```
 
 |Parameter|Description|
-|-|-|
-|`offset`| Optional. It specifies the number of rows to be skipped. The offset starts from zero.|
-|`number_rows`| It specifies the number of rows to be returned. It can be a non-negative integer or an expression that outputs a non-negative integer.|
+|:--|:--|
+|`var`|The columns or calculations that you wish to sort.|
+|`offset`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`number_rows`|It constrains the total number of returned rows.|
 
-Either `offset` or `number_rows` can accept an expression, which value must be a non-negative integer.
+Both `offset` and `number_rows` accept expressions, but the result of the expression must be a non-negative integer.
 
 !!! note
 
-    Fraction expressions composed of two integers are automatically floored to integers. For example, 8/6 is floored to 1.
+    Fraction expressions composed of two integers are automatically floored to integers. For example, `8/6` is floored to 1.
 
 ### Examples
-
-Return a specific number of rows. To return the top N rows from the result, use `LIMIT <N>` as follows:
 
 ```ngql
 nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
@@ -78,6 +82,7 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 +-------------------------+-----+
 | "Kyle Anderson"         | 25  |
 +-------------------------+-----+
+
 nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
         ORDER BY Age LIMIT rand32(5);
 +-------------------------+-----+
@@ -93,9 +98,9 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 +-------------------------+-----+
 ```
 
-### SKIP-syntax
+### Examples of SKIP
 
-You can use `SKIP <N>` to skip the top N rows from the result and return the rest of the result.
+You can use `SKIP <offset>` to skip the top N rows of the output and return the rest of the output. So, there is no need to add `LIMIT <number_rows>`.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
@@ -108,6 +113,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 +-----------------+-----+
 | "Tony Parker"   | 36  |
 +-----------------+-----+
+
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.name AS Name, v2.age AS Age \
         ORDER BY Age DESC SKIP 1+1;
@@ -118,7 +124,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 +---------------+-----+
 ```
 
-You can use `SKIP` and `LIMIT` together to return the middle N rows.
+You can use `SKIP <offset>` and `LIMIT <number_rows>` together to return the data of the middle N rows.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \

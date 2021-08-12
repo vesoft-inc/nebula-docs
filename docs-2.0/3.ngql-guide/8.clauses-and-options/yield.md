@@ -5,9 +5,10 @@
 `YIELD` can lead a clause or a statement:
 
 * A `YIELD` clause works in nGQL statements such as `GO`, `FETCH`, or `LOOKUP`.
+
 * A `YIELD` statement works in a composite query or independently.
 
-## OpenCypher Compatibility
+## OpenCypher compatibility
 
 This topic applies to native nGQL only. For the openCypher syntax, use [`RETURN`](return.md).
 
@@ -21,18 +22,19 @@ This topic applies to native nGQL only. For the openCypher syntax, use [`RETURN`
 
 * In nGQL, `YIELD` works like `RETURN` in openCypher.
 
+!!! note
+    In the following examples, `$$` and `$-` are reference operators. For more information, see [Operators](../5.operators/5.property-reference.md).
+
 ## YIELD clauses
 
 ### Syntax
 
 ```ngql
-YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...]
+YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
 ```
 
-The syntax is described as follows.
-
-|Keyword/Field|Description|
-|-|-|
+|Parameter|Description|
+|:---|:---|
 |`DISTINCT`|Aggregates the output and makes the statement return a distinct result set.|
 |`col`|A field to be returned. If no alias is set, `col` will be a column name in the output.|
 |`alias`|An alias for `col`. It is set after the keyword `AS` and will be a column name in the output.|
@@ -51,7 +53,6 @@ The syntax is described as follows.
     +-----------------+-----+
     | "Manu Ginobili" | 41  |
     +-----------------+-----+
-    Got 2 rows (time spent 3378/4030 us)
     ```
 
 * Use `YIELD` with `FETCH`:
@@ -64,7 +65,6 @@ The syntax is described as follows.
     +-------------+--------------+
     | "player100" | "Tim Duncan" |
     +-------------+--------------+
-    Got 1 rows (time spent 2933/5931 us)
     ```
 
 * Use `YIELD` with `LOOKUP`:
@@ -77,21 +77,18 @@ The syntax is described as follows.
     =======================================
     | 101      | Tony Parker | 36         |
     ---------------------------------------
-    Got 1 rows (time spent 2963/3778 us)
     ```
 
-## YIELD Statements
+## YIELD statements
 
 ### Syntax
 
 ```ngql
 YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...]
-[WHERE <conditions>]
+[WHERE <conditions>];
 ```
 
-The syntax is described as follows.
-
-|Field|Description|
+|Parameter|Description|
 |-|-|
 |`DISTINCT`|Aggregates the output and makes the statement return a distinct result set.|
 |`col`|A field to be returned. If no alias is set, `col` will be a column name in the output.|
@@ -100,31 +97,29 @@ The syntax is described as follows.
 
 ### Use a YIELD statement in a composite query
 
-In a [composite query](../4.variable-and-composite-queries/1.composite-queries.md), a `YIELD` statement accepts, filters, and reforms the result set of the preceding statement, and then outputs it.
+In a [composite query](../4.variable-and-composite-queries/1.composite-queries.md), a `YIELD` statement accepts, filters, and modifies the result set of the preceding statement, and then outputs it.
 
 The following query finds the players that "player100" follows and calculates their average age.
 
 ```ngql
 nebula> GO FROM "player100" OVER follow \
-        YIELD follow._dst AS ID | \
-        FETCH PROP ON player $-.ID \
-        YIELD player.age AS Age | \
-        YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends;
+        YIELD follow._dst AS ID \
+        | FETCH PROP ON player $-.ID \
+        YIELD player.age AS Age \
+        | YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends;
 +---------+-------------+
 | Avg_age | Num_friends |
 +---------+-------------+
 | 38.5    | 2           |
 +---------+-------------+
-Got 1 rows (time spent 1846/2426 us)
 ```
 
-The following query finds the players that "player101" follows and the follow degrees are greater than 90.
+The following query finds the players that "player101" follows with the follow degrees greater than 90.
 
 ```ngql
 nebula> $var1 = GO FROM "player101" OVER follow \
         YIELD follow.degree AS Degree, follow._dst as ID; \
-        YIELD $var1.ID AS ID \
-        WHERE $var1.Degree > 90;
+        YIELD $var1.ID AS ID WHERE $var1.Degree > 90;
 +-------------+
 | ID          |
 +-------------+
@@ -132,7 +127,6 @@ nebula> $var1 = GO FROM "player101" OVER follow \
 +-------------+
 | "player125" |
 +-------------+
-Got 2 rows (time spent 891/1411 us)
 ```
 
 ### Use a standalone YIELD statement
@@ -146,7 +140,6 @@ nebula> YIELD rand32(1, 6);
 +-------------+
 | 3           |
 +-------------+
-Got 1 rows (time spent 144/615 us)
 
 nebula> YIELD "Hel" + "\tlo" AS string1, ", World!" AS string2;
 +-------------+------------+
@@ -154,7 +147,6 @@ nebula> YIELD "Hel" + "\tlo" AS string1, ", World!" AS string2;
 +-------------+------------+
 | "Hel    lo" | ", World!" |
 +-------------+------------+
-Got 1 rows (time spent 154/692 us)
 
 nebula> YIELD hash("Tim") % 100;
 +-----------------+
@@ -162,7 +154,6 @@ nebula> YIELD hash("Tim") % 100;
 +-----------------+
 | 42              |
 +-----------------+
-Got 1 rows (time spent 164/820 us)
 
 nebula> YIELD \
       CASE 2+3 \
@@ -176,5 +167,4 @@ nebula> YIELD \
 +--------+
 | 1      |
 +--------+
-Got 1 rows (time spent 204/935 us)
 ```

@@ -1,12 +1,12 @@
 # GROUP BY
 
+The `GROUP BY` clause can be used to aggregate data.
+
 ## OpenCypher Compatibility
 
-This page applies to native nGQL only.
+This topic applies to native nGQL only.
 
-Use `GROUP BY` in native nGQL statements **ONLY** to aggregate data.
-
-OpenCypher uses the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
+You can also use the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
 
 ```ngql
 nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
@@ -32,25 +32,24 @@ nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) a
 
 ## Syntax
 
-The `GROUP BY` clause groups the rows with the same value into summary rows. Then operations such as counting, sorting, and calculation can be applied.
+The `GROUP BY` clause groups the rows with the same value. Then operations such as counting, sorting, and calculation can be applied.
 
-`GROUP BY` works after the pipe symbol and before a `YIELD` clause.
+The `GROUP BY` clause works after the pipe symbol (|) and before a `YIELD` clause.
 
 ```ngql
 | GROUP BY <var> YIELD <var>, <aggregation_function(var)>
 ```
 
-- aggregation_function can be `avg(), sum(), max(), min(), count(), collect(), std()`.
+The `aggregation_function()` function supports `avg()`, `sum()`, `max()`, `min()`, `count()`, `collect()`, and `std()`.
 
 ## Examples
 
-The following statement finds all the vertices connected directly to vertex `"player100"`, groups the result set by player names, and counts the times that the names show up in the result set.
+The following statement finds all the vertices connected directly to vertex `"player100"`, groups the result set by player names, and counts how many times the name shows up in the result set.
 
 ```ngql
-nebula> GO FROM "player100" \
-        OVER follow BIDIRECT \
-        YIELD $$.player.name as Name | \
-        GROUP BY $-.Name \
+nebula> GO FROM "player100" OVER follow BIDIRECT \
+        YIELD $$.player.name as Name \
+        | GROUP BY $-.Name \
         YIELD $-.Name as Player, count(*) AS Name_Count;
 +---------------------+------------+
 | Player              | Name_Count |
@@ -75,21 +74,22 @@ nebula> GO FROM "player100" \
 +---------------------+------------+
 | "Marco Belinelli"   | 1          |
 +---------------------+------------+
-Got 10 rows (time spent 3527/4423 us)
 ```
 
 ## Group and calculate with functions
 
-The following statement finds all the players followed by `"player100"`, returns these players as `player` and the property of the follow edge as `degree`. These players are grouped and the sum of their degree values is returned.
+The following statement finds all the vertices connected directly to vertex `"player100"`, groups the result set by source vertices, and returns the sum of degree values.
 
 ```ngql
-nebula> GO FROM "player100" OVER follow YIELD follow._src AS player, follow.degree AS degree | GROUP BY $-.player YIELD sum($-.degree);
+nebula> GO FROM "player100" OVER follow \
+        YIELD follow._src AS player, follow.degree AS degree \
+        | GROUP BY $-.player \
+        YIELD sum($-.degree);
 +----------------+
 | sum($-.degree) |
 +----------------+
 | 190            |
 +----------------+
-Got 1 rows (time spent 2851/3624 us)
 ```
 
-For more information about functions, see [Functions](../6.functions-and-expressions/1.math.md).
+For more information about the `sum()` function, see [Built-in math functions](../6.functions-and-expressions/1.math.md).
