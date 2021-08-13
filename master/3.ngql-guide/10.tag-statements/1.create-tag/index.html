@@ -768,26 +768,16 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#syntax">
     Syntax
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tag_name">
-    Tag name
-  </a>
-<nav aria-label="Tag name" class="md-nav">
+<nav aria-label="Syntax" class="md-nav">
 <ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#property_names_and_data_types">
-    Property names and data types
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#time-to-live_ttl">
-    Time-to-Live (TTL)
-  </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
@@ -1515,26 +1505,16 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#syntax">
     Syntax
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#tag_name">
-    Tag name
-  </a>
-<nav aria-label="Tag name" class="md-nav">
+<nav aria-label="Syntax" class="md-nav">
 <ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#property_names_and_data_types">
-    Property names and data types
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#time-to-live_ttl">
-    Time-to-Live (TTL)
-  </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
@@ -1559,96 +1539,93 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="create_tag">CREATE TAG<a class="headerlink" href="#create_tag" title="Permanent link">¶</a></h1>
-<p><code>CREATE TAG</code> creates a tag with the given name in a graph space. You must have the <code>CREATE</code> <a href="../../../7.data-security/1.authentication/3.role-list/">privilege</a> for the graph space. To create a tag in a specific graph space, you must use the graph space first.</p>
+<p><code>CREATE TAG</code> creates a tag with the given name in a graph space.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>Tags in nGQL are similar with labels in openCypher. But they are also quite different. For example, the ways to create them are different.</p>
+<p>Tags in nGQL are similar to labels in openCypher. But they are also quite different. For example, the ways to create them are different.</p>
 <ul>
-<li>In openCypher, labels are created together with nodes by <code>CREATE</code> statements.</li>
-<li>In nGQL, tags are created separately by <code>CREATE TAG</code> statements. Tags in nGQL are more like tables in MySQL.</li>
+<li>In openCypher, labels are created together with vertices in <code>CREATE</code> statements.</li>
+<li>In nGQL, tags are created separately using <code>CREATE TAG</code> statements. Tags in nGQL are more like tables in MySQL.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<p>Running the <code>CREATE TAG</code> statement requires some <a href="../../../7.data-security/1.authentication/3.role-list/">privileges</a> for the graph space. Otherwise, Nebula Graph throws an error.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<p>To create a tag in a specific graph space, you must specify the current working space with the <code>USE</code> statement.</p>
 <div class="highlight"><pre><span></span><code>CREATE TAG [IF NOT EXISTS] &lt;tag_name&gt;
-    ([&lt;create_definition&gt;, ...])
-    [tag_options]
-
-&lt;create_definition&gt; ::=
-    &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL]
-
-&lt;tag_options&gt; ::=
-    &lt;option&gt; [, &lt;option&gt; ...]
-
-&lt;option&gt; ::=
-    TTL_DURATION [=] &lt;ttl_duration&gt;
-    | TTL_COL [=] &lt;prop_name&gt;
-    | DEFAULT &lt;default_value&gt;
+    (
+      &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']
+      [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']} ...] 
+    )
+    [TTL_DURATION = &lt;ttl_duration&gt;]
+    [TTL_COL = &lt;prop_name&gt;]
+    [COMMENT = '&lt;comment&gt;'];
 </code></pre></div>
-<h2 id="tag_name">Tag name<a class="headerlink" href="#tag_name" title="Permanent link">¶</a></h2>
-<ul>
-<li>
-<p><code>IF NOT EXISTS</code>: Creating an existent tag results in an error. You can use the <code>IF NOT EXISTS</code> option to conditionally create the tag and avoid the error.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The tag existence detection here compares only the tag names (excluding properties).</p>
-</div>
-</li>
-</ul>
-<ul>
-<li><code>tag_name</code>: The tag name must be <strong>unique</strong> in a graph space. Once the tag name is set, it can not be altered. The rules for permitted tag names are the same as those for graph space names. For prohibited names, see <a href="../../../20.appendix/keywords-and-reserved-words/">Keywords and reserved words</a>.</li>
-</ul>
-<h3 id="property_names_and_data_types">Property names and data types<a class="headerlink" href="#property_names_and_data_types" title="Permanent link">¶</a></h3>
-<ul>
-<li><code>prop_name</code><p><code>prop_name</code> is the name of the property. It must be unique for each tag.</p>
-</li>
-</ul>
-<ul>
-<li><code>data_type</code><p><code>data_type</code> shows the data type of each property. For a full description of the property data types, see <a href="../../3.data-types/1.numeric/">Data types</a>.</p>
-</li>
-</ul>
-<ul>
-<li><code>NULL | NOT NULL</code><p>Specifies if the property supports <code>NULL | NOT NULL</code>. The default value is <code>NULL</code>.</p>
-</li>
-</ul>
-<ul>
-<li><code>DEFAULT</code><p>Specifies a default value for a property. The default value can be a literal value or an expression supported by Nebula Graph. If no value is specified, the default value is used when inserting a new vertex.</p>
-</li>
-</ul>
-<h3 id="time-to-live_ttl">Time-to-Live (TTL)<a class="headerlink" href="#time-to-live_ttl" title="Permanent link">¶</a></h3>
-<ul>
-<li><code>TTL_DURATION</code><p>Specifies the life cycle for the data. Data that exceeds the specified TTL expires. The expiration threshold is the <code>TTL_COL</code> value plus the <code>TTL_DURATION</code>. The default value of <code>TTL_DURATION</code> is zero. It means the data never expires.</p>
-</li>
-</ul>
-<ul>
-<li><code>TTL_COL</code><p>The data type of <code>prop_name</code> must be either <code>int</code> or <code>timestamp</code>.</p>
-</li>
-</ul>
-<ul>
-<li>single TTL definition<p>Only one <code>TTL_COL</code> field can be specified in a tag.</p>
-</li>
-</ul>
-<p>For more information on TTL, see <a href="../../8.clauses-and-options/ttl-options/">TTL options</a>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>IF NOT EXISTS</code></td>
+<td align="left">Detects if the tag that you want to create exists. If it does not exist, a new one will be created. The tag existence detection here only compares the tag names (excluding properties).</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;tag_name&gt;</code></td>
+<td align="left">The tag name must be <strong>unique</strong> in a graph space. Once the tag name is set, it can not be altered. The rules for permitted tag names are the same as those for graph space names. For prohibited names, see <a href="../../1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;prop_name&gt;</code></td>
+<td align="left">The name of the property. It must be unique for each tag. The rules for permitted property names are the same as those for tag names.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;data_type&gt;</code></td>
+<td align="left">Shows the data type of each property. For a full description of the property data types, see <a href="../../3.data-types/1.numeric/">Data types</a> and <a href="../../3.data-types/2.boolean/">Boolean</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>NULL \| NOT NULL</code></td>
+<td align="left">Specifies if the property supports <code>NULL | NOT NULL</code>. The default value is <code>NULL</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>DEFAULT</code></td>
+<td align="left">Specifies a default value for a property. The default value can be a literal value or an expression supported by Nebula Graph. If no value is specified, the default value is used when inserting a new vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>COMMENT</code></td>
+<td align="left">The remarks of a certain property or the tag itself. The maximum length is 256 bytes. By default, there will be no comments on a tag.</td>
+</tr>
+<tr>
+<td align="left"><code>TTL_DURATION</code></td>
+<td align="left">Specifies the life cycle for the property. The property that exceeds the specified TTL expires. The expiration threshold is the <code>TTL_COL</code> value plus the <code>TTL_DURATION</code>. The default value of <code>TTL_DURATION</code> is <code>0</code>. It means the data never expires.</td>
+</tr>
+<tr>
+<td align="left"><code>TTL_COL</code></td>
+<td align="left">Specifies the property to set a timeout on. The data type of the property must be <code>int</code> or <code>timestamp</code>. A tag can only specify one field as <code>TTL_COL</code>. For more information on TTL, see <a href="../../8.clauses-and-options/ttl-options/">TTL options</a>.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
 
-// Create a tag with no properties.
+# The following example creates a tag with no properties.
 nebula&gt; CREATE TAG no_property(); 
 
-// Create a tag with a default value.
+# The following example creates a tag with a default value.
 nebula&gt; CREATE TAG player_with_default(name string, age int DEFAULT 20);
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>// Time interval is 100s, starting from the create_time field
-nebula&gt; CREATE TAG woman(name string, age int, \
-   married bool, salary double, create_time timestamp) \
-   TTL_DURATION = 100, TTL_COL = "create_time";
 
-// Data expires after TTL_DURATION
-nebula&gt; CREATE TAG icec_ream(made timestamp, temperature int) \
-   TTL_DURATION = 100, TTL_COL = "made";
+# In the following example, the TTL of the create_time field is set to be 100 seconds.
+nebula&gt; CREATE TAG woman(name string, age int, \
+        married bool, salary double, create_time timestamp) \
+        TTL_DURATION = 100, TTL_COL = "create_time";
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">¶</a></h2>
-<p>Trying to insert vertices with a newly created tag may fail, because the creation of the tag is implemented asynchronously.</p>
-<p>Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
+<p>Trying to use a newly created tag may fail because the creation of the tag is implemented asynchronously.</p>
+<p>Nebula Graph implements the creation of the tag in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
 <ul>
-<li>Find the new tag in the result of <a href="../4.show-tags/"><code>SHOW TAGS</code></a>. If you can't, wait a few seconds and try again.</li>
+<li>Find the new tag in the result of <a href="../4.show-tags/"><code>SHOW TAGS</code></a>. If you cannot, wait a few seconds and try again.</li>
+</ul>
+<ul>
 <li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
 </ul>
 <p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</p>
@@ -1656,7 +1633,7 @@ nebula&gt; CREATE TAG icec_ream(made timestamp, temperature int) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 20, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2021</span>
 </small>
 </div>
 </article>

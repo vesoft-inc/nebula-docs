@@ -773,13 +773,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#tag_name">
-    Tag name
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 <li class="md-nav__item">
@@ -1486,13 +1491,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#tag_name">
-    Tag name
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 <li class="md-nav__item">
@@ -1511,9 +1521,18 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="alter_tag">ALTER TAG<a class="headerlink" href="#alter_tag" title="Permanent link">¶</a></h1>
+<p><code>ALTER TAG</code> alters the structure of a tag with the given name in a graph space. You can add or drop properties, and change the data type of an existing property. You can also set a <a href="../../8.clauses-and-options/ttl-options/">TTL</a> (Time-To-Live) on a property, or change its TTL duration.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<ul>
+<li>Running the <code>ALTER TAG</code> statement requires some <a href="../../../7.data-security/1.authentication/3.role-list/">privileges</a> for the graph space. Otherwise, Nebula Graph throws an error.</li>
+</ul>
+<ul>
+<li>Before you alter properties for a tag, make sure that the properties are not indexed. If the properties contain any indexes, the conflict error <code>[ERROR (-8)]: Conflict!</code> will occur when you <code>ALTER TAG</code>. For more information on dropping an index, see <a href="../../14.native-index-statements/6.drop-native-index/">DROP INDEX</a>.</li>
+</ul>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
     &lt;alter_definition&gt; [, alter_definition] ...]
-    [ttl_definition [, ttl_definition] ... ]
+    [ttl_definition [, ttl_definition] ... ];
 
 alter_definition:
 | ADD    (prop_name data_type)
@@ -1523,24 +1542,24 @@ alter_definition:
 ttl_definition:
     TTL_DURATION = ttl_duration, TTL_COL = prop_name
 </code></pre></div>
-<p><code>ALTER TAG</code> alters the structure of a tag with the given name in a graph space. You must have the <code>ALTER</code> <a href="../../../7.data-security/1.authentication/3.role-list/">privilege</a> for the graph space. To alter a tag in a specific graph space, you must use the graph space first.</p>
-<p>You can add or drop properties, change the data type of an existing property. You can also set TTL (Time-To-Live) for a property, or change the TTL duration. <code>TTL_COL</code> only supports the properties whose values are of the <code>INT</code> or the <code>TIMESTAMP</code> type.</p>
-<p>Before you alter properties for a tag, make sure that the properties are not indexed. If the properties contain any indexes, a conflict error occurs when you alter them.</p>
-<p>For information about index, see <a href="../../14.native-index-statements/1.create-native-index/">Index</a>.</p>
-<p>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER</code> statement, separated by commas.</p>
-<h2 id="tag_name">Tag name<a class="headerlink" href="#tag_name" title="Permanent link">¶</a></h2>
 <ul>
-<li><code>tag_name</code>: Specifies the tag name that you want to alter. You can alter only one tag in one statement. Before you alter a tag, make sure that the tag exists in the graph space. If the tag does not exist, an error occurs when you alter it.</li>
+<li><code>tag_name</code>: Specifies the tag name that you want to alter. You can alter only one tag in one statement. Before you alter a tag, make sure that the tag exists in the current working graph space. If the tag does not exist, an error will occur when you alter it.</li>
 </ul>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<ul>
+<li>Multiple <code>ADD</code>, <code>DROP</code>, and <code>CHANGE</code> clauses are permitted in a single <code>ALTER TAG</code> statement, separated by commas.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 string, p2 int);
 nebula&gt; ALTER TAG t1 ADD (p3 int, p4 string);
 nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "p2";
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">¶</a></h2>
-<p>Nebula Graph implements the alteration asynchronously in the next heartbeat cycle. Before the process finishes, the alteration does not take effect. To make sure the alteration is successful, take the following approaches:</p>
+<p>Trying to use a newly altered tag may fail because the alteration of the tag is implemented asynchronously.</p>
+<p>Nebula Graph implements the alteration of the tag in the next heartbeat cycle. To make sure the alteration is successful, take one of the following approaches:</p>
 <ul>
 <li>Use <a href="../5.describe-tag/"><code>DESCRIBE TAG</code></a> to confirm that the tag information is updated. If it is not, wait a few seconds and try again.</li>
+</ul>
+<ul>
 <li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
 </ul>
 <p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</p>
@@ -1548,7 +1567,7 @@ nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "p2";
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2021</span>
 </small>
 </div>
 </article>
