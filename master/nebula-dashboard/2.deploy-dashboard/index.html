@@ -1651,9 +1651,9 @@
 <p>You need to deploy the <code>node-exporter</code> service on each machine in the cluster.</p>
 </div>
 <p>To start the service, run the following statement in <code>node-exporter</code>:</p>
-<div class="highlight"><pre><span></span><code>$ nohup ./node-exporter --web.listen-address<span class="o">=</span>:9200 <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>$ nohup ./node-exporter --web.listen-address<span class="o">=</span>:9100 <span class="p">&amp;</span>
 </code></pre></div>
-<p>After the service is started, you can enter <code>&lt;IP&gt;:9200</code> in the browser to check whether the service is started normally.</p>
+<p>After the service is started, you can enter <code>&lt;IP&gt;:9100</code> in the browser to check whether the service is started normally.</p>
 <h3 id="deploy_nebula-stats-exporter">Deploy <code>nebula-stats-exporter</code><a class="headerlink" href="#deploy_nebula-stats-exporter" title="Permanent link">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1699,7 +1699,7 @@ nebulaItems:
 </code></pre></div>
 </li>
 </ol>
-<p>After the service is started, you can enter <code>&lt;IP&gt;:9100</code> in the browser to check whether the service is started normally.</p>
+<p>After the service is started, you can enter <code>&lt;IP&gt;:9200</code> in the browser to check whether the service is started normally.</p>
 <h3 id="deploy_prometheus">Deploy <code>prometheus</code><a class="headerlink" href="#deploy_prometheus" title="Permanent link">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1715,12 +1715,12 @@ scrape_configs:
   - job_name: <span class="s1">'nebula-exporter'</span>
     static_configs:
       - targets: <span class="o">[</span>
-          <span class="s1">'192.168.xx.100:9100'</span>,  <span class="c1"># The IP address and port of the nebula-stats-exporter service.</span>
+          <span class="s1">'192.168.xx.100:9200'</span>,  <span class="c1"># The IP address and port of the nebula-stats-exporter service.</span>
         <span class="o">]</span>
   - job_name: <span class="s1">'node-exporter'</span>
     static_configs:
       - targets: <span class="o">[</span>
-          <span class="s1">'192.168.xx.101:9200'</span>  <span class="c1"># The IP address and port of the node-exporter service.</span>
+          <span class="s1">'192.168.xx.101:9100'</span>  <span class="c1"># The IP address and port of the node-exporter service.</span>
         <span class="o">]</span>
 </code></pre></div>
 <ul>
@@ -1774,8 +1774,8 @@ scrape_configs:
 <p>After the service is started, you can enter <code>&lt;IP&gt;:7003</code> in the browser to check whether the service is started normally.</p>
 <h2 id="stop_dashboard">Stop Dashboard<a class="headerlink" href="#stop_dashboard" title="Permanent link">¶</a></h2>
 <p>You can enter <code>kill &lt;pid&gt;</code> to stop Dashboard. The examples are as follows:</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :9200<span class="k">)</span> <span class="c1"># stop the node-exporter service</span>
-$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :9100<span class="k">)</span> <span class="c1"># stop the nebula-stats-exporter service</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :9100<span class="k">)</span> <span class="c1"># stop the node-exporter service</span>
+$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :9200<span class="k">)</span> <span class="c1"># stop the nebula-stats-exporter service</span>
 $ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :9090<span class="k">)</span> <span class="c1"># stop the prometheus service</span>
 $ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :8090<span class="k">)</span> <span class="c1"># stop the nebula-http-gateway service</span>
 $ <span class="nb">cd</span> nebula-graph-dashboard
@@ -1785,7 +1785,7 @@ $ npm run stop <span class="c1"># stop the nebula-graph-dashboard service</span>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2021</span>
 </small>
 </div>
 </article>

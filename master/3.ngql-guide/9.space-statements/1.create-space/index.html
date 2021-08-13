@@ -723,23 +723,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#if_not_exists">
-    IF NOT EXISTS
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#graph_space_name">
-    Graph space name
+<a class="md-nav__link" href="#syntax">
+    Syntax
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#customized_graph_space_options">
-    Customized graph space options
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 <li class="md-nav__item">
@@ -1501,23 +1496,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#if_not_exists">
-    IF NOT EXISTS
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#graph_space_name">
-    Graph space name
+<a class="md-nav__link" href="#syntax">
+    Syntax
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#customized_graph_space_options">
-    Customized graph space options
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 <li class="md-nav__item">
@@ -1541,86 +1531,128 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt;
-    [(partition_num = &lt;partition_number&gt;, 
-    replica_factor = &lt;replica_number&gt;, 
-    vid_type = {FIXED_STRING(&lt;N&gt;) | INT64})];
+<p>Graph spaces are used to store data in a physically isolated way in Nebula Graph, which is similar to the database concept in MySQL. The <code>CREATE SPACE</code> statement creates a new graph space with the given name.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<p>Only the God role can use the <code>CREATE SPACE</code> statement. For more information, see <a href="../../../7.data-security/1.authentication/1.authentication/">AUTHENTICATION</a>.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; (
+    [partition_num = &lt;partition_number&gt;,] 
+    [replica_factor = &lt;replica_number&gt;,]
+    vid_type = {FIXED_STRING(&lt;N&gt;) | INT[64]}
+    )
+    [COMMENT = '&lt;comment&gt;'];
 </code></pre></div>
-<!-- `charset` and `collate` now each has only one value. Omit the two options for now.
-    charset = <charset>,
-    collate = <collate>, 
--->
-<p>The <code>CREATE SPACE</code> statement creates a new graph space with the given name. A <code>SPACE</code> is a region that provides physically isolated graphs in Nebula Graph. An error occurs if a graph space with the same name exists if you did not specify <code>IF NOT EXISTS</code>.</p>
-<h2 id="if_not_exists">IF NOT EXISTS<a class="headerlink" href="#if_not_exists" title="Permanent link">¶</a></h2>
-<p>You can use the <code>IF NOT EXISTS</code> keywords when creating graph spaces. These keywords automatically detect if the related graph space exists. If it does not exist, a new one is created. Otherwise, no graph space is created.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>IF NOT EXISTS</code></td>
+<td align="left">Detects if the related graph space exists. If it does not exist, a new one will be created. The graph space existence detection here only compares the graph space name (excluding properties).</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;graph_space_name&gt;</code></td>
+<td align="left">Uniquely identifies a graph space in a Nebula Graph instance. The name of the graph space is case-sensitive and allows letters, numbers, or underlines. <a href="../../1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a> are not allowed.</td>
+</tr>
+<tr>
+<td align="left"><code>partition_num</code></td>
+<td align="left">Specifies the number of partitions in each replica. The suggested number is five times the number of the hard disks in the cluster. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions. The default value is 100.</td>
+</tr>
+<tr>
+<td align="left"><code>replica_factor</code></td>
+<td align="left">Specifies the number of replicas in the cluster. The suggested number is 3 in a production environment and 1 in a test environment. The replica number must be an <strong>odd number</strong> for the need of quorum-based voting. The default value is 1.</td>
+</tr>
+<tr>
+<td align="left"><code>vid_type</code></td>
+<td align="left">A required parameter. Specifies the VID type in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>INT</code> equals to <code>INT64</code>. <code>FIXED_STRING(&lt;N&gt;)</code> specifies the VID as a string, while <code>INT64</code> specifies it as an integer. <code>N</code> represents the maximum length of the VIDs. If you set a VID that is longer than <code>N</code> characters, Nebula Graph throws an error.</td>
+</tr>
+<tr>
+<td align="left"><code>COMMENT</code></td>
+<td align="left">The remarks of the graph space. The maximum length is 256 bytes. By default, there is no comments on a space.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If the replica number is set to one, you will not be able to load balance or scale out the Nebula Graph Storage Service with the <a href="../../../8.service-tuning/load-balance/">BALANCE</a> statement.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Restrictions on VID type change and VID length</p>
+<ol>
+<li>
+<p>In Nebula Graph 1.x, the VID type can only be <code>INT64</code> and does not support string. In Nebula Graph 2.x, the VID type can be both <code>INT64</code> and <code>FIXED_STRING(&lt;N&gt;)</code>. You should specify the VID type when creating a graph space and keep consistency when using the <code>INSERT</code> statement. Otherwise, Nebula Graph throws <code>Wrong vertex id type: 1001</code>.</p>
+</li>
+<li>
+<p>The length of the VID should not be longer than <code>N</code> characters. If it exceeds <code>N</code>, Nebula Graph throws <code>The VID must be a 64-bit integer or a string fitting space vertex id length limit.</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>In the 2.x releases before 2.5.0, <code>vid_type</code> is not a required parameter and its default value is <code>FIXED_STRING(8)</code>.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The graph space existence detection here only compares the graph space name (excluding properties).</p>
+<p><code>graph_space_name</code>, <code>partition_num</code>, <code>replica_factor</code>, <code>vid_type</code>, and <code>comment</code> cannot be modified once set. To modify them, drop the current working graph space with <a href="../5.drop-space/"><code>DROP SPACE</code></a> and create a new one with <code>CREATE SPACE</code>.</p>
 </div>
-<h2 id="graph_space_name">Graph space name<a class="headerlink" href="#graph_space_name" title="Permanent link">¶</a></h2>
-<p>The <code>graph_space_name</code> uniquely identifies a graph space in a Nebula Graph instance.</p>
-<h2 id="customized_graph_space_options">Customized graph space options<a class="headerlink" href="#customized_graph_space_options" title="Permanent link">¶</a></h2>
-<p>You can set four optional options for a new graph space:</p>
-<ul>
-<li><code>partition_num</code><p>Specifies the number of partitions in each replica. The suggested number is five times the number of the hard disks in the cluster. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.</p>
-</li>
-</ul>
-<ul>
-<li><code>replica_factor</code><p>Specifies the number of replicas in the cluster. The default replica factor is 1. The suggested number is 3 in a production environment and 1 in a test environment. Always set the replica to an odd number for the need of quorum-based voting.</p>
-</li>
-</ul>
-<blockquote>
-<p><strong>NOTICE:</strong> If the replica number is set to one, you won't be able to use the <a href="../../../8.service-tuning/load-balance/"><code>BALANCE</code></a> statements to load balance or scale out the Nebula Graph Storage Service.</p>
-</blockquote>
-<!--* `charset`
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code># The following example creates a graph space with a specified VID type and the maximum length. Other fields still use the default values.
+nebula&gt; CREATE SPACE my_space_1 (vid_type=FIXED_STRING(30)); 
 
-    Short for the character set. A character set is a set of symbols and encodings. The default value is `utf8`.
+# The following example creates a graph space with a specified partition number, replica number, and VID type.
+nebula&gt; CREATE SPACE my_space_2 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30));
 
-* `collate`
-
-    A set of rules for comparing characters in a character set. The default value is `utf8_bin`.
--->
-<ul>
-<li><code>vid_type</code><p>Specifies the data type of VIDs in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>, where <code>N</code> represents the maximum length of the VIDs and it must be a positive integer. The default value is <code>FIXED_STRING(8)</code>. </p>
-<p>If you set a VID length greater than <code>N</code>, Nebula Graph throws an error. To set the integer VID for vertices, set <code>vid_type</code> to <code>INT64</code>.</p>
-</li>
-</ul>
-<p>If no option is given, Nebula Graph creates the graph space with the default options.</p>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE my_space_1; -- create a graph space with default options
-nebula&gt; CREATE SPACE my_space_2(partition_num=10); -- create a graph space with customized partition number
-nebula&gt; CREATE SPACE my_space_3(replica_factor=1); -- create a graph space with customized replica factor
-nebula&gt; CREATE SPACE my_space_4(vid_type = FIXED_STRING(30)); -- create a graph space with customized VID maximum length
+#  The following example creates a graph space with a specified partition number, replica number, and VID type, and adds a comment on it.
+nebula&gt; CREATE SPACE my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment="测试图空间"; 
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">¶</a></h2>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
 <p>Trying to use a newly created graph space may fail because the creation is implemented asynchronously.</p>
 <p>Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
-<ul>
-<li>Find the new graph space in the result of <a href="../3.show-spaces/"><code>SHOW SPACES</code></a> or <a href="../4.describe-space/"><code>DESCRIBE SPACE</code></a>. If you can't, wait a few seconds and try again.</li>
-<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
-</ul>
-<p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</p>
+<p>- Find the new graph space in the result of <a href="../3.show-spaces/"><code>SHOW SPACES</code></a> or <a href="../4.describe-space/"><code>DESCRIBE SPACE</code></a>. If you cannot, wait a few seconds and try again.</p>
+<p>- Wait for two heartbeat cycles, i.e., 20 seconds.</p>
+<p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services. If the heartbeat interval is too short (i.e., less than 5 seconds), disconnection between peers may happen because of the misjudgment of machines in the distributed system.</p>
+</div>
 <h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">¶</a></h2>
-<p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup times. You can run the command to do a check of the machine distribution.</p>
+<p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup times. You can run the following command to do a check of the machine distribution.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-----------+-------+--------+--------------+----------------------------------+-----------------------------+
-| Host      | Port  | Status | Leader count | Leader distribution              | Partition distribution      |
-+-----------+-------+--------+--------------+----------------------------------+-----------------------------+
-| storaged0 | 9779  | ONLINE | 1            | basketballplayer:5               | basketballplayer:5          |
-+-----------+-------+--------+--------------+----------------------------------+-----------------------------+
-| storaged1 | 9779  | ONLINE | 2            | test:1, basketballplayer:5       | basketballplayer:5, test:1  |
-+-----------+-------+--------+--------------+----------------------------------+-----------------------------+
-| storaged2 | 9779  | ONLINE | 1            | basketballplayer:5               | basketballplayer:5          |
-+-----------+-------+--------+--------------+----------------------------------+-----------------------------+
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| Host        | Port | Status   | Leader count | Leader distribution            | Partition distribution         |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged0" | 9779 | "ONLINE" | 8            | "basketballplayer:3, test:5"   | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged1" | 9779 | "ONLINE" | 9            | "basketballplayer:4, test:5"   | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged2" | 9779 | "ONLINE" | 3            | "basketballplayer:3"           | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "Total"     |      |          | 20           | "basketballplayer:10, test:10" | "basketballplayer:30, test:30" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
 </code></pre></div>
 <p>To balance the request loads, use the following command.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| Host        | Port | Status   | Leader count | Leader distribution            | Partition distribution         |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged0" | 9779 | "ONLINE" | 7            | "basketballplayer:3, test:4"   | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged1" | 9779 | "ONLINE" | 7            | "basketballplayer:4, test:3"   | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "storaged2" | 9779 | "ONLINE" | 6            | "basketballplayer:3, test:3"   | "basketballplayer:10, test:10" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
+| "Total"     |      |          | 20           | "basketballplayer:10, test:10" | "basketballplayer:30, test:30" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2021</span>
 </small>
 </div>
 </article>
