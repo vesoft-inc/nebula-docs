@@ -1501,12 +1501,12 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="insert_edge">INSERT EDGE<a class="headerlink" href="#insert_edge" title="Permanent link">¶</a></h1>
-<p>The <code>INSERT EDGE</code> statement inserts an edge from a source vertex (given by src_vid) to a destination vertex (given by dst_vid) with a specific rank.</p>
+<p>The <code>INSERT EDGE</code> statement inserts an edge or multiple edges into a graph space from a source vertex (given by src_vid) to a destination vertex (given by dst_vid) with a specific rank in Nebula Graph.</p>
 <p>When inserting an edge that already exists, <code>INSERT VERTEX</code> <strong>overrides</strong> the edge.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>INSERT EDGE &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES | VALUE}
+<div class="highlight"><pre><span></span><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES | VALUE}
 &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; )
-[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...]
+[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...];
 
 &lt;prop_name_list&gt; ::=
   [ &lt;prop_name&gt; [, &lt;prop_name&gt; ] ...]
@@ -1515,35 +1515,62 @@
   [ &lt;prop_value&gt; [, &lt;prop_value&gt; ] ...]
 </code></pre></div>
 <ul>
-<li><code>&lt;edge_type&gt;</code> denotes the edge type, which must be created before <code>INSERT EDGE</code>. Only one edge type can be specified in this statement.</li>
-<li><code>&lt;prop_name_list&gt;</code> is the property name list in the given <code>&lt;edge_type&gt;</code>.</li>
-<li><code>&lt;prop_value_list&gt;</code> must provide the value list according to <code>&lt;prop_name_list&gt;</code>. If the property values do not match the data type in the edge type, an error is returned. When the <code>NOT NULL</code> constraint is set for a given property, an error is returned if no property is given. When the default value for a property is <code>NULL</code>, you can omit to specify the property value.</li>
 <li>
-<p><code>rank</code> is optional. It specifies the edge rank of the same edge type. If not specified, the default value is 0. You can insert many edges with the same edge type for two vertices by using different rank values.</p>
+<p><code>IF NOT EXISTS</code> detects if the edge that you want to insert exists. If it does not exist, a new one will be inserted.</p>
 <div class="admonition note">
-<p class="admonition-title">OpenCypher compatibility</p>
-<p>OpenCypher has no such a concept as rank.</p>
+<p class="admonition-title">Note</p>
+<p>- <code>IF NOT EXISTS</code> only detects whether <the and="" destination="" edge="" rank="" source="" type,="" vertex,=""> exist and does not detect whether the property values overlap.
+  - <code>IF NOT EXISTS</code> will read to check whether the data exists, which will have a significant impact on performance.</the></p>
 </div>
 </li>
 </ul>
+<ul>
+<li><code>&lt;edge_type&gt;</code> denotes the edge type, which must be created before <code>INSERT EDGE</code>. Only one edge type can be specified in this statement.</li>
+</ul>
+<ul>
+<li><code>&lt;prop_name_list&gt;</code> is the property name list in the given <code>&lt;edge_type&gt;</code>.</li>
+</ul>
+<ul>
+<li><code>src_vid</code> is the VID of the source vertex. It specifies the start of an edge.</li>
+</ul>
+<ul>
+<li><code>dst_vid</code> is the VID of the destination vertex. It specifies the end of an edge.</li>
+</ul>
+<ul>
+<li>
+<p><code>rank</code> is optional. It specifies the edge rank of the same edge type. If not specified, the default value is <code>0</code>. You can insert many edges with the same edge type, source vertex, and destination vertex by using different rank values.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">OpenCypher compatibility</p>
+<p>OpenCypher has no such concept as rank.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li><code>&lt;prop_value_list&gt;</code> must provide the value list according to <code>&lt;prop_name_list&gt;</code>. If the property values do not match the data type in the edge type, an error is returned. When the <code>NOT NULL</code> constraint is set for a given property, an error is returned if no property is given. When the default value for a property is <code>NULL</code>, you can omit to specify the property value. For details, see <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e1();                    -- create edge type t1 with empty property
-nebula&gt; INSERT EDGE e1 () VALUES "10"-&gt;"11":();    -- insert an edge from vertex "10" to vertex "11" with empty property
-nebula&gt; INSERT EDGE e1 () VALUES "10"-&gt;"11"@1:();  -- insert an edge from vertex "10" to vertex "11" with empty property, the edge rank is 1
+<div class="highlight"><pre><span></span><code># The following example creates edge type e1 with no property and inserts an edge from vertex "10" to vertex "11" with no property.
+nebula&gt; CREATE EDGE e1();                 
+nebula&gt; INSERT EDGE e1 () VALUES "10"-&gt;"11":();  
+
+# The following example inserts an edge from vertex "10" to vertex "11" with no property. The edge rank is 1.
+nebula&gt; INSERT EDGE e1 () VALUES "10"-&gt;"11"@1:(); 
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e2 (name string, age int);                     -- create edge type e2 with two properties
-nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 1);          -- insert edge from "11" to "13" with two properties
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE e2 (name string, age int); 
+nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 1);
+
+# The following example creates edge type e2 with two properties.
 nebula&gt; INSERT EDGE e2 (name, age) VALUES \
-"12"-&gt;"13":("n1", 1), "13"-&gt;"14":("n2", 2);                           -- insert two edges
-nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", "a13");      -- ERROR. "a13" is not int
+        "12"-&gt;"13":("n1", 1), "13"-&gt;"14":("n2", 2); 
+
+# In the following example, the insertion fails because "a13" is not int.
+nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", "a13");
 </code></pre></div>
-<p>An edge can be inserted/written multiple times. Only the last written values can be read.</p>
-<div class="highlight"><pre><span></span><code>-- insert edge with the new values.
+<p>An edge can be inserted/written with property values multiple times. Only the last written values can be read.</p>
+<div class="highlight"><pre><span></span><code>The following examples insert edge e2 with the new values for multiple times.
 nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 12);
 nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 13);
 nebula&gt; INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 14);
-
-// Only the last write can be read
 nebula&gt; FETCH PROP ON e2 "11"-&gt;"13";
 +-------------------------------------------+
 | edges_                                    |
@@ -1551,11 +1578,32 @@ nebula&gt; FETCH PROP ON e2 "11"-&gt;"13";
 | [:e2 "11"-&gt;"13" @0 {age: 14, name: "n1"}] |
 +-------------------------------------------+
 </code></pre></div>
+<p>If you insert an edge that already exists with <code>IF NOT EXISTS</code>, there will be no modification.</p>
+<div class="highlight"><pre><span></span><code># The following example inserts edge e2 from vertex "14" to vertex "15".
+nebula&gt; INSERT EDGE e2 (name, age) VALUES "14"-&gt;"15"@1:("n1", 12);
+# The following example alters the edge with IF NOT EXISTS. But there will be no alteration because edge e2 already exists.
+nebula&gt; INSERT EDGE IF NOT EXISTS e2 (name, age) VALUES "14"-&gt;"15"@1:("n2", 13);
+nebula&gt; FETCH PROP ON e2 "14"-&gt;"15"@1;
++-------------------------------------------+
+| edges_                                    |
++-------------------------------------------+
+| [:e2 "14"-&gt;"15" @1 {age: 12, name: "n1"}] |
++-------------------------------------------+
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Nebula Graph 2.5.0 allows dangling edges. Therefore, you can write the edge before the source vertex or the destination vertex exists. At this time, you can get the (not written) vertex VID through <code>&lt;edgetype&gt;._src</code> or <code>&lt;edgetype&gt;._dst</code> (which is not recommended).</li>
+<li>Atomic operation is not guaranteed during the entire process for now. If it fails, please try again. Otherwise, partial writing will occur. At this time, the behavior of reading the data is undefined.</li>
+<li>Concurrent writing the same edge will cause an <code>edge conflict</code> error, so please try again later.</li>
+<li>The inserting speed of an edge is about half that of a vertex. Because in the storaged process, the insertion of an edge involves two tasks, while the insertion of a vertex involves only one task.</li>
+</ul>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 17, 2021</span>
 </small>
 </div>
 </article>

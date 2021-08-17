@@ -1511,11 +1511,11 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="upsert_edge">UPSERT EDGE<a class="headerlink" href="#upsert_edge" title="Permanent link">¶</a></h1>
-<p><code>UPSERT</code> is a combination of <code>UPDATE</code> and <code>INSERT</code>. Use <code>UPSERT EDGE</code> to update properties of an edge if it exists or insert a new edge if it does not exist.</p>
-<p>The performance of <code>UPSERT</code> is much lower than that of <code>INSERT</code>, because <code>UPSERT</code> is a read-modify-write serialization operation at the partition level.</p>
+<p>The <code>UPSERT</code> statement is a combination of <code>UPDATE</code> and <code>INSERT</code>. You can use <code>UPSERT EDGE</code> to update the properties of an edge if it exists or insert a new edge if it does not exist.</p>
+<p>The performance of <code>UPSERT</code> is much lower than that of <code>INSERT</code> because <code>UPSERT</code> is a read-modify-write serialization operation at the partition level.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes. Use <code>UPDATE</code> or <code>INSERT</code> instead.</p>
+<p>Do not use <code>UPSERT</code> for scenarios with highly concurrent writes. You can use <code>UPDATE</code> or <code>INSERT</code> instead.</p>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>UPSERT EDGE ON &lt;edge_type&gt;
@@ -1527,7 +1527,7 @@ SET &lt;update_prop&gt;
 <table>
 <thead>
 <tr>
-<th>Field</th>
+<th>Parameter</th>
 <th>Required</th>
 <th>Description</th>
 <th>Example</th>
@@ -1537,7 +1537,7 @@ SET &lt;update_prop&gt;
 <tr>
 <td><code>ON &lt;edge_type&gt;</code></td>
 <td>Yes</td>
-<td>Specifies the type of the edge. The properties to be updated must be on this edge type.</td>
+<td>Specifies the edge type. The properties to be updated must be on this edge type.</td>
 <td><code>ON serve</code></td>
 </tr>
 <tr>
@@ -1579,14 +1579,18 @@ SET &lt;update_prop&gt;
 </tbody>
 </table>
 <h2 id="insert_an_edge_if_it_does_not_exist">Insert an edge if it does not exist<a class="headerlink" href="#insert_an_edge_if_it_does_not_exist" title="Permanent link">¶</a></h2>
-<p>If an edge does not exist, it is created no matter the conditions in the <code>WHEN</code> clause are met or not, and the <code>SET</code> clause takes effect. The property values of the new edge depends on:</p>
+<p>If an edge does not exist, it is created no matter the conditions in the <code>WHEN</code> clause are met or not, and the <code>SET</code> clause takes effect. The property values of the new edge depend on:</p>
 <ul>
-<li>How the <code>SET</code> clause is defined</li>
-<li>The default value of the properties</li>
+<li>How the <code>SET</code> clause is defined.</li>
+</ul>
+<ul>
+<li>Whether the property has a default value.</li>
 </ul>
 <p>For example, if:</p>
 <ul>
 <li>The edge to be inserted will have properties <code>start_year</code> and <code>end_year</code> based on the edge type <code>serve</code>.</li>
+</ul>
+<ul>
 <li>The <code>SET</code> clause specifies that <code>end_year = 2021</code>.</li>
 </ul>
 <p>Then the property values in different cases are listed as follows:</p>
@@ -1594,7 +1598,7 @@ SET &lt;update_prop&gt;
 <thead>
 <tr>
 <th>Are <code>WHEN</code> conditions met</th>
-<th>If properties has default values</th>
+<th>If properties have default values</th>
 <th>Value of <code>start_year</code></th>
 <th>Value of <code>end_year</code></th>
 </tr>
@@ -1627,13 +1631,11 @@ SET &lt;update_prop&gt;
 </tbody>
 </table>
 <p>Here are some examples:</p>
-<div class="highlight"><pre><span></span><code>// Check if the following three vertices has any outgoing serve edge.
+<div class="highlight"><pre><span></span><code>// This example checks if the following three vertices have any outgoing serve edge. The result "Empty set" indicates that such an edge does not exist.
 nebula&gt; GO FROM "player666", "player667", "player668" \
         OVER serve \
         YIELD serve.start_year, serve.end_year;
 Empty set
-
-// The result Empty set indicates that the edges don't exist.
 
 nebula&gt; UPSERT EDGE on serve \
         "player666" -&gt; "team200"@0 \
@@ -1677,7 +1679,7 @@ nebula&gt; UPSERT EDGE on serve \
 | 2000       | __NULL__ |
 +------------+----------+
 </code></pre></div>
-<p>In the last query of the preceding example, since <code>end_year</code> has no default value, when the edge is created, <code>end_year</code> is <code>NULL</code>, and <code>end_year = end_year + 1</code> does not take effect. But if it has a default value, <code>end_year = end_year + 1</code> in the <code>SET</code> clause will take effect. For example:</p>
+<p>In the last query of the preceding example, since <code>end_year</code> has no default value, when the edge is created, <code>end_year</code> is <code>NULL</code>, and <code>end_year = end_year + 1</code> does not take effect. But if <code>end_year</code> has a default value, <code>end_year = end_year + 1</code> will take effect. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE serve_with_default(start_year int, end_year DEFAULT 2010);
 Execution succeeded
 
@@ -1712,7 +1714,7 @@ nebula&gt; UPSERT EDGE on serve \
 | 2016       | 2020     |
 +------------+----------+
 </code></pre></div>
-<p>If the edge exists and the <code>WHEN</code> conditions are not met, the edge does not take effect.</p>
+<p>If the edge exists and the <code>WHEN</code> conditions are not met, the update does not take effect.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Ben Simmons"})-[e:serve]-(v2) \
         RETURN e;
 +-----------------------------------------------------------------------+
@@ -1737,7 +1739,7 @@ nebula&gt; UPSERT EDGE on serve \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 17, 2021</span>
 </small>
 </div>
 </article>
