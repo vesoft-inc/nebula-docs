@@ -1610,33 +1610,78 @@
 <h1 id="index_overview">Index overview<a class="headerlink" href="#index_overview" title="Permanent link">¶</a></h1>
 <p>Indexes are built to fast process graph queries. Nebula Graph supports two kinds of indexes: native indexes and full-text indexes. This topic introduces the index types and helps choose the right index.</p>
 <h2 id="native_indexes">Native indexes<a class="headerlink" href="#native_indexes" title="Permanent link">¶</a></h2>
-<p>Native indexes allow querying data based on a given property. There are two kinds of native indexes: tag index and edge type index. Native indexes must be updated manually. You can use the <code>REBUILD INDEX</code> statement to update native indexes. Native indexes support indexing multiple properties on a tag or an edge type (composite indexes), but do not support indexing across multiple tags or edge types.</p>
-<p>You can do partial match search by using composite indexes. Use composite indexes only for partial match searches when the declared fields in the composite index are used from left to right. For more information, see <a href="../7.general-query-statements/5.lookup/#FAQ">LOOKUP FAQ</a>.</p>
-<p>String operators like <code>CONTAINS</code> and <code>STARTS WITH</code> are not allowed in native index searching. Use full-text indexes to do fuzzy search.</p>
-<h3 id="operations_on_native_indexes">Operations on native indexes<a class="headerlink" href="#operations_on_native_indexes" title="Permanent link">¶</a></h3>
-<p>You can do the following operations against native indexes:</p>
+<p>Native indexes allow querying data based on a given property. Features are as follows.</p>
 <ul>
-<li><a href="1.create-native-index/">Create index</a></li>
-<li><a href="2.show-native-indexes/">Show index</a></li>
-<li><a href="3.describe-native-index/">Describe index</a></li>
-<li><a href="4.rebuild-native-index/">Rebuild index</a></li>
-<li><a href="5.show-native-index-status/">Show index status</a></li>
-<li><a href="6.drop-native-index/">Drop index</a></li>
-<li><a href="../7.general-query-statements/5.lookup/">Query index</a></li>
+<li>There are two kinds of native indexes: tag index and edge type index.</li>
+</ul>
+<ul>
+<li>Native indexes must be updated manually. You can use the <code>REBUILD INDEX</code> statement to update native indexes.</li>
+</ul>
+<ul>
+<li>Native indexes support indexing multiple properties on a tag or an edge type (composite indexes), but do not support indexing across multiple tags or edge types.</li>
+</ul>
+<ul>
+<li>You can do partial match searches by using composite indexes. The declared fields in the composite index are used from left to right. For more information, see <a href="../7.general-query-statements/5.lookup/#FAQ">LOOKUP FAQ</a>.</li>
+</ul>
+<ul>
+<li>String operators like <code>CONTAINS</code> and <code>STARTS WITH</code> are not allowed in <a href="../7.general-query-statements/5.lookup/">LOOKUP</a> for native index searching. Use full-text indexes to do fuzzy searches.</li>
+</ul>
+<h3 id="operations_on_native_indexes">Operations on native indexes<a class="headerlink" href="#operations_on_native_indexes" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="1.create-native-index/">CREATE INDEX</a></li>
+</ul>
+<ul>
+<li><a href="2.1.show-create-index/">SHOW CREATE INDEX</a></li>
+</ul>
+<ul>
+<li><a href="2.show-native-indexes/">SHOW INDEXES</a></li>
+</ul>
+<ul>
+<li><a href="3.describe-native-index/">DESCRIBE INDEX</a></li>
+</ul>
+<ul>
+<li><a href="4.rebuild-native-index/">REBUILD INDEX</a></li>
+</ul>
+<ul>
+<li><a href="5.show-native-index-status/">SHOW INDEX STATUS</a></li>
+</ul>
+<ul>
+<li><a href="6.drop-native-index/">DROP INDEX</a></li>
+</ul>
+<ul>
+<li><a href="../7.general-query-statements/5.lookup/">LOOKUP</a></li>
+</ul>
+<ul>
+<li><a href="../7.general-query-statements/2.match/">MATCH</a></li>
 </ul>
 <h2 id="full-text_indexes">Full-text indexes<a class="headerlink" href="#full-text_indexes" title="Permanent link">¶</a></h2>
-<p>Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Full-text indexes allow indexing just one property. Only strings within a specified length (no longer than 256 bytes) are indexed. Full-text indexes do not support logical operations such as <code>AND</code>, <code>OR</code> and <code>NOT</code>. To do complete text match, use native indexes.</p>
+<p>Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Features are as follows.</p>
+<ul>
+<li>Full-text indexes allow indexing just one property.</li>
+</ul>
+<ul>
+<li>Only strings within a specified length (no longer than 256 bytes) are indexed.</li>
+</ul>
+<ul>
+<li>Full-text indexes do not support logical operations such as <code>AND</code>, <code>OR</code>, and <code>NOT</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To do complete string matches, use native indexes.</p>
+</div>
 <h3 id="operations_on_full-text_indexes">Operations on full-text indexes<a class="headerlink" href="#operations_on_full-text_indexes" title="Permanent link">¶</a></h3>
-<p>Before doing any operations on full-text indexes, please mak sure that you deploy full-text indexes. Details on full-text indexes deployment, see <a href="../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy Elasticsearch</a> and <a href="../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Listener</a>. At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually. To query full-text indexes, see <a href="../15.full-text-index-statements/1.search-with-text-based-index/">Search with full-text indexes</a>.</p>
+<p>Before doing any operations on full-text indexes, please make sure that you deploy full-text indexes. Details on full-text indexes deployment, see <a href="../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy Elasticsearch</a> and <a href="../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Listener</a>.</p>
+<p>At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually.</p>
+<p>To query full-text indexes, see <a href="../15.full-text-index-statements/1.search-with-text-based-index/">Search with full-text indexes</a>.</p>
 <h2 id="null_values">Null values<a class="headerlink" href="#null_values" title="Permanent link">¶</a></h2>
-<p>Indexes do not support indexing null values at this time.</p>
+<p>Indexes do not support indexing null values.</p>
 <h2 id="range_queries">Range queries<a class="headerlink" href="#range_queries" title="Permanent link">¶</a></h2>
-<p>In addition to querying single results from native indexes, you can also do range queries. Not all the native indexes support range queries. You can only do range search for numeric, date, and time type properties.</p>
+<p>In addition to querying single results from native indexes, you can also do range queries. Not all the native indexes support range queries. You can only do range searches for numeric, date, and time type properties.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 16, 2020</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 18, 2021</span>
 </small>
 </div>
 </article>

@@ -923,18 +923,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#must-read_for_using_index">
-    Must-read for using index
+<a class="md-nav__link" href="#must-read_for_using_indexes">
+    Must-read for using indexes
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#syntax">
     Syntax
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#implementation_of_the_operation">
-    Implementation of the operation
   </a>
 </li>
 <li class="md-nav__item">
@@ -950,11 +945,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#create_composite_property_indexes">
     Create composite property indexes
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using_index">
-    Using index
   </a>
 </li>
 </ul>
@@ -1516,18 +1506,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#must-read_for_using_index">
-    Must-read for using index
+<a class="md-nav__link" href="#must-read_for_using_indexes">
+    Must-read for using indexes
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#syntax">
     Syntax
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#implementation_of_the_operation">
-    Implementation of the operation
   </a>
 </li>
 <li class="md-nav__item">
@@ -1545,11 +1530,6 @@
     Create composite property indexes
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using_index">
-    Using index
-  </a>
-</li>
 </ul>
 </nav>
 </div>
@@ -1561,111 +1541,136 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="create_index">CREATE INDEX<a class="headerlink" href="#create_index" title="Permanent link">¶</a></h1>
-<p>Use <code>CREATE INDEX</code> to add native indexes for existing tags, edge types or properties.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For how to create text-based indexes, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy full-text index</a>.</p>
-</div>
-<p>Most graph queries start the traversal from a list of vertices or edges that are identified by their properties. Indexes make these global retrieval operations efficient on large graphs.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Before you create an index, make sure that the relative tag or edge type is created. For how to create tags or edge types, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
-<h2 id="must-read_for_using_index">Must-read for using index<a class="headerlink" href="#must-read_for_using_index" title="Permanent link">¶</a></h2>
-<p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+<p>For how to create full-text indexes, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy full-text index</a>.</p>
+<h2 id="must-read_for_using_indexes">Must-read for using indexes<a class="headerlink" href="#must-read_for_using_indexes" title="Permanent link">¶</a></h2>
+<p>The concept and using restrictions of indexes are comparatively complex. You can use it together with <code>LOOKUP</code> and <code>MATCH</code> statements.</p>
+<p>You can use <code>CREATE INDEX</code> to add native indexes for the existing tags, edge types, or properties. They are usually called as tag indexes, edge type indexes, and property indexes.</p>
+<p>Tag indexes and edge type indexes apply to queries related to the tag and the edge type, but do not apply to queries that are based on certain properties on the tag. For example, you can use <code>LOOKUP</code> to retrieve all the edges with edge type E.</p>
+<p>Property indexes apply to property-based queries. For example, you can use the <code>Age</code> property to retrieve the VID of all vertices that meet <code>Age == 19</code>.</p>
+<p>If a property index <code>i_TA</code> is created for property A of tag T, there is no need to create an additional tag index <code>i_T</code> for <code>Tag T</code>. This is because the query engine can use <code>i_TA</code> to replace <code>i_T</code>. The edge type index is the same. However, <code>i_T</code> cannot replace <code>i_TA</code> for property queries.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+<p>Indexes cannot make queries faster. It can only locate a vertex or an edge according to properties or count the number of vertices or edges.</p>
+<p>Long indexes decrease the scan performance of the Storage Service and use more memory. We suggest that you set the indexing length the same as that of the longest string to be indexed. The longest index length is 255 bytes. Strings longer than 255 bytes will be truncated.</p>
+</div>
 <p>If you must use indexes, we suggest that you:</p>
 <ol>
-<li>Import data into Nebula Graph.</li>
-<li>Create indexes.</li>
-<li>Rebuild the indexes.</li>
+<li>
+<p>Import the data into Nebula Graph.</p>
+</li>
+<li>
+<p>Create indexes.</p>
+</li>
+<li>
+<p><a href="../4.rebuild-native-index/">Rebuild indexes</a>.</p>
+</li>
+<li>
+<p>After the index is created and the data is imported, you can use <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a> or <a href="../../7.general-query-statements/2.match/">MATCH</a> to retrieve the data. You do not need to specify which indexes to use in a query, Nebula Graph figures that out by itself.</p>
+</li>
 </ol>
-<p>The preceding workflow minimizes the negative influences of using indexes.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([prop_name_list])
-</code></pre></div>
-<ul>
-<li><code>index_name</code>: The name of the index. It must be unique in a graph space. A recommended way of naming is <code>i_tagName_propName</code>.</li>
-</ul>
-<ul>
-<li><code>IF NOT EXISTS</code>: Creating an existent index results in an error. You can use the <code>IF NOT EXISTS</code> option to conditionally create the index and avoid the error.</li>
-</ul>
-<ul>
-<li>
-<p><code>prop_name_list</code>:</p>
-<ul>
-<li>
-<p>To index a <strong>variable</strong> string property, you must use the <code>prop_name(length)</code> syntax to specify an index length.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Long indexes decrease the scan performance of the Storage Service and use more memory. We suggest that you set the indexing length the same as that of the longest string to be indexed. The longest indexing length is 255. Strings longer than 255 are truncated.</p>
-</div>
-</li>
-</ul>
-<ul>
-<li>To index a <strong>fixed-length</strong> string property, you must use the <code>prop_name</code> syntax, and the index length is the string length you set.</li>
-</ul>
-<ul>
-<li>
-<p>To index a tag or an edge type, ignore the <code>prop_name_list</code> in the parentheses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When there is an index for any property of a tag or an edge type, creating another index for the tag or edge type is neither supported nor necessary.</p>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">¶</a></h2>
-<p>Nebula Graph implements the creation of the index asynchronously in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
+<p>If you create an index before importing the data, the importing speed will be extremely slow due to the reduction in the write performance.</p>
+<p>Keep <code>--disable_auto_compaction = false</code> during daily incremental writing.</p>
+<p>The newly created index will not take effect immediately. Trying to use a newly created index (such as <code>LOOKUP</code> or<code>REBUILD INDEX</code>) may fail and return <code>can't find xxx in the space</code> because the creation is implemented asynchronously. Nebula Graph implements the creation in the next heartbeat cycle. To make sure the creation is successful, take one of the following approaches:</p>
 <ul>
 <li>Find the new index in the result of <a href="../2.show-native-indexes/"><code>SHOW TAG/EDGE INDEXES</code></a>.</li>
-<li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
 </ul>
-<p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the [configuration files] for all services.</p>
+<ul>
+<li>Wait for two heartbeat cycles, i.e., 20 seconds. To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</li>
+</ul>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>After creating a new index, or dropping the old index and creating a new one with the same name again, you must <code>REBUILD INDEX</code>. Otherwise, these data cannot be returned in the <code>MATCH</code> and <code>LOOKUP</code> statements.</p>
+</div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = '&lt;comment&gt;'];
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>TAG \| EDGE</code></td>
+<td align="left">Specifies the index type that you want to create.</td>
+</tr>
+<tr>
+<td align="left"><code>IF NOT EXISTS</code></td>
+<td align="left">Detects if the index that you want to create exists. If it does not exist, a new one will be created.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;index_name&gt;</code></td>
+<td align="left">The name of the index. It must be unique in a graph space. A recommended way of naming is <code>i_tagName_propName</code>. The name of the index is case-sensitive and allows letters, numbers, or underlines. <a href="../../1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a> are not allowed.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;tag_name&gt; \| &lt;edge_name&gt;</code></td>
+<td align="left">Specifies the name of the tag or edge associated with the index.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;prop_name_list&gt;</code></td>
+<td align="left">To index a <strong>variable-length</strong> string property, you must use <code>prop_name(length)</code> to specify the index length. To index a tag or an edge type, ignore the <code>prop_name_list</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>COMMENT</code></td>
+<td align="left">The remarks of the index. The maximum length is 256 bytes. By default, there will be no comments on an index.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="create_tagedge_type_indexes">Create tag/edge type indexes<a class="headerlink" href="#create_tagedge_type_indexes" title="Permanent link">¶</a></h2>
-<p>The following statement creates an index on the <code>player</code> tag.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index on player();
 </code></pre></div>
-<p>The following statement creates indexes on the edge type <code>like</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX like_index on like();
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX follow_index on follow();
 </code></pre></div>
-<p>After indexing a tag or an edge type, you can use the <code>LOOKUP</code> statement to retrieve the VID of all vertices with the tag, or the source vertex ID, destination vertex ID, and ranks of all edges with the edge type. For more information, see <a href="../../7.general-query-statements/5.lookup/">List vertices or edges with a tag or an edge type</a>.</p>
+<p>After indexing a tag or an edge type, you can use the <code>LOOKUP</code> statement to retrieve the VID of all vertices <code>with the tag</code>, or <code>the source vertex ID, destination vertex ID, and ranks</code> of <code>all edges with the edge type</code>. For more information, see <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a>.</p>
 <h2 id="create_single-property_indexes">Create single-property indexes<a class="headerlink" href="#create_single-property_indexes" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(10));
 </code></pre></div>
-<p>The preceding statement creates an index for the <code>name</code> property on all vertices carrying the <code>player</code> tag. This statement creates an index using the first 10 characters of the name property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG var_string(p1 string);
+<p>The preceding example creates an index for the <code>name</code> property on all vertices carrying the <code>player</code> tag. This example creates an index using the first 10 characters of the <code>name</code> property.</p>
+<div class="highlight"><pre><span></span><code># To index a variable-length string property, you need to specify the index length.
+nebula&gt; CREATE TAG var_string(p1 string);
 nebula&gt; CREATE TAG INDEX var ON var_string(p1(10));
 
+# To index a fixed-length string property, you do not need to specify the index length.
 nebula&gt; CREATE TAG fix_string(p1 FIXED_STRING(10));
 nebula&gt; CREATE TAG INDEX fix ON fix_string(p1);
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX follow_index_0 on follow(degree);
 </code></pre></div>
-<p>The preceding statement creates an index for the <code>degree</code> property on all edges carrying the <code>follow</code> edge type.</p>
 <h2 id="create_composite_property_indexes">Create composite property indexes<a class="headerlink" href="#create_composite_property_indexes" title="Permanent link">¶</a></h2>
-<p>An index on multiple properties is called a composite index.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Creating index across multiple tags is not supported.</p>
-</div>
-<p>Consider the following example:</p>
+<p>An index on multiple properties on a tag (or an edge type) is called a composite property index.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_1 on player(name(10), age);
 </code></pre></div>
-<p>This statement creates a composite index for the <code>name</code> and <code>age</code> property on all vertices carrying the <code>player</code> tag.</p>
-<p>Nebula Graph follows the left matching principle to select indexes. That is, columns in the <code>WHERE</code> conditions must be in the first N columns of the index. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX example_index ON TAG t(p1, p2, p3);  -- Create an index for the first 3 properties of tag t
-nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; -- Not supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1;  -- Supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  -- Supported
-nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;  -- Supported
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Creating composite property indexes across multiple tags or edge types is not supported.</p>
+<p>Nebula Graph follows the left matching principle to select indexes when composite property indexes are used in <code>LOOKUP</code> or <code>MATCH</code> statements. That is, columns in the <code>WHERE</code> conditions must be in the first N columns of the index. For example:</p>
+</div>
+<div class="highlight"><pre><span></span><code># This example creates a composite property index for the first 3 properties of tag t.
+nebula&gt; CREATE TAG INDEX example_index ON t(p1, p2, p3);
+
+# Note: The index match is not successful because it does not start from p1.
+nebula&gt; LOOKUP ON t WHERE p2 == 1 and p3 == 1; 
+
+# The index match is successful.
+nebula&gt; LOOKUP ON t WHERE p1 == 1;  
+# The index match is successful because p1 and p2 are consecutive.
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1;  
+# The index match is successful because p1, p2, and p3 are consecutive.
+nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1; 
 </code></pre></div>
-<h2 id="using_index">Using index<a class="headerlink" href="#using_index" title="Permanent link">¶</a></h2>
-<p>After the index is created and data is inserted, you can use <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a> or <a href="../../7.general-query-statements/2.match/">MATCH</a> to query the data.</p>
-<p>You do not need to specify which indexes to use in a query, Nebula Graph figures that out by itself.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 18, 2021</span>
 </small>
 </div>
 </article>
