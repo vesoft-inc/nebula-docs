@@ -48,3 +48,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 !!! enterpriseonly
 
     Differences between the Nebula Graph Open Source and Enterprise editions.
+
+## Modify errors
+ 
+Nebula Graph documents are written in the Markdown language. You can click the pencil sign on the upper right side of the document title and modify errors.
