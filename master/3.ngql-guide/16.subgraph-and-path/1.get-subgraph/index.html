@@ -1017,6 +1017,25 @@
     Examples
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#faq">
+    FAQ
+  </a>
+<nav aria-label="FAQ" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count">
+    Why is the number of hops in the returned result greater than step_count?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count">
+    Why is the number of hops in the returned result lower than step_count?
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -1490,6 +1509,25 @@
     Examples
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#faq">
+    FAQ
+  </a>
+<nav aria-label="FAQ" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count">
+    Why is the number of hops in the returned result greater than step_count?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count">
+    Why is the number of hops in the returned result lower than step_count?
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </div>
@@ -1501,96 +1539,104 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="get_subgraph">GET SUBGRAPH<a class="headerlink" href="#get_subgraph" title="Permanent link">¶</a></h1>
-<p>The <code>GET SUBGRAPH</code> statement retrieves information of vertices and edges reachable from the start vertices over the specified types of edges.</p>
+<p>The <code>GET SUBGRAPH</code> statement retrieves information of vertices and edges reachable from the source vertices of the specified edge types and returns information of the subgraph.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>GET SUBGRAPH [&lt;step_count&gt; STEPS] FROM {&lt;vid&gt;, &lt;vid&gt;...}
+<div class="highlight"><pre><span></span><code>GET SUBGRAPH [WITH PROP] [&lt;step_count&gt; STEPS] FROM {&lt;vid&gt;, &lt;vid&gt;...}
 [IN &lt;edge_type&gt;, &lt;edge_type&gt;...]
 [OUT &lt;edge_type&gt;, &lt;edge_type&gt;...]
-[BOTH &lt;edge_type&gt;, &lt;edge_type&gt;...]
+[BOTH &lt;edge_type&gt;, &lt;edge_type&gt;...];
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Clause</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>STEPS</code></td>
-<td>Specifies the steps to go from the start vertices. A <code>step_count</code> must be a non-negative integer. Its default value is 1. When <code>&lt;step_count&gt;</code> is specified to <code>N</code>, the Nebula Graph returns zero to N steps subgraph.</td>
-</tr>
-<tr>
-<td><code>FROM</code></td>
-<td>Specifies the start vertices.</td>
-</tr>
-<tr>
-<td><code>IN</code></td>
-<td>Gets the subgraphs from the start vertices over the specified incoming edges (edges pointing to the start vertices).</td>
-</tr>
-<tr>
-<td><code>OUT</code></td>
-<td>Gets the subgraphs from the start vertices over the specified outgoing edges (edges pointing out from the start vertices).</td>
-</tr>
-<tr>
-<td><code>BOTH</code></td>
-<td>Gets the subgraphs from the start vertices over the specified types of edges, both incoming and outgoing.</td>
-</tr>
-</tbody>
-</table>
-<p>When the traversal direction is not specified, both the incoming and outgoing edges are returned.</p>
+<ul>
+<li><code>WITH PROP</code> shows the properties of edges. If not specified, the properties will be hidden.</li>
+</ul>
+<ul>
+<li><code>step_count</code> specifies the number of hops from the source vertices and returns the subgraph from 0 to <code>step_count</code> hops. It must be a non-negative integer. Its default value is 1.</li>
+</ul>
+<ul>
+<li><code>vid</code> specifies the vertex IDs.</li>
+</ul>
+<ul>
+<li><code>edge_type</code> specifies the edge type. You can use <code>IN</code>, <code>OUT</code>, and <code>BOTH</code> to specify the traversal direction of the edge type. The default is <code>BOTH</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The path type of <code>GET SUBGRAPH</code> is <code>trail</code>. Only vertices can be repeatedly visited in graph traversal. For more information, see <a href="../../../1.introduction/2.1.path/">Path</a>.</p>
+</div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p>The following graph is used as the sample.</p>
 <p><img alt="A sample graph for GET SUBGRAPH" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/dataset-for-crud.png"/></p>
 <ul>
-<li>Go one step from the vertex with VID "player100" over all types of edges and get the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM "player100";
-+--------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-| _vertices                                                                                                                | _edges                                                                                                                                           |
-+--------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-| [(player100) player.name:Tim,player.age:42]                                                                              | [player100-[follow]-&gt;player101@0 degree:96,player100-[follow]-&gt;player102@0 degree:90,player100-[serve]-&gt;team200@0 end_year:2016,start_year:1997] |
-+--------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-| [(player101) player.age:36,player.name:Tony Parker,(player102) player.age:33,player.name:LaMarcus Aldridge,(team200) team.name:Warriors] | [player102-[follow]-&gt;player101@0 degree:75]                                                                                      |
-+--------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-Got 2 rows (time spent 6289/7423 us)
+<li>This example goes one step from the vertex <code>player100</code> over all edge types and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM "player100";
++-------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| _vertices                                                                                                                                             | _edges                                                                                                                      |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| [("player100" :player{age: 42, name: "Tim Duncan"})]                                                                                                  | [[:follow "player100"-&gt;"player101" @0 {}], [:follow "player100"-&gt;"player102" @0 {}], [:serve "player100"-&gt;"team200" @0 {}]] |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| [("player102" :player{age: 33, name: "LaMarcus Aldridge"}), ("player101" :player{age: 36, name: "Tony Parker"}), ("team200" :team{name: "Warriors"})] | [[:follow "player102"-&gt;"player101" @0 {}]]                                                                                  |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
 <p>The returned subgraph is as follows.</p>
-</li>
-</ul>
 <p><img alt='GET SUBGRAPH FROM "player100"' src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/15.subgraph-and-path/subgraph-1.png"/></p>
-<ul>
-<li>Go one step from the vertex with VID "player100" over incoming <code>follow</code> edges and get the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM "player100" IN follow;
-+-----------+--------+
-| _vertices | _edges |
-+-----------+--------+
-| []        | []     |
-+-----------+--------+
-| []        | []     |
-+-----------+--------+
-Got 2 rows (time spent 2292/3091 us)
-</code></pre></div>
-<p>There is no incoming <code>follow</code> edge to "player100", so no vertex or edge is returned.</p>
 </li>
 </ul>
 <ul>
-<li>Go one step from the vertex "player100" over outgoing <code>serve</code> edges and get the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM "player100" OUT serve;
-+---------------------------------------------+--------------------------------------------------------------+
-| _vertices                                   | _edges                                                       |
-+---------------------------------------------+--------------------------------------------------------------+
-| [(player100) player.age:42,player.name:Tim] | [player100-[serve]-&gt;team200@0 start_year:1997,end_year:2016] |
-+---------------------------------------------+--------------------------------------------------------------+
-| [(team200) team.name:Warriors]              | []                                                           |
-+---------------------------------------------+--------------------------------------------------------------+
-Got 2 rows (time spent 2107/2547 us)
+<li>This example goes one step from the vertex <code>player100</code> over incoming <code>follow</code> edges and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM "player100" IN follow;
++------------------------------------------------------+--------+
+| _vertices                                            | _edges |
++------------------------------------------------------+--------+
+| [("player100" :player{age: 42, name: "Tim Duncan"})] | []     |
++------------------------------------------------------+--------+
+| []                                                   | []     |
++------------------------------------------------------+--------+
+</code></pre></div>
+<p>There is no incoming <code>follow</code> edge to <code>player100</code>, so no vertex or edge is returned.</p>
+</li>
+</ul>
+<ul>
+<li>This example goes one step from the vertex <code>player100</code> over outgoing <code>serve</code> edges, gets the subgraph, and shows the property of the edge.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH WITH PROP 1 STEPS FROM "player100" OUT serve;
++------------------------------------------------------+-------------------------------------------------------------------------+
+| _vertices                                            | _edges                                                                  |
++------------------------------------------------------+-------------------------------------------------------------------------+
+| [("player100" :player{age: 42, name: "Tim Duncan"})] | [[:serve "player100"-&gt;"team200" @0 {end_year: 2016, start_year: 1997}]] |
++------------------------------------------------------+-------------------------------------------------------------------------+
+| [("team200" :team{name: "Warriors"})]                | []                                                                      |
++------------------------------------------------------+-------------------------------------------------------------------------+
 </code></pre></div>
 <p>The returned subgraph is as follows.</p>
 </li>
 </ul>
 <p><img alt='GET SUBGRAPH FROM "100" OUT serve' src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/15.subgraph-and-path/subgraph-2.png"/></p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
+<h3 id="why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count">Why is the number of hops in the returned result greater than <code>step_count</code>?<a class="headerlink" href="#why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count" title="Permanent link">¶</a></h3>
+<p>To show the completeness of the subgraph, an additional hop is made on all vertices that meet the conditions. The following graph is used as the sample.</p>
+<p><img alt="FAQ" src="../subgraph2.png"/></p>
+<ul>
+<li>The returned paths of <code>GET SUBGRAPH 1 STEPS FROM "A";</code> are <code>A-&gt;B</code>, <code>B-&gt;A</code>, and <code>A-&gt;C</code>. To show the completeness of the subgraph, an additional hop is made on all vertices that meet the conditions, namely <code>B-&gt;C</code>.</li>
+</ul>
+<ul>
+<li>The returned path of <code>GET SUBGRAPH 1 STEPS FROM "A" IN follow;</code> is <code>B-&gt;A</code>. To show the completeness of the subgraph, an additional hop is made on all vertices that meet the conditions, namely <code>A-&gt;B</code>.</li>
+</ul>
+<p>If you only query paths or vertices that meet the conditions, we suggest you use <a href="../../7.general-query-statements/2.match/">MATCH</a> or <a href="../7.general-query-statements/3 .go.md">GO</a>. The example is as follows.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; match p= (v:player) -- (v2) where id(v)=="A" return p;
+
+nebula&gt; go 1 steps from "A" over follow;
+</code></pre></div>
+<h3 id="why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count">Why is the number of hops in the returned result lower than <code>step_count</code>?<a class="headerlink" href="#why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count" title="Permanent link">¶</a></h3>
+<p>The query stops when there is not enough subgraph data and will not return the null value.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 100 STEPS FROM "player141" OUT follow;
++-------------------------------------------------------+------------------------------------------------------+
+| _vertices                                             | _edges                                               |
++-------------------------------------------------------+------------------------------------------------------+
+| [("player141" :player{age: 43, name: "Ray Allen"})]   | [[:follow "player141"-&gt;"player124" @0 {degree: 9}]]  |
++-------------------------------------------------------+------------------------------------------------------+
+| [("player124" :player{age: 33, name: "Rajon Rondo"})] | [[:follow "player124"-&gt;"player141" @0 {degree: -1}]] |
++-------------------------------------------------------+------------------------------------------------------+
+</code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 15, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2021</span>
 </small>
 </div>
 </article>
