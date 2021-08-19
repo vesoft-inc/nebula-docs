@@ -1684,7 +1684,7 @@
 <li>Supports synchronizing with the third party systems, such as <a href="../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es.md">Elasticsearch</a>.</li>
 </ul>
 <h2 id="the_architecture_of_storage_service">The architecture of Storage Service<a class="headerlink" href="#the_architecture_of_storage_service" title="Permanent link">¶</a></h2>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/1.overview/3.design-and-architecture/2.storage-design/storage-design.png"/></p>
+<p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png"/></p>
 <p>Storage Service is run by the nebula-storaged process. Users can deploy nebula-storaged processes on different occasions. For example, users can deploy 1 nebula-storaged process in a test environment and deploy 3 nebula-storaged processes in a production environment.</p>
 <p>All the nebula-storaged processes consist of a Raft-based cluster. There are three layers in the Storage Service:</p>
 <ul>
@@ -1818,7 +1818,7 @@
 </li>
 </ul>
 <div class="admonition compatibility">
-<p class="admonition-title">Compatibility</p>
+<p class="admonition-title">Legacy version compatibility</p>
 <p>The differences between Nebula Graph 1.x and 2.0 are as follows:</p>
 <ul>
 <li>In Nebula Graph 1.x, a vertex and an edge have the same <code>Type</code> byte, while in Nebula Graph 2.0, the Type byte differs from each other, which separates vertices and edges physically so that all tags of a vertex can be easily queried.</li>
@@ -1861,15 +1861,15 @@
 <p>When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. The number of partitions is set in the CREATE SPACE statement and cannot be changed afterward.</p>
 <p>If certain vertices need to be placed on the same partition (i.e., on the same machine), see <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">Formula/code</a>。</p>
 <p>The following code will briefly describe the relationship between VID and partition.</p>
-<div class="highlight"><pre><span></span><code>    // If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
-    uint64_t vid = 0;
-    if (id.size() == 8) {
-        memcpy(static_cast&lt;void*&gt;(&amp;vid), id.data(), 8);
-    } else {
-        MurmurHash2 hash;
-        vid = hash(id.data());
-    }
-    PartitionID pId = vid % numParts + 1;
+<div class="highlight"><pre><span></span><code>// If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
+uint64_t vid = 0;
+if (id.size() == 8) {
+    memcpy(static_cast&lt;void*&gt;(&amp;vid), id.data(), 8);
+} else {
+    MurmurHash2 hash;
+    vid = hash(id.data());
+}
+PartitionID pId = vid % numParts + 1;
 </code></pre></div>
 <p>Roughly speaking, after hashing a fixed string to int64, (the hashing of int64 is the number itself), do modulo, and then plus one, namely:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vid</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">numParts</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
@@ -1960,7 +1960,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 8, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2021</span>
 </small>
 </div>
 </article>
