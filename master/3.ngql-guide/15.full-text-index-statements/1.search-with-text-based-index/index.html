@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#full-text_search">
+<a class="md-skip" href="#full-text_indexes">
           Skip to content
         </a>
 </div>
@@ -988,14 +988,53 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#before_you_start">
-    Before you start
+<a class="md-nav__link" href="#prerequisite">
+    Prerequisite
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#precaution">
+    Precaution
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#natural_language_full-text_search">
     Natural language full-text search
   </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create_full-text_indexes">
+    Create full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#show_full-text_indexes">
+    Show full-text indexes
+  </a>
+<nav aria-label="Show full-text indexes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rebuild_full-text_indexes">
+    Rebuild full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#drop_full-text_indexes">
+    Drop full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use_query_options">
+    Use query options
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
@@ -1486,14 +1525,53 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#before_you_start">
-    Before you start
+<a class="md-nav__link" href="#prerequisite">
+    Prerequisite
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#precaution">
+    Precaution
   </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#natural_language_full-text_search">
     Natural language full-text search
   </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#syntax">
+    Syntax
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create_full-text_indexes">
+    Create full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#show_full-text_indexes">
+    Show full-text indexes
+  </a>
+<nav aria-label="Show full-text indexes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rebuild_full-text_indexes">
+    Rebuild full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#drop_full-text_indexes">
+    Drop full-text indexes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use_query_options">
+    Use query options
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
@@ -1510,8 +1588,30 @@
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/15.full-text-index-statements/1.search-with-text-based-index.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="full-text_search">Full-text search<a class="headerlink" href="#full-text_search" title="Permanent link">¶</a></h1>
-<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE &lt;expression&gt; [YIELD &lt;return_list&gt;]
+<h1 id="full-text_indexes">Full-text indexes<a class="headerlink" href="#full-text_indexes" title="Permanent link">¶</a></h1>
+<p>Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property.</p>
+<p>You can use the <code>WHERE</code> clause to specify the search strings in <code>LOOKUP</code> or <code>MATCH</code>.</p>
+<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">¶</a></h2>
+<p>Before using the full-text index, make sure that you have deployed a Elasticsearch cluster and a Listener cluster. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy Elasticsearch</a> and <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Listener</a>.</p>
+<h2 id="precaution">Precaution<a class="headerlink" href="#precaution" title="Permanent link">¶</a></h2>
+<p>Before using the full-text index, make sure that you know the <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/1.text-based-index-restrictions/">restrictions</a>.</p>
+<h2 id="natural_language_full-text_search">Natural language full-text search<a class="headerlink" href="#natural_language_full-text_search" title="Permanent link">¶</a></h2>
+<p>A natural language search interprets the search string as a phrase in natural human language. The search is case-insensitive. By default, each substring (separated by spaces) will be searched separately. For example, there are three vertices with the tag <code>player</code>. The tag <code>player</code> contains the property <code>name</code>. The <code>name</code> of these three vertices are <code>Kevin Durant</code>, <code>Tim Duncan</code>, and <code>David Beckham</code>. Now that the full-text index of <code>player.name</code> is established, these three vertices will be queried when using the prefix search statement <code>LOOKUP ON player WHERE PREFIX(player.name,"d");</code>.</p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<h2 id="create_full-text_indexes">Create full-text indexes<a class="headerlink" href="#create_full-text_indexes" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]);
+</code></pre></div>
+<h2 id="show_full-text_indexes">Show full-text indexes<a class="headerlink" href="#show_full-text_indexes" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>SHOW FULLTEXT INDEXES;
+</code></pre></div>
+<h3 id="rebuild_full-text_indexes">Rebuild full-text indexes<a class="headerlink" href="#rebuild_full-text_indexes" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>REBUILD FULLTEXT INDEX;
+</code></pre></div>
+<h3 id="drop_full-text_indexes">Drop full-text indexes<a class="headerlink" href="#drop_full-text_indexes" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>DROP FULLTEXT INDEX &lt;index_name&gt;;
+</code></pre></div>
+<h3 id="use_query_options">Use query options<a class="headerlink" href="#use_query_options" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE &lt;expression&gt; [YIELD &lt;return_list&gt;];
 
 &lt;expression&gt; ::=
     PREFIX | WILDCARD | REGEXP | FUZZY
@@ -1521,28 +1621,67 @@
 </code></pre></div>
 <ul>
 <li>PREFIX(schema_name.prop_name, prefix_string, row_limit, timeout)</li>
+</ul>
+<ul>
 <li>WILDCARD(schema_name.prop_name, wildcard_string, row_limit, timeout)</li>
+</ul>
+<ul>
 <li>REGEXP(schema_name.prop_name, regexp_string, row_limit, timeout)</li>
-<li>FUZZY(schema_name.prop_name, fuzzy_string, fuzziness, operator, row_limit, timeout)<ul>
+</ul>
+<ul>
+<li>
+<p>FUZZY(schema_name.prop_name, fuzzy_string, fuzziness, operator, row_limit, timeout)</p>
+<ul>
 <li><code>fuzziness</code> (optional): Maximum edit distance allowed for matching. The default value is <code>AUTO</code>. For other valid values and more information, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/common-options.html#fuzziness">Elasticsearch document</a>.</li>
-<li><code>operator</code> (optional): Boolean logic used to interpret text. Valid values are <code>OR</code> (default) and <code>AND</code>.</li>
+</ul>
+<ul>
+<li><code>operator</code> (optional): Boolean logic used to interpret the text. Valid values are <code>OR</code> (default) and <code>AND</code>.</li>
 </ul>
 </li>
-<li><code>row_limit</code> (optional): Specifies the number of rows to return. The default value is 100.</li>
-<li><code>timeout</code> (optional): Specifies the timeout time. The default value is 200ms.</li>
 </ul>
-<p>Use the <code>LOOKUP ON</code> statement to do full-text search. The search string is specified in the <code>WHERE</code> clause. Before doing a full-text search, make sure that you deployed a Elasticsearch cluster and a Listener cluster. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Deploy Elasticsearch</a> and <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Listener</a>.</p>
-<h2 id="before_you_start">Before you start<a class="headerlink" href="#before_you_start" title="Permanent link">¶</a></h2>
-<p>Before you start using the full-text index, please make sure that you know the <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/1.text-based-index-restrictions/">restrictions</a>.</p>
-<h2 id="natural_language_full-text_search">Natural language full-text search<a class="headerlink" href="#natural_language_full-text_search" title="Permanent link">¶</a></h2>
-<p>A natural language search interprets the search string as a phrase in natural human language. The search is case-insensitive.</p>
+<ul>
+<li><code>row_limit</code> (optional): Specifies the number of rows to return. The default value is <code>100</code>.</li>
+</ul>
+<ul>
+<li><code>timeout</code> (optional): Specifies the timeout time. The default value is <code>200ms</code>.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE basketballplayer (partition_num=3,replica_factor=1, vid_type=fixed_string(30));
+<div class="highlight"><pre><span></span><code>// This example creates the graph space.
+nebula&gt; CREATE SPACE basketballplayer (partition_num=3,replica_factor=1, vid_type=fixed_string(30));
+
+// This example signs in the text service.
 nebula&gt; SIGN IN TEXT SERVICE (127.0.0.1:9200);
+
+// This example switches the graph space.
 nebula&gt; USE basketballplayer;
-nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:46780;
+
+// This example adds the listener to the Nebula Graph cluster.
+nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:9789;
+
+// This example creates the tag.
 nebula&gt; CREATE TAG player(name string, age int);
+
+// This example creates the native index.
 nebula&gt; CREATE TAG INDEX name ON player(name(20));
+
+// This example rebuilds the native index.
+nebula&gt; REBUILD TAG INDEX;
+
+// This example creates the full-text index. The index name starts with "nebula".
+nebula&gt; CREATE FULLTEXT TAG INDEX nebula_index_1 ON player(name);
+
+// This example rebuilds the full-text index.
+nebula&gt; REBUILD FULLTEXT INDEX;
+
+// This example shows the full-text index.
+nebula&gt; SHOW FULLTEXT INDEXES;
++------------------+-------------+-------------+--------+
+| Name             | Schema Type | Schema Name | Fields |
++------------------+-------------+-------------+--------+
+| "nebula_index_1" | "Tag"       | "player"    | "name" |
++------------------+-------------+-------------+--------+
+
+// This example inserts the test data.
 nebula&gt; INSERT VERTEX player(name, age) VALUES \
   "Russell Westbrook": ("Russell Westbrook", 30), \
   "Chris Paul": ("Chris Paul", 33),\
@@ -1556,7 +1695,7 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES \
   "Ben Simmons": ("Ben Simmons", 22),\
   "Blake Griffin": ("Blake Griffin", 30);
 
-
+// These examples run test queries.
 nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, "B");
 +-----------------+
 | _vid            |
@@ -1581,7 +1720,7 @@ nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, "*ri*") YIELD player.nam
 
 nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, "*ri*") | YIELD count(*);
 +----------+
-| COUNT(*) |
+| count(*) |
 +----------+
 | 3        |
 +----------+
@@ -1611,12 +1750,15 @@ nebula&gt; LOOKUP ON player WHERE FUZZY(player.name, "Tim Dunncan", AUTO, OR) YI
 +--------------+--------------+
 | "Tim Duncan" | "Tim Duncan" |
 +--------------+--------------+
+
+// This example drops the full-text index.
+nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
 </small>
 </div>
 </article>
