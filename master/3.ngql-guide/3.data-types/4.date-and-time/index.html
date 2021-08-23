@@ -1547,7 +1547,12 @@
 <p class="admonition-title">Note</p>
 <p>To change the time zone, modify the <code>timezone_name</code> value in the configuration files of all Nebula Graph services.</p>
 </div>
-<p>Combined with <code>RETURN</code> clauses, <code>date()</code>, <code>time()</code>, and <code>datetime()</code> all accept empty parameters to return the current date, time and datetime.</p>
+<ul>
+<li><code>date()</code>, <code>time()</code>, <code>datetime()</code>, and <code>timestamp()</code> all accept empty parameters to return the current date, time, and datetime.</li>
+</ul>
+<ul>
+<li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> all accept the property name to return a specific property value of itself. For example, <code>date().month</code> returns the current month, while <code>time("02:59:40").minute</code> returns the minutes of the importing time.</li>
+</ul>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
 <p>In nGQL:</p>
 <ul>
@@ -1561,10 +1566,13 @@
 </ul>
 <h2 id="date">DATE<a class="headerlink" href="#date" title="Permanent link">¶</a></h2>
 <p>The <code>DATE</code> type is used for values with a date part but no time part. Nebula Graph retrieves and displays <code>DATE</code> values in the <code>YYYY-MM-DD</code> format. The supported range is <code>-32768-01-01</code> to <code>32767-12-31</code>.</p>
+<p>The properties of <code>date()</code> include <code>year</code>, <code>month</code>, and <code>day</code>.</p>
 <h2 id="time">TIME<a class="headerlink" href="#time" title="Permanent link">¶</a></h2>
 <p>The <code>TIME</code> type is used for values with a time part but no date part. Nebula Graph retrieves and displays <code>TIME</code> values in <code>hh:mm:ss.msmsmsususus</code> format. The supported range is <code>00:00:00.000000</code> to <code>23:59:59.999999</code>.</p>
+<p>The properties of <code>time()</code> include <code>hour</code>, <code>minute</code>, and <code>second</code>.</p>
 <h2 id="datetime">DATETIME<a class="headerlink" href="#datetime" title="Permanent link">¶</a></h2>
 <p>The <code>DATETIME</code> type is used for values that contain both date and time parts. Nebula Graph retrieves and displays <code>DATETIME</code> values in <code>YYYY-MM-DDThh:mm:ss.msmsmsususus</code> format. The supported range is <code>-32768-01-01T00:00:00.000000</code> to <code>32767-12-31T23:59:59.999999</code>.</p>
+<p>The properties of <code>datetime()</code> include <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, and <code>second</code>.</p>
 <h2 id="timestamp">TIMESTAMP<a class="headerlink" href="#timestamp" title="Permanent link">¶</a></h2>
 <p>The <code>TIMESTAMP</code> data type is used for values that contain both date and time parts. It has a range of <code>1970-01-01T00:00:01</code> UTC to <code>2262-04-11T23:47:16</code> UTC.</p>
 <p><code>TIMESTAMP</code> has the following features:</p>
@@ -1614,6 +1622,18 @@ nebula&gt; return timestamp("2021-07-05T06:18:43.984000");
 </code></pre></div>
 </li>
 <li>
+<p>Return the month of the property <code>p1</code> on <code>test1</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX date1_index ON date1(p1);
+nebula&gt; REBUILD TAG INDEX date1_index;
+nebula&gt; MATCH (v:date1) RETURN v.p1.month;
++------------+
+| v.p1.month |
++------------+
+| 3          |
++------------+
+</code></pre></div>
+</li>
+<li>
 <p>Create a tag named <code>school</code> with the property of <code>TIMESTAMP</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG school(name string , found_time timestamp);
 </code></pre></div>
@@ -1656,7 +1676,7 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
 </small>
 </div>
 </article>

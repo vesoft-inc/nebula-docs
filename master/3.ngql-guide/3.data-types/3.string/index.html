@@ -328,6 +328,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#string_types_1">
+    String types
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#escape_characters">
     Escape Characters
   </a>
@@ -1491,6 +1496,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#string_types_1">
+    String types
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#escape_characters">
     Escape Characters
   </a>
@@ -1511,19 +1521,33 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="string">String<a class="headerlink" href="#string" title="Permanent link">¶</a></h1>
-<p>The string type is declared with the keywords of <code>string</code> or <code>fixed_string(&lt;length&gt;)</code>. A string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. For example <code>"Shaquille O'Neal"</code> or <code>'This is a double-quoted literal string'</code>.</p>
+<p>Fixed-length strings and variable-length strings are supported.</p>
 <h2 id="string_types">String types<a class="headerlink" href="#string_types" title="Permanent link">¶</a></h2>
-<p>Nebula Graph supports two string types as follows:</p>
+<p>The string type is declared with the keywords of:</p>
 <ul>
-<li>Fixed-length string type<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 fixed_string(10)); 
+<li><code>STRING</code>: Variable-length strings.</li>
+<li><code>FIXED_STRING(&lt;length&gt;)</code>: Fixed-length strings. <code>&lt;length&gt;</code> is the length of the string, such as <code>FIXED_STRING(32)</code>.</li>
+</ul>
+<p>A string type is used to store a sequence of characters (text). The literal constant is a sequence of characters of any length surrounded by double or single quotes. For example, <code>"Hello, Cooper"</code> or <code>'Hello, Cooper'</code>.</p>
+<h2 id="string_types_1">String types<a class="headerlink" href="#string_types_1" title="Permanent link">¶</a></h2>
+<p>Nebula Graph supports using string types in the following ways:</p>
+<ul>
+<li>Define the data type of <a href="../../../1.introduction/3.vid/">VID</a> as a fixed-length string.</li>
+<li>Set the variable-length string as the Schema name, including the names of the graph space, tag, edge type, and property.</li>
+<li>Define the data type of the property as a fixed-length or variable-length string.</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>Define the data type of the property as a fixed-length string<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t1 (p1 FIXED_STRING(10)); 
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Variable-length string type<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (p2 string); 
+<li>Define the data type of the property as a variable-length string<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (p2 STRING); 
 </code></pre></div>
 </li>
 </ul>
+<p>When writing a fixed-length string, if the string you try to write exceeds the length limit, Nebula Graph will truncate the string and store the part that meets the length limit. For example, when the VID type of a graph space is <code>FIXED_STRING(8)</code>, if you try to set <code>A_string_with_27_characters</code> as a VID and use the nGQL command to query the VID, only <code>A_string</code> will be returned.</p>
 <h2 id="escape_characters">Escape Characters<a class="headerlink" href="#escape_characters" title="Permanent link">¶</a></h2>
 <p>Line breaks are not allowed in a string. Escape characters are supported within strings, for example:</p>
 <ul>
@@ -1533,7 +1557,7 @@
 <li><code>"\110ello world"</code></li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
-<p>There is some tiny differences between openCypher and Cypher, as well as nGQL. The following is what openCypher requires. Single quotes cannot be converted to double quotes.</p>
+<p>There are some tiny differences between openCypher and Cypher, as well as nGQL. The following is what openCypher requires. Single quotes cannot be converted to double quotes.</p>
 <div class="highlight"><pre><span></span><code># File: Literals.feature
 Feature: Literals
 
@@ -1561,7 +1585,7 @@ Background:
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
 </small>
 </div>
 </article>
