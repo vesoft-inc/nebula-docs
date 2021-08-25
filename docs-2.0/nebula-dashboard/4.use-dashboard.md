@@ -24,6 +24,8 @@ Machine consists of the following parts:
 
   - You can choose the machine and monitoring metrics that you want to check. For more information, see [monitor parameter](6.monitor-parameter.md).
 
+  - You can set a base line as a reference.
+
   ![Machine](machine.png)
 
 ## Service
@@ -47,6 +49,8 @@ Service consists of the following parts:
   - By default, you can check the monitoring data up to 14 days before. The alternative can be 1 hour, 6 hours, 12 hours, 1 day, 3 days, 7 days, or 14 days in the past.
 
   - You can choose the machine that you want to check the monitoring data, monitoring metrics, metric methods, and period. For more information, see [monitor parameter](6.monitor-parameter.md)。
+
+  - You can set a base line as a reference.
 
   - You can check the status of the current service.
 
@@ -82,3 +86,17 @@ Management consists of the following parts:
 - Long-term Task
 
   It shows the information of all jobs. Dashboard does not support online management of jobs for now. For details, see [job statements](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md).
+
+## Others
+
+In the lower left corner of the page, you can:
+
+- Sign out
+
+- Switch between Chinese and English
+
+- View the current Dashboard release
+
+- View the user manual and forum
+
+- Fold the sidebar

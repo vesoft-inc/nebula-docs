@@ -9,24 +9,20 @@ This topic applies to native nGQL only.
 You can also use the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
 
 ```ngql
-nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC
-+----------------------+--------------+
-| Name                 | Follower_Num |
-+----------------------+--------------+
-| "Tim Duncan"         | 10           |
-+----------------------+--------------+
-| "LeBron James"       | 6            |
-+----------------------+--------------+
-| "Tony Parker"        | 5            |
-+----------------------+--------------+
-| "Manu Ginobili"      | 4            |
-+----------------------+--------------+
-| "Chris Paul"         | 4            |
-+----------------------+--------------+
-| "Tracy McGrady"      | 3            |
-+----------------------+--------------+
-| "Dwyane Wade"        | 3            |
-+----------------------+--------------+
+nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC;
++----------------------+-----+
+| Name                 | cnt |
++----------------------+-----+
+| "Tim Duncan"         | 10  |
++----------------------+-----+
+| "LeBron James"       | 6   |
++----------------------+-----+
+| "Tony Parker"        | 5   |
++----------------------+-----+
+| "Chris Paul"         | 4   |
++----------------------+-----+
+| "Manu Ginobili"      | 4   |
++----------------------+-----+
 ...
 ```
 

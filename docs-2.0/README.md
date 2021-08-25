@@ -8,18 +8,26 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
+* [Configuration](4.deployment-and-installation/1.resource-preparations.md)
 * [FAQ](19.FAQ/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
   
 ## Other Sources
 
 - [Nebula Graph Homepage](https://nebula-graph.io/)
+- [Release note](20.appendix/releasenote.md)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blog](https://nebula-graph.io/posts/)
 - [Video](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
 - [Chinese Docs](https://docs.nebula-graph.com.cn/master/)
 
 ## Graphic Illustrations
+
+<!-- 
+This manual has over 40 cautions.
+This manual has over 30 dangers.
+This manual has over 80 compatibilities and corresponding tips.
+-->
 
 !!! note
 
@@ -48,3 +56,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 !!! enterpriseonly
 
     Differences between the Nebula Graph Open Source and Enterprise editions.
+
+## Modify errors
+ 
+This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
