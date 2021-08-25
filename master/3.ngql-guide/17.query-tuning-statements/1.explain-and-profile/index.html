@@ -1048,13 +1048,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#format_row">
-    Format "row"
+<a class="md-nav__link" href="#the_row_format">
+    The row format
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#format_dot">
-    Format "dot"
+<a class="md-nav__link" href="#the_dot_format">
+    The dot format
   </a>
 </li>
 </ul>
@@ -1511,13 +1511,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#format_row">
-    Format "row"
+<a class="md-nav__link" href="#the_row_format">
+    The row format
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#format_dot">
-    Format "dot"
+<a class="md-nav__link" href="#the_dot_format">
+    The dot format
   </a>
 </li>
 </ul>
@@ -1531,47 +1531,46 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="explain_and_profile">EXPLAIN and PROFILE<a class="headerlink" href="#explain_and_profile" title="Permanent link">¶</a></h1>
-<p><code>EXPLAIN</code> helps output the execution plan of an nGQL statement without executing the statement. <code>PROFILE</code> executes the statement, then outputs the execution plan as well as the execution profile. You can optimize the queries for better performance with the execution plan and profile.</p>
+<p><code>EXPLAIN</code> helps output the execution plan of an nGQL statement without executing the statement.</p>
+<p><code>PROFILE</code> executes the statement, then outputs the execution plan as well as the execution profile. You can optimize the queries for better performance according to the execution plan and profile.</p>
 <h2 id="execution_plan">Execution Plan<a class="headerlink" href="#execution_plan" title="Permanent link">¶</a></h2>
 <p>The execution plan is determined by the execution planner in the Nebula Graph query engine.</p>
-<p>The execution planner processes the parsed nGQL statements into actions. An action is the smallest unit that can be executed. A typical action fetches all neighbors of a given vertex, gets the properties of an edge, or filters vertices or edges based on the given conditions. Each action is assigned to an operator that performs the action.</p>
-<p>For example, a <code>SHOW TAGS</code> statement is processed into two actions and assigned to a <code>Start</code> operator and a <code>ShowTags</code> operator, while a more complex <code>GO</code> statement may be processed into more than 10 actions and assigned to 10 operators.</p>
+<p>The execution planner processes the parsed nGQL statements into <code>actions</code>. An <code>action</code> is the smallest unit that can be executed. A typical <code>action</code> fetches all neighbors of a given vertex, gets the properties of an edge, and filters vertices or edges based on the given conditions. Each <code>action</code> is assigned to an <code>operator</code> that performs the action.</p>
+<p>For example, a <code>SHOW TAGS</code> statement is processed into two <code>actions</code> and assigned to a <code>Start operator</code> and a <code>ShowTags operator</code>, while a more complex <code>GO</code> statement may be processed into more than 10 <code>actions</code> and assigned to 10 operators.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <ul>
-<li><code>EXPLAIN</code></li>
-</ul>
-<div class="highlight"><pre><span></span><code>EXPLAIN [format="row" | "dot"] &lt;your_nGQL_statement&gt;
-</code></pre></div>
-<ul>
-<li><code>PROFILE</code></li>
-</ul>
-<div class="highlight"><pre><span></span><code>PROFILE [format="row" | "dot"] &lt;your_nGQL_statement&gt;
-</code></pre></div>
-<h2 id="output_formats">Output formats<a class="headerlink" href="#output_formats" title="Permanent link">¶</a></h2>
-<p>The output of an <code>EXPLAIN</code> or a <code>PROFILE</code> statement has two formats, the default "row" format and the "dot" format. You can use the <code>format</code> option to modify the output format. Omitting the <code>format</code> option indicates using the default "row" format.</p>
-<h2 id="format_row">Format "row"<a class="headerlink" href="#format_row" title="Permanent link">¶</a></h2>
-<p>The "row" format outputs the return message in a table as follows.</p>
-<ul>
-<li>
-<p><code>EXPLAIN</code>:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; EXPLAIN format="row" SHOW TAGS;
-Execution succeeded (time spent 104/705 us)
-Execution Plan
-+----+----------+--------------+----------------+-----------------------------------------------------------------------+
-| id | name     | dependencies | profiling data | operator info                                                         |
-+----+----------+--------------+----------------+-----------------------------------------------------------------------+
-|  0 | ShowTags | 2            |                | outputVar: [  {"colNames":[],"name":"__ShowTags_0","type":"DATASET"}] |
-|    |          |              |                | inputVar:                                                             |
-+----+----------+--------------+----------------+-----------------------------------------------------------------------+
-|  2 | Start    |              |                | outputVar: [  {"colNames":[],"name":"__Start_2","type":"DATASET"}]    |
-+----+----------+--------------+----------------+-----------------------------------------------------------------------+
+<li><code>EXPLAIN</code><div class="highlight"><pre><span></span><code>EXPLAIN [format="row" | "dot"] &lt;your_nGQL_statement&gt;;
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>
-<p><code>PROFILE</code>:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; PROFILE format="row" SHOW TAGS;
+<li><code>PROFILE</code><div class="highlight"><pre><span></span><code>PROFILE [format="row" | "dot"] &lt;your_nGQL_statement&gt;;
+</code></pre></div>
+</li>
+</ul>
+<h2 id="output_formats">Output formats<a class="headerlink" href="#output_formats" title="Permanent link">¶</a></h2>
+<p>The output of an <code>EXPLAIN</code> or a <code>PROFILE</code> statement has two formats, the default <code>row</code> format and the <code>dot</code> format. You can use the <code>format</code> option to modify the output format. Omitting the <code>format</code> option indicates using the default <code>row</code> format.</p>
+<h2 id="the_row_format">The <code>row</code> format<a class="headerlink" href="#the_row_format" title="Permanent link">¶</a></h2>
+<p>The <code>row</code> format outputs the return message in a table as follows.</p>
+<ul>
+<li><code>EXPLAIN</code><div class="highlight"><pre><span></span><code>nebula&gt; EXPLAIN format="row" SHOW TAGS;
+Execution succeeded (time spent 327/892 us)
+
+Execution Plan
+
+-----+----------+--------------+----------------+----------------------------------------------------------------------
+| id | name     | dependencies | profiling data | operator info                                                       |
+-----+----------+--------------+----------------+----------------------------------------------------------------------
+|  1 | ShowTags | 0            |                | outputVar: [{"colNames":[],"name":"__ShowTags_1","type":"DATASET"}] |
+|    |          |              |                | inputVar:                                                           |
+-----+----------+--------------+----------------+----------------------------------------------------------------------
+|  0 | Start    |              |                | outputVar: [{"colNames":[],"name":"__Start_0","type":"DATASET"}]    |
+-----+----------+--------------+----------------+----------------------------------------------------------------------
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li><code>PROFILE</code><div class="highlight"><pre><span></span><code>nebula&gt; PROFILE format="row" SHOW TAGS;
 +--------+
 | Name   |
 +--------+
@@ -1583,55 +1582,54 @@ Got 2 rows (time spent 2038/2728 us)
 
 Execution Plan
 
-+----+----------+--------------+----------------------------------------------------+---------------------------------------------------------------------+
+-----+----------+--------------+----------------------------------------------------+----------------------------------------------------------------------
 | id | name     | dependencies | profiling data                                     | operator info                                                       |
-+----+----------+--------------+----------------------------------------------------+---------------------------------------------------------------------+
-|  0 | ShowTags | 2            | ver: 0, rows: 1, execTime: 79us, totalTime: 1692us | outputVar: [{"colNames":[],"name":"__ShowTags_0","type":"DATASET"}] |
+-----+----------+--------------+----------------------------------------------------+----------------------------------------------------------------------
+|  1 | ShowTags | 0            | ver: 0, rows: 1, execTime: 42us, totalTime: 1177us | outputVar: [{"colNames":[],"name":"__ShowTags_1","type":"DATASET"}] |
 |    |          |              |                                                    | inputVar:                                                           |
-+----+----------+--------------+----------------------------------------------------+---------------------------------------------------------------------+
-|  2 | Start    |              | ver: 0, rows: 0, execTime: 1us, totalTime: 57us    | outputVar: [{"colNames":[],"name":"__Start_2","type":"DATASET"}]    |
-+----+----------+--------------+----------------------------------------------------+---------------------------------------------------------------------+
+-----+----------+--------------+----------------------------------------------------+----------------------------------------------------------------------
+|  0 | Start    |              | ver: 0, rows: 0, execTime: 1us, totalTime: 57us    | outputVar: [{"colNames":[],"name":"__Start_0","type":"DATASET"}]    |
+-----+----------+--------------+----------------------------------------------------+----------------------------------------------------------------------
 </code></pre></div>
 </li>
 </ul>
-<p>The descriptions of the columns are as follows:</p>
+<p>The descriptions are as follows.</p>
 <table>
 <thead>
 <tr>
-<th>Column</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>id</code></td>
-<td>Indicates the ID of the operator.</td>
+<td>The ID of the <code>operator</code>.</td>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td>Indicates the name of the operator.</td>
+<td>The name of the <code>operator</code>.</td>
 </tr>
 <tr>
 <td><code>dependencies</code></td>
-<td>Shows the ID of the operator that the current operator depends on.</td>
+<td>The ID of the <code>operator</code> that the current <code>operator</code> depends on.</td>
 </tr>
 <tr>
 <td><code>profiling data</code></td>
-<td>Shows the execution profile. <code>ver</code> is the version of the operator, which you can use to identify loops; <code>rows</code> shows the number of rows to be output by the operator; <code>execTime</code> shows the execution time only; <code>totalTime</code> contains the execution time and the system scheduling and queueing time.</td>
+<td>The content of the execution profile. <code>ver</code> is the version of the <code>operator</code>. <code>rows</code> shows the number of rows to be output by the <code>operator</code>. <code>execTime</code> shows the execution time of <code>action</code>. <code>totalTime</code> is the sum of the execution time, the system scheduling time, and the queueing time.</td>
 </tr>
 <tr>
 <td><code>operator info</code></td>
-<td>Shows the detailed information of the operator.</td>
+<td>The detailed information of the <code>operator</code>.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="format_dot">Format "dot"<a class="headerlink" href="#format_dot" title="Permanent link">¶</a></h2>
-<p>You can use the <code>format="dot"</code> option to output the return message in the DOT language, and then use Graphviz to generate a graph of the plan.</p>
+<h2 id="the_dot_format">The <code>dot</code> format<a class="headerlink" href="#the_dot_format" title="Permanent link">¶</a></h2>
+<p>You can use the <code>format="dot"</code> option to output the return message in the <code>dot</code> language, and then use Graphviz to generate a graph of the plan.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Graphviz is open source graph visualization software.</p>
+<p>Graphviz is open source graph visualization software. Graphviz provides an online tool for previewing DOT language files and exporting them to other formats such as SVG or JSON. For more information, see <a href="https://dreampuf.github.io/GraphvizOnline/">Graphviz Online</a>.</p>
 </div>
-<p>Graphviz provides an online tool for previewing DOT language files and exporting them to other formats such as SVG or JSON. For more information, see <a href="https://dreampuf.github.io/GraphvizOnline/">Graphviz Online</a>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; EXPLAIN format="dot" SHOW TAGS;
 Execution succeeded (time spent 161/665 us)
 Execution Plan
@@ -1646,13 +1644,13 @@ Execution Plan
   }
 ---------------------------------------------------------------------------------------------------------------------------------------------  -------------
 </code></pre></div>
-<p>Transformed into a Graphviz graph, it is as follows:</p>
+<p>The Graphviz graph transformed from the above DOT statement is as follows.</p>
 <p><img alt="Graphviz graph of EXPLAIN SHOW TAGS" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/16.query-tuning-statements/explain-show-tags.png"/></p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 24, 2021</span>
 </small>
 </div>
 </article>
