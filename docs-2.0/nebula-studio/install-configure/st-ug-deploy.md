@@ -35,7 +35,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
    
    | Installation package | Nebula Graph version |
    | ----- | ----- |
-   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | 2.5.0 |
+   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | 2.5.0 |
 
 2. Create the `nebula-graph-studio-v3` directory and decompress the installation package to the directory.
 
@@ -113,7 +113,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
    | Installation package | Checksum | Nebula version |
    | ----- | ----- | ----- |
-   | [nebula-graph-studio-3.0.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm) |  [nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256) | 2.5.0 |
+   | [nebula-graph-studio-3.0.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm) |  [nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256) | 2.5.0 |
 
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
@@ -219,7 +219,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 1. Select and download the tar package according to your needs. It is recommended to select the latest version. Common links are as follows:
    | Installation package | Studio version |
    | --- | --- |
-   | [nebula-graph-studio-3.0.0-1.x86_64.tar.gz](https://oss-cdn.nebula-graph.com.cn/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.tar.gz) | 3.0.0 |
+   | [nebula-graph-studio-3.0.0-1.x86_64.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.tar.gz) | 3.0.0 |
 
 2. Use `tar -xvf` to decompress the tar package.
 
