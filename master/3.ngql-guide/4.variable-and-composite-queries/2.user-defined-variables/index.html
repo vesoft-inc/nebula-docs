@@ -1524,7 +1524,7 @@
 <p>The user-defined variable in the preceding query is <code>v</code>.</p>
 <h2 id="native_ngql">Native nGQL<a class="headerlink" href="#native_ngql" title="Permanent link">¶</a></h2>
 <p>User-defined variables are written as <code>$var_name</code>. The <code>var_name</code> consists of letters, numbers, or underline characters. Any other characters are not permitted.</p>
-<p>The user-defined variables are valid only at the current execution. When the execution ends, the user-defined variables will be automatically expired. The user-defined variables in one statement <strong>CANNOT</strong> be used in either other clients or other executions.</p>
+<p>The user-defined variables are valid only at the current execution (namely, in this composite query). When the execution ends, the user-defined variables will be automatically expired. The user-defined variables in one statement <strong>CANNOT</strong> be used in any other clients, executions, or sessions.</p>
 <p>You can use user-defined variables in composite queries. Details about composite queries, see <a href="../1.composite-queries/">Composite queries</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1532,8 +1532,8 @@
 </div>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD follow._dst AS id; \
-GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
-$^.player.name AS Player;
+        GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
 +---------+-------------+
 | Team    | Player      |
 +---------+-------------+
@@ -1544,7 +1544,7 @@ $^.player.name AS Player;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>
