@@ -103,6 +103,20 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   RETURN v;
   ```
 
+3. Use uppercase keywords and lowercase variables.
+
+  Not recommended:
+
+  ```ngql
+  go from "player100" over Follow
+  ```
+  
+  Recommended:
+    
+  ```ngql
+  GO FROM "player100" OVER follow
+  ```
+
 ## Pattern
 
 1. Start a new line on the right side of the arrow indicating an edge when writing patterns.
