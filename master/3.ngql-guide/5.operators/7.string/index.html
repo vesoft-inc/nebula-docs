@@ -1616,7 +1616,7 @@ nebula&gt; UNWIND 'a' AS a UNWIND 'b' AS b RETURN a + b;
 <h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">¶</a></h3>
 <p>The <code>CONTAINS</code> operator requires string types on both left and right sides.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == "player101" \
-    AND t.name CONTAINS "ets" RETURN s.name, e.start_year, e.end_year, t.name;
+        AND t.name CONTAINS "ets" RETURN s.name, e.start_year, e.end_year, t.name;
 +---------------+--------------+------------+-----------+
 | s.name        | e.start_year | e.end_year | t.name    |
 +---------------+--------------+------------+-----------+
@@ -1624,8 +1624,8 @@ nebula&gt; UNWIND 'a' AS a UNWIND 'b' AS b RETURN a + b;
 +---------------+--------------+------------+-----------+
 
 nebula&gt; GO FROM "player101" OVER serve WHERE (STRING)serve.start_year CONTAINS "19" AND \
-    $^.player.name CONTAINS "ny" \
-    YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+        $^.player.name CONTAINS "ny" \
+        YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 +----------------+------------------+----------------+--------------+
 | $^.player.name | serve.start_year | serve.end_year | $$.team.name |
 +----------------+------------------+----------------+--------------+
@@ -1633,7 +1633,7 @@ nebula&gt; GO FROM "player101" OVER serve WHERE (STRING)serve.start_year CONTAIN
 +----------------+------------------+----------------+--------------+
 
 nebula&gt; GO FROM "player101" OVER serve WHERE !($$.team.name CONTAINS "ets") \
-    YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+        YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
 +----------------+------------------+----------------+--------------+
 | $^.player.name | serve.start_year | serve.end_year | $$.team.name |
 +----------------+------------------+----------------+--------------+
@@ -1641,11 +1641,11 @@ nebula&gt; GO FROM "player101" OVER serve WHERE !($$.team.name CONTAINS "ets") \
 +----------------+------------------+----------------+--------------+
 </code></pre></div>
 <h3 id="not_in"><code>(NOT) IN</code><a class="headerlink" href="#not_in" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], "Yao" NOT IN ["Yi", "Tim", "Kobe"], NULL in ["Yi", "Tim", "Kobe"]
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], "Yao" NOT IN ["Yi", "Tim", "Kobe"], NULL IN ["Yi", "Tim", "Kobe"]
 +----------------+------------------------------------+-------------------------------+
 | (1 IN [1,2,3]) | ("Yao" NOT IN ["Yi","Tim","Kobe"]) | (NULL IN ["Yi","Tim","Kobe"]) |
 +----------------+------------------------------------+-------------------------------+
-| true           | true                               | false                         |
+| true           | true                               | __NULL__                      |
 +----------------+------------------------------------+-------------------------------+
 </code></pre></div>
 <h3 id="not_starts_with"><code>(NOT) STARTS WITH</code><a class="headerlink" href="#not_starts_with" title="Permanent link">¶</a></h3>
@@ -1695,7 +1695,7 @@ nebula&gt; MATCH (v:player) WHERE v.name =~ 'Tony.*' RETURN v.name;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>
