@@ -1604,19 +1604,19 @@
 <ul>
 <li>Process of optimization<p>The optimization rules that Planner has implemented so far are considered RBO (Rule-Based Optimization), namely the pre-defined optimization rules. The CBO (Cost-Based Optimization) feature is under development. The optimized code is in the <code>src/optimizer/</code> directory under the <code>nebula-graph</code> repository.</p>
 <p>RBO is a “bottom-up” exploration process. For each rule, the root node of the execution plan (in this case, the <code>Project</code> node) is the entry point, and step by step along with the node dependencies, it reaches the node at the bottom to see if it matches the rule.</p>
-<p>As shown in the preceding figure, when the <code>Filter</code> node is explored, it is found that its children node is <code>GetNeighbors</code>, which matches successfully with the pre-defined rules, so a transformation is initiated to integrate the <code>Filter</code> node into the <code>GetNeighbors</code> node, the <code>Filter</code> node is removed, and then the process continues to the next rule. Therefore, when the <code>GetNeighbor</code> operator calls interfaces of the Storage layer to get the neighboring edges of a vertex during the execution stage, the Storage layer will directly filter out the unqualified edges internally. Such optimization greatly reduces the amount of data transfer, which is commonly known as filter push down.</p>
+<p>As shown in the preceding figure, when the <code>Filter</code> node is explored, it is found that its children node is <code>GetNeighbors</code>, which matches successfully with the pre-defined rules, so a transformation is initiated to integrate the <code>Filter</code> node into the <code>GetNeighbors</code> node, the <code>Filter</code> node is removed, and then the process continues to the next rule. Therefore, when the <code>GetNeighbor</code> operator calls interfaces of the Storage layer to get the neighboring edges of a vertex during the execution stage, the Storage layer will directly filter out the unqualified edges internally. Such optimization greatly reduces the amount of data transfer, which is commonly known as filter pushdown.</p>
 </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nebula Graph 2.5.0 will not run optimization at default settings.</p>
+<p>Nebula Graph 2.5.0 will not run optimization by default.</p>
 </div>
 <h2 id="executor">Executor<a class="headerlink" href="#executor" title="Permanent link">¶</a></h2>
 <p>The Executor module consists of Scheduler and Executor. The Scheduler generates the corresponding execution operators against the execution plan, starting from the leaf nodes and ending at the root node. The structure is as follows.</p>
 <p><img alt="Executor" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/executor.png"/></p>
 <p>Each node of the execution plan has one execution operator node, whose input and output have been determined in the execution plan. Each operator only needs to get the values for the input variables, compute them, and finally put the results into the corresponding output variables. Therefore, it is only necessary to execute step by step from <code>Start</code>, and the result of the last operator is returned to the user as the final result.</p>
 <h2 id="source_code_hierarchy">Source code hierarchy<a class="headerlink" href="#source_code_hierarchy" title="Permanent link">¶</a></h2>
-<p>The source code hierarchy under the nebula-graph repository is as follows：</p>
+<p>The source code hierarchy under the nebula-graph repository is as follows.</p>
 <div class="highlight"><pre><span></span><code><span class="p">|</span>--src
    <span class="p">|</span>--context    //contexts <span class="k">for</span> validation and execution
    <span class="p">|</span>--daemons
@@ -1635,7 +1635,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 9, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>

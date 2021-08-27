@@ -287,6 +287,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next">
+    Next
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1594,6 +1599,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next">
+    Next
+  </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -1605,12 +1615,12 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="manage_nebula_graph_services">Manage Nebula Graph services<a class="headerlink" href="#manage_nebula_graph_services" title="Permanent link">¶</a></h1>
-<p>The <code>nebula.service</code> script can start, stop, restart, terminate, and check the Nebula Graph services. This topic takes starting, stopping and checking the Nebula Graph services for examples.</p>
+<p>The <code>nebula.service</code> script can start, stop, restart, terminate, and check the Nebula Graph services.</p>
 <p><code>nebula.service</code> is stored in the <code>/usr/local/nebula/scripts</code> directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula/scripts/nebula.service 
-<span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-c &lt;config_file_path&gt;<span class="o">]</span>
-&lt;start<span class="p">|</span>stop<span class="p">|</span>restart<span class="p">|</span>status<span class="p">|</span>kill&gt;
+<span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-c &lt;config_file_path&gt;<span class="o">]</span> 
+&lt;start<span class="p">|</span>stop<span class="p">|</span>restart<span class="p">|</span>kill<span class="p">|</span>status&gt; 
 &lt;metad<span class="p">|</span>graphd<span class="p">|</span>storaged<span class="p">|</span>all&gt;
 </code></pre></div>
 <table>
@@ -1680,7 +1690,7 @@
 </code></pre></div>
 <h3 id="in_docker_container_deployed_with_docker-compose">In docker container (deployed with docker-compose)<a class="headerlink" href="#in_docker_container_deployed_with_docker-compose" title="Permanent link">¶</a></h3>
 <p>Run the following command in the <code>nebula-docker-compose/</code> directory to start Nebula Graph services.</p>
-<div class="highlight"><pre><span></span><code>nebula-docker-compose<span class="o">]</span>$ docker-compose up -d
+<div class="highlight"><pre><span></span><code><span class="o">[</span>nebula-docker-compose<span class="o">]</span>$ docker-compose up -d
 Building with native build. Learn about native build <span class="k">in</span> Compose here: https://docs.docker.com/go/compose-native-build/
 Creating network <span class="s2">"nebula-docker-compose_nebula-net"</span> with the default driver
 Creating nebula-docker-compose_metad0_1 ... <span class="k">done</span>
@@ -1696,11 +1706,11 @@ Creating nebula-docker-compose_graphd_1    ... <span class="k">done</span>
 <h2 id="stop_nebula_graph_services">Stop Nebula Graph services<a class="headerlink" href="#stop_nebula_graph_services" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Don't run <code>kill -9</code> to forcibly terminate the processes, otherwise, there will be a low probability of data loss.</p>
+<p>Do not run <code>kill -9</code> to forcibly terminate the processes, otherwise, there will be a low probability of data loss.</p>
 </div>
 <h3 id="in_non-container_environment_1">In non-container environment<a class="headerlink" href="#in_non-container_environment_1" title="Permanent link">¶</a></h3>
 <p>Run the following command to stop Nebula Graph services.</p>
-<div class="highlight"><pre><span></span><code>sudo /usr/local/nebula/scripts/nebula.service stop all
+<div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula/scripts/nebula.service stop all
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-metad...
 <span class="o">[</span>INFO<span class="o">]</span> Done
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-graphd...
@@ -1733,7 +1743,7 @@ Removing network nebula-docker-compose_nebula-net
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are using a developing or nightly version for testing and having compatibility issues, try to run 'docker-compose down-v' to <strong>DELETE</strong> all data stored in Nebula Graph and import data again.</p>
+<p>If you are using a developing or nightly version for testing and having compatibility issues, try to run <code>docker-compose down-v</code> to <strong>DELETE</strong> all data stored in Nebula Graph and import data again.</p>
 </div>
 <h2 id="check_the_service_status">Check the service status<a class="headerlink" href="#check_the_service_status" title="Permanent link">¶</a></h2>
 <h3 id="in_non-container_environment_2">In non-container environment<a class="headerlink" href="#in_non-container_environment_2" title="Permanent link">¶</a></h3>
@@ -1741,19 +1751,19 @@ Removing network nebula-docker-compose_nebula-net
 <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula/scripts/nebula.service status all
 </code></pre></div>
 <ul>
-<li>Nebula Graph is running normally if the following information is returned.</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Running as <span class="m">26601</span>, Listening on <span class="m">9559</span>
+<li>Nebula Graph is running normally if the following information is returned.<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Running as <span class="m">26601</span>, Listening on <span class="m">9559</span>
 <span class="o">[</span>INFO<span class="o">]</span> nebula-graphd: Running as <span class="m">26644</span>, Listening on <span class="m">9669</span>
 <span class="o">[</span>INFO<span class="o">]</span> nebula-storaged: Running as <span class="m">26709</span>, Listening on <span class="m">9779</span>
 </code></pre></div>
-<ul>
-<li>If the returned information is similar to the following one, there must be a problem. Users can check the corresponding information to troubleshoot problems or go to <a href="https://discuss.nebula-graph.io/">Nebula Graph Forum</a> for help.</li>
+</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Running as <span class="m">25600</span>, Listening on <span class="m">9559</span>
+<ul>
+<li>If the returned information is similar to the following one, there must be a problem. Users can check the corresponding information to troubleshoot problems or go to <a href="https://discuss.nebula-graph.io/">Nebula Graph Forum</a> for help.<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad: Running as <span class="m">25600</span>, Listening on <span class="m">9559</span>
 <span class="o">[</span>INFO<span class="o">]</span> nebula-graphd: Exited
 <span class="o">[</span>INFO<span class="o">]</span> nebula-storaged: Running as <span class="m">25646</span>, Listening on <span class="m">9779</span>
 </code></pre></div>
+</li>
+</ul>
 <p>The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the <code>/usr/local/nebula/etc/</code> directory by default. You can check the configuration files according to the returned information to troubleshoot problems.</p>
 <h3 id="in_docker_container_deployed_with_docker-compose_2">In docker container (deployed with docker-compose)<a class="headerlink" href="#in_docker_container_deployed_with_docker-compose_2" title="Permanent link">¶</a></h3>
 <p>Run the following command in the <code>nebula-docker-compose/</code> directory to check the service status of Nebula Graph.</p>
@@ -1792,11 +1802,13 @@ a74054c6ae25   vesoft/nebula-graphd:v2-nightly     <span class="s2">"/usr/local/
 nebula-docker-compose<span class="o">]</span>$ docker <span class="nb">exec</span> -it 2a6c56c405f5 bash
 <span class="o">[</span>root@2a6c56c405f5 nebula<span class="o">]</span><span class="c1">#</span>
 </code></pre></div>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">¶</a></h2>
+<p><a href="../3.connect-to-nebula-graph/">Connect to Nebula Graph</a></p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>

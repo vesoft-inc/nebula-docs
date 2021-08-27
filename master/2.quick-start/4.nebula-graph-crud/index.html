@@ -380,11 +380,6 @@
 <nav aria-label="About indexes" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#must-read_for_using_indexes">
-    Must-read for using indexes
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#ngql_syntax_6">
     nGQL syntax
   </a>
@@ -1782,11 +1777,6 @@
 <nav aria-label="About indexes" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#must-read_for_using_indexes">
-    Must-read for using indexes
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#ngql_syntax_6">
     nGQL syntax
   </a>
@@ -1816,6 +1806,7 @@
 </a>
 <h1 id="nebula_graph_crud">Nebula Graph CRUD<a class="headerlink" href="#nebula_graph_crud" title="Permanent link">¶</a></h1>
 <p>This topic will describe the basic CRUD operations in Nebula Graph.</p>
+<p>For more information, see <a href="../../3.ngql-guide/1.nGQL-overview/1.overview/">nGQL guide</a>.</p>
 <h2 id="graph_space_and_nebula_graph_schema">Graph space and Nebula Graph schema<a class="headerlink" href="#graph_space_and_nebula_graph_schema" title="Permanent link">¶</a></h2>
 <p>A Nebula Graph instance consists of one or more graph spaces. Graph spaces are physically isolated from each other. You can use different graph spaces in the same instance to store different datasets.</p>
 <p><img alt="Nebula Graph and graph spaces" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-graph-instance-and-graph-spaces.png"/></p>
@@ -1850,7 +1841,10 @@
 <p>In this topic, we will use the following dataset to demonstrate basic CRUD operations.</p>
 <p><img alt="The demo dataset" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/dataset-for-crud.png"/></p>
 <h2 id="check_the_machine_status_in_the_nebula_graph_cluster">Check the machine status in the Nebula Graph cluster<a class="headerlink" href="#check_the_machine_status_in_the_nebula_graph_cluster" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>First, we recommend that you check the machine status to make sure that all the Storage services are connected to the Meta services. Run <code>SHOW HOSTS</code> as follows.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 | Host        | Port      | Status    | Leader count | Leader distribution  | Partition distribution |
@@ -1867,7 +1861,10 @@ Got 4 rows (time spent 1061/2251 us)
 </code></pre></div>
 <p>From the <strong>Status</strong> column of the table in the return results, you can see that all the Storage services are online.</p>
 <h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">¶</a></h3>
-<p>Nebula Graph implements the following creation or alteration operations asynchronously in the next heartbeat cycle. The operations won't take effect until they finish.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Nebula Graph implements the following creation or alteration operations asynchronously in the <strong>next</strong> heartbeat cycle. The operations will not take effect until they finish.</p>
+</div>
 <ul>
 <li><code>CREATE SPACE</code></li>
 <li><code>CREATE TAG</code></li>
@@ -1896,40 +1893,15 @@ Got 4 rows (time spent 1061/2251 us)
 [replica_factor = &lt;replica_number&gt;,]
 vid_type = {FIXED_STRING(&lt;N&gt;) | INT64}
 )
-[comment = '&lt;space_comment&gt;'];
+[COMMENT = '&lt;comment&gt;'];
 </code></pre></div>
+<p>For more information on parameters, see <a href="../../3.ngql-guide/9.space-statements/1.create-space/">CREATE SPACE</a>.</p>
+<!-- <code>charset</code> and <code>collate</code> now each has only one value. Omit the two options for now.
+      charset = <charset>
+      collate = <collate>
+  -->
 </li>
 </ul>
-<!-- `charset` and `collate` now each has only one value. Omit the two options for now.
-    charset = <charset>,
-    collate = <collate>, 
--->
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>partition_num</code></td>
-<td>Specifies the number of partitions in each space. The suggested number of partitions is 5 times the number of hard disks in the cluster. For example, if you have 3 hard disks in the cluster, we recommend that you set 15 partitions.</td>
-</tr>
-<tr>
-<td><code>replica_factor</code></td>
-<td>Specifies the number of replicas in the Nebula Graph cluster. The suggested number of replicas is 3 in a production environment and 1 in a test environment. The number of replicas must always be an <strong>odd</strong> number for the need of quorum-based voting.</td>
-</tr>
-<tr>
-<td><code>vid_type</code></td>
-<td>Specifies the data type of VIDs in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>N</code> represents the maximum length of the VIDs and it must be a positive integer. The default value is <code>FIXED_STRING(8)</code>. If you set a VID length greater than <code>N</code>, Nebula Graph will throw an error. To set integer VIDs for vertices, set <code>vid_type</code> to <code>INT64</code>.</td>
-</tr>
-<tr>
-<td><code>comment</code></td>
-<td>The remarks of graph spaces. Its maximum length is 256 bytes. The default space has no remarks.</td>
-</tr>
-</tbody>
-</table>
 <ul>
 <li>List graph spaces and check if the creation is successful:<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
 </code></pre></div>
@@ -1985,63 +1957,57 @@ Got 1 rows (time spent 977/2000 us)
 <h2 id="create_tags_and_edge_types">Create tags and edge types<a class="headerlink" href="#create_tags_and_edge_types" title="Permanent link">¶</a></h2>
 <h3 id="ngql_syntax_1">nGQL syntax<a class="headerlink" href="#ngql_syntax_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} {&lt;tag_name&gt; | &lt;edge_type&gt;}(&lt;property_name&gt; &lt;data_type&gt;
-[, &lt;property_name&gt; &lt;data_type&gt; ...]);
+[, &lt;property_name&gt; &lt;data_type&gt; ...])
+[COMMENT = '&lt;comment&gt;'];
 </code></pre></div>
+<p>For more information on parameters, see <a href="../../3.ngql-guide/10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../3.ngql-guide/11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
 <p>Create tags <code>player</code> and <code>team</code>, edge types <code>follow</code> and <code>serve</code>. Descriptions are as follows.</p>
 <table>
 <thead>
 <tr>
-<th>Component name</th>
-<th>Type</th>
-<th>Property</th>
+<th align="left">Component name</th>
+<th align="left">Type</th>
+<th align="left">Property</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>player</td>
-<td>Tag</td>
-<td>name (string), age (int)</td>
+<td align="left">player</td>
+<td align="left">Tag</td>
+<td align="left">name (string), age (int)</td>
 </tr>
 <tr>
-<td>team</td>
-<td>Tag</td>
-<td>name (string)</td>
+<td align="left">team</td>
+<td align="left">Tag</td>
+<td align="left">name (string)</td>
 </tr>
 <tr>
-<td>follow</td>
-<td>Edge type</td>
-<td>degree (int)</td>
+<td align="left">follow</td>
+<td align="left">Edge type</td>
+<td align="left">degree (int)</td>
 </tr>
 <tr>
-<td>serve</td>
-<td>Edge type</td>
-<td>start_year (int), end_year (int)</td>
+<td align="left">serve</td>
+<td align="left">Edge type</td>
+<td align="left">start_year (int), end_year (int)</td>
 </tr>
 </tbody>
 </table>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
 Execution succeeded (time spent 20708/22071 us)
 
-Wed, 24 Feb 2021 03:47:01 EST
-
 nebula&gt; CREATE TAG team(name string);
 Execution succeeded (time spent 5643/6810 us)
-
-Wed, 24 Feb 2021 03:47:59 EST
 
 nebula&gt; CREATE EDGE follow(degree int);
 Execution succeeded (time spent 12665/13934 us)
 
-Wed, 24 Feb 2021 03:48:07 EST
-
 nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 Execution succeeded (time spent 5858/6870 us)
-
-Wed, 24 Feb 2021 03:48:16 EST
 </code></pre></div>
 <h2 id="insert_vertices_and_edges">Insert vertices and edges<a class="headerlink" href="#insert_vertices_and_edges" title="Permanent link">¶</a></h2>
-<p>You can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
+<p>Users can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">¶</a></h3>
 <ul>
 <li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
@@ -2059,7 +2025,7 @@ Wed, 24 Feb 2021 03:48:16 EST
 {VALUES | VALUE} &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_value&gt;[, &lt;property_value&gt;...])
 [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...];
 </code></pre></div>
-<p>For details, see <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a>.</p>
+<p>For more information on parameters, see <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a>.</p>
 </li>
 </ul>
 <h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">¶</a></h3>
@@ -2067,22 +2033,14 @@ Wed, 24 Feb 2021 03:48:16 EST
 <li>Insert vertices representing basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42);
 Execution succeeded (time spent 28196/30896 us)
 
-Wed, 24 Feb 2021 03:55:08 EST
-
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36);
 Execution succeeded (time spent 2708/3834 us)
-
-Wed, 24 Feb 2021 03:55:20 EST
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
 Execution succeeded (time spent 1945/3294 us)
 
-Wed, 24 Feb 2021 03:55:32 EST
-
 nebula&gt; INSERT VERTEX team(name) VALUES "team200":("Warriors"), "team201":("Nuggets");
 Execution succeeded (time spent 2269/3310 us)
-
-Wed, 24 Feb 2021 03:55:47 EST
 </code></pre></div>
 </li>
 </ul>
@@ -2090,22 +2048,14 @@ Wed, 24 Feb 2021 03:55:47 EST
 <li>Insert edges representing the relations between basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player101":(95);
 Execution succeeded (time spent 3362/4542 us)
 
-Wed, 24 Feb 2021 03:57:36 EST
-
 nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player102":(90);
 Execution succeeded (time spent 2974/4274 us)
-
-Wed, 24 Feb 2021 03:57:44 EST
 
 nebula&gt; INSERT EDGE follow(degree) VALUES "player102" -&gt; "player101":(75);
 Execution succeeded (time spent 1891/3096 us)
 
-Wed, 24 Feb 2021 03:57:52 EST
-
 nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES "player100" -&gt; "team200":(1997, 2016), "player101" -&gt; "team201":(1999,  2018);
 Execution succeeded (time spent 6064/7104 us)
-
-Wed, 24 Feb 2021 03:58:01 EST
 </code></pre></div>
 </li>
 </ul>
@@ -2120,14 +2070,14 @@ Wed, 24 Feb 2021 03:58:01 EST
 <li>The <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statement is based on <a href="#about_indexes">indexes</a>. It is used together with the <code>WHERE</code> clause to search for the data that meet the specific conditions.</li>
 </ul>
 <ul>
-<li>The <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement is the most commonly used statement for graph data querying. But, it relies on <a href="#about_indexes">indexes</a> to match data patterns in Nebula Graph.</li>
+<li>The <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement is the most commonly used statement for graph data querying. It can describe all kinds of graph patterns, but it relies on <a href="#about_indexes">indexes</a> to match data patterns in Nebula Graph. Therefore, its performance still needs optimization.</li>
 </ul>
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">¶</a></h3>
 <ul>
 <li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
 [WHERE &lt;expression&gt; [AND | OR expression ...])]
-YIELD [DISTINCT] &lt;return_list&gt;
+YIELD [DISTINCT] &lt;return_list&gt;;
 </code></pre></div>
 </li>
 </ul>
@@ -2181,7 +2131,7 @@ Got 2 rows (time spent 12097/14220 us)
 </ul>
 <ul>
 <li>Filter the players that the player with VID <code>player100</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE $$.player.age &gt;= 35 \
-                -&gt;     YIELD $$.player.name AS Teammate, $$.player.age AS Age;
+        YIELD $$.player.name AS Teammate, $$.player.age AS Age;
 +---------------+-----+
 | Teammate      | Age |
 +---------------+-----+
@@ -2220,8 +2170,8 @@ Got 1 rows (time spent 8206/9335 us)
 <li>
 <p>With a pipe:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
-                GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
-                $^.player.name AS Player;
+        GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
 +-----------+---------------+
 | Team      | Player        |
 +-----------+---------------+
@@ -2261,8 +2211,8 @@ Got 1 rows (time spent 5055/8203 us)
 <p>Once a composite statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD follow._dst AS id; \
-GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
-$^.player.name AS Player;
+        GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
+        $^.player.name AS Player;
 +---------+-------------+
 | Team    | Player      |
 +---------+-------------+
@@ -2289,11 +2239,11 @@ Got 1 rows (time spent 2006/2406 us)
 <p>The examples of <code>LOOKUP</code> and <code>MATCH</code> statements are in <a href="#about_indexes">indexes</a>.</p>
 </div>
 <h2 id="update_vertices_and_edges">Update vertices and edges<a class="headerlink" href="#update_vertices_and_edges" title="Permanent link">¶</a></h2>
-<p>You can use the <code>UPDATE</code> or the <code>UPSERT</code> statements to update existing data.</p>
+<p>Users can use the <code>UPDATE</code> or the <code>UPSERT</code> statements to update existing data.</p>
 <p><code>UPSERT</code> is the combination of <code>UPDATE</code> and <code>INSERT</code>. If you update a vertex or an edge with <code>UPSERT</code>, the database will insert a new vertex or edge if it does not exist.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>UPSERT</code> operates serially in a partition-based order. Therefore, it is slower than <code>INSERT</code> OR <code>UPDATE</code>.</p>
+<p><code>UPSERT</code> operates serially in a partition-based order. Therefore, it is slower than <code>INSERT</code> OR <code>UPDATE</code>. And <code>UPSERT</code> has concurrency only between multiple partitions.</p>
 </div>
 <h3 id="ngql_syntax_4">nGQL syntax<a class="headerlink" href="#ngql_syntax_4" title="Permanent link">¶</a></h3>
 <ul>
@@ -2318,8 +2268,6 @@ SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns
 <ul>
 <li><code>UPDATE</code> the <code>name</code> property of the vertex with VID <code>player100</code> and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX "player100" SET player.name = "Tim";
 Execution succeeded (time spent 3483/3914 us)
-
-Wed, 21 Oct 2020 10:53:14 UTC
 
 nebula&gt; FETCH PROP ON player "player100";
 +---------------------------------------------+
@@ -2352,8 +2300,8 @@ Execution succeeded (time spent 2115/2900 us)
 Wed, 21 Oct 2020 11:11:50 UTC
 
 nebula&gt; UPSERT VERTEX "player111" SET player.name = "Dwight Howard", player.age = $^.player.age + 11 \
-WHEN $^.player.name == "Ben Simmons" AND $^.player.age &gt; 20 \
-YIELD $^.player.name AS Name, $^.player.age AS Age;
+        WHEN $^.player.name == "Ben Simmons" AND $^.player.age &gt; 20 \
+        YIELD $^.player.name AS Name, $^.player.age AS Age;
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
@@ -2390,18 +2338,16 @@ Execution succeeded (time spent 3700/4101 us)
 </li>
 </ul>
 <h2 id="about_indexes">About indexes<a class="headerlink" href="#about_indexes" title="Permanent link">¶</a></h2>
-<p>You can add indexes to tags and edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
-<h3 id="must-read_for_using_indexes">Must-read for using indexes<a class="headerlink" href="#must-read_for_using_indexes" title="Permanent link">¶</a></h3>
-<ul>
-<li>Both <code>MATCH</code> and <code>LOOKUP</code> statements depend on the indexes. But indexes can dramatically reduce the write performance (as much as 90% or even more). <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</li>
-</ul>
-<ul>
-<li>You <strong>MUST</strong> rebuild indexes for pre-existing data. Otherwise, the pre-existing data cannot be indexed and therefore cannot be returned in <code>MATCH</code> or <code>LOOKUP</code> statements. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a>.</li>
-</ul>
+<p>Users can add indexes to tags and edge types with the <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a> statement.</p>
+<div class="admonition caution">
+<p class="admonition-title">Must-read for using indexes</p>
+<p>Both <code>MATCH</code> and <code>LOOKUP</code> statements depend on the indexes. But indexes can dramatically reduce the write performance (as much as 90% or even more). <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
+<p>Users <strong>MUST</strong> rebuild indexes for pre-existing data. Otherwise, the pre-existing data cannot be indexed and therefore cannot be returned in <code>MATCH</code> or <code>LOOKUP</code> statements. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a>.</p>
+</div>
 <h3 id="ngql_syntax_6">nGQL syntax<a class="headerlink" href="#ngql_syntax_6" title="Permanent link">¶</a></h3>
 <ul>
-<li>Create an index:<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt;
-ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (prop_name_list);
+<li>Create an index:<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; 
+ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = '&lt;comment&gt;'];
 </code></pre></div>
 </li>
 </ul>
@@ -2422,30 +2368,30 @@ nebula&gt; REBUILD TAG INDEX player_index_0;
 <h3 id="examples_of_lookup_and_match_index-based">Examples of <code>LOOKUP</code> and <code>MATCH</code> (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">¶</a></h3>
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
 <p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>Tony Parker</code>.</p>
-<div class="highlight"><pre><span></span><code>// Create an index for the player name property.
-nebula&gt; CREATE TAG INDEX player_name_0 on player(name(10));
+<p>This example creates the index <code>player_name_0</code> on the player name property.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_name_0 on player(name(10));
 Execution succeeded (time spent 3465/4150 us)
-
-// Rebuild the index to make sure it takes effect on pre-existing data.
-nebula&gt; REBUILD TAG INDEX player_name_0
+</code></pre></div>
+<p>This example rebuilds the index to make sure it takes effect on pre-existing data.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_name_0
 +------------+
 | New Job Id |
 +------------+
 | 31         |
 +------------+
 Got 1 rows (time spent 2379/3033 us)
-
-// Use LOOKUP statement to retrieve the vertex property.
-nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
-YIELD player.name, player.age;
+</code></pre></div>
+<p>This example uses the <code>LOOKUP</code> statement to retrieve the vertex property.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
+        YIELD player.name, player.age;
 +-------------+---------------+------------+
 | VertexID    | player.name   | player.age |
 +-------------+---------------+------------+
 | "player101" | "Tony Parker" | 36         |
 +-------------+---------------+------------+
-
-// Use MATCH statement to retrieve the vertex property.
-nebula&gt; MATCH (v:player{name:"Tony Parker"}) RETURN v;
+</code></pre></div>
+<p>This example uses the <code>MATCH</code> statement to retrieve the vertex property.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tony Parker"}) RETURN v;
 +-----------------------------------------------------+
 | v                                                   |
 +-----------------------------------------------------+
@@ -2457,7 +2403,7 @@ Got 1 rows (time spent 5132/6246 us)
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>

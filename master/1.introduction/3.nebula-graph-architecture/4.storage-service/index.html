@@ -1666,7 +1666,7 @@
 </a>
 <h1 id="storage_service">Storage Service<a class="headerlink" href="#storage_service" title="Permanent link">¶</a></h1>
 <p>The persistent data of Nebula Graph have two parts. One is the <a href="../2.meta-service/">Meta Service</a> that stores the meta-related data.</p>
-<p>The other is Storage Service that stores the data, which is run by the nebula-storaged process. This topic will describe the architecture of Storage Service.</p>
+<p>The other is the Storage Service that stores the data, which is run by the nebula-storaged process. This topic will describe the architecture of Storage Service.</p>
 <h2 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">¶</a></h2>
 <ul>
 <li>High performance (Customized built-in KVStore)</li>
@@ -1695,10 +1695,10 @@
 <li><code>getNeighbors</code>: query the in-edge or out-edge of a set of vertices, return the edges and the corresponding properties, and support conditional filtering.</li>
 </ul>
 <ul>
-<li><code>insert vertex/edge</code>：insert a vertex or edge and its properties.</li>
+<li><code>insert vertex/edge</code>: insert a vertex or edge and its properties.</li>
 </ul>
 <ul>
-<li><code>getProps</code>：get the properties of a vertex or an edge.</li>
+<li><code>getProps</code>: get the properties of a vertex or an edge.</li>
 </ul>
 <p>It is this layer that makes the Storage Service a real graph storage. Otherwise, it is just a KV storage.</p>
 </li>
@@ -1706,7 +1706,7 @@
 <ul>
 <li>
 <p>Consensus</p>
-<p>Below the storage interface is the consensus layer that implements <a href="#multi_group_raft">Multi Group Raft</a>, which ensures the strong consistency and high availability of Storage Service.</p>
+<p>Below the storage interface is the consensus layer that implements <a href="#multi_group_raft">Multi Group Raft</a>, which ensures the strong consistency and high availability of the Storage Service.</p>
 </li>
 </ul>
 <ul>
@@ -1717,7 +1717,7 @@
 </ul>
 <p>The following will describe some features of Storage Service based on the above architecture.</p>
 <h2 id="kvstore">KVStore<a class="headerlink" href="#kvstore" title="Permanent link">¶</a></h2>
-<p>Nebula Graph develops and customizes its built-in KVStore because:</p>
+<p>Nebula Graph develops and customizes its built-in KVStore for the following reasons.</p>
 <ul>
 <li>It is a high-performance KVStore.</li>
 </ul>
@@ -1727,7 +1727,7 @@
 <ul>
 <li>It has strong data consistency.</li>
 </ul>
-<p>Therefore, Nebula Graph develops its own KVStore with RocksDB as the local storage engine. The advantages are as follows:</p>
+<p>Therefore, Nebula Graph develops its own KVStore with RocksDB as the local storage engine. The advantages are as follows.</p>
 <ul>
 <li>For multiple local hard disks, Nebula Graph can make full use of its concurrent capacities through deploying multiple data directories.</li>
 </ul>
@@ -1750,7 +1750,7 @@
 <p>Nebula Graph stores vertices and edges. Efficient property filtering is critical for a Graph Database. So, Nebula Graph uses keys to store vertices and edges, while uses values to store the related properties.</p>
 <p>Nebula Graph 2.0 has changed a lot over its releases. The following will introduce the old and new data storage formats and cover their differences.</p>
 <ul>
-<li>Vertex key format<p><img alt="The vertex format of storage service" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-vertex-format.png"/></p>
+<li>Vertex format<p><img alt="The vertex format of storage service" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-vertex-format.png"/></p>
 <table>
 <thead>
 <tr>
@@ -1769,7 +1769,7 @@
 </tr>
 <tr>
 <td align="left"><code>VertexID</code></td>
-<td align="left">Used to indicate vertex ID. For an integer VertexID, it occupies eight bytes. However, for a string VertexID, it is changed to <code>fixed_string</code> of a fixed length which needs to be specified by users when they create space.</td>
+<td align="left">Used to indicate vertex ID. For an integer VertexID, it occupies eight bytes. However, for a string VertexID, it is changed to <code>fixed_string</code> of a fixed length which needs to be specified by users when they create the space.</td>
 </tr>
 <tr>
 <td align="left"><code>TagID</code></td>
@@ -1940,7 +1940,7 @@ PartitionID pId = vid % numParts + 1;
 <p>Transfer leadership is extremely important for balance. When moving a partition from one machine to another, Nebula Graph first checks if the source is a leader. If so, it should be moved to another peer. After data migration is completed, it is important to <a href="../../../8.service-tuning/load-balance/">balance leader distribution</a> again.</p>
 <p>When a transfer leadership command is committed, the leader will abandon its leadership and the followers will start a leader election.</p>
 <h3 id="peer_changes">Peer changes<a class="headerlink" href="#peer_changes" title="Permanent link">¶</a></h3>
-<p>To avoid split-brain, when members in a Raft Group change, an intermediate state is required. In such a state, the quorum of the old group and new group always have an overlap. Thus it prevents the old or new group from making decisions unilaterally. To make it even simpler, in his doctoral thesis Diego Ongaro suggests adding or removing a peer once to ensure the overlap between the quorum of the new group and the old group. Nebula Graph‘s implementation also uses this approach, except that the way to add or remove a member is different. For details, please refer to addPeer/removePeer in the Raft Part class.</p>
+<p>To avoid split-brain, when members in a Raft Group change, an intermediate state is required. In such a state, the quorum of the old group and new group always have an overlap. Thus it prevents the old or new group from making decisions unilaterally. To make it even simpler, in his doctoral thesis Diego Ongaro suggests adding or removing a peer once to ensure the overlap between the quorum of the new group and the old group. Nebula Graph also uses this approach, except that the way to add or remove a member is different. For details, please refer to addPeer/removePeer in the Raft Part class.</p>
 <h2 id="differences_with_hdfs">Differences with HDFS<a class="headerlink" href="#differences_with_hdfs" title="Permanent link">¶</a></h2>
 <p>Storage Service is a Raft-based distributed architecture, which has certain differences with that of HDFS. For example:</p>
 <ul>
@@ -1960,7 +1960,7 @@ PartitionID pId = vid % numParts + 1;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
 </small>
 </div>
 </article>
