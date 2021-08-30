@@ -34,6 +34,26 @@ This topic applies to the openCypher syntax in nGQL only. For native nGQL, use [
 
 * In nGQL 2.0, `RETURN` does not work with native nGQL.
 
+## Map order description
+
+When `RETURN` returns the map data structure, the order of key-value pairs is undefined.
+
+```ngql
+nebula> RETURN {age: 32, name: "Marco Belinelli"};
++------------------------------------+
+| {age:32,name:"Marco Belinelli"}    |
++------------------------------------+
+| {age: 32, name: "Marco Belinelli"} |
++------------------------------------+
+
+nebula> RETURN {zage: 32, name: "Marco Belinelli"};
++-------------------------------------+
+| {zage:32,name:"Marco Belinelli"}    |
++-------------------------------------+
+| {name: "Marco Belinelli", zage: 32} |
++-------------------------------------+
+```
+
 ## Return vertices
 
 ```ngql
