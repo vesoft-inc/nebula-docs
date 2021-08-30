@@ -18,12 +18,16 @@ There are two order options:
 ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...];
 ```
 
+!!! compatibility
+
+    In the native nGQL syntax, `$-.` must be used after `ORDER BY`. But it is not required in releases prior to 2.5.0.
+
 ### Examples
 
 ```ngql
 nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" \
         YIELD player.age AS age, player.name AS name \
-        | ORDER BY age ASC, name DESC;
+        | ORDER BY $-.age ASC, $-.name DESC;
 +-------------+-----+---------------------+
 | VertexID    | age | name                |
 +-------------+-----+---------------------+
