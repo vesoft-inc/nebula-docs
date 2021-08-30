@@ -32,7 +32,7 @@ Studio provides these features:
 
 You can use Studio in one of these scenarios:
 
-- You have a dataset, and you want to explore and analyze data in a visualized way. You can use Docker Compose or Nebula Graph Cloud Service to deploy Nebula Graph and then use Studio to explore or analyze data in a visualized way.  
+- You have a dataset, and you want to explore and analyze data in a visualized way. You can use Docker Compose to deploy Nebula Graph and then use Studio to explore or analyze data in a visualized way.  
 
 - You have deployed Nebula Graph and imported a dataset. You want to use a GUI to run nGQL statements or explore and analyze graph data in a visualized way.  
 
