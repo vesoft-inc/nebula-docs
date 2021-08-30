@@ -1,16 +1,13 @@
-# Step 2：Manage Nebula Graph Service
+You can use the `nebula.service` script to start, stop, restart, terminate, and check the Nebula Graph services. This topic takes starting, stopping and checking the Nebula Graph services for examples.
 
-<<<<<<< Updated upstream
-The `nebula.service` script can start, stop, restart, terminate, and check the Nebula Graph services.
-
-`nebula.service` is stored in the `/usr/local/nebula/scripts` directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.
+`nebula.service` is stored in the `/usr/local/nebula/` directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.
 
 ## Syntax
 
 ```bash
 $ sudo /usr/local/nebula/scripts/nebula.service 
-[-v] [-c <config_file_path>] 
-<start|stop|restart|kill|status> 
+[-v] [-c <config_file_path>]
+<start|stop|restart|status|kill>
 <metad|graphd|storaged|all>
 ```
 
@@ -28,11 +25,11 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 |`storaged`|Set the Storage Service as the target service.|
 |`all`|Set all the Nebula Graph services as the target services.|
 
-## Start Nebula Graph services
+## Start Nebula Graph
 
 ### In non-container environment
 
-About non-container deployment, see [Install Nebula Graph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md). Run the following command to start Nebula Graph.
+Run the following command to start Nebula Graph.
 
 ```bash
 $ sudo /usr/local/nebula/scripts/nebula.service start all
@@ -46,10 +43,10 @@ $ sudo /usr/local/nebula/scripts/nebula.service start all
 
 ### In docker container (deployed with docker-compose)
 
-Run the following command in the `nebula-docker-compose/` directory to start Nebula Graph services.
+Run the following command in the `nebula-docker-compose/` directory to start Nebula Graph.
 
 ```bash
-[nebula-docker-compose]$ docker-compose up -d
+nebula-docker-compose]$ docker-compose up -d
 Building with native build. Learn about native build in Compose here: https://docs.docker.com/go/compose-native-build/
 Creating network "nebula-docker-compose_nebula-net" with the default driver
 Creating nebula-docker-compose_metad0_1 ... done
@@ -63,18 +60,18 @@ Creating nebula-docker-compose_graphd2_1   ... done
 Creating nebula-docker-compose_graphd_1    ... done
 ```
 
-## Stop Nebula Graph services
+## Stop Nebula Graph
 
 !!! danger
 
-    Do not run `kill -9` to forcibly terminate the processes, otherwise, there will be a low probability of data loss.
+    Don't run `kill -9` to forcibly terminate the processes, otherwise, there is a low probability of data loss.
 
 ### In non-container environment
 
-Run the following command to stop Nebula Graph services.
+Run the following command to stop Nebula Graph.
 
 ```bash
-$ sudo /usr/local/nebula/scripts/nebula.service stop all
+sudo /usr/local/nebula/scripts/nebula.service stop all
 [INFO] Stopping nebula-metad...
 [INFO] Done
 [INFO] Stopping nebula-graphd...
@@ -85,7 +82,7 @@ $ sudo /usr/local/nebula/scripts/nebula.service stop all
 
 ### In docker container (deployed with docker-compose)
 
-Run the following command in the `nebula-docker-compose/` directory to stop Nebula Graph services.
+Run the following command in the `nebula-docker-compose/` directory to stop Nebula Graph.
 
 ```bash
 nebula-docker-compose]$ docker-compose down
@@ -110,9 +107,7 @@ Removing nebula-docker-compose_metad0_1    ... done
 Removing network nebula-docker-compose_nebula-net
 ```
 
-!!! Note
-
-    If you are using a developing or nightly version for testing and having compatibility issues, try to run `docker-compose down-v` to **DELETE** all data stored in Nebula Graph and import data again.
+If you are using a development or nightly version for testing and have compatibility issues, try to run 'docker-compose down-v' to **DELETE** all data stored in Nebula Graph and import data again.
 
 ## Check the service status
 
@@ -126,21 +121,23 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 
 * Nebula Graph is running normally if the following information is returned.
 
-    ```bash
-    [INFO] nebula-metad: Running as 26601, Listening on 9559
-    [INFO] nebula-graphd: Running as 26644, Listening on 9669
-    [INFO] nebula-storaged: Running as 26709, Listening on 9779
-    ```
+```bash
+[INFO] nebula-metad: Running as 26601, Listening on 9559
+[INFO] nebula-graphd: Running as 26644, Listening on 9669
+[INFO] nebula-storaged: Running as 26709, Listening on 9779
+```
 
-* If the returned information is similar to the following one, there must be a problem. Users can check the corresponding information to troubleshoot problems or go to [Nebula Graph Forum](https://discuss.nebula-graph.io/) for help.
+* If the return information is similar to the following one, there is a problem.
 
-    ```bash
-    [INFO] nebula-metad: Running as 25600, Listening on 9559
-    [INFO] nebula-graphd: Exited
-    [INFO] nebula-storaged: Running as 25646, Listening on 9779
-    ```
+```bash
+[INFO] nebula-metad: Running as 25600, Listening on 9559
+[INFO] nebula-graphd: Exited
+[INFO] nebula-storaged: Running as 25646, Listening on 9779
+```
 
-The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the returned information to troubleshoot problems.
+The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the return information to troubleshoot problems.
+
+You may also go to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help.
 
 ### In docker container (deployed with docker-compose)
 
@@ -167,29 +164,12 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up (healthy
                                                                                     0.0.0.0:49227->9779/tcp, 9780/tcp
 ```
 
-To troubleshoot for a specific service, users can first confirm the container name (such as `nebula-docker-compose_graphd2_1`), then run `docker ps` to find the corresponding `CONTAINER ID` (The ID is `2a6c56c405f5` in the example), and use the `CONTAINER ID` to log in the container to troubleshoot problems.
+To troubleshoot for a specific service:
 
-```bash
-nebula-docker-compose]$ docker ps
-CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS                    PORTS                                                                                                  NAMES
-2a6c56c405f5   vesoft/nebula-graphd:v2-nightly     "/usr/local/nebula/b…"   36 minutes ago   Up 36 minutes (healthy)   0.0.0.0:49230->9669/tcp, 0.0.0.0:49229->19669/tcp, 0.0.0.0:49228->19670/tcp                            nebula-docker-compose_graphd2_1
-7042e0a8e83d   vesoft/nebula-storaged:v2-nightly   "./bin/nebula-storag…"   36 minutes ago   Up 36 minutes (healthy)   9777-9778/tcp, 9780/tcp, 0.0.0.0:49227->9779/tcp, 0.0.0.0:49226->19779/tcp, 0.0.0.0:49225->19780/tcp   nebula-docker-compose_storaged2_1
-18e3ea63ad65   vesoft/nebula-storaged:v2-nightly   "./bin/nebula-storag…"   36 minutes ago   Up 36 minutes (healthy)   9777-9778/tcp, 9780/tcp, 0.0.0.0:49219->9779/tcp, 0.0.0.0:49218->19779/tcp, 0.0.0.0:49217->19780/tcp   nebula-docker-compose_storaged0_1
-4dcabfe8677a   vesoft/nebula-graphd:v2-nightly     "/usr/local/nebula/b…"   36 minutes ago   Up 36 minutes (healthy)   0.0.0.0:49224->9669/tcp, 0.0.0.0:49223->19669/tcp, 0.0.0.0:49222->19670/tcp                            nebula-docker-compose_graphd1_1
-a74054c6ae25   vesoft/nebula-graphd:v2-nightly     "/usr/local/nebula/b…"   36 minutes ago   Up 36 minutes (healthy)   0.0.0.0:9669->9669/tcp, 0.0.0.0:49221->19669/tcp, 0.0.0.0:49220->19670/tcp                             nebula-docker-compose_graphd_1
-880025a3858c   vesoft/nebula-storaged:v2-nightly   "./bin/nebula-storag…"   36 minutes ago   Up 36 minutes (healthy)   9777-9778/tcp, 9780/tcp, 0.0.0.0:49216->9779/tcp, 0.0.0.0:49215->19779/tcp, 0.0.0.0:49214->19780/tcp   nebula-docker-compose_storaged1_1
-45736a32a23a   vesoft/nebula-metad:v2-nightly      "./bin/nebula-metad …"   36 minutes ago   Up 36 minutes (healthy)   9560/tcp, 0.0.0.0:49213->9559/tcp, 0.0.0.0:49212->19559/tcp, 0.0.0.0:49211->19560/tcp                  nebula-docker-compose_metad0_1
-3b2c90eb073e   vesoft/nebula-metad:v2-nightly      "./bin/nebula-metad …"   36 minutes ago   Up 36 minutes (healthy)   9560/tcp, 0.0.0.0:49207->9559/tcp, 0.0.0.0:49206->19559/tcp, 0.0.0.0:49205->19560/tcp                  nebula-docker-compose_metad2_1
-7bb31b7a5b3f   vesoft/nebula-metad:v2-nightly      "./bin/nebula-metad …"   36 minutes ago   Up 36 minutes (healthy)   9560/tcp, 0.0.0.0:49210->9559/tcp, 0.0.0.0:49209->19559/tcp, 0.0.0.0:49208->19560/tcp                  nebula-docker-compose_metad1_1
-
-nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
-[root@2a6c56c405f5 nebula]#
-```
-
-## Next
-
-[Connect to Nebula Graph](../2.quick-start/3.connect-to-nebula-graph.md)
-=======
-{% include "/source_manage-service.md" %}
-<!-- The line above is for content reusing. The source file is in the docs-2.0/reuse directory. -->
->>>>>>> Stashed changes
+1. Confirm the container name in the preceding return information.
+2. Run `docker ps` to find the `CONTAINER ID`.
+3. Use the `CONTAINER ID` to log in the container and troubleshoot.
+    ```ngql
+    nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
+    [root@2a6c56c405f5 nebula]#
+    ```
