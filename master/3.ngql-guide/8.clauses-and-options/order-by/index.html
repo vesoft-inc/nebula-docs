@@ -1588,10 +1588,14 @@
 <div class="highlight"><pre><span></span><code>&lt;YIELD clause&gt;
 ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
 </code></pre></div>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<p>In the native nGQL syntax, <code>$-.</code> must be used after <code>ORDER BY</code>. But it is not required in releases prior to 2.5.0.</p>
+</div>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100", "player101", "player102", "player103" \
         YIELD player.age AS age, player.name AS name \
-        | ORDER BY age ASC, name DESC;
+        | ORDER BY $-.age ASC, $-.name DESC;
 +-------------+-----+---------------------+
 | VertexID    | age | name                |
 +-------------+-----+---------------------+
@@ -1674,7 +1678,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 30, 2021</span>
 </small>
 </div>
 </article>
