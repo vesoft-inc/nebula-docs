@@ -1,22 +1,15 @@
-<!-- will be updated when Import and Schema modules can work as expected. 
-
 # Operate edge types
 
 After a graph space is created in Nebula Graph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This article only introduces how to use the **Schema** page to operate edge types in a graph space.
 
 ## Studio version
 
-Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
-
-```bash
-docker-compose pull && docker-compose up
-```
+Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
 
 ## Prerequisites
 
 To operate an edge type on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v1.2.0-beta or later.
 - Studio is connected to Nebula Graph.
 - A graph space is created.
 - Your account has the authority of GOD, ADMIN, or DBA.
@@ -35,21 +28,23 @@ To create an edge type on the **Schema** page, follow these steps:
 
 5. On the **Create** page, do these settings:
 
-   a. **Name**: Specify an appropriate name for the edge type. In this example, `action` is used.
+   a. **Name**: Specify an appropriate name for the edge type. In this example, `serve` is used.
 
-   b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+   b. (Optional) If necessary, under the name, click the **Comment** to input content.
 
-   - To define a property: Enter a property name, a data type, and a default value.
+   c. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
 
-   - To add multiple properties: Click the **Add Property** button and define more properties.
+      - To define a property: Enter a property name, a data type, and a default value.
 
-   - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+      - To add multiple properties: Click the **Add Property** button and define more properties.
 
-   c. (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](https://docs.nebula-graph.com.cn/manual-CN/2.query-language/4.statement-syntax/1.data-definition-statements/TTL/> "Click to go to Nebula Graph website").
+      - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+
+   d. (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
-   ![Define properties of the `action` edge type](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-027.png "Define an edge type")
+   ![Define properties of the `action` edge type](../figs/st-ug-027-1.png "Define an edge type")
 
 7. Confirm the settings and then click the **+ Create** button.
 
@@ -69,6 +64,7 @@ To edit an edge type on the **Schema** page, follow these steps:
 
 5. On the **Edit** page, do these operations:
 
+   - To edit a Comment: Click **Edit** under the Name.
    - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
 
    - To delete a property: On the **Define Properties** panel, find a property, click **Delete**.
@@ -83,7 +79,11 @@ To edit an edge type on the **Schema** page, follow these steps:
 
 6. When the configuration is done, in the **Equivalent to the following nGQL statement** panel, you can see the equivalent `ALTER EDGE` statement.
 
-## Delete an edge type
+## Delete an Edge type
+
+!!! danger
+
+    Confirm the [impact](../../3.ngql-guide/11.edge-type-statements/2.drop-edge.md) before deleting the Edge type. The deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
 
 To delete an edge type on the **Schema** page, follow these steps:
 
@@ -95,7 +95,8 @@ To delete an edge type on the **Schema** page, follow these steps:
 
 4. Click the **Edge Type** tab, find an edge type and then click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
+5. Click **OK** to confirm in the pop-up dialog box.
+
 ## Next to do
 
 After the edge type is created, you can use the **Console** page to insert edge data one by one manually or use the **Import** page to bulk import edge data.
--->
