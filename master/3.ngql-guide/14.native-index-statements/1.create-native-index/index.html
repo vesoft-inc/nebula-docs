@@ -1572,9 +1572,29 @@
 <h2 id="must-read_for_using_indexes">Must-read for using indexes<a class="headerlink" href="#must-read_for_using_indexes" title="Permanent link">¶</a></h2>
 <p>The concept and using restrictions of indexes are comparatively complex. You can use it together with <code>LOOKUP</code> and <code>MATCH</code> statements.</p>
 <p>You can use <code>CREATE INDEX</code> to add native indexes for the existing tags, edge types, or properties. They are usually called as tag indexes, edge type indexes, and property indexes.</p>
-<p>Tag indexes and edge type indexes apply to queries related to the tag and the edge type, but do not apply to queries that are based on certain properties on the tag. For example, you can use <code>LOOKUP</code> to retrieve all the edges with edge type E.</p>
-<p>Property indexes apply to property-based queries. For example, you can use the <code>Age</code> property to retrieve the VID of all vertices that meet <code>Age == 19</code>.</p>
-<p>If a property index <code>i_TA</code> is created for property A of tag T, there is no need to create an additional tag index <code>i_T</code> for <code>Tag T</code>. This is because the query engine can use <code>i_TA</code> to replace <code>i_T</code>. The edge type index is the same. However, <code>i_T</code> cannot replace <code>i_TA</code> for property queries.</p>
+<ul>
+<li>Tag indexes and edge type indexes apply to queries related to the tag and the edge type, but do not apply to queries that are based on certain properties on the tag. For example, you can use <code>LOOKUP</code> to retrieve all the vertices with the tag <code>player</code>.</li>
+</ul>
+<ul>
+<li>Property indexes apply to property-based queries. For example, you can use the <code>age</code> property to retrieve the VID of all vertices that meet <code>age == 19</code>.</li>
+</ul>
+<p>If a property index <code>i_TA</code> is created for the property <code>A</code> of the tag <code>T</code>, the indexes can be replaced as follows (the same for edge type indexes):</p>
+<ul>
+<li>The query engine can use <code>i_TA</code> to replace <code>i_T</code>.</li>
+</ul>
+<ul>
+<li>In the <code>MATCH</code> statement, <code>i_T</code> cannot replace <code>i_TA</code> for querying properties.</li>
+</ul>
+<ul>
+<li>
+<p>In the <code>LOOKUP</code> statement, <code>i_T</code> may replace <code>i_TA</code> for querying properties.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>In previous releases, the tag or edge type index in the <code>LOOKUP</code> statement cannot replace the property index for property queries.</p>
+</div>
+</li>
+</ul>
+<p>Although the same results can be obtained by using alternative indexes for queries, the query performance varies according to the selected index.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>Indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
@@ -1695,7 +1715,7 @@ nebula&gt; LOOKUP ON t WHERE p1 == 1 and p2 == 1 and p3 == 1;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 18, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 30, 2021</span>
 </small>
 </div>
 </article>
