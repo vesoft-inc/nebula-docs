@@ -39,7 +39,7 @@
 <div id="dialog-bg"></div>
 <div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
     This version is under development. For the docs of the latest stable release, see 
-    <a href="https://docs.nebula-graph.io/2.0.1/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> v2.0.1 docs</a>.
+    <a href="https://docs.nebula-graph.io/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> docs</a>.
     <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
 </div>
 <nav aria-label="Header" class="md-header__inner md-grid">
@@ -1488,28 +1488,63 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="full-text_index_restrictions">Full-text index restrictions<a class="headerlink" href="#full-text_index_restrictions" title="Permanent link">¶</a></h1>
-<p>This document holds the restrictions for full-text indexes. Please read the restrictions very carefully before using the full-text indexes.
-For now, full-text search has the following limitations:</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This topic introduces the restrictions for full-text indexes. Please read the restrictions very carefully before using the full-text indexes.</p>
+</div>
+<p>For now, full-text search has the following limitations:</p>
 <ol>
-<li>The maximum indexing string length is 256 bytes. The part of data that exceeds 256 bytes will not be indexed.</li>
-<li>Full-text index can not be applied to more than one property at a time (similar to a composite index).</li>
-<li>The <code>WHERE</code> clause in full-text search statement <code>LOOKUP</code> does not support logical expressions <code>AND</code> and <code>OR</code>.</li>
-<li>Full-text index can not be applied to multiple tags search.</li>
-<li>Sorting for the returned results of the full-text search is not supported. Data is returned in the order of data insertion.</li>
-<li>Full-text index can not search the null properties.</li>
-<li>Rebuilding or altering Elasticsearch indexes is not supported at this time.</li>
-<li>Pipe is not supported in the <code>LOOKUP</code> statement, excluding the examples in our document.</li>
-<li>Full-text search only works on single terms.</li>
-<li>Full-text indexes are not deleted together with the graph space.</li>
-<li>Make sure that you start the Elasticsearch cluster and Nebula Graph at the same time. If not, the data writing on the Elasticsearch cluster can be incomplete.</li>
-<li>Do not contain <code>'</code> or <code>\</code> in the vertex or edge values. If not, a error is caused in the Elasticsearch cluster storage.</li>
-<li>It may take a while for Elasticsearch to create indexes. If Nebula Graph warns no index is found, wait for the index to take effect.</li>
+<li>
+<p>The maximum indexing string length is 256 bytes. The part of data that exceeds 256 bytes will not be indexed.</p>
+</li>
+<li>
+<p>If there is a full-text index on the tag/edge type, the tag/edge type cannot be deleted or modified.</p>
+</li>
+<li>
+<p>One tag/edge type can only have one full-text index.</p>
+</li>
+<li>
+<p>The type of properties must be <code>string</code>.</p>
+</li>
+<li>
+<p>The <code>WHERE</code> clause in the full-text search statement <code>LOOKUP</code>/<code>MATCH</code> does not support logical expressions <code>AND</code> and <code>OR</code>.</p>
+</li>
+<li>
+<p>Full-text index can not be applied to search multiple tags/edge types.</p>
+</li>
+<li>
+<p>Sorting for the returned results of the full-text search is not supported. Data is returned in the order of data insertion.</p>
+</li>
+<li>
+<p>Full-text index can not search properties with value <code>NULL</code>.</p>
+</li>
+<li>
+<p>Altering Elasticsearch indexes is not supported at this time.</p>
+</li>
+<li>
+<p>The pipe operator is not supported in the <code>LOOKUP</code> and <code>MATCH</code> statements, excluding the examples in our manual.</p>
+</li>
+<li>
+<p>Full-text search only works on single terms.</p>
+</li>
+<li>
+<p>Full-text indexes are not deleted together with the graph space.</p>
+</li>
+<li>
+<p>Make sure that you start the Elasticsearch cluster and Nebula Graph at the same time. If not, the data writing on the Elasticsearch cluster can be incomplete.</p>
+</li>
+<li>
+<p>Do not contain <code>'</code> or <code>\</code> in the vertex or edge values. If not, an error will be caused in the Elasticsearch cluster storage.</p>
+</li>
+<li>
+<p>It may take a while for Elasticsearch to create indexes. If Nebula Graph warns no index is found, wait for the index to take effect (however, the waiting time is unknown and there is no code to check).</p>
+</li>
 </ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 31, 2021</span>
 </small>
 </div>
 </article>
