@@ -45,7 +45,7 @@ To create a graph space on the **Schema** page, follow these steps:
 
 !!! danger
 
-    Deleting the Space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+    Deleting the space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
 
 To delete a graph space on the **Schema** page, follow these steps:
 
