@@ -1151,8 +1151,8 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#prerequisites">
-    Prerequisites
+<a class="md-nav__link" href="#prerequisite">
+    Prerequisite
   </a>
 </li>
 <li class="md-nav__item">
@@ -1545,8 +1545,8 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#prerequisites">
-    Prerequisites
+<a class="md-nav__link" href="#prerequisite">
+    Prerequisite
   </a>
 </li>
 <li class="md-nav__item">
@@ -1597,20 +1597,19 @@
 <p>This topic describes how to uninstall Nebula Graph.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Before re-installing Nebula Graph on a machine, follow this topic to completely uninstall the old Nebula Graph, in case the remaining data interferes with the new services.</p>
+<p>Before re-installing Nebula Graph on a machine, follow this topic to completely uninstall the old Nebula Graph, in case the remaining data interferes with the new services, including inconsistencies between Meta services.</p>
 </div>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>You have stopped the Nebula Graph services. For more information, see <a href="../../2.quick-start/5.start-stop-service/">Manage Nebula Graph services</a>.</p>
+<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">¶</a></h2>
+<p>The Nebula Graph services should be stopped before the uninstallation. For more information, see <a href="../../2.quick-start/5.start-stop-service/">Manage Nebula Graph services</a>.</p>
 <h2 id="step_1_delete_data_files_of_the_storage_and_meta_services">Step 1: Delete data files of the Storage and Meta Services<a class="headerlink" href="#step_1_delete_data_files_of_the_storage_and_meta_services" title="Permanent link">¶</a></h2>
 <p>If you have modified the <code>data_path</code> in the configuration files for the Meta Service and Storage Service, the directories where Nebula Graph stores data may not be in the installation path of Nebula Graph. Check the configuration files to confirm the data paths, and then manually delete the directories to clear all data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>For a Nebula Graph cluster, delete the data files of all Storage and Meta servers.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>Make sure that you have backed up all important data.</p>
 </div>
 <ol>
 <li>
-<p>Find the data paths in the <a href="../../5.configurations-and-logs/1.configurations/4.storage-config/#disk_configurations">Storage Service disk settings</a> and <a href="../../5.configurations-and-logs/1.configurations/2.meta-config/#storage_configurations">Meta Service storage settings</a>. For example:</p>
+<p>Check the <a href="../../5.configurations-and-logs/1.configurations/4.storage-config/#disk">Storage Service disk settings</a>. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">########## Disk ##########</span>
 <span class="c1"># Root data path. Split by comma. e.g. --data_path=/disk1/path1/,/disk2/path2/</span>
 <span class="c1"># One path per Rocksdb instance.</span>
@@ -1618,13 +1617,20 @@
 </code></pre></div>
 </li>
 <li>
-<p>Delete the directories found in step 1.</p>
+<p>Check the Metad Service configurations and find the corresponding metadata directories.</p>
+</li>
+<li>
+<p>Delete the data and the directories found in step 2.</p>
 </li>
 </ol>
 <h2 id="step_2_delete_the_installation_directories">Step 2: Delete the installation directories<a class="headerlink" href="#step_2_delete_the_installation_directories" title="Permanent link">¶</a></h2>
-<p>The default installation path is <code>/usr/local/nebula</code>. It can be modified while installing Nebula Graph. Delete all installation directories, including the <code>cluster.id</code> files in them.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delete all installation directories, including the <code>cluster.id</code> file in them.</p>
+</div>
+<p>The default installation path is <code>/usr/local/nebula</code>, which is specified by <code>--prefix</code> while installing Nebula Graph.</p>
 <h3 id="uninstall_nebula_graph_deployed_with_source_code">Uninstall Nebula Graph deployed with source code<a class="headerlink" href="#uninstall_nebula_graph_deployed_with_source_code" title="Permanent link">¶</a></h3>
-<p>Find the installation path of Nebula Graph, and delete the directories.</p>
+<p>Find the installation directories of Nebula Graph, and delete them all.</p>
 <h3 id="uninstall_nebula_graph_deployed_with_rpm_packages">Uninstall Nebula Graph deployed with RPM packages<a class="headerlink" href="#uninstall_nebula_graph_deployed_with_rpm_packages" title="Permanent link">¶</a></h3>
 <ol>
 <li>
@@ -1684,7 +1690,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 31, 2021</span>
 </small>
 </div>
 </article>
