@@ -4,13 +4,13 @@ To batch import data into Nebula Graph, you must have a graph schema. You can cr
 
 !!! note
 
-    You can use nebula-console to create a schema. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/3.connect-to-nebula-graph/) and [Get started with Nebula Graph](https://docs.nebula-graph.io/2.0/2.quick-start/4.nebula-graph-crud/).
+    You can use nebula-console to create a schema. For more information, see [Nebula Graph Manual](../../README.md) and [Get started with Nebula Graph](../../2.quick-start/1.quick-start-workflow.md).
 
 ## Prerequisites
 
-To create a graph schema on Studio v2.x, you must do a check of these:
+To create a graph schema on Studio, you must do a check of these:
 
-- Studio is connected to Nebula Graph v2.x.
+- Studio is connected to Nebula Graph.
 
 - Your account has the privilege of GOD, ADMIN, or DBA.
 
@@ -20,7 +20,7 @@ To create a graph schema on Studio v2.x, you must do a check of these:
   
   !!! note
 
-        If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** page. For more information, see [CREATE SPACE](../../3.ngql-guide/9.space-statements/1.create-space.md). In this example, we recommend that you set `vid_type=FIXED_STRING(100)` in the `CREATE SPACE` statement.
+        If no graph space exists and your account has the GOD privilege, you can create a graph space on the **Console** page. For more information, see [CREATE SPACE](../../3.ngql-guide/9.space-statements/1.create-space.md).
 
 ## Create a schema with Schema
 
@@ -73,8 +73,6 @@ DESCRIBE EDGE serve;
 ```
 
 If the schema is created successfully, in the result window, you can see the definition of the tags and edge types.
-
-![The result window shows the definition of the action edge](../figs/st-ug-048-1.png "Result of the DESCRIBE TAG player statement")
 
 ## Next to do
 
