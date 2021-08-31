@@ -1,63 +1,63 @@
 # Nebula Algorithm
 
-[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX] (https://spark.apache.org/graphx/), by submitting a Spark task, use a complete algorithm tool to perform graph calculations on the data in the Nebula Graph database, you can also programmatically call the algorithm under the lib library to perform graph calculations for DataFrame.
+[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX] (https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
 
 ## Prerequisites
 
-Before using Algorithm, users need to confirm the following information:
+Before using the Nebula Algorithm, users need to confirm the following information:
 
-- The Nebula Graph service has been deployed and started. For details, see [Nebula Installation](4.deployment-and-installation/1.resource-preparations.md).
+- The Nebula Graph services have been deployed and started. For details, see [Nebula Installation](4.deployment-and-installation/1.resource-preparations.md).
 
 - The Spark version is 2.4.x.
 
-- (optional) if the user need to clone the latest Algorithm in the making, and to compile the package, can choose to install [Maven](https://maven.apache.org/download.cgi).
+- (Optional) If users need to clone, compile, and package the latest Algorithm in Github, install [Maven](https://maven.apache.org/download.cgi).
 
 ## Limitations
 
-The data of the vertex ID must be integer, that is, the vertex ID can be INT, or String but the data itself is integer.
+The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
-For non-integer String data, it is recommended to call the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the String to Long.
+For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
 
-## Support algorithms
+## Supported algorithms
 
 The graph computing algorithms supported by Nebula Algorithm are as follows.
 
-| algorithm | Description| scenario|
+| Algorithm | Description| Scenario|
 | :-- |:--  | :--|
-| PageRank  | Page sorting| Web page sorting, key node mining|
-| Louvain   | Community found | Community mining, hierarchical clustering|  
-| KCore     | K nuclear | Community discovery, financial risk control|
-| LabelPropagation | Label propagation| Information dissemination, advertising recommendation, community discovery|
-| ConnectedComponent | Unicom component | Community discovery, island discovery|
+| PageRank  | The rank of pages| Web page ranking, key node mining|
+| Louvain   | Community discovery | Community mining, hierarchical clustering|  
+| KCore     | K core | Community discovery, financial risk control|
+| LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|
+| ConnectedComponent | Connected component | Community discovery, island discovery|
 | StronglyConnectedComponent |Strongly connected component  | Community discovery |
-| ShortestPath     |Shortest path | path planning, network planning |
+| ShortestPath     |The shortest path | Path planning, network planning |
 | TriangleCount    |Triangle counting | Network structure analysis|
-| BetweennessCentrality | Intermediate centrality | Key node mining, node influence calculation | 
+| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing | 
 | | DegreeStatic    |Degree of statistical | Graph structure analysis|
 
-## Implementation method
+## Implementation methods
 
-Nebula Algorithm implements the diagram calculation process as follows:
+Nebula Algorithm implements the graph calculating as follows:
 
-1. Read the diagram data as a DataFrame from the Nebula Graph database using the Nebula Spark Connector.
+1. Read the graph data of DataFrame from the Nebula Graph database using the Nebula Spark Connector.
 
-2. Convert DataFrame to GraphX graph.
+2. Transform the graph data of DataFrame to the GraphX graph.
 
-3. Call GraphX provided graph algorithms (such as PageRank) or self-implemented algorithms (such as Louvain).
+3. Use graph algorithms provided by GraphX (such as PageRank) or self-implemented algorithms (such as Louvain).
 
-Detailed implementation method can refer to relevant [Scala file](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
+For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
 
 ## Get Nebula Algorithm
 
-### Compile package
+### Compile and package
 
-1. Clone repository `nebula-spark-utils`.
+1. Clone the repository `nebula-spark-utils`.
 
   ```bash
   $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
   ```
 
-2. Access the directory `nebula-algorithm`.
+2. Enter the directory `nebula-algorithm`.
 
   ```bash
   $ cd nebula-spark-utils/nebula-algorithm
@@ -69,17 +69,17 @@ Detailed implementation method can refer to relevant [Scala file](https://github
   $ mvn clean package -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
   ```
 
-After compilation, a similar file `nebula-algorithm-{{algorithm.release}}.jar` is generated in the directory `nebula-algorithm/target`.
+After the compilation, a similar file `nebula-algorithm-{{algorithm.release}}.jar` is generated in the directory `nebula-algorithm/target`.
 
-### Download maven remote repository
+### Download maven from the remote repository
 
 [Download address](https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/{{algorithm.release}}/)
 
 ## How to use
 
-### Call algorithm interface (recommended)
+### Use algorithm interface (recommended)
 
-The `lib` library provides 10 common graph algorithms that can be invoked programmatically.
+The `lib` repository provides 10 common graph algorithms.
 
 1. Add dependencies to the file `pom.xml`.
 
@@ -91,160 +91,177 @@ The `lib` library provides 10 common graph algorithms that can be invoked progra
   </dependency>
   ```
 
-2. Call the algorithm (take PageRank as an example) by passing in parameters. More algorithm can refer to [test cases](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib).
+2. Use the algorithm (take PageRank as an example) by filling in parameters. For more algorithms, see [Test cases](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib).
 
   !!! note
-        The DataFrame that executes the algorithm defaults to the first column being the starting vertex, the second column being the destination vertex, and the third column being the edge weights (not the rank in the Nebula Graph).
+        By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
 
   ```bash
   val prConfig = new PRConfig(5, 1.0)
   val louvainResult = PageRankAlgo.apply(spark, data, prConfig, false)
   ```
 
-### Directly submit the algorithm package
+### Submit the algorithm package directly
 
 !!! note
-    There are limitations to using packaged packages. For example, when dropping a library into Nebula Graph, the Tag property names created in the library's graph space must match the preset names in the code. The first method is recommended if the user has the development ability.
+    There are limitations to use sealed packages. For example, when sinking a repository into Nebula Graph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
 
-1. Setting [configuration file](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
+1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
 
   ```bash
   {
-    # Spark relation config
+    # Configurations related to Spark
     spark: {
       app: {
           name: LPA
-          # spark.app.partitionNum
+          # The number of partitions of Spark
           partitionNum:100
       }
       master:local
     }
 
     data: {
-      # data source. optional of nebula,csv,json
+      # Data source. Optional values are nebula, csv, and json.
       source: csv
-      # data sink, means the algorithm result will be write into this sink. optional of nebula,csv,text
+      # Data sink. The algorithm result will be written into this sink. Optional values are nebula, csv, and text.
       sink: nebula
-      # if your algorithm needs weight
+      # Whether the algorithm has a weight.
       hasWeight: false
     }
 
-    # Nebula Graph relation config
+    # Configurations related to Nebula Graph
     nebula: {
-      # algo's data source from Nebula. If data.source is nebula, then this nebula.read config can be valid.
+      # Data source. When Nebula Graph is the data source of the graph computing, the configuration of `nebula.read` is valid.
       read: {
-          # Nebula metad server address, multiple addresses are split by English comma
-          metaAddress: "127.0.0.1:9559"
-          # Nebula space
-          space: nb
-          # Nebula edge types, multiple labels means that data from multiple edges will union together
+          # The IP addresses and ports of all Meta services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
+          # To deploy Nebula Graph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
+          # Check the status with `docker-compose ps`.
+          metaAddress: "192.168.*.10:9559"
+          # The name of the graph space in Nebula Graph.
+          space: basketballplayer
+          # Edge types in Nebula Graph. When there are multiple labels, the data of multiple edges will be merged.
           labels: ["serve"]
-          # Nebula edge property name for each edge type, this property will be as weight col for algorithm.
-          # Make sure the weightCols are corresponding to labels.
+          # The property name of each edge type in Nebula Graph. This property will be used as the weight column of the algorithm. Make sure that it corresponds to the edge type.
           weightCols: ["start_year"]
       }
 
-      # algo result sink into Nebula. If data.sink is nebula, then this nebula.write config can be valid.
+      # Data sink. When the graph computing result sinks into Nebula Graph, the configuration of `nebula.write` is valid.
       write:{
-          # Nebula graphd server address， multiple addresses are split by English comma
-          graphAddress: "127.0.0.1:9669"
-          # Nebula metad server address, multiple addresses are split by English comma
-          metaAddress: "127.0.0.1:9559,127.0.0.1:9560"
+          # The IP addresses and ports of all Graph services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
+          # To deploy by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
+          # Check the status with `docker-compose ps`.
+          graphAddress: "192.168.*.11:9669"
+          # The IP addresses and ports of all Meta services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
+          # To deploy Nebula Graph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
+          # Check the staus with `docker-compose ps`.
+          metaAddress: "192.168.*.12:9559"
           user:root
           pswd:nebula
-          # Nebula space name
+          # Before submitting the graph computing task, create the graph space and tag.
+          # The name of the graph space in Nebula Graph.
           space:nb
-          # Nebula tag name, the algorithm result will be write into this tag
+          # The name of the tag in Nebula Graph. The graph computing result will be written into this tag. The property name of this tag is as follows.
+          # PageRank：pagerank
+          # Louvain：louvain
+          # ConnectedComponent：cc
+          # StronglyConnectedComponent：scc
+          # LabelPropagation：lpa
+          # ShortestPath：shortestpath
+          # DegreeStatic：degree、inDegree、outDegree
+          # KCore：kcore
+          # TriangleCount：tranglecpunt
+          # BetweennessCentrality：betweennedss
           tag:pagerank
       }
-    }
+      }  
 
     local: {
-      # algo's data source from Nebula. If data.source is csv or json, then this local.read can be valid.
+      # Data source. When the data source is csv or json, the configuration of `local.read` is valid.
       read:{
           filePath: "hdfs://127.0.0.1:9000/edge/work_for.csv"
-          # srcId column
+          # If the CSV file has a header or it is a json file, use the header. If not, use [_c0, _c1, _c2, ..., _cn] instead.
+          # The header of the source VID column.
           srcId:"_c0"
-          # dstId column
+          # The header of the destination VID column.
           dstId:"_c1"
-          # weight column
-          #weight: "col3"
-          # if csv file has header
+          # The header of the weight column.
+          weight: "_c2"
+          # Whether the csv file has a header.
           header: false
-          # csv file's delimiter
+          # The delimiter in the csv file.
           delimiter:","
       }
 
-      # algo result sink into local file. If data.sink is csv or text, then this local.write can be valid.
+      # Data sink. When the graph computing result sinks to the csv or text file, the configuration of `local.write` is valid.
       write:{
           resultPath:/tmp/
       }
-    }
+      }
 
 
     algorithm: {
-      # the algorithm that you are going to execute，pick one from [pagerank, louvain, connectedcomponent,
-      # labelpropagation, shortestpaths, degreestatic, kcore, stronglyconnectedcomponent, trianglecount,
-      # betweenness]
+      # The algorithm to execute. Optional values are pagerank, louvain, connectedcomponent,
+      # labelpropagation, shortestpaths, degreestatic, kcore,
+      # stronglyconnectedcomponent, trianglecount, betweenness,
       executeAlgo: pagerank
-
-      # PageRank parameter
+ 
+      # PageRank
       pagerank: {
           maxIter: 10
-          resetProb: 0.15  # default 0.15
+          resetProb: 0.15  # The default value is 0.15
       }
-
-      # Louvain parameter
+ 
+      # Louvain
       louvain: {
           maxIter: 20
           internalIter: 10
           tol: 0.5
-    }
+      }
 
-    # connected component parameter.
-      connectedcomponent: {
-          maxIter: 20
-    }
+     # ConnectedComponent/StronglyConnectedComponent
+     connectedcomponent: {
+         maxIter: 20
+     }
 
-    # LabelPropagation parameter
-      labelpropagation: {
-          maxIter: 20
-    }
+     # LabelPropagation
+     labelpropagation: {
+         maxIter: 20
+     }
 
-    # ShortestPaths parameter
+      # ShortestPath
       shortestpaths: {
           # several vertices to compute the shortest path to all vertices.
           landmarks: "1"
-    }
+      }
 
-      # Vertex degree statistics parameter
+      # DegreeStatic
       degreestatic: {}
 
-    # KCore parameter
-    kcore:{
+      # KCore
+      kcore:{
           maxIter:10
           degree:1
-    }
+      }
 
-    # Trianglecount parameter
-    trianglecount:{}
-
-    # Betweenness centrality parameter
-    betweenness:{
+      # TriangleCount
+      trianglecount:{}
+ 
+      # BetweennessCentrality
+      betweenness:{
           maxIter:5
-    }
+      }
   }
   }
   ```
 
-2. Submit the graph calculation task.
+2. Submit the graph computing task.
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-{{algorithm.release}}.jar_path> -p <application.conf_path>
+  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-2.0.0.jar_path> -p <application.conf_path>
   ```
 
   Example:
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-spark-utils/nebula-algorithm/target/nebula-algorithm-{{algorithm.release}}jar -p /root/nebula-spark-utils/nebula-algorithm/src/main/resources/application.conf
+  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-spark-utils/nebula-algorithm/target/nebula-algorithm-2.0.0.jar -p /root/nebula-spark-utils/nebula-algorithm/src/main/resources/application.conf
   ```
