@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#deploy_nebula_graph_cluster">
+<a class="md-skip" href="#deploy_nebula_graph_cluster_with_rpmdeb_package">
           Skip to content
         </a>
 </div>
@@ -1113,10 +1113,21 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#deployment">
+    Deployment
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#prerequisites">
     Prerequisites
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#manual_deployment_process">
+    Manual deployment process
+  </a>
+<nav aria-label="Manual deployment process" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#step_1_install_nebula_graph">
     Step 1: Install Nebula Graph
@@ -1133,14 +1144,12 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#connect_to_the_cluster">
-    Connect to the cluster
+<a class="md-nav__link" href="#step_4_check_the_cluster_status">
+    Step 4: Check the cluster status
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#check_the_cluster_status">
-    Check the cluster status
-  </a>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1526,10 +1535,21 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#deployment">
+    Deployment
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#prerequisites">
     Prerequisites
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#manual_deployment_process">
+    Manual deployment process
+  </a>
+<nav aria-label="Manual deployment process" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#step_1_install_nebula_graph">
     Step 1: Install Nebula Graph
@@ -1546,14 +1566,12 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#connect_to_the_cluster">
-    Connect to the cluster
+<a class="md-nav__link" href="#step_4_check_the_cluster_status">
+    Step 4: Check the cluster status
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#check_the_cluster_status">
-    Check the cluster status
-  </a>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1565,44 +1583,418 @@
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/4.deployment-and-installation/2.compile-and-install-nebula-graph/deploy-nebula-graph-cluster.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="deploy_nebula_graph_cluster">Deploy Nebula Graph cluster<a class="headerlink" href="#deploy_nebula_graph_cluster" title="Permanent link">¶</a></h1>
-<p>This topic describes how to manually deploy a Nebula Graph cluster.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For now, Nebula Graph does not have an official deployment tool.</p>
-</div>
+<h1 id="deploy_nebula_graph_cluster_with_rpmdeb_package">Deploy Nebula Graph cluster with RPM/DEB package<a class="headerlink" href="#deploy_nebula_graph_cluster_with_rpmdeb_package" title="Permanent link">¶</a></h1>
+<p>For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides some examples of deploying Nebula Graph clusters.</p>
+<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Machine name</th>
+<th align="left">IP address</th>
+<th align="left">Number of graphd</th>
+<th align="left">Number of storaged</th>
+<th align="left">Number of metad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">A</td>
+<td align="left">192.168.10.111</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">192.168.10.112</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">192.168.10.113</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left">192.168.10.114</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left">E</td>
+<td align="left">192.168.10.115</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p><a href="1.resource-preparations.md">Prepare hardware</a> for deploying the cluster.</p>
-<h2 id="step_1_install_nebula_graph">Step 1: Install Nebula Graph<a class="headerlink" href="#step_1_install_nebula_graph" title="Permanent link">¶</a></h2>
+<p>Prepare 5 machines for deploying the cluster.</p>
+<h2 id="manual_deployment_process">Manual deployment process<a class="headerlink" href="#manual_deployment_process" title="Permanent link">¶</a></h2>
+<h3 id="step_1_install_nebula_graph">Step 1: Install Nebula Graph<a class="headerlink" href="#step_1_install_nebula_graph" title="Permanent link">¶</a></h3>
 <p>Install Nebula Graph on each machine in the cluster. Available approaches of installation are as follows.</p>
 <ul>
-<li><a href="2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md">Install Nebula Graph with RPM or DEB package</a></li>
-<li><a href="2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md">Install Nebula Graph by compiling the source code</a></li>
+<li><a href="../2.install-nebula-graph-by-rpm-or-deb/">Install Nebula Graph with RPM or DEB package</a></li>
 </ul>
-<h2 id="step_2_modify_the_configurations">Step 2: Modify the configurations<a class="headerlink" href="#step_2_modify_the_configurations" title="Permanent link">¶</a></h2>
-<p>To deploy Nebula Graph according to your requirements, you have to modify the configuration files. All the configuration files for Nebula Graph, including <code>nebula-graphd.conf</code>, <code>nebula-metad.conf</code>, and <code>nebula-storaged.conf</code>, are stored in the <code>etc</code> directory in the installation path.</p>
-<p>You only need to modify the configuration for the corresponding service on the machines. For example, modify <code>nebula-graphd.conf</code> on the machines where you want to deploy the Graph Service.</p>
-<p>For how to prepare the configuration files, see:</p>
 <ul>
-<li><a href="../5.configurations-and-logs/1.configurations/2.meta-config.md">Meta Service configurations</a></li>
-<li><a href="../5.configurations-and-logs/1.configurations/3.graph-config.md">Graph Service configurations</a></li>
-<li><a href="../5.configurations-and-logs/1.configurations/4.storage-config.md">Storage Service configurations</a></li>
+<li><a href="../1.install-nebula-graph-by-compiling-the-source-code/">Install Nebula Graph by compiling the source code</a></li>
 </ul>
-<h2 id="step_3_start_the_cluster">Step 3: Start the cluster<a class="headerlink" href="#step_3_start_the_cluster" title="Permanent link">¶</a></h2>
-<p>Start the corresponding service on each machine. The command to start the Nebula Graph services is as follows.</p>
-<div class="highlight"><pre><span></span><code>sudo /usr/local/nebula/scripts/nebula.service start &lt;metad|graphd|storaged|all&gt;
+<h3 id="step_2_modify_the_configurations">Step 2: Modify the configurations<a class="headerlink" href="#step_2_modify_the_configurations" title="Permanent link">¶</a></h3>
+<p>To deploy Nebula Graph according to your requirements, you have to modify the configuration files.</p>
+<p>All the configuration files for Nebula Graph, including <code>nebula-graphd.conf</code>, <code>nebula-metad.conf</code>, and <code>nebula-storaged.conf</code>, are stored in the <code>etc</code> directory in the installation path. You only need to modify the configuration for the corresponding service on the machines. The configurations that need to be modified for each machine are as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Machine name</th>
+<th align="left">The configuration to be modified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">A</td>
+<td align="left"><code>nebula-graphd.conf</code>, <code>nebula-storaged.conf</code>, <code>nebula-metad.conf</code></td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left"><code>nebula-graphd.conf</code>, <code>nebula-storaged.conf</code>, <code>nebula-metad.conf</code></td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left"><code>nebula-graphd.conf</code>, <code>nebula-storaged.conf</code>, <code>nebula-metad.conf</code></td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left"><code>nebula-graphd.conf</code>, <code>nebula-storaged.conf</code></td>
+</tr>
+<tr>
+<td align="left">E</td>
+<td align="left"><code>nebula-graphd.conf</code>, <code>nebula-storaged.conf</code></td>
+</tr>
+</tbody>
+</table>
+<p>Users can refer to the content of the following configurations, which only show part of the cluster settings. The hidden content uses the default setting so that users can better understand the relationship between the servers in the Nebula Graph cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The main configuration to be modified is <code>meta_server_addrs</code>. All configurations need to fill in the IP addresses and ports of all Meta services. At the same time, <code>local_ip</code> needs to be modified as the network IP address of the machine itself. For detailed descriptions of the configuration parameters, see:</p>
+<ul>
+<li><a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta Service configurations</a></li>
+</ul>
+<ul>
+<li><a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph Service configurations</a></li>
+</ul>
+<ul>
+<li><a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage Service configurations</a></li>
+</ul>
+</div>
+<ul>
+<li>
+<p>Deploy machine A</p>
+<ul>
+<li>
+<p><code>nebula-graphd.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server Addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-graphd process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.111
+<span class="c1"># Network device to listen on</span>
+--listen_netdev<span class="o">=</span>any
+<span class="c1"># Port to listen on</span>
+--port<span class="o">=</span><span class="m">9669</span>
 </code></pre></div>
-<p><code>/usr/local/nebula</code> is the default installation path for Nebula Graph. Use the actual path if you have customized the path.</p>
-<p>For more information about how to start and stop the services, see <a href="../2.quick-start/5.start-stop-service.md">Manage Nebula Graph services</a>.</p>
-<h2 id="connect_to_the_cluster">Connect to the cluster<a class="headerlink" href="#connect_to_the_cluster" title="Permanent link">¶</a></h2>
-<p>Connect to the Graph Service with a Nebula Graph client, such as Nebula Console. For more information, see <a href="../2.quick-start/3.connect-to-nebula-graph.md">Connect to Nebula Graph</a>.</p>
-<h2 id="check_the_cluster_status">Check the cluster status<a class="headerlink" href="#check_the_cluster_status" title="Permanent link">¶</a></h2>
-<p>After connecting to the Nebula Graph cluster, run <a href="../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md"><code>SHOW HOSTS</code></a> to check the cluster status.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-storaged.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-storaged process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.111
+<span class="c1"># Storage daemon listening port</span>
+--port<span class="o">=</span><span class="m">9779</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-metad.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-metad process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.111
+<span class="c1"># Meta daemon listening port</span>
+--port<span class="o">=</span><span class="m">9559</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Deploy machine B</p>
+<ul>
+<li>
+<p><code>nebula-graphd.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server Addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-graphd process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.112
+<span class="c1"># Network device to listen on</span>
+--listen_netdev<span class="o">=</span>any
+<span class="c1"># Port to listen on</span>
+--port<span class="o">=</span><span class="m">9669</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-storaged.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-storaged process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.112
+<span class="c1"># Storage daemon listening port</span>
+--port<span class="o">=</span><span class="m">9779</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-metad.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-metad process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.112
+<span class="c1"># Meta daemon listening port</span>
+--port<span class="o">=</span><span class="m">9559</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Deploy machine C</p>
+<ul>
+<li>
+<p><code>nebula-graphd.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server Addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-graphd process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.113
+<span class="c1"># Network device to listen on</span>
+--listen_netdev<span class="o">=</span>any
+<span class="c1"># Port to listen on</span>
+--port<span class="o">=</span><span class="m">9669</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-storaged.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-storaged process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.113
+<span class="c1"># Storage daemon listening port</span>
+--port<span class="o">=</span><span class="m">9779</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-metad.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-metad process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.113
+<span class="c1"># Meta daemon listening port</span>
+--port<span class="o">=</span><span class="m">9559</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Deploy machine D</p>
+<ul>
+<li>
+<p><code>nebula-graphd.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server Addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-graphd process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.114
+<span class="c1"># Network device to listen on</span>
+--listen_netdev<span class="o">=</span>any
+<span class="c1"># Port to listen on</span>
+--port<span class="o">=</span><span class="m">9669</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-storaged.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-storaged process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.114
+<span class="c1"># Storage daemon listening port</span>
+--port<span class="o">=</span><span class="m">9779</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Deploy machine E</p>
+<ul>
+<li>
+<p><code>nebula-graphd.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta Server Addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-graphd process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.115
+<span class="c1"># Network device to listen on</span>
+--listen_netdev<span class="o">=</span>any
+<span class="c1"># Port to listen on</span>
+--port<span class="o">=</span><span class="m">9669</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>nebula-storaged.conf</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">########## networking ##########</span>
+<span class="c1"># Comma separated Meta server addresses</span>
+--meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.10.111:9559,192.168.10.112:9559,192.168.10.113:9559
+<span class="c1"># Local IP used to identify the nebula-storaged process.</span>
+<span class="c1"># Change it to an address other than loopback if the service is distributed or</span>
+<span class="c1"># will be accessed remotely.</span>
+--local_ip<span class="o">=</span><span class="m">192</span>.168.10.115
+<span class="c1"># Storage daemon listening port</span>
+--port<span class="o">=</span><span class="m">9779</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="step_3_start_the_cluster">Step 3: Start the cluster<a class="headerlink" href="#step_3_start_the_cluster" title="Permanent link">¶</a></h3>
+<p>Start the corresponding service on each machine. Descriptions are as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Machine name</th>
+<th align="left">The process to be started</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">A</td>
+<td align="left">graphd, storaged, metad</td>
+</tr>
+<tr>
+<td align="left">B</td>
+<td align="left">graphd, storaged, metad</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">graphd, storaged, metad</td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left">graphd, storaged</td>
+</tr>
+<tr>
+<td align="left">E</td>
+<td align="left">graphd, storaged</td>
+</tr>
+</tbody>
+</table>
+<p>The command to start the Nebula Graph services is as follows.</p>
+<div class="highlight"><pre><span></span><code>sudo /usr/local/nebula/scripts/nebula.service start &lt;metad<span class="p">|</span>graphd<span class="p">|</span>storaged<span class="p">|</span>all&gt;
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>When the graphd process, the storaged process, and the metad process are all started, you can use <code>all</code> instead.</li>
+</ul>
+<ul>
+<li><code>/usr/local/nebula</code> is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see <a href="../2.quick-start/5.start-stop-service.md">Manage Nebula Graph services</a>.</li>
+</ul>
+</div>
+<h3 id="step_4_check_the_cluster_status">Step 4: Check the cluster status<a class="headerlink" href="#step_4_check_the_cluster_status" title="Permanent link">¶</a></h3>
+<p>Install the native CLI client <a href="../../../2.quick-start/3.connect-to-nebula-graph/#_1">Nebula Console</a>, then connect to any machine that has started the graphd process, and run <code>SHOW HOSTS</code> to check the cluster status. For example:</p>
+<div class="highlight"><pre><span></span><code>$ ./nebula-console --addr <span class="m">192</span>.168.10.111 --port <span class="m">9669</span> -u root -p nebula
+
+<span class="m">2021</span>/05/25 <span class="m">01</span>:41:19 <span class="o">[</span>INFO<span class="o">]</span> connection pool is initialized successfully
+Welcome to Nebula Graph!
+
+&gt; SHOW HOSTS<span class="p">;</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> Host             <span class="p">|</span> Port <span class="p">|</span> Status   <span class="p">|</span> Leader count <span class="p">|</span> Leader distribution  <span class="p">|</span> Partition distribution <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"192.168.10.111"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"192.168.10.112"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"192.168.10.113"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"192.168.10.114"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"192.168.10.115"</span> <span class="p">|</span> <span class="m">9779</span> <span class="p">|</span> <span class="s2">"ONLINE"</span> <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span> <span class="s2">"No valid partition"</span> <span class="p">|</span> <span class="s2">"No valid partition"</span>   <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+<span class="p">|</span> <span class="s2">"Total"</span>          <span class="p">|</span>      <span class="p">|</span>          <span class="p">|</span> <span class="m">0</span>            <span class="p">|</span>                      <span class="p">|</span>                        <span class="p">|</span>
++------------------+------+----------+--------------+----------------------+------------------------+
+</code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 30, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 31, 2021</span>
 </small>
 </div>
 </article>
