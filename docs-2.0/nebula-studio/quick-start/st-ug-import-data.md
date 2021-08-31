@@ -6,7 +6,7 @@ After CSV files of data and a schema are created, you can use the **Import** pag
 
 To batch import data, do a check of these:
 
-- Studio v2.x is connected to Nebula Graph v2.x.
+- Studio is connected to Nebula Graph.
 
 - A schema is created.
 
