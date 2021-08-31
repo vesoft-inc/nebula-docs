@@ -34,13 +34,13 @@ To create an index on the **Schema** page, follow these steps:
 
    c. **Index Name**: Specify a name for the new index. In this example, **follow_index** is used.
 
-   d. **Indexed Properties**: Click **Add**, and then, in the dialog box, choose a property. If necessary, repeat this step to choose more properties. You can drag the properties to sort them. In this example, `degree` are chosen.
+   d. **Indexed Properties**: Click **Add**, and then, in the dialog box, choose a property. If necessary, repeat this step to choose more properties. You can drag the properties to sort them. In this example, `degree` is chosen.
 
     !!! note
 
         The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](../../3.ngql-guide/7.general-query-statements/5.lookup.md "Click to go to the Nebula Graph website").
 
-   e. **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on a index, `follow_index` is used.
+   e. **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on an index. But in this example, `follow_index` is used.
 
    When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
 

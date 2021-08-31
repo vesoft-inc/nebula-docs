@@ -27,7 +27,7 @@ To create a graph space on the **Schema** page, follow these steps:
 
    b. **Vid type**: The data types of VIDs are restricted to `FIXED_STRING(<N>)` or `INT64`; a graph space can only select one VID type, `FIXED_STRING(32)` is used. For more information, see [VID](../../1.introduction/3.vid.md).
 
-   c. **Comment**: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space, `Statistics of basketball players` is used.
+   c. **Comment**: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, `Statistics of basketball players` is used.
 
    d. **Optional Parameters**: Set `partition_num`, `replica_factor`. In this example, these parameters are set to `100` and `1` separately. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
 
