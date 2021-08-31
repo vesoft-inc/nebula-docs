@@ -1,16 +1,14 @@
 # Connect to Nebula Graph
-<!--
-On Nebula Graph Cloud Service, you can connect to Studio with one click. For more information, see [Connect to Nebula Graph Studio](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/).
--->
-For Studio v2.x, when it is started, you must configure it to connect to Nebula Graph v2.x. This article introduces how to connect Studio v2.x to Nebula Graph v2.x.
+
+After successfully launching Studio, you need to configure to connect to Nebula Graph. This topic describes how Studio connects to the Nebula Graph database.
 
 ## Prerequisites
 
-Before you connect Studio v2.x to Nebula Graph v2.x, you must do a check of these:
+Before connecting to the Nebula Graph database, you need to confirm the following information:
 
 - The Nebula Graph services and Studio are started. For more information, see [Deploy Studio](st-ug-deploy.md).
 
-- You have the IP address and the port used by the Graph service of Nebula Graph v2.x. The default port is `9669`.  
+- You have the local IP address and the port used by the Graph service of Nebula Graph. The default port is `9669`.  
   
     !!! note
 
@@ -44,7 +42,7 @@ To connect Studio to Nebula Graph, follow these steps:
 
 2. After the configuration, click the **Connect** button.
 
-   If you can see the **Console** page, is successfully connected to Nebula Graph.
+   If you can see the **Console** page, Studio is successfully connected to Nebula Graph.
 
    ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")
 
