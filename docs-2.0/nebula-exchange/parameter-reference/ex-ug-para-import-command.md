@@ -1,4 +1,4 @@
-# Import Command Parameters
+# Options for import
 
 After editing the configuration file, run the following commands to import specified source data into the Nebula Graph database.
 
@@ -46,3 +46,4 @@ The following table lists command parameters.
 |-r / --reload | No  |  -  |  Specify the path of the reload file that needs to be reloaded. |
 
 For more Spark parameter configurations, see [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html#runtime-environment).
+
