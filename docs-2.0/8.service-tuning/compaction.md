@@ -60,13 +60,17 @@ These are some operation suggestions to keep Nebula Graph performing well.
 ## FAQ
 
 Q: Can I do full compactions for multiple graph spaces at the same time?
+
 A: Yes, you can. But the IO is much larger at this time.
 
 Q: How much time does it take for full compactions?
+
 A: When `rate_limit` is set to `20`, you can estimate the full compaction time by dividing the hard disk usage by the `rate_limit`. If you do not set the `rate_limit` value, the empirical value is around 50 MB/s.
 
 Q: Can I modify `--rate_limit` dynamically?
+
 A: No, you cannot.
 
 Q: Can I stop a full compaction after it starts?
+
 A: No you cannot. When you start a full compaction, you have to wait till it is done. This is the limitation of RocksDB.
