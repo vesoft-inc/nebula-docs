@@ -1993,16 +1993,13 @@
 <h1 id="operate_graph_spaces">Operate graph spaces<a class="headerlink" href="#operate_graph_spaces" title="Permanent link">¶</a></h1>
 <p>When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the <strong>Console</strong> page or the <strong>Schema</strong> page to do these operations. This article only introduces how to use the <strong>Schema</strong> page to operate graph spaces in Nebula Graph.</p>
 <h2 id="studio_version">Studio version<a class="headerlink" href="#studio_version" title="Permanent link">¶</a></h2>
-<p>Studio of v2.2.0 or later versions supports this function. To update the version, run this command.</p>
-<div class="highlight"><pre><span></span><code>docker-compose pull <span class="o">&amp;&amp;</span> docker-compose up
-</code></pre></div>
+<p>Studio of v3.0.0 or later versions supports this function. For more information, see <a href="../../about-studio/st-ug-check-updates/">check updates</a>.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>To operate a graph space on the <strong>Schema</strong> page of Studio, you must do a check of these:</p>
 <ul>
-<li>The version of Studio is v2.2.0 or later.</li>
 <li>Studio is connected to Nebula Graph.</li>
 <li>Your account has the authority of GOD. It means that:<ul>
-<li>If the authentication is enabled in Nebula Graph, you can use <code>user</code> and <code>password</code> to sign in to Studio.</li>
+<li>If the authentication is enabled in Nebula Graph, you can use <code>root</code> and any password to sign in to Studio.</li>
 <li>If the authentication is disabled in Nebula Graph, you must use <code>root</code> and its password to sign in to Studio.</li>
 </ul>
 </li>
@@ -2014,21 +2011,23 @@
 <li>On the <strong>Graph Space List</strong> page, click the <strong>+ Create</strong> button.</li>
 <li>
 <p>On the <strong>Create</strong> page, do these settings:</p>
-<p>a. <strong>Name</strong>: Specify a name to the new graph space. In this example, <code>basketballplayer</code> is used. The name must be distinct in the database.</p>
-<p>b. <strong>Optional Parameters</strong>: Set <code>partition_num</code>, <code>replica_factor</code>, <code>charset</code>, <code>collate</code> and <code>vid type</code>. In this example, these parameters are set to <code>10</code>, <code>1</code>, <code>utf8</code>, <code>utf8_bin</code> and <code>FIXED_STRING(32)</code> separately. For more information, see <a href="/docs-2.0/3.ngql-guide/9.space-statements/1.create-space.md" title="Click to go to the Nebula Graph website"><code>CREATE SPACE</code> syntax</a>.</p>
+<p>a. <strong>Name</strong>: Specify a name to the new graph space. In this example, <code>basketballplayer</code> is used. The name must be distinct in the database. The name cannot be used keywords or reserved keywords as identifiers. For more information, see <a href="../../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">keywords</a>.</p>
+<p>b. <strong>Vid type</strong>: The data types of VIDs are restricted to <code>FIXED_STRING(&lt;N&gt;)</code> or <code>INT64</code>; a graph space can only select one VID type, <code>FIXED_STRING(32)</code> is used. For more information, see <a href="../../../1.introduction/3.vid/">VID</a>.</p>
+<p>c. <strong>Comment</strong>: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, <code>Statistics of basketball players</code> is used.</p>
+<p>d. <strong>Optional Parameters</strong>: Set <code>partition_num</code>, <code>replica_factor</code>. In this example, these parameters are set to <code>100</code> and <code>1</code> separately. For more information, see <a href="../../../3.ngql-guide/9.space-statements/1.create-space/" title="Click to go to the Nebula Graph website"><code>CREATE SPACE</code> syntax</a>.</p>
 <p>In the <strong>Equivalent to the following nGQL statement</strong> panel, you can see the statement equivalent to the preceding settings.</p>
-<div class="highlight"><pre><span></span><code>CREATE SPACE basketballplayer <span class="o">(</span><span class="nv">partition_num</span> <span class="o">=</span> <span class="m">10</span>, <span class="nv">replica_factor</span> <span class="o">=</span> <span class="m">1</span>, <span class="nv">charset</span> <span class="o">=</span> utf8, <span class="nv">collate</span> <span class="o">=</span> utf8_bin, <span class="nv">vid_type</span> <span class="o">=</span> FIXED_STRING<span class="o">(</span><span class="m">32</span><span class="o">))</span>
+<div class="highlight"><pre><span></span><code>CREATE SPACE basketballplayer <span class="o">(</span><span class="nv">partition_num</span> <span class="o">=</span> <span class="m">100</span>, <span class="nv">replica_factor</span> <span class="o">=</span> <span class="m">1</span>, <span class="nv">vid_type</span> <span class="o">=</span> FIXED_STRING<span class="o">(</span><span class="m">32</span><span class="o">))</span> <span class="nv">COMMENT</span> <span class="o">=</span> <span class="s2">"Statistics of basketball players"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Confirm the settings and then click the <strong>+ Create</strong> button. If the graph space is created successfully, you can see it on the graph space list.</p>
 </li>
 </ol>
-<p><img alt="The Create page with settings for a graph space" src="../../figs/st-ug-026-1.png"/></p>
+<p><img alt="The Create page with settings for a graph space" src="../../figs/st-ug-026.png"/></p>
 <h2 id="delete_a_graph_space">Delete a graph space<a class="headerlink" href="#delete_a_graph_space" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Deleting the image space will delete all the data in it, and the deleted data cannot be restored if it is not <a href="../../../7.data-security/3.manage-snapshot/">backed up</a>.</p>
+<p>Deleting the space will delete all the data in it, and the deleted data cannot be restored if it is not <a href="../../../7.data-security/3.manage-snapshot/">backed up</a>.</p>
 </div>
 <p>To delete a graph space on the <strong>Schema</strong> page, follow these steps:</p>
 <ol>
@@ -2051,7 +2050,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2021</span>
 </small>
 </div>
 </article>
