@@ -6,11 +6,9 @@ With the **Open in Explore** function, you can run nGQL statements on the **Cons
 
 To use the **Open in Explore** function, you must do a check of these:
 
-- The version of Studio is v2.0.0 or later.
+- Studio is connected to Nebula Graph. For more information, see [Connect to Nebula Graph](../deploy-connect/st-ug-connect.md).
 
-- Studio is connected to Nebula Graph v2.x.
-
-- A dataset exists in the database.
+- A dataset exists in the database. For more information, see [Import data](../quick-start/st-ug-import-data.md).
 
 ## Query and visualize edge data
 
@@ -18,7 +16,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
 1. In the toolbar, click the **Console** tab.
 
-2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
+2. In the **Current Graph Space** field, choose a graph space name. In this example, **basketballplayer** is chosen.
 
 3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").  
 
@@ -29,14 +27,14 @@ To query edge data on the **Console** page and then view the result on the **Exp
    Here is an nGQL statement example.
 
     ```ngql
-    nebula> MATCH (u:user {userId: 1}) - [:action] -> (c) RETURN u.userId AS UserID, c.courseName AS Course;
+    nebula> GO FROM "player102" OVER serve YIELD serve._src,serve._dst;
     ```
 
   !!! note
 
         For more information about the `MATCH` syntax, see [MATCH in nGQL User Guide](../../3.ngql-guide/7.general-query-statements/2.match.md).
 
-   The query result gives the edges between User 1 and the courses that he/she takes on the MOOC platform, as shown in this figure.
+   In the query result, you can see the start year and end year of the service team for the player whose playerId is `palyer102`. As shown below.
 
    ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](../figs/st-ug-037.png "Edge data")
 
@@ -45,17 +43,17 @@ To query edge data on the **Console** page and then view the result on the **Exp
 5. In the dialog box, configure as follows:  
    a. Click **Edge Type**.  
 
-   b. In the **Edge Type** field, enter an edge type name. In this example, `action` is used.  
+   b. In the **Edge Type** field, enter an edge type name. In this example, `serve` is used.  
 
-   c. In the **Src ID** field, choose a column name from the result table representing the VIDs of the source vertices. In this example, `UserID` is chosen.  
+   c. In the **Src ID** field, choose a column name from the result table representing the VIDs of the source vertices. In this example, `serve._src` is chosen.  
 
-   d. In the **Dst ID** field, choose a column name from the result table representing the VIDs of the destination vertices. In this example, `Course` is chosen.  
+   d. In the **Dst ID** field, choose a column name from the result table representing the VIDs of the destination vertices. In this example, `serve._dst` is chosen.  
 
    e. (Optional) If the result table contains the ranking information of the edges, in the **Rank** field, choose a column name representing the `rank` of the edges. If no ranking information exists in the result, leave the **Rank** field blank.  
 
    f. When the configuration is done, click the **Import** button.  
 
-   ![The dialog box for you to configure the edge data](../figs/st-ug-038.png "Configure edge data")
+   ![The dialog box for you to configure the edge data](../figs/st-ug-038-1.png "Configure edge data")
 
 6. If some data exists on the board of **Explore**, choose a method to insert data:
 
@@ -64,7 +62,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
 When the data is inserted, you can view the visualized representation of the edge data.
 
-![The edge data is represented on the Explore board](../figs/st-ug-044.png "Visualize edge data")
+![The edge data is represented on the Explore board](../figs/st-ug-044-1.png "Visualize edge data")
 
 ## Query and visualize vertex data
 
@@ -72,7 +70,7 @@ To query vertex data on the **Console** page and then view the result on the **E
 
 1. In the toolbar, click the **Console** tab.
 
-2. In the **Current Graph Space** field, choose a graph space name. In this example, **mooc_actions** is chosen.
+2. In the **Current Graph Space** field, choose a graph space name. In this example, **basketballplayer** is chosen.
 
 3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").
 
@@ -83,23 +81,23 @@ To query vertex data on the **Console** page and then view the result on the **E
    Here is an nGQL statement example.
 
    ```ngql
-   nebula> GO FROM "1" OVER action YIELD action._dst AS Course;
+   nebula> FETCH PROP ON player "player100" YIELD player.name;
    ```
 
-   The query result gives the courses that the specified user took, as shown in this figure.
+   The query result gives the information of the player whose `playerId` is `player100`, as shown in this figure.
 
-   ![The Result window shows the queried vertex data](../figs/st-ug-039.png "Vertex data")
+   ![The Result window shows the queried vertex data](../figs/st-ug-043-1.png "Vertex data")
 
 4. Click the **Open in Explore** button.
 
 5. In the dialog box, configure as follows:  
    a. Click **Vertex**.  
    
-   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `Course` is chosen.  
+   b. In the **Vertex ID** field, choose a column name from the result table representing the VIDs of the vertices. In this example, `VertexID` is chosen.  
    
    c. When the configuration is done, click the **Import** button.
 
-   ![The dialog box for you to configure the vertex data](../figs/st-ug-047.png "Configure vertex data")  
+   ![The dialog box for you to configure the vertex data](../figs/st-ug-047-1.png "Configure vertex data")  
 
 6. If some data exists on the board of **Explore**, choose a method to insert data:
 
