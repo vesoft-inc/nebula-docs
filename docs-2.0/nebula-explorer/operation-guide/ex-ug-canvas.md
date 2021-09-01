@@ -1,4 +1,4 @@
-# canvas operation
+# Canvas operation
 
 This topic describes operation in canvas.
 
