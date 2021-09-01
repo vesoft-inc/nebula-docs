@@ -1,4 +1,4 @@
-# Configure the `application.conf` file
+# Parameters in the configuration file
 
 This document describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-spark-utils/blob/master/nebula-exchange/src/main/resources/application.conf) when users use Nebula Exchange.
 
