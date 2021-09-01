@@ -3,7 +3,7 @@
 [Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/tree/v2.0.0/nebula-exchange) (hereinafter referred to as Exchange) is an Apache Spark&trade; application for migrating data into Nebula Graph from distributed systems. Exchange supports the migration of migrating batch data and stream data of different formats.
 
 <!--
-For more information, see [What is Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/blob/v2.0.0/nebula-exchange/doc-2.0/EN/about-exchange/ex-ug-what-is-exchange.md)。
+For more information, see [What is Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/blob/v2.0.0/nebula-exchange/doc-2.0/EN/about-exchange/ex-ug-what-is-exchange.md). 
 -->
 
 ## Use cases
@@ -42,7 +42,7 @@ Exchange applies to transforming the following data into vertices and edges in [
 
 Exchange 2.0 can migrate data with the following formats or origins.
 
-* Data stored in HDFS, including：
+* Data stored in HDFS, including: 
   - Apache Parquet
   - Apache ORC
   - JSON
@@ -52,10 +52,10 @@ Exchange 2.0 can migrate data with the following formats or origins.
 
 * Data warehouse: Hive
 
-* Graph database：Neo4j
+* Graph database: Neo4j
 
-* Relational database：MySQL
+* Relational database: MySQL
 
-* Event streaming platform：Apache Kafka&reg;
+* Event streaming platform: Apache Kafka&reg;
 
 * Message publishing/subscribing platform: Apache Pulsar 2.4.5

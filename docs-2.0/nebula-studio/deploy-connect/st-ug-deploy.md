@@ -92,7 +92,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
   !!! note
 
         `node` and `npm` should be installed in `/usr/bin/` directory. Avoid the situation that the node command cannot be found during RPM installation.
-        For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`，you can use following commands to build soft link:
+        For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`, you can use following commands to build soft link:
 
    ```bash
    $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
@@ -199,7 +199,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
   !!! note
 
         `node` and `npm` should be installed in `/usr/bin/` directory. Avoid the situation that the node command cannot be found during RPM installation.
-        For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`，you can use following commands to build soft link:
+        For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`, you can use following commands to build soft link:
 
    ```bash
    $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
