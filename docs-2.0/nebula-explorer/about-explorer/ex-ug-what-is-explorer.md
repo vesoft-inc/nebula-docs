@@ -21,7 +21,7 @@ Explorer has these features:
 
 - Flexible: Explorer supports querying data through VID, Tag, Subgraph.
 
-- Multiple operations: Explorer supports operations such as expanding operations on multiple points, querying the common neighbors of multiple points, and querying the path between the start vertex and the end vertex.
+- Multiple operations: Explorer supports operations such as expanding operations on multiple vertexes, querying the common neighbors of multiple vertexes, and querying the path between the start vertex and the end vertex.
 
 - Various display: Explorer supports modifying the color and icon of the vertex in the canvas to highlight key nodes. You can also freely choose the data display mode in `dagre`, `force`, and `circular`.
 

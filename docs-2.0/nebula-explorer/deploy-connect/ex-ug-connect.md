@@ -14,7 +14,7 @@ Before connecting to the Nebula Graph database, you need to confirm the followin
 
   !!! note
         
-        If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/{{nebula.release}}/).
+        If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/).
 
 ## Procedure
 
@@ -36,7 +36,7 @@ To connect Explorer to Nebula Graph, follow these steps:
 
       - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
-   ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050.png "Config Server")
+   ![The Config Server page shows the fields to be configured for connection](../figs/ex-ug-050.png "Config Server")
 
 2. After the configuration, click the **Connect** button.
 
