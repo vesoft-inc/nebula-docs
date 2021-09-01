@@ -29,7 +29,7 @@ Before you deploy Studio, you must do a check of these:
 
 ### Procedure
 
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:
+To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 3.0.0 for demonstration:
 
 1. Download the configuration files for the deployment.
    
@@ -217,6 +217,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 ### Install
 
 1. Select and download the tar package according to your needs. It is recommended to select the latest version. Common links are as follows:
+
    | Installation package | Studio version |
    | --- | --- |
    | [nebula-graph-studio-3.0.0-1.x86_64.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.tar.gz) | 3.0.0 |
