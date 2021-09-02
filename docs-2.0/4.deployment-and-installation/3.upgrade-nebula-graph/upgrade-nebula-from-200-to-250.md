@@ -14,7 +14,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
 
 3. Execute the following command to upgrade:
 
-   -RPM package
+   - RPM package
 
       ```bash
       $ sudo rpm -Uvh <package_name>
@@ -26,7 +26,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
       $ sudo rpm -Uvh --prefix=<installation_path> <package_name>
       ```
 
-   -DEB package
+   - DEB package
 
       ```bash
       $ sudo dpkg -i <package_name>
