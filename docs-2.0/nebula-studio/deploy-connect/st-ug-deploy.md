@@ -29,7 +29,7 @@ Before you deploy Studio, you must do a check of these:
 
 ### Procedure
 
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 3.0.0 for demonstration:
+To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:
 
 1. Download the configuration files for the deployment.
    
