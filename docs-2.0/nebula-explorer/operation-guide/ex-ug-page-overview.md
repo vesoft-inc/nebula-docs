@@ -66,7 +66,7 @@ For more information, see [Graph exploration and expansion](../operation-guide/e
 
 The canvas is mainly divided into:
 
-- canvas: Display the data queried by VID, Tag or subgraph.
+- Canvas: Display the data queried by VID, Tag or subgraph.
 
 - Vertexes and Edges overview: It is hidden by default and only displayed when the vertex and edge are selected on the current canvas. Click on the icon in the following, and the user can open the menu to view the detailed data of the selected vertexes and edges in the current canvas.
 
@@ -84,6 +84,6 @@ You can use the button on the minimap to switch the graph mode, display the vert
   | ---- | ---- |----| ----|
   | mode | force | dagre | circular |
 
-  ## Relationship list
+## Relationship list
 
-  Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.
+Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.
