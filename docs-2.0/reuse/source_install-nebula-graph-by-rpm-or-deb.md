@@ -52,8 +52,8 @@ Prepare the right [resources](../1.resource-preparations.md).
 
   !!! danger
 
-        - Nightly versions are usually used to test new features. Don't use it for production.
-        - Nightly versions may not be build successfully every night. And the names may change from day to day.
+      - Nightly versions are usually used to test new features. Don't use it for production.
+      - Nightly versions may not be build successfully every night. And the names may change from day to day.
 
     URL: 
 
