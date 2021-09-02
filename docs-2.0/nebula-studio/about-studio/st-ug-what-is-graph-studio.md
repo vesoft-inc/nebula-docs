@@ -6,11 +6,11 @@ Nebula Graph Studio (Studio in short) is a browser-based visualization tool to m
 
 For now, Studio has three release versions:
 
-- Docker-based. You can deploy Studio with Docker and connect it to Nebula Graph. For more information, see [Docker-based Studio](../install-configure/st-ug-deploy.md).
+- Docker-based. You can deploy Studio with Docker and connect it to Nebula Graph. For more information, see [Docker-based Studio](../deploy-connect/st-ug-deploy.md).
 
-- RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [RPM-based Studio](../install-configure/st-ug-deploy.md).
+- RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [RPM-based Studio](../deploy-connect/st-ug-deploy.md).
 
-- tar-based.You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../install-configure/st-ug-deploy.md).
+- tar-based.You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
 
 The functions of the three release versions are the same and may be restricted when using Studio. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
 

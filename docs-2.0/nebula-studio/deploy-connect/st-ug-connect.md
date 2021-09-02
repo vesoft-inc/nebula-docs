@@ -10,15 +10,15 @@ Before connecting to the Nebula Graph database, you need to confirm the followin
 
 - You have the local IP address and the port used by the Graph service of Nebula Graph. The default port is `9669`.  
   
-    !!! note
+  !!! note
 
         Run `ifconfig` or `ipconfig` on the machine to get the IP address.
 
 - You have a Nebula Graph account and its password.
 
-    !!! note
+  !!! note
 
-        If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/{{ nebula.release }}/).
+        If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/).
 
 
 ## Procedure
@@ -33,9 +33,12 @@ To connect Studio to Nebula Graph, follow these steps:
 
         When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
 
-   - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph
+   - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph.
+ 
       - If authentication is not enabled, you can use `root` and any password as the username and its password.
+
       - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
+
       - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
    ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050-1.png "Config Server")
