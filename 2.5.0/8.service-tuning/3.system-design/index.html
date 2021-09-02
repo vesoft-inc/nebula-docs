@@ -30,7 +30,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#macro_rendering_error">
+<a class="md-skip" href="#system_design_suggestions">
           Skip to content
         </a>
 </div>
@@ -1340,9 +1340,41 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          System design suggestions
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         System design suggestions
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#qps_or_low-latency_first">
+    QPS or low-latency first
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal_or_vertical_scaling">
+    Horizontal or vertical scaling
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_transmission_and_optimization">
+    Data transmission and optimization
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query_preheating_and_data_preheating">
+    Query preheating and data preheating
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../4.plan/">
@@ -2026,6 +2058,32 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#qps_or_low-latency_first">
+    QPS or low-latency first
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#horizontal_or_vertical_scaling">
+    Horizontal or vertical scaling
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data_transmission_and_optimization">
+    Data transmission and optimization
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query_preheating_and_data_preheating">
+    Query preheating and data preheating
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -2035,20 +2093,43 @@
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/v2.5.0/docs-2.0/8.service-tuning/3.system-design.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="macro_rendering_error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro_rendering_error" title="Permanent link">¶</a></h1>
-<p><strong>UndefinedError</strong>: 'Nebula' is undefined</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.7.11/x64/lib/python3.7/site-packages/mkdocs_macros/plugin.py", line 434, in render
-    return md_template.render(**page_variables)
-  File "/opt/hostedtoolcache/Python/3.7.11/x64/lib/python3.7/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/opt/hostedtoolcache/Python/3.7.11/x64/lib/python3.7/site-packages/jinja2/environment.py", line 925, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "&lt;template&gt;", line 25, in top-level template code
-  File "/opt/hostedtoolcache/Python/3.7.11/x64/lib/python3.7/site-packages/jinja2/environment.py", line 474, in getattr
-    return getattr(obj, attribute)
-jinja2.exceptions.UndefinedError: 'Nebula' is undefined
-</code></pre></div>
+<h1 id="system_design_suggestions">System design suggestions<a class="headerlink" href="#system_design_suggestions" title="Permanent link">¶</a></h1>
+<h2 id="qps_or_low-latency_first">QPS or low-latency first<a class="headerlink" href="#qps_or_low-latency_first" title="Permanent link">¶</a></h2>
+<p>Nebula Graph is good at handling small requests with high concurrency. In such scenarios, the whole graph is huge, containing maybe trillions of vertices, but the subgraphs accessed by each request are not large (containing millions of vertices or edges), and the latency of a single request is low. The concurrent number of such requests, i.e., the QPS, can be huge.</p>
+<p>On the other hand, in interactive analysis scenarios, the request concurrency is usually not high, but the subgraphs accessed by each request are large, with thousands of millions of vertices or edges. To lower the latency of big requests in such scenarios, you can split big requests into multiple small requests in the application, and send them to multiple Graph servers. This can decrease the memory used by each Graph server as well. Besides, you can use <a href="../../nebula-algorithm/">Nebula Algorithm</a> for such scenarios.</p>
+<h2 id="horizontal_or_vertical_scaling">Horizontal or vertical scaling<a class="headerlink" href="#horizontal_or_vertical_scaling" title="Permanent link">¶</a></h2>
+<p>Nebula Graph 2.5.0 supports horizontal scaling.</p>
+<ul>
+<li>
+<p>The horizontal scaling of the Storage Service:</p>
+<p>Increasing the number of Storage machines increases the overall capability of the cluster linearly, including increasing overall QPS and reducing latency.</p>
+<p>However, the number of partitions is fixed when creating a graph space. The service capability of a single partition is determined by a single server. The operations depending on a single partition include fetching properties of a single vertex (<code>FETCH</code>), a breadth-first traversal from a single vertex (<code>GO</code>), etc.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>The horizontal scaling of the Graph Service:</p>
+<p>Each request from the client is handled by one and only one Graph server, with no other Graph servers participating in the processing of the request. Therefore, increasing the number of Graph machines can increase the overall QPS of the cluster, but cannot lower the latency of a single request.</p>
+</li>
+</ul>
+<ul>
+<li>Metad does not support horizontal scaling.</li>
+</ul>
+<p>Vertical scaling usually has higher hardware costs, but relatively simple operations. Nebula Graph 2.5.0 can also be scaled vertically.</p>
+<h2 id="data_transmission_and_optimization">Data transmission and optimization<a class="headerlink" href="#data_transmission_and_optimization" title="Permanent link">¶</a></h2>
+<ul>
+<li>Read/write balance. Nebula Graph fits into OLTP scenarios with balanced read/write, i.e., concurrent write and read. It is not suitable for OLAP scenarios that usually need to write once and read many times.</li>
+<li>Select different write methods. Write large batches of data with SST files, and small batches of data with <code>INSERT</code> statements.</li>
+<li>Run <code>COMPACTION</code> and <code>BALANCE</code> jobs to optimize data format and storage distribution at the right time.</li>
+<li>Nebula Graph 2.5.0 N Does not support transactions and isolation in the relational database sense and is closer to NoSQL.</li>
+</ul>
+<h2 id="query_preheating_and_data_preheating">Query preheating and data preheating<a class="headerlink" href="#query_preheating_and_data_preheating" title="Permanent link">¶</a></h2>
+<p>Preheat on the application side:</p>
+<ul>
+<li>The Graph Service does not support pre-compiling queries and generating corresponding query plans, nor can it cache previous query results.</li>
+<li>The Storage Service does not support preheating data, and only the LSM-Tree and BloomFilter of RocksDB are loaded into memory at startup.</li>
+<li>Once accessed, vertices and edges are cached respectively in two types of LRU cache of the Storage Service.</li>
+</ul>
 <hr/>
 <div class="md-source-date">
 <small>
