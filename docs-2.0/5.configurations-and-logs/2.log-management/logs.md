@@ -1,75 +1,74 @@
 # Logs
 
-**Nebula Graph** uses [glog](https://github.com/google/glog) to print logs, uses [gflag](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
+**Nebula Graph** uses [glog](https://github.com/google/glog) to print logs, uses [gflags](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
 
-## Log Directory
+## Log directory
 
 The default log directory is `/usr/local/nebula/logs/`.
 
-!!! note
+If the log directory is deleted while Nebula Graph is running, the log would not continue to be printed. However, this operation will not affect the services. To recover the logs, restart the services.
 
-    If you deleted the log directory during runtime, the runtime log would not continue to be printed. However, this operation will not affect the services. Restart the services to recover the logs.
+## Parameter descriptions
 
-## Parameter Description
+- `minloglevel`: Specifies the minimum level of the log. That is, no logs below this level will be printed. Optional values are `0` (INFO), `1` (WARNING), `2` (ERROR), `3` (FATAL). It is recommended to set it to `0` during debugging and `1` in a production environment. If it is set to `4`, Nebula Graph will not print any logs.
 
-### Two most commonly used flags in glog
+- `v`: Specifies the detailed level of the log. The larger the value, the more detailed the log is. Optional values are `0`, `1`, `2`, `3`.
 
-- minloglevel: The scale of minloglevel is 0-4. The numbers of severity levels INFO(DEBUG), WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively. Usually specified as 0 for debug, 1 for production. If you set the minloglevel to 4, no logs are printed.
-- v: The scale of v is 0-3. When the value is set to 0,  you can further set the severity level of the debug log. The greater the value is, the more detailed the log is.
+The default severity level for the metad, graphd, and storaged logs can be found in their respective configuration files. The default path is `/usr/local/nebula/etc/`.
 
-### Configuration Files
+## Check the severity level
 
-The default severity level for the metad, graphd, and storaged logs can be found in the configuration files (usually in `/usr/local/nebula/etc/`).
-
-## Check and Change the Severity Levels Dynamically
-
-Check all the flag values (log values included) of the current gflags with the following command. Not all flags are listed because changing some flags can be dangerous. Read the response explanation and the source code before you change these not documented parameters. To get all the available flags for a process, use this command:
+Check all the flag values (log values included) of the current gflags with the following command.
 
 ```bash
-> curl ${ws_ip}:${ws_port}/flags
+$ curl <ws_ip>:<ws_port>/flags
 ```
 
-In the command:
+|Parameter|Description|
+|:---|:---|
+|`ws_ip`|The IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.|
+|`ws_port`|The port for the HTTP service, which can be found in the configuration files above. The default values are `19559`(Meta), `19669`(Graph), and `19779`(Storage) respectively.|
 
-- `ws_ip` is the IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.
-- `ws_port` is the port for the HTTP service, the default values for `metad`, `storaged`, and `graphd` are `19559`, `19779`, and `19669`, respectively.
+Examples are as follows:
 
-!!! note
+- Check the current `minloglevel` in the Meta service:
 
-    If you changed the runtime log level, then restart the services, the log level changes to the configuration file specifications. For more information, see [Storage Service configurations](../1.configurations/4.storage-config.md).
+    ```bash
+    $ curl 127.0.0.1:19559/flags | grep 'minloglevel'
+    ```
 
-For example, check the minloglevel for the `storaged` service:
+- Check the current `v` in the Storage service:
+  
+    ```bash
+    $ curl 127.0.0.1:19779/flags | grep -w 'v'
+    ```
+
+## Change the severity level
+
+Change the severity level of the log with the following command.
 
 ```bash
-> curl 127.0.0.1:19559/flags | grep minloglevel
+$ curl -X PUT -H "Content-Type: application/json" -d '{"<key>":<value>[,"<key>":<value>]}' "<ws_ip>:<ws_port>/flags"
 ```
 
-To change the log level for a process, use these commands. For example, you can change the log severity level the **the most detailed**.
+|Parameter|Description|
+|:---|:---|
+|`key`|The type of the log to be changed. For optional values, see [Parameter descriptions](#_3).|
+|`value`|The level of the log. For optional values, see [Parameter descriptions](#_3).|
+|`ws_ip`|The IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.|
+|`ws_port`|The port for the HTTP service, which can be found in the configuration files above. The default values are `19559`(Meta), `19669`(Graph), and `19779`(Storage) respectively.|
+
+Examples are as follows:
 
 ```bash
 $ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19779/flags" # storaged
 $ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19669/flags" # graphd
 $ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19559/flags" # metad
+
 ```
 
-<!-- In the Nebula Console, check the severity minloglevel of `graphd` and set it to **the most detailed** with the these commands.
+If the log level is changed while Nebula Graph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see [Configuration files](../1.configurations/1.configurations.md).
 
-```ngql
-nebula> GET CONFIGS graph:minloglevel;
-nebula> UPDATE CONFIGS graph:minloglevel=0;
-``` 
--->
+## RocksDB logs
 
-To change the severity of the storage log, replace the port in the preceding command with `storage` port.
-
-!!! note
-
-    Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
-
-**Close** all logs print (FATAL only) with the following command.
-
-```bash
-$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":3,"v":0}' "127.0.0.1:19779/flags" # storaged
-$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":3,"v":0}' "127.0.0.1:19669/flags" # graphd
-$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":3,"v":0}' "127.0.0.1:19559/flags" # metad
-```
+RocksDB logs are usually used to debug RocksDB parameters and stored in `/usr/local/nebula/data/storage/nebula/$id/data/LOG`. `$id` is the ID of the example.

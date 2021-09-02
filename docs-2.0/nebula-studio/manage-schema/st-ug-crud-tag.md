@@ -1,21 +1,15 @@
-<!-- will be updated when Import and Schema modules can work as expected. 
 # Operate tags
 
 After a graph space is created in Nebula Graph, you can create tags. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, update, or delete tags. This article only introduces how to use the **Schema** page to operate tags in a graph space.
 
 ## Studio version
 
-Studio of v1.2.0-beta or later versions supports this function. To update the version, run this command.
-
-```bash
-docker-compose pull && docker-compose up
-```
+Studio of v{{ studio.release}} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
 
 ## Prerequisites
 
 To operate a tag on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v1.2.0-beta or later.
 - Studio is connected to Nebula Graph.
 - A graph space is created.
 - Your account has the authority of GOD, ADMIN, or DBA.
@@ -38,13 +32,13 @@ To create a tag on the **Schema** page, follow these steps:
 
    b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
 
-   - To define a property: Enter a property name, a data type, and a default value.
+      - To define a property: Enter a property name, a data type, and a default value.
 
-   - To add multiple properties: Click the **Add Property** button and define more properties.
+      - To add multiple properties: Click the **Add Property** button and define more properties.
 
-   - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+      - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
 
-   c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](https://docs.nebula-graph.com.cn/manual-CN/2.query-language/4.statement-syntax/1.data-definition-statements/TTL/> "Click to go to Nebula Graph website").
+   c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
@@ -68,6 +62,8 @@ To edit a tag on the **Schema** page, follow these steps:
 
 5. On the **Edit** page, do these settings:
 
+   - To edit a Comment: Click **Edit** under the Name.
+
    - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
 
    - To delete a property: On the **Define Properties** panel, find a property and then click **Delete**.
@@ -84,6 +80,11 @@ To edit a tag on the **Schema** page, follow these steps:
 
 ## Delete a tag
 
+
+!!! danger
+
+    Confirm the [impact](../../3.ngql-guide/10.tag-statements/2.drop-tag.md) before deleting the tag. The deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+
 To delete a tag on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
@@ -98,4 +99,3 @@ To delete a tag on the **Schema** page, follow these steps:
 
 After the tag is created, you can use the **Console** page to insert vertex data one by one manually or use the **Import** page to bulk import vertex data.
 
--->

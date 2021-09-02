@@ -12,7 +12,10 @@ Nebula Graph has two types of compaction: automatic compaction and full compacti
 
 ## Automatic compaction
 
-Automatic compaction is done when the system reads data, writes data, or the system restarts. The automatic compaction is enabled by default. But once triggered during peak hours, it can cause unexpected IO occupancy that has an unwanted effect on the performance. To disable automatic compaction, use this statement:
+Automatic compaction is done when the system reads data, writes data, or the system restarts. Automatic compaction is enabled by default. 
+
+<!--
+But once triggered during peak hours, it can cause unexpected IO occupancy that has an unwanted effect on the performance. To disable automatic compaction, use this statement:
 
 ```ngql
 nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_compactions = true};
@@ -21,6 +24,8 @@ nebula> UPDATE CONFIGS storage:rocksdb_column_family_options = {disable_auto_com
 !!! caution
 
     The command overwrites all `rocksdb_column_family_options` items. Other items besides `disable_auto_compactions` is overwritten to the default value. You may have to read all the items before the updates.
+
+-->
 
 ## Full compaction
 
@@ -45,28 +50,39 @@ nebula> SHOW JOB <job_id>;
 
 These are some operation suggestions to keep Nebula Graph performing well.
 
+<!--
 - To avoid unwanted IO waste during data writing, set `disable_auto_compactions` to `true` before large amounts of data writing.
+-->
+
 - After data import is done, run `SUBMIT JOB COMPACT`.
+
 - Run `SUBMIT JOB COMPACT` periodically during off-peak hours, for example, early morning.
+
+<!--
 - Set `disable_auto_compactions` to `false` during day time.
-- To control the read and write traffic limitation for compactions, set these two parameters in the `nebula-storaged.conf` configuration file.
+-->
+
+- To control the read and write traffic limitation for compactions, set the following parameter in the `nebula-storaged.conf` configuration file.
 
     ```bash
-    # read from the local configuration file and start
-    --local-config=true
+    # Limit the read/write rate to 20MB/s.
     --rate_limit=20 (in MB/s)
     ```
 
 ## FAQ
 
 Q: Can I do full compactions for multiple graph spaces at the same time?
+
 A: Yes, you can. But the IO is much larger at this time.
 
 Q: How much time does it take for full compactions?
+
 A: When `rate_limit` is set to `20`, you can estimate the full compaction time by dividing the hard disk usage by the `rate_limit`. If you do not set the `rate_limit` value, the empirical value is around 50 MB/s.
 
 Q: Can I modify `--rate_limit` dynamically?
+
 A: No, you cannot.
 
 Q: Can I stop a full compaction after it starts?
+
 A: No you cannot. When you start a full compaction, you have to wait till it is done. This is the limitation of RocksDB.
