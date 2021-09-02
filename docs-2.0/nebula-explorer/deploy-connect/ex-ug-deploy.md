@@ -15,7 +15,7 @@ Before you deploy Explorer, you must do a check of these:
    | Port | Description |
    | ---- | ---- |
    | 7002 | Web service provided by Explorer |
-   | 8080 | Nebula-http-gateway service |
+   | 8070 | Nebula-http-gateway service |
 
 - The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
 
@@ -70,7 +70,7 @@ Before you deploy Explorer, you must do a check of these:
    | Port | Description |
    | ---- | ---- |
    | 7002 | Web service provided by Explorer |
-   | 8080 | Nebula-http-gateway service |
+   | 8070 | Nebula-http-gateway service |
 
 - The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
 

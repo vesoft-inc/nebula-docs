@@ -34,25 +34,26 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
     https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu2004.amd64.deb
     ```
 
-    For example, download release package `2.0.0` for `Centos 7.5`: 
+    For example, download release package {{ nebula.release }} for `Centos 7.5`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/2.0.0/nebula-graph-2.0.0.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/2.0.0/nebula-graph-2.0.0.el7.x86_64.rpm.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
+    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm.sha256sum.txt
     ```
 
-    download release package `2.0.0` for `Ubuntu 1804`: 
+    download release package `{{ nebula.release }}` for `Ubuntu 1804`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/2.0.0/nebula-graph-2.0.0.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/2.0.0/nebula-graph-2.0.0.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
+    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
 * Download the nightly version.
 
   !!! danger
 
-        Nightly versions are usually used to test new features. Don't use it for production.
+      - Nightly versions are usually used to test new features. Don't use it for production.
+      - Nightly versions may not be build successfully every night. And the names may change from day to day.
 
     URL: 
 
@@ -76,28 +77,29 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
     https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu2004.amd64.deb
     ```
 
-    For example, download the `Centos 7.5` package developed and built in `2021.03.28`: 
+    For example, download the `Centos 7.5` package developed and built in `2021.09.01`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.el7.x86_64.rpm
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.el7.x86_64.rpm.sha256sum.txt
     ```
 
-    For example, download the `Ubuntu 1804` package developed and built in `2021.03.28`: 
+    For example, download the `Ubuntu 1804` package developed and built in `2021.09.01`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.ubuntu1804.amd64.deb
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
 ## Download the package from GitHub
 
 * Download the release version.
   
-    + On the [Nebula Graph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
-    ![Select a Nebula Graph release version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/releases-page.png?raw=true)
+   + On the [Nebula Graph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
+    ![Select a Nebula Graph release version](../reuse/console-1.png)
 
-    + In the **Assets** area, click the package to download it.
+
+   + In the **Assets** area, click the package to download it.
 
 * Download the nightly version.
 
@@ -105,10 +107,10 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
 
         Nightly versions are usually used to test new features. Don't use it for production.
 
-    + On the [Nebula Graph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest package on the top of the package list.
+   + On the [Nebula Graph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest package on the top of the package list.
     ![Select a Nebula Graph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
 
-    + In the **Artifacts** area, click the package to download it.
+   + In the **Artifacts** area, click the package to download it.
 
 ## Install Nebula Graph
 

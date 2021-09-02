@@ -10,9 +10,9 @@ The correspondence between the Nebula Exchange release (the JAR version) and the
 |:---|:---|
 |2.5-SNAPSHOT|v2-nightly|
 |{{exchange.release}}|{{nebula.release}}|
-|2.1.0|2.0.0、2.0.1|
-|2.0.1|2.0.0、2.0.1|
-|2.0.0|2.0.0、2.0.1|
+|2.1.0|2.0.0, 2.0.1|
+|2.0.1|2.0.0, 2.0.1|
+|2.0.0|2.0.0, 2.0.1|
 
 JAR packages are available in two ways: [compile them yourself](../ex-ug-compile.md) or download them from the Maven repository.
 
@@ -33,7 +33,7 @@ To ensure the normal operation of Exchange, ensure that the following software h
 
 - Java: 1.8
 
-- Scala: 2.10.7、2.11.12 or 2.12.10
+- Scala: 2.10.7, 2.11.12 or 2.12.10
 
 Hadoop Distributed File System (HDFS) needs to be deployed in the following scenarios:
 

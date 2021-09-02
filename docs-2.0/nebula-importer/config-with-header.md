@@ -70,7 +70,7 @@ For Tag or Edge type properties, the format is `<tag_name/edge_name>.<prop_name>
 
 - `<prop_type>`: property type. Support `bool`, `int`, `float`, `double`, `timestamp` and `string`, default `string`.
 
-Such as `student.name:string`、`follow.degree:double`.
+Such as `student.name:string`, `follow.degree:double`.
 
 ## Sample configuration
 
