@@ -32,7 +32,7 @@ This document lists only some Spark parameters. For more information, see [Spark
 
 Users only need to configure parameters for connecting to Hive if Spark and Hive are deployed in different clusters. Otherwise, please ignore the following configurations.
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`hive.warehouse`|string|-|Yes|The warehouse path in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
 |`hive.connectionURL`|string|-|Yes|The URL of a JDBC connection. For example, `"jdbc:mysql://127.0.0.1:3306/hive_spark?characterEncoding=UTF-8"`.|
@@ -42,7 +42,7 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 
 ## Nebula Graph Configurations
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`nebula.address.graph`|list\[string\]|`["127.0.0.1:9669"]`|Yes|The addresses of all Graph services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.address.meta`|list\[string\]|`["127.0.0.1:9559"]`|Yes|The addresses of all Meta services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
@@ -66,7 +66,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### General Parameters
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.name`|string|-|Yes|The tag name defined in Nebula Graph.|
 |`tags.type.source`|string|-|Yes|Specify a data source. For example, `csv`.|
@@ -79,13 +79,13 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Parquet/JSON/ORC Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of vertex data files in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
 
 ### Specific Parameters of CSV Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of vertex data files in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
 |`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,）.|
@@ -93,13 +93,13 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Hive Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.exec`|string|-|Yes|The statement to query data sources. For example, `select name,age from mooc.users`.|
 
 ### Specific Parameters of MaxCompute Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.table`|string|-|Yes|The Maxcompute table name.|
 |`tags.project`|string|-|Yes|The MaxCompute project name.|
@@ -112,7 +112,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Neo4j Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.exec`|string|-|Yes|Statements to query data sources. For example: `match (n:label) return n.neo4j-field-0`.|
 |`tags.server`|string|`"bolt://127.0.0.1:7687"`|Yes|The Neo4j server address.
@@ -123,7 +123,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of MySQL Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.host`|string|-|Yes|The MySQL server address.|
 |`tags.port`|string|-|Yes|The MySQL server port.|
@@ -135,7 +135,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of ClickHouse Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.url`|string|-|Yes|The JDBC URL of ClickHouse.|
 |`tags.user`|string|-|Yes|The ClickHouse username with read permissions.|
@@ -145,7 +145,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Hbase Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.host`|string|`127.0.0.1`|Yes|The Hbase server address.|
 |`tags.port`|string|`2181`|Yes|The Hbase server port.
@@ -154,7 +154,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Pulsar Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.service`|string|`"pulsar://localhost:6650"`|Yes|The Pulsar server address.
 |`tags.admin`|string|`"http://localhost:8081"`|Yes|The admin URL used to connect pulsar.|
@@ -163,7 +163,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of Kafka Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.service`|string|-|Yes|The Kafka server address.
 |`tags.topic`|string|-|Yes|The message type.|
@@ -171,7 +171,7 @@ For different data sources, the vertex configurations are different. There are m
 
 ### Specific Parameters of SST Data Sources
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 
@@ -183,7 +183,7 @@ For the specific parameters of different data sources for edge configurations, p
 
 ### General Parameters
 
-|Parameter|Type|Default Value|Required|Description|
+|Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`edges.name`| string|-|Yes|The edge type name defined in Nebula Graph.|
 |`edges.type.source`|string|-|Yes|The data source of edges. For example, `csv`.|
