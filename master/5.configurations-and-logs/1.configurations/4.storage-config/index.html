@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/master/5.configurations-and-logs/1.configurations/4.storage-config/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.2.2, mkdocs-material-7.2.5" name="generator"/>
+<meta content="mkdocs-1.2.2, mkdocs-material-7.2.6" name="generator"/>
 <title>Storage Service configurations - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.be71726b.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.802231af.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1209,8 +1209,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#basic_configurations">
-    Basic configurations
+<a class="md-nav__link" href="#basics_configurations">
+    Basics configurations
   </a>
 </li>
 <li class="md-nav__item">
@@ -1244,8 +1244,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#storage_configuration_for_large_dataset">
-    Storage configuration for large dataset
+<a class="md-nav__link" href="#storage_configurations_for_large_dataset">
+    Storage configurations for large dataset
   </a>
 </li>
 </ul>
@@ -1915,7 +1915,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling.md">
         Graph modeling
       </a>
 </li>
@@ -1992,8 +1992,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#basic_configurations">
-    Basic configurations
+<a class="md-nav__link" href="#basics_configurations">
+    Basics configurations
   </a>
 </li>
 <li class="md-nav__item">
@@ -2027,8 +2027,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#storage_configuration_for_large_dataset">
-    Storage configuration for large dataset
+<a class="md-nav__link" href="#storage_configurations_for_large_dataset">
+    Storage configurations for large dataset
   </a>
 </li>
 </ul>
@@ -2042,52 +2042,59 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="storage_service_configurations">Storage Service configurations<a class="headerlink" href="#storage_service_configurations" title="Permanent link">¶</a></h1>
-<p>Nebula Graph provides two initial configuration files for the Storage Service: <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code>. You can use them in different scenarios. The default file path is <code>/usr/local/nebula/etc/</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Raft Listener is different from the Storage Service. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Raft Listener</a>.</p>
+<p>Nebula Graph provides two initial configuration files for the Storage Service, <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code>. Users can use them in different scenarios conveniently. The default file path is <code>/usr/local/nebula/etc/</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>It is not recommended to modify the value of <code>local_config</code> to <code>false</code>. If modified, the Nebula Graph service will first read the cached configurations, which may cause configuration inconsistencies between clusters and cause unknown risks.</li>
+<li>It is not recommended to modify the configurations that are not introduced in this topic, unless you are familiar with the source code and fully understand the function of configurations.</li>
+</ul>
 </div>
 <h2 id="how_to_use_the_configuration_files">How to use the configuration files<a class="headerlink" href="#how_to_use_the_configuration_files" title="Permanent link">¶</a></h2>
-<p>The Storage Service gets its configuration from the <code>nebula-storaged.conf</code> file. You have to remove the suffix <code>.default</code> or <code>.production</code> from an initial configuration file for the Storage Service to apply the configuration defined in it.</p>
-<p>If you have modified the configuration in the file and want the new configuration to take effect, add <code>--local_conf=true</code> at the top of the file. Otherwise, Nebula Graph reads the cached configuration.</p>
+<p>To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> from the initial configuration file for the Meta Service to apply the configurations defined in it.</p>
 <h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">¶</a></h2>
-<p>If a parameter is not set in the configuration file, Nebula Graph uses its default value.</p>
+<p>If a parameter is not set in the configuration file, Nebula Graph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The default value of a parameter in Nebula Graph may be different from the predefined value in the <code>.default</code> and <code>.production</code> files.</p>
+<p>The configurations of the Raft Listener and the Storage service are different. For details, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Raft listener</a>.</p>
 </div>
-<p>The predefined parameter in <code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code> are different. And not all parameters are predefined. This topic uses the parameters in <code>nebula-storaged.conf.default</code>.</p>
-<h2 id="basic_configurations">Basic configurations<a class="headerlink" href="#basic_configurations" title="Permanent link">¶</a></h2>
+<p>For all parameters and their current values, see <a href="../1.configurations/">Configurations</a>.</p>
+<h2 id="basics_configurations">Basics configurations<a class="headerlink" href="#basics_configurations" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>daemonize</code></td>
-<td><code>true</code></td>
-<td>When set to <code>true</code>, the process is a daemon process.</td>
+<td align="left"><code>daemonize</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">When set to <code>true</code>, the process is a daemon process.</td>
 </tr>
 <tr>
-<td><code>pid_file</code></td>
-<td><code>pids/nebula-storaged.pid</code></td>
-<td>File to host the process ID.</td>
+<td align="left"><code>pid_file</code></td>
+<td align="left"><code>pids/nebula-storaged.pid</code></td>
+<td align="left">The file that records the process ID.</td>
 </tr>
 <tr>
-<td><code>timezone_name</code></td>
-<td>-</td>
-<td>Specifies the Nebula Graph time zone. This parameter is not predefined in the initial configuration files. You can manually set it if you need it. The system default value is <code>UTC+00:00:00</code>. For the format of the parameter value, see <a href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html" title="Click to view the timezone-related content in the GNU C Library manual">Specifying the Time Zone with TZ</a>. For example, <code>--timezone_name=CST-8</code> represents the GMT+8 time zone.</td>
+<td align="left"><code>timezone_name</code></td>
+<td align="left">-</td>
+<td align="left">Specifies the Nebula Graph time zone. This parameter is not predefined in the initial configuration files. The system default value is <code>UTC+00:00:00</code>. For the format of the parameter value, see <a href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html" title="Click to view the timezone-related content in the GNU C Library manual">Specifying the Time Zone with TZ</a>. For example， <code>--timezone_name=CST-8</code> represents the GMT+8 time zone.</td>
+</tr>
+<tr>
+<td align="left"><code>local_config</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">When set to <code>true</code>, the process gets configurations from the configuration files.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li>While inserting time-type property values except timestamps, Nebula Graph transforms them to a UTC time according to the time zone specified with the <code>timezone_name</code> parameter in the <a href="../1.configurations/">configuration files</a>. The time-type values returned by nGQL queries are all UTC time.</li>
+<li>While inserting property values of <a href="../../../3.ngql-guide/3.data-types/4.date-and-time/">time types</a>, Nebula Graph transforms them to a UTC time according to the time zone specified by <code>timezone_name</code>. The time-type values returned by nGQL queries are all UTC time.</li>
 <li><code>timezone_name</code> is only used to transform the data stored in Nebula Graph. Other time-related data of the Nebula Graph processes still uses the default time zone of the host, such as the log printing time.</li>
 </ul>
 </div>
@@ -2095,51 +2102,51 @@
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>log_dir</code></td>
-<td><code>logs</code></td>
-<td>Directory to the Storage Service log. We recommend that you put logs on a different hard disk from the <code>data_path</code>.</td>
+<td align="left"><code>log_dir</code></td>
+<td align="left"><code>logs</code></td>
+<td align="left">The directory that stores the Meta Service log. It is recommended to put logs on a different hard disk from the data.</td>
 </tr>
 <tr>
-<td><code>minloglevel</code></td>
-<td><code>0</code></td>
-<td>Specifies the minimum log level. Available values are 0-3. <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code> are <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, and <code>FATAL</code>. We suggest that you set <code>minloglevel</code> to <code>0</code> for debug, <code>1</code> for production. When you set it to <code>4</code>, Nebula Graph does not print any logs.</td>
+<td align="left"><code>minloglevel</code></td>
+<td align="left"><code>0</code></td>
+<td align="left">Specifies the minimum level of the log. That is, no logs below this level will be printed. Optional values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), <code>3</code> (FATAL). It is recommended to set it to <code>0</code> during debugging and <code>1</code> in a production environment. If it is set to <code>4</code>, Nebula Graph will not print any logs.</td>
 </tr>
 <tr>
-<td><code>v</code></td>
-<td><code>0</code></td>
-<td>Specifies the verbose log level. Available values are 0-4. The larger the value, the more verbose the log.</td>
+<td align="left"><code>v</code></td>
+<td align="left"><code>0</code></td>
+<td align="left">Specifies the detailed level of the log. The larger the value, the more detailed the log is. Optional values are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>.</td>
 </tr>
 <tr>
-<td><code>logbufsecs</code></td>
-<td><code>0</code></td>
-<td>Specifies the maximum time to buffer the logs. The configuration is measured in seconds.</td>
+<td align="left"><code>logbufsecs</code></td>
+<td align="left"><code>0</code></td>
+<td align="left">Specifies the maximum time to buffer the logs. If there is a timeout, it will output the buffered log to the log file. <code>0</code> means real-time output. This configuration is measured in seconds.</td>
 </tr>
 <tr>
-<td><code>redirect_stdout</code></td>
-<td><code>true</code></td>
-<td>When set to <code>true</code>, stdout and stderr are redirected.</td>
+<td align="left"><code>redirect_stdout</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">When set to <code>true</code>, the process redirects the<code>stdout</code> and <code>stderr</code> to separate output files.</td>
 </tr>
 <tr>
-<td><code>stdout_log_file</code></td>
-<td><code>storaged-stdout.log</code></td>
-<td>Specifies the filename for the stdout log.</td>
+<td align="left"><code>stdout_log_file</code></td>
+<td align="left"><code>graphd-stdout.log</code></td>
+<td align="left">Specifies the filename for the <code>stdout</code> log.</td>
 </tr>
 <tr>
-<td><code>stderr_log_file</code></td>
-<td><code>storaged-stderr.log</code></td>
-<td>Specifies the filename for the stderr log.</td>
+<td align="left"><code>stderr_log_file</code></td>
+<td align="left"><code>graphd-stderr.log</code></td>
+<td align="left">Specifies the filename for the <code>stderr</code> log.</td>
 </tr>
 <tr>
-<td><code>stderrthreshold</code></td>
-<td><code>2</code></td>
-<td>Specifies the minimum level to copy the log messages to stderr. Available values are 0-3. <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code> are <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, and <code>FATAL</code>.</td>
+<td align="left"><code>stderrthreshold</code></td>
+<td align="left"><code>2</code></td>
+<td align="left">Specifies the <code>minloglevel</code> to be copied to the <code>stderr</code> log.</td>
 </tr>
 </tbody>
 </table>
@@ -2147,77 +2154,77 @@
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>meta_server_addrs</code></td>
-<td><code>127.0.0.1:9559</code></td>
-<td>Specifies the IP addresses and ports of all Meta Services. Separate multiple addresses with commas.</td>
+<td align="left"><code>meta_server_addrs</code></td>
+<td align="left"><code>127.0.0.1:9559</code></td>
+<td align="left">Specifies the IP addresses and ports of all Meta Services.  Multiple addresses are separated with commas.</td>
 </tr>
 <tr>
-<td><code>local_ip</code></td>
-<td><code>127.0.0.1</code></td>
-<td>Specifies the local IP for the Storage Service.</td>
+<td align="left"><code>local_ip</code></td>
+<td align="left"><code>127.0.0.1</code></td>
+<td align="left">Specifies the local IP for the Storage Service. The local IP address is used to identify the nebula-storaged process. If it is a distributed cluster or requires remote access, modify it to the corresponding address.</td>
 </tr>
 <tr>
-<td><code>port</code></td>
-<td><code>9779</code></td>
-<td>Specifies RPC daemon listening port. The external port for Storage Service is predefined to <code>9779</code>. The internal ports are predefined to <code>port -2</code>, <code>port -1</code>, and <code>port + 1</code>, i.e., <code>9777</code>, <code>9778</code>, and <code>9780</code>. Nebula Graph uses the internal ports for multi-replica interactions.</td>
+<td align="left"><code>port</code></td>
+<td align="left"><code>9779</code></td>
+<td align="left">Specifies RPC daemon listening port of the Storage service. The external port for the Meta Service is predefined to <code>9779</code>. The internal port is predefined to <code>9777</code>, <code>9778</code>, and <code>9780</code>. Nebula Graph uses the internal port for multi-replica interactions.</td>
 </tr>
 <tr>
-<td><code>ws_ip</code></td>
-<td><code>0.0.0.0</code></td>
-<td>Specifies the IP address for the HTTP service.</td>
+<td align="left"><code>ws_ip</code></td>
+<td align="left"><code>0.0.0.0</code></td>
+<td align="left">Specifies the IP address for the HTTP service.</td>
 </tr>
 <tr>
-<td><code>ws_http_port</code></td>
-<td><code>19779</code></td>
-<td>Specifies the port for the HTTP service.</td>
+<td align="left"><code>ws_http_port</code></td>
+<td align="left"><code>19779</code></td>
+<td align="left">Specifies the port for the HTTP service.</td>
 </tr>
 <tr>
-<td><code>ws_h2_port</code></td>
-<td><code>19780</code></td>
-<td>Specifies the port for the HTTP2 service.</td>
+<td align="left"><code>ws_h2_port</code></td>
+<td align="left"><code>19780</code></td>
+<td align="left">Specifies the port for the HTTP2 service.</td>
 </tr>
 <tr>
-<td><code>heartbeat_interval_secs</code></td>
-<td><code>10</code></td>
-<td>Specifies the default heartbeat interval in seconds. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise Nebula Graph <strong>CANNOT</strong> work normally.</td>
+<td align="left"><code>heartbeat_interval_secs</code></td>
+<td align="left"><code>10</code></td>
+<td align="left">Specifies the default heartbeat interval. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise Nebula Graph <strong>CANNOT</strong> work normally. This configuration is measured in seconds.</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We recommend that you use the real IP address in your configuration because sometimes <code>127.0.0.1</code> can not be parsed correctly.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The real IP address must be used in the configuration file. Otherwise, <code>127.0.0.1/0.0.0.0</code> cannot be parsed correctly in some cases.</p>
 </div>
 <h2 id="raft_configurations">Raft configurations<a class="headerlink" href="#raft_configurations" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>raft_heartbeat_interval_secs</code></td>
-<td><code>30</code></td>
-<td>Specifies the timeout for the Raft election. The configuration is measured in seconds.</td>
+<td align="left"><code>raft_heartbeat_interval_secs</code></td>
+<td align="left"><code>30</code></td>
+<td align="left">Specifies the time to expire the Raft election. The configuration is measured in seconds.</td>
 </tr>
 <tr>
-<td><code>raft_rpc_timeout_ms</code></td>
-<td><code>500</code></td>
-<td>Specifies the timeout for the Raft RPC. The configuration is measured in milliseconds.</td>
+<td align="left"><code>raft_rpc_timeout_ms</code></td>
+<td align="left"><code>500</code></td>
+<td align="left">Specifies the time to expire the Raft RPC. The configuration is measured in milliseconds.</td>
 </tr>
 <tr>
-<td><code>wal_ttl</code></td>
-<td><code>14400</code></td>
-<td>Specifies the recycle RAFT wal time. The configuration is measured in seconds.</td>
+<td align="left"><code>wal_ttl</code></td>
+<td align="left"><code>14400</code></td>
+<td align="left">Specifies the lifetime of the RAFT WAL. The configuration is measured in seconds.</td>
 </tr>
 </tbody>
 </table>
@@ -2225,93 +2232,103 @@
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>data_path</code></td>
-<td><code>data/storage</code></td>
-<td>Specifies the root data path. Separate multiple paths with commas.</td>
+<td align="left"><code>data_path</code></td>
+<td align="left"><code>data/storage</code></td>
+<td align="left">Specifies the data storage path. Multiple paths are separated with commas. One RocksDB example corresponds to one path.</td>
 </tr>
 <tr>
-<td><code>rocksdb_batch_size</code></td>
-<td><code>4096</code></td>
-<td>Specifies the block cache for a batch operation. The configuration is measured in bytes.</td>
+<td align="left"><code>minimum_reserved_bytes</code></td>
+<td align="left"><code>268435456</code></td>
+<td align="left">Specifies the minimum remaining space of each data storage path. When the value is lower than this standard, the cluster data writing may fail. This configuration is measured in bytes. The default value is <code>1073741824</code>, namely, 1GB.</td>
 </tr>
 <tr>
-<td><code>rocksdb_block_cache</code></td>
-<td><code>4</code></td>
-<td>Specifies the block cache for BlockBasedTable. The configuration is measured in megabytes.</td>
+<td align="left"><code>rocksdb_batch_size</code></td>
+<td align="left"><code>4096</code></td>
+<td align="left">Specifies the block cache for a batch operation. The configuration is measured in bytes.</td>
 </tr>
 <tr>
-<td><code>engine_type</code></td>
-<td><code>rocksdb</code></td>
-<td>Specifies the engine type.</td>
+<td align="left"><code>rocksdb_block_cache</code></td>
+<td align="left"><code>4</code></td>
+<td align="left">Specifies the block cache for BlockBasedTable. The configuration is measured in megabytes.</td>
 </tr>
 <tr>
-<td><code>rocksdb_compression</code></td>
-<td><code>lz4</code></td>
-<td>Specifies the compression algorithm for RocksDB. Available values are <code>no</code>, <code>snappy</code>, <code>lz4</code>, <code>lz4hc</code>, <code>zlib</code>, <code>bzip2</code>, and <code>zstd</code>.</td>
+<td align="left"><code>engine_type</code></td>
+<td align="left"><code>rocksdb</code></td>
+<td align="left">Specifies the engine type.</td>
 </tr>
 <tr>
-<td><code>rocksdb_compression_per_level</code></td>
-<td>\</td>
-<td>Specifies compression for each level.</td>
+<td align="left"><code>rocksdb_compression</code></td>
+<td align="left"><code>lz4</code></td>
+<td align="left">Specifies the compression algorithm for RocksDB. Optional values are <code>no</code>, <code>snappy</code>, <code>lz4</code>, <code>lz4hc</code>, <code>zlib</code>, <code>bzip2</code>, and <code>zstd</code>.</td>
 </tr>
 <tr>
-<td><code>enable_rocksdb_statistics</code></td>
-<td><code>false</code></td>
-<td>When set to <code>false</code>, RocksDB statistics is disabled.</td>
+<td align="left"><code>rocksdb_compression_per_level</code></td>
+<td align="left">\</td>
+<td align="left">Specifies the compression algorithm for each level.</td>
 </tr>
 <tr>
-<td><code>rocksdb_stats_level</code></td>
-<td><code>kExceptHistogramOrTimers</code></td>
-<td>Specifies the stats level for RocksDB. Available values are <code>kExceptHistogramOrTimers</code>, <code>kExceptTimers</code>, <code>kExceptDetailedTimers</code>, <code>kExceptTimeForMutex</code>, and <code>kAll</code>.</td>
+<td align="left"><code>enable_rocksdb_statistics</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">When set to <code>false</code>, RocksDB statistics is disabled.</td>
 </tr>
 <tr>
-<td><code>enable_rocksdb_prefix_filtering</code></td>
-<td><code>false</code></td>
-<td>When set to <code>true</code>, the prefix bloom filter for RocksDB is enabled. Enabling prefix bloom filter reduces memory usage.</td>
+<td align="left"><code>rocksdb_stats_level</code></td>
+<td align="left"><code>kExceptHistogramOrTimers</code></td>
+<td align="left">Specifies the stats level for RocksDB. Optional values are <code>kExceptHistogramOrTimers</code>, <code>kExceptTimers</code>, <code>kExceptDetailedTimers</code>, <code>kExceptTimeForMutex</code>, and <code>kAll</code>.</td>
 </tr>
 <tr>
-<td><code>rocksdb_filtering_prefix_length</code></td>
-<td><code>12</code></td>
-<td>Specifies the prefix length for each key. Available values are <code>12</code> and <code>16</code>.</td>
+<td align="left"><code>enable_rocksdb_prefix_filtering</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">When set to <code>true</code>, the prefix bloom filter for RocksDB is enabled. Enabling prefix bloom filter makes the graph traversal faster.</td>
+</tr>
+<tr>
+<td align="left"><code>rocksdb_filtering_prefix_length</code></td>
+<td align="left"><code>12</code></td>
+<td align="left">Specifies the prefix length for each key. Optional values are <code>12</code> and <code>16</code>. The configuration is measured in bytes.</td>
+</tr>
+<tr>
+<td align="left"><code>enable_partitioned_index_filter</code></td>
+<td align="left">-</td>
+<td align="left">When set to <code>true</code>, it reduces the amount of memory used by the bloom filter. But in some random-seek situations, it may reduce the read performance.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">¶</a></h2>
-<p>The format of the RocksDB options is <code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>. Multiple options are separated with commas.</p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Predefine Value</th>
-<th>Descriptions</th>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>rocksdb_db_options</code></td>
-<td><code>{}</code></td>
-<td>Specifies the RocksDB options.</td>
+<td align="left"><code>rocksdb_db_options</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Specifies the RocksDB database options.</td>
 </tr>
 <tr>
-<td><code>rocksdb_column_family_options</code></td>
-<td><code>{"write_buffer_size":"67108864",</code><br/><code>"max_write_buffer_number":"4",</code><br/><code>"max_bytes_for_level_base":"268435456"}</code></td>
-<td>Specifies the RocksDB column family options.</td>
+<td align="left"><code>rocksdb_column_family_options</code></td>
+<td align="left"><code>{"write_buffer_size":"67108864",</code><br/><code>"max_write_buffer_number":"4",</code><br/><code>"max_bytes_for_level_base":"268435456"}</code></td>
+<td align="left">Specifies the RocksDB column family options.</td>
 </tr>
 <tr>
-<td><code>rocksdb_block_based_table_options</code></td>
-<td><code>{"block_size":"8192"}</code></td>
-<td>Specifies the RocksDB block based table options.</td>
+<td align="left"><code>rocksdb_block_based_table_options</code></td>
+<td align="left"><code>{"block_size":"8192"}</code></td>
+<td align="left">Specifies the RocksDB block based table options.</td>
 </tr>
 </tbody>
 </table>
-<p>Available <code>rocksdb_db_options</code> and <code>rocksdb_column_family_options</code> are listed as follows.</p>
+<p>The format of the RocksDB option is <code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>. Multiple options are separated with commas.</p>
+<p>Supported options of <code>rocksdb_db_options</code> and <code>rocksdb_column_family_options</code> are listed as follows.</p>
 <ul>
 <li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
 delete_obsolete_files_period_micros
@@ -2349,24 +2366,36 @@ disable_auto_compactions
 </code></pre></div>
 </li>
 </ul>
-<p>For more information about RocksDB configuration, see <a href="https://rocksdb.org/">RocksDB official documentation</a>。</p>
+<p>For more information, see <a href="https://rocksdb.org/">RocksDB official documentation</a>.</p>
 <h2 id="for_super-large_vertices">For super-Large vertices<a class="headerlink" href="#for_super-large_vertices" title="Permanent link">¶</a></h2>
-<p>For super vertex with a large number of edges, currently there are two truncation strategies:</p>
-<ol>
-<li>
-<p>Truncate directly. Set the <code>enable_reservoir_sampling</code> parameter to <code>false</code>. A certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated by default.</p>
-</li>
-<li>
-<p>Truncate with the reservoir sampling algorithm. Based on the algorithm, a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter are truncated with equal probability from the total n edges. Equal probability sampling is useful in some business scenarios. However, the performance is affected compared to direct truncation due to the probability calculation.</p>
-</li>
-</ol>
-<h2 id="storage_configuration_for_large_dataset">Storage configuration for large dataset<a class="headerlink" href="#storage_configuration_for_large_dataset" title="Permanent link">¶</a></h2>
-<p>When you have a large dataset (in the RocksDB directory) and your memory is tight, we suggest that you set the <code>enable_partitioned_index_filter</code> parameter to <code>true</code>. For example, 100 vertices + 100 edges require 300 key-values. Each key takes 10bit in memory. Then you can calculate your own memory usage.</p>
+<p>When the query starting from each vertex gets an edge, truncate it directly to avoid too many neighboring edges on the super-large vertex, because a single query occupies too much hard disk and memory. Or you can truncate a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter. Excess edges will not be returned. This parameter applies to all spaces.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Property name</th>
+<th align="left">Default value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">max_edge_returned_per_vertex</td>
+<td align="left">2147483647</td>
+<td align="left">Specifies the maximum number of edges returned for each dense vertex. Excess edges are truncated and not returned. This parameter is not predefined in the configuration files.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<p>The reservoir sampling algorithm in Nebula Graph 1.x is no longer supported in Nebula Graph 2.5.0.</p>
+</div>
+<h2 id="storage_configurations_for_large_dataset">Storage configurations for large dataset<a class="headerlink" href="#storage_configurations_for_large_dataset" title="Permanent link">¶</a></h2>
+<p>When you have a large dataset (in the RocksDB directory) and your memory is tight, we suggest that you set the <code>enable_partitioned_index_filter</code> parameter to <code>true</code>. The performance is affected because RocksDB indexes are cached.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
 </small>
 </div>
 </article>
@@ -2431,7 +2460,7 @@ disable_auto_compactions
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+<script src="../../../assets/javascripts/bundle.756773cc.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>

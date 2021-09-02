@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/master/5.configurations-and-logs/2.log-management/logs/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.2.2, mkdocs-material-7.2.5" name="generator"/>
+<meta content="mkdocs-1.2.2, mkdocs-material-7.2.6" name="generator"/>
 <title>Logs - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.be71726b.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.802231af.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1225,31 +1225,27 @@
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#log_directory">
-    Log Directory
+    Log directory
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#parameter_description">
-    Parameter Description
-  </a>
-<nav aria-label="Parameter Description" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#two_most_commonly_used_flags_in_glog">
-    Two most commonly used flags in glog
+<a class="md-nav__link" href="#parameter_descriptions">
+    Parameter descriptions
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration_files">
-    Configuration Files
+<a class="md-nav__link" href="#check_the_severity_level">
+    Check the severity level
   </a>
 </li>
-</ul>
-</nav>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change_the_severity_level">
+    Change the severity level
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#check_and_change_the_severity_levels_dynamically">
-    Check and Change the Severity Levels Dynamically
+<a class="md-nav__link" href="#rocksdb_logs">
+    RocksDB logs
   </a>
 </li>
 </ul>
@@ -1894,7 +1890,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling.md">
         Graph modeling
       </a>
 </li>
@@ -1962,31 +1958,27 @@
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#log_directory">
-    Log Directory
+    Log directory
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#parameter_description">
-    Parameter Description
-  </a>
-<nav aria-label="Parameter Description" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#two_most_commonly_used_flags_in_glog">
-    Two most commonly used flags in glog
+<a class="md-nav__link" href="#parameter_descriptions">
+    Parameter descriptions
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration_files">
-    Configuration Files
+<a class="md-nav__link" href="#check_the_severity_level">
+    Check the severity level
   </a>
 </li>
-</ul>
-</nav>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change_the_severity_level">
+    Change the severity level
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#check_and_change_the_severity_levels_dynamically">
-    Check and Change the Severity Levels Dynamically
+<a class="md-nav__link" href="#rocksdb_logs">
+    RocksDB logs
   </a>
 </li>
 </ul>
@@ -2000,63 +1992,94 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">¶</a></h1>
-<p><strong>Nebula Graph</strong> uses <a href="https://github.com/google/glog">glog</a> to print logs, uses <a href="https://gflags.github.io/gflags/">gflag</a> to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.</p>
-<h2 id="log_directory">Log Directory<a class="headerlink" href="#log_directory" title="Permanent link">¶</a></h2>
+<p><strong>Nebula Graph</strong> uses <a href="https://github.com/google/glog">glog</a> to print logs, uses <a href="https://gflags.github.io/gflags/">gflags</a> to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.</p>
+<h2 id="log_directory">Log directory<a class="headerlink" href="#log_directory" title="Permanent link">¶</a></h2>
 <p>The default log directory is <code>/usr/local/nebula/logs/</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you deleted the log directory during runtime, the runtime log would not continue to be printed. However, this operation will not affect the services. Restart the services to recover the logs.</p>
-</div>
-<h2 id="parameter_description">Parameter Description<a class="headerlink" href="#parameter_description" title="Permanent link">¶</a></h2>
-<h3 id="two_most_commonly_used_flags_in_glog">Two most commonly used flags in glog<a class="headerlink" href="#two_most_commonly_used_flags_in_glog" title="Permanent link">¶</a></h3>
+<p>If the log directory is deleted while Nebula Graph is running, the log would not continue to be printed. However, this operation will not affect the services. To recover the logs, restart the services.</p>
+<h2 id="parameter_descriptions">Parameter descriptions<a class="headerlink" href="#parameter_descriptions" title="Permanent link">¶</a></h2>
 <ul>
-<li>minloglevel: The scale of minloglevel is 0-4. The numbers of severity levels INFO(DEBUG), WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively. Usually specified as 0 for debug, 1 for production. If you set the minloglevel to 4, no logs are printed.</li>
-<li>v: The scale of v is 0-3. When the value is set to 0,  you can further set the severity level of the debug log. The greater the value is, the more detailed the log is.</li>
+<li><code>minloglevel</code>: Specifies the minimum level of the log. That is, no logs below this level will be printed. Optional values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), <code>3</code> (FATAL). It is recommended to set it to <code>0</code> during debugging and <code>1</code> in a production environment. If it is set to <code>4</code>, Nebula Graph will not print any logs.</li>
 </ul>
-<h3 id="configuration_files">Configuration Files<a class="headerlink" href="#configuration_files" title="Permanent link">¶</a></h3>
-<p>The default severity level for the metad, graphd, and storaged logs can be found in the configuration files (usually in <code>/usr/local/nebula/etc/</code>).</p>
-<h2 id="check_and_change_the_severity_levels_dynamically">Check and Change the Severity Levels Dynamically<a class="headerlink" href="#check_and_change_the_severity_levels_dynamically" title="Permanent link">¶</a></h2>
-<p>Check all the flag values (log values included) of the current gflags with the following command. Not all flags are listed because changing some flags can be dangerous. Read the response explanation and the source code before you change these not documented parameters. To get all the available flags for a process, use this command:</p>
-<div class="highlight"><pre><span></span><code>&gt; curl <span class="si">${</span><span class="nv">ws_ip</span><span class="si">}</span>:<span class="si">${</span><span class="nv">ws_port</span><span class="si">}</span>/flags
-</code></pre></div>
-<p>In the command:</p>
 <ul>
-<li><code>ws_ip</code> is the IP address for the HTTP service, which can be found in the configuration files above. The default value is <code>127.0.0.1</code>.</li>
-<li><code>ws_port</code> is the port for the HTTP service, the default values for <code>metad</code>, <code>storaged</code>, and <code>graphd</code> are <code>19559</code>, <code>19779</code>, and <code>19669</code>, respectively.</li>
+<li><code>v</code>: Specifies the detailed level of the log. The larger the value, the more detailed the log is. Optional values are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>.</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you changed the runtime log level, then restart the services, the log level changes to the configuration file specifications. For more information, see <a href="../../1.configurations/4.storage-config/">Storage Service configurations</a>.</p>
-</div>
-<p>For example, check the minloglevel for the <code>storaged</code> service:</p>
-<div class="highlight"><pre><span></span><code>&gt; curl <span class="m">127</span>.0.0.1:19559/flags <span class="p">|</span> grep minloglevel
+<p>The default severity level for the metad, graphd, and storaged logs can be found in their respective configuration files. The default path is <code>/usr/local/nebula/etc/</code>.</p>
+<h2 id="check_the_severity_level">Check the severity level<a class="headerlink" href="#check_the_severity_level" title="Permanent link">¶</a></h2>
+<p>Check all the flag values (log values included) of the current gflags with the following command.</p>
+<div class="highlight"><pre><span></span><code>$ curl &lt;ws_ip&gt;:&lt;ws_port&gt;/flags
 </code></pre></div>
-<p>To change the log level for a process, use these commands. For example, you can change the log severity level the <strong>the most detailed</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>ws_ip</code></td>
+<td align="left">The IP address for the HTTP service, which can be found in the configuration files above. The default value is <code>127.0.0.1</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>ws_port</code></td>
+<td align="left">The port for the HTTP service, which can be found in the configuration files above. The default values are <code>19559</code>(Meta), <code>19669</code>(Graph), and <code>19779</code>(Storage) respectively.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples are as follows:</p>
+<ul>
+<li>Check the current <code>minloglevel</code> in the Meta service:<div class="highlight"><pre><span></span><code>$ curl <span class="m">127</span>.0.0.1:19559/flags <span class="p">|</span> grep <span class="s1">'minloglevel'</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Check the current <code>v</code> in the Storage service:<div class="highlight"><pre><span></span><code>$ curl <span class="m">127</span>.0.0.1:19779/flags <span class="p">|</span> grep -w <span class="s1">'v'</span>
+</code></pre></div>
+</li>
+</ul>
+<h2 id="change_the_severity_level">Change the severity level<a class="headerlink" href="#change_the_severity_level" title="Permanent link">¶</a></h2>
+<p>Change the severity level of the log with the following command.</p>
+<div class="highlight"><pre><span></span><code>$ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"&lt;key&gt;":&lt;value&gt;[,"&lt;key&gt;":&lt;value&gt;]}'</span> <span class="s2">"&lt;ws_ip&gt;:&lt;ws_port&gt;/flags"</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>key</code></td>
+<td align="left">The type of the log to be changed. For optional values, see <a href="#_3">Parameter descriptions</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>value</code></td>
+<td align="left">The level of the log. For optional values, see <a href="#_3">Parameter descriptions</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>ws_ip</code></td>
+<td align="left">The IP address for the HTTP service, which can be found in the configuration files above. The default value is <code>127.0.0.1</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>ws_port</code></td>
+<td align="left">The port for the HTTP service, which can be found in the configuration files above. The default values are <code>19559</code>(Meta), <code>19669</code>(Graph), and <code>19779</code>(Storage) respectively.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples are as follows:</p>
 <div class="highlight"><pre><span></span><code>$ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":0,"v":3}'</span> <span class="s2">"127.0.0.1:19779/flags"</span> <span class="c1"># storaged</span>
 $ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":0,"v":3}'</span> <span class="s2">"127.0.0.1:19669/flags"</span> <span class="c1"># graphd</span>
 $ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":0,"v":3}'</span> <span class="s2">"127.0.0.1:19559/flags"</span> <span class="c1"># metad</span>
 </code></pre></div>
-<!-- In the Nebula Console, check the severity minloglevel of `graphd` and set it to **the most detailed** with the these commands.
-
-<div class="highlight"><pre><span></span><code>nebula&gt; GET CONFIGS graph:minloglevel;
-nebula&gt; UPDATE CONFIGS graph:minloglevel=0;
-</code></pre></div>
--->
-<p>To change the severity of the storage log, replace the port in the preceding command with <code>storage</code> port.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the <code>curl</code> command.</p>
-</div>
-<p><strong>Close</strong> all logs print (FATAL only) with the following command.</p>
-<div class="highlight"><pre><span></span><code>$ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":3,"v":0}'</span> <span class="s2">"127.0.0.1:19779/flags"</span> <span class="c1"># storaged</span>
-$ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":3,"v":0}'</span> <span class="s2">"127.0.0.1:19669/flags"</span> <span class="c1"># graphd</span>
-$ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{"minloglevel":3,"v":0}'</span> <span class="s2">"127.0.0.1:19559/flags"</span> <span class="c1"># metad</span>
-</code></pre></div>
+<p>If the log level is changed while Nebula Graph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see <a href="../../1.configurations/1.configurations/">Configuration files</a>.</p>
+<h2 id="rocksdb_logs">RocksDB logs<a class="headerlink" href="#rocksdb_logs" title="Permanent link">¶</a></h2>
+<p>RocksDB logs are usually used to debug RocksDB parameters and stored in <code>/usr/local/nebula/data/storage/nebula/$id/data/LOG</code>. <code>$id</code> is the ID of the example.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
 </small>
 </div>
 </article>
@@ -2121,7 +2144,7 @@ $ curl -X PUT -H <span class="s2">"Content-Type: application/json"</span> -d <sp
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+<script src="../../../assets/javascripts/bundle.756773cc.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>

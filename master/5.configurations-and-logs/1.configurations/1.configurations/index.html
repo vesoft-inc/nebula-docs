@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/master/5.configurations-and-logs/1.configurations/1.configurations/" rel="canonical"/>
 <link href="../../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.2.2, mkdocs-material-7.2.5" name="generator"/>
+<meta content="mkdocs-1.2.2, mkdocs-material-7.2.6" name="generator"/>
 <title>Configurations - Nebula Graph Database Manual</title>
-<link href="../../../assets/stylesheets/main.be71726b.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.802231af.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
 <meta content="#009485" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -1184,18 +1184,23 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#get_the_configuration_list_and_descriptions">
+    Get the configuration list and descriptions
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#get_configurations">
     Get configurations
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#modify_configurations">
-    Modify configurations
+<a class="md-nav__link" href="#configuration_files">
+    Configuration files
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#legacy_version_compatibility">
-    Legacy version compatibility
+<a class="md-nav__link" href="#modify_configurations">
+    Modify configurations
   </a>
 </li>
 </ul>
@@ -1880,7 +1885,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling/">
+<a class="md-nav__link" href="../../../20.appendix/2.graph-modeling.md">
         Graph modeling
       </a>
 </li>
@@ -1947,18 +1952,23 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#get_the_configuration_list_and_descriptions">
+    Get the configuration list and descriptions
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#get_configurations">
     Get configurations
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#modify_configurations">
-    Modify configurations
+<a class="md-nav__link" href="#configuration_files">
+    Configuration files
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#legacy_version_compatibility">
-    Legacy version compatibility
+<a class="md-nav__link" href="#modify_configurations">
+    Modify configurations
   </a>
 </li>
 </ul>
@@ -1972,49 +1982,107 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">¶</a></h1>
-<p>This document gives some introduction to configurations in Nebula Graph.</p>
-<p>For the path and usage of local configuration files for Nebula Graph services, see:</p>
+<p>Nebula Graph builds the configurations based on the <a href="https://gflags.github.io/gflags/">gflags</a> repository. Most configurations are flags. When the Nebula Graph service starts, it will get the configuration information from <a href="#_4">Configuration files</a> by default. Configurations that are not in the file apply the default values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
-<li><a href="../2.meta-config/">Meta configuration</a></li>
-<li><a href="../3.graph-config/">Graph configuration</a></li>
-<li><a href="../4.storage-config/">Storage configuration</a></li>
+<li>Because there are many configurations and they may change as Nebula Graph develops, this topic will not introduce all configurations. To get detailed descriptions of configurations, follow the instructions below.</li>
+<li>It is not recommended to modify the configurations that are not introduced in this topic, unless you are familiar with the source code and fully understand the function of configurations.</li>
 </ul>
-<h2 id="get_configurations">Get configurations<a class="headerlink" href="#get_configurations" title="Permanent link">¶</a></h2>
-<p>Most configurations are gflags. You can get all the gflags and the explanations by the following command.</p>
+</div>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>In the topic of 1.x, we provide a method of using the <code>CONFIGS</code> command to modify the configurations in the cache. However, using this method in a production environment can easily cause inconsistencies of configurations between clusters and the local. Therefore, this method will no longer be introduced in the topic of 2.x.</p>
+</div>
+<h2 id="get_the_configuration_list_and_descriptions">Get the configuration list and descriptions<a class="headerlink" href="#get_the_configuration_list_and_descriptions" title="Permanent link">¶</a></h2>
+<p>Use the following command to get all the configuration information of the service corresponding to the binary file:</p>
 <div class="highlight"><pre><span></span><code>&lt;binary&gt; --help
 </code></pre></div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>$ ./nebula-metad  --help
-$ ./nebula-graphd --help
-$ ./nebula-storaged --help
-$ ./nebula-console --help
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the help information from Meta</span>
+$ /usr/local/nebula/bin/nebula-metad  --help
+
+<span class="c1"># Get the help information from Graph</span>
+$ /usr/local/nebula/bin/nebula-graphd --help
+
+<span class="c1"># Get the help information from Storage</span>
+$ /usr/local/nebula/bin/nebula-storaged --help
 </code></pre></div>
-<p>Besides, you can get the values of running flags by <code>curl</code>-ing from the services.</p>
+<p>The above examples use the default storage path <code>/usr/local/nebula/bin/</code>. If you modify the installation path of Nebula Graph, use the actual path to query the configurations.</p>
+<h2 id="get_configurations">Get configurations<a class="headerlink" href="#get_configurations" title="Permanent link">¶</a></h2>
+<p>Use the <code>curl</code> command to get the value of the running configurations.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>The <code>curl</code> commands and parameters in Nebula Graph v2.x. are different from Nebula Graph v1.x.</p>
+</div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>$ curl <span class="m">127</span>.0.0.1:19559/flags <span class="c1"># From Meta</span>
-$ curl <span class="m">127</span>.0.0.1:19669/flags <span class="c1"># From Graph</span>
-$ curl <span class="m">127</span>.0.0.1:19779/flags <span class="c1"># From Storage</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the running configurations from Meta</span>
+curl <span class="m">127</span>.0.0.1:19559/flags
+
+<span class="c1"># Get the running configurations from Graph</span>
+curl <span class="m">127</span>.0.0.1:19669/flags
+
+<span class="c1"># Get the running configurations from Storage</span>
+curl <span class="m">127</span>.0.0.1:19779/flags
 </code></pre></div>
-<h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">¶</a></h2>
-<p>We suggest that you change configurations from local configure files. To change configurations from local files, follow these steps:</p>
-<ol>
-<li>Add <code>--local_config=true</code> to each configuration file.
-    The configuration files are stored in <code>/usr/local/nebula/etc/</code> by default. If you have customized your Nebula Graph installation directory, the path to your configuration files is <code>$pwd/nebula/etc/</code>.</li>
-<li>Save your modification to the files.</li>
-<li>Restart the Nebula Graph services.</li>
-</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In an actual environment, use the real host IP address instead of <code>127.0.0.1</code> in the above example.</p>
+</div>
+<h2 id="configuration_files">Configuration files<a class="headerlink" href="#configuration_files" title="Permanent link">¶</a></h2>
+<p>Nebula Graph provides two initial configuration files for each service, <code>&lt;service_name&gt;.conf.default</code> and <code>&lt;service_name&gt;.conf.production</code>. Users can use them in different scenarios conveniently. The default path is <code>/usr/local/nebula/etc/</code>.</p>
+<p>The configuration values in the initial configuration file are for reference only and can be adjusted according to actual needs. To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> to make it valid.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Remember to add  <code>--local_config=true</code> to each configuration file.</p>
+<p>To ensure the availability of services, the configurations of the same service must be consistent, except for the local IP address <code>local_ip</code>. For example, three Storage servers are deployed in one Nebula Graph cluster. The configurations of the three Storage servers need to be the same, except for the IP address.</p>
 </div>
-<p>To make your modifications take effect, restart all the Nebula Graph services.</p>
-<h2 id="legacy_version_compatibility">Legacy version compatibility<a class="headerlink" href="#legacy_version_compatibility" title="Permanent link">¶</a></h2>
-<p>The <code>curl</code> commands and parameters in Nebula Graph v2.x. are different from Nebula Graph v1.x. Those <code>curl</code> commands in v1.x are deprecated now.</p>
+<p>The initial configuration files corresponding to each service are as follows.</p>
+<table>
+<thead>
+<tr>
+<th>Nebula Graph service</th>
+<th>Initial configuration file</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta</td>
+<td><code>nebula-metad.conf.default</code> and <code>nebula-metad.conf.production</code></td>
+<td><a href="../2.meta-config/">Meta service configuration</a></td>
+</tr>
+<tr>
+<td>Graph</td>
+<td><code>nebula-graphd.conf.default</code> and <code>nebula-graphd.conf.production</code></td>
+<td><a href="../3.graph-config/">Graph service configuration</a></td>
+</tr>
+<tr>
+<td>Storage</td>
+<td><code>nebula-storaged.conf.default</code> and <code>nebula-storaged.conf.production</code></td>
+<td><a href="../4.storage-config/">Storage service configuration</a></td>
+</tr>
+</tbody>
+</table>
+<p>Each initial configuration file of all services contains <code>local_config</code>. The default value is <code>true</code>, which means that the Nebula Graph service will get configurations from its configuration files and start it.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>It is not recommended to modify the value of <code>local_config</code> to <code>false</code>. If modified, the Nebula Graph service will first read the cached configurations, which may cause configuration inconsistencies between clusters and cause unknown risks.</p>
+</div>
+<h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">¶</a></h2>
+<p>By default, each Nebula Graph service gets configurations from its configuration files. Users can modify configurations and make them valid according to the following steps:</p>
+<ol>
+<li>
+<p>Use a text editor to modify the configuration files of the target service and save the modification.</p>
+</li>
+<li>
+<p>Choose an appropriate time to restart <strong>all</strong> Nebula Graph services to make the modifications valid.</p>
+</li>
+</ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
 </small>
 </div>
 </article>
@@ -2079,7 +2147,7 @@ $ curl <span class="m">127</span>.0.0.1:19779/flags <span class="c1"># From Stor
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.409db549.min.js", "version": {"method": "mike"}}</script>
-<script src="../../../assets/javascripts/bundle.56a63758.min.js"></script>
+<script src="../../../assets/javascripts/bundle.756773cc.min.js"></script>
 <script src="../../../js/version-select.js"></script>
 <script src="../../../js/jquery.js"></script>
 <script src="../../../js/search.js"></script>
