@@ -21,7 +21,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 - [Video](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
 - [Chinese Docs](https://docs.nebula-graph.com.cn/master/)
 
-## Graphic Illustrations
+## Symbols used in this manual
 
 <!-- 
 This manual has over 40 cautions.
