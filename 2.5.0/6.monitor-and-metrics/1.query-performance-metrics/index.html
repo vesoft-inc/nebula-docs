@@ -240,7 +240,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../2.quick-start/4.nebula-graph-crud/">
-        Step 4 Use nGQL(CRUD)
+        Step 4 Use nGQL (CRUD)
       </a>
 </li>
 </ul>
@@ -1285,8 +1285,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -2064,8 +2064,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example">
-    Example
+<a class="md-nav__link" href="#examples">
+    Examples
   </a>
 </li>
 </ul>
@@ -2084,7 +2084,7 @@
 <h1 id="query_nebula_graph_metrics">Query Nebula Graph metrics<a class="headerlink" href="#query_nebula_graph_metrics" title="Permanent link">¶</a></h1>
 <p>Nebula Graph supports querying the monitoring metrics through HTTP ports.</p>
 <h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">¶</a></h2>
-<p>Each metric of Nebula Graph consists of three fields: name, type, and time range. The fields are separated by periods, for example, <code>num_queries.sum.600</code>. The detailed description is as follows.</p>
+<p>Each metric of Nebula Graph consists of three fields: name, type, and time range. The fields are separated by periods, for example, <code>num_queries.sum.600</code>. Different Nebula Graph services (Graph, Storage, or Meta) support different metrics. The detailed description is as follows.</p>
 <table>
 <thead>
 <tr>
@@ -2111,10 +2111,9 @@
 </tr>
 </tbody>
 </table>
-<p>Different Nebula Graph services (Graph, Storage, or Meta) support different metrics, for more information, see Metric list (TODO: doc).</p>
 <h2 id="query_metrics_over_http">Query metrics over HTTP<a class="headerlink" href="#query_metrics_over_http" title="Permanent link">¶</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h3>
-<div class="highlight"><pre><span></span><code>$ curl -G <span class="s2">"http://&lt;ip&gt;:&lt;port&gt;/stats?stats=&lt;metric_name_list&gt;[&amp;format=json]"</span>
+<div class="highlight"><pre><span></span><code>curl -G <span class="s2">"http://&lt;ip&gt;:&lt;port&gt;/stats?stats=&lt;metric_name_list&gt; [&amp;format=json]"</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2146,17 +2145,21 @@
 <p class="admonition-title">Note</p>
 <p>If Nebula Graph is deployed with <a href="../2.quick-start/2.deploy-nebula-graph-with-docker-compose.md">Docker Compose</a>, run <code>docker-compose ps</code> to check the ports that are mapped from the service ports inside of the container and then query through them.</p>
 </div>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
 <ul>
-<li>Query a single metric<p>Query the query number in the last 10 minutes in the Graph Service.</p>
+<li>
+<p>Query a single metric</p>
+<p>Query the query number in the last 10 minutes in the Graph Service.</p>
 <div class="highlight"><pre><span></span><code>$ curl -G <span class="s2">"http://192.168.8.40:19669/stats?stats=num_queries.sum.600"</span>
 num_queries.sum.600<span class="o">=</span><span class="m">400</span>
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Query multiple metrics<p>Query the following metrics together:
-  * The average heartbeat latency in the last 1 minute.
+<li>
+<p>Query multiple metrics</p>
+<p>Query the following metrics together:</p>
+<p>* The average heartbeat latency in the last 1 minute.
   * The average latency of the slowest 1% heartbeats, i.e., the P99 heartbeats, in the last 10 minutes.</p>
 <div class="highlight"><pre><span></span><code>$ curl -G <span class="s2">"http://192.168.8.40:19559/stats?stats=heartbeat_latency_us.avg.60,heartbeat_latency_us.p99.600"</span>
 heartbeat_latency_us.avg.60<span class="o">=</span><span class="m">281</span>
@@ -2165,14 +2168,18 @@ heartbeat_latency_us.p99.600<span class="o">=</span><span class="m">985</span>
 </li>
 </ul>
 <ul>
-<li>Return a JSON result.<p>Query the number of new vertices in the Storage Service in the last 10 minutes and return the result in the JSON format.</p>
+<li>
+<p>Return a JSON result.</p>
+<p>Query the number of new vertices in the Storage Service in the last 10 minutes and return the result in the JSON format.</p>
 <div class="highlight"><pre><span></span><code>$ curl -G <span class="s2">"http://192.168.8.40:19779/stats?stats=num_add_vertices.sum.600&amp;format=json"</span>
 <span class="o">[{</span><span class="s2">"value"</span>:1,<span class="s2">"name"</span>:<span class="s2">"num_add_vertices.sum.600"</span><span class="o">}]</span>
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Query all metrics in a service.<p>If no metric is specified in the query, Nebula Graph returns all metrics in the service.</p>
+<li>
+<p>Query all metrics in a service.</p>
+<p>If no metric is specified in the query, Nebula Graph returns all metrics in the service.</p>
 <div class="highlight"><pre><span></span><code>$ curl -G <span class="s2">"http://192.168.8.40:19559/stats"</span>
 heartbeat_latency_us.avg.5<span class="o">=</span><span class="m">304</span>
 heartbeat_latency_us.avg.60<span class="o">=</span><span class="m">308</span>
@@ -2205,7 +2212,7 @@ num_heartbeats.sum.3600<span class="o">=</span><span class="m">2364</span>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
 </small>
 </div>
 </article>
