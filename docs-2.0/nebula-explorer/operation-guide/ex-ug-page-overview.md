@@ -15,7 +15,7 @@ The main page of Explorer is divided into five parts:
 
 ## Tab bar
 
-- Export: Export a CSV or SVG file of the current view.
+- Export: Export a CSV or PNG file of the current view.
 
 ## Sidebar
 
