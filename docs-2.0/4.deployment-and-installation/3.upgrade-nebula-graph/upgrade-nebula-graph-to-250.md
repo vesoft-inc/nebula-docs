@@ -78,14 +78,14 @@ The data of the old Nebula Graph are stored by the Storage Service and the Meta 
 
 3. Install the new version of Nebula Graph on each machine.
 
-  * To install with RPM/DEB packages, run the following command. For detailed steps, see [Install Nebula Graph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+  * To install with RPM/DEB packages, run the following command. For detailed steps, see [Install Nebula Graph with RPM or DEB package](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
     ```bash
     > sudo rpm --force -i --prefix=${nebula-new}  ${nebula-package-name.rpm} # for CentOS/RedHat
     > sudo dpkg -i --instdir==${nebula-new} ${nebula-package-name.deb} # for Ubuntu
     ```
 
-  * To install with the source code, follow the substeps. For detailed steps, see [Install Nebula Graph by compiling the source code](2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
+  * To install with the source code, follow the substeps. For detailed steps, see [Install Nebula Graph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
 
       1. Clone the source code.
 
@@ -126,7 +126,7 @@ The data of the old Nebula Graph are stored by the Storage Service and the Meta 
 
   [Optional] Add the following parameters in the Meta configuration files if you need them.
 
-  * `--null_type=false`: Disables the support for using [`NULL`](../3.ngql-guide/3.data-types/5.null.md) as schema properties after the upgrade. The default value is `true`. When set to `false`, you must specify a [default value](../3.ngql-guide/10.tag-statements/1.create-tag.md) when altering tags or edge types, otherwise, data reading fails.
+  * `--null_type=false`: Disables the support for using [`NULL`](../3.ngql-guide/3.data-types/5.null.md) as schema properties after the upgrade. The default value is `true`. When set to `false`, you must specify a [default value](../../3.ngql-guide/10.tag-statements/1.create-tag.md) when altering tags or edge types, otherwise, data reading fails.
   * `--string_index_limit=32`: Specifies the index length for string values as 32. The default length is 64.
 
 6. Prepare the Storage configuration files on each Storage server.
