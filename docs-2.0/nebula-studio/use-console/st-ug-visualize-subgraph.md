@@ -35,7 +35,7 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
     Take the `FIND ALL PATH` for example, query the path information as shown in this figure.
 
-    ![The result window shows the queried paths](../figs/st-ug-045-1.png "The queried PATHs")
+    ![The result window shows the queried paths](../figs/st-ug-045.png "The queried PATHs")
 
 4. Click the **View Subgraphs** button.
 
