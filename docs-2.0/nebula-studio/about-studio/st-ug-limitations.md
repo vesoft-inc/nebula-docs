@@ -6,7 +6,7 @@ This article introduces the limitations of Studio.
 
 !!! Note
 
-    The Studio version is released independently of the Nebula Graph kernel. The correspondence between the versions of Studio and the Nebula Graph kernel, as shown in the table below.
+    The Studio version is released independently of the Nebula Graph core. The correspondence between the versions of Studio and the Nebula Graph core, as shown in the table below.
 
 | Nebula Graph version | Studio version |
 | --- | --- |
