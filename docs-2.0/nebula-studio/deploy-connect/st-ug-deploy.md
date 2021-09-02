@@ -144,7 +144,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 Users can uninstall Studio using the following command:
 
 ```bash
-sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64.rpm
+sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64
 ```
 
 ### Exception handling
