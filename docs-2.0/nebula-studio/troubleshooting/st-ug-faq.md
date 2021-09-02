@@ -1,6 +1,6 @@
 # FAQ
 
-???+ faq "Why can't I use a function?"
+!!! faq "Why can't I use a function?"
 
     If you find that a function cannot be used, it is recommended to troubleshoot the problem according to the following steps:
     1. Confirm that Nebula Graph is the latest version. If you use Docker Compose to deploy the Nebula Graph database, it is recommended to run `docker-compose pull && docker-compose up -d` to pull the latest Docker image and start the container.
