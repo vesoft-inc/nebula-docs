@@ -68,7 +68,7 @@ For more information, see [Graph exploration and expansion](../operation-guide/e
 
 The canvas is mainly divided into:
 
-- canvas: Display the data queried by VID, Tag or subgraph.
+- Canvas: Display the data queried by VID, Tag or subgraph.
 
 - Vertexes and Edges overview: It is hidden by default and only displayed when the vertex and edge are selected on the current canvas. Click on the icon in the following, and the user can open the menu to view the detailed data of the selected vertexes and edges in the current canvas.
 
