@@ -30,10 +30,6 @@ To query edge data on the **Console** page and then view the result on the **Exp
     nebula> GO FROM "player102" OVER serve YIELD serve._src,serve._dst;
     ```
 
-  !!! note
-
-        For more information about the `MATCH` syntax, see [MATCH in nGQL User Guide](../../3.ngql-guide/7.general-query-statements/2.match.md).
-
    In the query result, you can see the start year and end year of the service team for the player whose playerId is `palyer102`. As shown below.
 
    ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](../figs/st-ug-037.png "Edge data")
