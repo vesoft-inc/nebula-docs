@@ -41,9 +41,9 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
 5. (Optional) If some data exists on the board of **Explore**, choose a method to insert data:
 
-    - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
+  - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
 
-    - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
+  - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
 
 When the data is inserted, you can view the visualized representation of the paths.
 
