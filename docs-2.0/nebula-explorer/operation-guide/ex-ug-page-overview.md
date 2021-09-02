@@ -15,7 +15,7 @@ The main page of Explorer is divided into five parts:
 
 ## Tab bar
 
-- Export: Export a CSV or SVG file of the current view.
+- Export: Export a CSV or PNG file of the current view.
 
 ## Sidebar
 
@@ -84,6 +84,6 @@ You can use the button on the minimap to switch the graph mode, display the vert
   | ---- | ---- |----| ----|
   | mode | force | dagre | circular |
 
-  ## Relationship list
+## Relationship list
 
-  Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.
+Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.

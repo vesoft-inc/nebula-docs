@@ -28,25 +28,25 @@ To create an index on the **Schema** page, follow these steps:
 4. Click the **Index** tab and then click the **+ Create** button.
 5. On the **Create** page, do these settings:
 
-   a. **Index Type**: Choose to create an index for a tag or for an edge type. In this example, **Edge Type** is chosen.
+  - **Index Type**: Choose to create an index for a tag or for an edge type. In this example, **Edge Type** is chosen.
 
-   b. **Name**: Choose a tag name or an edge type name. In this example, **follow** is chosen.
+  - **Name**: Choose a tag name or an edge type name. In this example, **follow** is chosen.
 
-   c. **Index Name**: Specify a name for the new index. In this example, **follow_index** is used.
+  - **Index Name**: Specify a name for the new index. In this example, **follow_index** is used.
 
-   d. **Indexed Properties**: Click **Add**, and then, in the dialog box, choose a property. If necessary, repeat this step to choose more properties. You can drag the properties to sort them. In this example, `degree` is chosen.
+  - **Indexed Properties**: Click **Add**, and then, in the dialog box, choose a property. If necessary, repeat this step to choose more properties. You can drag the properties to sort them. In this example, `degree` is chosen.
 
     !!! note
 
         The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](../../3.ngql-guide/7.general-query-statements/5.lookup.md "Click to go to the Nebula Graph website").
 
-   e. **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on an index. But in this example, `follow_index` is used.
+  - **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on an index. But in this example, `follow_index` is used.
 
-   When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
+6. When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
 
 ![A page for index creation](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-030.png "Create an index")
 
-6. Confirm the settings and then click the **+ Create** button.  
+7. Confirm the settings and then click the **+ Create** button.  
    When an index is created, the index list shows the new index.
 
 ## View indexes

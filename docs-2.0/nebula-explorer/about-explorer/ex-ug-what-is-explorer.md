@@ -1,6 +1,6 @@
 # What is Nebula Graph Explorer
 
-Nebula Graph Explorer (Explorer in short) is a browser-based visualization tool. It is used with the Nebula Graph kernel to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
+Nebula Graph Explorer (Explorer in short) is a browser-based visualization tool. It is used with the Nebula Graph core to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
 
 !!! enterpriseonly
 

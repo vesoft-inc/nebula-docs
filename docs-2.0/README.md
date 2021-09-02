@@ -1,6 +1,12 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs) {{ git.short_commit }}."
+!!! note "Check the manual version"
+
+    This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}) {{ git.short_commit }}.
+
+<!--
+!!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
+-->
 
 Nebula Graph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
@@ -9,7 +15,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
 * [Configuration](4.deployment-and-installation/1.resource-preparations.md)
-* [FAQ](19.FAQ/0.FAQ.md)
+* [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
   
 ## Other Sources
@@ -19,9 +25,9 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blog](https://nebula-graph.io/posts/)
 - [Video](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
-- [Chinese Docs](https://docs.nebula-graph.com.cn/master/)
+- [Chinese Docs](https://docs.nebula-graph.com.cn/)
 
-## Graphic Illustrations
+## Symbols used in this manual
 
 <!-- 
 This manual has over 40 cautions.

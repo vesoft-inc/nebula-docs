@@ -42,6 +42,6 @@ To connect Explorer to Nebula Graph, follow these steps:
 
    If you can see the interface as shown in the below, it means you have successfully connected to the Nebula Graph database.
 
-   ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")
+   ![The Console page shows that the connection is successful](../figs/ex-ug-051.png "Nebula Graph is connected")
 
 One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
