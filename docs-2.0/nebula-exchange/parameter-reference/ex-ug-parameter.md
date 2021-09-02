@@ -8,7 +8,7 @@ The `application.conf` file contains the following content types:
 
 - Spark Configurations
 
-- Hive Configurations（optional）
+- Hive Configurations(optional)
 
 - Nebula Graph Configurations
 
@@ -24,11 +24,11 @@ This document lists only some Spark parameters. For more information, see [Spark
 |:---|:---|:---|:---|:---|
 |`spark.app.name`|string|-|No|The drive name in Spark.|
 |`spark.driver.cores`|int|`1`|No|The number of CPU cores used by a driver, only applicable to a cluster mode.|
-|`spark.driver.maxResultSize`|string|`1G`|No|The total size limit (in bytes) of the serialized results of all partitions in a single Spark operation（such as collect）. The minimum value is 1M, and 0 means unlimited|
+|`spark.driver.maxResultSize`|string|`1G`|No|The total size limit (in bytes) of the serialized results of all partitions in a single Spark operation(such as collect). The minimum value is 1M, and 0 means unlimited|
 |`spark.executor.memory`|string|`1G`|No|The amount of memory used by a Spark driver which can be specified in units, such as 512M or 1G.|
 |`spark.cores.max`|int|`16`|No|The maximum number of CPU cores of applications requested across clusters (rather than from each node) when a driver runs in a coarse-grained sharing mode on a standalone cluster or a Mesos cluster. The default value is `spark.deploy.defaultCores` on a Spark  standalone cluster manager or the value of the `infinite` parameter (all available cores) on Mesos.|
 
-## Hive Configurations（optional）
+## Hive Configurations(optional)
 
 Users only need to configure parameters for connecting to Hive if Spark and Hive are deployed in different clusters. Otherwise, please ignore the following configurations.
 
@@ -88,7 +88,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default Value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of vertex data files in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
-|`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,）.|
+|`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,).|
 |`tags.header`|bool|`true`|Yes|Whether the file has a header.|
 
 ### Specific Parameters of Hive Data Sources
