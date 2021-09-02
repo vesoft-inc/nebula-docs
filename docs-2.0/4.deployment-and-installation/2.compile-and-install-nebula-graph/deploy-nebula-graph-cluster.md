@@ -276,7 +276,7 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
     - When the graphd process, the storaged process, and the metad process are all started, you can use `all` instead.
 
-    - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../2.quick-start/5.start-stop-service.md).
+    - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../manage-service.md).
 
 ### Step 4: Check the cluster status
 
