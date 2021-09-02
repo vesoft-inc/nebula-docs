@@ -45,7 +45,7 @@ To connect Studio to Nebula Graph, follow these steps:
 
 2. After the configuration, click the **Connect** button.
 
-   If you can see the **Console** page, Studio is successfully connected to Nebula Graph.
+   If you can see the **Explore** page, Studio is successfully connected to Nebula Graph.
 
    ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")
 
