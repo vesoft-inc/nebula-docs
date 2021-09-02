@@ -77,20 +77,20 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
     https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu2004.amd64.deb
     ```
 
-    For example, download the `Centos 7.5` package developed and built in `2021.09.01`: 
+    For example, download the `Centos 7.5` package developed and built in `2021.03.28`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.el7.x86_64.rpm.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm.sha256sum.txt
     ```
 
-    For example, download the `Ubuntu 1804` package developed and built in `2021.09.01`: 
+    For example, download the `Ubuntu 1804` package developed and built in `2021.03.28`: 
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.09.01/nebula-graph-2021.09.01-nightly.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb
+    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb.sha256sum.txt
     ```
-
+<!--
 ## Download the package from GitHub
 
 * Download the release version.
@@ -111,6 +111,7 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
     ![Select a Nebula Graph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
 
    + In the **Artifacts** area, click the package to download it.
+-->
 
 ## Install Nebula Graph
 
@@ -129,3 +130,8 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
   !!! note
 
         The default installation path is `/usr/local/nebula/`.
+
+## What's next
+
+- [start Nebula Graph](/2.5.0/2.quick-start/5.start-stop-service)  <!--这里必须用绝对路径，并且文件名的后缀.md要删掉。-->
+- [connect to Nebula Graph](/2.5.0/2.quick-start/3.connect-to-nebula-graph) <!--这里必须用绝对路径，并且文件名的后缀.md要删掉。-->
