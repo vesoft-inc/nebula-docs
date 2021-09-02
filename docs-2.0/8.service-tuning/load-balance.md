@@ -35,7 +35,6 @@ nebual> SHOW HOSTS;
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
-Got 6 rows (time spent 1002/1780 us)
 ```
 
 Run `BALANCE DATA` to start balancing the storage partitions. If the partitions are already balanced, `BALANCE DATA` fails.
@@ -47,7 +46,6 @@ nebula> BALANCE DATA;
 +------------+
 | 1614237867 |
 +------------+
-Got 1 rows (time spent 3783/4533 us)
 ```
 
 A BALANCE task ID is returned after running `BALANCE DATA`. Run `BALANCE DATA <balance_id>` to check the status of the `BALANCE` task.
@@ -67,7 +65,6 @@ nebula> BALANCE DATA 1614237867;
 +--------------------------------------------------------------+-------------------+
 | "Total:22, Succeeded:22, Failed:0, In Progress:0, Invalid:0" | 100               |
 +--------------------------------------------------------------+-------------------+
-Got 23 rows (time spent 916/1528 us)
 ```
 
 When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
@@ -93,7 +90,6 @@ nebula> SHOW HOSTS;
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
-Got 6 rows (time spent 849/1420 us)
 ```
 
 If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
@@ -115,6 +111,10 @@ Once all the subtasks are finished or stopped, you can run `BALANCE DATA` again 
 * If any subtask of the preceding balance task failed, Nebula Graph restarts the preceding balance task.
 
 * If no subtask of the preceding balance task failed, Nebula Graph starts a new balance task.
+
+## RESET a balance task
+
+If a balance task fails to be restarted after being stopped, run `BALANCE DATA RESET PLAN` to reset the task. After that, run `BALANCE DATA` again to start a new balance task.
 
 ## Remove storage servers
 
@@ -145,7 +145,6 @@ Nebula Graph will start a balance task, migrate the storage partitions in storag
 
 ```ngql
 nebula> BALANCE LEADER;
-Execution succeeded (time spent 7576/8657 us)
 ```
 
 Run `SHOW HOSTS` to check the balance result.
