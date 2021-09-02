@@ -161,16 +161,16 @@ The `lib` repository provides 10 common graph algorithms.
           # The name of the graph space in Nebula Graph.
           space:nb
           # The name of the tag in Nebula Graph. The graph computing result will be written into this tag. The property name of this tag is as follows.
-          # PageRank：pagerank
-          # Louvain：louvain
-          # ConnectedComponent：cc
-          # StronglyConnectedComponent：scc
-          # LabelPropagation：lpa
-          # ShortestPath：shortestpath
-          # DegreeStatic：degree、inDegree、outDegree
-          # KCore：kcore
-          # TriangleCount：tranglecpunt
-          # BetweennessCentrality：betweennedss
+          # PageRank: pagerank
+          # Louvain: louvain
+          # ConnectedComponent: cc
+          # StronglyConnectedComponent: scc
+          # LabelPropagation: lpa
+          # ShortestPath: shortestpath
+          # DegreeStatic: degree、inDegree、outDegree
+          # KCore: kcore
+          # TriangleCount: tranglecpunt
+          # BetweennessCentrality: betweennedss
           tag:pagerank
       }
       }  
