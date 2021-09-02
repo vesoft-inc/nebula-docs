@@ -4,20 +4,15 @@ When Studio is connected to Nebula Graph, you can create or delete a graph space
 
 ## Studio version
 
-Studio of v{{ studio.base220 }} or later versions supports this function. To update the version, run this command.
-
-```bash
-docker-compose pull && docker-compose up
-```
+Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
 
 ## Prerequisites
 
 To operate a graph space on the **Schema** page of Studio, you must do a check of these:
 
-- The version of Studio is v{{ studio.base220 }} or later.
 - Studio is connected to Nebula Graph.
 - Your account has the authority of GOD. It means that:
-  - If the authentication is enabled in Nebula Graph, you can use `user` and `password` to sign in to Studio.
+  - If the authentication is enabled in Nebula Graph, you can use `root` and any password to sign in to Studio.
   - If the authentication is disabled in Nebula Graph, you must use `root` and its password to sign in to Studio.
 
 ## Create a graph space
@@ -28,25 +23,29 @@ To create a graph space on the **Schema** page, follow these steps:
 2. On the **Graph Space List** page, click the **+ Create** button.
 3. On the **Create** page, do these settings:
 
-   a. **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database.
+   a. **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database. The name cannot be used keywords or reserved keywords as identifiers. For more information, see [keywords](../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md).
 
-   b. **Optional Parameters**: Set `partition_num`, `replica_factor`, `charset`, `collate` and `vid type`. In this example, these parameters are set to `10`, `1`, `utf8`, `utf8_bin` and `FIXED_STRING(32)` separately. For more information, see [`CREATE SPACE` syntax](/docs-2.0/3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
+   b. **Vid type**: The data types of VIDs are restricted to `FIXED_STRING(<N>)` or `INT64`; a graph space can only select one VID type, `FIXED_STRING(32)` is used. For more information, see [VID](../../1.introduction/3.vid.md).
+
+   c. **Comment**: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, `Statistics of basketball players` is used.
+
+   d. **Optional Parameters**: Set `partition_num`, `replica_factor`. In this example, these parameters are set to `100` and `1` separately. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
 
    In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
    
    ```bash
-   CREATE SPACE basketballplayer (partition_num = 10, replica_factor = 1, charset = utf8, collate = utf8_bin, vid_type = FIXED_STRING(32))
+   CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
    ```
 
 4. Confirm the settings and then click the **+ Create** button. If the graph space is created successfully, you can see it on the graph space list.
 
-![The Create page with settings for a graph space](../figs/st-ug-026-1.png)
+![The Create page with settings for a graph space](../figs/st-ug-026.png)
 
 ## Delete a graph space
 
 !!! danger
 
-    Deleting the image space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+    Deleting the space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
 
 To delete a graph space on the **Schema** page, follow these steps:
 
