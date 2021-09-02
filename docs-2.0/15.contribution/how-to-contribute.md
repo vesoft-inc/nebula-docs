@@ -198,7 +198,7 @@ Email address: info@vesoft.com
 
 WeChat: NebulaGraphbot
 
-Slack：[Join Slack](https://join.slack.com/t/nebulagraph/shared_invite/zt-7ybejuqa-NCZBroh~PCh66d9kOQj45g)
+Slack: [Join Slack](https://join.slack.com/t/nebulagraph/shared_invite/zt-7ybejuqa-NCZBroh~PCh66d9kOQj45g)
 
 ### Step 2: Get the information of the project recipient
 
