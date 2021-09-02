@@ -12,7 +12,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
 ### Prerequisites
 
-* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](./5.start-stop-service.md).
+* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](../4.deployment-and-installation/manage-service.md).
 * The machine you plan to run Nebula Console on has network access to the Nebula Graph services.
 
 ### Steps
