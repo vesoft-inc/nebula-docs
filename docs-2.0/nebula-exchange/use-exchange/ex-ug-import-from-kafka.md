@@ -145,7 +145,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Message category.
       topic: "topic_name1"
 
-      # Kafka data has a fixed domain name: key、value、topic、partition、offset、timestamp、timestampType.
+      # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
       # Specify the field name in fields, for example key for name in Nebula and value for age in Nebula, as shown in the following.
       fields: [key,value]
@@ -207,7 +207,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Message category.
       topic: "topic_name3"
 
-      # Kafka data has a fixed domain name: key、value、topic、partition、offset、timestamp、timestampType.
+      # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
       # Specify the field name in fields, for example key for degree in Nebula, as shown in the following.
       fields: [key]
