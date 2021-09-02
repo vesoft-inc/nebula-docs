@@ -2,7 +2,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
 ## Prerequisites
 
-Prepare the right [resources](../1.resource-preparations.md).
+Prepare the right [resources](../4.deployment-and-installation/1.resource-preparations.md).
 
 !!! note
 
