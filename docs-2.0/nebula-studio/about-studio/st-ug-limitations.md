@@ -1,12 +1,12 @@
 # Limitations
 
-This article introduces the limitations of Studio.
+This topic introduces the limitations of Studio.
 
 ## Nebula Graph versions
 
 !!! Note
 
-    The Studio version is released independently of the Nebula Graph kernel. The correspondence between the versions of Studio and the Nebula Graph kernel, as shown in the table below.
+    The Studio version is released independently of the Nebula Graph core. The correspondence between the versions of Studio and the Nebula Graph core, as shown in the table below.
 
 | Nebula Graph version | Studio version |
 | --- | --- |
@@ -17,7 +17,7 @@ This article introduces the limitations of Studio.
 
 ## Architecture
 
-For now, Docker-based and RPM-based Studio v2.x supports x86_64 architecture only.
+For now, Docker-based and RPM-based Studio v3.x supports x86_64 architecture only.
 
 ## Upload data
 <!--
@@ -32,11 +32,11 @@ Only CSV files without headers can be uploaded, but no limitations are applied t
 
 ## Data backup
 
-For now, you can export the queried results in the CSV format on the **Console** page. No other backup methods are available.
+For now, you can export the queried results in the CSV format on the **Console** page and export data in the CSV format on the **Explore** page. No other backup methods are available.
 
 ## nGQL statements
 
-On the **Console** page of Docker-based and RPM-based Studio v2.x, all the nGQL syntaxes except these are supported:
+On the **Console** page of Docker-based and RPM-based Studio v3.x, all the nGQL syntaxes except these are supported:
 
 - `USE <space_name>`: You cannot run such a statement on the **Console** page to choose a graph space. As an alternative, you can click a graph space name in the drop-down list of **Current Graph Space**.
 - You cannot use line breaks (\\). As an alternative, you can use the Enter key to split a line.

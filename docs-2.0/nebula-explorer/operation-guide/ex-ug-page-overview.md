@@ -15,7 +15,7 @@ The main page of Explorer is divided into five parts:
 
 ## Tab bar
 
-- Export: Export a CSV or SVG file of the current view.
+- Export: Export a CSV or PNG file of the current view.
 
 ## Sidebar
 
@@ -40,6 +40,7 @@ The sidebar consists of five parts. You can click the buttons to explore the gra
 - Frame selection mode: Click the ![frameSelect](../figs/nav-frameSelect.png) icon to support frame selection of vertexes and edges in the canvas.
 - Click to select multiple vertexes and edges: Click the ![singleSelect](../figs/nav-singleSelect.png) icon, you can easily click the vertexes and edges in the canvas, and click the blank space to cancel the selection.
 - Move the canvas: Click the ![moveCanvas](../figs/nav-moveCanvas.png) icon to drag the position of the canvas.
+
 For more information, see [Canvas Operation](../operation-guide/ex-ug-canvas.md).
 
 ### Graph exploration and expansion
@@ -48,6 +49,7 @@ For more information, see [Canvas Operation](../operation-guide/ex-ug-canvas.md)
 - Common neighbor: Click the ![commonNeighbor](../figs/rightclickmenu-commonNeighbor.png) icon, select at least two vertexes on the page and view their common neighbors.
 - Search path: Click the ![findPath](../figs/rightclickmenu-findPath.png) icon to query the path of `all paths`, `Shortest path` or `Noloop path` between the start vertex and the end vertex.
 - Inspect property: Click the ![propertyView](../figs/nav-propertyView.png) icon to choose whether to display the property values of vertexes or edges in the canvas.
+
 For more information, see [Graph exploration and expansion](../operation-guide/ex-ug-graph-exploration.md).
 
 ### Hide and undo
@@ -66,7 +68,7 @@ For more information, see [Graph exploration and expansion](../operation-guide/e
 
 The canvas is mainly divided into:
 
-- canvas: Display the data queried by VID, Tag or subgraph.
+- Canvas: Display the data queried by VID, Tag or subgraph.
 
 - Vertexes and Edges overview: It is hidden by default and only displayed when the vertex and edge are selected on the current canvas. Click on the icon in the following, and the user can open the menu to view the detailed data of the selected vertexes and edges in the current canvas.
 
@@ -84,6 +86,6 @@ You can use the button on the minimap to switch the graph mode, display the vert
   | ---- | ---- |----| ----|
   | mode | force | dagre | circular |
 
-  ## Relationship list
+## Relationship list
 
-  Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.
+Click the ![unfold](../figs/sidebar-unfold.png) icon on the right, you can open the menu, view the number of tags and edges in the canvas, search for tags and edges, and also support modifying the color and icon of the vertex.

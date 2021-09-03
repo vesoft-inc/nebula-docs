@@ -217,7 +217,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withVidField`  |Yes|  The column in the DataFrame as the vertex ID.  |
   |`withVidPolicy`  |No|  When writing the vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.  |
   |`withVidAsProp`  |No|  Whether the column in the DataFrame that is the vertex ID is also written as an property. The default value is `false`. If set to `true`, make sure the Tag has the same property name as `VidField`.  |
-  |`withUser`  |No|  Nebula Graph user name. If [authentication]((7.data-security/1.authentication/1.authentication.md)) is disabled, you do not need to configure the user name and password.   |
+  |`withUser`  |No|  Nebula Graph user name. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.   |
   |`withPasswd`  |No|  The password for the Nebula Graph user name.  |
   |`withBatch`  |Yes|  The number of rows of data written at a time. The default value is  `1000`.  |
   |`withWriteMode`|No|Write mode. The optional values are `insert` and `update`. The default value is `insert`.|
@@ -236,7 +236,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSrcAsProperty`  |No| Whether the column in the DataFrame that is the starting vertex is also written as an property.  The default value is `false`. If set to `true`, make sure Edge type has the same property name as `SrcIdField`.   |
   |`withDstAsProperty`  |No| Whether column that are destination vertex in the DataFrame are also written as property. The default value is `false`. If set to `true`, make sure Edge type has the same property name as `DstIdField`.   |
   |`withRankAsProperty`  |No| Whether column in the DataFrame that is the rank is also written as property.The default value is `false`. If set to `true`, make sure Edge type has the same property name as `RankField`.   |
-  |`withUser`  |No|  Nebula Graph user name. If [authentication]((7.data-security/1.authentication/1.authentication.md)) is disabled, you do not need to configure the user name and password.  |
+  |`withUser`  |No|  Nebula Graph user name. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.  |
   |`withPasswd`  |No|  The password for the Nebula Graph user name.  |
   |`withBatch`  |Yes|  The number of rows of data written at a time. The default value is  `1000`.  |
   |`withWriteMode`|No|Write mode. The optional values are `insert` and `update`. The default value is `insert`.|

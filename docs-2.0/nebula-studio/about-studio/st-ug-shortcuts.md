@@ -1,11 +1,11 @@
 # Shortcuts
 
-This document lists the shortcuts supported in Studio.
+This topic lists the shortcuts supported in Studio.
 
 | Description  |  Operation |
 | :-- | :--|
 | Run nGQL statements in **Console** | Shift + Enter |
-| Select multiple vertex in **Schema** | Shift + Left-click |
+| Select multiple vertices in **Schema** | Shift + Left-click |
 | Zoom out graph in **Schema** | Shift + ‘-’  |
 | Zoom in graph in **Schema** | Shift + ‘+’  |
 | Show graph in **Schema** | Shift + ‘l’  |

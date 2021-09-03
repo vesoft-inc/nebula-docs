@@ -28,15 +28,15 @@ To create a tag on the **Schema** page, follow these steps:
 
 5. On the **Create** page, do these settings:
 
-   a. **Name**: Specify an appropriate name for the tag. In this example, `course` is specified.
+  a. **Name**: Specify an appropriate name for the tag. In this example, `course` is specified.
 
-   b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+  b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
 
-      - To define a property: Enter a property name, a data type, and a default value.
+    - To define a property: Enter a property name, a data type, and a default value.
 
-      - To add multiple properties: Click the **Add Property** button and define more properties.
+    - To add multiple properties: Click the **Add Property** button and define more properties.
 
-      - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+    - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
 
    c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
