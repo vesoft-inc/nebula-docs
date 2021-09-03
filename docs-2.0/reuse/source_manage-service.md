@@ -173,4 +173,4 @@ nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
 
 ## What's next
 
-[Connect to Nebula Graph](../2.quick-start/3.connect-to-nebula-graph.md)
+[Connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
