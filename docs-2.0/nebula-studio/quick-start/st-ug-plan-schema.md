@@ -14,11 +14,11 @@ This table gives all the essential elements of the schema.
 
 | Element  | Name  | Property name (Data type)  |  Description  |
 | :---  | :---  | :---  | :---  |
-| Tag |  **player**  | - `name` （`string`） <br>- `age` （`int`）  | Represents the player.  |
-| Tag |   **team** | - `name` （`string`） |  Represents the team. |
-| Edge type |  **serve**  | - `start_year` （`int`） <br> - `end_year` （`int`） | Represent the players behavior.<br>This behavior connects the player to the team, and the direction is from player to team. |
-| Edge type |  **follow**  | - `degree`（`int`）  | Represent the players behavior.<br>This behavior connects the player to the player, and the direction is from a player to a player. |
+| Tag |  **player**  | - `name` (`string`) <br>- `age` (`int`)  | Represents the player.  |
+| Tag |   **team** | - `name` (`string`) |  Represents the team. |
+| Edge type |  **serve**  | - `start_year` (`int`) <br> - `end_year` (`int`) | Represent the players behavior.<br>This behavior connects the player to the team, and the direction is from player to team. |
+| Edge type |  **follow**  | - `degree` (`int`)  | Represent the players behavior.<br>This behavior connects the player to the player, and the direction is from a player to a player. |
 
-This figure shows the relationship (**action**) between a **user** and a **course** on the MOOC platform.
+This figure shows the relationship (**serve**/**follow**) between a **player** and a **team**.
 
-![Users take actions on a MOOC platform](../figs/st-ug-006-1.png "Relationship between users and courses in the example dataset")
+![The relationship between players and between players and teams](../figs/st-ug-006-1.png "Relationship between players and teams in the example dataset")

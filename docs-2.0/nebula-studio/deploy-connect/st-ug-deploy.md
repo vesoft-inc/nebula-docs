@@ -29,13 +29,13 @@ Before you deploy Studio, you must do a check of these:
 
 ### Procedure
 
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph version 2.x for demonstration:
+To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph v{{nebula.release}} for demonstration:
 
 1. Download the configuration files for the deployment.
    
    | Installation package | Nebula Graph version |
    | ----- | ----- |
-   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | 2.5.0 |
+   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | v{{nebula.release}} |
 
 2. Create the `nebula-graph-studio-v3` directory and decompress the installation package to the directory.
 
@@ -60,7 +60,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
    docker-compose up -d
    ```
 
-    If these lines return, Docker-based Studio v2.x is deployed and started.
+    If these lines are returned, Docker-based Studio v3.x is deployed and started.
 
     ```bash
     Creating docker_importer_1 ... done
@@ -83,29 +83,29 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
 ### Prerequisites
 
-Before you deploy Docker-based Studio , you must do a check of these:
+Before you deploy Docker-based Studio, you must confirm that:
 
 - The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
-- The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
+- If your Linux distribution is CentOS, install `lsof` and [Node.js](https://nodejs.org/en/) of versions above v10.16.0+.
   
   !!! note
 
         `node` and `npm` should be installed in `/usr/bin/` directory. Avoid the situation that the node command cannot be found during RPM installation.
         For example, the default directory of nodejs12 is in `/opt/rh/rh-nodejs12`, you can use following commands to build soft link:
 
-   ```bash
-   $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
-   $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
-   ```
+        ```bash
+        $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/node /usr/bin/node
+        $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
+        ```
 
 - Before the installation starts, the following ports are not occupied.
 
    | Port | Description |
    | ---- | ---- |
-   | 7001 | Web service provided by Studio |
-   | 8080 | Nebula-http-gateway, Client's HTTP service |
-   | 5699 | Nebula importer, provide data import service |
+   | 7001 | Web service provided by Studio. |
+   | 8080 | HTTP service provided by Nebula HTTP Gateway. |
+   | 5699 | Data import service provided by Nebula Importer. |
 
 ### Install
 
@@ -113,7 +113,7 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
    | Installation package | Checksum | Nebula version |
    | ----- | ----- | ----- |
-   | [nebula-graph-studio-3.0.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm) |  [nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256) | 2.5.0 |
+   | [nebula-graph-studio-3.0.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm) |  [nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256) | v{{nebula.release}} |
 
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
@@ -124,7 +124,10 @@ Before you deploy Docker-based Studio , you must do a check of these:
    ```
 
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
+
    ```bash
+   egg started on http://0.0.0.0:7001
+   nohup: Add the output to "nohup.out"
    --- START OF NEBULA IMPORTER ---
    [INFO] httpserver.go:80: Starting http server on 5699
    ```
@@ -144,14 +147,14 @@ Before you deploy Docker-based Studio , you must do a check of these:
 Users can uninstall Studio using the following command:
 
 ```bash
-sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64.rpm
+sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64
 ```
 
 ### Exception handling
 
 If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:
 
-- Start the service manually.
+- Start the service manually
 ```bash
 bash /usr/local/nebula-graph-studio/scripts/start.sh
 ```
