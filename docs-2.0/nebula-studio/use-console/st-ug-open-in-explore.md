@@ -2,6 +2,10 @@
 
 With the **Open in Explore** function, you can run nGQL statements on the **Console** page to query vertex or edge data and then view the result on the **Explore** page in a visualized way.
 
+## Supported versions
+
+Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
+
 ## Prerequisites
 
 To use the **Open in Explore** function, you must do a check of these:
