@@ -2,7 +2,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
 ## Prerequisites
 
-Prepare the right [resources](../4.deployment-and-installation/1.resource-preparations.md).
+Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/1.resource-preparations/).<!--这里用外链。-->
 
 !!! note
 
@@ -133,5 +133,5 @@ Prepare the right [resources](../4.deployment-and-installation/1.resource-prepar
 
 ## What's next
 
-- [start Nebula Graph](/2.5.0/2.quick-start/5.start-stop-service)  <!--这里必须用绝对路径，并且文件名的后缀.md要删掉。-->
-- [connect to Nebula Graph](/2.5.0/2.quick-start/3.connect-to-nebula-graph) <!--这里必须用绝对路径，并且文件名的后缀.md要删掉。-->
+- [start Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
+- [connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
