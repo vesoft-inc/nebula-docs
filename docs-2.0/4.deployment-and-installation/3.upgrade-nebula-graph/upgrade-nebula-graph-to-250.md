@@ -89,9 +89,9 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
        # sudo dpkg -i --instdir==${nebula-new} ${nebula-package-name.deb} # for ubuntu
        ```
 
-       For detailed steps, see [Install Nebula Graph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+       For detailed steps, see [Install Nebula Graph with RPM or DEB package](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
-    - To install with the source code, follow the substeps. For detailed steps, see [Install Nebula Graph by compiling the source code](2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md). Some key commands are as follows.
+    - To install with the source code, follow the substeps. For detailed steps, see [Install Nebula Graph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md). Some key commands are as follows.
 
       - Clone the source code.
   
@@ -136,7 +136,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
      - [Optional]Add the following parameters in the Meta configuration files if you need them.
 
-       `--null_type=false`: Disables the support for using [`NULL`](../../3.ngql-guide/3.data-types/5.null.md).**The default value is `true`**. When set to `false`, you must specify a [default value](../3.ngql-guide/10.tag-statements/1.create-tag.md) when altering tags or edge types, otherwise, data reading fails.
+       `--null_type=false`: Disables the support for using [`NULL`](../../3.ngql-guide/3.data-types/5.null.md).**The default value is `true`**. When set to `false`, you must specify a [default value](../../3.ngql-guide/10.tag-statements/1.create-tag.md) when altering tags or edge types, otherwise, data reading fails.
 
        `--string_index_limit=32`: Specifies the [index length](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md) for string values as 32. The default length is 64.
 
