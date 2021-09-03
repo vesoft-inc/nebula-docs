@@ -2,7 +2,7 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 ## Nebula Graph clients
 
-You can use supported [clients or console](../20.appendix/6.eco-tool-version.md) to connect to Nebula Graph.
+You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to Nebula Graph.<!--这里用外链。-->
 
 <!-- TODO cloud service can't be provided together with v2.0.0.
 If you don't have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building, and uses Nebula Graph Studio as its default client.
@@ -12,7 +12,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
 ### Prerequisites
 
-* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](../4.deployment-and-installation/manage-service.md).
+* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
 * The machine you plan to run Nebula Console on has network access to the Nebula Graph services.
 
 ### Steps
