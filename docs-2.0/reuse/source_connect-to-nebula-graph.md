@@ -2,7 +2,7 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 ## Nebula Graph clients
 
-You can use supported [clients or console](../20.appendix/6.eco-tool-version.md) to connect to Nebula Graph.
+You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to Nebula Graph.<!--这里用外链。-->
 
 <!-- TODO cloud service can't be provided together with v2.0.0.
 If you don't have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building, and uses Nebula Graph Studio as its default client.
@@ -12,7 +12,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
 ### Prerequisites
 
-* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](./5.start-stop-service.md).
+* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
 * The machine you plan to run Nebula Console on has network access to the Nebula Graph services.
 
 ### Steps
@@ -78,25 +78,118 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
 You can find more details in the [Nebula Console Repository](https://github.com/vesoft-inc/nebula-console/tree/v2.0.0-ga).
 
-## Nebula Console export mode
+## Nebula Console commands
 
-When the export mode is enabled, Nebula Console exports all the query results into a CSV file. When the export mode is disabled, the export stops. The syntax is as follows.
+Nebula Console can export CSV file, DOT file, and import too. 
 
 !!! note
 
-    * The following commands are case insensitive.
-    * The CSV file is stored in the working directory. Run the Linux command `pwd` to show the working directory.
+    The commands are case insensitive.
 
-* Enable Nebula Console export mode:
+### Export a CSV file
+
+!!! note
+
+    - A CSV file will be saved in the working directory, i.e., what linux command `pwd` show;
+
+    - This command only works for the next query statement.
+
+The command to export a csv file.
 
 ```ngql
-nebula> :SET CSV <your_file.csv>
+nebula> :CSV <file_name.csv>
 ```
 
-* Disable Nebula Console export mode:
+### Export a DOT file
+
+!!! Note
+
+    - A DOT file will be saved in the working directory, i.e., what linux command `pwd` show;
+
+    - You can copy the contents of DOT file, and paste in [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/), to visualize the excution plan;
+
+    - This command only works for the next query statement.
+
+The command to export a DOT file.
 
 ```ngql
-nebula> :UNSET CSV
+nebula> :dot <file_name.dot>
+```
+
+For example,
+
+```ngql
+nebula> :dot a.dot
+nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
+```
+
+### Importing a testing dataset
+
+The testing dataset is named `nba`. Details about schema and data can be seen by commands `SHOW`.  
+
+Using the following command to import the testing dataset,
+
+```ngql
+nebula> :play nba
+```
+
+### Run a command multiple times
+
+Sometimes, you want to run a command multiple times. Run the following command.
+
+```ngql
+nebula> :repeat N
+```
+
+For example,
+
+```ngql
+nebula> :repeat 3
+nebula> GO FROM "player100" OVER follow;
++-------------+
+| follow._dst |
++-------------+
+| "player101" |
++-------------+
+| "player125" |
++-------------+
+Got 2 rows (time spent 2602/3214 us)
+
+Fri, 20 Aug 2021 06:36:05 UTC
+
++-------------+
+| follow._dst |
++-------------+
+| "player101" |
++-------------+
+| "player125" |
++-------------+
+Got 2 rows (time spent 583/849 us)
+
+Fri, 20 Aug 2021 06:36:05 UTC
+
++-------------+
+| follow._dst |
++-------------+
+| "player101" |
++-------------+
+| "player125" |
++-------------+
+Got 2 rows (time spent 496/671 us)
+
+Fri, 20 Aug 2021 06:36:05 UTC
+
+Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578 us)
+```
+
+### Sleep to wait
+
+Sleep N seconds. 
+
+It is usually used when altering schema. Since schema is altered in async way, and take effects in the next heartbeat cycle.
+
+```ngql
+nebula> :sleep N
 ```
 
 ## Disconnect Nebula Console from Nebula Graph

@@ -107,7 +107,7 @@ Removing nebula-docker-compose_metad0_1    ... done
 Removing network nebula-docker-compose_nebula-net
 ```
 
-If you are using a development or nightly version for testing and have compatibility issues, try to run 'docker-compose down-v' to **DELETE** all data stored in Nebula Graph and import data again.
+If you are using a development or nightly version for testing and have compatibility issues, try to run `docker-compose down -v` to **DELETE** all data stored in Nebula Graph and import data again.
 
 ## Check the service status
 
@@ -164,12 +164,13 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up (healthy
                                                                                     0.0.0.0:49227->9779/tcp, 9780/tcp
 ```
 
-To troubleshoot for a specific service:
+Use the `CONTAINER ID` to log in the container and troubleshoot.
 
-1. Confirm the container name in the preceding return information.
-2. Run `docker ps` to find the `CONTAINER ID`.
-3. Use the `CONTAINER ID` to log in the container and troubleshoot.
-    ```ngql
-    nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
-    [root@2a6c56c405f5 nebula]#
-    ```
+```ngql
+nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
+[root@2a6c56c405f5 nebula]#
+```
+
+## What's next
+
+[Connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
