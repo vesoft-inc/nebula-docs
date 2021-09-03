@@ -23,15 +23,15 @@ To create a graph space on the **Schema** page, follow these steps:
 2. On the **Graph Space List** page, click the **+ Create** button.
 3. On the **Create** page, do these settings:
 
-   a. **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database. The name cannot be used keywords or reserved keywords as identifiers. For more information, see [keywords](../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md).
+  - **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database. The name cannot be used keywords or reserved keywords as identifiers. For more information, see [keywords](../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md).
 
-   b. **Vid type**: The data types of VIDs are restricted to `FIXED_STRING(<N>)` or `INT64`; a graph space can only select one VID type, `FIXED_STRING(32)` is used. For more information, see [VID](../../1.introduction/3.vid.md).
+  - **Vid type**: The data types of VIDs are restricted to `FIXED_STRING(<N>)` or `INT64`. A graph space can only select one VID type. In this example, `FIXED_STRING(32)` is used. For more information, see [VID](../../1.introduction/3.vid.md).
 
-   c. **Comment**: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, `Statistics of basketball players` is used.
+  - **Comment**: The remarks of a certain property or the space itself. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, `Statistics of basketball players` is used.
 
-   d. **Optional Parameters**: Set `partition_num`, `replica_factor`. In this example, these parameters are set to `100` and `1` separately. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
+  - **Optional Parameters**: Set the values of `partition_num` and `replica_factor` respectively. In this example, these parameters are set to `100` and `1` respectively. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
 
-   In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
+  In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
    
    ```bash
    CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
@@ -53,8 +53,7 @@ To delete a graph space on the **Schema** page, follow these steps:
 2. In the graph space list, find a graph space and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
    ![Graph space list with the graph space to be deleted](./../figs/st-ug-029.png)
-3. On the dialog box, confirm the information and then click the **OK** button.  
-   When the graph space is deleted successfully, it is removed from the graph space list.
+3. On the dialog box, confirm the information and then click the **OK** button. When the graph space is deleted successfully, it is removed from the **graph space list**.
 
 ## Next to do
 

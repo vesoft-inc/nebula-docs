@@ -1,6 +1,6 @@
 # Operate tags
 
-After a graph space is created in Nebula Graph, you can create tags. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, update, or delete tags. This article only introduces how to use the **Schema** page to operate tags in a graph space.
+After a graph space is created in Nebula Graph, you can create tags. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, update, or delete tags. This topic introduces how to use the **Schema** page to operate tags in a graph space only.
 
 ## Studio version
 
@@ -28,7 +28,7 @@ To create a tag on the **Schema** page, follow these steps:
 
 5. On the **Create** page, do these settings:
 
-   a. **Name**: Specify an appropriate name for the tag. In this example, `course` is specified.
+   a. **Name**: Specify an appropriate name for the tag. In this example, `player` and `team` are specified.
 
    b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
 
@@ -44,9 +44,7 @@ To create a tag on the **Schema** page, follow these steps:
 
    ![Define properties of the `course` tag](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-028.png "Define a tag")
 
-7. Confirm the settings and then click the **+ Create** button.
-
-When the tag is created successfully, the **Define Properties** panel shows all its properties on the list.
+7. Confirm the settings and then click the **+ Create** button. When the tag is created successfully, the **Define Properties** panel shows all its properties on the list.
 
 ## Edit a tag
 
@@ -62,7 +60,7 @@ To edit a tag on the **Schema** page, follow these steps:
 
 5. On the **Edit** page, do these settings:
 
-   - To edit a Comment: Click **Edit** under the Name.
+   - To edit a Comment: Click **Edit** under the **Name**.
 
    - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
 
@@ -94,6 +92,8 @@ To delete a tag on the **Schema** page, follow these steps:
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
 4. Click the **Tag** tab, find a tag and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png) in the **Operations** column.
+
+5. CLick **OK**.
 
 ## Next to do
 

@@ -1,6 +1,6 @@
 # Operate Indexes
 
-You can create an index for a Tag and/or an Edge type. An index lets traversal start from vertices or edges with the same property and it can make a query more efficient. You can create two index types: Tag Index and Edge type Index. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, and delete indexes. This article introduces how to use the **Schema** page to operate an index.
+You can create an index for a Tag and/or an Edge type. An index lets traversal start from vertices or edges with the same property and it can make a query more efficient. You can create two index types: Tag Index and Edge type Index. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, and delete indexes. This topic introduces how to use the **Schema** page to operate an index only.
 
 !!! note
 
@@ -42,12 +42,11 @@ To create an index on the **Schema** page, follow these steps:
 
    e. **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on an index. But in this example, `follow_index` is used.
 
-   When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
+6. When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
 
 ![A page for index creation](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-030.png "Create an index")
 
-6. Confirm the settings and then click the **+ Create** button.  
-   When an index is created, the index list shows the new index.
+7. Confirm the settings and then click the **+ Create** button. When an index is created, the index list shows the new index.
 
 ## View indexes
 
