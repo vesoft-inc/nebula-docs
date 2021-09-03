@@ -2,7 +2,7 @@
 
 Nebula Graph Studio (Studio in short) is a browser-based visualization tool to manage Nebula Graph. It provides you with a graphical user interface to manipulate graph schemas, import data, explore graph data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. Users can view the latest source code in the Nebula Graph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
 
-## Release distributions
+## Released versions
 
 For now, Studio has three release versions:
 
@@ -10,9 +10,9 @@ For now, Studio has three release versions:
 
 - RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [RPM-based Studio](../deploy-connect/st-ug-deploy.md).
 
-- tar-based.You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
+- tar-based. You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
 
-The functions of the three release versions are the same and may be restricted when using Studio. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
+The functions of the three released versions are the same and may be restricted when using Studio. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
 
 ## Features
 
