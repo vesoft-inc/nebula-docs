@@ -27,25 +27,25 @@ To connect Studio to Nebula Graph, follow these steps:
 
 1. On the **Config Server** page of Studio, configure these fields:
 
-   - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
+  - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
 
     !!! note
 
         When Nebula Graph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
 
-   - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph.
+  - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph.
  
-      - If authentication is not enabled, you can use `root` and any password as the username and its password.
+     - If authentication is not enabled, you can use `root` and any password as the username and its password.
 
-      - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
+     - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
 
-      - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
+     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
    ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050-1.png "Config Server")
 
 2. After the configuration, click the **Connect** button.
 
-   If you can see the **Console** page, Studio is successfully connected to Nebula Graph.
+   If you can see the **Explore** page, Studio is successfully connected to Nebula Graph.
 
    ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")
 

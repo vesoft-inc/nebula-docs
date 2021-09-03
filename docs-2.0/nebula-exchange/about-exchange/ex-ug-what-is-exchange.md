@@ -55,7 +55,7 @@ Exchange {{exchange.release}} supports converting data from the following format
   - [Hive](../use-exchange/ex-ug-import-from-hive.md)
   - [MaxCompute](../use-exchange/ex-ug-import-from-maxcompute.md)
 
-- Graph database: [Neo4j](../use-exchange/ex-ug-import-from-neo4j.md)（Client version 2.4.5-M1）
+- Graph database: [Neo4j](../use-exchange/ex-ug-import-from-neo4j.md) (Client version 2.4.5-M1)
 
 - Relational database: [MySQL](../use-exchange/ex-ug-import-from-mysql.md)
 
