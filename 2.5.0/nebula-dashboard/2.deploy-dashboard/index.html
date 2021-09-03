@@ -2185,7 +2185,7 @@
 <tbody>
 <tr>
 <td align="left">1.0.1</td>
-<td align="left">2.5.0, 2.0.1</td>
+<td align="left">2.x</td>
 </tr>
 </tbody>
 </table>
@@ -2207,18 +2207,18 @@
 <li>7003</li>
 </ul>
 <h2 id="download_dashboard">Download Dashboard<a class="headerlink" href="#download_dashboard" title="Permanent link">¶</a></h2>
-<p>Download the configuration files for the deployment.</p>
+<p>Download the tar package as needed, and it is recommended to select the latest version.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Dashboard tar-package</th>
+<th align="left">Dashboard package</th>
 <th align="left">Nebula Graph version</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left"><a href="https://oss-cdn.nebula-graph.io/nebula-graph-dashboard/1.0.1/nebula-graph-dashboard-1.0.1.x86_64.tar.gz">nebula-graph-dashboard-1.0.1.x86_64.tar.gz</a></td>
-<td align="left">2.5.0</td>
+<td align="left"><a href="https://oss-cdn.nebula-graph.com.cn/nebula-graph-dashboard/1.0.1/nebula-graph-dashboard-1.0.1.x86_64.tar.gz">nebula-graph-dashboard-1.0.1.x86_64.tar.gz</a></td>
+<td align="left">v2.5.0</td>
 </tr>
 </tbody>
 </table>
@@ -2262,7 +2262,7 @@
 <p>You need to deploy the <code>node-exporter</code> service on each machine in the cluster.</p>
 </div>
 <p>To start the service, run the following statement in <code>node-exporter</code>:</p>
-<div class="highlight"><pre><span></span><code>$ nohup ./node-exporter --web.listen-address<span class="o">=</span>:9100 <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>$ nohup ./node-exporter --web.listen-address<span class="o">=</span><span class="s2">":9100"</span> <span class="p">&amp;</span>
 </code></pre></div>
 <p>After the service is started, you can enter <code>&lt;IP&gt;:9100</code> in the browser to check whether the service is started normally.</p>
 <h3 id="deploy_nebula-stats-exporter">Deploy <code>nebula-stats-exporter</code><a class="headerlink" href="#deploy_nebula-stats-exporter" title="Permanent link">¶</a></h3>
@@ -2274,39 +2274,50 @@
 <li>
 <p>Modify the <code>config.yaml</code> file in <code>nebula-stats-exporter</code> to deploy the HTTP ports of all the services. The example is as follows:</p>
 <div class="highlight"><pre><span></span><code>version: v0.0.4
-nebulaItems:
-    - instanceName: metad0
-      endpointIP: <span class="m">192</span>.168.xx.1
-      endpointPort: <span class="m">19559</span>
-      componentType: metad
-    - instanceName: metad1
-      endpointIP: <span class="m">192</span>.168.xx.2
-      endpointPort: <span class="m">19559</span>
-      componentType: metad
-    - instanceName: metad2
-      endpointIP: <span class="m">192</span>.168.xx.3
-      endpointPort: <span class="m">19559</span>
-      componentType: metad
-    - instanceName: graphd0
-      endpointIP: <span class="m">192</span>.168.xx.4
-      endpointPort: <span class="m">19669</span>
-      componentType: graphd
-    - instanceName: storaged0
-      endpointIP: <span class="m">192</span>.168.xx.5
-      endpointPort: <span class="m">19779</span>
-      componentType: storaged
-    - instanceName: storaged1
-      endpointIP: <span class="m">192</span>.168.xx.6
-      endpointPort: <span class="m">19779</span>
-      componentType: storaged
-    - instanceName: storaged2
-      endpointIP: <span class="m">192</span>.168.xx.7
-      endpointPort: <span class="m">19779</span>
+clusters:
+  - name: nebula
+    instances:
+      - name: metad0
+        endpointIP: <span class="m">192</span>.168.8.157
+        endpointPort: <span class="m">19559</span>
+        componentType: metad
+      - name: metad1
+        endpointIP: <span class="m">192</span>.168.8.155
+        endpointPort: <span class="m">19559</span>
+        componentType: metad
+      - name: metad2
+        endpointIP: <span class="m">192</span>.168.8.154
+        endpointPort: <span class="m">19559</span>
+        componentType: metad
+      - name: graphd0
+        endpointIP: <span class="m">192</span>.168.8.157
+        endpointPort: <span class="m">19669</span>
+        componentType: graphd
+      - name: graphd1
+        endpointIP: <span class="m">192</span>.168.8.155
+        endpointPort: <span class="m">19669</span>
+        componentType: graphd
+      - name: graphd2
+        endpointIP: <span class="m">192</span>.168.8.154
+        endpointPort: <span class="m">19669</span>
+        componentType: graphd
+      - name: storaged0
+        endpointIP: <span class="m">192</span>.168.8.157
+        endpointPort: <span class="m">19779</span>
+        componentType: storaged
+      - name: storaged1
+        endpointIP: <span class="m">192</span>.168.8.155
+        endpointPort: <span class="m">19779</span>
+        componentType: storaged
+      - name: storaged2
+        endpointIP: <span class="m">192</span>.168.8.154
+        endpointPort: <span class="m">19779</span>
+        componentType: storaged
 </code></pre></div>
 </li>
 <li>
 <p>Run the following statement to start the service:</p>
-<div class="highlight"><pre><span></span><code>$ nohup ./nebula-stats-exporter --bare-metal --bare-metal-config<span class="o">=</span>./config.yaml <span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>$ nohup  ./nebula-stats-exporter --listen-address<span class="o">=</span><span class="s2">":9200"</span> --bare-metal --bare-metal-config<span class="o">=</span>./config.yaml <span class="p">&amp;</span>
 </code></pre></div>
 </li>
 </ol>
@@ -2327,6 +2338,7 @@ scrape_configs:
     static_configs:
       - targets: <span class="o">[</span>
           <span class="s1">'192.168.xx.100:9200'</span>,  <span class="c1"># The IP address and port of the nebula-stats-exporter service.</span>
+          <span class="s1">'192.168.xx.101:9200'</span>
         <span class="o">]</span>
   - job_name: <span class="s1">'node-exporter'</span>
     static_configs:
@@ -2396,7 +2408,7 @@ $ npm run stop <span class="c1"># stop the nebula-graph-dashboard service</span>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
 </small>
 </div>
 </article>
