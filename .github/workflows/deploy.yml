@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,21 +29,16 @@ jobs:
           pip3 install -r ./requirements.txt
 
       - name: Git Config
-        run: git config user.name jerry.liang && git config user.email ${{secrets.GIT_EMAIL}}
+        run: git config user.name whitewum && git config user.email min.wu@vesoft.com
 
       - name: mike list delete
         run: |
-          #mike delete 2.0.0 -p
           mike list
-
-      - name: Mike Deploy
-        run: mike deploy master -p --rebase
-
-#      - name: set-default
-#        run: mike set-default 2.0.1 -p
-
-      - name: mike list
-        run: mike list
+          
+      - name: Mike Deploy master
+        run: |
+          mike deploy master -p --rebase
+          mike list
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3

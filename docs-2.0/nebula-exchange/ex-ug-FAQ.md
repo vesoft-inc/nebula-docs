@@ -39,7 +39,7 @@ nebula-exchange-2.0.0.jar \
 
 Generally, the port configuration is incorrect. Check the port configuration of the Meta service, Graph service, and Storage service.
 
-### Error: NoSuchMethod、MethodNotFound（`Exception in thread "main" java.lang.NoSuchMethodError`, etc）
+### Error: NoSuchMethod, MethodNotFound (`Exception in thread "main" java.lang.NoSuchMethodError`, etc)
 
 Most errors are caused by JAR package conflicts or version conflicts. Check whether the version of the error reporting service is the same as that used in Exchange, especially Spark, Scala, and Hive.
 
