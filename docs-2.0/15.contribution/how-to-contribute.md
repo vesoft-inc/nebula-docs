@@ -108,9 +108,9 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
   git checkout -b myfeature
   ```
 
-!!! note
+  !!! note
 
-    Because the PR often consists of several commits, which might be squashed while being merged into upstream. We strongly suggest you to open a separate topic branch to make your changes on. After merged, this topic branch can be just abandoned, thus you could synchronize your master branch with upstream easily with a rebase like above. Otherwise, if you commit your changes directly into master, you need to use a hard reset on the master branch. For example:
+        Because the PR often consists of several commits, which might be squashed while being merged into upstream. We strongly suggest you to open a separate topic branch to make your changes on. After merged, this topic branch can be just abandoned, thus you could synchronize your master branch with upstream easily with a rebase like above. Otherwise, if you commit your changes directly into master, you need to use a hard reset on the master branch. For example:
 
         ```bash
         git fetch upstream
@@ -198,7 +198,7 @@ Email address: info@vesoft.com
 
 WeChat: NebulaGraphbot
 
-Slack：[Join Slack](https://join.slack.com/t/nebulagraph/shared_invite/zt-7ybejuqa-NCZBroh~PCh66d9kOQj45g)
+Slack: [Join Slack](https://join.slack.com/t/nebulagraph/shared_invite/zt-7ybejuqa-NCZBroh~PCh66d9kOQj45g)
 
 ### Step 2: Get the information of the project recipient
 

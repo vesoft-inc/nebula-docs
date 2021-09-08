@@ -1,6 +1,6 @@
 # Nebula Algorithm
 
-[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX] (https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
+[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 | ShortestPath     |The shortest path | Path planning, network planning |
 | TriangleCount    |Triangle counting | Network structure analysis|
 | BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing | 
-| | DegreeStatic    |Degree of statistical | Graph structure analysis|
+| DegreeStatic    |Degree of statistical | Graph structure analysis|
 
 ## Implementation methods
 

@@ -16,6 +16,10 @@ To use the **View Subgraphs** function, you must do a check of these:
 
 - A dataset exists in the database. In the example of this article, the **basketballplayer** dataset is used. For more information, see [Import data](../quick-start/st-ug-import-data.md).
 
+!!! Note
+
+    Users can view subgraphs online in [Studio](https://playground.nebula-graph.com.cn/explore).
+
 ## Procedure
 
 To query the paths or subgraph on the **Console** page and then view them on the **Explore** page, follow these steps:
@@ -35,15 +39,15 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
     Take the `FIND ALL PATH` for example, query the path information as shown in this figure.
 
-    ![The result window shows the queried paths](../figs/st-ug-045-1.png "The queried PATHs")
+    ![The result window shows the queried paths](../figs/st-ug-045.png "The queried PATHs")
 
 4. Click the **View Subgraphs** button.
 
 5. (Optional) If some data exists on the board of **Explore**, choose a method to insert data:
 
-    - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
+  - **Incremental Insertion**: Click this button to add the result to the existing data on the board.
 
-    - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
+  - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
 
 When the data is inserted, you can view the visualized representation of the paths.
 
