@@ -1,6 +1,6 @@
 # Operate edge types
 
-After a graph space is created in Nebula Graph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This article only introduces how to use the **Schema** page to operate edge types in a graph space.
+After a graph space is created in Nebula Graph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This topic introduces how to use the **Schema** page to operate edge types in a graph space only.
 
 ## Studio version
 
@@ -28,27 +28,25 @@ To create an edge type on the **Schema** page, follow these steps:
 
 5. On the **Create** page, do these settings:
 
-  a. **Name**: Specify an appropriate name for the edge type. In this example, `serve` is used.
+  - **Name**: Specify an appropriate name for the edge type. In this example, `serve` is used.
 
-  b. (Optional) If necessary, under the name, click the **Comment** to input content.
+  - (Optional) If necessary, under the name, click the **Comment** to input content.
 
-  c. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+  - (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
 
     - To define a property: Enter a property name, a data type, and a default value.
 
     - To add multiple properties: Click the **Add Property** button and define more properties.
 
-    - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+    - To delete a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
 
-   d. (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
+  - (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
    ![Define properties of the `action` edge type](../figs/st-ug-027-1.png "Define an edge type")
 
-7. Confirm the settings and then click the **+ Create** button.
-
-When the edge type is created successfully, the **Define Properties** panel shows all its properties on the list.
+7. Confirm the settings and then click the **+ Create** button. When the edge type is created successfully, the **Define Properties** panel shows all its properties on the list.
 
 ## Edit an edge type
 
