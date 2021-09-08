@@ -123,6 +123,6 @@ When Explorer is started, use `http://ip address:7002` to get access to Explorer
 
 Seeing the following login interface, Explorer is successfully connected to Nebula Graph.
 
-![Nebula Graph Explorer](../figs/ex-ug-001.png)
+![Nebula Explorer](../figs/ex-ug-001.png)
 
 After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).
