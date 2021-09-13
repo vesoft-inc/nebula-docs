@@ -17,7 +17,11 @@ Before you deploy Explorer, you must do a check of these:
    | 7002 | Web service provided by Explorer |
    | 8070 | Nebula-http-gateway service |
 
-- The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
+- The Linux distribution is CentOS, installed with [Node.js](https://nodejs.org/en/) of version above v10.16.0+ and [Go](https://golang.org/) of version above 1.13.
+
+  !!! caution
+
+        At present, the package provided by Nebula Explorer can be used in Linux environment only. If users use mac or other environments, clone [http-gateway repo](https://github.com/vesoft-inc/nebula-http-gateway), modify the `httpport = 8070` in the `nebula-http-gateway/conf/app.conf` file, and use the `make` command to compile and start Nebula Explorer.
 
 ### Install
 
@@ -72,7 +76,11 @@ Before you deploy Explorer, you must do a check of these:
    | 7002 | Web service provided by Explorer |
    | 8070 | Nebula-http-gateway service |
 
-- The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
+- The Linux distribution is CentOS, installed with [Node.js](https://nodejs.org/en/) of version above v10.16.0+ and [Go](https://golang.org/) of version above 1.13.
+
+  !!! caution
+
+        At present, the package provided by Nebula Explorer can be used in Linux environment only. If users use mac or other environments, clone [http-gateway repo](https://github.com/vesoft-inc/nebula-http-gateway), modify the `httpport = 8070` in the `nebula-http-gateway/conf/app.conf` file, and use the `make` command to compile and start Nebula Explorer.
 
 ### Install
 
