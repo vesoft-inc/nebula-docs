@@ -4421,8 +4421,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#procedure" class="md-nav__link">
-    Procedure
+  <a href="#procedures" class="md-nav__link">
+    Procedures
   </a>
   
 </li>
@@ -4445,14 +4445,14 @@
                 
                 
                 <h1 id="use_br_to_restore_data">Use BR to restore data<a class="headerlink" href="#use_br_to_restore_data" title="Permanent link">&para;</a></h1>
-<p>If you use the BR to back up data, you can use it to restore the data to Nebula Graph. This article introduces how to use the BR to restore data from backup files.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The restoration process is performed OFFLINE.</p>
-</div>
+<p>If you use the BR to back up data, you can use it to restore the data to Nebula Graph. This topic introduces how to use the BR to restore data from backup files.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>During the restoration process, the data on the target Nebula Graph cluster is removed and then is replaced with the data from the backup files. If necessary, back up the data on the target cluster.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The restoration process is performed OFFLINE.</p>
 </div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To restore data with the BR, do a check of these:</p>
@@ -4466,118 +4466,115 @@
 <li>Make sure that the target and the source Nebula Graph clusters have the same topology, which means that they have exactly the same number of hosts.</li>
 </ul>
 <ul>
-<li>Get the backup folder names to do the restoration. In this example, <code>BACKUP_2020_12_21_01_17_53</code> is used.</li>
-</ul>
-<ul>
 <li>
-<p>From the <code>nebula-metad.conf</code> and <code>nebula-storaged.conf</code> files, get the IP addresses and ports of the meta and the storage servers. Both files are in the <code>&lt;nebula_installation_path&gt;/nebula/etc</code> directory. In this example,</p>
-<ul>
-<li>For the meta server: <code>192.168.8.161:9559</code></li>
-<li>For the storage server: <code>192.168.8.161:9779</code></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Make sure that the actual IP addresses instead of <code>127.0.0.1</code> are used in the configuration file.</p>
+<p>Your account on the BR machine can log on to the meta and the storage servers via SSH without a password. For more information, see<a href="http://alexander.holbreich.org/ssh-tunnel-without-password/">SSH tunnels with keys</a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This account must have write privileges to the installation directory of Nebula Graph and the data directory (--data_path) of the meta/storage service.</p>
 </div>
 </li>
 </ul>
 <ul>
-<li>Your account on the BR machine can log on to the meta and the storage servers via SSH without a password. Here is a <a href="http://alexander.holbreich.org/ssh-tunnel-without-password/" title="Click and leave Nebula Graph Docs">configuration reference</a>. This account must have the write permission to the installation directory of Nebula Graph. In this example, such an account named <code>nebula</code> on the BR machine is used.</li>
+<li>To perform the restoration process, a <code>root</code> user is required.</li>
 </ul>
 <ul>
-<li>If the backup files are stored on Alibaba Cloud OSS or Amazon S3, make sure that the S3 CLI client or ossutil is installed and configured on the meta servers, the storage servers, and the BR machine. For more information, see <a href="https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-services-s3.html" title="Click to go to AWS website">Amazon S3 CLI Documentation</a> and <a href="https://www.alibabacloud.com/help/doc-detail/120075.htm#concept-303829" title="Click to go to Alibaba Cloud website">Alibaba Cloud ossutil Documentation</a>.
-  !!! note<div class="codehilite"><pre><span></span><code>Run `ln -s /&lt;ossutil_tool_installation_path&gt;/&lt;ossutil64 or ossutil&gt; /usr/local/bin/ossutil` to make the `ossutil` command effective.
-</code></pre></div>
-
+<li>
+<p>If the backup files are stored on Alibaba Cloud OSS or Amazon S3, make sure that the S3 CLI client or ossutil is installed and configured on the meta servers, the storage servers, and the BR machine. For more information, see <a href="https://www.alibabacloud.com/help/zh/doc-detail/120075.htm#concept-303829">Alibaba Cloud ossutil Documentation</a> and <a href="https://docs.amazonaws.cn/cli/latest/userguide/cli-services-s3.html">Amazon S3 CLI Documentation</a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Run <code>ln -s /&lt;ossutil_tool_installation_path&gt;/&lt;ossutil64 or ossutil&gt; /usr/local/bin/ossutil</code> to make the <code>ossutil</code> command effective.</p>
+</div>
 </li>
 </ul>
-<ul>
-<li>If the backup files are stored locally on the servers, create a directory with the same absolute path on the BR machine and all the servers of the target Nebula Graph cluster, and then manually move these backup files to this directory. Such file movement causes redundant data and troubles.</li>
-</ul>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
-<p>To restore data from some backup files:</p>
+<h2 id="procedures">Procedures<a class="headerlink" href="#procedures" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Edit the configuration file as follows. You can find an example configuration in the <code>nebula-storage/util/br/</code> directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">meta_nodes</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="c1"># Set the IP address and the port of one meta server</span>
-    <span class="nt">addrs</span><span class="p">:</span> <span class="s">&quot;192.168.8.161:9559&quot;</span>
-    <span class="c1"># Set the absolute path of the Nebula Graph installation directory</span>
-    <span class="nt">root</span><span class="p">:</span> <span class="s">&quot;/usr/local/nebula/&quot;</span>
-    <span class="c1"># Set the absolute path of the data directory of the metad process</span>
-    <span class="nt">data</span><span class="p">:</span> <span class="s">&quot;/usr/local/nebula/data/meta&quot;</span>
-    <span class="c1"># Set the account of the BR machine that is authorized to log on to the meta server via SSH</span>
-    <span class="nt">user</span><span class="p">:</span> <span class="s">&quot;nebula&quot;</span>
- <span class="c1">#- # If more than one metad processes run, refer to the preceding configuration to add more</span>
- <span class="c1">#- addrs: &quot;192.168.8.161:9559&quot;</span>
- <span class="c1">#  root: &quot;/usr/local/nebula/&quot;</span>
- <span class="c1">#  data: &quot;/usr/local/nebula/data/meta&quot;</span>
- <span class="c1">#  user: &quot;nebula&quot;</span>
- <span class="c1">#- addrs: &quot;192.168.8.161:9559&quot;</span>
- <span class="c1">#  root: &quot;/usr/local/nebula/&quot;</span>
- <span class="c1">#  data: &quot;/usr/local/nebula/data/meta&quot;</span>
- <span class="c1">#  user: &quot;nebula&quot;</span>
-
-<span class="nt">storage_nodes</span><span class="p">:</span>
- <span class="p p-Indicator">-</span> <span class="c1"># Set the IP address and the port of one storage server</span>
-   <span class="nt">addrs</span><span class="p">:</span> <span class="s">&quot;192.168.8.161:9779&quot;</span>
-   <span class="c1"># Set the absolute path of the Nebula Graph installation directory</span>
-   <span class="nt">root</span><span class="p">:</span> <span class="s">&quot;/usr/local/nebula/&quot;</span>
-   <span class="c1"># Set the absolute path of the data directory of the storaged process</span>
-   <span class="nt">data</span><span class="p">:</span> <span class="s">&quot;/usr/local/nebula/data/storage&quot;</span>
-   <span class="c1"># Set the account of the BR machine that is authorized to log on to the storage server via SSH</span>
-   <span class="nt">user</span><span class="p">:</span> <span class="s">&quot;nebula&quot;</span>
- <span class="c1">#- If more than one storaged processes run, refer to the preceding configuration to add more</span>
- <span class="c1">#- addrs: &quot;192.168.8.161:9779&quot;</span>
- <span class="c1">#  root: &quot;/usr/local/nebula/&quot;</span>
- <span class="c1">#  data: &quot;/usr/local/nebula/data/storage&quot;</span>
- <span class="c1">#  user: &quot;nebula&quot;</span>
- <span class="c1">#- addrs: &quot;192.168.8.161:9779&quot;</span>
- <span class="c1">#  root: &quot;/usr/local/nebula/&quot;</span>
- <span class="c1">#  data: &quot;/usr/local/nebula/data/storage&quot;</span>
- <span class="c1">#  user: &quot;nebula&quot;</span>
-
- <span class="c1"># Set the directory where the backup files are located.</span>
- <span class="c1"># If the backup files are stored locally</span>
-<span class="nt">backend</span><span class="p">:</span> <span class="s">&quot;local:///absolute/path/to/the/store/directory&quot;</span>
- <span class="c1"># If Alibaba Cloud OSS is used</span>
- <span class="c1"># backend: &quot;oss://nebulabackup&quot;</span>
- <span class="c1"># If Amazon S3 is used</span>
- <span class="c1"># backend: &quot;s3://nebulabackup&quot;</span>
- <span class="c1"># Set the backup files to be restored</span>
-<span class="nt">backup_name</span><span class="p">:</span> <span class="s">&quot;BACKUP_2020_12_21_01_17_53&quot;</span>
+<p>Users can use the following command to list the existing backup information:</p>
+<p><div class="highlight"><pre><span></span><code>$ ./bin/br show --storage &lt;ip_address&gt;
 </code></pre></div>
+ For example, use the following command to list the backup information in the local <code>/home/test/backup</code> path.
+ <div class="highlight"><pre><span></span><code>$ ./bin/br show --storage <span class="s2">&quot;local:///home/test/backup&quot;</span>
++----------------------------+---------------------+------------------+-------------+---------------+
+<span class="p">|</span>            NAME            <span class="p">|</span>     CREATE TIME     <span class="p">|</span>      SPACES      <span class="p">|</span> FULL BACKUP <span class="p">|</span> SPECIFY SPACE <span class="p">|</span>
++----------------------------+---------------------+------------------+-------------+---------------+
+<span class="p">|</span> BACKUP_2021_07_29_06_51_09 <span class="p">|</span> <span class="m">2021</span>-07-29 <span class="m">06</span>:51:09 <span class="p">|</span> basketballplayer <span class="p">|</span> <span class="nb">true</span>        <span class="p">|</span> <span class="nb">true</span>          <span class="p">|</span>
+<span class="p">|</span> BACKUP_2021_07_29_07_55_08 <span class="p">|</span> <span class="m">2021</span>-07-29 <span class="m">07</span>:55:09 <span class="p">|</span> basketballplayer <span class="p">|</span> <span class="nb">true</span>        <span class="p">|</span> <span class="nb">true</span>          <span class="p">|</span>
++----------------------------+---------------------+------------------+-------------+---------------+
+</code></pre></div></p>
 </li>
 <li>
-<p>Run the command to change to the <code>nebula-storage/util/br/bin/</code> directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-storage/util/util/br/bin/
+<p>Run the following command to restore data.</p>
+<div class="highlight"><pre><span></span><code>[root]# ./bin/br restore full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt; --user &lt;user_name&gt;
 </code></pre></div>
-</li>
-<li>
-<p>Run the command to restore data.</p>
-<div class="highlight"><pre><span></span><code>./br restore full --config <span class="s2">&quot;/absolute/path/to/the/restore/configuration/file.yaml&quot;</span>
+<p>For example, use the following command to restore the data in the local <code>/home/foesa/backup</code> path to the cluster where the address is <code>192.168.*.*:9559</code> and the user name of the host where the meta/storage service is located is <code>root</code>.</p>
+<div class="highlight"><pre><span></span><code>[root]# ./bin/br restore full --meta &quot;192.168.*.*:9559&quot; --storage &quot;local:///home/test/backup&quot; --name &quot;BACKUP_2021_07_29_07_55_08&quot; --user &quot;root&quot;
 </code></pre></div>
-<p>In this command:</p>
-<ul>
-<li><code>restore full</code>: Restores data.</li>
-<li><code>--config "/absolute/path/to/the/restore/configuration/file.yaml"</code>: Sets the absolute path of the configuration file.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>During the restoration process, if the leader changes, an error occurs. To prevent data corruption, when an error occurs, you must run the <code>br restore</code> command to perform the restoration again.</p>
-</div>
-<p>When the restoration is successful, you can find the data in the <code>&lt;nebula_installation_path&gt;/data/storage</code> directory under the Nebula Graph installation directory.</p>
-</li>
-<li>
-<p>Wait about several seconds until the metadata and the schema are synchronized, and then verify the data. For example, on the nebula-console, run <a href="../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/"><code>SHOW STATS</code></a> to verify the number of vertices and edges in the restored graph space.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>After restoration: </p>
-<ul>
-<li>If no records are returned for the <code>USE &lt;space_name&gt;</code> statement, we recommend that you restart the Graph Service.</li>
-<li>If the <code>Storage Error: part: 2, error code: -3.</code> error occurs when you query the restored data, do a check of the status of the Storage Service. If necessary, restart the Storage Service.</li>
-</ul>
-</div>
+<p>If the following information is returned, the data is restored successfully.
+ <div class="highlight"><pre><span></span><code>restore successed
+</code></pre></div></p>
+<p>The parameters are as follows.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Default value</th>
+<th>Description</th>
+<th>Data type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--concurrent</td>
+<td>No</td>
+<td>5</td>
+<td>The maximum number of concurrency for Alibaba Cloud OSS.</td>
+<td>int</td>
+</tr>
+<tr>
+<td>--extra_args</td>
+<td>No</td>
+<td>None</td>
+<td>The parameters of backup storage tools (OSS/HDFS/S3) for backup.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>-h,-help</td>
+<td>No</td>
+<td>None</td>
+<td>Checks help for restoration.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>--meta</td>
+<td>Yes</td>
+<td>None</td>
+<td>The IP address and port of the meta service.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>--name</td>
+<td>Yes</td>
+<td>None</td>
+<td>The backup name.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>--storage</td>
+<td>Yes</td>
+<td>None</td>
+<td>The target storage url of BR backup data.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>--user</td>
+<td>Yes</td>
+<td>None</td>
+<td>The username to login into the hosts where meta/storage service is located.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ol>
                 
@@ -4588,7 +4585,7 @@
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2021</span>
       
     
   </small>
