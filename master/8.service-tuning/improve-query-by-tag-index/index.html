@@ -30,6 +30,9 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
+<a class="md-skip" href="#add_and_delete_tags">
+          Skip to content
+        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -1390,9 +1393,26 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Add or delete tag
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Add or delete tag
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -2062,69 +2082,83 @@
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/8.service-tuning/improve-query-by-tag-index.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Add or delete tag</h1>
-<!-->
-# 增加和删除标签
-
-在openCypher中，有增加标签（`SET label`）和移除标签（`REMOVE label`）的功能，可以用于加速查询或者标记过程。
-
-在Nebula Graph中，可以通过Tag变相实现相同操作，创建Tag并将Tag插入到已有的点上，就可以根据Tag名称快速查找点，也可以通过`DELETE TAG`删除某些点上不再需要的Tag。
-
-!!! caution
-
-    请确保点上已经有另一个Tag，否则删除点上最后一个Tag时，会导致点也被删除。
-
-## 示例
-
-例如在basketballplayer数据集中，部分篮球运动员同时也是球队股东，可以为股东Tag`shareholder`创建索引，方便快速查找。如果不再是股东，可以通过`DELETE TAG`语句删除相应运动员的股东Tag。
-
-<div class="highlight"><pre><span></span><code>//创建股东Tag和索引
+<h1 id="add_and_delete_tags">Add and delete tags<a class="headerlink" href="#add_and_delete_tags" title="Permanent link">¶</a></h1>
+<p>OpenCypher has the features of <code>SET label</code> and <code>REMOVE label</code> to speed up the process of querying or labeling.</p>
+<p>Nebula Graph achieves the same operations by creating and inserting tags to an existing vertex, which can quickly query vertices based on the tag name. Users can also run <code>DELETE TAG</code> to delete some vertices that are no longer needed.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Make sure that there is another tag on the vertex. Otherwise, the vertex will be deleted when the last tag is deleted.</p>
+</div>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
+<p>For example, in the <code>basketballplayer</code> data set, some basketball players are also team shareholders. Users can create an index for the shareholder tag <code>shareholder</code> for quick search. If the player is no longer a shareholder, users can delete the shareholder tag of the corresponding player by <code>DELETE TAG</code>.</p>
+<div class="highlight"><pre><span></span><code>//This example creates the shareholder tag and index.
 nebula&gt; CREATE TAG shareholder();
 nebula&gt; CREATE TAG INDEX shareholder_tag on shareholder();
-//为点添加Tag
-nebula&gt; INSERT VERTEX shareholder() VALUES &quot;player100&quot;:();
-nebula&gt; INSERT VERTEX shareholder() VALUES &quot;player101&quot;:();
-//快速查询所有股东
+
+//This example adds a tag on the vertex.
+nebula&gt; INSERT VERTEX shareholder() VALUES "player100":();
+nebula&gt; INSERT VERTEX shareholder() VALUES "player101":();
+
+//This example queries all the shareholders.
 nebula&gt; MATCH (v:shareholder) RETURN v;
 +---------------------------------------------------------------------+
 | v                                                                   |
 +---------------------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;} :shareholder{})  |
+| ("player100" :player{age: 42, name: "Tim Duncan"} :shareholder{})  |
 +---------------------------------------------------------------------+
-| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;} :shareholder{}) |
+| ("player101" :player{age: 36, name: "Tony Parker"} :shareholder{}) |
 +---------------------------------------------------------------------+
 nebula&gt; LOOKUP ON shareholder;
 +-------------+
 | VertexID    |
 +-------------+
-| &quot;player100&quot; |
+| "player100" |
 +-------------+
-| &quot;player101&quot; |
+| "player101" |
 +-------------+
-//如果player100不再是股东
-nebula&gt; DELETE TAG shareholder FROM &quot;player100&quot;;
+
+//In this example, the "player100" is no longer a shareholder.
+nebula&gt; DELETE TAG shareholder FROM "player100";
 nebula&gt; LOOKUP ON shareholder;
 +-------------+
 | VertexID    |
 +-------------+
-| &quot;player101&quot; |
+| "player101" |
 +-------------+
 </code></pre></div>
-
-!!! note
-
-    如果插入测试数据后才创建索引，请用`REBUILD TAG INDEX <index_name_list>;`语句重建索引。
--->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the index is created after inserting the test data, use the <code>REBUILD TAG INDEX &lt;index_name_list&gt;;</code> statement to rebuild the index.</p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2021</span>
 </small>
 </div>
 </article>

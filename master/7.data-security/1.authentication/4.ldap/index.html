@@ -30,6 +30,9 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
+<a class="md-skip" href="#openldap_authentication">
+          Skip to content
+        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -1332,9 +1335,50 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          OpenLDAP authentication
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         OpenLDAP authentication
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication_method">
+    Authentication method
+  </a>
+<nav aria-label="Authentication method" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#simplebindauth">
+    SimpleBindAuth
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#searchbindauth">
+    SearchBindAuth
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#procedures">
+    Procedures
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -2062,116 +2106,154 @@
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication_method">
+    Authentication method
+  </a>
+<nav aria-label="Authentication method" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#simplebindauth">
+    SimpleBindAuth
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#searchbindauth">
+    SearchBindAuth
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+    Prerequisites
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#procedures">
+    Procedures
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <a class="md-content__button md-icon" href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/7.data-security/1.authentication/4.ldap.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>OpenLDAP authentication</h1>
-<!--
-# 使用OpenLDAP进行身份验证
-
-本文介绍如何将Nebula Graph连接到OpenLDAP服务器，使用OpenLDAP中定义的DN（Distinguished Name）和密码进行身份验证。
-
-!!! enterpriseonly
-
-    仅企业版支持本功能。
-
-## 认证方式
-
-启用OpenLDAP身份验证后，输入用户的账号和密码登录Nebula Graph时，Nebula Graph会在Meta服务中查找登录账号是否存在，如果账号存在，再根据认证方式去OpenLDAP中找到对应的DN，验证密码。
-
-OpenLDAP支持的认证方式有两种：简单绑定认证和搜索绑定认证。
-
-### 简单绑定认证（SimpleBindAuth）
-
-简单绑定认证会根据登录账号和Graph服务配置信息，拼接成OpenLDAP可以识别的DN，然后根据DN和密码，在OpenLDAP上进行验证。
-
-### 搜索绑定认证（SearchBindAuth）
-
-搜索绑定认证会读取Graph服务配置信息，查询配置信息中的`uid`和登录账号是否匹配，如果匹配，就读取这个DN，然后用DN和密码，在OpenLDAP上进行验证。
-
-## 前提条件
-
-- 已安装[OpenLDAP](https://www.openldap.org/)。
-
-- 已在OpenLDAP上导入用户的账号和密码信息。
-
-- OpenLDAP所在服务器已开放相应认证端口。
-
-## 操作步骤
-
-以OpenLDAP上已存在的账号`test2`、密码`passwdtest2`为例进行演示。
-
-1. [连接Nebula Graph](../../4.deployment-and-installation/connect-to-nebula-graph.md)，创建与OpenLDAP中对应的影子账号`test2`并授权。
-
-  <div class="highlight"><pre><span></span><code>nebula&gt; CREATE USER test2 WITH PASSWORD &#39;&#39;;
+<h1 id="openldap_authentication">OpenLDAP authentication<a class="headerlink" href="#openldap_authentication" title="Permanent link">¶</a></h1>
+<p>This topic introduces how to connect Nebula Graph to the OpenLDAP server and use the DN (Distinguished Name) and password defined in OpenLDAP for authentication.</p>
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly</p>
+<p>This feature is supported by the Enterprise Edition only.</p>
+</div>
+<h2 id="authentication_method">Authentication method<a class="headerlink" href="#authentication_method" title="Permanent link">¶</a></h2>
+<p>After the OpenLDAP authentication is enabled and users log into Nebula Graph with the account and password, Nebula Graph checks whether the login account exists in the Meta service. If the account exists, Nebula Graph finds the corresponding DN in OpenLDAP according to the authentication method and verifies the password.</p>
+<p>OpenLDAP supports two authentication methods: simple bind authentication (SimpleBindAuth) and search bind authentication (SearchBindAuth).</p>
+<h3 id="simplebindauth">SimpleBindAuth<a class="headerlink" href="#simplebindauth" title="Permanent link">¶</a></h3>
+<p>Simple bind authentication splices the login account and the configuration information of Graph services into a DN that can be recognized by OpenLDAP, and then authenticates on OpenLDAP based on the DN and password.</p>
+<h3 id="searchbindauth">SearchBindAuth<a class="headerlink" href="#searchbindauth" title="Permanent link">¶</a></h3>
+<p>Search bind authentication reads the Graph service configuration information and queries whether the <code>uid</code> in the configuration matches the login account. If they match, search bind authentication reads the DN, and then uses the DN and password to verify on OpenLDAP.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="https://www.openldap.org/">OpenLDAP</a> is installed.</li>
+</ul>
+<ul>
+<li>The account and password are imported on OpenLDAP.</li>
+</ul>
+<ul>
+<li>The server where OpenLDAP is located has opened the corresponding authentication port.</li>
+</ul>
+<h2 id="procedures">Procedures<a class="headerlink" href="#procedures" title="Permanent link">¶</a></h2>
+<p>Take the existing account <code>test2</code> and password <code>passwdtest2</code> on OpenLDAP as an example.</p>
+<ol>
+<li>
+<p><a href="../../../4.deployment-and-installation/connect-to-nebula-graph/">Connect to Nebula Graph</a>, create and authorize the shadow account <code>test2</code> corresponding to OpenLDAP.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE USER test2 WITH PASSWORD '';
 nebula&gt; GRANT ROLE ADMIN ON basketballplayer TO test2;
 </code></pre></div>
-
-    !!! note
-
-        Nebula Graph内创建用户时，密码可以任意设置。
-
-2. 编辑配置文件`nebula-graphd.conf`（默认目录为`/usr/local/nebula/etc/`）：
-
-  - 简单绑定认证（推荐）
-
-    <div class="highlight"><pre><span></span><code><span class="c1"># 是否从配置文件获取配置信息。</span>
+<p>!!! note</p>
+<div class="codehilite"><pre><span></span><code>  When creating an account in Nebula Graph, the password can be set arbitrarily.
+</code></pre></div>
+</li>
+<li>
+<p>Edit the configuration file <code>nebula-graphd.conf</code> (The default path is<code>/usr/local/nebula/etc/</code>):</p>
+<ul>
+<li>
+<p>SimpleBindAuth (Recommended)</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Whether to get the configuration information from the configuration file.</span>
 --local_config<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># 是否开启身份验证</span>
+<span class="c1"># Whether to enable authentication.</span>
 --enable_authorize<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># 身份验证方式：password、ldap、cloud</span>
+<span class="c1"># Authentication methods include password, ldap, and cloud.</span>
 --auth_type<span class="o">=</span>ldap
-<span class="c1"># OpenLDAP服务器地址</span>
+<span class="c1"># The address of the OpenLDAP server.</span>
 --ldap_server<span class="o">=</span><span class="m">192</span>.168.8.211
-<span class="c1"># OpenLDAP服务器端口</span>
+<span class="c1"># The port of the OpenLDAP server.</span>
 --ldap_port<span class="o">=</span><span class="m">389</span>
-<span class="c1"># OpenLDAP中的Schema名称</span>
+<span class="c1"># The name of the Schema in OpenLDAP.</span>
 --ldap_scheme<span class="o">=</span>ldap
-<span class="c1"># DN前缀</span>
+<span class="c1"># The prefix of DN.</span>
 --ldap_prefix<span class="o">=</span><span class="nv">uid</span><span class="o">=</span>
-<span class="c1"># DN后缀</span>
+<span class="c1"># The suffix of DN.</span>
 --ldap_suffix<span class="o">=</span>,ou<span class="o">=</span>it,dc<span class="o">=</span>sys,dc<span class="o">=</span>com
 </code></pre></div>
-
-  - 搜索绑定认证
-
-    <div class="highlight"><pre><span></span><code><span class="c1"># 是否从配置文件获取配置信息。</span>
+</li>
+</ul>
+<ul>
+<li>
+<p>SearchBindAuth</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Whether to get the configuration information from the configuration file.</span>
 --local_config<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># 是否开启身份验证</span>
+<span class="c1"># Whether to enable authentication.</span>
 --enable_authorize<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># 身份验证方式：password、ldap、cloud</span>
+<span class="c1"># Authentication methods include password, ldap, and cloud.</span>
 --auth_type<span class="o">=</span>ldap
-<span class="c1"># OpenLDAP服务器地址</span>
+<span class="c1"># The address of the OpenLDAP server.</span>
 --ldap_server<span class="o">=</span><span class="m">192</span>.168.8.211
-<span class="c1"># OpenLDAP服务器端口</span>
+<span class="c1"># The port of the OpenLDAP server.</span>
 --ldap_port<span class="o">=</span><span class="m">389</span>
-<span class="c1"># OpenLDAP中的Schema名称</span>
+<span class="c1"># The name of the Schema in OpenLDAP.</span>
 --ldap_scheme<span class="o">=</span>ldap
-<span class="c1"># 绑定目标对象的DN</span>
+<span class="c1"># The DN that binds the target.</span>
 --ldap_basedn<span class="o">=</span><span class="nv">uid</span><span class="o">=</span>test2,ou<span class="o">=</span>it,dc<span class="o">=</span>sys,dc<span class="o">=</span>com
 </code></pre></div>
-
-3. [重启Nebula Graph服务](../../4.deployment-and-installation/manage-service.md)，让新配置生效。
-
-4. 进行登录测试。
-
-  <div class="highlight"><pre><span></span><code>$ ./nebula-console --addr <span class="m">127</span>.0.0.1 --port <span class="m">9669</span> -u test2 -p passwdtest2
+</li>
+</ul>
+</li>
+<li>
+<p><a href="../../../4.deployment-and-installation/manage-service/">Restart Nebula Graph services</a> to make the new configuration valid.</p>
+</li>
+<li>
+<p>Run the login test.</p>
+<div class="highlight"><pre><span></span><code>$ ./nebula-console --addr <span class="m">127</span>.0.0.1 --port <span class="m">9669</span> -u test2 -p passwdtest2
 <span class="m">2021</span>/09/08 <span class="m">03</span>:49:39 <span class="o">[</span>INFO<span class="o">]</span> connection pool is initialized successfully
 
 Welcome to Nebula Graph!
 </code></pre></div>
-
-    !!! note
-
-        使用OpenLDAP进行身份验证后，本地用户（包括`root`）无法正常登录。
--->
+<p>!!! note</p>
+<div class="codehilite"><pre><span></span><code>  After using OpenLDAP for authentication, local users (including `root`) cannot log in normally.
+</code></pre></div>
+</li>
+</ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2021</span>
 </small>
 </div>
 </article>
