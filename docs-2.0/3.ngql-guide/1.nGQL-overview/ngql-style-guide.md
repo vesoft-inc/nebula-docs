@@ -142,14 +142,14 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   Not recommended:
 
   ```ngql
-  MATCH (v:player)-(e:follow)->(v2) \
+  MATCH (v:player)-[e:follow]->(v2) \
   RETURN v;
   ```
 
   Recommended:
 
   ```ngql
-  MATCH (v:player)-(:follow)->() \
+  MATCH (v:player)-[:follow]->() \
   RETURN v;
   ```
 
@@ -158,14 +158,14 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   Not recommended:
 
   ```ngql
-  MATCH ()-(:follow)->(v) \
+  MATCH ()-[:follow]->(v) \
   RETURN v;
   ```
 
   Recommended:
 
   ```ngql
-  MATCH (v)<-(:follow)-() \
+  MATCH (v)<-[:follow]-() \
   RETURN v;
   ```
 
