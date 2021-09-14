@@ -1,26 +1,27 @@
-<!-->
-# 增加和删除标签
+# Add and delete tags
 
-在openCypher中，有增加标签（`SET label`）和移除标签（`REMOVE label`）的功能，可以用于加速查询或者标记过程。
+OpenCypher has the features of `SET label` and `REMOVE label` to speed up the process of querying or labeling.
 
-在Nebula Graph中，可以通过Tag变相实现相同操作，创建Tag并将Tag插入到已有的点上，就可以根据Tag名称快速查找点，也可以通过`DELETE TAG`删除某些点上不再需要的Tag。
+Nebula Graph achieves the same operations by creating and inserting tags to an existing vertex, which can quickly query vertices based on the tag name. Users can also run `DELETE TAG` to delete some vertices that are no longer needed.
 
 !!! caution
 
-    请确保点上已经有另一个Tag，否则删除点上最后一个Tag时，会导致点也被删除。
+    Make sure that there is another tag on the vertex. Otherwise, the vertex will be deleted when the last tag is deleted.
 
-## 示例
+## Examples
 
-例如在basketballplayer数据集中，部分篮球运动员同时也是球队股东，可以为股东Tag`shareholder`创建索引，方便快速查找。如果不再是股东，可以通过`DELETE TAG`语句删除相应运动员的股东Tag。
+For example, in the `basketballplayer` data set, some basketball players are also team shareholders. Users can create an index for the shareholder tag `shareholder` for quick search. If the player is no longer a shareholder, users can delete the shareholder tag of the corresponding player by `DELETE TAG`.
 
 ```ngql
-//创建股东Tag和索引
+//This example creates the shareholder tag and index.
 nebula> CREATE TAG shareholder();
 nebula> CREATE TAG INDEX shareholder_tag on shareholder();
-//为点添加Tag
+
+//This example adds a tag on the vertex.
 nebula> INSERT VERTEX shareholder() VALUES "player100":();
 nebula> INSERT VERTEX shareholder() VALUES "player101":();
-//快速查询所有股东
+
+//This example queries all the shareholders.
 nebula> MATCH (v:shareholder) RETURN v;
 +---------------------------------------------------------------------+
 | v                                                                   |
@@ -37,7 +38,8 @@ nebula> LOOKUP ON shareholder;
 +-------------+
 | "player101" |
 +-------------+
-//如果player100不再是股东
+
+//In this example, the "player100" is no longer a shareholder.
 nebula> DELETE TAG shareholder FROM "player100";
 nebula> LOOKUP ON shareholder;
 +-------------+
@@ -49,5 +51,4 @@ nebula> LOOKUP ON shareholder;
 
 !!! note
 
-    如果插入测试数据后才创建索引，请用`REBUILD TAG INDEX <index_name_list>;`语句重建索引。
--->
+    If the index is created after inserting the test data, use the `REBUILD TAG INDEX <index_name_list>;` statement to rebuild the index.
