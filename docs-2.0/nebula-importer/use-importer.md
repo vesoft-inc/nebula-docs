@@ -37,7 +37,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
 1. Clone repository.
 
   ```bash
-  $ git clone -b {{importer.release}} https://github.com/vesoft-inc/nebula-importer.git
+  $ git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
   ```
 
   !!! note
@@ -69,7 +69,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
   !!! note
         For details about the YAML configuration file, see configuration file description at the end of topic.
 
-#### No network compilation mode
+### No network compilation mode
 
 If the server cannot be connected to the Internet, it is recommended to upload the source code and various dependency packages to the corresponding server for compilation on the machine that can be connected to the Internet. The operation steps are as follows:
 
