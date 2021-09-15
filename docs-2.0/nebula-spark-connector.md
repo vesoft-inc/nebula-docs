@@ -46,7 +46,7 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 !!! note
 
-     Install Nebula Graph Spark of version 2.3 or above.
+     Install Nebula Spark Connector of version 2.3 or above.
 
 1. Clone repository `nebula-spark-utils`.
 
