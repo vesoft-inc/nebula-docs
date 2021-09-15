@@ -14,7 +14,7 @@ As a rule of thumb, a vertex is considered dense when the number of its edges ex
 
 !!! Note
 
-    In Nebula Graph {{ nebula.release }}, there isn't any data structure to store the out/in degree for each vertex. Therefore there is no direct method to know  a super vertex or not. You can try `Spark` to count the degrees periodically. 
+    In Nebula Graph {{ nebula.release }}, there isn't any data structure to store the out/in degree for each vertex. Therefore there is no direct method to know a super vertex or not. You can try to use Spark to count the degrees periodically. 
     
 ### Indexes for duplicate properties
 
