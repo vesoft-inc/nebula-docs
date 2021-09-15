@@ -1382,14 +1382,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#prerequisites">
-    Prerequisites
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#balance_partition_distribution">
     Balance partition distribution
   </a>
+<nav aria-label="Balance partition distribution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#stop_data_balancing">
@@ -1405,11 +1409,29 @@
 <a class="md-nav__link" href="#remove_storage_servers">
     Remove storage servers
   </a>
+<nav aria-label="Remove storage servers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#balance_leader_distribution">
     Balance leader distribution
   </a>
+<nav aria-label="Balance leader distribution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example_1">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -2117,14 +2139,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#prerequisites">
-    Prerequisites
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#balance_partition_distribution">
     Balance partition distribution
   </a>
+<nav aria-label="Balance partition distribution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#stop_data_balancing">
@@ -2140,11 +2166,29 @@
 <a class="md-nav__link" href="#remove_storage_servers">
     Remove storage servers
   </a>
+<nav aria-label="Remove storage servers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#balance_leader_distribution">
     Balance leader distribution
   </a>
+<nav aria-label="Balance leader distribution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example_1">
+    Example
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -2157,17 +2201,18 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="storage_load_balance">Storage load balance<a class="headerlink" href="#storage_load_balance" title="Permanent link">¶</a></h1>
-<p>You can use the <code>BALANCE</code> statements to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>The graph spaces stored in Nebula Graph must have more than one replicas for the system to balance the distribution of partitions and Raft leaders.</p>
+<p>You can use the <code>BALANCE</code> statement to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.</p>
 <h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">¶</a></h2>
 <p><code>BALANCE DATA</code> starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
+<p>DO NOT stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
 </div>
-<p>Take scaling out Nebula Graph for an example.</p>
-<p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h3>
+<p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts.</p>
+<ol>
+<li>
+<p>Run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
 <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
@@ -2185,6 +2230,8 @@
 | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
+</li>
+<li>
 <p>Run <code>BALANCE DATA</code> to start balancing the storage partitions. If the partitions are already balanced, <code>BALANCE DATA</code> fails.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA;
 +------------+
@@ -2193,6 +2240,8 @@
 | 1614237867 |
 +------------+
 </code></pre></div>
+</li>
+<li>
 <p>A BALANCE task ID is returned after running <code>BALANCE DATA</code>. Run <code>BALANCE DATA &lt;balance_id&gt;</code> to check the status of the <code>BALANCE</code> task.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA 1614237867;
 +--------------------------------------------------------------+-------------------+
@@ -2209,10 +2258,12 @@
 | "Total:22, Succeeded:22, Failed:0, In Progress:0, Invalid:0" | 100               |
 +--------------------------------------------------------------+-------------------+
 </code></pre></div>
+</li>
+<li>
 <p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>BALANCE DATA</code> does not balance the leader distribution.</p>
+<p><code>BALANCE DATA</code> does not balance the leader distribution. For more information, see <a href="#Balance leader distribution">Balance leader distribution</a>.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
@@ -2231,6 +2282,8 @@
 | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
+</li>
+</ol>
 <p>If any subtask fails, run <code>BALANCE DATA</code> again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
 <h2 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">¶</a></h2>
 <p>To stop a balance task, run <code>BALANCE DATA STOP</code>.</p>
@@ -2238,53 +2291,54 @@
 <li>If no balance task is running, an error is returned.</li>
 </ul>
 <ul>
-<li>If a balance task is running, the task ID is returned.</li>
+<li>If a balance task is running, the task ID (<code>balance_id</code>) is returned.</li>
 </ul>
-<p><code>BALANCE DATA STOP</code> does not stop the running subtasks but cancels all follow-up subtasks. The running subtasks continue.</p>
-<p>To check the status of the stopped balance task, run <code>BALANCE DATA &lt;balance_id&gt;</code>.</p>
+<p><code>BALANCE DATA STOP</code> does not stop the running subtasks but cancels all follow-up subtasks. To check the status of the stopped balance task, run <code>BALANCE DATA &lt;balance_id&gt;</code>.</p>
 <p>Once all the subtasks are finished or stopped, you can run <code>BALANCE DATA</code> again to balance the partitions again.</p>
 <ul>
-<li>If any subtask of the preceding balance task failed, Nebula Graph restarts the preceding balance task.</li>
+<li>If any subtask of the preceding balance task fails, Nebula Graph restarts the preceding balance task.</li>
 </ul>
 <ul>
-<li>If no subtask of the preceding balance task failed, Nebula Graph starts a new balance task.</li>
+<li>If no subtask of the preceding balance task fails, Nebula Graph starts a new balance task.</li>
 </ul>
 <h2 id="reset_a_balance_task">RESET a balance task<a class="headerlink" href="#reset_a_balance_task" title="Permanent link">¶</a></h2>
 <p>If a balance task fails to be restarted after being stopped, run <code>BALANCE DATA RESET PLAN</code> to reset the task. After that, run <code>BALANCE DATA</code> again to start a new balance task.</p>
 <h2 id="remove_storage_servers">Remove storage servers<a class="headerlink" href="#remove_storage_servers" title="Permanent link">¶</a></h2>
-<p>To remove specific storage servers and scale in the Storage Service, use the <code>BALANCE DATA REMOVE &lt;host_list&gt;</code> syntax.</p>
-<p>For example, to remove the following storage servers:</p>
+<p>To remove specified storage servers and scale in the Storage Service, run <code>BALANCE DATA REMOVE &lt;host_list&gt;</code>.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
+<p>To remove the following storage server,</p>
 <table>
 <thead>
 <tr>
-<th>Server name</th>
-<th>IP</th>
-<th>Port</th>
+<th align="left">Server name</th>
+<th align="left">IP address</th>
+<th align="left">Port</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>storage3</td>
-<td>192.168.0.8</td>
-<td>19779</td>
+<td align="left">storage3</td>
+<td align="left">192.168.0.8</td>
+<td align="left">9779</td>
 </tr>
 <tr>
-<td>storage4</td>
-<td>192.168.0.9</td>
-<td>19779</td>
+<td align="left">storage4</td>
+<td align="left">192.168.0.9</td>
+<td align="left">9779</td>
 </tr>
 </tbody>
 </table>
-<p>Run the following statement:</p>
-<div class="highlight"><pre><span></span><code>BALANCE DATA REMOVE 192.168.0.8:19779,192.168.0.9:19779;
+<p>Run the following command:</p>
+<div class="highlight"><pre><span></span><code>BALANCE DATA REMOVE 192.168.0.8:9779,192.168.0.9:9779;
 </code></pre></div>
 <p>Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The removed server's state will change to <code>OFFLINE</code>. </p>
+<p>The state of the removed server will change to <code>OFFLINE</code>. This record will be deleted after one day. To retain it, you can change the meta configuration <code>removed_threshold_sec</code>.</p>
 </div>
 <h2 id="balance_leader_distribution">Balance leader distribution<a class="headerlink" href="#balance_leader_distribution" title="Permanent link">¶</a></h2>
-<p><code>BALANCE DATA</code> only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To load balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
+<p><code>BALANCE DATA</code> only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 </code></pre></div>
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
@@ -2305,11 +2359,15 @@
 | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
 +-------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>In Nebula Graph 2.5.0, switching leaders will cause a large number of short-term request errors (Storage Error <code>E_RPC_FAILURE</code>). For solutions, see <a href="../../20.appendix/0.FAQ/">FAQ</a>.</p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2021</span>
 </small>
 </div>
 </article>
