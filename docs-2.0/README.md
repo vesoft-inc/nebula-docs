@@ -1,6 +1,3 @@
-!! danger "A [new version](https://docs.nebula-graph.io/) has been released."
-
-<!--
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
 !!! note "Check the manual version"
