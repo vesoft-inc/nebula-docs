@@ -2361,7 +2361,18 @@ if (!s.ok()) {
 <li>JDK 1.8 or later has been installed and the environment variable <code>JAVA_HOME</code> has been configured.</li>
 </ul>
 <ul>
-<li>The Hadoop service has been installed and started.</li>
+<li>
+<p>The Hadoop service has been installed and started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>To generate SST files of other data sources, see documents of the corresponding data source and check the prerequisites.</li>
+</ul>
+<ul>
+<li>To generate SST files only, users do not need to install the Hadoop service on the machine where the Storage service is deployed.</li>
+</ul>
+</div>
+</li>
 </ul>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">¶</a></h2>
 <h3 id="step_1_create_the_schema_in_nebula_graph">Step 1: Create the Schema in Nebula Graph<a class="headerlink" href="#step_1_create_the_schema_in_nebula_graph" title="Permanent link">¶</a></h3>
@@ -2675,6 +2686,19 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>If you modify the Schema, such as rebuilding the graph space, modifying the Tag, or modifying the Edge type, you need to regenerate the SST file because the SST file verifies the space ID, Tag ID, and Edge ID.</p>
 </div>
 <h3 id="step_5_import_the_sst_file">Step 5: Import the SST file<a class="headerlink" href="#step_5_import_the_sst_file" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Confirm the following information before importing:</p>
+<ul>
+<li>Confirm that the Hadoop service has been deployed on all the machines where the Storage service is deployed, and configure HADOOP_HOME and JAVA_HOME.</li>
+</ul>
+<ul>
+<li>The <code>--ws_storage_http_port</code> in the Meta service configuration file (add it manually if it does not exist) is the same as the <code>--ws_http_port</code> in the Storage service configuration file. For example, both are <code>19779</code>.</li>
+</ul>
+<ul>
+<li>The <code>--ws_meta_http_port</code> in the Graph service configuration file (add it manually if it does not exist) is the same as the <code>--ws_http_port</code> in the Meta service configuration file. For example, both are <code>19559</code>.</li>
+</ul>
+</div>
 <p>Connect to the Nebula Graph database using the client tool and import the SST file as follows:</p>
 <ol>
 <li>
@@ -2716,7 +2740,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 17, 2021</span>
 </small>
 </div>
 </article>

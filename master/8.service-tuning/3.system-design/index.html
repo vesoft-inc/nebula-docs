@@ -2148,46 +2148,47 @@
 </a>
 <h1 id="system_design_suggestions">System design suggestions<a class="headerlink" href="#system_design_suggestions" title="Permanent link">¶</a></h1>
 <h2 id="qps_or_low-latency_first">QPS or low-latency first<a class="headerlink" href="#qps_or_low-latency_first" title="Permanent link">¶</a></h2>
-<p>Nebula Graph is good at handling small requests with high concurrency. In such scenarios, the whole graph is huge, containing maybe trillions of vertices, but the subgraphs accessed by each request are not large (containing millions of vertices or edges), and the latency of a single request is low. The concurrent number of such requests, i.e., the QPS, can be huge.</p>
-<p>On the other hand, in interactive analysis scenarios, the request concurrency is usually not high, but the subgraphs accessed by each request are large, with thousands of millions of vertices or edges. To lower the latency of big requests in such scenarios, you can split big requests into multiple small requests in the application, and send them to multiple Graph servers. This can decrease the memory used by each Graph server as well. Besides, you can use <a href="../../nebula-algorithm/">Nebula Algorithm</a> for such scenarios.</p>
+<ul>
+<li>Nebula Graph 2.5.0 is good at handling small requests with high concurrency. In such scenarios, the whole graph is huge, containing maybe trillions of vertices or edges, but the subgraphs accessed by each request are not large (containing millions of vertices or edges), and the latency of a single request is low. The concurrent number of such requests, i.e., the QPS, can be huge.</li>
+</ul>
+<ul>
+<li>On the other hand, in interactive analysis scenarios, the request concurrency is usually not high, but the subgraphs accessed by each request are large, with thousands of millions of vertices or edges. To lower the latency of big requests in such scenarios, you can split big requests into multiple small requests in the application, and concurrently send them to multiple graphd processes. This can decrease the memory used by each graphd process as well. Besides, you can use <a href="../../nebula-algorithm/">Nebula Algorithm</a> for such scenarios.</li>
+</ul>
 <h2 id="horizontal_or_vertical_scaling">Horizontal or vertical scaling<a class="headerlink" href="#horizontal_or_vertical_scaling" title="Permanent link">¶</a></h2>
 <p>Nebula Graph 2.5.0 supports horizontal scaling.</p>
 <ul>
-<li>
-<p>The horizontal scaling of the Storage Service:</p>
-<p>Increasing the number of Storage machines increases the overall capability of the cluster linearly, including increasing overall QPS and reducing latency.</p>
-<p>However, the number of partitions is fixed when creating a graph space. The service capability of a single partition is determined by a single server. The operations depending on a single partition include fetching properties of a single vertex (<code>FETCH</code>), a breadth-first traversal from a single vertex (<code>GO</code>), etc.</p>
+<li>The horizontal scaling of the Storaged process:<p>- Increasing the number of machines deployed with the Storaged process can increase the overall capability of the cluster linearly, including increasing the overall QPS and reducing latency.</p>
+<p>- However, the number of partitions is fixed when creating a graph space. The service capability of a single partition is determined by a single server. The operations depending on a single partition include fetching properties of a single vertex (<code>FETCH</code>), a breadth-first traversal from a single vertex (<code>GO</code>), etc.</p>
 </li>
 </ul>
 <ul>
-<li>
-<p>The horizontal scaling of the Graph Service:</p>
-<p>Each request from the client is handled by one and only one Graph server, with no other Graph servers participating in the processing of the request. Therefore, increasing the number of Graph machines can increase the overall QPS of the cluster, but cannot lower the latency of a single request.</p>
+<li>The horizontal scaling of the Graphd process:<p>- Each request from the client is handled by one and only one Graphd process, with no other Graphd processes participating in the processing of the request.</p>
+<p>- Therefore, increasing the number of machines deployed with the Graphd process can increase the overall QPS of the cluster, but cannot lower the latency of a single request.</p>
 </li>
 </ul>
 <ul>
 <li>Metad does not support horizontal scaling.</li>
 </ul>
-<p>Vertical scaling usually has higher hardware costs, but relatively simple operations. Nebula Graph 2.5.0 can also be scaled vertically.</p>
+<p>Vertical scaling usually has higher hardware costs and relatively simple operations. Nebula Graph 2.5.0 can also be scaled vertically.</p>
 <h2 id="data_transmission_and_optimization">Data transmission and optimization<a class="headerlink" href="#data_transmission_and_optimization" title="Permanent link">¶</a></h2>
 <ul>
 <li>Read/write balance. Nebula Graph fits into OLTP scenarios with balanced read/write, i.e., concurrent write and read. It is not suitable for OLAP scenarios that usually need to write once and read many times.</li>
-<li>Select different write methods. Write large batches of data with SST files, and small batches of data with <code>INSERT</code> statements.</li>
+<li>Select different write methods. For large batches of data writing, use SST files. For small batches of data writing, use <code>INSERT</code>.</li>
 <li>Run <code>COMPACTION</code> and <code>BALANCE</code> jobs to optimize data format and storage distribution at the right time.</li>
-<li>Nebula Graph 2.5.0 N Does not support transactions and isolation in the relational database sense and is closer to NoSQL.</li>
+<li>Nebula Graph 2.5.0 does not support transactions and isolation in the relational database and is closer to NoSQL.</li>
 </ul>
 <h2 id="query_preheating_and_data_preheating">Query preheating and data preheating<a class="headerlink" href="#query_preheating_and_data_preheating" title="Permanent link">¶</a></h2>
 <p>Preheat on the application side:</p>
 <ul>
-<li>The Graph Service does not support pre-compiling queries and generating corresponding query plans, nor can it cache previous query results.</li>
-<li>The Storage Service does not support preheating data, and only the LSM-Tree and BloomFilter of RocksDB are loaded into memory at startup.</li>
+<li>The Grapd process does not support pre-compiling queries and generating corresponding query plans, nor can it cache previous query results.</li>
+<li>The Storagd process does not support preheating data. Only the LSM-Tree and BloomFilter of RocksDB are loaded into memory at startup.</li>
 <li>Once accessed, vertices and edges are cached respectively in two types of LRU cache of the Storage Service.</li>
 </ul>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 17, 2021</span>
 </small>
 </div>
 </article>
