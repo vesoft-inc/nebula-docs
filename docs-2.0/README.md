@@ -1,3 +1,6 @@
+!! danger "A [new version](https://docs.nebula-graph.io/) has been released."
+
+<!--
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
 !!! note "Check the manual version"
@@ -66,3 +69,4 @@ This manual has over 80 compatibilities and corresponding tips.
 ## Modify errors
  
 This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
+-->
