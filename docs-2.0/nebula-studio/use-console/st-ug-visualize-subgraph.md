@@ -16,6 +16,10 @@ To use the **View Subgraphs** function, you must do a check of these:
 
 - A dataset exists in the database. In the example of this article, the **basketballplayer** dataset is used. For more information, see [Import data](../quick-start/st-ug-import-data.md).
 
+!!! Note
+
+    Users can view subgraphs online in [Studio](https://playground.nebula-graph.com.cn/explore).
+
 ## Procedure
 
 To query the paths or subgraph on the **Console** page and then view them on the **Explore** page, follow these steps:

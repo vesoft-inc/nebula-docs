@@ -26,7 +26,7 @@ Check Nebula Graph service status. Regarding the operation of viewing services:
 
 - If you use Nebula Graph deployed by Docker Compose and RPM, refer to the [Nebula Graph service status and ports](../deploy-connect/st-ug-deploy.md).
 
-If the Nebula Graph service is normal, proceed to Step4 to continue troubleshooting. Otherwise, please restart Nebula Graph service.
+If the Nebula Graph service is normal, proceed to Step 4 to continue troubleshooting. Otherwise, please restart Nebula Graph service.
 
 !!! Note
 
