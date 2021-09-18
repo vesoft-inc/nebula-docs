@@ -20,8 +20,18 @@ theme:
     logo: 'https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png'
     favicon: 'assets/images/favicon.ico'
     palette:
-      primary: 'teal'
-      accent: 'light green'
+      - scheme: default
+        primary: teal
+        accent: green
+        toggle:
+          icon: material/toggle-switch-off-outline
+          name: Switch to dark mode
+      - scheme: slate
+        primary: deep orange
+        accent: red
+        toggle:
+          icon: material/toggle-switch
+          name: Switch to light mode
     features:
       - navigation.top
     language: 'en'
@@ -34,7 +44,7 @@ extra_css:
 extra:
   nebula:
     release: 2.5.0
-    nightly: v2-nightly
+    nightly: nightly
     master: master
     base20: 2.0
     base200: 2.0.0
@@ -124,7 +134,7 @@ nav:
         - Identifier case sensitivity: 3.ngql-guide/1.nGQL-overview/identifier-case-sensitivity.md
         - Keywords: 3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md
         - nGQL style guide: 3.ngql-guide/1.nGQL-overview/ngql-style-guide.md
-        
+
       - Data types:
         - Numeric: 3.ngql-guide/3.data-types/1.numeric.md
         - Boolean: 3.ngql-guide/3.data-types/2.boolean.md
@@ -162,6 +172,7 @@ nav:
           - collect(): 3.ngql-guide/6.functions-and-expressions/10.collect.md
           - reduce(): 3.ngql-guide/6.functions-and-expressions/11.reduce.md
           - hash(): 3.ngql-guide/6.functions-and-expressions/12.hash.md
+          - concat(): 3.ngql-guide/6.functions-and-expressions/13.concat.md
           - Predicate functions: 3.ngql-guide/6.functions-and-expressions/8.predicate.md
           - User-defined functions: 3.ngql-guide/6.functions-and-expressions/9.user-defined-functions.md
 
@@ -189,6 +200,7 @@ nav:
             - SHOW USERS: 3.ngql-guide/7.general-query-statements/6.show/16.show-users.md
             - SHOW SESSIONS: 3.ngql-guide/7.general-query-statements/6.show/17.show-sessions.md
             - SHOW QUERIES: 3.ngql-guide/7.general-query-statements/6.show/18.show-queries.md
+            - SHOW META LEADER: 3.ngql-guide/7.general-query-statements/6.show/19.show-meta-leader.md
 
       - Clauses and options:
           - GROUP BY: 3.ngql-guide/8.clauses-and-options/group-by.md
@@ -213,6 +225,8 @@ nav:
           - ALTER TAG: 3.ngql-guide/10.tag-statements/3.alter-tag.md
           - SHOW TAGS: 3.ngql-guide/10.tag-statements/4.show-tags.md
           - DESCRIBE TAG: 3.ngql-guide/10.tag-statements/5.describe-tag.md
+          - DELETE TAG: 3.ngql-guide/10.tag-statements/6.delete-tag.md
+
       - Edge type statements:
           - CREATE EDGE: 3.ngql-guide/11.edge-type-statements/1.create-edge.md
           - DROP EDGE: 3.ngql-guide/11.edge-type-statements/2.drop-edge.md
@@ -288,19 +302,21 @@ nav:
 
   - Monitor and metrics:
       - Query Nebula Graph metrics: 6.monitor-and-metrics/1.query-performance-metrics.md
+      - RocksDB Statistics: 6.monitor-and-metrics/2.rocksdb-statistics.md
 
   - Data security:
       - Authentication and authorization:
           - Authentication: 7.data-security/1.authentication/1.authentication.md
           - User management: 7.data-security/1.authentication/2.management-user.md
           - Roles and privileges: 7.data-security/1.authentication/3.role-list.md
+          - OpenLDAP authentication: 7.data-security/1.authentication/4.ldap.md
 #      - Backup & Restore:
 #          - What is Backup & Restore: 7.data-security/2.backup-restore/1.what-is-br.md
 #          - Compile BR: 7.data-security/2.backup-restore/2.compile-br.md
 #          - Use BR to back up data: 7.data-security/2.backup-restore/3.br-backup-data.md
 #          - Use BR to restore data: 7.data-security/2.backup-restore/4.br-restore-data.md
       - Manage snapshots: 7.data-security/3.manage-snapshot.md
-  
+
   - Service Tuning:
     - Compaction: 8.service-tuning/compaction.md
     - Storage load balance: 8.service-tuning/load-balance.md
@@ -308,6 +324,7 @@ nav:
     - System design suggestions: 8.service-tuning/3.system-design.md
     - Execution plan: 8.service-tuning/4.plan.md
     - Processing super vertices: 8.service-tuning/super-node.md
+    - Add or delete tag: 8.service-tuning/improve-query-by-tag-index.md
 
   - Client:
     - Clients overview: 14.client/1.nebula-client.md
@@ -348,15 +365,15 @@ nav:
       - Cannot access to Studio: nebula-studio/troubleshooting/st-ug-connection-errors.md
       - FAQ: nebula-studio/troubleshooting/st-ug-faq.md
 
-  - Nebula Graph Dashboard: 
-      - What is Nebula Graph Dashboard: nebula-dashboard/1.what-is-dashboard.md
+  - Nebula Dashboard:
+      - What is Nebula Dashboard: nebula-dashboard/1.what-is-dashboard.md
       - Deploy Dashboard: nebula-dashboard/2.deploy-dashboard.md
       - Connect Dashboard: nebula-dashboard/3.connect-dashboard.md
       - Use Dashboard: nebula-dashboard/4.use-dashboard.md
       - Monitor Parameter: nebula-dashboard/6.monitor-parameter.md
 
-  - Nebula Graph Explorer:
-      - What is Nebula Graph Explorer: nebula-explorer/about-explorer/ex-ug-what-is-explorer.md
+  - Nebula Explorer:
+      - What is Nebula Explorer: nebula-explorer/about-explorer/ex-ug-what-is-explorer.md
       - Deploy and connect:
         - Deploy Explorer: nebula-explorer/deploy-connect/ex-ug-deploy.md
         - Connect to Nebula Graph: nebula-explorer/deploy-connect/ex-ug-connect.md
@@ -399,7 +416,7 @@ nav:
     - Exchange FAQ: nebula-exchange/ex-ug-FAQ.md
 
   - Nebula Algorithm: nebula-algorithm.md
-      
+
   - Nebula Spark Connector: nebula-spark-connector.md
 
   - Nebula Flink Connector: nebula-flink-connector.md
@@ -442,12 +459,17 @@ plugins:
       copyright: 2021 Vesoft Inc.
       cover_subtitle: master
       author: Min Wu, Yao Zhou, Cooper Liang, Foesa Yang, Max Zhu
-      cover: true 
+      cover: true
       back_cover: true
       cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'
       output_path: pdf/NebulaGraph-EN.pdf
-      render_js: true
-      headless_chrome_path: headless-chromium
+      #show_anchors: true
+      #render_js: true
+      #headless_chrome_path: headless-chromium
+      #enabled_if_env: ENABLE_PDF_EXPORT
+      #debug_html: true
+      #show_anchors: true
+      #verbose: true
 
 google_analytics:
   - UA-60523578-16

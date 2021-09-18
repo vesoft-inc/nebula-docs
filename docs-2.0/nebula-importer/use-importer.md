@@ -37,7 +37,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
 1. Clone repository.
 
   ```bash
-  $ git clone -b {{importer.release}} https://github.com/vesoft-inc/nebula-importer.git
+  $ git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
   ```
 
   !!! note
@@ -69,7 +69,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
   !!! note
         For details about the YAML configuration file, see configuration file description at the end of topic.
 
-#### No network compilation mode
+### No network compilation mode
 
 If the server cannot be connected to the Internet, it is recommended to upload the source code and various dependency packages to the corresponding server for compilation on the machine that can be connected to the Internet. The operation steps are as follows:
 
@@ -249,7 +249,7 @@ schema:
 |`files.schema.vertex.vid.index`|-|No|The vertex ID corresponds to the column number in the CSV file.|
 |`files.schema.vertex.tags.name`|-|Yes|Tag name.|
 |`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the Nebula Graph.|
-|`files.schema.vertex.tags.props.type`|-|No|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
+|`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
 !!! note
@@ -289,7 +289,7 @@ schema:
 |`files.schema.edge.dstVID.index`|-|No|The destination vertex ID of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.rank.index`|-|No|The rank value of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.props.name`|-|Yes|The Edge Type property name must match the Edge Type property in the Nebula Graph.|
-|`files.schema.edge.props.type`|-|No|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
+|`files.schema.edge.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
 |`files.schema.edge.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
 ## About the CSV file header

@@ -70,7 +70,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
    | `-h` | Shows the help menu. |
    | `-addr` | Sets the IP address of the graphd service. The default address is 127.0.0.1. |
    | `-port` | Sets the port number of the graphd service. The default port number is 9669.<!-- If you have deployed Nebula Graph in a docker container but Nebula Console is working outside the container, check the [source port](2.deploy-nebula-graph-with-docker-compose.md/#check_the_nebula_graph_service_status_and_port) of any nebula-graphd process and use it for connection. -->|
-   | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any characters as the username. |
+   | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
    | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
    | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
    | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
