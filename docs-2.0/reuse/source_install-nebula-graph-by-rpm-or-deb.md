@@ -121,11 +121,24 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
     sudo rpm -ivh --prefix=<installation_path> <package_name>
     ```
 
+    For example, install the downloaded {{ nebula.release }} `CentOS 7` package: 
+
+    ```bash
+    sudo rpm -ivh nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
+    ```
+
 * Use the following syntax to install with a DEB package.
 
     ```bash
     sudo dpkg -i --instdir==<installation_path> <package_name>
     ```
+
+    For example, install the downloaded {{ nebula.release }} `Ubuntu 18.04` package: 
+
+    ```bash
+    sudo dpkg -i nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
+    ```
+    
 
   !!! note
 
