@@ -95,6 +95,12 @@ Before importing data, you need to confirm the following information:
 
 - The Hadoop service has been installed and started.
 
+  !!! note
+
+      - To generate SST files of other data sources, see documents of the corresponding data source and check the prerequisites.
+
+      - To generate SST files only, users do not need to install the Hadoop service on the machine where the Storage service is deployed.
+
 ## Steps
 
 ### Step 1: Create the Schema in Nebula Graph
@@ -395,6 +401,16 @@ After the task is complete, you can view the generated SST file in the `/sst` di
     If you modify the Schema, such as rebuilding the graph space, modifying the Tag, or modifying the Edge type, you need to regenerate the SST file because the SST file verifies the space ID, Tag ID, and Edge ID.
 
 ### Step 5: Import the SST file
+
+!!! note
+
+    Confirm the following information before importing:
+
+    - Confirm that the Hadoop service has been deployed on all the machines where the Storage service is deployed, and configure HADOOP_HOME and JAVA_HOME.
+
+    - The `--ws_storage_http_port` in the Meta service configuration file (add it manually if it does not exist) is the same as the `--ws_http_port` in the Storage service configuration file. For example, both are `19779`.
+
+    - The `--ws_meta_http_port` in the Graph service configuration file (add it manually if it does not exist) is the same as the `--ws_http_port` in the Meta service configuration file. For example, both are `19559`.
 
 Connect to the Nebula Graph database using the client tool and import the SST file as follows:
 
