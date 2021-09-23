@@ -37,12 +37,6 @@
 <div data-md-component="announce">
 </div>
 <header class="md-header" data-md-component="header">
-<div id="dialog-bg"></div>
-<div id="banner" style="width: 100%;display:flex;height: 35px;justify-content:center;align-items:center;background-color:#FFE45E;font-size:15px;font-weight: 400;color: #000000;">
-    This version is under development. For the docs of the latest stable release, see 
-    <a href="https://docs.nebula-graph.io/" style="font-weight: 400;text-decoration:underline;margin-left: 5px;color: #000000;"> docs</a>.
-    <a id="delete" style="margin-left: 20px;cursor: pointer;">✖</a>
-</div>
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Nebula Graph Database Manual" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Nebula Graph Database Manual">
 <img alt="logo" src="https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png"/>
@@ -67,11 +61,11 @@
 </div>
 </div>
 <form class="md-header__option" data-md-component="palette">
-<input class="md-option" data-md-color-accent="green" data-md-color-media="" data-md-color-primary="teal" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="green" data-md-color-media="" data-md-color-primary="teal" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
 </label>
-<input class="md-option" data-md-color-accent="red" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="red" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"></path></svg>
 </label>
@@ -118,13 +112,6 @@
 </div>
 </nav>
 </header>
-<script>
-  var symbol = document.getElementById("delete");
-  var banner = document.getElementById("banner");
-  symbol.addEventListener("click",function(){
-    banner.style.display = "none";
-  })
-</script>
 <div class="md-container" data-md-component="container">
 <main class="md-main" data-md-component="main">
 <div class="md-main__inner md-grid">
@@ -219,6 +206,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#define_and_modify_the_data_type_of_vids">
     Define and modify the data type of VIDs
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query_start_vid_and_global_scan">
+    Query start vid and global scan
   </a>
 </li>
 </ul>
@@ -2136,6 +2128,11 @@
     Define and modify the data type of VIDs
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query_start_vid_and_global_scan">
+    Query start vid and global scan
+  </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -2207,27 +2204,26 @@
 </ul>
 <h2 id="define_and_modify_the_data_type_of_vids">Define and modify the data type of VIDs<a class="headerlink" href="#define_and_modify_the_data_type_of_vids" title="Permanent link">¶</a></h2>
 <p>The data type of VIDs must be defined when you <a href="../../3.ngql-guide/9.space-statements/1.create-space/">create the graph space</a>. Once defined, it cannot be modified.</p>
-<!--
-## "查询起始点"(`start vid`)与全局扫描
-
-绝大多数情况下，Nebula Graph 的查询语句(`MATCH`, `GO`, `LOOKUP`)的执行计划，必须要通过一定方式找到查询起始点的 VID (`start vid`)。
-
-定位 `start vid` 只有两种方式：
-
-1. 例如 `GO FROM "player100" OVER` 是在语句中显式的指明 `start vid` 是 "player100";
-
-2. 例如, `LOOKUP ON player WHERE player.name == "Tony Parker"` 或者 `MATCH (v:player {name:"Tony Parker"}) `，是通过属性 `player.name` 的索引来定位到 `start vid`；
-
-
-!!! caution 不能在没有 `start vid` 情况下进行全局扫描；
-
-    例如 `match (n) return n;` 会返回错误，因为此时无法定位到 `start vid`；这是一个全局扫描，因此被禁止。
--->
+<h2 id="query_start_vid_and_global_scan">Query <code>start vid</code> and global scan<a class="headerlink" href="#query_start_vid_and_global_scan" title="Permanent link">¶</a></h2>
+<p>In most cases, the execution plan of query statements in Nebula Graph (<code>MATCH</code>, <code>GO</code>, and <code>LOOKUP</code>) must query the <code>start vid</code> in a certain way.</p>
+<p>There are only two ways to locate <code>start vid</code>:</p>
+<ol>
+<li>
+<p>For example, <code>GO FROM "player100" OVER</code> explicitly indicates in the statement that <code>start vid</code> is "player100".</p>
+</li>
+<li>
+<p>For example, <code>LOOKUP ON player WHERE player.name == "Tony Parker"</code> or <code>MATCH (v:player {name:"Tony Parker"})</code> locates <code>start vid</code> by the index of the property <code>player.name</code>.</p>
+</li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">You cannot perform a global scan without <code>start vid</code></p>
+<p>For example, <code>match (n) return n;</code> returns an error because <code>start vid</code> cannot be located at this time. As a global scan, it is forbidden.</p>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2021</span>
 </small>
 </div>
 </article>
