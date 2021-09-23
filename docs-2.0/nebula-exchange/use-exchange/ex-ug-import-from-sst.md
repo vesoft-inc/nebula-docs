@@ -396,6 +396,10 @@ After the task is complete, you can view the generated SST file in the `/sst` di
 
 ### Step 5: Import the SST file
 
+!!! caution
+
+    If you need to import SST files to Nebula Graph 2.5.x, please add `--enable_vertex_cache =false` in the [Storage configuration file](../../5.configurations-and-logs/1.configurations/4.storage-config.md) and restart the Storage service to import SST files normally. Otherwise, the old data may not be overwritten.
+
 Connect to the Nebula Graph database using the client tool and import the SST file as follows:
 
 1. Run the following command to select the graph space you created earlier.
