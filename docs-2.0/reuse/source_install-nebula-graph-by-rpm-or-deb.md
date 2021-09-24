@@ -8,6 +8,10 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
     The console is not complied or packaged with Nebula Graph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
 
+!!! enterpriseonly
+
+    For the Enterprise Edition, please send an email to inquiry@vesoft.com.
+
 ## Download the package from cloud service
 
 * Download the released version.
