@@ -2554,12 +2554,26 @@ Got 1 rows (time spent 1235/1934 us)
 <h3 id="is_stopping_or_killing_slow_queries_supported">"Is stopping or killing slow queries supported?"<a class="headerlink" href="#is_stopping_or_killing_slow_queries_supported" title="Permanent link">¶</a></h3>
 <p>Yes. For more information, see <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/6.kill-query/">Kill query</a>.</p>
 <h3 id="why_are_the_query_results_different_when_using_go_and_match_to_execute_the_same_semantic_query">"Why are the query results different when using <code>GO</code> and <code>MATCH</code> to execute the same semantic query?"<a class="headerlink" href="#why_are_the_query_results_different_when_using_go_and_match_to_execute_the_same_semantic_query" title="Permanent link">¶</a></h3>
+<p>The possible reasons are listed as follows.</p>
+<ul>
+<li><code>GO</code> statements find the dangling edges.</li>
+</ul>
+<ul>
+<li><code>RETURN</code> commands do not specify the sequence.</li>
+</ul>
+<ul>
+<li>The dense vertex truncation limitation defined by <code>max_edge_returned_per_vertex</code> in the Storage service is triggered.</li>
+</ul>
+<ul>
+<li>
 <p>Using different types of paths may cause different query results.</p>
 <ul>
 <li><code>GO</code> statements use <code>walk</code>. Both vertices and edges can be repeatedly visited in graph traversal.</li>
 </ul>
 <ul>
 <li><code>MATCH</code> statements are compatible with openCypher and use <code>trail</code>. Only vertices can be repeatedly visited in graph traversal.</li>
+</ul>
+</li>
 </ul>
 <p>The example is as follows.</p>
 <p><img alt="Path" src="../../images/path1.png"/></p>
@@ -2636,7 +2650,7 @@ Got 1 rows (time spent 1235/1934 us)
 <p>The reason for this error may be that the user has modified the IP or the port information of the metad process, or the storage service has joined other clusters before. Possible solutions are as follows:</p>
 <p>Delete the <code>cluster.id</code> file in the installation directory where the storage machine is deployed (the default installation directory is <code>/usr/local/nebula</code>), and restart the storaged service.</p>
 <h3 id="can_non-english_characters_be_used_as_identifiers_such_as_the_names_of_graph_spaces_tags_edge_types_properties_and_indexes">Can non-English characters be used as identifiers, such as the names of graph spaces, tags, edge types, properties, and indexes?<a class="headerlink" href="#can_non-english_characters_be_used_as_identifiers_such_as_the_names_of_graph_spaces_tags_edge_types_properties_and_indexes" title="Permanent link">¶</a></h3>
-<p>No. </p>
+<p>No.</p>
 <p>The names of graph spaces, tags, edge types, properties, and indexes must use English letters, numbers, or underlines. Non-English characters are not currently supported.</p>
 <p>Meanwhile, the above identifiers are case-sensitive and cannot use <a href="../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a>.</p>
 <h3 id="how_to_get_the_out-degreethe_in-degree_of_a_vertex_with_a_given_name">"How to get the out-degree/the in-degree of a vertex with a given name"?<a class="headerlink" href="#how_to_get_the_out-degreethe_in-degree_of_a_vertex_with_a_given_name" title="Permanent link">¶</a></h3>
@@ -2645,7 +2659,7 @@ Got 1 rows (time spent 1235/1934 us)
 nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == "given" RETURN count(e); #In-degree
 </code></pre></div>
 <h3 id="how_to_quickly_get_the_out-degree_and_in-degree_of_all_vertices">"How to quickly get the out-degree and in-degree of all vertices?"<a class="headerlink" href="#how_to_quickly_get_the_out-degree_and_in-degree_of_all_vertices" title="Permanent link">¶</a></h3>
-<p>There is no such command. </p>
+<p>There is no such command.</p>
 <p>You can use <a href="../../nebula-algorithm/">Nebula Algorithm</a>.</p>
 <h3 id="how_to_resolve_error_-1005_schema_not_exist_xxx">"How to resolve <code>[ERROR (-1005)]: Schema not exist: xxx</code>?"<a class="headerlink" href="#how_to_resolve_error_-1005_schema_not_exist_xxx" title="Permanent link">¶</a></h3>
 <p>If the system returns <code>Schema not exist</code> when querying, make sure that:</p>
@@ -2732,7 +2746,7 @@ This <span class="nb">source</span> code is licensed under Apache <span class="m
 </tbody>
 </table>
 <p>If you have customized the configuration files and changed the predefined ports, find the port numbers in your configuration files and open them on the firewalls.</p>
-<p>For those eco-tools, see the corresponding document. </p>
+<p>For those eco-tools, see the corresponding document.</p>
 <h3 id="how_to_test_whether_a_port_is_open_or_closed">"How to test whether a port is open or closed?"<a class="headerlink" href="#how_to_test_whether_a_port_is_open_or_closed" title="Permanent link">¶</a></h3>
 <p>You can use telnet as follows to check for port status.</p>
 <div class="highlight"><pre><span></span><code>telnet &lt;ip&gt; &lt;port&gt;
@@ -2757,7 +2771,7 @@ telnet: connect to address <span class="m">192</span>.168.1.10: Connection refus
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 24, 2021</span>
 </small>
 </div>
 </article>
