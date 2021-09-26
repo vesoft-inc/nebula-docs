@@ -8,76 +8,6 @@ This topic describes how to deploy Studio locally by Docker, RPM, and tar packag
 !!! Note
 
     You can also try some functions online in [Studio](https://playground.nebula-graph.io/explorer).
-## Docker-based Studio
-
-### Prerequisites
-
-Before you deploy Studio, you must do a check of these:
-
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
-
-- On the machine where Studio will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
-
-- Before the installation starts, the following ports are not occupied.
-
-   | Port | Description |
-   | ---- | ---- |
-   | 7001 | Web service provided by Studio |
-   | 8080 | Nebula-http-gateway, Client's HTTP service |
-   | 5699 | Nebula importer file import tool, provide data import service |
-
-
-### Procedure
-
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph v{{nebula.release}} for demonstration:
-
-1. Download the configuration files for the deployment.
-   
-   | Installation package | Nebula Graph version |
-   | ----- | ----- |
-   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | v{{nebula.release}} |
-
-2. Create the `nebula-graph-studio-v3` directory and decompress the installation package to the directory.
-
-    ```bash
-    mkdir nebula-graph-studio-v3 && tar -zxvf nebula-graph-studio-v3.gz -C nebula-graph-studio-v3
-    ```
-
-3. Change to the `nebula-graph-studio-v3` directory.
-   ```bash
-   cd nebula-graph-studio-v3
-   ```
-
-4. Pull the Docker image of Studio.
-
-    ```bash
-    docker-compose pull
-    ```
-
-5. Build and start Docker-based Studio. In this command, `-d` is to run the containers in the background.
-
-   ```bash
-   docker-compose up -d
-   ```
-
-    If these lines are returned, Docker-based Studio v3.x is deployed and started.
-
-    ```bash
-    Creating docker_importer_1 ... done
-    Creating docker_client_1   ... done
-    Creating docker_web_1      ... done
-    Creating docker_nginx_1    ... done
-    ```
-
-6. When Docker-based Studio is started, use `http://ip address:7001` to get access to Studio.
-  
-  !!! note
-
-        Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
-
-   If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
-
-   ![The Config Server page shows that Docker-based Studio is started successfully](../figs/st-ug-025.png "Docker-based Studio is started")
 
 ## RPM-based Studio
 
@@ -113,14 +43,14 @@ Before you deploy Docker-based Studio, you must confirm that:
 
    | Installation package | Checksum | Nebula version |
    | ----- | ----- | ----- |
-   | [nebula-graph-studio-3.0.0-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm) |  [nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256) | v{{nebula.release}} |
+   | [nebula-graph-studio-{{studio.release}}-1.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}-1.x86_64.rpm) |  [nebula-graph-studio-{{studio.release}}-1.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}-1.x86_64.rpm.sha256) | v{{nebula.release}} |
 
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
    
-   For example, install Studio 3.0.0, use the following command:
+   For example, install Studio {{studio.release}}, use the following command:
    ```bash
-   sudo rpm -i nebula-graph-studio-3.0.0-1.x86_64.rpm
+   sudo rpm -i nebula-graph-studio-{{studio.release}}-1.x86_64.rpm
    ```
 
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
@@ -147,7 +77,7 @@ Before you deploy Docker-based Studio, you must confirm that:
 Users can uninstall Studio using the following command:
 
 ```bash
-sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64
+sudo rpm -e nebula-graph-studio-{{studio.release}}-1.x86_64
 ```
 
 ### Exception handling
@@ -223,12 +153,12 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
    | Installation package | Studio version |
    | --- | --- |
-   | [nebula-graph-studio-3.0.0-1.x86_64.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.tar.gz) | 3.0.0 |
+   | [nebula-graph-studio-{{studio.release}}-1.x86_64.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}-1.x86_64.tar.gz) | {{studio.release}} |
 
 2. Use `tar -xvf` to decompress the tar package.
 
    ```bash
-   tar -xvf nebula-graph-studio-3.0.0-1.x86_64.tar.gz
+   tar -xvf nebula-graph-studio-{{studio.release}}-1.x86_64.tar.gz
    ```
 
 ### Procedure
@@ -277,6 +207,77 @@ $ kill $(lsof -t -i :8080) # stop nebula-http-gateway
 $ cd nebula-graph-studio
 $ npm run stop # stop nebula-graph-studio
 ```
+
+## Docker-based Studio
+
+### Prerequisites
+
+Before you deploy Studio, you must do a check of these:
+
+- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+
+- On the machine where Studio will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
+
+- Before the installation starts, the following ports are not occupied.
+
+   | Port | Description |
+   | ---- | ---- |
+   | 7001 | Web service provided by Studio |
+   | 8080 | Nebula-http-gateway, Client's HTTP service |
+   | 5699 | Nebula importer file import tool, provide data import service |
+
+
+### Procedure
+
+To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph v{{nebula.release}} for demonstration:
+
+1. Download the configuration files for the deployment.
+   
+   | Installation package | Nebula Graph version |
+   | ----- | ----- |
+   | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | v{{nebula.release}} |
+
+2. Create the `nebula-graph-studio-v3` directory and decompress the installation package to the directory.
+
+    ```bash
+    mkdir nebula-graph-studio-v3 && tar -zxvf nebula-graph-studio-v3.gz -C nebula-graph-studio-v3
+    ```
+
+3. Change to the `nebula-graph-studio-v3` directory.
+   ```bash
+   cd nebula-graph-studio-v3
+   ```
+
+4. Pull the Docker image of Studio.
+
+    ```bash
+    docker-compose pull
+    ```
+
+5. Build and start Docker-based Studio. In this command, `-d` is to run the containers in the background.
+
+   ```bash
+   docker-compose up -d
+   ```
+
+    If these lines are returned, Docker-based Studio v3.x is deployed and started.
+
+    ```bash
+    Creating docker_importer_1 ... done
+    Creating docker_client_1   ... done
+    Creating docker_web_1      ... done
+    Creating docker_nginx_1    ... done
+    ```
+
+6. When Docker-based Studio is started, use `http://ip address:7001` to get access to Studio.
+  
+  !!! note
+
+        Run `ifconfig` or `ipconfig` to get the IP address of the machine where Docker-based Studio is running. On the machine running Docker-based Studio, you can use `http://localhost:7001` to get access to Studio.
+
+   If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
+
+   ![The Config Server page shows that Docker-based Studio is started successfully](../figs/st-ug-025.png "Docker-based Studio is started")
 
 ## Next to do
 
