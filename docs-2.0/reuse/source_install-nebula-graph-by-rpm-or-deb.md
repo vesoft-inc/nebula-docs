@@ -2,7 +2,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
 ## Prerequisites
 
-Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/1.resource-preparations/).<!--这里用外链。-->
+Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/deploy-nebula-graph-cluster/).<!--这里用外链。-->
 
 !!! note
 
