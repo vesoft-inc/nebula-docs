@@ -2329,6 +2329,10 @@
 </a>
 <h1 id="job_manager_and_the_job_statements">Job manager and the JOB statements<a class="headerlink" href="#job_manager_and_the_job_statements" title="Permanent link">¶</a></h1>
 <p>The long-term tasks run by the Storage Service are called jobs, such as <code>COMPACT</code>, <code>FLUSH</code>, and <code>STATS</code>. These jobs can be time-consuming if the data amount in the graph space is large. The job manager helps you run, show, stop, and recover jobs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All job management commands can be executed only after selecting a graph space.</p>
+</div>
 <h2 id="submit_job_compact">SUBMIT JOB COMPACT<a class="headerlink" href="#submit_job_compact" title="Permanent link">¶</a></h2>
 <p>The <code>SUBMIT JOB COMPACT</code> statement triggers the long-term RocksDB <code>compact</code> operation.</p>
 <p>For more information about <code>compact</code> configuration, see <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage Service configuration</a>.</p>
@@ -2365,7 +2369,7 @@
 +------------+
 </code></pre></div>
 <h2 id="show_job">SHOW JOB<a class="headerlink" href="#show_job" title="Permanent link">¶</a></h2>
-<p>The Meta Service parses a <code>SUBMIT JOB</code> request into multiple tasks and assigns them to the nebula-storaged processes. The <code>SHOW JOB &lt;job_id&gt;</code> statement shows the information about a specific job and all its tasks.</p>
+<p>The Meta Service parses a <code>SUBMIT JOB</code> request into multiple tasks and assigns them to the nebula-storaged processes. The <code>SHOW JOB &lt;job_id&gt;</code> statement shows the information about a specific job and all its tasks in the current graph space.</p>
 <p><code>job_id</code> is returned when you run the <code>SUBMIT JOB</code> statement.</p>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 96;
@@ -2456,7 +2460,7 @@
         \ ---------- stopped -/
 </code></pre></div>
 <h2 id="show_jobs">SHOW JOBS<a class="headerlink" href="#show_jobs" title="Permanent link">¶</a></h2>
-<p>The <code>SHOW JOBS</code> statement lists all the unexpired jobs.</p>
+<p>The <code>SHOW JOBS</code> statement lists all the unexpired jobs in the current graph space.</p>
 <p>The default job expiration interval is one week. You can change it by modifying the <code>job_expired_secs</code> parameter of the Meta Service. For how to modify <code>job_expired_secs</code>, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta Service configuration</a>.</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
@@ -2473,7 +2477,7 @@
 +--------+----------------------+------------+-------------------------+-------------------------+
 </code></pre></div>
 <h2 id="stop_job">STOP JOB<a class="headerlink" href="#stop_job" title="Permanent link">¶</a></h2>
-<p>The <code>STOP JOB</code> statement stops jobs that are not finished.</p>
+<p>The <code>STOP JOB</code> statement stops jobs that are not finished in the current graph space.</p>
 <h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; STOP JOB 22;
 +---------------+
@@ -2483,7 +2487,7 @@
 +---------------+
 </code></pre></div>
 <h2 id="recover_job">RECOVER JOB<a class="headerlink" href="#recover_job" title="Permanent link">¶</a></h2>
-<p>The <code>RECOVER JOB</code> statement re-executes the failed jobs and returns the number of recovered jobs.</p>
+<p>The <code>RECOVER JOB</code> statement re-executes the failed jobs in the current graph space and returns the number of recovered jobs.</p>
 <h3 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; RECOVER JOB;
 +-------------------+
@@ -2501,7 +2505,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2021</span>
 </small>
 </div>
 </article>
