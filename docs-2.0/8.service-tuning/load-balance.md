@@ -137,7 +137,7 @@ Nebula Graph will start a balance task, migrate the storage partitions in storag
 
 !!! note 
 
-    The removed server's state will change to `OFFLINE` by default after 24 hours, which is configurable via `removed_threshold_sec` in metaD.
+    The removed server's state will be changed to `OFFLINE` by default after 24 hours, which is configurable via `removed_threshold_sec` in metaD.
 
 ## Balance leader distribution
 
