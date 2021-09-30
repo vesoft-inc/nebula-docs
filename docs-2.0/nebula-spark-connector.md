@@ -38,7 +38,7 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 * Unifies the extended data source of SparkSQL, and uses DataSourceV2 to extend Nebula Graph data.
 
-* Two write modes, `insert` and `update`, are supported. `insert` mode will insert (overwrite) data, and `update` mode will only update existing data.
+* Three write modes, `insert`, `update` and `delete`, are supported. `insert` mode will insert (overwrite) data, `update` mode will only update existing data, and `delete` mode will only delete data.
 
 ## Get Nebula Spark Connector
 
