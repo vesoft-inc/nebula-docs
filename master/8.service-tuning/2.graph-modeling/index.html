@@ -9,9 +9,9 @@
 <meta content="Nebula Graph" name="author"/>
 <link href="https://docs.nebula-graph.io/master/8.service-tuning/2.graph-modeling/" rel="canonical"/>
 <link href="../../assets/images/favicon.ico" rel="icon"/>
-<meta content="mkdocs-1.2.2, mkdocs-material-7.3.0" name="generator"/>
+<meta content="mkdocs-1.2.2, mkdocs-material-7.3.2" name="generator"/>
 <title>Modeling suggestions - Nebula Graph Database Manual</title>
-<link href="../../assets/stylesheets/main.8b42a75e.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.24c991ad.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -2308,7 +2308,7 @@
 <h3 id="control_changes_in_the_business_model_and_the_data_model">Control changes in the business model and the data model<a class="headerlink" href="#control_changes_in_the_business_model_and_the_data_model" title="Permanent link">¶</a></h3>
 <p>Changes here refer to changes in business models and data models (meta-information), not changes in the data itself.</p>
 <p>Some graph databases are designed to be Schema-free, so their data modeling, including the modeling of the graph topology and properties, can be very flexible. Properties can be re-modeled to graph topology, and vice versa. Such systems are often specifically optimized for graph topology access.</p>
-<p>Nebula Graph 2.5.0 is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
+<p>Nebula Graph master is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
 <p>On the contrary, vertices and their edges can be added or deleted at low costs. Thus, the easy-to-change part of the business model should be transformed to vertices or edges, rather than properties.</p>
 <p>For example, in a business model, people have relatively fixed properties such as age, gender, and name. But their contact, place of visit, trade account, and login device are often changing. The former is suitable for modeling as properties and the latter as vertices or edges.</p>
 <h3 id="breadth-first_traversal_over_depth-first_traversal">Breadth-first traversal over depth-first traversal<a class="headerlink" href="#breadth-first_traversal_over_depth-first_traversal" title="Permanent link">¶</a></h3>
@@ -2316,7 +2316,7 @@
 <li>Nebula Graph has lower performance for depth-first traversal based on the Graph topology, and better performance for breadth-first traversal and obtaining properties. For example, if model A contains properties "name", "age", and "eye color", it is recommended to create a tag <code>person</code> and add properties <code>name</code>, <code>age</code>, and <code>eye_color</code> to it. If you create a tag <code>eye_color</code> and an edge type <code>has</code>, and then create an edge to represent the eye color owned by the person, the traversal performance will not be high.</li>
 </ul>
 <ul>
-<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph 2.5.0, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
+<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph master, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
 </ul>
 <h3 id="edge_directions">Edge directions<a class="headerlink" href="#edge_directions" title="Permanent link">¶</a></h3>
 <p>To query in the opposite direction of an edge, use the following syntax:</p>
@@ -2334,7 +2334,7 @@
 <p>Do not use long texts to create edge properties. Edge properties are stored twice and long texts lead to greater write amplification. For how edges properties are stored, see <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">Storage architecture</a>. It is recommended to store long texts in HBase or Elasticsearch and store its address in Nebula Graph.</p>
 <h2 id="dynamic_graphs_sequence_graphs_are_not_supported">Dynamic graphs (sequence graphs) are not supported<a class="headerlink" href="#dynamic_graphs_sequence_graphs_are_not_supported" title="Permanent link">¶</a></h2>
 <p>In some scenarios, graphs need to have the time information to describe how the structure of the entire graph changes over time.<sup id="fnref:twitter"><a class="footnote-ref" href="#fn:twitter">1</a></sup></p>
-<p>The Rank field on Edges in Nebula Graph 2.5.0 can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
+<p>The Rank field on Edges in Nebula Graph master can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
 <p><img alt="image" src="../sequence.png"/></p>
 <div class="footnote">
 <hr/>
@@ -2413,8 +2413,8 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.f8263e09.min.js", "version": {"method": "mike"}}</script>
-<script src="../../assets/javascripts/bundle.4fc53ad4.min.js"></script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"method": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
 <script src="../../js/version-select.js"></script>
 <script src="../../js/jquery.js"></script>
 <script src="../../js/search.js"></script>
