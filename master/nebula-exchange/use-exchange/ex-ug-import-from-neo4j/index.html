@@ -2456,7 +2456,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   # Spark configuration
   spark: {
     app: {
-      name: Nebula Exchange 2.5.0
+      name: Nebula Exchange 2.5.1
     }
 
     driver: {
@@ -2581,6 +2581,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       target: {
         field: dst
       }
+      #ranking: rank
       partition: 10
       batch: 1000
       check_point_path: /tmp/test
@@ -2605,6 +2606,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       target: {
         field: dst
       }
+      #ranking: rank
       partition: 10
       batch: 1000
       check_point_path: /tmp/test
@@ -2625,14 +2627,14 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>If breakpoint continuation is enabled, to avoid data loss, the state of the database should not change between the breakpoint and the continuation, for example, data cannot be added or deleted, and the <code>partition</code> quantity configuration should not be changed.</p>
 <h3 id="step_4_import_data_into_nebula_graph">Step 4: Import data into Nebula Graph<a class="headerlink" href="#step_4_import_data_into_nebula_graph" title="Permanent link">¶</a></h3>
 <p>Run the following command to import Neo4j data into Nebula Graph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">"local"</span> --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-2.5.0.jar_path&gt; -c &lt;neo4j_application.conf_path&gt; 
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">"local"</span> --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-2.5.1.jar_path&gt; -c &lt;neo4j_application.conf_path&gt; 
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit  --master <span class="s2">"local"</span> --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-2.5.0.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/neo4j_application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit  --master <span class="s2">"local"</span> --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-2.5.1.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/neo4j_application.conf
 </code></pre></div>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_5_optional_validation_data">Step 5: (optional) Validation data<a class="headerlink" href="#step_5_optional_validation_data" title="Permanent link">¶</a></h3>
@@ -2646,7 +2648,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2021</span>
 </small>
 </div>
 </article>
