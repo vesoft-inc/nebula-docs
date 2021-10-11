@@ -30,7 +30,7 @@ Before importing data, you need to confirm the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
-  - User name and password with Nebula Graph write permission.
+  - The user name and password with Nebula Graph write permission.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
