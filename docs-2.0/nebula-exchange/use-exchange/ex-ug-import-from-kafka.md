@@ -8,11 +8,11 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hardware specifications:
   - CPU: 1.7 GHz Quad-Core Intel Core i7
-  - memory: 16 GB
+  - Memory: 16 GB
 
-- Spark: 2.4.7, Stand-alone
+- Spark: 2.4.7, stand-alone
 
-- Nebula Graph: {{nebula.release}} ([Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md))
+- Nebula Graph: {{nebula.release}}. [Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
 
 ## Prerequisites
 
@@ -20,15 +20,15 @@ Before importing data, you need to confirm the following information:
 
 - Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
-  - IP address and port of Graph and Meta services.
+  - IP addresses and ports of Graph and Meta services.
 
-  - User name and password with Nebula Graph write permission.
+  - The user name and password with write permission to Nebula Graph.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including Tag and Edge type names, properties, and more.
+- Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.
 
 - The Kafka service has been installed and started.
 
@@ -40,7 +40,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 
 1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
 
-    | Element  | name | property |
+    | Element  | Name | Property |
     | :--- | :--- | :--- |
     | Tag | `player` | `name string, age int` |
     | Tag | `team` | `name string` |
@@ -50,37 +50,37 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
 
     ```ngql
-    ## create graph space
+    ## Create a graph space.
     nebula> CREATE SPACE basketballplayer \
             (partition_num = 10, \
             replica_factor = 1, \
             vid_type = FIXED_STRING(30));
     
-    ## use the graph space basketballplayer
+    ## Use the graph space basketballplayer.
     nebula> USE basketballplayer;
     
-    ## create Tag player
+    ## Create the Tag player.
     nebula> CREATE TAG player(name string, age int);
     
-    ## create Tag team
+    ## Create the Tag team.
     nebula> CREATE TAG team(name string);
     
-    ## create Edge type follow
+    ## Create the Edge type follow.
     nebula> CREATE EDGE follow(degree int);
 
-    ## create Edge type serve
+    ## Create the Edge type serve.
     nebula> CREATE EDGE serve(start_year int, end_year int);
     ```
 
 For more information, see [Quick start workflow](../../2.quick-start/1.quick-start-workflow.md).
 
-### Step 2: Modify configuration file
+### Step 2: Modify configuration files
 
 !!! note
 
     If some data is stored in Kafka's value field, you need to modify the source code, get the value from Kafka, parse the value through the from_JSON function, and return it as a Dataframe.
 
-After Exchange is compiled, copy the conf file `target/classes/application.conf` settings Kafka data source configuration. In this case, the copied file is called `kafka_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
+After Exchange is compiled, copy the conf file `target/classes/application.conf` to set Kafka data source configuration. In this example, the copied file is called `kafka_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
 
 ```conf
 {
@@ -129,15 +129,17 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       timeout: 1000
     }
   }
-  # Processing vertex
+  # Processing vertexes
   tags: [
-    # Set information about Tag player.
+    # Set the information about the Tag player.
     {
+
+      # The corresponding Tag name in Nebula Graph.
       name: player
       type: {
-        # Specify the data source file format, set to Kafka.
+        # Specify the data source file format to Kafka.
         source: kafka
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
       # Kafka server address.
@@ -147,26 +149,26 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
-      # Specify the field name in fields, for example key for name in Nebula and value for age in Nebula, as shown in the following.
+      # Specify the field name in fields. For example, use key for name in Nebula and value for age in Nebula, as shown in the following.
       fields: [key,value]
       nebula.fields: [name,age]
 
       # Specify a column of data in the table as the source of vertex VID in the Nebula Graph.
-      # The key is the same as the value above, indicating that key is used as both VID and attribute name.
+      # The key is the same as the value above, indicating that key is used as both VID and property name.
       vertex:{
           field:key
       }
 
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 10
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 10
-      # Read message interval. Unit: second.
+      # The interval for message reading. Unit: second.
       interval.seconds: 10
     }
-    # Set Tag Team information.
+    # Set the information about the Tag Team.
     {
       name: team
       type: {
@@ -187,18 +189,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
   ]
 
-  # Processing edge
+  # Processing edges
   edges: [
-    # Set information about Edge Type follow
+    # Set the information about the Edge Type follow.
     {
       # The corresponding Edge Type name in Nebula Graph.
       name: follow
 
       type: {
-        # Specify the data source file format, set to Kafka.
+        # Specify the data source file format to Kafka.
         source: kafka
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the Edge type data into Nebula Graph.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
 
@@ -209,33 +212,33 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
-      # Specify the field name in fields, for example key for degree in Nebula, as shown in the following.
+      # Specify the field name in fields. For example, use key for degree in Nebula, as shown in the following.
       fields: [key]
       nebula.fields: [degree]
 
-      # In source, use a column in the topic as the source of the edge's starting vertex.
-
+      # In source, use a column in the topic as the source of the edge's source vertex.
+      # In target, use a column in the topic as the source of the edge's destination vertex.
       source:{
           field:timestamp
       }
 
-      # In target, use a column in the topic as the source of the edge's destination vertex.
+
       target:{
           field:offset
       }
 
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 10
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 10
 
-      # Read message interval. Unit: second.
+      # The interval for message reading. Unit: second.
       interval.seconds: 10
     }
 
-    # Set information about Edge Type serve
+    # Set the information about the Edge Type serve.
     {
       name: serve
       type: {
@@ -275,7 +278,7 @@ ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchan
 
     JAR packages are available in two ways: [compiled them yourself](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
-Example:
+For example:
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/kafka_application.conf
@@ -283,9 +286,9 @@ ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.excha
 
 You can search for `batchSuccess.<tag_name/edge_name>` in the command output to check the number of successes. For example, `batchSuccess.follow: 300`.
 
-### Step 4: (optional) Validation data
+### Step 4: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). Such as:
+Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
