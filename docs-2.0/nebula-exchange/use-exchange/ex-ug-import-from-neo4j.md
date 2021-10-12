@@ -237,6 +237,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       target: {
         field: dst
       }
+      #ranking: rank
       partition: 10
       batch: 1000
       check_point_path: /tmp/test
@@ -261,6 +262,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       target: {
         field: dst
       }
+      #ranking: rank
       partition: 10
       batch: 1000
       check_point_path: /tmp/test
