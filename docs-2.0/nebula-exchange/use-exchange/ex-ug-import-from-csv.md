@@ -227,7 +227,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [name]
 
-      # Specify a column of data in the table as the source of vertex VID in the Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in the Nebula Graph.
       # The value of vertex must be the same as the column names in the above fields or csv.fields.
       # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
