@@ -2007,8 +2007,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#step_2_modify_configuration_file">
-    Step 2: Modify configuration file
+<a class="md-nav__link" href="#step_2_modify_configuration_files">
+    Step 2: Modify configuration files
   </a>
 </li>
 <li class="md-nav__item">
@@ -2017,8 +2017,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#step_4_optional_validation_data">
-    Step 4: (optional) Validation data
+<a class="md-nav__link" href="#step_4_optional_validate_data">
+    Step 4: (optional) Validate data
   </a>
 </li>
 <li class="md-nav__item">
@@ -2219,8 +2219,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#step_2_modify_configuration_file">
-    Step 2: Modify configuration file
+<a class="md-nav__link" href="#step_2_modify_configuration_files">
+    Step 2: Modify configuration files
   </a>
 </li>
 <li class="md-nav__item">
@@ -2229,8 +2229,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#step_4_optional_validation_data">
-    Step 4: (optional) Validation data
+<a class="md-nav__link" href="#step_4_optional_validate_data">
+    Step 4: (optional) Validate data
   </a>
 </li>
 <li class="md-nav__item">
@@ -2258,15 +2258,15 @@
 <ul>
 <li>Hardware specifications:<ul>
 <li>CPU: 1.7 GHz Quad-Core Intel Core i7</li>
-<li>memory: 16 GB</li>
+<li>Memory: 16 GB</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Spark: 2.4.7, Stand-alone</li>
+<li>Spark: 2.4.7, stand-alone</li>
 </ul>
 <ul>
-<li>Nebula Graph: master (<a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose/">Deploy Nebula Graph with Docker Compose</a>)</li>
+<li>Nebula Graph: master. <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose/">Deploy Nebula Graph with Docker Compose</a>.</li>
 </ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Before importing data, you need to confirm the following information:</p>
@@ -2274,10 +2274,10 @@
 <li>
 <p>Nebula Graph has been <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">installed</a> and deployed with the following information:</p>
 <ul>
-<li>IP address and port of Graph and Meta services.</li>
+<li>IP addresses and ports of Graph and Meta services.</li>
 </ul>
 <ul>
-<li>User name and password with Nebula Graph write permission.</li>
+<li>The user name and password with write permission to Nebula Graph.</li>
 </ul>
 </li>
 </ul>
@@ -2288,7 +2288,7 @@
 <li>Spark has been installed.</li>
 </ul>
 <ul>
-<li>Learn about the Schema created in Nebula Graph, including Tag and Edge type names, properties, and more.</li>
+<li>Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.</li>
 </ul>
 <ul>
 <li>The Kafka service has been installed and started.</li>
@@ -2303,8 +2303,8 @@
 <thead>
 <tr>
 <th align="left">Element</th>
-<th align="left">name</th>
-<th align="left">property</th>
+<th align="left">Name</th>
+<th align="left">Property</th>
 </tr>
 </thead>
 <tbody>
@@ -2333,36 +2333,36 @@
 </li>
 <li>
 <p>Create a graph space <strong>basketballplayer</strong> in the Nebula Graph and create a Schema as shown below.</p>
-<div class="highlight"><pre><span></span><code>## create graph space
+<div class="highlight"><pre><span></span><code>## Create a graph space.
 nebula&gt; CREATE SPACE basketballplayer \
         (partition_num = 10, \
         replica_factor = 1, \
         vid_type = FIXED_STRING(30));
 
-## use the graph space basketballplayer
+## Use the graph space basketballplayer.
 nebula&gt; USE basketballplayer;
 
-## create Tag player
+## Create the Tag player.
 nebula&gt; CREATE TAG player(name string, age int);
 
-## create Tag team
+## Create the Tag team.
 nebula&gt; CREATE TAG team(name string);
 
-## create Edge type follow
+## Create the Edge type follow.
 nebula&gt; CREATE EDGE follow(degree int);
 
-## create Edge type serve
+## Create the Edge type serve.
 nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 </li>
 </ol>
 <p>For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Quick start workflow</a>.</p>
-<h3 id="step_2_modify_configuration_file">Step 2: Modify configuration file<a class="headerlink" href="#step_2_modify_configuration_file" title="Permanent link">¶</a></h3>
+<h3 id="step_2_modify_configuration_files">Step 2: Modify configuration files<a class="headerlink" href="#step_2_modify_configuration_files" title="Permanent link">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If some data is stored in Kafka's value field, you need to modify the source code, get the value from Kafka, parse the value through the from_JSON function, and return it as a Dataframe.</p>
 </div>
-<p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> settings Kafka data source configuration. In this case, the copied file is called <code>kafka_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
+<p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> to set Kafka data source configuration. In this example, the copied file is called <code>kafka_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
 <div class="highlight"><pre><span></span><code>{
   # Spark configuration
   spark: {
@@ -2409,15 +2409,17 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       timeout: 1000
     }
   }
-  # Processing vertex
+  # Processing vertexes
   tags: [
-    # Set information about Tag player.
+    # Set the information about the Tag player.
     {
+
+      # The corresponding Tag name in Nebula Graph.
       name: player
       type: {
-        # Specify the data source file format, set to Kafka.
+        # Specify the data source file format to Kafka.
         source: kafka
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
       # Kafka server address.
@@ -2427,26 +2429,26 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
-      # Specify the field name in fields, for example key for name in Nebula and value for age in Nebula, as shown in the following.
+      # Specify the field name in fields. For example, use key for name in Nebula and value for age in Nebula, as shown in the following.
       fields: [key,value]
       nebula.fields: [name,age]
 
       # Specify a column of data in the table as the source of vertex VID in the Nebula Graph.
-      # The key is the same as the value above, indicating that key is used as both VID and attribute name.
+      # The key is the same as the value above, indicating that key is used as both VID and property name.
       vertex:{
           field:key
       }
 
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 10
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 10
-      # Read message interval. Unit: second.
+      # The interval for message reading. Unit: second.
       interval.seconds: 10
     }
-    # Set Tag Team information.
+    # Set the information about the Tag Team.
     {
       name: team
       type: {
@@ -2467,18 +2469,19 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
   ]
 
-  # Processing edge
+  # Processing edges
   edges: [
-    # Set information about Edge Type follow
+    # Set the information about the Edge Type follow.
     {
       # The corresponding Edge Type name in Nebula Graph.
       name: follow
 
       type: {
-        # Specify the data source file format, set to Kafka.
+        # Specify the data source file format to Kafka.
         source: kafka
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the Edge type data into Nebula Graph.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
 
@@ -2489,33 +2492,33 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
-      # Specify the field name in fields, for example key for degree in Nebula, as shown in the following.
+      # Specify the field name in fields. For example, use key for degree in Nebula, as shown in the following.
       fields: [key]
       nebula.fields: [degree]
 
-      # In source, use a column in the topic as the source of the edge's starting vertex.
-
+      # In source, use a column in the topic as the source of the edge's source vertex.
+      # In target, use a column in the topic as the source of the edge's destination vertex.
       source:{
           field:timestamp
       }
 
-      # In target, use a column in the topic as the source of the edge's destination vertex.
+
       target:{
           field:offset
       }
 
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 10
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 10
 
-      # Read message interval. Unit: second.
+      # The interval for message reading. Unit: second.
       interval.seconds: 10
     }
 
-    # Set information about Edge Type serve
+    # Set the information about the Edge Type serve.
     {
       name: serve
       type: {
@@ -2550,12 +2553,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
-<p>Example:</p>
+<p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit  --master <span class="s2">"local"</span> --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-2.5.1.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/kafka_application.conf
 </code></pre></div>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
-<h3 id="step_4_optional_validation_data">Step 4: (optional) Validation data<a class="headerlink" href="#step_4_optional_validation_data" title="Permanent link">¶</a></h3>
-<p>Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). Such as:</p>
+<h3 id="step_4_optional_validate_data">Step 4: (optional) Validate data<a class="headerlink" href="#step_4_optional_validate_data" title="Permanent link">¶</a></h3>
+<p>Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:</p>
 <div class="highlight"><pre><span></span><code>GO FROM "player100" OVER follow;
 </code></pre></div>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/">SHOW STATS</a> command to view statistics.</p>
@@ -2565,7 +2568,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 12, 2021</span>
 </small>
 </div>
 </article>
