@@ -4,7 +4,7 @@ This topic describes Explorer main page.
 
 ## Overview
 
-![Explorer](../figs/ex-ug-006.png)
+![Explorer](../figs/explorer-en.png)
 The main page of Explorer is divided into five parts:
 
 - Tab bar
