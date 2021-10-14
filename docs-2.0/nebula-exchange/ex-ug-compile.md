@@ -60,9 +60,9 @@ When migrating data, you can refer to configuration file [`target/classes/applic
 
 ## Failed to download the dependency package
 
-If downloading dependencies fails at compile time:
+If downloading dependencies fails when compiling:
 
-- Check the network Settings and ensure that the network is normal.
+- Check the network settings and ensure that the network is normal.
 
 - Modify the `mirror` part of Maven installation directory `libexec/conf/settings.xml`:
 

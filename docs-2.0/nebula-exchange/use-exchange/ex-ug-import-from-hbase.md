@@ -49,15 +49,15 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hardware specifications:
   - CPU: 1.7 GHz Quad-Core Intel Core i7
-  - memory: 16 GB
+  - Memory: 16 GB
 
-- Spark: 2.4.7, Stand-alone
+- Spark: 2.4.7, stand-alone
 
-- Hadoop: 2.9.2, Pseudo-distributed deployment
+- Hadoop: 2.9.2, pseudo-distributed deployment
 
 - HBase: 2.2.7
 
-- Nebula Graph: {{nebula.release}} ([Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md))
+- Nebula Graph: {{nebula.release}}. [Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
 
 ## Prerequisites
 
@@ -65,15 +65,15 @@ Before importing data, you need to confirm the following information:
 
 - Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
-  - IP address and port of Graph and Meta services.
+  - IP addresses and ports of Graph and Meta services.
 
-  - User name and password with Nebula Graph write permission.
+  - The user name and password with write permission to Nebula Graph.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including Tag and Edge type names, properties, and more.
+- Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.
 
 - The Hadoop service has been installed and started.
 
@@ -85,7 +85,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 
 1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
 
-    | Element  | name | property |
+    | Element  | Name | Property |
     | :--- | :--- | :--- |
     | Tag | `player` | `name string, age int` |
     | Tag | `team` | `name string` |
@@ -95,33 +95,33 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
 
     ```ngql
-    ## create graph space
+    ## Create a graph space.
     nebula> CREATE SPACE basketballplayer \
             (partition_num = 10, \
             replica_factor = 1, \
             vid_type = FIXED_STRING(30));
     
-    ## use the graph space basketballplayer
+    ## Use the graph space basketballplayer.
     nebula> USE basketballplayer;
     
-    ## create Tag player
+    ## Create the Tag player.
     nebula> CREATE TAG player(name string, age int);
     
-    ## create Tag team
+    ## Create the Tag team.
     nebula> CREATE TAG team(name string);
     
-    ## create Edge type follow
+    ## Create the Edge type follow.
     nebula> CREATE EDGE follow(degree int);
 
-    ## create Edge type serve
+    ## Create the Edge type serve.
     nebula> CREATE EDGE serve(start_year int, end_year int);
     ```
 
 For more information, see [Quick start workflow](../../2.quick-start/1.quick-start-workflow.md).
 
-### Step 2: Modify configuration file
+### Step 2: Modify configuration files
 
-After Exchange is compiled, copy the conf file `target/classes/application.conf` settings HBase data source configuration. In this case, the copied file is called `hbase_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
+After Exchange is compiled, copy the conf file `target/classes/application.conf` to set HBase data source configuration. In this example, the copied file is called `hbase_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
 
 ```conf
 {
@@ -170,7 +170,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       timeout: 1000
     }
   }
-  # Processing vertex
+  # Processing vertexes
   tags: [
     # Set information about Tag player.
     # If you want to set RowKey as the data source, enter rowkey and the actual column name of the column family.
@@ -178,9 +178,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The Tag name in Nebula Graph.
       name: player
       type: {
-        # Specify the data source file format, set to HBase.
+        # Specify the data source file format to HBase.
         source: hbase
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
       host:192.168.*.*
@@ -229,18 +229,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
   ]
 
-  # Processing edge
+  # Processing edges
   edges: [
-    # Set information about Edge Type follow
+    # Set the information about the Edge Type follow.
     {
       # The corresponding Edge Type name in Nebula Graph.
       name: follow
 
       type: {
-        # Specify the data source file format, set to HBase.
+        # Specify the data source file format to HBase.
         source: hbase
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the Edge type data into Nebula Graph.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: client
       }
 
@@ -249,32 +250,32 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       table:"follow"
       columnFamily:"cf"
 
-      # Specify the column names in the follow table in Fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the Nebula Graph.
       # The sequence of fields and nebula.fields must correspond to each other.
       # If multiple column names need to be specified, separate them by commas.
       fields: [degree]
       nebula.fields: [degree]
 
-      # In source, use a column in the follow table as the source of the edge's starting vertex.
-
+      # In source, use a column in the follow table as the source of the edge's source vertex.
+      # In target, use a column in the follow table as the source of the edge's destination vertex.
       source:{
           field:rowkey
       }
 
-      # In target, use a column in the follow table as the source of the edge's destination vertex.
+
       target:{
           field:dst_player
       }
 
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 256
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 32
     }
 
-    # Set information about Edge Type serve
+    # Set the information about the Edge Type serve.
     {
       name: serve
       type: {
@@ -305,7 +306,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
 ### Step 3: Import data into Nebula Graph
 
-Run the following command to import HBase data into Nebula Graph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
+Run the following command to import HBase data into Nebula Graph. For descriptions of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <hbase_application.conf_path>
@@ -315,7 +316,7 @@ ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchan
 
     JAR packages are available in two ways: [compiled them yourself](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
-Example:
+For example:
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/hbase_application.conf
@@ -323,9 +324,9 @@ ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.excha
 
 You can search for `batchSuccess.<tag_name/edge_name>` in the command output to check the number of successes. For example, `batchSuccess.follow: 300`.
 
-### Step 4: (optional) Validation data
+### Step 4: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). Such as:
+Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;

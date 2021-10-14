@@ -5,6 +5,10 @@ Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is
 !!! enterpriseonly
 
     Explorer is only available in the enterprise version.
+    
+!!! Note
+
+    You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
 
 !!! Note
 

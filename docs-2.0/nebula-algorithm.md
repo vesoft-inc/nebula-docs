@@ -10,6 +10,8 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 - The Spark version is 2.4.x.
 
+- The Scala version is 2.11.
+
 - (Optional) If users need to clone, compile, and package the latest Algorithm in Github, install [Maven](https://maven.apache.org/download.cgi).
 
 ## Limitations

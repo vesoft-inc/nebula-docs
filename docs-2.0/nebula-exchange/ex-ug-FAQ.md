@@ -45,7 +45,7 @@ Most errors are caused by JAR package conflicts or version conflicts. Check whet
 
 ### When Exchange imports Hive data, error: `Exception in thread "main" org.apache.spark.sql.AnalysisException: Table or view not found`
 
-Check whether the `-h` parameter is omitted in the command for submitting the Exchange task, check whether the table and database are correct, and run the user-configured exec statement in spark-SQL to verify the correctness of the exec statement.
+Check whether the `-h` parameter is omitted in the command for submitting the Exchange task and whether the table and database are correct, and run the user-configured exec statement in spark-SQL to verify the correctness of the exec statement.
 
 ### Run error: `com.facebook.thrift.protocol.TProtocolException: Expected protocol id xxx`
 
@@ -78,15 +78,19 @@ Check that the Nebula Graph service port is configured correctly.
 
     - The port number for Storage service are 33183, 33177, 33185.
 
+### Error: `Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4`
+
+Check whether the version of Exchange is the same as that of Nebula Graph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
+
 ## Configuration
 
-### Which configuration items affect import performance?
+### Which configuration fields will affect import performance?
 
-- batch: The number of pieces of data contained in each nGQL statement sent to the Nebula Graph service.
+- batch: The number of data contained in each nGQL statement sent to the Nebula Graph service.
 
-- partition: Number of Spark data partitions, indicating the number of concurrent data import.
+- partition: The number of Spark data partitions, indicating the number of concurrent data imports.
 
-- nebula.rate: Go to the token bucket to get a token before sending a request to Nebula Graph.
+- nebula.rate: Get a token from the token bucket before sending a request to Nebula Graph.
 
     - limit: Represents the size of the token bucket.
 
@@ -102,8 +106,8 @@ See [Limitations](about-exchange/ex-ug-limitations.md).
 
 ### What is the relationship between Exchange and Spark Writer?
 
-Exchange is the Spark application developed on the basis of Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
+Exchange is the Spark application developed based on Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
 
-- Supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
+- It supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
 
-- Fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema, so Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String, Exchange converts the source data of String type to the corresponding type.
+- It fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema. So Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String (e.g. double), Exchange converts the source data of String type to the corresponding type.

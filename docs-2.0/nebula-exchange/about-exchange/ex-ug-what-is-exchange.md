@@ -6,35 +6,35 @@ Exchange consists of Reader, Processor, and Writer. After Reader reads data from
 
 ![Nebula Graph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to Nebula Graph](../figs/ex-ug-003.png)
 
-## Scenario
+## Scenarios
 
-Exchange is applicable to the following scenarios:
+Exchange applies to the following scenarios:
 
-- Need to streaming data from Kafka, Pulsar platform, such as log files, online data, game players activities, social networking information and financial transactions within the hall or geospatial services, as well as from within the data center of the connected device or instrument into properties such as telemetry data diagram of data vertex or edge, and import the Nebula Graph database.
+- Streaming data from Kafka and Pulsar platforms, such as log files, online shopping data, activities of game players, information on social websites, financial transactions or geospatial services, and telemetry data from connected devices or instruments in the data center, are required to be converted into the vertex or edge data of the property graph and import them into the Nebula Graph database.
 
-- Batch data, such as data from a time period, needs to be read from a relational database (such as MySQL) or a distributed file system (such as HDFS), converted into vertex or edge data for a property Graph, and imported into the Nebula Graph database.
+- Batch data, such as data from a time period, needs to be read from a relational database (such as MySQL) or a distributed file system (such as HDFS), converted into vertex or edge data for a property graph, and imported into the Nebula Graph database.
 
 - A large volume of data needs to be generated into SST files that Nebula Graph can recognize and then imported into the Nebula Graph database.
 
-## Advantage
+## Advantages
 
 Exchange has the following advantages:
 
-- Adaptable: Support for importing data into the Nebula Graph database in a variety of formats or from a variety of sources, making it easy to migrate data.
+- High adaptability: It supports importing data into the Nebula Graph database in a variety of formats or from a variety of sources, making it easy to migrate data.
 
-- SST import: Converts data from different sources into SST files for data import.
+- SST import: It supports converting data from different sources into SST files for data import.
 
-- Resumable data import: Resumable data import saves time and improves data import efficiency.
+- Resumable data import: It supports resumable data import to save time and improve data import efficiency.
 
   !!! note
 
-        Breakpoint continuation is currently supported only when Neo4j data is migrated.
+        Resumable data import is currently supported when migrating Neo4j data only.
 
-- Asynchronous operation: An insert statement is generated in the source data, sent to the Graph service, and then the insert operation is performed.
+- Asynchronous operation: An insert statement is generated in the source data and sent to the Graph service. Then the insert operation is performed.
 
-- Flexibility: support to import multiple Tags and Edge types at the same time. Different tag and Edge type can be different data sources or formats.
+- Great flexibility: It supports importing multiple Tags and Edge types at the same time. Different Tags and Edge types can be from different data sources or in different formats.
 
-- Statistics: Use the accumulator in Apache Spark&trade; to count the number of successful and failed insert operations.
+- Statistics: It uses the accumulator in Apache Spark&trade; to count the number of successful and failed insert operations.
 
 - Easy to use: It adopts the Human-Optimized Config Object Notation (HOCON) configuration file format and has an object-oriented style, which is easy to understand and operate.
 
@@ -65,4 +65,4 @@ Exchange {{exchange.release}} supports converting data from the following format
 
 - Publish/Subscribe messaging platform: [Apache Pulsar 2.4.5](../use-exchange/ex-ug-import-from-pulsar.md)
 
-In addition to importing data as nGQL statements, Exchange supports generating **SST** files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
+In addition to importing data as nGQL statements, Exchange supports generating **SST files** for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
