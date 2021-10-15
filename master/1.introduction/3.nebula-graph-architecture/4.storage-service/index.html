@@ -2535,6 +2535,7 @@
 </ul>
 <p>EdgeA_Out and EdgeA_In are stored in storage layer with opposite directions, constituting EdgeA logically. EdgeA_Out is used for traversal requests starting from SrcVertex, such as <code>(a)-[]-&gt;()</code>; EdgeA_In is used for traversal requests starting from DstVertex, such as <code>()-[]-&gt;(a)</code>.</p>
 <p>Like EdgeA_Out and EdgeA_In, Nebula Graph redundantly stores the information of each edge, which doubles the actual capacities needed for edge storage. The key corresponding to the edge occupies a small hard disk space, but the space occupied by Value is proportional to the length and amount of the property value. Therefore, it will occupy a relatively large hard disk space if the property value of the edge is large or there are many edge property values.</p>
+<p>To ensure the final consistency of the two key-value pairs when operating on edges, enable the <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">TOSS function</a>. After that, the operation will be performed in Partition x first where the out-edge is located, and then in Partition y where the in-edge is located. Finally, the result is returned.</p>
 <h3 id="partition_algorithm">Partition algorithm<a class="headerlink" href="#partition_algorithm" title="Permanent link">¶</a></h3>
 <p>Nebula Graph uses a <strong>static Hash</strong> strategy to shard data through a modulo operation on vertex ID. All the out-keys, in-keys, and tag data will be placed in the same partition. In this way, query efficiency is increased dramatically.</p>
 <div class="admonition note">
@@ -2643,7 +2644,7 @@ PartitionID pId = vid % numParts + 1;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
 </small>
 </div>
 </article>
