@@ -769,6 +769,20 @@
 <a class="md-nav__link" href="#syntax">
     Syntax
   </a>
+<nav aria-label="Syntax" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create_graph_spaces">
+    Create graph spaces
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clone_graph_spaces">
+    Clone graph spaces
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
@@ -2187,6 +2201,20 @@
 <a class="md-nav__link" href="#syntax">
     Syntax
   </a>
+<nav aria-label="Syntax" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create_graph_spaces">
+    Create graph spaces
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clone_graph_spaces">
+    Clone graph spaces
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
@@ -2214,10 +2242,11 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="create_space">CREATE SPACE<a class="headerlink" href="#create_space" title="Permanent link">¶</a></h1>
-<p>Graph spaces are used to store data in a physically isolated way in Nebula Graph, which is similar to the database concept in MySQL. The <code>CREATE SPACE</code> statement creates a new graph space with the given name.</p>
+<p>Graph spaces are used to store data in a physically isolated way in Nebula Graph, which is similar to the database concept in MySQL. The <code>CREATE SPACE</code> statement can create a new graph space or clone the schema of an existing graph space.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Only the God role can use the <code>CREATE SPACE</code> statement. For more information, see <a href="../../../7.data-security/1.authentication/1.authentication/">AUTHENTICATION</a>.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
+<h3 id="create_graph_spaces">Create graph spaces<a class="headerlink" href="#create_graph_spaces" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; (
     [partition_num = &lt;partition_number&gt;,] 
     [replica_factor = &lt;replica_number&gt;,]
@@ -2283,6 +2312,27 @@
 <p class="admonition-title">Note</p>
 <p><code>graph_space_name</code>, <code>partition_num</code>, <code>replica_factor</code>, <code>vid_type</code>, and <code>comment</code> cannot be modified once set. To modify them, drop the current working graph space with <a href="../5.drop-space/"><code>DROP SPACE</code></a> and create a new one with <code>CREATE SPACE</code>.</p>
 </div>
+<h3 id="clone_graph_spaces">Clone graph spaces<a class="headerlink" href="#clone_graph_spaces" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>CREATE SPACE &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>&lt;new_graph_space_name&gt;</code></td>
+<td align="left">The name of the graph space that is newly created. The name of the graph space is case-sensitive and allows letters, numbers, or underlines. <a href="../../1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a> are not allowed. When a new graph space is created, the schema of the old graph space <code>&lt;old_graph_space_name&gt;</code> will be cloned, including its parameters (the number of partitions and replicas, etc.), Tag, Edge type, and native indexes.</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;old_graph_space_name&gt;</code></td>
+<td align="left">The name of the graph space that already exists.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code># The following example creates a graph space with a specified VID type and the maximum length. Other fields still use the default values.
 nebula&gt; CREATE SPACE my_space_1 (vid_type=FIXED_STRING(30)); 
@@ -2292,6 +2342,15 @@ nebula&gt; CREATE SPACE my_space_2 (partition_num=15, replica_factor=1, vid_type
 
 #  The following example creates a graph space with a specified partition number, replica number, and VID type, and adds a comment on it.
 nebula&gt; CREATE SPACE my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment="Test the graph space"; 
+
+# Clone a graph space.
+nebula&gt; CREATE SPACE my_space_4 as my_space_3;
+nebula&gt; SHOW CREATE SPACE my_space_4;
++--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Space        | Create Space                                                                                                                                                            |
++--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| "my_space_4" | "CREATE SPACE `my_space_4` (partition_num = 15, replica_factor = 1, charset = utf8, collate = utf8_bin, vid_type = FIXED_STRING(30)) ON default comment = 'Test the graph space'"  |
++--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">¶</a></h2>
 <div class="admonition caution">
@@ -2339,7 +2398,7 @@ nebula&gt; CREATE SPACE my_space_3 (partition_num=15, replica_factor=1, vid_type
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
 </small>
 </div>
 </article>
