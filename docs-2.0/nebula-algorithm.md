@@ -34,6 +34,7 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 | StronglyConnectedComponent |Strongly connected component  | Community discovery |
 | ShortestPath     |The shortest path | Path planning, network planning |
 | TriangleCount    |Triangle counting | Network structure analysis|
+|  GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
 | BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing | 
 | DegreeStatic    |Degree of statistical | Graph structure analysis|
 
