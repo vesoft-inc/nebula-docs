@@ -6,7 +6,7 @@ This topic provides an example of how to generate the data from the data source 
 
 - The SST file can be imported only in Linux.
 
-- The default value of the property is not supported. Because the default value cannot validate in a schema when replacing SST files directly.
+- The default value of the property is not supported. Because the default value cannot be validated in a schema when SST files are replaced directly.
 
 ## Background information
 
