@@ -1401,6 +1401,11 @@
         Manage snapshots
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../7.data-security/4.ssl/">
+        SSL
+      </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2312,9 +2317,9 @@
 <li><code>$-</code> and <code>$^</code>.</li>
 <li>In relational expressions, operators are not supported to have field names on both sides, such as <code>tagName.prop1&gt; tagName.prop2</code>.</li>
 <li>Nested AliasProp expressions in operation expressions and function expressions are not supported.</li>
-<li>Range scan is not supported in the string-type index.</li>
 <li>The <code>XOR</code> and <code>NOT</code> operations are not supported.</li>
 </ul>
+<!--  - String operations other than `STARTS WITH` are not supported.-->
 <h2 id="retrieve_vertices">Retrieve Vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">¶</a></h2>
 <p>The following example returns vertices whose <code>name</code> is <code>Tony Parker</code> and the tag is <code>player</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
@@ -2328,31 +2333,53 @@ nebula&gt; REBUILD TAG INDEX index_player;
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == "Tony Parker";
-============
-| VertexID |
-============
-| 101      |
-------------
++-------------+
+| VertexID    |
++-------------+
+| "player101" |
++-------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == "Tony Parker" \
         YIELD player.name, player.age;
-=======================================
-| VertexID | player.name | player.age |
-=======================================
-| 101      | Tony Parker | 36         |
----------------------------------------
++-------------+---------------+------------+
+| VertexID    | player.name   | player.age |
++-------------+---------------+------------+
+| "player101" | "Tony Parker" | 36         |
++-------------+---------------+------------+
+
+nebula&gt; LOOKUP ON player \
+        WHERE player.age  &gt; 45;
++-------------+
+| VertexID    |
++-------------+
+| "player144" |
++-------------+
+| "player140" |
++-------------+
+
+nebula&gt; LOOKUP ON player \
+        WHERE player.name STARTS WITH "B" \
+        AND player.age IN [22,30] \
+        YIELD player.name, player.age;
++-------------+-----------------+------------+
+| VertexID    | player.name     | player.age |
++-------------+-----------------+------------+
+| "player149" | "Ben Simmons"   | 22         |
++-------------+-----------------+------------+
+| "player134" | "Blake Griffin" | 30         |
++-------------+-----------------+------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == "Kobe Bryant" \
         YIELD player.name AS name |\
         GO FROM $-.VertexID OVER serve \
         YIELD $-.name, serve.start_year, serve.end_year, $$.team.name;
-==================================================================
-| $-.name     | serve.start_year | serve.end_year | $$.team.name |
-==================================================================
-| Kobe Bryant | 1996             | 2016           | Lakers       |
-------------------------------------------------------------------
++---------------+------------------+----------------+--------------+
+| $-.name       | serve.start_year | serve.end_year | $$.team.name |
++---------------+------------------+----------------+--------------+
+| "Kobe Bryant" | 1996             | 2016           | "Lakers"     |
++---------------+------------------+----------------+--------------+
 </code></pre></div>
 <h2 id="retrieve_edges">Retrieve Edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">¶</a></h2>
 <p>The following example returns edges whose <code>degree</code> is <code>90</code> and the edge type is <code>follow</code>.</p>
@@ -2490,7 +2517,7 @@ nebula&gt; LOOKUP ON like | \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
 </small>
 </div>
 </article>
