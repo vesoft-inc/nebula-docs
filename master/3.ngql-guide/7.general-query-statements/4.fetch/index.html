@@ -2335,6 +2335,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="fetch">FETCH<a class="headerlink" href="#fetch" title="Permanent link">¶</a></h1>
+<!-- This topic needs to be modified after compulsory use of YIELD in 3.0. Refer to https://confluence.nebula-graph.io/pages/viewpage.action?pageId=10723963 -->
 <p>The <code>FETCH</code> statement retrieves the properties of the specified vertices or edges.</p>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">¶</a></h2>
 <p>This topic applies to native nGQL only.</p>
@@ -2342,7 +2343,7 @@
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt;[, tag_name ...] | *} 
 &lt;vid&gt; [, vid ...] 
-[YIELD &lt;output&gt;]
+[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]]; 
 </code></pre></div>
 <table>
 <thead>
@@ -2365,8 +2366,12 @@
 <td align="left">The vertex ID.</td>
 </tr>
 <tr>
-<td align="left"><code>output</code></td>
-<td align="left">Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
+<td align="left"><code>YIELD</code></td>
+<td align="left">Define the output to be returned. The defined properties and <code>VertexID</code> are returned. For details, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>vertices_</code> is returned by default, which contains all the information about the vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>AS</code></td>
+<td align="left">Set an alias.</td>
 </tr>
 </tbody>
 </table>
@@ -2382,9 +2387,9 @@
 <h3 id="fetch_specific_properties_of_a_vertex">Fetch specific properties of a vertex<a class="headerlink" href="#fetch_specific_properties_of_a_vertex" title="Permanent link">¶</a></h3>
 <p>Use a <code>YIELD</code> clause to specify the properties to be returned.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" \
-        YIELD player.name;
+        YIELD player.name AS name;
 +-------------+--------------+
-| VertexID    | player.name  |
+| VertexID    | name         |
 +-------------+--------------+
 | "player100" | "Tim Duncan" |
 +-------------+--------------+
@@ -2471,8 +2476,8 @@ nebula&gt; FETCH PROP ON player, t1 "player100";
 <td align="left">The rank of the edge. It is optional and defaults to <code>0</code>. It distinguishes an edge from other edges with the same edge type, source vertex, destination vertex, and rank.</td>
 </tr>
 <tr>
-<td align="left"><code>output</code></td>
-<td align="left">Specifies the information to be returned. For more information, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>FETCH</code> returns all the matched information.</td>
+<td align="left"><code>YIELD</code></td>
+<td align="left">Define the output to be returned. The defined properties, <code>SrcVertexID</code>, <code>DstVertexID</code>, and <code>rank</code> are returned. For details, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>. If there is no <code>YIELD</code> clause, <code>edges_</code> is returned by default, which contains all the information about the edge.</td>
 </tr>
 </tbody>
 </table>
@@ -2568,7 +2573,7 @@ nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"@1;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 3, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2021</span>
 </small>
 </div>
 </article>
