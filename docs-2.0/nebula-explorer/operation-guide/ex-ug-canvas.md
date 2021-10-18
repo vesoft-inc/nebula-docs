@@ -36,7 +36,7 @@ Click **Fit Selection** to move the selected data to the center of the canvas fo
 
 ## Vertex Filter
 
-You can filter the vertexes displayed on the canvas. In this example, select the vertex whose Tag is `player`,`age>=35` and click the `Apply Filter` button.
+You can filter the vertexes displayed on the canvas. In this example, select the vertexes with the Tag `player` and the property `age` greater than or equal to 35, and click the `Apply Filter` button.
 
 !!! note
 
