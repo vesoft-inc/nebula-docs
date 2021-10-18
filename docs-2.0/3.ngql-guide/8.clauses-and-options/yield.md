@@ -45,7 +45,7 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
 
     ```ngql
     nebula> GO FROM "player100" OVER follow \
-            YIELD $$.player.name AS Friend, $$.player.age AS Age;
+            YIELD properties($$).name AS Friend, properties($$).age AS Age;
     +-----------------+-----+
     | Friend          | Age |
     +-----------------+-----+
@@ -72,11 +72,11 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
     ```ngql
     nebula> LOOKUP ON player WHERE player.name == "Tony Parker" \
             YIELD player.name, player.age;
-    =======================================
-    | VertexID | player.name | player.age |
-    =======================================
-    | 101      | Tony Parker | 36         |
-    ---------------------------------------
+    +-------------+---------------+------------+
+    | VertexID    | player.name   | player.age |
+    +-------------+---------------+------------+
+    | "player101" | "Tony Parker" | 36         |
+    +-------------+---------------+------------+
     ```
 
 ## YIELD statements
@@ -103,7 +103,7 @@ The following query finds the players that "player100" follows and calculates th
 
 ```ngql
 nebula> GO FROM "player100" OVER follow \
-        YIELD follow._dst AS ID \
+        YIELD dst(edge) AS ID \
         | FETCH PROP ON player $-.ID \
         YIELD player.age AS Age \
         | YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends;
@@ -118,7 +118,7 @@ The following query finds the players that "player101" follows with the follow d
 
 ```ngql
 nebula> $var1 = GO FROM "player101" OVER follow \
-        YIELD follow.degree AS Degree, follow._dst as ID; \
+        YIELD properties(edge).degree AS Degree, dst(edge) as ID; \
         YIELD $var1.ID AS ID WHERE $var1.Degree > 90;
 +-------------+
 | ID          |
