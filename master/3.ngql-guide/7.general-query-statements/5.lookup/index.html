@@ -2259,6 +2259,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="lookup">LOOKUP<a class="headerlink" href="#lookup" title="Permanent link">¶</a></h1>
+<!-- This topic needs to be modified after compulsory use of YIELD in 3.0. Refer to https://confluence.nebula-graph.io/pages/viewpage.action?pageId=10723963 -->
 <p>The <code>LOOKUP</code> statement traverses data based on indexes. You can use <code>LOOKUP</code> for the following purposes:</p>
 <ul>
 <li>Search for the specific data based on conditions defined by the <code>WHERE</code> clause.</li>
@@ -2293,7 +2294,7 @@
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} 
 [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] 
-[YIELD &lt;return_list&gt;];
+[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]];
 
 &lt;return_list&gt;
     &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...];
@@ -2302,14 +2303,16 @@
 <li><code>WHERE &lt;expression&gt;</code>: filters data with specified conditions. Both <code>AND</code> and <code>OR</code> are supported between different expressions. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</li>
 </ul>
 <ul>
-<li><code>YIELD &lt;return_list&gt;</code>: specifies the results to be returned and the format of the results.</li>
-</ul>
+<li>
+<p><code>YIELD</code>: Define the output to be returned.</p>
 <ul>
-<li>If there is a <code>WHERE</code> clause but no <code>YIELD</code> clause:<ul>
-<li>The Vertex ID is returned when you <code>LOOKUP</code> a tag.</li>
-<li>The source vertex ID, destination vertex ID, and rank of the edge are returned when <code>LOOKUP</code> an edge type.</li>
+<li>When you <code>LOOKUP</code> a Tag, the defined properties and <code>VertexID</code> are returned. If there is no <code>YIELD</code> clause, <code>VertexID</code> is returned.</li>
+<li>When you <code>LOOKUP</code> an Edge type, the defined properties, <code>SrcVertexID</code>, <code>DstVertexID</code>, and <code>rank</code> are returned. If there is no <code>YIELD</code> clause, <code>SrcVertexID</code>, <code>DstVertexID</code>, and <code>rank</code> are returned.</li>
 </ul>
 </li>
+</ul>
+<ul>
+<li><code>AS</code>: Set an alias.</li>
 </ul>
 <h2 id="limitations_of_using_where_in_lookup">Limitations of using <code>WHERE</code> in <code>LOOKUP</code><a class="headerlink" href="#limitations_of_using_where_in_lookup" title="Permanent link">¶</a></h2>
 <p>The <code>WHERE</code> clause in a <code>LOOKUP</code> statement does not support the following operations:</p>
@@ -2341,12 +2344,12 @@ nebula&gt; LOOKUP ON player \
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == "Tony Parker" \
-        YIELD player.name, player.age;
-+-------------+---------------+------------+
-| VertexID    | player.name   | player.age |
-+-------------+---------------+------------+
-| "player101" | "Tony Parker" | 36         |
-+-------------+---------------+------------+
+        YIELD player.name AS name, player.age AS age;
++-------------+---------------+-----+
+| VertexID    | name          | age |
++-------------+---------------+-----+
+| "player101" | "Tony Parker" | 36  |
++-------------+---------------+-----+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.age  &gt; 45;
@@ -2456,7 +2459,7 @@ The following statement retrieves the VID of all vertices with the tag `player`.
 
 nebula&gt; LOOKUP ON player;
 +-------------+
-| _vid        |
+|  VertexID   |
 +-------------+
 | "player100" |
 +-------------+
@@ -2484,7 +2487,7 @@ The following statement retrieves all edges with the edge type `like`. It is sim
 
 nebula)&gt; LOOKUP ON like;
 +-------------+----------+-------------+
-| _src        | _ranking | _dst        |
+| VertexID    | DstVID   | _dst        |
 +-------------+----------+-------------+
 | "player100" | 0        | "player101" |
 +-------------+----------+-------------+
@@ -2517,7 +2520,7 @@ nebula&gt; LOOKUP ON like | \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2021</span>
 </small>
 </div>
 </article>
