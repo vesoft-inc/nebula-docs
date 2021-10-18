@@ -15,9 +15,9 @@ The main page of Explorer is divided into five parts:
 
 ## Tab bar
 
-- Export: Exports a CSV or PNG file of the current view.
+- Export: Export a CSV or PNG file of the current view.
 
-- Create: Supports creating multiple canvases. Only 10 canvases can be opened at most.
+- Create: Support creating multiple canvases. Only up to 10 canvases can be opened.
 
 ## Sidebar
 
