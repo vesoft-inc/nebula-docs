@@ -6,11 +6,11 @@ Contributing to the **Nebula Graph** documentation can be a rewarding experience
 
 You can start from any of the documents in this repository:
 
-- Fix typos or format (punctuation, space, indentation, code block, etc.)
-- Fix or update inappropriate or outdated descriptions
-- Add new document
-- Raise or resolve [docs issues](https://github.com/vesoft-inc/nebula-docs/issues)
-- Review Pull Requests created by others
+- Fix typos or format (punctuation, space, indentation, code block, etc.).
+- Fix or update inappropriate or outdated descriptions.
+- Add new document.
+- Raise or resolve [docs issues][_issues].
+- Review Pull Requests created by others.
 
 ## Before Contributing
 
@@ -25,5 +25,8 @@ Before contributing, please take a quick look at the rules described in these do
 
 There are many ways to contribute:
 
-- Raise a documentation issue on [GitHub](https://github.com/vesoft-inc/nebula/issues).
-- Fork the documentation, make changes or add new content on your local branch, and submit a pull request (PR) to the master branch for the docs.
+- Raise a documentation [issue][_issues] on GitHub.
+- [Fork](https://github.com/vesoft-inc/nebula-docs/fork) the documentation, make changes or add new content on your local branch, and submit a pull request (PR) to the master branch for the docs.
+
+
+[_issues]: https://github.com/vesoft-inc/nebula-docs/issues
