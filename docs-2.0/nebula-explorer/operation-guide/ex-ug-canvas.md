@@ -40,6 +40,6 @@ You can filter the vertexes displayed on the canvas. In this example, select the
 
 !!! note
 
-    Each set of filter conditions aims at the data with this Tag. If the conditions are met, the vertex will be automatically selected. If the conditions are not met, the vertex will turn gray. The data status of other tags will not be affected.
+    Each set of filter conditions aims at the data with this Tag. If the conditions are met, the corresponding vertex will be automatically selected. If the conditions are not met, the corresponding vertex will turn gray. The data status of other Tags will not be affected.
 
 ![filter](../figs/ex-ug-029-1.png)
