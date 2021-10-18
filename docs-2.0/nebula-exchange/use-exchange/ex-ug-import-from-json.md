@@ -197,7 +197,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Specify the path to the JSON file.
       # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.csv".
+      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/vertex_player.json"
 
       # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
@@ -236,7 +236,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Specify the path to the JSON file.
       # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.csv".
+      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/vertex_team.json"
 
       # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
@@ -281,7 +281,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Specify the path to the JSON file.
       # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.csv".
+      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/edge_follow.json"
 
       # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
@@ -327,7 +327,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # Specify the path to the JSON file.
       # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.csv".
+      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/edge_serve.json"
 
       # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
