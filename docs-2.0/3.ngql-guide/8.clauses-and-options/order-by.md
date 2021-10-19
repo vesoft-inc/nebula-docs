@@ -41,7 +41,7 @@ nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" 
 +-------------+-----+---------------------+
 
 nebula> $var = GO FROM "player100" OVER follow \
-        YIELD dst(edge) AS dst; \
+        YIELD follow._dst AS dst; \
         ORDER BY $var.dst DESC;
 +-------------+
 | dst         |

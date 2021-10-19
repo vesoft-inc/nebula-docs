@@ -71,7 +71,7 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
 
     ```ngql
     nebula> LOOKUP ON player WHERE player.name == "Tony Parker" \
-            YIELD properties(vertex).name, properties(vertex).age;
+            YIELD player.name, player.age;
     =======================================
     | VertexID | player.name | player.age |
     =======================================

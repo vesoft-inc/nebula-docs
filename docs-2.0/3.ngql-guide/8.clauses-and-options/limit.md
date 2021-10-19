@@ -30,7 +30,7 @@ YIELD <var>
 ```ngql
 # The following example returns the 3 rows of data starting from the second row of the sorted output.
 nebula> GO FROM "player100" OVER follow REVERSELY \
-        YIELD properties($$).name AS Friend, properties($$).age AS Age \
+        YIELD $$.player.name AS Friend, $$.player.age AS Age \
         | ORDER BY $-.Age, $-.Friend \
         | LIMIT 1, 3;
 +-------------------+-----+
