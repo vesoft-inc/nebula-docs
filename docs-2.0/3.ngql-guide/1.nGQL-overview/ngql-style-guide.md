@@ -13,7 +13,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
   Not recommended:
 
   ```ngql
-  GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS id;
+  GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id;
   ```
 
   Recommended:
@@ -21,7 +21,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
   ```ngql
   GO FROM "player100" \
   OVER follow REVERSELY \
-  YIELD follow._dst AS id;
+  YIELD src(edge) AS id;
   ```
 
 2. Start a new line to write different statements in a composite statement.
@@ -29,8 +29,8 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
   Not recommended:
 
   ```ngql
-  GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS id | GO FROM $-.id \
-  OVER serve WHERE $^.player.age > 20 YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+  GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id | GO FROM $-.id \
+  OVER serve WHERE properties($^).age > 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
   ```
 
   Recommended:
@@ -38,10 +38,10 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
   ```ngql
   GO FROM "player100" \
   OVER follow REVERSELY \
-  YIELD follow._dst AS id | \
+  YIELD src(edge) AS id | \
   GO FROM $-.id OVER serve \
-  WHERE $^.player.age > 20 \
-  YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+  WHERE properties($^).age > 20 \
+  YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
   ```
 
 3. If the clause exceeds 80 characters, start a new line at the appropriate place.
@@ -218,10 +218,10 @@ The strings should be surrounded by double quotes.
   ```ngql
   GO FROM "player100" \
   OVER follow \
-  YIELD follow._dst AS id; | \
+  YIELD dst(edge) AS id; | \
   GO FROM $-.id \
   OVER serve \
-  YIELD $$.team.name AS Team, $^.player.name AS Player;
+  YIELD properties($$).name AS Team, properties($^).name AS Player;
   ```
 
   Supported:
@@ -229,10 +229,10 @@ The strings should be surrounded by double quotes.
   ```ngql
   GO FROM "player100" \
   OVER follow \
-  YIELD follow._dst AS id | \
+  YIELD dst(edge) AS id | \
   GO FROM $-.id \
   OVER serve \
-  YIELD $$.team.name AS Team, $^.player.name AS Player;
+  YIELD properties($$).name AS Team, properties($^).name AS Player;
   ```
 
 3. In a composite statement that contains user-defined variables, use an English semicolon to end the statements that define the variables. If you do not follow the rules to add a semicolon or use a pipe to end the composite statement, the execution will fail.
