@@ -2,9 +2,11 @@
 
 This topic provides an example of how to generate the data from the data source into an SST (Sorted String Table) file and save it on HDFS, and then import into Nebula Graph. The sample data source is a CSV file.
 
-!!! note
+## Notes
 
-    The SST file can be imported only in Linux.
+- The SST file can be imported only in Linux.
+
+- The default value of the property is not supported. Because the default value cannot be validated in a schema when SST files are replaced directly.
 
 ## Background information
 
