@@ -11,16 +11,16 @@ This topic describes how to compile Nebula Exchange. Users can also [download](h
 
 ## Steps
 
-1. Clone the repository `nebula-spark-utils` in the `/` directory.
+1. Clone the repository `nebula-exchange` in the `/` directory.
 
    ```bash
-   git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
+   git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-exchange.git
    ```
 
 2. Switch to the directory `nebula-exchange`.
 
    ```bash
-   cd nebula-spark-utils/nebula-exchange
+   cd nebula-exchange/nebula-exchange
    ```
 
 3. Package Nebula Exchange.
@@ -56,7 +56,7 @@ In the `target` directory, users can find the `exchange-2.x.y.jar` file.
 
     The JAR file version changes with the release of the Nebula Java Client. Users can view the latest version on the [Releases page](https://github.com/vesoft-inc/nebula-java/releases).
 
-When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-spark-utils/blob/master/nebula-exchange/src/main/resources/application.conf).
+When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange/src/main/resources/application.conf).
 
 ## Failed to download the dependency package
 

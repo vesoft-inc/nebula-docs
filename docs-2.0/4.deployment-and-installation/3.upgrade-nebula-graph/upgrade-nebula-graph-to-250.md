@@ -270,7 +270,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
 11. Upgrade other Nebula Graph clients.
 
-    You must upgrade all other clients to corresponding Nebula Graph v{{nebula.release}}. The clients include but are not limited to [Python](https://github.com/vesoft-inc/nebula-python), [Java](https://github.com/vesoft-inc/nebula-java), [go](https://github.com/vesoft-inc/nebula-go), [C++](https://github.com/vesoft-inc/nebula-cpp), [Flink-connector](https://github.com/vesoft-inc/nebula-flink-connector), [Spark-util](https://github.com/vesoft-inc/nebula-spark-utils), and [Nebula Bench](https://github.com/vesoft-inc/nebula-bench). Find the v{{nebula.release}} branch for each client.
+    You must upgrade all other clients to corresponding Nebula Graph v{{nebula.release}}. The clients include but are not limited to [Python](https://github.com/vesoft-inc/nebula-python), [Java](https://github.com/vesoft-inc/nebula-java), [go](https://github.com/vesoft-inc/nebula-go), [C++](https://github.com/vesoft-inc/nebula-cpp), [Flink-connector](https://github.com/vesoft-inc/nebula-flink-connector), [Algorithm](https://github.com/vesoft-inc/nebula-algorithm), [Exchange](https://github.com/vesoft-inc/nebula-exchange), [Spark-connector](https://github.com/vesoft-inc/nebula-spark-connector), and [Nebula Bench](https://github.com/vesoft-inc/nebula-bench). Find the v{{nebula.release}} branch for each client.
 
   !!! Note
 

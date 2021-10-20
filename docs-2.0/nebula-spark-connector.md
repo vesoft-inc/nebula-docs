@@ -10,7 +10,7 @@ Nebula Spark Connector is a Spark connector application for reading and writing 
 
   Provides a Spark SQL interface. This interface can be used to write DataFrames into Nebula Graph in a row-by-row or batch-import way.
 
-For more information, see [Nebula Spark Connector](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{sparkconnector.branch}}/nebula-spark-connector/README.md).
+For more information, see [Nebula Spark Connector](https://github.com/vesoft-inc/nebula-spark-connector/blob/{{sparkconnector.branch}}/README_CN.md).
 
 ## Use cases
 
@@ -48,16 +48,16 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
      Install Nebula Spark Connector of version 2.3 or above.
 
-1. Clone repository `nebula-spark-utils`.
+1. Clone repository `nebula-spark-connector`.
 
   ```bash
-  $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
+  $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
 
 2. Make the `nebula-spark-connector` directory the current working directory.
 
   ```bash
-  $ cd nebula-spark-utils/nebula-spark-connector
+  $ cd nebula-spark-connector/nebula-spark-connector
   ```
 
 3. Compile package.
@@ -66,7 +66,7 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
   $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
   ```
 
-After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `nebula-spark-connector/target`.
+After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `nebula-spark-connector/nebula-spark-connector/target/`.
 
 ### Download maven remote repository
 

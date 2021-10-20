@@ -1,6 +1,6 @@
 # Parameters in the configuration file
 
-This topic describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-spark-utils/blob/master/nebula-exchange/src/main/resources/application.conf) when users use Nebula Exchange.
+This topic describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange/src/main/resources/application.conf) when users use Nebula Exchange.
 
 Before configuring the `application.conf` file, it is recommended to copy the file name `application.conf` and then edit the file name according to the file type of a data source. For example, change the file name to `csv_application.conf` if the file type of the data source is CSV.
 
