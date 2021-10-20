@@ -1281,6 +1281,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#misc_configurations">
+    misc configurations
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#rocksdb_options">
     RocksDB options
   </a>
@@ -2244,6 +2249,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#misc_configurations">
+    misc configurations
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#rocksdb_options">
     RocksDB options
   </a>
@@ -2280,7 +2290,7 @@
 <h2 id="how_to_use_the_configuration_files">How to use the configuration files<a class="headerlink" href="#how_to_use_the_configuration_files" title="Permanent link">¶</a></h2>
 <p>To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> from the initial configuration file for the Meta Service to apply the configurations defined in it.</p>
 <h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">¶</a></h2>
-<p>If a parameter is not set in the configuration file, Nebula Graph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>.</p>
+<p>If a parameter is not set in the configuration file, Nebula Graph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>. For parameters that are not included in <code>nebula-metad.conf.default</code>, see <code>nebula-storaged.conf.production</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The configurations of the Raft Listener and the Storage service are different. For details, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Raft listener</a>.</p>
@@ -2532,6 +2542,42 @@
 </tr>
 </tbody>
 </table>
+<h2 id="misc_configurations">misc configurations<a class="headerlink" href="#misc_configurations" title="Permanent link">¶</a></h2>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The configuration <code>snapshot</code> in the following table is different from the snapshot in Nebula Graph. The <code>snapshot</code> here refers to the stock data on the leader when synchronizing Raft.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>snapshot_part_rate_limit</code></td>
+<td align="left"><code>8388608</code></td>
+<td align="left">The rate limit when the Raft leader synchronizes the stock data with other members of the Raft group. Unit: bytes/s.</td>
+</tr>
+<tr>
+<td align="left"><code>snapshot_batch_size</code></td>
+<td align="left"><code>1048576</code></td>
+<td align="left">The amount of data sent in each batch when the Raft leader synchronizes the stock data with other members of the Raft group. Unit: bytes.</td>
+</tr>
+<tr>
+<td align="left"><code>rebuild_index_part_rate_limit</code></td>
+<td align="left"><code>4194304</code></td>
+<td align="left">The rate limit when the Raft leader synchronizes the index data rate with other members of the Raft group during the index rebuilding process. Unit: bytes/s.</td>
+</tr>
+<tr>
+<td align="left"><code>rebuild_index_batch_size</code></td>
+<td align="left"><code>1048576</code></td>
+<td align="left">The amount of data sent in each batch when the Raft leader synchronizes the index data with other members of the Raft group during the index rebuilding process. Unit: bytes.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -2627,7 +2673,7 @@ disable_auto_compactions
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2021</span>
 </small>
 </div>
 </article>
