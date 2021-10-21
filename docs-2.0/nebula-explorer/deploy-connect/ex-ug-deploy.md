@@ -37,6 +37,7 @@ Before you deploy Explorer, you must do a check of these:
    ```bash
    $ sudo rpm -i nebula-graph-explorer-<version>.x86_64.rpm
    ```
+
 ### Uninstall
 
 Users can uninstall Explorer using the following command:
@@ -131,6 +132,6 @@ When Explorer is started, use `http://ip address:7002` to get access to Explorer
 
 Seeing the following login interface, Explorer is successfully connected to Nebula Graph.
 
-![Nebula Explorer](../figs/ex-ug-001.png)
+![Nebula Explorer](../figs/ex-ug-001-1.png)
 
 After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).
