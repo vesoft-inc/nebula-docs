@@ -1,4 +1,4 @@
-# Reset connection
+# Clear connection
 
 When Explorer is still connected to a Nebula Graph database, in the toolbar, select Settings ![icon](../figs/nav-setup.png) > clear connect, as shown in the below:
 
