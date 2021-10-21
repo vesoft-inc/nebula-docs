@@ -81,7 +81,7 @@ To query vertex data on the **Console** page and then view the result on the **E
    Here is an nGQL statement example.
 
    ```ngql
-   nebula> FETCH PROP ON player "player100" YIELD player.name;
+   nebula> FETCH PROP ON player "player100" YIELD properties(vertex).name;
    ```
 
    The query result gives the information of the player whose `playerId` is `player100`, as shown in this figure.
