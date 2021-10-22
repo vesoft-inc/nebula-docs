@@ -2207,13 +2207,9 @@
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 [ WHERE &lt;conditions&gt; ]
 [YIELD [DISTINCT] &lt;return_list&gt;]
+[| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
 [| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
 [| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]
-
-GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
-OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
-[ WHERE &lt;conditions&gt; ]
-[| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
 
 &lt;vertex_list&gt; ::=
     &lt;vid&gt; [, &lt;vid&gt; ...]
@@ -2256,7 +2252,10 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </li>
 </ul>
 <ul>
-<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code>: specifies the desired output. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>. When not specified, the destination vertex IDs will be returned by default.</li>
+<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code>: defines the output to be returned. It is recommended to use the <a href="../../6.functions-and-expressions/4.schema/">Schema function</a> to fill in <code>&lt;return_list&gt;</code>. <code>src(edge)</code>, <code>dst(edge)</code>, <code>type(edge) )</code>, <code>rank(edge)</code>, <code>properties(edge)</code>, <code>id(vertex)</code>, and <code>properties(vertex)</code> are currently supported, while nested functions are not. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>. When not specified, the destination vertex ID of the edge will be returned by default.</li>
+</ul>
+<ul>
+<li><code>GROUP BY</code>: groups the output into subgroups based on the value of the specified property. For more information, see <a href="../../8.clauses-and-options/group-by/">GROUP BY</a>. After grouping, you need to use <code>YIELD</code> again to define the output that needs to be returned.</li>
 </ul>
 <ul>
 <li>
@@ -2270,13 +2269,9 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <ul>
 <li><code>LIMIT</code>: limits the number of rows of the output. For more information, see <a href="../../8.clauses-and-options/limit/">LIMIT</a>.</li>
 </ul>
-<ul>
-<li><code>GROUP BY</code>: groups outputs into subgroups based on values of the specified properties. For more information, see <a href="../../8.clauses-and-options/group-by/">GROUP BY</a>.</li>
-</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code># The following example returns the teams that player 102 serves.
-nebula&gt; GO FROM "player102" \
-        OVER serve;
+nebula&gt; GO FROM "player102" OVER serve;
 +------------+
 | serve._dst |
 +------------+
@@ -2286,8 +2281,7 @@ nebula&gt; GO FROM "player102" \
 +------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example returns the friends of player 102 with 2 hops.
-nebula&gt; GO 2 STEPS FROM "player102" \
-        OVER follow;
+nebula&gt; GO 2 STEPS FROM "player102" OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
@@ -2298,10 +2292,10 @@ nebula&gt; GO 2 STEPS FROM "player102" \
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example adds a filter for the traversal.
-nebula&gt; GO FROM "player100", "player102" \
-        OVER serve \
-        WHERE serve.start_year &gt; 1995 \
-        YIELD DISTINCT $$.team.name AS team_name, serve.start_year AS start_year, $^.player.name AS player_name;
+nebula&gt; GO FROM "player100", "player102" OVER serve \
+        WHERE properties(edge).start_year &gt; 1995 \
+        YIELD DISTINCT properties($$).name AS team_name, properties(edge).start_year AS start_year, properties($^).name AS player_name;
+
 +-----------------+------------+---------------------+
 | team_name       | start_year | player_name         |
 +-----------------+------------+---------------------+
@@ -2312,24 +2306,22 @@ nebula&gt; GO FROM "player100", "player102" \
 | "Spurs"         | 2015       | "LaMarcus Aldridge" |
 +-----------------+------------+---------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code># The following example traverses along with multiple edge types. If there is no value for a property, the output is __EMPTY__.
-nebula&gt; GO FROM "player100" \
-        OVER follow, serve \
-        YIELD follow.degree, serve.start_year;
-+---------------+------------------+
-| follow.degree | serve.start_year |
-+---------------+------------------+
-| 95            | __EMPTY__        |
-+---------------+------------------+
-| 95            | __EMPTY__        |
-+---------------+------------------+
-| __EMPTY__     | 1997             |
-+---------------+------------------+
+<div class="highlight"><pre><span></span><code># The following example traverses along with multiple edge types. If there is no value for a property, the output is UNKNOWN_PROP.
+nebula&gt; GO FROM "player100" OVER follow, serve \
+        YIELD properties(edge).degree, properties(edge).start_year;
++-------------------------+-----------------------------+
+| properties(EDGE).degree | properties(EDGE).start_year |
++-------------------------+-----------------------------+
+| 95                      | UNKNOWN_PROP                |
++-------------------------+-----------------------------+
+| 95                      | UNKNOWN_PROP                |
++-------------------------+-----------------------------+
+| UNKNOWN_PROP            | 1997                        |
++-------------------------+-----------------------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example returns the neighbor vertices in the incoming direction of player 100.
-nebula&gt; GO FROM "player100" \
-        OVER follow REVERSELY \
-        YIELD follow._dst AS destination;
+nebula&gt; GO FROM "player100" OVER follow REVERSELY \
+        YIELD src(edge) AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -2340,8 +2332,7 @@ nebula&gt; GO FROM "player100" \
 ...
 
 # This MATCH query shares the same semantics with the preceding GO query.
-nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) \
-        WHERE id(v) == 'player100' \
+nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == 'player100' \
         RETURN id(v2) AS destination;
 +-------------+
 | destination |
@@ -2353,18 +2344,17 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) \
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example retrieves the friends of player 100 and the teams that they serve.
-nebula&gt; GO FROM "player100" \
-        OVER follow REVERSELY \
-        YIELD follow._dst AS id |\
+nebula&gt; GO FROM "player100" OVER follow REVERSELY \
+        YIELD src(edge) AS id | \
         GO FROM $-.id OVER serve \
-        WHERE $^.player.age &gt; 20 \
-        YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+        WHERE properties($^).age &gt; 20 \
+        YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
 +---------------------+-----------------+
-| "Tony Parker"       | "Spurs"         |
+| "Danny Green"       | "Spurs"         |
 +---------------------+-----------------+
-| "Tony Parker"       | "Hornets"       |
+| "Danny Green"       | "Cavaliers"     |
 +---------------------+-----------------+
 ...
 
@@ -2382,9 +2372,8 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  \
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example returns all the neighbor vertices of player 102.
-nebula&gt; GO FROM "player102" \
-        OVER follow BIDIRECT \
-        YIELD follow._dst AS both;
+nebula&gt; GO FROM "player102" OVER follow \
+        YIELD dst(edge) AS both;
 +-------------+
 | both        |
 +-------------+
@@ -2408,9 +2397,8 @@ nebula&gt; MATCH (v) -[e:follow]-(v2) \
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example retrieves the friends of player 100 within 1 or 2 hops.
-nebula&gt; GO 1 TO 2 STEPS FROM "player100" \
-        OVER follow \
-        YIELD follow._dst AS destination;
+nebula&gt; GO 1 TO 2 STEPS FROM "player100" OVER follow \
+        YIELD dst(edge) AS destination;
 +-------------+
 | destination |
 +-------------+
@@ -2433,10 +2421,9 @@ nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
 +-------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example the outputs according to age.
-nebula&gt; GO 2 STEPS FROM "player100" \
-        OVER follow \
-        YIELD follow._src AS src, follow._dst AS dst, $$.player.age AS age |\
-        GROUP BY $-.dst \
+nebula&gt; GO 2 STEPS FROM "player100" OVER follow \
+        YIELD src(edge) AS src, dst(edge) AS dst, properties($$).age AS age \
+        | GROUP BY $-.dst \
         YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age;
 +-------------+----------------------------+----------+
 | dst         | src                        | age      |
@@ -2449,12 +2436,10 @@ nebula&gt; GO 2 STEPS FROM "player100" \
 +-------------+----------------------------+----------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example groups the outputs and restricts the number of rows of the outputs.
-nebula&gt; $a = GO FROM "player100" \
-        OVER follow YIELD follow._src AS src, follow._dst AS dst; \
+nebula&gt; $a = GO FROM "player100" OVER follow YIELD src(edge) AS src, dst(edge) AS dst; \
         GO 2 STEPS FROM $a.dst OVER follow \
-        YIELD $a.src AS src, $a.dst, follow._src, follow._dst |\
-        ORDER BY $-.src |\
-        OFFSET 1 LIMIT 2;
+        YIELD $a.src AS src, $a.dst, src(edge), dst(edge) \
+        | ORDER BY $-.src | OFFSET 1 LIMIT 2;
 +-------------+-------------+-------------+-------------+
 | src         | $a.dst      | follow._src | follow._dst |
 +-------------+-------------+-------------+-------------+
@@ -2464,10 +2449,7 @@ nebula&gt; $a = GO FROM "player100" \
 +-------------+-------------+-------------+-------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example determines if $$.player.name IS NOT EMPTY.
-nebula&gt; GO FROM "player100" \
-        OVER * \
-        WHERE $$.player.name IS NOT EMPTY \
-        YIELD follow._dst;
+nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
 +-------------+
 | follow._dst |
 +-------------+
@@ -2480,7 +2462,7 @@ nebula&gt; GO FROM "player100" \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2021</span>
 </small>
 </div>
 </article>
