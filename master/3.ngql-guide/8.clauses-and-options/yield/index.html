@@ -2334,23 +2334,23 @@
 </ul>
 <ul>
 <li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" \
-        YIELD player.name;
-+-------------+--------------+
-| VertexID    | player.name  |
-+-------------+--------------+
-| "player100" | "Tim Duncan" |
-+-------------+--------------+
+        YIELD properties(vertex).name;
++-------------+-------------------------+
+| VertexID    | properties(VERTEX).name |
++-------------+-------------------------+
+| "player100" | UNKNOWN_PROP            |
++-------------+-------------------------+
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
-        YIELD player.name, player.age;
-+-------------+---------------+------------+
-| VertexID    | player.name   | player.age |
-+-------------+---------------+------------+
-| "player101" | "Tony Parker" | 36         |
-+-------------+---------------+------------+
+        YIELD properties(vertex).name, properties(vertex).age;
++-------------+-------------------------+------------------------+
+| VertexID    | properties(VERTEX).name | properties(VERTEX).age |
++-------------+-------------------------+------------------------+
+| "player101" | "Tony Parker"           | 36                     |
++-------------+-------------------------+------------------------+
 </code></pre></div>
 </li>
 </ul>
@@ -2391,7 +2391,7 @@
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
         YIELD dst(edge) AS ID \
         | FETCH PROP ON player $-.ID \
-        YIELD player.age AS Age \
+        YIELD properties(vertex).age AS Age \
         | YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends;
 +---------+-------------+
 | Avg_age | Num_friends |
@@ -2451,7 +2451,7 @@ nebula&gt; YIELD \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

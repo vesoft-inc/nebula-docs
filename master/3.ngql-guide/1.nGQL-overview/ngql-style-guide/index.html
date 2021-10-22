@@ -2229,27 +2229,27 @@
 <li>
 <p>Start a new line to write a clause.</p>
 <p>Not recommended:</p>
-<div class="highlight"><pre><span></span><code>GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS id;
+<div class="highlight"><pre><span></span><code>GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id;
 </code></pre></div>
 <p>Recommended:</p>
 <div class="highlight"><pre><span></span><code>GO FROM "player100" \
 OVER follow REVERSELY \
-YIELD follow._dst AS id;
+YIELD src(edge) AS id;
 </code></pre></div>
 </li>
 <li>
 <p>Start a new line to write different statements in a composite statement.</p>
 <p>Not recommended:</p>
-<div class="highlight"><pre><span></span><code>GO FROM "player100" OVER follow REVERSELY YIELD follow._dst AS id | GO FROM $-.id \
-OVER serve WHERE $^.player.age &gt; 20 YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+<div class="highlight"><pre><span></span><code>GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id | GO FROM $-.id \
+OVER serve WHERE properties($^).age &gt; 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
 </code></pre></div>
 <p>Recommended:</p>
 <div class="highlight"><pre><span></span><code>GO FROM "player100" \
 OVER follow REVERSELY \
-YIELD follow._dst AS id | \
+YIELD src(edge) AS id | \
 GO FROM $-.id OVER serve \
-WHERE $^.player.age &gt; 20 \
-YIELD $^.player.name AS FriendOf, $$.team.name AS Team;
+WHERE properties($^).age &gt; 20 \
+YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
 </code></pre></div>
 </li>
 <li>
@@ -2375,18 +2375,18 @@ RETURN v;
 <p>Not supported:</p>
 <div class="highlight"><pre><span></span><code>GO FROM "player100" \
 OVER follow \
-YIELD follow._dst AS id; | \
+YIELD dst(edge) AS id; | \
 GO FROM $-.id \
 OVER serve \
-YIELD $$.team.name AS Team, $^.player.name AS Player;
+YIELD properties($$).name AS Team, properties($^).name AS Player;
 </code></pre></div>
 <p>Supported:</p>
 <div class="highlight"><pre><span></span><code>GO FROM "player100" \
 OVER follow \
-YIELD follow._dst AS id | \
+YIELD dst(edge) AS id | \
 GO FROM $-.id \
 OVER serve \
-YIELD $$.team.name AS Team, $^.player.name AS Player;
+YIELD properties($$).name AS Team, properties($^).name AS Player;
 </code></pre></div>
 </li>
 <li>
@@ -2421,7 +2421,7 @@ YIELD $$.team.name AS Team, $^.player.name AS Player;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

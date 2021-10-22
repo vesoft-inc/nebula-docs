@@ -2251,14 +2251,18 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42)
 </ul>
 <ul>
 <li>Native nGQL (Pipe queries)<div class="highlight"><pre><span></span><code># Connect multiple queries with pipes.
-nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
-        GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
-        $^.player.name AS Player;
-+---------+-------------+
-| Team    | Player      |
-+---------+-------------+
-| Nuggets | Tony Parker |
-+---------+-------------+
+nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) AS id | \
+        GO FROM $-.id OVER serve YIELD properties($$).name AS Team, \
+        properties($^).name AS Player;
++-----------+-----------------+
+| Team      | Player          |
++-----------+-----------------+
+| "Spurs"   | "Tony Parker"   |
++-----------+-----------------+
+| "Hornets" | "Tony Parker"   |
++-----------+-----------------+
+| "Spurs"   | "Manu Ginobili" |
++-----------+-----------------+
 </code></pre></div>
 </li>
 </ul>
@@ -2266,7 +2270,7 @@ nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

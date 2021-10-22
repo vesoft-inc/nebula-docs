@@ -2313,7 +2313,7 @@ nebula&gt; GO FROM "player102" OVER follow \
         UNION \
         GO FROM "player100" OVER follow;
 +-------------+
-| follow._dst |
+| dst(edge) |
 +-------------+
 | "player101" |
 +-------------+
@@ -2325,7 +2325,7 @@ nebula&gt; GO FROM "player102" OVER follow \
         UNION ALL \
         GO FROM "player100" OVER follow;
 +-------------+
-| follow._dst |
+| dst(edge) |
 +-------------+
 | "player101" |
 +-------------+
@@ -2336,18 +2336,20 @@ nebula&gt; GO FROM "player102" OVER follow \
 
 # UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
 nebula&gt; GO FROM "player102" OVER follow \
-        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
         UNION /* DISTINCT */ \
         GO FROM "player100" OVER follow \
-        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
 +-------------+--------+-----+
 | id          | Degree | Age |
 +-------------+--------+-----+
-| "player101" | 75     | 36  |     
+| "player100" | 75     | 42  |
 +-------------+--------+-----+
-| "player101" | 96     | 36  |       
+| "player101" | 75     | 36  |
 +-------------+--------+-----+
-| "player102" | 90     | 33  |     
+| "player101" | 95     | 36  |
++-------------+--------+-----+
+| "player125" | 95     | 41  |
 +-------------+--------+-----+
 </code></pre></div>
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">¶</a></h2>
@@ -2361,10 +2363,10 @@ nebula&gt; GO FROM "player102" OVER follow \
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
-        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
         INTERSECT \
         GO FROM "player100" OVER follow \
-        YIELD follow._dst AS id, follow.degree AS Degree, $$.player.age AS Age;
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
 Empty set (time spent 2990/3511 us)
 </code></pre></div>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">¶</a></h2>
@@ -2376,7 +2378,7 @@ Empty set (time spent 2990/3511 us)
         MINUS \
         GO FROM "player102" OVER follow;
 +-------------+
-| follow._dst |
+| dst(edge) |
 +-------------+
 | "player102" |
 +-------------+
@@ -2390,36 +2392,40 @@ Empty set (time spent 2243/3259 us)
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
-        YIELD follow._dst AS play_dst  \
+        YIELD dst(edge) AS play_dst  \
         UNION \
         GO FROM "team200" OVER serve REVERSELY \
-        YIELD serve._dst AS play_dst \
-        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+        YIELD src(edge) AS play_src \
+        | GO FROM $-.play_src OVER follow YIELD dst(edge) AS play_dst;
 
 +-------------+
 | play_dst    |
 +-------------+
+| "player100" |
++-------------+
 | "player101" |
 +-------------+
-| "player102" |
+| "player117" |
++-------------+
+| "player105" |
 +-------------+
 </code></pre></div>
 <p><img alt="image" src="https://user-images.githubusercontent.com/42762957/97955863-3a213000-1de2-11eb-8de3-2c78da30747c.png"/></p>
 <p>The above query executes the statements in the red bar first and then executes the statement in the green box.</p>
 <p>The parentheses can change the execution priority. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM "player102" OVER follow \
-        YIELD follow._dst AS play_dst  \
+        YIELD dst(edge) AS play_dst  \
         UNION \
         GO FROM "team200" OVER serve REVERSELY \
-        YIELD serve._dst AS play_dst) \
-        | GO FROM $-.play_dst OVER follow YIELD follow._dst AS play_dst;
+        YIELD src(edge) AS play_dst) \
+        | GO FROM $-.play_dst OVER follow YIELD dst(edge) AS play_dst;
 </code></pre></div>
 <p>In the above query, the statements within the parentheses take precedence. That is, the <code>UNION</code> operation will be executed first, and its output will be executed as the input of the next operation with pipes.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

@@ -2763,9 +2763,12 @@ Execution succeeded (time spent 6064/7104 us)
 <h3 id="ngql_syntax_3">nGQL syntax<a class="headerlink" href="#ngql_syntax_3" title="Permanent link">¶</a></h3>
 <ul>
 <li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
-OVER &lt;edge_type_list&gt; [REVERSELY] [BIDIRECT]
-[WHERE &lt;expression&gt; [AND | OR expression ...])]
-YIELD [DISTINCT] &lt;return_list&gt;;
+OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
+[ WHERE &lt;conditions&gt; ]
+[YIELD [DISTINCT] &lt;return_list&gt;]
+[| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
+[| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
+[| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;];
 </code></pre></div>
 </li>
 </ul>
@@ -2775,26 +2778,26 @@ YIELD [DISTINCT] &lt;return_list&gt;;
 <ul>
 <li>
 <p>Fetch properties on tags:</p>
-<div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt; | &lt;tag_name_list&gt; | *} &lt;vid_list&gt;
-[YIELD [DISTINCT] &lt;return_list&gt;];
+<div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt;[, tag_name ...] | *} 
+&lt;vid&gt; [, vid ...] 
+[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]]; 
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
 <p>Fetch properties on edges:</p>
-<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]
-[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
-[YIELD [DISTINCT] &lt;return_list&gt;];
+<div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
+[YIELD &lt;output&gt;];
 </code></pre></div>
 </li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag_name&gt; | &lt;edge_type&gt;} 
-WHERE &lt;expression&gt; [AND expression ...])]
-[YIELD &lt;return_list&gt;];
+<li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;} 
+[WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]] 
+[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]];
 </code></pre></div>
 </li>
 </ul>
@@ -2818,14 +2821,15 @@ Got 2 rows (time spent 12097/14220 us)
 </li>
 </ul>
 <ul>
-<li>Filter the players that the player with VID <code>player100</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE $$.player.age &gt;= 35 \
-        YIELD $$.player.name AS Teammate, $$.player.age AS Age;
-+---------------+-----+
-| Teammate      | Age |
-+---------------+-----+
-| "Tony Parker" | 36  |
-+---------------+-----+
-Got 1 rows (time spent 8206/9335 us)
+<li>Filter the players that the player with VID <code>player100</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).age &gt;= 35 \
+        YIELD properties($$).name AS Teammate, properties($$).age AS Age;
++-----------------+-----+
+| Teammate        | Age |
++-----------------+-----+
+| "Tony Parker"   | 36  |
++-----------------+-----+
+| "Manu Ginobili" | 41  |
++-----------------+-----+
 </code></pre></div>
 <table>
 <thead>
@@ -2857,15 +2861,18 @@ Got 1 rows (time spent 8206/9335 us)
 <ul>
 <li>
 <p>With a pipe:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._dst AS id | \
-        GO FROM $-.id OVER serve YIELD $$.team.name AS Team, \
-        $^.player.name AS Player;
-+-----------+---------------+
-| Team      | Player        |
-+-----------+---------------+
-| "Nuggets" | "Tony Parker" |
-+-----------+---------------+
-Got 1 rows (time spent 5055/8203 us)
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) AS id | \
+        GO FROM $-.id OVER serve YIELD properties($$).name AS Team, \
+        properties($^).name AS Player;
++-----------+-----------------+
+| Team      | Player          |
++-----------+-----------------+
+| "Spurs"   | "Tony Parker"   |
++-----------+-----------------+
+| "Hornets" | "Tony Parker"   |
++-----------+-----------------+
+| "Spurs"   | "Manu Ginobili" |
++-----------+-----------------+    
 </code></pre></div>
 <table>
 <thead>
@@ -2898,15 +2905,18 @@ Got 1 rows (time spent 5055/8203 us)
 <p class="admonition-title">Note</p>
 <p>Once a composite statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD follow._dst AS id; \
-        GO FROM $var.id OVER serve YIELD $$.team.name AS Team, \
-        $^.player.name AS Player;
-+---------+-------------+
-| Team    | Player      |
-+---------+-------------+
-| Nuggets | Tony Parker |
-+---------+-------------+
-Got 1 rows (time spent 3103/3711 us)
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD dst(edge) AS id; \
+        GO FROM $var.id OVER serve YIELD properties($$).name AS Team, \
+        properties($^).name AS Player;
++-----------+-----------------+
+| Team      | Player          |
++-----------+-----------------+
+| "Spurs"   | "Tony Parker"   |
++-----------+-----------------+
+| "Hornets" | "Tony Parker"   |
++-----------+-----------------+
+| "Spurs"   | "Manu Ginobili" |
++-----------+-----------------+
 </code></pre></div>
 </li>
 </ul>
@@ -2920,7 +2930,6 @@ Got 1 rows (time spent 3103/3711 us)
 +----------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
-Got 1 rows (time spent 2006/2406 us)
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3091,7 +3100,7 @@ Got 1 rows (time spent 5132/6246 us)
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

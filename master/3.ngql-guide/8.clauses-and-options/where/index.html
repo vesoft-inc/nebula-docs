@@ -2387,16 +2387,15 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
         OVER follow \
-        WHERE follow.degree &gt; 90 \
-        OR $$.player.age != 33 \
-        AND $$.player.name != "Tony Parker";
-+-------------+
-| follow._dst |
-+-------------+
-| "player101" |
-+-------------+
-| "player125" |
-+-------------+
+        WHERE properties(edge).degree &gt; 90 \
+        OR properties($$).age != 33 \
+        AND properties($$).name != "Tony Parker" \
+        YIELD properties($$);
++----------------------------------+
+| properties($$)                   |
++----------------------------------+
+| {age: 41, name: "Manu Ginobili"} |
++----------------------------------+
 </code></pre></div>
 <h3 id="filter_on_properties">Filter on properties<a class="headerlink" href="#filter_on_properties" title="Permanent link">¶</a></h3>
 <p>Use vertex or edge properties to define conditions in <code>WHERE</code> clauses.</p>
@@ -2501,20 +2500,20 @@ nebula&gt; INSERT EDGE e1(p1) VALUES "1"-&gt;"2"@6:(16);
 # The following example use rank to filter edges and retrieves edges with a rank greater than 2.
 nebula&gt; GO FROM "1" \
         OVER e1 \
-        WHERE e1._rank&gt;2 \
-        YIELD e1._src, e1._dst, e1._rank AS Rank, e1.p1 | \
+        WHERE rank(edge) &gt; 2 \
+        YIELD src(edge), dst(edge), rank(edge) AS Rank, properties(edge).p1 | \
         ORDER BY $-.Rank DESC;
-====================================
-| e1._src | e1._dst | Rank | e1.p1 |
-====================================
-| 1       | 2       | 6    | 16    |
-------------------------------------
-| 1       | 2       | 5    | 15    |
-------------------------------------
-| 1       | 2       | 4    | 14    |
-------------------------------------
-| 1       | 2       | 3    | 13    |
-------------------------------------
++-----------+-----------+------+---------------------+
+| src(EDGE) | dst(EDGE) | Rank | properties(EDGE).p1 |
++-----------+-----------+------+---------------------+
+| "1"       | "2"       | 6    | 16                  |
++-----------+-----------+------+---------------------+
+| "1"       | "2"       | 5    | 15                  |
++-----------+-----------+------+---------------------+
+| "1"       | "2"       | 4    | 14                  |
++-----------+-----------+------+---------------------+
+| "1"       | "2"       | 3    | 13                  |
++-----------+-----------+------+---------------------+
 </code></pre></div>
 <h2 id="filter_on_strings">Filter on strings<a class="headerlink" href="#filter_on_strings" title="Permanent link">¶</a></h2>
 <p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> clauses to match a specific part of a string. String matching is case-sensitive.</p>
@@ -2631,20 +2630,20 @@ Empty set (time spent 5080/6474 us)
 | "Joel Embiid"           | 25    |
 +-------------------------+-------+
 
-nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD player.name, player.age;
-+-------------+------------------+------------+
-| VertexID    | player.name      | player.age |
-+-------------+------------------+------------+
-| "player135" | "Damian Lillard" | 28         |
-+-------------+------------------+------------+
-| "player131" | "Paul George"    | 28         |
-+-------------+------------------+------------+
-| "player130" | "Joel Embiid"    | 25         |
-+-------------+------------------+------------+
-| "player123" | "Ricky Rubio"    | 28         |
-+-------------+------------------+------------+
-| "player106" | "Kyle Anderson"  | 25         |
-+-------------+------------------+------------+
+nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD properties(vertex).name, properties(vertex).age;
++-------------+-------------------------+------------------------+
+| VertexID    | properties(VERTEX).name | properties(VERTEX).age |
++-------------+-------------------------+------------------------+
+| "player106" | "Kyle Anderson"         | 25                     |
++-------------+-------------------------+------------------------+
+| "player135" | "Damian Lillard"        | 28                     |
++-------------+-------------------------+------------------------+
+| "player130" | "Joel Embiid"           | 25                     |
++-------------+-------------------------+------------------------+
+| "player131" | "Paul George"           | 28                     |
++-------------+-------------------------+------------------------+
+| "player123" | "Ricky Rubio"           | 28                     |
++-------------+-------------------------+------------------------+
 </code></pre></div>
 <h3 id="match_values_not_in_a_list">Match values not in a list<a class="headerlink" href="#match_values_not_in_a_list" title="Permanent link">¶</a></h3>
 <p>Use <code>NOT</code> before <code>IN</code> to rule out the values in a list.</p>
@@ -2671,7 +2670,7 @@ nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD player.name, play
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 30, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

@@ -2387,7 +2387,7 @@
 <h3 id="fetch_specific_properties_of_a_vertex">Fetch specific properties of a vertex<a class="headerlink" href="#fetch_specific_properties_of_a_vertex" title="Permanent link">¶</a></h3>
 <p>Use a <code>YIELD</code> clause to specify the properties to be returned.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" \
-        YIELD player.name AS name;
+        YIELD properties(vertex).name AS name;
 +-------------+--------------+
 | VertexID    | name         |
 +-------------+--------------+
@@ -2493,12 +2493,12 @@ nebula&gt; FETCH PROP ON player, t1 "player100";
 <h3 id="fetch_specific_properties_of_an_edge">Fetch specific properties of an edge<a class="headerlink" href="#fetch_specific_properties_of_an_edge" title="Permanent link">¶</a></h3>
 <p>Use a <code>YIELD</code> clause to fetch specific properties of an edge.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"    \
-        YIELD serve.start_year;
-+-------------+------------+-------------+------------------+
-| serve._src  | serve._dst | serve._rank | serve.start_year |
-+-------------+------------+-------------+------------------+
-| "player100" | "team204"  | 0           | 1997             |
-+-------------+------------+-------------+------------------+
+        YIELD properties(edge).start_year;
++-------------+------------+-------------+-----------------------------+
+| serve._src  | serve._dst | serve._rank | properties(EDGE).start_year |
++-------------+------------+-------------+-----------------------------+
+| "player100" | "team204"  | 0           | 1997                        |
++-------------+------------+-------------+-----------------------------+
 </code></pre></div>
 <h3 id="fetch_properties_of_multiple_edges">Fetch properties of multiple edges<a class="headerlink" href="#fetch_properties_of_multiple_edges" title="Permanent link">¶</a></h3>
 <p>Specify multiple edge patterns (<code>&lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]</code>) to fetch properties of multiple edges. Separate the edge patterns with commas.</p>
@@ -2540,40 +2540,40 @@ nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"@1;
 <p>A common way to use <code>FETCH</code> is to combine it with native nGQL such as <code>GO</code>.</p>
 <p>The following statement returns the <code>degree</code> values of the <code>follow</code> edges that start from vertex <code>"player101"</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow \
-        YIELD follow._src AS s, follow._dst AS d |\
-        FETCH PROP ON follow $-.s -&gt; $-.d \
-        YIELD follow.degree;
-+-------------+-------------+--------------+---------------+
-| follow._src | follow._dst | follow._rank | follow.degree |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player100" | 0            | 95            |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player102" | 0            | 90            |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player125" | 0            | 95            |
-+-------------+-------------+--------------+---------------+
+        YIELD src(edge) AS s, dst(edge) AS d \
+        | FETCH PROP ON follow $-.s -&gt; $-.d \
+        YIELD properties(edge).degree;
++-------------+-------------+--------------+-------------------------+
+| follow._src | follow._dst | follow._rank | properties(EDGE).degree |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player100" | 0            | 95                      |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player102" | 0            | 90                      |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player125" | 0            | 95                      |
++-------------+-------------+--------------+-------------------------+
 </code></pre></div>
 <p>Or you can use user-defined variables to construct similar queries.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player101" OVER follow \
-        YIELD follow._src AS s, follow._dst AS d; \
+        YIELD src(edge) AS s, dst(edge) AS d; \
         FETCH PROP ON follow $var.s -&gt; $var.d \
-        YIELD follow.degree;
-+-------------+-------------+--------------+---------------+
-| follow._src | follow._dst | follow._rank | follow.degree |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player100" | 0            | 95            |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player102" | 0            | 90            |
-+-------------+-------------+--------------+---------------+
-| "player101" | "player125" | 0            | 95            |
-+-------------+-------------+--------------+---------------+
+        YIELD properties(edge).degree;
++-------------+-------------+--------------+-------------------------+
+| follow._src | follow._dst | follow._rank | properties(EDGE).degree |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player100" | 0            | 95                      |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player102" | 0            | 90                      |
++-------------+-------------+--------------+-------------------------+
+| "player101" | "player125" | 0            | 95                      |
++-------------+-------------+--------------+-------------------------+
 </code></pre></div>
 <p>For more information about composite queries, see <a href="../../4.variable-and-composite-queries/1.composite-queries/">Composite queries (clause structure)</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

@@ -2310,20 +2310,20 @@ END
 +--------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-        YIELD $$.player.name AS Name, \
-        CASE $$.player.age &gt; 35 \
+        YIELD properties($$).name AS Name, \
+        CASE properties($$).age &gt; 35 \
         WHEN true THEN "Yes" \
         WHEN false THEN "No" \
         ELSE "Nah" \
         END \
         AS Age_above_35;
-+---------------------+--------------+
-| Name                | Age_above_35 |
-+---------------------+--------------+
-| "Tony Parker"       | "Yes"        |
-+---------------------+--------------+
-| "LaMarcus Aldridge" | "No"         |
-+---------------------+--------------+
++-----------------+--------------+
+| Name            | Age_above_35 |
++-----------------+--------------+
+| "Tony Parker"   | "Yes"        |
++-----------------+--------------+
+| "Manu Ginobili" | "Yes"        |
++-----------------+--------------+
 </code></pre></div>
 <h2 id="the_generic_form_of_case_expressions">The generic form of CASE expressions<a class="headerlink" href="#the_generic_form_of_case_expressions" title="Permanent link">¶</a></h2>
 <h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">¶</a></h3>
@@ -2388,9 +2388,9 @@ END
 <h2 id="differences_between_the_simple_form_and_the_generic_form">Differences between the simple form and the generic form<a class="headerlink" href="#differences_between_the_simple_form_and_the_generic_form" title="Permanent link">¶</a></h2>
 <p>To avoid the misuse of the simple form and the generic form, it is important to understand their differences. The following example can help explain them.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-        YIELD $$.player.name AS Name, $$.player.age AS Age, \
-        CASE $$.player.age \
-        WHEN $$.player.age &gt; 35 THEN "Yes" \
+        YIELD properties($$).name AS Name, properties($$).age AS Age, \
+        CASE properties($$).age \
+        WHEN properties($$).age &gt; 35 THEN "Yes" \
         ELSE "No" \
         END \
         AS Age_above_35;
@@ -2415,7 +2415,7 @@ END
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 19, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

@@ -501,6 +501,16 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#for_ngql_statements">
+    For nGQL statements
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for_statements_compatible_with_opencypher">
+    For statements compatible with openCypher
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
@@ -2164,6 +2174,16 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#for_ngql_statements">
+    For nGQL statements
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for_statements_compatible_with_opencypher">
+    For statements compatible with openCypher
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#examples">
     Examples
   </a>
@@ -2179,11 +2199,15 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="schema_functions">Schema functions<a class="headerlink" href="#schema_functions" title="Permanent link">¶</a></h1>
+<p>Nebula Graph supports the following schema functions.</p>
+<h2 id="for_ngql_statements">For nGQL statements<a class="headerlink" href="#for_ngql_statements" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The functions introduced in this topic applies to compatible statements in openCypher only.</p>
+<ul>
+<li>The following functions are available in both the WHERE and YIELD clauses in GO statements.</li>
+<li>The following functions are only available in the YIELD clauses in LOOKUP and YIELD statements.</li>
+</ul>
 </div>
-<p>Nebula Graph supports the following built-in schema functions:</p>
 <table>
 <thead>
 <tr>
@@ -2194,19 +2218,15 @@
 <tbody>
 <tr>
 <td>id(vertex)</td>
-<td>Returns the id of a vertex. The data type of the result is the same as the vertex ID.</td>
+<td>Returns the ID of a vertex. The data type of the result is the same as the vertex ID.</td>
 </tr>
 <tr>
-<td>list tags(vertex)</td>
-<td>Returns the tags of a vertex and has the same function as labels().</td>
+<td>map properties(vertex)</td>
+<td>Returns the properties of a vertex.</td>
 </tr>
 <tr>
-<td>list labels(vertex)</td>
-<td>Returns the tags of a vertex and has the same function as tags() to be compatible with the openCypher syntax.</td>
-</tr>
-<tr>
-<td>map properties(vertex_or_edge)</td>
-<td>Takes in a vertex or an edge and returns its properties.</td>
+<td>map properties(edge)</td>
+<td>Returns the properties of an edge.</td>
 </tr>
 <tr>
 <td>string type(edge)</td>
@@ -2214,19 +2234,11 @@
 </tr>
 <tr>
 <td>src(edge)</td>
-<td>Returns the source vertex ID of an edge. The data type is consistent with the vertex ID type.</td>
+<td>Returns the source vertex ID of an edge. The data type of the result is the same as the vertex ID.</td>
 </tr>
 <tr>
 <td>dst(edge)</td>
-<td>Returns the destination vertex ID of an edge. The data type is consistent with the vertex ID type.</td>
-</tr>
-<tr>
-<td>vertex startNode(path)</td>
-<td>Takes in an edge or a path and returns its source vertex ID.</td>
-</tr>
-<tr>
-<td>string endNode(path)</td>
-<td>Takes in an edge or a path and returns its destination vertex ID.</td>
+<td>Returns the destination vertex ID of an edge. The data type of the result is the same as the vertex ID.</td>
 </tr>
 <tr>
 <td>int rank(edge)</td>
@@ -2234,8 +2246,77 @@
 </tr>
 </tbody>
 </table>
+<h2 id="for_statements_compatible_with_opencypher">For statements compatible with openCypher<a class="headerlink" href="#for_statements_compatible_with_opencypher" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id(\&lt;vertex&gt;)</td>
+<td align="left">Returns the ID of a vertex. The data type of the result is the same as the vertex ID.</td>
+</tr>
+<tr>
+<td align="left">list tags(\&lt;vertex&gt;)</td>
+<td align="left">Returns the Tag of a vertex, which serves the same purpose as labels().</td>
+</tr>
+<tr>
+<td align="left">list labels(\&lt;vertex&gt;)</td>
+<td align="left">Returns the Tag of a vertex, which serves the same purpose as tags(). This function is used for compatibility with openCypher syntax.</td>
+</tr>
+<tr>
+<td align="left">map properties(\&lt;vertex_or_edge&gt;)</td>
+<td align="left">Returns the properties of a vertex or an edge.</td>
+</tr>
+<tr>
+<td align="left">string type(\&lt;edge&gt;)</td>
+<td align="left">Returns the edge type of an edge.</td>
+</tr>
+<tr>
+<td align="left">src(\&lt;edge&gt;)</td>
+<td align="left">Returns the source vertex ID of an edge. The data type of the result is the same as the vertex ID.</td>
+</tr>
+<tr>
+<td align="left">dst(\&lt;edge&gt;)</td>
+<td align="left">Returns the destination vertex ID of an edge. The data type of the result is the same as the vertex ID.</td>
+</tr>
+<tr>
+<td align="left">vertex startNode(\&lt;path&gt;)</td>
+<td align="left">Visits an edge or a path and returns its source vertex ID.</td>
+</tr>
+<tr>
+<td align="left">string endNode(\&lt;path&gt;)</td>
+<td align="left">Visits an edge or a path and returns its destination vertex ID.</td>
+</tr>
+<tr>
+<td align="left">int rank(\&lt;edge&gt;)</td>
+<td align="left">Returns the rank value of an edge.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (a:player) WHERE id(a) == "player100" \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow REVERSELY \
+        YIELD src(edge) AS destination;
++-------------+
+| destination |
++-------------+
+| "player101" |
++-------------+
+| "player102" |
++-------------+
+nebula&gt; LOOKUP ON player WHERE player.age  &gt; 45 YIELD id(vertex);
++-------------+-------------+
+| VertexID    | id(VERTEX)  |
++-------------+-------------+
+| "player144" | "player144" |
++-------------+-------------+
+| "player140" | "player140" |
++-------------+-------------+
+
+nebula&gt; MATCH (a:player) WHERE id(a) == "player100" \
         RETURN tags(a), labels(a), properties(a);
 +------------+------------+-------------------------------+
 | tags(a)    | labels(a)  | properties(a)                 |
@@ -2263,7 +2344,7 @@ nebula&gt; MATCH p = (a :player {name : "Tim Duncan"})-[r:serve]-(t) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

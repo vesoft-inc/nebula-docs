@@ -2363,7 +2363,7 @@
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p>The following query returns the <code>name</code> property of the <code>player</code> tag on the source vertex and the <code>age</code> property of the <code>player</code> tag on the destination vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD $^.player.name AS startName, $$.player.age AS endAge;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD properties($^).name AS startName, properties($$).age AS endAge;
 +--------------+--------+
 | startName    | endAge |
 +--------------+--------+
@@ -2373,7 +2373,7 @@
 +--------------+--------+
 </code></pre></div>
 <p>The following query returns the <code>degree</code> property of the edge type <code>follow</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow.degree;
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD properties(edge).degree;
 +---------------+
 | follow.degree |
 +---------------+
@@ -2383,20 +2383,20 @@
 +---------------+
 </code></pre></div>
 <p>The following query returns the source vertex, the destination vertex, the edge type, and the edge rank value of the edge type <code>follow</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD follow._src, follow._dst, follow._type, follow._rank;
-+-------------+-------------+--------------+--------------+
-| follow._src | follow._dst | follow._type | follow._rank |
-+-------------+-------------+--------------+--------------+
-| "player100" | "player101" | 136          | 0            |
-+-------------+-------------+--------------+--------------+
-| "player100" | "player102" | 136          | 0            |
-+-------------+-------------+--------------+--------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD src(edge), dst(edge), type(edge), rank(edge);
++-------------+-------------+------------+------------+
+| src(EDGE)   | dst(EDGE)   | type(EDGE) | rank(EDGE) |
++-------------+-------------+------------+------------+
+| "player100" | "player101" | "follow"   | 0          |
++-------------+-------------+------------+------------+
+| "player100" | "player125" | "follow"   | 0          |
++-------------+-------------+------------+------------+
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

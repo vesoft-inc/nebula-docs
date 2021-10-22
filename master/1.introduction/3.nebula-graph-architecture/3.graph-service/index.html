@@ -2249,7 +2249,7 @@
 </ol>
 <h2 id="parser">Parser<a class="headerlink" href="#parser" title="Permanent link">¶</a></h2>
 <p>After receiving a request, the statements will be parsed by the Parser composed of Flex (lexical analysis tool) and Bison (syntax analysis tool), and its corresponding AST will be generated. Statements will be directly intercepted in this stage because of its invalid syntax.</p>
-<p>For example, the structure of the AST of <code>GO FROM "Tim" OVER like WHERE like.likeness &gt; 8.0 YIELD like._dst</code> is shown in the following picture.</p>
+<p>For example, the structure of the AST of <code>GO FROM "Tim" OVER like WHERE properties(edge).likeness &gt; 8.0 YIELD dst(edge)</code> is shown in the following picture.</p>
 <p><img alt="AST" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/parser-ast-tree.png"/></p>
 <h2 id="validator">Validator<a class="headerlink" href="#validator" title="Permanent link">¶</a></h2>
 <p>Validator performs a series of validations on the AST. It mainly works on these tasks:</p>
@@ -2260,7 +2260,7 @@
 </ul>
 <ul>
 <li>Validating contextual reference<p>Validator will verify whether the cited variable exists or not, or whether the cited property is variable or not.</p>
-<p>For composite statements, like <code>$var = GO FROM "Tim" OVER like YIELD like._dst AS ID; GO FROM $var.ID OVER serve YIELD serve._dst</code>, Validator verifies first to see if <code>var</code> is defined, and then to check if the <code>ID</code> property is attached to the <code>var</code> variable.</p>
+<p>For composite statements, like <code>$var = GO FROM "Tim" OVER like YIELD dst(edge) AS ID; GO FROM $var.ID OVER serve YIELD dst(edge)</code>, Validator verifies first to see if <code>var</code> is defined, and then to check if the <code>ID</code> property is attached to the <code>var</code> variable.</p>
 </li>
 </ul>
 <ul>
@@ -2270,12 +2270,12 @@
 </ul>
 <ul>
 <li>Validating the information of <code>*</code><p>Validator needs to verify all the Schema that involves <code>*</code> when verifying the clause if there is a <code>*</code> in the statement.</p>
-<p>Take a statement like <code>GO FROM "Tim" OVER * YIELD like._dst, like.likeness, serve._dst</code> as an example. When verifying the <code>OVER</code> clause, Validator needs to verify all the edge types. If the edge type includes <code>like</code> and <code>serve</code>, the statement would be <code>GO FROM "Tim" OVER like,serve YIELD like._dst, like.likeness, serve._dst</code>.</p>
+<p>Take a statement like <code>GO FROM "Tim" OVER * YIELD dst(edge), properties(edge).likeness, dst(edge)</code> as an example. When verifying the <code>OVER</code> clause, Validator needs to verify all the edge types. If the edge type includes <code>like</code> and <code>serve</code>, the statement would be <code>GO FROM "Tim" OVER like,serve YIELD dst(edge), properties(edge).likeness, dst(edge)</code>.</p>
 </li>
 </ul>
 <ul>
 <li>Validating input and output<p>Validator will check the consistency of the clauses before and after the <code>|</code>.</p>
-<p>In the statement <code>GO FROM "Tim" OVER like YIELD like._dst AS ID | GO FROM $-.ID OVER serve YIELD serve._dst</code>, Validator will verify whether <code>$-.ID</code> is defined in the clause before the <code>|</code>.</p>
+<p>In the statement <code>GO FROM "Tim" OVER like YIELD dst(edge) AS ID | GO FROM $-.ID OVER serve YIELD dst(edge)</code>, Validator will verify whether <code>$-.ID</code> is defined in the clause before the <code>|</code>.</p>
 </li>
 </ul>
 <p>When the validation succeeds, an execution plan will be generated. Its data structure will be stored in the <code>src/planner</code> directory.</p>
@@ -2323,7 +2323,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

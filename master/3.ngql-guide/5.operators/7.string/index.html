@@ -2311,19 +2311,19 @@ nebula&gt; UNWIND 'a' AS a UNWIND 'b' AS b RETURN a + b;
 | "Tony Parker" | 2018         | 2019       | "Hornets" |
 +---------------+--------------+------------+-----------+
 
-nebula&gt; GO FROM "player101" OVER serve WHERE (STRING)serve.start_year CONTAINS "19" AND \
-        $^.player.name CONTAINS "ny" \
-        YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+nebula&gt; GO FROM "player101" OVER serve WHERE (STRING)properties(edge).start_year CONTAINS "19" AND \
+        properties($^).name CONTAINS "ny" \
+        YIELD properties($^).name, properties(edge).start_year, properties(edge).end_year, properties($$).name;
 +----------------+------------------+----------------+--------------+
-| $^.player.name | serve.start_year | serve.end_year | $$.team.name |
+| properties($^).name | properties(EDGE).start_year | properties(EDGE).end_year | properties($$).name |
 +----------------+------------------+----------------+--------------+
 | "Tony Parker"  | 1999             | 2018           | "Spurs"      |
 +----------------+------------------+----------------+--------------+
 
-nebula&gt; GO FROM "player101" OVER serve WHERE !($$.team.name CONTAINS "ets") \
-        YIELD $^.player.name, serve.start_year, serve.end_year, $$.team.name;
+nebula&gt; GO FROM "player101" OVER serve WHERE !(properties($$).name CONTAINS "ets") \
+        YIELD properties($^).name, properties(edge).start_year, properties(edge).end_year, $$.team.name;
 +----------------+------------------+----------------+--------------+
-| $^.player.name | serve.start_year | serve.end_year | $$.team.name |
+| properties($^).name | properties(EDGE).start_year | properties(EDGE).end_year | properties($$).name |
 +----------------+------------------+----------------+--------------+
 | "Tony Parker"  | 1999             | 2018           | "Spurs"      |
 +----------------+------------------+----------------+--------------+
@@ -2383,7 +2383,7 @@ nebula&gt; MATCH (v:player) WHERE v.name =~ 'Tony.*' RETURN v.name;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

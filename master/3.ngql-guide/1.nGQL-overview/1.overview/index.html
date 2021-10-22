@@ -2480,8 +2480,8 @@ Feature:  Comparison of where clause
       When profiling query:
         """
         GO FROM "player100" OVER follow 
-        WHERE follow.degree IN [v IN [95,99] WHERE v &gt; 0] 
-        YIELD follow._dst, follow.degree
+        WHERE properties(edge).degree IN [v IN [95,99] WHERE v &gt; 0] 
+        YIELD dst(edge), properties(edge).degree
         """
       Then the result should be, in any order:
         | follow._dst | follow.degree |
@@ -2490,7 +2490,7 @@ Feature:  Comparison of where clause
       And the execution plan should be:
         | id | name         | dependencies | operator info                                               |
         | 0  | Project      | 1            |                                                             |
-        | 1  | GetNeighbors | 2            | {"filter": "(follow.degree IN [v IN [95,99] WHERE (v&gt;0)])"} |
+        | 1  | GetNeighbors | 2            | {"filter": "(properties(edge).degree IN [v IN [95,99] WHERE (v&gt;0)])"} |
         | 2  | Start        |              |                                                             |
 </code></pre></div>
 <p>The keywords in the preceding example are described as follows.</p>
@@ -2547,7 +2547,7 @@ Feature:  Comparison of where clause
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

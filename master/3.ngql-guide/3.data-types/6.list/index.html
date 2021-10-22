@@ -2390,8 +2390,8 @@ nebula&gt; RETURN size([1,2,3]);
 +---------------+
 
 # The following query calculates the elements in the list [92,90] and runs a conditional judgment in a where clause.
-nebula&gt; GO FROM "player100" OVER follow WHERE follow.degree NOT IN [x IN [92, 90] | x + $$.player.age] \
-        YIELD follow._dst AS id, follow.degree AS degree;
+nebula&gt; GO FROM "player100" OVER follow WHERE properties(edge).degree NOT IN [x IN [92, 90] | x + $$.player.age] \
+        YIELD dst(edge) AS id, properties(edge).degree AS degree;
 +-------------+--------+
 | id          | degree |
 +-------------+--------+
@@ -2435,7 +2435,7 @@ nebula&gt; MATCH p = (n:player{name:"Tim Duncan"})-[:follow]-&gt;(m) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>

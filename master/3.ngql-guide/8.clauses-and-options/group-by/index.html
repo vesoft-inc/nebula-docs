@@ -2238,7 +2238,7 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts how many times the name shows up in the result set.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow BIDIRECT \
-        YIELD $$.player.name as Name \
+        YIELD properties($$).name as Name \
         | GROUP BY $-.Name \
         YIELD $-.Name as Player, count(*) AS Name_Count;
 +---------------------+------------+
@@ -2268,7 +2268,7 @@
 <h2 id="group_and_calculate_with_functions">Group and calculate with functions<a class="headerlink" href="#group_and_calculate_with_functions" title="Permanent link">¶</a></h2>
 <p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by source vertices, and returns the sum of degree values.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
-        YIELD follow._src AS player, follow.degree AS degree \
+        YIELD src(edge) AS player, properties(edge).degree AS degree \
         | GROUP BY $-.player \
         YIELD sum($-.degree);
 +----------------+
@@ -2282,7 +2282,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
 </small>
 </div>
 </article>
