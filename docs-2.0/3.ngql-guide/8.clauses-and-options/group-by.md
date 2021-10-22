@@ -44,7 +44,7 @@ The following statement finds all the vertices connected directly to vertex `"pl
 
 ```ngql
 nebula> GO FROM "player100" OVER follow BIDIRECT \
-        YIELD $$.player.name as Name \
+        YIELD properties($$).name as Name \
         | GROUP BY $-.Name \
         YIELD $-.Name as Player, count(*) AS Name_Count;
 +---------------------+------------+
@@ -78,7 +78,7 @@ The following statement finds all the vertices connected directly to vertex `"pl
 
 ```ngql
 nebula> GO FROM "player100" OVER follow \
-        YIELD follow._src AS player, follow.degree AS degree \
+        YIELD src(edge) AS player, properties(edge).degree AS degree \
         | GROUP BY $-.player \
         YIELD sum($-.degree);
 +----------------+

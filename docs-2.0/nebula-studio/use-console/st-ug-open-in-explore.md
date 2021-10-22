@@ -31,7 +31,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
    Here is an nGQL statement example.
 
     ```ngql
-    nebula> GO FROM "player102" OVER serve YIELD serve._src,serve._dst;
+    nebula> GO FROM "player102" OVER serve YIELD src(edge),dst(edge);
     ```
 
    In the query result, you can see the start year and end year of the service team for the player whose playerId is `palyer102`. As shown below.
@@ -81,7 +81,7 @@ To query vertex data on the **Console** page and then view the result on the **E
    Here is an nGQL statement example.
 
    ```ngql
-   nebula> FETCH PROP ON player "player100" YIELD player.name;
+   nebula> FETCH PROP ON player "player100" YIELD properties(vertex).name;
    ```
 
    The query result gives the information of the player whose `playerId` is `player100`, as shown in this figure.
