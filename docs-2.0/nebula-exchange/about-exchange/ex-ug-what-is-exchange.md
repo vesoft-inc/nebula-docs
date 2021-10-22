@@ -1,6 +1,6 @@
 # What is Nebula Exchange
 
-[Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/tree/{{exchange.branch}}/nebula-exchange) (Exchange) is an Apache Spark&trade; application for bulk migration of cluster data to Nebula Graph in a distributed environment, supporting batch and streaming data migration in a variety of formats.
+[Nebula Exchange](https://github.com/vesoft-inc/nebula-exchange) (Exchange) is an Apache Spark&trade; application for bulk migration of cluster data to Nebula Graph in a distributed environment, supporting batch and streaming data migration in a variety of formats.
 
 Exchange consists of Reader, Processor, and Writer. After Reader reads data from different sources and returns a DataFrame, the Processor iterates through each row of the DataFrame and obtains the corresponding value based on the mapping between `fields` in the configuration file. After iterating through the number of rows in the specified batch, Writer writes the captured data to the Nebula Graph at once. The following figure illustrates the process by which Exchange completes the data conversion and migration.
 

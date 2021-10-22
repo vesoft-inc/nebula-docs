@@ -1,6 +1,6 @@
 # Nebula Algorithm
 
-[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
+[Nebula Algorithm](https://github.com/vesoft-inc/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 | ShortestPath     |The shortest path | Path planning, network planning |
 | TriangleCount    |Triangle counting | Network structure analysis|
 |  GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
-| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing | 
+| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |
 | DegreeStatic    |Degree of statistical | Graph structure analysis|
 
 ## Implementation methods
@@ -48,22 +48,22 @@ Nebula Algorithm implements the graph calculating as follows:
 
 3. Use graph algorithms provided by GraphX (such as PageRank) or self-implemented algorithms (such as Louvain).
 
-For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
+For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-algorithm/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
 
 ## Get Nebula Algorithm
 
 ### Compile and package
 
-1. Clone the repository `nebula-spark-utils`.
+1. Clone the repository `nebula-algorithm`.
 
   ```bash
-  $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
+  $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-algorithm.git
   ```
 
 2. Enter the directory `nebula-algorithm`.
 
   ```bash
-  $ cd nebula-spark-utils/nebula-algorithm
+  $ cd nebula-algorithm
   ```
 
 3. Compile and package.
@@ -88,13 +88,13 @@ The `lib` repository provides 10 common graph algorithms.
 
   ```bash
   <dependency>
-  <groupId>com.vesoft</groupId>
-  <artifactId>nebula-algorithm</artifactId>
-  <version>{{algorithm.release}}</version>
+       <groupId>com.vesoft</groupId>
+       <artifactId>nebula-algorithm</artifactId>
+       <version>{{algorithm.release}}</version>
   </dependency>
   ```
 
-2. Use the algorithm (take PageRank as an example) by filling in parameters. For more algorithms, see [Test cases](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib).
+2. Use the algorithm (take PageRank as an example) by filling in parameters. For more algorithms, see [Test cases](https://github.com/vesoft-inc/nebula-algorithm/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib)).
 
   !!! note
         By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
@@ -109,7 +109,7 @@ The `lib` repository provides 10 common graph algorithms.
 !!! note
     There are limitations to use sealed packages. For example, when sinking a repository into Nebula Graph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
 
-1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
+1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
 
   ```bash
   {
@@ -260,11 +260,11 @@ The `lib` repository provides 10 common graph algorithms.
 2. Submit the graph computing task.
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-2.0.0.jar_path> -p <application.conf_path>
+  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-{{algorithm.release}}.jar_path> -p <application.conf_path>
   ```
 
   Example:
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-spark-utils/nebula-algorithm/target/nebula-algorithm-2.0.0.jar -p /root/nebula-spark-utils/nebula-algorithm/src/main/resources/application.conf
+  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-{{algorithm.release}}.jar -p /root/nebula-algorithm/src/main/resources/application.conf
   ```
