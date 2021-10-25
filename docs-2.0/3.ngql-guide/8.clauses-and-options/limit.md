@@ -31,7 +31,7 @@ In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIM
 |`offset`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
 |`number_rows`|It constrains the total number of returned rows.|
 
-For examples:
+For example:
 
 ```ngql
 # The following example returns the top 3 rows of data from the result.
