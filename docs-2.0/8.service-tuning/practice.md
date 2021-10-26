@@ -1,8 +1,8 @@
-# Practices
+# Best practices
 
-Nebula Graph is used in a variety of industries, and this article presents a few examples of Nebula's practices. For more hands-on sharing, see [Blog](https://nebula-graph.io/posts/).
+Nebula Graph is used in a variety of industries. This topic presents a few best practices for using Nebula Graph. For more best practices, see [Blog](https://nebula-graph.io/posts/).
 
-## Scenario
+## Scenarios
 
 - [Use cases](https://nebula-graph.io/tags/use-cases/)
 
