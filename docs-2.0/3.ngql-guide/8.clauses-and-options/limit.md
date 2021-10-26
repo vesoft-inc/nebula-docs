@@ -1,38 +1,55 @@
 # LIMIT AND SKIP
 
-The `LIMIT` clause constrains the number of rows in the output.
+The `LIMIT` clause constrains the number of rows in the output. The usage of `LIMIT` in native nGQL statements and openCypher compatible statements is different.
 
-- Native nGQL: A pipe `|` must be used. And an offset can be ignored.
+- Native nGQL: Generally, a pipe `|` needs to be used before the `LIMIT` clause. The offset parameter can be set or omitted directly after the `LIMIT` statement.
 
-- OpenCypher style: No pipes are permitted. And you can use `SKIP` to indicate an offset.
+- OpenCypher compatible statements: No pipes are permitted before the `LIMIT` clause. And you can use `SKIP` to indicate an offset.
 
 !!! note
 
         When using `LIMIT` in either syntax above, it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
-## Native nGQL syntax
+!!! compatibility "Legacy version compatibility"
 
-In native nGQL, `LIMIT` works the same as in `SQL`, and must be used with pipe `|`. The `LIMIT` clause accepts one or two parameters. The values of both arguments must be non-negative integers.
+    In Nebula Graph 2.6.0, `GO` statements support the new `LIMIT` syntax. Some operators related to `LIMIT` support computing pushdown.
+
+## LIMIT in native nGQL statements
+
+In native nGQL, `LIMIT` has general syntax and exclusive syntax in `GO` statements.
+
+### General LIMIT syntax in native nGQL statements
+
+In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIMIT` clause accepts one or two parameters. The values of both parameters must be non-negative integers and be used after a pipe. The syntax and description are as follows:
 
 ```ngql
-YIELD <var>
-[| LIMIT [<offset_value>,] <number_rows>];
+... | LIMIT [<offset>,] <number_rows>;
 ```
 
 |Parameter|Description|
 |:--|:--|
-|`var`|The columns or calculations that you wish to sort.|
-|`offset_value`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
 |`number_rows`|It constrains the total number of returned rows.|
 
-### Examples
+For example:
 
 ```ngql
+# The following example returns the top 3 rows of data from the result.
+nebula> LOOKUP ON player |\
+        LIMIT 3;
++-------------+
+| VertexID    |
++-------------+
+| "player100" |
+| "player101" |
+| "player102" |
++-------------+
+
 # The following example returns the 3 rows of data starting from the second row of the sorted output.
 nebula> GO FROM "player100" OVER follow REVERSELY \
-        YIELD properties($$).name AS Friend, properties($$).age AS Age \
-        | ORDER BY $-.Age, $-.Friend \
-        | LIMIT 1, 3;
+        YIELD properties($$).name AS Friend, properties($$).age AS Age \|
+        ORDER BY $-.Age, $-.Friend \|
+        LIMIT 1, 3;
 +-------------------+-----+
 | Friend            | Age |
 +-------------------+-----+
@@ -44,18 +61,51 @@ nebula> GO FROM "player100" OVER follow REVERSELY \
 +-------------------+-----+
 ```
 
-## OpenCypher syntax
+### LIMIT in GO statements
+
+In addition to the general syntax in the native nGQL, the `LIMIT` in the `GO` statement also supports limiting the number of output results based on edges.
+
+Syntax:
 
 ```ngql
-RETURN <var>
-[SKIP <offset>]
-[LIMIT <number_rows>];
+<go_statement> LIMIT <limit_list>;
+```
+
+`limit_list` is a list. Elements in the list must be natural numbers, and the number of elements must be the same as the maximum number of `STEPS` in the `GO` statement. The following takes `GO 1 TO 3 STEPS FROM "A" OVER * LIMIT <limit_list>` as an example to introduce this usage of `LIMIT` in detail.
+
+* The list `limit_list` must contain 3 natural numbers, such as `GO 1 TO 3 STEPS FROM "A" OVER * LIMIT [1,2,4]`.
+* `1` in `LIMIT [1,2,4]` means that the system automatically selects 1 edge to continue traversal in the first step. `2` means to select 2 edges to continue traversal in the second step. `4` indicates that 4 edges are selected to continue traversal in the third step.
+* Because `GO 1 TO 3 STEPS` means to return all the traversal results from the first to third steps, all the red edges and their source and destination vertices in the figure below will be matched by this `GO` statement. And the yellow edges represent there is no path selected when the GO statement traverses. If it is not `GO 1 TO 3 STEPS` but `GO 3 STEPS`, it will only match the red edges of the third step and the vertices at both ends.
+
+![LIMIT in GO](limit_in_go_1.png)
+
+In the basketballplayer dataset, the example is as follows:
+
+```ngql
+nebula> GO 3 STEPS FROM "player100" \
+        OVER * \
+        YIELD properties($$).name AS NAME, properties($$).age AS Age \
+        LIMIT [3,3,3];
++-----------------+--------------+
+| NAME            | Age          |
++-----------------+--------------+
+| "Spurs"         | UNKNOWN_PROP |
+| "Tony Parker"   | 36           |
+| "Manu Ginobili" | 41           |
++-----------------+--------------+
+```
+
+## LIMIT in openCypher compatible statements
+
+In openCypher compatible statements such as `MATCH`, there is no need to use a pipe when `LIMIT` is used. The syntax and description are as follows:
+
+```ngql
+... [SKIP <offset>] [LIMIT <number_rows>];
 ```
 
 |Parameter|Description|
 |:--|:--|
-|`var`|The columns or calculations that you wish to sort.|
-|`offset`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
 |`number_rows`|It constrains the total number of returned rows.|
 
 Both `offset` and `number_rows` accept expressions, but the result of the expression must be a non-negative integer.
@@ -64,7 +114,9 @@ Both `offset` and `number_rows` accept expressions, but the result of the expres
 
     Fraction expressions composed of two integers are automatically floored to integers. For example, `8/6` is floored to 1.
 
-### Examples
+### Examples of LIMIT
+
+`LIMIT` can be used alone to return a specified number of results.
 
 ```ngql
 nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
@@ -100,7 +152,7 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 
 ### Examples of SKIP
 
-You can use `SKIP <offset>` to skip the top N rows of the output and return the rest of the output. So, there is no need to add `LIMIT <number_rows>`.
+`SKIP` can be used alone to set the offset and return the data after the specified position.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
@@ -124,7 +176,9 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 +---------------+-----+
 ```
 
-You can use `SKIP <offset>` and `LIMIT <number_rows>` together to return the data of the middle N rows.
+### Example of SKIP and LIMIT
+
+`SKIP` and `LIMIT` can be used together to return the specified amount of data starting from the specified position.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
@@ -136,6 +190,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 | "Manu Ginobili" | 41  |
 +-----------------+-----+
 ```
+
 <!--
 ## Performance tip
 
