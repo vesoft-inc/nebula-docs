@@ -20,7 +20,7 @@ In native nGQL, `LIMIT` has general syntax and exclusive syntax in `GO` statemen
 
 ### General LIMIT syntax in native nGQL statements
 
-In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIMIT` clause accepts one or two parameters. The values of both parameters must be non-negative integers and be used after the pipe. The syntax and description are as follows:
+In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIMIT` clause accepts one or two parameters. The values of both parameters must be non-negative integers and be used after a pipe. The syntax and description are as follows:
 
 ```ngql
 ... | LIMIT [<offset>,] <number_rows>;
@@ -28,7 +28,7 @@ In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIM
 
 |Parameter|Description|
 |:--|:--|
-|`offset`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
 |`number_rows`|It constrains the total number of returned rows.|
 
 For example:
@@ -97,7 +97,7 @@ nebula> GO 3 STEPS FROM "player100" \
 
 ## LIMIT in openCypher compatible statements
 
-In openCypher compatible statements such as `MATCH`, there is no need to use a pipe when LIMIT is used. The syntax and description are as follows:
+In openCypher compatible statements such as `MATCH`, there is no need to use a pipe when `LIMIT` is used. The syntax and description are as follows:
 
 ```ngql
 ... [SKIP <offset>] [LIMIT <number_rows>];
@@ -105,7 +105,7 @@ In openCypher compatible statements such as `MATCH`, there is no need to use a p
 
 |Parameter|Description|
 |:--|:--|
-|`offset`|The offset value. It defines from which row to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
+|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
 |`number_rows`|It constrains the total number of returned rows.|
 
 Both `offset` and `number_rows` accept expressions, but the result of the expression must be a non-negative integer.
