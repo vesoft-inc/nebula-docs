@@ -4,7 +4,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
 
 !!! note
 
-    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-250.md).
+    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-260.md).
 
 ## Upgrade steps with RPM/DEB packages
 
