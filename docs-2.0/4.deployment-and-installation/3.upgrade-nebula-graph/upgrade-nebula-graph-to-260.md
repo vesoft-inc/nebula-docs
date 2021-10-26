@@ -4,7 +4,7 @@ The legacy versions of Nebula Graph refer to the versions lower than Nebula Grap
 
 !!! note
 
-     To upgrade Nebula Graph v2.0.0-GA or later versions to v{{nebula.release}}, see [Nebula Graph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-250.md).
+     To upgrade Nebula Graph v2.0.0-GA or later versions to v{{nebula.release}}, see [Nebula Graph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-260.md).
 
 ## Limitations
 
