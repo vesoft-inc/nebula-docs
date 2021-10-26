@@ -2204,7 +2204,7 @@
 <p>By default, the function of RocksDB statistics is disabled. To enable RocksDB statistics, you need to:</p>
 <ol>
 <li>
-<p>Modify the <code>--enable_rocksdb_statistics</code> parameter as <code>true</code> in the <code>storaged.conf</code> file. The default path of the configuration file is <code>/use/local/nebula/etc</code>.</p>
+<p>Modify the <code>--enable_rocksdb_statistics</code> parameter as <code>true</code> in the <code>nebula-storaged.conf</code> file. The default path of the configuration file is <code>/use/local/nebula/etc</code>.</p>
 </li>
 <li>
 <p>Restart the service to make the modification valid.</p>
@@ -2238,18 +2238,25 @@ rocksdb.block.cache.add<span class="o">=</span><span class="m">14</span>
 rocksdb.bytes.read<span class="o">=</span><span class="m">1632</span>
 </code></pre></div></p>
 <p>Use the following command to get specified RocksDB statistics in the JSON format:
-<div class="highlight"><pre><span></span><code>curl -L <span class="s2">"http://</span><span class="si">${</span><span class="nv">storage_ip</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">port</span><span class="si">}</span><span class="s2">/rocksdb_stats?stats=</span><span class="si">${</span><span class="nv">stats_name</span><span class="si">}</span><span class="s2">.&amp;returnjson"</span>
+<div class="highlight"><pre><span></span><code>curl -L <span class="s2">"http://</span><span class="si">${</span><span class="nv">storage_ip</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">port</span><span class="si">}</span><span class="s2">/rocksdb_stats?stats=</span><span class="si">${</span><span class="nv">stats_name</span><span class="si">}</span><span class="s2">&amp;format=json"</span>
 </code></pre></div></p>
 <p>For example, use the following command to get the information of <code>rocksdb.bytes.read</code> and <code>rocksdb.block.cache.add</code> and return the results in the JSON format.
-<div class="highlight"><pre><span></span><code>curl -L <span class="s2">"http://172.28.2.1:19779/rocksdb_stats?stats=rocksdb.bytes.read,rocksdb.block.cache.add&amp;returnjson"</span>
+<div class="highlight"><pre><span></span><code>curl -L <span class="s2">"http://172.28.2.1:19779/rocksdb_stats?stats=rocksdb.bytes.read,rocksdb.block.cache.add&amp;format=json"</span>
 
-<span class="o">[{</span><span class="s2">"value"</span>:14,<span class="s2">"name"</span>:rocksdb.block.cache.add<span class="o">}</span>,<span class="o">{</span><span class="s2">"value"</span>:1632,<span class="s2">"name"</span>:<span class="s2">"rocksdb.bytes.read"</span><span class="o">}]</span>
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">"rocksdb.block.cache.add"</span>: <span class="m">1</span>
+  <span class="o">}</span>,
+  <span class="o">{</span>
+    <span class="s2">"rocksdb.bytes.read"</span>: <span class="m">160</span>
+  <span class="o">}</span>
+<span class="o">]</span>
 </code></pre></div></p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 26, 2021</span>
 </small>
 </div>
 </article>
