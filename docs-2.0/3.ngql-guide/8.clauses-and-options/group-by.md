@@ -14,13 +14,9 @@ nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) a
 | Name                 | cnt |
 +----------------------+-----+
 | "Tim Duncan"         | 10  |
-+----------------------+-----+
 | "LeBron James"       | 6   |
-+----------------------+-----+
 | "Tony Parker"        | 5   |
-+----------------------+-----+
 | "Chris Paul"         | 4   |
-+----------------------+-----+
 | "Manu Ginobili"      | 4   |
 +----------------------+-----+
 ...

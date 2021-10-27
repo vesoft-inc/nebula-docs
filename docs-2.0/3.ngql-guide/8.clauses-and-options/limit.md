@@ -26,10 +26,10 @@ In native nGQL,  the general `LIMIT` syntax works the same as in `SQL`. The `LIM
 ... | LIMIT [<offset>,] <number_rows>;
 ```
 
-|Parameter|Description|
-|:--|:--|
-|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
-|`number_rows`|It constrains the total number of returned rows.|
+| Parameter     | Description                                                                                                                                                 |
+| :--           | :--                                                                                                                                                         |
+| `offset`      | The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row. |
+| `number_rows` | It constrains the total number of returned rows.                                                                                                            |
 
 For example:
 
@@ -54,9 +54,7 @@ nebula> GO FROM "player100" OVER follow REVERSELY \
 | Friend            | Age |
 +-------------------+-----+
 | "Danny Green"     | 31  |
-+-------------------+-----+
 | "Aron Baynes"     | 32  |
-+-------------------+-----+
 | "Marco Belinelli" | 32  |
 +-------------------+-----+
 ```
@@ -103,10 +101,10 @@ In openCypher compatible statements such as `MATCH`, there is no need to use a p
 ... [SKIP <offset>] [LIMIT <number_rows>];
 ```
 
-|Parameter|Description|
-|:--|:--|
-|`offset`|The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row.|
-|`number_rows`|It constrains the total number of returned rows.|
+| Parameter     | Description                                                                                                                                                 |
+| :--           | :--                                                                                                                                                         |
+| `offset`      | The offset value. It defines the row from which to start returning. The offset starts from `0`. The default value is `0`, which returns from the first row. |
+| `number_rows` | It constrains the total number of returned rows.                                                                                                            |
 
 Both `offset` and `number_rows` accept expressions, but the result of the expression must be a non-negative integer.
 
@@ -125,13 +123,9 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 | Name                    | Age |
 +-------------------------+-----+
 | "Luka Doncic"           | 20  |
-+-------------------------+-----+
 | "Ben Simmons"           | 22  |
-+-------------------------+-----+
 | "Kristaps Porzingis"    | 23  |
-+-------------------------+-----+
 | "Giannis Antetokounmpo" | 24  |
-+-------------------------+-----+
 | "Kyle Anderson"         | 25  |
 +-------------------------+-----+
 
@@ -141,11 +135,8 @@ nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 | Name                    | Age |
 +-------------------------+-----+
 | "Luka Doncic"           | 20  |
-+-------------------------+-----+
 | "Ben Simmons"           | 22  |
-+-------------------------+-----+
 | "Kristaps Porzingis"    | 23  |
-+-------------------------+-----+
 | "Giannis Antetokounmpo" | 24  |
 +-------------------------+-----+
 ```
@@ -162,7 +153,6 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 | Name            | Age |
 +-----------------+-----+
 | "Manu Ginobili" | 41  |
-+-----------------+-----+
 | "Tony Parker"   | 36  |
 +-----------------+-----+
 

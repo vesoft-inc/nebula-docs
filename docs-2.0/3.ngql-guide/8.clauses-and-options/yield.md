@@ -33,11 +33,11 @@ This topic applies to native nGQL only. For the openCypher syntax, use [`RETURN`
 YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
 ```
 
-|Parameter|Description|
-|:---|:---|
-|`DISTINCT`|Aggregates the output and makes the statement return a distinct result set.|
-|`col`|A field to be returned. If no alias is set, `col` will be a column name in the output.|
-|`alias`|An alias for `col`. It is set after the keyword `AS` and will be a column name in the output.|
+| Parameter  | Description                                                                                   |
+| :---       | :---                                                                                          |
+| `DISTINCT` | Aggregates the output and makes the statement return a distinct result set.                   |
+| `col`      | A field to be returned. If no alias is set, `col` will be a column name in the output.        |
+| `alias`    | An alias for `col`. It is set after the keyword `AS` and will be a column name in the output. |
 
 ### Use a YIELD clause in a statement
 
@@ -50,7 +50,6 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
     | Friend          | Age |
     +-----------------+-----+
     | "Tony Parker"   | 36  |
-    +-----------------+-----+
     | "Manu Ginobili" | 41  |
     +-----------------+-----+
     ```
@@ -88,12 +87,12 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...]
 [WHERE <conditions>];
 ```
 
-|Parameter|Description|
-|-|-|
-|`DISTINCT`|Aggregates the output and makes the statement return a distinct result set.|
-|`col`|A field to be returned. If no alias is set, `col` will be a column name in the output.|
-|`alias`|An alias for `col`. It is set after the keyword `AS` and will be a column name in the output.|
-|`conditions`|Conditions set in a `WHERE` clause to filter the output. For more information, see [`WHERE`](where.md).|
+| Parameter    | Description                                                                                             |
+|--------------+---------------------------------------------------------------------------------------------------------|
+| `DISTINCT`   | Aggregates the output and makes the statement return a distinct result set.                             |
+| `col`        | A field to be returned. If no alias is set, `col` will be a column name in the output.                  |
+| `alias`      | An alias for `col`. It is set after the keyword `AS` and will be a column name in the output.           |
+| `conditions` | Conditions set in a `WHERE` clause to filter the output. For more information, see [`WHERE`](where.md). |
 
 ### Use a YIELD statement in a composite query
 
@@ -124,7 +123,6 @@ nebula> $var1 = GO FROM "player101" OVER follow \
 | ID          |
 +-------------+
 | "player100" |
-+-------------+
 | "player125" |
 +-------------+
 ```
