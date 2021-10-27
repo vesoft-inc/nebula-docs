@@ -4,13 +4,13 @@ For now, Nebula Graph does not provide an official deployment tool. Users can de
 
 ## Deployment
 
-| Machine name |IP address          | Number of graphd    | Number of storaged    | Number of metad   |
-| :----- |:---------------|:------------- | :----------------- | :---------------- |
-| A      | 192.168.10.111 |1               | 1                  | 1                |
-| B      | 192.168.10.112 |1               | 1                  | 1                |
-| C      | 192.168.10.113 |1               | 1                  | 1                |
-| D      | 192.168.10.114 |1               | 1                  | None                |
-| E      | 192.168.10.115 |1               | 1                  | None                |
+| Machine name |       IP address | Number of graphd | Number of storaged | Number of metad   |
+| :-----       | :--------------- |   :------------- | :----------------- | :---------------- |
+| A            |   192.168.10.111 |                1 |                  1 | 1                 |
+| B            |   192.168.10.112 |                1 |                  1 | 1                 |
+| C            |   192.168.10.113 |                1 |                  1 | 1                 |
+| D            |   192.168.10.114 |                1 |                  1 | None              |
+| E            |   192.168.10.115 |                1 |                  1 | None              |
 
 ## Prerequisites
 
@@ -32,13 +32,13 @@ To deploy Nebula Graph according to your requirements, you have to modify the co
 
 All the configuration files for Nebula Graph, including `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`, are stored in the `etc` directory in the installation path. You only need to modify the configuration for the corresponding service on the machines. The configurations that need to be modified for each machine are as follows.
 
-| Machine name | The configuration to be modified    |
-| :----- |:---------------|
-| A      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| B      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| C      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| D      | `nebula-graphd.conf`, `nebula-storaged.conf` |
-| E      | `nebula-graphd.conf`, `nebula-storaged.conf` |
+| Machine name | The configuration to be modified                                  |
+| :-----       | :---------------                                                  |
+| A            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| B            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| C            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| D            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
+| E            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
 
 Users can refer to the content of the following configurations, which only show part of the cluster settings. The hidden content uses the default setting so that users can better understand the relationship between the servers in the Nebula Graph cluster.
 
@@ -71,7 +71,7 @@ Users can refer to the content of the following configurations, which only show 
     ```
 
   - `nebula-storaged.conf`
-  
+
     ```bash
     ########## networking ##########
     # Comma separated Meta server addresses
@@ -258,13 +258,13 @@ Users can refer to the content of the following configurations, which only show 
 
 Start the corresponding service on each machine. Descriptions are as follows.
 
-| Machine name |The process to be started    |
-| :----- |:---------------|
-| A      | graphd, storaged, metad|
-| B      | graphd, storaged, metad|
-| C      | graphd, storaged, metad |
-| D      | graphd, storaged |
-| E      | graphd, storaged |
+| Machine name | The process to be started |
+| :-----       | :---------------          |
+| A            | graphd, storaged, metad   |
+| B            | graphd, storaged, metad   |
+| C            | graphd, storaged, metad   |
+| D            | graphd, storaged          |
+| E            | graphd, storaged          |
 
 The command to start the Nebula Graph services is as follows.
 
@@ -293,15 +293,10 @@ Welcome to Nebula Graph!
 | Host             | Port | Status   | Leader count | Leader distribution  | Partition distribution |
 +------------------+------+----------+--------------+----------------------+------------------------+
 | "192.168.10.111" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
 | "192.168.10.112" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
 | "192.168.10.113" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
 | "192.168.10.114" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
 | "192.168.10.115" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
 | "Total"          |      |          | 0            |                      |                        |
 +------------------+------+----------+--------------+----------------------+------------------------+
 ```
