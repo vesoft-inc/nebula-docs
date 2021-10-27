@@ -80,7 +80,7 @@ You can find more details in the [Nebula Console Repository](https://github.com/
 
 ## Nebula Console commands
 
-Nebula Console can export CSV file, DOT file, and import too. 
+Nebula Console can export CSV file, DOT file, and import too.
 
 !!! note
 
@@ -125,7 +125,7 @@ nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
 
 ### Importing a testing dataset
 
-The testing dataset is named `nba`. Details about schema and data can be seen by commands `SHOW`.  
+The testing dataset is named `nba`. Details about schema and data can be seen by commands `SHOW`.
 
 Using the following command to import the testing dataset,
 
@@ -150,7 +150,6 @@ nebula> GO FROM "player100" OVER follow;
 | follow._dst |
 +-------------+
 | "player101" |
-+-------------+
 | "player125" |
 +-------------+
 Got 2 rows (time spent 2602/3214 us)
@@ -161,7 +160,6 @@ Fri, 20 Aug 2021 06:36:05 UTC
 | follow._dst |
 +-------------+
 | "player101" |
-+-------------+
 | "player125" |
 +-------------+
 Got 2 rows (time spent 583/849 us)
@@ -172,7 +170,6 @@ Fri, 20 Aug 2021 06:36:05 UTC
 | follow._dst |
 +-------------+
 | "player101" |
-+-------------+
 | "player125" |
 +-------------+
 Got 2 rows (time spent 496/671 us)
@@ -184,7 +181,7 @@ Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578
 
 ### Sleep to wait
 
-Sleep N seconds. 
+Sleep N seconds.
 
 It is usually used when altering schema. Since schema is altered in async way, and take effects in the next heartbeat cycle.
 
