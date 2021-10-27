@@ -104,7 +104,7 @@ nebula> :CSV <file_name.csv>
 
 ### Export a DOT file
 
-DOT files save the return result of a executed command, and the result information it saves is different from CSV files.
+DOT files save the return result of a executed command, and the result information is different from CSV files.
 
 !!! Note
 
