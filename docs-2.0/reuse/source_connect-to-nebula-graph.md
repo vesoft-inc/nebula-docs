@@ -88,6 +88,8 @@ Nebula Console can export CSV file, DOT file, and import too.
 
 ### Export a CSV file
 
+CSV files save the return results of a executed command.
+
 !!! note
 
     - A CSV file will be saved in the working directory, i.e., what linux command `pwd` show;
@@ -101,6 +103,8 @@ nebula> :CSV <file_name.csv>
 ```
 
 ### Export a DOT file
+
+DOT files save the return results of a executed command, and the result information it saves is different from CSV files.
 
 !!! Note
 
