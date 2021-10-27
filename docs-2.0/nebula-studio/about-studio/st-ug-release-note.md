@@ -3,6 +3,7 @@
 ## v3.1.0()
 - Feature Enhancements:
   - Compatible with Nebula Graph v2.6.0.
+  - Added the use of Helm to deploy and start Studio in the Kubernetes cluster.
   - Explorer:
     - Added the function of modifying the vertex icon.
 - Fix:
