@@ -1379,13 +1379,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#scenario">
-    Scenario
+<a class="md-nav__link" href="#scenarios">
+    Scenarios
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#note">
-    Note
+<a class="md-nav__link" href="#precautions">
+    Precautions
   </a>
 </li>
 <li class="md-nav__item">
@@ -1903,13 +1903,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#scenario">
-    Scenario
+<a class="md-nav__link" href="#scenarios">
+    Scenarios
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#note">
-    Note
+<a class="md-nav__link" href="#precautions">
+    Precautions
   </a>
 </li>
 <li class="md-nav__item">
@@ -1994,31 +1994,31 @@
 <h1 id="groupzone">Group&amp;Zone<a class="headerlink" href="#groupzone" title="Permanent link">¶</a></h1>
 <p>The Group&amp;Zone feature groups the nodes where Storage services are located (also called Storage nodes) to isolate resources.</p>
 <h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">¶</a></h2>
-<p>Storage nodes can be added to a Zone, and multiple Zones form a Group. If you specify a Group when creating a space, the space will be created and stored on the Storage nodes within the Group. Data partitions and replicas are stored evenly in each Zone as shown below.</p>
+<p>Storage nodes can be added into a Zone, and multiple Zones form a Group. If you specify a Group when creating a space, the space will be created and stored on the Storage nodes within the Group. Data partitions and replicas are stored evenly in each Zone as shown below.</p>
 <p><img alt="Group&amp;Zone sketch map" src="../zone1.png"/></p>
-<p>Suppose that 8 Storage nodes are divided into 4 Zones, with each one having 2 Storage nodes, and then add Zone1, Zone2, and Zone3 to Group1，add Zone3, Zone4 to Group2.</p>
+<p>Suppose that 8 Storage nodes are divided into 4 Zones, with each one having 2 Storage nodes, and then add Zone1, Zone2, and Zone3 into Group1, add Zone3 and Zone4 into Group2.</p>
 <p>After specifying Group1 when you create a space called S1, data partitions and replicas will be stored evenly on the nodes in Zone1, Zone2, and Zone3, and will not be stored on the node in Zone4.</p>
 <p>After specifying Group2 when you create another space called S2, data partitions and replicas will be stored evenly on the nodes in Zone3 and Zone4, and will not be stored on the nodes in Zone1 and Zone2.</p>
-<p>The above example briefly introduces the Zone feature. Resources are isolated by rational planning of Zones and Groups.</p>
-<h2 id="scenario">Scenario<a class="headerlink" href="#scenario" title="Permanent link">¶</a></h2>
+<p>The above example briefly introduces the zone feature. Users can isolate resources by balanced planning of Zones and Groups.</p>
+<h2 id="scenarios">Scenarios<a class="headerlink" href="#scenarios" title="Permanent link">¶</a></h2>
 <ul>
 <li>Create a space on specified Storage nodes to isolate resources.</li>
 </ul>
 <ul>
-<li>Perform rolling upgrade of a cluster in which you need to stop one or more nodes before the cluster is upgraded, and then restart the nodes until all services on the nodes in the cluster are updated to the latest version.</li>
+<li>Perform rolling upgrade of a cluster which requires stopping one or more nodes before the cluster is upgraded, and then restart the nodes until all services on the nodes in the cluster are updated to the latest version.</li>
 </ul>
-<h2 id="note">Note<a class="headerlink" href="#note" title="Permanent link">¶</a></h2>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">¶</a></h2>
 <ul>
-<li>A Zone is a collection of Storage nodes, and each Storage node can only be added to one Zone.</li>
+<li>A Zone is a collection of Storage nodes, and each Storage node can only be added into one Zone.</li>
 </ul>
 <ul>
 <li>Replicas can be restored in a Zone, and only one replica of the same partition can exist in a Zone.</li>
 </ul>
 <ul>
-<li>Many Zones form a Group where resources are isolated.</li>
+<li>Many Zones can form a Group for easy management and resource isolation.</li>
 </ul>
 <ul>
-<li>A Zone can be added to multiple Groups.</li>
+<li>A Zone can be added into multiple Groups.</li>
 </ul>
 <ul>
 <li>If you specify a Group when creating a space, replicas in the space will be distributed evenly in each Zone within the Group.</li>
@@ -2028,17 +2028,17 @@
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <h3 id="add_zone">ADD ZONE<a class="headerlink" href="#add_zone" title="Permanent link">¶</a></h3>
-<p>Create a Zone and add Storage nodes to the Zone.</p>
+<p>Create a Zone and add Storage nodes into the Zone.</p>
 <div class="highlight"><pre><span></span><code>ADD ZONE &lt;zone_name&gt; &lt;host1&gt;:&lt;port1&gt; [,&lt;host2&gt;:&lt;port2&gt;...];
 </code></pre></div>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; ADD ZONE zone1 192.168.8.111:9779, 192.168.8.129:9779;
 </code></pre></div>
 <h3 id="add_hostinto_zone">ADD HOST...INTO ZONE<a class="headerlink" href="#add_hostinto_zone" title="Permanent link">¶</a></h3>
-<p>Add a Storage node to a created Zone.</p>
+<p>Add a Storage node into a created Zone.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a> command to perform loading balancing after the Storage node is added to a created Zone.</p>
+<p>Use the <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a> command to implement load balance after the Storage node is added into a created Zone.</p>
 </div>
 <div class="highlight"><pre><span></span><code>ADD HOST &lt;host1&gt;:&lt;port1&gt; INTO ZONE &lt;zone_name&gt;;
 </code></pre></div>
@@ -2046,12 +2046,12 @@
 <p>Delete a Storage node from a Zone.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You cannot delete a Storage node that is being used in a Group. Delete the related space before the Storage node is deleted.</p>
+<p>You cannot delete a Storage node that is being used in a Group directly until the related space is deleted.</p>
 </div>
 <div class="highlight"><pre><span></span><code>DROP HOST &lt;host1&gt;:&lt;port1&gt; FROM ZONE &lt;zone_name&gt;;
 </code></pre></div>
 <h3 id="show_zones">SHOW ZONES<a class="headerlink" href="#show_zones" title="Permanent link">¶</a></h3>
-<p>View all Zones</p>
+<p>View all Zones.</p>
 <div class="highlight"><pre><span></span><code>SHOW ZONES;
 </code></pre></div>
 <h3 id="describe_zone">DESCRIBE ZONE<a class="headerlink" href="#describe_zone" title="Permanent link">¶</a></h3>
@@ -2063,22 +2063,22 @@ DESC ZONE &lt;zone_name&gt;;
 <p>Delete a Zone.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You cannot delete a Zone that has been added to a Group. Remove the Zone from the Group or delete the Group before the Zone is deleted.</p>
+<p>You cannot delete a Zone that has been added into a Group until the Zone is removed from the Group or the Group to which the Zone belongs is deleted.</p>
 </div>
 <div class="highlight"><pre><span></span><code>DROP ZONE &lt;zone_name&gt;;
 </code></pre></div>
 <h3 id="add_group">ADD GROUP<a class="headerlink" href="#add_group" title="Permanent link">¶</a></h3>
-<p>Create a Group and add one or more Zones to the Group.</p>
+<p>Create a Group and add one or more Zones into the Group.</p>
 <div class="highlight"><pre><span></span><code>ADD GROUP &lt;group_name&gt; &lt;zone_name&gt; [,&lt;zone_name&gt;...];
 </code></pre></div>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; ADD GROUP group1 zone1,zone2;
 </code></pre></div>
 <h3 id="add_zoneinto_group">ADD ZONE...INTO GROUP<a class="headerlink" href="#add_zoneinto_group" title="Permanent link">¶</a></h3>
-<p>Add a Zone to a created Group.</p>
+<p>Add a Zone into a created Group.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a> command to perform loading balancing after the Zone is added to a created Group.</p>
+<p>Use the <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a> command to implement load balance after the Zone is added into a created Group.</p>
 </div>
 <div class="highlight"><pre><span></span><code>ADD ZONE &lt;zone_name&gt; INTO GROUP &lt;group_name&gt;;
 </code></pre></div>
@@ -2086,7 +2086,7 @@ DESC ZONE &lt;zone_name&gt;;
 <p>Delete a Zone from a GROUP.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You cannot delete a Zone that is being used in a Group. Delete the related space before the Zone is deleted.</p>
+<p>You cannot delete a Zone that is being used in a Group directly until the related space is deleted.</p>
 </div>
 <div class="highlight"><pre><span></span><code>DROP ZONE &lt;zone_name&gt; FROM GROUP &lt;group_name&gt;;
 </code></pre></div>
@@ -2103,7 +2103,7 @@ DESC GROUP &lt;group_name&gt;;
 <p>Delete a Group.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You cannot delete a Group that is being used. Delete the related space before the Group is deleted.</p>
+<p>You cannot delete a Group that is being used directly until the related space is deleted.</p>
 </div>
 <div class="highlight"><pre><span></span><code>DROP GROUP &lt;group_name&gt;;
 </code></pre></div>
