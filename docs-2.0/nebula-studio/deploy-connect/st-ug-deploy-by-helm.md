@@ -41,22 +41,22 @@ On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For 
 
 ## Configuration
 
-| Parameter | Description | Default |
+| Parameter | Default value | Description |
 |-----------|-------------|---------|
-| replicaCount  | Replicas for Deployment  | 0  |
-| image.httpGateway.name  |  The image name of nebula-http-gateway  | vesoft/nebula-http-gateway  |
-| image.nebulaImporter.name  |  The image name of nebula-importer  | vesoft/nebula-importer  |
-| image.nebulaStudio.name  |  The image name of nebula-graph-studio  | vesoft/nebula-graph-studio |
-| image.nginx.name  |  The image name of nginx  | nginx  |
-| image.httpGateway.version  |  The image version nebula-http-gateway  | v2  |
-| image.nebulaImporter.version  |  The image version nebula-importer  | v2  |
-| image.nebulaStudio.version  |  The image version nebula-graph-studio  | v3  |
-| image.nginx.version  |  The image version of nginx  | alpine  |
-| service.type  | The service type, should be one of ['NodePort', 'ClusterIP', 'LoadBalancer'] |  ClusterIP  |
-| service.port  | The expose port for nebula-graph-studio's web |  7001  |
-| resources.httpGateway  | The resource limits/requests for nebula-http-gateway | {}  |
-| resources.nebulaImporter  | The resource limits/requests for nebula-importer | {}  |
-| resources.nebulaStudio  | The resource limits/requests for nebula-studio | {}  |
-| resources.nginx  | The resource limits/requests for nginx | {}  |
-| persistent.storageClassName  | The storageClassName for PVC if not using default  | ""  |
-| persistent.size  | The persistent volume size | 5Gi  |
+| replicaCount  | 0 | The number of replicas for Deployment.   |
+| image.httpGateway.name  | vesoft/nebula-http-gateway  | The image name of nebula-http-gateway. |
+| image.nebulaImporter.name  |  vesoft/nebula-importer  | The image name of nebula-importer. |
+| image.nebulaStudio.name  |  vesoft/nebula-graph-studio  | The image name of nebula-graph-studio. |
+| image.nginx.name  |  nginx   | The image name of nginx. |
+| image.httpGateway.version  |  v2  | The image version of nebula-http-gateway.  |
+| image.nebulaImporter.version  |  v2  | The image version of nebula-importer.  |
+| image.nebulaStudio.version  | v3  |  The image version of nebula-graph-studio.  |
+| image.nginx.version  |  alpine  |  The image version of nginx. |
+| service.type  | ClusterIP |  The service type, which should be one of 'NodePort', 'ClusterIP', and 'LoadBalancer'. |
+| service.port  | 7001 |  The expose port for nebula-graph-studio's web.  |
+| resources.httpGateway  | {} |  The resource limits/requests for nebula-http-gateway. |
+| resources.nebulaImporter  | {} |  The resource limits/requests for nebula-importer. |
+| resources.nebulaStudio  | {} |  The resource limits/requests for nebula-studio. |
+| resources.nginx  | {} |  The resource limits/requests for nginx. |
+| persistent.storageClassName  | ""  |  The name of storageClass. The default value will be used if not specified. |
+| persistent.size  | 5Gi |  The persistent volume size. |
