@@ -9,8 +9,10 @@ The correspondence between the Nebula Exchange release (the JAR version) and the
 |Exchange client|Nebula Graph|
 |:---|:---|
 |2.5-SNAPSHOT|v2-nightly|
-|{{exchange.release}}|{{nebula.release}}, 2.5.0|
-|2.5.0|2.5.0|
+|{{exchange.release}}|2.6.0|
+|2.5.1|2.5.0, 2.5.1|
+
+|2.5.0|2.5.0, 2.5.1|
 |2.1.0|2.0.0, 2.0.1|
 |2.0.1|2.0.0, 2.0.1|
 |2.0.0|2.0.0, 2.0.1|
