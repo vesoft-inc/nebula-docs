@@ -121,15 +121,27 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
 * Use the following syntax to install with an RPM package.
 
-    ```bash
-    sudo rpm -ivh --prefix=<installation_path> <package_name>
-    ```
+  ```bash
+  $ sudo rpm -ivh --prefix=<installation_path> <package_name>
+  ```
+
+  For example, to install an RPM package in the default path for the {{nebula.release}} version.
+
+  ```bash
+  sudo rpm -ivh nebula-graph-{{nebula.release}}.el7.x86_64.rpm
+  ``` 
 
 * Use the following syntax to install with a DEB package.
 
-    ```bash
-    sudo dpkg -i --instdir==<installation_path> <package_name>
-    ```
+  ```bash
+  $ sudo dpkg -i --instdir==<installation_path> <package_name>
+  ```
+
+  For example, to install a DEB package in the default path for the {{nebula.release}} version.
+
+  ```bash
+  sudo dpkg -i nebula-graph-{{nebula.release}}.ubuntu1804.amd64.deb
+  ```
 
   !!! note
 
