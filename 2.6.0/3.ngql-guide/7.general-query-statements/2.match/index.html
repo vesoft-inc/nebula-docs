@@ -2183,11 +2183,11 @@
 <p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
 </div>
 <div class="highlight"><pre><span></span><code># The following example creates an index on both the name property of the tag player and the edge type follow.
-nebula&gt; CREATE TAG INDEX name ON player(name(20)); 
+nebula&gt; CREATE TAG INDEX name ON player(name(20));
 nebula&gt; CREATE EDGE INDEX follow_index on follow();
 
 # The following example rebuilds the index.
-nebula&gt; REBUILD TAG INDEX name; 
+nebula&gt; REBUILD TAG INDEX name;
 +------------+
 | New Job Id |
 +------------+
@@ -2203,29 +2203,23 @@ nebula&gt; REBUILD EDGE INDEX follow_index
 
 
 # The following example makes sure the index is rebuilt successfully.
-nebula&gt; SHOW JOB 121; 
+nebula&gt; SHOW JOB 121;
 +----------------+---------------------+------------+-------------------------+-------------------------+
 | Job Id(TaskId) | Command(Dest)       | Status     | Start Time              | Stop Time               |
 +----------------+---------------------+------------+-------------------------+-------------------------+
 | 121            | "REBUILD_TAG_INDEX" | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-+----------------+---------------------+------------+-------------------------+-------------------------+
 | 0              | "storaged1"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-+----------------+---------------------+------------+-------------------------+-------------------------+
 | 1              | "storaged0"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-+----------------+---------------------+------------+-------------------------+-------------------------+
 | 2              | "storaged2"         | "FINISHED" | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
 +----------------+---------------------+------------+-------------------------+-------------------------+
 
-nebula&gt; SHOW JOB 122; 
+nebula&gt; SHOW JOB 122;
 +----------------+----------------------+------------+-------------------------+-------------------------+
 | Job Id(TaskId) | Command(Dest)        | Status     | Start Time              | Stop Time               |
 +----------------+----------------------+------------+-------------------------+-------------------------+
 | 122            | "REBUILD_EDGE_INDEX" | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:11.000 |
-+----------------+----------------------+------------+-------------------------+-------------------------+
 | 0              | "storaged1"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
-+----------------+----------------------+------------+-------------------------+-------------------------+
 | 1              | "storaged0"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
-+----------------+----------------------+------------+-------------------------+-------------------------+
 | 2              | "storaged2"          | "FINISHED" | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
 +----------------+----------------------+------------+-------------------------+-------------------------+
 </code></pre></div>
@@ -2242,9 +2236,7 @@ nebula&gt; SHOW JOB 122;
 | v                                                             |
 +---------------------------------------------------------------+
 | ("player102" :player{age: 33, name: "LaMarcus Aldridge"})     |
-+---------------------------------------------------------------+
 | ("player106" :player{age: 25, name: "Kyle Anderson"})         |
-+---------------------------------------------------------------+
 | ("player115" :player{age: 40, name: "Kobe Bryant"})           |
 +---------------------------------------------------------------+
 ...
@@ -2291,9 +2283,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | v2                                                        |
 +-----------------------------------------------------------+
 | ("player101" :player{name: "Tony Parker", age: 36})       |
-+-----------------------------------------------------------+
 | ("player102" :player{name: "LaMarcus Aldridge", age: 33}) |
-+-----------------------------------------------------------+
 | ("player101" :player{name: "Tony Parker", age: 36})       |
 +-----------------------------------------------------------+
 </code></pre></div>
@@ -2309,13 +2299,9 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Name                |
 +---------------------+
 | "Tony Parker"       |
-+---------------------+
 | "LaMarcus Aldridge" |
-+---------------------+
 | "Marco Belinelli"   |
-+---------------------+
 | "Danny Green"       |
-+---------------------+
 | "Aron Baynes"       |
 +---------------------+
 ...
@@ -2328,9 +2314,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Name            |
 +-----------------+
 | "Spurs"         |
-+-----------------+
 | "Tony Parker"   |
-+-----------------+
 | "Manu Ginobili" |
 +-----------------+
 </code></pre></div>
@@ -2341,13 +2325,9 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Name                |
 +---------------------+
 | "Tony Parker"       |
-+---------------------+
 | "Tiago Splitter"    |
-+---------------------+
 | "Dejounte Murray"   |
-+---------------------+
 | "Tony Parker"       |
-+---------------------+
 | "LaMarcus Aldridge" |
 +---------------------+
 ...
@@ -2359,13 +2339,9 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Name                |
 +---------------------+
 | "Tony Parker"       |
-+---------------------+
 | "LaMarcus Aldridge" |
-+---------------------+
 | "Rudy Gay"          |
-+---------------------+
 | "Danny Green"       |
-+---------------------+
 | "Kyle Anderson"     |
 +---------------------+
 ...
@@ -2378,9 +2354,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | p                                         |
 +-------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})&gt;   |
-+-------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})&gt; |
-+-------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;("team204" :team{name: "Spurs"})&gt; |
 +-------------------------------------------+
 </code></pre></div>
@@ -2396,9 +2370,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | e                                                                         |
 +---------------------------------------------------------------------------+
 | [:follow "player101"-&gt;"player100" @0 {degree: 95}]                        |
-+---------------------------------------------------------------------------+
 | [:follow "player102"-&gt;"player100" @0 {degree: 75}]                        |
-+---------------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 ...
@@ -2411,13 +2383,9 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | e                                                   |
 +-----------------------------------------------------+
 | [:follow "player113"-&gt;"player119" @0 {degree: 99}]  |
-+-----------------------------------------------------+
 | [:follow "player130"-&gt;"player149" @0 {degree: 80}]  |
-+-----------------------------------------------------+
 | [:follow "player149"-&gt;"player130" @0 {degree: 80}]  |
-+-----------------------------------------------------+
 | [:follow "player136"-&gt;"player117" @0 {degree: 90}]  |
-+-----------------------------------------------------+
 | [:follow "player142"-&gt;"player117" @0 {degree: 90}]  |
 +-----------------------------------------------------+
 ...
@@ -2434,7 +2402,6 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | e                                                      |
 +--------------------------------------------------------+
 | [:follow "player100"-&gt;"player101" @0 {degree: 95}]     |
-+--------------------------------------------------------+
 | [:follow "player100"-&gt;"player125" @0 {degree: 95}]     |
 +--------------------------------------------------------+
 </code></pre></div>
@@ -2446,9 +2413,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | e                                                                         |
 +---------------------------------------------------------------------------+
 | [:follow "player100"-&gt;"player101" @0 {degree: 95}]                        |
-+---------------------------------------------------------------------------+
 | [:follow "player100"-&gt;"player125" @0 {degree: 95}]                        |
-+---------------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 </code></pre></div>
@@ -2460,9 +2425,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | v2                                 | v3                                                        |
 +------------------------------------+-----------------------------------------------------------+
 | ("player204" :team{name: "Spurs"}) | ("player101" :player{name: "Tony Parker", age: 36})       |
-+------------------------------------+-----------------------------------------------------------+
 | ("player204" :team{name: "Spurs"}) | ("player102" :player{name: "LaMarcus Aldridge", age: 33}) |
-+------------------------------------+-----------------------------------------------------------+
 | ("player204" :team{name: "Spurs"}) | ("player103" :player{age: 32, name: "Rudy Gay"})          |
 +------------------------------------+-----------------------------------------------------------+
 ...
@@ -2475,9 +2438,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Friends                                                   |
 +-----------------------------------------------------------+
 | ("player100" :player{name: "Tim Duncan", age: 42})        |
-+-----------------------------------------------------------+
 | ("player102" :player{name: "LaMarcus Aldridge", age: 33}) |
-+-----------------------------------------------------------+
 | ("player125" :player{name: "Manu Ginobili", age: 41})     |
 +-----------------------------------------------------------+
 </code></pre></div>
@@ -2520,11 +2481,8 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Friends                                                   |
 +-----------------------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim Duncan"})        |
-+-----------------------------------------------------------+
 | ("player101" :player{age: 36, name: "Tony Parker"})       |
-+-----------------------------------------------------------+
 | ("player125" :player{age: 41, name: "Manu Ginobili"})     |
-+-----------------------------------------------------------+
 | ("player102" :player{age: 33, name: "LaMarcus Aldridge"}) |
 +-----------------------------------------------------------+
 </code></pre></div>
@@ -2535,11 +2493,8 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
 | ("player125" :player{age: 41, name: "Manu Ginobili"})     | 3         |
-+-----------------------------------------------------------+-----------+
 | ("player102" :player{age: 33, name: "LaMarcus Aldridge"}) | 1         |
-+-----------------------------------------------------------+-----------+
 | ("player100" :player{age: 42, name: "Tim Duncan"})        | 4         |
-+-----------------------------------------------------------+-----------+
 | ("player101" :player{age: 36, name: "Tony Parker"})       | 3         |
 +-----------------------------------------------------------+-----------+
 </code></pre></div>
@@ -2550,11 +2505,8 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
 | ("player125" :player{age: 41, name: "Manu Ginobili"})     | 3         |
-+-----------------------------------------------------------+-----------+
 | ("player101" :player{age: 36, name: "Tony Parker"})       | 3         |
-+-----------------------------------------------------------+-----------+
 | ("player102" :player{age: 33, name: "LaMarcus Aldridge"}) | 1         |
-+-----------------------------------------------------------+-----------+
 | ("player100" :player{age: 42, name: "Tim Duncan"})        | 5         |
 +-----------------------------------------------------------+-----------+
 </code></pre></div>
@@ -2566,13 +2518,9 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) RETURN v;
 | v2                                                        |
 +-----------------------------------------------------------+
 | ("player100" :player{name: "Tim Duncan", age: 42})        |
-+-----------------------------------------------------------+
 | ("player102" :player{name: "LaMarcus Aldridge", age: 33}) |
-+-----------------------------------------------------------+
 | ("player125" :player{name: "Manu Ginobili", age: 41})     |
-+-----------------------------------------------------------+
 | ("player204" :team{name: "Spurs"})                        |
-+-----------------------------------------------------------+
 | ("player215" :team{name: "Hornets"})                      |
 +-----------------------------------------------------------+
 </code></pre></div>
@@ -2593,9 +2541,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | e                                                                         |
 +---------------------------------------------------------------------------+
 | [:follow "player100"-&gt;"player101" @0 {degree: 95}]                        |
-+---------------------------------------------------------------------------+
 | [:follow "player100"-&gt;"player125" @0 {degree: 95}]                        |
-+---------------------------------------------------------------------------+
 | [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]     |
 +---------------------------------------------------------------------------+
 </code></pre></div>
@@ -2655,9 +2601,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | properties(v2)                     |
 +------------------------------------+
 | {"name":"Spurs"}                   |
-+------------------------------------+
 | {"name":"Tony Parker", "age":36}   |
-+------------------------------------+
 | {"age":41, "name":"Manu Ginobili"} |
 +------------------------------------+
 </code></pre></div>
@@ -2669,7 +2613,6 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | type(e)  |
 +----------+
 | "follow" |
-+----------+
 | "serve"  |
 +----------+
 </code></pre></div>
@@ -2681,9 +2624,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | p                                                                                               |
 +-------------------------------------------------------------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]-&gt;("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:serve@0 {end_year: 2019, start_year: 2015}]-&gt;("team204" :team{name: "Spurs"})&gt;           |
-+-------------------------------------------------------------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]-&gt;("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:serve@0 {end_year: 2015, start_year: 2006}]-&gt;("team203" :team{name: "Trail Blazers"})&gt;   |
-+-------------------------------------------------------------------------------------------------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]-&gt;("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:follow@0 {degree: 75}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})&gt;             |
 +-------------------------------------------------------------------------------------------------+
 ...
@@ -2696,9 +2637,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | nodes(p)                                                                                                            |
 +---------------------------------------------------------------------------------------------------------------------+
 | [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player204" :team{name: "Spurs"})]                    |
-+---------------------------------------------------------------------------------------------------------------------+
 | [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player101" :player{name: "Tony Parker", age: 36})]   |
-+---------------------------------------------------------------------------------------------------------------------+
 | [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player125" :player{name: "Manu Ginobili", age: 41})] |
 +---------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
@@ -2710,9 +2649,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | relationships(p)                                                            |
 +-----------------------------------------------------------------------------+
 | [[:follow "player100"-&gt;"player101" @0 {degree: 95}]]                        |
-+-----------------------------------------------------------------------------+
 | [[:follow "player100"-&gt;"player125" @0 {degree: 95}]]                        |
-+-----------------------------------------------------------------------------+
 | [[:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}]]     |
 +-----------------------------------------------------------------------------+
 </code></pre></div>
@@ -2724,21 +2661,13 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 | Paths                                                                | Length |
 +----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})-[:serve@0 {end_year: 2018, start_year: 2002}]-&gt;("team204" :team{name: "Spurs"})&gt;   | 2      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})-[:follow@0 {degree: 90}]-&gt;("player100" :player{age: 42, name: "Tim Duncan"})&gt;      | 2      |
-+----------------------------------------------------------------------+--------+
-|  &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;("team215" :team{name: "Hornets"})&gt;  | 2      |
-+----------------------------------------------------------------------+--------+
+| &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;("team215" :team{name: "Hornets"})&gt;   | 2      |
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:serve@0 {end_year: 2018, start_year: 1999}]-&gt;("team204" :team{name: "Spurs"})&gt;     | 2      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})&gt;     | 2      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]-&gt;("player102" :player{age: 33, name: "LaMarcus Aldridge"})&gt; | 2      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 95}]-&gt;("player100" :player{age: 42, name: "Tim Duncan"})&gt;        | 2      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;("team204" :team{name: "Spurs"})&gt;                                                                                   | 1      |
-+----------------------------------------------------------------------+--------+
 | &lt;("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]-&gt;("player125" :player{age: 41, name: "Manu Ginobili"})&gt;                                                                                   | 1      |
 +----------------------------------------------------------------------+--------+
 </code></pre></div>
@@ -2751,7 +2680,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2021</span>
 </small>
 </div>
 </article>
