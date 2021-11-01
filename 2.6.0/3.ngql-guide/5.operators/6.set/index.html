@@ -1236,7 +1236,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/deploy-nebula-graph-cluster/">
-        Deploy Nebula Graph cluster
+        Deploy a Nebula Graph cluster on multiple servers
       </a>
 </li>
 </ul>
@@ -1973,10 +1973,11 @@ nebula&gt; GO FROM "player102" OVER follow \
         UNION \
         GO FROM "player100" OVER follow;
 +-------------+
-| dst(edge)   |
+| follow._dst |
 +-------------+
+| "player100" |
 | "player101" |
-| "player102" |
+| "player125" |
 +-------------+
 
 # The following statement returns the union of two query results with duplicated elements.
@@ -1984,11 +1985,12 @@ nebula&gt; GO FROM "player102" OVER follow \
         UNION ALL \
         GO FROM "player100" OVER follow;
 +-------------+
-| dst(edge)   |
+| follow._dst |
 +-------------+
+| "player100" |
 | "player101" |
 | "player101" |
-| "player102" |
+| "player125" |
 +-------------+
 
 # UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
@@ -2021,7 +2023,10 @@ nebula&gt; GO FROM "player102" OVER follow \
         INTERSECT \
         GO FROM "player100" OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
-Empty set (time spent 2990/3511 us)
++----+--------+-----+
+| id | Degree | Age |
++----+--------+-----+
++----+--------+-----+
 </code></pre></div>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
@@ -2034,13 +2039,17 @@ Empty set (time spent 2990/3511 us)
 +-------------+
 | dst(edge)   |
 +-------------+
-| "player102" |
+| "player125" |
 +-------------+
 
 nebula&gt; GO FROM "player102" OVER follow \
         MINUS \
         GO FROM "player100" OVER follow;
-Empty set (time spent 2243/3259 us)
++-------------+
+| follow._dst |
++-------------+
+| "player100" |
++-------------+
 </code></pre></div>
 <h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">¶</a></h2>
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
