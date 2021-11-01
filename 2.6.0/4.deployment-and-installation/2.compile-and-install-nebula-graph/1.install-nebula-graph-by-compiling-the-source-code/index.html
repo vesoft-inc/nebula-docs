@@ -1192,11 +1192,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enable_build_storage">
-    ENABLE_BUILD_STORAGE
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#cmake_install_prefix">
     CMAKE_INSTALL_PREFIX
   </a>
@@ -1934,11 +1929,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enable_build_storage">
-    ENABLE_BUILD_STORAGE
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#cmake_install_prefix">
     CMAKE_INSTALL_PREFIX
   </a>
@@ -2006,23 +1996,31 @@
 <li>The host to be installed with Nebula Graph has access to the Internet.</li>
 </ul>
 <h2 id="installation_steps">Installation steps<a class="headerlink" href="#installation_steps" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting with the Nebula Graph 2.6.0 release, the code repositories for Nebula-Graph, Nebula-Storage, and Nebula-Common have been merged into the Nebula code repository, so the compilation steps are different from those in previous releases.</p>
+</div>
 <ol>
 <li>
 <p>Use Git to clone the source code of Nebula Graph to the host.</p>
 <ul>
-<li>[Recommended] To install Nebula Graph v2.6.0, run the following command.<div class="highlight"><pre><span></span><code>$ git clone --branch v2.6.0 https://github.com/vesoft-inc/nebula-graph.git
+<li>
+<p>[Recommended] To install Nebula Graph 2.6.0, run the following command.</p>
+<div class="highlight"><pre><span></span><code>$ git clone --branch v2.6.0 https://github.com/vesoft-inc/nebula.git
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>To install the latest developing release, run the following command to clone the source code from the master branch.<div class="highlight"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula-graph.git
+<li>
+<p>To install the latest developing release, run the following command to clone the source code from the master branch.</p>
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula.git
 </code></pre></div>
 </li>
 </ul>
 </li>
 <li>
-<p>Make the <code>nebula-graph</code> directory the current working directory.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula-graph
+<p>Make the <code>nebula</code> directory the current working directory.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula
 </code></pre></div>
 </li>
 <li>
@@ -2037,17 +2035,8 @@
 <p>The installation path is <code>/usr/local/nebula</code> by default. To customize it, add the <code>-DCMAKE_INSTALL_PREFIX=&lt;installation_path&gt;</code> CMake variable in the following command.</p>
 <p>For more information about CMake variables, see <a href="#cmake_variables">CMake variables</a>.</p>
 </div>
-<ul>
-<li>If the source code of Nebula Graph v2.6.0 is installed and cloned in step 1, run the following command. The <code>-DNEBULA_COMMON_REPO_TAG</code> and <code>-DNEBULA_STORAGE_REPO_TAG</code> options are used to specify the correct branches of <a href="https://github.com/vesoft-inc/nebula-common">nebula-common</a> and <a href="https://github.com/ vesoft-inc/nebula-storage">nebula-storage</a> repositories to keep the releases of the Nebula Graph components consistent.<div class="highlight"><pre><span></span><code>$ cmake -DENABLE_BUILD_STORAGE<span class="o">=</span>on -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release <span class="se">\</span>
--DNEBULA_COMMON_REPO_TAG<span class="o">=</span>v2.6.0 -DNEBULA_STORAGE_REPO_TAG<span class="o">=</span>v2.6.0 ..
+<div class="highlight"><pre><span></span><code>$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/nebula -DENABLE_TESTING<span class="o">=</span>OFF -DCMAKE_BUILD_TYPE<span class="o">=</span>Release ..
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>If the source code of the <code>master</code> branch is installed in step 1, run the following command.<div class="highlight"><pre><span></span><code>$ cmake -DENABLE_BUILD_STORAGE<span class="o">=</span>on -DENABLE_TESTING<span class="o">=</span>OFF -DENABLE_MODULE_UPDATE<span class="o">=</span>ON -DCMAKE_BUILD_TYPE<span class="o">=</span>Release ..
-</code></pre></div>
-</li>
-</ul>
 </li>
 <li>
 <p>Compile Nebula Graph.</p>
@@ -2061,7 +2050,7 @@
 </li>
 <li>
 <p>Install Nebula Graph.</p>
-<div class="highlight"><pre><span></span><code>$ sudo make install-all
+<div class="highlight"><pre><span></span><code>$ sudo make install
 </code></pre></div>
 </li>
 <li>
@@ -2070,12 +2059,14 @@
 </ol>
 <h2 id="update_the_master_branch">Update the master branch<a class="headerlink" href="#update_the_master_branch" title="Permanent link">¶</a></h2>
 <p>The source code of the master branch changes frequently. If the corresponding Nebula Graph release is installed, update it in the following steps.</p>
-<div class="codehilite"><pre><span></span><code>1. In the `nebula-graph/` directory, run `git pull upstream master` to update the source code.
-
-2. In the `nebula-graph/modules/common/` and `nebula-graph/modules/storage/` directories, run `git pull upstream master` separately.
-
-3. In the `nebula-graph/build/` directory, run `make -j{N}` and `make install-all` again.
-</code></pre></div>
+<ol>
+<li>
+<p>In the <code>nebula</code> directory, run <code>git pull upstream master</code> to update the source code.</p>
+</li>
+<li>
+<p>In the <code>nebula/build</code> directory, run <code>make -j{N}</code> and <code>make install</code> again.</p>
+</li>
+</ol>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../../../2.quick-start/5.start-stop-service/">Manage Nebula Graph services</a></li>
@@ -2091,9 +2082,6 @@
 <div class="highlight"><pre><span></span><code>$ cmake -D&lt;variable&gt;<span class="o">=</span>&lt;value&gt; ...
 </code></pre></div>
 <p>The following CMake variables can be used at the configure (cmake) stage to adjust the compiling settings.</p>
-<h3 id="enable_build_storage">ENABLE_BUILD_STORAGE<a class="headerlink" href="#enable_build_storage" title="Permanent link">¶</a></h3>
-<p>Starting from 2.6.0, Nebula Graph uses two separated github repositories of graph and storage for separated compiling. The <code>ENABLE_BUILD_STORAGE</code> variable is set to <code>OFF</code> by default so that the storage service is not installed together with the graph service.</p>
-<p>If you are deploying Nebula Graph on a single host for testing, you can set <code>ENABLE_BUILD_STORAGE</code> to <code>ON</code> to download and install the storage service automatically.</p>
 <h3 id="cmake_install_prefix">CMAKE_INSTALL_PREFIX<a class="headerlink" href="#cmake_install_prefix" title="Permanent link">¶</a></h3>
 <p><code>CMAKE_INSTALL_PREFIX</code> specifies the path where the service modules, scripts, configuration files are installed. The default path is <code>/usr/local/nebula</code>.</p>
 <h3 id="enable_werror">ENABLE_WERROR<a class="headerlink" href="#enable_werror" title="Permanent link">¶</a></h3>
@@ -2134,7 +2122,7 @@
 $ cmake -DCMAKE_C_COMPILER<span class="o">=</span>&lt;path_to_clang/bin/clang&gt; -DCMAKE_CXX_COMPILER<span class="o">=</span>&lt;path_to_clang/bin/clang++&gt; ..
 </code></pre></div>
 <h3 id="enable_ccache">ENABLE_CCACHE<a class="headerlink" href="#enable_ccache" title="Permanent link">¶</a></h3>
-<p><code>ENABLE_CCACHE</code> is <code>ON</code> by default and ccache (compiler cache) is used to speed up the compiling of Nebula Graph.</p>
+<p><code>ENABLE_CCACHE</code> is <code>ON</code> by default and Ccache (compiler cache) is used to speed up the compiling of Nebula Graph.</p>
 <p>To disable <code>ccache</code>, setting <code>ENABLE_CCACHE</code> to <code>OFF</code> is not enough. On some platforms, the <code>ccache</code> installation hooks up or precedes the compiler. In such a case, you have to set an environment variable <code>export CCACHE_DISABLE=true</code> or add a line <code>disable=true</code> in <code>~/.ccache/ccache.conf</code> as well. For more information, see the <a href="https://ccache.dev/manual/3.7.6.html">ccache official documentation</a>.</p>
 <h3 id="nebula_thirdparty_root">NEBULA_THIRDPARTY_ROOT<a class="headerlink" href="#nebula_thirdparty_root" title="Permanent link">¶</a></h3>
 <p><code>NEBULA_THIRDPARTY_ROOT</code> specifies the path where the third party software is installed. By default it is <code>/opt/vesoft/third-party</code>.</p>
@@ -2150,15 +2138,12 @@ $ cmake -DCMAKE_C_COMPILER<span class="o">=</span>&lt;path_to_clang/bin/clang&gt
 <li>
 <p>Use <code>make -j1</code> to reduce the compiling concurrency.</p>
 </li>
-<li>
-<p>Update the code <code>git pull</code>, compile again, and add the CMake option <code>-DENABLE_MODULE_UPDATE=ON</code> in step 4.</p>
-</li>
 </ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 25, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2021</span>
 </small>
 </div>
 </article>
