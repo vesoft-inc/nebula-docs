@@ -92,12 +92,12 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 
 1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
 
-    | Element  | Name | Property |
-    | :--- | :--- | :--- |
-    | Tag | `player` | `name string, age int` |
-    | Tag | `team` | `name string` |
-    | Edge Type | `follow` | `degree int` |
-    | Edge Type | `serve` | `start_year int, end_year int` |
+    | Element   | Name     | Property                       |
+    | :---      | :---     | :---                           |
+    | Tag       | `player` | `name string, age int`         |
+    | Tag       | `team`   | `name string`                  |
+    | Edge Type | `follow` | `degree int`                   |
+    | Edge Type | `serve`  | `start_year int, end_year int` |
 
 2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
 
@@ -107,16 +107,16 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
             (partition_num = 10, \
             replica_factor = 1, \
             vid_type = FIXED_STRING(30));
-    
+
     ## Use the graph space basketballplayer
     nebula> USE basketballplayer;
-    
+
     ## Create the Tag player
     nebula> CREATE TAG player(name string, age int);
-    
+
     ## Create the Tag team
     nebula> CREATE TAG team(name string);
-    
+
     ## Create the Edge type follow
     nebula> CREATE EDGE follow(degree int);
 
