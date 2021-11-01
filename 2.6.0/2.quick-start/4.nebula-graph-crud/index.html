@@ -413,11 +413,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#examples_5">
-    Examples
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#examples_of_lookup_and_match_index-based">
     Examples of LOOKUP and MATCH (index-based)
   </a>
@@ -2130,11 +2125,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#examples_5">
-    Examples
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#examples_of_lookup_and_match_index-based">
     Examples of LOOKUP and MATCH (index-based)
   </a>
@@ -2187,7 +2177,7 @@
 </table>
 <p>For more information, see <a href="../../1.introduction/2.data-model/">Data modeling</a>.</p>
 <p>In this topic, we will use the following dataset to demonstrate basic CRUD operations.</p>
-<p><img alt="The demo dataset" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/dataset-for-crud.png"/></p>
+<p><img alt="The demo dataset" src="dataset-for-crud.png"/></p>
 <h2 id="check_the_machine_status_in_the_nebula_graph_cluster">Check the machine status in the Nebula Graph cluster<a class="headerlink" href="#check_the_machine_status_in_the_nebula_graph_cluster" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2202,7 +2192,6 @@
 | "storaged2" | 9779      | "ONLINE"  | 0            | "No valid partition" | "No valid partition"   |
 | "Total"     | __EMPTY__ | __EMPTY__ | 0            | __EMPTY__            | __EMPTY__              |
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
-Got 4 rows (time spent 1061/2251 us)
 </code></pre></div>
 <p>From the <strong>Status</strong> column of the table in the return results, you can see that all the Storage services are online.</p>
 <h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">¶</a></h3>
@@ -2262,7 +2251,6 @@ vid_type = {FIXED_STRING(&lt;N&gt;) | INT64}
 <li>
 <p>Use the following statement to create a graph space named <code>basketballplayer</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE basketballplayer(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
-Execution succeeded (time spent 2817/3280 us)
 </code></pre></div>
 </li>
 <li>
@@ -2276,14 +2264,12 @@ Execution succeeded (time spent 2817/3280 us)
 | "storaged2" | 9779      | "ONLINE"  | 5            | "basketballplayer:5"             | "basketballplayer:5"   |
 | "Total"     |           |           | 15           | "basketballplayer:15"            | "basketballplayer:15"  |
 +-------------+-----------+-----------+--------------+----------------------------------+------------------------+
-Got 4 rows (time spent 1633/2867 us)
 </code></pre></div>
 <p>If the <strong>Leader distribution</strong> is uneven, use <code>BALANCE LEADER</code> to redistribute the partitions. For more information, see <a href="../../8.service-tuning/load-balance/">BALANCE</a>.</p>
 </li>
 <li>
 <p>Use the <code>basketballplayer</code> graph space.</p>
 <div class="highlight"><pre><span></span><code>nebula[(none)]&gt; USE basketballplayer;
-Execution succeeded (time spent 1229/2318 us)
 </code></pre></div>
 <p>You can use <code>SHOW SPACES</code> to check the graph space you created.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW SPACES;
@@ -2292,7 +2278,6 @@ Execution succeeded (time spent 1229/2318 us)
 +--------------------+
 | "basketballplayer" |
 +--------------------+
-Got 1 rows (time spent 977/2000 us)
 </code></pre></div>
 </li>
 </ol>
@@ -2337,16 +2322,12 @@ Got 1 rows (time spent 977/2000 us)
 </tbody>
 </table>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string, age int);
-Execution succeeded (time spent 20708/22071 us)
 
 nebula&gt; CREATE TAG team(name string);
-Execution succeeded (time spent 5643/6810 us)
 
 nebula&gt; CREATE EDGE follow(degree int);
-Execution succeeded (time spent 12665/13934 us)
 
 nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-Execution succeeded (time spent 5858/6870 us)
 </code></pre></div>
 <h2 id="insert_vertices_and_edges">Insert vertices and edges<a class="headerlink" href="#insert_vertices_and_edges" title="Permanent link">¶</a></h2>
 <p>Users can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
@@ -2373,31 +2354,23 @@ Execution succeeded (time spent 5858/6870 us)
 <h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">¶</a></h3>
 <ul>
 <li>Insert vertices representing basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42);
-Execution succeeded (time spent 28196/30896 us)
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36);
-Execution succeeded (time spent 2708/3834 us)
 
 nebula&gt; INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
-Execution succeeded (time spent 1945/3294 us)
 
-nebula&gt; INSERT VERTEX team(name) VALUES "team200":("Warriors"), "team201":("Nuggets");
-Execution succeeded (time spent 2269/3310 us)
+nebula&gt; INSERT VERTEX team(name) VALUES "team203":("Trail Blazers"), "team204":("Spurs");
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Insert edges representing the relations between basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player101":(95);
-Execution succeeded (time spent 3362/4542 us)
+<li>Insert edges representing the relations between basketball players and teams:<div class="highlight"><pre><span></span><code>nebula&gt; INSERT EDGE follow(degree) VALUES "player101" -&gt; "player100":(95);
 
-nebula&gt; INSERT EDGE follow(degree) VALUES "player100" -&gt; "player102":(90);
-Execution succeeded (time spent 2974/4274 us)
+nebula&gt; INSERT EDGE follow(degree) VALUES "player101" -&gt; "player102":(90);
 
-nebula&gt; INSERT EDGE follow(degree) VALUES "player102" -&gt; "player101":(75);
-Execution succeeded (time spent 1891/3096 us)
+nebula&gt; INSERT EDGE follow(degree) VALUES "player102" -&gt; "player100":(75);
 
-nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES "player100" -&gt; "team200":(1997, 2016), "player101" -&gt; "team201":(1999,  2018);
-Execution succeeded (time spent 6064/7104 us)
+nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES "player101" -&gt; "team204":(1999, 2018),"player102" -&gt; "team203":(2006,  2015);
 </code></pre></div>
 </li>
 </ul>
@@ -2463,27 +2436,24 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </ul>
 <h3 id="examples_of_go_statement">Examples of <code>GO</code> statement<a class="headerlink" href="#examples_of_go_statement" title="Permanent link">¶</a></h3>
 <ul>
-<li>Search for the players that the player with VID <code>player100</code> follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow;
+<li>Search for the players that the player with VID <code>player101</code> follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow;
 +-------------+
 | follow._dst |
 +-------------+
-| "player101" |
+| "player100" |
+| "player102" |
 +-------------+
-| "player125" |
-+-------------+
-Got 2 rows (time spent 12097/14220 us)
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Filter the players that the player with VID <code>player100</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).age &gt;= 35 \
+<li>Filter the players that the player with VID <code>player101</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow WHERE properties($$).age &gt;= 35 \
         YIELD properties($$).name AS Teammate, properties($$).age AS Age;
-+-----------------+-----+
-| Teammate        | Age |
-+-----------------+-----+
-| "Tony Parker"   | 36  |
-| "Manu Ginobili" | 41  |
-+-----------------+-----+
++--------------+-----+
+| Teammate     | Age |
++--------------+-----+
+| "Tim Duncan" | 42  |
++--------------+-----+
 </code></pre></div>
 <p>| Clause/Sign | Description                                                         |
   |-------------+---------------------------------------------------------------------|
@@ -2494,20 +2464,18 @@ Got 2 rows (time spent 12097/14220 us)
 </ul>
 <ul>
 <li>
-<p>Search for the players that the player with VID <code>player100</code> follows. Then Retrieve the teams of the players that the player with VID <code>player100</code> follows. To combine the two queries, use a pipe or a temporary variable.</p>
+<p>Search for the players that the player with VID <code>player101</code> follows. Then Retrieve the teams of the players that the player with VID <code>player100</code> follows. To combine the two queries, use a pipe or a temporary variable.</p>
 <ul>
 <li>
 <p>With a pipe:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) AS id | \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow YIELD dst(edge) AS id | \
         GO FROM $-.id OVER serve YIELD properties($$).name AS Team, \
         properties($^).name AS Player;
-+-----------+-----------------+
-| Team      | Player          |
-+-----------+-----------------+
-| "Spurs"   | "Tony Parker"   |
-| "Hornets" | "Tony Parker"   |
-| "Spurs"   | "Manu Ginobili" |
-+-----------+-----------------+
++-----------------+---------------------+
+| Team            | Player              |
++-----------------+---------------------+
+| "Trail Blazers" | "LaMarcus Aldridge" |
++-----------------+---------------------+
 </code></pre></div>
 <table>
 <thead>
@@ -2540,16 +2508,14 @@ Got 2 rows (time spent 12097/14220 us)
 <p class="admonition-title">Note</p>
 <p>Once a composite statement is submitted to the server as a whole, the life cycle of the temporary variables in the statement ends.</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player100" OVER follow YIELD dst(edge) AS id; \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player101" OVER follow YIELD dst(edge) AS id; \
         GO FROM $var.id OVER serve YIELD properties($$).name AS Team, \
         properties($^).name AS Player;
-+-----------+-----------------+
-| Team      | Player          |
-+-----------+-----------------+
-| "Spurs"   | "Tony Parker"   |
-| "Hornets" | "Tony Parker"   |
-| "Spurs"   | "Manu Ginobili" |
-+-----------+-----------------+
++-----------------+---------------------+
+| Team            | Player              |
++-----------------+---------------------+
+| "Trail Blazers" | "LaMarcus Aldridge" |
++-----------------+---------------------+
 </code></pre></div>
 </li>
 </ul>
@@ -2597,7 +2563,6 @@ SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns
 <h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">¶</a></h3>
 <ul>
 <li><code>UPDATE</code> the <code>name</code> property of the vertex with VID <code>player100</code> and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX "player100" SET player.name = "Tim";
-Execution succeeded (time spent 3483/3914 us)
 
 nebula&gt; FETCH PROP ON player "player100";
 +---------------------------------------------+
@@ -2605,39 +2570,32 @@ nebula&gt; FETCH PROP ON player "player100";
 +---------------------------------------------+
 | ("player100" :player{age: 42, name: "Tim"}) |
 +---------------------------------------------+
-Got 1 rows (time spent 2463/3042 us)
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li><code>UPDATE</code> the <code>degree</code> property of an edge and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE "player100" -&gt; "player101" OF follow SET degree = 96;
-Execution succeeded (time spent 3932/4432 us)
+<li><code>UPDATE</code> the <code>degree</code> property of an edge and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE "player101" -&gt; "player100" OF follow SET degree = 96;
 
-nebula&gt; FETCH PROP ON follow "player100" -&gt; "player101";
+nebula&gt; FETCH PROP ON follow "player101" -&gt; "player100";
 +----------------------------------------------------+
 | edges_                                             |
 +----------------------------------------------------+
-| [:follow "player100"-&gt;"player101" @0 {degree: 96}] |
+| [:follow "player101"-&gt;"player100" @0 {degree: 96}] |
 +----------------------------------------------------+
-Got 1 rows (time spent 2205/2800 us)
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Insert a vertex with VID <code>player111</code> and <code>UPSERT</code> it.<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name, age) VALUES "player111":("Ben Simmons", 22);
-Execution succeeded (time spent 2115/2900 us)
+<li>Insert a vertex with VID <code>player111</code> and <code>UPSERT</code> it.<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX player(name,age) values "player111":("David West", 38);
 
-Wed, 21 Oct 2020 11:11:50 UTC
-
-nebula&gt; UPSERT VERTEX "player111" SET player.name = "Dwight Howard", player.age = $^.player.age + 11 \
-        WHEN $^.player.name == "Ben Simmons" AND $^.player.age &gt; 20 \
+nebula&gt; UPSERT VERTEX "player111" SET player.name = "David", player.age = $^.player.age + 11 \
+        WHEN $^.player.name == "David West" AND $^.player.age &gt; 20 \
         YIELD $^.player.name AS Name, $^.player.age AS Age;
-+---------------+-----+
-| Name          | Age |
-+---------------+-----+
-| Dwight Howard | 33  |
-+---------------+-----+
-Got 1 rows (time spent 1815/2329 us)
++---------+-----+
+| Name    | Age |
++---------+-----+
+| "David" | 49  |
++---------+-----+
 </code></pre></div>
 </li>
 </ul>
@@ -2656,14 +2614,12 @@ Got 1 rows (time spent 1815/2329 us)
 </ul>
 <h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">¶</a></h3>
 <ul>
-<li>Delete vertices:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX "team1", "team2";
-Execution succeeded (time spent 4337/4782 us)
+<li>Delete vertices:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX "player111", "team203";
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Delete edges:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow "team1" -&gt; "team2";
-Execution succeeded (time spent 3700/4101 us)
+<li>Delete edges:<div class="highlight"><pre><span></span><code>nebula&gt; DELETE EDGE follow "player101" -&gt; "team204";
 </code></pre></div>
 </li>
 </ul>
@@ -2686,11 +2642,6 @@ ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = 
 </code></pre></div>
 </li>
 </ul>
-<h3 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">¶</a></h3>
-<p>Create and rebuild indexes for the <code>name</code> property on all vertices with the tag <code>player</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(20));
-nebula&gt; REBUILD TAG INDEX player_index_0;
-</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Define the index length when creating an index for a variable-length property. In UTF-8 encoding, a non-ascii character occupies 3 bytes. You should set an appropriate index length according to the variable-length property. For example, the index should be 30 bytes for 10 non-ascii characters. For more information, see <a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a></p>
@@ -2698,12 +2649,11 @@ nebula&gt; REBUILD TAG INDEX player_index_0;
 <h3 id="examples_of_lookup_and_match_index-based">Examples of <code>LOOKUP</code> and <code>MATCH</code> (index-based)<a class="headerlink" href="#examples_of_lookup_and_match_index-based" title="Permanent link">¶</a></h3>
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
 <p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>Tony Parker</code>.</p>
-<p>This example creates the index <code>player_name_0</code> on the player name property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_name_0 on player(name(10));
-Execution succeeded (time spent 3465/4150 us)
+<p>This example creates the index <code>player_index_1</code> on the player name property.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_1 ON player(name(20));
 </code></pre></div>
 <p>This example rebuilds the index to make sure it takes effect on pre-existing data.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_name_0
+<div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_index_1
 +------------+
 | New Job Id |
 +------------+
@@ -2713,12 +2663,12 @@ Got 1 rows (time spent 2379/3033 us)
 </code></pre></div>
 <p>This example uses the <code>LOOKUP</code> statement to retrieve the vertex property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
-        YIELD player.name, player.age;
-+-------------+---------------+------------+
-| VertexID    | player.name   | player.age |
-+-------------+---------------+------------+
-| "player101" | "Tony Parker" | 36         |
-+-------------+---------------+------------+
+        YIELD properties(vertex).name AS name, properties(vertex).age AS age;
++-------------+---------------+-----+
+| VertexID    | name          | age |
++-------------+---------------+-----+
+| "player101" | "Tony Parker" | 36  |
++-------------+---------------+-----+
 </code></pre></div>
 <p>This example uses the <code>MATCH</code> statement to retrieve the vertex property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tony Parker"}) RETURN v;
@@ -2727,7 +2677,6 @@ Got 1 rows (time spent 2379/3033 us)
 +-----------------------------------------------------+
 | ("player101" :player{age: 36, name: "Tony Parker"}) |
 +-----------------------------------------------------+
-Got 1 rows (time spent 5132/6246 us)
 </code></pre></div>
 <hr/>
 <div class="md-source-date">
