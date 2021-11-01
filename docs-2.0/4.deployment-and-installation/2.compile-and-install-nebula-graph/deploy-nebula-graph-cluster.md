@@ -274,7 +274,7 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
 !!! note
 
-    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start the Nebula Graph services.
+    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start Nebula Graph.
 
     - When the graphd process, the storaged process, and the metad process are all started, you can use `all` instead.
 
