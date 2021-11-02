@@ -447,6 +447,10 @@ ${SPARK_HOME}/bin/spark-submit --master "local" --conf spark.sql.shuffle.partiti
 
 !!! note
 
+    When generating SST files, the shuffle operation of Spark will be involved. Note that the configuration of `spark.sql.shuffle.partition` should be added when you submit the command.
+
+!!! note
+
     JAR packages are available in two ways: [compiled them yourself](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 For example:
