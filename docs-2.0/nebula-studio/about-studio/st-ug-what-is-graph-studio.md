@@ -4,15 +4,18 @@ Nebula Graph Studio (Studio in short) is a browser-based visualization tool to m
 
 ## Released versions
 
-For now, Studio has three release versions:
+You can deploy Studio using the following methods:
 
 - Docker-based. You can deploy Studio with Docker and connect it to Nebula Graph. For more information, see [Docker-based Studio](../deploy-connect/st-ug-deploy.md).
-
 - RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [RPM-based Studio](../deploy-connect/st-ug-deploy.md).
+- Tar-based. You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
+- Helm-based. You can deploy Studio with Helm in the Kubernetes cluster and connect it to Nebula Graph. For more information, see [Helm-based Studio](../deploy-connect/st-ug-deploy-by-helm.md).
 
-- tar-based. You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
+<!--
+- Cloud Service: You can create Nebula Graph database instances in Nebula Graph Cloud Service and connect Cloud Service Studio with one click. For more information, see [Nebula Graph Cloud Service Manual](https://cloud-docs.nebula-graph.com.cn/cn/posts/manage-instances/dbaas-ug-connect-nebulastudio/ "Click to go to Nebula Graph Cloud Service Manual").
+-->
 
-The functions of the three released versions are the same and may be restricted when using Studio. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
+The functions of the above four deployment methods are the same and may be restricted when using Studio. For more information, see [Limitations](../about-studio/st-ug-limitations.md).
 
 ## Features
 
