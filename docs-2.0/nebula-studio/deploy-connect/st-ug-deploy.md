@@ -13,7 +13,7 @@ This topic describes how to deploy Studio locally by Docker, RPM, and tar packag
 
 ### Prerequisites
 
-Before you deploy Docker-based Studio, you must confirm that:
+Before you deploy RPM-based Studio, you must confirm that:
 
 - The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
@@ -35,7 +35,6 @@ Before you deploy Docker-based Studio, you must confirm that:
    | ---- | ---- |
    | 7001 | Web service provided by Studio. |
    | 8080 | HTTP service provided by Nebula HTTP Gateway. |
-   | 5699 | Data import service provided by Nebula Importer. |
 
 ### Install
 
@@ -58,8 +57,6 @@ Before you deploy Docker-based Studio, you must confirm that:
    ```bash
    egg started on http://0.0.0.0:7001
    nohup: Add the output to "nohup.out"
-   --- START OF NEBULA IMPORTER ---
-   [INFO] httpserver.go:80: Starting http server on 5699
    ```
 
 3. When Docker-based Studio is started, use `http://ip address:7001` to get access to Studio.
@@ -86,12 +83,12 @@ If the automatic start fails during the installation process or you want to manu
 
 - Start the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/start.sh
+bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
 ```
 
 - Stop the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/stop.sh
+bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
 ```
 
 If you encounter an error `bind EADDRINUSE 0.0.0.0:7001` when starting the service, you can use the following command to check port 7001 usage.
@@ -123,7 +120,7 @@ If the port is occupied and the process on that port cannot be terminated, you c
 
 ### Prerequisites
 
-Before you deploy Docker-based Studio , you must do a check of these:
+Before you deploy tar-based Studio , you must do a check of these:
 
 - The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
@@ -145,7 +142,6 @@ Before you deploy Docker-based Studio , you must do a check of these:
    | ---- | ---- |
    | 7001 | Web service provided by Studio |
    | 8080 | Nebula-http-gateway, Client's HTTP service |
-   | 5699 | Nebula importer, provide data import service |
 
 ### Install
 
@@ -165,30 +161,27 @@ Before you deploy Docker-based Studio , you must do a check of these:
  
 !!! Note
 
-    The root directory `nebula-graph-studio` has three installation packages: nebula-graph-studio, nebula-importer and nebula-http-gateway. You need to deploy and start the services separately on the same machine to complete the deployment of Studio.
+    The root directory `nebula-graph-studio` has two installation packages: nebula-graph-studio and nebula-importer. You need to deploy and start the services separately on the same machine to complete the deployment of Studio.
 
-1. Deploy and start nebula-importer.
-
-   ```bash
-   $ cd nebula-importer
-   $ ./nebula-importer --port 5699 --callback "http://0.0.0.0:7001/api/import/finish" &
-   ```
-
-2. Deploy and start nebula-http-gateway.
+1. Deploy and start nebula-http-gateway.
 
    ```bash
    $ cd nebula-http-gateway
    $ nohup ./nebula-httpd &
    ```
 
-3. Deploy and start nebula-graph-studio.
+2. Deploy and start nebula-graph-studio.
    
    ```bash
    $ cd nebula-graph-studio
    $ npm run start
    ```
 
-4. When tar-based Studio is started, use `http://ip address:7001` to get access to Studio.
+  !!! caution
+
+        Studio {{nebula.release}} version is not dependent on nebula-importer, so the installation and deployment procedure is different from Studio v3.0.0.
+
+3. When tar-based Studio is started, use `http://ip address:7001` to get access to Studio.
 
   !!! note
 
@@ -202,7 +195,6 @@ Before you deploy Docker-based Studio , you must do a check of these:
 
 You can use `kill pid` to stop the service:
 ```bash
-$ kill $(lsof -t -i :5699) # stop nebula-importer
 $ kill $(lsof -t -i :8080) # stop nebula-http-gateway
 $ cd nebula-graph-studio
 $ npm run stop # stop nebula-graph-studio
@@ -212,7 +204,7 @@ $ npm run stop # stop nebula-graph-studio
 
 ### Prerequisites
 
-Before you deploy Studio, you must do a check of these:
+Before you deploy Docker-based Studio, you must do a check of these:
 
 - The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
@@ -224,8 +216,6 @@ Before you deploy Studio, you must do a check of these:
    | ---- | ---- |
    | 7001 | Web service provided by Studio |
    | 8080 | Nebula-http-gateway, Client's HTTP service |
-   | 5699 | Nebula importer file import tool, provide data import service |
-
 
 ### Procedure
 
@@ -263,7 +253,6 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
     If these lines are returned, Docker-based Studio v3.x is deployed and started.
 
     ```bash
-    Creating docker_importer_1 ... done
     Creating docker_client_1   ... done
     Creating docker_web_1      ... done
     Creating docker_nginx_1    ... done
