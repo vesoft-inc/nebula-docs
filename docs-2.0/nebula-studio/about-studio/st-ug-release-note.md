@@ -5,11 +5,11 @@
 - Feature enhancements:
   - Compatible with Nebula Graph v2.6.0.
   - Added the use of Helm to deploy and start Studio in the Kubernetes cluster.
-  - Explorer:
+  - Explorer
     - Added the function of modifying the vertex icon.
 
 - Fix:
-  - Schema:
+  - Schema
     - Fix the problem that some operations of the tag/edge/property named after keywords will report errors.
     - Fix the problem of incomplete data types by adding date/time/datetime/int32/int16/int8.
 
