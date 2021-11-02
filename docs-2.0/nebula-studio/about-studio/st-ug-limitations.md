@@ -12,15 +12,15 @@ This topic introduces the limitations of Studio.
 | --- | --- |
 | 1.x | 1.x|
 | 2.0 & 2.0.1 | 2.x |
-| 2.5.0 | 3.0.0 |
+| 2.5.0 & 2.5.1 | 3.0.0 |
 | 2.6.0 | 3.1.0 |
-
 
 ## Architecture
 
 For now, Docker-based and RPM-based Studio v3.x supports x86_64 architecture only.
 
 ## Upload data
+
 <!--
 During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these limitations:
 
@@ -28,7 +28,9 @@ During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these 
 - Each file of a maximum of 100 MB is supported.
 - A total amount of a maximum of 1 GB is supported for each Nebula graph instance.
 - Each file is stored for only one calendar day.
+
 -->
+
 Only CSV files without headers can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
 
 ## Data backup
@@ -53,6 +55,7 @@ For Studio on Cloud, besides the preceding syntax, you cannot run these account 
 
 For more information about the preceding statements, see[Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0.1/7.data-security/1.authentication/2.management-user/)
 -->
+
 ## Browser
 
 We recommend that you use Chrome to get access to Studio.

@@ -1,11 +1,13 @@
 # Change Log
 
 ## v3.1.0 (2021.10.29)
-- Feature Enhancements:
+
+- Feature enhancements:
   - Compatible with Nebula Graph v2.6.0.
   - Added the use of Helm to deploy and start Studio in the Kubernetes cluster.
   - Explorer:
     - Added the function of modifying the vertex icon.
+
 - Fix:
   - Schema:
     - Fix the problem that some operations of the tag/edge/property named after keywords will report errors.
@@ -15,6 +17,8 @@
   - Remove Studio's dependency on nebula-importer and use http-gateway to be compatible with related functions.
 
 ## v3.0.0 (2021.08.13)
-- Feature Enhancements:
+
+- Feature enhancements:
+
   - Compatible with Nebula Graph v2.5.0.
   - Supported adding `COMMENT` in Space, Tag, Edge Type, Index while configuration Schema.
