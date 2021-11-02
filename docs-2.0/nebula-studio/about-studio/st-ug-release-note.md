@@ -5,6 +5,7 @@
 - Feature enhancements:
   - Compatible with Nebula Graph v2.6.0.
   - Added the use of Helm to deploy and start Studio in the Kubernetes cluster.
+  - Added GEO.
   - Explorer
     - Added the function of modifying the vertex icon.
 
