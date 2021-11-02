@@ -33,7 +33,6 @@ To query the paths or subgraph on the **Console** page and then view them on the
    Here is an nGQL statement example.
 
    ```ngql
-   // Run FIND ALL PATH
    nebula> FIND ALL PATH FROM "player114" to "player100" OVER follow;
    ```
 
@@ -49,9 +48,9 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
   - **Insert After Clear**: Click this button to clear the existing data from the board and then add the data to the board.
 
-When the data is inserted, you can view the visualized representation of the paths.
+When the data is inserted, you can view the visualized representation of the paths.  Operations such as expanding vertices, moving the canvas, modifying the color and icon of the vertices, and displaying the properties of the vertices and edges on the page are supported.
 
-![The paths are represented on the Explore board](../figs/st-ug-046-1.png "Visualize paths")
+![The paths are represented on the Explore board](../figs/st-ug-046.png "Visualize paths")
 
 ## Next to do
 
