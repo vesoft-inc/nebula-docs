@@ -1636,6 +1636,11 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../st-ug-deploy-by-helm/">
+        Deploy Studio with Helm
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../st-ug-connect/">
         Connect to Nebula Graph
       </a>
@@ -2368,7 +2373,7 @@ Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Neb
 </div>
 <h2 id="rpm-based_studio">RPM-based Studio<a class="headerlink" href="#rpm-based_studio" title="Permanent link">¶</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h3>
-<p>Before you deploy Docker-based Studio, you must confirm that:</p>
+<p>Before you deploy RPM-based Studio, you must confirm that:</p>
 <ul>
 <li>The Nebula Graph services are deployed and started. For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.</li>
 </ul>
@@ -2404,10 +2409,6 @@ $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
 <td>8080</td>
 <td>HTTP service provided by Nebula HTTP Gateway.</td>
 </tr>
-<tr>
-<td>5699</td>
-<td>Data import service provided by Nebula Importer.</td>
-</tr>
 </tbody>
 </table>
 </li>
@@ -2426,8 +2427,8 @@ $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
 </thead>
 <tbody>
 <tr>
-<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm">nebula-graph-studio-3.0.0-1.x86_64.rpm</a></td>
-<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256">nebula-graph-studio-3.0.0-1.x86_64.rpm.sha256</a></td>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.1.0/nebula-graph-studio-3.1.0-1.x86_64.rpm">nebula-graph-studio-3.1.0-1.x86_64.rpm</a></td>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.1.0/nebula-graph-studio-3.1.0-1.x86_64.rpm.sha256">nebula-graph-studio-3.1.0-1.x86_64.rpm.sha256</a></td>
 <td>vmaster</td>
 </tr>
 </tbody>
@@ -2435,14 +2436,12 @@ $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
 </li>
 <li>
 <p>Use <code>sudo rpm -i &lt;rpm&gt;</code> to install RPM package.</p>
-<p>For example, install Studio 3.0.0, use the following command:
- <div class="highlight"><pre><span></span><code>sudo rpm -i nebula-graph-studio-3.0.0-1.x86_64.rpm
+<p>For example, install Studio 3.1.0, use the following command:
+ <div class="highlight"><pre><span></span><code>sudo rpm -i nebula-graph-studio-3.1.0-1.x86_64.rpm
 </code></pre></div></p>
 <p>When the screen returns the following message, it means that the PRM-based Studio has been successfully started.</p>
 <div class="highlight"><pre><span></span><code>egg started on http://0.0.0.0:7001
 nohup: Add the output to <span class="s2">"nohup.out"</span>
---- START OF NEBULA IMPORTER ---
-<span class="o">[</span>INFO<span class="o">]</span> httpserver.go:80: Starting http server on <span class="m">5699</span>
 </code></pre></div>
 </li>
 <li>
@@ -2457,18 +2456,18 @@ nohup: Add the output to <span class="s2">"nohup.out"</span>
 </ol>
 <h3 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">¶</a></h3>
 <p>Users can uninstall Studio using the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo rpm -e nebula-graph-studio-3.0.0-1.x86_64
+<div class="highlight"><pre><span></span><code>sudo rpm -e nebula-graph-studio-3.1.0-1.x86_64
 </code></pre></div>
 <h3 id="exception_handling">Exception handling<a class="headerlink" href="#exception_handling" title="Permanent link">¶</a></h3>
 <p>If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:</p>
 <ul>
 <li>Start the service manually
-<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/start.sh
+<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
 </code></pre></div></li>
 </ul>
 <ul>
 <li>Stop the service manually
-<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/stop.sh
+<div class="highlight"><pre><span></span><code>bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
 </code></pre></div></li>
 </ul>
 <p>If you encounter an error <code>bind EADDRINUSE 0.0.0.0:7001</code> when starting the service, you can use the following command to check port 7001 usage.
@@ -2493,7 +2492,7 @@ nohup: Add the output to <span class="s2">"nohup.out"</span>
 </code></pre></div>
 <h2 id="tar-based_studio">tar-based Studio<a class="headerlink" href="#tar-based_studio" title="Permanent link">¶</a></h2>
 <h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">¶</a></h3>
-<p>Before you deploy Docker-based Studio , you must do a check of these:</p>
+<p>Before you deploy tar-based Studio , you must do a check of these:</p>
 <ul>
 <li>The Nebula Graph services are deployed and started. For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.</li>
 </ul>
@@ -2529,10 +2528,6 @@ $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
 <td>8080</td>
 <td>Nebula-http-gateway, Client's HTTP service</td>
 </tr>
-<tr>
-<td>5699</td>
-<td>Nebula importer, provide data import service</td>
-</tr>
 </tbody>
 </table>
 </li>
@@ -2550,30 +2545,24 @@ $ sudo ln -s /opt/rh/rh-nodejs12/root/usr/bin/npm /usr/bin/npm
 </thead>
 <tbody>
 <tr>
-<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.0.0/nebula-graph-studio-3.0.0-1.x86_64.tar.gz">nebula-graph-studio-3.0.0-1.x86_64.tar.gz</a></td>
-<td>3.0.0</td>
+<td><a href="https://oss-cdn.nebula-graph.io/nebula-graph-studio/3.1.0/nebula-graph-studio-3.1.0-1.x86_64.tar.gz">nebula-graph-studio-3.1.0-1.x86_64.tar.gz</a></td>
+<td>3.1.0</td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
 <p>Use <code>tar -xvf</code> to decompress the tar package.</p>
-<div class="highlight"><pre><span></span><code>tar -xvf nebula-graph-studio-3.0.0-1.x86_64.tar.gz
+<div class="highlight"><pre><span></span><code>tar -xvf nebula-graph-studio-3.1.0-1.x86_64.tar.gz
 </code></pre></div>
 </li>
 </ol>
 <h3 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The root directory <code>nebula-graph-studio</code> has three installation packages: nebula-graph-studio, nebula-importer and nebula-http-gateway. You need to deploy and start the services separately on the same machine to complete the deployment of Studio.</p>
+<p>The root directory <code>nebula-graph-studio</code> has two installation packages: nebula-graph-studio and nebula-importer. You need to deploy and start the services separately on the same machine to complete the deployment of Studio.</p>
 </div>
 <ol>
-<li>
-<p>Deploy and start nebula-importer.</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula-importer
-$ ./nebula-importer --port <span class="m">5699</span> --callback <span class="s2">"http://0.0.0.0:7001/api/import/finish"</span> <span class="p">&amp;</span>
-</code></pre></div>
-</li>
 <li>
 <p>Deploy and start nebula-http-gateway.</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula-http-gateway
@@ -2585,6 +2574,10 @@ $ nohup ./nebula-httpd <span class="p">&amp;</span>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> nebula-graph-studio
 $ npm run start
 </code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Studio master version is not dependent on nebula-importer, so the installation and deployment procedure is different from Studio v3.0.0.</p>
+</div>
 </li>
 <li>
 <p>When tar-based Studio is started, use <code>http://ip address:7001</code> to get access to Studio.</p>
@@ -2598,14 +2591,13 @@ $ npm run start
 </ol>
 <h3 id="stop_service">Stop Service<a class="headerlink" href="#stop_service" title="Permanent link">¶</a></h3>
 <p>You can use <code>kill pid</code> to stop the service:
-<div class="highlight"><pre><span></span><code>$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :5699<span class="k">)</span> <span class="c1"># stop nebula-importer</span>
-$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :8080<span class="k">)</span> <span class="c1"># stop nebula-http-gateway</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :8080<span class="k">)</span> <span class="c1"># stop nebula-http-gateway</span>
 $ <span class="nb">cd</span> nebula-graph-studio
 $ npm run stop <span class="c1"># stop nebula-graph-studio</span>
 </code></pre></div></p>
 <h2 id="docker-based_studio">Docker-based Studio<a class="headerlink" href="#docker-based_studio" title="Permanent link">¶</a></h2>
 <h3 id="prerequisites_2">Prerequisites<a class="headerlink" href="#prerequisites_2" title="Permanent link">¶</a></h3>
-<p>Before you deploy Studio, you must do a check of these:</p>
+<p>Before you deploy Docker-based Studio, you must do a check of these:</p>
 <ul>
 <li>The Nebula Graph services are deployed and started. For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Nebula Graph Database Manual</a>.</li>
 </ul>
@@ -2630,10 +2622,6 @@ $ npm run stop <span class="c1"># stop nebula-graph-studio</span>
 <tr>
 <td>8080</td>
 <td>Nebula-http-gateway, Client's HTTP service</td>
-</tr>
-<tr>
-<td>5699</td>
-<td>Nebula importer file import tool, provide data import service</td>
 </tr>
 </tbody>
 </table>
@@ -2679,8 +2667,7 @@ $ npm run stop <span class="c1"># stop nebula-graph-studio</span>
 <div class="highlight"><pre><span></span><code>docker-compose up -d
 </code></pre></div>
 <p>If these lines are returned, Docker-based Studio v3.x is deployed and started.</p>
-<div class="highlight"><pre><span></span><code>Creating docker_importer_1 ... <span class="k">done</span>
-Creating docker_client_1   ... <span class="k">done</span>
+<div class="highlight"><pre><span></span><code>Creating docker_client_1   ... <span class="k">done</span>
 Creating docker_web_1      ... <span class="k">done</span>
 Creating docker_nginx_1    ... <span class="k">done</span>
 </code></pre></div>
@@ -2701,7 +2688,7 @@ Creating docker_nginx_1    ... <span class="k">done</span>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2021</span>
 </small>
 </div>
 </article>
@@ -2727,13 +2714,13 @@ Creating docker_nginx_1    ... <span class="k">done</span>
             </div>
 </div>
 </a>
-<a aria-label="Next: Connect to Nebula Graph" class="md-footer__link md-footer__link--next" href="../st-ug-connect/" rel="next">
+<a aria-label="Next: Deploy Studio with Helm" class="md-footer__link md-footer__link--next" href="../st-ug-deploy-by-helm/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Connect to Nebula Graph
+              Deploy Studio with Helm
             </div>
 </div>
 <div class="md-footer__button md-icon">
