@@ -13,6 +13,7 @@ This topic introduces the limitations of Studio.
 | 1.x | 1.x|
 | 2.0 & 2.0.1 | 2.x |
 | 2.5.0 | 3.0.0 |
+| 2.6.0 | 3.1.0 |
 
 
 ## Architecture
