@@ -29,6 +29,13 @@ Before installing Studio, you need to install the following software and ensure 
     $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070 deployment/helm
     ```
 
+4. When Studio is started, use `http://address-of-node:30070/` to get access to Studio.
+
+   If you can see the **Config Server** page on the browser, Studio is started successfully.
+
+   ![The Config Server page shows that Studio is started successfully](../figs/st-ug-025.png "Studio is started")
+
+
 ## Uninstall
 
 ```bash
@@ -45,17 +52,14 @@ On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For 
 |-----------|-------------|---------|
 | replicaCount  | 0 | The number of replicas for Deployment.   |
 | image.httpGateway.name  | vesoft/nebula-http-gateway  | The image name of nebula-http-gateway. |
-| image.nebulaImporter.name  |  vesoft/nebula-importer  | The image name of nebula-importer. |
 | image.nebulaStudio.name  |  vesoft/nebula-graph-studio  | The image name of nebula-graph-studio. |
 | image.nginx.name  |  nginx   | The image name of nginx. |
-| image.httpGateway.version  |  v2  | The image version of nebula-http-gateway.  |
-| image.nebulaImporter.version  |  v2  | The image version of nebula-importer.  |
-| image.nebulaStudio.version  | v3  |  The image version of nebula-graph-studio.  |
+| image.httpGateway.version  |  v2.1.1  | The image version of nebula-http-gateway.  |
+| image.nebulaStudio.version  | v3.1.0 |  The image version of nebula-graph-studio.  |
 | image.nginx.version  |  alpine  |  The image version of nginx. |
 | service.type  | ClusterIP |  The service type, which should be one of 'NodePort', 'ClusterIP', and 'LoadBalancer'. |
 | service.port  | 7001 |  The expose port for nebula-graph-studio's web.  |
 | resources.httpGateway  | {} |  The resource limits/requests for nebula-http-gateway. |
-| resources.nebulaImporter  | {} |  The resource limits/requests for nebula-importer. |
 | resources.nebulaStudio  | {} |  The resource limits/requests for nebula-studio. |
 | resources.nginx  | {} |  The resource limits/requests for nginx. |
 | persistent.storageClassName  | ""  |  The name of storageClass. The default value will be used if not specified. |
