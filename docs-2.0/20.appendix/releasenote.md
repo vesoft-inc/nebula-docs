@@ -2,7 +2,7 @@
 
 ## Bug fix
 
-Fixed the bug that the nebula connection will be interrupted if the YIELD clause in LOOKUP contains aggregate function.[#3245](https://github.com/vesoft-inc/nebula/pull/3245)
+Fixed the bug that the nebula connection will be interrupted if the YIELD clause in LOOKUP contains aggregate functions.[#3245](https://github.com/vesoft-inc/nebula/pull/3245)
 
 ## Legacy versions
 
