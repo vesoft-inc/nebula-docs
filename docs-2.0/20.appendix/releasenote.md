@@ -1,5 +1,6 @@
 # Nebula Graph {{ nebula.release }} release notes
 
+<!--
 ## Feature
 
 - Support TOSS. [#2525](https://github.com/vesoft-inc/nebula/pull/2525)
@@ -54,3 +55,5 @@
 ## Legacy versions
 
 [Release notes of legacy versions](https://nebula-graph.com.cn/tags/release-note/)
+
+-->
