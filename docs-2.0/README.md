@@ -1,8 +1,8 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "Check the manual version"
+!!! danger 
 
-    This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}) {{ git.short_commit }}.
+    A [new version](https://docs.nebula-graph.io/) has been released.
 
 <!--
 !!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
