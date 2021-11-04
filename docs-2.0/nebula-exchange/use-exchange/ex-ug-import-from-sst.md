@@ -103,6 +103,8 @@ Before importing data, you need to confirm the following information:
 
       - To generate SST files only, users do not need to install the Hadoop service on the machine where the Storage service is deployed.
 
+      - To delete the SST file after the ingest (data import) operation, add the configuration `-- move_Files =true` to the Storage Service configuration file.
+
 ## Steps
 
 ### Step 1: Create the Schema in Nebula Graph
