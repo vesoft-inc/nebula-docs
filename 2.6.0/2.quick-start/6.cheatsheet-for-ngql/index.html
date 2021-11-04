@@ -2537,7 +2537,7 @@
 <tbody>
 <tr>
 <td align="left">count()</td>
-<td align="left">Syntax: <code>count({expr \| *})</code> .<br/><code>count()</code>returns the number of rows (including NULL).<br/> <code>count(expr)</code>returns the number of non-NULL values that meet the expression.<br/> count() and size() are different.</td>
+<td align="left">Syntax: <code>count({expr | *})</code> .<br/><code>count()</code>returns the number of rows (including NULL).<br/> <code>count(expr)</code>returns the number of non-NULL values that meet the expression.<br/> count() and size() are different.</td>
 </tr>
 </tbody>
 </table>
@@ -2784,7 +2784,7 @@ END
 </tr>
 <tr>
 <td>Match multiple edge types</td>
-<td><code>MATCH (v:player{name:"Tim Duncan"})-[e:follow \| :serve]-&gt;(v2) RETURN e</code></td>
+<td><code>MATCH (v:player{name:"Tim Duncan"})-[e:follow | :serve]-&gt;(v2) RETURN e</code></td>
 <td>The <code>|</code> symbol can help matching multiple edge types. For example: <code>[e:follow|:serve]</code>. The English colon (:) before the first edge type cannot be omitted, but the English colon before the subsequent edge type can be omitted, such as <code>[e:follow|serve]</code>.</td>
 </tr>
 <tr>
@@ -2804,7 +2804,7 @@ END
 </tr>
 <tr>
 <td>Match variable-length paths with multiple edge types</td>
-<td><code>MATCH p=(v:player{name:"Tim Duncan"})-[e:follow \| serve*2]-&gt;(v2) RETURN DISTINCT v2</code></td>
+<td><code>MATCH p=(v:player{name:"Tim Duncan"})-[e:follow | serve*2]-&gt;(v2) RETURN DISTINCT v2</code></td>
 <td>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</td>
 </tr>
 <tr>
@@ -2899,12 +2899,12 @@ END
 </tr>
 <tr>
 <td>Count the numbers of vertices or edges</td>
-<td><code>LOOKUP ON player \| YIELD COUNT(*) AS Player_Number</code></td>
+<td><code>LOOKUP ON player | YIELD COUNT(*) AS Player_Number</code></td>
 <td>Shows how to count the number of vertices tagged with <code>player</code>.</td>
 </tr>
 <tr>
 <td>Count the numbers of edges</td>
-<td><code>LOOKUP ON like \| YIELD COUNT(*) AS Like_Number</code></td>
+<td><code>LOOKUP ON like | YIELD COUNT(*) AS Like_Number</code></td>
 <td>Shows how to count the number of edges of the <code>like</code> edge type.</td>
 </tr>
 </tbody>
@@ -2951,7 +2951,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <td>The following example returns the neighbor vertices in the incoming direction of player 100.</td>
 </tr>
 <tr>
-<td><code>GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id \| GO FROM $-.id OVER serve WHERE properties($^).age &gt; 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team</code></td>
+<td><code>GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id | GO FROM $-.id OVER serve WHERE properties($^).age &gt; 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team</code></td>
 <td>The following example retrieves the friends of player 100 and the teams that they serve.</td>
 </tr>
 <tr>
@@ -2959,7 +2959,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <td>The following example returns all the neighbor vertices of player 102.</td>
 </tr>
 <tr>
-<td><code>GO 2 STEPS FROM "player100" OVER follow YIELD src(edge) AS src, dst(edge) AS dst, properties($$).age AS age \| GROUP BY $-.dst YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age</code></td>
+<td><code>GO 2 STEPS FROM "player100" OVER follow YIELD src(edge) AS src, dst(edge) AS dst, properties($$).age AS age | GROUP BY $-.dst YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age</code></td>
 <td>The following example the outputs according to age.</td>
 </tr>
 </tbody>
@@ -3022,7 +3022,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <td>To fetch on an edge whose rank is not 0, set its rank in the FETCH statement.</td>
 </tr>
 <tr>
-<td><code>GO FROM "player101" OVER follow YIELD follow._src AS s, follow._dst AS d \| FETCH PROP ON follow $-.s -&gt; $-.d YIELD follow.degree</code></td>
+<td><code>GO FROM "player101" OVER follow YIELD follow._src AS s, follow._dst AS d | FETCH PROP ON follow $-.s -&gt; $-.d YIELD follow.degree</code></td>
 <td>The following statement returns the <code>degree</code> values of the <code>follow</code> edges that start from vertex <code>"player101"</code>.</td>
 </tr>
 <tr>
@@ -3095,25 +3095,25 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/7.general-query-statements/6.show/5.show-create-tags-edges/">SHOW CREATE TAG/EDGE</a></td>
-<td><code>SHOW CREATE {TAG &lt;tag_name&gt; \| EDGE &lt;edge_name&gt;}</code></td>
+<td><code>SHOW CREATE {TAG &lt;tag_name&gt; | EDGE &lt;edge_name&gt;}</code></td>
 <td><code>SHOW CREATE TAG player</code></td>
 <td>Shows the basic information of the specified tag.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/">SHOW HOSTS</a></td>
-<td><code>SHOW HOSTS [GRAPH \| STORAGE \| META]</code></td>
+<td><code>SHOW HOSTS [GRAPH | STORAGE | META]</code></td>
 <td><code>SHOW HOSTS</code><br/><code>SHOW HOSTS GRAPH</code></td>
 <td>Shows the host and version information of Graph Service, Storage Service, and Meta Service.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/7.general-query-statements/6.show/7.show-index-status/">SHOW INDEX STATUS</a></td>
-<td><code>SHOW {TAG \| EDGE} INDEX STATUS</code></td>
+<td><code>SHOW {TAG | EDGE} INDEX STATUS</code></td>
 <td><code>SHOW TAG INDEX STATUS</code></td>
 <td>Shows the status of jobs that rebuild native indexes, which helps check whether a native index is successfully rebuilt or not.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/7.general-query-statements/6.show/8.show-indexes/">SHOW INDEXES</a></td>
-<td><code>SHOW {TAG \| EDGE} INDEXES</code></td>
+<td><code>SHOW {TAG | EDGE} INDEXES</code></td>
 <td><code>SHOW TAG INDEXES</code></td>
 <td>Shows the names of existing native indexes.</td>
 </tr>
@@ -3149,7 +3149,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/7.general-query-statements/6.show/15.show-tags-edges/">SHOW TAGS/EDGES</a></td>
-<td><code>SHOW TAGS \| EDGES</code></td>
+<td><code>SHOW TAGS | EDGES</code></td>
 <td><code>SHOW TAGS</code>、<code>SHOW EDGES</code></td>
 <td>Shows all the tags in the current graph space.</td>
 </tr>
@@ -3201,13 +3201,13 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/group-by/">GROUP BY</a></td>
 <td><code>GROUP BY &lt;var&gt; YIELD &lt;var&gt;, &lt;aggregation_function(var)&gt;</code></td>
-<td><code>GO FROM "player100" OVER follow BIDIRECT YIELD $$.player.name as Name \| GROUP BY $-.Name YIELD $-.Name as Player, count(*) AS Name_Count</code></td>
+<td><code>GO FROM "player100" OVER follow BIDIRECT YIELD $$.player.name as Name | GROUP BY $-.Name YIELD $-.Name as Player, count(*) AS Name_Count</code></td>
 <td>Finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by player names, and counts how many times the name shows up in the result set.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/limit/">LIMIT</a></td>
-<td><code>YIELD &lt;var&gt; [\| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]</code></td>
-<td><code>O FROM "player100" OVER follow REVERSELY YIELD $$.player.name AS Friend, $$.player.age AS Age \| ORDER BY $-.Age, $-.Friend \| LIMIT 1, 3</code></td>
+<td><code>YIELD &lt;var&gt; [| LIMIT [&lt;offset_value&gt;,] &lt;number_rows&gt;]</code></td>
+<td><code>O FROM "player100" OVER follow REVERSELY YIELD $$.player.name AS Friend, $$.player.age AS Age | ORDER BY $-.Age, $-.Friend | LIMIT 1, 3</code></td>
 <td>Returns the 3 rows of data starting from the second row of the sorted output.</td>
 </tr>
 <tr>
@@ -3218,13 +3218,13 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/order-by/">ORDER BY</a></td>
-<td><code>&lt;YIELD clause&gt; ORDER BY &lt;expression&gt; [ASC \| DESC] [, &lt;expression&gt; [ASC \| DESC] ...]</code></td>
-<td><code>FETCH PROP ON player "player100", "player101", "player102", "player103" YIELD player.age AS age, player.name AS name \| ORDER BY $-.age ASC, $-.name DESC</code></td>
+<td><code>&lt;YIELD clause&gt; ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]</code></td>
+<td><code>FETCH PROP ON player "player100", "player101", "player102", "player103" YIELD player.age AS age, player.name AS name | ORDER BY $-.age ASC, $-.name DESC</code></td>
 <td>The <code>ORDER BY</code> clause specifies the order of the rows in the output.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/return/">RETURN</a></td>
-<td><code>RETURN {&lt;vertex_name&gt;\|&lt;edge_name&gt;\|&lt;vertex_name&gt;.&lt;property&gt;\|&lt;edge_name&gt;.&lt;property&gt;\|...}</code></td>
+<td><code>RETURN {&lt;vertex_name&gt;|&lt;edge_name&gt;|&lt;vertex_name&gt;.&lt;property&gt;|&lt;edge_name&gt;.&lt;property&gt;|...}</code></td>
 <td><code>MATCH (v:player) RETURN v.name, v.age LIMIT 3</code></td>
 <td>Returns the first three rows with values of the vertex properties <code>name</code> and <code>age</code>.</td>
 </tr>
@@ -3236,19 +3236,19 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/where/">WHERE</a></td>
-<td><code>WHERE {&lt;vertex\|edge_alias&gt;.&lt;property_name&gt; {&gt;\|==\|&lt;\|...} &lt;value&gt;...}</code></td>
+<td><code>WHERE {&lt;vertex|edge_alias&gt;.&lt;property_name&gt; {&gt;|==|&lt;|...} &lt;value&gt;...}</code></td>
 <td><code>MATCH (v:player) WHERE v.name == "Tim Duncan" XOR (v.age &lt; 30 AND v.name == "Yao Ming") OR NOT (v.name == "Yao Ming" OR v.name == "Tim Duncan") RETURN v.name, v.age</code></td>
 <td>The <code>WHERE</code> clause filters the output by conditions. The <code>WHERE</code> clause usually works in Native nGQL <code>GO</code> and <code>LOOKUP</code> statements, and OpenCypher <code>MATCH</code> and <code>WITH</code> statements.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/yield/">YIELD</a></td>
 <td><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...] [WHERE &lt;conditions&gt;];</code></td>
-<td><code>GO FROM "player100" OVER follow YIELD dst(edge) AS ID \| FETCH PROP ON player $-.ID YIELD player.age AS Age \| YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends</code></td>
+<td><code>GO FROM "player100" OVER follow YIELD dst(edge) AS ID | FETCH PROP ON player $-.ID YIELD player.age AS Age | YIELD AVG($-.Age) as Avg_age, count(*)as Num_friends</code></td>
 <td>Finds the players that "player100" follows and calculates their average age.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/with/">WITH</a></td>
-<td><code>MATCH $expressions WITH {nodes()\|labels()\|...}</code></td>
+<td><code>MATCH $expressions WITH {nodes()|labels()|...}</code></td>
 <td><code>MATCH p=(v:player{name:"Tim Duncan"})--() WITH nodes(p) AS n UNWIND n AS n1 RETURN DISTINCT n1</code></td>
 <td>The <code>WITH</code> clause can retrieve the output from a query part, process it, and pass it to the next query part as the input.</td>
 </tr>
@@ -3267,7 +3267,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/9.space-statements/1.create-space/">CREATE SPACE</a></td>
-<td><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; ( [partition_num = &lt;partition_number&gt;,] [replica_factor = &lt;replica_number&gt;,] vid_type = {FIXED_STRING(&lt;N&gt;)\| INT[64]} )  [COMMENT = '&lt;comment&gt;']</code></td>
+<td><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; ( [partition_num = &lt;partition_number&gt;,] [replica_factor = &lt;replica_number&gt;,] vid_type = {FIXED_STRING(&lt;N&gt;)| INT[64]} )  [COMMENT = '&lt;comment&gt;']</code></td>
 <td><code>CREATE SPACE my_space_1 (vid_type=FIXED_STRING(30))</code></td>
 <td>Creates a graph space with</td>
 </tr>
@@ -3316,7 +3316,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/10.tag-statements/1.create-tag/">CREATE TAG</a></td>
-<td><code>CREATE TAG [IF NOT EXISTS] &lt;tag_name&gt; ( &lt;prop_name&gt; &lt;data_type&gt; [NULL \| NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;'] [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL \|  NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']} ...] ) [TTL_DURATION = &lt;ttl_duration&gt;] [TTL_COL = &lt;prop_name&gt;] [COMMENT = '&lt;comment&gt;']</code></td>
+<td><code>CREATE TAG [IF NOT EXISTS] &lt;tag_name&gt; ( &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;'] [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL |  NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']} ...] ) [TTL_DURATION = &lt;ttl_duration&gt;] [TTL_COL = &lt;prop_name&gt;] [COMMENT = '&lt;comment&gt;']</code></td>
 <td><code>CREATE TAG woman(name string, age int, married bool, salary double, create_time timestamp) TTL_DURATION = 100, TTL_COL = "create_time"</code></td>
 <td>Creates a tag with the given name in a graph space.</td>
 </tr>
@@ -3365,7 +3365,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/11.edge-type-statements/1.create-edge/">CREATE EDGE</a></td>
-<td><code>CREATE EDGE [IF NOT EXISTS] &lt;edge_type_name&gt;    ( &lt;prop_name&gt; &lt;data_type&gt; [NULL \| NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;'] [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL \| NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']} ...] ) [TTL_DURATION = &lt;ttl_duration&gt;] [TTL_COL = &lt;prop_name&gt;] [COMMENT = '&lt;comment&gt;']</code></td>
+<td><code>CREATE EDGE [IF NOT EXISTS] &lt;edge_type_name&gt;    ( &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;'] [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT '&lt;comment&gt;']} ...] ) [TTL_DURATION = &lt;ttl_duration&gt;] [TTL_COL = &lt;prop_name&gt;] [COMMENT = '&lt;comment&gt;']</code></td>
 <td><code>CREATE EDGE e1(p1 string, p2 int, p3 timestamp) TTL_DURATION = 100, TTL_COL = "p2"</code></td>
 <td>Creates an edge type with the given name in a graph space.type。</td>
 </tr>
@@ -3408,7 +3408,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/12.vertex-statements/1.insert-vertex/">INSERT VERTEX</a></td>
-<td><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;prop_name_list&gt;) [, &lt;tag_name&gt; (&lt;prop_name_list&gt;), ...]  {VALUES \| VALUE} VID: (&lt;prop_value_list&gt;[, &lt;prop_value_list&gt;])</code></td>
+<td><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;prop_name_list&gt;) [, &lt;tag_name&gt; (&lt;prop_name_list&gt;), ...]  {VALUES | VALUE} VID: (&lt;prop_value_list&gt;[, &lt;prop_value_list&gt;])</code></td>
 <td><code>INSERT VERTEX t2 (name, age) VALUES "13":("n3", 12), "14":("n4", 8)</code></td>
 <td>Inserts one or more vertices into a graph space in Nebula Graph.</td>
 </tr>
@@ -3445,7 +3445,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a></td>
-<td><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES \| VALUE} &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ) [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...]</code></td>
+<td><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) {VALUES | VALUE} &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ) [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...]</code></td>
 <td><code>INSERT EDGE e2 (name, age) VALUES "11"-&gt;"13":("n1", 1)</code></td>
 <td>Inserts an edge or multiple edges into a graph space from a source vertex (given by src_vid) to a destination vertex (given by dst_vid) with a specific rank in Nebula Graph.</td>
 </tr>
@@ -3488,43 +3488,43 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/1.create-native-index/">CREATE INDEX</a></td>
-<td><code>CREATE {TAG \| EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; ON {&lt;tag_name&gt; \| &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = '&lt;comment&gt;']</code></td>
+<td><code>CREATE {TAG | EDGE} INDEX [IF NOT EXISTS] &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = '&lt;comment&gt;']</code></td>
 <td><code>CREATE TAG INDEX player_index on player()</code></td>
 <td>Add native indexes for the existing tags, edge types, or properties.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/2.1.show-create-index/">SHOW CREATE INDEX</a></td>
-<td><code>SHOW CREATE {TAG \| EDGE} INDEX &lt;index_name&gt;</code></td>
+<td><code>SHOW CREATE {TAG | EDGE} INDEX &lt;index_name&gt;</code></td>
 <td><code>show create tag index index_2</code></td>
 <td>Shows the statement used when creating a tag or an edge type. It contains detailed information about the index, such as its associated properties.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/2.show-native-indexes/">SHOW INDEXES</a></td>
-<td><code>SHOW {TAG \| EDGE} INDEXES</code></td>
+<td><code>SHOW {TAG | EDGE} INDEXES</code></td>
 <td><code>SHOW TAG INDEXES</code></td>
 <td>Shows the defined tag or edge type indexes names in the current graph space.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/3.describe-native-index/">DESCRIBE INDEX</a></td>
-<td><code>DESCRIBE {TAG \| EDGE} INDEX &lt;index_name&gt;</code></td>
+<td><code>DESCRIBE {TAG | EDGE} INDEX &lt;index_name&gt;</code></td>
 <td><code>DESCRIBE TAG INDEX player_index_0</code></td>
 <td>Gets the information about the index with a given name, including the property name (Field) and the property type (Type) of the index.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/4.rebuild-native-index/">REBUILD INDEX</a></td>
-<td><code>REBUILD {TAG \| EDGE} INDEX [&lt;index_name_list&gt;]</code></td>
+<td><code>REBUILD {TAG | EDGE} INDEX [&lt;index_name_list&gt;]</code></td>
 <td><code>REBUILD TAG INDEX single_person_index</code></td>
 <td>Rebuilds the created tag or edge type index. If data is updated or inserted before the creation of the index, you must rebuild the indexes <strong>manually</strong> to make sure that the indexes contain the previously added data.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/5.show-native-index-status/">SHOW INDEX STATUS</a></td>
-<td><code>SHOW {TAG \| EDGE} INDEX STATUS</code></td>
+<td><code>SHOW {TAG | EDGE} INDEX STATUS</code></td>
 <td><code>SHOW TAG INDEX STATUS</code></td>
 <td>Returns the name of the created tag or edge type index and its status.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/14.native-index-statements/6.drop-native-index/">DROP INDEX</a></td>
-<td><code>DROP {TAG \| EDGE} INDEX [IF EXISTS] &lt;index_name&gt;</code></td>
+<td><code>DROP {TAG | EDGE} INDEX [IF EXISTS] &lt;index_name&gt;</code></td>
 <td><code>DROP TAG INDEX player_index_0</code></td>
 <td>Removes an existing index from the current graph space.</td>
 </tr>
@@ -3560,7 +3560,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <td>Signs out to the text search clients.</td>
 </tr>
 <tr>
-<td><code>CREATE FULLTEXT {TAG \| EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; \|  &lt;edge_name&gt;} ([&lt;prop_name_list&gt;])</code></td>
+<td><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; |  &lt;edge_name&gt;} ([&lt;prop_name_list&gt;])</code></td>
 <td><code>CREATE FULLTEXT TAG INDEX nebula_index_1 ON player(name)</code></td>
 <td>Creates full-text indexes.</td>
 </tr>
@@ -3580,7 +3580,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <td>Drop full-text indexes.</td>
 </tr>
 <tr>
-<td><code>LOOKUP ON {&lt;tag&gt; \| &lt;edge_type&gt;} WHERE &lt;expression&gt; [YIELD &lt;return_list&gt;]</code></td>
+<td><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE &lt;expression&gt; [YIELD &lt;return_list&gt;]</code></td>
 <td><code>LOOKUP ON player WHERE FUZZY(player.name, "Tim Dunncan", AUTO, OR) YIELD player.name</code></td>
 <td>Use query options.</td>
 </tr>
@@ -3601,13 +3601,13 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/16.subgraph-and-path/1.get-subgraph/">GET SUBGRAPH</a></td>
-<td><code>GET SUBGRAPH [WITH PROP] [&lt;step_count&gt; STEPS] FROM {&lt;vid&gt;, &lt;vid&gt;...} [{IN \| OUT \| BOTH} &lt;edge_type&gt;, &lt;edge_type&gt;...] [YIELD [VERTICES AS &lt;vertex_alias&gt;] [,EDGES AS &lt;edge_alias&gt;]]</code></td>
+<td><code>GET SUBGRAPH [WITH PROP] [&lt;step_count&gt; STEPS] FROM {&lt;vid&gt;, &lt;vid&gt;...} [{IN | OUT | BOTH} &lt;edge_type&gt;, &lt;edge_type&gt;...] [YIELD [VERTICES AS &lt;vertex_alias&gt;] [,EDGES AS &lt;edge_alias&gt;]]</code></td>
 <td><code>GET SUBGRAPH 1 STEPS FROM "player100" YIELD VERTICES AS nodes, EDGES AS relationships</code></td>
 <td>Retrieves information of vertices and edges reachable from the source vertices of the specified edge types and returns information of the subgraph.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/16.subgraph-and-path/2.find-path/">FIND PATH</a></td>
-<td><code>FIND { SHORTEST \| ALL \| NOLOOP } PATH [WITH PROP] FROM &lt;vertex_id_list&gt; TO &lt;vertex_id_list&gt;&lt;br/&gt;OVER &lt;edge_type_list&gt; [REVERSELY \| BIDIRECT] [&lt;WHERE clause&gt;] [UPTO &lt;N&gt; STEPS] [\| ORDER BY $-.path] [\| LIMIT &lt;M&gt;]</code></td>
+<td><code>FIND { SHORTEST | ALL | NOLOOP } PATH [WITH PROP] FROM &lt;vertex_id_list&gt; TO &lt;vertex_id_list&gt;&lt;br/&gt;OVER &lt;edge_type_list&gt; [REVERSELY | BIDIRECT] [&lt;WHERE clause&gt;] [UPTO &lt;N&gt; STEPS] [| ORDER BY $-.path] [| LIMIT &lt;M&gt;]</code></td>
 <td><code>FIND SHORTEST PATH FROM "player102" TO "team204" OVER *</code></td>
 <td>Finds the paths between the selected source vertices and destination vertices. A returned path is like <code>(&lt;vertex_id&gt;)-[:&lt;edge_type_name&gt;@&lt;rank&gt;]-&gt;(&lt;vertex_id)</code>.</td>
 </tr>
@@ -3626,13 +3626,13 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <tbody>
 <tr>
 <td><a href="../../3.ngql-guide/17.query-tuning-statements/1.explain-and-profile/">EXPLAIN</a></td>
-<td><code>EXPLAIN [format="row" \| "dot"] &lt;your_nGQL_statement&gt;</code></td>
+<td><code>EXPLAIN [format="row" | "dot"] &lt;your_nGQL_statement&gt;</code></td>
 <td><code>EXPLAIN format="row" SHOW TAGS</code><br/><code>EXPLAIN format="dot" SHOW TAGS</code></td>
 <td>Helps output the execution plan of an nGQL statement without executing the statement.</td>
 </tr>
 <tr>
 <td><a href="../../3.ngql-guide/17.query-tuning-statements/1.explain-and-profile/">PROFILE</a></td>
-<td><code>PROFILE [format="row" \| "dot"] &lt;your_nGQL_statement&gt;</code></td>
+<td><code>PROFILE [format="row" | "dot"] &lt;your_nGQL_statement&gt;</code></td>
 <td><code>PROFILE format="row" SHOW TAGS</code><br/><code>EXPLAIN format="dot" SHOW TAGS</code></td>
 <td>Executes the statement, then outputs the execution plan as well as the execution profile.</td>
 </tr>
@@ -3742,7 +3742,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 4, 2021</span>
 </small>
 </div>
 </article>
