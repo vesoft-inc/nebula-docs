@@ -17,7 +17,7 @@ Before you deploy Explorer, you must do a check of these:
    | 7002 | Web service provided by Explorer |
    | 8070 | Nebula-http-gateway service |
 
-- The Linux distribution is CentOS, installed with [Node.js](https://nodejs.org/en/) of version above v10.16.0+ and [Go](https://golang.org/) of version above 1.13.
+- The Linux distribution is CentOS, installed with [Go](https://golang.org/) of version above 1.13.
 
   !!! caution
 
@@ -77,13 +77,13 @@ Before you deploy Explorer, you must do a check of these:
    | 7002 | Web service provided by Explorer |
    | 8070 | Nebula-http-gateway service |
 
-- The Linux distribution is CentOS, installed with [Node.js](https://nodejs.org/en/) of version above v10.16.0+ and [Go](https://golang.org/) of version above 1.13.
+- The Linux distribution is CentOS, installed with [Go](https://golang.org/) of version above 1.13.
 
   !!! caution
 
         At present, the package provided by Nebula Explorer can be used in Linux environment only. If users use mac or other environments, clone [http-gateway repo](https://github.com/vesoft-inc/nebula-http-gateway), modify the `httpport = 8070` in the `nebula-http-gateway/conf/app.conf` file, and use the `make` command to compile and start Nebula Explorer.
 
-### Install
+### Install and deploy
 
 1. Select and download the tar package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
@@ -97,33 +97,31 @@ Before you deploy Explorer, you must do a check of these:
    tar -xvf nebula-graph-explorer-<version>.tar.gz
    ```
 
-### Procedure
-
-!!! Note
-
-    The root directory `nebula-graph-explorer` has two installation packages: nebula-graph-explorer and nebula-http-gateway. You need to deploy and start the services separately on the same machine to complete the deployment of Explorer.'
-
-1. Deploy and start nebula-http-gateway.
-
+3. Copy the license to the `nebula-explorer` directory.
+   
    ```bash
-   $ cd nebula-http-gateway
-   $ nohup ./nebula-httpd &
+    cp -r <license> <explorer_path>
+    ```
+
+!!! enterpriseonly
+
+    License is only available in the enterprise version. Please send an email to inquiry@vesoft.com.
+
+4. Setup Explorer.
+
+  ```bash
+   ./nebula-httpd &
    ```
-
-2. Deploy and start nebula-graph-explorer.
-
+   当屏幕返回以下信息时，表示 Explroer 已经成功启动。
    ```bash
-   $ cd nebula-graph-explorer
-   $ npm run start
+   [1] 5169
    ```
 
 ### Stop Service
 
 You can use `kill pid` to stop the service:
 ```bash
-$ kill $(lsof -t -i :8070) # stop nebula-http-gateway
-$ cd nebula-graph-explorer
-$ npm run stop # stop nebula-graph-explorer
+$ kill $(lsof -t -i :7002)
 ```
 
 ## Next to do
@@ -132,6 +130,6 @@ When Explorer is started, use `http://ip address:7002` to get access to Explorer
 
 Seeing the following login interface, Explorer is successfully connected to Nebula Graph.
 
-![Nebula Explorer](../figs/ex-ug-001-1.png)
+![Nebula Explorer](../figs/ex-ug-002-1.png)
 
 After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).

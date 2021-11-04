@@ -36,7 +36,7 @@ To connect Explorer to Nebula Graph, follow these steps:
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
-   ![The Config Server page shows the fields to be configured for connection](../figs/ex-ug-001-1.png)
+   ![The Config Server page shows the fields to be configured for connection](../figs/ex-ug-002-1.png)
 
 2. After the configuration, click the **Login** button.
 
