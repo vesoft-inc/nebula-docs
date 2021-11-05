@@ -1,12 +1,12 @@
 # Deploy Explorer
 
-This topic describes how to deploy Explorer locally by RPM and tar package.
+This topic describes how to deploy Explorer locally by RPM and tar packages.
 
 ## Nebula Graph version
 
 !!! Note
 
-    Explorer is released separately, not synchronized with Nebula Graph core. And the naming of Explorer is different from that of Nebula Graph. The version correspondence between Nebula Graph and Explorer is as follows.
+    Explorer is released separately, not synchronized with Nebula Graph. And the version naming of Explorer is different from that of Nebula Graph. The version correspondence between Nebula Graph and Explorer is as follows.
 
 | Nebula Graph version | Explorer version |
 | --- | --- |
@@ -151,7 +151,7 @@ Before deploying Explorer, you must check the following information:
 
   !!! enterpriseonly
 
-        License is only available in the Enterprise Edition. For more information, send an email to inquiry@vesoft.com.
+        License is only available in the Enterprise Edition. For more information, send email to inquiry@vesoft.com.
 
 4. Enter the `nebula-explorer` folder to start Explorer.
 
