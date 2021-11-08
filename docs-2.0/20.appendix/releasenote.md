@@ -8,7 +8,7 @@
 - Support crypto in transportation. [#2584](https://github.com/vesoft-inc/nebula/pull/2584)
 - Support returning the query result in the JSON format. [#2824](https://github.com/vesoft-inc/nebula/pull/2824)
 - Support cloning the meta data of SPACE. [#2763](https://github.com/vesoft-inc/nebula/pull/2763)
-- Support using IN expression in LOOKUP as filter. [#2906](https://github.com/vesoft-inc/nebula/pull/2906)
+- Support indexScan when using IN expressions in LOOKUP. [#2906](https://github.com/vesoft-inc/nebula/pull/2906)
 - Support integrating Breakpad. [#2536](https://github.com/vesoft-inc/nebula/pull/2536)
 - Support copying the local folder of metad to remote. [#2532](https://github.com/vesoft-inc/nebula/pull/2532)
 - Support `DELETE TAG`. [#2520](https://github.com/vesoft-inc/nebula/pull/2520)
