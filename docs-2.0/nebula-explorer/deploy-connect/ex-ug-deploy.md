@@ -68,7 +68,7 @@ Before you deploy Explorer, you must do a check of these:
 
   !!! enterpriseonly
 
-        License is only available in the Enterprise Edition. For more information, send an email to inquiry@vesoft.com.
+        License is only available in the Enterprise Edition. For more information, send email to inquiry@vesoft.com.
 
 4. After adding the license, you need to stop and restart the service using the following command.
 
