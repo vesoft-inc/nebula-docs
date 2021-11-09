@@ -75,7 +75,7 @@ The canvas is mainly divided into:
 
 - Vertexes and Edges overview: It is hidden by default and only displayed when the vertex and edge are selected on the current canvas. Click on the icon in the following, and the user can open the menu to view the detailed data of the selected vertexes and edges in the current canvas.
 
-  ![review](../figs/ex-ug-027.png)
+  ![review](../figs/ex-ug-027-1.png)
 
 For more information, see [canvas operation](../operation-guide/ex-ug-canvas.md).
 
