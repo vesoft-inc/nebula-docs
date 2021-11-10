@@ -59,7 +59,7 @@ If a tag or an edge type is already created, to set a timeout on a property boun
 
 ```ngql
 # Create a tag.
-nebula> CREATE TAG t1 (a timestamp);
+nebula> CREATE TAG IF NOT EXISTS t1 (a timestamp);
 
 # Use ALTER to update the tag and set the TTL options.
 nebula> ALTER TAG t1 ttl_col = "a", ttl_duration = 5;
@@ -74,7 +74,7 @@ Use TTL options in the `CREATE` statement to set a timeout when creating a tag o
 
 ```ngql
 # Create a tag and set the TTL options.
-nebula> CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
+nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 
 # Insert a vertex with tag t2. The timeout timestamp is 1612778164774 (1612778164674 + 100).
 nebula> INSERT VERTEX t2(a, b, c) values "102":(1612778164674, 30, "Hello");
