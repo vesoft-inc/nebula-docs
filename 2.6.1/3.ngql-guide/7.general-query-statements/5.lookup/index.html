@@ -2200,7 +2200,7 @@
 <!--  - String operations other than `STARTS WITH` are not supported.-->
 <h2 id="retrieve_vertices">Retrieve vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">¶</a></h2>
 <p>The following example returns vertices whose <code>name</code> is <code>Tony Parker</code> and the tag is <code>player</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS index_player ON player(name(30), age);
 
 nebula&gt; REBUILD TAG INDEX index_player;
 +------------+
@@ -2259,7 +2259,7 @@ nebula&gt; LOOKUP ON player \
 </code></pre></div>
 <h2 id="retrieve_edges">Retrieve edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">¶</a></h2>
 <p>The following example returns edges whose <code>degree</code> is <code>90</code> and the edge type is <code>follow</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX IF NOT EXISTS index_follow ON follow(degree);
 
 nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
@@ -2306,9 +2306,9 @@ nebula&gt; LOOKUP ON follow \
 <p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag, the edge type, or its property.</p>
 <p>For example, if there is a <code>player</code> tag with a <code>name</code> property and an <code>age</code> property, to retrieve the VID of all vertices tagged with <code>player</code>, there has to be an index on the <code>player</code> tag itself, the <code>name</code> property, or the <code>age</code> property.</p>
 <ul>
-<li>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
+<li>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS player(name string,age int);
 
-nebula&gt; CREATE TAG INDEX player_index on player();
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index on player();
 
 nebula&gt; REBUILD TAG INDEX player_index;
 +------------+
@@ -2333,9 +2333,9 @@ nebula&gt; LOOKUP ON player;
 </li>
 </ul>
 <ul>
-<li>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>follow</code> edge type.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE follow(degree int);
+<li>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>follow</code> edge type.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE IF NOT EXISTS follow(degree int);
 
-nebula&gt; CREATE EDGE INDEX follow_index on follow();
+nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 
 nebula&gt; REBUILD EDGE INDEX follow_index;
 +------------+
@@ -2384,7 +2384,7 @@ nebula&gt; LOOKUP ON follow | \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
 </small>
 </div>
 </article>

@@ -2104,19 +2104,19 @@ When creating an index for the geography type data, you can specify the covering
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p>For functions about the geography data type, see <a href="../../6.functions-and-expressions/14.geo/">Geography functions</a>.</p>
 <div class="highlight"><pre><span></span><code>//Create a Tag to allow storing any geography data type.
-nebula&gt; CREATE TAG any_shape(geo geography);
+nebula&gt; CREATE TAG IF NOT EXISTS any_shape(geo geography);
 
 //Create a Tag to allow storing a point only.
-nebula&gt; CREATE TAG only_point(geo geography(point));
+nebula&gt; CREATE TAG IF NOT EXISTS only_point(geo geography(point));
 
 //Create a Tag to allow storing a linestring only.
-nebula&gt; CREATE TAG only_linestring(geo geography(linestring));
+nebula&gt; CREATE TAG IF NOT EXISTS only_linestring(geo geography(linestring));
 
 //Create a Tag to allow storing a polygon only.
-nebula&gt; CREATE TAG only_polygon(geo geography(polygon));
+nebula&gt; CREATE TAG IF NOT EXISTS only_polygon(geo geography(polygon));
 
 //Create an Edge type to allow storing any geography data type.
-nebula&gt; CREATE EDGE any_shape_edge(geo geography);
+nebula&gt; CREATE EDGE IF NOT EXISTS any_shape_edge(geo geography);
 
 //Create a vertex to store the geography of a polygon.
 nebula&gt; INSERT VERTEX any_shape(geo) VALUES "103":(ST_GeogFromText("POLYGON((0 1, 1 2, 2 3, 0 1))"));
@@ -2141,7 +2141,7 @@ nebula&gt; FETCH PROP ON any_shape_edge "201"-&gt;"302" YIELD ST_ASText(any_shap
 +---------------------+---------------------+----------------------+---------------------------------+
 
 //Create an index for the geography of the Tag any_shape and run LOOKUP.
-nebula&gt; CREATE TAG INDEX any_shape_geo_index ON any_shape(geo);
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS any_shape_geo_index ON any_shape(geo);
 nebula&gt; REBUILD TAG INDEX any_shape_geo_index;
 nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
 +----------+-------------------------------------------------+
@@ -2154,7 +2154,7 @@ nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
 </small>
 </div>
 </article>

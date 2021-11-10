@@ -2208,28 +2208,28 @@
 </tbody>
 </table>
 <h2 id="create_tagedge_type_indexes">Create tag/edge type indexes<a class="headerlink" href="#create_tagedge_type_indexes" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index on player();
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index on player();
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX follow_index on follow();
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 </code></pre></div>
 <p>After indexing a tag or an edge type, you can use the <code>LOOKUP</code> statement to retrieve the VID of all vertices <code>with the tag</code>, or <code>the source vertex ID, destination vertex ID, and ranks</code> of <code>all edges with the edge type</code>. For more information, see <a href="../../7.general-query-statements/5.lookup/">LOOKUP</a>.</p>
 <h2 id="create_single-property_indexes">Create single-property indexes<a class="headerlink" href="#create_single-property_indexes" title="Permanent link">¶</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_0 on player(name(10));
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index_0 on player(name(10));
 </code></pre></div>
 <p>The preceding example creates an index for the <code>name</code> property on all vertices carrying the <code>player</code> tag. This example creates an index using the first 10 characters of the <code>name</code> property.</p>
 <div class="highlight"><pre><span></span><code># To index a variable-length string property, you need to specify the index length.
-nebula&gt; CREATE TAG var_string(p1 string);
-nebula&gt; CREATE TAG INDEX var ON var_string(p1(10));
+nebula&gt; CREATE TAG IF NOT EXISTS var_string(p1 string);
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS var ON var_string(p1(10));
 
 # To index a fixed-length string property, you do not need to specify the index length.
-nebula&gt; CREATE TAG fix_string(p1 FIXED_STRING(10));
-nebula&gt; CREATE TAG INDEX fix ON fix_string(p1);
+nebula&gt; CREATE TAG IF NOT EXISTS fix_string(p1 FIXED_STRING(10));
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS fix ON fix_string(p1);
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX follow_index_0 on follow(degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index_0 on follow(degree);
 </code></pre></div>
 <h2 id="create_composite_property_indexes">Create composite property indexes<a class="headerlink" href="#create_composite_property_indexes" title="Permanent link">¶</a></h2>
 <p>An index on multiple properties on a tag (or an edge type) is called a composite property index.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_1 on player(name(10), age);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index_1 on player(name(10), age);
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -2269,7 +2269,7 @@ nebula&gt; MATCH (v:t) WHERE t.p1 == 1 and t.p2 == 2 and t.p3 == 3;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
 </small>
 </div>
 </article>

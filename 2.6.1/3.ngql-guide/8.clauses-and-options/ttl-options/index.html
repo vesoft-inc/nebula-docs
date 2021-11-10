@@ -2225,7 +2225,7 @@
 <h3 id="set_a_timeout_if_a_tag_or_an_edge_type_exists">Set a timeout if a tag or an edge type exists<a class="headerlink" href="#set_a_timeout_if_a_tag_or_an_edge_type_exists" title="Permanent link">¶</a></h3>
 <p>If a tag or an edge type is already created, to set a timeout on a property bound to the tag or edge type, use <code>ALTER</code> to update the tag or edge type.</p>
 <div class="highlight"><pre><span></span><code># Create a tag.
-nebula&gt; CREATE TAG t1 (a timestamp);
+nebula&gt; CREATE TAG IF NOT EXISTS t1 (a timestamp);
 
 # Use ALTER to update the tag and set the TTL options.
 nebula&gt; ALTER TAG t1 ttl_col = "a", ttl_duration = 5;
@@ -2236,7 +2236,7 @@ nebula&gt; INSERT VERTEX t1(a) values "101":(now());
 <h3 id="set_a_timeout_when_creating_a_tag_or_an_edge_type">Set a timeout when creating a tag or an edge type<a class="headerlink" href="#set_a_timeout_when_creating_a_tag_or_an_edge_type" title="Permanent link">¶</a></h3>
 <p>Use TTL options in the <code>CREATE</code> statement to set a timeout when creating a tag or an edge type. For more information, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
 <div class="highlight"><pre><span></span><code># Create a tag and set the TTL options.
-nebula&gt; CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
+nebula&gt; CREATE TAG IF NOT EXISTS t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 
 # Insert a vertex with tag t2. The timeout timestamp is 1612778164774 (1612778164674 + 100).
 nebula&gt; INSERT VERTEX t2(a, b, c) values "102":(1612778164674, 30, "Hello");
@@ -2262,7 +2262,7 @@ nebula&gt; INSERT VERTEX t2(a, b, c) values "102":(1612778164674, 30, "Hello");
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
 </small>
 </div>
 </article>
