@@ -149,6 +149,6 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
 ## What's next
 
-- (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license.md)
+- (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license)
 - [start Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
 - [connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
