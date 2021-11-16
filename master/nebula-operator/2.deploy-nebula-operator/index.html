@@ -2104,6 +2104,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#update_nebula_operator">
+    Update Nebula Operator
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#upgrade_nebula_operator">
     Upgrade Nebula Operator
   </a>
@@ -2144,6 +2149,36 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm/">
         Deploy clusters with Helm
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_17_5" id="__nav_17_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_17_5">
+          Configure clusters
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Configure clusters" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_17_5">
+<span class="md-nav__icon md-icon"></span>
+          Configure clusters
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8.custom-cluster-configurations/8.1.custom-conf-parameter/">
+        Custom configuration parameters for a Nebula Graph cluster
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8.custom-cluster-configurations/8.2.pv-reclaim/">
+        Reclaim PV
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage/">
+        Balance storage data after scaling out
       </a>
 </li>
 </ul>
@@ -2287,6 +2322,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#update_nebula_operator">
+    Update Nebula Operator
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#upgrade_nebula_operator">
     Upgrade Nebula Operator
   </a>
@@ -2397,13 +2437,16 @@
 </li>
 <li>
 <p>Install Nebula Operator.</p>
-<div class="highlight"><pre><span></span><code>helm install nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;nebula-operator-system&gt; --version<span class="o">=</span><span class="si">${</span><span class="nv">chart_version</span><span class="si">}</span>
+<div class="highlight"><pre><span></span><code>helm install nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;namespace_name&gt; --version<span class="o">=</span><span class="si">${</span><span class="nv">chart_version</span><span class="si">}</span>
+</code></pre></div>
+<p>For example, the command to install Nebula Operator of version 0.9.0 is as follows.</p>
+<div class="highlight"><pre><span></span><code>helm install nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>nebula-operator-system --version<span class="o">=</span><span class="m">0</span>.9.0
 </code></pre></div>
 <ul>
-<li><code>&lt;nebula-operator-system&gt;</code> is a user-created namespace name. If you have not created this namespace, run <code>kubectl create namespace nebula-operator-system</code> to create one. You can also use a different name.</li>
+<li><code>nebula-operator-system</code> is a user-created namespace name. If you have not created this namespace, run <code>kubectl create namespace nebula-operator-system</code> to create one. You can also use a different name.</li>
 </ul>
 <ul>
-<li><code>${chart_version}</code> is the version of the Nebula Operator chart. It can be unspecified when there is only one chart version in the Nebula Operator chart repository. Run <code>helm search repo -l nebula-operator</code> to see chart versions.</li>
+<li><code>0.9.0</code> is the version of the Nebula Operator chart. It can be unspecified when there is only one chart version in the Nebula Operator chart repository. Run <code>helm search repo -l nebula-operator</code> to see chart versions.</li>
 </ul>
 <p>You can customize the configuration items of the Nebula Operator chart before running the installation command. For more information, see <strong>Customize Helm charts</strong> below.</p>
 </li>
@@ -2414,14 +2457,14 @@
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">k8s@master ~</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">$ helm show values nebula-operator/nebula-operator</span>
 <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
   <span class="nt">nebulaOperator</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:v0.8.0</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:latest</span>
+    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
   <span class="nt">kubeRBACProxy</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
   <span class="nt">kubeScheduler</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">k8s.gcr.io/kube-scheduler:v1.18.8</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
 
 <span class="nt">imagePullSecrets</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
 <span class="nt">kubernetesClusterDomain</span><span class="p">:</span> <span class="s">""</span>
@@ -2432,11 +2475,11 @@
   <span class="nt">env</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
   <span class="nt">resources</span><span class="p">:</span>
     <span class="nt">limits</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30Mi</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200m</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200Mi</span>
     <span class="nt">requests</span><span class="p">:</span>
       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20Mi</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100Mi</span>
 
 <span class="nt">admissionWebhook</span><span class="p">:</span>
   <span class="nt">create</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -2448,13 +2491,13 @@
   <span class="nt">env</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
   <span class="nt">resources</span><span class="p">:</span>
     <span class="nt">limits</span><span class="p">:</span>
-      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30Mi</span>
+      <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200m</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20Mi</span>
     <span class="nt">requests</span><span class="p">:</span>
       <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span>
-      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20Mi</span>
+      <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100Mi</span>
 </code></pre></div>
-<p>The parameters in <code>values.yaml</code> are described as follows:</p>
+<p>Part of the above parameters are described as follows:</p>
 <table>
 <thead>
 <tr>
@@ -2466,8 +2509,8 @@
 <tbody>
 <tr>
 <td align="left"><code>image.nebulaOperator.image</code></td>
-<td align="left"><code>vesoft/nebula-operator:v0.8.0</code></td>
-<td align="left">The image of Nebula Operator, version of which is v0.8.0.</td>
+<td align="left"><code>vesoft/nebula-operator:latest</code></td>
+<td align="left">The image of Nebula Operator, version of which is 0.9.0.</td>
 </tr>
 <tr>
 <td align="left"><code>image.nebulaOperator.imagePullPolicy</code></td>
@@ -2521,7 +2564,7 @@
 <div class="highlight"><pre><span></span><code>helm install nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;nebula-operator-system&gt; --set admissionWebhook.create<span class="o">=</span><span class="nb">false</span>
 </code></pre></div>
 <p>For more information about <code>helm install</code>, see <a href="https://helm.sh/docs/helm/helm_install/">Helm Install</a>.</p>
-<h3 id="upgrade_nebula_operator">Upgrade Nebula Operator<a class="headerlink" href="#upgrade_nebula_operator" title="Permanent link">¶</a></h3>
+<h3 id="update_nebula_operator">Update Nebula Operator<a class="headerlink" href="#update_nebula_operator" title="Permanent link">¶</a></h3>
 <p>After installing Nebula Operator, you can update it by modifying the parameter values in the <code>${HOME}/nebula-operator/charts/nebula-operator/values.yaml</code> file.</p>
 <ol>
 <li>
@@ -2534,9 +2577,26 @@
 </li>
 <li>
 <p>Run the following command to update Nebula Operator.</p>
-<div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;nebula-operator-system&gt; -f <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/nebula-operator/charts/nebula-operator/values.yaml
+<div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;namespace_name&gt; -f <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/nebula-operator/charts/nebula-operator/values.yaml
 </code></pre></div>
-<p><code>&lt;nebula-operator-system&gt;</code> is a user-created namespace name. Pods related to the nebula-operator repository are in this namespace.</p>
+<p><code>&lt;namespace_name&gt;</code> is a user-created namespace name. Pods related to the nebula-operator repository are in this namespace.</p>
+</li>
+</ol>
+<h3 id="upgrade_nebula_operator">Upgrade Nebula Operator<a class="headerlink" href="#upgrade_nebula_operator" title="Permanent link">¶</a></h3>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>Starting from Nebula Operator 0.9.0, logs and data are stored separately. Managing a Nebula Graph 2.5.x cluster with Nebula Operator 0.9.0 or later versions can cause compatibility issues. You can backup the data of the Nebula Graph 2.5.x cluster and then create a 2.6.x cluster with Operator.</p>
+</div>
+<ol>
+<li>
+<p>Update the information of available charts locally from chart repositories.</p>
+<div class="highlight"><pre><span></span><code>helm repo update
+</code></pre></div>
+</li>
+<li>
+<p>Upgrade Operator.</p>
+<div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;namespace_name&gt; --version<span class="o">=</span><span class="m">0</span>.9.0
+</code></pre></div>
 </li>
 </ol>
 <h3 id="uninstall_nebula_operator">Uninstall Nebula Operator<a class="headerlink" href="#uninstall_nebula_operator" title="Permanent link">¶</a></h3>
@@ -2558,7 +2618,7 @@
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 30, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2021</span>
 </small>
 </div>
 </article>

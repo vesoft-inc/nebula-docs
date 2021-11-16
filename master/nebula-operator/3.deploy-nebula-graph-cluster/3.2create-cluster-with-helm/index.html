@@ -2121,6 +2121,36 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_17_5" id="__nav_17_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_17_5">
+          Configure clusters
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Configure clusters" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_17_5">
+<span class="md-nav__icon md-icon"></span>
+          Configure clusters
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../8.custom-cluster-configurations/8.1.custom-conf-parameter/">
+        Custom configuration parameters for a Nebula Graph cluster
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../8.custom-cluster-configurations/8.2.pv-reclaim/">
+        Reclaim PV
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage/">
+        Balance storage data after scaling out
+      </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../4.connect-to-nebula-graph-service/">
         Connect to Nebula Graph databases
@@ -2324,7 +2354,7 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <p class="admonition-title">Caution</p>
 <p>Nebula Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.</p>
 </div>
-<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v0.8.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
+<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v0.9.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">¶</a></h2>
 <p>Run the following command to delete a Nebula Graph cluster with Helm:</p>
 <div class="highlight"><pre><span></span><code>helm uninstall <span class="s2">"</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span> --namespace<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">"</span>
@@ -2348,7 +2378,7 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 </tr>
 <tr>
 <td align="left"><code>nebula.version</code></td>
-<td align="left"><code>v2.5.1</code></td>
+<td align="left"><code>master</code></td>
 <td>The version of Nebula Graph.</td>
 </tr>
 <tr>
@@ -2372,16 +2402,6 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <td>The workload referenced for a Nebula Graph cluster.</td>
 </tr>
 <tr>
-<td align="left"><code>nebula.podLabels</code></td>
-<td align="left"><code>{}</code></td>
-<td>Labels for pods in a Nebula Graph cluster.</td>
-</tr>
-<tr>
-<td align="left"><code>nebula.podAnnotations</code></td>
-<td align="left"><code>{}</code></td>
-<td>Pod annotations in a Nebula Graph cluster.</td>
-</tr>
-<tr>
 <td align="left"><code>nebula.graphd.image</code></td>
 <td align="left"><code>vesoft/nebula-graphd</code></td>
 <td>The image name for a Graphd service. Uses the value of <code>nebula.version</code> as its version.</td>
@@ -2389,22 +2409,62 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <tr>
 <td align="left"><code>nebula.graphd.replicas</code></td>
 <td align="left"><code>2</code></td>
-<td>The number of Graphd services.</td>
+<td>The number of the Graphd service.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.graphd.env</code></td>
 <td align="left"><code>[]</code></td>
-<td>The environment variables for Graphd services.</td>
+<td>The environment variables for the Graphd service.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.graphd.resources</code></td>
 <td align="left"><code>{"resources":{"requests":{"cpu":"500m","memory":"500Mi"},"limits":{"cpu":"1","memory":"1Gi"}}}</code></td>
-<td>The resource configurations for Graphd services.</td>
+<td>The resource configurations for the Graphd service.</td>
 </tr>
 <tr>
-<td align="left"><code>nebula.graphd.storage</code></td>
-<td align="left"><code>1Gi</code></td>
-<td>The storage capacity for Graphd services.</td>
+<td align="left"><code>nebula.graphd.logStorage</code></td>
+<td align="left"><code>500Mi</code></td>
+<td>The log disk storage capacity for the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.podLabels</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Graphd pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.podAnnotations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Pod annotations for the Graphd pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.nodeSelector</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Graphd pod to be scheduled to the specified node.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.tolerations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Tolerations for the Graphd pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.affinity</code></td>
+<td align="left"><code>{}</code></td>
+<td>Affinity for the Graphd pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.readinessProbe</code></td>
+<td align="left"><code>{}</code></td>
+<td>ReadinessProbe for the Graphd pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar containers for the Graphd pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.graphd.sidecarVolumes</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar volumes for the Graphd pod.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.metad.image</code></td>
@@ -2414,22 +2474,67 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <tr>
 <td align="left"><code>nebula.metad.replicas</code></td>
 <td align="left"><code>3</code></td>
-<td>The number of Metad services.</td>
+<td>The number of the Metad service.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.metad.env</code></td>
 <td align="left"><code>[]</code></td>
-<td>The environment variables for Metad services.</td>
+<td>The environment variables for the Metad service.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.metad.resources</code></td>
 <td align="left"><code>{"resources":{"requests":{"cpu":"500m","memory":"500Mi"},"limits":{"cpu":"1","memory":"1Gi"}}}</code></td>
-<td>The resource configurations for Metad services.</td>
+<td>The resource configurations for the Metad service.</td>
 </tr>
 <tr>
-<td align="left"><code>nebula.metad.storage</code></td>
+<td align="left"><code>nebula.metad.logStorage</code></td>
+<td align="left"><code>500Mi</code></td>
+<td>The log disk capacity for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.dataStorage</code></td>
 <td align="left"><code>1Gi</code></td>
-<td>The storage capacity for Metad services.</td>
+<td>The data disk capacity for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.podLabels</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Metad pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.podAnnotations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Pod annotations for the Metad pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.nodeSelector</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Metad pod to be scheduled to the specified node.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.tolerations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Tolerations for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.affinity</code></td>
+<td align="left"><code>{}</code></td>
+<td>Affinity for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.readinessProbe</code></td>
+<td align="left"><code>{}</code></td>
+<td>ReadinessProbe for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar containers for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.metad.sidecarVolumes</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar volumes for the Metad pod.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.storaged.image</code></td>
@@ -2452,9 +2557,54 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <td>The resource configurations for Storagedss services.</td>
 </tr>
 <tr>
-<td align="left"><code>nebula.storaged.storage</code></td>
+<td align="left"><code>nebula.storaged.logStorage</code></td>
+<td align="left"><code>500Mi</code></td>
+<td>The log disk capacity for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.dataStorage</code></td>
 <td align="left"><code>1Gi</code></td>
-<td>The storage capacity for Storaged services.</td>
+<td>The data disk capacity for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.podLabels</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Metad pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.podAnnotations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Pod annotations for the Metad pod in a Nebula Graph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.nodeSelector</code></td>
+<td align="left"><code>{}</code></td>
+<td>Labels for the Metad pod to be scheduled to the specified node.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.tolerations</code></td>
+<td align="left"><code>{}</code></td>
+<td>Tolerations for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.affinity</code></td>
+<td align="left"><code>{}</code></td>
+<td>Affinity for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.readinessProbe</code></td>
+<td align="left"><code>{}</code></td>
+<td>ReadinessProbe for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar containers for the Metad pod.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.storaged.sidecarVolumes</code></td>
+<td align="left"><code>{}</code></td>
+<td>Sidecar volumes for the Metad pod.</td>
 </tr>
 <tr>
 <td align="left"><code>imagePullSecrets</code></td>
@@ -2467,7 +2617,7 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 30, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2021</span>
 </small>
 </div>
 </article>
@@ -2493,13 +2643,13 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
             </div>
 </div>
 </a>
-<a aria-label="Next: Connect to Nebula Graph databases" class="md-footer__link md-footer__link--next" href="../../4.connect-to-nebula-graph-service/" rel="next">
+<a aria-label="Next: Custom configuration parameters for a Nebula Graph cluster" class="md-footer__link md-footer__link--next" href="../../8.custom-cluster-configurations/8.1.custom-conf-parameter/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Connect to Nebula Graph databases
+              Custom configuration parameters for a Nebula Graph cluster
             </div>
 </div>
 <div class="md-footer__button md-icon">
