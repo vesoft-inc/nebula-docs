@@ -2104,8 +2104,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster">
-    Connect to Nebula Graph databases from outside a Nebula Graph cluster
+<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_nodeport">
+    Connect to Nebula Graph databases from outside a Nebula Graph cluster via NodePort
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_ingress">
+    Connect to Nebula Graph databases from outside a Nebula Graph cluster via Ingress
   </a>
 </li>
 </ul>
@@ -2214,8 +2219,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster">
-    Connect to Nebula Graph databases from outside a Nebula Graph cluster
+<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_nodeport">
+    Connect to Nebula Graph databases from outside a Nebula Graph cluster via NodePort
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_ingress">
+    Connect to Nebula Graph databases from outside a Nebula Graph cluster via Ingress
   </a>
 </li>
 </ul>
@@ -2247,29 +2257,33 @@ nebula-storaged-headless   ClusterIP   None           &lt;none&gt;        <span 
 </li>
 <li>
 <p>Run the following command to connect to the Nebula Graph database using the IP of the <code>&lt;cluster-name&gt;-graphd-svc</code> Service above:</p>
-<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v2.5.0 --restart<span class="o">=</span>Never -- &lt;nebula-console&gt; -addr &lt;<span class="m">10</span>.98.213.34&gt;  -port <span class="m">9669</span> -u &lt;root&gt; -p &lt;vesoft&gt;
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- &lt;nebula_console_name&gt; -addr &lt;cluster_ip&gt;  -port &lt;service_port&gt; -u &lt;username&gt; -p &lt;password&gt;
 </code></pre></div>
-<ul>
-<li><code>--image</code>: The image for the tool Nebula Console used to connect to Nebula Graph databases.</li>
-<li><code>&lt;nebula-console&gt;</code>: The custom Pod name.</li>
-<li><code>-addr</code>: The IP of the <code>ClusterIP</code> Service, used to connect to Graphd services.</li>
-<li><code>-port</code>: The port to connect to Graphd services, the default port of which is 9669.</li>
-<li><code>-u</code>: The username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is root.</li>
-<li><code>-p</code>: The password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password.</li>
-</ul>
-<p>A successful connection to the database is indicated if the following is returned:</p>
-<div class="highlight"><pre><span></span><code>If you don<span class="err">'</span>t see a <span class="nb">command</span> prompt, try pressing enter.
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- nebula-console -addr <span class="m">10</span>.98.213.34  -port <span class="m">9669</span> -u root -p vesoft
+
+- <span class="sb">`</span>--image<span class="sb">`</span>: The image <span class="k">for</span> the tool Nebula Console used to connect to Nebula Graph databases.
+- <span class="sb">`</span>&lt;nebula-console&gt;<span class="sb">`</span>: The custom Pod name.
+- <span class="sb">`</span>-addr<span class="sb">`</span>: The IP of the <span class="sb">`</span>ClusterIP<span class="sb">`</span> Service, used to connect to Graphd services.
+- <span class="sb">`</span>-port<span class="sb">`</span>: The port to connect to Graphd services, the default port of which is <span class="m">9669</span>.
+- <span class="sb">`</span>-u<span class="sb">`</span>: The username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is root.
+- <span class="sb">`</span>-p<span class="sb">`</span>: The password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password.
+
+A successful connection to the database is indicated <span class="k">if</span> the following is returned:
+
+<span class="sb">```</span>bash
+If you don<span class="err">'</span>t see a <span class="nb">command</span> prompt, try pressing enter.
 
 <span class="o">(</span>root@nebula<span class="o">)</span> <span class="o">[(</span>none<span class="o">)]</span>&gt;
 </code></pre></div>
 </li>
 </ol>
 <p>You can also connect to Nebula Graph databases with <strong>Fully Qualified Domain Name (FQDN)</strong>. The domain format is <code>&lt;cluster-name&gt;-graphd.&lt;cluster-namespace&gt;.svc.&lt;CLUSTER_DOMAIN&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v2.5.0 --restart<span class="o">=</span>Never -- &lt;nebula-console&gt; -addr &lt;cluster_name&gt;-graphd-svc.default.svc.cluster.local -port <span class="m">9669</span> -u root -p vesoft
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- &lt;nebula_console_name&gt; -addr &lt;cluster_name&gt;-graphd-svc.default.svc.cluster.local -port &lt;service_port&gt; -u &lt;username&gt; -p &lt;password&gt;
 </code></pre></div>
 <p>The default value of <code>CLUSTER_DOMAIN</code> is <code>cluster.local</code>.</p>
-<h2 id="connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster">Connect to Nebula Graph databases from outside a Nebula Graph cluster<a class="headerlink" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster" title="Permanent link">¶</a></h2>
-<p>You can create a Service of type <code>NodePort</code> to connect to Nebula Graph databases from outside a Nebula Graph cluster with a node IP and an exposed node port. You can also use load balancing software provided by cloud providers and set the Service of type <code>LoadBalancer</code>.</p>
+<h2 id="connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_nodeport">Connect to Nebula Graph databases from outside a Nebula Graph cluster via <code>NodePort</code><a class="headerlink" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_nodeport" title="Permanent link">¶</a></h2>
+<p>You can create a Service of type <code>NodePort</code> to connect to Nebula Graph databases from outside a Nebula Graph cluster with a node IP and an exposed node port. You can also use load balancing software provided by cloud providers (such as Azure, AWS, etc.) and set the Service of type <code>LoadBalancer</code>.</p>
 <p>The Service of type <code>NodePort</code> forwards the front-end requests via the label selector <code>spec.selector</code> to Graphd pods with labels <code>app.kubernetes.io/cluster: &lt;cluster-name&gt;</code> and <code>app.kubernetes.io/component: graphd</code>.</p>
 <p>Steps:</p>
 <ol>
@@ -2328,10 +2342,10 @@ nebula-storaged-headless       ClusterIP   None           &lt;none&gt;        <s
 </li>
 <li>
 <p>Connect to Nebula Graph databases with your node IP and the node port above.</p>
-<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v2.5.0 --restart<span class="o">=</span>Never -- &lt;nebula-console&gt; -addr &lt;node_ip&gt; -port &lt;node_port&gt; -u root -p vesoft
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- &lt;nebula_console_name&gt; -addr &lt;node_ip&gt; -port &lt;node_port&gt; -u &lt;username&gt; -p &lt;password&gt;
 </code></pre></div>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@k8s4 ~<span class="o">]</span><span class="c1"># kubectl run -ti --image vesoft/nebula-console:v2.5.0 --restart=Never -- nebula-console2 -addr 192.168.8.24 -port 32236 -u root -p vesoft</span>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- nebula-console2 -addr <span class="m">192</span>.168.8.24 -port <span class="m">32236</span> -u root -p vesoft
 If you don<span class="err">'</span>t see a <span class="nb">command</span> prompt, try pressing enter.
 
 <span class="o">(</span>root@nebula<span class="o">)</span> <span class="o">[(</span>none<span class="o">)]</span>&gt;
@@ -2346,11 +2360,82 @@ If you don<span class="err">'</span>t see a <span class="nb">command</span> prom
 </ul>
 </li>
 </ol>
+<h2 id="connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_ingress">Connect to Nebula Graph databases from outside a Nebula Graph cluster via Ingress<a class="headerlink" href="#connect_to_nebula_graph_databases_from_outside_a_nebula_graph_cluster_via_ingress" title="Permanent link">¶</a></h2>
+<p>Nginx Ingress is an implementation of Kubernetes Ingress. Nginx Ingress watches the Ingress resource of a Kubernetes cluster and generates the Ingress rules into Nginx configurations that enable Nginx to forward 7 layers of traffic.</p>
+<p>You can use Nginx Ingress to connect to a Nebula Graph cluster from outside the cluster using a combination of the HostNetwork and DaemonSet pattern.</p>
+<p>As HostNetwork is used，the Nginx Ingress pod cannot be scheduled to the same node. To avoid listening port conflicts, some nodes can be selected and labeled as edge nodes in advance, which are specially used for Nginx Ingress deployment. Nginx Ingress is then deployed on these nodes in a DaemonSet mode.</p>
+<p>Ingress does not support TCP or UDP services. For this reason，the nginx-ingress-controller pod uses the flags <code>--tcp-services-configmap</code> and <code>--udp-services-configmap</code> to point to an existing ConfigMap where the key refers to the external port to be used and the value refers to the format of the service to be exposed. The format of the value <code>&lt;namespace/service_name&gt;:&lt;service_port&gt;</code>.</p>
+<p>For example, the configurations of the ConfigMap named as <code>tcp-services</code> is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp-services</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx-ingress</span>
+<span class="nt">data</span><span class="p">:</span>
+  <span class="c1"># update </span>
+  <span class="nt">9769</span><span class="p">:</span> <span class="s">"default/nebula-graphd-svc:9669"</span>
+</code></pre></div>
+<p>Steps are as follows.</p>
+<ol>
+<li>
+<p>Create a file named <code>nginx-ingress-daemonset-hostnetwork.yaml</code>. </p>
+<p>Click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v0.8.0/config/samples/nginx-ingress-daemonset-hostnetwork.yaml">nginx-ingress-daemonset-hostnetwork.yaml</a> to view the complete content of the example YAML file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The resource objects in the YAML file above use the namespace <code>nginx-ingress</code>. You can run <code>kubectl create namespace nginx-ingress</code> to create this namespace, or you can customize the namespace.</p>
+</div>
+</li>
+<li>
+<p>Label a node where the DaemonSet named <code>nginx-ingress-controller</code> in the above YAML file (The node used in this example is named <code>worker2</code> with an IP of <code>192.168.8.160</code>) runs.</p>
+<div class="highlight"><pre><span></span><code>kubectl label node worker2 nginx-ingress<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run the following command to enable Nginx Ingress in the cluster you created. </p>
+<div class="highlight"><pre><span></span><code>kubectl create -f nginx-ingress-daemonset-hostnetwork.yaml
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>configmap/nginx-ingress-controller created
+configmap/tcp-services created
+serviceaccount/nginx-ingress created
+serviceaccount/nginx-ingress-backend created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+role.rbac.authorization.k8s.io/nginx-ingress created
+rolebinding.rbac.authorization.k8s.io/nginx-ingress created
+service/nginx-ingress-controller-metrics created
+service/nginx-ingress-default-backend created
+service/nginx-ingress-proxy-tcp created
+daemonset.apps/nginx-ingress-controller created
+</code></pre></div>
+<p>Since the network type that is configured in Nginx Ingress is <code>hostNetwork</code>, after successfully deploying Nginx Ingress, with the IP (<code>192.168.8.160</code>) of the node where Nginx Ingress is deployed and with the external port (<code>9769</code>) you define, you can access Nebula Graph. </p>
+</li>
+<li>
+<p>Use the IP address and the port configured in the preceding steps. You can connect to Nebula Graph with Nebula Console. </p>
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- &lt;nebula_console_name&gt; -addr &lt;host_ip&gt; -port &lt;external_port&gt; -u &lt;username&gt; -p &lt;password&gt;
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console: --restart<span class="o">=</span>Never -- nebula-console -addr <span class="m">192</span>.168.8.160 -port <span class="m">9769</span> -u root -p vesoft
+</code></pre></div>
+<ul>
+<li><code>--image</code>: The image for the tool Nebula Console used to connect to Nebula Graph databases.</li>
+<li><code>&lt;nebula-console&gt;</code> The custom Pod name. The above example uses <code>nebula-console</code>.</li>
+<li><code>-addr</code>: The IP of the node where Nginx Ingress is deployed. The above example uses <code>192.168.8.160</code>.</li>
+<li><code>-port</code>: The port used for external network access. The above example uses <code>9769</code>.</li>
+<li><code>-u</code>: The username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is root.</li>
+<li><code>-p</code>: The password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password.</li>
+</ul>
+<p>A successful connection to the database is indicated if the following is returned:</p>
+<div class="highlight"><pre><span></span><code>If you don<span class="err">'</span>t see a <span class="nb">command</span> prompt, try pressing enter.
+<span class="o">(</span>root@nebula<span class="o">)</span> <span class="o">[(</span>none<span class="o">)]</span>&gt;
+</code></pre></div>
+</li>
+</ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2021</span>
 </small>
 </div>
 </article>
