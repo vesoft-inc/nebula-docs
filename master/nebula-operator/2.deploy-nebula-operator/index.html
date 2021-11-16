@@ -2457,7 +2457,7 @@
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">k8s@master ~</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">$ helm show values nebula-operator/nebula-operator</span>
 <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
   <span class="nt">nebulaOperator</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:latest</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:v0.9.0</span>
     <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
   <span class="nt">kubeRBACProxy</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0</span>
@@ -2509,7 +2509,7 @@
 <tbody>
 <tr>
 <td align="left"><code>image.nebulaOperator.image</code></td>
-<td align="left"><code>vesoft/nebula-operator:latest</code></td>
+<td align="left"><code>vesoft/nebula-operator:v0.9.0</code></td>
 <td align="left">The image of Nebula Operator, version of which is 0.9.0.</td>
 </tr>
 <tr>
@@ -2596,6 +2596,40 @@
 <li>
 <p>Upgrade Operator.</p>
 <div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>&lt;namespace_name&gt; --version<span class="o">=</span><span class="m">0</span>.9.0
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace<span class="o">=</span>nebula-operator-system --version<span class="o">=</span><span class="m">0</span>.9.0
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>Release <span class="s2">"nebula-operator"</span> has been upgraded. Happy Helming!
+NAME: nebula-operator
+LAST DEPLOYED: Tue Nov <span class="m">16</span> <span class="m">02</span>:21:08 <span class="m">2021</span>
+NAMESPACE: nebula-operator-system
+STATUS: deployed
+REVISION: <span class="m">3</span>
+TEST SUITE: None
+NOTES:
+Nebula Operator installed!
+</code></pre></div>
+</li>
+<li>
+<p>Pull the latest CRD configuration file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to upgrade the corresponding CRD configurations after Nebula Operator is upgraded. Otherwise, the creation of Nebula Graph clusters will fail. For information about the CRD configurations, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/v0.9.0/config/crd/bases/apps.nebula-graph.io_nebulaclusters.yaml">apps.nebula-graph.io_nebulaclusters.yaml</a>.</p>
+</div>
+<div class="highlight"><pre><span></span><code>helm pull nebula-operator/nebula-operator
+</code></pre></div>
+</li>
+<li>
+<p>Upgrade the CRD configuration file.</p>
+<div class="highlight"><pre><span></span><code>kubectl apply -f &lt;crd_file_name&gt;.yaml
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>kubectl apply -f config/crd/bases/apps.nebula-graph.io_nebulaclusters.yaml
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>customresourcedefinition.apiextensions.k8s.io/nebulaclusters.apps.nebula-graph.io created
 </code></pre></div>
 </li>
 </ol>
