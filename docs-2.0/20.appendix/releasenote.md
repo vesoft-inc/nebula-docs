@@ -5,7 +5,7 @@
 - Support [TOSS](../5.configurations-and-logs/1.configurations/3.graph-config.md). [#2525](https://github.com/vesoft-inc/nebula/pull/2525)
 - Support [Group&Zone](../7.data-security/5.zone.md). [#181](https://github.com/vesoft-inc/nebula-storage/pull/181)
 - Support [Geo Spatial](../3.ngql-guide/6.functions-and-expressions/14.geo.md). [#2954](https://github.com/vesoft-inc/nebula/pull/2954), [#2979](https://github.com/vesoft-inc/nebula/pull/2979), [#3043](https://github.com/vesoft-inc/nebula/pull/3043)
-- Support [SSL](../7.data-security/4.ssl.md). [#2584](https://github.com/vesoft-inc/nebula/pull/2584)
+- Support [SSL encryption](../7.data-security/4.ssl.md). [#2584](https://github.com/vesoft-inc/nebula/pull/2584)
 - Support returning the query result in the [JSON format](../14.client/1.nebula-client.md). [#2824](https://github.com/vesoft-inc/nebula/pull/2824)
 - Support cloning the [meta data](../3.ngql-guide/9.space-statements/1.create-space.md) of SPACE. [#2763](https://github.com/vesoft-inc/nebula/pull/2763)
 - Support [indexScan when using IN expressions in LOOKUP](../3.ngql-guide/7.general-query-statements/5.lookup.md). [#2906](https://github.com/vesoft-inc/nebula/pull/2906)
