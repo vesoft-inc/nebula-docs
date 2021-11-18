@@ -82,6 +82,40 @@ Check that the Nebula Graph service port is configured correctly.
 
 Check whether the version of Exchange is the same as that of Nebula Graph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
 
+### How to correct the messy code when importing Hive data into Nebula Graph?
+
+It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:
+
+```bash
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+```
+
+Namely:
+
+```bash
+<spark_install_path>/bin/spark-submit --master "local" \
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
+--class com.vesoft.nebula.exchange.Exchange \
+<nebula-exchange-2.x.y.jar_path> -c <application.conf_path>
+```
+
+In YARN, use the following command:
+
+```bash
+<spark_install_path>/bin/spark-submit \
+--class com.vesoft.nebula.exchange.Exchange \
+--master yarn-cluster \
+--files <application.conf_path> \
+--conf spark.driver.extraClassPath=./ \
+--conf spark.executor.extraClassPath=./ \
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
+<nebula-exchange-2.x.y.jar_path> \
+-c application.conf
+```
+
 ## Configuration
 
 ### Which configuration fields will affect import performance?
