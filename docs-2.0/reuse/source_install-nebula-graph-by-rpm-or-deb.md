@@ -16,10 +16,10 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
 * Download the released version.
 
-    URL: 
+    URL:
 
     ```bash
-    //Centos 6 
+    //Centos 6
     https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el6.x86_64.rpm
 
     //Centos 7
@@ -38,14 +38,14 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
     https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu2004.amd64.deb
     ```
 
-    For example, download release package {{ nebula.release }} for `Centos 7.5`: 
+    For example, download release package {{ nebula.release }} for `Centos 7.5`:
 
     ```bash
     wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
     wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm.sha256sum.txt
     ```
 
-    download release package `{{ nebula.release }}` for `Ubuntu 1804`: 
+    download release package `{{ nebula.release }}` for `Ubuntu 1804`:
 
     ```bash
     wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
@@ -59,46 +59,46 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
       - Nightly versions are usually used to test new features. Don't use it for production.
       - Nightly versions may not be build successfully every night. And the names may change from day to day.
 
-    URL: 
+    URL:
 
     ```bash
-    //Centos 6 
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el6.x86_64.rpm
+    //Centos 6
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el6.x86_64.rpm
 
     //Centos 7
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el7.x86_64.rpm
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el7.x86_64.rpm
 
     //Centos 8
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el8.x86_64.rpm
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el8.x86_64.rpm
 
     //Ubuntu 1604
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu1604.amd64.deb
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu1604.amd64.deb
 
     //Ubuntu 1804
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu1804.amd64.deb
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu1804.amd64.deb
 
     //Ubuntu 2004
-    https://oss-cdn.nebula-graph.io/package/v2-nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu2004.amd64.deb
+    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.ubuntu2004.amd64.deb
     ```
 
-    For example, download the `Centos 7.5` package developed and built in `2021.03.28`: 
+    For example, download the `Centos 7.5` package developed and built in `2021.11.28`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.el7.x86_64.rpm.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/nightly/2021.11.28/nebula-graph-2021.11.28-nightly.el7.x86_64.rpm
+    wget https://oss-cdn.nebula-graph.io/package/nightly/2021.11.28/nebula-graph-2021.11.28-nightly.el7.x86_64.rpm.sha256sum.txt
     ```
 
-    For example, download the `Ubuntu 1804` package developed and built in `2021.03.28`: 
+    For example, download the `Ubuntu 1804` package developed and built in `2021.11.28`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/v2-nightly/2021.03.28/nebula-graph-2021.03.28-nightly.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://oss-cdn.nebula-graph.io/package/nightly/2021.11.28/nebula-graph-2021.11.28-nightly.ubuntu1804.amd64.deb
+    wget https://oss-cdn.nebula-graph.io/package/nightly/2021.11.28/nebula-graph-2021.11.28-nightly.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 <!--
 ## Download the package from GitHub
 
 * Download the release version.
-  
+
    + On the [Nebula Graph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
     ![Select a Nebula Graph release version](../reuse/console-1.png)
 
