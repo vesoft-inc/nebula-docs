@@ -1,8 +1,22 @@
-# Compile Exchange
+# Get Exchange
 
-This topic describes how to compile Nebula Exchange. Users can also [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
+This topic introduces how to get the JAR file of Nebula Exchange.
 
-## Prerequisites
+## Download the JAR file directly
+
+The JAR file of Exchange Community Edition can be [downloaded](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) directly.
+
+To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/) first.
+
+## Get the JAR file by compiling the source code
+
+You can get the JAR file of Exchange Community Edition by compiling the source code. The following introduces how to compile the source code of Exchange.
+
+!!! enterpriseonly
+
+    You can get Exchange Enterprise Edition in Nebula Graph Enterprise Edition Package only.
+
+### Prerequisites
 
 - Install [Maven](https://maven.apache.org/download.cgi).
 
@@ -58,7 +72,7 @@ In the `target` directory, users can find the `exchange-2.x.y.jar` file.
 
 When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange/src/main/resources/application.conf).
 
-## Failed to download the dependency package
+### Failed to download the dependency package
 
 If downloading dependencies fails when compiling:
 
