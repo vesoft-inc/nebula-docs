@@ -16,7 +16,7 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
 
     You can get Exchange Enterprise Edition in Nebula Graph Enterprise Edition Package only.
 
-## Prerequisites
+### Prerequisites
 
 - Install [Maven](https://maven.apache.org/download.cgi).
 
