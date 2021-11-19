@@ -34,6 +34,8 @@ Exchange has the following advantages:
 
 - SST import: It supports converting data from different sources into SST files for data import.
 
+- SSL encryption: It supports building up the SSL encryption between Exchange and Nebula Graph to ensure data security.
+
 - Resumable data import: It supports resumable data import to save time and improve data import efficiency.
 
   !!! note
