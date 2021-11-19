@@ -2078,6 +2078,11 @@
     Error: Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how_to_correct_the_messy_code_when_importing_hive_data_into_nebula_graph">
+    How to correct the messy code when importing Hive data into Nebula Graph?
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2359,6 +2364,11 @@
     Error: Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how_to_correct_the_messy_code_when_importing_hive_data_into_nebula_graph">
+    How to correct the messy code when importing Hive data into Nebula Graph?
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2461,6 +2471,30 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up <span cl
 </ul>
 <h3 id="error_exception_in_thread_main_comfacebookthriftprotocoltprotocolexception_the_field_code_has_been_assigned_the_invalid_value_-4">Error: <code>Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4</code><a class="headerlink" href="#error_exception_in_thread_main_comfacebookthriftprotocoltprotocolexception_the_field_code_has_been_assigned_the_invalid_value_-4" title="Permanent link">¶</a></h3>
 <p>Check whether the version of Exchange is the same as that of Nebula Graph. For more information, see <a href="../about-exchange/ex-ug-limitations/">Limitations</a>.</p>
+<h3 id="how_to_correct_the_messy_code_when_importing_hive_data_into_nebula_graph">How to correct the messy code when importing Hive data into Nebula Graph?<a class="headerlink" href="#how_to_correct_the_messy_code_when_importing_hive_data_into_nebula_graph" title="Permanent link">¶</a></h3>
+<p>It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:</p>
+<div class="highlight"><pre><span></span><code>--conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
+--conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
+</code></pre></div>
+<p>Namely:</p>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit --master <span class="s2">"local"</span> <span class="se">\</span>
+--conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
+--conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
+--class com.vesoft.nebula.exchange.Exchange <span class="se">\</span>
+&lt;nebula-exchange-2.x.y.jar_path&gt; -c &lt;application.conf_path&gt;
+</code></pre></div>
+<p>In YARN, use the following command:</p>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit <span class="se">\</span>
+--class com.vesoft.nebula.exchange.Exchange <span class="se">\</span>
+--master yarn-cluster <span class="se">\</span>
+--files &lt;application.conf_path&gt; <span class="se">\</span>
+--conf spark.driver.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
+--conf spark.executor.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
+--conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
+--conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
+&lt;nebula-exchange-2.x.y.jar_path&gt; <span class="se">\</span>
+-c application.conf
+</code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h2>
 <h3 id="which_configuration_fields_will_affect_import_performance">Which configuration fields will affect import performance?<a class="headerlink" href="#which_configuration_fields_will_affect_import_performance" title="Permanent link">¶</a></h3>
 <ul>
@@ -2490,7 +2524,7 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up <span cl
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 12, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2021</span>
 </small>
 </div>
 </article>
