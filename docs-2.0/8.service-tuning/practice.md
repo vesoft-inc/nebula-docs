@@ -29,3 +29,7 @@ Nebula Graph is used in a variety of industries. This topic presents a few best 
 - [Validating Import Performance of Nebula Importer](https://nebula-graph.io/posts/nebula-importer-practice/)
 
 - [Community Contribution | Nebula Graph 2.0 Performance Testing](https://nebula-graph.io/posts/v2.0-benchmark-and-nebula-importer-optimize/)
+
+- [Ecosystem Tools: Nebula Graph Dashboard for Monitoring](https://nebula-graph.io/posts/what-is-nebula-dashboard/)
+
+- [Visualizing Graph Data with Nebula Explorer](https://nebula-graph.io/posts/what-is-nebula-explorer/)
