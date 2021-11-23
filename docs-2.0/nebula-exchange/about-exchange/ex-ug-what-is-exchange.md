@@ -80,3 +80,7 @@ Exchange {{exchange.release}} supports converting data from the following format
 In addition to importing data as nGQL statements, Exchange supports generating SST files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
 
 In addition, Exchange Enterprise Edition also supports [exporting data to a CSV file](../use-exchange/ex-ug-export-from-nebula.md) using Nebula Graph as data sources.
+
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-exchange/releases/tag/{{exchange.branch}})

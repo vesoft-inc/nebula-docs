@@ -40,6 +40,10 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 * Three write modes, `insert`, `update` and `delete`, are supported. `insert` mode will insert (overwrite) data, `update` mode will only update existing data, and `delete` mode will only delete data.
 
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-spark-connector/releases/tag/{{sparkconnector.tag}})
+
 ## Get Nebula Spark Connector
 
 ### Compile package
