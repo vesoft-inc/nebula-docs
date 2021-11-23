@@ -83,4 +83,4 @@ In addition, Exchange Enterprise Edition also supports [exporting data to a CSV 
 
 ## Release note
 
-[Release](https://github.com/vesoft-inc/nebula-exchange/releases/tag/{{exchange.branch}})
+[Release](https://github.com/vesoft-inc/nebula-exchange/releases/tag/{{exchange.tag}})
