@@ -12,6 +12,10 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 
 - Flexible filtering: You can flexibly filter CSV data through configuration files.
 
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}})
+
 ## Prerequisites
 
 Before using Nebula Importer, make sure:
