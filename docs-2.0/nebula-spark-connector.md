@@ -148,6 +148,10 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
 ### Write data into Nebula Graph
 
+!!! note
+
+    The values of columns in a dataframe are automatically written to the Nebula Graph as properties.
+
 ```scala
 val config = NebulaConnectionConfig
   .builder()
