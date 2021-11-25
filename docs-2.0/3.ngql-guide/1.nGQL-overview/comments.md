@@ -4,8 +4,8 @@ This topic will describe the comments in nGQL.
 
 ## Legacy version compatibility
 
-* In Nebula Graph 1.0, there are four comment styles: `#`, `--`, `//`, `/* */`.
-* In Nebula Graph 2.0, `--` represents [an edge pattern](../../3.ngql-guide/1.nGQL-overview/3.graph-patterns.md) and cannot be used as comments.
+* In Nebula Graph 1.x, there are four comment styles: `#`, `--`, `//`, `/* */`.
+* In Nebula Graph 2.x, `--` cannot be used as comments.
 
 ## Examples
 
