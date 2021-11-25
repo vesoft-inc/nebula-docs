@@ -2255,7 +2255,7 @@
 </a>
 <h1 id="update_edge">UPDATE EDGE<a class="headerlink" href="#update_edge" title="Permanent link">¶</a></h1>
 <p>The <code>UPDATE EDGE</code> statement updates properties on an edge.</p>
-<p>In Nebula Graph, <code>UPDATE EDGE</code> supports compare-and-set (CAS).</p>
+<p>In Nebula Graph, <code>UPDATE EDGE</code> supports compare-and-swap (CAS).</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">¶</a></h2>
 <div class="highlight"><pre><span></span><code>UPDATE EDGE ON &lt;edge_type&gt;
 &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; [@&lt;rank&gt;]
@@ -2263,15 +2263,60 @@ SET &lt;update_prop&gt;
 [WHEN &lt;condition&gt;]
 [YIELD &lt;output&gt;]
 </code></pre></div>
-<p>| Parameter           | Required | Description                                                                                                    | Example                          |
-|---------------------+----------+----------------------------------------------------------------------------------------------------------------+----------------------------------|
-| <code>ON &lt;edge_type&gt;</code>    | Yes      | Specifies the edge type. The properties to be updated must be on this edge type.                               | <code>ON serve</code>                       |
-| <code>&lt;src_vid&gt;</code>         | Yes      | Specifies the source vertex ID of the edge.                                                                    | <code>"player100"</code>                    |
-| <code>&lt;dst_vid&gt;</code>         | Yes      | Specifies the destination vertex ID of the edge.                                                               | <code>"team204"</code>                      |
-| <code>&lt;rank&gt;</code>            | No       | Specifies the rank of the edge.                                                                                | <code>10</code>                             |
-| <code>SET &lt;update_prop&gt;</code> | Yes      | Specifies the properties to be updated and how they will be updated.                                           | <code>SET start_year = start_year +1</code> |
-| <code>WHEN &lt;condition&gt;</code>  | No       | Specifies the filter conditions. If <code>&lt;condition&gt;</code> evaluates to <code>false</code>, the <code>SET</code> clause does not take effect. | <code>WHEN end_year &lt; 2010</code>           |
-| <code>YIELD &lt;output&gt;</code>    | No       | Specifies the output format of the statement.                                                                  | <code>YIELD start_year AS Start_Year</code> |</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Required</th>
+<th align="left">Description</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>ON &lt;edge_type&gt;</code></td>
+<td align="left">Yes</td>
+<td align="left">Specifies the edge type. The properties to be updated must be on this edge type.</td>
+<td align="left"><code>ON serve</code></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;src_vid&gt;</code></td>
+<td align="left">Yes</td>
+<td align="left">Specifies the source vertex ID of the edge.</td>
+<td align="left"><code>"player100"</code></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;dst_vid&gt;</code></td>
+<td align="left">Yes</td>
+<td align="left">Specifies the destination vertex ID of the edge.</td>
+<td align="left"><code>"team204"</code></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;rank&gt;</code></td>
+<td align="left">No</td>
+<td align="left">Specifies the rank of the edge.</td>
+<td align="left"><code>10</code></td>
+</tr>
+<tr>
+<td align="left"><code>SET &lt;update_prop&gt;</code></td>
+<td align="left">Yes</td>
+<td align="left">Specifies the properties to be updated and how they will be updated.</td>
+<td align="left"><code>SET start_year = start_year +1</code></td>
+</tr>
+<tr>
+<td align="left"><code>WHEN &lt;condition&gt;</code></td>
+<td align="left">No</td>
+<td align="left">Specifies the filter conditions. If <code>&lt;condition&gt;</code> evaluates to <code>false</code>, the <code>SET</code> clause does not take effect.</td>
+<td align="left"><code>WHEN end_year &lt; 2010</code></td>
+</tr>
+<tr>
+<td align="left"><code>YIELD &lt;output&gt;</code></td>
+<td align="left">No</td>
+<td align="left">Specifies the output format of the statement.</td>
+<td align="left"><code>YIELD start_year AS Start_Year</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
 <p>The following example checks the properties of the edge with the GO statement.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" \
@@ -2298,7 +2343,7 @@ SET &lt;update_prop&gt;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2021</span>
 </small>
 </div>
 </article>
