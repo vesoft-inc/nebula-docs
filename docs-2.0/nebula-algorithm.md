@@ -16,9 +16,11 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 ## Limitations
 
-The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
+- The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
-For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
+- For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
+
+- Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
 
 ## Supported algorithms
 
