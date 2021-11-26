@@ -2984,6 +2984,25 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"}) \
 | ("player100" :player{age: 42, name: "Tim Duncan"}) |
 +----------------------------------------------------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you conditionally filter on multi-hop edges, such as <code>-[e:follow*2]-&gt;</code>, note that the <code>e</code> is a list of edges instead of a single edge. </p>
+<p>For example, the following statement is correct from the syntax point of view which may not get your expected query result, because the <code>e</code> is a list without the <code>.degree</code> property. </p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*2]-&gt;(v2) \
+        WHERE e.degree &gt; 1 \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+<p>The correct statement is as follows:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*2]-&gt;(v2) \
+        WHERE ALL(e_ in e WHERE e_.degree &gt; 0) \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+<p>Further, the following statement is for filtering the properties of the first-hop edge in multi-hop edges:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*2]-&gt;(v2) \
+        WHERE e[0].degree &gt; 98 \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+</div>
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">¶</a></h3>
 <p>You can use the <code>:&lt;edge_type&gt;*[minHop]..&lt;maxHop&gt;</code> pattern to match variable-length paths.</p>
 <table>
@@ -3212,7 +3231,7 @@ nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e]-&gt;(v2) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 26, 2021</span>
 </small>
 </div>
 </article>
