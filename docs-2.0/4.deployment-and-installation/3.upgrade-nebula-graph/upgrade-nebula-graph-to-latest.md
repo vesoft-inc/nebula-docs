@@ -4,7 +4,7 @@ The legacy versions of Nebula Graph refer to the versions lower than Nebula Grap
 
 !!! note
 
-     To upgrade Nebula Graph v2.0.0-GA or later versions to v{{nebula.release}}, see [Nebula Graph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-260.md).
+     To upgrade Nebula Graph v2.0.0-GA or later versions to v{{nebula.release}}, see [Nebula Graph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-latest.md).
 
 ## Limitations
 
@@ -96,13 +96,13 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
       - Clone the source code.
   
         ```
-        # git clone --branch v{{nebula.release}} https://github.com/vesoft-inc/nebula-graph.git
+        # git clone --branch {{nebula.branch}} https://github.com/vesoft-inc/nebula-graph.git
         ```
 
       - Configure CMake.
 
         ```
-        # cmake -DCMAKE_INSTALL_PREFIX=${nebula-new} -DENABLE_BUILD_STORAGE=on -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DNEBULA_COMMON_REPO_TAG=v{{nebula.release}}  -DNEBULA_STORAGE_REPO_TAG=v{{nebula.release}} .. 
+        # cmake -DCMAKE_INSTALL_PREFIX=${nebula-new} -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=Release .. 
         ```
 
    2. Copy the configuration files from the old path to the new path.

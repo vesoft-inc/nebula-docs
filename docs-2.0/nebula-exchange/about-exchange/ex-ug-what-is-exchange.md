@@ -6,6 +6,10 @@ Exchange consists of Reader, Processor, and Writer. After Reader reads data from
 
 ![Nebula Graph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to Nebula Graph](../figs/ex-ug-003.png)
 
+## Editions
+
+Exchange has two editions, the Community Edition and the Enterprise Edition. The Community Edition is open source developed on [GitHub](https://github.com/vesoft-inc/nebula-exchange). The Enterprise Edition supports not only the functions of the Community Edition but also adds additional features. For details, see [Comparisons](https://nebula-graph.com.cn/pricing/).
+
 ## Scenarios
 
 Exchange applies to the following scenarios:
@@ -16,6 +20,12 @@ Exchange applies to the following scenarios:
 
 - A large volume of data needs to be generated into SST files that Nebula Graph can recognize and then imported into the Nebula Graph database.
 
+- The data saved in Nebula Graph needs to be exported.
+
+  !!! enterpriseonly
+
+        Exporting the data saved in Nebula Graph is supported by Exchange Enterprise Edition only.
+
 ## Advantages
 
 Exchange has the following advantages:
@@ -23,6 +33,8 @@ Exchange has the following advantages:
 - High adaptability: It supports importing data into the Nebula Graph database in a variety of formats or from a variety of sources, making it easy to migrate data.
 
 - SST import: It supports converting data from different sources into SST files for data import.
+
+- SSL encryption: It supports establishing the SSL encryption between Exchange and Nebula Graph to ensure data security.
 
 - Resumable data import: It supports resumable data import to save time and improve data import efficiency.
 
@@ -40,7 +52,7 @@ Exchange has the following advantages:
 
 ## Data source
 
-Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that Nebula Graph can recognize, and then importing them into Nebula Graph in the form of **nGQL** statements:
+Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that Nebula Graph can recognize, and then importing them into Nebula Graph in the form of nGQL statements:
 
 - Data stored in HDFS or locally:
   - [Apache Parquet](../use-exchange/ex-ug-import-from-parquet.md)
@@ -65,4 +77,10 @@ Exchange {{exchange.release}} supports converting data from the following format
 
 - Publish/Subscribe messaging platform: [Apache Pulsar 2.4.5](../use-exchange/ex-ug-import-from-pulsar.md)
 
-In addition to importing data as nGQL statements, Exchange supports generating **SST files** for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
+In addition to importing data as nGQL statements, Exchange supports generating SST files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
+
+In addition, Exchange Enterprise Edition also supports [exporting data to a CSV file](../use-exchange/ex-ug-export-from-nebula.md) using Nebula Graph as data sources.
+
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-exchange/releases/tag/{{exchange.tag}})

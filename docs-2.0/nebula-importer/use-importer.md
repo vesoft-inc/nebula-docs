@@ -12,6 +12,10 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 
 - Flexible filtering: You can flexibly filter CSV data through configuration files.
 
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}})
+
 ## Prerequisites
 
 Before using Nebula Importer, make sure:
@@ -31,6 +35,16 @@ Before using Nebula Importer, make sure:
 ## Steps
 
 Configure the YAML file and prepare the CSV file to be imported to use the tool to batch write data to Nebula Graph.
+
+### Download binary package and run
+
+1. Download the [binary package](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}}) directly and add execute permission to it.
+
+2. Start the service.
+
+  ```bash
+  $ ./<binary_package_name> --config <yaml_config_file_path>
+  ```
 
 ### Source code compile and run
 
@@ -120,6 +134,10 @@ $ docker run --rm -ti \
 ## Configuration File Description
 
 Nebula Importer uses configuration(`nebula-importer/examples/v2/example.yaml`) files to describe information about the files to be imported, the Nebula Graph server, and more. You can refer to the example configuration file: [Configuration without Header](config-without-header.md)/[Configuration with Header](config-with-header.md). This section describes the fields in the configuration file by category.
+
+!!! note
+
+    If users download a binary package, create the configuration file manually.
 
 ### Basic configuration
 

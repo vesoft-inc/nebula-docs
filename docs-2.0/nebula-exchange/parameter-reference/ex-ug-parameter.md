@@ -49,6 +49,14 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`nebula.user`|string|-|Yes|The username with write permissions for Nebula Graph.|
 |`nebula.pswd`|string|-|Yes|The account password.|
 |`nebula.space`|string|-|Yes|The name of the graph space where data needs to be imported.|
+|`nebula.ssl.enable.graph`|bool|`false`|Yes|Enables the [SSL encryption](https://en.wikipedia.org/wiki/Transport_Layer_Security) between Exchange and Graph services. If the value is `true`, the SSL encryption is enabled and the following SSL parameters take effect. If Exchange is run on a multi-machine cluster, you need to store the corresponding files in the same path on each machine when setting the following SSL-related paths.|
+|`nebula.ssl.sign`|string|`ca`|Yes|Specifies the SSL sign. Optional values are `ca` and `self`.|
+|`nebula.ssl.ca.param.caCrtFilePath`|string|Specifies the storage path of the CA certificate. It takes effect when the value of `nebula.ssl.sign` is `ca`.|
+|`nebula.ssl.ca.param.crtFilePath`|string|`"/path/crtFilePath"`|Yes|Specifies the storage path of the CRT certificate. It takes effect when the value of `nebula.ssl.sign` is `ca`.|
+|`nebula.ssl.ca.param.keyFilePath`|string|`"/path/keyFilePath"`|Yes|Specifies the storage path of the key file. It takes effect when the value of `nebula.ssl.sign` is `ca`.|
+|`nebula.ssl.self.param.crtFilePath`|string|`"/path/crtFilePath"`|Yes|Specifies the storage path of the CRT certificate. It takes effect when the value of `nebula.ssl.sign` is `self`.|
+|`nebula.ssl.self.param.keyFilePath`|string|`"/path/keyFilePath"`|Yes|Specifies the storage path of the key file. It takes effect when the value of `nebula.ssl.sign` is `self`.|
+|`nebula.ssl.self.param.password`|string|`"nebula"`|Yes|Specifies the storage path of the password. It takes effect when the value of `nebula.ssl.sign` is `self`.|
 |`nebula.path.local`|string|`"/tmp"`|No|The local SST file path which needs to be set when users import SST files.|
 |`nebula.path.remote`|string|`"/sst"`|No|The remote SST file path which needs to be set when users import SST files.|
 |`nebula.path.hdfs.namenode`|string|`"hdfs://name_node:9000"`|No|The NameNode path which needs to be set when users import SST files.|
@@ -150,7 +158,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.host`|string|`127.0.0.1`|Yes|The Hbase server address.|
 |`tags.port`|string|`2181`|Yes|The Hbase server port.
 |`tags.table`|string|-|Yes|The name of a table used as a data source.|
-|`tags.columnFamily`|string|-|Yes|The column family which a table belongs to.|
+|`tags.columnFamily`|string|-|Yes|The column family to which a table belongs.|
 
 ### Specific parameters of Pulsar data sources
 
@@ -175,6 +183,18 @@ For different data sources, the vertex configurations are different. There are m
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 
+### Specific parameters of Nebula Graph
+
+!!! enterpriseonly
+
+    Specific parameters of Nebula Graph are used for exporting Nebula Graph data, which is supported by Exchange Enterprise Edition only.
+
+|Parameter|Data type|Default value|Required|Description|
+|:---|:---|:---|:---|:---|
+|`tags.path`|string|`"hdfs://namenode:9000/path/vertex"`|Yes|Specifies the storage path of the CSV file. You need to set a new path and Exchange will automatically create the path you set. If you store the data to the HDFS server, the path format is the same as the default value, such as `"hdfs://192.168.8.177:9000/vertex/player"`. If you store the data to the local, the path format is `"file:///path/vertex"`, such as `"file:///home/nebula/vertex/player"`. If there are multiple Tags, different directories must be set for each Tag.|
+|`tags.noField`|bool|`false`|Yes|If the value is `true`, only VIDs will be exported, not the property data. If the value is `false`, VIDs and the property data will be exported.|
+|`tags.return.fields`|list|`[]`|Yes|Specifies the properties to be exported. For example, to export the `name` and `age`, you need to set the parameter value to `["name","age"]`. This parameter only takes effect when the value of `tags.noField` is `false`.|
+
 ## Edge configurations
 
 For different data sources, configurations of edges are also different. There are general parameters and some specific parameters. General parameters and specific parameters of different data sources need to be configured when users configure edges.
@@ -195,3 +215,11 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into Nebula Graph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
+
+### Specific parameters of Nebula Graph
+
+|Parameter|Type|Default value|Required|Description|
+|:---|:---|:---|:---|:---|
+|`edges.path`|string|`"hdfs://namenode:9000/path/edge"`|Yes|Specifies the storage path of the CSV file. You need to set a new path and Exchange will automatically create the path you set. If you store the data to the HDFS server, the path format is the same as the default value, such as `"hdfs://192.168.8.177:9000/edge/follow"`. If you store the data to the local, the path format is `"file:///path/edge"`, such as `"file:///home/nebula/edge/follow"`. If there are multiple Edges, different directories must be set for each Edge.|
+|`edges.noField`|bool|`false`|Yes|If the value is `true`, source vertex IDs, destination vertex IDs, and ranks will be exported, not the property data. If the vaue is `false`, ranks, source vertex IDs, destination vertex IDs, ranks, and the property data will be exported.|
+|`edges.return.fields`|list|`[]`|Yes|Specifies the properties to be exported. For example, to export `start_year` and `end_year`, you need to set the parameter value to `["start_year","end_year"]`. This parameter only takes effect when the value of `edges.noField` is `false`.|
