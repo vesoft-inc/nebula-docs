@@ -14,8 +14,8 @@ For example, in the `basketballplayer` data set, some basketball players are als
 
 ```ngql
 //This example creates the shareholder tag and index.
-nebula> CREATE TAG shareholder();
-nebula> CREATE TAG INDEX shareholder_tag on shareholder();
+nebula> CREATE TAG IF NOT EXISTS shareholder();
+nebula> CREATE TAG INDEX IF NOT EXISTS shareholder_tag on shareholder();
 
 //This example adds a tag on the vertex.
 nebula> INSERT VERTEX shareholder() VALUES "player100":();

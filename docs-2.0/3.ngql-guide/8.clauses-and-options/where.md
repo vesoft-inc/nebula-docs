@@ -149,10 +149,10 @@ In nGQL, if a group of edges has the same source vertex, destination vertex, and
 
 ```ngql
 # The following example creates test data.
-nebula> CREATE SPACE test (vid_type=FIXED_STRING(30));
+nebula> CREATE SPACE IF NOT EXISTS test (vid_type=FIXED_STRING(30));
 nebula> USE test;
-nebula> CREATE EDGE e1(p1 int);
-nebula> CREATE TAG person(p1 int);
+nebula> CREATE EDGE IF NOT EXISTS e1(p1 int);
+nebula> CREATE TAG IF NOT EXISTS person(p1 int);
 nebula> INSERT VERTEX person(p1) VALUES "1":(1);
 nebula> INSERT VERTEX person(p1) VALUES "2":(2);
 nebula> INSERT EDGE e1(p1) VALUES "1"->"2"@0:(10);
@@ -306,7 +306,9 @@ nebula> MATCH (v:player) \
 | "Joel Embiid"           | 25    |
 +-------------------------+-------+
 
-nebula> LOOKUP ON player WHERE player.age IN [25,28]  YIELD properties(vertex).name, properties(vertex).age;
+nebula> LOOKUP ON player \
+        WHERE player.age IN [25,28]  \
+        YIELD properties(vertex).name, properties(vertex).age;
 +-------------+-------------------------+------------------------+
 | VertexID    | properties(VERTEX).name | properties(VERTEX).age |
 +-------------+-------------------------+------------------------+

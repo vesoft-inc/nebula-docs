@@ -4,7 +4,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
 
 !!! note
 
-    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-260.md).
+    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-latest.md).
 
 ## Upgrade steps with RPM/DEB packages
 
@@ -46,7 +46,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
 
 ## Upgrade steps by deploying Docker Compose
 
-1. Modify the file `docker-compose.yaml` in the directory `nebula-docker-compose`, and modify all versions after `image` to `{{nebula.release}}`.
+1. Modify the file `docker-compose.yaml` in the directory `nebula-docker-compose`, and modify all versions after `image` to `{{nebula.branch}}`.
 
 2. Execute the command `docker-compose pull` in the directory `nebula-docker-compose` to update the images of all services.
 

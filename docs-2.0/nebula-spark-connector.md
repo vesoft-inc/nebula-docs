@@ -40,6 +40,10 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 * Three write modes, `insert`, `update` and `delete`, are supported. `insert` mode will insert (overwrite) data, `update` mode will only update existing data, and `delete` mode will only delete data.
 
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-spark-connector/releases/tag/{{sparkconnector.tag}})
+
 ## Get Nebula Spark Connector
 
 ### Compile package
@@ -143,6 +147,10 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
   |`withPartitionNum`  |No|  Configures the number of Spark partitions to read the Nebula Graph data. The default value is `100`. This value should not exceed the number of slices in the graph space (partition_num).|
 
 ### Write data into Nebula Graph
+
+!!! note
+
+    The values of columns in a dataframe are automatically written to the Nebula Graph as property values.
 
 ```scala
 val config = NebulaConnectionConfig

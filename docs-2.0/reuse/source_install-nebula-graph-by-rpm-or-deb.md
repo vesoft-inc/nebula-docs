@@ -121,15 +121,27 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
 * Use the following syntax to install with an RPM package.
 
-    ```bash
-    sudo rpm -ivh --prefix=<installation_path> <package_name>
-    ```
+  ```bash
+  $ sudo rpm -ivh --prefix=<installation_path> <package_name>
+  ```
+
+  For example, to install an RPM package in the default path for the {{nebula.release}} version.
+
+  ```bash
+  sudo rpm -ivh nebula-graph-{{nebula.release}}.el7.x86_64.rpm
+  ``` 
 
 * Use the following syntax to install with a DEB package.
 
-    ```bash
-    sudo dpkg -i --instdir==<installation_path> <package_name>
-    ```
+  ```bash
+  $ sudo dpkg -i --instdir==<installation_path> <package_name>
+  ```
+
+  For example, to install a DEB package in the default path for the {{nebula.release}} version.
+
+  ```bash
+  sudo dpkg -i nebula-graph-{{nebula.release}}.ubuntu1804.amd64.deb
+  ```
 
   !!! note
 
@@ -137,5 +149,6 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
 ## What's next
 
+- (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license)
 - [start Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
 - [connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->

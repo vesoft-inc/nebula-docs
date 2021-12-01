@@ -122,17 +122,17 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 * Nebula Graph is running normally if the following information is returned.
 
 ```bash
-[INFO] nebula-metad: Running as 26601, Listening on 9559
-[INFO] nebula-graphd: Running as 26644, Listening on 9669
-[INFO] nebula-storaged: Running as 26709, Listening on 9779
+[INFO] nebula-metad(3ba41bd): Running as 26601, Listening on 9559
+[INFO] nebula-graphd(3ba41bd): Running as 26644, Listening on 9669
+[INFO] nebula-storaged(3ba41bd): Running as 26709, Listening on 9779
 ```
 
 * If the return information is similar to the following one, there is a problem.
 
 ```bash
-[INFO] nebula-metad: Running as 25600, Listening on 9559
-[INFO] nebula-graphd: Exited
-[INFO] nebula-storaged: Running as 25646, Listening on 9779
+[INFO] nebula-metad(de03025): Running as 25600, Listening on 9559
+[INFO] nebula-graphd(de03025): Exited
+[INFO] nebula-storaged(de03025): Running as 25646, Listening on 9779
 ```
 
 The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the return information to troubleshoot problems.
