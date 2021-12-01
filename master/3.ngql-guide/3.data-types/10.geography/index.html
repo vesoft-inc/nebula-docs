@@ -1536,7 +1536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3028,7 +3028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3042,7 +3042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3460,7 +3460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3606,7 +3606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5705,19 +5705,19 @@ When creating an index for the geography type data, you can specify the covering
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>For functions about the geography data type, see <a href="../../6.functions-and-expressions/14.geo/">Geography functions</a>.</p>
 <div class="highlight"><pre><span></span><code>//Create a Tag to allow storing any geography data type.
-nebula&gt; CREATE TAG any_shape(geo geography);
+nebula&gt; CREATE TAG IF NOT EXISTS any_shape(geo geography);
 
 //Create a Tag to allow storing a point only.
-nebula&gt; CREATE TAG only_point(geo geography(point));
+nebula&gt; CREATE TAG IF NOT EXISTS only_point(geo geography(point));
 
 //Create a Tag to allow storing a linestring only.
-nebula&gt; CREATE TAG only_linestring(geo geography(linestring));
+nebula&gt; CREATE TAG IF NOT EXISTS only_linestring(geo geography(linestring));
 
 //Create a Tag to allow storing a polygon only.
-nebula&gt; CREATE TAG only_polygon(geo geography(polygon));
+nebula&gt; CREATE TAG IF NOT EXISTS only_polygon(geo geography(polygon));
 
 //Create an Edge type to allow storing any geography data type.
-nebula&gt; CREATE EDGE any_shape_edge(geo geography);
+nebula&gt; CREATE EDGE IF NOT EXISTS any_shape_edge(geo geography);
 
 //Create a vertex to store the geography of a polygon.
 nebula&gt; INSERT VERTEX any_shape(geo) VALUES &quot;103&quot;:(ST_GeogFromText(&quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot;));
@@ -5742,7 +5742,7 @@ nebula&gt; FETCH PROP ON any_shape_edge &quot;201&quot;-&gt;&quot;302&quot; YIEL
 +---------------------+---------------------+----------------------+---------------------------------+
 
 //Create an index for the geography of the Tag any_shape and run LOOKUP.
-nebula&gt; CREATE TAG INDEX any_shape_geo_index ON any_shape(geo);
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS any_shape_geo_index ON any_shape(geo);
 nebula&gt; REBUILD TAG INDEX any_shape_geo_index;
 nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
 +----------+-------------------------------------------------+
@@ -5757,7 +5757,7 @@ nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

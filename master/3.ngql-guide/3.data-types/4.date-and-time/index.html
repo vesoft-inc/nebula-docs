@@ -1564,7 +1564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3056,7 +3056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3070,7 +3070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3488,7 +3488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3634,7 +3634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5768,7 +5768,7 @@
 <li>
 <p><code>timestamp()</code> function accepts empty parameters to get the timestamp of the current time zone and also accepts a string type parameter.</p>
 <div class="highlight"><pre><span></span><code># Return the current time.
-nebula&gt; return timestamp();
+nebula&gt; RETURN timestamp();
 +-------------+
 | timestamp() |
 +-------------+
@@ -5776,7 +5776,7 @@ nebula&gt; return timestamp();
 +-------------+
 
 # Return the specified time.
-nebula&gt; return timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
+nebula&gt; RETURN timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
 +-----------------------------------------+
 | timestamp(&quot;2021-07-05T06:18:43.984000&quot;) |
 +-----------------------------------------+
@@ -5792,7 +5792,7 @@ nebula&gt; return timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
 <ol>
 <li>
 <p>Create a tag named <code>date1</code> with three properties: <code>DATE</code>, <code>TIME</code>, and <code>DATETIME</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG date1(p1 date, p2 time, p3 datetime);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS date1(p1 date, p2 time, p3 datetime);
 </code></pre></div>
 </li>
 <li>
@@ -5802,7 +5802,7 @@ nebula&gt; return timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
 </li>
 <li>
 <p>Return the content of the property <code>p1</code> on <code>test1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX date1_index ON date1(p1);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS date1_index ON date1(p1);
 nebula&gt; REBUILD TAG INDEX date1_index;
 nebula&gt; MATCH (v:date1) RETURN v.p1;
 +------------+
@@ -5814,7 +5814,7 @@ nebula&gt; MATCH (v:date1) RETURN v.p1;
 </li>
 <li>
 <p>Create a tag named <code>school</code> with the property of <code>TIMESTAMP</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG school(name string , found_time timestamp);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS school(name string , found_time timestamp);
 </code></pre></div>
 </li>
 <li>
@@ -5846,7 +5846,7 @@ nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;
 
 nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 +------------+
-| x          |
+| (x+1)      |
 +------------+
 | 1984-10-12 |
 +------------+
@@ -5857,7 +5857,7 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

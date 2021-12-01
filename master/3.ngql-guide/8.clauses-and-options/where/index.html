@@ -1486,7 +1486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3137,7 +3137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3151,7 +3151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3569,7 +3569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3715,7 +3715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -6009,10 +6009,10 @@
 <h3 id="filter_on_edge_rank">Filter on edge rank<a class="headerlink" href="#filter_on_edge_rank" title="Permanent link">&para;</a></h3>
 <p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> clauses to filter such edges.</p>
 <div class="highlight"><pre><span></span><code># The following example creates test data.
-nebula&gt; CREATE SPACE test (vid_type=FIXED_STRING(30));
+nebula&gt; CREATE SPACE IF NOT EXISTS test (vid_type=FIXED_STRING(30));
 nebula&gt; USE test;
-nebula&gt; CREATE EDGE e1(p1 int);
-nebula&gt; CREATE TAG person(p1 int);
+nebula&gt; CREATE EDGE IF NOT EXISTS e1(p1 int);
+nebula&gt; CREATE TAG IF NOT EXISTS person(p1 int);
 nebula&gt; INSERT VERTEX person(p1) VALUES &quot;1&quot;:(1);
 nebula&gt; INSERT VERTEX person(p1) VALUES &quot;2&quot;:(2);
 nebula&gt; INSERT EDGE e1(p1) VALUES &quot;1&quot;-&gt;&quot;2&quot;@0:(10);
@@ -6137,7 +6137,9 @@ Empty set (time spent 5080/6474 us)
 | &quot;Joel Embiid&quot;           | 25    |
 +-------------------------+-------+
 
-nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD properties(vertex).name, properties(vertex).age;
+nebula&gt; LOOKUP ON player \
+        WHERE player.age IN [25,28]  \
+        YIELD properties(vertex).name, properties(vertex).age;
 +-------------+-------------------------+------------------------+
 | VertexID    | properties(VERTEX).name | properties(VERTEX).age |
 +-------------+-------------------------+------------------------+
@@ -6171,7 +6173,7 @@ nebula&gt; LOOKUP ON player WHERE player.age IN [25,28]  YIELD properties(vertex
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

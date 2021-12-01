@@ -1434,14 +1434,14 @@
       
         <li class="md-nav__item">
   <a href="#retrieve_vertices" class="md-nav__link">
-    Retrieve Vertices
+    Retrieve vertices
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#retrieve_edges" class="md-nav__link">
-    Retrieve Edges
+    Retrieve edges
   </a>
   
 </li>
@@ -1585,7 +1585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3077,7 +3077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3091,7 +3091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3509,7 +3509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3655,7 +3655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5718,14 +5718,14 @@
       
         <li class="md-nav__item">
   <a href="#retrieve_vertices" class="md-nav__link">
-    Retrieve Vertices
+    Retrieve vertices
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#retrieve_edges" class="md-nav__link">
-    Retrieve Edges
+    Retrieve edges
   </a>
   
 </li>
@@ -5828,9 +5828,9 @@
 </ul>
 <!--  - String operations other than `STARTS WITH` are not supported.-->
 
-<h2 id="retrieve_vertices">Retrieve Vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">&para;</a></h2>
+<h2 id="retrieve_vertices">Retrieve vertices<a class="headerlink" href="#retrieve_vertices" title="Permanent link">&para;</a></h2>
 <p>The following example returns vertices whose <code>name</code> is <code>Tony Parker</code> and the tag is <code>player</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX index_player ON player(name(30), age);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS index_player ON player(name(30), age);
 
 nebula&gt; REBUILD TAG INDEX index_player;
 +------------+
@@ -5861,8 +5861,8 @@ nebula&gt; LOOKUP ON player \
 +-------------+
 | VertexID    |
 +-------------+
-| &quot;player144&quot; |
 | &quot;player140&quot; |
+| &quot;player144&quot; |
 +-------------+
 
 nebula&gt; LOOKUP ON player \
@@ -5872,24 +5872,24 @@ nebula&gt; LOOKUP ON player \
 +-------------+-------------------------+------------------------+
 | VertexID    | properties(VERTEX).name | properties(VERTEX).age |
 +-------------+-------------------------+------------------------+
-| &quot;player149&quot; | &quot;Ben Simmons&quot;           | 22                     |
 | &quot;player134&quot; | &quot;Blake Griffin&quot;         | 30                     |
+| &quot;player149&quot; | &quot;Ben Simmons&quot;           | 22                     |
 +-------------+-------------------------+------------------------+
 
 nebula&gt; LOOKUP ON player \
-        WHERE player.name == &quot;Kobe Bryant&quot; \
+        WHERE player.name == &quot;Kobe Bryant&quot;\
         YIELD properties(vertex).name AS name |\
         GO FROM $-.VertexID OVER serve \
         YIELD $-.name, properties(edge).start_year, properties(edge).end_year, properties($$).name;
-+---------------+------------------+----------------+--------------+
-| $-.name       | serve.start_year | serve.end_year | $$.team.name |
-+---------------+------------------+----------------+--------------+
-| &quot;Kobe Bryant&quot; | 1996             | 2016           | &quot;Lakers&quot;     |
-+---------------+------------------+----------------+--------------+
++---------------+-----------------------------+---------------------------+---------------------+
+| $-.name       | properties(EDGE).start_year | properties(EDGE).end_year | properties($$).name |
++---------------+-----------------------------+---------------------------+---------------------+
+| &quot;Kobe Bryant&quot; | 1996                        | 2016                      | &quot;Lakers&quot;            |
++---------------+-----------------------------+---------------------------+---------------------+
 </code></pre></div>
-<h2 id="retrieve_edges">Retrieve Edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">&para;</a></h2>
+<h2 id="retrieve_edges">Retrieve edges<a class="headerlink" href="#retrieve_edges" title="Permanent link">&para;</a></h2>
 <p>The following example returns edges whose <code>degree</code> is <code>90</code> and the edge type is <code>follow</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX index_follow ON follow(degree);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX IF NOT EXISTS index_follow ON follow(degree);
 
 nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
@@ -5903,10 +5903,9 @@ nebula&gt; LOOKUP ON follow \
 +-------------+-------------+---------+
 | SrcVID      | DstVID      | Ranking |
 +-------------+-------------+---------+
-| &quot;player101&quot; | &quot;player102&quot; | 0       |
-| &quot;player133&quot; | &quot;player114&quot; | 0       |
-| &quot;player133&quot; | &quot;player144&quot; | 0       |
-+-------------+-------------+---------+
+| &quot;player150&quot; | &quot;player143&quot; | 0       |
+| &quot;player150&quot; | &quot;player137&quot; | 0       |
+| &quot;player148&quot; | &quot;player136&quot; | 0       |
 ...
 
 nebula&gt; LOOKUP ON follow \
@@ -5915,10 +5914,9 @@ nebula&gt; LOOKUP ON follow \
 +-------------+-------------+---------+-------------------------+
 | SrcVID      | DstVID      | Ranking | properties(EDGE).degree |
 +-------------+-------------+---------+-------------------------+
-| &quot;player121&quot; | &quot;player116&quot; | 0       | 90                      |
-| &quot;player121&quot; | &quot;player128&quot; | 0       | 90                      |
-| &quot;player121&quot; | &quot;player129&quot; | 0       | 90                      |
-+-------------+-------------+---------+-------------------------+
+| &quot;player150&quot; | &quot;player143&quot; | 0       | 90                      |
+| &quot;player150&quot; | &quot;player137&quot; | 0       | 90                      |
+| &quot;player148&quot; | &quot;player136&quot; | 0       | 90                      |
 ...
 
 nebula&gt; LOOKUP ON follow \
@@ -5938,9 +5936,9 @@ nebula&gt; LOOKUP ON follow \
 <p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag, the edge type, or its property.</p>
 <p>For example, if there is a <code>player</code> tag with a <code>name</code> property and an <code>age</code> property, to retrieve the VID of all vertices tagged with <code>player</code>, there has to be an index on the <code>player</code> tag itself, the <code>name</code> property, or the <code>age</code> property.</p>
 <ul>
-<li>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG player(name string,age int);
+<li>The following example shows how to retrieve the VID of all vertices tagged with <code>player</code>.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS player(name string,age int);
 
-nebula&gt; CREATE TAG INDEX player_index on player();
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index on player();
 
 nebula&gt; REBUILD TAG INDEX player_index;
 +------------+
@@ -5965,52 +5963,52 @@ nebula&gt; LOOKUP ON player;
 </li>
 </ul>
 <ul>
-<li>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>like</code> edge type.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE like(likeness int);
+<li>The following example shows how to retrieve the source Vertex IDs, destination vertex IDs, and ranks of all edges of the <code>follow</code> edge type.<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE IF NOT EXISTS follow(degree int);
 
-nebula&gt; CREATE EDGE INDEX like_index on like();
+nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 
-nebula&gt; REBUILD EDGE INDEX like_index;
+nebula&gt; REBUILD EDGE INDEX follow_index;
 +------------+
 | New Job Id |
 +------------+
 | 88         |
 +------------+
 
-nebula&gt; INSERT EDGE like(likeness) \
+nebula&gt; INSERT EDGE follow(degree) \
         VALUES &quot;player100&quot;-&gt;&quot;player101&quot;:(95);
 
-The following statement retrieves all edges with the edge type `like`. It is similar to `MATCH (s)-[e:like]-&gt;(d) RETURN id(s), rank(e), id(d) /*, type(e) */`.
+The following statement retrieves all edges with the edge type `follow`. It is similar to `MATCH (s)-[e:follow]-&gt;(d) RETURN id(s), rank(e), id(d) /*, type(e) */`.
 
-nebula)&gt; LOOKUP ON like;
-+-------------+----------+-------------+
-| VertexID    | DstVID   | _dst        |
-+-------------+----------+-------------+
-| &quot;player100&quot; | 0        | &quot;player101&quot; |
-+-------------+----------+-------------+
+nebula)&gt; LOOKUP ON follow;
++-------------+-------------+---------+
+| SrcVID      | DstVID      | Ranking |
++-------------+-------------+---------+
+| &quot;player100&quot; | &quot;player101&quot; | 0       |
++-------------+-------------+---------+
 </code></pre></div>
 </li>
 </ul>
 <h2 id="count_the_numbers_of_vertices_or_edges">Count the numbers of vertices or edges<a class="headerlink" href="#count_the_numbers_of_vertices_or_edges" title="Permanent link">&para;</a></h2>
-<p>The following example shows how to count the number of vertices tagged with <code>player</code> and edges of the <code>like</code> edge type.</p>
+<p>The following example shows how to count the number of vertices tagged with <code>player</code> and edges of the <code>follow</code> edge type.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player |\
         YIELD COUNT(*) AS Player_Number;
 +---------------+
 | Player_Number |
 +---------------+
-| 2             |
+| 51            |
 +---------------+
 
-nebula&gt; LOOKUP ON like | \
-        YIELD COUNT(*) AS Like_Number;
-+-------------+
-| Like_Number |
-+-------------+
-| 1           |
-+-------------+
+nebula&gt; LOOKUP ON follow | \
+        YIELD COUNT(*) AS Follow_Number;
++---------------+
+| Follow_Number |
++---------------+
+| 81            |
++---------------+
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can also use <a href="../6.show/14.show-stats/"><code>show-stats</code></a> to count the numbers of vertices or edges.</p>
+<p>You can also use <a href="../6.show/14.show-stats/"><code>SHOW STATS</code></a> to count the numbers of vertices or edges.</p>
 </div>
 
   <hr>
@@ -6018,7 +6016,7 @@ nebula&gt; LOOKUP ON like | \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

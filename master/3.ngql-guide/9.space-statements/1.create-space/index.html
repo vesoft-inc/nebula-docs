@@ -1486,7 +1486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3069,7 +3069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3083,7 +3083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3501,7 +3501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3647,7 +3647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5756,6 +5756,7 @@
     [replica_factor = &lt;replica_number&gt;,]
     vid_type = {FIXED_STRING(&lt;N&gt;) | INT[64]}
     )
+    [ON &lt;group_name&gt;]
     [COMMENT = &#39;&lt;comment&gt;&#39;];
 </code></pre></div>
 <table>
@@ -5785,6 +5786,10 @@
 <tr>
 <td align="left"><code>vid_type</code></td>
 <td align="left">A required parameter. Specifies the VID type in a graph space. Available values are <code>FIXED_STRING(N)</code> and <code>INT64</code>. <code>INT</code> equals to <code>INT64</code>. <code>FIXED_STRING(&lt;N&gt;)</code> specifies the VID as a string, while <code>INT64</code> specifies it as an integer. <code>N</code> represents the maximum length of the VIDs. If you set a VID that is longer than <code>N</code> characters, Nebula Graph throws an error.</td>
+</tr>
+<tr>
+<td align="left"><code>ON &lt;group_name&gt;</code></td>
+<td align="left">Specifies the Group to which a space belongs. For more information, see <a href="../../../7.data-security/5.zone/">Group&amp;Zone</a>.</td>
 </tr>
 <tr>
 <td align="left"><code>COMMENT</code></td>
@@ -5839,16 +5844,16 @@
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code># The following example creates a graph space with a specified VID type and the maximum length. Other fields still use the default values.
-nebula&gt; CREATE SPACE my_space_1 (vid_type=FIXED_STRING(30));
+nebula&gt; CREATE SPACE IF NOT EXISTS my_space_1 (vid_type=FIXED_STRING(30));
 
 # The following example creates a graph space with a specified partition number, replica number, and VID type.
-nebula&gt; CREATE SPACE my_space_2 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30));
+nebula&gt; CREATE SPACE IF NOT EXISTS my_space_2 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30));
 
 #  The following example creates a graph space with a specified partition number, replica number, and VID type, and adds a comment on it.
-nebula&gt; CREATE SPACE my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment=&quot;Test the graph space&quot;;
+nebula&gt; CREATE SPACE IF NOT EXISTS my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment=&quot;Test the graph space&quot;;
 
 # Clone a graph space.
-nebula&gt; CREATE SPACE my_space_4 as my_space_3;
+nebula&gt; CREATE SPACE IF NOT EXISTS my_space_4 as my_space_3;
 nebula&gt; SHOW CREATE SPACE my_space_4;
 +--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Space        | Create Space                                                                                                                                                            |
@@ -5883,6 +5888,7 @@ nebula&gt; SHOW CREATE SPACE my_space_4;
 </code></pre></div>
 <p>To balance the request loads, use the following command.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+--------------------------------+--------------------------------+
 | Host        | Port | Status   | Leader count | Leader distribution            | Partition distribution         |
 +-------------+------+----------+--------------+--------------------------------+--------------------------------+
@@ -5898,7 +5904,7 @@ nebula&gt; SHOW CREATE SPACE my_space_4;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

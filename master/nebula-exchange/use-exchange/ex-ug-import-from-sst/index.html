@@ -1484,7 +1484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../3.ngql-guide/7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../../3.ngql-guide/7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -2976,7 +2976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -2990,7 +2990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3408,7 +3408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3554,7 +3554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5977,6 +5977,9 @@ if (!s.ok()) {
 <ul>
 <li>To generate SST files only, users do not need to install the Hadoop service on the machine where the Storage service is deployed.</li>
 </ul>
+<ul>
+<li>To delete the SST file after the ingest (data import) operation, add the configuration <code>-- move_Files =true</code> to the Storage Service configuration file.</li>
+</ul>
 </div>
 </li>
 </ul>
@@ -6336,14 +6339,18 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="step_4_generate_the_sst_file">Step 4: Generate the SST file<a class="headerlink" href="#step_4_generate_the_sst_file" title="Permanent link">&para;</a></h3>
 <p>Run the following command to generate the SST file from the CSV source file. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">&quot;local&quot;</span> --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-2.5.1.jar_path&gt; -c &lt;sst_application.conf_path&gt; 
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">&quot;local&quot;</span> --conf spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt; --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-2.5.1.jar_path&gt; -c &lt;sst_application.conf_path&gt; 
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When generating SST files, the shuffle operation of Spark will be involved. Note that the configuration of <code>spark.sql.shuffle.partition</code> should be added when you submit the command.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit  --master <span class="s2">&quot;local&quot;</span> --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-2.5.1.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit  --master <span class="s2">&quot;local&quot;</span> --conf spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span> --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-2.5.1.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
 </code></pre></div>
 <p>After the task is complete, you can view the generated SST file in the <code>/sst</code> directory (specified by the <code>nebula.path.remote</code> parameter) on HDFS.</p>
 <div class="admonition note">
@@ -6407,7 +6414,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

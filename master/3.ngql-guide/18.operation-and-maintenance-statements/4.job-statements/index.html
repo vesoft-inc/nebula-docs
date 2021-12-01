@@ -1486,7 +1486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3181,7 +3181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3195,7 +3195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3613,7 +3613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3759,7 +3759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -6007,22 +6007,20 @@
 +------------+
 | New Job Id |
 +------------+
-| 97         |
+| 34         |
 +------------+
 </code></pre></div>
 <h2 id="show_job">SHOW JOB<a class="headerlink" href="#show_job" title="Permanent link">&para;</a></h2>
 <p>The Meta Service parses a <code>SUBMIT JOB</code> request into multiple tasks and assigns them to the nebula-storaged processes. The <code>SHOW JOB &lt;job_id&gt;</code> statement shows the information about a specific job and all its tasks in the current graph space.</p>
 <p><code>job_id</code> is returned when you run the <code>SUBMIT JOB</code> statement.</p>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 96;
-+----------------+---------------+------------+-------------------------+-------------------------+
-| Job Id(TaskId) | Command(Dest) | Status     | Start Time              | Stop Time               |
-+----------------+---------------+------------+-------------------------+-------------------------+
-| 96             | &quot;FLUSH&quot;       | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
-| 0              | &quot;storaged2&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
-| 1              | &quot;storaged0&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
-| 2              | &quot;storaged1&quot;   | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
-+----------------+---------------+------------+-------------------------+-------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 34;
++----------------+-----------------+------------+----------------------------+----------------------------+
+| Job Id(TaskId) | Command(Dest)   | Status     | Start Time                 | Stop Time                  |
++----------------+-----------------+------------+----------------------------+----------------------------+
+| 34             | &quot;STATS&quot;         | &quot;FINISHED&quot; | 2021-11-01T03:32:27.000000 | 2021-11-01T03:32:27.000000 |
+| 0              | &quot;192.168.8.111&quot; | &quot;FINISHED&quot; | 2021-11-01T03:32:27.000000 | 2021-11-01T03:32:41.000000 |
++----------------+-----------------+------------+----------------------------+----------------------------+
 </code></pre></div>
 <p>The descriptions are as follows.</p>
 <p>| Parameter        | Description                                                                                                       |
@@ -6054,14 +6052,15 @@
 <p>The default job expiration interval is one week. You can change it by modifying the <code>job_expired_secs</code> parameter of the Meta Service. For how to modify <code>job_expired_secs</code>, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta Service configuration</a>.</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOBS;
-+--------+----------------------+------------+-------------------------+-------------------------+
-| Job Id | Command              | Status     | Start Time              | Stop Time               |
-+--------+----------------------+------------+-------------------------+-------------------------+
-| 97     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 2020-11-28T14:48:52.000 | 2020-11-28T14:48:52.000 |
-| 96     | &quot;FLUSH&quot;              | &quot;FINISHED&quot; | 2020-11-28T14:14:29.000 | 2020-11-28T14:14:29.000 |
-| 95     | &quot;STATS&quot;              | &quot;FINISHED&quot; | 2020-11-28T13:02:11.000 | 2020-11-28T13:02:11.000 |
-| 86     | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2020-11-26T13:38:24.000 | 2020-11-26T13:38:24.000 |
-+--------+----------------------+------------+-------------------------+-------------------------+
++--------+---------------------+------------+----------------------------+----------------------------+
+| Job Id | Command             | Status     | Start Time                 | Stop Time                  |
++--------+---------------------+------------+----------------------------+----------------------------+
+| 34     | &quot;STATS&quot;             | &quot;FINISHED&quot; | 2021-11-01T03:32:27.000000 | 2021-11-01T03:32:27.000000 |
+| 33     | &quot;FLUSH&quot;             | &quot;FINISHED&quot; | 2021-11-01T03:32:15.000000 | 2021-11-01T03:32:15.000000 |
+| 32     | &quot;COMPACT&quot;           | &quot;FINISHED&quot; | 2021-11-01T03:32:06.000000 | 2021-11-01T03:32:06.000000 |
+| 31     | &quot;REBUILD_TAG_INDEX&quot; | &quot;FINISHED&quot; | 2021-10-29T05:39:16.000000 | 2021-10-29T05:39:17.000000 |
+| 10     | &quot;COMPACT&quot;           | &quot;FINISHED&quot; | 2021-10-26T02:27:05.000000 | 2021-10-26T02:27:05.000000 |
++--------+---------------------+------------+----------------------------+----------------------------+
 </code></pre></div>
 <h2 id="stop_job">STOP JOB<a class="headerlink" href="#stop_job" title="Permanent link">&para;</a></h2>
 <p>The <code>STOP JOB</code> statement stops jobs that are not finished in the current graph space.</p>
@@ -6094,7 +6093,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

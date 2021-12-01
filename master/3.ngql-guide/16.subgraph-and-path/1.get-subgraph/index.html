@@ -1486,7 +1486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3055,7 +3055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3069,7 +3069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3487,7 +3487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3633,7 +3633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5745,45 +5745,61 @@
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following graph is used as the sample.</p>
-<p><img alt="A sample graph for GET SUBGRAPH" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/dataset-for-crud.png" /></p>
+<p><img alt="A sample graph for GET SUBGRAPH" src="../../2.quick-start/dataset-for-crud.png" /></p>
+<p>Insert the test data:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE SPACE IF NOT EXISTS subgraph(partition_num=15, replica_factor=1, vid_type=fixed_string(30));
+nebula&gt; USE subgraph;
+nebula&gt; CREATE TAG IF NOT EXISTS player(name string, age int);
+nebula&gt; CREATE TAG IF NOT EXISTS team(name string);
+nebula&gt; CREATE EDGE IF NOT EXISTS follow(degree int);
+nebula&gt; CREATE EDGE IF NOT EXISTS serve(start_year int, end_year int);
+nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
+nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player101&quot;:(&quot;Tony Parker&quot;, 36);
+nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);
+nebula&gt; INSERT VERTEX team(name) VALUES &quot;team203&quot;:(&quot;Trail Blazers&quot;), &quot;team204&quot;:(&quot;Spurs&quot;);
+nebula&gt; INSERT EDGE follow(degree) VALUES &quot;player101&quot; -&gt; &quot;player100&quot;:(95);
+nebula&gt; INSERT EDGE follow(degree) VALUES &quot;player101&quot; -&gt; &quot;player102&quot;:(90);
+nebula&gt; INSERT EDGE follow(degree) VALUES &quot;player102&quot; -&gt; &quot;player100&quot;:(75);
+nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES &quot;player101&quot; -&gt; &quot;team204&quot;:(1999, 2018),&quot;player102&quot; -&gt; &quot;team203&quot;:(2006,  2015);
+</code></pre></div>
 <ul>
-<li>This example goes one step from the vertex <code>player100</code> over all edge types and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM &quot;player100&quot; YIELD VERTICES AS nodes, EDGES AS relationships;
+<li>This example goes one step from the vertex <code>player101</code> over all edge types and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM &quot;player101&quot; YIELD VERTICES AS nodes, EDGES AS relationships;
 +-------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 | nodes                                                                   | relationships                                                                                                               |
 +-------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| [(&quot;player100&quot; :player{})]                                               | [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {}], [:follow &quot;player100&quot;-&gt;&quot;player102&quot; @0 {}], [:serve &quot;player100&quot;-&gt;&quot;team200&quot; @0 {}]] |
-| [(&quot;player101&quot; :player{}), (&quot;player102&quot; :player{}), (&quot;team200&quot; :team{})] | [[:follow &quot;player102&quot;-&gt;&quot;player101&quot; @0 {}]]                                                                                  |
+| [(&quot;player101&quot; :player{})]                                               | [[:serve &quot;player101&quot;-&gt;&quot;team204&quot; @0 {}], [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {}], [:follow &quot;player101&quot;-&gt;&quot;player102&quot; @0 {}]] |
+| [(&quot;team204&quot; :team{}), (&quot;player100&quot; :player{}), (&quot;player102&quot; :player{})] | [[:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {}]]                                                                                  |
 +-------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
 <p>The returned subgraph is as follows.</p>
-<p><img alt="GET SUBGRAPH FROM &quot;player100&quot;" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/15.subgraph-and-path/subgraph-1.png" /></p>
+<p><img alt="GET SUBGRAPH FROM &quot;player101&quot;" src="subgraph-1.png" /></p>
 </li>
 </ul>
 <ul>
-<li>This example goes one step from the vertex <code>player100</code> over incoming <code>follow</code> edges and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM &quot;player100&quot; IN follow YIELD VERTICES AS nodes, EDGES AS relationships;
+<li>This example goes one step from the vertex <code>player101</code> over incoming <code>follow</code> edges and gets the subgraph.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 1 STEPS FROM &quot;player101&quot; IN follow YIELD VERTICES AS nodes, EDGES AS relationships;
 +---------------------------+---------------+
 | nodes                     | relationships |
 +---------------------------+---------------+
-| [(&quot;player100&quot; :player{})] | []            |
+| [(&quot;player101&quot; :player{})] | []            |
 | []                        | []            |
 +---------------------------+---------------+
 </code></pre></div>
-<p>There is no incoming <code>follow</code> edge to <code>player100</code>, so no vertex or edge is returned.</p>
+<p>There is no incoming <code>follow</code> edge to <code>player101</code>, so only the vertex <code>player101</code> is returned.</p>
 </li>
 </ul>
 <ul>
-<li>This example goes one step from the vertex <code>player100</code> over outgoing <code>serve</code> edges, gets the subgraph, and shows the property of the edge.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH WITH PROP 1 STEPS FROM &quot;player100&quot; OUT serve YIELD VERTICES AS nodes, EDGES AS relationships;
-+------------------------------------------------------+-------------------------------------------------------------------------+
-| nodes                                                | relationships                                                           |
-+------------------------------------------------------+-------------------------------------------------------------------------+
-| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})] | [[:serve &quot;player100&quot;-&gt;&quot;team200&quot; @0 {end_year: 2016, start_year: 1997}]] |
-| [(&quot;team200&quot; :team{name: &quot;Warriors&quot;})]                | []                                                                      |
-+------------------------------------------------------+-------------------------------------------------------------------------+
+<li>This example goes one step from the vertex <code>player101</code> over outgoing <code>serve</code> edges, gets the subgraph, and shows the property of the edge.<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH WITH PROP 1 STEPS FROM &quot;player101&quot; OUT serve YIELD VERTICES AS nodes, EDGES AS relationships;
++-------------------------------------------------------+-------------------------------------------------------------------------+
+| nodes                                                 | relationships                                                           |
++-------------------------------------------------------+-------------------------------------------------------------------------+
+| [(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})] | [[:serve &quot;player101&quot;-&gt;&quot;team204&quot; @0 {end_year: 2018, start_year: 1999}]] |
+| [(&quot;team204&quot; :team{name: &quot;Spurs&quot;})]                    | []                                                                      |
++-------------------------------------------------------+-------------------------------------------------------------------------+
 </code></pre></div>
 <p>The returned subgraph is as follows.</p>
+<p><img alt="GET SUBGRAPH FROM &quot;101&quot; OUT serve" src="subgraph-2.png" /></p>
 </li>
 </ul>
-<p><img alt="GET SUBGRAPH FROM &quot;100&quot; OUT serve" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/15.subgraph-and-path/subgraph-2.png" /></p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count">Why is the number of hops in the returned result greater than <code>step_count</code>?<a class="headerlink" href="#why_is_the_number_of_hops_in_the_returned_result_greater_than_step_count" title="Permanent link">&para;</a></h3>
 <p>To show the completeness of the subgraph, an additional hop is made on all vertices that meet the conditions. The following graph is used as the sample.</p>
@@ -5801,13 +5817,13 @@ nebula&gt; go 1 steps from &quot;A&quot; over follow;
 </code></pre></div>
 <h3 id="why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count">Why is the number of hops in the returned result lower than <code>step_count</code>?<a class="headerlink" href="#why_is_the_number_of_hops_in_the_returned_result_lower_than_step_count" title="Permanent link">&para;</a></h3>
 <p>The query stops when there is not enough subgraph data and will not return the null value.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 100 STEPS FROM &quot;player141&quot; OUT follow YIELD VERTICES AS nodes, EDGES AS relationships;
-+---------------------------+--------------------------------------------+
-| nodes                     | relationships                              |
-+---------------------------+--------------------------------------------+
-| [(&quot;player141&quot; :player{})] | [[:follow &quot;player141&quot;-&gt;&quot;player124&quot; @0 {}]] |
-| [(&quot;player124&quot; :player{})] | [[:follow &quot;player124&quot;-&gt;&quot;player141&quot; @0 {}]] |
-+---------------------------+--------------------------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; GET SUBGRAPH 100 STEPS FROM &quot;player101&quot; OUT follow YIELD VERTICES AS nodes, EDGES AS relationships;
++----------------------------------------------------+--------------------------------------------------------------------------------------+
+| nodes                                              | relationships                                                                        |
++----------------------------------------------------+--------------------------------------------------------------------------------------+
+| [(&quot;player101&quot; :player{})]                          | [[:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {}], [:follow &quot;player101&quot;-&gt;&quot;player102&quot; @0 {}]] |
+| [(&quot;player100&quot; :player{}), (&quot;player102&quot; :player{})] | [[:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {}]]                                           |
++----------------------------------------------------+--------------------------------------------------------------------------------------+
 </code></pre></div>
 
   <hr>
@@ -5815,7 +5831,7 @@ nebula&gt; go 1 steps from &quot;A&quot; over follow;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

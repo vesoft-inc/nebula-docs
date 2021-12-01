@@ -1484,7 +1484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.ngql-guide/7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../3.ngql-guide/7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -2976,7 +2976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -2990,7 +2990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3493,7 +3493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../5.zone.md" class="md-nav__link">
+      <a href="../5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3639,7 +3639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5797,7 +5797,7 @@ nebula&gt; SHOW SNAPSHOTS;
 <p>Currently, there is no command to restore data with snapshots. You need to manually copy the snapshot file to the corresponding folder, or you can make it by using a shell script. The logic implements as follows:</p>
 <ol>
 <li>
-<p>After the snapshot is created, the <code>checkpoints</code> directory is generated in the installation directory of the Meta server and Storage server, and saves the created snapshot. Taking this topic as an example, when there are two graph spaces, the snapshots created are saved in <code>/usr/local/nebula/data/meta/nebula/0/checkpoints</code>, <code>/usr/local/nebula/data/storage/ nebula/3/checkpoints</code> and <code>/usr/local/nebula/data/storage/nebula/4/checkpoints</code>.</p>
+<p>After the snapshot is created, the <code>checkpoints</code> directory is generated in the installation directory of the leader Meta server and all Storage servers, and saves the created snapshot. Taking this topic as an example, when there are two graph spaces, the snapshots created are saved in <code>/usr/local/nebula/data/meta/nebula/0/checkpoints</code>, <code>/usr/local/nebula/data/storage/ nebula/3/checkpoints</code> and <code>/usr/local/nebula/data/storage/nebula/4/checkpoints</code>.</p>
 <div class="highlight"><pre><span></span><code>$ ls /usr/local/nebula/data/meta/nebula/0/checkpoints/
 SNAPSHOT_2021_03_09_09_10_52
 $ ls /usr/local/nebula/data/storage/nebula/3/checkpoints/
@@ -5807,7 +5807,11 @@ SNAPSHOT_2021_03_09_09_10_52
 </code></pre></div>
 </li>
 <li>
-<p>To restore the lost data through snapshots, users can take a snapshot at an appropriate time, copy the internal folders <code>data</code> and <code>wal</code> to their respective parent directories (at the same level with <code>checkpoints</code>), overwrite the previous <code>data</code> and <code>wal</code>, and then restart the cluster.</p>
+<p>To restore the lost data through snapshots, you can take a snapshot at an appropriate time, copy the folders <code>data</code> and <code>wal</code> in the corresponding snapshot directory to its parent directory (at the same level with <code>checkpoints</code>) to overwrite the previous <code>data</code> and <code>wal</code>, and then restart the cluster.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The data and wal directories of all Meta servers should be overwritten at the same time. Otherwise, the new leader Meta server will use the latest Meta data after a cluster is restarted. </p>
+</div>
 </li>
 </ol>
 <!-- TODO
@@ -5822,7 +5826,7 @@ Besides snapshots, users can also use Backup&Restore (BR) to backup or restore N
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>
@@ -5861,13 +5865,13 @@ Besides snapshots, users can also use Backup&Restore (BR) to backup or restore N
       
       
         
-        <a href="../4.ssl/" class="md-footer__link md-footer__link--next" aria-label="Next: SSL" rel="next">
+        <a href="../5.zone/" class="md-footer__link md-footer__link--next" aria-label="Next: Group&amp;Zone" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              SSL
+              Group&Zone
             </div>
           </div>
           <div class="md-footer__button md-icon">

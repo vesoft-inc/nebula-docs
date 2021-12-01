@@ -1609,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3101,7 +3101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3115,7 +3115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3533,7 +3533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3679,7 +3679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5832,10 +5832,11 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
         UNION \
         GO FROM &quot;player100&quot; OVER follow;
 +-------------+
-| dst(edge)   |
+| follow._dst |
 +-------------+
+| &quot;player100&quot; |
 | &quot;player101&quot; |
-| &quot;player102&quot; |
+| &quot;player125&quot; |
 +-------------+
 
 # The following statement returns the union of two query results with duplicated elements.
@@ -5843,11 +5844,11 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
         UNION ALL \
         GO FROM &quot;player100&quot; OVER follow;
 +-------------+
-| dst(edge)   |
+| follow._dst |
 +-------------+
+| &quot;player100&quot; |
 | &quot;player101&quot; |
-| &quot;player101&quot; |
-| &quot;player102&quot; |
+| &quot;player125&quot; |
 +-------------+
 
 # UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
@@ -5880,7 +5881,10 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
         INTERSECT \
         GO FROM &quot;player100&quot; OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
-Empty set (time spent 2990/3511 us)
++----+--------+-----+
+| id | Degree | Age |
++----+--------+-----+
++----+--------+-----+
 </code></pre></div>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
@@ -5893,13 +5897,17 @@ Empty set (time spent 2990/3511 us)
 +-------------+
 | dst(edge)   |
 +-------------+
-| &quot;player102&quot; |
+| &quot;player125&quot; |
 +-------------+
 
 nebula&gt; GO FROM &quot;player102&quot; OVER follow \
         MINUS \
         GO FROM &quot;player100&quot; OVER follow;
-Empty set (time spent 2243/3259 us)
++-------------+
+| follow._dst |
++-------------+
+| &quot;player100&quot; |
++-------------+
 </code></pre></div>
 <h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">&para;</a></h2>
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
@@ -5937,7 +5945,7 @@ Empty set (time spent 2243/3259 us)
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

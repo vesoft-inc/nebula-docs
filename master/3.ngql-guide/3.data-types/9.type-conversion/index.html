@@ -1543,7 +1543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3035,7 +3035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3049,7 +3049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3467,7 +3467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3613,7 +3613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5714,7 +5714,8 @@
 </tbody>
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b RETURN toBoolean(b) AS b;
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b \
+        RETURN toBoolean(b) AS b;
 +----------+
 | b        |
 +----------+
@@ -5739,7 +5740,8 @@ nebula&gt; RETURN toInteger(1), toInteger(&#39;1&#39;), toInteger(&#39;1e3&#39;)
 | 1            | 1              | 1000             | __NULL__                  |
 +--------------+----------------+------------------+---------------------------+
 
-nebula&gt; MATCH (a:player)-[e]-() RETURN type(e);
+nebula&gt; MATCH (a:player)-[e]-() \
+        RETURN type(e);
 +----------+
 | type(e)  |
 +----------+
@@ -5747,14 +5749,18 @@ nebula&gt; MATCH (a:player)-[e]-() RETURN type(e);
 | &quot;follow&quot; |
 +----------+
 
-nebula&gt; MATCH (a:player {name: &quot;Tim Duncan&quot;}) WHERE toInteger(id(a)) == 100 RETURN a;
-+----------------------------------------------+
-| a                                            |
-+----------------------------------------------+
-| (&quot;100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
-+----------------------------------------------+
+nebula&gt; MATCH (a:player {name: &quot;Tim Duncan&quot;}) \
+        WHERE toInteger(right(id(a),3)) == 100 \
+        RETURN a;
++----------------------------------------------------+
+| a                                                  |
++----------------------------------------------------+
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
++----------------------------------------------------+
 
-nebula&gt; MATCH (n:player) WITH n LIMIT toInteger(ceil(1.8)) RETURN count(*) AS count;
+nebula&gt; MATCH (n:player) \
+        WITH n LIMIT toInteger(ceil(1.8)) \
+        RETURN count(*) AS count;
 +-------+
 | count |
 +-------+
@@ -5767,7 +5773,7 @@ nebula&gt; MATCH (n:player) WITH n LIMIT toInteger(ceil(1.8)) RETURN count(*) AS
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

@@ -1486,7 +1486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../../7.general-query-statements/6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3035,7 +3035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3049,7 +3049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3467,7 +3467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3613,7 +3613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -5727,10 +5727,10 @@ prop_value_list:
 <p>Examples are as follows.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code># The following examples create tag t1 with no property and inserts vertex &quot;10&quot; with no property.
-nebula&gt; CREATE TAG t1();                   
+nebula&gt; CREATE TAG IF NOT EXISTS t1();                   
 nebula&gt; INSERT VERTEX t1() VALUE &quot;10&quot;:(); 
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t2 (name string, age int);                
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t2 (name string, age int);                
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n1&quot;, 12);
 
 #  In the following example, the insertion fails because &quot;a13&quot; is not int.
@@ -5739,8 +5739,8 @@ nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;12&quot;:(&quot;n1&quot;, &
 # The following example inserts two vertices at one time.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;13&quot;:(&quot;n3&quot;, 12), &quot;14&quot;:(&quot;n4&quot;, 8); 
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t3(p1 int);
-nebula&gt; CREATE TAG t4(p2 string);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t3(p1 int);
+nebula&gt; CREATE TAG IF NOT EXISTS t4(p2 string);
 
 # The following example inserts vertex &quot;21&quot; with two tags.
 nebula&gt; INSERT VERTEX t3 (p1), t4(p2) VALUES &quot;21&quot;: (321, &quot;hello&quot;);
@@ -5757,12 +5757,12 @@ nebula&gt; FETCH PROP ON t2 &quot;11&quot;;
 | (&quot;11&quot; :t2{age: 15, name: &quot;n4&quot;}) |
 +---------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;001&quot;:(&quot;Abe&quot;, 2, 3);
 
 # In the following example, the insertion fails because the value of p1 cannot be NULL.
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;002&quot;:(NULL, 4, 5);
-[ERROR (-8)]: Storage Error: The not null field cannot be null.
+[ERROR (-1005)]: Storage Error: The not null field cannot be null.
 
 # In the following example, the value of p3 is the default NULL.
 nebula&gt; INSERT VERTEX t5(p1, p2) VALUES &quot;003&quot;:(&quot;cd&quot;, 5);
@@ -5800,7 +5800,7 @@ nebula&gt; FETCH PROP ON t2 &quot;1&quot;;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>

@@ -1744,7 +1744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../6.show/5.show-create-tags-edges/" class="md-nav__link">
+      <a href="../6.show/5.show-create-tags-edges.md" class="md-nav__link">
         SHOW CREATE TAGS/EDGES
       </a>
     </li>
@@ -3236,7 +3236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph to v2.6.0
       </a>
     </li>
@@ -3250,7 +3250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260/" class="md-nav__link">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md" class="md-nav__link">
         Upgrade Nebula Graph from v2.0.x to v2.6.0
       </a>
     </li>
@@ -3668,7 +3668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../7.data-security/5.zone.md" class="md-nav__link">
+      <a href="../../../7.data-security/5.zone/" class="md-nav__link">
         Group&Zone
       </a>
     </li>
@@ -3814,7 +3814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../8.service-tuning/improve-query-by-tag-index/" class="md-nav__link">
+      <a href="../../../8.service-tuning/improve-query-by-tag-index.md" class="md-nav__link">
         Add or delete tag
       </a>
     </li>
@@ -6118,8 +6118,8 @@
 <p>Correct use of indexes can speed up queries, but indexes can dramatically reduce the write performance. The performance reduction can be as much as 90% or even more. <strong>DO NOT</strong> use indexes in production environments unless you are fully aware of their influences on your service.</p>
 </div>
 <div class="highlight"><pre><span></span><code># The following example creates an index on both the name property of the tag player and the edge type follow.
-nebula&gt; CREATE TAG INDEX name ON player(name(20));
-nebula&gt; CREATE EDGE INDEX follow_index on follow();
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS name ON player(name(20));
+nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 
 # The following example rebuilds the index.
 nebula&gt; REBUILD TAG INDEX name;
@@ -6129,7 +6129,7 @@ nebula&gt; REBUILD TAG INDEX name;
 | 121        |
 +------------+
 
-nebula&gt; REBUILD EDGE INDEX follow_index
+nebula&gt; REBUILD EDGE INDEX follow_index;
 +------------+
 | New Job Id |
 +------------+
@@ -6139,24 +6139,24 @@ nebula&gt; REBUILD EDGE INDEX follow_index
 
 # The following example makes sure the index is rebuilt successfully.
 nebula&gt; SHOW JOB 121;
-+----------------+---------------------+------------+-------------------------+-------------------------+
-| Job Id(TaskId) | Command(Dest)       | Status     | Start Time              | Stop Time               |
-+----------------+---------------------+------------+-------------------------+-------------------------+
-| 121            | &quot;REBUILD_TAG_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-| 0              | &quot;storaged1&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-| 1              | &quot;storaged0&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-| 2              | &quot;storaged2&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000 | 2021-05-27T02:18:02.000 |
-+----------------+---------------------+------------+-------------------------+-------------------------+
++----------------+---------------------+------------+----------------------------+----------------------------+
+| Job Id(TaskId) | Command(Dest)       | Status     | Start Time                 | Stop Time                  |
++----------------+---------------------+------------+----------------------------+----------------------------+
+| 121            | &quot;REBUILD_TAG_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 |
+| 0              | &quot;storaged1&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 |
+| 1              | &quot;storaged0&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 |
+| 2              | &quot;storaged2&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 |
++----------------+---------------------+------------+----------------------------+----------------------------+
 
 nebula&gt; SHOW JOB 122;
-+----------------+----------------------+------------+-------------------------+-------------------------+
-| Job Id(TaskId) | Command(Dest)        | Status     | Start Time              | Stop Time               |
-+----------------+----------------------+------------+-------------------------+-------------------------+
-| 122            | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:11.000 |
-| 0              | &quot;storaged1&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
-| 1              | &quot;storaged0&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
-| 2              | &quot;storaged2&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000 | 2021-05-27T02:18:21.000 |
-+----------------+----------------------+------------+-------------------------+-------------------------+
++----------------+----------------------+------------+----------------------------+----------------------------+
+| Job Id(TaskId) | Command(Dest)        | Status     | Start Time                 | Stop Time                  |
++----------------+----------------------+------------+----------------------------+----------------------------+
+| 122            | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:11.000000 |
+| 0              | &quot;storaged1&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 |
+| 1              | &quot;storaged0&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 |
+| 2              | &quot;storaged2&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 |
++----------------+----------------------+------------+----------------------------+----------------------------+
 </code></pre></div>
 <h3 id="match_vertices">Match vertices<a class="headerlink" href="#match_vertices" title="Permanent link">&para;</a></h3>
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
@@ -6166,14 +6166,14 @@ nebula&gt; SHOW JOB 122;
 <p>The prerequisite for matching a tag is that the tag itself has an index or a certain property of the tag has an index. Otherwise, you cannot execute the <code>MATCH</code> statement based on the tag.</p>
 </div>
 <p>You can specify a tag with <code>:&lt;tag_name&gt;</code> after the vertex in a pattern.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+        RETURN v;
 +---------------------------------------------------------------+
 | v                                                             |
 +---------------------------------------------------------------+
-| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})     |
-| (&quot;player106&quot; :player{age: 25, name: &quot;Kyle Anderson&quot;})         |
-| (&quot;player115&quot; :player{age: 40, name: &quot;Kobe Bryant&quot;})           |
-+---------------------------------------------------------------+
+| (&quot;player105&quot; :player{age: 31, name: &quot;Danny Green&quot;})           |
+| (&quot;player109&quot; :player{age: 34, name: &quot;Tiago Splitter&quot;})        |
+| (&quot;player111&quot; :player{age: 38, name: &quot;David West&quot;})            |
 ...
 </code></pre></div>
 <h3 id="match_vertex_properties">Match vertex properties<a class="headerlink" href="#match_vertex_properties" title="Permanent link">&para;</a></h3>
@@ -6183,19 +6183,22 @@ nebula&gt; SHOW JOB 122;
 </div>
 <p>You can specify a vertex property with <code>{&lt;prop_name&gt;: &lt;prop_value&gt;}</code> after the tag in a pattern.</p>
 <div class="highlight"><pre><span></span><code># The following example uses the name property to match a vertex.
-nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
+        RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42}) |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
 +----------------------------------------------------+
 </code></pre></div>
 <p>The <code>WHERE</code> clause can do the same thing:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) WHERE v.name == &quot;Tim Duncan&quot; RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+        WHERE v.name == &quot;Tim Duncan&quot; \
+        RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42}) |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
 +----------------------------------------------------+
 </code></pre></div>
 <div class="admonition note">
@@ -6204,7 +6207,9 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 </div>
 <h3 id="match_vids">Match VIDs<a class="headerlink" href="#match_vids" title="Permanent link">&para;</a></h3>
 <p>You can use the VID to match a vertex. The <code>id()</code> function can retrieve the VID of a vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) WHERE id(v) == &#39;player101&#39; RETURN v;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
+        WHERE id(v) == &#39;player101&#39; \
+        RETURN v;
 +-----------------------------------------------------+
 | v                                                   |
 +-----------------------------------------------------+
@@ -6213,13 +6218,14 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 </code></pre></div>
 <p>To match multiple VIDs, use <code>WHERE id(v) IN [vid_list]</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
-        WHERE id(v2) IN [&quot;player101&quot;, &quot;player102&quot;] RETURN v2;
+        WHERE id(v2) IN [&quot;player101&quot;, &quot;player102&quot;] \
+        RETURN v2;
 +-----------------------------------------------------------+
 | v2                                                        |
 +-----------------------------------------------------------+
-| (&quot;player101&quot; :player{name: &quot;Tony Parker&quot;, age: 36})       |
-| (&quot;player102&quot; :player{name: &quot;LaMarcus Aldridge&quot;, age: 33}) |
-| (&quot;player101&quot; :player{name: &quot;Tony Parker&quot;, age: 36})       |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
+| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 </code></pre></div>
 <h3 id="match_connected_vertices">Match connected vertices<a class="headerlink" href="#match_connected_vertices" title="Permanent link">&para;</a></h3>
@@ -6233,12 +6239,10 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +---------------------+
 | Name                |
 +---------------------+
+| &quot;Spurs&quot;             |
 | &quot;Tony Parker&quot;       |
 | &quot;LaMarcus Aldridge&quot; |
 | &quot;Marco Belinelli&quot;   |
-| &quot;Danny Green&quot;       |
-| &quot;Aron Baynes&quot;       |
-+---------------------+
 ...
 </code></pre></div>
 <p>You can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
@@ -6259,12 +6263,9 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +---------------------+
 | Name                |
 +---------------------+
-| &quot;Tony Parker&quot;       |
-| &quot;Tiago Splitter&quot;    |
 | &quot;Dejounte Murray&quot;   |
-| &quot;Tony Parker&quot;       |
 | &quot;LaMarcus Aldridge&quot; |
-+---------------------+
+| &quot;Marco Belinelli&quot;   |
 ...
 </code></pre></div>
 <p>If you do not need to refer to a vertex, you can omit the variable representing it in the parentheses.</p>
@@ -6273,25 +6274,22 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +---------------------+
 | Name                |
 +---------------------+
-| &quot;Tony Parker&quot;       |
+| &quot;Dejounte Murray&quot;   |
 | &quot;LaMarcus Aldridge&quot; |
-| &quot;Rudy Gay&quot;          |
-| &quot;Danny Green&quot;       |
-| &quot;Kyle Anderson&quot;     |
-+---------------------+
+| &quot;Marco Belinelli&quot;   |
 ...
 </code></pre></div>
 <h3 id="match_paths">Match paths<a class="headerlink" href="#match_paths" title="Permanent link">&para;</a></h3>
 <p>Connected vertices and edges form a path. You can use a user-defined variable to name a path as follows.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) \
         RETURN p;
-+-------------------------------------------+
-| p                                         |
-+-------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                    |
++--------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt; |
 | &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;   |
 | &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt; |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt; |
-+-------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
 <div class="admonition compatibility">
 <p class="admonition-title">OpenCypher compatibility</p>
@@ -6301,13 +6299,12 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 <p>Besides using <code>--</code>, <code>--&gt;</code>, or <code>&lt;--</code> to indicate a nameless edge, you can use a user-defined variable in a pair of square brackets to represent a named edge. For example: <code>-[e]-</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-(v2) \
         RETURN e;
-+---------------------------------------------------------------------------+
-| e                                                                         |
-+---------------------------------------------------------------------------+
-| [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {degree: 95}]                        |
-| [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}]                        |
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
-+---------------------------------------------------------------------------+
++-----------------------------------------------------------------------+
+| e                                                                     |
++-----------------------------------------------------------------------+
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}] |
+| [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {degree: 95}]                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}]                    |
 ...
 </code></pre></div>
 <h3 id="match_edge_types">Match edge types<a class="headerlink" href="#match_edge_types" title="Permanent link">&para;</a></h3>
@@ -6317,12 +6314,9 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------+
 | e                                                   |
 +-----------------------------------------------------+
-| [:follow &quot;player113&quot;-&gt;&quot;player119&quot; @0 {degree: 99}]  |
-| [:follow &quot;player130&quot;-&gt;&quot;player149&quot; @0 {degree: 80}]  |
-| [:follow &quot;player149&quot;-&gt;&quot;player130&quot; @0 {degree: 80}]  |
-| [:follow &quot;player136&quot;-&gt;&quot;player117&quot; @0 {degree: 90}]  |
-| [:follow &quot;player142&quot;-&gt;&quot;player117&quot; @0 {degree: 90}]  |
-+-----------------------------------------------------+
+| [:follow &quot;player104&quot;-&gt;&quot;player105&quot; @0 {degree: 60}]  |
+| [:follow &quot;player113&quot;-&gt;&quot;player105&quot; @0 {degree: 99}]  |
+| [:follow &quot;player105&quot;-&gt;&quot;player100&quot; @0 {degree: 70}]  |
 ...
 </code></pre></div>
 <h3 id="match_edge_type_properties">Match edge type properties<a class="headerlink" href="#match_edge_type_properties" title="Permanent link">&para;</a></h3>
@@ -6356,13 +6350,12 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 <p>You can extend a pattern to match multiple edges in a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2)&lt;-[e:serve]-(v3) \
         RETURN v2, v3;
-+------------------------------------+-----------------------------------------------------------+
-| v2                                 | v3                                                        |
-+------------------------------------+-----------------------------------------------------------+
-| (&quot;player204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player101&quot; :player{name: &quot;Tony Parker&quot;, age: 36})       |
-| (&quot;player204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player102&quot; :player{name: &quot;LaMarcus Aldridge&quot;, age: 33}) |
-| (&quot;player204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player103&quot; :player{age: 32, name: &quot;Rudy Gay&quot;})          |
-+------------------------------------+-----------------------------------------------------------+
++----------------------------------+-----------------------------------------------------------+
+| v2                               | v3                                                        |
++----------------------------------+-----------------------------------------------------------+
+| (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player104&quot; :player{age: 32, name: &quot;Marco Belinelli&quot;})   |
+| (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
+| (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) | (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 ...
 </code></pre></div>
 <h3 id="match_fixed-length_paths">Match fixed-length paths<a class="headerlink" href="#match_fixed-length_paths" title="Permanent link">&para;</a></h3>
@@ -6372,9 +6365,9 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42})        |
-| (&quot;player102&quot; :player{name: &quot;LaMarcus Aldridge&quot;, age: 33}) |
-| (&quot;player125&quot; :player{name: &quot;Manu Ginobili&quot;, age: 41})     |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
+| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 </code></pre></div>
 <p>If <code>hop</code> is 0, the pattern will match the source vertex of the path.</p>
@@ -6386,6 +6379,25 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
 +----------------------------------------------------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you conditionally filter on multi-hop edges, such as <code>-[e:follow*2]-&gt;</code>, note that the <code>e</code> is a list of edges instead of a single edge. </p>
+<p>For example, the following statement is correct from the syntax point of view which may not get your expected query result, because the <code>e</code> is a list without the <code>.degree</code> property. </p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) \
+        WHERE e.degree &gt; 1 \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+<p>The correct statement is as follows:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) \
+        WHERE ALL(e_ in e WHERE e_.degree &gt; 0) \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+<p>Further, the following statement is for filtering the properties of the first-hop edge in multi-hop edges:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*2]-&gt;(v2) \
+        WHERE e[0].degree &gt; 98 \
+        RETURN DISTINCT v2 AS Friends;
+</code></pre></div>
+</div>
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">&para;</a></h3>
 <p>You can use the <code>:&lt;edge_type&gt;*[minHop]..&lt;maxHop&gt;</code> pattern to match variable-length paths.</p>
 <table>
@@ -6415,11 +6427,10 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
 | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
 | (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
-| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
-+-----------------------------------------------------------+
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
+...
 </code></pre></div>
 <p>You can use the <code>DISTINCT</code> keyword to aggregate duplicate results.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2:player) \
@@ -6427,10 +6438,10 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------------+-----------+
 | Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
-| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     | 3         |
 | (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) | 1         |
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        | 4         |
 | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       | 3         |
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     | 3         |
 +-----------------------------------------------------------+-----------+
 </code></pre></div>
 <p>If <code>minHop</code> is <code>0</code>, the pattern will match the source vertex of the path. Compared to the preceding statement, the following example uses <code>0</code> as the <code>minHop</code>. So in the following result set, <code>"Tim Duncan"</code> is counted one more time than it is in the preceding result set because it is the source vertex.</p>
@@ -6439,10 +6450,10 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------------+-----------+
 | Friends                                                   | count(v2) |
 +-----------------------------------------------------------+-----------+
-| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     | 3         |
-| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       | 3         |
 | (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) | 1         |
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        | 5         |
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     | 3         |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       | 3         |
 +-----------------------------------------------------------+-----------+
 </code></pre></div>
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">&para;</a></h3>
@@ -6452,11 +6463,11 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +-----------------------------------------------------------+
 | v2                                                        |
 +-----------------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42})        |
-| (&quot;player102&quot; :player{name: &quot;LaMarcus Aldridge&quot;, age: 33}) |
-| (&quot;player125&quot; :player{name: &quot;Manu Ginobili&quot;, age: 41})     |
-| (&quot;player204&quot; :team{name: &quot;Spurs&quot;})                        |
-| (&quot;player215&quot; :team{name: &quot;Hornets&quot;})                      |
+| (&quot;team204&quot; :team{name: &quot;Spurs&quot;})                          |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
+| (&quot;team215&quot; :team{name: &quot;Hornets&quot;})                        |
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
+| (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 </code></pre></div>
 <h2 id="common_retrieving_operations">Common retrieving operations<a class="headerlink" href="#common_retrieving_operations" title="Permanent link">&para;</a></h2>
@@ -6467,18 +6478,18 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) RETURN v;
 +----------------------------------------------------+
 | v                                                  |
 +----------------------------------------------------+
-| (&quot;player100&quot; :player{name: &quot;Tim Duncan&quot;, age: 42}) |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
 +----------------------------------------------------+
 
 nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
         RETURN e;
-+---------------------------------------------------------------------------+
-| e                                                                         |
-+---------------------------------------------------------------------------+
-| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]                        |
-| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]                        |
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]     |
-+---------------------------------------------------------------------------+
++-----------------------------------------------------------------------+
+| e                                                                     |
++-----------------------------------------------------------------------+
+| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}] |
+| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]                    |
+| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]                    |
++-----------------------------------------------------------------------+
 </code></pre></div>
 <h3 id="retrieve_vids">Retrieve VIDs<a class="headerlink" href="#retrieve_vids" title="Permanent link">&para;</a></h3>
 <p>Use the <code>id()</code> function to retrieve VIDs.</p>
@@ -6532,13 +6543,13 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 <p>Use the <code>properties()</code> function to retrieve all properties on a vertex or an edge.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
         RETURN properties(v2);
-+------------------------------------+
-| properties(v2)                     |
-+------------------------------------+
-| {&quot;name&quot;:&quot;Spurs&quot;}                   |
-| {&quot;name&quot;:&quot;Tony Parker&quot;, &quot;age&quot;:36}   |
-| {&quot;age&quot;:41, &quot;name&quot;:&quot;Manu Ginobili&quot;} |
-+------------------------------------+
++----------------------------------+
+| properties(v2)                   |
++----------------------------------+
+| {name: &quot;Spurs&quot;}                  |
+| {age: 36, name: &quot;Tony Parker&quot;}   |
+| {age: 41, name: &quot;Manu Ginobili&quot;} |
++----------------------------------+
 </code></pre></div>
 <h3 id="retrieve_edge_types">Retrieve edge types<a class="headerlink" href="#retrieve_edge_types" title="Permanent link">&para;</a></h3>
 <p>Use the <code>type()</code> function to retrieve the matched edge types.</p>
@@ -6547,21 +6558,21 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 +----------+
 | type(e)  |
 +----------+
-| &quot;follow&quot; |
 | &quot;serve&quot;  |
+| &quot;follow&quot; |
 +----------+
 </code></pre></div>
 <h3 id="retrieve_paths">Retrieve paths<a class="headerlink" href="#retrieve_paths" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN &lt;path_name&gt;</code> to retrieve all the information of the matched paths.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*3]-&gt;() \
         RETURN p;
-+-------------------------------------------------------------------------------------------------+
-| p                                                                                               |
-+-------------------------------------------------------------------------------------------------+
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2019, start_year: 2015}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;           |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2015, start_year: 2006}]-&gt;(&quot;team203&quot; :team{name: &quot;Trail Blazers&quot;})&gt;   |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:follow@0 {degree: 75}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;             |
-+-------------------------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                                                                                                                                                                                              |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2019, start_year: 2015}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;         |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2015, start_year: 2006}]-&gt;(&quot;team203&quot; :team{name: &quot;Trail Blazers&quot;})&gt; |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:follow@0 {degree: 75}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;           |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ...
 </code></pre></div>
 <h3 id="retrieve_vertices_in_a_path">Retrieve vertices in a path<a class="headerlink" href="#retrieve_vertices_in_a_path" title="Permanent link">&para;</a></h3>
@@ -6580,36 +6591,36 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 <p>Use the <code>relationships()</code> function to retrieve all edges in a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
         RETURN relationships(p);
-+-----------------------------------------------------------------------------+
-| relationships(p)                                                            |
-+-----------------------------------------------------------------------------+
-| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]]                        |
-| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]]                        |
-| [[:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]]     |
-+-----------------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+| relationships(p)                                                        |
++-------------------------------------------------------------------------+
+| [[:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]] |
+| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]]                    |
+| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]]                    |
++-------------------------------------------------------------------------+
 </code></pre></div>
 <h3 id="retrieve_path_length">Retrieve path length<a class="headerlink" href="#retrieve_path_length" title="Permanent link">&para;</a></h3>
 <p>Use the <code>length()</code> function to retrieve the length of a path.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
         RETURN p AS Paths, length(p) AS Length;
-+----------------------------------------------------------------------+--------+
-| Paths                                                                | Length |
-+----------------------------------------------------------------------+--------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| Paths                                                                                                                                                                                                                  | Length |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;                                                                                   | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;                                                                                     | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;                                                                                   | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2018, start_year: 1999}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;     | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;(&quot;team215&quot; :team{name: &quot;Hornets&quot;})&gt;   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;        | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})&gt; | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;     | 2      |
 | &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:serve@0 {end_year: 2018, start_year: 2002}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;   | 2      |
 | &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;      | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;(&quot;team215&quot; :team{name: &quot;Hornets&quot;})&gt;   | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2018, start_year: 1999}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;     | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;     | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})&gt; | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;        | 2      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;                                                                                   | 1      |
-| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;                                                                                   | 1      |
-+----------------------------------------------------------------------+--------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
 </code></pre></div>
 <div class="admonition performance">
 <p class="admonition-title">Performance</p>
-<p>In Nebula Graph master, the <code>MATCH</code> statement has initially optimized for resource usage and performance.</p>
-<p>Simpler operations can be replaced by <code>GO</code>, <code>LOOKUP</code>, <code>|</code>, and <code>FETCH</code>.</p>
+<p>In Nebula Graph, the performance and resource usage of the <code>MATCH</code> statement have been optimized. But we still recommend to use <code>GO</code>, <code>LOOKUP</code>, <code>|</code>, and <code>FETCH</code> instead of <code>MATCH</code> when high performance is required.</p>
 </div>
 
   <hr>
@@ -6617,7 +6628,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
       
     
   </small>
