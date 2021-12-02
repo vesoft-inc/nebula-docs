@@ -1,6 +1,6 @@
-# Deploy Nebula Graph cluster with RPM/DEB package
+# Deploy a Nebula Graph cluster with RPM/DEB package on multiple servers 
 
-For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides some examples of deploying Nebula Graph clusters.
+For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides an example of deploying a Nebula Graph cluster on multiple servers (machines).
 
 ## Deployment
 
@@ -256,7 +256,7 @@ Users can refer to the content of the following configurations, which only show 
 
 ### Step 3: Start the cluster
 
-Start the corresponding service on each machine. Descriptions are as follows.
+Start the corresponding service on **each machine**. Descriptions are as follows.
 
 | Machine name | The process to be started |
 | :-----       | :---------------          |
@@ -273,6 +273,8 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 ```
 
 !!! note
+
+    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start Nebula Graph.
 
     - When the graphd process, the storaged process, and the metad process are all started, you can use `all` instead.
 

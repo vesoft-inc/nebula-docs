@@ -157,13 +157,13 @@ If a property matched does not exist, `NULL` is returned.
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
         RETURN v2.name, type(e), v2.age;
-+-----------------+----------+----------+
-| v2.name         | type(e)  | v2.age   |
-+-----------------+----------+----------+
-| "Tony Parker"   | "follow" | 36       |
-| "Manu Ginobili" | "follow" | 41       |
-| "Spurs"         | "serve"  | __NULL__ |
-+-----------------+----------+----------+
++-----------------+----------+--------------+
+| v2.name         | type(e)  | v2.age       |
++-----------------+----------+--------------+
+| "Tony Parker"   | "follow" | 36           |
+| "Manu Ginobili" | "follow" | 41           |
+| "Spurs"         | "serve"  | UNKNOWN_PROP |
++-----------------+----------+--------------+
 ```
 
 ## Return expression results
@@ -195,7 +195,7 @@ nebula> RETURN 3 > 1;
 | true  |
 +-------+
 
-RETURN 1+1, rand32(1, 5);
+nebula> RETURN 1+1, rand32(1, 5);
 +-------+-------------+
 | (1+1) | rand32(1,5) |
 +-------+-------------+

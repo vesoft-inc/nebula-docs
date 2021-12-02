@@ -47,9 +47,9 @@ nebula> LOOKUP ON player |\
 
 # The following example returns the 3 rows of data starting from the second row of the sorted output.
 nebula> GO FROM "player100" OVER follow REVERSELY \
-        YIELD properties($$).name AS Friend, properties($$).age AS Age \|
-        ORDER BY $-.Age, $-.Friend \|
-        LIMIT 1, 3;
+        YIELD properties($$).name AS Friend, properties($$).age AS Age \
+        | ORDER BY $-.Age, $-.Friend \
+        | LIMIT 1, 3;
 +-------------------+-----+
 | Friend            | Age |
 +-------------------+-----+
@@ -91,6 +91,17 @@ nebula> GO 3 STEPS FROM "player100" \
 | "Tony Parker"   | 36           |
 | "Manu Ginobili" | 41           |
 +-----------------+--------------+
+
+nebula> GO 3 STEPS FROM "player102" \
+        OVER * \
+        LIMIT [rand32(5),rand32(5),rand32(5)];
++------------+-------------+---------------------+
+| serve._dst | follow._dst | any_shape_edge._dst |
++------------+-------------+---------------------+
+| "team204"  |             |                     |
+| "team215"  |             |                     |
+|            | "player100" |                     |
++------------+-------------+---------------------+
 ```
 
 ## LIMIT in openCypher compatible statements

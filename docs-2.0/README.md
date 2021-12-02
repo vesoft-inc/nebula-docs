@@ -12,6 +12,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 ## Getting started
 
+* [Learning path](20.appendix/learning-path.md)
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
 * [Configuration](4.deployment-and-installation/1.resource-preparations.md)
@@ -66,4 +67,3 @@ This manual has over 80 compatibilities and corresponding tips.
 ## Modify errors
  
 This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
--->

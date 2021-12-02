@@ -2,15 +2,16 @@
 
 This topic describes some of the limitations of using Exchange 2.x.
 
-## Nebula Graph releases
+## Version compatibility
 
-The correspondence between the Nebula Exchange release (the JAR version) and the Nebula Graph release is as follows.
+The correspondence between the Nebula Exchange release (the JAR version) and the Nebula Graph core release is as follows.
 
 |Exchange client|Nebula Graph|
 |:---|:---|
 |2.5-SNAPSHOT|nightly|
-|{{exchange.release}}|{{nebula.release}}, 2.5.0|
-|2.5.0|2.5.0|
+|{{exchange.release}}|2.6.0, {{nebula.release}}|
+|2.5.1|2.5.0, 2.5.1|
+|2.5.0|2.5.0, 2.5.1|
 |2.1.0|2.0.0, 2.0.1|
 |2.0.1|2.0.0, 2.0.1|
 |2.0.0|2.0.0, 2.0.1|

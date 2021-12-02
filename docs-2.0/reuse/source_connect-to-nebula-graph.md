@@ -23,11 +23,11 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
         We recommend that you select the **latest** release.
 
-    ![Select a Nebula Graph version and click **Assets**](https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-console-releases-1.png "Click Assets to show the available Nebula Graph binary files")
+    ![Select a Nebula Graph version and click **Assets**](../reuse/console-1.png "Click Assets to show the available Nebula Graph binary files")
 
 2. In the **Assets** area, find the correct binary file for the machine where you want to run Nebula Console and download the file to the machine.
 
-    ![Click to download the package according to your hardware architecture](https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-console-releases-2-1.png "Click the package name to download it")
+    ![Click to download the package according to your hardware architecture](../reuse/assets-1.png "Click the package name to download it")
 
 3. (Optional) Rename the binary file to `nebula-console` for convenience.
 
@@ -76,7 +76,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
    | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
    | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. You'll get the return messages and the connection stops then. |
 
-You can find more details in the [Nebula Console Repository](https://github.com/vesoft-inc/nebula-console/tree/v2.0.0-ga).
+You can find more details in the [Nebula Console Repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
 
 ## Nebula Console commands
 
@@ -87,6 +87,8 @@ Nebula Console can export CSV file, DOT file, and import too.
     The commands are case insensitive.
 
 ### Export a CSV file
+
+CSV files save the return result of a executed command.
 
 !!! note
 
@@ -101,6 +103,8 @@ nebula> :CSV <file_name.csv>
 ```
 
 ### Export a DOT file
+
+DOT files save the return result of a executed command, and the result information is different from CSV files.
 
 !!! Note
 
