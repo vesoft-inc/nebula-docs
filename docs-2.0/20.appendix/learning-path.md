@@ -79,8 +79,8 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Upgrade Nebula Graph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-260.md) |
-  | [Upgrade Nebula Graph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-260.md) |
+  | [Upgrade Nebula Graph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md) |
+  | [Upgrade Nebula Graph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) |
 
 ### 3.3 Configure Nebula Graph
 
