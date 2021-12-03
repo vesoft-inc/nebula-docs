@@ -16,7 +16,7 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 ## Limitations
 
-- The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
+- When submitting the algorithm package directly, the data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
 - For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
 
@@ -39,6 +39,7 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 |  GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
 | BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |
 | DegreeStatic    |Degree of statistical | Graph structure analysis|
+| ClusteringCoefficient | Recommendation system, telecom fraud analysis|
 
 ## Implementation methods
 
@@ -105,6 +106,8 @@ The `lib` repository provides 10 common graph algorithms.
   val prConfig = new PRConfig(5, 1.0)
   val louvainResult = PageRankAlgo.apply(spark, data, prConfig, false)
   ```
+  
+  If your vertex ids are Strings, see [Pagerank Example](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/example/src/main/scala/com/vesoft/nebula/algorithm/PageRankExample.scala) gives the encoding and decoding process for String id.
 
 ### Submit the algorithm package directly
 
