@@ -3171,6 +3171,33 @@
     Configuration files
   </a>
   
+    <nav class="md-nav" aria-label="Configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_from_source_with_an_rpmdeb_package_or_a_tar_package" class="md-nav__link">
+    Configuration files for clusters installed from source, with an RPM/DEB package, or a TAR package
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_with_docker_compose" class="md-nav__link">
+    Configuration files for clusters installed with Docker Compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_with_nebula_operator" class="md-nav__link">
+    Configuration files for clusters installed with Nebula Operator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6019,6 +6046,33 @@
     Configuration files
   </a>
   
+    <nav class="md-nav" aria-label="Configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_from_source_with_an_rpmdeb_package_or_a_tar_package" class="md-nav__link">
+    Configuration files for clusters installed from source, with an RPM/DEB package, or a TAR package
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_with_docker_compose" class="md-nav__link">
+    Configuration files for clusters installed with Docker Compose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_files_for_clusters_installed_with_nebula_operator" class="md-nav__link">
+    Configuration files for clusters installed with Nebula Operator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6094,7 +6148,8 @@ curl <span class="m">127</span>.0.0.1:19779/flags
 <p>In an actual environment, use the real host IP address instead of <code>127.0.0.1</code> in the above example.</p>
 </div>
 <h2 id="configuration_files">Configuration files<a class="headerlink" href="#configuration_files" title="Permanent link">&para;</a></h2>
-<p>Nebula Graph provides two initial configuration files for each service, <code>&lt;service_name&gt;.conf.default</code> and <code>&lt;service_name&gt;.conf.production</code>. Users can use them in different scenarios conveniently. The default path is <code>/usr/local/nebula/etc/</code>.</p>
+<h3 id="configuration_files_for_clusters_installed_from_source_with_an_rpmdeb_package_or_a_tar_package">Configuration files for clusters installed from source, with an RPM/DEB package, or a TAR package<a class="headerlink" href="#configuration_files_for_clusters_installed_from_source_with_an_rpmdeb_package_or_a_tar_package" title="Permanent link">&para;</a></h3>
+<p>Nebula Graph provides two initial configuration files for each service, <code>&lt;service_name&gt;.conf.default</code> and <code>&lt;service_name&gt;.conf.production</code>. You can use them in different scenarios conveniently. For clusters installed from source and with a RPM/DEB package, the default path is <code>/usr/local/nebula/etc/</code>. For clusters installed with a TAR package, the path is <code>&lt;install_path&gt;/&lt;tar_package_directory&gt;/etc</code>.</p>
 <p>The configuration values in the initial configuration file are for reference only and can be adjusted according to actual needs. To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> to make it valid.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -6132,8 +6187,44 @@ curl <span class="m">127</span>.0.0.1:19779/flags
 <p class="admonition-title">Caution</p>
 <p>It is not recommended to modify the value of <code>local_config</code> to <code>false</code>. If modified, the Nebula Graph service will first read the cached configurations, which may cause configuration inconsistencies between clusters and cause unknown risks.</p>
 </div>
+<h3 id="configuration_files_for_clusters_installed_with_docker_compose">Configuration files for clusters installed with Docker Compose<a class="headerlink" href="#configuration_files_for_clusters_installed_with_docker_compose" title="Permanent link">&para;</a></h3>
+<p>For clusters installed with Docker Compose, the configuration file's default installation path of the cluster is <code>&lt;install_path&gt;/nebula-docker-compose/docker-compose.yaml</code>. The parameters in the <code>command</code> field of the file are the launch parameters for each service.  </p>
+<h3 id="configuration_files_for_clusters_installed_with_nebula_operator">Configuration files for clusters installed with Nebula Operator<a class="headerlink" href="#configuration_files_for_clusters_installed_with_nebula_operator" title="Permanent link">&para;</a></h3>
+<p>For clusters installed with Kubectl through Nebula Operator, the configuration file's path is the path of the cluster YAML file. You can modify the configuration of each service through the <code>spec.{graphd|storaged|metad}.config</code> parameter.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The services cannot be configured for clusters installed with Helm.</p>
+</div>
 <h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">&para;</a></h2>
-<p>By default, each Nebula Graph service gets configurations from its configuration files. Users can modify configurations and make them valid according to the following steps:</p>
+<p>By default, each Nebula Graph service gets configured from its configuration files. You can modify configurations and make them valid according to the following steps:</p>
+<ul>
+<li>
+<p>For clusters installed from source, with a RPM/DEB, or a TAR package</p>
+<ol>
+<li>
+<p>Use a text editor to modify the configuration files of the target service and save the modification.</p>
+</li>
+<li>
+<p>Choose an appropriate time to restart <strong>all</strong> Nebula Graph services to make the modifications valid.</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>
+<p>For clusters installed with Docker Compose</p>
+<ol>
+<li>In the <code>&lt;install_path&gt;/nebula-docker-compose/docker-compose.yaml</code> file, modify the configurations of the target service.</li>
+<li>In the <code>nebula-docker-compose</code> directory, run the command <code>docker-compose up -d</code> to restart the service involving configuration modifications.</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>
+<p>For clusters installed with Kubectl</p>
+<p>For details, see <a href="../../../nebula-operator/8.custom-cluster-configurations/8.1.custom-conf-parameter/">Customize configuration parameters for a Nebula Graph cluster</a>.</p>
+</li>
+</ul>
 <ol>
 <li>
 <p>Use a text editor to modify the configuration files of the target service and save the modification.</p>
@@ -6148,7 +6239,7 @@ curl <span class="m">127</span>.0.0.1:19779/flags
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 6, 2021</span>
       
     
   </small>
