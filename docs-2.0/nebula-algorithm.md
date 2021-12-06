@@ -107,7 +107,7 @@ The `lib` repository provides 10 common graph algorithms.
   val louvainResult = PageRankAlgo.apply(spark, data, prConfig, false)
   ```
   
-  If your vertex IDs are Strings, see [Pagerank Example](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/example/src/main/scala/com/vesoft/nebula/algorithm/PageRankExample.scala) for how to encoding and decoding them.
+  If your vertex IDs are Strings, see [Pagerank Example](https://github.com/vesoft-inc/nebula-algorithm/blob/master/example/src/main/scala/com/vesoft/nebula/algorithm/PageRankExample.scala) for how to encoding and decoding them.
 
 ### Submit the algorithm package directly
 
