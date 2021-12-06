@@ -96,7 +96,7 @@ The `lib` repository provides 10 common graph algorithms.
   </dependency>
   ```
 
-2. Use the algorithm (take PageRank as an example) by filling in parameters. For more examples, see [example](https://github.com/vesoft-inc/nebula-algorithm/tree/{{algorithm.branch}}/example/src/main/scala/com/vesoft/nebula/algorithm).
+2. Use the algorithm (take PageRank as an example) by filling in parameters. For more examples, see [example](https://github.com/vesoft-inc/nebula-algorithm/tree/master/example/src/main/scala/com/vesoft/nebula/algorithm).
 
   !!! note
         By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
