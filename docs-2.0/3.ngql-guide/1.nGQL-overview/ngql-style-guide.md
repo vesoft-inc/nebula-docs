@@ -30,7 +30,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
 
   ```ngql
   GO FROM "player100" OVER follow REVERSELY YIELD src(edge) AS id | GO FROM $-.id \
-  OVER serve WHERE properties($^).age > 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
+  OVER serve WHERE $^.player.age > 20 YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
   ```
 
   Recommended:
@@ -40,7 +40,7 @@ nGQL does not have strict formatting requirements, but creating nGQL statements 
   OVER follow REVERSELY \
   YIELD src(edge) AS id | \
   GO FROM $-.id OVER serve \
-  WHERE properties($^).age > 20 \
+  WHERE $^.player.age > 20 \
   YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
   ```
 
