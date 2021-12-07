@@ -29,9 +29,10 @@ nebula> MATCH (v:shareholder) RETURN v;
 | ("player100" :player{age: 42, name: "Tim Duncan"} :shareholder{})  |
 | ("player101" :player{age: 36, name: "Tony Parker"} :shareholder{}) |
 +--------------------------------------------------------------------+
-nebula> LOOKUP ON shareholder;
+
+nebula> LOOKUP ON shareholder YIELD id(vertex);
 +-------------+
-| VertexID    |
+| id(VERTEX)  |
 +-------------+
 | "player100" |
 | "player101" |
@@ -39,9 +40,9 @@ nebula> LOOKUP ON shareholder;
 
 //In this example, the "player100" is no longer a shareholder.
 nebula> DELETE TAG shareholder FROM "player100";
-nebula> LOOKUP ON shareholder;
+nebula> LOOKUP ON shareholder YIELD id(vertex);
 +-------------+
-| VertexID    |
+| id(VERTEX)  |
 +-------------+
 | "player101" |
 +-------------+
