@@ -2498,7 +2498,7 @@ nebula&gt; GO 2 STEPS FROM "player102" OVER follow;
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example adds a filter for the traversal.
 nebula&gt; GO FROM "player100", "player102" OVER serve \
-        WHERE properties(edge).start_year &gt; 1995 \
+        WHERE serve.start_year &gt; 1995 \
         YIELD DISTINCT properties($$).name AS team_name, properties(edge).start_year AS start_year, properties($^).name AS player_name;
 
 +-----------------+------------+---------------------+
@@ -2546,7 +2546,7 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == 'player100' \
 nebula&gt; GO FROM "player100" OVER follow REVERSELY \
         YIELD src(edge) AS id | \
         GO FROM $-.id OVER serve \
-        WHERE properties($^).age &gt; 20 \
+        WHERE $^.player.age &gt; 20 \
         YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
@@ -2615,7 +2615,7 @@ nebula&gt; $a = GO FROM "player100" OVER follow YIELD src(edge) AS src, dst(edge
 +-------------+-------------+-------------+-------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example determines if $$.player.name IS NOT EMPTY.
-nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
+nebula&gt; GO FROM "player100" OVER follow WHERE $$.player.name IS NOT EMPTY YIELD dst(edge);
 +-------------+
 | follow._dst |
 +-------------+
@@ -2627,7 +2627,7 @@ nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).name IS NOT EMPT
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 7, 2021</span>
 </small>
 </div>
 </article>
