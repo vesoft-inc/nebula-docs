@@ -6104,12 +6104,12 @@ nebula&gt; INSERT VERTEX t3 (p1), t4(p2) VALUES &quot;21&quot;: (321, &quot;hell
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n2&quot;, 13);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n3&quot;, 14);
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n4&quot;, 15);
-nebula&gt; FETCH PROP ON t2 &quot;11&quot;;
-+---------------------------------+
-| vertices_                       |
-+---------------------------------+
-| (&quot;11&quot; :t2{age: 15, name: &quot;n4&quot;}) |
-+---------------------------------+
+nebula&gt; FETCH PROP ON t2 &quot;11&quot; YIELD properties(vertex);
++-----------------------+
+| properties(VERTEX)    |
++-----------------------+
+| {age: 15, name: &quot;n4&quot;} |
++-----------------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t5(p1 fixed_string(5) NOT NULL, p2 int, p3 int DEFAULT NULL);
 nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;001&quot;:(&quot;Abe&quot;, 2, 3);
@@ -6120,33 +6120,33 @@ nebula&gt; INSERT VERTEX t5(p1, p2, p3) VALUES &quot;002&quot;:(NULL, 4, 5);
 
 # In the following example, the value of p3 is the default NULL.
 nebula&gt; INSERT VERTEX t5(p1, p2) VALUES &quot;003&quot;:(&quot;cd&quot;, 5);
-nebula&gt; FETCH PROP ON t5 &quot;003&quot;;
-+--------------------------------------------+
-| vertices_                                  |
-+--------------------------------------------+
-| (&quot;003&quot; :t5{p1: &quot;cd&quot;, p2: 5, p3: __NULL__}) |
-+--------------------------------------------+
+nebula&gt; FETCH PROP ON t5 &quot;003&quot; YIELD properties(vertex);
++---------------------------------+
+| properties(VERTEX)              |
++---------------------------------+
+| {p1: &quot;cd&quot;, p2: 5, p3: __NULL__} |
++---------------------------------+
 
 # In the following example, the allowed maximum length of p1 is 5.
 nebula&gt; INSERT VERTEX t5(p1, p2) VALUES &quot;004&quot;:(&quot;shalalalala&quot;, 4);
-nebula&gt; FETCH PROP on t5 &quot;004&quot;;
-+-----------------------------------------------+
-| vertices_                                     |
-+-----------------------------------------------+
-| (&quot;004&quot; :t5{p1: &quot;shala&quot;, p2: 4, p3: __NULL__}) |
-+-----------------------------------------------+
+nebula&gt; FETCH PROP on t5 &quot;004&quot; YIELD properties(vertex);
++------------------------------------+
+| properties(VERTEX)                 |
++------------------------------------+
+| {p1: &quot;shala&quot;, p2: 4, p3: __NULL__} |
++------------------------------------+
 </code></pre></div>
 <p>If you insert a vertex that already exists with <code>IF NOT EXISTS</code>, there will be no modification.</p>
 <div class="highlight"><pre><span></span><code># The following example inserts vertex &quot;1&quot;.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;1&quot;:(&quot;n2&quot;, 13);
 # Modify vertex &quot;1&quot; with IF NOT EXISTS. But there will be no modification as vertex &quot;1&quot; already exists.
 nebula&gt; INSERT VERTEX IF NOT EXISTS t2 (name, age) VALUES &quot;1&quot;:(&quot;n3&quot;, 14);
-nebula&gt; FETCH PROP ON t2 &quot;1&quot;;
-+--------------------------------+
-| vertices_                      |
-+--------------------------------+
-| (&quot;1&quot; :t2{age: 13, name: &quot;n2&quot;}) |
-+--------------------------------+
+nebula&gt; FETCH PROP ON t2 &quot;1&quot; YIELD properties(vertex);
++-----------------------+
+| properties(VERTEX)    |
++-----------------------+
+| {age: 13, name: &quot;n2&quot;} |
++-----------------------+
 </code></pre></div>
 
   <hr>
@@ -6154,7 +6154,7 @@ nebula&gt; FETCH PROP ON t2 &quot;1&quot;;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

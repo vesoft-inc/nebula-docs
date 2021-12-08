@@ -6039,7 +6039,7 @@
 <div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 [ WHERE &lt;conditions&gt; ]
-[YIELD [DISTINCT] &lt;return_list&gt;]
+YIELD [DISTINCT] &lt;return_list&gt;
 [{SAMPLE &lt;sample_list&gt; | LIMIT &lt;limit_list&gt;}]
 [| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
 [| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
@@ -6086,7 +6086,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </li>
 </ul>
 <ul>
-<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code>: defines the output to be returned. It is recommended to use the <a href="../../6.functions-and-expressions/4.schema/">Schema function</a> to fill in <code>&lt;return_list&gt;</code>. <code>src(edge)</code>, <code>dst(edge)</code>, <code>type(edge) )</code>, <code>rank(edge)</code>, <code>properties(edge)</code>, <code>id(vertex)</code>, and <code>properties(vertex)</code> are currently supported, while nested functions are not. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>. When not specified, the destination vertex ID of the edge will be returned by default.</li>
+<li><code>YIELD [DISTINCT] &lt;return_list&gt;</code>: defines the output to be returned. It is recommended to use the <a href="../../6.functions-and-expressions/4.schema/">Schema function</a> to fill in <code>&lt;return_list&gt;</code>. <code>src(edge)</code>, <code>dst(edge)</code>, <code>type(edge) )</code>, <code>rank(edge)</code>, etc., are currently supported, while nested functions are not. For more information, see <a href="../../8.clauses-and-options/yield/">YIELD</a>.</li>
 </ul>
 <ul>
 <li><code>SAMPLE &lt;sample_list&gt;</code>: takes samples from the result set. For more information, see <a href="../../8.clauses-and-options/sample/">SAMPLE</a>.</li>
@@ -6111,23 +6111,25 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code># The following example returns the teams that player 102 serves.
-nebula&gt; GO FROM &quot;player102&quot; OVER serve;
-+------------+
-| serve._dst |
-+------------+
-| &quot;team203&quot;  |
-| &quot;team204&quot;  |
-+------------+
+nebula&gt; GO FROM &quot;player102&quot; OVER serve YIELD dst(edge);
++-----------+
+| dst(EDGE) |
++-----------+
+| &quot;team203&quot; |
+| &quot;team204&quot; |
++-----------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example returns the friends of player 102 with 2 hops.
-nebula&gt; GO 2 STEPS FROM &quot;player102&quot; OVER follow;
+nebula&gt; GO 2 STEPS FROM &quot;player102&quot; OVER follow YIELD dst(edge);
 +-------------+
-| follow._dst |
+| dst(EDGE)   |
 +-------------+
 | &quot;player101&quot; |
 | &quot;player125&quot; |
+| &quot;player100&quot; |
+| &quot;player102&quot; |
+| &quot;player125&quot; |
 +-------------+
-...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code># The following example adds a filter for the traversal.
 nebula&gt; GO FROM &quot;player100&quot;, &quot;player102&quot; OVER serve \
@@ -6161,7 +6163,6 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
 +-------------+
 | &quot;player101&quot; |
 | &quot;player102&quot; |
-+-------------+
 ...
 
 # This MATCH query shares the same semantics with the preceding GO query.
@@ -6262,7 +6263,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name I
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

@@ -6249,9 +6249,9 @@ nebula&gt; INSERT VERTEX player(name, age) VALUES \
   &quot;Blake Griffin&quot;: (&quot;Blake Griffin&quot;, 30);
 
 // These examples run test queries.
-nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, &quot;B&quot;);
+nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, &quot;B&quot;) YIELD id(vertex);
 +-----------------+
-| _vid            |
+| id(VERTEX)      |
 +-----------------+
 | &quot;Boris Diaw&quot;    |
 | &quot;Ben Simmons&quot;   |
@@ -6259,13 +6259,13 @@ nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, &quot;B&quot;);
 +-----------------+
 
 nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, &quot;*ri*&quot;) YIELD player.name, player.age;
-+-----------------+-----------------+-----+
-| _vid            | name            | age |
-+-----------------+-----------------+-----+
-| &quot;Chris Paul&quot;    | &quot;Chris Paul&quot;    | 33  |
-| &quot;Boris Diaw&quot;    | &quot;Boris Diaw&quot;    | 36  |
-| &quot;Blake Griffin&quot; | &quot;Blake Griffin&quot; | 30  |
-+-----------------+-----------------+-----+
++-----------------+-----+
+| name            | age |
++-----------------+-----+
+| &quot;Chris Paul&quot;    | 33  |
+| &quot;Boris Diaw&quot;    | 36  |
+| &quot;Blake Griffin&quot; | 30  |
++-----------------+-----+
 
 nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, &quot;*ri*&quot;) | YIELD count(*);
 +----------+
@@ -6275,28 +6275,26 @@ nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, &quot;*ri*&quot;) | YIEL
 +----------+
 
 nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, &quot;R.*&quot;) YIELD player.name, player.age;
-+---------------------+---------------------+-----+
-| _vid                | name                | age |
-+---------------------+---------------------+-----+
-| &quot;Russell Westbrook&quot; | &quot;Russell Westbrook&quot; | 30  |
-+---------------------+---------------------+-----+
++---------------------+-----+
+| name                | age |
++---------------------+-----+
+| &quot;Russell Westbrook&quot; | 30  |
++---------------------+-----+
 
-nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, &quot;.*&quot;);
+nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, &quot;.*&quot;) YIELD id(vertex);
 +---------------------+
-| _vid                |
+| id(VERTEX)          |
 +---------------------+
 | &quot;Danny Green&quot;       |
 | &quot;David West&quot;        |
-| &quot;Russell Westbrook&quot; |
-+---------------------+
 ...
 
 nebula&gt; LOOKUP ON player WHERE FUZZY(player.name, &quot;Tim Dunncan&quot;, AUTO, OR) YIELD player.name;
-+--------------+--------------+
-| _vid         | name         |
-+--------------+--------------+
-| &quot;Tim Duncan&quot; | &quot;Tim Duncan&quot; |
-+--------------+--------------+
++--------------+
+| name         |
++--------------+
+| &quot;Tim Duncan&quot; |
++--------------+
 
 // This example drops the full-text index.
 nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
@@ -6307,7 +6305,7 @@ nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

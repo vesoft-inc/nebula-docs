@@ -6102,7 +6102,7 @@ nebula&gt; MATCH p = (n:player{name:&quot;LeBron James&quot;})&lt;-[:follow]-(m)
 | 34   | 37   | 171 |
 +------+------+-----+
 
-nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; YIELD id(vertex) AS VertexID \
         |  GO FROM $-.VertexID over follow \
         WHERE properties(edge).degree != reduce(totalNum = 5, n IN range(1, 3) | properties($$).age + totalNum + n) \
         YIELD properties($$).name AS id, properties($$).age AS age, properties(edge).degree AS degree;
@@ -6120,7 +6120,7 @@ nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

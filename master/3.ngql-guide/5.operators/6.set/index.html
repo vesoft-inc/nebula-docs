@@ -6182,11 +6182,11 @@
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># The following statement returns the union of two query results without duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
         UNION \
-        GO FROM &quot;player100&quot; OVER follow;
+        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
 +-------------+
-| follow._dst |
+| dst(EDGE)   |
 +-------------+
 | &quot;player100&quot; |
 | &quot;player101&quot; |
@@ -6194,13 +6194,14 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 +-------------+
 
 # The following statement returns the union of two query results with duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
         UNION ALL \
-        GO FROM &quot;player100&quot; OVER follow;
+        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
 +-------------+
-| follow._dst |
+| dst(EDGE)   |
 +-------------+
 | &quot;player100&quot; |
+| &quot;player101&quot; |
 | &quot;player101&quot; |
 | &quot;player125&quot; |
 +-------------+
@@ -6245,20 +6246,20 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 </code></pre></div>
 <p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by <code>A-B</code>). Always pay attention to the order of <code>left</code> and <code>right</code>. The set <code>A-B</code> consists of elements that are in A but not in B.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
         MINUS \
-        GO FROM &quot;player102&quot; OVER follow;
+        GO FROM &quot;player102&quot; OVER follow YIELD dst(edge);
 +-------------+
-| dst(edge)   |
+| dst(EDGE)   |
 +-------------+
 | &quot;player125&quot; |
 +-------------+
 
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
         MINUS \
-        GO FROM &quot;player100&quot; OVER follow;
+        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
 +-------------+
-| follow._dst |
+| dst(EDGE)   |
 +-------------+
 | &quot;player100&quot; |
 +-------------+
@@ -6299,7 +6300,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

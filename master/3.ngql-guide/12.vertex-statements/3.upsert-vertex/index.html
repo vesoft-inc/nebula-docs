@@ -6079,11 +6079,11 @@ SET &lt;update_prop&gt;
 | No                        | No                                | <code>NULL</code>            | <code>30</code>           |</p>
 <p>Here are some examples:</p>
 <div class="highlight"><pre><span></span><code>// This query checks if the following three vertices exist. The result &quot;Empty set&quot; indicates that the vertices do not exist.
-nebula&gt; FETCH PROP ON * &quot;player666&quot;, &quot;player667&quot;, &quot;player668&quot;;
-+-----------+
-| vertices_ |
-+-----------+
-+-----------+
+nebula&gt; FETCH PROP ON * &quot;player666&quot;, &quot;player667&quot;, &quot;player668&quot; YIELD properties(vertex);
++--------------------+
+| properties(VERTEX) |
++--------------------+
++--------------------+
 Empty set
 
 nebula&gt; UPSERT VERTEX ON player &quot;player666&quot; \
@@ -6140,12 +6140,12 @@ nebula&gt; UPSERT VERTEX ON player_with_default &quot;player101&quot; \
 </code></pre></div>
 <h2 id="update_a_vertex_if_it_exists">Update a vertex if it exists<a class="headerlink" href="#update_a_vertex_if_it_exists" title="Permanent link">&para;</a></h2>
 <p>If the vertex exists and the <code>WHEN</code> conditions are met, the vertex is updated.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot;;
-+-----------------------------------------------------+
-| vertices_                                           |
-+-----------------------------------------------------+
-| (&quot;player101&quot; :player{age: 42, name: &quot;Tony Parker&quot;}) |
-+-----------------------------------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot; YIELD properties(vertex);
++--------------------------------+
+| properties(VERTEX)             |
++--------------------------------+
+| {age: 36, name: &quot;Tony Parker&quot;} |
++--------------------------------+
 
 nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
         SET age = age + 2 \
@@ -6154,16 +6154,16 @@ nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
-| &quot;Tony Parker&quot; | 44  |
+| &quot;Tony Parker&quot; | 38  |
 +---------------+-----+
 </code></pre></div>
 <p>If the vertex exists and the <code>WHEN</code> conditions are not met, the update does not take effect.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot;;
-+-----------------------------------------------------+
-| vertices_                                           |
-+-----------------------------------------------------+
-| (&quot;player101&quot; :player{age: 44, name: &quot;Tony Parker&quot;}) |
-+-----------------------------------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot; YIELD properties(vertex);
++--------------------------------+
+| properties(VERTEX)             |
++--------------------------------+
+| {age: 38, name: &quot;Tony Parker&quot;} |
++--------------------------------+
 
 nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
         SET age = age + 2 \
@@ -6172,7 +6172,7 @@ nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
-| &quot;Tony Parker&quot; | 44  |
+| &quot;Tony Parker&quot; | 38  |
 +---------------+-----+
 </code></pre></div>
 
@@ -6181,7 +6181,7 @@ nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

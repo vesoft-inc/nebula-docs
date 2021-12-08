@@ -6152,7 +6152,7 @@
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;}
 [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]]
-[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]];
+YIELD &lt;return_list&gt; [AS &lt;alias&gt;];
 
 &lt;return_list&gt;
     &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...];
@@ -6161,13 +6161,7 @@
 <li><code>WHERE &lt;expression&gt;</code>: filters data with specified conditions. Both <code>AND</code> and <code>OR</code> are supported between different expressions. For more information, see <a href="../../8.clauses-and-options/where/">WHERE</a>.</li>
 </ul>
 <ul>
-<li>
-<p><code>YIELD</code>: Define the output to be returned.</p>
-<ul>
-<li>When you <code>LOOKUP</code> a Tag, the defined properties and <code>VertexID</code> are returned. If there is no <code>YIELD</code> clause, <code>VertexID</code> is returned.</li>
-<li>When you <code>LOOKUP</code> an Edge type, the defined properties, <code>SrcVertexID</code>, <code>DstVertexID</code>, and <code>rank</code> are returned. If there is no <code>YIELD</code> clause, <code>SrcVertexID</code>, <code>DstVertexID</code>, and <code>rank</code> are returned.</li>
-</ul>
-</li>
+<li><code>YIELD</code>: Define the output to be returned. For details, see <a href="../../8.clauses-and-options/yield/"><code>YIELD</code></a>.</li>
 </ul>
 <ul>
 <li><code>AS</code>: Set an alias.</li>
@@ -6194,45 +6188,50 @@ nebula&gt; REBUILD TAG INDEX index_player;
 +------------+
 
 nebula&gt; LOOKUP ON player \
-        WHERE player.name == &quot;Tony Parker&quot;;
-+-------------+
-| VertexID    |
-+-------------+
-| &quot;player101&quot; |
-+-------------+
+        WHERE player.name == &quot;Tony Parker&quot; \
+        YIELD id(vertex);
++---------------+
+| id(VERTEX)    |
++---------------+
+| &quot;player101&quot;   |
++---------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == &quot;Tony Parker&quot; \
         YIELD properties(vertex).name AS name, properties(vertex).age AS age;
-+-------------+---------------+-----+
-| VertexID    | name          | age |
-+-------------+---------------+-----+
-| &quot;player101&quot; | &quot;Tony Parker&quot; | 36  |
-+-------------+---------------+-----+
++---------------+-----+
+| name          | age |
++---------------+-----+
+| &quot;Tony Parker&quot; | 36  |
++---------------+-----+
 
 nebula&gt; LOOKUP ON player \
-        WHERE player.age  &gt; 45;
+        WHERE player.age  &gt; 45 \
+        YIELD id(vertex);
 +-------------+
-| VertexID    |
+| id(VERTEX)  |
 +-------------+
-| &quot;player140&quot; |
 | &quot;player144&quot; |
+| &quot;player140&quot; |
+| &quot;player111&quot; |
 +-------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name STARTS WITH &quot;B&quot; \
         AND player.age IN [22,30] \
         YIELD properties(vertex).name, properties(vertex).age;
-+-------------+-------------------------+------------------------+
-| VertexID    | properties(VERTEX).name | properties(VERTEX).age |
-+-------------+-------------------------+------------------------+
-| &quot;player134&quot; | &quot;Blake Griffin&quot;         | 30                     |
-| &quot;player149&quot; | &quot;Ben Simmons&quot;           | 22                     |
-+-------------+-------------------------+------------------------+
++-------------------------+------------------------+
+| properties(VERTEX).name | properties(VERTEX).age |
++-------------------------+------------------------+
+| &quot;Blake Griffin&quot;         | 30                     |
+| &quot;Ben Simmons&quot;           | 22                     |
+| &quot;Blake Griffin&quot;         | 30                     |
+| &quot;Ben Simmons&quot;           | 22                     |
++-------------------------+------------------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.name == &quot;Kobe Bryant&quot;\
-        YIELD properties(vertex).name AS name |\
+        YIELD id(vertex) AS VertexID, properties(vertex).name AS name |\
         GO FROM $-.VertexID OVER serve \
         YIELD $-.name, properties(edge).start_year, properties(edge).end_year, properties($$).name;
 +---------------+-----------------------------+---------------------------+---------------------+
@@ -6253,13 +6252,13 @@ nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
 
 nebula&gt; LOOKUP ON follow \
-        WHERE follow.degree == 90;
-+-------------+-------------+---------+
-| SrcVID      | DstVID      | Ranking |
-+-------------+-------------+---------+
-| &quot;player150&quot; | &quot;player143&quot; | 0       |
-| &quot;player150&quot; | &quot;player137&quot; | 0       |
-| &quot;player148&quot; | &quot;player136&quot; | 0       |
+        WHERE follow.degree == 90 YIELD edge AS e;
++----------------------------------------------------+
+| e                                                  |
++----------------------------------------------------+
+| [:follow &quot;player109&quot;-&gt;&quot;player125&quot; @0 {degree: 90}] |
+| [:follow &quot;player118&quot;-&gt;&quot;player120&quot; @0 {degree: 90}] |
+| [:follow &quot;player118&quot;-&gt;&quot;player131&quot; @0 {degree: 90}] |
 ...
 
 nebula&gt; LOOKUP ON follow \
@@ -6275,16 +6274,16 @@ nebula&gt; LOOKUP ON follow \
 
 nebula&gt; LOOKUP ON follow \
         WHERE follow.degree == 60 \
-        YIELD properties(edge).degree AS Degree |\
+        YIELD dst(edge) AS DstVID, properties(edge).degree AS Degree |\
         GO FROM $-.DstVID OVER serve \
         YIELD $-.DstVID, properties(edge).start_year, properties(edge).end_year, properties($$).name;
-+-------------+------------------+----------------+--------------+
-| $-.DstVID   | serve.start_year | serve.end_year | $$.team.name |
-+-------------+------------------+----------------+--------------+
-| &quot;player105&quot; | 2010             | 2018           | &quot;Spurs&quot;      |
-| &quot;player105&quot; | 2009             | 2010           | &quot;Cavaliers&quot;  |
-| &quot;player105&quot; | 2018             | 2019           | &quot;Raptors&quot;    |
-+-------------+------------------+----------------+--------------+
++-------------+-----------------------------+---------------------------+---------------------+
+| $-.DstVID   | properties(EDGE).start_year | properties(EDGE).end_year | properties($$).name |
++-------------+-----------------------------+---------------------------+---------------------+
+| &quot;player105&quot; | 2010                        | 2018                      | &quot;Spurs&quot;             |
+| &quot;player105&quot; | 2009                        | 2010                      | &quot;Cavaliers&quot;         |
+| &quot;player105&quot; | 2018                        | 2019                      | &quot;Raptors&quot;           |
++-------------+-----------------------------+---------------------------+---------------------+
 </code></pre></div>
 <h2 id="list_vertices_or_edges_with_a_tag_or_an_edge_type">List vertices or edges with a tag or an edge type<a class="headerlink" href="#list_vertices_or_edges_with_a_tag_or_an_edge_type" title="Permanent link">&para;</a></h2>
 <p>To list vertices or edges with a tag or an edge type, at least one index must exist on the tag, the edge type, or its property.</p>
@@ -6306,13 +6305,13 @@ nebula&gt; INSERT VERTEX player(name,age) \
 
 The following statement retrieves the VID of all vertices with the tag `player`. It is similar to `MATCH (n:player) RETURN id(n) /*, n */`.
 
-nebula&gt; LOOKUP ON player;
+nebula&gt; LOOKUP ON player YIELD id(vertex);
 +-------------+
-|  VertexID   |
+| id(VERTEX)  |
 +-------------+
 | &quot;player100&quot; |
 | &quot;player101&quot; |
-+-------------+
+...
 </code></pre></div>
 </li>
 </ul>
@@ -6333,18 +6332,20 @@ nebula&gt; INSERT EDGE follow(degree) \
 
 The following statement retrieves all edges with the edge type `follow`. It is similar to `MATCH (s)-[e:follow]-&gt;(d) RETURN id(s), rank(e), id(d) /*, type(e) */`.
 
-nebula)&gt; LOOKUP ON follow;
-+-------------+-------------+---------+
-| SrcVID      | DstVID      | Ranking |
-+-------------+-------------+---------+
-| &quot;player100&quot; | &quot;player101&quot; | 0       |
-+-------------+-------------+---------+
+nebula)&gt; LOOKUP ON follow YIELD edge AS e;
++-----------------------------------------------------+
+| e                                                   |
++-----------------------------------------------------+
+| [:follow &quot;player105&quot;-&gt;&quot;player100&quot; @0 {degree: 70}]  |
+| [:follow &quot;player105&quot;-&gt;&quot;player116&quot; @0 {degree: 80}]  |
+| [:follow &quot;player109&quot;-&gt;&quot;player100&quot; @0 {degree: 80}]  |
+...
 </code></pre></div>
 </li>
 </ul>
 <h2 id="count_the_numbers_of_vertices_or_edges">Count the numbers of vertices or edges<a class="headerlink" href="#count_the_numbers_of_vertices_or_edges" title="Permanent link">&para;</a></h2>
 <p>The following example shows how to count the number of vertices tagged with <code>player</code> and edges of the <code>follow</code> edge type.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player |\
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD id(vertex)|\
         YIELD COUNT(*) AS Player_Number;
 +---------------+
 | Player_Number |
@@ -6352,7 +6353,7 @@ nebula)&gt; LOOKUP ON follow;
 | 51            |
 +---------------+
 
-nebula&gt; LOOKUP ON follow | \
+nebula&gt; LOOKUP ON follow YIELD edge AS e| \
         YIELD COUNT(*) AS Follow_Number;
 +---------------+
 | Follow_Number |
@@ -6370,7 +6371,7 @@ nebula&gt; LOOKUP ON follow | \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

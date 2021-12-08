@@ -6683,7 +6683,7 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES &quot;player101&quot; 
 <li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 [ WHERE &lt;conditions&gt; ]
-[YIELD [DISTINCT] &lt;return_list&gt;]
+YIELD [DISTINCT] &lt;return_list&gt;
 [{SAMPLE &lt;sample_list&gt; | LIMIT &lt;limit_list&gt;}]
 [| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
 [| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
@@ -6699,7 +6699,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <p>Fetch properties on tags:</p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON {&lt;tag_name&gt;[, tag_name ...] | *}
 &lt;vid&gt; [, vid ...]
-[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]];
+YIELD &lt;return_list&gt; [AS &lt;alias&gt;];
 </code></pre></div>
 </li>
 </ul>
@@ -6707,7 +6707,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <li>
 <p>Fetch properties on edges:</p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON &lt;edge_type&gt; &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] [, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; ...]
-[YIELD &lt;output&gt;];
+YIELD &lt;output&gt;;
 </code></pre></div>
 </li>
 </ul>
@@ -6716,7 +6716,7 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <ul>
 <li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;}
 [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]]
-[YIELD &lt;return_list&gt; [AS &lt;alias&gt;]];
+YIELD &lt;return_list&gt; [AS &lt;alias&gt;];
 </code></pre></div>
 </li>
 </ul>
@@ -6727,12 +6727,13 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </ul>
 <h3 id="examples_of_go_statement">Examples of <code>GO</code> statement<a class="headerlink" href="#examples_of_go_statement" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Search for the players that the player with VID <code>player101</code> follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow;
+<li>Search for the players that the player with VID <code>player101</code> follows.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow YIELD id($$);
 +-------------+
-| follow._dst |
+| id($$)      |
 +-------------+
 | &quot;player100&quot; |
 | &quot;player102&quot; |
+| &quot;player125&quot; |
 +-------------+
 </code></pre></div>
 </li>
@@ -6740,11 +6741,12 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 <ul>
 <li>Filter the players that the player with VID <code>player101</code> follows whose age is equal to or greater than 35. Rename the corresponding columns in the results with <code>Teammate</code> and <code>Age</code>.<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow WHERE properties($$).age &gt;= 35 \
         YIELD properties($$).name AS Teammate, properties($$).age AS Age;
-+--------------+-----+
-| Teammate     | Age |
-+--------------+-----+
-| &quot;Tim Duncan&quot; | 42  |
-+--------------+-----+
++-----------------+-----+
+| Teammate        | Age |
++-----------------+-----+
+| &quot;Tim Duncan&quot;    | 42  |
+| &quot;Manu Ginobili&quot; | 41  |
++-----------------+-----+
 </code></pre></div>
 <p>| Clause/Sign | Description                                                         |
   |-------------+---------------------------------------------------------------------|
@@ -6765,7 +6767,10 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 +-----------------+---------------------+
 | Team            | Player              |
 +-----------------+---------------------+
+| &quot;Spurs&quot;         | &quot;Tim Duncan&quot;        |
 | &quot;Trail Blazers&quot; | &quot;LaMarcus Aldridge&quot; |
+| &quot;Spurs&quot;         | &quot;LaMarcus Aldridge&quot; |
+| &quot;Spurs&quot;         | &quot;Manu Ginobili&quot;     |
 +-----------------+---------------------+
 </code></pre></div>
 <table>
@@ -6805,7 +6810,10 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 +-----------------+---------------------+
 | Team            | Player              |
 +-----------------+---------------------+
+| &quot;Spurs&quot;         | &quot;Tim Duncan&quot;        |
 | &quot;Trail Blazers&quot; | &quot;LaMarcus Aldridge&quot; |
+| &quot;Spurs&quot;         | &quot;LaMarcus Aldridge&quot; |
+| &quot;Spurs&quot;         | &quot;Manu Ginobili&quot;     |
 +-----------------+---------------------+
 </code></pre></div>
 </li>
@@ -6814,12 +6822,12 @@ OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
 </ul>
 <h3 id="example_of_fetch_statement">Example of <code>FETCH</code> statement<a class="headerlink" href="#example_of_fetch_statement" title="Permanent link">&para;</a></h3>
 <p>Use <code>FETCH</code>: Fetch the properties of the player with VID <code>player100</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;;
-+----------------------------------------------------+
-| vertices_                                          |
-+----------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
-+----------------------------------------------------+
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; YIELD properties(vertex);
++-------------------------------+
+| properties(VERTEX)            |
++-------------------------------+
+| {age: 42, name: &quot;Tim Duncan&quot;} |
++-------------------------------+
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6855,24 +6863,24 @@ SET &lt;properties to be updated&gt; [WHEN &lt;condition&gt;] [YIELD &lt;columns
 <ul>
 <li><code>UPDATE</code> the <code>name</code> property of the vertex with VID <code>player100</code> and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE VERTEX &quot;player100&quot; SET player.name = &quot;Tim&quot;;
 
-nebula&gt; FETCH PROP ON player &quot;player100&quot;;
-+---------------------------------------------+
-| vertices_                                   |
-+---------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim&quot;}) |
-+---------------------------------------------+
+nebula&gt; FETCH PROP ON player &quot;player100&quot; YIELD properties(vertex);
++------------------------+
+| properties(VERTEX)     |
++------------------------+
+| {age: 42, name: &quot;Tim&quot;} |
++------------------------+
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li><code>UPDATE</code> the <code>degree</code> property of an edge and check the result with the <code>FETCH</code> statement.<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE &quot;player101&quot; -&gt; &quot;player100&quot; OF follow SET degree = 96;
 
-nebula&gt; FETCH PROP ON follow &quot;player101&quot; -&gt; &quot;player100&quot;;
-+----------------------------------------------------+
-| edges_                                             |
-+----------------------------------------------------+
-| [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {degree: 96}] |
-+----------------------------------------------------+
+nebula&gt; FETCH PROP ON follow &quot;player101&quot; -&gt; &quot;player100&quot; YIELD properties(edge);
++------------------+
+| properties(EDGE) |
++------------------+
+| {degree: 96}     |
++------------------+
 </code></pre></div>
 </li>
 </ul>
@@ -6941,7 +6949,7 @@ ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]) [COMMENT = 
 <p>Make sure there is an <a href="#about_indexes">index</a> for <code>LOOKUP</code> or <code>MATCH</code> to use. If there is not, create an index first.</p>
 <p>Find the information of the vertex with the tag <code>player</code> and its value of the <code>name</code> property is <code>Tony Parker</code>.</p>
 <p>This example creates the index <code>player_index_1</code> on the player name property.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX player_index_1 ON player(name(20));
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index_1 ON player(name(20));
 </code></pre></div>
 <p>This example rebuilds the index to make sure it takes effect on pre-existing data.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; REBUILD TAG INDEX player_index_1
@@ -6955,11 +6963,11 @@ Got 1 rows (time spent 2379/3033 us)
 <p>This example uses the <code>LOOKUP</code> statement to retrieve the vertex property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
         YIELD properties(vertex).name AS name, properties(vertex).age AS age;
-+-------------+---------------+-----+
-| VertexID    | name          | age |
-+-------------+---------------+-----+
-| &quot;player101&quot; | &quot;Tony Parker&quot; | 36  |
-+-------------+---------------+-----+
++---------------+-----+
+| name          | age |
++---------------+-----+
+| &quot;Tony Parker&quot; | 36  |
++---------------+-----+
 </code></pre></div>
 <p>This example uses the <code>MATCH</code> statement to retrieve the vertex property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;}) RETURN v;
@@ -6975,7 +6983,7 @@ Got 1 rows (time spent 2379/3033 us)
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>

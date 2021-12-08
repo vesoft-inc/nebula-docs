@@ -6153,10 +6153,10 @@
 </table>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code># The following example returns the top 3 rows of data from the result.
-nebula&gt; LOOKUP ON player |\
+nebula&gt; LOOKUP ON player YIELD id(vertex)|\
         LIMIT 3;
 +-------------+
-| VertexID    |
+| id(VERTEX)  |
 +-------------+
 | &quot;player100&quot; |
 | &quot;player101&quot; |
@@ -6201,16 +6201,17 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
 | &quot;Manu Ginobili&quot; | 41           |
 +-----------------+--------------+
 
-nebula&gt; GO 3 STEPS FROM &quot;player102&quot; \
-        OVER * \
+nebula&gt; GO 3 STEPS FROM &quot;player102&quot; OVER * \
+        YIELD dst(edge) \
         LIMIT [rand32(5),rand32(5),rand32(5)];
-+------------+-------------+---------------------+
-| serve._dst | follow._dst | any_shape_edge._dst |
-+------------+-------------+---------------------+
-| &quot;team204&quot;  |             |                     |
-| &quot;team215&quot;  |             |                     |
-|            | &quot;player100&quot; |                     |
-+------------+-------------+---------------------+
++-------------+
+| dst(EDGE)   |
++-------------+
+| &quot;team204&quot;   |
+| &quot;team215&quot;   |
+| &quot;player100&quot; |
+| &quot;player102&quot; |
++-------------+
 </code></pre></div>
 <h2 id="limit_in_opencypher_compatible_statements">LIMIT in openCypher compatible statements<a class="headerlink" href="#limit_in_opencypher_compatible_statements" title="Permanent link">&para;</a></h2>
 <p>In openCypher compatible statements such as <code>MATCH</code>, there is no need to use a pipe when <code>LIMIT</code> is used. The syntax and description are as follows:</p>
@@ -6307,7 +6308,7 @@ Nebula Graph master does not implement the pushdown optimization of the storage 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
       
     
   </small>
