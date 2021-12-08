@@ -33,7 +33,7 @@ To query the paths or subgraph on the **Console** page and then view them on the
    Here is an nGQL statement example.
 
    ```ngql
-   nebula> FIND ALL PATH FROM "player114" to "player100" OVER follow;
+   nebula> FIND ALL PATH FROM "player114" to "player100" OVER follow YIELD path AS p;
    ```
 
     Take the `FIND ALL PATH` for example, query the path information as shown in this figure.
