@@ -8,7 +8,7 @@ Non-reserved keywords are permitted as identifiers without quoting. To use reser
 
     - Keywords are case-insensitive.
 
-    - To use Chinese characters also need to be quoted.
+    - To use Chinese characters, it's required to quote them with backticks.
 
 ```ngql
 nebula> CREATE TAG TAG(name string);
