@@ -4,16 +4,17 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to Nebula Graph.<!--这里用外链。-->
 
-<!-- TODO cloud service can't be provided together with v2.0.0.
-If you don't have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building, and uses Nebula Graph Studio as its default client.
+<!-- TODO The cloud service cannot be provided together with v{{ nebula.release }}.
+If you do not have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building with Nebula Graph Studio as its default client.
 -->
 
 ## Use Nebula Console to connect to Nebula Graph
 
 ### Prerequisites
 
-* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
-* The machine you plan to run Nebula Console on has network access to the Nebula Graph services.
+* You have started [Nebula Graph services](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
+
+* The machine you plan to run Nebula Console on has network access to Nebula Graph services.
 
 ### Steps
 
@@ -63,9 +64,9 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
    [-t 120] [-e "nGQL_statement" | -f filename.nGQL]
    ```
 
-   The description of the parameters is as follows.
+   Parameters and descriptions are as follows.
 
-   | Option | Description |
+   | Parameter | Description |
    | - | - |
    | `-h` | Shows the help menu. |
    | `-addr` | Sets the IP address of the graphd service. The default address is 127.0.0.1. |
@@ -74,13 +75,13 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
    | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
    | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
    | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
-   | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. You'll get the return messages and the connection stops then. |
+   | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
 
 You can find more details in the [Nebula Console Repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
 
 ## Nebula Console commands
 
-Nebula Console can export CSV file, DOT file, and import too.
+Nebula Console can export CSV file, DOT file, and import datasets.
 
 !!! note
 
@@ -88,15 +89,15 @@ Nebula Console can export CSV file, DOT file, and import too.
 
 ### Export a CSV file
 
-CSV files save the return result of a executed command.
+CSV files save the returned result of a executed command.
 
 !!! note
 
-    - A CSV file will be saved in the working directory, i.e., what linux command `pwd` show;
+    - A CSV file will be saved in the working directory, i.e., what the linux command `pwd` shows.
 
     - This command only works for the next query statement.
 
-The command to export a csv file.
+The command to export a csv file is as follows:
 
 ```ngql
 nebula> :CSV <file_name.csv>
@@ -104,34 +105,34 @@ nebula> :CSV <file_name.csv>
 
 ### Export a DOT file
 
-DOT files save the return result of a executed command, and the result information is different from CSV files.
+DOT files save the returned result of a executed command, and the resulted information is different from that of CSV files.
 
 !!! Note
 
-    - A DOT file will be saved in the working directory, i.e., what linux command `pwd` show;
+    - A DOT file will be saved in the working directory, i.e., what the linux command `pwd` shows.
 
-    - You can copy the contents of DOT file, and paste in [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/), to visualize the excution plan;
+    - You can copy the contents of the DOT file and paste them in [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/) to generate a visualized execution plan.
 
     - This command only works for the next query statement.
 
-The command to export a DOT file.
+The command to export a DOT file is as follows:
 
 ```ngql
 nebula> :dot <file_name.dot>
 ```
 
-For example,
+The example is as follows:
 
 ```ngql
 nebula> :dot a.dot
 nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
 ```
 
-### Importing a testing dataset
+### Import a testing dataset
 
-The testing dataset is named `nba`. Details about schema and data can be seen by commands `SHOW`.
+The testing dataset is named `nba`. To view details about the schema and data, use the corresponding `SHOW` command.
 
-Using the following command to import the testing dataset,
+The command to import a testing dataset is as follows:
 
 ```ngql
 nebula> :play nba
@@ -139,13 +140,13 @@ nebula> :play nba
 
 ### Run a command multiple times
 
-Sometimes, you want to run a command multiple times. Run the following command.
+To run a command multiple times, use the following command:
 
 ```ngql
 nebula> :repeat N
 ```
 
-For example,
+The example is as follows:
 
 ```ngql
 nebula> :repeat 3
@@ -185,9 +186,7 @@ Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578
 
 ### Sleep to wait
 
-Sleep N seconds.
-
-It is usually used when altering schema. Since schema is altered in async way, and take effects in the next heartbeat cycle.
+This command will make Nebula Graph services sleep and wait for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
 
 ```ngql
 nebula> :sleep N
@@ -197,6 +196,8 @@ nebula> :sleep N
 
 You can use `:EXIT` or `:QUIT` to disconnect from Nebula Graph. For convenience, Nebula Console supports using these commands in lower case without the colon (":"), such as `quit`.
 
+The example is as follows:
+
 ```ngql
 nebula> :QUIT
 
@@ -205,6 +206,6 @@ Bye root!
 
 ## FAQ
 
-### How can I install Nebula Console from the source code
+### "How can I install Nebula Console from the source code?"
 
 To download and compile the latest source code of Nebula Console, follow the instructions on [the nebula console GitHub page](https://github.com/vesoft-inc/nebula-console#build-nebula-graph-console).
