@@ -6086,16 +6086,22 @@
 <ul>
 <li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> all accept the property name to return a specific property value of itself. For example, <code>date().month</code> returns the current month, while <code>time("02:59:40").minute</code> returns the minutes of the importing time.</li>
 </ul>
+<ul>
+<li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> can transform a time-type property with a specified time zone. For example, <code>datetime("2017-03-04 22:30:40.003000+08:00")</code> or <code>datetime("2017-03-04T22:30:40.003000[Asia/Shanghai]")</code>.</li>
+</ul>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>In nGQL:</p>
 <ul>
-<li>Year, month, day, hour, minute, and second are supported, while the millisecond is not supported.</li>
+<li>Year, month, day, hour, minute, second, millisecond, and microsecond are supported, while the nanosecond is not supported.</li>
 </ul>
 <ul>
 <li><code>localdatetime()</code> and <code>duration()</code> are not supported.</li>
 </ul>
 <ul>
 <li>Most string time formats are not supported. The exceptions are <code>YYYY-MM-DDThh:mm:ss</code> and <code>YYYY-MM-DD hh:mm:ss</code>.</li>
+</ul>
+<ul>
+<li>The single-digit string time format is supported. For example, <code>time("1:1:1")</code>.</li>
 </ul>
 <h2 id="date">DATE<a class="headerlink" href="#date" title="Permanent link">&para;</a></h2>
 <p>The <code>DATE</code> type is used for values with a date part but no time part. Nebula Graph retrieves and displays <code>DATE</code> values in the <code>YYYY-MM-DD</code> format. The supported range is <code>-32768-01-01</code> to <code>32767-12-31</code>.</p>
@@ -6151,7 +6157,7 @@ nebula&gt; RETURN timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
 </li>
 <li>
 <p>Insert a vertex named <code>test1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES &quot;test1&quot;:(date(&quot;2021-03-17&quot;), time(&quot;17:53:59&quot;), datetime(&quot;2021-03-17T17:53:59&quot;));
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES &quot;test1&quot;:(date(&quot;2021-03-17&quot;), time(&quot;17:53:59&quot;), datetime(&quot;2017-03-04T22:30:40.003000[Asia/Shanghai]&quot;));
 </code></pre></div>
 </li>
 <li>
@@ -6211,7 +6217,7 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2021</span>
       
     
   </small>
