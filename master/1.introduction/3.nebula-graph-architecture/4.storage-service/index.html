@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.nebula-graph.io/master/1.introduction/3.nebula-graph-architecture/4.storage-service/">
       
       <link rel="icon" href="../../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
@@ -23,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.82f3c0b9.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -455,8 +455,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the_architecture_of_storage_service" class="md-nav__link">
-    The architecture of Storage Service
+  <a href="#the_architecture_of_the_storage_service" class="md-nav__link">
+    The architecture of the Storage Service
   </a>
   
 </li>
@@ -540,13 +540,6 @@
           <li class="md-nav__item">
   <a href="#batch" class="md-nav__link">
     Batch
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listener" class="md-nav__link">
-    Listener
   </a>
   
 </li>
@@ -6110,8 +6103,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the_architecture_of_storage_service" class="md-nav__link">
-    The architecture of Storage Service
+  <a href="#the_architecture_of_the_storage_service" class="md-nav__link">
+    The architecture of the Storage Service
   </a>
   
 </li>
@@ -6200,13 +6193,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#listener" class="md-nav__link">
-    Listener
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#transfer_leadership" class="md-nav__link">
     Transfer Leadership
   </a>
@@ -6251,7 +6237,7 @@
 
 <h1 id="storage_service">Storage Service<a class="headerlink" href="#storage_service" title="Permanent link">&para;</a></h1>
 <p>The persistent data of Nebula Graph have two parts. One is the <a href="../2.meta-service/">Meta Service</a> that stores the meta-related data.</p>
-<p>The other is the Storage Service that stores the data, which is run by the nebula-storaged process. This topic will describe the architecture of Storage Service.</p>
+<p>The other is the Storage Service that stores the data, which is run by the nebula-storaged process. This topic will describe the architecture of the Storage Service.</p>
 <h2 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h2>
 <ul>
 <li>High performance (Customized built-in KVStore)</li>
@@ -6268,22 +6254,22 @@
 <ul>
 <li>Supports synchronizing with the third party systems, such as <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Elasticsearch</a>.</li>
 </ul>
-<h2 id="the_architecture_of_storage_service">The architecture of Storage Service<a class="headerlink" href="#the_architecture_of_storage_service" title="Permanent link">&para;</a></h2>
+<h2 id="the_architecture_of_the_storage_service">The architecture of the Storage Service<a class="headerlink" href="#the_architecture_of_the_storage_service" title="Permanent link">&para;</a></h2>
 <p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png" /></p>
-<p>Storage Service is run by the nebula-storaged process. Users can deploy nebula-storaged processes on different occasions. For example, users can deploy 1 nebula-storaged process in a test environment and deploy 3 nebula-storaged processes in a production environment.</p>
+<p>The Storage Service is run by the nebula-storaged process. Users can deploy nebula-storaged processes on different occasions. For example, users can deploy 1 nebula-storaged process in a test environment and deploy 3 nebula-storaged processes in a production environment.</p>
 <p>All the nebula-storaged processes consist of a Raft-based cluster. There are three layers in the Storage Service:</p>
 <ul>
 <li>
 <p>Storage interface</p>
 <p>The top layer is the storage interface. It defines a set of APIs that are related to the graph concepts. These API requests will be translated into a set of KV operations targeting the corresponding <a href="#data_partitioning">Partition</a>. For example:</p>
 <ul>
-<li><code>getNeighbors</code>: query the in-edge or out-edge of a set of vertices, return the edges and the corresponding properties, and support conditional filtering.</li>
+<li><code>getNeighbors</code>: queries the in-edge or out-edge of a set of vertices, returns the edges and the corresponding properties, and supports conditional filtering.</li>
 </ul>
 <ul>
-<li><code>insert vertex/edge</code>: insert a vertex or edge and its properties.</li>
+<li><code>insert vertex/edge</code>: inserts a vertex or edge and its properties.</li>
 </ul>
 <ul>
-<li><code>getProps</code>: get the properties of a vertex or an edge.</li>
+<li><code>getProps</code>: gets the properties of a vertex or an edge.</li>
 </ul>
 <p>It is this layer that makes the Storage Service a real graph storage. Otherwise, it is just a KV storage.</p>
 </li>
@@ -6297,10 +6283,10 @@
 <ul>
 <li>
 <p>Store engine</p>
-<p>The bottom layer is the local storage engine library, providing operations like <code>get</code>, <code>put</code>, and <code>scan</code> on local disks. The related interfaces are stored in <code>KVStore.h</code> and <code>KVEngine.h</code> files. Users can develop their own local store plugins based on their needs.</p>
+<p>The bottom layer is the local storage engine library, providing operations like <code>get</code>, <code>put</code>, and <code>scan</code> on local disks. The related interfaces are stored in <code>KVStore.h</code> and <code>KVEngine.h</code> files. You can develop your own local store plugins based on your needs.</p>
 </li>
 </ul>
-<p>The following will describe some features of Storage Service based on the above architecture.</p>
+<p>The following will describe some features of the Storage Service based on the above architecture.</p>
 <h2 id="kvstore">KVStore<a class="headerlink" href="#kvstore" title="Permanent link">&para;</a></h2>
 <p>Nebula Graph develops and customizes its built-in KVStore for the following reasons.</p>
 <ul>
@@ -6318,7 +6304,7 @@
 </ul>
 <ul>
 <li>
-<p>Meta Service manages all the Storage servers. All the partition distribution data and current machine status can be found in the meta service. Accordingly, users can execute a manual load balancing plan in meta service.</p>
+<p>The Meta Service manages all the Storage servers. All the partition distribution data and current machine status can be found in the meta service. Accordingly, users can execute a manual load balancing plan in meta service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Nebula Graph does not support auto load balancing because auto data transfer will affect online business.</p>
@@ -6420,7 +6406,7 @@
 <p>Since in an ultra-large-scale relational network, vertices can be as many as tens to hundreds of billions, and edges are even more than trillions. Even if only vertices and edges are stored, the storage capacity of both exceeds that of ordinary servers. Therefore, Nebula Graph uses hash to shard the graph elements and store them in different partitions.</p>
 <p><img alt="data partitioning" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" /></p>
 <h3 id="edge_and_storage_amplification">Edge and storage amplification<a class="headerlink" href="#edge_and_storage_amplification" title="Permanent link">&para;</a></h3>
-<p>In Nebula Graph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the picture below.</p>
+<p>In Nebula Graph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the figure below.</p>
 <p><img alt="edge storage" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/two-edge-format.png" /></p>
 <p>In this example, ScrVertex connects DstVertex via EdgeA, forming the path of <code>(SrcVertex)-[EdgeA]-&gt;(DstVertex)</code>. ScrVertex, DstVertex, and EdgeA will all be stored in Partition x and Partition y as four key-value pairs in the storage layer. Details are as follows:</p>
 <ul>
@@ -6445,7 +6431,7 @@
 <p>The number of partitions needs to be determined when users are creating a graph space since it cannot be changed afterward. Users are supposed to take into consideration the demands of future business when setting it.</p>
 </div>
 <p>When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. The number of partitions is set in the CREATE SPACE statement and cannot be changed afterward.</p>
-<p>If certain vertices need to be placed on the same partition (i.e., on the same machine), see <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">Formula/code</a>. </p>
+<p>If certain vertices need to be placed on the same partition (i.e., on the same machine), see <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">Formula/code</a>.</p>
 <p>The following code will briefly describe the relationship between VID and partition.</p>
 <div class="highlight"><pre><span></span><code>// If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
 uint64_t vid = 0;
@@ -6498,9 +6484,12 @@ PartitionID pId = vid % numParts + 1;
 <p class="admonition-title">Note</p>
 <p>Raft and HDFS have different modes of duplication. Raft is based on a quorum vote, so the number of replicas cannot be even.</p>
 </div>
-<p>Listener: As is a special role in Raft, it cannot vote or keep data consistency. In Nebula Graph, it reads Raft-wal from the Leader and synchronizes it to ElasticSearch cluster.</p>
+<!--
+Listener: As is a special role in Raft, it cannot vote or keep data consistency. In Nebula Graph, it reads Raft-wal from the Leader and synchronizes it to ElasticSearch cluster.
+-->
+
 <h3 id="multi_group_raft">Multi Group Raft<a class="headerlink" href="#multi_group_raft" title="Permanent link">&para;</a></h3>
-<p>Storage Service supports a distributed cluster architecture, so Nebula Graph implements Multi Group Raft according to Raft protocol. Each Raft group stores all the replicas of each partition. One replica is the leader, while others are followers. In this way, Nebula Graph achieves strong consistency and high availability. The functions of Raft are as follows.</p>
+<p>The Storage Service supports a distributed cluster architecture, so Nebula Graph implements Multi Group Raft according to Raft protocol. Each Raft group stores all the replicas of each partition. One replica is the leader, while others are followers. In this way, Nebula Graph achieves strong consistency and high availability. The functions of Raft are as follows.</p>
 <p>Nebula Graph uses Multi Group Raft to improve performance when there are many partitions because Raft-wal cannot be NULL. When there are too many partitions, costs will increase, such as storing information in Raft group, WAL files, or batch operation in low load.</p>
 <p>There are two key points to implement the Multi Raft Group:</p>
 <ul>
@@ -6518,37 +6507,43 @@ PartitionID pId = vid % numParts + 1;
 <h3 id="batch">Batch<a class="headerlink" href="#batch" title="Permanent link">&para;</a></h3>
 <p>For each partition, it is necessary to do a batch to improve throughput when writing the WAL serially. As Nebula Graph uses WAL to implement some special functions, batches need to be grouped, which is a feature of Nebula Graph.</p>
 <p>For example, lock-free CAS operations will execute after all the previous WALs are committed. So for a batch, if there are several WALs in CAS type, we need to divide this batch into several smaller groups and make sure they are committed serially.</p>
-<h3 id="listener">Listener<a class="headerlink" href="#listener" title="Permanent link">&para;</a></h3>
-<p>The Listener is designed for <strong>storage horizontal scaling</strong>. It takes a long time for the newly added machines to be synchronized with data. Therefore, these machines cannot join the group followers, otherwise, the availability of the entire cluster will decrease.</p>
-<p>The Listener will write into the command WAL. If the leader finds a command of <code>add learner</code> when writing the WAL, it will add the listener to its peers and mark it as a Listener. Listeners cannot join the quorum votes, but logs will still be sent to them as usual. Listeners themselves will not initiate elections.</p>
-<p>Raft listener can write the data into Elasticsearch cluster after receiving them from Learner to implement full-text search. For more information, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Raft Listener</a>. </p>
+<!--
+### Listener
+
+The Listener is designed for **storage horizontal scaling**. It takes a long time for the newly added machines to be synchronized with data. Therefore, these machines cannot join the group followers, otherwise, the availability of the entire cluster will decrease.
+
+The Listener will write into the command WAL. If the leader finds a command of `add learner` when writing the WAL, it will add the listener to its peers and mark it as a Listener. Listeners cannot join the quorum votes, but logs will still be sent to them as usual. Listeners themselves will not initiate elections.
+
+Raft listener can write the data into Elasticsearch cluster after receiving them from Learner to implement full-text search. For more information, see [Deploy Raft Listener](../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener.md). 
+-->
+
 <h3 id="transfer_leadership">Transfer Leadership<a class="headerlink" href="#transfer_leadership" title="Permanent link">&para;</a></h3>
 <p>Transfer leadership is extremely important for balance. When moving a partition from one machine to another, Nebula Graph first checks if the source is a leader. If so, it should be moved to another peer. After data migration is completed, it is important to <a href="../../../8.service-tuning/load-balance/">balance leader distribution</a> again.</p>
 <p>When a transfer leadership command is committed, the leader will abandon its leadership and the followers will start a leader election.</p>
 <h3 id="peer_changes">Peer changes<a class="headerlink" href="#peer_changes" title="Permanent link">&para;</a></h3>
 <p>To avoid split-brain, when members in a Raft Group change, an intermediate state is required. In such a state, the quorum of the old group and new group always have an overlap. Thus it prevents the old or new group from making decisions unilaterally. To make it even simpler, in his doctoral thesis Diego Ongaro suggests adding or removing a peer once to ensure the overlap between the quorum of the new group and the old group. Nebula Graph also uses this approach, except that the way to add or remove a member is different. For details, please refer to addPeer/removePeer in the Raft Part class.</p>
 <h2 id="differences_with_hdfs">Differences with HDFS<a class="headerlink" href="#differences_with_hdfs" title="Permanent link">&para;</a></h2>
-<p>Storage Service is a Raft-based distributed architecture, which has certain differences with that of HDFS. For example:</p>
+<p>The Storage Service is a Raft-based distributed architecture, which has certain differences with that of HDFS. For example:</p>
 <ul>
-<li>Storage Service ensures consistency through Raft. Usually, the number of its replicas is odd to elect a leader. However, DataNode used by HDFS ensures consistency through NameNode, which has no limit on the number of replicas.</li>
+<li>The Storage Service ensures consistency through Raft. Usually, the number of its replicas is odd to elect a leader. However, DataNode used by HDFS ensures consistency through NameNode, which has no limit on the number of replicas.</li>
 </ul>
 <ul>
-<li>In Storage Service, only the replicas of the leader can read and write, while in HDFS all the replicas can do so.</li>
+<li>In the Storage Service, only the replicas of the leader can read and write, while in HDFS all the replicas can do so.</li>
 </ul>
 <ul>
-<li>In Storage Service, the number of replicas needs to be determined when creating a space, since it cannot be changed afterward. But in HDFS, the number of replicas can be changed freely.</li>
+<li>In the Storage Service, the number of replicas needs to be determined when creating a space, since it cannot be changed afterward. But in HDFS, the number of replicas can be changed freely.</li>
 </ul>
 <ul>
-<li>Storage Service can access the file system directly. While the applications of HDFS (such as HBase) have to access HDFS before the file system, which requires more RPC times.</li>
+<li>The Storage Service can access the file system directly. While the applications of HDFS (such as HBase) have to access HDFS before the file system, which requires more RPC times.</li>
 </ul>
-<p>In a word, Storage Service is more lightweight with some functions simplified and its architecture is simpler than HDFS, which can effectively improve the read and write performance of a smaller block of data.</p>
+<p>In a word, the Storage Service is more lightweight with some functions simplified and its architecture is simpler than HDFS, which can effectively improve the read and write performance of a smaller block of data.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2021</span>
       
     
   </small>
@@ -6640,10 +6635,10 @@ PartitionID pId = vid % numParts + 1;
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.cefbb252.min.js", "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.0bbba5b5.min.js", "version": {"method": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.17f42bbf.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e1a181d9.min.js"></script>
       
         <script src="../../../js/version-select.js"></script>
       
