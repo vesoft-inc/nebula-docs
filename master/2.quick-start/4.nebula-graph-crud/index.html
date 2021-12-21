@@ -572,8 +572,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asynchronous_implementation_of_creation_and_alteration" class="md-nav__link">
-    Asynchronous implementation of creation and alteration
+  <a href="#async_implementation_of_create_and_alter" class="md-nav__link">
+    Async implementation of CREATE and ALTER
   </a>
   
 </li>
@@ -6209,8 +6209,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#asynchronous_implementation_of_creation_and_alteration" class="md-nav__link">
-    Asynchronous implementation of creation and alteration
+  <a href="#async_implementation_of_create_and_alter" class="md-nav__link">
+    Async implementation of CREATE and ALTER
   </a>
   
 </li>
@@ -6484,11 +6484,11 @@
 | &quot;Total&quot;     | __EMPTY__ | __EMPTY__ | 0            | __EMPTY__            | __EMPTY__              |
 +-------------+-----------+-----------+--------------+----------------------+------------------------+
 </code></pre></div>
-<p>From the <strong>Status</strong> column of the table in the return results, you can see that all the Storage services are online.</p>
-<h3 id="asynchronous_implementation_of_creation_and_alteration">Asynchronous implementation of creation and alteration<a class="headerlink" href="#asynchronous_implementation_of_creation_and_alteration" title="Permanent link">&para;</a></h3>
+<p>From the <strong>Status</strong> column of the table in the returned results, you can see that all the Storage services are online.</p>
+<h3 id="async_implementation_of_create_and_alter">Async implementation of <code>CREATE</code> and <code>ALTER</code><a class="headerlink" href="#async_implementation_of_create_and_alter" title="Permanent link">&para;</a></h3>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Nebula Graph implements the following creation or alteration operations asynchronously in the <strong>next</strong> heartbeat cycle. The operations will not take effect until they finish.</p>
+<p>In Nebula Graph, the following <code>CREATE</code> or <code>ALTER</code> commands are implemented in an async way and take effect in the <strong>next</strong> heartbeat cycle. Otherwise, an error will be returned.</p>
 </div>
 <ul>
 <li><code>CREATE SPACE</code></li>
@@ -6505,7 +6505,7 @@
 </div>
 <p>To make sure the follow-up operations work as expected, take one of the following approaches:</p>
 <ul>
-<li>Run <code>SHOW</code> or <code>DESCRIBE</code> statements accordingly to check the status of the objects, and make sure the creation or alteration is complete. If it is not, wait a few seconds and try again.</li>
+<li>Run <code>SHOW</code> or <code>DESCRIBE</code> statements accordingly to check the status of the objects, and make sure the creation or alteration is complete. If it is not, wait for a few seconds and try again.</li>
 </ul>
 <ul>
 <li>Wait for two heartbeat cycles, i.e., 20 seconds.</li>
@@ -6580,7 +6580,7 @@ vid_type = {FIXED_STRING(&lt;N&gt;) | INT64}
 </code></pre></div>
 <p>For more information on parameters, see <a href="../../3.ngql-guide/10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../3.ngql-guide/11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<p>Create tags <code>player</code> and <code>team</code>, edge types <code>follow</code> and <code>serve</code>. Descriptions are as follows.</p>
+<p>Create tags <code>player</code> and <code>team</code>, and edge types <code>follow</code> and <code>serve</code>. Descriptions are as follows.</p>
 <table>
 <thead>
 <tr>
@@ -6621,7 +6621,7 @@ nebula&gt; CREATE EDGE follow(degree int);
 nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h2 id="insert_vertices_and_edges">Insert vertices and edges<a class="headerlink" href="#insert_vertices_and_edges" title="Permanent link">&para;</a></h2>
-<p>Users can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
+<p>You can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
@@ -6757,7 +6757,7 @@ YIELD &lt;return_list&gt; [AS &lt;alias&gt;];
 </ul>
 <ul>
 <li>
-<p>Search for the players that the player with VID <code>player101</code> follows. Then Retrieve the teams of the players that the player with VID <code>player100</code> follows. To combine the two queries, use a pipe or a temporary variable.</p>
+<p>Search for the players that the player with VID <code>player101</code> follows. Then retrieve the teams of the players that the player with VID <code>player100</code> follows. To combine the two queries, use a pipe or a temporary variable.</p>
 <ul>
 <li>
 <p>With a pipe:</p>
@@ -6983,7 +6983,7 @@ Got 1 rows (time spent 2379/3033 us)
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 9, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2021</span>
       
     
   </small>
