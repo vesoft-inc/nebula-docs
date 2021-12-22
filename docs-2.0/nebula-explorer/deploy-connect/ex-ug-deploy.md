@@ -128,7 +128,7 @@ Before deploying Explorer, you must check the following information:
 
   !!! enterpriseonly
 
-        License is only available in the Enterprise Edition. To obtain the license, submit answers on the [Apply for Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) page.
+        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) page.
 
 ### Install and deploy
 
