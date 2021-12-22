@@ -806,6 +806,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#opencypher_compatibility" class="md-nav__link">
     OpenCypher Compatibility
   </a>
@@ -836,6 +843,13 @@
         <li class="md-nav__item">
   <a href="#timestamp" class="md-nav__link">
     TIMESTAMP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    DURATION
   </a>
   
 </li>
@@ -6015,6 +6029,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#opencypher_compatibility" class="md-nav__link">
     OpenCypher Compatibility
   </a>
@@ -6050,6 +6071,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    DURATION
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -6074,20 +6102,25 @@
 
 
 <h1 id="date_and_time_types">Date and time types<a class="headerlink" href="#date_and_time_types" title="Permanent link">&para;</a></h1>
-<p>This topic will describe the <code>DATE</code>, <code>TIME</code>, <code>DATETIME</code>, and <code>TIMESTAMP</code> types.</p>
-<p>While inserting time-type property values, except for <code>TIMESTAMP</code>, Nebula Graph transforms them to a UTC time according to the time zone specified with the <code>timezone_name</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a>. The time-type values returned by nGQL queries are all UTC time.</p>
+<p>This topic will describe the <code>DATE</code>, <code>TIME</code>, <code>DATETIME</code>, <code>TIMESTAMP</code>, and <code>DURATION</code> types.</p>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>While inserting time-type property values with <code>DATE</code>, <code>TIME</code>, and <code>DATETIME</code>, Nebula Graph transforms them to a UTC time according to the timezone specified with the <code>timezone_name</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a>. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To change the time zone, modify the <code>timezone_name</code> value in the configuration files of all Nebula Graph services.</p>
+<p>To change the timezone, modify the <code>timezone_name</code> value in the configuration files of all Nebula Graph services.</p>
 </div>
+</li>
+</ul>
+<ul>
+<li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> can convert a time-type property with a specified timezone. For example, <code>datetime("2017-03-04 22:30:40.003000+08:00")</code> or <code>datetime("2017-03-04T22:30:40.003000[Asia/Shanghai]")</code>.</li>
+</ul>
 <ul>
 <li><code>date()</code>, <code>time()</code>, <code>datetime()</code>, and <code>timestamp()</code> all accept empty parameters to return the current date, time, and datetime.</li>
 </ul>
 <ul>
 <li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> all accept the property name to return a specific property value of itself. For example, <code>date().month</code> returns the current month, while <code>time("02:59:40").minute</code> returns the minutes of the importing time.</li>
-</ul>
-<ul>
-<li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> can transform a time-type property with a specified time zone. For example, <code>datetime("2017-03-04 22:30:40.003000+08:00")</code> or <code>datetime("2017-03-04T22:30:40.003000[Asia/Shanghai]")</code>.</li>
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>In nGQL:</p>
@@ -6095,7 +6128,7 @@
 <li>Year, month, day, hour, minute, second, millisecond, and microsecond are supported, while the nanosecond is not supported.</li>
 </ul>
 <ul>
-<li><code>localdatetime()</code> and <code>duration()</code> are not supported.</li>
+<li><code>localdatetime()</code> is not supported.</li>
 </ul>
 <ul>
 <li>Most string time formats are not supported. The exceptions are <code>YYYY-MM-DDThh:mm:ss</code> and <code>YYYY-MM-DD hh:mm:ss</code>.</li>
@@ -6126,7 +6159,7 @@
 </ul>
 <ul>
 <li>
-<p><code>timestamp()</code> function accepts empty parameters to get the timestamp of the current time zone and also accepts a string type parameter.</p>
+<p><code>timestamp()</code> function accepts empty parameters to get the timestamp of the current timezone and also accepts a string type parameter.</p>
 <div class="highlight"><pre><span></span><code># Return the current time.
 nebula&gt; RETURN timestamp();
 +-------------+
@@ -6147,6 +6180,15 @@ nebula&gt; RETURN timestamp(&quot;2021-07-05T06:18:43.984000&quot;);
 </ul>
 <ul>
 <li>The underlying storage data type is <strong>int64</strong>.</li>
+</ul>
+<h2 id="duration">DURATION<a class="headerlink" href="#duration" title="Permanent link">&para;</a></h2>
+<p>The <code>DURATION</code> data type is used to indicate a period of time. Map data that are freely combined by <code>years</code>, <code>months</code>, <code>days</code>, <code>hours</code>, <code>minutes</code>, and <code>seconds</code> indicates the <code>DURATION</code>.</p>
+<p><code>DURATION</code> has the following features:</p>
+<ul>
+<li>Creating indexes for <code>DURATION</code> is not supported.</li>
+</ul>
+<ul>
+<li><code>DURATION</code> can be used to calculate the specified time.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <ol>
@@ -6196,7 +6238,7 @@ nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;
 </code></pre></div>
 </li>
 </ol>
-<p>You can also use <code>WITH</code> statement to set a specific date and time. For example:</p>
+<p>You can also use <code>WITH</code> statement to set a specific date and time, or to perform calculations. For example:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; WITH time({hour: 12, minute: 31, second: 14, millisecond:111, microsecond: 222}) AS d RETURN d;
 +-----------------+
 | d               |
@@ -6210,6 +6252,14 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 +------------+
 | 1984-10-12 |
 +------------+
+
+nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, hours: 99, minutes: 12}) as d \
+        RETURN x + d AS sum, x - d AS diff;
++------------+------------+
+| sum        | diff       |
++------------+------------+
+| 1996-10-29 | 1972-09-23 |
++------------+------------+
 </code></pre></div>
 
   <hr>
@@ -6217,7 +6267,7 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 22, 2021</span>
       
     
   </small>
