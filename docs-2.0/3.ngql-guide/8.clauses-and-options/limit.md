@@ -35,10 +35,10 @@ For example:
 
 ```ngql
 # The following example returns the top 3 rows of data from the result.
-nebula> LOOKUP ON player |\
+nebula> LOOKUP ON player YIELD id(vertex)|\
         LIMIT 3;
 +-------------+
-| VertexID    |
+| id(VERTEX)  |
 +-------------+
 | "player100" |
 | "player101" |
@@ -92,16 +92,17 @@ nebula> GO 3 STEPS FROM "player100" \
 | "Manu Ginobili" | 41           |
 +-----------------+--------------+
 
-nebula> GO 3 STEPS FROM "player102" \
-        OVER * \
+nebula> GO 3 STEPS FROM "player102" OVER * \
+        YIELD dst(edge) \
         LIMIT [rand32(5),rand32(5),rand32(5)];
-+------------+-------------+---------------------+
-| serve._dst | follow._dst | any_shape_edge._dst |
-+------------+-------------+---------------------+
-| "team204"  |             |                     |
-| "team215"  |             |                     |
-|            | "player100" |                     |
-+------------+-------------+---------------------+
++-------------+
+| dst(EDGE)   |
++-------------+
+| "team204"   |
+| "team215"   |
+| "player100" |
+| "player102" |
++-------------+
 ```
 
 ## LIMIT in openCypher compatible statements

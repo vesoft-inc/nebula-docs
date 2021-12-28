@@ -17,6 +17,9 @@ Execution succeeded
 
 nebula> CREATE TAG SPACE(name string);
 Execution succeeded
+
+nebula> CREATE TAG 中文(简体 string);
+Execution succeeded
 ```
 
 - `TAG` is a reserved keyword. To use `TAG` as an identifier, you must quote it with backticks.

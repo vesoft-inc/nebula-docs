@@ -4,7 +4,7 @@
 
 `YIELD` can lead a clause or a statement:
 
-* A `YIELD` clause works in nGQL statements such as `GO`, `FETCH`, or `LOOKUP`.
+* A `YIELD` clause works in nGQL statements such as `GO`, `FETCH`, or `LOOKUP` and must be defined to return the result.
 
 * A `YIELD` statement works in a composite query or independently.
 
@@ -59,11 +59,11 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
     ```ngql
     nebula> FETCH PROP ON player "player100" \
             YIELD properties(vertex).name;
-    +-------------+-------------------------+
-    | VertexID    | properties(VERTEX).name |
-    +-------------+-------------------------+
-    | "player100" | UNKNOWN_PROP            |
-    +-------------+-------------------------+
+    +-------------------------+
+    | properties(VERTEX).name |
+    +-------------------------+
+    | "Tim Duncan"            |
+    +-------------------------+
     ```
 
 * Use `YIELD` with `LOOKUP`:
@@ -71,11 +71,11 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...];
     ```ngql
     nebula> LOOKUP ON player WHERE player.name == "Tony Parker" \
             YIELD properties(vertex).name, properties(vertex).age;
-    +-------------+-------------------------+------------------------+
-    | VertexID    | properties(VERTEX).name | properties(VERTEX).age |
-    +-------------+-------------------------+------------------------+
-    | "player101" | "Tony Parker"           | 36                     |
-    +-------------+-------------------------+------------------------+
+    +-------------------------+------------------------+
+    | properties(VERTEX).name | properties(VERTEX).age |
+    +-------------------------+------------------------+
+    | "Tony Parker"           | 36                     |
+    +-------------------------+------------------------+
     ```
 
 ## YIELD statements

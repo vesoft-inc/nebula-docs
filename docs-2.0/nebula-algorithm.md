@@ -16,7 +16,7 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 ## Limitations
 
-- The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
+- When submitting the algorithm package directly, the data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
 - For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
 
@@ -39,6 +39,7 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 |  GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
 | BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |
 | DegreeStatic    |Degree of statistical | Graph structure analysis|
+| ClusteringCoefficient | Recommendation system, telecom fraud analysis|
 
 ## Implementation methods
 
@@ -96,7 +97,7 @@ The `lib` repository provides 10 common graph algorithms.
   </dependency>
   ```
 
-2. Use the algorithm (take PageRank as an example) by filling in parameters. For more algorithms, see [Test cases](https://github.com/vesoft-inc/nebula-algorithm/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib)).
+2. Use the algorithm (take PageRank as an example) by filling in parameters. For more examples, see [example](https://github.com/vesoft-inc/nebula-algorithm/tree/master/example/src/main/scala/com/vesoft/nebula/algorithm).
 
   !!! note
         By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
@@ -105,6 +106,8 @@ The `lib` repository provides 10 common graph algorithms.
   val prConfig = new PRConfig(5, 1.0)
   val louvainResult = PageRankAlgo.apply(spark, data, prConfig, false)
   ```
+  
+  If your vertex IDs are Strings, see [Pagerank Example](https://github.com/vesoft-inc/nebula-algorithm/blob/master/example/src/main/scala/com/vesoft/nebula/algorithm/PageRankExample.scala) for how to encoding and decoding them.
 
 ### Submit the algorithm package directly
 

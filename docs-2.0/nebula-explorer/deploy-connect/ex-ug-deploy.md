@@ -33,6 +33,11 @@ Before you deploy Explorer, you must do a check of these:
 
 - The Linux distribution is CentOS.
 - GO of version above 1.13 is installed.
+- The license is ready.
+
+  !!! enterpriseonly
+
+        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
 
 ### Install
 
@@ -65,10 +70,6 @@ Before you deploy Explorer, you must do a check of these:
    ```bash
    $ cp -r nebula.license /usr/local/nebula-explorer
    ```
-
-  !!! enterpriseonly
-
-        License is only available in the Enterprise Edition. For more information, send email to inquiry@vesoft.com.
 
 4. After adding the license, you need to stop and restart the service using the following command.
 
@@ -123,6 +124,11 @@ Before deploying Explorer, you must check the following information:
 
 - The Linux distribution is CentOS.
 - GO of version above 1.13 is installed.
+- The license is ready.
+
+  !!! enterpriseonly
+
+        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
 
 ### Install and deploy
 
@@ -148,10 +154,6 @@ Before deploying Explorer, you must check the following information:
    ```bash
    $ cp -r nebula.license /usr/local/nebula-explorer
    ```
-
-  !!! enterpriseonly
-
-        License is only available in the Enterprise Edition. For more information, send email to inquiry@vesoft.com.
 
 4. Enter the `nebula-explorer` folder to start Explorer.
 
