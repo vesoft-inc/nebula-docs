@@ -1,6 +1,6 @@
 # Nebula Console
 
-Nebula Console is a native CLI client for Nebula Graph, it can be used to connect a Nebula Graph cluster and execute queries, while supporting special commands to manage parameters, export CSV files, export DOT files, import test datasets, etc. This topic describes these special commands.
+Nebula Console is a native CLI client for Nebula Graph. It can be used to connect a Nebula Graph cluster and execute queries. It can also support special commands to manage parameters, export CSV files, export DOT files, import test datasets, etc. This topic describes these special commands.
 
 To connect Nebula Graph using Nebula Console, see [Step 3: Connect to Nebula Graph](2.quick-start/3.connect-to-nebula-graph.md).
 
