@@ -67,7 +67,7 @@ CSV files save the returned result of a executed command.
 The command to export a csv file is as follows:
 
 ```ngql
-nebula> :CSV <file_name.csv>
+nebula> :CSV <file_name.csv>;
 ```
 
 ## Export a DOT file
