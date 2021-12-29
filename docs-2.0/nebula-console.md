@@ -18,41 +18,45 @@ You can save parameters for parameterized queries.
 
     - Parameters are not supported in sample clause.
 
-    - Saving multiple parameters at a time is not supported.
-
     - Parameters are not retained after the session is released.
 
-The command to save a parameter is as follows:
+- The command to save a parameter is as follows:
 
-```ngql
-nebula> :param <param_name> => <param_value>;
-```
+  ```ngql
+  nebula> :param <param_name> => <param_value>;
+  ```
 
-The example is as follows:
+  The example is as follows:
 
-```ngql
-nebula> :param p1 => "Tim Duncan";
-nebula> MATCH (v:player{name:$p1})-[:follow]->(n)  RETURN v,n;
-+----------------------------------------------------+-------------------------------------------------------+
-| v                                                  | n                                                     |
-+----------------------------------------------------+-------------------------------------------------------+
-| ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player125" :player{age: 41, name: "Manu Ginobili"}) |
-| ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player101" :player{age: 36, name: "Tony Parker"})   |
-+----------------------------------------------------+-------------------------------------------------------+
-nebula> :param p2 => {"a":3,"b":false,"c":"Tim Duncan"};
-nebula> RETURN $p2.b AS b;
-+-------+
-| b     |
-+-------+
-| false |
-+-------+
-```
+  ```ngql
+  nebula> :param p1 => "Tim Duncan";
+  nebula> MATCH (v:player{name:$p1})-[:follow]->(n)  RETURN v,n;
+  +----------------------------------------------------+-------------------------------------------------------+
+  | v                                                  | n                                                     |
+  +----------------------------------------------------+-------------------------------------------------------+
+  | ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player125" :player{age: 41, name: "Manu Ginobili"}) |
+  | ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player101" :player{age: 36, name: "Tony Parker"})   |
+  +----------------------------------------------------+-------------------------------------------------------+
+  nebula> :param p2 => {"a":3,"b":false,"c":"Tim Duncan"};
+  nebula> RETURN $p2.b AS b;
+  +-------+
+  | b     |
+  +-------+
+  | false |
+  +-------+
+  ```
 
-The command to view the saved parameters is as follows:
+- The command to view the saved parameters is as follows:
 
-```ngql
-nebula> :params;
-```
+  ```ngql
+  nebula> :params;
+  ```
+
+- The command to delete a specified parameter is as follows:
+
+  ```ngql
+  nebula> :param <param_name> =>;
+  ```
 
 ## Export a CSV file
 
