@@ -16,7 +16,7 @@ You can save parameters for parameterized queries.
 
     - Setting a parameter as a VID in a query is not supported.
 
-    - Parameters are not supported in sample clause.
+    - Parameters are not supported in `SAMPLE` clauses.
 
     - Parameters are not retained after the session is released.
 
