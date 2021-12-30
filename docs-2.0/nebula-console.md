@@ -1,6 +1,6 @@
 # Nebula Console
 
-Nebula Console is a native CLI client for Nebula Graph. It can be used to connect a Nebula Graph cluster and execute queries. It can also support special commands to manage parameters, export CSV files, export DOT files, import test datasets, etc. This topic describes these special commands.
+Nebula Console is a native CLI client for Nebula Graph. It can be used to connect a Nebula Graph cluster and execute queries. It can also support special commands to manage parameters, export query results, import test datasets, etc. This topic describes these special commands.
 
 To connect Nebula Graph using Nebula Console, see [Step 3: Connect to Nebula Graph](2.quick-start/3.connect-to-nebula-graph.md).
 
@@ -58,46 +58,36 @@ You can save parameters for parameterized queries.
   nebula> :param <param_name> =>;
   ```
 
-## Export a CSV file
+## Export query results
 
-CSV files save the returned result of a executed command.
+Export query results,  which can be saved as a CSV file or DOT file.
 
 !!! note
 
-    - A CSV file will be saved in the working directory, i.e., what the linux command `pwd` shows.
+    - A file will be saved in the working directory, i.e., what the linux command `pwd` shows.
 
     - This command only works for the next query statement.
-
-The command to export a csv file is as follows:
-
-```ngql
-nebula> :CSV <file_name.csv>;
-```
-
-## Export a DOT file
-
-DOT files save the returned result of a executed command, and the resulted information is different from that of CSV files.
-
-!!! Note
-
-    - A DOT file will be saved in the working directory, i.e., what the linux command `pwd` shows.
 
     - You can copy the contents of the DOT file and paste them in [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/) to generate a visualized execution plan.
 
-    - This command only works for the next query statement.
+- The command to export a csv file is as follows:
 
-The command to export a DOT file is as follows:
+  ```ngql
+  nebula> :CSV <file_name.csv>;
+  ```
 
-```ngql
-nebula> :dot <file_name.dot>
-```
+- The command to export a DOT file is as follows:
 
-The example is as follows:
+  ```ngql
+  nebula> :dot <file_name.dot>
+  ```
 
-```ngql
-nebula> :dot a.dot
-nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
-```
+  The example is as follows:
+
+  ```ngql
+  nebula> :dot a.dot
+  nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
+  ```
 
 ## Import a testing dataset
 
