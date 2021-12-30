@@ -14,7 +14,7 @@ You can save parameters for parameterized queries.
 
 !!! note
 
-    - Parameters are not supported in VID.
+    - Setting a parameter as a VID in a query is not supported.
 
     - Parameters are not supported in sample clause.
 
