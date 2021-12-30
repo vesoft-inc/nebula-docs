@@ -18,7 +18,7 @@ You can save parameters for parameterized queries.
 
     - Parameters are not supported in `SAMPLE` clauses.
 
-    - Parameters are not retained after the session is released.
+    - Parameters are deleted when their sessions are released.
 
 - The command to save a parameter is as follows:
 
