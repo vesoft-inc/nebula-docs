@@ -91,7 +91,7 @@ Export query results,  which can be saved as a CSV file or DOT file.
 
 ## Import a testing dataset
 
-The testing dataset is named `nba`. To view details about the schema and data, use the corresponding `SHOW` command.
+The testing dataset is named `basketballplayer`. To view details about the schema and data, use the corresponding `SHOW` command.
 
 The command to import a testing dataset is as follows:
 
