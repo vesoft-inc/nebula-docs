@@ -19,7 +19,7 @@
     
     
       
-        <title>5.2.connection configuration and use - Nebula Graph Database Manual</title>
+        <title>Private Link - Nebula Graph Database Manual</title>
       
     
     
@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#private_link" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -109,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5.2.connection configuration and use
+              Private Link
             
           </span>
         </div>
@@ -5925,6 +5930,46 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configure_private_link" class="md-nav__link">
+    Configure Private Link
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect_to_nebula_graph_with_private_link" class="md-nav__link">
+    Connect to Nebula Graph with Private Link
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -5935,16 +5980,157 @@
 </a>
 
 
-  <h1>5.2.connection configuration and use</h1>
+<h1 id="private_link">Private Link<a class="headerlink" href="#private_link" title="Permanent link">&para;</a></h1>
+<p>You can create a Private Link endpoint in <strong>Connectivity</strong> to allow users to access Nebula Graph databases through a private IP in a virtual network, without exposing your traffic to the public internet. For more information about Private Link, see <a href="https://docs.microsoft.com/en-us/azure/private-link/private-link-overview">What is Azure Private Link?</a>.</p>
+<h2 id="configure_private_link">Configure Private Link<a class="headerlink" href="#configure_private_link" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Enter your subscription ID, click <strong>Create</strong>. The creation time takes about 2 minutes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The subscription ID on the <strong>Subscription</strong> page of Azure Portal. You can click on the [Subscriptions] (https://portal.azure.com/?l=en.en-us#blade/Microsoft_Azure_Billing/SubscriptionsBlade) page for quick access.</p>
+</div>
+</li>
+<li>
+<p>After the creation, you can use <strong>Alias</strong> to connect to Azure resources and create a private endpoint in Azure.</p>
+<ol>
+<li>Navigate to the Azure portal. Search for Private Link and click <strong>Private endpoint</strong>.</li>
+<li>Click <strong>+ add</strong>.</li>
+<li>
+<p>In the <strong>Basics</strong> section, fill in the following plan details:</p>
+<ul>
+<li>Project details</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Subscription</td>
+<td align="left">Select the subscription.</td>
+</tr>
+<tr>
+<td align="left">Resource group</td>
+<td align="left">Select an existing resource group or create a new resource group.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Instance details</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Name</td>
+<td align="left">Set the name of the private endpoint.</td>
+</tr>
+<tr>
+<td align="left">Region</td>
+<td align="left">Select the region.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The region of the database you select should be in the same area as that of your business to avoid performance and speed problems.</p>
+</div>
+<ol>
+<li>At the bottom of the <strong>Basics</strong> page, click <strong>Next: Resource</strong>.</li>
+<li>In the <strong>Resource</strong> section, fill in the following plan details:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Connection method</td>
+<td align="left">Click <strong>Connect to an Azure resource by resource ID or alias.</strong></td>
+</tr>
+<tr>
+<td align="left">Resource ID or alias</td>
+<td align="left">Set the alias.</td>
+</tr>
+<tr>
+<td align="left">Request message</td>
+<td align="left">Set the message, this message will be sent to the resource owner.</td>
+</tr>
+</tbody>
+</table>
+<p>!!! note</p>
+<div class="codehilite"><pre><span></span><code>  The alias is on the **Connectivity** page of Nebula Graph Cloud, click ![copy](../figs/copy.png) to copy it.
+</code></pre></div>
 
-
+<ol>
+<li>At the bottom of the <strong>Resource</strong> page, click <strong>Next: Configuration</strong>.</li>
+<li>
+<p>In the <strong>Configuration</strong> section, select the following plan details:</p>
+<ul>
+<li>Networking</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Virtual network</td>
+<td align="left">Set virtual networks.</td>
+</tr>
+<tr>
+<td align="left">Subnet</td>
+<td align="left">Set the subnet in the selected virtual network.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Private DNS integration is currently not supported.</p>
+</div>
+</li>
+<li>
+<p>At the bottom of the <strong>Configuration</strong> page, click <strong>Next: Tags</strong>.</p>
+</li>
+<li>(optional)In the <strong>Tags</strong> section, enter <strong>Name:Values</strong>.</li>
+<li>At the bottom of the <strong>Tags</strong> page, click <strong>Next: Review + create</strong>.</li>
+<li>At the bottom of the <strong>Review + create</strong> page, click <strong>Create</strong>.</li>
+</ol>
+</li>
+<li>
+<p>After creating the <strong>private endpoint</strong>, copy the <strong>Private IP address</strong> in <strong>Network interface</strong> to the <strong>Connectivity</strong> page in Cloud. Click the <strong>Create</strong>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Private Link Endpoint IP information is stored in the Cloud, and you can click <img alt="edit" src="../../figs/edit.png" /> to modify.</p>
+</div>
+<h2 id="connect_to_nebula_graph_with_private_link">Connect to Nebula Graph with Private Link<a class="headerlink" href="#connect_to_nebula_graph_with_private_link" title="Permanent link">&para;</a></h2>
+<p>You can use Private link endpoint IP to connect to Nebula Graph. For more information, see <a href="../../../reuse/source_connect-to-nebula-graph/">Connect to Nebula Graph</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 31, 2021</span>
       
     
   </small>
