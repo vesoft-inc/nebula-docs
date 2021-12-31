@@ -6056,23 +6056,23 @@
 </div>
 <h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The <code>SHOW QUERIES</code> statement gets the status of queries in the current session from the local cache with almost no latency.</li>
+<li>The <code>SHOW LOCAL QUERIES</code> statement gets the status of queries in the current session from the local cache with almost no latency.</li>
 </ul>
 <ul>
-<li>The <code>SHOW ALL QUERIES</code> statement gets the information of queries in all the sessions from the Meta Service. The information will be synchronized to the Meta Service according to the interval defined by <code>session_reclaim_interval_secs</code>. Therefore the information that you get from the client may belong to the last synchronization interval.</li>
+<li>The <code>SHOW QUERIES</code> statement gets the information of queries in all the sessions from the Meta Service. The information will be synchronized to the Meta Service according to the interval defined by <code>session_reclaim_interval_secs</code>. Therefore the information that you get from the client may belong to the last synchronization interval.</li>
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW [ALL] QUERIES;
+<div class="highlight"><pre><span></span><code>SHOW [LOCAL] QUERIES;
 </code></pre></div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW QUERIES;
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW LOCAL QUERIES;
 +------------------+-----------------+--------+----------------------+----------------------------+----------------+-----------+-----------------+
 | SessionID        | ExecutionPlanID | User   | Host                 | StartTime                  | DurationInUSec | Status    | Query           |
 +------------------+-----------------+--------+----------------------+----------------------------+----------------+-----------+-----------------+
 | 1625463842921750 | 46              | &quot;root&quot; | &quot;&quot;192.168.x.x&quot;:9669&quot; | 2021-07-05T05:44:19.502903 | 0              | &quot;RUNNING&quot; | &quot;SHOW QUERIES;&quot; |
 +------------------+-----------------+--------+----------------------+----------------------------+----------------+-----------+-----------------+
 
-nebula&gt; SHOW ALL QUERIES;
+nebula&gt; SHOW QUERIES;
 +------------------+-----------------+---------+----------------------+----------------------------+----------------+-----------+---------------------------------------------------------+
 | SessionID        | ExecutionPlanID | User    | Host                 | StartTime                  | DurationInUSec | Status    | Query                                                   |
 +------------------+-----------------+---------+----------------------+----------------------------+----------------+-----------+---------------------------------------------------------+
@@ -6080,7 +6080,7 @@ nebula&gt; SHOW ALL QUERIES;
 +------------------+-----------------+---------+----------------------+----------------------------+----------------+-----------+---------------------------------------------------------+
 
 # The following statement returns the top 10 queries that have the longest duration.
-nebula&gt; SHOW ALL QUERIES | ORDER BY $-.DurationInUSec DESC | LIMIT 10;
+nebula&gt; SHOW QUERIES | ORDER BY $-.DurationInUSec DESC | LIMIT 10;
 +------------------+-----------------+---------+----------------------+----------------------------+----------------+-----------+-------------------------------------------------------+
 | SessionID        | ExecutionPlanID | User    | Host                 | StartTime                  | DurationInUSec | Status    | Query                                                 |
 +------------------+-----------------+---------+----------------------+----------------------------+----------------+-----------+-------------------------------------------------------+
@@ -6137,7 +6137,7 @@ nebula&gt; SHOW ALL QUERIES | ORDER BY $-.DurationInUSec DESC | LIMIT 10;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 31, 2021</span>
       
     
   </small>

@@ -6049,13 +6049,23 @@
 
 
 <h1 id="show_sessions">SHOW SESSIONS<a class="headerlink" href="#show_sessions" title="Permanent link">&para;</a></h1>
+<p>When a user logs in to the database, a corresponding session will be created and users can query for session information.</p>
 <p>The <code>SHOW SESSIONS</code> statement shows the information of all the sessions. It can also show a specified session with its ID.</p>
 <h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
-<p>When you log in to the database using Nebula Console, a session will be created. The client will execute the API <code>release</code> to release the session and clear the session information when you run <code>exit</code> after the operation ends.</p>
-<p>If you exit the database in unexpected ways with the <code>session_idle_timeout_secs</code> in <a href="../../../../5.configurations-and-logs/1.configurations/3.graph-config/">nebula-graphd.conf</a> undetermined, the session will not be released automatically.</p>
-<p>For those sessions that are not automatically released, you need to delete them manually (TODO: coding).</p>
+<ul>
+<li>The client will call the API <code>release</code> to release the session and clear the session information when you run <code>exit</code> after the operation ends. If you exit the database in an unexpected way and the session timeout duration is not set via <code>session_idle_timeout_secs</code> in <a href="../../../../5.configurations-and-logs/1.configurations/3.graph-config/">nebula-graphd.conf</a>, the session will not be released automatically. For those sessions that are not automatically released, you need to delete them manually (TODO: coding).</li>
+</ul>
+<ul>
+<li><code>SHOW SESSIONS</code> queries the session information of all the Graph services.</li>
+</ul>
+<ul>
+<li><code>SHOW LOCAL SESSIONS</code> queries the session information of the currently connected Graph service and does not query the session information of other Graph services.</li>
+</ul>
+<ul>
+<li><code>SHOW SESSION &lt;Session_Id&gt;</code> queries the session information with a specific session id.</li>
+</ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>SHOW SESSIONS;
+<div class="highlight"><pre><span></span><code>SHOW [LOCAL] SESSIONS;
 SHOW SESSION &lt;Session_Id&gt;;
 </code></pre></div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
@@ -6137,7 +6147,7 @@ nebula&gt; SHOW SESSION 1635254859271703;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 31, 2021</span>
       
     
   </small>
