@@ -96,7 +96,7 @@ The testing dataset is named `nba`. To view details about the schema and data, u
 The command to import a testing dataset is as follows:
 
 ```ngql
-nebula> :play nba
+nebula> :play basketballplayer
 ```
 
 ## Run a command multiple times
