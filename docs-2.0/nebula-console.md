@@ -64,7 +64,7 @@ Export query results,  which can be saved as a CSV file or DOT file.
 
 !!! note
 
-    - A file will be saved in the working directory, i.e., what the linux command `pwd` shows.
+    - The exported file is stored in the working directory, i.e., what the linux command `pwd` shows.
 
     - This command only works for the next query statement.
 
