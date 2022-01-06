@@ -94,15 +94,15 @@ To return a vertex or edge property, use the `{<vertex_name>|<edge_name>}.<prope
 
 ```ngql
 nebula> MATCH (v:player) \
-        RETURN v.name, v.age \
+        RETURN v.player.name, v.player.age \
         LIMIT 3;
-+-------------------+-------+
-| v.name            | v.age |
-+-------------------+-------+
-| "Rajon Rondo"     | 33    |
-| "Rudy Gay"        | 32    |
-| "Dejounte Murray" | 29    |
-+-------------------+-------+
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| "Danny Green"    | 31           |
+| "Tiago Splitter" | 34           |
+| "David West"     | 38           |
++------------------+--------------+
 ```
 
 ## Return all elements
@@ -135,7 +135,7 @@ Use the `AS <alias>` syntax to rename a field in the output.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"})-[:serve]->(v2) \
-        RETURN v2.name AS Team;
+        RETURN v2.team.name AS Team;
 +---------+
 | Team    |
 +---------+
@@ -156,14 +156,14 @@ If a property matched does not exist, `NULL` is returned.
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->(v2) \
-        RETURN v2.name, type(e), v2.age;
-+-----------------+----------+--------------+
-| v2.name         | type(e)  | v2.age       |
-+-----------------+----------+--------------+
-| "Tony Parker"   | "follow" | 36           |
-| "Manu Ginobili" | "follow" | 41           |
-| "Spurs"         | "serve"  | UNKNOWN_PROP |
-+-----------------+----------+--------------+
+        RETURN v2.player.name, type(e), v2.player.age;
++-----------------+----------+---------------+
+| v2.player.name  | type(e)  | v2.player.age |
++-----------------+----------+---------------+
+| "Manu Ginobili" | "follow" | 41            |
+| __NULL__        | "serve"  | __NULL__      |
+| "Tony Parker"   | "follow" | 36            |
++-----------------+----------+---------------+
 ```
 
 ## Return expression results
@@ -172,14 +172,14 @@ To return the results of expressions such as literals, functions, or predicates,
 
 ```ngql
 nebula> MATCH (v:player{name:"Tony Parker"})-->(v2:player) \
-        RETURN DISTINCT v2.name, "Hello"+" graphs!", v2.age > 35;
-+---------------------+------------------+-------------+
-| v2.name             | (Hello+ graphs!) | (v2.age>35) |
-+---------------------+------------------+-------------+
-| "Tim Duncan"        | "Hello graphs!"  | true        |
-| "LaMarcus Aldridge" | "Hello graphs!"  | false       |
-| "Manu Ginobili"     | "Hello graphs!"  | true        |
-+---------------------+------------------+-------------+
+        RETURN DISTINCT v2.player.name, "Hello"+" graphs!", v2.player.age > 35;
++---------------------+----------------------+--------------------+
+| v2.player.name      | ("Hello"+" graphs!") | (v2.player.age>35) |
++---------------------+----------------------+--------------------+
+| "LaMarcus Aldridge" | "Hello graphs!"      | false              |
+| "Tim Duncan"        | "Hello graphs!"      | true               |
+| "Manu Ginobili"     | "Hello graphs!"      | true               |
++---------------------+----------------------+--------------------+
 
 nebula> RETURN 1+1;
 +-------+
@@ -210,31 +210,31 @@ Use `DISTINCT` to remove duplicate fields in the result set.
 ```ngql
 # Before using DISTINCT.
 nebula> MATCH (v:player{name:"Tony Parker"})--(v2:player) \
-        RETURN v2.name, v2.age;
-+---------------------+--------+
-| v2.name             | v2.age |
-+---------------------+--------+
-| "Tim Duncan"        | 42     |
-| "LaMarcus Aldridge" | 33     |
-| "Marco Belinelli"   | 32     |
-| "Boris Diaw"        | 36     |
-| "Dejounte Murray"   | 29     |
-| "Tim Duncan"        | 42     |
-| "LaMarcus Aldridge" | 33     |
-| "Manu Ginobili"     | 41     |
-+---------------------+--------+
+        RETURN v2.player.name, v2.player.age;
++---------------------+---------------+
+| v2.player.name      | v2.player.age |
++---------------------+---------------+
+| "Manu Ginobili"     | 41            |
+| "Boris Diaw"        | 36            |
+| "Marco Belinelli"   | 32            |
+| "Dejounte Murray"   | 29            |
+| "Tim Duncan"        | 42            |
+| "Tim Duncan"        | 42            |
+| "LaMarcus Aldridge" | 33            |
+| "LaMarcus Aldridge" | 33            |
++---------------------+---------------+
 
 # After using DISTINCT.
 nebula> MATCH (v:player{name:"Tony Parker"})--(v2:player) \
-        RETURN DISTINCT v2.name, v2.age;
-+---------------------+--------+
-| v2.name             | v2.age |
-+---------------------+--------+
-| "Tim Duncan"        | 42     |
-| "LaMarcus Aldridge" | 33     |
-| "Marco Belinelli"   | 32     |
-| "Boris Diaw"        | 36     |
-| "Dejounte Murray"   | 29     |
-| "Manu Ginobili"     | 41     |
-+---------------------+--------+
+        RETURN DISTINCT v2.player.name, v2.player.age;
++---------------------+---------------+
+| v2.player.name      | v2.player.age |
++---------------------+---------------+
+| "Manu Ginobili"     | 41            |
+| "Boris Diaw"        | 36            |
+| "Marco Belinelli"   | 32            |
+| "Dejounte Murray"   | 29            |
+| "Tim Duncan"        | 42            |
+| "LaMarcus Aldridge" | 33            |
++---------------------+---------------+
 ```

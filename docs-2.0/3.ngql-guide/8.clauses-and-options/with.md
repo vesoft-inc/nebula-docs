@@ -76,10 +76,10 @@ nebula> MATCH (v) \
 
 ```ngql
 nebula> MATCH (v:player)-->(v2:player) \
-        WITH DISTINCT v2 AS v2, v2.age AS Age \
+        WITH DISTINCT v2 AS v2, v2.player.age AS Age \
         ORDER BY Age \
         WHERE Age<25 \
-        RETURN v2.name AS Name, Age;
+        RETURN v2.player.name AS Name, Age;
 +----------------------+-----+
 | Name                 | Age |
 +----------------------+-----+
@@ -95,7 +95,7 @@ Use a `WITH` clause to sort and limit the output before using `collect()` to tra
 
 ```ngql
 nebula> MATCH (v:player) \
-        WITH v.name AS Name \
+        WITH v.player.name AS Name \
         ORDER BY Name DESC \
         LIMIT 3 \
         RETURN collect(Name);
