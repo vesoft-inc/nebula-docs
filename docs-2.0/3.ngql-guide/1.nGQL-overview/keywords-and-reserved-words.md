@@ -2,7 +2,7 @@
 
 Keywords have significance in nGQL. It can be classified into reserved keywords and non-reserved keywords.
 
-Non-reserved keywords are permitted as identifiers without quoting. To use reserved keywords as identifiers, quote them with backticks such as `AND`.
+Non-reserved keywords are permitted as identifiers without quoting. To use special characters or reserved keywords as identifiers, quote them with backticks such as `AND`.
 
 !!! Note
 
@@ -20,11 +20,10 @@ Execution succeeded
 
 nebula> CREATE TAG 中文(简体 string);
 Execution succeeded
+
+nebula> CREATE TAG `￥%special characters&*+-*/` (`q~！（）=  wer` string);
+Execution succeeded
 ```
-
-- `TAG` is a reserved keyword. To use `TAG` as an identifier, you must quote it with backticks.
-
-- `SPACE` is a non-reserved keyword. You can use it as an identifier without quoting it.
 
 ## Reserved keywords
 
