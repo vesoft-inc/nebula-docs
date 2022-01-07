@@ -4,10 +4,6 @@ OpenCypher has the features of `SET label` and `REMOVE label` to speed up the pr
 
 Nebula Graph achieves the same operations by creating and inserting tags to an existing vertex, which can quickly query vertices based on the tag name. Users can also run `DELETE TAG` to delete some vertices that are no longer needed.
 
-!!! caution
-
-    Make sure that there is another tag on the vertex. Otherwise, the vertex will be deleted when the last tag is deleted.
-
 ## Examples
 
 For example, in the `basketballplayer` data set, some basketball players are also team shareholders. Users can create an index for the shareholder tag `shareholder` for quick search. If the player is no longer a shareholder, users can delete the shareholder tag of the corresponding player by `DELETE TAG`.
