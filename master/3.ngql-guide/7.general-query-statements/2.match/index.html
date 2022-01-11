@@ -1519,6 +1519,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#match_multiple_patterns" class="md-nav__link">
+    Match multiple patterns
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1602,6 +1609,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#retrieve_with_multiple_match" class="md-nav__link">
+    Retrieve with multiple match
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve_with_optional_match" class="md-nav__link">
+    Retrieve with optional match
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1611,6 +1632,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optional-match/" class="md-nav__link">
+        OPTIONAL MATCH
+      </a>
     </li>
   
 
@@ -1652,20 +1687,6 @@
     <li class="md-nav__item">
       <a href="../4.fetch/" class="md-nav__link">
         FETCH
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../7.unwind/" class="md-nav__link">
-        UNWIND
       </a>
     </li>
   
@@ -2096,6 +2117,20 @@
     <li class="md-nav__item">
       <a href="../../8.clauses-and-options/with/" class="md-nav__link">
         WITH
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8.clauses-and-options/unwind.md" class="md-nav__link">
+        UNWIND
       </a>
     </li>
   
@@ -6343,6 +6378,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#match_multiple_patterns" class="md-nav__link">
+    Match multiple patterns
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6426,6 +6468,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#retrieve_with_multiple_match" class="md-nav__link">
+    Retrieve with multiple match
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve_with_optional_match" class="md-nav__link">
+    Retrieve with optional match
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6450,12 +6506,30 @@
 
 <h1 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">&para;</a></h1>
 <p>The <code>MATCH</code> statement supports searching based on pattern matching.</p>
-<p>A <code>MATCH</code> statement defines a <a href="../../1.nGQL-overview/3.graph-patterns/">search pattern</a> and uses it to match data stored in Nebula Graph and to retrieve them in the form defined in the <code>RETURN</code> clause.</p>
+<p>A <code>MATCH</code> statement defines a search pattern and uses it to match data stored in Nebula Graph and to retrieve them in the form defined in the <code>RETURN</code> clause.</p>
 <p>The examples in this topic use the <a href="../../1.nGQL-overview/1.overview/#basketballplayer">basketballplayer</a> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. But generally, it can be summarized as follows.</p>
-<div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;;
+<div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;clause_1&gt;] RETURN &lt;output&gt; [&lt;clause_2&gt;];
 </code></pre></div>
+<ul>
+<li><code>pattern</code>: For the detailed description of patterns, see <a href="../../1.nGQL-overview/3.graph-patterns/">Patterns</a>. The <code>MATCH</code> statement supports matching one or multiple patterns. Multiple patterns are separated by commas (,). For example: <code>(a)-[]-&gt;(b),(c)-[]-&gt;(d)</code>.</li>
+</ul>
+<ul>
+<li><code>clause_1</code>: The <code>WHERE</code>, <code>WITH</code>, <code>UNWIND</code>, and <code>OPTIONAL MATCH</code> clauses are supported, and the <code>MATCH</code> clause can also be used.</li>
+</ul>
+<ul>
+<li>
+<p><code>output</code>: Define the output to be returned. You can rename the output column by using <code>AS</code>.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>From Nebula Graph version 3.0, patterns support matching multiple tags at the same time, so you need to specify a tag name when querying properties. The original statement <code>RETURN variable_name.property_name</code> is changed to <code>RETURN variable_name.&lt;tag_name&gt;.property_name</code>.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li><code>clause_2</code>: The <code>ORDER BY</code> and <code>LIMIT</code> clauses are supported.</li>
+</ul>
 <h2 id="the_workflow_of_match">The workflow of MATCH<a class="headerlink" href="#the_workflow_of_match" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -6545,6 +6619,18 @@ nebula&gt; SHOW JOB 122;
 | (&quot;player111&quot; :player{age: 38, name: &quot;David West&quot;})            |
 ...
 </code></pre></div>
+<p>To match vertices with multiple tags, use colons (:).</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG actor (name string, age int);
+nebula&gt; INSERT VERTEX actor(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
+nebula&gt; MATCH (v:player:actor) \
+        RETURN v \
+        LIMIT 10;
++----------------------------------------------------------------------------------------+
+| v                                                                                      |
++----------------------------------------------------------------------------------------+
+| (&quot;player100&quot; :actor{age: 42, name: &quot;Tim Duncan&quot;} :player{age: 42, name: &quot;Tim Duncan&quot;}) |
++----------------------------------------------------------------------------------------+
+</code></pre></div>
 <h3 id="match_vertex_properties">Match vertex properties<a class="headerlink" href="#match_vertex_properties" title="Permanent link">&para;</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6562,7 +6648,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 </code></pre></div>
 <p>The <code>WHERE</code> clause can do the same thing:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name == &quot;Tim Duncan&quot; \
+        WHERE v.player.name == &quot;Tim Duncan&quot; \
         RETURN v;
 +----------------------------------------------------+
 | v                                                  |
@@ -6604,31 +6690,45 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 <p>In nGQL 1.x, the <code>--</code> symbol is used for inline comments. Starting from nGQL 2.x, the <code>--</code> symbol represents an incoming or outgoing edge.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) \
-        RETURN v2.name AS Name;
+        RETURN v2.player.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
-| &quot;Spurs&quot;             |
-| &quot;Tony Parker&quot;       |
-| &quot;LaMarcus Aldridge&quot; |
-| &quot;Marco Belinelli&quot;   |
+| &quot;Manu Ginobili&quot;     |
+| &quot;Manu Ginobili&quot;     |
+| &quot;Tiago Splitter&quot;    |
 ...
 </code></pre></div>
 <p>You can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</p>
 <p>In the following example, <code>--&gt;</code> represents an edge that starts from <code>v</code> and points to <code>v2</code>. To <code>v</code>, this is an outgoing edge, and to <code>v2</code> this is an incoming edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) \
-        RETURN v2.name AS Name;
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
+        RETURN v2.player.name AS Name;
 +-----------------+
 | Name            |
 +-----------------+
-| &quot;Spurs&quot;         |
-| &quot;Tony Parker&quot;   |
 | &quot;Manu Ginobili&quot; |
+| &quot;Tony Parker&quot;   |
 +-----------------+
+</code></pre></div>
+<p>To query the properties of the target vertices, use the <code>CASE</code> expression.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) \
+        RETURN \
+        CASE WHEN v2.team.name IS NOT NULL \
+        THEN v2.team.name  \
+        WHEN v2.player.name IS NOT NULL \
+        THEN v2.player.name END AS Name;
++---------------------+
+| Name                |
++---------------------+
+| &quot;Manu Ginobili&quot;     |
+| &quot;Manu Ginobili&quot;     |
+| &quot;Spurs&quot;             |
+| &quot;Dejounte Murray&quot;   |
+...
 </code></pre></div>
 <p>To extend the pattern, you can add more vertices and edges.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) \
-        RETURN v3.name AS Name;
+        RETURN v3.player.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -6639,7 +6739,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 </code></pre></div>
 <p>If you do not need to refer to a vertex, you can omit the variable representing it in the parentheses.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;()&lt;--(v3) \
-        RETURN v3.name AS Name;
+        RETURN v3.player.name AS Name;
 +---------------------+
 | Name                |
 +---------------------+
@@ -6839,6 +6939,16 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 | (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 </code></pre></div>
+<h3 id="match_multiple_patterns">Match multiple patterns<a class="headerlink" href="#match_multiple_patterns" title="Permanent link">&para;</a></h3>
+<p>You can separate multiple patterns with commas (,).</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;Spurs&quot;}) \
+        RETURN v1,v2;
++----------------------------------------------------+----------------------------------+
+| v1                                                 | v2                               |
++----------------------------------------------------+----------------------------------+
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) | (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) |
++----------------------------------------------------+----------------------------------+
+</code></pre></div>
 <h2 id="common_retrieving_operations">Common retrieving operations<a class="headerlink" href="#common_retrieving_operations" title="Permanent link">&para;</a></h2>
 <h3 id="retrieve_vertex_or_edge_information">Retrieve vertex or edge information<a class="headerlink" href="#retrieve_vertex_or_edge_information" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}</code> to retrieve all the information of a vertex or an edge.</p>
@@ -6892,16 +7002,16 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 <h3 id="retrieve_a_single_property_on_a_vertex_or_an_edge">Retrieve a single property on a vertex or an edge<a class="headerlink" href="#retrieve_a_single_property_on_a_vertex_or_an_edge" title="Permanent link">&para;</a></h3>
 <p>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}.&lt;property&gt;</code> to retrieve a single property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
-        RETURN v.age;
-+-------+
-| v.age |
-+-------+
-| 42    |
-+-------+
+        RETURN v.player.age;
++--------------+
+| v.player.age |
++--------------+
+| 42           |
++--------------+
 </code></pre></div>
 <p>Use <code>AS</code> to specify an alias for a property.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
-        RETURN v.age AS Age;
+        RETURN v.player.age AS Age;
 +-----+
 | Age |
 +-----+
@@ -6987,6 +7097,20 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 | &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;      | 2      |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
 </code></pre></div>
+<h3 id="retrieve_with_multiple_match">Retrieve with multiple match<a class="headerlink" href="#retrieve_with_multiple_match" title="Permanent link">&para;</a></h3>
+<p>Multiple <code>MATCH</code> can be used when different patterns have different filtering criteria and return the rows that exactly match the pattern.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
+        MATCH (n)-[]-&gt;(l) WHERE id(n)==&quot;player125&quot; \
+        RETURN id(m),id(n),id(l);
++-------------+-------------+-------------+
+| id(m)       | id(n)       | id(l)       |
++-------------+-------------+-------------+
+| &quot;player100&quot; | &quot;player125&quot; | &quot;team204&quot;   |
+| &quot;player100&quot; | &quot;player125&quot; | &quot;player100&quot; |
++-------------+-------------+-------------+
+</code></pre></div>
+<h3 id="retrieve_with_optional_match">Retrieve with optional match<a class="headerlink" href="#retrieve_with_optional_match" title="Permanent link">&para;</a></h3>
+<p>See <a href="../optional-match/">OPTIONAL MATCH</a>。</p>
 <div class="admonition performance">
 <p class="admonition-title">Performance</p>
 <p>In Nebula Graph, the performance and resource usage of the <code>MATCH</code> statement have been optimized. But we still recommend to use <code>GO</code>, <code>LOOKUP</code>, <code>|</code>, and <code>FETCH</code> instead of <code>MATCH</code> when high performance is required.</p>
@@ -6997,7 +7121,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2022</span>
       
     
   </small>
@@ -7036,13 +7160,13 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
       
       
         
-        <a href="../5.lookup/" class="md-footer__link md-footer__link--next" aria-label="Next: LOOKUP" rel="next">
+        <a href="../optional-match/" class="md-footer__link md-footer__link--next" aria-label="Next: OPTIONAL MATCH" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              LOOKUP
+              OPTIONAL MATCH
             </div>
           </div>
           <div class="md-footer__button md-icon">
