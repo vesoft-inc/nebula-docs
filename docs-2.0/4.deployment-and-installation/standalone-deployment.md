@@ -1,10 +1,10 @@
 # Standalone Nebula Graph
 
-Standalone Nebula Graph refers that you can run Nebula Graph within a single process on a single machine. This topic introduces scenarios, deployment steps, etc. of standalone Nebula Graph.
+Standalone Nebula Graph merges the Meta, Storage, and Graph services into a single process deployed on a single machine. This topic introduces scenarios, deployment steps, etc. of standalone Nebula Graph.
 
 ## Background
 
-The traditional Nebula Graph consists of 3 services, each service having executable binary files and the corresponding process. Processes communicate with each other by RPC. You can deploy a Nebula Graph cluster on single or multiple machines using these binary files. For more information about Nebula Graph, see [Architecture overview](../1.introduction/3.nebula-graph-architecture/1.architecture-overview.md).
+The traditional Nebula Graph consists of three services, each service having executable binary files and the corresponding process. Processes communicate with each other by RPC. In standalone Nebula Graph, the three processes corresponding to the three services are combined into one process. For more information about Nebula Graph, see [Architecture overview](../1.introduction/3.nebula-graph-architecture/1.architecture-overview.md).
 
 ## Scenarios
 
