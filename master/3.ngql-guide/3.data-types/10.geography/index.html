@@ -6134,13 +6134,43 @@ nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
 | &quot;103&quot;    | &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot;                 |
 +----------+-------------------------------------------------+
 </code></pre></div>
+<p>When creating an index for geography properties, you can specify the parameters for the index.</p>
+<!--https://www.cockroachlabs.com/docs/stable/spatial-indexes.html-->
+
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Default value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>s2_max_level</code></td>
+<td align="left"><code>30</code></td>
+<td align="left">The maximum level of S2 cell used in the covering. Allowed values: <code>1</code>~<code>30</code>. Setting it to less than the default means that Nebula Graph will be forced to generate coverings using larger cells.</td>
+</tr>
+<tr>
+<td align="left"><code>s2_max_cells</code></td>
+<td align="left"><code>8</code></td>
+<td align="left">The maximum number of S2 cells used in the covering. Provides a limit on how much work is done exploring the possible coverings. Allowed values: <code>1</code>~<code>30</code>. You may want to use higher values for odd-shaped regions such as skinny rectangles.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Specifying the above two parameters does not affect the Point type of property. The <code>s2_max_level</code> value of the Point type is forced to be <code>30</code>.</p>
+</div>
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS any_shape_geo_index ON any_shape(geo) with (s2_max_level=30, s2_max_cells=8);
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 12, 2022</span>
       
     
   </small>
