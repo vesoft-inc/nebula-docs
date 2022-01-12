@@ -21,7 +21,7 @@ Small data sizes and low availability requirements. For example, test environmen
 
 ## Resource requirements
 
-For information about the resource requirements for standalone Nebula Graph, see [Resource preparations](1.resource-preparations.md).
+For information about the resource requirements for standalone Nebula Graph, see [Software requirements for compiling Nebula Graph](1.resource-preparations.md).
 
 ## Steps 
 
