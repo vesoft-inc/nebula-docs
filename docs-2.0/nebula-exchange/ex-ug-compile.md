@@ -36,7 +36,7 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
   cd nebula-exchange
   ```
 
-3. Package Nebula Exchange. Run the command based on the Spark version:
+3. Package Nebula Exchange. Run the following command based on the Spark version:
 
   - For Spark 2.2：
 
