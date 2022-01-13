@@ -31,11 +31,30 @@ Exchange 2.x supports the following operating systems:
 
 To ensure the healthy operation of Exchange, ensure that the following software has been installed on the machine:
 
-- Apache Spark: 2.4.x
+- Java version 1.8
 
-- Java: 1.8
+- Scala version 2.10.7, 2.11.12, or 2.12.10
 
-- Scala: 2.10.7, 2.11.12, or 2.12.10
+- Apache Spark. The requirements for Spark versions when using Exchange to export data from data sources are as follows. In the following table, Y means that the corresponding Spark version is supported, and N means not supported.
+
+  !!! note
+        Use the correct Exchange JAR file based on the Spark version. For example, for Spark version 2.4, use nebula-exchange_spark_2.4-{{exchange.release}}.jar.
+
+  | Data source | Spark 2.2 | Spark 2.4 | Spark 3 |
+  | - | - | - | - |
+  | CSV file | Y | N | Y |
+  | JSON file | Y | Y | Y |
+  | ORC file | Y | Y | Y |
+  | Parquet file | Y | Y | Y |
+  | HBase | Y | Y | Y |
+  | MySQL | Y | Y | Y |
+  | ClickHouse | Y | Y | Y |
+  | Neo4j | N | Y | N |
+  | Hive | Y | Y | Y |
+  | MaxCompute | N | Y | N |
+  | Pulsar | N | Y | Untested |
+  | Kafka | N | Y | Untested |
+  | Nebula Graph | N | Y | N |
 
 Hadoop Distributed File System (HDFS) needs to be deployed in the following scenarios:
 

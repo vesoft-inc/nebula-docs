@@ -177,7 +177,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.topic`|string|-|Yes|The message type.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
 
-### Specific parameters of SST data sources
+### Specific parameters for generating SST files
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
