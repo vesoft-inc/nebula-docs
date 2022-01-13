@@ -9,7 +9,7 @@ This topic applies to native nGQL only.
 You can also use the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
 
 ```ngql
-nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.name AS Name, count(*) as cnt ORDER BY cnt DESC;
+nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.player.name AS Name, count(*) as cnt ORDER BY cnt DESC;
 +----------------------+-----+
 | Name                 | cnt |
 +----------------------+-----+

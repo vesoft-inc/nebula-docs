@@ -25,19 +25,16 @@ Use the boolean operators `NOT`, `AND`, `OR`, and `XOR` to define conditions in 
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.name == "Tim Duncan" \
-        XOR (v.age < 30 AND v.name == "Yao Ming") \
-        OR NOT (v.name == "Yao Ming" OR v.name == "Tim Duncan") \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| "Marco Belinelli"       | 32    |
-| "Aron Baynes"           | 32    |
-| "LeBron James"          | 34    |
-| "James Harden"          | 29    |
-| "Manu Ginobili"         | 41    |
-+-------------------------+-------+
+        WHERE v.player.name == "Tim Duncan" \
+        XOR (v.player.age < 30 AND v.player.name == "Yao Ming") \
+        OR NOT (v.player.name == "Yao Ming" OR v.player.name == "Tim Duncan") \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| "Danny Green"           | 31           |
+| "Tiago Splitter"        | 34           |
+| "David West"            | 38           |
 ...
 ```
 
@@ -63,15 +60,15 @@ Use vertex or edge properties to define conditions in `WHERE` clauses.
 
     ```ngql
     nebula> MATCH (v:player)-[e]->(v2) \
-            WHERE v2.age < 25 \
-            RETURN v2.name, v2.age;
-    +----------------------+--------+
-    | v2.name              | v2.age |
-    +----------------------+--------+
-    | "Luka Doncic"        | 20     |
-    | "Kristaps Porzingis" | 23     |
-    | "Ben Simmons"        | 22     |
-    +----------------------+--------+
+            WHERE v2.player.age < 25 \
+            RETURN v2.player.name, v2.player.age;
+    +----------------------+---------------+
+    | v2.player.name       | v2.player.age |
+    +----------------------+---------------+
+    | "Ben Simmons"        | 22            |
+    | "Luka Doncic"        | 20            |
+    | "Kristaps Porzingis" | 23            |
+    +----------------------+---------------+
     ```
 
     ```ngql
@@ -92,16 +89,13 @@ Use vertex or edge properties to define conditions in `WHERE` clauses.
     ```ngql
     nebula> MATCH (v:player)-[e]->() \
             WHERE e.start_year < 2000 \
-            RETURN DISTINCT v.name, v.age;
-    +--------------------+-------+
-    | v.name             | v.age |
-    +--------------------+-------+
-    | "Shaquille O'Neal" | 47    |
-    | "Steve Nash"       | 45    |
-    | "Ray Allen"        | 43    |
-    | "Grant Hill"       | 46    |
-    | "Tony Parker"      | 36    |
-    +--------------------+-------+
+            RETURN DISTINCT v.player.name, v.player.age;
+    +--------------------+--------------+
+    | v.player.name      | v.player.age |
+    +--------------------+--------------+
+    | "Tony Parker"      | 36           |
+    | "Tim Duncan"       | 42           |
+    | "Grant Hill"       | 46           |
     ...
     ```
 
@@ -122,7 +116,7 @@ Use vertex or edge properties to define conditions in `WHERE` clauses.
 ```ngql
 nebula> MATCH (v:player) \
         WHERE v[toLower("AGE")] < 21 \
-        RETURN v.name, v.age;
+        RETURN v.player.name, v.player.age;
 +---------------+-------+
 | v.name        | v.age |
 +---------------+-------+
@@ -134,14 +128,15 @@ nebula> MATCH (v:player) \
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE exists(v.age) \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| "Boris Diaw"            | 36    |
-| "DeAndre Jordan"        | 30    |
-+-------------------------+-------+
+        WHERE exists(v.player.age) \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| "Danny Green"           | 31           |
+| "Tiago Splitter"        | 34           |
+| "David West"            | 38           |
+...
 ```
 
 ### Filter on edge rank
@@ -192,24 +187,24 @@ The following example uses `STARTS WITH "T"` to retrieve the information of play
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.name STARTS WITH "T" \
-        RETURN v.name, v.age;
-+------------------+-------+
-| v.name           | v.age |
-+------------------+-------+
-| "Tracy McGrady"  | 39    |
-| "Tony Parker"    | 36    |
-| "Tim Duncan"     | 42    |
-| "Tiago Splitter" | 34    |
-+------------------+-------+
+        WHERE v.player.name STARTS WITH "T" \
+        RETURN v.player.name, v.player.age;
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| "Tony Parker"    | 36           |
+| "Tiago Splitter" | 34           |
+| "Tim Duncan"     | 42           |
+| "Tracy McGrady"  | 39           |
++------------------+--------------+
 ```
 
 If you use `STARTS WITH "t"` in the preceding statement, an empty set is returned because no name in the dataset starts with the lowercase `t`.
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.name STARTS WITH "t" \
-        RETURN v.name, v.age;
+        WHERE v.player.name STARTS WITH "t" \
+        RETURN v.player.name, v.player.age;
 Empty set (time spent 5080/6474 us)
 ```
 
@@ -221,15 +216,15 @@ The following example uses `ENDS WITH "r"` to retrieve the information of player
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.name ENDS WITH "r" \
-        RETURN v.name, v.age;
-+------------------+-------+
-| v.name           | v.age |
-+------------------+-------+
-| "Vince Carter"   | 42    |
-| "Tony Parker"    | 36    |
-| "Tiago Splitter" | 34    |
-+------------------+-------+
+        WHERE v.player.name ENDS WITH "r" \
+        RETURN v.player.name, v.player.age;
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| "Tony Parker"    | 36           |
+| "Tiago Splitter" | 34           |
+| "Vince Carter"   | 42           |
++------------------+--------------+
 ```
 
 ### `CONTAINS`
@@ -240,16 +235,16 @@ The following example uses `CONTAINS "Pa"` to match the information of players w
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.name CONTAINS "Pa" \
-        RETURN v.name, v.age;
-+---------------+-------+
-| v.name        | v.age |
-+---------------+-------+
-| "Paul George" | 28    |
-| "Tony Parker" | 36    |
-| "Paul Gasol"  | 38    |
-| "Chris Paul"  | 33    |
-+---------------+-------+
+        WHERE v.player.name CONTAINS "Pa" \
+        RETURN v.player.name, v.player.age;
++---------------+--------------+
+| v.player.name | v.player.age |
++---------------+--------------+
+| "Paul George" | 28           |
+| "Tony Parker" | 36           |
+| "Paul Gasol"  | 38           |
+| "Chris Paul"  | 33           |
++---------------+--------------+
 ```
 
 ### Negative string matching
@@ -258,17 +253,15 @@ You can use the boolean operator `NOT` to negate a string matching condition.
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE NOT v.name ENDS WITH "R" \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| "Rajon Rondo"           | 33    |
-| "Rudy Gay"              | 32    |
-| "Dejounte Murray"       | 29    |
-| "Chris Paul"            | 33    |
-| "Carmelo Anthony"       | 34    |
-+-------------------------+-------+
+        WHERE NOT v.player.name ENDS WITH "R" \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| "Danny Green"           | 31           |
+| "Tiago Splitter"        | 34           |
+| "David West"            | 38           |
+| "Russell Westbrook"     | 30           |
 ...
 ```
 
@@ -294,18 +287,18 @@ Use the `IN` operator to check if a value is in a specific list.
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.age IN range(20,25) \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| "Ben Simmons"           | 22    |
-| "Kristaps Porzingis"    | 23    |
-| "Luka Doncic"           | 20    |
-| "Kyle Anderson"         | 25    |
-| "Giannis Antetokounmpo" | 24    |
-| "Joel Embiid"           | 25    |
-+-------------------------+-------+
+        WHERE v.player.age IN range(20,25) \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| "Ben Simmons"           | 22           |
+| "Giannis Antetokounmpo" | 24           |
+| "Kyle Anderson"         | 25           |
+| "Joel Embiid"           | 25           |
+| "Kristaps Porzingis"    | 23           |
+| "Luka Doncic"           | 20           |
++-------------------------+--------------+
 
 nebula> LOOKUP ON player \
         WHERE player.age IN [25,28]  \
@@ -327,8 +320,8 @@ Use `NOT` before `IN` to rule out the values in a list.
 
 ```ngql
 nebula> MATCH (v:player) \
-        WHERE v.age NOT IN range(20,25) \
-        RETURN v.name AS Name, v.age AS Age \
+        WHERE v.player.age NOT IN range(20,25) \
+        RETURN v.player.name AS Name, v.player.age AS Age \
         ORDER BY Age;
 +---------------------+-----+
 | Name                | Age |
