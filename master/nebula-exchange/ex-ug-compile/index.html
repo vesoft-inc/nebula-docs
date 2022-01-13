@@ -6141,8 +6141,8 @@
 <h1 id="get_exchange">Get Exchange<a class="headerlink" href="#get_exchange" title="Permanent link">&para;</a></h1>
 <p>This topic introduces how to get the JAR file of Nebula Exchange.</p>
 <h2 id="download_the_jar_file_directly">Download the JAR file directly<a class="headerlink" href="#download_the_jar_file_directly" title="Permanent link">&para;</a></h2>
-<p>The JAR file of Exchange Community Edition can be <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">downloaded</a> directly.</p>
-<p>To download Exchange Enterprise Edition, <a href="https://nebula-graph.com.cn/pricing/">get Nebula Graph Enterprise Edition Package</a> first.</p>
+<p>The JAR file of Exchange Community Edition can be <a href="https://github.com/vesoft-inc/nebula-exchange/releases">downloaded</a> directly.</p>
+<p>To download Exchange Enterprise Edition, <a href="https://nebula-graph.io/pricing/">get Nebula Graph Enterprise Edition Package</a> first.</p>
 <h2 id="get_the_jar_file_by_compiling_the_source_code">Get the JAR file by compiling the source code<a class="headerlink" href="#get_the_jar_file_by_compiling_the_source_code" title="Permanent link">&para;</a></h2>
 <p>You can get the JAR file of Exchange Community Edition by compiling the source code. The following introduces how to compile the source code of Exchange.</p>
 <div class="admonition enterpriseonly">
@@ -6153,9 +6153,8 @@
 <ul>
 <li>Install <a href="https://maven.apache.org/download.cgi">Maven</a>.</li>
 </ul>
-<!-- The Maven library where Pulsar is located was officially closed on May 31st, and the migration location has not been found yet. You can delete it once you find it-->
 <ul>
-<li>Download <a href="https://oss-cdn.nebula-graph.com.cn/jar-packages/pulsar-spark-connector_2.11.zip">pulsar-spark-connector_2.11</a>, and unzip it to <code>io/streamnative/connectors</code> directory of the local Maven library.</li>
+<li>Install the correct version of Apache Spark. Exporting data from different sources requires different Spark versions. For more information, see <a href="../about-exchange/ex-ug-limitations/">Software dependencies</a>.</li>
 </ul>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <ol>
@@ -6166,34 +6165,38 @@
 </li>
 <li>
 <p>Switch to the directory <code>nebula-exchange</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-exchange/nebula-exchange
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-exchange
 </code></pre></div>
 </li>
 <li>
-<p>Package Nebula Exchange.</p>
-<div class="highlight"><pre><span></span><code>mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span> -Dgpg.skip -Dmaven.javadoc.skip<span class="o">=</span><span class="nb">true</span>
+<p>Package Nebula Exchange. Run the following command based on the Spark version:</p>
+<ul>
+<li>
+<p>For Spark 2.2：</p>
+<div class="highlight"><pre><span></span><code>mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span> -Dgpg.skip -Dmaven.javadoc.skip<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+-pl nebula-exchange_spark_2.2 -am -Pscala-2.11 -Pspark-2.2
 </code></pre></div>
 </li>
-</ol>
-<p>After the compilation is successful, you can view a directory structure similar to the following in the current directory.</p>
-<div class="highlight"><pre><span></span><code>.
-├── README-CN.md
-├── README.md
-├── pom.xml
-├── src
-│   ├── main
-│   └── test
-└── target
-    ├── classes
-    ├── classes.timestamp
-    ├── maven-archiver
-    ├── nebula-exchange-2.x.y-javadoc.jar
-    ├── nebula-exchange-2.x.y-sources.jar
-    ├── nebula-exchange-2.x.y.jar
-    ├── original-nebula-exchange-2.x.y.jar
-    └── site
+</ul>
+<ul>
+<li>
+<p>For Spark 2.4：</p>
+<div class="highlight"><pre><span></span><code>mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span> -Dgpg.skip -Dmaven.javadoc.skip<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+-pl nebula-exchange_spark_2.4 -am -Pscala-2.11 -Pspark-2.4
 </code></pre></div>
-<p>In the <code>target</code> directory, users can find the <code>exchange-2.x.y.jar</code> file.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>For Spark 3.0：</p>
+<div class="highlight"><pre><span></span><code>mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span> -Dgpg.skip -Dmaven.javadoc.skip<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+-pl nebula-exchange_spark_3.0 -am -Pscala-2.12 -Pspark-3.0
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ol>
+<p>After the compilation is successful, you can find the <code>nebula-exchange_spark_x.x-v2.6.jar</code> file in the <code>nebula-exchange_spark_x.x/target/</code> directory. <code>x.x</code> indicates the Spark version, for example, <code>2.4</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The JAR file version changes with the release of the Nebula Java Client. Users can view the latest version on the <a href="https://github.com/vesoft-inc/nebula-java/releases">Releases page</a>.</p>
@@ -6222,7 +6225,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>
