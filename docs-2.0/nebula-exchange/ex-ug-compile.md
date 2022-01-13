@@ -4,9 +4,9 @@ This topic introduces how to get the JAR file of Nebula Exchange.
 
 ## Download the JAR file directly
 
-The JAR file of Exchange Community Edition can be [downloaded](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) directly.
+The JAR file of Exchange Community Edition can be [downloaded](https://github.com/vesoft-inc/nebula-exchange/releases) directly.
 
-To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/) first.
+To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.io/pricing/) first.
 
 ## Get the JAR file by compiling the source code
 
@@ -20,51 +20,46 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
 
 - Install [Maven](https://maven.apache.org/download.cgi).
 
-<!-- The Maven library where Pulsar is located was officially closed on May 31st, and the migration location has not been found yet. You can delete it once you find it-->
-- Download [pulsar-spark-connector_2.11](https://oss-cdn.nebula-graph.com.cn/jar-packages/pulsar-spark-connector_2.11.zip), and unzip it to `io/streamnative/connectors` directory of the local Maven library.
+- Install the correct version of Apache Spark. Exporting data from different sources requires different Spark versions. For more information, see [Software dependencies](about-exchange/ex-ug-limitations.md).
 
 ## Steps
 
 1. Clone the repository `nebula-exchange` in the `/` directory.
 
-   ```bash
-   git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-exchange.git
-   ```
+  ```bash
+  git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-exchange.git
+  ```
 
 2. Switch to the directory `nebula-exchange`.
 
-   ```bash
-   cd nebula-exchange/nebula-exchange
-   ```
+  ```bash
+  cd nebula-exchange
+  ```
 
-3. Package Nebula Exchange.
+3. Package Nebula Exchange. Run the following command based on the Spark version:
 
-   ```bash
-   mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-   ```
+  - For Spark 2.2：
 
-After the compilation is successful, you can view a directory structure similar to the following in the current directory.
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_2.2 -am -Pscala-2.11 -Pspark-2.2
+    ```
 
-```text
-.
-├── README-CN.md
-├── README.md
-├── pom.xml
-├── src
-│   ├── main
-│   └── test
-└── target
-    ├── classes
-    ├── classes.timestamp
-    ├── maven-archiver
-    ├── nebula-exchange-2.x.y-javadoc.jar
-    ├── nebula-exchange-2.x.y-sources.jar
-    ├── nebula-exchange-2.x.y.jar
-    ├── original-nebula-exchange-2.x.y.jar
-    └── site
-```
+  - For Spark 2.4：
 
-In the `target` directory, users can find the `exchange-2.x.y.jar` file.
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_2.4 -am -Pscala-2.11 -Pspark-2.4
+    ```
+
+  - For Spark 3.0：
+
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_3.0 -am -Pscala-2.12 -Pspark-3.0
+    ```
+
+After the compilation is successful, you can find the `nebula-exchange_spark_x.x-{{exchange.branch}}.jar` file in the `nebula-exchange_spark_x.x/target/` directory. `x.x` indicates the Spark version, for example, `2.4`.
 
 !!! note
 
