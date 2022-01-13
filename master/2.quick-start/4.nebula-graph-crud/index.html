@@ -6507,7 +6507,7 @@
 <tbody>
 <tr>
 <td>Vertex</td>
-<td>Represents an entity in the real world. A vertex can have one or more tags.</td>
+<td>Represents an entity in the real world. A vertex can have zero to multiple tags.</td>
 </tr>
 <tr>
 <td>Tag</td>
@@ -6686,10 +6686,17 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>You can use the <code>INSERT</code> statement to insert vertices or edges based on existing tags or edge types.</p>
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
-[, &lt;tag_name&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...]
-VALUES &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...])
-[, &lt;vid&gt;: (&lt;property_value&gt;[, &lt;property_value&gt;...];
+<li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] [tag_props, [tag_props] ...]
+VALUES VID: ([prop_value_list])
+
+tag_props:
+  tag_name ([prop_name_list])
+
+prop_name_list:
+   [prop_name [, prop_name] ...]
+
+prop_value_list:
+   [prop_value [, prop_value] ...]   
 </code></pre></div>
 <p><code>VID</code> is short for Vertex ID. A <code>VID</code> must be a unique string value in a graph space. For details, see <a href="../../3.ngql-guide/12.vertex-statements/1.insert-vertex/">INSERT VERTEX</a>.</p>
 </li>

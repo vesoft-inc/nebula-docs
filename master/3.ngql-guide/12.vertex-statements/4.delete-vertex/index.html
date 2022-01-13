@@ -2298,8 +2298,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#delete_the_process_and_the_related_edges" class="md-nav__link">
-    Delete the process and the related edges
+  <a href="#process_of_deleting_vertices" class="md-nav__link">
+    Process of deleting vertices
   </a>
   
 </li>
@@ -6051,8 +6051,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#delete_the_process_and_the_related_edges" class="md-nav__link">
-    Delete the process and the related edges
+  <a href="#process_of_deleting_vertices" class="md-nav__link">
+    Process of deleting vertices
   </a>
   
 </li>
@@ -6075,29 +6075,45 @@
 
 
 <h1 id="delete_vertex">DELETE VERTEX<a class="headerlink" href="#delete_vertex" title="Permanent link">&para;</a></h1>
-<p>The <code>DELETE VERTEX</code> statement deletes vertices and the related incoming and outgoing edges of the vertices.</p>
+<p>By default, the <code>DELETE VERTEX</code> statement deletes vertices but the incoming and outgoing edges of the vertices.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<ul>
+<li>Nebula Graph 2.x deletes vertices and their incoming and outgoing edges.</li>
+</ul>
+<ul>
+<li>Nebula Graph master only deletes the vertices, and does not delete the related outgoing and incoming edges of the vertices. At this time, there will be dangling edges by default.</li>
+</ul>
+</div>
 <p>The <code>DELETE VERTEX</code> statement deletes one vertex or multiple vertices at a time. You can use <code>DELETE VERTEX</code> together with pipes. For more information about pipe, see <a href="../../5.operators/4.pipe/">Pipe operator</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li><code>DELETE VERTEX</code> deletes vertices and related edges directly.</li>
+<li><code>DELETE VERTEX</code> deletes vertices directly.</li>
 </ul>
 <ul>
-<li><code>DELETE TAG</code> deletes a tag with the given name on a specified vertex. When a vertex has only one tag, <code>DELETE TAG</code> deletes the vertex and keeps the related edges.</li>
+<li><code>DELETE TAG</code> deletes a tag with the given name on a specified vertex.</li>
 </ul>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid&gt; [, &lt;vid&gt; ...];
+<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid&gt; [, &lt;vid&gt; ...] [WITH EDGE];
 </code></pre></div>
+<ul>
+<li>WITH EDGE: deletes vertices and the related incoming and outgoing edges of the vertices.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>This query deletes the vertex whose ID is "team1".</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; DELETE VERTEX &quot;team1&quot;;
+<div class="highlight"><pre><span></span><code># Delete the vertex whose VID is `team1` but the related incoming and outgoing edges are not deleted.
+nebula&gt; DELETE VERTEX &quot;team1&quot;;
+
+# Delete the vertex whose VID is `team1` and the related incoming and outgoing edges.
+nebula&gt; DELETE VERTEX &quot;team1&quot; WITH EDGE;
 </code></pre></div>
 <p>This query shows that you can use <code>DELETE VERTEX</code> together with pipe to delete vertices.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER serve WHERE properties(edge).start_year == &quot;2021&quot; YIELD dst(edge) AS id | DELETE VERTEX $-.id;
 </code></pre></div>
-<h2 id="delete_the_process_and_the_related_edges">Delete the process and the related edges<a class="headerlink" href="#delete_the_process_and_the_related_edges" title="Permanent link">&para;</a></h2>
-<p>Nebula Graph traverses the incoming and outgoing edges related to the vertices and deletes them all. Then Nebula Graph deletes the vertices.</p>
+<h2 id="process_of_deleting_vertices">Process of deleting vertices<a class="headerlink" href="#process_of_deleting_vertices" title="Permanent link">&para;</a></h2>
+<p>Once Nebula Graph deletes the vertices, all edges (incoming and outgoing edges) of the target vertex will become dangling edges. When Nebula Graph deletes the vertices <code>WITH EDGE</code>, Nebula Graph traverses the incoming and outgoing edges related to the vertices and deletes them all. Then Nebula Graph deletes the vertices.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <ul>
@@ -6111,7 +6127,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>
