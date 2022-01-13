@@ -6088,6 +6088,26 @@ prop_name_list:
 prop_value_list:
   [prop_value [, prop_value] ...]
 </code></pre></div>
+<!---
+
+// Ignore existing indexes to insert vertex.
+<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] [IGNORE_EXISTED_INDEX] [tag_props, [tag_props] ...]
+VALUES VID: ([prop_value_list])
+tag_props:
+  tag_name ([prop_name_list])
+prop_name_list:
+   [prop_name [, prop_name] ...]
+prop_value_list:
+   [prop_value [, prop_value] ...]   
+</code></pre></div>
+- `IGNORE_EXISTED_INDEX`：Indexes will not be updated after a vertex is inserted. We recommend using `IGNORE_EXISTED_INDEX` on the first import, which can greatly improve performance.
+
+  !!! danger
+
+        Existing indexes will not be deleted when using the `IGNORE_EXISTED_INDEX`, so incorrect data may be read during lookups. You need to rebuild the index. For more information, see [REBUILD INDEX](../3/../14.native-index-statements/4.rebuild-native-index.md。
+
+--->
+
 <ul>
 <li>
 <p><code>IF NOT EXISTS</code> detects if the VID that you want to insert exists. If it does not exist, a new one will be inserted.</p>
@@ -6127,21 +6147,51 @@ prop_value_list:
 nebula&gt; CREATE TAG IF NOT EXISTS t1();                   
 nebula&gt; INSERT VERTEX t1() VALUES &quot;10&quot;:(); 
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t2 (name string, age int);                
-nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n1&quot;, 12);
+<!---
+ ```ngql
+ # Insert vertices, the VIDs of which are "100" and "200", the value of the property id is "1".
+ nebula> INSERT VERTEX person(id) VALUES "100":(1), "200":(1);
+ # Query vertices, the value of the property id is "1", both 100 and 200 will be returned.
+ nebula> LOOKUP ON person WHERE person.id == 1 YIELD id(vertex) as id;
+ +-------------+
+ | id          |
+ +-------------+
+ | "100"       |
+ | "200"       |
+ +-------------+
+ # Insert a vertex with `IGNORE_EXISTED_INDEX`. The VID of the vertex is "200" and the value of the property id is with "2".
+ nebula> INSERT VERTEX IGNORE_EXISTED_INDEX person(id) VALUES "200":(2);
+ # Query vertices, the value of the property id is "1", both 100 and 200 will be returned.
+ nebula> LOOKUP ON person WHERE person.id == 1 YIELD id(vertex) as id;
+ +-------------+
+ | id          |
+ +-------------+
+ | "100"       |
+ | "200"       |
+ +-------------+
+ # Query vertices, the value of the property id is "2", only 200 will be returned.
+ nebula> LOOKUP ON person WHERE person.id == 2 YIELD id(vertex) as id;
+ +-------+
+ | id    |
+ +-------+
+ | "200" |
+ +-------+
+ --->
 
-#  In the following example, the insertion fails because &quot;a13&quot; is not int.
-nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;12&quot;:(&quot;n1&quot;, &quot;a13&quot;); 
-
-# The following example inserts two vertices at one time.
-nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;13&quot;:(&quot;n3&quot;, 12), &quot;14&quot;:(&quot;n4&quot;, 8); 
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t3(p1 int);
+<p>```ngql
+nebula&gt; CREATE TAG IF NOT EXISTS t2 (name string, age int);              <br />
+nebula&gt; INSERT VERTEX t2 (name, age) VALUES "11":("n1", 12);</p>
+<h1 id="in_the_following_example_the_insertion_fails_because_a13_is_not_int">In the following example, the insertion fails because "a13" is not int.<a class="headerlink" href="#in_the_following_example_the_insertion_fails_because_a13_is_not_int" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; INSERT VERTEX t2 (name, age) VALUES "12":("n1", "a13"); </p>
+<h1 id="the_following_example_inserts_two_vertices_at_one_time">The following example inserts two vertices at one time.<a class="headerlink" href="#the_following_example_inserts_two_vertices_at_one_time" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; INSERT VERTEX t2 (name, age) VALUES "13":("n3", 12), "14":("n4", 8); 
+<div class="highlight"><pre><span></span><code>```ngql
+nebula&gt; CREATE TAG IF NOT EXISTS t3(p1 int);
 nebula&gt; CREATE TAG IF NOT EXISTS t4(p2 string);
 
 # The following example inserts vertex &quot;21&quot; with two tags.
 nebula&gt; INSERT VERTEX t3 (p1), t4(p2) VALUES &quot;21&quot;: (321, &quot;hello&quot;);
-</code></pre></div>
+</code></pre></div></p>
 <p>A vertex can be inserted/written with new values multiple times. Only the last written values can be read.</p>
 <div class="highlight"><pre><span></span><code># The following examples insert vertex &quot;11&quot; with new values for multiple times.
 nebula&gt; INSERT VERTEX t2 (name, age) VALUES &quot;11&quot;:(&quot;n2&quot;, 13);
@@ -6197,7 +6247,7 @@ nebula&gt; FETCH PROP ON t2 &quot;1&quot; YIELD properties(vertex);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>
