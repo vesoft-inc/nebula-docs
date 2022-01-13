@@ -6285,7 +6285,7 @@ nebula&gt; GO 3 STEPS FROM &quot;player102&quot; OVER * \
 </div>
 <h3 id="examples_of_limit">Examples of LIMIT<a class="headerlink" href="#examples_of_limit" title="Permanent link">&para;</a></h3>
 <p><code>LIMIT</code> can be used alone to return a specified number of results.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age \
         ORDER BY Age LIMIT 5;
 +-------------------------+-----+
 | Name                    | Age |
@@ -6297,7 +6297,7 @@ nebula&gt; GO 3 STEPS FROM &quot;player102&quot; OVER * \
 | &quot;Kyle Anderson&quot;         | 25  |
 +-------------------------+-----+
 
-nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
+nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age \
         ORDER BY Age LIMIT rand32(5);
 +-------------------------+-----+
 | Name                    | Age |
@@ -6311,7 +6311,7 @@ nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 <h3 id="examples_of_skip">Examples of SKIP<a class="headerlink" href="#examples_of_skip" title="Permanent link">&para;</a></h3>
 <p><code>SKIP</code> can be used alone to set the offset and return the data after the specified position.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age \
+        RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1;
 +-----------------+-----+
 | Name            | Age |
@@ -6321,7 +6321,7 @@ nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age \
 +-----------------+-----+
 
 nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age \
+        RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1+1;
 +---------------+-----+
 | Name          | Age |
@@ -6332,7 +6332,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
 <h3 id="example_of_skip_and_limit">Example of SKIP and LIMIT<a class="headerlink" href="#example_of_skip_and_limit" title="Permanent link">&para;</a></h3>
 <p><code>SKIP</code> and <code>LIMIT</code> can be used together to return the specified amount of data starting from the specified position.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age \
+        RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1 LIMIT 1;
 +-----------------+-----+
 | Name            | Age |
@@ -6351,7 +6351,7 @@ Nebula Graph master does not implement the pushdown optimization of the storage 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

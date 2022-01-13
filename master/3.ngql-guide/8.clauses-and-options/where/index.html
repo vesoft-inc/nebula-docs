@@ -6302,19 +6302,16 @@
 <h3 id="define_conditions_with_boolean_operators">Define conditions with boolean operators<a class="headerlink" href="#define_conditions_with_boolean_operators" title="Permanent link">&para;</a></h3>
 <p>Use the boolean operators <code>NOT</code>, <code>AND</code>, <code>OR</code>, and <code>XOR</code> to define conditions in <code>WHERE</code> clauses. For the precedence of the operators, see <a href="../../5.operators/9.precedence/">Precedence</a>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name == &quot;Tim Duncan&quot; \
-        XOR (v.age &lt; 30 AND v.name == &quot;Yao Ming&quot;) \
-        OR NOT (v.name == &quot;Yao Ming&quot; OR v.name == &quot;Tim Duncan&quot;) \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| &quot;Marco Belinelli&quot;       | 32    |
-| &quot;Aron Baynes&quot;           | 32    |
-| &quot;LeBron James&quot;          | 34    |
-| &quot;James Harden&quot;          | 29    |
-| &quot;Manu Ginobili&quot;         | 41    |
-+-------------------------+-------+
+        WHERE v.player.name == &quot;Tim Duncan&quot; \
+        XOR (v.player.age &lt; 30 AND v.player.name == &quot;Yao Ming&quot;) \
+        OR NOT (v.player.name == &quot;Yao Ming&quot; OR v.player.name == &quot;Tim Duncan&quot;) \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| &quot;Danny Green&quot;           | 31           |
+| &quot;Tiago Splitter&quot;        | 34           |
+| &quot;David West&quot;            | 38           |
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
@@ -6333,15 +6330,15 @@
 <p>Use vertex or edge properties to define conditions in <code>WHERE</code> clauses.</p>
 <ul>
 <li>Filter on a vertex property:<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;(v2) \
-        WHERE v2.age &lt; 25 \
-        RETURN v2.name, v2.age;
-+----------------------+--------+
-| v2.name              | v2.age |
-+----------------------+--------+
-| &quot;Luka Doncic&quot;        | 20     |
-| &quot;Kristaps Porzingis&quot; | 23     |
-| &quot;Ben Simmons&quot;        | 22     |
-+----------------------+--------+
+        WHERE v2.player.age &lt; 25 \
+        RETURN v2.player.name, v2.player.age;
++----------------------+---------------+
+| v2.player.name       | v2.player.age |
++----------------------+---------------+
+| &quot;Ben Simmons&quot;        | 22            |
+| &quot;Luka Doncic&quot;        | 20            |
+| &quot;Kristaps Porzingis&quot; | 23            |
++----------------------+---------------+
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
         WHERE $^.player.age &gt;= 42 \
@@ -6359,16 +6356,13 @@
 <ul>
 <li>Filter on an edge property:<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e]-&gt;() \
         WHERE e.start_year &lt; 2000 \
-        RETURN DISTINCT v.name, v.age;
-+--------------------+-------+
-| v.name             | v.age |
-+--------------------+-------+
-| &quot;Shaquille O&#39;Neal&quot; | 47    |
-| &quot;Steve Nash&quot;       | 45    |
-| &quot;Ray Allen&quot;        | 43    |
-| &quot;Grant Hill&quot;       | 46    |
-| &quot;Tony Parker&quot;      | 36    |
-+--------------------+-------+
+        RETURN DISTINCT v.player.name, v.player.age;
++--------------------+--------------+
+| v.player.name      | v.player.age |
++--------------------+--------------+
+| &quot;Tony Parker&quot;      | 36           |
+| &quot;Tim Duncan&quot;       | 42           |
+| &quot;Grant Hill&quot;       | 46           |
 ...
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
@@ -6386,7 +6380,7 @@
 <h3 id="filter_on_dynamically-calculated_properties">Filter on dynamically-calculated properties<a class="headerlink" href="#filter_on_dynamically-calculated_properties" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
         WHERE v[toLower(&quot;AGE&quot;)] &lt; 21 \
-        RETURN v.name, v.age;
+        RETURN v.player.name, v.player.age;
 +---------------+-------+
 | v.name        | v.age |
 +---------------+-------+
@@ -6395,14 +6389,15 @@
 </code></pre></div>
 <h3 id="filter_on_existing_properties">Filter on existing properties<a class="headerlink" href="#filter_on_existing_properties" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE exists(v.age) \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| &quot;Boris Diaw&quot;            | 36    |
-| &quot;DeAndre Jordan&quot;        | 30    |
-+-------------------------+-------+
+        WHERE exists(v.player.age) \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| &quot;Danny Green&quot;           | 31           |
+| &quot;Tiago Splitter&quot;        | 34           |
+| &quot;David West&quot;            | 38           |
+...
 </code></pre></div>
 <h3 id="filter_on_edge_rank">Filter on edge rank<a class="headerlink" href="#filter_on_edge_rank" title="Permanent link">&para;</a></h3>
 <p>In nGQL, if a group of edges has the same source vertex, destination vertex, and properties, the only thing that distinguishes them is the rank. Use rank conditions in <code>WHERE</code> clauses to filter such edges.</p>
@@ -6442,66 +6437,64 @@ nebula&gt; GO FROM &quot;1&quot; \
 <p><code>STARTS WITH</code> will match the beginning of a string.</p>
 <p>The following example uses <code>STARTS WITH "T"</code> to retrieve the information of players whose name starts with <code>T</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name STARTS WITH &quot;T&quot; \
-        RETURN v.name, v.age;
-+------------------+-------+
-| v.name           | v.age |
-+------------------+-------+
-| &quot;Tracy McGrady&quot;  | 39    |
-| &quot;Tony Parker&quot;    | 36    |
-| &quot;Tim Duncan&quot;     | 42    |
-| &quot;Tiago Splitter&quot; | 34    |
-+------------------+-------+
+        WHERE v.player.name STARTS WITH &quot;T&quot; \
+        RETURN v.player.name, v.player.age;
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| &quot;Tony Parker&quot;    | 36           |
+| &quot;Tiago Splitter&quot; | 34           |
+| &quot;Tim Duncan&quot;     | 42           |
+| &quot;Tracy McGrady&quot;  | 39           |
++------------------+--------------+
 </code></pre></div>
 <p>If you use <code>STARTS WITH "t"</code> in the preceding statement, an empty set is returned because no name in the dataset starts with the lowercase <code>t</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name STARTS WITH &quot;t&quot; \
-        RETURN v.name, v.age;
+        WHERE v.player.name STARTS WITH &quot;t&quot; \
+        RETURN v.player.name, v.player.age;
 Empty set (time spent 5080/6474 us)
 </code></pre></div>
 <h3 id="ends_with"><code>ENDS WITH</code><a class="headerlink" href="#ends_with" title="Permanent link">&para;</a></h3>
 <p><code>ENDS WITH</code> will match the ending of a string.</p>
 <p>The following example uses <code>ENDS WITH "r"</code> to retrieve the information of players whose name ends with <code>r</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name ENDS WITH &quot;r&quot; \
-        RETURN v.name, v.age;
-+------------------+-------+
-| v.name           | v.age |
-+------------------+-------+
-| &quot;Vince Carter&quot;   | 42    |
-| &quot;Tony Parker&quot;    | 36    |
-| &quot;Tiago Splitter&quot; | 34    |
-+------------------+-------+
+        WHERE v.player.name ENDS WITH &quot;r&quot; \
+        RETURN v.player.name, v.player.age;
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| &quot;Tony Parker&quot;    | 36           |
+| &quot;Tiago Splitter&quot; | 34           |
+| &quot;Vince Carter&quot;   | 42           |
++------------------+--------------+
 </code></pre></div>
 <h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">&para;</a></h3>
 <p><code>CONTAINS</code> will match a certain part of a string.</p>
 <p>The following example uses <code>CONTAINS "Pa"</code> to match the information of players whose name contains <code>Pa</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.name CONTAINS &quot;Pa&quot; \
-        RETURN v.name, v.age;
-+---------------+-------+
-| v.name        | v.age |
-+---------------+-------+
-| &quot;Paul George&quot; | 28    |
-| &quot;Tony Parker&quot; | 36    |
-| &quot;Paul Gasol&quot;  | 38    |
-| &quot;Chris Paul&quot;  | 33    |
-+---------------+-------+
+        WHERE v.player.name CONTAINS &quot;Pa&quot; \
+        RETURN v.player.name, v.player.age;
++---------------+--------------+
+| v.player.name | v.player.age |
++---------------+--------------+
+| &quot;Paul George&quot; | 28           |
+| &quot;Tony Parker&quot; | 36           |
+| &quot;Paul Gasol&quot;  | 38           |
+| &quot;Chris Paul&quot;  | 33           |
++---------------+--------------+
 </code></pre></div>
 <h3 id="negative_string_matching">Negative string matching<a class="headerlink" href="#negative_string_matching" title="Permanent link">&para;</a></h3>
 <p>You can use the boolean operator <code>NOT</code> to negate a string matching condition.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE NOT v.name ENDS WITH &quot;R&quot; \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| &quot;Rajon Rondo&quot;           | 33    |
-| &quot;Rudy Gay&quot;              | 32    |
-| &quot;Dejounte Murray&quot;       | 29    |
-| &quot;Chris Paul&quot;            | 33    |
-| &quot;Carmelo Anthony&quot;       | 34    |
-+-------------------------+-------+
+        WHERE NOT v.player.name ENDS WITH &quot;R&quot; \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| &quot;Danny Green&quot;           | 31           |
+| &quot;Tiago Splitter&quot;        | 34           |
+| &quot;David West&quot;            | 38           |
+| &quot;Russell Westbrook&quot;     | 30           |
 ...
 </code></pre></div>
 <!--
@@ -6522,18 +6515,18 @@ Empty set (time spent 5080/6474 us)
 <h3 id="match_values_in_a_list">Match values in a list<a class="headerlink" href="#match_values_in_a_list" title="Permanent link">&para;</a></h3>
 <p>Use the <code>IN</code> operator to check if a value is in a specific list.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.age IN range(20,25) \
-        RETURN v.name, v.age;
-+-------------------------+-------+
-| v.name                  | v.age |
-+-------------------------+-------+
-| &quot;Ben Simmons&quot;           | 22    |
-| &quot;Kristaps Porzingis&quot;    | 23    |
-| &quot;Luka Doncic&quot;           | 20    |
-| &quot;Kyle Anderson&quot;         | 25    |
-| &quot;Giannis Antetokounmpo&quot; | 24    |
-| &quot;Joel Embiid&quot;           | 25    |
-+-------------------------+-------+
+        WHERE v.player.age IN range(20,25) \
+        RETURN v.player.name, v.player.age;
++-------------------------+--------------+
+| v.player.name           | v.player.age |
++-------------------------+--------------+
+| &quot;Ben Simmons&quot;           | 22           |
+| &quot;Giannis Antetokounmpo&quot; | 24           |
+| &quot;Kyle Anderson&quot;         | 25           |
+| &quot;Joel Embiid&quot;           | 25           |
+| &quot;Kristaps Porzingis&quot;    | 23           |
+| &quot;Luka Doncic&quot;           | 20           |
++-------------------------+--------------+
 
 nebula&gt; LOOKUP ON player \
         WHERE player.age IN [25,28]  \
@@ -6551,8 +6544,8 @@ nebula&gt; LOOKUP ON player \
 <h3 id="match_values_not_in_a_list">Match values not in a list<a class="headerlink" href="#match_values_not_in_a_list" title="Permanent link">&para;</a></h3>
 <p>Use <code>NOT</code> before <code>IN</code> to rule out the values in a list.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WHERE v.age NOT IN range(20,25) \
-        RETURN v.name AS Name, v.age AS Age \
+        WHERE v.player.age NOT IN range(20,25) \
+        RETURN v.player.name AS Name, v.player.age AS Age \
         ORDER BY Age;
 +---------------------+-----+
 | Name                | Age |
@@ -6571,7 +6564,7 @@ nebula&gt; LOOKUP ON player \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

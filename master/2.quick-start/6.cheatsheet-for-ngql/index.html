@@ -6834,7 +6834,7 @@ END
 </tr>
 <tr>
 <td>Match connected vertices</td>
-<td><code>MATCH (v:player{name:"Tim Duncan"})--(v2) RETURN v2.name AS Name</code></td>
+<td><code>MATCH (v:player{name:"Tim Duncan"})--(v2) RETURN v2.player.name AS Name</code></td>
 <td>You can use the <code>--</code> symbol to represent edges of both directions and match vertices connected by these edges. You can add a <code>&gt;</code> or <code>&lt;</code> to the <code>--</code> symbol to specify the direction of an edge.</td>
 </tr>
 <tr>
@@ -6899,7 +6899,7 @@ END
 </tr>
 <tr>
 <td>Retrieve a single property on a vertex or an edge</td>
-<td><code>MATCH (v:player{name:"Tim Duncan"}) RETURN v.age</code></td>
+<td><code>MATCH (v:player{name:"Tim Duncan"}) RETURN v.player.age</code></td>
 <td>Use <code>RETURN {&lt;vertex_name&gt; | &lt;edge_name&gt;}.&lt;property&gt;</code> to retrieve a single property.<br>Use <code>AS</code> to specify an alias for a property.</td>
 </tr>
 <tr>
@@ -7288,7 +7288,7 @@ YIELD &lt;return_list&gt; [AS &lt;alias&gt;]
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/limit/">SKIP</a></td>
 <td><code>RETURN &lt;var&gt; [SKIP &lt;offset&gt;] [LIMIT &lt;number_rows&gt;]</code></td>
-<td><code>MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) RETURN v2.name AS Name, v2.age AS Age ORDER BY Age DESC SKIP 1</code></td>
+<td><code>MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) RETURN v2.player.name AS Name, v2.player.age AS Age ORDER BY Age DESC SKIP 1</code></td>
 <td><code>SKIP</code> can be used alone to set the offset and return the data after the specified position.</td>
 </tr>
 <tr>
@@ -7300,7 +7300,7 @@ YIELD &lt;return_list&gt; [AS &lt;alias&gt;]
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/return/">RETURN</a></td>
 <td><code>RETURN {&lt;vertex_name&gt;|&lt;edge_name&gt;|&lt;vertex_name&gt;.&lt;property&gt;|&lt;edge_name&gt;.&lt;property&gt;|...}</code></td>
-<td><code>MATCH (v:player) RETURN v.name, v.age LIMIT 3</code></td>
+<td><code>MATCH (v:player) RETURN v.player.name, v.player.age LIMIT 3</code></td>
 <td>Returns the first three rows with values of the vertex properties <code>name</code> and <code>age</code>.</td>
 </tr>
 <tr>
@@ -7312,7 +7312,7 @@ YIELD &lt;return_list&gt; [AS &lt;alias&gt;]
 <tr>
 <td><a href="../../3.ngql-guide/8.clauses-and-options/where/">WHERE</a></td>
 <td><code>WHERE {&lt;vertex|edge_alias&gt;.&lt;property_name&gt; {&gt;|==|&lt;|...} &lt;value&gt;...}</code></td>
-<td><code>MATCH (v:player) WHERE v.name == "Tim Duncan" XOR (v.age &lt; 30 AND v.name == "Yao Ming") OR NOT (v.name == "Yao Ming" OR v.name == "Tim Duncan") RETURN v.name, v.age</code></td>
+<td><code>MATCH (v:player) WHERE v.player.name == "Tim Duncan" XOR (v.player.age &lt; 30 AND v.player.name == "Yao Ming") OR NOT (v.player.name == "Yao Ming" OR v.player.name == "Tim Duncan") RETURN v.player.name, v.player.age</code></td>
 <td>The <code>WHERE</code> clause filters the output by conditions. The <code>WHERE</code> clause usually works in Native nGQL <code>GO</code> and <code>LOOKUP</code> statements, and OpenCypher <code>MATCH</code> and <code>WITH</code> statements.</td>
 </tr>
 <tr>
@@ -7819,7 +7819,7 @@ YIELD &lt;return_list&gt; [AS &lt;alias&gt;]
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

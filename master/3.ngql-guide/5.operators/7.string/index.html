@@ -6200,12 +6200,12 @@ nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
 <h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">&para;</a></h3>
 <p>The <code>CONTAINS</code> operator requires string types on both left and right sides.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
-        AND t.name CONTAINS &quot;ets&quot; RETURN s.name, e.start_year, e.end_year, t.name;
-+---------------+--------------+------------+-----------+
-| s.name        | e.start_year | e.end_year | t.name    |
-+---------------+--------------+------------+-----------+
-| &quot;Tony Parker&quot; | 2018         | 2019       | &quot;Hornets&quot; |
-+---------------+--------------+------------+-----------+
+        AND t.team.name CONTAINS &quot;ets&quot; RETURN s.player.name, e.start_year, e.end_year, t.team.name;
++---------------+--------------+------------+-------------+
+| s.player.name | e.start_year | e.end_year | t.team.name |
++---------------+--------------+------------+-------------+
+| &quot;Tony Parker&quot; | 2018         | 2019       | &quot;Hornets&quot;   |
++---------------+--------------+------------+-------------+
 
 nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE (STRING)properties(edge).start_year CONTAINS &quot;19&quot; AND \
         properties($^).name CONTAINS &quot;ny&quot; \
@@ -6268,9 +6268,9 @@ nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;b&#39;,&#39;apple&#39; NOT ST
 | true                           |
 +--------------------------------+
 
-nebula&gt; MATCH (v:player) WHERE v.name =~ &#39;Tony.*&#39; RETURN v.name;
+nebula&gt; MATCH (v:player) WHERE v.player.name =~ &#39;Tony.*&#39; RETURN v.player.name;
 +---------------+
-| v.name        |
+| v.player.name |
 +---------------+
 | &quot;Tony Parker&quot; |
 +---------------+
@@ -6281,7 +6281,7 @@ nebula&gt; MATCH (v:player) WHERE v.name =~ &#39;Tony.*&#39; RETURN v.name;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

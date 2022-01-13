@@ -6205,10 +6205,10 @@
 <h2 id="filter_composite_queries">Filter composite queries<a class="headerlink" href="#filter_composite_queries" title="Permanent link">&para;</a></h2>
 <p><code>WITH</code> can work as a filter in the middle of a composite query.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)--&gt;(v2:player) \
-        WITH DISTINCT v2 AS v2, v2.age AS Age \
+        WITH DISTINCT v2 AS v2, v2.player.age AS Age \
         ORDER BY Age \
         WHERE Age&lt;25 \
-        RETURN v2.name AS Name, Age;
+        RETURN v2.player.name AS Name, Age;
 +----------------------+-----+
 | Name                 | Age |
 +----------------------+-----+
@@ -6220,7 +6220,7 @@
 <h2 id="process_the_output_before_using_collect">Process the output before using collect()<a class="headerlink" href="#process_the_output_before_using_collect" title="Permanent link">&para;</a></h2>
 <p>Use a <code>WITH</code> clause to sort and limit the output before using <code>collect()</code> to transform the output into a list.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        WITH v.name AS Name \
+        WITH v.player.name AS Name \
         ORDER BY Name DESC \
         LIMIT 3 \
         RETURN collect(Name);
@@ -6252,7 +6252,7 @@ nebula&gt; WITH 4 AS one, 3 AS two RETURN one &gt; two AS result;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

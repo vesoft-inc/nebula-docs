@@ -6268,15 +6268,15 @@ nebula&gt; RETURN {zage: 32, name: &quot;Marco Belinelli&quot;};
 <h2 id="return_properties">Return properties<a class="headerlink" href="#return_properties" title="Permanent link">&para;</a></h2>
 <p>To return a vertex or edge property, use the <code>{&lt;vertex_name&gt;|&lt;edge_name&gt;}.&lt;property&gt;</code> syntax.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
-        RETURN v.name, v.age \
+        RETURN v.player.name, v.player.age \
         LIMIT 3;
-+-------------------+-------+
-| v.name            | v.age |
-+-------------------+-------+
-| &quot;Rajon Rondo&quot;     | 33    |
-| &quot;Rudy Gay&quot;        | 32    |
-| &quot;Dejounte Murray&quot; | 29    |
-+-------------------+-------+
++------------------+--------------+
+| v.player.name    | v.player.age |
++------------------+--------------+
+| &quot;Danny Green&quot;    | 31           |
+| &quot;Tiago Splitter&quot; | 34           |
+| &quot;David West&quot;     | 38           |
++------------------+--------------+
 </code></pre></div>
 <h2 id="return_all_elements">Return all elements<a class="headerlink" href="#return_all_elements" title="Permanent link">&para;</a></h2>
 <p>To return all the elements that this pattern matches, use an asterisk (*).</p>
@@ -6301,7 +6301,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
 <h2 id="rename_a_field">Rename a field<a class="headerlink" href="#rename_a_field" title="Permanent link">&para;</a></h2>
 <p>Use the <code>AS &lt;alias&gt;</code> syntax to rename a field in the output.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[:serve]-&gt;(v2) \
-        RETURN v2.name AS Team;
+        RETURN v2.team.name AS Team;
 +---------+
 | Team    |
 +---------+
@@ -6318,26 +6318,26 @@ nebula&gt; RETURN &quot;Amber&quot; AS Name;
 <h2 id="return_a_non-existing_property">Return a non-existing property<a class="headerlink" href="#return_a_non-existing_property" title="Permanent link">&para;</a></h2>
 <p>If a property matched does not exist, <code>NULL</code> is returned.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
-        RETURN v2.name, type(e), v2.age;
-+-----------------+----------+--------------+
-| v2.name         | type(e)  | v2.age       |
-+-----------------+----------+--------------+
-| &quot;Tony Parker&quot;   | &quot;follow&quot; | 36           |
-| &quot;Manu Ginobili&quot; | &quot;follow&quot; | 41           |
-| &quot;Spurs&quot;         | &quot;serve&quot;  | UNKNOWN_PROP |
-+-----------------+----------+--------------+
+        RETURN v2.player.name, type(e), v2.player.age;
++-----------------+----------+---------------+
+| v2.player.name  | type(e)  | v2.player.age |
++-----------------+----------+---------------+
+| &quot;Manu Ginobili&quot; | &quot;follow&quot; | 41            |
+| __NULL__        | &quot;serve&quot;  | __NULL__      |
+| &quot;Tony Parker&quot;   | &quot;follow&quot; | 36            |
++-----------------+----------+---------------+
 </code></pre></div>
 <h2 id="return_expression_results">Return expression results<a class="headerlink" href="#return_expression_results" title="Permanent link">&para;</a></h2>
 <p>To return the results of expressions such as literals, functions, or predicates, set them in a <code>RETURN</code> clause.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;})--&gt;(v2:player) \
-        RETURN DISTINCT v2.name, &quot;Hello&quot;+&quot; graphs!&quot;, v2.age &gt; 35;
-+---------------------+------------------+-------------+
-| v2.name             | (Hello+ graphs!) | (v2.age&gt;35) |
-+---------------------+------------------+-------------+
-| &quot;Tim Duncan&quot;        | &quot;Hello graphs!&quot;  | true        |
-| &quot;LaMarcus Aldridge&quot; | &quot;Hello graphs!&quot;  | false       |
-| &quot;Manu Ginobili&quot;     | &quot;Hello graphs!&quot;  | true        |
-+---------------------+------------------+-------------+
+        RETURN DISTINCT v2.player.name, &quot;Hello&quot;+&quot; graphs!&quot;, v2.player.age &gt; 35;
++---------------------+----------------------+--------------------+
+| v2.player.name      | (&quot;Hello&quot;+&quot; graphs!&quot;) | (v2.player.age&gt;35) |
++---------------------+----------------------+--------------------+
+| &quot;LaMarcus Aldridge&quot; | &quot;Hello graphs!&quot;      | false              |
+| &quot;Tim Duncan&quot;        | &quot;Hello graphs!&quot;      | true               |
+| &quot;Manu Ginobili&quot;     | &quot;Hello graphs!&quot;      | true               |
++---------------------+----------------------+--------------------+
 
 nebula&gt; RETURN 1+1;
 +-------+
@@ -6364,33 +6364,33 @@ nebula&gt; RETURN 1+1, rand32(1, 5);
 <p>Use <code>DISTINCT</code> to remove duplicate fields in the result set.</p>
 <div class="highlight"><pre><span></span><code># Before using DISTINCT.
 nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;})--(v2:player) \
-        RETURN v2.name, v2.age;
-+---------------------+--------+
-| v2.name             | v2.age |
-+---------------------+--------+
-| &quot;Tim Duncan&quot;        | 42     |
-| &quot;LaMarcus Aldridge&quot; | 33     |
-| &quot;Marco Belinelli&quot;   | 32     |
-| &quot;Boris Diaw&quot;        | 36     |
-| &quot;Dejounte Murray&quot;   | 29     |
-| &quot;Tim Duncan&quot;        | 42     |
-| &quot;LaMarcus Aldridge&quot; | 33     |
-| &quot;Manu Ginobili&quot;     | 41     |
-+---------------------+--------+
+        RETURN v2.player.name, v2.player.age;
++---------------------+---------------+
+| v2.player.name      | v2.player.age |
++---------------------+---------------+
+| &quot;Manu Ginobili&quot;     | 41            |
+| &quot;Boris Diaw&quot;        | 36            |
+| &quot;Marco Belinelli&quot;   | 32            |
+| &quot;Dejounte Murray&quot;   | 29            |
+| &quot;Tim Duncan&quot;        | 42            |
+| &quot;Tim Duncan&quot;        | 42            |
+| &quot;LaMarcus Aldridge&quot; | 33            |
+| &quot;LaMarcus Aldridge&quot; | 33            |
++---------------------+---------------+
 
 # After using DISTINCT.
 nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;})--(v2:player) \
-        RETURN DISTINCT v2.name, v2.age;
-+---------------------+--------+
-| v2.name             | v2.age |
-+---------------------+--------+
-| &quot;Tim Duncan&quot;        | 42     |
-| &quot;LaMarcus Aldridge&quot; | 33     |
-| &quot;Marco Belinelli&quot;   | 32     |
-| &quot;Boris Diaw&quot;        | 36     |
-| &quot;Dejounte Murray&quot;   | 29     |
-| &quot;Manu Ginobili&quot;     | 41     |
-+---------------------+--------+
+        RETURN DISTINCT v2.player.name, v2.player.age;
++---------------------+---------------+
+| v2.player.name      | v2.player.age |
++---------------------+---------------+
+| &quot;Manu Ginobili&quot;     | 41            |
+| &quot;Boris Diaw&quot;        | 36            |
+| &quot;Marco Belinelli&quot;   | 32            |
+| &quot;Dejounte Murray&quot;   | 29            |
+| &quot;Tim Duncan&quot;        | 42            |
+| &quot;LaMarcus Aldridge&quot; | 33            |
++---------------------+---------------+
 </code></pre></div>
 
   <hr>
@@ -6398,7 +6398,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;})--(v2:player) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

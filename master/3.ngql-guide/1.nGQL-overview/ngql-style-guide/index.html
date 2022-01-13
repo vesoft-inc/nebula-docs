@@ -6140,13 +6140,13 @@ YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
 <p>If the clause exceeds 80 characters, start a new line at the appropriate place.</p>
 <p>Not recommended:</p>
 <div class="highlight"><pre><span></span><code>MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
-WHERE (v2.name STARTS WITH &quot;Y&quot; AND v2.age &gt; 35 AND v2.age &lt; v.age) OR (v2.name STARTS WITH &quot;T&quot; AND v2.age &lt; 45 AND v2.age &gt; v.age) \
+WHERE (v2.player.name STARTS WITH &quot;Y&quot; AND v2.player.age &gt; 35 AND v2.player.age &lt; v.player.age) OR (v2.player.name STARTS WITH &quot;T&quot; AND v2.player.age &lt; 45 AND v2.player.age &gt; v.player.age) \
 RETURN v2;
 </code></pre></div>
 <p>Recommended:</p>
 <div class="highlight"><pre><span></span><code>MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(v2) \
-WHERE (v2.name STARTS WITH &quot;Y&quot; AND v2.age &gt; 35 AND v2.age &lt; v.age) \
-OR (v2.name STARTS WITH &quot;T&quot; AND v2.age &lt; 45 AND v2.age &gt; v.age) \
+WHERE (v2.player.name STARTS WITH &quot;Y&quot; AND v2.player.age &gt; 35 AND v2.player.age &lt; v.player.age) \
+OR (v2.player.name STARTS WITH &quot;T&quot; AND v2.player.age &lt; 45 AND v2.player.age &gt; v.player.age) \
 RETURN v2;
 </code></pre></div>
 </li>
@@ -6196,12 +6196,12 @@ RETURN v;
 <p>Start a new line on the right side of the arrow indicating an edge when writing patterns.</p>
 <p>Not recommended:</p>
 <div class="highlight"><pre><span></span><code>MATCH (v:player{name: &quot;Tim Duncan&quot;, age: 42}) \
--[e:follow]-&gt;()-[e:serve]-&gt;()&lt;--(v3) \
+-[e:follow]-&gt;()-[e:serve]-&gt;()&lt;--(v2) \
 RETURN v, e, v2;
 </code></pre></div>
 <p>Recommended:</p>
 <div class="highlight"><pre><span></span><code>MATCH (v:player{name: &quot;Tim Duncan&quot;, age: 42})-[e:follow]-&gt; \
-()-[e:serve]-&gt;()&lt;--(v3) \
+()-[e:serve]-&gt;()&lt;--(v2) \
 RETURN v, e, v2;
 </code></pre></div>
 </li>
@@ -6308,7 +6308,7 @@ YIELD $$.team.name AS Team, $^.player.name AS Player;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

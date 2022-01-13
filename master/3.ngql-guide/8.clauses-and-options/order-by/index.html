@@ -6175,7 +6175,7 @@ nebula&gt; $var = GO FROM &quot;player100&quot; OVER follow \
 ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
 </code></pre></div>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.name AS Name, v.age AS Age  \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age  \
         ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
@@ -6189,7 +6189,7 @@ ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...]
 ...
 
 # In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.
-nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
+nebula&gt; MATCH (v:player) RETURN v.player.age AS Age, v.player.name AS Name  \
         ORDER BY Age DESC, Name ASC;
 +-----+-------------------+
 | Age | Name              |
@@ -6204,7 +6204,7 @@ nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
 <h2 id="order_of_null_values">Order of NULL values<a class="headerlink" href="#order_of_null_values" title="Permanent link">&para;</a></h2>
 <p>nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age  \
+        RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age;
 +-----------------+--------------+
 | Name            | Age          |
@@ -6215,7 +6215,7 @@ nebula&gt; MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
 +-----------------+--------------+
 
 nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
-        RETURN v2.name AS Name, v2.age AS Age  \
+        RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+--------------+
 | Name            | Age          |
@@ -6231,7 +6231,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 8, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>
