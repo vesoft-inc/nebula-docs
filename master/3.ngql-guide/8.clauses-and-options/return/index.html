@@ -1848,12 +1848,73 @@
     Return edges
   </a>
   
+    <nav class="md-nav" aria-label="Return edges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return_vids" class="md-nav__link">
+    Return VIDs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_tag" class="md-nav__link">
+    Return Tag
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#return_properties" class="md-nav__link">
     Return properties
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return_edge_type" class="md-nav__link">
+    Return edge type
+  </a>
+  
+    <nav class="md-nav" aria-label="Return edge type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return_paths" class="md-nav__link">
+    Return paths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_vertices_in_a_path" class="md-nav__link">
+    Return vertices in a path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_edges_in_a_path" class="md-nav__link">
+    Return edges in a path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_path_length" class="md-nav__link">
+    Return path length
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6139,12 +6200,73 @@
     Return edges
   </a>
   
+    <nav class="md-nav" aria-label="Return edges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return_vids" class="md-nav__link">
+    Return VIDs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_tag" class="md-nav__link">
+    Return Tag
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#return_properties" class="md-nav__link">
     Return properties
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return_edge_type" class="md-nav__link">
+    Return edge type
+  </a>
+  
+    <nav class="md-nav" aria-label="Return edge type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return_paths" class="md-nav__link">
+    Return paths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_vertices_in_a_path" class="md-nav__link">
+    Return vertices in a path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_edges_in_a_path" class="md-nav__link">
+    Return edges in a path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_path_length" class="md-nav__link">
+    Return path length
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6279,6 +6401,35 @@ nebula&gt; RETURN {zage: 32, name: &quot;Marco Belinelli&quot;};
 +------------------------------------------------------------------------------+
 ...
 </code></pre></div>
+<h3 id="return_vids">Return VIDs<a class="headerlink" href="#return_vids" title="Permanent link">&para;</a></h3>
+<p>Use the <code>id()</code> function to retrieve VIDs.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
+        RETURN id(v);
++-------------+
+| id(v)       |
++-------------+
+| &quot;player100&quot; |
++-------------+
+</code></pre></div>
+<h3 id="return_tag">Return Tag<a class="headerlink" href="#return_tag" title="Permanent link">&para;</a></h3>
+<p>Use the <code>labels()</code> function to return the list of tags on a vertex.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
+        RETURN labels(v);
++------------+
+| labels(v)  |
++------------+
+| [&quot;player&quot;] |
++------------+
+</code></pre></div>
+<p>To retrieve the nth element in the <code>labels(v)</code> list, use <code>labels(v)[n-1]</code>. The following example shows how to use <code>labels(v)[0]</code> to return the first tag in the list.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
+        RETURN labels(v)[0];
++--------------+
+| labels(v)[0] |
++--------------+
+| &quot;player&quot;     |
++--------------+
+</code></pre></div>
 <h2 id="return_properties">Return properties<a class="headerlink" href="#return_properties" title="Permanent link">&para;</a></h2>
 <p>To return a vertex or edge property, use the <code>{&lt;vertex_name&gt;|&lt;edge_name&gt;}.&lt;property&gt;</code> syntax.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
@@ -6291,6 +6442,84 @@ nebula&gt; RETURN {zage: 32, name: &quot;Marco Belinelli&quot;};
 | &quot;Tiago Splitter&quot; | 34           |
 | &quot;David West&quot;     | 38           |
 +------------------+--------------+
+</code></pre></div>
+<p>Use the <code>properties()</code> function to return all properties on a vertex or an edge.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
+        RETURN properties(v2);
++----------------------------------+
+| properties(v2)                   |
++----------------------------------+
+| {name: &quot;Spurs&quot;}                  |
+| {age: 36, name: &quot;Tony Parker&quot;}   |
+| {age: 41, name: &quot;Manu Ginobili&quot;} |
++----------------------------------+
+</code></pre></div>
+<h2 id="return_edge_type">Return edge type<a class="headerlink" href="#return_edge_type" title="Permanent link">&para;</a></h2>
+<p>Use the <code>type()</code> function to return the matched edge types.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() \
+        RETURN DISTINCT type(e);
++----------+
+| type(e)  |
++----------+
+| &quot;serve&quot;  |
+| &quot;follow&quot; |
++----------+
+</code></pre></div>
+<h3 id="return_paths">Return paths<a class="headerlink" href="#return_paths" title="Permanent link">&para;</a></h3>
+<p>Use <code>RETURN &lt;path_name&gt;</code> to return all the information of the matched paths.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*3]-&gt;() \
+        RETURN p;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                                                                                                                                                                                              |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2019, start_year: 2015}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;         |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:serve@0 {end_year: 2015, start_year: 2006}]-&gt;(&quot;team203&quot; :team{name: &quot;Trail Blazers&quot;})&gt; |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})-[:follow@0 {degree: 75}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;           |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+...
+</code></pre></div>
+<h3 id="return_vertices_in_a_path">Return vertices in a path<a class="headerlink" href="#return_vertices_in_a_path" title="Permanent link">&para;</a></h3>
+<p>Use the <code>nodes()</code> function to return all vertices in a path.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
+        RETURN nodes(p);
++---------------------------------------------------------------------------------------------------------------------+
+| nodes(p)                                                                                                            |
++---------------------------------------------------------------------------------------------------------------------+
+| [(&quot;player100&quot; :star{} :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player204&quot; :team{name: &quot;Spurs&quot;})]                    |
+| [(&quot;player100&quot; :star{} :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player101&quot; :player{name: &quot;Tony Parker&quot;, age: 36})]   |
+| [(&quot;player100&quot; :star{} :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player125&quot; :player{name: &quot;Manu Ginobili&quot;, age: 41})] |
++---------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+<h3 id="return_edges_in_a_path">Return edges in a path<a class="headerlink" href="#return_edges_in_a_path" title="Permanent link">&para;</a></h3>
+<p>Use the <code>relationships()</code> function to return all edges in a path.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
+        RETURN relationships(p);
++-------------------------------------------------------------------------+
+| relationships(p)                                                        |
++-------------------------------------------------------------------------+
+| [[:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}]] |
+| [[:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}]]                    |
+| [[:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}]]                    |
++-------------------------------------------------------------------------+
+</code></pre></div>
+<h3 id="return_path_length">Return path length<a class="headerlink" href="#return_path_length" title="Permanent link">&para;</a></h3>
+<p>Use the <code>length()</code> function to return the length of a path.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[*..2]-&gt;(v2) \
+        RETURN p AS Paths, length(p) AS Length;
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| Paths                                                                                                                                                                                                                  | Length |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;                                                                                   | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;                                                                                     | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;                                                                                   | 1      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2018, start_year: 1999}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;     | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:serve@0 {end_year: 2019, start_year: 2018}]-&gt;(&quot;team215&quot; :team{name: &quot;Hornets&quot;})&gt;   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;        | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;})&gt; | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;     | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:serve@0 {end_year: 2018, start_year: 2002}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;   | 2      |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})-[:follow@0 {degree: 90}]-&gt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt;      | 2      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
 </code></pre></div>
 <h2 id="return_all_elements">Return all elements<a class="headerlink" href="#return_all_elements" title="Permanent link">&para;</a></h2>
 <p>To return all the elements that this pattern matches, use an asterisk (*).</p>
