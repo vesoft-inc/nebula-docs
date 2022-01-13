@@ -854,6 +854,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6015,6 +6022,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6033,25 +6047,65 @@
 
 
 <h1 id="sets">Sets<a class="headerlink" href="#sets" title="Permanent link">&para;</a></h1>
-<p>The set is a composite data type.</p>
+<p>The set is a composite data type. A set is a set of values. Unlike a List, values in a set are unordered and each value must be unique.</p>
+<p>A set starts with a left curly bracket <code>{</code> and ends with a right curly bracket <code>}</code>. A set contains zero, one, or more expressions. Set elements are separated from each other with commas (<code>,</code>). Whitespace around elements is ignored in the set, thus line breaks, tab stops, and blanks can be used for formatting.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
-<p>A set is not a data type in openCypher. The behavior of a set in nGQL is not determined yet.</p>
-<!-- 
-# Set
+<ul>
+<li>A composite data type (i.e. set, map, and list) <strong>CANNOT</strong> be stored as properties of vertices or edges.</li>
+</ul>
+<ul>
+<li>A set is not a data type in openCypher, but in nGQL, users can use the set.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code># The following query returns the set {1,2,3}.
+nebula&gt; RETURN set{1, 2, 3} AS a;
++-----------+
+| a         |
++-----------+
+| {3, 2, 1} |
++-----------+
 
-Set is a composite data type. Set is a string object that can have zero or more unique values. Individual set elements must be chosen from the list of values 'value1', 'value2', ...
+# The following query returns the set {1,2}, Because the set does not allow repeating elements, and the order is unordered.
+nebula&gt; RETURN set{1, 2, 1} AS a;
++--------+
+| a      |
++--------+
+| {2, 1} |
++--------+
 
-!!! caution
+# The following query checks whether the set has the specified element 1.
+nebula&gt; RETURN 1 IN set{1, 2} AS a;
++------+
+| a    |
++------+
+| true |
++------+
 
-    A composite data type (i.e. set, map, and list) cannot be stored as properties.
--->
+# The following query counts the number of elements in the set.
+nebula&gt; YIELD size(set{1, 2, 1}) AS a;
++---+
+| a |
++---+
+| 2 |
++---+
+
+# The following query returns a set of target vertex property values.
+nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+        YIELD set{properties($$).name,properties($$).age} as a;
++-----------------------+
+| a                     |
++-----------------------+
+| {36, &quot;Tony Parker&quot;}   |
+| {41, &quot;Manu Ginobili&quot;} |
++-----------------------+
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>

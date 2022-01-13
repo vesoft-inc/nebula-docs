@@ -862,15 +862,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#literal_maps" class="md-nav__link">
-    Literal maps
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#opencypher_compatibility" class="md-nav__link">
-    OpenCypher compatibility
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -6016,15 +6016,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#literal_maps" class="md-nav__link">
-    Literal maps
+  <a href="#opencypher_compatibility" class="md-nav__link">
+    OpenCypher compatibility
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#opencypher_compatibility" class="md-nav__link">
-    OpenCypher compatibility
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -6048,14 +6048,7 @@
 
 <h1 id="maps">Maps<a class="headerlink" href="#maps" title="Permanent link">&para;</a></h1>
 <p>The map is a composite data type. Maps are unordered collections of key-value pairs. In maps, the key is a string. The value can have any data type. You can get the map element by using <code>map['key']</code>.</p>
-<h2 id="literal_maps">Literal maps<a class="headerlink" href="#literal_maps" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD {key: &#39;Value&#39;, listKey: [{inner: &#39;Map1&#39;}, {inner: &#39;Map2&#39;}]};
-+-------------------------------------------------------------+
-| {key:Value,listKey:[{inner:Map1},{inner:Map2}]}             |
-+-------------------------------------------------------------+
-| {key: &quot;Value&quot;, listKey: [{inner: &quot;Map1&quot;}, {inner: &quot;Map2&quot;}]} |
-+-------------------------------------------------------------+
-</code></pre></div>
+<p>A map starts with a left curly bracket <code>{</code> and ends with a right curly bracket <code>}</code>. A map contains zero, one, or more key-value pairs. Map elements are separated from each other with commas (<code>,</code>). Whitespace around elements is ignored in the map, thus line breaks, tab stops, and blanks can be used for formatting.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <ul>
 <li>A composite data type (i.e. set, map, and list) <strong>CANNOT</strong> be stored as properties of vertices or edges.</li>
@@ -6063,13 +6056,54 @@
 <ul>
 <li>Map projection is not supported.</li>
 </ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code># The following query returns the simple map.
+nebula&gt; YIELD map{key1: &#39;Value1&#39;, Key2: &#39;Value2&#39;} as a;
++----------------------------------+
+| a                                |
++----------------------------------+
+| {Key2: &quot;Value2&quot;, key1: &quot;Value1&quot;} |
++----------------------------------+
+
+# The following query returns the list type map.
+nebula&gt; YIELD map{listKey: [{inner: &#39;Map1&#39;}, {inner: &#39;Map2&#39;}]} as a;
++-----------------------------------------------+
+| a                                             |
++-----------------------------------------------+
+| {listKey: [{inner: &quot;Map1&quot;}, {inner: &quot;Map2&quot;}]} |
++-----------------------------------------------+
+
+# The following query returns the hybrid type map.
+nebula&gt; RETURN map{a: LIST[1,2], b: SET{1,2,1}, c: &quot;hee&quot;} as a;
++----------------------------------+
+| a                                |
++----------------------------------+
+| {a: [1, 2], b: {2, 1}, c: &quot;hee&quot;} |
++----------------------------------+
+
+# The following query returns the specified element in a map.
+nebula&gt; RETURN map{a: LIST[1,2], b: SET{1,2,1}, c: &quot;hee&quot;}[&quot;b&quot;] AS b;
++--------+
+| b      |
++--------+
+| {2, 1} |
++--------+
+
+# The following query checks whether the map has the specified key, not support checks whether the map has the specified value yet.
+nebula&gt; RETURN &quot;a&quot; IN MAP{a:1, b:2} AS a;
++------+
+| a    |
++------+
+| true |
++------+
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
       
     
   </small>
