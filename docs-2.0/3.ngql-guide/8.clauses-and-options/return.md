@@ -88,6 +88,48 @@ nebula> MATCH (v:player)-[e]->() \
 ...
 ```
 
+### Return VIDs
+
+Use the `id()` function to retrieve VIDs.
+
+```ngql
+nebula> MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN id(v);
++-------------+
+| id(v)       |
++-------------+
+| "player100" |
++-------------+
+
+```
+
+### Return Tag
+
+Use the `labels()` function to return the list of tags on a vertex.
+
+```ngql
+nebula> MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN labels(v);
++------------+
+| labels(v)  |
++------------+
+| ["player"] |
++------------+
+```
+
+To retrieve the nth element in the `labels(v)` list, use `labels(v)[n-1]`. The following example shows how to use `labels(v)[0]` to return the first tag in the list.
+
+```ngql
+nebula> MATCH (v:player{name:"Tim Duncan"}) \
+        RETURN labels(v)[0];
++--------------+
+| labels(v)[0] |
++--------------+
+| "player"     |
++--------------+
+```
+
+
 ## Return properties
 
 To return a vertex or edge property, use the `{<vertex_name>|<edge_name>}.<property>` syntax.
@@ -104,6 +146,109 @@ nebula> MATCH (v:player) \
 | "David West"     | 38           |
 +------------------+--------------+
 ```
+
+Use the `properties()` function to return all properties on a vertex or an edge.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[]->(v2) \
+        RETURN properties(v2);
++----------------------------------+
+| properties(v2)                   |
++----------------------------------+
+| {name: "Spurs"}                  |
+| {age: 36, name: "Tony Parker"}   |
+| {age: 41, name: "Manu Ginobili"} |
++----------------------------------+
+```
+
+## Return edge type
+
+Use the `type()` function to return the matched edge types.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[e]->() \
+        RETURN DISTINCT type(e);
++----------+
+| type(e)  |
++----------+
+| "serve"  |
+| "follow" |
++----------+
+```
+
+### Return paths
+
+Use `RETURN <path_name>` to return all the information of the matched paths.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[*3]->() \
+        RETURN p;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                                                                                                                                                                                              |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]->("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:serve@0 {end_year: 2019, start_year: 2015}]->("team204" :team{name: "Spurs"})>         |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]->("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:serve@0 {end_year: 2015, start_year: 2006}]->("team203" :team{name: "Trail Blazers"})> |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]->("player102" :player{age: 33, name: "LaMarcus Aldridge"})-[:follow@0 {degree: 75}]->("player101" :player{age: 36, name: "Tony Parker"})>           |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+...
+```
+
+### Return vertices in a path
+
+Use the `nodes()` function to return all vertices in a path.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[]->(v2) \
+        RETURN nodes(p);
++---------------------------------------------------------------------------------------------------------------------+
+| nodes(p)                                                                                                            |
++---------------------------------------------------------------------------------------------------------------------+
+| [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player204" :team{name: "Spurs"})]                    |
+| [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player101" :player{name: "Tony Parker", age: 36})]   |
+| [("player100" :star{} :player{age: 42, name: "Tim Duncan"}), ("player125" :player{name: "Manu Ginobili", age: 41})] |
++---------------------------------------------------------------------------------------------------------------------+
+```
+
+### Return edges in a path
+
+Use the `relationships()` function to return all edges in a path.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[]->(v2) \
+        RETURN relationships(p);
++-------------------------------------------------------------------------+
+| relationships(p)                                                        |
++-------------------------------------------------------------------------+
+| [[:serve "player100"->"team204" @0 {end_year: 2016, start_year: 1997}]] |
+| [[:follow "player100"->"player101" @0 {degree: 95}]]                    |
+| [[:follow "player100"->"player125" @0 {degree: 95}]]                    |
++-------------------------------------------------------------------------+
+```
+
+### Return path length
+
+Use the `length()` function to return the length of a path.
+
+```ngql
+nebula> MATCH p=(v:player{name:"Tim Duncan"})-[*..2]->(v2) \
+        RETURN p AS Paths, length(p) AS Length;
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| Paths                                                                                                                                                                                                                  | Length |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:serve@0 {end_year: 2016, start_year: 1997}]->("team204" :team{name: "Spurs"})>                                                                                   | 1      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})>                                                                                     | 1      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player125" :player{age: 41, name: "Manu Ginobili"})>                                                                                   | 1      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:serve@0 {end_year: 2018, start_year: 1999}]->("team204" :team{name: "Spurs"})>     | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:serve@0 {end_year: 2019, start_year: 2018}]->("team215" :team{name: "Hornets"})>   | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 95}]->("player100" :player{age: 42, name: "Tim Duncan"})>        | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 90}]->("player102" :player{age: 33, name: "LaMarcus Aldridge"})> | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player101" :player{age: 36, name: "Tony Parker"})-[:follow@0 {degree: 95}]->("player125" :player{age: 41, name: "Manu Ginobili"})>     | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player125" :player{age: 41, name: "Manu Ginobili"})-[:serve@0 {end_year: 2018, start_year: 2002}]->("team204" :team{name: "Spurs"})>   | 2      |
+| <("player100" :player{age: 42, name: "Tim Duncan"})-[:follow@0 {degree: 95}]->("player125" :player{age: 41, name: "Manu Ginobili"})-[:follow@0 {degree: 90}]->("player100" :player{age: 42, name: "Tim Duncan"})>      | 2      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+
+```
+
+
 
 ## Return all elements
 
