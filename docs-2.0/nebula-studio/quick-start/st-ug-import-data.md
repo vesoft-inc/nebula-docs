@@ -26,7 +26,7 @@ To batch import data, follow these steps:
 
   !!! note
 
-        You can choose multiple CSV files at the same time. The CSV file used in this article can be downloaded in the [Design a schema](/docs/nebula-studio/quick-start/st-ug-plan-schema.md).
+        You can choose multiple CSV files at the same time. The CSV file used in this article can be downloaded in the [Design a schema](/docs-2.0/nebula-studio/quick-start/st-ug-plan-schema.md).
 
 4. On the **Select Files** page, do a check of the file size and click **Preview** or **Delete** in the **Operations** column to make sure that all source data is correct. And then click the **Next** button.
 
