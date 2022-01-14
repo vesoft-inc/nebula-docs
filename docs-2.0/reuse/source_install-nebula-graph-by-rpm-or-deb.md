@@ -113,7 +113,7 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
    + On the [Nebula Graph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest **package** on the top of the package list.
    
-   ![Select a Nebula Graph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
+   ![Select a Nebula Graph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
 
    + In the **Artifacts** area, click the package to download it.
 -->
