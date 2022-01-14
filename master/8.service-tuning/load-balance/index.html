@@ -3619,13 +3619,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reset_a_balance_task" class="md-nav__link">
-    RESET a balance task
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#remove_storage_servers" class="md-nav__link">
     Remove storage servers
   </a>
@@ -6129,13 +6122,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reset_a_balance_task" class="md-nav__link">
-    RESET a balance task
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#remove_storage_servers" class="md-nav__link">
     Remove storage servers
   </a>
@@ -6193,144 +6179,153 @@
 
 
 <h1 id="storage_load_balance">Storage load balance<a class="headerlink" href="#storage_load_balance" title="Permanent link">&para;</a></h1>
-<p>You can use the <code>BALANCE</code> statement to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.</p>
-<h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">&para;</a></h2>
-<p><code>BALANCE DATA</code> starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.</p>
+<p>You can use the <code>BALANCE</code> statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a>.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>DO NOT stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
+<p>The <code>BALANCE</code> commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. <strong>DO NOT</strong> stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
 </div>
+<h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">&para;</a></h2>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts.</p>
+<p>After you add new storage hosts into the zone, no partition is deployed on the new hosts.</p>
 <ol>
+<li>
+<p>Add the three new storage hosts into a cluster, and add them respectively to the zone which the graph space <code>basketballplayer</code> belongs. For details about the Zone, see <a href="../../4.deployment-and-installation/5.zone/">Manage zone</a>.</p>
+<div class="highlight"><pre><span></span><code>nebual&gt; ADD HOSTS 192.168.10.103:9779 INTO ZONE &quot;zone1&quot;;
+nebual&gt; ADD HOSTS 192.168.10.104:9779 INTO ZONE &quot;zone2&quot;;
+nebual&gt; ADD HOSTS 192.168.10.105:9779 INTO ZONE &quot;zone3&quot;;
+</code></pre></div>
+</li>
 <li>
 <p>Run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
 <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;storaged0&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;storaged1&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;storaged2&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;storaged3&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
-| &quot;storaged4&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
-| &quot;Total&quot;     |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+ Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:15&quot;  |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:15&quot;  |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:15&quot;  |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
+| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
 </li>
 <li>
-<p>Run <code>BALANCE DATA</code> to start balancing the storage partitions. If the partitions are already balanced, <code>BALANCE DATA</code> fails.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA;
+<p>Run <code>BALANCE IN ZONE</code> to start a job to balance the distribution of storage partitions in each zone in the current graph space. </p>
+<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
+nebula&gt; BALANCE IN ZONE;
 +------------+
-| ID         |
+| New Job Id |
 +------------+
-| 1614237867 |
+| 30         |
 +------------+
 </code></pre></div>
 </li>
 <li>
-<p>A BALANCE task ID is returned after running <code>BALANCE DATA</code>. Run <code>BALANCE DATA &lt;balance_id&gt;</code> to check the status of the <code>BALANCE</code> task.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE DATA 1614237867;
-+--------------------------------------------------------------+-------------------+
-| balanceId, spaceId:partId, src-&gt;dst                          | status            |
-+--------------------------------------------------------------+-------------------+
-| &quot;[1614237867, 11:1, storaged1:9779-&gt;storaged3:9779]&quot;         | &quot;SUCCEEDED&quot;       |
-| &quot;[1614237867, 11:1, storaged2:9779-&gt;storaged4:9779]&quot;         | &quot;SUCCEEDED&quot;       |
-| &quot;[1614237867, 11:2, storaged1:9779-&gt;storaged3:9779]&quot;         | &quot;SUCCEEDED&quot;       |
-...
-| &quot;Total:22, Succeeded:22, Failed:0, In Progress:0, Invalid:0&quot; | 100               |
-+--------------------------------------------------------------+-------------------+
+<p>A BALANCE job ID is returned after running <code>BALANCE IN ZONE</code>. Run <code>SHOW JOB &lt;job_id&gt;</code> to check the status of the <code>BALANCE</code> job.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 30;
++-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
+| Job Id(spaceId:partId)  | Command(src-&gt;dst)                          | Status      | Start Time                      | Stop Time                       |
++-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
+| 30                      | &quot;DATA_BALANCE&quot;                             | &quot;FINISHED&quot;  | &quot;2022-01-12T02:27:00.000000000&quot; | &quot;2022-01-12T02:30:31.000000000&quot; |
+| &quot;30, 23:1&quot;              | &quot;192.168.10.100:9779-&gt;192.168.10.103:9779&quot; | &quot;SUCCEEDED&quot; | 2022-01-12T02:27:00.000000      | 2022-01-12T02:27:30.000000      |
+| &quot;30, 23:2&quot;              | &quot;192.168.10.100:9779-&gt;192.168.10.103:9779&quot; | &quot;SUCCEEDED&quot; | 2022-01-12T02:27:00.000000      | 2022-01-12T02:27:01.000000      |
+......
+| &quot;Total:21&quot;              | &quot;Succeeded:21&quot;                             | &quot;Failed:0&quot;  | &quot;In Progress:0&quot;                 | &quot;Invalid:0&quot;                     |
++-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
 </code></pre></div>
 </li>
 <li>
 <p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>BALANCE DATA</code> does not balance the leader distribution. For more information, see <a href="#Balance leader distribution">Balance leader distribution</a>.</p>
+<p><code>BALANCE IN ZONE</code> does not balance the leader distribution. For more information, see <a href="#Balance leader distribution">Balance leader distribution</a>.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;storaged0&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged1&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged2&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged3&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged4&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;Total&quot;     |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
 </li>
 </ol>
-<p>If any subtask fails, run <code>BALANCE DATA</code> again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
+<p>If any subtask fails, run <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements/"><code>RECOVER JOB &lt;job_id&gt;</code></a> to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
 <h2 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">&para;</a></h2>
-<p>To stop a balance task, run <code>BALANCE DATA STOP</code>.</p>
+<p>To stop a balance task, run <code>STOP JOB &lt;job_id&gt;</code>.</p>
 <ul>
 <li>If no balance task is running, an error is returned.</li>
 </ul>
 <ul>
-<li>If a balance task is running, the task ID (<code>balance_id</code>) is returned.</li>
+<li>If a balance task is running, <code>Job stopped</code> is returned.</li>
 </ul>
-<p><code>BALANCE DATA STOP</code> does not stop the running subtasks but cancels all follow-up subtasks. To check the status of the stopped balance task, run <code>BALANCE DATA &lt;balance_id&gt;</code>.</p>
-<p>Once all the subtasks are finished or stopped, you can run <code>BALANCE DATA</code> again to balance the partitions again.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
-<li>If any subtask of the preceding balance task fails, Nebula Graph restarts the preceding balance task.</li>
+<li><code>STOP JOB &lt;job_id&gt;</code> does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to <code>INVALID</code>. The status of ongoing subtasks is set to <code>SUCCEEDED</code> or <code>FAILED</code> based on the result. You can run the <code>SHOW JOB &lt;job_id&gt;</code> command to check the stopped job status.</li>
+<li>After terminate and restart, the job status is set to <code>QUEUE</code>. If the previous status of subtasks was <code>INVALID</code> or <code>FAILED</code>, the status set to <code>IN_PROGRESS</code>. If it was <code>IN_PROGRESS</code> or <code>SUCCEEDED</code>, the status remains unchanged.</li>
 </ul>
-<ul>
-<li>If no subtask of the preceding balance task fails, Nebula Graph starts a new balance task.</li>
-</ul>
-<h2 id="reset_a_balance_task">RESET a balance task<a class="headerlink" href="#reset_a_balance_task" title="Permanent link">&para;</a></h2>
-<p>If a balance task fails to be restarted after being stopped, run <code>BALANCE DATA RESET PLAN</code> to reset the task. After that, run <code>BALANCE DATA</code> again to start a new balance task.</p>
+</div>
+<p>Once all the subtasks are finished or stopped, you can run <code>RECOVER JOB &lt;job_id&gt;</code> again to balance the partitions again, the subtasks continue to be executed in the original state.</p>
 <h2 id="remove_storage_servers">Remove storage servers<a class="headerlink" href="#remove_storage_servers" title="Permanent link">&para;</a></h2>
-<p>To remove specified storage servers and scale in the Storage Service, run <code>BALANCE DATA REMOVE &lt;host_list&gt;</code>.</p>
+<p>To remove specified storage servers and scale in the Storage Service, you can run <code>BALANCE IN ZONE REMOVE &lt;ip&gt;:&lt;port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code> command to clear specified storage servers, then run <code>DROP HOSTS &lt;ip&gt;:&lt;port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code> command to remove specified storage servers.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<p>To remove the following storage server,</p>
+<p>To remove the following storage servers.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Server name</th>
 <th align="left">IP address</th>
 <th align="left">Port</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">storage3</td>
-<td align="left">192.168.0.8</td>
+<td align="left">192.168.10.104</td>
 <td align="left">9779</td>
 </tr>
 <tr>
-<td align="left">storage4</td>
-<td align="left">192.168.0.9</td>
+<td align="left">192.168.10.105</td>
 <td align="left">9779</td>
 </tr>
 </tbody>
 </table>
-<p>Run the following command:</p>
-<div class="highlight"><pre><span></span><code>BALANCE DATA REMOVE 192.168.0.8:9779,192.168.0.9:9779;
+<ol>
+<li>
+<p>Clear specified storage servers. The command as following:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE IN ZONE REMOVE 192.168.10.104:9779,192.168.10.105:9779;
 </code></pre></div>
-<p>Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The state of the removed server will change to <code>OFFLINE</code>. This record will be deleted after one day. To retain it, you can change the meta configuration <code>removed_threshold_sec</code>.</p>
-</div>
+</li>
+<li>
+<p>After the job is complete, remove the specified Storage servers. The command as following:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
+</code></pre></div>
+</li>
+</ol>
 <h2 id="balance_leader_distribution">Balance leader distribution<a class="headerlink" href="#balance_leader_distribution" title="Permanent link">&para;</a></h2>
-<p><code>BALANCE DATA</code> only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
+<p>To balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 </code></pre></div>
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;storaged0&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged1&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged2&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged3&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;storaged4&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:9&quot;   |
-| &quot;Total&quot;     |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
+| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
++------------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -6342,7 +6337,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2022</span>
       
     
   </small>
