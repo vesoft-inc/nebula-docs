@@ -6261,7 +6261,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/8.service-tuning/2.graph-modeling.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/vesoft-inc/nebula-docs/edit/3.0.0/docs-2.0/8.service-tuning/2.graph-modeling.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
@@ -6283,7 +6283,7 @@
 <h3 id="control_changes_in_the_business_model_and_the_data_model">Control changes in the business model and the data model<a class="headerlink" href="#control_changes_in_the_business_model_and_the_data_model" title="Permanent link">&para;</a></h3>
 <p>Changes here refer to changes in business models and data models (meta-information), not changes in the data itself.</p>
 <p>Some graph databases are designed to be Schema-free, so their data modeling, including the modeling of the graph topology and properties, can be very flexible. Properties can be re-modeled to graph topology, and vice versa. Such systems are often specifically optimized for graph topology access.</p>
-<p>Nebula Graph master is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
+<p>Nebula Graph 3.0.0 is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
 <p>On the contrary, vertices and their edges can be added or deleted at low costs. Thus, the easy-to-change part of the business model should be transformed to vertices or edges, rather than properties.</p>
 <p>For example, in a business model, people have relatively fixed properties such as age, gender, and name. But their contact, place of visit, trade account, and login device are often changing. The former is suitable for modeling as properties and the latter as vertices or edges.</p>
 <h3 id="set_temporary_properties_through_self-loop_edges">Set temporary properties through self-loop edges<a class="headerlink" href="#set_temporary_properties_through_self-loop_edges" title="Permanent link">&para;</a></h3>
@@ -6319,7 +6319,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 <li>Nebula Graph has lower performance for depth-first traversal based on the Graph topology, and better performance for breadth-first traversal and obtaining properties. For example, if model A contains properties "name", "age", and "eye color", it is recommended to create a tag <code>person</code> and add properties <code>name</code>, <code>age</code>, and <code>eye_color</code> to it. If you create a tag <code>eye_color</code> and an edge type <code>has</code>, and then create an edge to represent the eye color owned by the person, the traversal performance will not be high.</li>
 </ul>
 <ul>
-<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph master, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
+<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph 3.0.0, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
 </ul>
 <h3 id="edge_directions">Edge directions<a class="headerlink" href="#edge_directions" title="Permanent link">&para;</a></h3>
 <p>To query in the opposite direction of an edge, use the following syntax:</p>
@@ -6337,7 +6337,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 <p>Do not use long texts to create edge properties. Edge properties are stored twice and long texts lead to greater write amplification. For how edges properties are stored, see <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">Storage architecture</a>. It is recommended to store long texts in HBase or Elasticsearch and store its address in Nebula Graph.</p>
 <h2 id="dynamic_graphs_sequence_graphs_are_not_supported">Dynamic graphs (sequence graphs) are not supported<a class="headerlink" href="#dynamic_graphs_sequence_graphs_are_not_supported" title="Permanent link">&para;</a></h2>
 <p>In some scenarios, graphs need to have the time information to describe how the structure of the entire graph changes over time.<sup id="fnref:twitter"><a class="footnote-ref" href="#fn:twitter">1</a></sup></p>
-<p>The Rank field on Edges in Nebula Graph master can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
+<p>The Rank field on Edges in Nebula Graph 3.0.0 can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
 <p><img alt="image" src="../sequence.png" /></p>
 <div class="footnote">
 <hr />
@@ -6413,7 +6413,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2021 Nebula Graph
+      Copyright &copy; 2022 Nebula Graph
     </div>
   
   
