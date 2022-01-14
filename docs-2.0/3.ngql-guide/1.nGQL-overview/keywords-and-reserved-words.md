@@ -28,6 +28,7 @@ Execution succeeded
 ## Reserved keywords
 
 ```ngql
+ACROSS
 ADD
 ALTER
 AND
