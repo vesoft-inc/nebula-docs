@@ -270,7 +270,6 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         field: dst
       }
 
-
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
 
@@ -318,7 +317,6 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: _c5
-
 
       # The number of data written to Nebula Graph in a single batch.
       batch: 256
