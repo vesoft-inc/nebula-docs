@@ -282,7 +282,7 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
 ### Step 4: Check the cluster status
 
-Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md#_1), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
+Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
 
 ```bash
 $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
