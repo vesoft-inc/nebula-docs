@@ -6033,6 +6033,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version_compatibility" class="md-nav__link">
+    Version compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     Prerequisites
   </a>
@@ -6342,6 +6349,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#version_compatibility" class="md-nav__link">
+    Version compatibility
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     Prerequisites
   </a>
@@ -6442,6 +6456,38 @@
 
 <h1 id="nebula_algorithm">Nebula Algorithm<a class="headerlink" href="#nebula_algorithm" title="Permanent link">&para;</a></h1>
 <p><a href="https://github.com/vesoft-inc/nebula-algorithm">Nebula Algorithm</a> (Algorithm) is a Spark application based on <a href="https://spark.apache.org/graphx/">GraphX</a>. It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.</p>
+<h2 id="version_compatibility">Version compatibility<a class="headerlink" href="#version_compatibility" title="Permanent link">&para;</a></h2>
+<p>The correspondence between the Nebula Algorithm release and the Nebula Graph core release is as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Algorithm client</th>
+<th align="left">Nebula Graph</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">3.0-SNAPSHOT</td>
+<td align="left">nightly</td>
+</tr>
+<tr>
+<td align="left">2.6.2</td>
+<td align="left">2.6.0、2.6.1</td>
+</tr>
+<tr>
+<td align="left">2.6.0</td>
+<td align="left">2.6.0、2.6.1</td>
+</tr>
+<tr>
+<td align="left">2.5.0</td>
+<td align="left">2.5.0、2.5.1</td>
+</tr>
+<tr>
+<td align="left">2.1.0</td>
+<td align="left">2.0.0、2.0.1</td>
+</tr>
+</tbody>
+</table>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before using the Nebula Algorithm, users need to confirm the following information:</p>
 <ul>
@@ -6465,6 +6511,102 @@
 </ul>
 <ul>
 <li>Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.</li>
+</ul>
+<ul>
+<li>
+<p>When writing the algorithm results into the Nebula Graph, make sure that the Tag in the corresponding graph space has properties corresponding to the algorithm result name. The corresponding properties of each algorithm are as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Algorithm</th>
+<th align="center">Properties name</th>
+<th align="center">Properties type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">pagerank</td>
+<td align="center">pagerank</td>
+<td align="center">double/string</td>
+</tr>
+<tr>
+<td align="center">louvain</td>
+<td align="center">louvain</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">kcore</td>
+<td align="center">kcore</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">labelpropagation</td>
+<td align="center">lpa</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">connectedcomponent</td>
+<td align="center">cc</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">stronglyconnectedcomponent</td>
+<td align="center">scc</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">betweenness</td>
+<td align="center">betweenness</td>
+<td align="center">double/string</td>
+</tr>
+<tr>
+<td align="center">shortestpath</td>
+<td align="center">shortestpath</td>
+<td align="center">string</td>
+</tr>
+<tr>
+<td align="center">degreestatic</td>
+<td align="center">degree,inDegree,outDegree</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">trianglecount</td>
+<td align="center">trianglecount</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">clusteringcoefficient</td>
+<td align="center">clustercoefficient</td>
+<td align="center">double/string</td>
+</tr>
+<tr>
+<td align="center">closeness</td>
+<td align="center">closeness</td>
+<td align="center">double/string</td>
+</tr>
+<tr>
+<td align="center">hanp</td>
+<td align="center">hanp</td>
+<td align="center">int/string</td>
+</tr>
+<tr>
+<td align="center">bfs</td>
+<td align="center">bfs</td>
+<td align="center">string</td>
+</tr>
+<tr>
+<td align="center">jaccard</td>
+<td align="center">jaccard</td>
+<td align="center">string</td>
+</tr>
+<tr>
+<td align="center">node2vec</td>
+<td align="center">node2vec</td>
+<td align="center">string</td>
+</tr>
+</tbody>
+</table>
+</li>
 </ul>
 <h2 id="supported_algorithms">Supported algorithms<a class="headerlink" href="#supported_algorithms" title="Permanent link">&para;</a></h2>
 <p>The graph computing algorithms supported by Nebula Algorithm are as follows.</p>
@@ -6498,6 +6640,11 @@
 <td align="left">Information spreading, advertising, and community discovery</td>
 </tr>
 <tr>
+<td align="left">Hanp</td>
+<td align="left">Label propagation advanced</td>
+<td align="left">Community discovery, recommendation system</td>
+</tr>
+<tr>
 <td align="left">ConnectedComponent</td>
 <td align="left">Connected component</td>
 <td align="left">Community discovery, island discovery</td>
@@ -6528,14 +6675,34 @@
 <td align="left">Key node mining, node influence computing</td>
 </tr>
 <tr>
+<td align="left">Closeness</td>
+<td align="left">Closeness centrality</td>
+<td align="left">Key node mining, node influence computing</td>
+</tr>
+<tr>
 <td align="left">DegreeStatic</td>
 <td align="left">Degree of statistical</td>
 <td align="left">Graph structure analysis</td>
 </tr>
 <tr>
 <td align="left">ClusteringCoefficient</td>
+<td align="left">Aggregation coefficient</td>
 <td align="left">Recommendation system, telecom fraud analysis</td>
-<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Jaccard</td>
+<td align="left">Jaccard similarity</td>
+<td align="left">Similarity computing, recommendation system</td>
+</tr>
+<tr>
+<td align="left">BFS</td>
+<td align="left">Breadth-First Search</td>
+<td align="left">Sequence traversal, shortest path planning</td>
+</tr>
+<tr>
+<td align="left">Node2Vec</td>
+<td align="left">-</td>
+<td align="left">Graph classification</td>
 </tr>
 </tbody>
 </table>
@@ -6558,7 +6725,7 @@
 <ol>
 <li>
 <p>Clone the repository <code>nebula-algorithm</code>.</p>
-<div class="highlight"><pre><span></span><code>$ git clone -b master https://github.com/vesoft-inc/nebula-algorithm.git
+<div class="highlight"><pre><span></span><code>$ git clone -b v2.6 https://github.com/vesoft-inc/nebula-algorithm.git
 </code></pre></div>
 </li>
 <li>
@@ -6572,9 +6739,9 @@
 </code></pre></div>
 </li>
 </ol>
-<p>After the compilation, a similar file <code>nebula-algorithm-2.5.1.jar</code> is generated in the directory <code>nebula-algorithm/target</code>.</p>
+<p>After the compilation, a similar file <code>nebula-algorithm-3.x-SNAPSHOT.jar</code> is generated in the directory <code>nebula-algorithm/target</code>.</p>
 <h3 id="download_maven_from_the_remote_repository">Download maven from the remote repository<a class="headerlink" href="#download_maven_from_the_remote_repository" title="Permanent link">&para;</a></h3>
-<p><a href="https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/2.5.1/">Download address</a></p>
+<p><a href="https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/">Download address</a></p>
 <h2 id="how_to_use">How to use<a class="headerlink" href="#how_to_use" title="Permanent link">&para;</a></h2>
 <h3 id="use_algorithm_interface_recommended">Use algorithm interface (recommended)<a class="headerlink" href="#use_algorithm_interface_recommended" title="Permanent link">&para;</a></h3>
 <p>The <code>lib</code> repository provides 10 common graph algorithms.</p>
@@ -6584,7 +6751,7 @@
 <div class="highlight"><pre><span></span><code>&lt;dependency&gt;
      &lt;groupId&gt;com.vesoft&lt;/groupId&gt;
      &lt;artifactId&gt;nebula-algorithm&lt;/artifactId&gt;
-     &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;version&gt;2.6.2&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre></div>
 </li>
@@ -6607,7 +6774,7 @@ val <span class="nv">louvainResult</span> <span class="o">=</span> PageRankAlgo.
 </div>
 <ol>
 <li>
-<p>Set the <a href="https://github.com/vesoft-inc/nebula-algorithm/blob/master/nebula-algorithm/src/main/resources/application.conf">Configuration file</a>.</p>
+<p>Set the <a href="https://github.com/vesoft-inc/nebula-algorithm/blob/v2.6/nebula-algorithm/src/main/resources/application.conf">Configuration file</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="o">{</span>
   <span class="c1"># Configurations related to Spark</span>
   spark: <span class="o">{</span>
@@ -6699,15 +6866,16 @@ val <span class="nv">louvainResult</span> <span class="o">=</span> PageRankAlgo.
 
 
   algorithm: <span class="o">{</span>
-    <span class="c1"># The algorithm to execute. Optional values are pagerank, louvain, connectedcomponent,</span>
-    <span class="c1"># labelpropagation, shortestpaths, degreestatic, kcore,</span>
-    <span class="c1"># stronglyconnectedcomponent, trianglecount, betweenness,</span>
+    <span class="c1"># The algorithm to execute. Optional values are as follow: </span>
+    <span class="c1"># pagerank, louvain, connectedcomponent, labelpropagation, shortestpaths, </span>
+    <span class="c1"># degreestatic, kcore, stronglyconnectedcomponent, trianglecount ,</span>
+    <span class="c1"># betweenness, graphtriangleCount.</span>
     executeAlgo: pagerank
 
     <span class="c1"># PageRank</span>
     pagerank: <span class="o">{</span>
         maxIter: <span class="m">10</span>
-        resetProb: <span class="m">0</span>.15  <span class="c1"># The default value is 0.15</span>
+        resetProb: <span class="m">0</span>.15 
     <span class="o">}</span>
 
     <span class="c1"># Louvain</span>
@@ -6717,48 +6885,18 @@ val <span class="nv">louvainResult</span> <span class="o">=</span> PageRankAlgo.
         tol: <span class="m">0</span>.5
     <span class="o">}</span>
 
-   <span class="c1"># ConnectedComponent/StronglyConnectedComponent</span>
-   connectedcomponent: <span class="o">{</span>
-       maxIter: <span class="m">20</span>
-   <span class="o">}</span>
+   <span class="c1"># ...</span>
 
-   <span class="c1"># LabelPropagation</span>
-   labelpropagation: <span class="o">{</span>
-       maxIter: <span class="m">20</span>
-   <span class="o">}</span>
-
-    <span class="c1"># ShortestPath</span>
-    shortestpaths: <span class="o">{</span>
-        <span class="c1"># several vertices to compute the shortest path to all vertices.</span>
-        landmarks: <span class="s2">&quot;1&quot;</span>
-    <span class="o">}</span>
-
-    <span class="c1"># DegreeStatic</span>
-    degreestatic: <span class="o">{}</span>
-
-    <span class="c1"># KCore</span>
-    kcore:<span class="o">{</span>
-        maxIter:10
-        degree:1
-    <span class="o">}</span>
-
-    <span class="c1"># TriangleCount</span>
-    trianglecount:<span class="o">{}</span>
-
-    <span class="c1"># BetweennessCentrality</span>
-    betweenness:<span class="o">{</span>
-        maxIter:5
-    <span class="o">}</span>
 <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
 </li>
 <li>
 <p>Submit the graph computing task.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master &lt;mode&gt; --class com.vesoft.nebula.algorithm.Main &lt;nebula-algorithm-2.5.1.jar_path&gt; -p &lt;application.conf_path&gt;
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master &lt;mode&gt; --class com.vesoft.nebula.algorithm.Main &lt;nebula-algorithm-2.6.2.jar_path&gt; -p &lt;application.conf_path&gt;
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">&quot;local&quot;</span> --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-2.5.1.jar -p /root/nebula-algorithm/src/main/resources/application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit --master <span class="s2">&quot;local&quot;</span> --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-3.0-SNAPSHOT.jar -p /root/nebula-algorithm/src/main/resources/application.conf
 </code></pre></div>
 </li>
 </ol>
@@ -6768,7 +6906,7 @@ val <span class="nv">louvainResult</span> <span class="o">=</span> PageRankAlgo.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 18, 2022</span>
       
     
   </small>
