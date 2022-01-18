@@ -53,8 +53,8 @@ $ curl -X PUT -H "Content-Type: application/json" -d '{"<key>":<value>[,"<key>":
 
 |Parameter|Description|
 |:---|:---|
-|`key`|The type of the log to be changed. For optional values, see [Parameter descriptions](#_3).|
-|`value`|The level of the log. For optional values, see [Parameter descriptions](#_3).|
+|`key`|The type of the log to be changed. For optional values, see [Parameter descriptions](#parameter_descriptions).|
+|`value`|The level of the log. For optional values, see [Parameter descriptions](#parameter_descriptions).|
 |`ws_ip`|The IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.|
 |`ws_port`|The port for the HTTP service, which can be found in the configuration files above. The default values are `19559`(Meta), `19669`(Graph), and `19779`(Storage) respectively.|
 

@@ -32,7 +32,7 @@ To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the 
       $ sudo dpkg -i <package_name>
       ```
 
-4. Start the required services on each server. For details, see [Manage Nebula Graph Service](../../2.quick-start/5.start-stop-service.md#_1).
+4. Start the required services on each server. For details, see [Manage Nebula Graph Service](../../2.quick-start/5.start-stop-service.md).
 
 ## Upgrade steps by compiling the new source code
 

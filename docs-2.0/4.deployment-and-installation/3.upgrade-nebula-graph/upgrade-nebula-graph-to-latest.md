@@ -113,7 +113,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
 4. Follow the substeps to prepare the Meta servers (usually 3 of them in a cluster).
 
-   - Locate the old Meta [data path](#old-installation-path) and copy the data files to the new path.
+   - Locate the old Meta data path and copy the data files to the new path.
 
      Find the  `--data_path` option in `${nebula-old}/etc/nebula-metad.conf`. The default value is `data/meta`.
 
