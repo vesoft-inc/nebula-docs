@@ -68,7 +68,7 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   !!! Note
 
-        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#Balance leader distribution).
+        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
   ```ngql
   nebula> SHOW HOSTS;
