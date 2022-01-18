@@ -2,10 +2,6 @@
 
 The `SAMPLE` clause takes samples evenly in the result set and returns the specified amount of data.
 
-!!! compatibility "Legacy version compatibility"
-
-    `SAMPLE` is a new clause added in Nebula Graph 2.6.0.
-
 `SAMPLE` can be used in `GO` statements only. The syntax is as follows:
 
 ```ngql
