@@ -182,6 +182,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
+|`tags.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 
@@ -215,6 +216,13 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into Nebula Graph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
+
+### Specific parameters for generating SST files
+
+|Parameter|Type|Default value|Required|Description|
+|:---|:---|:---|:---|:---|
+|`edges.path`|string|-|Yes|The path of the source file specified to generate SST files.|
+|`edges.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 
