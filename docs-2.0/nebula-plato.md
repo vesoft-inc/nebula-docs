@@ -59,7 +59,7 @@ The preparations for compiling Nebula Plato are similar to compiling Nebula Grap
 1. Clone the `plato` repository.
 
   ```bash
-  $ git clone -b {{plato.branch}} https://github.com/vesoft-inc/plato.t
+  $ git clone -b {{plato.branch}} https://github.com/vesoft-inc/plato.git
   ```
 
 2. Access the `plato` directory.
