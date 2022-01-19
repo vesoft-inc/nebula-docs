@@ -1,6 +1,6 @@
 # Nebula Plato
 
-[Nebula Plato](https://github.com/vesoft-inc/nebula-algorithm) is an application that integrates the open-source Plato  Graph Computing Framework, with which Nebula Plato performs graph computations on Nebula Graph database data.
+[Nebula Plato](https://github.com/vesoft-inc/nebula-algorithm) is an application that integrates the open-source Plato Graph Computing Framework, with which Nebula Plato performs graph computations on Nebula Graph database data.
 
 !!! enterpriseonly
 
