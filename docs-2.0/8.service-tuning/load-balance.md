@@ -2,6 +2,11 @@
 
 You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax.md).
 
+!!! compatibility "Legacy version compatibility"
+
+    The `BALANCE DATA` commands are not supported.
+
+<!-- balance-3.1
 !!! danger
 
     The `BALANCE` commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
@@ -126,6 +131,7 @@ To remove the following storage servers.
   ```ngql
   nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
   ```
+-->
 
 ## Balance leader distribution
 
