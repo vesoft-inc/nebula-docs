@@ -3578,53 +3578,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#balance_partition_distribution" class="md-nav__link">
-    Balance partition distribution
-  </a>
-  
-    <nav class="md-nav" aria-label="Balance partition distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stop_data_balancing" class="md-nav__link">
-    Stop data balancing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remove_storage_servers" class="md-nav__link">
-    Remove storage servers
-  </a>
-  
-    <nav class="md-nav" aria-label="Remove storage servers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
@@ -3633,7 +3586,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_1" class="md-nav__link">
+  <a href="#example" class="md-nav__link">
     Example
   </a>
   
@@ -6011,20 +5964,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../nebula-operator/8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage/" class="md-nav__link">
-        Balance storage data after scaling out
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -6344,53 +6283,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#balance_partition_distribution" class="md-nav__link">
-    Balance partition distribution
-  </a>
-  
-    <nav class="md-nav" aria-label="Balance partition distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stop_data_balancing" class="md-nav__link">
-    Stop data balancing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remove_storage_servers" class="md-nav__link">
-    Remove storage servers
-  </a>
-  
-    <nav class="md-nav" aria-label="Remove storage servers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
@@ -6399,7 +6291,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_1" class="md-nav__link">
+  <a href="#example" class="md-nav__link">
     Example
   </a>
   
@@ -6429,24 +6321,31 @@
 
 <h1 id="storage_load_balance">Storage load balance<a class="headerlink" href="#storage_load_balance" title="Permanent link">&para;</a></h1>
 <p>You can use the <code>BALANCE</code> statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax/">BALANCE</a>.</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>The <code>BALANCE</code> commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. <strong>DO NOT</strong> stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>The <code>BALANCE DATA</code> commands are not supported.</p>
 </div>
-<h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">&para;</a></h2>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>After you add new storage hosts into the zone, no partition is deployed on the new hosts.</p>
-<ol>
-<li>
-<p>Add the three new storage hosts into a cluster, and add them respectively to the zone which the graph space <code>basketballplayer</code> belongs. For details about the Zone, see <a href="../../4.deployment-and-installation/5.zone/">Manage zone</a>.</p>
-<div class="highlight"><pre><span></span><code>nebual&gt; ADD HOSTS 192.168.10.103:9779 INTO ZONE &quot;zone1&quot;;
+<!-- balance-3.1
+!!! danger
+
+    The `BALANCE` commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
+
+## Balance partition distribution
+
+### Examples
+
+After you add new storage hosts into the zone, no partition is deployed on the new hosts.
+
+1. Add the three new storage hosts into a cluster, and add them respectively to the zone which the graph space `basketballplayer` belongs. For details about the Zone, see [Manage zone](../4.deployment-and-installation/5.zone.md).
+
+  <div class="highlight"><pre><span></span><code>nebual&gt; ADD HOSTS 192.168.10.103:9779 INTO ZONE &quot;zone1&quot;;
 nebual&gt; ADD HOSTS 192.168.10.104:9779 INTO ZONE &quot;zone2&quot;;
 nebual&gt; ADD HOSTS 192.168.10.105:9779 INTO ZONE &quot;zone3&quot;;
 </code></pre></div>
-</li>
-<li>
-<p>Run <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS</code></a> to check the partition distribution.</p>
-<div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
+
+2. Run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
+
+  <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
  Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
@@ -6459,10 +6358,10 @@ nebual&gt; ADD HOSTS 192.168.10.105:9779 INTO ZONE &quot;zone3&quot;;
 | &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
-</li>
-<li>
-<p>Run <code>BALANCE IN ZONE</code> to start a job to balance the distribution of storage partitions in each zone in the current graph space. </p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
+
+3. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
 nebula&gt; BALANCE IN ZONE;
 +------------+
 | New Job Id |
@@ -6470,10 +6369,10 @@ nebula&gt; BALANCE IN ZONE;
 | 30         |
 +------------+
 </code></pre></div>
-</li>
-<li>
-<p>A BALANCE job ID is returned after running <code>BALANCE IN ZONE</code>. Run <code>SHOW JOB &lt;job_id&gt;</code> to check the status of the <code>BALANCE</code> job.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 30;
+
+4. A BALANCE job ID is returned after running `BALANCE IN ZONE`. Run `SHOW JOB <job_id>` to check the status of the `BALANCE` job.
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 30;
 +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
 | Job Id(spaceId:partId)  | Command(src-&gt;dst)                          | Status      | Start Time                      | Stop Time                       |
 +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
@@ -6484,14 +6383,14 @@ nebula&gt; BALANCE IN ZONE;
 | &quot;Total:21&quot;              | &quot;Succeeded:21&quot;                             | &quot;Failed:0&quot;  | &quot;In Progress:0&quot;                 | &quot;Invalid:0&quot;                     |
 +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+
 </code></pre></div>
-</li>
-<li>
-<p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>BALANCE IN ZONE</code> does not balance the leader distribution. For more information, see <a href="#balance_leader_distribution">Balance leader distribution</a>.</p>
-</div>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+
+5. When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
+
+  !!! Note
+
+        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
 | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
@@ -6504,62 +6403,51 @@ nebula&gt; BALANCE IN ZONE;
 | &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
 +------------------+------+----------+--------------+-----------------------------------+------------------------+
 </code></pre></div>
-</li>
-</ol>
-<p>If any subtask fails, run <a href="../../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements/"><code>RECOVER JOB &lt;job_id&gt;</code></a> to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the <a href="https://discuss.nebula-graph.io/">Nebula Graph community</a>.</p>
-<h2 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">&para;</a></h2>
-<p>To stop a balance task, run <code>STOP JOB &lt;job_id&gt;</code>.</p>
-<ul>
-<li>If no balance task is running, an error is returned.</li>
-</ul>
-<ul>
-<li>If a balance task is running, <code>Job stopped</code> is returned.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li><code>STOP JOB &lt;job_id&gt;</code> does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to <code>INVALID</code>. The status of ongoing subtasks is set to <code>SUCCEEDED</code> or <code>FAILED</code> based on the result. You can run the <code>SHOW JOB &lt;job_id&gt;</code> command to check the stopped job status.</li>
-<li>After terminate and restart, the job status is set to <code>QUEUE</code>. If the previous status of subtasks was <code>INVALID</code> or <code>FAILED</code>, the status set to <code>IN_PROGRESS</code>. If it was <code>IN_PROGRESS</code> or <code>SUCCEEDED</code>, the status remains unchanged.</li>
-</ul>
-</div>
-<p>Once all the subtasks are finished or stopped, you can run <code>RECOVER JOB &lt;job_id&gt;</code> again to balance the partitions again, the subtasks continue to be executed in the original state.</p>
-<h2 id="remove_storage_servers">Remove storage servers<a class="headerlink" href="#remove_storage_servers" title="Permanent link">&para;</a></h2>
-<p>To remove specified storage servers and scale in the Storage Service, you can run <code>BALANCE IN ZONE REMOVE &lt;ip&gt;:&lt;port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code> command to clear specified storage servers, then run <code>DROP HOSTS &lt;ip&gt;:&lt;port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code> command to remove specified storage servers.</p>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<p>To remove the following storage servers.</p>
-<table>
-<thead>
-<tr>
-<th align="left">IP address</th>
-<th align="left">Port</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">192.168.10.104</td>
-<td align="left">9779</td>
-</tr>
-<tr>
-<td align="left">192.168.10.105</td>
-<td align="left">9779</td>
-</tr>
-</tbody>
-</table>
-<ol>
-<li>
-<p>Clear specified storage servers. The command as following:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE IN ZONE REMOVE 192.168.10.104:9779,192.168.10.105:9779;
+
+If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+
+## Stop data balancing
+
+To stop a balance task, run `STOP JOB <job_id>`.
+
+* If no balance task is running, an error is returned.
+
+* If a balance task is running, `Job stopped` is returned.
+
+!!! note
+
+    - `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
+    - After terminate and restart, the job status is set to `QUEUE`. If the previous status of subtasks was `INVALID` or `FAILED`, the status set to `IN_PROGRESS`. If it was `IN_PROGRESS` or `SUCCEEDED`, the status remains unchanged.
+
+Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
+
+## Remove storage servers
+
+To remove specified storage servers and scale in the Storage Service, you can run `BALANCE IN ZONE REMOVE <ip>:<port> [,<ip>:<port> ...]` command to clear specified storage servers, then run `DROP HOSTS <ip>:<port> [,<ip>:<port> ...]` command to remove specified storage servers.
+
+### Example
+
+To remove the following storage servers.
+
+|IP address|Port|
+|:---|:---|
+|192.168.10.104|9779|
+|192.168.10.105|9779|
+
+1. Clear specified storage servers. The command as following:
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE IN ZONE REMOVE 192.168.10.104:9779,192.168.10.105:9779;
 </code></pre></div>
-</li>
-<li>
-<p>After the job is complete, remove the specified Storage servers. The command as following:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
+
+2. After the job is complete, remove the specified Storage servers. The command as following:
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
 </code></pre></div>
-</li>
-</ol>
+-->
+
 <h2 id="balance_leader_distribution">Balance leader distribution<a class="headerlink" href="#balance_leader_distribution" title="Permanent link">&para;</a></h2>
 <p>To balance the raft leaders, run <code>BALANCE LEADER</code>.</p>
-<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
 </code></pre></div>
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
@@ -6586,7 +6474,7 @@ nebula&gt; BALANCE IN ZONE;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2022</span>
       
     
   </small>

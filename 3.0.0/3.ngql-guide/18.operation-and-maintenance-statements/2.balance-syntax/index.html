@@ -5922,20 +5922,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../nebula-operator/8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage/" class="md-nav__link">
-        Balance storage data after scaling out
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -6267,7 +6253,7 @@
 <p>The <code>BALANCE</code> statements support the load balancing operations of the Nebula Graph Storage services. For more information about storage load balancing and examples for using the <code>BALANCE</code> statements, see <a href="../../../8.service-tuning/load-balance/">Storage load balance</a>.</p>
 <div class="admonition compatibility">
 <p class="admonition-title">Legacy version compatibility</p>
-<p>The <code>BALANCE</code> commands is changed because the zone feature is added to Nebula Graph version 3.0.0, <code>BALANCE</code> commands before version 3.0.0 is not compatible.</p>
+<p>The <code>BALANCE DATA</code> commands are not supported.</p>
 </div>
 <p>The <code>BALANCE</code> statements are listed as follows.</p>
 <table>
@@ -6279,23 +6265,21 @@
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>BALANCE IN ZONE [REMOVE &lt;ip&gt;:&lt;port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]]</code></td>
-<td align="left">Starts a job to balance the distribution of storage partitions in each zone in the current graph space. It returns the job ID. You can use the <code>REMOVE</code> option to specify the Storage services that you want to clear. The partitions of these services will be moved to other services for easy maintenance.</td>
-</tr>
-<tr>
-<td align="left"><code>BALANCE ACROSS ZONE [REMOVE "zone_name" [,"zone_name" ...]]</code></td>
-<td align="left">Starts a job to balance the distribution of storage partitions across each zone in the current graph space. It returns the job ID. You can use the <code>REMOVE</code> option to specify the zones that you want to clear. The partitions of these services will be moved to other services for easy maintenance.</td>
-</tr>
-<tr>
 <td align="left"><code>BALANCE LEADER</code></td>
 <td align="left">Starts a job to balance the distribution of storage leaders across each zone in the current graph space. It returns the job ID.</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>REMOVE</code> can only clear the partitions of the current graph space. If a Storage service has a large number of graph spaces, you need to switch to all different graph spaces to perform the <code>REMOVE</code> operation.</p>
-</div>
+<!-- balance-3.1
+|`BALANCE IN ZONE [REMOVE <ip>:<port> [,<ip>:<port> ...]]`| Starts a job to balance the distribution of storage partitions in each zone in the current graph space. It returns the job ID. You can use the `REMOVE` option to specify the Storage services that you want to clear. The partitions of these services will be moved to other services for easy maintenance.|
+|`BALANCE ACROSS ZONE [REMOVE "zone_name" [,"zone_name" ...]]`| Starts a job to balance the distribution of storage partitions across each zone in the current graph space. It returns the job ID. You can use the `REMOVE` option to specify the zones that you want to clear. The partitions of these services will be moved to other services for easy maintenance.|
+
+
+!!! note
+
+    `REMOVE` can only clear the partitions of the current graph space. If a Storage service has a large number of graph spaces, you need to switch to all different graph spaces to perform the `REMOVE` operation.
+-->
+
 <p>For details about how to view, stop, and restart a job, see <a href="../4.job-statements/">Job manager and the JOB statements</a>。</p>
 
   <hr>
@@ -6303,7 +6287,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2022</span>
       
     
   </small>
