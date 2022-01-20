@@ -6604,30 +6604,18 @@ scrape_configs:
 <h3 id="how_to_deploy_the_nebula-graph-dashboard_service">How to deploy the <code>nebula-graph-dashboard</code> service<a class="headerlink" href="#how_to_deploy_the_nebula-graph-dashboard_service" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>Modify the <code>custom.json</code> file in <code>nebula-graph-dashboard/static/</code> to deploy the IP address and port of the Graph Service. The example is as follows:</p>
-<p><div class="highlight"><pre><span></span><code><span class="o">{</span>
-    <span class="s2">&quot;connection&quot;</span>: <span class="o">{</span>
-        <span class="s2">&quot;ip&quot;</span>: <span class="s2">&quot;192.168.xx.4&quot;</span>,
-        <span class="s2">&quot;port&quot;</span>: <span class="m">9669</span>
-    <span class="o">}</span>,
-    <span class="s2">&quot;alias&quot;</span>: <span class="o">{</span>
-        <span class="s2">&quot;ip:port&quot;</span>: <span class="s2">&quot;instance1&quot;</span>
-    <span class="o">}</span>,
-    <span class="s2">&quot;chartBaseLine&quot;</span>: <span class="o">{</span>
-
-    <span class="o">}</span>
-<span class="o">}</span>
-...
-</code></pre></div>
-2. Modify the service port and configure the proxy: ./vendors/config-release.yaml
+<p>Modify the <code>config.json</code> file in <code>nebula-dashboard/</code> to deploy the IP address and port of the Graph Service and Proxy. The example is as follows:</p>
 <div class="highlight"><pre><span></span><code>  port: <span class="m">7003</span>
   proxy:
     gateway:
       target: <span class="s2">&quot;127.0.0.1:8090&quot;</span>  // change gateway service proxy
     prometheus:
       target: <span class="s2">&quot;127.0.0.1:9091&quot;</span>  // change prometheus service proxy
+    nebulaServer:
+      ip: <span class="s2">&quot;192.168.8.143&quot;</span>  // change to nebula graph service ip
+      port: <span class="m">9669</span> // change to nebula graph service port
   ...
-</code></pre></div></p>
+</code></pre></div>
 </li>
 <li>
 <p>To start the service, run the following statement in <code>nebula-graph-dashboard</code>:</p>
@@ -6650,7 +6638,7 @@ $ <span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :7003<span cl
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2022</span>
       
     
   </small>
