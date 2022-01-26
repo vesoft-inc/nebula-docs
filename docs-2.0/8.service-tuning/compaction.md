@@ -120,7 +120,7 @@ Yes, you can. But the IO is much larger at this time and the efficiency may be a
 
 When `rate_limit` is set to `20`, you can estimate the full compaction time by dividing the hard disk usage by the `rate_limit`. If you do not set the `rate_limit` value, the empirical value is around 50 MB/s.
 
-### "Can I modify `--rate_limit` dynamically?"
+### "Can I modify `--rocksdb_rate_limit` dynamically?"
 
 No, you cannot.
 
