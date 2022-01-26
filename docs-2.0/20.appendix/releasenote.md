@@ -2,7 +2,7 @@
 
 ## Bug fix
 
-- Fixed the bug that memory was not released when default value was used ​​when no value was specified in nGQL. [#3666](https://github.com/vesoft-inc/nebula/pull/3666)
+- Fixed the bug that memory was not released when default value was used ​​when no value was specified in nGQL. [#3806](https://github.com/vesoft-inc/nebula/pull/3806)
 
 - Fixed the bug of reading memory stats under Cgroup v2. [#3792](https://github.com/vesoft-inc/nebula/pull/3792)
 
