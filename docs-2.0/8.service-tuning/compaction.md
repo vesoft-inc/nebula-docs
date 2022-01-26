@@ -92,7 +92,7 @@ These are some operation suggestions to keep Nebula Graph performing well.
 
     ```bash
     # Limit the read/write rate to 20MB/s.
-    --rate_limit=20 (in MB/s)
+    --rocksdb_rate_limit=20 (in MB/s)
     ```
 
 ## FAQ
