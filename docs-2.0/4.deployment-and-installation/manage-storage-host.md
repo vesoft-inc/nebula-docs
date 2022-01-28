@@ -16,7 +16,7 @@ Delete the Storage hosts from cluster.
 
 !!! note
 
-    You can not delete an in-use Storage hoste directly. You need to delete the associated graph space before deleting the Storage host.
+    You can not delete an in-use Storage host directly. Delete the associated graph space before deleting the Storage host.
 
 ```ngql
 DROP HOSTS <ip>:<port> [,<ip>:<port> ...];
