@@ -11,6 +11,10 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
 1. Upgrade it to the latest 2.x version according to the docs of that version.
 2. Follow this topic to upgrade it to {{nebula.release}}.
 
+!!! caution
+
+    To upgrade Nebula Graph from versions earlier than 2.0.0 (including the 1.x versions) to {{nebula.release}}, you need to find the `date_time_zonespec.csv` in the `share/resources` directory of {{nebula.release}} files, and then copy it to the same directory in the Nebula Graph installation path.
+
 ## Limitations
 
 * Rolling Upgrade is not supported. You must stop all the Nebula Graph services before the upgrade.
