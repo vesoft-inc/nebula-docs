@@ -1,6 +1,6 @@
 # Manage Storage hosts
 
-From Nebula Graph version 3.0.0, the Storage hosts added in the configuration files **CANNOT** be read or written directly. The configuration files only register the Storage hosts into the Meta services. You must run the `ADD HOSTS` command to read and write data on Storage hosts.
+Starting from Nebula Graph 3.0.0, setting Storage hosts in the configuration files only registers the hosts on the Meta side, but does not add them into the cluster. You must run the `ADD HOSTS` statement to add the Storage hosts.
 
 ## Add Storage hosts
 
