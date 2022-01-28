@@ -48,6 +48,7 @@ To ensure the healthy operation of Exchange, ensure that the following software 
   | Parquet file | Y | Y | Y |
   | HBase | Y | Y | Y |
   | MySQL | Y | Y | Y |
+  | PostgreSQL | Y | Y | Y |
   | ClickHouse | Y | Y | Y |
   | Neo4j | N | Y | N |
   | Hive | Y | Y | Y |

@@ -1,7 +1,7 @@
 # Import data from MySQL
 
-This topic provides an example of how to use Exchange to import Nebula Graph data stored in MySQL.
-
+This topic provides an example of how to use Exchange to export MySQL data and import to Nebula Graph. It also applies to exporting
+data from PostgreSQL into Nebula Graph.
 ## Data set
 
 This topic takes the [basketballplayer dataset](https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip) as an example.
