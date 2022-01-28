@@ -212,3 +212,7 @@ ADD HOSTS 192.168.10.100:9779, 192.168.10.101:9779, 192.168.10.102:9779;
 ```
 
 If the issue persists, ask for help on [the forum](https://discuss.nebula-graph.com.cn/) or [GitHub](https://github.com/vesoft-inc/nebula/issues).
+
+### Why the job type changed after the upgrade, but job ID remains the same?
+
+A: `SHOW JOBS` depends on an internal ID to identify job types, but in Nebula Graph 2.5.0 the internal ID changed in [this pull request](https://github.com/vesoft-inc/nebula-common/pull/562/files), so this issue happens after upgrading from a version earlier than 2.5.0.
