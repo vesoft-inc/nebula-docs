@@ -69,7 +69,9 @@ Exchange {{exchange.release}} supports converting data from the following format
 
 - Graph database: [Neo4j](../use-exchange/ex-ug-import-from-neo4j.md) (Client version 2.4.5-M1)
 
-- Relational database: [MySQL](../use-exchange/ex-ug-import-from-mysql.md)
+- Relational database:
+  - [MySQL](../use-exchange/ex-ug-import-from-mysql.md)
+  - [PostgreSQL](../use-exchange/ex-ug-import-from-mysql.md)
 
 - Column database: [ClickHouse](../use-exchange/ex-ug-import-from-clickhouse.md)
 
