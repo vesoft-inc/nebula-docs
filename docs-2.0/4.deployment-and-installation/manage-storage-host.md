@@ -10,7 +10,7 @@ Add the Storage hosts to a Nebula Graph cluster.
 ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
 ```
 
-## Drop Storage host
+## Drop Storage hosts
 
 Delete the Storage hosts from cluster.
 
