@@ -6620,9 +6620,14 @@ vid_type = {FIXED_STRING(&lt;N&gt;) | INT64}
 </ol>
 <h2 id="create_tags_and_edge_types">Create tags and edge types<a class="headerlink" href="#create_tags_and_edge_types" title="Permanent link">&para;</a></h2>
 <h3 id="ngql_syntax_1">nGQL syntax<a class="headerlink" href="#ngql_syntax_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} {&lt;tag_name&gt; | &lt;edge_type&gt;}(&lt;property_name&gt; &lt;data_type&gt;
-[, &lt;property_name&gt; &lt;data_type&gt; ...])
-[COMMENT = &#39;&lt;comment&gt;&#39;];
+<div class="highlight"><pre><span></span><code>CREATE {TAG | EDGE} [IF NOT EXISTS] {&lt;tag_name&gt; | &lt;edge_type_name&gt;}
+    (
+      &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT &#39;&lt;comment&gt;&#39;]
+      [{, &lt;prop_name&gt; &lt;data_type&gt; [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT &#39;&lt;comment&gt;&#39;]} ...] 
+    )
+    [TTL_DURATION = &lt;ttl_duration&gt;]
+    [TTL_COL = &lt;prop_name&gt;]
+    [COMMENT = &#39;&lt;comment&gt;&#39;];
 </code></pre></div>
 <p>For more information on parameters, see <a href="../../3.ngql-guide/10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../3.ngql-guide/11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
@@ -6671,7 +6676,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <h3 id="ngql_syntax_2">nGQL syntax<a class="headerlink" href="#ngql_syntax_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Insert vertices:<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] [tag_props, [tag_props] ...]
-VALUES VID: ([prop_value_list])
+VALUES &lt;vid&gt;: ([prop_value_list])
 
 tag_props:
   tag_name ([prop_name_list])
@@ -6682,15 +6687,19 @@ prop_name_list:
 prop_value_list:
    [prop_value [, prop_value] ...]   
 </code></pre></div>
-<p><code>VID</code> is short for Vertex ID. A <code>VID</code> must be a unique string value in a graph space. For details, see <a href="../../3.ngql-guide/12.vertex-statements/1.insert-vertex/">INSERT VERTEX</a>.</p>
+<p><code>vid</code> is short for Vertex ID. A <code>vid</code> must be a unique string value in a graph space. For details, see <a href="../../3.ngql-guide/12.vertex-statements/1.insert-vertex/">INSERT VERTEX</a>.</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Insert edges:</p>
-<div class="highlight"><pre><span></span><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; (&lt;property_name&gt;[, &lt;property_name&gt;...])
-VALUES &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_value&gt;[, &lt;property_value&gt;...])
-[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : (&lt;property_name&gt;[, &lt;property_name&gt;...]), ...];
+<div class="highlight"><pre><span></span><code>INSERT EDGE [IF NOT EXISTS] &lt;edge_type&gt; ( &lt;prop_name_list&gt; ) VALUES 
+&lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; )
+[, &lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;] : ( &lt;prop_value_list&gt; ), ...];
+&lt;prop_name_list&gt; ::=
+[ &lt;prop_name&gt; [, &lt;prop_name&gt; ] ...]
+&lt;prop_value_list&gt; ::=
+[ &lt;prop_value&gt; [, &lt;prop_value&gt; ] ...]
 </code></pre></div>
 <p>For more information on parameters, see <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a>.</p>
 </li>
@@ -6735,10 +6744,10 @@ nebula&gt; INSERT EDGE serve(start_year, end_year) VALUES &quot;player101&quot; 
 <ul>
 <li><code>GO</code><div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; STEPS ] FROM &lt;vertex_list&gt;
 OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
-[ WHERE &lt;conditions&gt; ]
-YIELD [DISTINCT] &lt;return_list&gt;
-[{SAMPLE &lt;sample_list&gt; | LIMIT &lt;limit_list&gt;}]
-[| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
+[ WHERE &lt;conditions&gt; ]
+YIELD [DISTINCT] &lt;return_list&gt;
+[{ SAMPLE &lt;sample_list&gt; | &lt;limit_by_list_clause&gt; }]
+[| GROUP BY {&lt;col_name&gt; | expression&gt; | &lt;position&gt;} YIELD &lt;col_name&gt;]
 [| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
 [| LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;];
 </code></pre></div>
@@ -6770,11 +6779,13 @@ YIELD &lt;output&gt;;
 <li><code>LOOKUP</code><div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;vertex_tag&gt; | &lt;edge_type&gt;}
 [WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]]
 YIELD &lt;return_list&gt; [AS &lt;alias&gt;];
+&lt;return_list&gt;
+    &lt;prop_name&gt; [AS &lt;col_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...];
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;WHERE clause&gt;] RETURN &lt;output&gt;;
+<li><code>MATCH</code><div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;clause_1&gt;] RETURN &lt;output&gt; [&lt;clause_2&gt;];
 </code></pre></div>
 </li>
 </ul>
