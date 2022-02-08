@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.nebula-graph.io/3.0.0/8.service-tuning/load-balance/">
       
       <link rel="icon" href="../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -6078,17 +6078,16 @@ nebual&gt; ADD HOSTS 192.168.10.105:9779 INTO ZONE &quot;zone3&quot;;
 2. Run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
 
   <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
- Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:15&quot;  |
-| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
-| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
-| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   |
-| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:15&quot;  | &quot;3.1.0&quot; |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:15&quot;  | &quot;3.1.0&quot; |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:15&quot;  | &quot;3.1.0&quot; |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;No valid partition&quot;   | &quot;3.1.0&quot; |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
 </code></pre></div>
 
 3. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
@@ -6123,17 +6122,16 @@ nebula&gt; BALANCE IN ZONE;
         `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
   <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.1.0&quot; |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.1.0&quot; |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
 </code></pre></div>
 
 If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
@@ -6184,17 +6182,16 @@ To remove the following storage servers.
 </code></pre></div>
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   |
-| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   |
-| &quot;Total&quot;          |      |          | 15           | &quot;basketballplayer:15&quot;             | &quot;basketballplayer:45&quot;  |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.0.0&quot; |
+| &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.0.0&quot; |
+| &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.0.0&quot; |
+| &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.0.0&quot; |
+| &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.0.0&quot; |
+| &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.0.0&quot; |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -6206,7 +6203,7 @@ To remove the following storage servers.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 8, 2022</span>
       
     
   </small>
@@ -6298,10 +6295,10 @@ To remove the following storage servers.
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"method": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
         <script src="../../js/version-select.js"></script>
       
