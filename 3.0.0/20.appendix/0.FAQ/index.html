@@ -6126,13 +6126,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_scale_out_or_scale_in" class="md-nav__link">
-    "How to scale out or scale in?"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -6549,13 +6542,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_scale_out_or_scale_in" class="md-nav__link">
-    "How to scale out or scale in?"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -6673,13 +6659,7 @@ This is caused by the release of Nebula Console 2.6.0, not the change of Nebula 
 <p>Possible solutions are as follows:</p>
 <ul>
 <li>Clean the system memory to make it below the threshold.</li>
-<li>
-<p><a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Modify the Graph configuration</a>. Add the <code>system_memory_high_watermark_ratio</code> parameter to the configuration files of all Graph servers, and set it greater than <code>0.8</code>, such as <code>0.9</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Only the Graph service supports <code>system_memory_high_watermark_ratio</code>, while the Storage and Meta services do not.</p>
-</div>
-</li>
+<li><a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Modify the Graph configuration</a>. Add the <code>system_memory_high_watermark_ratio</code> parameter to the configuration files of all Graph servers, and set it greater than <code>0.8</code>, such as <code>0.9</code>.</li>
 </ul>
 <h3 id="how_to_resolve_the_error_storage_error_e_rpc_failure">"How to resolve the error <code>Storage Error E_RPC_FAILURE</code>?"<a class="headerlink" href="#how_to_resolve_the_error_storage_error_e_rpc_failure" title="Permanent link">&para;</a></h3>
 <p>The reason for this error is usually that the storaged process returns too many data back to the graphd process. Possible solutions are as follows:</p>
@@ -6874,7 +6854,6 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>Different installation methods make the method of checking the version different. The instructions are as follows:</p>
 <p>If the service is not running, run the command <code>./&lt;binary_name&gt; --version</code> to get the version and the Git commit IDs of the Nebula Graph binary files. For example:</p>
 <div class="highlight"><pre><span></span><code>$ ./nebula-graphd --version
-nebula-graphd version <span class="m">2</span>.6.0, Git: 3ba41bd, Build Time: Oct <span class="m">25</span> <span class="m">2021</span> <span class="m">19</span>:34:30
 </code></pre></div>
 <ul>
 <li>
@@ -6892,30 +6871,25 @@ nebula-graphd version <span class="m">2</span>.6.0, Git: 3ba41bd, Build Time: Oc
 <p>Run <code>rpm -qa |grep nebula</code> to check the version of Nebula Graph.</p>
 </li>
 </ul>
-<h3 id="how_to_scale_out_or_scale_in">"How to scale out or scale in?"<a class="headerlink" href="#how_to_scale_out_or_scale_in" title="Permanent link">&para;</a></h3>
-<p>Nebula Graph 3.0.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:</p>
-<ol>
-<li>
-<p>Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can use the <a href="https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh">Meta transfer script tool</a> to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.</p>
-</div>
-</li>
-<li>
-<p>Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.</p>
-</li>
-<li>
-<p>Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.</p>
-</li>
-<li>
-<p>Scale in storaged: (The number of replicas must be greater than 1) See <a href="../../8.service-tuning/load-balance/">Balance remove command</a>. After the command is finished, stop this storaged process.</p>
-</li>
-<li>
-<p>Scale out storaged: (The number of replicas must be greater than 1) Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then start the new storaged process.</p>
-</li>
-</ol>
-<!-- balance-3.1
+<!--
+### "How to scale out or scale in?"
+
+Nebula Graph 3.0.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:
+
+1. Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.
+
+  !!! note
+
+         You can use the [Meta transfer script tool](https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh) to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.
+
+2. Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.
+
+3. Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.
+
+4. Scale in storaged: (The number of replicas must be greater than 1) See [Balance remove command](../8.service-tuning/load-balance.md). After the command is finished, stop this storaged process.
+
+5. Scale out storaged: (The number of replicas must be greater than 1) Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then start the new storaged process.
+
 You also need to run [Balance Data and Balance leader](../8.service-tuning/load-balance.md) after scaling in/out storaged.
 -->
 
@@ -6924,11 +6898,28 @@ You also need to run [Balance Data and Balance leader](../8.service-tuning/load-
 <h2 id="about_connections">About connections<a class="headerlink" href="#about_connections" title="Permanent link">&para;</a></h2>
 <h3 id="which_ports_should_be_opened_on_the_firewalls">"Which ports should be opened on the firewalls?"<a class="headerlink" href="#which_ports_should_be_opened_on_the_firewalls" title="Permanent link">&para;</a></h3>
 <p>If you have not modified the predefined ports in the <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Configurations</a>, open the following ports for the Nebula Graph services:</p>
-<p>| Service | Port                      |
-|---------+---------------------------|
-| Meta    | 9559, 9560, 19559, 19560  |
-| Graph   | 9669, 19669, 19670        |
-| Storage | 9777 ~ 9780, 19779, 19780 |</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta</td>
+<td>9559, 9560, 19559, 19560</td>
+</tr>
+<tr>
+<td>Graph</td>
+<td>9669, 19669, 19670</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>9777 ~ 9780, 19779, 19780</td>
+</tr>
+</tbody>
+</table>
 <p>If you have customized the configuration files and changed the predefined ports, find the port numbers in your configuration files and open them on the firewalls.</p>
 <p>For those eco-tools, see the corresponding document.</p>
 <h3 id="how_to_test_whether_a_port_is_open_or_closed">"How to test whether a port is open or closed?"<a class="headerlink" href="#how_to_test_whether_a_port_is_open_or_closed" title="Permanent link">&para;</a></h3>
