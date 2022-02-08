@@ -4,7 +4,7 @@
 
 ### Commit an issue on the github or forum
 
-You are welcome to contribute any code or files to the project. But firstly we suggest you raise an issue on the [github](https://github.com/vesoft-inc/nebula-graph) or the [forum](https://discuss.nebula-graph.io/) to start a discussion with the community. Check through the topic for Github.
+You are welcome to contribute any code or files to the project. But firstly we suggest you raise an issue on the [github](https://github.com/vesoft-inc/nebula) or the [forum](https://discuss.nebula-graph.io/) to start a discussion with the community. Check through the topic for Github.
 
 ### Sign the Contributor License Agreement (CLA)
 
@@ -28,7 +28,7 @@ This method applies to contribute codes, modify multiple documents in batches, o
 
 ## Step 1: Fork in the github.com
 
-The Nebula Graph project has many [repositories](https://github.com/vesoft-inc). Take [the nebula-graph repository](https://github.com/vesoft-inc/nebula) for example:
+The Nebula Graph project has many [repositories](https://github.com/vesoft-inc). Take [the nebul repository](https://github.com/vesoft-inc/nebula) for example:
 
 1. Visit [https://github.com/vesoft-inc/nebula](https://github.com/vesoft-inc/nebula).
 
@@ -54,8 +54,8 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
   ```bash
   mkdir -p $working_dir
   cd $working_dir
-  git clone https://github.com/$user/nebula-graph.git
-  # or: git clone git@github.com:$user/nebula-graph.git
+  git clone https://github.com/$user/nebula.git
+  # or: git clone git@github.com:$user/nebula.git
 
   cd $working_dir/nebula
   git remote add upstream https://github.com/vesoft-inc/nebula.git
@@ -66,8 +66,8 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
 
   # Confirm that the remote branch is valid.
   # The correct format is:
-  # origin    git@github.com:$(user)/nebula-graph.git (fetch)
-  # origin    git@github.com:$(user)/nebula-graph.git (push)
+  # origin    git@github.com:$(user)/nebula.git (fetch)
+  # origin    git@github.com:$(user)/nebula.git (push)
   # upstream  https://github.com/vesoft-inc/nebula (fetch)
   # upstream  no_push (push)
   git remote -v
@@ -80,14 +80,14 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
   This hook checks the commits for formatting, building, doc generation, etc.
 
   ```bash
-  cd $working_dir/nebula-graph/.git/hooks
-  ln -s $working_dir/nebula-graph/.linters/cpp/hooks/pre-commit.sh .
+  cd $working_dir/nebula/.git/hooks
+  ln -s $working_dir/nebulah/.linters/cpp/hooks/pre-commit.sh .
   ```
 
   Sometimes, the pre-commit hook cannot be executed. You have to execute it manually.
 
   ```bash
-  cd $working_dir/nebula-graph/.git/hooks
+  cd $working_dir/nebula/.git/hooks
   chmod +x pre-commit
   ```
 
@@ -176,7 +176,7 @@ git push origin myfeature
 
 ## Step 8: Create a Pull Request
 
-1. Visit your fork at `https://github.com/$user/nebula-graph` (replace `$user` here).
+1. Visit your fork at `https://github.com/$user/nebula` (replace `$user` here).
 
 2. Click the `Compare & pull request` button next to your `myfeature` branch.
 
