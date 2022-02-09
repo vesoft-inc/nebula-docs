@@ -9,6 +9,7 @@ You can deploy Studio using the following methods:
 - Docker-based. You can deploy Studio with Docker and connect it to Nebula Graph. For more information, see [Docker-based Studio](../deploy-connect/st-ug-deploy.md).
 - RPM-based. You can deploy Studio with RPM and connect it to Nebula Graph. For more information, see [RPM-based Studio](../deploy-connect/st-ug-deploy.md).
 - Tar-based. You can deploy Studio with tar and connect it to Nebula Graph. For more information, see [tar-based Studio](../deploy-connect/st-ug-deploy.md).
+- DEB-based. You can deploy Studio with DEB and connect it to Nebula Graph. For more information, see [DEB-based Studio](../deploy-connect/st-ug-deploy.md).
 - Helm-based. You can deploy Studio with Helm in the Kubernetes cluster and connect it to Nebula Graph. For more information, see [Helm-based Studio](../deploy-connect/st-ug-deploy-by-helm.md).
 
 <!--
