@@ -36,9 +36,14 @@ Before you deploy RPM-based Studio, you must confirm that:
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
    
-   For example, install Studio {{studio.release}}, use the following command:
+   For example, install Studio {{studio.release}}, use the following command. The default installation path is `/usr/local/nebula-graph-studio`.
    ```bash
    sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm
+   ```
+
+   You can also install it to the specified path using the following command:
+   ```bash
+   $ sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm --prefix=<path> 
    ```
 
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
@@ -84,21 +89,20 @@ lsof -i:7001
 If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
 
 ```bash
- //Open the configuration file
- $ vi config/config.default.js
+//Open the configuration file
+$ vi config/config.default.js
 
- //Change the port number
- ...
-     config.cluster = {
-         listen: {
-             port: 7001, // Modify this port number and change it to any one currently available
-             hostname: '0.0.0.0',
-         },
-     };
- ...
+//Change the port number
+web:
+#  task_id_path:
+#  upload_dir:
+#  tasks_dir:
+#  sqlitedb_file_path:
+#  ip:
+  port: 7001 // Modify this port number and change it to any 
 
- //Restart npm
- $ npm run start
+//Restart service
+$ systemctl restart nebula-graph-studio.service
 ```
 
 ## tar-based Studio
