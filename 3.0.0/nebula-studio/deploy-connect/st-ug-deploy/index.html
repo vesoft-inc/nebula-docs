@@ -6139,8 +6139,11 @@ Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Neb
 </li>
 <li>
 <p>Use <code>sudo rpm -i &lt;rpm&gt;</code> to install RPM package.</p>
-<p>For example, install Studio 3.2.0, use the following command:
+<p>For example, install Studio 3.2.0, use the following command. The default installation path is <code>/usr/local/nebula-graph-studio</code>.
  <div class="highlight"><pre><span></span><code>sudo rpm -i nebula-graph-studio-3.2.0.x86_64.rpm
+</code></pre></div></p>
+<p>You can also install it to the specified path using the following command:
+ <div class="highlight"><pre><span></span><code>$ sudo rpm -i nebula-graph-studio-3.2.0.x86_64.rpm --prefix<span class="o">=</span>&lt;path&gt; 
 </code></pre></div></p>
 <p>When the screen returns the following message, it means that the PRM-based Studio has been successfully started.</p>
 <div class="highlight"><pre><span></span><code>Created symlink from /etc/systemd/system/multi-user.target.wants/nebula-graph-studio.service to /usr/lib/systemd/system/nebula-graph-studio.service.
@@ -6172,21 +6175,20 @@ Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Neb
 <div class="highlight"><pre><span></span><code>lsof -i:7001
 </code></pre></div>
 <p>If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.</p>
-<div class="highlight"><pre><span></span><code> //Open the configuration file
- $ vi config/config.default.js
+<div class="highlight"><pre><span></span><code>//Open the configuration file
+$ vi config/config.default.js
 
- //Change the port number
- ...
-     config.cluster <span class="o">=</span> <span class="o">{</span>
-         listen: <span class="o">{</span>
-             port: <span class="m">7001</span>, // Modify this port number and change it to any one currently available
-             hostname: <span class="s1">&#39;0.0.0.0&#39;</span>,
-         <span class="o">}</span>,
-     <span class="o">}</span><span class="p">;</span>
- ...
+//Change the port number
+web:
+<span class="c1">#  task_id_path:</span>
+<span class="c1">#  upload_dir:</span>
+<span class="c1">#  tasks_dir:</span>
+<span class="c1">#  sqlitedb_file_path:</span>
+<span class="c1">#  ip:</span>
+  port: <span class="m">7001</span> // Modify this port number and change it to any 
 
- //Restart npm
- $ npm run start
+//Restart service
+$ systemctl restart nebula-graph-studio.service
 </code></pre></div>
 <h2 id="tar-based_studio">tar-based Studio<a class="headerlink" href="#tar-based_studio" title="Permanent link">&para;</a></h2>
 <h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">&para;</a></h3>
