@@ -20,7 +20,7 @@ If you do not have a Nebula Graph database yet, we recommend that you try the cl
 
   !!! note
   
-        The same version of Nebula Console and Nebula Graph is the most compatible. There may be compatibility issues when connecting to Nebula Graph with different versions of Nebula Console. You may be unable to connenct to Nebula Graph due to the compatibiltiy issue and an error message `incompatible version between client and server` is displayed.
+        The same version of Nebula Console and Nebula Graph is the most compatible. There may be compatibility issues when connecting to Nebula Graph with a different version of Nebula Console. You may be unable to connenct to Nebula Graph due to the compatibiltiy issue and an error message `incompatible version between client and server` is displayed.
 
 ### Steps
 
