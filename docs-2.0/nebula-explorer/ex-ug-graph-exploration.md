@@ -7,8 +7,7 @@ The graph exploration can be performed from the following four aspects:
 - Search for Path
 - Inspect Property
 
-<!-- 
-![query_exploration](figs/exploration_query.gif) -->
+![query_exploration](figs/exploration_query.gif)
 
 ## Prerequisite
 
