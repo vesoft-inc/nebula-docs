@@ -2,7 +2,7 @@
 
 ## Feature
 
-- Support [backup and restore](../7.data-security/2.backup-restore/1.what-is-br.md). [#3469](https://github.com/vesoft-inc/nebula/pull/3469) [#1](https://github.com/vesoft-inc/nebula-agent/pull/1) [#22](https://github.com/vesoft-inc/nebula-br/pull/22)
+- Support [Backup and Restore](../7.data-security/2.backup-restore/1.what-is-br.md). [#3469](https://github.com/vesoft-inc/nebula/pull/3469) [#1](https://github.com/vesoft-inc/nebula-agent/pull/1) [#22](https://github.com/vesoft-inc/nebula-br/pull/22)
 
 - Support [the multi MATCH query parts of openCypher](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
 
