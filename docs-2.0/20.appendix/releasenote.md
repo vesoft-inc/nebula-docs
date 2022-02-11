@@ -38,7 +38,7 @@
 
 - Upgrade the third-party library version to 3.0. [#3554](https://github.com/vesoft-inc/nebula/pull/3554) [#3511](https://github.com/vesoft-inc/nebula/pull/3511)
 
-- Support any string in apostrophe for tag name. [#3424](https://github.com/vesoft-inc/nebula/pull/3424)
+- Support any string for tag names in apostrophe. [#3424](https://github.com/vesoft-inc/nebula/pull/3424)
 
 - Support that the storage service sends partition disk paths to the meta. [#3369](https://github.com/vesoft-inc/nebula/pull/3369) [#3416](https://github.com/vesoft-inc/nebula/pull/3416)
 
