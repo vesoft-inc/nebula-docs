@@ -12,7 +12,7 @@
 
 - Support [key value separation for storage engine](../5.configurations-and-logs/1.configurations/4.storage-config.md). [#3281](https://github.com/vesoft-inc/nebula/pull/3281)
 
-- Support topN push down for `LOOKUP`. [#3499](https://github.com/vesoft-inc/nebula/pull/3499)
+- Support topN pushdown for `LOOKUP`. [#3499](https://github.com/vesoft-inc/nebula/pull/3499)
 
 - Support [vertex without tag](../3.ngql-guide/12.vertex-statements/1.insert-vertex.md). [#3316](https://github.com/vesoft-inc/nebula/pull/3316) [#3335](https://github.com/vesoft-inc/nebula/pull/3335) [#3328](https://github.com/vesoft-inc/nebula/pull/3328) [#3286](https://github.com/vesoft-inc/nebula/pull/3286)
 
