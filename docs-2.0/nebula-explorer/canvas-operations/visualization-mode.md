@@ -31,7 +31,7 @@ At the top left of the page, toggle the view button to switch to 3D mode. 3D mod
 
 | Parameter     | Description                                                         |
 | -------- | ------------------------------------------------------------ |
-| Bird View     | Shows a bird view of all the data in the current graph space (sampled with a minimum of 20,000 vertices and 2,000 edges).                         |
+| Bird View     | Shows a bird view of all the data in the current graph space (query with a minimum of 20,000 vertices and 2,000 edges).                         |
 | Image Quality     | High: Vertices are displayed in the form of balls with better light and shadow effects.<br />Normal: Vertices are represented in a circle format and support a large amount of data.  |
 | Reheat | Disperses the distance between vertices when the vertices overlap. |
 
