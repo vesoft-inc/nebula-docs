@@ -18,7 +18,7 @@
 
 - Support [parameterized queries](../nebula-console.md). [#3379](https://github.com/vesoft-inc/nebula/pull/3379)
 
-- Support [queries without specifying VIDs but `LIMIT` clause must be used to restrict the number of results](../3.ngql-guide/7.general-query-statements/2.match.md) [#3320](https://github.com/vesoft-inc/nebula/pull/3320) [#3329](https://github.com/vesoft-inc/nebula/pull/3329) [#3262](https://github.com/vesoft-inc/nebula/pull/3262)
+- Support [queries without specifying VIDs but a `LIMIT` clause must be used to restrict the number of results](../3.ngql-guide/7.general-query-statements/2.match.md) [#3320](https://github.com/vesoft-inc/nebula/pull/3320) [#3329](https://github.com/vesoft-inc/nebula/pull/3329) [#3262](https://github.com/vesoft-inc/nebula/pull/3262)
 
 - Support [duration](../3.ngql-guide/3.data-types/4.date-and-time.md). [#3338](https://github.com/vesoft-inc/nebula/pull/3338)
 
@@ -34,7 +34,7 @@
 
 - Refactor cluster management. [#3343](https://github.com/vesoft-inc/nebula/pull/3343)
 
-- Add log monitor to check free bytes for log disks, change log level when space is almost full. [#3576](https://github.com/vesoft-inc/nebula/pull/3576)
+- Add log monitor to check free bytes for log disks, change log level when your graph space is almost full. [#3576](https://github.com/vesoft-inc/nebula/pull/3576)
 
 - Upgrade the third-party library version to 3.0. [#3554](https://github.com/vesoft-inc/nebula/pull/3554) [#3511](https://github.com/vesoft-inc/nebula/pull/3511)
 
@@ -74,9 +74,9 @@
 
 - Fix the bug that memory is not released when a default value is used and no value is specified in nGQL. [#3666](https://github.com/vesoft-inc/nebula/pull/3666)
 
-- Fix the bug of unknown function `coalesce()`. [#3653](https://github.com/vesoft-inc/nebula/pull/3653)
+- Fix the bug that the function `coalesce()` cannot be used. [#3653](https://github.com/vesoft-inc/nebula/pull/3653)
 
-- Fix the bug that using multiple INSERT on an indexed tag will cause incorrect LOOKUP results. [#3627](https://github.com/vesoft-inc/nebula/pull/3627)
+- Fix the bug that using multiple INSERT on an indexed tag will lead to incorrect LOOKUP results. [#3627](https://github.com/vesoft-inc/nebula/pull/3627)
 
 - Fix the crash when the expression exceeds the depth. [#3606](https://github.com/vesoft-inc/nebula/pull/3606)
 
