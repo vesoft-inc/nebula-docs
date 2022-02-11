@@ -4,13 +4,13 @@
 
 - Support [Backup and Restore](../7.data-security/2.backup-restore/1.what-is-br.md). [#3469](https://github.com/vesoft-inc/nebula/pull/3469) [#1](https://github.com/vesoft-inc/nebula-agent/pull/1) [#22](https://github.com/vesoft-inc/nebula-br/pull/22)
 
-- Support [openCypher queries with mutiple MATCH statements](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
+- Support [openCypher queries with multiple MATCH statements](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
 
 - Support Traverse Operator. [#3308](https://github.com/vesoft-inc/nebula/pull/3308)
 
 - Support [Standalone Nebula Graph](../4.deployment-and-installation/standalone-deployment.md). [#3310](https://github.com/vesoft-inc/nebula/pull/3310)
 
-- Support [key value separation for storage engine](../5.configurations-and-logs/1.configurations/4.storage-config.md). [#3281](https://github.com/vesoft-inc/nebula/pull/3281)
+- Support [key-value separation for the storage engine](../5.configurations-and-logs/1.configurations/4.storage-config.md). [#3281](https://github.com/vesoft-inc/nebula/pull/3281)
 
 - Support topN pushdown for `LOOKUP`. [#3499](https://github.com/vesoft-inc/nebula/pull/3499)
 
@@ -64,15 +64,15 @@
 
 - Move version info outside of heartbeat.  [#3378](https://github.com/vesoft-inc/nebula/pull/3378)
 
-- Support empty list, set and map. [#3302](https://github.com/vesoft-inc/nebula/pull/3302)
+- Support empty list, set, and map. [#3302](https://github.com/vesoft-inc/nebula/pull/3302)
 
 - Support specifying s2 region coverage parameters when creating a geo index. [#3396](https://github.com/vesoft-inc/nebula/pull/3396)
 
 - Add version info for `SHOW HOSTS`. [#3702](https://github.com/vesoft-inc/nebula/pull/3702)
 
-## Bug fix
+## Bugfix
 
-- Fix the bug that memory is not released when default value is used and no value is specified in nGQL. [#3666](https://github.com/vesoft-inc/nebula/pull/3666)
+- Fix the bug that memory is not released when a default value is used and no value is specified in nGQL. [#3666](https://github.com/vesoft-inc/nebula/pull/3666)
 
 - Fix the bug of unknown function `coalesce()`. [#3653](https://github.com/vesoft-inc/nebula/pull/3653)
 
@@ -80,17 +80,17 @@
 
 - Fix the crash when the expression exceeds the depth. [#3606](https://github.com/vesoft-inc/nebula/pull/3606)
 
-- Disable the aggregate function in `YIELD` clause and `WHERE` clauses of nGQL. [#3597](https://github.com/vesoft-inc/nebula/pull/3597)
+- Disable the aggregate function in the `YIELD` and `WHERE` clauses of nGQL. [#3597](https://github.com/vesoft-inc/nebula/pull/3597)
 
 - Fix the crash when using the aggregate function in `UNWILD` and `WHERE` clauses. [#3397](https://github.com/vesoft-inc/nebula/pull/3397) [#3355](https://github.com/vesoft-inc/nebula/pull/3355)
 
-- Fix the bug that tag index is rebuiled with an old schema version value. [#3332](https://github.com/vesoft-inc/nebula/pull/3332)
+- Fix the bug that the tag index is rebuilt with an old schema version value. [#3332](https://github.com/vesoft-inc/nebula/pull/3332)
 
 - Fix the bug that the query results will still contain the expired edges if we use `GO...REVERSELY`. [#3536](https://github.com/vesoft-inc/nebula/pull/3536)
 
 - Fix the memory estimation error info in CentOS 6.0. [#3534](https://github.com/vesoft-inc/nebula/pull/3534)
 
-- Fix the crash when the `LOOKUP` statement contains a filter which consists of a logical And expression and an IN expression with only one element. [#3525](https://github.com/vesoft-inc/nebula/pull/3525)
+- Fix the crash when the `LOOKUP` statement contains a filter that consists of a logical And expression and an IN expression with only one element. [#3525](https://github.com/vesoft-inc/nebula/pull/3525)
 
 - Fix the bug that metad progress is suspended under heavy load. [#3482](https://github.com/vesoft-inc/nebula/pull/3482)
 
@@ -100,9 +100,9 @@
 
 - Fix the bug of reading memory stats under cgroup v2. [#3419](https://github.com/vesoft-inc/nebula/pull/3419)
 
-- Fix the bug that `DROP TAG INDEX` deletes the edge index with same name unexpectedly, and vice versa for the deletion of the tag index. [#3413](https://github.com/vesoft-inc/nebula/pull/3413)
+- Fix the bug that `DROP TAG INDEX` deletes the edge index with the same name unexpectedly, and vice versa for the deletion of the tag index. [#3413](https://github.com/vesoft-inc/nebula/pull/3413)
 
-- Fix the bug edges are not shown after a space is cloned. [#3351](https://github.com/vesoft-inc/nebula/pull/3351)
+- Fix the bug that edges are not shown after a graph space is cloned. [#3351](https://github.com/vesoft-inc/nebula/pull/3351)
 
 - Fix the index existence check problem. [#3315](https://github.com/vesoft-inc/nebula/pull/3315)
 
@@ -110,11 +110,11 @@
 
 - Optimized the Raft to make the system more stable. [#3172](https://github.com/vesoft-inc/nebula/pull/3172) [#3435](https://github.com/vesoft-inc/nebula/pull/3435) [#3358](https://github.com/vesoft-inc/nebula/pull/3358) [#3322](https://github.com/vesoft-inc/nebula/pull/3322) [#3031](https://github.com/vesoft-inc/nebula/pull/3031)
 
-- Cancel memory check when the ratio greater than 1.0. [#3289](https://github.com/vesoft-inc/nebula/pull/3289)
+- Cancel memory check when the ratio is greater than 1.0. [#3289](https://github.com/vesoft-inc/nebula/pull/3289)
 
 - Fix building with ninja error. [#3195](https://github.com/vesoft-inc/nebula/pull/3195)
 
-- Fix the bug that creating tag and edge with same name at the same time may both succeed. [#3735](https://github.com/vesoft-inc/nebula/pull/3735)
+- Fix the bug that creating tag and edge with the same name at the same time may both succeed. [#3735](https://github.com/vesoft-inc/nebula/pull/3735)
 
 - Fix the full-text index creation failure when there are the same tags or edges in different spaces. [#3747](https://github.com/vesoft-inc/nebula/pull/3747)
 
@@ -134,7 +134,7 @@ Nebula Graph {{ nebula.release }} does not support the most ecosystem tools of v
 
 - Add `SHOW LOCAL SESSIONS` and `SHOW LOCAL QUERIES` commands, and deprecate `SHOW ALL QUERIES`. [#3488](https://github.com/vesoft-inc/nebula/pull/3488)
 
-- A tag is not required for a vertex. `DELETE VERTEX` only deletes the vertices, and does not delete the related outgoing and incoming edges of the vertices. At this time, there will be hanging edges by default. [#3316](https://github.com/vesoft-inc/nebula/pull/3316) [#3335](https://github.com/vesoft-inc/nebula/pull/3335) [#3328](https://github.com/vesoft-inc/nebula/pull/3328) [#3286](https://github.com/vesoft-inc/nebula/pull/3286)
+- A tag is not required for a vertex. `DELETE VERTEX` only deletes the vertices and does not delete the related outgoing and incoming edges of the vertices. At this time, there will be hanging edges by default. [#3316](https://github.com/vesoft-inc/nebula/pull/3316) [#3335](https://github.com/vesoft-inc/nebula/pull/3335) [#3328](https://github.com/vesoft-inc/nebula/pull/3328) [#3286](https://github.com/vesoft-inc/nebula/pull/3286)
 
 - Disable the `YIELD` clause to return custom variables. [#3271](https://github.com/vesoft-inc/nebula/pull/3271)
 
