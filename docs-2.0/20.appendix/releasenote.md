@@ -106,7 +106,7 @@
 
 - Fix the index existence check problem. [#3315](https://github.com/vesoft-inc/nebula/pull/3315)
 
-- Fix a bug that running the `ALTER` statement to query the type property maybe cause a null pointer obtained by the graph service. [#3325](https://github.com/vesoft-inc/nebula/pull/3325)
+- Fix a bug that running the `ALTER` statement to query the type property may lead to a null pointer obtained by the graph service. [#3325](https://github.com/vesoft-inc/nebula/pull/3325)
 
 - Optimized the Raft to make the system more stable. [#3172](https://github.com/vesoft-inc/nebula/pull/3172) [#3435](https://github.com/vesoft-inc/nebula/pull/3435) [#3358](https://github.com/vesoft-inc/nebula/pull/3358) [#3322](https://github.com/vesoft-inc/nebula/pull/3322) [#3031](https://github.com/vesoft-inc/nebula/pull/3031)
 
