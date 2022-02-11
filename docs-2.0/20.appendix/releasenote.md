@@ -18,7 +18,7 @@
 
 - Support [parameterized queries](../nebula-console.md). [#3379](https://github.com/vesoft-inc/nebula/pull/3379)
 
-- Support to [view sample data for tags and edges](../3.ngql-guide/7.general-query-statements/2.match.md). [#3320](https://github.com/vesoft-inc/nebula/pull/3320) [#3329](https://github.com/vesoft-inc/nebula/pull/3329) [#3262](https://github.com/vesoft-inc/nebula/pull/3262)
+- Support [queries without specifying VIDs but `LIMIT` clause must be used to restrict the number of results](../3.ngql-guide/7.general-query-statements/2.match.md) [#3320](https://github.com/vesoft-inc/nebula/pull/3320) [#3329](https://github.com/vesoft-inc/nebula/pull/3329) [#3262](https://github.com/vesoft-inc/nebula/pull/3262)
 
 - Support [duration](../3.ngql-guide/3.data-types/4.date-and-time.md). [#3338](https://github.com/vesoft-inc/nebula/pull/3338)
 
