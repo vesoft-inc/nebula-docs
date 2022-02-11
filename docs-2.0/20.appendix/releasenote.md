@@ -36,7 +36,7 @@
 
 - Add log monitor to check free bytes for log disks, change log level when space is almost full. [#3576](https://github.com/vesoft-inc/nebula/pull/3576)
 
-- Upgrade third party 3.0. [#3554](https://github.com/vesoft-inc/nebula/pull/3554) [#3511](https://github.com/vesoft-inc/nebula/pull/3511)
+- Upgrade the third-party library version to 3.0. [#3554](https://github.com/vesoft-inc/nebula/pull/3554) [#3511](https://github.com/vesoft-inc/nebula/pull/3511)
 
 - Support any string in apostrophe for tag name. [#3424](https://github.com/vesoft-inc/nebula/pull/3424)
 
