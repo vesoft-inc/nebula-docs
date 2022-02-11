@@ -6,7 +6,7 @@
 
 - Support [openCypher queries with multiple MATCH statements](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
 
-- Support Traverse Operator. [#3308](https://github.com/vesoft-inc/nebula/pull/3308)
+- Support the Traverse operator. [#3308](https://github.com/vesoft-inc/nebula/pull/3308)
 
 - Support [Standalone Nebula Graph](../4.deployment-and-installation/standalone-deployment.md). [#3310](https://github.com/vesoft-inc/nebula/pull/3310)
 
