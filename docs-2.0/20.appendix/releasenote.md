@@ -50,7 +50,7 @@
 
 - Support more metrics. [#3446](https://github.com/vesoft-inc/nebula/pull/3446) [#3605](https://github.com/vesoft-inc/nebula/pull/3605) [#3590](https://github.com/vesoft-inc/nebula/pull/3590)
 
-- Support property functions in the `WHERE` clause of `GO` statements. [#3443](https://github.com/vesoft-inc/nebula/pull/3443)
+- Support property functions in the `WHERE` clause of `LOOKUP` statements. [#3443](https://github.com/vesoft-inc/nebula/pull/3443)
 
 - Enhancement date and time parser. [#3179](https://github.com/vesoft-inc/nebula/pull/3179)
 
