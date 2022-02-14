@@ -192,7 +192,7 @@ For detailed methods, see [How to add test cases](https://github.com/vesoft-inc/
 
 ### Step 1: Confirm the project donation
 
-Contact the official Nebula Graph staff via email, WeChat, Slack, etc. to confirm the donation project. The project will be donated to the Nebula Contrib organization.
+Contact the official Nebula Graph staff via email, WeChat, Slack, etc. to confirm the donation project. The project will be donated to the [Nebula Contrib organization](https://github.com/nebula-contrib).
 
 Email address: info@vesoft.com
 
