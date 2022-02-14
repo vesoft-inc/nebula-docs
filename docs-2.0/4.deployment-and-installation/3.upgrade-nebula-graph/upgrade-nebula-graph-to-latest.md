@@ -53,6 +53,16 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
 
   A few configuration parameters have been changed. For more information, see the release notes and configuration docs.
 
+- nGQL compatibility
+
+  The nGQL syntax is partially incompatible:
+
+  - Disable the `YIELD` clause to return custom variables.
+
+  - The `YIELD` clause is required in the `FETCH`, `GO`, `LOOKUP`, `FIND PATH` and `GET SUBGRAPH` statements.
+
+  - It is required to specify a tag to query properties of a vertex in a `MATCH` statement. For example, from `return v.name` to `return v.player.name`.
+
 !!! caution
 
     There may be other undiscovered influences. Before the upgrade, we recommend that you read the release notes and user manual carefully, and keep an eye on the [posts](https://discuss.nebula-graph.io/) on the forum and [issues](https://github.com/vesoft-inc/nebula/issues) on Github.
