@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.2.0 (TODO)
+## v3.2.0 (2022.02.15)
 
 - Feature enhancements:
   - Compatible with Nebula Graph v3.0.0.
