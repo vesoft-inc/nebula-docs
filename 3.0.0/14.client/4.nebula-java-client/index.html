@@ -5954,12 +5954,12 @@
 <p>When importing a Maven project with tools such as IDEA, set the following dependency in <code>pom.xml</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>2.0.0-SNAPSHOT</code> indicates the daily development version that may have unknown issues. We recommend that you replace <code>2.0.0-SNAPSHOT</code> with a released version number to use a table version.</p>
+<p><code>3.0.0-SNAPSHOT</code> indicates the daily development version that may have unknown issues. We recommend that you replace <code>3.0.0-SNAPSHOT</code> with a released version number to use a table version.</p>
 </div>
 <div class="highlight"><pre><span></span><code>&lt;dependency&gt;
   &lt;groupId&gt;com.vesoft&lt;/groupId&gt;
   &lt;artifactId&gt;client&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;3.0.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre></div>
 <p>If you cannot download the dependency for the daily development version, set the following content in <code>pom.xml</code>. Released versions have no such issue.</p>
@@ -5972,58 +5972,14 @@
 </code></pre></div>
 <p>If there is no Maven to manage the project, manually download the <a href="https://repo1.maven.org/maven2/com/vesoft/">JAR file</a> to install Nebula Java.</p>
 <h3 id="core_of_the_example_code">Core of the example code<a class="headerlink" href="#core_of_the_example_code" title="Permanent link">&para;</a></h3>
-<p>This sub-section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-java/blob/master/examples/src/main/java/com/vesoft/nebula/examples/GraphClientExample.java">GraphClientExample</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="n">NebulaPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NebulaPool</span><span class="p">();</span>
-<span class="n">Session</span> <span class="n">session</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="k">try</span> <span class="p">{</span>
-    <span class="n">NebulaPoolConfig</span> <span class="n">nebulaPoolConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NebulaPoolConfig</span><span class="p">();</span>
-    <span class="n">nebulaPoolConfig</span><span class="p">.</span><span class="na">setMaxConnSize</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">HostAddress</span><span class="o">&gt;</span> <span class="n">addresses</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="k">new</span> <span class="n">HostAddress</span><span class="p">(</span><span class="s">&quot;192.168.xx.1&quot;</span><span class="p">,</span> <span class="mi">9669</span><span class="p">),</span>
-            <span class="k">new</span> <span class="n">HostAddress</span><span class="p">(</span><span class="s">&quot;192.168.xx.2&quot;</span><span class="p">,</span> <span class="mi">9670</span><span class="p">));</span>
-    <span class="n">pool</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">addresses</span><span class="p">,</span> <span class="n">nebulaPoolConfig</span><span class="p">);</span>
-    <span class="n">session</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="na">getSession</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="s">&quot;nebula&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-
-    <span class="c1">//create space</span>
-    <span class="n">String</span> <span class="n">space</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span><span class="p">;</span>
-    <span class="n">String</span> <span class="n">createSpace</span> <span class="o">=</span> <span class="s">&quot;CREATE SPACE IF NOT EXISTS &quot;</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="s">&quot; (partition_num=15, replica_factor=1, vid_type=fixed_string(30)); &quot;</span><span class="p">;</span>
-    <span class="n">ResultSet</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">createSpace</span><span class="p">);</span>
-
-
-    <span class="c1">//create schema</span>
-    <span class="n">String</span> <span class="n">createSchema</span> <span class="o">=</span> <span class="s">&quot;USE &quot;</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="s">&quot;; CREATE TAG IF NOT EXISTS person(name string, age int);&quot;</span>
-            <span class="o">+</span> <span class="s">&quot;CREATE EDGE IF NOT EXISTS like(likeness double)&quot;</span><span class="p">;</span>
-    <span class="n">ResultSet</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">createSchema</span><span class="p">);</span>
-
-    <span class="c1">//insert vertex</span>
-    <span class="n">String</span> <span class="n">insertVertexes</span> <span class="o">=</span> <span class="s">&quot;INSERT VERTEX person(name, age) VALUES &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Bob&#39;:(&#39;Bob&#39;, 10), &quot;</span>
-            <span class="o">+</span> <span class="s">&quot;&#39;Lily&#39;:(&#39;Lily&#39;, 9), &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Tom&#39;:(&#39;Tom&#39;, 10), &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Jerry&#39;:(&#39;Jerry&#39;, 13), &quot;</span>
-            <span class="o">+</span> <span class="s">&quot;&#39;John&#39;:(&#39;John&#39;, 11);&quot;</span><span class="p">;</span>
-    <span class="n">ResultSet</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">insertVertexes</span><span class="p">);</span>
-
-    <span class="c1">// inert edge</span>
-    <span class="n">String</span> <span class="n">insertEdges</span> <span class="o">=</span> <span class="s">&quot;INSERT EDGE like(likeness) VALUES &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Bob&#39;-&gt;&#39;Lily&#39;:(80.0), &quot;</span>
-            <span class="o">+</span> <span class="s">&quot;&#39;Bob&#39;-&gt;&#39;Tom&#39;:(70.0), &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Lily&#39;-&gt;&#39;Jerry&#39;:(84.0), &quot;</span> <span class="o">+</span> <span class="s">&quot;&#39;Tom&#39;-&gt;&#39;Jerry&#39;:(68.3), &quot;</span>
-            <span class="o">+</span> <span class="s">&quot;&#39;Bob&#39;-&gt;&#39;John&#39;:(97.2);&quot;</span><span class="p">;</span>
-    <span class="n">ResultSet</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">insertEdges</span><span class="p">);</span>
-
-    <span class="c1">// query</span>
-    <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;GO FROM \&quot;Bob\&quot; OVER like &quot;</span> <span class="o">+</span> <span class="s">&quot;YIELD properties($$).name, properties($$).age, properties(edge).likeness&quot;</span><span class="p">;</span>
-    <span class="n">ResultSet</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
-    <span class="n">printResult</span><span class="p">(</span><span class="n">resp</span><span class="p">);</span>
-<span class="p">}</span><span class="k">finally</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">session</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">session</span><span class="p">.</span><span class="na">release</span><span class="p">();</span>
-  <span class="p">}</span>
-  <span class="n">pool</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<p>This sub-section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-java/blob/v3.0.0/examples/src/main/java/com/vesoft/nebula/examples/GraphClientExample.java">GraphClientExample</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 15, 2022</span>
       
     
   </small>

@@ -3783,26 +3783,6 @@
     Core of the example code
   </a>
   
-    <nav class="md-nav" aria-label="Core of the example code">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#connect_to_the_graph_service" class="md-nav__link">
-    Connect to the Graph Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#connect_to_the_storage_server" class="md-nav__link">
-    Connect to the Storage Server
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -5915,26 +5895,6 @@
     Core of the example code
   </a>
   
-    <nav class="md-nav" aria-label="Core of the example code">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#connect_to_the_graph_service" class="md-nav__link">
-    Connect to the Graph Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#connect_to_the_storage_server" class="md-nav__link">
-    Connect to the Storage Server
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -5987,7 +5947,7 @@
 </table>
 <h2 id="install_nebula_python">Install Nebula Python<a class="headerlink" href="#install_nebula_python" title="Permanent link">&para;</a></h2>
 <h3 id="install_nebula_python_with_pip">Install Nebula Python with pip<a class="headerlink" href="#install_nebula_python_with_pip" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>$ pip install nebula2-python<span class="o">==</span>&lt;version&gt;
+<div class="highlight"><pre><span></span><code>$ pip install nebula3-python<span class="o">==</span>&lt;version&gt;
 </code></pre></div>
 <h3 id="install_nebula_python_from_the_source_code">Install Nebula Python from the source code<a class="headerlink" href="#install_nebula_python_from_the_source_code" title="Permanent link">&para;</a></h3>
 <ol>
@@ -6020,70 +5980,14 @@
 </li>
 </ol>
 <h2 id="core_of_the_example_code">Core of the example code<a class="headerlink" href="#core_of_the_example_code" title="Permanent link">&para;</a></h2>
-<p>This section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-python/tree/master/example">Example</a>.</p>
-<h3 id="connect_to_the_graph_service">Connect to the Graph Service<a class="headerlink" href="#connect_to_the_graph_service" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Customize configurations.</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-<span class="n">config</span><span class="o">.</span><span class="n">max_connection_pool_size</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="c1"># Initialize the connection pool.</span>
-<span class="n">connection_pool</span> <span class="o">=</span> <span class="n">ConnectionPool</span><span class="p">()</span>
-<span class="c1"># Returns true if the server is healthy, false otherwise.</span>
-<span class="n">ok</span> <span class="o">=</span> <span class="n">connection_pool</span><span class="o">.</span><span class="n">init</span><span class="p">([(</span><span class="s1">&#39;192.168.xx.1&#39;</span><span class="p">,</span> <span class="mi">9669</span><span class="p">)],</span> <span class="n">config</span><span class="p">)</span>
-
-<span class="c1"># Method 1: Manually specify when to release the session.</span>
-<span class="c1"># Get the session from the connection pool.</span>
-<span class="n">session</span> <span class="o">=</span> <span class="n">connection_pool</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;nebula&#39;</span><span class="p">)</span>
-
-<span class="c1"># Select a graph space.</span>
-<span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;USE basketballplayer&#39;</span><span class="p">)</span>
-
-<span class="c1"># Run the SHOW TAGS statement.</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SHOW TAGS&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="c1"># Release the session.</span>
-<span class="n">session</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-
-<span class="c1"># Method 2: Use session_context to automatically release the session.</span>
-<span class="k">with</span> <span class="n">connection_pool</span><span class="o">.</span><span class="n">session_context</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;nebula&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;USE basketballplayer;&#39;</span><span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SHOW TAGS;&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="c1"># Close the connection pool.</span>
-<span class="n">connection_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>
-<h3 id="connect_to_the_storage_server">Connect to the Storage Server<a class="headerlink" href="#connect_to_the_storage_server" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Set the IP addresses of all Meta servers.</span>
-<span class="n">meta_cache</span> <span class="o">=</span> <span class="n">MetaCache</span><span class="p">([(</span><span class="s1">&#39;192.168.xx.1&#39;</span><span class="p">,</span> <span class="mi">9559</span><span class="p">),</span>
-                        <span class="p">(</span><span class="s1">&#39;192.168.xx.2&#39;</span><span class="p">,</span> <span class="mi">9559</span><span class="p">),</span>
-                        <span class="p">(</span><span class="s1">&#39;192.168.xx.3&#39;</span><span class="p">,</span> <span class="mi">9559</span><span class="p">)],</span>
-                       <span class="mi">50000</span><span class="p">)</span>
-<span class="n">graph_storage_client</span> <span class="o">=</span> <span class="n">GraphStorageClient</span><span class="p">(</span><span class="n">meta_cache</span><span class="p">)</span>
-
-<span class="n">resp</span> <span class="o">=</span> <span class="n">graph_storage_client</span><span class="o">.</span><span class="n">scan_vertex</span><span class="p">(</span>
-        <span class="n">space_name</span><span class="o">=</span><span class="s1">&#39;ScanSpace&#39;</span><span class="p">,</span>
-        <span class="n">tag_name</span><span class="o">=</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">resp</span><span class="o">.</span><span class="n">has_next</span><span class="p">():</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">vertex_data</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">vertex_data</span><span class="p">)</span>
-
-<span class="n">resp</span> <span class="o">=</span> <span class="n">graph_storage_client</span><span class="o">.</span><span class="n">scan_edge</span><span class="p">(</span>
-    <span class="n">space_name</span><span class="o">=</span><span class="s1">&#39;ScanSpace&#39;</span><span class="p">,</span>
-    <span class="n">edge_name</span><span class="o">=</span><span class="s1">&#39;friend&#39;</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">resp</span><span class="o">.</span><span class="n">has_next</span><span class="p">():</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">edge_data</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">edge_data</span><span class="p">)</span>
-</code></pre></div>
+<p>This section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-python/tree/v3.0.0/example">Example</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 9, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 15, 2022</span>
       
     
   </small>

@@ -5919,7 +5919,7 @@
 <ul>
 <li>
 <p>(Recommended) To install a specific version of Nebula Go, use the Git option <code>--branch</code> to specify the branch. For example, to install v3.0.0, run the following command:</p>
-<div class="highlight"><pre><span></span><code>$ git clone --branch v3.0.0 https://github.com/vesoft-inc/nebula-go.git
+<div class="highlight"><pre><span></span><code>$ git clone --branch release-v3.0.0 https://github.com/vesoft-inc/nebula-go.git
 </code></pre></div>
 </li>
 </ul>
@@ -5934,49 +5934,16 @@
 <p>Run the following command to install or update Nebula Go:</p>
 <div class="highlight"><pre><span></span><code>$ go get -u -v github.com/vesoft-inc/nebula-go@&lt;tag&gt;
 </code></pre></div>
-<p><code>tag</code>: Specify the branch, such as <code>master</code> or <code>v3.0.0</code>.</p>
+<p><code>tag</code>: Specify the branch, such as <code>master</code> or <code>release-v3.0.0</code>.</p>
 <h2 id="core_of_the_example_code">Core of the example code<a class="headerlink" href="#core_of_the_example_code" title="Permanent link">&para;</a></h2>
-<p>This section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-go/blob/master/basic_example/graph_client_basic_example.go">graph_client_basic_example</a> and <a href="https://github.com/vesoft-inc/nebula-go/blob/master/gorountines_example/graph_client_goroutines_example.go">graph_client_goroutines_example</a>.</p>
-<div class="highlight"><pre><span></span><code>const <span class="o">(</span>
-    <span class="nv">address</span> <span class="o">=</span> <span class="s2">&quot;192.168.xx.1&quot;</span>
-    <span class="nv">port</span>     <span class="o">=</span> <span class="m">9669</span>
-    <span class="nv">username</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
-    <span class="nv">password</span> <span class="o">=</span> <span class="s2">&quot;nebula&quot;</span>
-<span class="o">)</span>
-
-func main<span class="o">()</span> <span class="o">{</span>
-    hostAddress :<span class="o">=</span> nebula.HostAddress<span class="o">{</span>Host: address, Port: port<span class="o">}</span>
-    hostList :<span class="o">=</span> <span class="o">[]</span>nebula.HostAddress<span class="o">{</span>hostAddress<span class="o">}</span>
-    testPoolConfig :<span class="o">=</span> nebula.GetDefaultConf<span class="o">()</span>
-    pool, err :<span class="o">=</span> nebula.NewConnectionPool<span class="o">(</span>hostList, testPoolConfig, log<span class="o">)</span>
-    defer pool.Close<span class="o">()</span>
-    session, err :<span class="o">=</span> pool.GetSession<span class="o">(</span>username, password<span class="o">)</span>
-    defer session.Release<span class="o">()</span>
-
-    checkResultSet :<span class="o">=</span> func<span class="o">(</span>prefix string, res *nebula.ResultSet<span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> !res.IsSucceed<span class="o">()</span> <span class="o">{</span>
-            log.Fatal<span class="o">(</span>fmt.Sprintf<span class="o">(</span><span class="s2">&quot;%s, ErrorCode: %v, ErrorMsg: %s&quot;</span>, prefix, res.GetErrorCode<span class="o">()</span>, res.GetErrorMsg<span class="o">()))</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="o">{</span>
-        createSchema :<span class="o">=</span> <span class="s2">&quot;CREATE SPACE IF NOT EXISTS basic_example_space(vid_type=FIXED_STRING(20)); &quot;</span> +
-            <span class="s2">&quot;USE basic_example_space;&quot;</span> +
-            <span class="s2">&quot;CREATE TAG IF NOT EXISTS person(name string, age int);&quot;</span> +
-            <span class="s2">&quot;CREATE EDGE IF NOT EXISTS like(likeness double)&quot;</span>
-        resultSet, err :<span class="o">=</span> session.Execute<span class="o">(</span>createSchema<span class="o">)</span>
-        checkResultSet<span class="o">(</span>createSchema, resultSet<span class="o">)</span>
-    <span class="o">}</span>
-    fmt.Print<span class="o">(</span><span class="s2">&quot;\n&quot;</span><span class="o">)</span>
-    log.Info<span class="o">(</span><span class="s2">&quot;Nebula Go Client Basic Example Finished&quot;</span><span class="o">)</span>
-<span class="o">}</span>
-</code></pre></div>
+<p>This section shows the core of the example code. For all the code, see <a href="https://github.com/vesoft-inc/nebula-go/blob/release-v3.0.0/basic_example/graph_client_basic_example.go">graph_client_basic_example</a> and <a href="https://github.com/vesoft-inc/nebula-go/blob/release-v3.0.0/gorountines_example/graph_client_goroutines_example.go">graph_client_goroutines_example</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 15, 2022</span>
       
     
   </small>
