@@ -56,7 +56,7 @@ $SPARK_HOME/bin/spark-submit --class com.vesoft.nebula.exchange.Exchange \
 --files application.conf \
 --conf spark.driver.extraClassPath=./ \
 --conf spark.executor.extraClassPath=./ \
-nebula-exchange-2.0.0.jar \
+nebula-exchange-3.0.0.jar \
 -c application.conf
 ```
 
@@ -123,7 +123,7 @@ Namely:
 --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
 --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
 --class com.vesoft.nebula.exchange.Exchange \
-<nebula-exchange-2.x.y.jar_path> -c <application.conf_path>
+<nebula-exchange-3.x.y.jar_path> -c <application.conf_path>
 ```
 
 In YARN, use the following command:
@@ -137,7 +137,7 @@ In YARN, use the following command:
 --conf spark.executor.extraClassPath=./ \
 --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
 --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
-<nebula-exchange-2.x.y.jar_path> \
+<nebula-exchange-3.x.y.jar_path> \
 -c application.conf
 ```
 
