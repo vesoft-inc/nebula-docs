@@ -1,6 +1,6 @@
 # Nebula Plato
 
-[Nebula Plato](https://github.com/vesoft-inc/nebula-algorithm) is an application that integrates the open-source Plato Graph Computing Framework, with which Nebula Plato performs graph computations on Nebula Graph database data.
+Nebula Plato is an application that integrates the open-source [Plato Graph Computing Framework](https://github.com/tencent/plato), with which Nebula Plato performs graph computations on Nebula Graph database data.
 
 !!! enterpriseonly
 
@@ -46,12 +46,11 @@ Nebula Plato supports the following graph algorithms.
 
 When installing a cluster of multiple Nebula Plato on multiple nodes, you need to install Nebula Plato to the same path and set up SSH-free login between nodes.
 
-### Install Nebula Plato with RPM packages
-
 ```bash
 sudo rpm -i nebula-plato-1.0.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-plato
 ```
 
+<!--
 ### Install Nebula Plato with the source code
 
 The preparations for compiling Nebula Plato are similar to compiling Nebula Graph. For details, see [Resource preparations](4.deployment-and-installation/1.resource-preparations.md).
@@ -85,6 +84,7 @@ The preparations for compiling Nebula Plato are similar to compiling Nebula Grap
   ```bash
   $ ./build.sh
   ```
+-->
 
 ## How to use Nebula Plato
 
