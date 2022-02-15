@@ -219,7 +219,7 @@ Before you deploy Docker-based Studio, you must do a check of these:
    | Port | Description |
    | ---- | ---- |
    | 7001 | Web service provided by Studio |
-   | 8080 | Nebula-http-gateway, Client's HTTP service |
+
 
 ### Procedure
 
@@ -229,7 +229,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
    
    | Installation package | Nebula Graph version |
    | ----- | ----- |
-   | [nebula-graph-studio-v{{studio.release}}.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v{{studio.release}}.tar.gz) | {{nebula.release}} |
+   | [nebula-graph-studio-v{{studio.release}}.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-v{{studio.release}}.tar.gz) | {{nebula.release}} |
 
 2. Create the `nebula-graph-studio-v{{studio.release}}` directory and decompress the installation package to the directory.
 
@@ -257,9 +257,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
     If these lines are returned, Docker-based Studio v3.x is deployed and started.
 
     ```bash
-    Creating docker_client_1   ... done
     Creating docker_web_1      ... done
-    Creating docker_nginx_1    ... done
     ```
 
 6. When Docker-based Studio is started, use `http://ip address:7001` to get access to Studio.
