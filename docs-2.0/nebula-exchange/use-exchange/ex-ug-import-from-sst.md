@@ -168,7 +168,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   # Spark configuration
   spark: {
     app: {
-      name: Nebula Exchange 2.0
+      name: Nebula Exchange {{exchange.release}}
     }
 
     master:local
