@@ -6,8 +6,6 @@
 
 - Support [openCypher queries with multiple MATCH statements](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
 
-- Support the Traverse operator. [#3308](https://github.com/vesoft-inc/nebula/pull/3308)
-
 - Support [Standalone Nebula Graph](../4.deployment-and-installation/standalone-deployment.md). [#3310](https://github.com/vesoft-inc/nebula/pull/3310)
 
 - Support [key-value separation for the storage engine](../5.configurations-and-logs/1.configurations/4.storage-config.md). [#3281](https://github.com/vesoft-inc/nebula/pull/3281)
@@ -44,7 +42,7 @@
 
 - Support `DELETE` in TOSS. [#3374](https://github.com/vesoft-inc/nebula/pull/3374)
 
-- Support logrotate. [#3541](https://github.com/vesoft-inc/nebula/pull/3541)
+- Support to use logrotate. [#3541](https://github.com/vesoft-inc/nebula/pull/3541)
 
 - Support more metrics. [#3446](https://github.com/vesoft-inc/nebula/pull/3446) [#3605](https://github.com/vesoft-inc/nebula/pull/3605) [#3590](https://github.com/vesoft-inc/nebula/pull/3590)
 
