@@ -49,7 +49,7 @@ When installing a cluster of multiple Nebula Plato on multiple nodes, you need t
 ### Install Nebula Plato with RPM packages
 
 ```bash
-sudo rpm -i nebula-plato-1.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-plato
+sudo rpm -i nebula-plato-1.0.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-plato
 ```
 
 ### Install Nebula Plato with the source code
