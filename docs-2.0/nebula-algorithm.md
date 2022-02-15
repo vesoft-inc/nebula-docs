@@ -9,8 +9,8 @@ The correspondence between the Nebula Algorithm release and the Nebula Graph cor
 |Algorithm client|Nebula Graph|
 |:---|:---|
 |3.0-SNAPSHOT         |  nightly       |
-|{{algorithm.release}}|  2.6.0、2.6.1  |
-|  2.6.0              |  2.6.0、2.6.1  |
+|{{algorithm.release}}|  {{nebula.release}}  |
+|  2.6.x              |  2.6.x  |
 |  2.5.0              |  2.5.0、2.5.1  |
 |  2.1.0              |  2.0.0、2.0.1  |
 
