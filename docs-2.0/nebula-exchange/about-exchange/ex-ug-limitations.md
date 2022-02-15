@@ -8,10 +8,10 @@ The correspondence between the Nebula Exchange release (the JAR version) and the
 
 |Exchange client|Nebula Graph|
 |:---|:---|
-|2.5-SNAPSHOT|nightly|
-|{{exchange.release}}|2.6.0, {{nebula.release}}|
-|2.5.1|2.5.0, 2.5.1|
-|2.5.0|2.5.0, 2.5.1|
+|3.0-SNAPSHOT|nightly|
+|{{exchange.release}}|{{nebula.release}}|
+|2.6.x|2.6.x       |  
+|2.5.x|2.5.x       |
 |2.1.0|2.0.0, 2.0.1|
 |2.0.1|2.0.0, 2.0.1|
 |2.0.0|2.0.0, 2.0.1|
@@ -22,7 +22,7 @@ If you are using Nebula Graph 1.x, use [Nebula Exchange 1.x](https://github.com/
 
 ## Environment
 
-Exchange 2.x supports the following operating systems:
+Exchange 3.x supports the following operating systems:
 
 - CentOS 7
 - macOS
