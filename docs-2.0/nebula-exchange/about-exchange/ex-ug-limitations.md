@@ -1,6 +1,6 @@
 # Limitations
 
-This topic describes some of the limitations of using Exchange 2.x.
+This topic describes some of the limitations of using Exchange 3.x.
 
 ## Version compatibility
 

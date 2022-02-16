@@ -1,4 +1,4 @@
-# Import data from MySQL
+# Import data from MySQL/PostgreSQL
 
 This topic provides an example of how to use Exchange to export MySQL data and import to Nebula Graph. It also applies to exporting
 data from PostgreSQL into Nebula Graph.
