@@ -44,7 +44,7 @@ To create an index on the **Schema** page, follow these steps:
 
 6. When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
 
-![A page for index creation](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-030.png "Create an index")
+  ![A page for index creation](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-030.png "Create an index")
 
 7. Confirm the settings and then click the **+ Create** button. When an index is created, the index list shows the new index.
 

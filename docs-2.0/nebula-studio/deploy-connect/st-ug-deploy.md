@@ -92,7 +92,7 @@ If the port is occupied and the process on that port cannot be terminated, you c
 //Open the configuration file
 $ vi config/config.default.js
 
-//Change the port number
+//Change the port
 web:
 #  task_id_path:
 #  upload_dir:
@@ -183,11 +183,11 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
 2. Use `sudo dpkg -i <deb>` to install DEB package.
 
-For example, install Studio {{studio.release}}, use the following command:
+  For example, install Studio {{studio.release}}, use the following command:
 
-```bash
-$ sudo dpkg -i nebula-graph-studio-{{ studio.release }}.x86_64.deb
-```
+  ```bash
+  $ sudo dpkg -i nebula-graph-studio-{{ studio.release }}.x86_64.deb
+  ```
 
 3. When Studio is started, use `http://ip address:7001` to get access to Studio.
 
