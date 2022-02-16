@@ -113,7 +113,7 @@ For detailed implementation methods, see [Scala file](https://github.com/vesoft-
   $ mvn clean package -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
   ```
 
-After the compilation, a similar file `nebula-algorithm-3.x-SNAPSHOT.jar` is generated in the directory `nebula-algorithm/target`.
+After the compilation, a similar file `nebula-algorithm-3.x.x.jar` is generated in the directory `nebula-algorithm/target`.
 
 ### Download maven from the remote repository
 
