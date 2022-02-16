@@ -1,6 +1,6 @@
 # Nebula Analytics
 
-Nebula Analytics is an application that integrates the open-source [Plato Graph Computing Framework](https://github.com/tencent/plato), with which Nebula Analytics performs graph computations on Nebula Graph database data.
+Nebula Analytics is a high-performance graph computing framework tool that performs Graph analysis of data in the Nebula Graph database.
 
 !!! enterpriseonly
 
