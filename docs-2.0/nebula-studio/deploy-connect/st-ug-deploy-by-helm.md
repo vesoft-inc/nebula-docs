@@ -20,11 +20,13 @@ Before installing Studio, you need to install the following software and ensure 
    ```
 
 2. Make the `nebula-studio` directory the current working directory.
+   
    ```bash
     $ cd nebula-studio
     ```
 
 3. Assume using release name:`my-studio`, installed Studio in Helm Chart.
+    
     ```bash
     $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070 deployment/helm
     ```

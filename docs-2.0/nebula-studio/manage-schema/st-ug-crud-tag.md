@@ -38,7 +38,7 @@ To create a tag on the **Schema** page, follow these steps:
 
     - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
 
-    c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
+  c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
@@ -60,19 +60,19 @@ To edit a tag on the **Schema** page, follow these steps:
 
 5. On the **Edit** page, do these settings:
 
-   - To edit a Comment: Click **Edit** under the **Name**.
+  - To edit a Comment: Click **Edit** under the **Name**.
 
-   - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
+  - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
 
-   - To delete a property: On the **Define Properties** panel, find a property and then click **Delete**.
+  - To delete a property: On the **Define Properties** panel, find a property and then click **Delete**.
 
-   - To add more properties: On the **Define Properties** panel, click the **Add Property** button to add a new property.
+  - To add more properties: On the **Define Properties** panel, click the **Add Property** button to add a new property.
 
-   - To set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box and then set the TTL configuration.
+  - To set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box and then set the TTL configuration.
 
-   - To edit the TTL configuration: On the **Set TTL** panel, click **Edit** and then change the configuration of `TTL_COL` and `TTL_DURATION`.
+  - To edit the TTL configuration: On the **Set TTL** panel, click **Edit** and then change the configuration of `TTL_COL` and `TTL_DURATION`.
 
-   - To delete the TTL configuration: When the **Set TTL** panel is expanded, in the upper left corner of the panel, click the check box to delete the configuration.
+  - To delete the TTL configuration: When the **Set TTL** panel is expanded, in the upper left corner of the panel, click the check box to delete the configuration.
 
 6. When the configuration is done, in the **Equivalent to the following nGQL statement** panel, you can see the equivalent `ALTER TAG` statement.
 

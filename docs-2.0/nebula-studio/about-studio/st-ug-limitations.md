@@ -45,7 +45,6 @@ On the **Console** page of Docker-based and RPM-based Studio v3.x, all the nGQL 
 - `USE <space_name>`: You cannot run such a statement on the **Console** page to choose a graph space. As an alternative, you can click a graph space name in the drop-down list of **Current Graph Space**.
 - You cannot use line breaks (\\). As an alternative, you can use the Enter key to split a line.
 
-<!--
 For Studio on Cloud, besides the preceding syntax, you cannot run these account and role management statements on the Console page:
 
 - `CREATE USER`
@@ -56,7 +55,6 @@ For Studio on Cloud, besides the preceding syntax, you cannot run these account 
 - `REVOKE ROLE`  
 
 For more information about the preceding statements, see[User management](../../7.data-security/1.authentication/2.management-user.md)
--->
 
 ## Browser
 
