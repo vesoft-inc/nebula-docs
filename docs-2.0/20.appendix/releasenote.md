@@ -106,7 +106,7 @@
 
 - Cancel memory check when the ratio is greater than 1.0. [#3289](https://github.com/vesoft-inc/nebula/pull/3289)
 
-- Fix the error of ninja-build. [#3195](https://github.com/vesoft-inc/nebula/pull/3195)
+- Fix Ninja build errors. [#3195](https://github.com/vesoft-inc/nebula/pull/3195)
 
 - Fix the bug that creating tag and edge with the same name at the same time may both succeed. [#3735](https://github.com/vesoft-inc/nebula/pull/3735)
 
