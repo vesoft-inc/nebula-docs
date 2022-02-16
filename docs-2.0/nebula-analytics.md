@@ -1,6 +1,6 @@
-# Nebula Plato
+# Nebula Analytics
 
-Nebula Plato is an application that integrates the open-source [Plato Graph Computing Framework](https://github.com/tencent/plato), with which Nebula Plato performs graph computations on Nebula Graph database data.
+Nebula Analytics is an application that integrates the open-source [Plato Graph Computing Framework](https://github.com/tencent/plato), with which Nebula Analytics performs graph computations on Nebula Graph database data.
 
 !!! enterpriseonly
 
@@ -8,24 +8,24 @@ Nebula Plato is an application that integrates the open-source [Plato Graph Comp
 
 ## Scenarios
 
-You can import data from data sources as Nebula Graph clusters, CSV files on HDFS, or local CSV files into Nebula Plato and export the graph computation results to Nebula Graph clusters, CSV files on HDFS, or local CSV files from Nebula Plato.
+You can import data from data sources as Nebula Graph clusters, CSV files on HDFS, or local CSV files into Nebula Analytics and export the graph computation results to Nebula Graph clusters, CSV files on HDFS, or local CSV files from Nebula Analytics.
 
 
 ## Limitations
 
-When you import Nebula Graph cluster data into Nebula Plato and export the graph computation results from Nebula Plato to a Nebula Graph cluster, the graph computation results can only be exported to the graph space where the data source is located.
+When you import Nebula Graph cluster data into Nebula Analytics and export the graph computation results from Nebula Analytics to a Nebula Graph cluster, the graph computation results can only be exported to the graph space where the data source is located.
 
 ## Version compatibility
 
-The version correspondence between Nebula Plato and Nebula Graph is as follows.
+The version correspondence between Nebula Analytics and Nebula Graph is as follows.
 
-|Nebula Plato|Nebula Graph|
+|Nebula Analytics|Nebula Graph|
 |:---|:---|
-|{{plato.release}}|{{nebula.release}}|
+|{{analytics.release}}|{{nebula.release}}|
 
 ## Graph algorithms
 
-Nebula Plato supports the following graph algorithms.
+Nebula Analytics supports the following graph algorithms.
 
 |           Algorithm        |Description            |Category        |
 |:----------------------|:----------------|:-----------|
@@ -42,29 +42,29 @@ Nebula Plato supports the following graph algorithms.
 | HANP                  | Hop attenuation & Node Preference   |  Community discovery    |
 | Clustering Coefficient| It is a measure of the degree to which nodes in a graph tend to cluster together.          |  Clustering       |
 
-## Install Nebula Plato
+## Install Nebula Analytics
 
-When installing a cluster of multiple Nebula Plato on multiple nodes, you need to install Nebula Plato to the same path and set up SSH-free login between nodes.
+When installing a cluster of multiple Nebula Analytics on multiple nodes, you need to install Nebula Analytics to the same path and set up SSH-free login between nodes.
 
 ```bash
-sudo rpm -i nebula-plato-1.0.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-plato
+sudo rpm -i nebula-analytics-1.0.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
 ```
 
 <!--
-### Install Nebula Plato with the source code
+### Install Nebula Analytics with the source code
 
-The preparations for compiling Nebula Plato are similar to compiling Nebula Graph. For details, see [Resource preparations](4.deployment-and-installation/1.resource-preparations.md).
+The preparations for compiling Nebula Analytics are similar to compiling Nebula Graph. For details, see [Resource preparations](4.deployment-and-installation/1.resource-preparations.md).
  
-1. Clone the `plato` repository.
+1. Clone the `analytics` repository.
 
   ```bash
-  $ git clone -b {{plato.branch}} https://github.com/vesoft-inc/plato.git
+  $ git clone -b {{analytics.branch}} https://github.com/vesoft-inc/nebula-analytics.git
   ```
 
-2. Access the `plato` directory.
+2. Access the `nebula-analytics` directory.
 
   ```bash
-  $ cd plato
+  $ cd nebula-analytics
   ```
 
 3. Execute the following script to install compile dependencies.
@@ -79,18 +79,18 @@ The preparations for compiling Nebula Plato are similar to compiling Nebula Grap
   $ ./3rdtools.sh distclean && ./3rdtools.sh install
   ```
 
-5. Compile Nebula Plato.
+5. Compile Nebula Analytics.
 
   ```bash
   $ ./build.sh
   ```
 -->
 
-## How to use Nebula Plato
+## How to use Nebula Analytics
 
 After installation, you can set parameters of different algorithms and then execute a script to obtain the results of the algorithms and export them to the specified format.
 
-1. Select one node from the Nebula Plato cluster and then access the `scripts` directory.
+1. Select one node from the Nebula Analytics cluster and then access the `scripts` directory.
 
   ```bash
   $ cd scripts
@@ -136,7 +136,7 @@ After installation, you can set parameters of different algorithms and then exec
       # The number of rows per write. 
       --write_batch_size=1000 
       # The file path where the data failed to be written back to Nebula Graph is stored.
-      --err_file=/home/jie.wang/plato/err.txt 
+      --err_file=/home/jie.wang/analytics/err.txt 
       ```
     
     2. Modify the related parameters in the script to be used, such as `run_pagerank.sh`. 
@@ -209,10 +209,10 @@ After installation, you can set parameters of different algorithms and then exec
     ITERATIONS=${ITERATIONS:=100}
     ```
 
-3. Modify the configuration file `cluster` to set the Nebula Plato cluster nodes and task assignment weights for executing the algorithm.
+3. Modify the configuration file `cluster` to set the Nebula Analytics cluster nodes and task assignment weights for executing the algorithm.
 
   ```bash
-  # Nebula Plato Cluster Node IP Addresses: Task Assignment Weights
+  # Nebula Analytics Cluster Node IP Addresses: Task Assignment Weights
   192.168.8.200:1
   192.168.8.201:1
   192.168.8.202:1
