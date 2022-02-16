@@ -20,7 +20,7 @@
 
 - Support [duration](../3.ngql-guide/3.data-types/4.date-and-time.md). [#3338](https://github.com/vesoft-inc/nebula/pull/3338)
 
-- Support most [UTF-8 encoded characters](../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md) of 1 to 4 bytes. [#3380](https://github.com/vesoft-inc/nebula/pull/3380)  [#3440](https://github.com/vesoft-inc/nebula/pull/3440)
+- Support most [UTF-8 encoded characters](../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md) of 1 to 4 bytes in schema. [#3380](https://github.com/vesoft-inc/nebula/pull/3380)  [#3440](https://github.com/vesoft-inc/nebula/pull/3440)
 
 - Support [DESCRIBE USER](../7.data-security/1.authentication/2.management-user.md). [#3300](https://github.com/vesoft-inc/nebula/pull/3300)
 
