@@ -1,6 +1,6 @@
 # Nebula Analytics
 
-Nebula Analytics is a high-performance graph computing framework tool that performs Graph analysis of data in the Nebula Graph database.
+Nebula Analytics is a high-performance graph computing framework tool that performs graph analysis of data in the Nebula Graph database.
 
 !!! enterpriseonly
 
