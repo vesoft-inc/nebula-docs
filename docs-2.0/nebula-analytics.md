@@ -136,7 +136,7 @@ After installation, you can set parameters of different algorithms and then exec
       # The number of rows per write. 
       --write_batch_size=1000 
       # The file path where the data failed to be written back to Nebula Graph is stored.
-      --err_file=/home/jie.wang/analytics/err.txt 
+      --err_file=/home/xxx/analytics/err.txt 
       ```
     
     2. Modify the related parameters in the script to be used, such as `run_pagerank.sh`. 
