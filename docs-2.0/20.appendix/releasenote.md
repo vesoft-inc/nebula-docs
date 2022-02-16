@@ -114,6 +114,8 @@
 
 - Fix variable inconsistency in `YIELD` clauses and `GO` statements. [#3430](https://github.com/vesoft-inc/nebula/pull/3430)
 
+- Fix the crash when schema version is greater than 256. [#3893](https://github.com/vesoft-inc/nebula/pull/3893)
+
 ## Incompatibility
 
 Nebula Graph {{ nebula.release }} does not support the most ecosystem tools of v2.x, please upgrade the [ecosystem tools](6.eco-tool-version.md).
