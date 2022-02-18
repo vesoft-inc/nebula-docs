@@ -2,6 +2,11 @@
 
 You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax.md).
 
+!!! compatibility "Legacy version compatibility"
+
+    The `BALANCE DATA` commands are not supported.
+
+<!-- balance-3.1
 !!! danger
 
     The `BALANCE` commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
@@ -24,17 +29,16 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   ```ngql
   nebual> SHOW HOSTS;
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
-   Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
-  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  |
-  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  |
-  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  |
-  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   |
-  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   |
-  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   |
-  | "Total"          |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
 3. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
@@ -68,21 +72,20 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   !!! Note
 
-        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#Balance leader distribution).
+        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
   ```ngql
   nebula> SHOW HOSTS;
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
-  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
-  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   |
-  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   |
-  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   |
-  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   |
-  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   |
-  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   |
-  | "Total"          |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
 If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
@@ -126,6 +129,7 @@ To remove the following storage servers.
   ```ngql
   nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
   ```
+-->
 
 ## Balance leader distribution
 
@@ -141,17 +145,16 @@ Run `SHOW HOSTS` to check the balance result.
 
 ```ngql
 nebula> SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
-| "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:3"              | "basketballplayer:8"   |
-| "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   |
-| "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   |
-| "192.168.10.103" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   |
-| "192.168.10.104" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   |
-| "192.168.10.105" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   |
-| "Total"          |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:3"              | "basketballplayer:8"   | "3.0.0" |
+| "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   | "3.0.0" |
+| "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.0.0" |
+| "192.168.10.103" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.0.0" |
+| "192.168.10.104" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.0.0" |
+| "192.168.10.105" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.0.0" |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
 ```
 
 !!! caution

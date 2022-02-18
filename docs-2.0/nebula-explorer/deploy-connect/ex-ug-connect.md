@@ -36,12 +36,14 @@ To connect Explorer to Nebula Graph, follow these steps:
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
-   ![The Config Server page shows the fields to be configured for connection](../figs/ex-ug-002-1.png)
-
 2. After the configuration, click the **Login** button.
 
-   If you can see the interface as shown in the below, it means you have successfully connected to the Nebula Graph database.
+  !!! note
 
-   ![The Console page shows that the connection is successful](../figs/ex-ug-051-1.png "Nebula Graph is connected")
+        One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
+# Clear connection
 
-One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
+When Explorer is still connected to a Nebula Graph database, in the navigation bar on the left side of the page, select **Settings** ![icon](../figs/nav-setup.png) > **Clear Connect**.
+
+
+After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the Nebula Graph.

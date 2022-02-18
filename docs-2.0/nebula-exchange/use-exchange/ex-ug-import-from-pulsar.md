@@ -229,11 +229,12 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
           field:src_player
       }
 
-
       target:{
           field:dst_player
       }
 
+      # (Optional) Specify a column as the source of the rank.
+      #ranking: rank
 
       # The number of data written to Nebula Graph in a single batch.
       batch: 10
@@ -267,6 +268,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       target:{
           field:teamid
       }
+
+      # (Optional) Specify a column as the source of the rank.
+      #ranking: rank
 
       batch: 10
       partition: 10

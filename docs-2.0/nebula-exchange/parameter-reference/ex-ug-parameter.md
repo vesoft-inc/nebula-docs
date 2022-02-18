@@ -1,6 +1,6 @@
 # Parameters in the configuration file
 
-This topic describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange/src/main/resources/application.conf) when users use Nebula Exchange.
+This topic describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf) when users use Nebula Exchange.
 
 Before configuring the `application.conf` file, it is recommended to copy the file name `application.conf` and then edit the file name according to the file type of a data source. For example, change the file name to `csv_application.conf` if the file type of the data source is CSV.
 
@@ -129,15 +129,15 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.database`|string|-|Yes|The name of the database where source data is saved in Neo4j.|
 |`tags.check_point_path`|string|`/tmp/test`|No|The directory set to import progress information, which is used for resuming transfers. If not set, the resuming transfer is disabled.|
 
-### Specific parameters of MySQL data sources
+### Specific parameters of MySQL/PostgreSQL data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
-|`tags.host`|string|-|Yes|The MySQL server address.|
-|`tags.port`|string|-|Yes|The MySQL server port.|
+|`tags.host`|string|-|Yes|The MySQL/PostgreSQL server address.|
+|`tags.port`|string|-|Yes|The MySQL/PostgreSQL server port.|
 |`tags.database`|string|-|Yes|The database name.|
 |`tags.table`|string|-|Yes|The name of a table used as a data source.|
-|`tags.user`|string|-|Yes|The MySQL username with read permissions.|
+|`tags.user`|string|-|Yes|The MySQL/PostgreSQL username with read permissions.|
 |`tags.password`|string|-|Yes|The account password.
 |`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select teamid, name from basketball.team order by teamid;"`.|
 
@@ -182,6 +182,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
+|`tags.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 
@@ -215,6 +216,13 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into Nebula Graph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
+
+### Specific parameters for generating SST files
+
+|Parameter|Type|Default value|Required|Description|
+|:---|:---|:---|:---|:---|
+|`edges.path`|string|-|Yes|The path of the source file specified to generate SST files.|
+|`edges.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 

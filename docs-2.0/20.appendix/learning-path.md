@@ -127,11 +127,13 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | ------------------------------------------------------------ |
   |[Create snapshots](../7.data-security/3.manage-snapshot.md)|
 
+<!--
 - Resource isolation
 
   | Document |
   | ------------------------------------------------------------ |
   |[Group & Zone](https://docs.nebula-graph.io/{{nebula.release}}/7.data-security/5.zone/)|
+-->
 
 - SSL encryption
 
@@ -177,11 +179,11 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | ------------------------------------------------------------ |
   | [Nebula Bench](../nebula-bench.md) |
 
-- Cluster O&M
+<!-- - Cluster O&M
 
   | Document  |
   | -------- |
-  | [Nebula Operator](../nebula-operator/1.introduction-to-nebula-operator.md) |
+  | [Nebula Operator](../nebula-operator/1.introduction-to-nebula-operator.md) | -->
 
 - Graph algorithm
 

@@ -16,6 +16,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
 * [Configuration](4.deployment-and-installation/1.resource-preparations.md)
+* [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
   
