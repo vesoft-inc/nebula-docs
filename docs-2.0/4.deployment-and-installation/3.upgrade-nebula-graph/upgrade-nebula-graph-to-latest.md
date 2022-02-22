@@ -143,7 +143,7 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
   ```
 
   - `old_storage_data_path` indicates the path of the Storage data. It is defined by the `data_path` parameter in the Storage configuration files.
-  - `data_backup_path` indicates a custom path for data backup. **This option does not work for the current version and the old data will not be backed up to this path.**
+  - `data_backup_path` indicates a custom path for data backup. **This option does not work for the current version and the old data will not be backed up to any path.**
   - `meta_server_ip` and `port` indicate the IP address and port number of a Meta server.
   - `2:3` indicates that the upgrade is from version 2.x to 3.x.
 
