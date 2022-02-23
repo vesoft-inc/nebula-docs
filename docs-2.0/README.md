@@ -4,6 +4,7 @@
 
     A [new version](https://docs.nebula-graph.io/) has been released.
 
+
 <!--
 
 !!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
