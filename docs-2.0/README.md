@@ -5,6 +5,7 @@
     A [new version](https://docs.nebula-graph.io/) has been released.
 
 <!--
+
 !!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
 
 
@@ -29,11 +30,11 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 ## Symbols used in this manual
 
-<!-- 
+
 This manual has over 40 cautions.
 This manual has over 30 dangers.
 This manual has over 80 compatibilities and corresponding tips.
--->
+
 
 !!! note
 
@@ -66,4 +67,5 @@ This manual has over 80 compatibilities and corresponding tips.
 ## Modify errors
  
 This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
+
 -->
