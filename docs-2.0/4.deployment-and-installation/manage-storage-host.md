@@ -10,6 +10,10 @@ Add the Storage hosts to a Nebula Graph cluster.
 ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
 ```
 
+!!! note
+
+  To make sure the follow-up operations work as expected, wait for two heartbeat cycles, i.e., 20 seconds, and then run `SHOW HOSTS` to check whether the host is online.
+
 ## Drop Storage hosts
 
 Delete the Storage hosts from cluster.
