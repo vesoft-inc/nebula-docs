@@ -21,7 +21,7 @@ The version correspondence between Nebula Analytics and Nebula Graph is as follo
 
 |Nebula Analytics|Nebula Graph|
 |:---|:---|
-|{{analytics.release}}|{{nebula.release}}|
+|{{nebula-analytics.release}}|{{nebula.release}}|
 
 ## Graph algorithms
 
@@ -58,7 +58,7 @@ The preparations for compiling Nebula Analytics are similar to compiling Nebula 
 1. Clone the `analytics` repository.
 
   ```bash
-  $ git clone -b {{analytics.branch}} https://github.com/vesoft-inc/nebula-analytics.git
+  $ git clone -b {{nebula-analytics.branch}} https://github.com/vesoft-inc/nebula-analytics.git
   ```
 
 2. Access the `nebula-analytics` directory.
