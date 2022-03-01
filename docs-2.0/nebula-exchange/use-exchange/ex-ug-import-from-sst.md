@@ -210,7 +210,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     }
 
     # The connection parameters of clients
-    connection {
+    connection: {
       # The timeout duration of socket connection and execution. Unit: milliseconds.
       timeout: 30000
     }
