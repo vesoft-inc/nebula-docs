@@ -1,8 +1,12 @@
 # Keywords
 
-Keywords have significance in nGQL. It can be classified into reserved keywords and non-reserved keywords.
+Keywords have significance in nGQL. It can be classified into reserved keywords and non-reserved keywords. It is not recommend to use keywords in schema.
 
-Non-reserved keywords are permitted as identifiers without quoting. To use special characters or reserved keywords as identifiers, quote them with backticks such as `AND`.
+If you must use keywords in schema:
+
+- Non-reserved keywords are permitted as identifiers without quoting. 
+
+- To use special characters or reserved keywords as identifiers, quote them with backticks such as `AND`.
 
 !!! Note
 
