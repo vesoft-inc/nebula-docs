@@ -135,7 +135,7 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 * Use the following syntax to install with a DEB package.
 
   ```bash
-  $ sudo dpkg -i --instdir==<installation_path> <package_name>
+  $ sudo dpkg -i --instdir=<installation_path> <package_name>
   ```
 
   For example, to install a DEB package in the default path for the {{nebula.release}} version.
