@@ -1,6 +1,11 @@
 # Change Log
 
-## v3.2.1 (2020.02.17)
+## v3.2.2 (2022.03.08)
+
+- Fix:
+  - Fix the verification problem of Chinese and special characters.
+
+## v3.2.1 (2022.02.17)
 
 - Fix:
   - Remove the node environment check before rpm installation.
