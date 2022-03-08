@@ -167,7 +167,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       cores: 1
       maxResultSize: 1G
     }
-    cores {
+    cores: {
       max: 16
     }
   }
@@ -195,11 +195,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     pswd: nebula
     # Fill in the name of the graph space you want to write data to in the Nebula Graph.
     space: basketballplayer
-    connection {
+    connection: {
       timeout: 3000
       retry: 3
     }
-    execution {
+    execution: {
       retry: 3
     }
     error: {

@@ -124,9 +124,9 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 * Nebula Graph is running normally if the following information is returned.
 
     ```bash
-    [INFO] nebula-metad(de03025): Running as 26601, Listening on 9559
-    [INFO] nebula-graphd(de03025): Running as 26644, Listening on 9669
-    [INFO] nebula-storaged(de03025): Running as 26709, Listening on 9779
+    [INFO] nebula-metad(02b2091): Running as 26601, Listening on 9559
+    [INFO] nebula-graphd(02b2091): Running as 26644, Listening on 9669
+    [INFO] nebula-storaged(02b2091): Running as 26709, Listening on 9779
     ```
 
 * If the returned result is similar to the following one, there is a problem. You may also go to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help.

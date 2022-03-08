@@ -76,6 +76,9 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
 
 - Locate the data files based on the value of the `data_path` parameters in the Storage and Meta configurations, and backup the data files. The default paths are `nebula/data/storage` and `nebula/data/meta`.
 
+  !!! danger
+        The old data will not be automatically backed up during the upgrade. You must manually back up the data to avoid data loss.
+
 - Backup the configuration files.
 
 - Collect the statistics of all graph spaces before the upgrade. After the upgrade, you can collect again and compare the results to make sure that no data is lost. To collect the statistics:
@@ -126,8 +129,8 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
 
 5. Use the new db_upgrader file in the `bin` directory to upgrade the format of old data.
 
-  !!! caution
-        This step backs up the Storage data. But to prevent backup failures and data loss, before executing this step, make sure that you have followed the **Preparations before the upgrade** section and backed up the Meta data and Storage data.
+  !!! danger
+        This step DOES NOT back up the Storage data. To avoid data loss, before executing this step, make sure that you have followed the **Preparations before the upgrade** section and backed up the Meta data and Storage data.
 
   Command syntax:
 
@@ -140,7 +143,7 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
   ```
 
   - `old_storage_data_path` indicates the path of the Storage data. It is defined by the `data_path` parameter in the Storage configuration files.
-  - `data_backup_path` indicates a custom path for data backup.
+  - `data_backup_path` indicates a custom path for data backup. **This option does not work for the current version and the old data will not be backed up to any path.**
   - `meta_server_ip` and `port` indicate the IP address and port number of a Meta server.
   - `2:3` indicates that the upgrade is from version 2.x to 3.x.
 

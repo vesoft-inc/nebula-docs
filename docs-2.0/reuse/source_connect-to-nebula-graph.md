@@ -30,11 +30,7 @@ If you do not have a Nebula Graph database yet, we recommend that you try the cl
 
         We recommend that you select the **latest** release.
 
-    ![Select a Nebula Graph version and click **Assets**](../reuse/console-1.png "Click Assets to show the available Nebula Graph binary files")
-
 2. In the **Assets** area, find the correct binary file for the machine where you want to run Nebula Console and download the file to the machine.
-
-    ![Click to download the package according to your hardware architecture](../reuse/assets-1.png "Click the package name to download it")
 
 3. (Optional) Rename the binary file to `nebula-console` for convenience.
 
