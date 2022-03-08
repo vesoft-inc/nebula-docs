@@ -55,6 +55,14 @@
   
 
 
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-60523578-15","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
     
     
   </head>
@@ -291,6 +299,48 @@
   
   
     <li class="md-nav__item">
+      <a href="../../0-0-graph/" class="md-nav__link">
+        Introduction to graphs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-1-graph-database/" class="md-nav__link">
+        Graph databases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-2.relates/" class="md-nav__link">
+        Related technologies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../1.what-is-nebula-graph/" class="md-nav__link">
         What is Nebula Graph
       </a>
@@ -352,18 +402,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_2_5">
+        <label class="md-nav__link" for="__nav_2_8">
           Nebula Graph architecture
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Nebula Graph architecture" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_5">
+        <label class="md-nav__title" for="__nav_2_8">
           <span class="md-nav__icon md-icon"></span>
           Nebula Graph architecture
         </label>
@@ -469,7 +519,14 @@
     KVStore
   </a>
   
-    <nav class="md-nav" aria-label="KVStore">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data_storage_structure" class="md-nav__link">
+    Data storage structure
+  </a>
+  
+    <nav class="md-nav" aria-label="Data storage structure">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -491,6 +548,13 @@
   
     <nav class="md-nav" aria-label="Data partitioning">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edge_partitioning_and_storage_amplification" class="md-nav__link">
+    Edge partitioning and storage amplification
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#partition_algorithm" class="md-nav__link">
@@ -5943,6 +6007,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.appendix/history/" class="md-nav__link">
+        History timeline
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -6024,7 +6102,14 @@
     KVStore
   </a>
   
-    <nav class="md-nav" aria-label="KVStore">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data_storage_structure" class="md-nav__link">
+    Data storage structure
+  </a>
+  
+    <nav class="md-nav" aria-label="Data storage structure">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6046,6 +6131,13 @@
   
     <nav class="md-nav" aria-label="Data partitioning">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edge_partitioning_and_storage_amplification" class="md-nav__link">
+    Edge partitioning and storage amplification
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#partition_algorithm" class="md-nav__link">
@@ -6214,67 +6306,113 @@
 <ul>
 <li>One Nebula Graph KVStore cluster supports multiple graph spaces, and each graph space has its own partition number and replica copies. Different graph spaces are isolated physically from each other in the same cluster.</li>
 </ul>
-<!--
-## Data storage formats
-
-Nebula Graph stores vertices and edges. Efficient property filtering is critical for a Graph Database. So, Nebula Graph uses keys to store vertices and edges, while uses values to store the related properties.
-
-Nebula Graph 2.0 has changed a lot over its releases. The following will introduce the old and new data storage formats and cover their differences.
-
-- Vertex format
-
-    ![The vertex format of storage service](https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-vertex-format.png)
-
-    |Field|Description|
-    |:---|:---|
-    |`Type`|One byte, used to indicate the key type.|
-    |`PartID`|Three bytes, used to indicate the sharding partition and to scan the partition data based on the prefix when re-balancing the partition.|
-    |`VertexID`|Used to indicate vertex ID. For an integer VertexID, it occupies eight bytes. However, for a string VertexID, it is changed to `fixed_string` of a fixed length which needs to be specified by users when they create the space.|
-    |`TagID`|Four bytes, used to indicate the tags that vertex relate with.|
-
-- Edge Format
-
-    ![The edge format of storage service](https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/storage-edge-format.png)
-
-    |Field|Description|
-    |:---|:---|
-    |`Type`|One byte, used to indicate the key type.|
-    |`PartID`|Three bytes, used to indicate the sharding partition. This field can be used to scan the partition data based on the prefix when re-balancing the partition.|
-    |`VertexID`|Used to indicate vertex ID. The former VID refers to source VID in out-edge and dest VID in in-edge, while the latter VID refers to dest VID in out-edge and source VID in in-edge.|
-    |`Edge Type`|Four bytes, used to indicate edge type. Greater than zero means out-edge, less than zero means in-edge.|
-    |`Rank`|Eight bytes, used to indicate multiple edges in one edge type. Users can set the field based on needs and store weight, such as transaction time and transaction number.|
-    |`PlaceHolder`|One byte. Reserved.|
--->
-
+<h2 id="data_storage_structure">Data storage structure<a class="headerlink" href="#data_storage_structure" title="Permanent link">&para;</a></h2>
+<p>Graphs consist of vertices and edges. Nebula Graph uses key-value pairs to store vertices, edges, and their properties. Vertices and edges are stored in keys and their properties are stored in values. Such structure enables efficient property filtering.</p>
+<ul>
+<li>
+<p>The storage structure of vertices</p>
+<p>Different from Nebula Graph version 2.x, version 3.x added a new key for each vertex. Compared to the old key that still exists, the new key has no <code>TagID</code> field and no value. Vertices in Nebula Graph can now live without tags owing to the new key.</p>
+<p><img alt="The vertex structure of Nebula Graph" src="https://github.com/vesoft-inc/nebula-docs-cn/blob/v3.0.0/docs-2.0/1.introduction/3.nebula-graph-architecture/3.0-vertex-key.png?raw=true" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Type</code></td>
+<td align="left">One byte, used to indicate the key type.</td>
+</tr>
+<tr>
+<td align="left"><code>PartID</code></td>
+<td align="left">Three bytes, used to indicate the sharding partition and to scan the partition data based on the prefix when re-balancing the partition.</td>
+</tr>
+<tr>
+<td align="left"><code>VertexID</code></td>
+<td align="left">The vertex ID. For an integer VertexID, it occupies eight bytes. However, for a string VertexID, it is changed to <code>fixed_string</code> of a fixed length which needs to be specified by users when they create the space.</td>
+</tr>
+<tr>
+<td align="left"><code>TagID</code></td>
+<td align="left">Four bytes, used to indicate the tags that vertex relate with.</td>
+</tr>
+<tr>
+<td align="left"><code>SerializedValue</code></td>
+<td align="left">The serialized value of the key. It stores the property information of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>The storage structure of edges<p><img alt="The edge structure of Nebula Graph" src="https://github.com/vesoft-inc/nebula-docs-cn/blob/v3.0.0/docs-2.0/1.introduction/3.nebula-graph-architecture/3.0-edge-key.png?raw=true" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>Type</code></td>
+<td align="left">One byte, used to indicate the key type.</td>
+</tr>
+<tr>
+<td align="left"><code>PartID</code></td>
+<td align="left">Three bytes, used to indicate the partition ID. This field can be used to scan the partition data based on the prefix when re-balancing the partition.</td>
+</tr>
+<tr>
+<td align="left"><code>VertexID</code></td>
+<td align="left">Used to indicate vertex ID. The former VID refers to the source VID in the outgoing edge and the dest VID in the incoming edge, while the latter VID refers to the dest VID in the outgoing edge and the source VID in the incoming edge.</td>
+</tr>
+<tr>
+<td align="left"><code>Edge Type</code></td>
+<td align="left">Four bytes, used to indicate the edge type. Greater than zero indicates out-edge, less than zero means in-edge.</td>
+</tr>
+<tr>
+<td align="left"><code>Rank</code></td>
+<td align="left">Eight bytes, used to indicate multiple edges in one edge type. Users can set the field based on needs and store weight, such as transaction time and transaction number.</td>
+</tr>
+<tr>
+<td align="left"><code>PlaceHolder</code></td>
+<td align="left">One byte. Reserved.</td>
+</tr>
+<tr>
+<td align="left"><code>SerializedValue</code></td>
+<td align="left">The serialized value of the key. It stores the property information of the edge.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 <h3 id="property_descriptions">Property descriptions<a class="headerlink" href="#property_descriptions" title="Permanent link">&para;</a></h3>
 <p>Nebula Graph uses strong-typed Schema.</p>
 <p>Nebula Graph will store the properties of vertex and edges in order after encoding them. Since the length of properties is fixed, queries can be made in no time according to offset. Before decoding, Nebula Graph needs to get (and cache) the schema information in the Meta Service. In addition, when encoding properties, Nebula Graph will add the corresponding schema version to support online schema change.</p>
 <h2 id="data_partitioning">Data partitioning<a class="headerlink" href="#data_partitioning" title="Permanent link">&para;</a></h2>
 <p>Since in an ultra-large-scale relational network, vertices can be as many as tens to hundreds of billions, and edges are even more than trillions. Even if only vertices and edges are stored, the storage capacity of both exceeds that of ordinary servers. Therefore, Nebula Graph uses hash to shard the graph elements and store them in different partitions.</p>
 <p><img alt="data partitioning" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" /></p>
-<!--
-### Edge and storage amplification
-
-In Nebula Graph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the figure below.
-
-![edge storage](https://docs-cdn.nebula-graph.com.cn/docs-2.0/1.introduction/2.nebula-graph-architecture/two-edge-format.png)
-
-In this example, ScrVertex connects DstVertex via EdgeA, forming the path of `(SrcVertex)-[EdgeA]->(DstVertex)`. ScrVertex, DstVertex, and EdgeA will all be stored in Partition x and Partition y as four key-value pairs in the storage layer. Details are as follows:
-
-* The key value of SrcVertex is stored in Partition x. Key fields include Type, PartID(x), VID(Src), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.
-
-* The first key value of EdgeA, namely EdgeA_Out, is stored in the same partition as the ScrVertex. Key fields include Type, PartID(x), VID(Src), EdgeType(+ means out-edge), Rank(0), VID(Dst), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties.
-
-* The key value of DstVertex is stored in Partition y. Key fields include Type, PartID(y), VID(Dst), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.
-
-* The second key value of EdgeA, namely EdgeA_In, is stored in the same partition as the DstVertex. Key fields include Type, PartID(y), VID(Dst), EdgeType(- means in-edge), Rank(0), VID(Src), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties, which is exactly the same as that in EdgeA_Out.
-
-EdgeA_Out and EdgeA_In are stored in storage layer with opposite directions, constituting EdgeA logically. EdgeA_Out is used for traversal requests starting from SrcVertex, such as `(a)-[]->()`; EdgeA_In is used for traversal requests starting from DstVertex, such as `()-[]->(a)`.
-
-Like EdgeA_Out and EdgeA_In, Nebula Graph redundantly stores the information of each edge, which doubles the actual capacities needed for edge storage. The key corresponding to the edge occupies a small hard disk space, but the space occupied by Value is proportional to the length and amount of the property value. Therefore, it will occupy a relatively large hard disk space if the property value of the edge is large or there are many edge property values.
-
-To ensure the final consistency of the two key-value pairs when operating on edges, enable the [TOSS function](../../5.configurations-and-logs/1.configurations/3.graph-config.md ). After that, the operation will be performed in Partition x first where the out-edge is located, and then in Partition y where the in-edge is located. Finally, the result is returned.
--->
+<h3 id="edge_partitioning_and_storage_amplification">Edge partitioning and storage amplification<a class="headerlink" href="#edge_partitioning_and_storage_amplification" title="Permanent link">&para;</a></h3>
+<p>In Nebula Graph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the figure below.</p>
+<p><img alt="partitioning by edge" src="https://github.com/vesoft-inc/nebula-docs-cn/blob/v3.0.0/docs-2.0/1.introduction/3.nebula-graph-architecture/edge-division.png?raw=true" /></p>
+<p>In this example, ScrVertex connects DstVertex via EdgeA, forming the path of <code>(SrcVertex)-[EdgeA]-&gt;(DstVertex)</code>. ScrVertex, DstVertex, and EdgeA will all be stored in Partition x and Partition y as four key-value pairs in the storage layer. Details are as follows:</p>
+<ul>
+<li>The key value of SrcVertex is stored in Partition x. Key fields include Type, PartID(x), VID(Src), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.</li>
+</ul>
+<ul>
+<li>The first key value of EdgeA, namely EdgeA_Out, is stored in the same partition as the ScrVertex. Key fields include Type, PartID(x), VID(Src), EdgeType(+ means out-edge), Rank(0), VID(Dst), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties.</li>
+</ul>
+<ul>
+<li>The key value of DstVertex is stored in Partition y. Key fields include Type, PartID(y), VID(Dst), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.</li>
+</ul>
+<ul>
+<li>The second key value of EdgeA, namely EdgeA_In, is stored in the same partition as the DstVertex. Key fields include Type, PartID(y), VID(Dst), EdgeType(- means in-edge), Rank(0), VID(Src), and PlaceHolder. SerializedValue, namely Value, refers to serialized edge properties, which is exactly the same as that in EdgeA_Out.</li>
+</ul>
+<p>EdgeA_Out and EdgeA_In are stored in storage layer with opposite directions, constituting EdgeA logically. EdgeA_Out is used for traversal requests starting from SrcVertex, such as <code>(a)-[]-&gt;()</code>; EdgeA_In is used for traversal requests starting from DstVertex, such as <code>()-[]-&gt;(a)</code>.</p>
+<p>Like EdgeA_Out and EdgeA_In, Nebula Graph redundantly stores the information of each edge, which doubles the actual capacities needed for edge storage. The key corresponding to the edge occupies a small hard disk space, but the space occupied by Value is proportional to the length and amount of the property value. Therefore, it will occupy a relatively large hard disk space if the property value of the edge is large or there are many edge property values.</p>
+<p>To ensure the final consistency of the two key-value pairs when operating on edges, enable the <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">TOSS function</a>. After that, the operation will be performed in Partition x first where the out-edge is located, and then in Partition y where the in-edge is located. Finally, the result is returned.
+--&gt;</p>
 <h3 id="partition_algorithm">Partition algorithm<a class="headerlink" href="#partition_algorithm" title="Permanent link">&para;</a></h3>
 <p>Nebula Graph uses a <strong>static Hash</strong> strategy to shard data through a modulo operation on vertex ID. All the out-keys, in-keys, and tag data will be placed in the same partition. In this way, query efficiency is increased dramatically.</p>
 <div class="admonition note">
