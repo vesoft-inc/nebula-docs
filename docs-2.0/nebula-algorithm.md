@@ -2,6 +2,18 @@
 
 [Nebula Algorithm](https://github.com/vesoft-inc/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
 
+## Version compatibility
+
+The correspondence between the Nebula Algorithm release and the Nebula Graph core release is as follows.
+
+|Algorithm client|Nebula Graph|
+|:---|:---|
+|3.0-SNAPSHOT         |  nightly       |
+|{{algorithm.release}}|  {{nebula.release}}  |
+|  2.6.x              |  2.6.x  |
+|  2.5.0              |  2.5.0、2.5.1  |
+|  2.1.0              |  2.0.0、2.0.1  |
+
 ## Prerequisites
 
 Before using the Nebula Algorithm, users need to confirm the following information:
@@ -22,6 +34,27 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 - Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
 
+- When writing the algorithm results into the Nebula Graph, make sure that the Tag in the corresponding graph space has properties corresponding to the algorithm result name. The corresponding properties of each algorithm are as follows.
+
+  |        Algorithm         |     Properties name      |Properties type|
+  |:------------------------:|:-----------------------:|:-----------:|
+  |         pagerank         |         pagerank        |double/string|
+  |          louvain         |          louvain        | int/string  |
+  |          kcore           |           kcore         | int/string  |
+  |     labelpropagation     |           lpa           | int/string  |
+  |   connectedcomponent     |            cc           | int/string  |
+  |stronglyconnectedcomponent|            scc          | int/string  |
+  |         betweenness      |         betweenness     |double/string|
+  |        shortestpath      |        shortestpath     |   string    |
+  |        degreestatic      |degree,inDegree,outDegree| int/string  |
+  |        trianglecount     |       trianglecount     | int/string  |
+  |  clusteringcoefficient   |    clustercoefficient   |double/string|
+  |         closeness        |         closeness       |double/string|
+  |            hanp          |            hanp         | int/string  |
+  |            bfs           |            bfs          |    string   |
+  |         jaccard          |          jaccard        |    string   |
+  |        node2vec          |          node2vec       |    string   |
+
 ## Supported algorithms
 
 The graph computing algorithms supported by Nebula Algorithm are as follows.
@@ -32,14 +65,19 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 | Louvain   | Community discovery | Community mining, hierarchical clustering|  
 | KCore     | K core | Community discovery, financial risk control|
 | LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|
+| Hanp |Label propagation advanced |Community discovery, recommendation system |
 | ConnectedComponent | Connected component | Community discovery, island discovery|
 | StronglyConnectedComponent |Strongly connected component  | Community discovery |
 | ShortestPath     |The shortest path | Path planning, network planning |
 | TriangleCount    |Triangle counting | Network structure analysis|
-|  GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
+| GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
 | BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |
+| Closeness | Closeness centrality |Key node mining, node influence computing|
 | DegreeStatic    |Degree of statistical | Graph structure analysis|
-| ClusteringCoefficient | Recommendation system, telecom fraud analysis|
+| ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|
+| Jaccard | Jaccard similarity | Similarity computing, recommendation system|
+| BFS       | Breadth-First Search| Sequence traversal, shortest path planning|
+| Node2Vec  |     -     | Graph classification         |
 
 ## Implementation methods
 
@@ -75,11 +113,11 @@ For detailed implementation methods, see [Scala file](https://github.com/vesoft-
   $ mvn clean package -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
   ```
 
-After the compilation, a similar file `nebula-algorithm-{{algorithm.release}}.jar` is generated in the directory `nebula-algorithm/target`.
+After the compilation, a similar file `nebula-algorithm-3.x.x.jar` is generated in the directory `nebula-algorithm/target`.
 
 ### Download maven from the remote repository
 
-[Download address](https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/{{algorithm.release}}/)
+[Download address](https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/)
 
 ## How to use
 
@@ -208,15 +246,16 @@ The `lib` repository provides 10 common graph algorithms.
 
 
     algorithm: {
-      # The algorithm to execute. Optional values are pagerank, louvain, connectedcomponent,
-      # labelpropagation, shortestpaths, degreestatic, kcore,
-      # stronglyconnectedcomponent, trianglecount, betweenness,
+      # The algorithm to execute. Optional values are as follow: 
+      # pagerank, louvain, connectedcomponent, labelpropagation, shortestpaths, 
+      # degreestatic, kcore, stronglyconnectedcomponent, trianglecount ,
+      # betweenness, graphtriangleCount.
       executeAlgo: pagerank
  
       # PageRank
       pagerank: {
           maxIter: 10
-          resetProb: 0.15  # The default value is 0.15
+          resetProb: 0.15 
       }
  
       # Louvain
@@ -226,38 +265,8 @@ The `lib` repository provides 10 common graph algorithms.
           tol: 0.5
       }
 
-     # ConnectedComponent/StronglyConnectedComponent
-     connectedcomponent: {
-         maxIter: 20
-     }
+     # ...
 
-     # LabelPropagation
-     labelpropagation: {
-         maxIter: 20
-     }
-
-      # ShortestPath
-      shortestpaths: {
-          # several vertices to compute the shortest path to all vertices.
-          landmarks: "1"
-      }
-
-      # DegreeStatic
-      degreestatic: {}
-
-      # KCore
-      kcore:{
-          maxIter:10
-          degree:1
-      }
-
-      # TriangleCount
-      trianglecount:{}
- 
-      # BetweennessCentrality
-      betweenness:{
-          maxIter:5
-      }
   }
   }
   ```
@@ -271,5 +280,5 @@ The `lib` repository provides 10 common graph algorithms.
   Example:
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-{{algorithm.release}}.jar -p /root/nebula-algorithm/src/main/resources/application.conf
+  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-3.0-SNAPSHOT.jar -p /root/nebula-algorithm/src/main/resources/application.conf
   ```

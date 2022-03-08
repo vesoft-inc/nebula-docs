@@ -10,16 +10,17 @@ This topic describes how to deploy Explorer locally by RPM and tar packages.
 
 | Nebula Graph version | Explorer version |
 | --- | --- |
-| 2.5.x | 2.0.0 |
+| 2.5.x ~ 3.0.0| 2.2.0|
 | 2.6.x | 2.1.0 |
+| 2.5.x | 2.0.0 |
 
-## RPM-based Explorer
+## RPM-based deployment
 
 ### Prerequisites
 
 Before you deploy Explorer, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../4.deployment-and-installation/1.resource-preparations.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -39,7 +40,7 @@ Before you deploy Explorer, you must do a check of these:
 
         License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
 
-### Install
+### Installation
 
 1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
@@ -82,21 +83,21 @@ Before you deploy Explorer, you must do a check of these:
 
 You can use SystemCTL to start and stop the service.
 
-   ```bash
-   $ systemctl status nebula-explorer #Check the status
-   $ systemctl stop nebula-explorer #Stop the service
-   $ systemctl start nebula-explorer #Start the service
-   ```
+```bash
+$ systemctl status nebula-explorer #Check the status
+$ systemctl stop nebula-explorer #Stop the service
+$ systemctl start nebula-explorer #Start the service
+```
 
 You can also start or stop the service manually using the following command in the installation directory.
 
-   ```bash
-   $ cd ./scripts/rpm
-   $ bash ./start.sh #Start the service
-   $ bash ./stop.sh #Stop the service
-   ```
+  ```bash
+  $ cd ./scripts/rpm
+  $ bash ./start.sh #Start the service
+  $ bash ./stop.sh #Stop the service
+  ```
 
-### Uninstall
+### Uninstallation
 
 You can uninstall Explorer using the following command:
 
@@ -104,7 +105,7 @@ You can uninstall Explorer using the following command:
 $ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 ```
 
-## tar-based Explorer
+## TAR-based deployment
 
 ### Prerequisites
 
@@ -130,15 +131,15 @@ Before deploying Explorer, you must check the following information:
 
         License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
 
-### Install and deploy
+### Installation
 
-1. Select and download the tar package according to your needs. It is recommended to select the latest version. Common links are as follows:
+1. Select and download the TAR package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
   !!! enterpriseonly
 
         Explorer is only available in the Enterprise Edition. Click [Pricing](https://nebula-graph.io/pricing/) to see more.
 
-2. Use `tar -xvf` to decompress the tar package.
+2. Use `tar -xvf` to decompress the TAR package.
 
    ```bash
    $ tar -xvf nebula-graph-explorer-<version>.tar.gz
@@ -174,8 +175,12 @@ $ kill $(lsof -t -i :7002)
 
 When Explorer is started, use `http://<ip_address>:7002` to get access to Explorer.
 
-Seeing the following login interface, Explorer is successfully connected to Nebula Graph.
+The following login page shows that Explorer is successfully connected to Nebula Graph.
 
-![Nebula Explorer](../figs/ex-ug-002-1.png)
+![Nebula Explorer Login page](../figs/explorer_deploy.png)
+
+!!! note
+
+    When logging into Nebula Explorer for the first time, the content of *END USER LICENSE AGREEMENT* is displayed on the login page. Please read it and then click **I agree**.
 
 After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).

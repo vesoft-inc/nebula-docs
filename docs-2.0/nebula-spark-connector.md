@@ -227,7 +227,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSpace`  |Yes|  Nebula Graph space name.  |
   |`withTag`  |Yes|  The Tag name that needs to be associated when a vertex is written.  |
   |`withVidField`  |Yes|  The column in the DataFrame as the vertex ID.  |
-  |`withVidPolicy`  |No|  When writing the vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.  |
+  |`withVidPolicy`  |No|  When writing the vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.  |
   |`withVidAsProp`  |No|  Whether the column in the DataFrame that is the vertex ID is also written as an property. The default value is `false`. If set to `true`, make sure the Tag has the same property name as `VidField`.  |
   |`withUser`  |No|  Nebula Graph user name. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.   |
   |`withPasswd`  |No|  The password for the Nebula Graph user name.  |
@@ -241,9 +241,9 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSpace`  |Yes|  Nebula Graph space name.  |
   |`withEdge`  |Yes|  The Edge type name that needs to be associated when a edge is written.  |
   |`withSrcIdField`  |Yes|  The column in the DataFrame as the vertex ID.  |
-  |`withSrcPolicy`  |No| When writing the starting vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.   |
+  |`withSrcPolicy`  |No| When writing the starting vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.   |
   |`withDstIdField`  |Yes| The column in the DataFrame that serves as the destination vertex.   |
-  |`withDstPolicy`  |No| When writing the destination vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.   |
+  |`withDstPolicy`  |No| When writing the destination vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.   |
   |`withRankField`  |No| The column in the DataFrame as the rank. Rank is not written by default.   |
   |`withSrcAsProperty`  |No| Whether the column in the DataFrame that is the starting vertex is also written as an property.  The default value is `false`. If set to `true`, make sure Edge type has the same property name as `SrcIdField`.   |
   |`withDstAsProperty`  |No| Whether column that are destination vertex in the DataFrame are also written as property. The default value is `false`. If set to `true`, make sure Edge type has the same property name as `DstIdField`.   |

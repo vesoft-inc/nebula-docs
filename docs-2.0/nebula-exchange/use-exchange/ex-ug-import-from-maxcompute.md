@@ -261,6 +261,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         field: dst_player
       }
 
+      # (Optional) Specify a column as the source of the rank.
+      #ranking: rank
+
       # The number of Spark partitions.
       partition:10
 
@@ -291,6 +294,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       target:{
         field: teamid
       }
+
+      # (Optional) Specify a column as the source of the rank.
+      #ranking: rank
+
       partition:10
       batch:10
     }

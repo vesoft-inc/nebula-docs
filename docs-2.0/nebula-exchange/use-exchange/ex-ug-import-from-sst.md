@@ -168,7 +168,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   # Spark configuration
   spark: {
     app: {
-      name: Nebula Exchange 2.0
+      name: Nebula Exchange {{exchange.release}}
     }
 
     master:local
@@ -278,6 +278,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
     # Set the information about the Tag Team.
@@ -323,6 +326,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
 
@@ -381,6 +387,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
     # Set the information about the Edge Type serve.
@@ -432,6 +441,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
   ]

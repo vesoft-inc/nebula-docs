@@ -282,7 +282,7 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
 ### Step 4: Check the cluster status
 
-Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md#_1), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
+Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
 
 ```bash
 $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
@@ -291,14 +291,13 @@ $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
 Welcome to Nebula Graph!
 
 > SHOW HOSTS;
-+------------------+------+----------+--------------+----------------------+------------------------+
-| Host             | Port | Status   | Leader count | Leader distribution  | Partition distribution |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.111" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-| "192.168.10.112" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-| "192.168.10.113" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-| "192.168.10.114" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-| "192.168.10.115" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-| "Total"          |      |          | 0            |                      |                        |
-+------------------+------+----------+--------------+----------------------+------------------------+
++------------------+------+----------+--------------+----------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version |
++------------------+------+----------+--------------+----------------------+------------------------+---------+
+| "192.168.10.111" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.0.0" |
+| "192.168.10.112" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.0.0" |
+| "192.168.10.113" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.0.0" |
+| "192.168.10.114" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.0.0" |
+| "192.168.10.115" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.0.0" |
++------------------+------+----------+--------------+----------------------+------------------------+---------+
 ```

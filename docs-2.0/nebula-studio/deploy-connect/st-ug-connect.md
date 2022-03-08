@@ -35,13 +35,13 @@ To connect Studio to Nebula Graph, follow these steps:
 
   - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph.
  
-     - If authentication is not enabled, you can use `root` and any password as the username and its password.
+    - If authentication is not enabled, you can use `root` and any password as the username and its password.
 
-     - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
+    - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
 
-     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
-
-   ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050-1.png "Config Server")
+    - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
+    
+    ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050-1.png "Config Server")
 
 2. After the configuration, click the **Connect** button.
 

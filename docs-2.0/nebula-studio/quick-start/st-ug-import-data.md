@@ -36,21 +36,22 @@ To batch import data, follow these steps:
 
 7. In the **vertexId** section, do these operations:
 
-   a. In the **CSV Index** column, click **Mapping**.  
-   ![Click "Mapping** in the CSV Index column](../figs/st-ug-032-1.png "Choose the source for vertexId")  
+  a. In the **CSV Index** column, click **Mapping**.  
+  ![Click "Mapping** in the CSV Index column](../figs/st-ug-032-1.png "Choose the source for vertexId")  
 
-   b. In the dialog box, choose a column from the CSV file. In this example, the only one cloumn of `vertex_player.csv` is chosen to generate VIDs representing players and the `playerID` column of `vertex_player.csv` is chosen to generate VIDs representing players.
+  b. In the dialog box, choose a column from the CSV file. In this example, the only one cloumn of `vertex_player.csv` is chosen to generate VIDs representing players and the `playerID` column of `vertex_player.csv` is chosen to generate VIDs representing players.
 
     !!! Note
 
         In the same graph space, the VID is always unique and cannot be repeated. For VID information, see [VID](../../1.introduction/3.vid.md) "Click to enter the Nebula Graph Manual". 
 
 8. In the **TAG 1** section, do these operations:  
-   a. In the **TAG** drop-down list, choose a tag name. In this example, **player** is used for the `vertex_player.csv` file, and **team** is used for the `vertex_team.csv` file.  
 
-   b. In the property list, click **Mapping** to choose a data column from the CSV file as the value of a property. In this example, for the **player** tag, choose **Column 1** for the `age` property and set its type to **int**. And choose **Column 2** for the `name` property and set its type to **string**.
+  a. In the **TAG** drop-down list, choose a tag name. In this example, **player** is used for the `vertex_player.csv` file, and **team** is used for the `vertex_team.csv` file.  
 
-   ![Data source for the course vertices](../figs/st-ug-033-1.png "Choose data source for tag properties")  
+  b. In the property list, click **Mapping** to choose a data column from the CSV file as the value of a property. In this example, for the **player** tag, choose **Column 1** for the `age` property and set its type to **int**. And choose **Column 2** for the `name` property and set its type to **string**.
+
+  ![Data source for the course vertices](../figs/st-ug-033-1.png "Choose data source for tag properties")  
 
 9.  (Optional) If necessary, repeat Step 5 through Step 8 for more tags.  
 
