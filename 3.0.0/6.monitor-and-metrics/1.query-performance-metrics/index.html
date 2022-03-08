@@ -3390,11 +3390,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    Metrics
+  <a href="#metrics_structure" class="md-nav__link">
+    Metrics structure
   </a>
   
-    <nav class="md-nav" aria-label="Metrics">
+    <nav class="md-nav" aria-label="Metrics structure">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3427,6 +3427,47 @@
           <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric_description" class="md-nav__link">
+    Metric description
+  </a>
+  
+    <nav class="md-nav" aria-label="Metric description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph" class="md-nav__link">
+    Graph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta" class="md-nav__link">
+    Meta
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    Storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#space-level" class="md-nav__link">
+    Space-level
   </a>
   
 </li>
@@ -6006,11 +6047,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    Metrics
+  <a href="#metrics_structure" class="md-nav__link">
+    Metrics structure
   </a>
   
-    <nav class="md-nav" aria-label="Metrics">
+    <nav class="md-nav" aria-label="Metrics structure">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6052,6 +6093,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#metric_description" class="md-nav__link">
+    Metric description
+  </a>
+  
+    <nav class="md-nav" aria-label="Metric description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph" class="md-nav__link">
+    Graph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta" class="md-nav__link">
+    Meta
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    Storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#space-level" class="md-nav__link">
+    Space-level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6072,7 +6154,7 @@
 
 <h1 id="query_nebula_graph_metrics">Query Nebula Graph metrics<a class="headerlink" href="#query_nebula_graph_metrics" title="Permanent link">&para;</a></h1>
 <p>Nebula Graph supports querying the monitoring metrics through HTTP ports.</p>
-<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h2 id="metrics_structure">Metrics structure<a class="headerlink" href="#metrics_structure" title="Permanent link">&para;</a></h2>
 <p>Each metric of Nebula Graph consists of three fields: name, type, and time range. The fields are separated by periods, for example, <code>num_queries.sum.600</code>. Different Nebula Graph services (Graph, Storage, or Meta) support different metrics. The detailed description is as follows.</p>
 <table>
 <thead>
@@ -6086,12 +6168,12 @@
 <tr>
 <td>Metric name</td>
 <td><code>num_queries</code></td>
-<td>Indicates the function of the metric. For the detailed description of metrics, see <a href="../../nebula-dashboard/6.monitor-parameter/">Metrics</a>.</td>
+<td>Indicates the function of the metric.</td>
 </tr>
 <tr>
 <td>Metric type</td>
 <td><code>sum</code></td>
-<td>Indicates how the metrics are collected. Supported types are SUM, COUNT, AVG, RATE, and the P-th sample quantiles such as P75, P95, P99, and P99.9.</td>
+<td>Indicates how the metrics are collected. Supported types are SUM, AVG, RATE, and the P-th sample quantiles such as P75, P95, P99, and P99.9.</td>
 </tr>
 <tr>
 <td>Time range</td>
@@ -6102,8 +6184,11 @@
 </table>
 <h3 id="space-level_metrics">Space-level metrics<a class="headerlink" href="#space-level_metrics" title="Permanent link">&para;</a></h3>
 <p>The Graph service supports a set of space-level metrics that record the information of different graph spaces separately.</p>
-<p>The name of space-level metrics contains the corresponding graph space name in the form of <code>{space=space_name}</code>, for example,  <code>query_latency_us{space=basketballplayer}.avg.3600</code>.</p>
 <p>To enable space-level metrics, set the value of <code>enable_space_level_metrics</code> to <code>true</code> in the Graph service configuration file before starting Nebula Graph. For details about how to modify the configuration, see <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Configuration Management</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Space-level metrics can be queried only by querying all metrics, for example, <code>curl -G "http://192.168.8.40:19559/stats"</code>. The return result contains the graph space name in the form of '{space=space_name}', for example, <code>num_active_queries{space=basketballplayer}.sum.5=0</code>.</p>
+</div>
 <h2 id="query_metrics_over_http">Query metrics over HTTP<a class="headerlink" href="#query_metrics_over_http" title="Permanent link">&para;</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>curl -G <span class="s2">&quot;http://&lt;ip&gt;:&lt;port&gt;/stats?stats=&lt;metric_name_list&gt; [&amp;format=json]&quot;</span>
@@ -6204,16 +6289,386 @@ num_heartbeats.sum.5<span class="o">=</span><span class="m">2</span>
 num_heartbeats.sum.60<span class="o">=</span><span class="m">40</span>
 num_heartbeats.sum.600<span class="o">=</span><span class="m">394</span>
 num_heartbeats.sum.3600<span class="o">=</span><span class="m">2364</span>
+...
 </code></pre></div>
 </li>
 </ul>
+<h2 id="metric_description">Metric description<a class="headerlink" href="#metric_description" title="Permanent link">&para;</a></h2>
+<h3 id="graph">Graph<a class="headerlink" href="#graph" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_active_queries</code></td>
+<td>The number of queries currently being executed.</td>
+</tr>
+<tr>
+<td><code>num_active_sessions</code></td>
+<td>The number of currently active sessions.</td>
+</tr>
+<tr>
+<td><code>num_aggregate_executors</code></td>
+<td>The number of executions for the Aggregation operator.</td>
+</tr>
+<tr>
+<td><code>num_auth_failed_sessions_bad_username_password</code></td>
+<td>The number of sessions where authentication failed due to incorrect username and password.</td>
+</tr>
+<tr>
+<td><code>num_auth_failed_sessions_out_of_max_allowed</code></td>
+<td>The number of session that failed to authenticate logins because the parameter <code>FLAG_OUT_OF_MAX_ALLOWED_CONNECTIONS</code> was exceeded.</td>
+</tr>
+<tr>
+<td><code>num_auth_failed_sessions</code></td>
+<td>The number of sessions in which login authentication failed.</td>
+</tr>
+<tr>
+<td><code>num_indexscan_executors</code></td>
+<td>The number of executions for index scan operators.</td>
+</tr>
+<tr>
+<td><code>num_killed_queries</code></td>
+<td>The number of killed queries.</td>
+</tr>
+<tr>
+<td><code>num_opened_sessions</code></td>
+<td>The number of sessions connected to the server.</td>
+</tr>
+<tr>
+<td><code>num_queries</code></td>
+<td>The number of queries.</td>
+</tr>
+<tr>
+<td><code>num_query_errors_leader_changes</code></td>
+<td>The number of the raft leader changes due to query errors.</td>
+</tr>
+<tr>
+<td><code>num_query_errors</code></td>
+<td>The number of query errors.</td>
+</tr>
+<tr>
+<td><code>num_reclaimed_expired_sessions</code></td>
+<td>The number of expired sessions actively reclaimed by the server.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_metad_failed</code></td>
+<td>The number of failed RPC requests that the Graphd service sends to the Metad service.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_metad</code></td>
+<td>The number of RPC requests that the Graphd service sent to the Metad service.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_storaged_failed</code></td>
+<td>The number of failed RPC requests that the Graphd service sent to the Storaged service.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_storaged</code></td>
+<td>The number of RPC requests that the Graphd service sent to the Storaged service.</td>
+</tr>
+<tr>
+<td><code>num_sentences</code></td>
+<td>The number of statements received by the Graphd service.</td>
+</tr>
+<tr>
+<td><code>num_slow_queries</code></td>
+<td>The number of slow queries.</td>
+</tr>
+<tr>
+<td><code>num_sort_executors</code></td>
+<td>The number of executions for the Sort operator.</td>
+</tr>
+<tr>
+<td><code>optimizer_latency_us</code></td>
+<td>The latency of executing optimizer statements.</td>
+</tr>
+<tr>
+<td><code>query_latency_us</code></td>
+<td>The average latency of queries.</td>
+</tr>
+<tr>
+<td><code>slow_query_latency_us</code></td>
+<td>The average latency of slow queries.</td>
+</tr>
+<tr>
+<td><code>num_queries_hit_memory_watermark</code></td>
+<td>The number of queries that reached the memory water mark.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="meta">Meta<a class="headerlink" href="#meta" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>commit_log_latency_us</code></td>
+<td>The latency of committing logs in Raft.</td>
+</tr>
+<tr>
+<td><code>commit_snapshot_latency_us</code></td>
+<td>The latency of committing snapshots in Raft.</td>
+</tr>
+<tr>
+<td><code>heartbeat_latency_us</code></td>
+<td>The latency of heartbeats.</td>
+</tr>
+<tr>
+<td><code>num_heartbeats</code></td>
+<td>The number of heartbeats.</td>
+</tr>
+<tr>
+<td><code>num_raft_votes</code></td>
+<td>The number of votes in Raft.</td>
+</tr>
+<tr>
+<td><code>transfer_leader_latency_us</code></td>
+<td>The latency of transferring the raft leader.</td>
+</tr>
+<tr>
+<td><code>num_agent_heartbeats</code></td>
+<td>The number of heartbeats for the AgentHBProcessor.</td>
+</tr>
+<tr>
+<td><code>agent_heartbeat_latency_us</code></td>
+<td>The average latency of the AgentHBProcessor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add_edges_atomic_latency_us</code></td>
+<td>The average latency of adding edge single.</td>
+</tr>
+<tr>
+<td><code>add_edges_latency_us</code></td>
+<td>The average latency of adding edges.</td>
+</tr>
+<tr>
+<td><code>add_vertices_latency_us</code></td>
+<td>The average latency of adding vertices.</td>
+</tr>
+<tr>
+<td><code>commit_log_latency_us</code></td>
+<td>The latency of committing logs in Raft.</td>
+</tr>
+<tr>
+<td><code>commit_snapshot_latency_us</code></td>
+<td>The latency of committing snapshots in Raft.</td>
+</tr>
+<tr>
+<td><code>delete_edges_latency_us</code></td>
+<td>The average latency of deleting edges.</td>
+</tr>
+<tr>
+<td><code>delete_vertices_latency_us</code></td>
+<td>The average latency of deleting vertices.</td>
+</tr>
+<tr>
+<td><code>get_neighbors_latency_us</code></td>
+<td>The average latency of querying neighbor vertices.</td>
+</tr>
+<tr>
+<td><code>num_get_prop</code></td>
+<td>The number of executions for the GetPropProcessor.</td>
+</tr>
+<tr>
+<td><code>num_get_neighbors_errors</code></td>
+<td>The number of execution errors for the GetNeighborsProcessor.</td>
+</tr>
+<tr>
+<td><code>get_prop_latency_us</code></td>
+<td>The average latency of executions for the GetPropProcessor.</td>
+</tr>
+<tr>
+<td><code>num_edges_deleted</code></td>
+<td>The number of deleted edges.</td>
+</tr>
+<tr>
+<td><code>num_edges_inserted</code></td>
+<td>The number of inserted edges.</td>
+</tr>
+<tr>
+<td><code>num_raft_votes</code></td>
+<td>The number of votes in Raft.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_metad_failed</code></td>
+<td>The number of failed RPC requests that the Storage service sent to the Meta service.</td>
+</tr>
+<tr>
+<td><code>num_rpc_sent_to_metad</code></td>
+<td>The number of RPC requests that the Storaged service sent to the Metad service.</td>
+</tr>
+<tr>
+<td><code>num_tags_deleted</code></td>
+<td>The number of deleted tags.</td>
+</tr>
+<tr>
+<td><code>num_vertices_deleted</code></td>
+<td>The number of deleted vertices.</td>
+</tr>
+<tr>
+<td><code>num_vertices_inserted</code></td>
+<td>The number of inserted vertices.</td>
+</tr>
+<tr>
+<td><code>transfer_leader_latency_us</code></td>
+<td>The latency of transferring the raft leader.</td>
+</tr>
+<tr>
+<td><code>lookup_latency_us</code></td>
+<td>The average latency of executions for the LookupProcessor.</td>
+</tr>
+<tr>
+<td><code>num_lookup_errors</code></td>
+<td>The number of execution errors for the LookupProcessor.</td>
+</tr>
+<tr>
+<td><code>num_scan_vertex</code></td>
+<td>The number of executions for the ScanVertexProcessor.</td>
+</tr>
+<tr>
+<td><code>num_scan_vertex_errors</code></td>
+<td>The number of execution errors for the ScanVertexProcessor.</td>
+</tr>
+<tr>
+<td><code>update_edge_latency_us</code></td>
+<td>The average latency of executions for the UpdateEdgeProcessor.</td>
+</tr>
+<tr>
+<td><code>num_update_vertex</code></td>
+<td>The number of executions for the UpdateVertexProcessor.</td>
+</tr>
+<tr>
+<td><code>num_update_vertex_errors</code></td>
+<td>The number of execution errors for the UpdateVertexProcessor.</td>
+</tr>
+<tr>
+<td><code>kv_get_latency_us</code></td>
+<td>The average latency of executions for the Getprocessor.</td>
+</tr>
+<tr>
+<td><code>kv_put_latency_us</code></td>
+<td>The average latency of executions for the PutProcessor.</td>
+</tr>
+<tr>
+<td><code>kv_remove_latency_us</code></td>
+<td>The average latency of executions for the RemoveProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_get_errors</code></td>
+<td>The number of execution errors for the GetProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_get</code></td>
+<td>The number of executions for the GetProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_put_errors</code></td>
+<td>The number of execution errors for the PutProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_put</code></td>
+<td>The number of executions for the PutProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_remove_errors</code></td>
+<td>The number of execution errors for the RemoveProcessor.</td>
+</tr>
+<tr>
+<td><code>num_kv_remove</code></td>
+<td>The number of executions for the RemoveProcessor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="space-level">Space-level<a class="headerlink" href="#space-level" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_active_queries</code></td>
+<td>The number of queries currently being executed.</td>
+</tr>
+<tr>
+<td><code>num_queries</code></td>
+<td>The number of queries.</td>
+</tr>
+<tr>
+<td><code>num_sentences</code></td>
+<td>The number of statements received by the Graphd service.</td>
+</tr>
+<tr>
+<td><code>optimizer_latency_us</code></td>
+<td>The latency of executing optimizer statements.</td>
+</tr>
+<tr>
+<td><code>query_latency_us</code></td>
+<td>The average latency of queries.</td>
+</tr>
+<tr>
+<td><code>num_slow_queries</code></td>
+<td>The number of slow queries.</td>
+</tr>
+<tr>
+<td><code>num_query_errors</code></td>
+<td>The number of query errors.</td>
+</tr>
+<tr>
+<td><code>num_query_errors_leader_changes</code></td>
+<td>The number of raft leader changes due to query errors.</td>
+</tr>
+<tr>
+<td><code>num_killed_queries</code></td>
+<td>The number of killed queries.</td>
+</tr>
+<tr>
+<td><code>num_aggregate_executors</code></td>
+<td>The number of executions for the Aggregation operator.</td>
+</tr>
+<tr>
+<td><code>num_sort_executors</code></td>
+<td>The number of executions for the Sort operator.</td>
+</tr>
+<tr>
+<td><code>num_indexscan_executors</code></td>
+<td>The number of executions for index scan operators.</td>
+</tr>
+<tr>
+<td><code>num_oom_queries</code></td>
+<td>The number of queries that caused memory to run out.</td>
+</tr>
+</tbody>
+</table>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2022</span>
       
     
   </small>
