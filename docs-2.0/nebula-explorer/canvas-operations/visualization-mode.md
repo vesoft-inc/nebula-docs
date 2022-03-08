@@ -18,7 +18,7 @@ Exploration of the data on a canvas is possible in 2D mode.
 | ---------- | ------------------------------------------------------------ |
 | Weight Degree | Automatically resizes vertices according to the number of outgoing and incoming edges of all the vertices on the canvas.      |
 | Reset Degree | Resets the vertices on the canvas to their original size.                                   |
-| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Hanging Edges: Detects the vertices with only one undirected edge on a canvas.<br />Loop Detection: Detects the paths that connect a vertex to itself. |
+| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Dangling Edges: Detects edges associated with vertices of one degree in the canvas (associated vertices are included).<br />Loop Detection: Detects the paths that connect a vertex to itself. |
 
 For more information about the operations available in 2D mode, see [Canvas](canvas-overview.md).
 
