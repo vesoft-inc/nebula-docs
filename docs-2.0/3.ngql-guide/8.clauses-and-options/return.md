@@ -28,12 +28,6 @@ This topic applies to the openCypher syntax in nGQL only. For native nGQL, use [
   RETURN (v)-[e]->(v2);
   ```
 
-## Legacy version compatibility
-
-* In nGQL 1.x, `RETURN` works with native nGQL with the `RETURN <var_ref> IF <var_ref> IS NOT NULL` syntax.
-
-* In nGQL 2.0, `RETURN` does not work with native nGQL.
-
 ## Map order description
 
 When `RETURN` returns the map data structure, the order of key-value pairs is undefined.

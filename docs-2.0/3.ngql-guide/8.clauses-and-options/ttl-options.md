@@ -12,9 +12,9 @@ This topic applies to native nGQL only.
 
 * TTL options and indexes have coexistence issues.
 
-    +  TTL options and indexes CANNOT coexist on a tag or an edge type. If there is an index on a property, you cannot set TTL options on other properties.
+  + TTL options and indexes CANNOT coexist on a tag or an edge type. If there is an index on a property, you cannot set TTL options on other properties.
 
-    + If there are TTL options on a tag, an edge type, or a property, you can still add an index on them.
+  + If there are TTL options on a tag, an edge type, or a property, you can still add an index on them.
 
 ## Data expiration and deletion
 

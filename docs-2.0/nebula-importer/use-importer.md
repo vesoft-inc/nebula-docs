@@ -30,7 +30,7 @@ Before using Nebula Importer, make sure:
 
 - Schema is created in Nebula Graph, including space, Tag and Edge type, or set by parameter `clientSettings.postStart.commands`.
 
-- Golang environment has been deployed on the machine running the Importer. For details, see [Build Go environment](https://github.com/vesoft-inc/nebula-importer/blob/release-v2.0.0-ga/docs/golang-install-en.md).
+- Golang environment has been deployed on the machine running the Importer. For details, see [Build Go environment](https://github.com/vesoft-inc/nebula-importer/blob/{{importer.branch}}/docs/golang-install-en.md).
 
 ## Steps
 
@@ -57,10 +57,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
   !!! note
   
         Use the correct branch.
-        Nebula Graph 1.x and 2.x have different RPC protocols, so:
-
-      - The Nebula Importer V1 branch can only connect to Nebula Graph 1.x.
-      - The Nebula Importer Master branch and v2 branch can connect to Nebula Graph 2.x.
+        Nebula Graph 2.x and 3.x have different RPC protocols.
 
 2. Access the directory `nebula-importer`.
 
@@ -126,7 +123,7 @@ $ docker run --rm -ti \
 
 - `<config_file>`: The absolute path to the local YAML configuration file.
 - `<csv_data_dir>`: The absolute path to the local CSV data file.
-- `<version>`: Nebula Graph 2.x Please fill in 'v2'.
+- `<version>`: Nebula Graph 2.x Please fill in 'v3'.
 
 !!! note
     A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.
@@ -144,7 +141,7 @@ Nebula Importer uses configuration(`nebula-importer/examples/v2/example.yaml`) f
 The example configuration is as follows:
 
 ```yaml
-version: v2
+version: v3
 description: example
 removeTempFiles: false
 ```

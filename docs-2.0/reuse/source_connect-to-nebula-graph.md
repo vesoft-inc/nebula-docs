@@ -16,6 +16,12 @@ If you do not have a Nebula Graph database yet, we recommend that you try the cl
 
 * The machine you plan to run Nebula Console on has network access to Nebula Graph services.
 
+* The Nebula Console version is compatible with the Nebula Graph version.
+
+  !!! note
+  
+        The same version of Nebula Console and Nebula Graph is the most compatible. There may be compatibility issues when connecting to Nebula Graph with a different version of Nebula Console. You may be unable to connenct to Nebula Graph due to the compatibiltiy issue and an error message `incompatible version between client and server` is displayed.
+
 ### Steps
 
 1. On the [nebula-console](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page") page, select a Nebula Console version and click **Assets**.

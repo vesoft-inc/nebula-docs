@@ -20,11 +20,13 @@ Before installing Studio, you need to install the following software and ensure 
    ```
 
 2. Make the `nebula-studio` directory the current working directory.
+   
    ```bash
     $ cd nebula-studio
     ```
 
 3. Assume using release name:`my-studio`, installed Studio in Helm Chart.
+    
     ```bash
     $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070 deployment/helm
     ```
@@ -51,16 +53,11 @@ On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For 
 | Parameter | Default value | Description |
 |-----------|-------------|---------|
 | replicaCount  | 0 | The number of replicas for Deployment.   |
-| image.httpGateway.name  | vesoft/nebula-http-gateway  | The image name of nebula-http-gateway. |
 | image.nebulaStudio.name  |  vesoft/nebula-graph-studio  | The image name of nebula-graph-studio. |
-| image.nginx.name  |  nginx   | The image name of nginx. |
-| image.httpGateway.version  |  v2.1.1  | The image version of nebula-http-gateway.  |
-| image.nebulaStudio.version  | v3.1.0 |  The image version of nebula-graph-studio.  |
-| image.nginx.version  |  alpine  |  The image version of nginx. |
+| image.nebulaStudio.version  | v3.2.0 |  The image version of nebula-graph-studio.  |
 | service.type  | ClusterIP |  The service type, which should be one of 'NodePort', 'ClusterIP', and 'LoadBalancer'. |
 | service.port  | 7001 |  The expose port for nebula-graph-studio's web.  |
-| resources.httpGateway  | {} |  The resource limits/requests for nebula-http-gateway. |
+| service.nodePort | 32701 | The proxy port for accessing nebula-studio outside kubernetes cluster. |
 | resources.nebulaStudio  | {} |  The resource limits/requests for nebula-studio. |
-| resources.nginx  | {} |  The resource limits/requests for nginx. |
 | persistent.storageClassName  | ""  |  The name of storageClass. The default value will be used if not specified. |
 | persistent.size  | 5Gi |  The persistent volume size. |
