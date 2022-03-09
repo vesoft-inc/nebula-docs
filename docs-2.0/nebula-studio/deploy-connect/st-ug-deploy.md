@@ -172,6 +172,8 @@ Before you deploy DEB-based Studio, you must do a check of these:
    | Port | Description |
    | ---- | ---- |
    | 7001 | Web service provided by Studio |
+   
+  - The path `/usr/lib/systemd/system` exists in the system. If not, create it manually.
 
 ### Install
 
