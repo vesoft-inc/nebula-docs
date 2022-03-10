@@ -14,7 +14,8 @@ For now, Nebula Graph does not provide an official deployment tool. Users can de
 
 ## Prerequisites
 
-Prepare 5 machines for deploying the cluster.
+- Prepare 5 machines for deploying the cluster.
+- Use the NTP service to synchronize time in the cluster.
 
 ## Manual deployment process
 
