@@ -31,11 +31,17 @@ You can use `cat` to view the content of the license file (`nebula.license`). Th
 {
   "vendor": "Vesoft_Inc",
   "organization": "doc",
-  "issuedDate": "2021-11-07T16:00:00.000Z",
-  "expirationDate": "2021-11-30T15:59:59.000Z",
+  "issuedDate": "2022-03-06T16:00:00.000Z",
+  "expirationDate": "2022-05-31T15:59:59.000Z",
   "product": "nebula_graph",
-  "version": ">2.6.1",
-  "licenseType": "enterprise"
+  "version": ">3.0.0",
+  "licenseType": "enterprise",
+  "graphdSpec": {
+    "nodes": 3
+  },
+  "storagedSpec": {
+    "nodes": 3
+  }
 }
 ----------License Content End----------
 
@@ -55,6 +61,8 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`product`|The product type. The product type of Nebula Graph is `nebula_graph`.|
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
+|`graphdSpec`| The limitation of the number of graph services in a cluster. Nebula Graph detects the number of graph services currently active in real-time, the graph services that exceed the limit can not connect to the cluster. |
+|`storagedSpec`| The limitation of the number of storage services in a cluster. Nebula Graph detects the number of storage services currently active in real-time, the storage services that exceed the limit can not connect to the cluster. |
 
 ## Steps
 
