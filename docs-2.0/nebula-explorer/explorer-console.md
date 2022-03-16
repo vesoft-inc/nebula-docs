@@ -1,5 +1,7 @@
 # Explorer console
 
+<!-- update after the studio docs are done -->
+
 Explorer console allows you to enter nGQL statements and import the query results into Explorer's canvas.
 
 !!! note
