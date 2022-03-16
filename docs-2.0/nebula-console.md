@@ -36,10 +36,10 @@ Parameter descriptions are as follows:
 | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
 | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
 | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
-| `-enable_ssl` | Enable SSL encryption when connecting to Nebula Graph. |
-| `-ssl_root_ca_path` | Set the storage path of the certification authority file. |
-| `-ssl_cert_path` | Set the storage path of the certificate file. |
-| `-ssl_private_key_path` | Set the storage path of the private key file. |
+| `-enable_ssl` | Enables SSL encryption when connecting to Nebula Graph. |
+| `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
+| `-ssl_cert_path` | Sets the storage path of the certificate file. |
+| `-ssl_private_key_path` | Sets the storage path of the private key file. |
 
 For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
 
@@ -186,9 +186,9 @@ Fri, 20 Aug 2021 06:36:05 UTC
 Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578 us)
 ```
 
-### Sleep to wait
+### Sleep
 
-This command will make Nebula Graph services sleep and wait for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
+This command will make Nebula Console sleep for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
 
 ```ngql
 nebula> :sleep N
