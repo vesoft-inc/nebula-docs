@@ -6,7 +6,7 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 * You have started [Nebula Graph services](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--Use the external link here because this file is a source for reuse and using internal links creates errors.-->
 
-* The machine you plan to run Nebula Console on has network access to the Graph Service of Nebula Graph.
+* The machine on which you plan to run Nebula Console has network access to the Graph Service of Nebula Graph.
 
 * The Nebula Console version is compatible with the Nebula Graph version.
 
