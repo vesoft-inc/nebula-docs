@@ -49,7 +49,7 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
   | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
   | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
   | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
-  | `-enable_ssl` | Enable SSL encryption when connecting to Nebula Graph. |
+  | `-enable_ssl` | Enables SSL encryption when connecting to Nebula Graph. |
   | `-ssl_root_ca_path` | Set the storage path of the certification authority file. |
   | `-ssl_cert_path` | Set the storage path of the certificate file. |
   | `-ssl_private_key_path` | Set the storage path of the private key file. |
