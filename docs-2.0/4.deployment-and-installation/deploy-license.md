@@ -62,7 +62,7 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
 |`graphdSpec`| The max number of graph services in a cluster. Nebula Graph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
-|`storagedSpec`| The limitation of the number of storage services in a cluster. Nebula Graph detects the number of storage services currently active in real-time, the storage services that exceed the limit can not connect to the cluster. |
+|`storagedSpec`| The max number of storage services in a cluster. Nebula Graph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
 
 ## Steps
 
