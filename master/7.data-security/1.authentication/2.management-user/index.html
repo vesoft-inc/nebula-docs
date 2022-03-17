@@ -6119,14 +6119,29 @@
 <ul>
 <li>
 <p>Syntax</p>
-<div class="highlight"><pre><span></span><code>CREATE USER [IF NOT EXISTS] &lt;user_name&gt; [WITH PASSWORD &#39;&lt;password&gt;&#39;];
+<div class="highlight"><pre><span></span><code>CREATE USER [IF NOT EXISTS] &lt;user_name&gt; [WITH PASSWORD &#39;&lt;password&gt;&#39;] [WITH IP WHITELIST &lt;ip_list&gt;];
 </code></pre></div>
+<ul>
+<li><code>IF NOT EXISTS</code>: Detects if the user name exists. The user will be created only if the user name does not exist.</li>
+<li><code>user_name</code>: Sets the name of the user.</li>
+<li><code>password</code>: Sets the password of the user.</li>
+<li><code>ip_list</code>(Enterprise): Sets the IP address whitelist. The user can connect to Nebula Graph only from IP addresses in the list. Use commas to separate multiple IP addresses.</li>
+</ul>
 </li>
 </ul>
 <ul>
 <li>
 <p>Example</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE USER user1 WITH PASSWORD &#39;nebula&#39;;
+nebula&gt; CREATE USER user2 WITH PASSWORD &#39;nebula&#39; WITH IP WHITELIST 192.168.10.10,192.168.10.12;
+nebula&gt; SHOW USERS;
++---------+-------------------------------+
+| Account | IP Whitelist                  |
++---------+-------------------------------+
+| &quot;root&quot;  | &quot;&quot;                            |
+| &quot;user1&quot; | &quot;&quot;                            |
+| &quot;user2&quot; | &quot;192.168.10.10,192.168.10.12&quot; |
++---------+-------------------------------+
 </code></pre></div>
 </li>
 </ul>
@@ -6222,18 +6237,31 @@ DESC USER &lt;user_name&gt;;
 </li>
 </ul>
 <h2 id="alter_user">ALTER USER<a class="headerlink" href="#alter_user" title="Permanent link">&para;</a></h2>
-<p>The <code>root</code> user with the <strong>GOD</strong> role can run <code>ALTER USER</code> to set a new password for a user. The old password is not needed when setting a new one.</p>
+<p>The <code>root</code> user with the <strong>GOD</strong> role can run <code>ALTER USER</code> to set a new password and IP address whitelist for a user. The old password is not needed when altering the user.</p>
 <ul>
 <li>
 <p>Syntax</p>
-<div class="highlight"><pre><span></span><code>ALTER USER &lt;user_name&gt; WITH PASSWORD &#39;&lt;password&gt;&#39;;
+<div class="highlight"><pre><span></span><code>ALTER USER &lt;user_name&gt; WITH PASSWORD &#39;&lt;password&gt;&#39; [WITH IP WHITELIST &lt;ip_list&gt;];;
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
 <p>Example</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; ALTER USER user1 WITH PASSWORD &#39;nebula&#39;;
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly</p>
+<p>When <code>WITH IP WHITELIST</code> is not used, the IP address whitelist is removed and the user can connect to the Nebula Graph by any IP address.</p>
+</div>
+<div class="highlight"><pre><span></span><code>nebula&gt; ALTER USER user2 WITH PASSWORD &#39;nebula&#39;;
+nebula&gt; SHOW USERS;
++---------+--------------+
+| Account | IP Whitelist |
++---------+--------------+
+| &quot;root&quot;  | &quot;&quot;           |
+| &quot;user1&quot; | &quot;&quot;           |
+| &quot;user2&quot; | &quot;&quot;           |
++---------+--------------+
+nebula&gt; ALTER USER user2 WITH PASSWORD &#39;nebula&#39; WITH IP WHITELIST 192.168.10.10;
 </code></pre></div>
 </li>
 </ul>
@@ -6270,13 +6298,13 @@ DESC USER &lt;user_name&gt;;
 <li>
 <p>Example</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW USERS;
-+-----------+
-| Account   |
-+-----------+
-| &quot;test1&quot;   |
-| &quot;test2&quot;   |
-| &quot;test3&quot;   |
-+-----------+
++---------+-----------------+
+| Account | IP Whitelist    |
++---------+-----------------+
+| &quot;root&quot;  | &quot;&quot;              |
+| &quot;user1&quot; | &quot;&quot;              |
+| &quot;user2&quot; | &quot;192.168.10.10&quot; |
++---------+-----------------+
 </code></pre></div>
 </li>
 </ul>
@@ -6286,7 +6314,7 @@ DESC USER &lt;user_name&gt;;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 17, 2022</span>
       
     
   </small>
