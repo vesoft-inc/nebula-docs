@@ -29,7 +29,7 @@ You can use `cat` to view the content of the license file (`nebula.license`). Th
 ```bash
 ----------License Content Start----------
 {
-  "vendor": "Vesoft_Inc",
+  "vendor": "vesoft",
   "organization": "doc",
   "issuedDate": "2022-03-06T16:00:00.000Z",
   "expirationDate": "2022-05-31T15:59:59.000Z",
