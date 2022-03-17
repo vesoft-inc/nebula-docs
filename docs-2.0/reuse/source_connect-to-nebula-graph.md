@@ -50,8 +50,8 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
   | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
   | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
   | `-enable_ssl` | Enables SSL encryption when connecting to Nebula Graph. |
-  | `-ssl_root_ca_path` | Set the storage path of the certification authority file. |
-  | `-ssl_cert_path` | Set the storage path of the certificate file. |
-  | `-ssl_private_key_path` | Set the storage path of the private key file. |
+  | `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
+  | `-ssl_cert_path` | Sets the storage path of the certificate file. |
+  | `-ssl_private_key_path` | Sets the storage path of the private key file. |
 
   For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
