@@ -24,7 +24,7 @@ Nebula Graph Enterprise Edition requires the user to deploy a license file befor
 
 ## License description
 
-You can use `cat` to view the content of the license file (`nebula.license`). The example is as follows:
+The example of the content of the license file (`nebula.license`) is as follows:
 
 ```bash
 ----------License Content Start----------
@@ -64,7 +64,7 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`graphdSpec`| The max number of graph services in a cluster. Nebula Graph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
 |`storagedSpec`| The max number of storage services in a cluster. Nebula Graph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
 
-## Steps
+## Deploy the license
 
 1. Send email to `inquiry@vesoft.com` to apply for the Nebula Graph Enterprise Edition package.
 
@@ -77,3 +77,13 @@ The license file contains information such as `issuedDate` and `expirationDate`.
   !!! note
 
         For the upload address of the license file for ecosystem tools, refer to the document of [Ecosystem tools overview](../20.appendix/6.eco-tool-version.md).
+
+## View the license
+
+- View the License file directly
+
+  You can use `cat` to view the content of the license file directly. For example: `cat share/resources/nebula.license`.
+
+- View the License file with HTTP port
+
+  When the Nebula Graph cluster is running normally, you can view the license file with the HTTP port (default port is 19559) of the meta service. For example: `curl -G "http://192.168.10.101:19559/license"`.
