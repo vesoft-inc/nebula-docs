@@ -46,7 +46,7 @@ For information on more parameters, see the [project repository](https://github.
 For example, to connect to the Graph Service deployed on 192.168.10.8, run the following command:
 
 ```bash
-./nebula-console -addr 192.168.10.8 -port 9669 -u Joe -p Joespassword
+./nebula-console -addr 192.168.10.8 -port 9669 -u root -p thisisapassword
 ```
 
 ### Manage parameters
@@ -203,5 +203,5 @@ The example is as follows:
 ```ngql
 nebula> :QUIT
 
-Bye Joe!
+Bye root!
 ```
