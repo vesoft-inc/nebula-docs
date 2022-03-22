@@ -66,4 +66,4 @@ On the data overview panel, you are enabled to:
 
 - Upload images to personalize the style of the vertices in the canvas, and the uploaded images are stored in the browser. To store uploaded images permanently, save the canvas data as a snapshot. For details, see [Manage snapshots](canvas-snapshot.md).
 
-  ![](../figs/upload-logo.png)
+  ![upload images](../figs/upload-logo.png)
