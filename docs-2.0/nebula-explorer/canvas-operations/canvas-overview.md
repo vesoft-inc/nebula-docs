@@ -63,3 +63,7 @@ On the data overview panel, you are enabled to:
 
   !!! note
         Vertices with the same tag have the same color. Right-click on a single vertex on a canvas to manually modify the style of the vertex.
+
+- Upload images to personalize the style of the vertices in the canvas, and the uploaded images are stored in the browser. To save uploaded images permanently, save the canvas data as a snapshot. For details, see [Manage snapshots](canvas-snapshot.md).
+
+  ![](../figs/upload-logo.png)
