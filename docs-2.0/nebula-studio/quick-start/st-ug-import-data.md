@@ -37,7 +37,7 @@ To batch import data, follow these steps:
 7. In the **vertexId** section, do these operations:
 
   a. In the **CSV Index** column, click **Mapping**.  
-  ![Click "Mapping** in the CSV Index column](../figs/st-ug-032-1.png "Choose the source for vertexId")  
+  ![Click "Mapping** in the CSV Index column](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-032-1.png "Choose the source for vertexId")  
 
   b. In the dialog box, choose a column from the CSV file. In this example, the only one cloumn of `vertex_player.csv` is chosen to generate VIDs representing players and the `playerID` column of `vertex_player.csv` is chosen to generate VIDs representing players.
 
@@ -51,7 +51,7 @@ To batch import data, follow these steps:
 
   b. In the property list, click **Mapping** to choose a data column from the CSV file as the value of a property. In this example, for the **player** tag, choose **Column 1** for the `age` property and set its type to **int**. And choose **Column 2** for the `name` property and set its type to **string**.
 
-  ![Data source for the course vertices](../figs/st-ug-033-1.png "Choose data source for tag properties")  
+  ![Data source for the course vertices](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-033-1.png "Choose data source for tag properties")  
 
 9.  (Optional) If necessary, repeat Step 5 through Step 8 for more tags.  
 
@@ -64,12 +64,12 @@ To batch import data, follow these steps:
 
 13. In the property list, click **Mapping** to choose a column from the `edge_follow.csv` file as values of a property for the edges. **srcId** and **dstId** are the VIDs of the source vertex and destination vertex of an edge. In this example, **srcId** must be set to the VIDs of the player and **dstId** must be set to the VIDs of another player. **Rank** is optional.
 
-    ![Data source for the action edges](../figs/st-ug-034-1.png "Choose data source for the edge type properties")
+    ![Data source for the action edges](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-034-1.png "Choose data source for the edge type properties")
 
 14. When the configuration is done, click the **Next** button.
 
 15. On the **Import** page, click the **Start Import** button. On the **log** window, you can see the import progress. The consumed time depends on the data volume. During data import, you can click the **Stop Import** button to stop data import. When the **log** window shows information as follows, the data import is done.
-![The log window shows the time, imported rows, and operated lines](../figs/st-ug-005-1.png "Information shown in the log window")
+![The log window shows the time, imported rows, and operated lines](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-005-1.png "Information shown in the log window")
 
 ## Next to do
 

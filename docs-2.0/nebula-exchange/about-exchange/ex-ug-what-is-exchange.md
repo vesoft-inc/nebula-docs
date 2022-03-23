@@ -4,7 +4,7 @@
 
 Exchange consists of Reader, Processor, and Writer. After Reader reads data from different sources and returns a DataFrame, the Processor iterates through each row of the DataFrame and obtains the corresponding value based on the mapping between `fields` in the configuration file. After iterating through the number of rows in the specified batch, Writer writes the captured data to the Nebula Graph at once. The following figure illustrates the process by which Exchange completes the data conversion and migration.
 
-![Nebula Graph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to Nebula Graph](../figs/ex-ug-003.png)
+![Nebula Graph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to Nebula Graph](https://docs-cdn.nebula-graph.com.cn/figures/ex-ug-003.png)
 
 ## Editions
 

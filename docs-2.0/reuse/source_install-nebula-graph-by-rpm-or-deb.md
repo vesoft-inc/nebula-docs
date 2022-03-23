@@ -101,7 +101,7 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 * Download the release version.
 
    + On the [Nebula Graph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
-   ![Select a Nebula Graph release version](../reuse/console-1.png)
+   ![Select a Nebula Graph release version](https://docs-cdn.nebula-graph.com.cn/figures/console-1.png)
 
    + In the **Assets** area, click the package to download it.
 

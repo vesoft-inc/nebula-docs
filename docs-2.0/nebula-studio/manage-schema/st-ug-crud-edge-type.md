@@ -44,7 +44,7 @@ To create an edge type on the **Schema** page, follow these steps:
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
-   ![Define properties of the `action` edge type](../figs/st-ug-027-1.png "Define an edge type")
+   ![Define properties of the `action` edge type](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-027-1.png "Define an edge type")
 
 7. Confirm the settings and then click the **+ Create** button. When the edge type is created successfully, the **Define Properties** panel shows all its properties on the list.
 

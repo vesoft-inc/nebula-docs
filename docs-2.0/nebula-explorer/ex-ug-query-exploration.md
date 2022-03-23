@@ -8,7 +8,7 @@
 
     For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
-Click the **Start** ![query](figs/nav-query2.png) icon to query target data. The queried data will be displayed on the canvas. You have the following ways to query data:
+Click the **Start** ![query](https://docs-cdn.nebula-graph.com.cn/figures/nav-query2.png) icon to query target data. The queried data will be displayed on the canvas. You have the following ways to query data:
 
 - Query by VID
 - Query by Tag
@@ -27,7 +27,7 @@ There are three ways to generate VIDs: Manual input, Random import, and File imp
 
 The following GIF shows how to query data using the `nba` graph space and related data.
 
-![VID QUERY](figs/vid_query.gif)
+![VID QUERY](https://docs-cdn.nebula-graph.com.cn/figures/vid_query.gif)
 
 ## Query by Tag
 
@@ -39,7 +39,7 @@ You can limit the number of results and filter the results.
 
 The following example queries 10 players whose age is greater than 30 years old and not equal to 40 years old.
 
-![tag](figs/query_tag.png)
+![tag](https://docs-cdn.nebula-graph.com.cn/figures/query_tag.png)
 
 ## Query Subgraph
 
@@ -51,5 +51,5 @@ The following is an example of VIDs `Kings` and `Suns`, step number `2`, and inc
 
     When multiple VIDs are entered, the VIDs are separated by the Enter key.
 
-![tag](figs/query_subgraph.png)
+![tag](https://docs-cdn.nebula-graph.com.cn/figures/query_subgraph.png)
 

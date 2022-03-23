@@ -20,7 +20,7 @@ At this point, Exchange has finished exporting the Neo4j data. The data is then 
 
 The whole process is illustrated below.
 
-![Nebula Graph&reg; Exchange exports data from the Neo4j database and imports it into the Nebula Graph database in parallel](../figs/ex-ug-002.png "Nebula Graph&reg; Exchange migrates Neo4j data")
+![Nebula Graph&reg; Exchange exports data from the Neo4j database and imports it into the Nebula Graph database in parallel](https://docs-cdn.nebula-graph.com.cn/figures/ex-ug-002.png "Nebula Graph&reg; Exchange migrates Neo4j data")
 
 ## Data set
 

@@ -41,13 +41,13 @@ To connect Studio to Nebula Graph, follow these steps:
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
     
-    ![The Config Server page shows the fields to be configured for connection](../figs/st-ug-050-1.png "Config Server")
+    ![The Config Server page shows the fields to be configured for connection](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-050-1.png "Config Server")
 
 2. After the configuration, click the **Connect** button.
 
    If you can see the **Explore** page, Studio is successfully connected to Nebula Graph.
 
-   ![The Console page shows that the connection is successful](../figs/st-ug-051.png "Nebula Graph is connected")
+   ![The Console page shows that the connection is successful](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-051.png "Nebula Graph is connected")
 
 One session continues for up to 30 minutes. If you do not operate Studio within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
 
