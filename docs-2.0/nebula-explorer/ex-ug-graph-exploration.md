@@ -7,7 +7,7 @@ The graph exploration can be performed from the following four aspects:
 - Search for Path
 - Inspect Property
 
-![query_exploration](figs/exploration_query.gif)
+![query_exploration](https://docs-cdn.nebula-graph.com.cn/figures/exploration_query.gif)
 
 ## Prerequisite
 
@@ -15,7 +15,7 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
 ## Expand
 
-In the navigation bar on the left side of the page, click ![expand](figs/nav-expand.png) to open the **Expand** panel. You can double-click on a vertex or right-click to select multiple vertices for expansion. On the panel, you can edit edge types, select the direction of edges, change the color of vertices, custom steps, and add filtering conditions. 
+In the navigation bar on the left side of the page, click ![expand](https://docs-cdn.nebula-graph.com.cn/figures/nav-expand.png) to open the **Expand** panel. You can double-click on a vertex or right-click to select multiple vertices for expansion. On the panel, you can edit edge types, select the direction of edges, change the color of vertices, custom steps, and add filtering conditions. 
 
 | Parameter     | Description                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -32,13 +32,13 @@ In the navigation bar on the left side of the page, click ![expand](figs/nav-exp
 
 ## Common Neighbor
 
-In the navigation bar on the left side of the page, click ![commonneighbor](figs/nav-commonNeighbor.png) to open the **Common Neighbor** panel. You can select two or more vertices on the canvas and query their common neighbors. When the selected vertices have no common neighbor, the default returns ****There is no data**.
+In the navigation bar on the left side of the page, click ![commonneighbor](https://docs-cdn.nebula-graph.com.cn/figures/nav-commonNeighbor.png) to open the **Common Neighbor** panel. You can select two or more vertices on the canvas and query their common neighbors. When the selected vertices have no common neighbor, the default returns ****There is no data**.
 
 For information about selecting two or more vertices, see [Basic operations](ex-ug-shortcuts.md).
 
 ## Search for Path
 
-In the navigation bar on the left side of the page, click ![findpath](figs/nav-findPath.png) to open the **Search Path** panel. **You can select two vertices on the canvas. The first selected vertex is the source and the second is the destination vertex by default**. You can also customize the type and direction of edges, specify the number of exploration steps, and select the query path type.
+In the navigation bar on the left side of the page, click ![findpath](https://docs-cdn.nebula-graph.com.cn/figures/nav-findPath.png) to open the **Search Path** panel. **You can select two vertices on the canvas. The first selected vertex is the source and the second is the destination vertex by default**. You can also customize the type and direction of edges, specify the number of exploration steps, and select the query path type.
 
 | Parameter     | Description                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -50,7 +50,7 @@ In the navigation bar on the left side of the page, click ![findpath](figs/nav-f
 
 ## Inspect Property
 
-In the navigation bar on the left side of the page, click ![propertyview](figs/nav-propertyView.png) to open the **Inspect Property** panel. Properties of vertices or edges can be hidden or displayed on the canvas.
+In the navigation bar on the left side of the page, click ![propertyview](https://docs-cdn.nebula-graph.com.cn/figures/nav-propertyView.png) to open the **Inspect Property** panel. Properties of vertices or edges can be hidden or displayed on the canvas.
 
 !!! note
 

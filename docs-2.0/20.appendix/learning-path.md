@@ -2,7 +2,7 @@
 
 This topic is for anyone interested in learning more about Nebula Graph. You can master Nebula Graph from zero to hero through the documentation and videos in Nebula Graph learning path. 
 
- ![learning path](learning-path.png)
+ ![learning path](https://docs-cdn.nebula-graph.com.cn/figures/learning-path.png)
 
 ## 1. About Nebula Graph
 
