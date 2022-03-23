@@ -14,9 +14,9 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
 The following steps are for filtering players older than 33 years old. 
 
-1. In the left navigation bar, click **Vertex Filter** ![node-filter](figs/nav-filter.png).
+1. In the left navigation bar, click **Vertex Filter** ![node-filter](https://docs-cdn.nebula-graph.com.cn/figures/nav-filter.png).
 2. Click **Add New Filter** and then fill in the following values as shown below. 
 3. (Optional) Repeat the second step to add multiple filtering conditions.
 4. Turn on the **Apply Filter** button.
 
-![vertex filtering](figs/node-filtering.png)
+![vertex filtering](https://docs-cdn.nebula-graph.com.cn/figures/node-filtering.png)

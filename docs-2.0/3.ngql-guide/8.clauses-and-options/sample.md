@@ -14,7 +14,7 @@ The `SAMPLE` clause takes samples evenly in the result set and returns the speci
 * `1` in `SAMPLE [1,2,4]` means that the system automatically selects 1 edge to continue traversal in the first step. `2` means to select 2 edges to continue traversal in the second step. `4` indicates that 4 edges are selected to continue traversal in the third step. If there is no matched edge in a certain step or the number of matched edges is less than the specified number, the actual number will be returned.
 * Because `GO 1 TO 3 STEPS` means to return all the traversal results from the first to third steps, all the red edges and their source and destination vertices in the figure below will be matched by this `GO` statement. And the yellow edges represent there is no path selected when the GO statement traverses. If it is not `GO 1 TO 3 STEPS` but `GO 3 STEPS`, it will only match the red edges of the third step and the vertices at both ends.
 
-![SAMPLE in GO](sample_in_go.png)
+![SAMPLE in GO](https://docs-cdn.nebula-graph.com.cn/figures/sample_in_go.png)
 
 In the basketballplayer dataset, the example is as follows:
 

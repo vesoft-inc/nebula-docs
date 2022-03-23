@@ -177,7 +177,7 @@ When Explorer is started, use `http://<ip_address>:7002` to get access to Explor
 
 The following login page shows that Explorer is successfully connected to Nebula Graph.
 
-![Nebula Explorer Login page](../figs/explorer_deploy.png)
+![Nebula Explorer Login page](https://docs-cdn.nebula-graph.com.cn/figures/explorer_deploy.png)
 
 !!! note
 

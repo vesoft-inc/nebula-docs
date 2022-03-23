@@ -39,7 +39,7 @@ To create a graph space on the **Schema** page, follow these steps:
 
 4. Confirm the settings and then click the **+ Create** button. If the graph space is created successfully, you can see it on the graph space list.
 
-![The Create page with settings for a graph space](../figs/st-ug-026.png)
+![The Create page with settings for a graph space](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-026.png)
 
 ## Delete a graph space
 
@@ -52,7 +52,7 @@ To delete a graph space on the **Schema** page, follow these steps:
 1. In the toolbar, click the **Schema** tab.
 2. In the graph space list, find a graph space and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
-   ![Graph space list with the graph space to be deleted](./../figs/st-ug-029.png)
+   ![Graph space list with the graph space to be deleted](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-029.png)
 3. On the dialog box, confirm the information and then click the **OK** button. When the graph space is deleted successfully, it is removed from the **graph space list**.
 
 ## Next to do

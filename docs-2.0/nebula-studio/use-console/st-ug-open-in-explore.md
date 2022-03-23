@@ -22,7 +22,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **basketballplayer** is chosen.
 
-3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").  
+3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-008.png "Run").  
 
   !!! note
 
@@ -36,7 +36,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
    In the query result, you can see the start year and end year of the service team for the player whose playerId is `palyer102`. As shown below.
 
-   ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](../figs/st-ug-037.png "Edge data")
+   ![The Result window shows the queried edge data, including the VIDs of the source vertex and the destination vertex](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-037.png "Edge data")
 
 4. Click the **Open in Explore** button.
 
@@ -53,7 +53,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
    f. When the configuration is done, click the **Import** button.  
 
-   ![The dialog box for you to configure the edge data](../figs/st-ug-038-1.png "Configure edge data")
+   ![The dialog box for you to configure the edge data](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-038-1.png "Configure edge data")
 
 6. If some data exists on the board of **Explore**, choose a method to insert data:
 
@@ -62,7 +62,7 @@ To query edge data on the **Console** page and then view the result on the **Exp
 
 When the data is inserted, you can view the visualized representation of the edge data.
 
-![The edge data is represented on the Explore board](../figs/st-ug-044-1.png "Visualize edge data")
+![The edge data is represented on the Explore board](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-044-1.png "Visualize edge data")
 
 ## Query and visualize vertex data
 
@@ -72,7 +72,7 @@ To query vertex data on the **Console** page and then view the result on the **E
 
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **basketballplayer** is chosen.
 
-3. In the input box, enter an nGQL statement and click the button ![Icon of Run](../figs/st-ug-008.png "Run").
+3. In the input box, enter an nGQL statement and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-008.png "Run").
 
   !!! note
 
@@ -86,7 +86,7 @@ To query vertex data on the **Console** page and then view the result on the **E
 
    The query result gives the information of the player whose `playerId` is `player100`, as shown in this figure.
 
-   ![The Result window shows the queried vertex data](../figs/st-ug-043-1.png "Vertex data")
+   ![The Result window shows the queried vertex data](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-043-1.png "Vertex data")
 
 4. Click the **Open in Explore** button.
 
@@ -97,7 +97,7 @@ To query vertex data on the **Console** page and then view the result on the **E
    
    c. When the configuration is done, click the **Import** button.
 
-   ![The dialog box for you to configure the vertex data](../figs/st-ug-047-1.png "Configure vertex data")  
+   ![The dialog box for you to configure the vertex data](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-047-1.png "Configure vertex data")  
 
 6. If some data exists on the board of **Explore**, choose a method to insert data:
 

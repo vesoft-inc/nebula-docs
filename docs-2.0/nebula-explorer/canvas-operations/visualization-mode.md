@@ -6,13 +6,13 @@ Explorer provides **2D** and **3D** visualization modes for you to explore data.
  
     In 3D mode, operations on graph data are unavailable. 
 
-![visualizaiton_mode](../figs/visualization.gif)
+![visualizaiton_mode](https://docs-cdn.nebula-graph.com.cn/figures/visualization.gif)
 
 ## 2D mode
 
 Exploration of the data on a canvas is possible in 2D mode.
 
-![2D](../figs/2d-mode.png)
+![2D](https://docs-cdn.nebula-graph.com.cn/figures/2d-mode.png)
 
 | Parameter       | Description                                                         |
 | ---------- | ------------------------------------------------------------ |
@@ -25,7 +25,7 @@ For more information about the operations available in 2D mode, see [Canvas](can
 
 ## 3D mode
 
-![3D](../figs/3d-mode.png)
+![3D](https://docs-cdn.nebula-graph.com.cn/figures/3d-mode.png)
 
 At the top left of the page, toggle the view button to switch to 3D mode. 3D mode allows you to switch back to 2D mode and does not influence operations in 2D.
 
