@@ -1,6 +1,6 @@
 # Storage load balance
 
-You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../3.ngql-guide/18.operation-and-maintenance-statements/2.balance-syntax.md).
+You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../synchronization-and-migration/2.balance-syntax.md).
 
 !!! compatibility "Legacy version compatibility"
 
@@ -88,7 +88,7 @@ After you add new storage hosts into the zone, no partition is deployed on the n
   +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
-If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run [`RECOVER JOB <job_id>`](../synchronization-and-migration/2.balance-syntax.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
 
 ## Stop data balancing
 
