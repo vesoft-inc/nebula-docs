@@ -56,7 +56,7 @@ Before you deploy RPM-based Studio, you must confirm that:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](../figs/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
 
 ### Uninstall
 
@@ -148,7 +148,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](../figs/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
 
 ### Stop Service
 
@@ -195,7 +195,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](../figs/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
 
 ### Uninstall
 
@@ -270,7 +270,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](../figs/st-ug-025.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png "Docker-based Studio is started")
 
 ## Next to do
 

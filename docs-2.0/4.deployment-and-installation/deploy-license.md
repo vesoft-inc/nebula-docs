@@ -1,4 +1,4 @@
-# Deploy license
+# Deploy a license for Nebula Graph Enterprise Edition
 
 Nebula Graph Enterprise Edition requires the user to deploy a license file before starting the Enterprise Edition. This topic describes how to deploy a license file for the Enterprise Edition.
 
@@ -14,28 +14,34 @@ Nebula Graph Enterprise Edition requires the user to deploy a license file befor
 
 - If the license is about to expire, send email to `inquiry@vesoft.com` to apply for renewal.
 
-- The transition period after the license expires is 7 days:
+- The transition period after the license expires is 3 days:
 
-  - If you start the Enterprise Edition within 3 days before the license expires or on the day the license expires, a log will be printed as a reminder.
+  - If you start the Enterprise Edition within 7 days before the license expires or on the day the license expires, a log will be printed as a reminder.
 
-  - The license can still be used for 7 days after it expires.
+  - The license can still be used for 3 days after it expires.
 
-  - If the license has expired for 7 days, you will not be able to start the Enterprise Edition, and a log will be printed as a reminder.
+  - If the license has expired for 3 days, you will not be able to start the Enterprise Edition, and a log will be printed as a reminder.
 
 ## License description
 
-You can use `cat` to view the content of the license file (`nebula.license`). The example is as follows:
+The example of the content of the license file (`nebula.license`) is as follows:
 
 ```bash
 ----------License Content Start----------
 {
-  "vendor": "Vesoft_Inc",
+  "vendor": "vesoft",
   "organization": "doc",
-  "issuedDate": "2021-11-07T16:00:00.000Z",
-  "expirationDate": "2021-11-30T15:59:59.000Z",
+  "issuedDate": "2022-03-06T16:00:00.000Z",
+  "expirationDate": "2022-05-31T15:59:59.000Z",
   "product": "nebula_graph",
-  "version": ">2.6.1",
-  "licenseType": "enterprise"
+  "version": ">3.0.0",
+  "licenseType": "enterprise",
+  "graphdSpec": {
+    "nodes": 3
+  },
+  "storagedSpec": {
+    "nodes": 3
+  }
 }
 ----------License Content End----------
 
@@ -55,8 +61,10 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`product`|The product type. The product type of Nebula Graph is `nebula_graph`.|
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
+|`graphdSpec`| The max number of graph services in a cluster. Nebula Graph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
+|`storagedSpec`| The max number of storage services in a cluster. Nebula Graph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
 
-## Steps
+## Deploy the license
 
 1. Send email to `inquiry@vesoft.com` to apply for the Nebula Graph Enterprise Edition package.
 
@@ -69,3 +77,13 @@ The license file contains information such as `issuedDate` and `expirationDate`.
   !!! note
 
         For the upload address of the license file for ecosystem tools, refer to the document of [Ecosystem tools overview](../20.appendix/6.eco-tool-version.md).
+
+## View the license
+
+- View the License file directly
+
+  You can use `cat` to view the content of the license file directly. For example: `cat share/resources/nebula.license`.
+
+- View the License file with HTTP port
+
+  When the Nebula Graph cluster is running normally, you can view the license file with the HTTP port (default port is 19559) of the meta service. For example: `curl -G "http://192.168.10.101:19559/license"`.

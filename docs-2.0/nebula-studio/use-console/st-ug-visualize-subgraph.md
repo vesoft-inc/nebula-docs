@@ -38,7 +38,7 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
     Take the `FIND ALL PATH` for example, query the path information as shown in this figure.
 
-    ![The result window shows the queried paths](../figs/st-ug-045.png)
+    ![The result window shows the queried paths](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-045.png)
 
 4. Click the **View Subgraphs** button.
 
@@ -50,7 +50,7 @@ To query the paths or subgraph on the **Console** page and then view them on the
 
 When the data is inserted, you can view the visualized representation of the paths.  Operations such as expanding vertices, moving the canvas, modifying the color and icon of the vertices, and displaying the properties of the vertices and edges on the page are supported.
 
-![The paths are represented on the Explore board](../figs/st-ug-046.png "Visualize paths")
+![The paths are represented on the Explore board](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-046.png "Visualize paths")
 
 ## Next to do
 
