@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.2.3 (2022.03.25)
+
+- Fix:
+  - Fix the problem caused by browser version compatibility.
+
 ## v3.2.2 (2022.03.08)
 
 - Fix:
