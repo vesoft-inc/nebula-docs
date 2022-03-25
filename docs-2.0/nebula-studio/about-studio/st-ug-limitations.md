@@ -12,9 +12,9 @@ This topic introduces the limitations of Studio.
 | --- | --- |
 | 1.x | 1.x|
 | 2.0 & 2.0.1 | 2.x |
-| 2.5.0 & 2.5.1 | 3.0.0 |
-| 2.6.0 & 2.6.1 & 2.6.2 | 3.1.0 |
-| 3.0.0 | 3.2.0 |
+| 2.5.x | 3.0.0 |
+| 2.6.x | 3.1.x |
+| 3.0.0 | 3.2.x |
 
 ## Architecture
 
@@ -33,10 +33,6 @@ During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these 
 -->
 
 Only CSV files without headers can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
-
-## Data backup
-
-For now, you can export the queried results in the CSV format on the **Console** page and export data in the CSV format and png format on the **Explore** page. No other backup methods are available.
 
 ## nGQL statements
 
