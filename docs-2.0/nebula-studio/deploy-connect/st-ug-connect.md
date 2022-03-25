@@ -60,3 +60,11 @@ When Studio is successfully connected to Nebula Graph, you can do these operatio
 - If your account has GOD, ADMIN, DBA, or USER privilege, you can batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page or insert data with nGQL statements on the **Console** page.
 
 - If your account has GOD, ADMIN, DBA, USER, or GUEST privilege, you can retrieve data with nGQL statements on the **Console** page or explore and analyze data on the **Explore** page.
+
+### Clear connection
+<!--
+On Nebula Graph Cloud Service, users cannot clear the connection.
+-->
+If you want to reset Nebula Graph, you can clear the connection and reconfigure the database.
+
+When the Studio is still connected to a Nebula Graph database, you can choose **setting > clear connect** at the toolbar. If the **Config Server** page is displayed on the browser, it means that Studio has successfully disconnected from the Nebula Graph database.
