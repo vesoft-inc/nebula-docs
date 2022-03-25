@@ -51,4 +51,4 @@ Studio is in development. Users can view the latest releases features through [C
 
 To view the Changelog, on the upper-right corner of the page, click the version and then **New version**.
 
-![On the upper right corner of the page, click Version and then New Version](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-014-1.png)
+![On the upper right corner of the page, click Version and then New Version](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-001-en.png)
