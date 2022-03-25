@@ -76,8 +76,8 @@ Use TTL options in the `CREATE` statement to set a timeout when creating a tag o
 # Create a tag and set the TTL options.
 nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 
-# Insert a vertex with tag t2. The timeout timestamp is 1612778164774 (1612778164674 + 100).
-nebula> INSERT VERTEX t2(a, b, c) values "102":(1612778164674, 30, "Hello");
+# Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
+nebula> INSERT VERTEX t2(a, b, c) values "102":(1648197138, 30, "Hello");
 ```
 
 ## Remove a timeout
