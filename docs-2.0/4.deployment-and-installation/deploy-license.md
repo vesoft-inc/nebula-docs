@@ -14,13 +14,13 @@ Nebula Graph Enterprise Edition requires the user to deploy a license file befor
 
 - If the license is about to expire, send email to `inquiry@vesoft.com` to apply for renewal.
 
-- The transition period after the license expires is 3 days:
+- The transition period after the license expires is 14 days:
 
-  - If you start the Enterprise Edition within 7 days before the license expires or on the day the license expires, a log will be printed as a reminder.
+  - If you start the Enterprise Edition within 30 days before the license expires or on the day the license expires, a log will be printed as a reminder.
 
-  - The license can still be used for 3 days after it expires.
+  - The license can still be used for 14 days after it expires.
 
-  - If the license has expired for 3 days, you will not be able to start the Enterprise Edition, and a log will be printed as a reminder.
+  - If the license has expired for 14 days, you will not be able to start the Enterprise Edition, and a log will be printed as a reminder.
 
 ## License description
 
