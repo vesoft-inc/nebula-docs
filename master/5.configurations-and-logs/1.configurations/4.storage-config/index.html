@@ -3299,6 +3299,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storage_cache_configurations" class="md-nav__link">
+    Storage cache configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#for_super-large_vertices" class="md-nav__link">
     For super-Large vertices
   </a>
@@ -6013,6 +6020,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storage_cache_configurations" class="md-nav__link">
+    Storage cache configurations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#for_super-large_vertices" class="md-nav__link">
     For super-Large vertices
   </a>
@@ -6443,6 +6457,72 @@ disable_auto_compactions
 </li>
 </ul>
 <p>For more information, see <a href="https://rocksdb.org/">RocksDB official documentation</a>.</p>
+<h2 id="storage_cache_configurations">Storage cache configurations<a class="headerlink" href="#storage_cache_configurations" title="Permanent link">&para;</a></h2>
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly<p>Only available for the Nebula Graph Enterprise Edition.</p>
+</p>
+</div>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>enable_storage_cache</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Whether or not to cache Storage data.</td>
+</tr>
+<tr>
+<td align="left"><code>storage_cache_capacity</code></td>
+<td align="left"><code>0</code></td>
+<td align="left">The size of memory reserved for Storage caches. The value must be slightly greater than the sum of <code>vertex_pool_capacity</code> and <code>empty_key_pool_capacity</code>. The configuration is measured in MB.</td>
+</tr>
+<tr>
+<td align="left"><code>storage_cache_buckets_power</code></td>
+<td align="left"><code>20</code></td>
+<td align="left">The number of buckets. The value is a logarithm with a base of 2. Optional values are 0~32. For example, the value 20 indicates that the number of buckets is 2<span class="arithmatex">\(^{20}\)</span>. The recommended value is <code>ceil(log2(cacheEntries * 1.6))</code>. <code>cacheEntries</code> indicates the total number of cache items.</td>
+</tr>
+<tr>
+<td align="left"><code>storage_cache_locks_power</code></td>
+<td align="left"><code>10</code></td>
+<td align="left">The number of locks. The value is a logarithm with a base of 2. Optional values are 0~32. For example, the value 10 indicates that the number of locks is 2<span class="arithmatex">\(^{10}\)</span>. The recommended value is <code>max(1, storage_cache_buckets_power - 10)</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>enable_vertex_pool</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Whether or not to add a vertex cache pool. Only valid when the storage cache feature is enabled.</td>
+</tr>
+<tr>
+<td align="left"><code>vertex_pool_capacity</code></td>
+<td align="left"><code>50</code></td>
+<td align="left">The size of the vertex cache pool. The configuration is measured in MB.</td>
+</tr>
+<tr>
+<td align="left"><code>vertex_item_ttl</code></td>
+<td align="left"><code>300</code></td>
+<td align="left">The TTL of vertex cache pool items. The configuration is measured in seconds.</td>
+</tr>
+<tr>
+<td align="left"><code>enable_empty_key_pool</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Whether or not to add an empty_key pool in the cache. Only valid when the storage cache is enabled. The empty_key indicates a key that was queried but does not actually exist.</td>
+</tr>
+<tr>
+<td align="left"><code>empty_key_pool_capacity</code></td>
+<td align="left"><code>50</code></td>
+<td align="left">The size of the empty_key cache pool. The configuration is measured in MB.</td>
+</tr>
+<tr>
+<td align="left"><code>empty_key_item_ttl</code></td>
+<td align="left"><code>300</code></td>
+<td align="left">The TTL of the empty_key cache pool items. The configuration is measured in seconds.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="for_super-large_vertices">For super-Large vertices<a class="headerlink" href="#for_super-large_vertices" title="Permanent link">&para;</a></h2>
 <p>When the query starting from each vertex gets an edge, truncate it directly to avoid too many neighboring edges on the super-large vertex, because a single query occupies too much hard disk and memory. Or you can truncate a certain number of edges specified in the <code>Max_edge_returned_per_vertex</code> parameter. Excess edges will not be returned. This parameter applies to all spaces.</p>
 <table>
@@ -6473,7 +6553,7 @@ disable_auto_compactions
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 29, 2022</span>
       
     
   </small>
