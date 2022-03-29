@@ -2,14 +2,10 @@
 
 ## Bug fix
 
-- Fix the bug that it maybe take a long time for storage online after `ADD HOSTS`.  [#3950](https://github.com/vesoft-inc/nebula/pull/3950)
+- Support running Nebula Graph with a docker image on the ARM architecture. [#3939](https://github.com/vesoft-inc/nebula/pull/3939/)
 
-- Fix the crash of the graph service when clients lower than v2.6 connect to Nebula service. [#3942](https://github.com/vesoft-inc/nebula/pull/3942)
-
-- Fix the crash of the upgrade tool when upgrading with no tag defined in the graph space. [#3920](https://github.com/vesoft-inc/nebula/pull/3920)
-
-- Fix the crash of the graph service when nGQL like `MATCH <node>, <node>, <path>`. [#3915](https://github.com/vesoft-inc/nebula/pull/3915)
+- Optimize the processing of using the version-matched client to connect to the server to avoid the connection failure problem. [#4075](https://github.com/vesoft-inc/nebula/pull/4075)
 
 ## Legacy versions
 
-[Release notes of legacy versions](https://nebula-graph.com.cn/tags/release-note/)
+[Release notes of legacy versions](https://nebula-graph.io/posts/)
