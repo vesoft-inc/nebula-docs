@@ -1,5 +1,9 @@
 Nebula Graph supports managing services with script or systemd. This topic will describe the two methods in detail.
 
+!!! enterpriseonly
+
+  Systemd only available for the Nebula Graph Enterprise Edition.
+
 !!! note
 
   The two methods are incompatible. It is recommended to use only one method at a cluster.
