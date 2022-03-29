@@ -281,7 +281,19 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
     - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../manage-service.md).
 
-### Step 4: Check the cluster status
+### Step 4: Add hosts
+```bash
+$ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
+
+Welcome to Nebula Graph!
+
+> ADD HOSTS 192.168.10.111:9779,192.168.10.112:9779,192.168.10.113:9779,192.168.10.114:9779,192.168.10.115:9779
+Execution succeeded (time spent 1074/1295 us)
+
+Fri, 25 Mar 2022 13:37:14 JST
+```
+
+### Step 5: Check the cluster status
 
 Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
 
