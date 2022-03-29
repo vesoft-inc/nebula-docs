@@ -1,6 +1,6 @@
 # What is Nebula Graph Studio
 
-Nebula Graph Studio (Studio in short) is a browser-based visualization tool to manage Nebula Graph. It provides you with a graphical user interface to manipulate graph schemas, import data, explore graph data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. Users can view the latest source code in the Nebula Graph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
+Nebula Graph Studio (Studio in short) is a browser-based visualization tool to manage Nebula Graph. It provides you with a graphical user interface to manipulate graph schemas, import data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. You can view the latest source code in the Nebula Graph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
 
 ## Released versions
 
@@ -17,17 +17,13 @@ The functions of the above four deployment methods are the same and may be restr
 
 ## Features
 
-Studio provides these features:
+Studio can easily manage Nebula Graph data, with the following functions:
 
-- Graphical user interface (GUI) makes Nebula Graph management more user-friendly:
+- On the **Schema** page, you can use the graphical user interface to create the space, Tag, Edge Type, Index, and view the statistics on the graph. It helps you quickly get started with Nebula Graph.
 
-   - On the **Schema** page, you can manage schemas with a graphical user interface. It helps you quickly get started with Nebula Graph.
+- On the **Import** page, you can operate batch import of vertex and edge data with clicks, and view a real-time import log.
 
-   - On the **Console** page, you can run nGQL statements and read the results in a human-friendly way.
-
-   - On the **Import** page, you can operate batch import of vertex and edge data with clicks, and view a real-time import log.
-
-- On the **Explore** page, you can explore the graph data. It helps you dig the relationships among data and improves the efficiency of data analysis.
+- On the **Console** page, you can run nGQL statements and read the results in a human-friendly way.
 
 ## Scenarios
 
@@ -48,3 +44,11 @@ For Studio on Cloud, only the instance creator and the Nebula Graph Cloud Servic
 Authentication is not enabled in Nebula Graph by default. Users can log into Studio with the `root` account and any password.
 
 When Nebula Graph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
+
+## Check updates
+
+Studio is in development. Users can view the latest releases features through [Changelog](../about-studio/st-ug-release-note.md).
+
+To view the Changelog, on the upper-right corner of the page, click the version and then **New version**.
+
+![On the upper right corner of the page, click Version and then New Version](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-001-en.png)
