@@ -6,7 +6,7 @@ Nebula Graph supports managing services with script or systemd. This topic will 
 
 !!! note
 
-  The two methods are incompatible. It is recommended to use only one method at a cluster.
+  The two methods are incompatible. It is recommended to use only one method in a cluster.
 
 ## Manage services with script
 
