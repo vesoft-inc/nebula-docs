@@ -2,11 +2,11 @@ Nebula Graph supports managing services with script or systemd. This topic will 
 
 !!! enterpriseonly
 
-  Systemd only available for the Nebula Graph Enterprise Edition.
+    Systemd only available for the Nebula Graph Enterprise Edition.
 
 !!! note
 
-  The two methods are incompatible. It is recommended to use only one method in a cluster.
+    The two methods are incompatible. It is recommended to use only one method in a cluster.
 
 ## Manage services with script
 
@@ -14,7 +14,7 @@ You can use the `nebula.service` script to start, stop, restart, terminate, and 
 
 !!! note
 
-  `nebula.service` is stored in the `/usr/local/nebula/scripts` directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.
+    `nebula.service` is stored in the `/usr/local/nebula/scripts` directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.
 
 ### Syntax
 
@@ -45,9 +45,9 @@ For easy maintenance, Nebula Graph supports managing services with systemd. You 
 
 !!! note
 
-  After installing the Nebula Graph, the `.service` files required for systemd are located in the `etc/unit` path under the installation directory.  The Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated automatically based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
+    After installing the Nebula Graph, the `.service` files required for systemd are located in the `etc/unit` path under the installation directory.  The Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated automatically based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
 
-  Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
+    Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
 
 ### Syntax
 
@@ -88,7 +88,7 @@ Users can also run the following command:
 $ systemctl start nebula
 ```
 
-If users want to automatically start the Nebula Graph when the machine starts, run the following command:
+If users want to automatically start Nebula Graph when the machine starts, run the following command:
 
 ```bash
 $ systemctl enable nebula
