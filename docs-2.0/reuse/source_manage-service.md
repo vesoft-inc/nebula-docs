@@ -10,7 +10,7 @@ Nebula Graph supports managing services with script or systemd. This topic will 
 
 ## Manage services with script
 
-You can use the `nebula.service` script to manage services, including start, stop, restart, terminate, and check the Nebula Graph services.
+You can use the `nebula.service` script to start, stop, restart, terminate, and check the Nebula Graph services.
 
 !!! note
 
