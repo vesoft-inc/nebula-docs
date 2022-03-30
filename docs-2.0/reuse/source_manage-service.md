@@ -41,7 +41,7 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 
 ## Manage services with systemd
 
-For easy maintenance, Nebula Graph supports managing services with systemd. Starting, stopping, restarting, and viewing services with command `systemctl`.
+For easy maintenance, Nebula Graph supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
 
 !!! note
 
