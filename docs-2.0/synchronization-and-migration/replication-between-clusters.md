@@ -26,7 +26,7 @@ The synchronization works as follows:
 
 ## Precautions
 
-- The synchronization bases on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
+- The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
 
 - Nebula Graph does not support synchronizing from one primary cluster to multiple secondary clusters.
 
