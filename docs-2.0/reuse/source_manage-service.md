@@ -14,7 +14,7 @@ You can use the `nebula.service` script to start, stop, restart, terminate, and 
 
 !!! note
 
-    `nebula.service` is stored in the `/usr/local/nebula/scripts` directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.
+    `nebula.service` is stored in the `/usr/local/nebula/scripts` directory by default. If you have customized the path, use the actual path in your environment.
 
 ### Syntax
 
