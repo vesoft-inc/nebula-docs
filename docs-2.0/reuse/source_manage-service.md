@@ -1,4 +1,4 @@
-Nebula Graph supports managing services with script or systemd. This topic will describe the two methods in detail.
+Nebula Graph supports managing services with scripts or systemd. This topic will describe the two methods in detail.
 
 !!! enterpriseonly
 
