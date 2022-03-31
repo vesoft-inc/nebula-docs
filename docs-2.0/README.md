@@ -1,12 +1,8 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "Check [new features](20.appendix/releasenote.md)"
+!!! note "[View release notes](20.appendix/releasenote.md)"
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}) {{ git.short_commit }}.
-
-<!--
-!!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
--->
 
 Nebula Graph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
@@ -14,8 +10,8 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 * [Learning path](20.appendix/learning-path.md)
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
-* [Quick start workflow](2.quick-start/1.quick-start-workflow.md)
-* [Configuration](4.deployment-and-installation/1.resource-preparations.md)
+* [Quick start](2.quick-start/1.quick-start-workflow.md)
+* [Preparations before deployment](4.deployment-and-installation/1.resource-preparations.md)
 * [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
@@ -23,10 +19,10 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 ## Other Sources
 
 - [Nebula Graph Homepage](https://nebula-graph.io/)
-- [Release note](20.appendix/releasenote.md)
+- [Release notes](20.appendix/releasenote.md)
 - [Forum](https://discuss.nebula-graph.io/)
-- [Blog](https://nebula-graph.io/posts/)
-- [Video](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
+- [Blogs](https://nebula-graph.io/posts/)
+- [Videos](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
 - [Chinese Docs](https://docs.nebula-graph.com.cn/)
 
 ## Symbols used in this manual
@@ -55,15 +51,15 @@ This manual has over 80 compatibilities and corresponding tips.
 
 !!! faq
 
-    Common questions.
+    Frequently asked questions.
 
 !!! compatibility
 
-    The compatibility between nGQL and openCypher, or between the current version of nGQL and its prior ones. 
+    The compatibility notes between nGQL and openCypher, or between the current version of nGQL and its prior ones. 
 
 !!! enterpriseonly
 
-    Differences between the Nebula Graph Open Source and Enterprise editions.
+    Differences between the Nebula Graph Community and Enterprise editions.
 
 ## Modify errors
  
