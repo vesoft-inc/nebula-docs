@@ -28,7 +28,11 @@ The synchronization works as follows:
 
 - The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
 
-- Nebula Graph does not support synchronizing from one primary cluster to multiple secondary clusters.
+- About the synchronization topology, Nebula Graph:
+
+  - Does not support synchronizing from multiple primary clusters to one secondary cluster.
+
+  - Supports chained synchronization. For example, from cluster A to cluster B, and then cluster B to cluster C.
 
 - The synchronization is implemented asynchronously, but with low latency.
 
@@ -363,10 +367,12 @@ The schema data is synchronized through the Meta listener, while the vertex/edge
 
 ### How to check the data synchronization status and progress?
 
-<!--show sync-->
-
+<!--show sync
 Find the WALs that has just been synchronized, and that has most recently been generated, then:
 
 - Compare their timestamps to see if the synchronization is working correctly.
 
 - Compare the log ID to view the synchronization gap.
+-->
+
+There is no tool specially designed to do this for now.
