@@ -45,7 +45,7 @@ For easy maintenance, Nebula Graph supports managing services with systemd. You 
 
 !!! note
 
-    After installing the Nebula Graph, the `.service` files required for systemd are located in the `etc/unit` path under the installation directory.  The Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated automatically based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
+    After installing Nebula Graph, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
 
     Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
 
