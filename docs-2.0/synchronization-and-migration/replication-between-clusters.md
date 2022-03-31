@@ -30,9 +30,9 @@ The synchronization works as follows:
 
 - About the synchronization topology, Nebula Graph:
 
-  - Does not support synchronizing from multiple primary clusters to one secondary cluster.
+  - Supports synchronizing from one primary cluster to one secondary cluster, but not multiple primary clusters to one secondary cluster.
 
-  - Supports chained synchronization. For example, from cluster A to cluster B, and then cluster B to cluster C.
+  - Supports chained synchronization but not synchronization from one primary cluster to multiple secondary clusters directly. An example of chained synchronization is from cluster A to cluster B, and then cluster B to cluster C.
 
 - The synchronization is implemented asynchronously, but with low latency.
 
