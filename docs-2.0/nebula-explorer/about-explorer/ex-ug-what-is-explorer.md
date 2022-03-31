@@ -26,7 +26,7 @@ Explorer has these features:
 
 - [User-friendly](../ex-ug-shortcuts.md): Explorer uses simple visual interaction, no need to conceive nGQL sentences, easy to realize graph exploration.
 
-- [Flexible](../ex-ug-query-exploration.md): Explorer supports querying data through VID, Tag, and Subgraph.
+- [Flexible](../ex-ug-query-exploration.md): Explorer supports querying data through visual query builder, VID, Tag, and Subgraph.
 
 - [Exploration operations](../ex-ug-graph-exploration.md): Explorer supports exploration operations on multiple vertices, querying the common neighbors of multiple vertices, and querying the path between the source vertex and the destination vertex.
 

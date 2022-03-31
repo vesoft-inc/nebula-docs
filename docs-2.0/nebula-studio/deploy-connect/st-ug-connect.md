@@ -41,13 +41,13 @@ To connect Studio to Nebula Graph, follow these steps:
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
     
-    ![The Config Server page shows the fields to be configured for connection](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-050-1.png "Config Server")
+    ![The Config Server page shows the fields to be configured for connection](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Config Server")
 
 2. After the configuration, click the **Connect** button.
 
    If you can see the **Explore** page, Studio is successfully connected to Nebula Graph.
 
-   ![The Console page shows that the connection is successful](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-051.png "Nebula Graph is connected")
+   ![The Console page shows that the connection is successful](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-003-en.png "Nebula Graph is connected")
 
 One session continues for up to 30 minutes. If you do not operate Studio within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
 
@@ -60,3 +60,13 @@ When Studio is successfully connected to Nebula Graph, you can do these operatio
 - If your account has GOD, ADMIN, DBA, or USER privilege, you can batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page or insert data with nGQL statements on the **Console** page.
 
 - If your account has GOD, ADMIN, DBA, USER, or GUEST privilege, you can retrieve data with nGQL statements on the **Console** page or explore and analyze data on the **Explore** page.
+
+### Clear connection
+<!--
+On Nebula Graph Cloud Service, users cannot clear the connection.
+-->
+If you want to reset Nebula Graph, you can clear the connection and reconfigure the database.
+
+When the Studio is still connected to a Nebula Graph database, you can choose **setting > clear connect** at the toolbar. If the **Config Server** page is displayed on the browser, it means that Studio has successfully disconnected from the Nebula Graph database.
+
+![reset](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
