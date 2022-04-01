@@ -6383,10 +6383,16 @@ Removing network nebula-docker-compose_nebula-net
 <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula/scripts/nebula.service status all
 </code></pre></div>
 <ul>
-<li>Nebula Graph is running normally if the following information is returned.<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26601</span>, Listening on <span class="m">9559</span>
+<li>
+<p>Nebula Graph is running normally if the following information is returned.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26601</span>, Listening on <span class="m">9559</span>
 <span class="o">[</span>INFO<span class="o">]</span> nebula-graphd<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26644</span>, Listening on <span class="m">9669</span>
 <span class="o">[</span>INFO<span class="o">]</span> nebula-storaged<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26709</span>, Listening on <span class="m">9779</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After starting Nebula Graph, the port of the <code>nebula-storaged</code> process is shown in red. Because the <code>nebula-storaged</code> process waits for the <code>nebula-metad</code> to add the current Storage service during the startup process. The Storage works after it receives the ready signal. Starting from Nebula Graph 3.0.0, the Meta service cannot directly read or write data in the Storage service that you add in the configuration file. The configuration file only registers the Storage service to the Meta service. You must run the <code>ADD HOSTS</code> command to enable the Meta to read and write data in the Storage service. For more information, see <a href="../manage-storage-host/">Manage Storage hosts</a>.</p>
+</div>
 </li>
 </ul>
 <ul>
