@@ -3036,9 +3036,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#manage_services_with_script" class="md-nav__link">
+    Manage services with script
+  </a>
+  
+    <nav class="md-nav" aria-label="Manage services with script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#syntax" class="md-nav__link">
     Syntax
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage_services_with_systemd" class="md-nav__link">
+    Manage services with systemd
+  </a>
+  
+    <nav class="md-nav" aria-label="Manage services with systemd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax_1" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5966,9 +5999,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#manage_services_with_script" class="md-nav__link">
+    Manage services with script
+  </a>
+  
+    <nav class="md-nav" aria-label="Manage services with script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#syntax" class="md-nav__link">
     Syntax
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage_services_with_systemd" class="md-nav__link">
+    Manage services with systemd
+  </a>
+  
+    <nav class="md-nav" aria-label="Manage services with systemd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax_1" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6079,13 +6145,26 @@
 
 
 <h1 id="manage_nebula_graph_service">Manage Nebula Graph Service<a class="headerlink" href="#manage_nebula_graph_service" title="Permanent link">&para;</a></h1>
-<p>You can use the <code>nebula.service</code> script to start, stop, restart, terminate, and check the Nebula Graph services. This topic takes starting, stopping and checking the Nebula Graph services for examples.</p>
-<p><code>nebula.service</code> is stored in the <code>/usr/local/nebula/scripts</code> directory by default, which is also the default installation path of Nebula Graph. If you have customized the path, use the actual path in your environment.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p>Nebula Graph supports managing services with scripts or systemd. This topic will describe the two methods in detail.</p>
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly</p>
+<p>Managing Nebula Graph with systemd is only available in the Nebula Graph Enterprise Edition.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The two methods are incompatible. It is recommended to use only one method in a cluster.</p>
+</div>
+<h2 id="manage_services_with_script">Manage services with script<a class="headerlink" href="#manage_services_with_script" title="Permanent link">&para;</a></h2>
+<p>You can use the <code>nebula.service</code> script to start, stop, restart, terminate, and check the Nebula Graph services.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>nebula.service</code> is stored in the <code>/usr/local/nebula/scripts</code> directory by default. If you have customized the path, use the actual path in your environment.</p>
+</div>
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>$ sudo /usr/local/nebula/scripts/nebula.service
 <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-c &lt;config_file_path&gt;<span class="o">]</span>
-&lt;start<span class="p">|</span>stop<span class="p">|</span>restart<span class="p">|</span>kill<span class="p">|</span>status&gt;
-&lt;metad<span class="p">|</span>graphd<span class="p">|</span>storaged<span class="p">|</span>all&gt;
+&lt;start <span class="p">|</span> stop <span class="p">|</span> restart <span class="p">|</span> <span class="nb">kill</span> <span class="p">|</span> status&gt;
+&lt;metad <span class="p">|</span> graphd <span class="p">|</span> storaged <span class="p">|</span> all&gt;
 </code></pre></div>
 <table>
 <thead>
@@ -6141,6 +6220,58 @@
 </tr>
 </tbody>
 </table>
+<h2 id="manage_services_with_systemd">Manage services with systemd<a class="headerlink" href="#manage_services_with_systemd" title="Permanent link">&para;</a></h2>
+<p>For easy maintenance, Nebula Graph supports managing services with systemd. You can start, stop, restart, and check services with <code>systemctl</code> commands.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After installing Nebula Graph, the <code>.service</code> files required by systemd are located in the <code>etc/unit</code> path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the <code>.service</code> files into the path <code>/usr/lib/systemd/system</code> and the parameter <code>ExecStart</code> is generated based on the specified Nebula Graph installation path, so you can use <code>systemctl</code> commands directly.</p>
+<p>Otherwise, users need to move the <code>.service</code> files manually into the directory <code>/usr/lib/systemd/system</code>, and modify the file path of the parameter <code>ExecStart</code> in the <code>.service</code> files.</p>
+</div>
+<h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>$ systemctl &lt;start <span class="p">|</span> stop <span class="p">|</span> restart <span class="p">|</span> status &gt; &lt;nebula <span class="p">|</span> nebula-metad <span class="p">|</span> nebula-graphd <span class="p">|</span> nebula-storaged&gt;
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start</code></td>
+<td>Start the target services.</td>
+</tr>
+<tr>
+<td><code>stop</code></td>
+<td>Stop the target services.</td>
+</tr>
+<tr>
+<td><code>restart</code></td>
+<td>Restart the target services.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Check the status of the target services.</td>
+</tr>
+<tr>
+<td><code>nebula</code></td>
+<td>Set all the Nebula Graph services as the target services.</td>
+</tr>
+<tr>
+<td><code>nebula-metad</code></td>
+<td>Set the Meta Service as the target service.</td>
+</tr>
+<tr>
+<td><code>nebula-graphd</code></td>
+<td>Set the Graph Service as the target service.</td>
+</tr>
+<tr>
+<td><code>nebula-storaged</code></td>
+<td>Set the Storage Service as the target service.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="start_nebula_graph">Start Nebula Graph<a class="headerlink" href="#start_nebula_graph" title="Permanent link">&para;</a></h2>
 <h3 id="in_non-container_environment">In non-container environment<a class="headerlink" href="#in_non-container_environment" title="Permanent link">&para;</a></h3>
 <p>Run the following command to start Nebula Graph.</p>
@@ -6151,6 +6282,12 @@
 <span class="o">[</span>INFO<span class="o">]</span> Done
 <span class="o">[</span>INFO<span class="o">]</span> Starting nebula-storaged...
 <span class="o">[</span>INFO<span class="o">]</span> Done
+</code></pre></div>
+<p>Users can also run the following command:</p>
+<div class="highlight"><pre><span></span><code>$ systemctl start nebula
+</code></pre></div>
+<p>If users want to automatically start Nebula Graph when the machine starts, run the following command:</p>
+<div class="highlight"><pre><span></span><code>$ systemctl <span class="nb">enable</span> nebula
 </code></pre></div>
 <h3 id="in_docker_container_deployed_with_docker-compose">In docker container (deployed with docker-compose)<a class="headerlink" href="#in_docker_container_deployed_with_docker-compose" title="Permanent link">&para;</a></h3>
 <p>Run the following command in the <code>nebula-docker-compose/</code> directory to start Nebula Graph.</p>
@@ -6181,6 +6318,9 @@ Creating nebula-docker-compose_graphd_1    ... <span class="k">done</span>
 <span class="o">[</span>INFO<span class="o">]</span> Done
 <span class="o">[</span>INFO<span class="o">]</span> Stopping nebula-storaged...
 <span class="o">[</span>INFO<span class="o">]</span> Done
+</code></pre></div>
+<p>Users can also run the following command:</p>
+<div class="highlight"><pre><span></span><code>$ systemctl stop nebula
 </code></pre></div>
 <h3 id="in_docker_container_deployed_with_docker-compose_1">In docker container (deployed with docker-compose)<a class="headerlink" href="#in_docker_container_deployed_with_docker-compose_1" title="Permanent link">&para;</a></h3>
 <p>Run the following command in the <code>nebula-docker-compose/</code> directory to stop Nebula Graph.</p>
@@ -6228,6 +6368,22 @@ Removing network nebula-docker-compose_nebula-net
 </code></pre></div>
 </li>
 </ul>
+<p>Users can also run the following command:</p>
+<div class="highlight"><pre><span></span><code>$ systemctl status nebula
+● nebula.service
+   Loaded: loaded <span class="o">(</span>/usr/lib/systemd/system/nebula.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: disabled<span class="o">)</span>
+   Active: active <span class="o">(</span>exited<span class="o">)</span> since 一 <span class="m">2022</span>-03-28 <span class="m">04</span>:13:24 UTC<span class="p">;</span> 1h 47min ago
+  Process: <span class="m">21772</span> <span class="nv">ExecStart</span><span class="o">=</span>/usr/local/ent-nightly/scripts/nebula.service start all <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span><span class="m">0</span>/SUCCESS<span class="o">)</span>
+ Main PID: <span class="m">21772</span> <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span><span class="m">0</span>/SUCCESS<span class="o">)</span>
+    Tasks: <span class="m">325</span>
+   Memory: <span class="m">424</span>.5M
+   CGroup: /system.slice/nebula.service
+           ├─21789 /usr/local/ent-nightly/bin/nebula-metad --flagfile /usr/local/ent-nightly/etc/nebula-metad.conf
+           ├─21827 /usr/local/ent-nightly/bin/nebula-graphd --flagfile /usr/local/ent-nightly/etc/nebula-graphd.conf
+           └─21900 /usr/local/ent-nightly/bin/nebula-storaged --flagfile /usr/local/ent-nightly/etc/nebula-storaged.conf
+3月 <span class="m">28</span> <span class="m">04</span>:13:24 xxxxxx systemd<span class="o">[</span><span class="m">1</span><span class="o">]</span>: Started nebula.service.
+...
+</code></pre></div>
 <p>The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the <code>/usr/local/nebula/etc/</code> directory by default. You can check the configuration files according to the returned result to troubleshoot problems.</p>
 <h3 id="in_docker_container_deployed_with_docker-compose_2">In docker container (deployed with docker-compose)<a class="headerlink" href="#in_docker_container_deployed_with_docker-compose_2" title="Permanent link">&para;</a></h3>
 <p>Run the following command in the <code>nebula-docker-compose/</code> directory to check the service status of Nebula Graph.</p>
