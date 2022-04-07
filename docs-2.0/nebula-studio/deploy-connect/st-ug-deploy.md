@@ -49,14 +49,16 @@ Before you deploy RPM-based Studio, you must confirm that:
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
 
    ```bash
-   Created symlink from /etc/systemd/system/multi-user.target.wants/nebula-graph-studio.service to /usr/lib/systemd/system/nebula-graph-studio.service.
+   Start installing Nebula Studio now...
+   Nebula Studio has been installed.
+   Nebula Studio started automatically.
    ```
 
 3. When Studio is started, use `http://ip address:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Uninstall
 
@@ -66,6 +68,11 @@ You can uninstall Studio using the following command:
 sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
 ```
 
+If these lines are returned, PRM-based Studio has been uninstalled.
+
+```bash
+Nebula Studio removed, bye~
+```
 ### Exception handling
 
 If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:
@@ -148,7 +155,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Stop Service
 
@@ -195,7 +202,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Uninstall
 
@@ -270,7 +277,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Docker-based Studio is started")
 
 ## Next to do
 
