@@ -502,26 +502,26 @@ Connect to the Nebula Graph database using the client tool and import the SST fi
 2. Run the following command to download the SST file:
 
   ```ngql
-  nebula> DOWNLOAD HDFS "hdfs://<hadoop_address>:<hadoop_port>/<sst_file_path>";
+  nebula> SUBMIT JOB DOWNLOAD HDFS "hdfs://<hadoop_address>:<hadoop_port>/<sst_file_path>";
   ```
 
   For example:
 
   ```ngql
-  nebula> DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";
+  nebula> SUBMIT JOB DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";
   ```
 
 2. Run the following command to import the SST file:
 
   ```ngql
-  nebula> INGEST;
+  nebula> SUBMIT JOB INGEST;
   ```
 
 !!! note
 
     - To download the SST file again, delete the `download` folder in the space ID in the `data/storage/nebula` directory in the Nebula Graph installation path, and then download the SST file again. If the space has multiple copies, the `download` folder needs to be deleted on all machines where the copies are saved.
 
-    - If there is a problem with the import and re-importing is required, re-execute `INGEST;`.
+    - If there is a problem with the import and re-importing is required, re-execute `SUBMIT JOB INGEST;`.
 
 ### Step 6: (optional) Validate data
 
