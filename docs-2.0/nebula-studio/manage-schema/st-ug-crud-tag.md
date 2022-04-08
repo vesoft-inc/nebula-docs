@@ -20,7 +20,7 @@ To create a tag on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In the **Graph Space List** page, find a graph space, and then click its name or the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Settings") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
@@ -28,21 +28,28 @@ To create a tag on the **Schema** page, follow these steps:
 
 5. On the **Create** page, do these settings:
 
-  a. **Name**: Specify an appropriate name for the tag. In this example, `course` is specified.
+  - **Name**: Specify an appropriate name for the tag. In this example, `course` is specified.
 
-  b. (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+  - (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+  - **Name**: Specify an appropriate name for the edge type. In this example, `serve` is used.
+
+  - (Optional) If necessary, click the **Comment** to input content.
+
+  - (Optional) If necessary, click the check box **Define Properties** and click **+ Add Property** to do these settings:
 
     - To define a property: Enter a property name, a data type, and a default value.
+    
+    - (Optional) To allow null values or not: Enter the default value and description.
 
-    - To add multiple properties: Click the **Add Property** button and define more properties.
+    - To add multiple properties: Click the **+ Add Property** button and define more properties.
 
-    - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+    - To delete a defined property: Besides the **Comment** column, click **Delete**.
 
-  c. (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
+  - (Optional) If no index is set for the tag, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
-   ![Define properties of the `course` tag](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-028.png "Define a tag")
+   ![Define properties of the `course` tag](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008-en.png)
 
 7. Confirm the settings and then click the **+ Create** button. When the tag is created successfully, the **Define Properties** panel shows all its properties on the list.
 
@@ -52,48 +59,49 @@ To edit a tag on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In the **Graph Space List** page, find a graph space, and then click its name or the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Set") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
-3. In **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
+3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
-4. Click the **Tag** tab, find a tag and then the button ![Icon of edit](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-021.png "Edit") in the **Operations** column.
+4. Click the **Tag** tab, find a tag and then click the button ![Icon of edit](https://docs-cdn.nebula-graph.com.cn/figures/Setup.png) in the **Operations** column.
 
-5. On the **Edit** page, do these settings:
+5. On the **Edit** page, do these operations:
 
-  - To edit a Comment: Click **Edit** under the **Name**.
+   - To edit a Comment: Click **Edit** under the Name.
+   - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
 
-  - To edit a property: On the **Define Properties** panel, find a property, click **Edit**, and then change the data type or the default value.
+   - To delete a property: On the **Define Properties** panel, find a property, click **Delete**.
 
-  - To delete a property: On the **Define Properties** panel, find a property and then click **Delete**.
+   - To add more properties: On the **Define Properties** panel, click the **Add Property** button to add a new property.
 
-  - To add more properties: On the **Define Properties** panel, click the **Add Property** button to add a new property.
+   - To set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box and then set TTL.
 
-  - To set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box and then set the TTL configuration.
+   - To edit the TTL configuration: On the **Set TTL** panel, click **Edit** and then change the configuration of `TTL_COL` and `TTL_DURATION`.
 
-  - To edit the TTL configuration: On the **Set TTL** panel, click **Edit** and then change the configuration of `TTL_COL` and `TTL_DURATION`.
+   - To delete the TTL configuration: When the **Set TTL** panel is expanded, in the upper left corner of the panel, click the check box to delete the configuration.
 
-  - To delete the TTL configuration: When the **Set TTL** panel is expanded, in the upper left corner of the panel, click the check box to delete the configuration.
+    !!! note
 
-6. When the configuration is done, in the **Equivalent to the following nGQL statement** panel, you can see the equivalent `ALTER TAG` statement.
+        The problem of coexistence of TTL and index, see [TTL]((../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
 
 ## Delete a tag
 
 
 !!! danger
 
-    Confirm the [impact](../../3.ngql-guide/10.tag-statements/2.drop-tag.md) before deleting the tag. The deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+    Confirm the [impact](../../3.ngql-guide/10.tag-statements/2.drop-tag.md) before deleting the tag. The deleted data cannot be restored if it is not [backup](../../backup-and-restore/nebula-br/1.what-is-br.md).
 
-To delete a tag on the **Schema** page, follow these steps:
+To delete an edge type on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In **Graph Space List**, find a graph space, and then click its name or the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Settings") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
-4. Click the **Tag** tab, find a tag and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png) in the **Operations** column.
+4. Click the **Tag** tab, find an edge type and then click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) in the **Operations** column.
 
-5. CLick **OK**.
+5. Click **OK** to confirm in the pop-up dialog box.
 
 ## Next to do
 

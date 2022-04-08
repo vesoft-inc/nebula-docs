@@ -20,8 +20,12 @@ To operate a graph space on the **Schema** page of Studio, you must do a check o
 To create a graph space on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
-2. On the **Graph Space List** page, click the **+ Create** button.
-3. On the **Create** page, do these settings:
+
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
+
+3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
+4. On the **Graph Space List** page, click the **+ Create** button.
+5. On the **Create** page, do these settings:
 
   - **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database. The name cannot be used keywords or reserved keywords as identifiers. For more information, see [keywords](../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md).
 
@@ -33,13 +37,13 @@ To create a graph space on the **Schema** page, follow these steps:
 
   In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
    
-   ```bash
-   CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
-   ```
+    ```bash
+    CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
+    ```
 
 4. Confirm the settings and then click the **+ Create** button. If the graph space is created successfully, you can see it on the graph space list.
 
-![The Create page with settings for a graph space](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-026.png)
+![The Create page with settings for a graph space](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-006-en.png)
 
 ## Delete a graph space
 
@@ -50,10 +54,12 @@ To create a graph space on the **Schema** page, follow these steps:
 To delete a graph space on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
-2. In the graph space list, find a graph space and then the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
 
-   ![Graph space list with the graph space to be deleted](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-029.png)
-3. On the dialog box, confirm the information and then click the **OK** button. When the graph space is deleted successfully, it is removed from the **graph space list**.
+2. In the **Graph Space List**, find the space you want to be deleted, and click the ![more](https://docs-cdn.nebula-graph.com.cn/figures/studio-more.svg) icon on the right in the **Operation** column.
+
+   ![Graph space list with the graph space to be deleted](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-007-en.png)
+
+3. On the dialog box, confirm the information and then click the **Delete Graph Space** and **OK** button. When the graph space is deleted successfully, it is removed from the **graph space list**.
 
 ## Next to do
 
