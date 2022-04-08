@@ -1,5 +1,9 @@
 This topic provides basic instruction on how to use the native CLI client Nebula Console to connect to Nebula Graph.
 
+!!! caution
+
+    When connecting to Nebula Graph for the first time, you must [register the Storage Service](../2.quick-start/3.1add-storage-hosts.md) before querying data.
+
 Nebula Graph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. For more information, see the [client list](../14.client/1.nebula-client.md).
 
 ## Prerequisites
