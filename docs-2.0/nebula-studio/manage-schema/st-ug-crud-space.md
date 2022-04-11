@@ -37,9 +37,9 @@ To create a graph space on the **Schema** page, follow these steps:
 
   In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
    
-    ```bash
-    CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
-    ```
+  ```bash
+  CREATE SPACE basketballplayer (partition_num = 100, replica_factor = 1, vid_type = FIXED_STRING(32)) COMMENT = "Statistics of basketball players"
+  ```
 
 4. Confirm the settings and then click the **+ Create** button. If the graph space is created successfully, you can see it on the graph space list.
 
