@@ -21,7 +21,7 @@ The Nebula Graph audit logs store all operations received by graph service in ca
 
 ## Configure audit logs
 
-You need to configure the configuration of the graph service to view audit logs. The default file path of configuration is `/usr/local/nebula/etc/nebula-graphd.conf`.
+You need to configure the graph service file to view audit logs. The default file path of configuration is `/usr/local/nebula/etc/nebula-graphd.conf`.
 
 !!! note
 
