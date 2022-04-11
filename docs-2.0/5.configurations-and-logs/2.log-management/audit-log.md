@@ -32,7 +32,7 @@ Parameter descriptions are as follows:
 |Parameter|Predefined value|Description|
 |:--|:--|:--|
 | `enable_audit` | `false` | Whether or not to enable audit logs. |
-| `audit_log_handler` | `file` | Where the audit logs will be written. Optional values are `file`（local file） and `es`(Elasticsearch). |
+| `audit_log_handler` | `file` | Where will the audit logs be written. Optional values are `file`（local file） and `es`(Elasticsearch). |
 | `audit_log_file` | `./logs/audit/audit.log` | Takes effect only when `audit_log_handler=file`. The path for storing audit logs. The value can be absolute or relative. |
 | `audit_log_strategy` | `synchronous` | Takes effect only when `audit_log_handler=file`. The strategy of the audit logs. Optional values are `asynchronous` and `synchronous`. When set to `asynchronous`, the log using memory buffer does not block the main thread, but the log may be missing due to insufficient cache. When set to `synchronous`, the log directly to file, flush and sync every event. |
 | `audit_log_max_buffer_size` | `1048576` |Take effect only when `audit_log_handler=file` and `audit_log_strategy=asynchronous`. The size of the memory buffer used for logging. Unit: bytes.  |
