@@ -38,7 +38,7 @@ Before you deploy RPM-based Studio, you must confirm that:
    
    For example, install Studio {{studio.release}}, use the following command. The default installation path is `/usr/local/nebula-graph-studio`.
    ```bash
-   sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm
+   $ sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm
    ```
 
    You can also install it to the specified path using the following command:
@@ -65,7 +65,7 @@ Before you deploy RPM-based Studio, you must confirm that:
 You can uninstall Studio using the following command:
 
 ```bash
-sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
+$ sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
 ```
 
 If these lines are returned, PRM-based Studio has been uninstalled.
@@ -79,18 +79,18 @@ If the automatic start fails during the installation process or you want to manu
 
 - Start the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
+$ bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
 ```
 
 - Stop the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
+$ bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
 ```
 
 If you encounter an error `bind EADDRINUSE 0.0.0.0:7001` when starting the service, you can use the following command to check port 7001 usage.
 
 ```bash
-lsof -i:7001
+$ lsof -i:7001
 ```
 
 If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
@@ -137,7 +137,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 2. Use `tar -xvf` to decompress the tar package.
 
    ```bash
-   tar -xvf nebula-graph-studio-{{studio.release}}.x86_64.tar.gz
+   $ tar -xvf nebula-graph-studio-{{studio.release}}.x86_64.tar.gz
    ```
 
 3. Deploy and start nebula-graph-studio.
@@ -243,24 +243,24 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 2. Create the `nebula-graph-studio-v{{studio.release}}` directory and decompress the installation package to the directory.
 
     ```bash
-    mkdir nebula-graph-studio-v{{studio.release}} -zxvf nebula-graph-studio-v{{studio.release}}.gz -C nebula-graph-studio-v{{studio.release}}
+    $ mkdir nebula-graph-studio-v{{studio.release}} -zxvf nebula-graph-studio-v{{studio.release}}.gz -C nebula-graph-studio-v{{studio.release}}
     ```
 
 3. Change to the `nebula-graph-studio-v{{studio.release}}` directory.
    ```bash
-   cd nebula-graph-studio-v{{studio.release}}
+   $ cd nebula-graph-studio-v{{studio.release}}
    ```
 
 4. Pull the Docker image of Studio.
 
     ```bash
-    docker-compose pull
+    $ docker-compose pull
     ```
 
 5. Build and start Docker-based Studio. In this command, `-d` is to run the containers in the background.
 
    ```bash
-   docker-compose up -d
+   $ docker-compose up -d
    ```
 
     If these lines are returned, Docker-based Studio v3.x is deployed and started.
