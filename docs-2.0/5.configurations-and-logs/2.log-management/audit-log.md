@@ -34,7 +34,7 @@ Parameter descriptions are as follows:
 | `enable_audit` | `false` | Whether or not to enable audit logs. |
 | `audit_log_handler` | `file` | Where will the audit logs be written. Optional values are `file`（local file） and `es`(Elasticsearch). |
 | `audit_log_file` | `./logs/audit/audit.log` | Takes effect only when `audit_log_handler=file`. The path for storing audit logs. The value can be absolute or relative. |
-| `audit_log_strategy` | `synchronous` | Takes effect only when `audit_log_handler=file`. The strategy of the audit logs. Optional values are `asynchronous` and `synchronous`. When set to `asynchronous`, the log using memory buffer does not block the main thread, but the log may be missing due to insufficient cache. When set to `synchronous`, the log directly to file, flush and sync every event. |
+| `audit_log_strategy` | `synchronous` | Sets the method to synchronize audit logs. Takes effect only when `audit_log_handler=file` is set.  Optional values are `asynchronous` and `synchronous`. When `asynchronous` is set, log events are cached in memory and do not block the main thread, but may result in missing logs due to insufficient cache. When `synchronous` is set, log events are refreshed and synchronized to the file each time. |
 | `audit_log_max_buffer_size` | `1048576` |Take effect only when `audit_log_handler=file` and `audit_log_strategy=asynchronous`. The size of the memory buffer used for logging. Unit: bytes.  |
 | `audit_log_format` | `xml` | Takes effect only when `audit_log_handler=file`. The format of the the audit logs. Optional values are `xml`, `json` and `csv`. |
 | `audit_log_es_address` | - | Takes effect only when `audit_log_handler=es`. The address of Elasticsearch server. The format is `IP1:port1, IP2:port2, ...`. |
