@@ -94,7 +94,7 @@ The fields of audit logs are the same for different handlers and formats. For ex
 |`USER`| The user name of the Nebula Graph connection. |
 |`CLIENT_HOST`| The IP address of the client.|
 |`HOST`| The IP address of the host. |
-|`SPACE`| The graph space to perform the query.|
+|`SPACE`| The graph space where you perform queries.|
 |`QUERY`| The query statement.|
 |`QUERY_STATUS`| The status of the query. `0` indicates success, and other numbers indicate different error messages.|
 |`QUERY_MESSAGE`| An error message is displayed when the query fails.|
