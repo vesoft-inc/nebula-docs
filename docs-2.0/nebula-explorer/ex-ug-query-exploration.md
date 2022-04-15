@@ -33,7 +33,7 @@ The following GIF shows how to query data using the `nba` graph space and relate
 
 !!! note
 
-Make sure that the corresponding tags and indexes exist in the graph space when querying by tag. For more information, [Create tags](../3.ngql-guide/10.tag-statements/1.create-tag.md) and [Create indexes](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    Make sure that the corresponding tags and indexes exist in the graph space when querying by tag. For more information, [Create tags](../3.ngql-guide/10.tag-statements/1.create-tag.md) and [Create indexes](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
 You can limit the number of results and filter the results.
 
