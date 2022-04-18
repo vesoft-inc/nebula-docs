@@ -37,7 +37,7 @@ Nebula Analytics supports the following graph algorithms.
 |  PageRank             | It is used to rank web pages.          | Node importance measurement   |
 |  KCore                | k-Cores              | Node importance measurement   |
 |  DegreeCentrality     | It is a simple count of the total number of connections linked to a vertex.           | Node importance measurement   |
-|  DegreeWithTime        | Neighbor statistics based on time range of edge | Node importance measurement  |
+|  DegreeWithTime        | Neighbor statistics based on the time range of edge ranks | Node importance measurement  |
 |  PageRankLDBC          | Rank web pages compatible with LDBC   | Node importance measurement  |
 |  TriangleCount        | It counts the number of triangles.         | Graph feature      |
 | LPA                   | Label Propagation Algorithm          |  Community discovery    |
