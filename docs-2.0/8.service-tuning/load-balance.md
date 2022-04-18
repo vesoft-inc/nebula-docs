@@ -113,7 +113,7 @@ nebula> SHOW HOSTS;
 
 !!! note
 
-    This command migrates partitions but does not delete the storage host from the cluster. Delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
+    This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. Delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
 <!-- balance-3.1
 !!! danger
