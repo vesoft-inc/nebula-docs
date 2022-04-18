@@ -49,7 +49,7 @@ To create a tag on the **Schema** page, follow these steps:
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
-   ![Define properties of the `course` tag](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008-en.png)
+   ![Define properties of the `course` tag](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-008-en.png)
 
 7. Confirm the settings and then click the **+ Create** button. When the tag is created successfully, the **Define Properties** panel shows all its properties on the list.
 
@@ -101,7 +101,7 @@ To delete an edge type on the **Schema** page, follow these steps:
 
 4. Click the **Tag** tab, find an edge type and then click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) in the **Operations** column.
 
-5. Click **OK** to confirm in the pop-up dialog box.
+5. Click **OK** to confirm delete a tag in the pop-up dialog box.
 
 ## Next to do
 
