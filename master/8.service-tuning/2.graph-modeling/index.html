@@ -3679,6 +3679,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../synchronization-and-migration/replication-between-clusters/" class="md-nav__link">
+        Synchronize between two clusters
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -3828,6 +3842,13 @@
           <li class="md-nav__item">
   <a href="#set_temporary_properties_through_self-loop_edges" class="md-nav__link">
     Set temporary properties through self-loop edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about_dangling_edges" class="md-nav__link">
+    About dangling edges
   </a>
   
 </li>
@@ -6067,6 +6088,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#about_dangling_edges" class="md-nav__link">
+    About dangling edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#breadth-first_traversal_over_depth-first_traversal" class="md-nav__link">
     Breadth-first traversal over depth-first traversal
   </a>
@@ -6188,6 +6216,51 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 | [1, 2, 3]      |
 +----------------+
 </code></pre></div>
+<h3 id="about_dangling_edges">About dangling edges<a class="headerlink" href="#about_dangling_edges" title="Permanent link">&para;</a></h3>
+<p>A dangling edge is an edge that only connects to a single vertex and only one part of the edge connects to the vertex.</p>
+<p>In Nebula Graph master, dangling edges may appear in the following two cases.</p>
+<ol>
+<li>
+<p>Insert edges with <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a> statement before the source vertex or the destination vertex exists.</p>
+</li>
+<li>
+<p>Delete vertices with <a href="../../3.ngql-guide/12.vertex-statements/4.delete-vertex/">DELETE VERTEX</a> statement and the <code>WITH EDGE</code> option is not used. At this time, the system does not delete the related outgoing and incoming edges of the vertices. There will be dangling edges by default.</p>
+</li>
+</ol>
+<p>Dangling edges may appear in Nebula Graph master as the design allow it to exist. And there is no MERGE statement like openCypher has. The existence of dangling edges depends entirely on the application level. You can use <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> and <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statements to find a dangling edge, but cannot use the <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement to find a dangling edge.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>// Insert an edge that connects two vertices which <span class="k">do</span> not exist <span class="k">in</span> the graph. The <span class="nb">source</span> vertex<span class="s1">&#39;s ID is &#39;</span><span class="m">11</span><span class="s1">&#39;. The destination vertex&#39;</span>s ID is<span class="s1">&#39;13&#39;</span>. 
+
+nebula&gt; CREATE EDGE IF NOT EXISTS e1 <span class="o">(</span>name string, age int<span class="o">)</span><span class="p">;</span>
+nebula&gt; INSERT EDGE e1 <span class="o">(</span>name, age<span class="o">)</span> VALUES <span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span>:<span class="o">(</span><span class="s2">&quot;n1&quot;</span>, <span class="m">1</span><span class="o">)</span><span class="p">;</span>
+
+// Query using the <span class="sb">`</span>GO<span class="sb">`</span> statement
+
+nebula&gt; GO FROM <span class="s2">&quot;11&quot;</span> over e1 YIELD properties<span class="o">(</span>edge<span class="o">)</span><span class="p">;</span>
++----------------------+
+<span class="p">|</span> properties<span class="o">(</span>EDGE<span class="o">)</span>     <span class="p">|</span>
++----------------------+
+<span class="p">|</span> <span class="o">{</span>age: <span class="m">1</span>, name: <span class="s2">&quot;n1&quot;</span><span class="o">}</span> <span class="p">|</span>
++----------------------+
+
+// Query using the <span class="sb">`</span>LOOKUP<span class="sb">`</span> statement
+
+nebula&gt; LOOKUP ON e1 YIELD EDGE AS r<span class="p">;</span>
++-------------------------------------------------------+
+<span class="p">|</span> r                                                     <span class="p">|</span>
++-------------------------------------------------------+
+<span class="p">|</span> <span class="o">[</span>:e2 <span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span> @0 <span class="o">{</span>age: <span class="m">1</span>, name: <span class="s2">&quot;n1&quot;</span><span class="o">}]</span>              <span class="p">|</span>
++-------------------------------------------------------+
+
+// Query using the <span class="sb">`</span>MATCH<span class="sb">`</span> statement
+
+nebula&gt; MATCH <span class="o">()</span>-<span class="o">[</span>e:e1<span class="o">]</span>-&gt;<span class="o">()</span> RETURN e LIMIT <span class="m">100</span><span class="p">;</span>
++---+
+<span class="p">|</span> e <span class="p">|</span>
++---+
++---+
+Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time</span> spent <span class="m">3153</span>/3573 us<span class="o">)</span>
+</code></pre></div>
 <h3 id="breadth-first_traversal_over_depth-first_traversal">Breadth-first traversal over depth-first traversal<a class="headerlink" href="#breadth-first_traversal_over_depth-first_traversal" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Nebula Graph has lower performance for depth-first traversal based on the Graph topology, and better performance for breadth-first traversal and obtaining properties. For example, if model A contains properties "name", "age", and "eye color", it is recommended to create a tag <code>person</code> and add properties <code>name</code>, <code>age</code>, and <code>eye_color</code> to it. If you create a tag <code>eye_color</code> and an edge type <code>has</code>, and then create an edge to represent the eye color owned by the person, the traversal performance will not be high.</li>
@@ -6227,7 +6300,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 18, 2022</span>
       
     
   </small>
