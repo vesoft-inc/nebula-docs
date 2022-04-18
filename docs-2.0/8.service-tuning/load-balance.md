@@ -113,7 +113,7 @@ nebula> SHOW HOSTS;
 
 !!! note
 
-    This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. Delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
+    This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
 <!-- balance-3.1
 !!! danger
@@ -268,4 +268,4 @@ nebula> SHOW HOSTS;
 
 !!! caution
 
-    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
+    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, [FAQ](../20.appendix/0.FAQ.md).
