@@ -20,7 +20,7 @@ To create an edge type on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In the **Graph Space List** page, find a graph space and then click its name or click the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Set") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
@@ -30,21 +30,23 @@ To create an edge type on the **Schema** page, follow these steps:
 
   - **Name**: Specify an appropriate name for the edge type. In this example, `serve` is used.
 
-  - (Optional) If necessary, under the name, click the **Comment** to input content.
+  - (Optional) If necessary, click the **Comment** to input content.
 
-  - (Optional) If necessary, in the upper left corner of the **Define Properties** panel, click the check box to expand the panel and do these settings:
+  - (Optional) If necessary, click the check box **Define Properties** and click **+ Add Property** to do these settings:
 
     - To define a property: Enter a property name, a data type, and a default value.
+    
+    - (Optional) To allow null values or not: Enter the default value and description.
 
-    - To add multiple properties: Click the **Add Property** button and define more properties.
+    - To add multiple properties: Click the **+ Add Property** button and define more properties.
 
-    - To delete a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
+    - To delete a defined property: Besides the **Comment** column, click **Delete**.
 
   - (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](../../3.ngql-guide/8.clauses-and-options/ttl-options.md "Click to go to Nebula Graph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 
-   ![Define properties of the `action` edge type](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-027-1.png "Define an edge type")
+   ![Define properties of the `action` edge type](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-004-en.png "Define an edge type")
 
 7. Confirm the settings and then click the **+ Create** button. When the edge type is created successfully, the **Define Properties** panel shows all its properties on the list.
 
@@ -54,11 +56,11 @@ To edit an edge type on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In the **Graph Space List** page, find a graph space and then click its name or click the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Set") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
-4. Click the **Edge Type** tab, find an edge type and then click the button ![Icon of edit](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-021.png "Edit") in the **Operations** column.
+4. Click the **Edge Type** tab, find an edge type and then click the button ![Icon of edit](https://docs-cdn.nebula-graph.com.cn/figures/Setup.png) in the **Operations** column.
 
 5. On the **Edit** page, do these operations:
 
@@ -75,23 +77,25 @@ To edit an edge type on the **Schema** page, follow these steps:
 
    - To delete the TTL configuration: When the **Set TTL** panel is expanded, in the upper left corner of the panel, click the check box to delete the configuration.
 
-6. When the configuration is done, in the **Equivalent to the following nGQL statement** panel, you can see the equivalent `ALTER EDGE` statement.
+    !!! note
+
+        For information about the coexistence problem of TTL and index, see [TTL]((../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
 
 ## Delete an Edge type
 
 !!! danger
 
-    Confirm the [impact](../../3.ngql-guide/11.edge-type-statements/2.drop-edge.md) before deleting the Edge type. The deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+    Confirm the [impact](../../3.ngql-guide/11.edge-type-statements/2.drop-edge.md) before deleting the Edge type. The deleted data cannot be restored if it is not [backup](../../backup-and-restore/nebula-br/1.what-is-br.md).
 
 To delete an edge type on the **Schema** page, follow these steps:
 
 1. In the toolbar, click the **Schema** tab.
 
-2. In **Graph Space List**, find a graph space and then click its name or click the button ![Icon of setting](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-018.png "Set") in the **Operations** column.
+2. In the **Graph Space List** page, find a graph space and then click its name or click **Schema** in the **Operations** column.
 
 3. In the **Current Graph Space** field, confirm the name of the graph space. If necessary, you can choose another name to change the graph space.
 
-4. Click the **Edge Type** tab, find an edge type and then click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-017.png "Delete") in the **Operations** column.
+4. Click the **Edge Type** tab, find an edge type and then click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) in the **Operations** column.
 
 5. Click **OK** to confirm in the pop-up dialog box.
 

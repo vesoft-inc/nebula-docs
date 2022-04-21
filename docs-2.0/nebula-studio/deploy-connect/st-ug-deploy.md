@@ -38,7 +38,7 @@ Before you deploy RPM-based Studio, you must confirm that:
    
    For example, install Studio {{studio.release}}, use the following command. The default installation path is `/usr/local/nebula-graph-studio`.
    ```bash
-   sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm
+   $ sudo rpm -i nebula-graph-studio-{{studio.release}}.x86_64.rpm
    ```
 
    You can also install it to the specified path using the following command:
@@ -49,41 +49,48 @@ Before you deploy RPM-based Studio, you must confirm that:
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
 
    ```bash
-   Created symlink from /etc/systemd/system/multi-user.target.wants/nebula-graph-studio.service to /usr/lib/systemd/system/nebula-graph-studio.service.
+   Start installing Nebula Studio now...
+   Nebula Studio has been installed.
+   Nebula Studio started automatically.
    ```
 
 3. When Studio is started, use `http://ip address:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Uninstall
 
 You can uninstall Studio using the following command:
 
 ```bash
-sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
+$ sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
 ```
 
+If these lines are returned, PRM-based Studio has been uninstalled.
+
+```bash
+Nebula Studio removed, bye~
+```
 ### Exception handling
 
 If the automatic start fails during the installation process or you want to manually start or stop the service, use the following command:
 
 - Start the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
+$ bash /usr/local/nebula-graph-studio/scripts/rpm/start.sh
 ```
 
 - Stop the service manually
 ```bash
-bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
+$ bash /usr/local/nebula-graph-studio/scripts/rpm/stop.sh
 ```
 
 If you encounter an error `bind EADDRINUSE 0.0.0.0:7001` when starting the service, you can use the following command to check port 7001 usage.
 
 ```bash
-lsof -i:7001
+$ lsof -i:7001
 ```
 
 If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
@@ -130,7 +137,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 2. Use `tar -xvf` to decompress the tar package.
 
    ```bash
-   tar -xvf nebula-graph-studio-{{studio.release}}.x86_64.tar.gz
+   $ tar -xvf nebula-graph-studio-{{studio.release}}.x86_64.tar.gz
    ```
 
 3. Deploy and start nebula-graph-studio.
@@ -148,7 +155,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Stop Service
 
@@ -195,7 +202,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
 
 ### Uninstall
 
@@ -236,24 +243,24 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 2. Create the `nebula-graph-studio-v{{studio.release}}` directory and decompress the installation package to the directory.
 
     ```bash
-    mkdir nebula-graph-studio-v{{studio.release}} -zxvf nebula-graph-studio-v{{studio.release}}.gz -C nebula-graph-studio-v{{studio.release}}
+    $ mkdir nebula-graph-studio-v{{studio.release}} -zxvf nebula-graph-studio-v{{studio.release}}.gz -C nebula-graph-studio-v{{studio.release}}
     ```
 
 3. Change to the `nebula-graph-studio-v{{studio.release}}` directory.
    ```bash
-   cd nebula-graph-studio-v{{studio.release}}
+   $ cd nebula-graph-studio-v{{studio.release}}
    ```
 
 4. Pull the Docker image of Studio.
 
     ```bash
-    docker-compose pull
+    $ docker-compose pull
     ```
 
 5. Build and start Docker-based Studio. In this command, `-d` is to run the containers in the background.
 
    ```bash
-   docker-compose up -d
+   $ docker-compose up -d
    ```
 
     If these lines are returned, Docker-based Studio v3.x is deployed and started.
@@ -270,7 +277,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Docker-based Studio is started")
 
 ## Next to do
 
