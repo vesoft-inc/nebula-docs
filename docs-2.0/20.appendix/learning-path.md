@@ -179,11 +179,11 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | ------------------------------------------------------------ |
   | [Nebula Bench](../nebula-bench.md) |
 
-<!-- - Cluster O&M
+- Cluster O&M
 
   | Document  |
   | -------- |
-  | [Nebula Operator](../nebula-operator/1.introduction-to-nebula-operator.md) | -->
+  | [Nebula Operator](../nebula-operator/1.introduction-to-nebula-operator.md) |
 
 - Graph algorithm
 
