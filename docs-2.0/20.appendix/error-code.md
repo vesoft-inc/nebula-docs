@@ -45,7 +45,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-1003`| Session timeout|
 |`-1004`| Syntax error|
 |`-1005`| Execution error|
-|`-1006`| Statement is empty.|
+|`-1006`| Statement is empty|
 |`-1008`| Wrong license|
 |`-1009`| Semantic error|
 |`-1010`| Maximum number of connections exceeded|
