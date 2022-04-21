@@ -6660,36 +6660,42 @@ nebula&gt; MATCH ()-[e:follow]-() \
 </code></pre></div>
 </div>
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">&para;</a></h3>
-<p>You can use the <code>:&lt;edge_type&gt;*[minHop]..[maxHop]</code> pattern to match variable-length paths.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>minHop</code></td>
-<td>Optional. It represents the minimum length of the path. <code>minHop</code> must be a non-negative integer. The default value is 1.</td>
-</tr>
-<tr>
-<td><code>maxHop</code></td>
-<td>Optional. It represents the maximum length of the path. <code>maxHop</code> must be a non-negative integer. It has no default value.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition compatibility">
-<p class="admonition-title">OpenCypher compatibility</p>
-<p>In openCypher, when <code>minHop</code> is not set, <code>..</code> can be omitted. However, in nGQL, <code>..</code> cannot be omitted.</p>
+<p>You can use the <code>:&lt;edge_type&gt;*[minHop..maxHop]</code> pattern to match variable-length paths.<code>minHop</code> and <code>maxHop</code> are optional and default to 1
+and infinity respectively.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When setting bounds, at least one of <code>minHop</code> and <code>maxHop</code> exists.</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2) \
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If <code>maxHop</code> is not set, it may cause the Graph service to OOM, execute this command with caution.</p>
+</div>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*]-&gt;(v2) \
+        RETURN v2 AS Friends;
++-----------------------------------------------------------+
+| Friends                                                   |
++-----------------------------------------------------------+
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
+...
+
+nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..3]-&gt;(v2) \
         RETURN v2 AS Friends;
 +-----------------------------------------------------------+
 | Friends                                                   |
 +-----------------------------------------------------------+
 | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
 | (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
+| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
+...
+
+nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..]-&gt;(v2) \
+        RETURN v2 AS Friends;
++-----------------------------------------------------------+
+| Friends                                                   |
++-----------------------------------------------------------+
+| (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})     |
+| (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       |
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})        |
 ...
 </code></pre></div>
