@@ -67,6 +67,4 @@ To batch import data, follow these steps:
 6. After importing data, you can view logs, download logs, download configuration files, and delete tasks on the **Import Data** tab.
   ![import completed](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-012-en.png)
 
-## Next to do
 
-When the data are imported to v{{nebula.release}}, you can [query graph data](st-ug-explore.md).

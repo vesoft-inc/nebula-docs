@@ -125,7 +125,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document |
   | ------------------------------------------------------------ |
-  |[Create snapshots](../7.data-security/3.manage-snapshot.md)|
+  |[Create snapshots](../backup-and-restore/3.manage-snapshot.md)|
 
 <!--
 - Resource isolation
