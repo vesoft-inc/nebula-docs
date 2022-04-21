@@ -24,7 +24,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-10`| Tag property does not exist.|
 |`-11`| The current role does not exist.|
 |`-12`| The current configuration does not exist.|
-|`-13`| The current host does not exist|
+|`-13`| The current host does not exist.|
 |`-15`| Listener does not exist.|
 |`-16`| The current partition does not exist.|
 |`-17`| Key does not exist.|
@@ -45,7 +45,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-1003`| Session timeout|
 |`-1004`| Syntax error|
 |`-1005`| Execution error|
-|`-1006`| Statement is empty|
+|`-1006`| Statement is empty.|
 |`-1008`| Wrong license|
 |`-1009`| Semantic error|
 |`-1010`| Maximum number of connections exceeded|
@@ -66,13 +66,13 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-2025`| There is no running data balancing plan.|
 |`-2026`| Lack of valid hosts|
 |`-2027`| A data balancing plan that has been corrupted.|
-|`-2029`| Lack of valid drainer|
+|`-2029`| Lack of valid drainers|
 |`-2030`| Failed to recover user role|
 |`-2031`| Number of invalid partitions|
 |`-2032`| Invalid replica factor|
 |`-2033`| Invalid character set|
 |`-2034`| Invalid character sorting rules|
-|`-2035`| Character set and character sorting rule mismatch|
+|`-2035`| Character set and character sorting rule mismatch.|
 |`-2040`| Failed to generate a snapshot|
 |`-2041`| Failed to write block data|
 |`-2044`| Failed to add new task|
@@ -92,7 +92,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-2071`| Failed to get absolute path when getting cluster information|
 |`-2072`| Unable to get an agent when getting cluster information|
 |`-2073`| Query not found|
-|`-2074`| Agent does not report heartbeat|
+|`-2074`| Failed to receive heartbeat from agent|
 |`-2080`| Invalid variable|
 |`-2081`| Variable value and type do not match.|
 |`-3001`| Consensus cannot be reached during an election.|
@@ -104,7 +104,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-3007`| Field value must be set if the field value is `NOT NULL` or has no default value.|
 |`-3008`| The value is out of the range of the current type.|
 |`-3010`| Data conflict|
-|`-3011`| Writes are delayed|
+|`-3011`| Writes are delayed.|
 |`-3021`| Incorrect data type|
 |`-3022`| Invalid VID length|
 |`-3031`| Invalid filter|
@@ -115,17 +115,17 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-3036`| Leader change failed|
 |`-3037`| Invalid stat type|
 |`-3038`| VID is invalid.|
-|`-3040`| Failed to load meta information.|
-|`-3041`| Failed to generate checkpoint.|
+|`-3040`| Failed to load meta information|
+|`-3041`| Failed to generate checkpoint|
 |`-3042`| Generating checkpoint is blocked.|
 |`-3043`| Data is filtered.|
 |`-3044`| Invalid data|
 |`-3045`| Concurrent write conflicts on the same edge|
 |`-3046`| Concurrent write conflict on the same vertex |
 |`-3047`| Lock is invalid.|
-|`-3051`| Invalid task parameter.|
+|`-3051`| Invalid task parameter|
 |`-3052`| The user canceled the task.|
-|`-3053`| Task execution failed|
+|`-3053`| Task execution failed.|
 |`-3060`| Execution plan was cleared.|
 |`-3070`| The heartbeat process was not completed when the request was received.|
 |`-3071`| Out-of-date heartbeat received from the old leader (the new leader has been elected).|
@@ -167,7 +167,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-5002`| Insufficient space|
 |`-5003`| No cache hit|
 |`-5005`| Write cache failed|
-|`-7001`| Number of machines exceeded limit|
+|`-7001`| Number of machines exceeded the limit.|
 |`-7002`| Failed to resolve certificate|
 |`-8000`| Unknown error|
 
