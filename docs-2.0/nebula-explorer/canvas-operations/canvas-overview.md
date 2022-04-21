@@ -73,3 +73,4 @@ On the data overview panel, you are enabled to:
 Select vertices and edges on the canvas, and then click **Selected Vertices {number} Selected Edges {number}** in the lower left corner to view the detailed information of the vertices and edges. You can export the data as a CSV file. 
 
 ![view-data](https://docs-cdn.nebula-graph.com.cn/figures/view-selected-data-22-04-06_en.png)
+

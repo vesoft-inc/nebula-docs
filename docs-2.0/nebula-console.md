@@ -6,7 +6,7 @@ Nebula Console is a native CLI client for Nebula Graph. It can be used to connec
 
 You can obtain Nebula Console in the following ways:
 
-- Obtain the binary file of Nebula Console from the `bin` directory in the Nebula Graph installation path.
+<!-- - Obtain the binary file of Nebula Console from the `bin` directory in the Nebula Graph installation path. -->
 
 - Download the binary file from the [GitHub releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page").
 

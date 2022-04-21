@@ -1,5 +1,9 @@
 This topic provides basic instruction on how to use the native CLI client Nebula Console to connect to Nebula Graph.
 
+!!! caution
+
+    When connecting to Nebula Graph for the first time, you must [register the Storage Service](../2.quick-start/3.1add-storage-hosts.md) before querying data.
+
 Nebula Graph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. For more information, see the [client list](../14.client/1.nebula-client.md).
 
 ## Prerequisites
@@ -16,12 +20,29 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 ### Steps
 
-1. Enter the `bin` directory in the installation path of Nebula Graph and find the binary file `nebula-console`.
+1. On the Nebula Console [releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page"), select a Nebula Console version and click **Assets**.
+
+2. In the **Assets** area, find the correct binary file for the machine where you want to run Nebula Console and download the file to the machine.
+
+3. (Optional) Rename the binary file to `nebula-console` for convenience.
 
   !!! note
-        Only the binary file for Linux systems exists in the `bin` directory. For how to obtain the binary file for Windows systems, see [Obtain Nebula Console](../nebula-console.md).
 
-2. Run the following command to connect to Nebula Graph.
+        For Windows, rename the file to `nebula-console.exe`.
+
+4. On the machine to run Nebula Console, grant the execute permission of the nebula-console binary file to the user.
+
+  !!! note
+
+        For Windows, skip this step.
+
+    ```bash
+    $ chmod 111 nebula-console
+    ```
+
+5. In the command line interface, change the working directory to the one where the nebula-console binary file is stored.
+
+6. Run the following command to connect to Nebula Graph.
 
   * For Linux or macOS:
 
