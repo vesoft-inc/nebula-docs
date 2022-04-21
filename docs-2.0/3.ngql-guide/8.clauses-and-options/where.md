@@ -10,9 +10,7 @@ The `WHERE` clause usually works in the following queries:
 
 ## OpenCypher compatibility
 
-* Using patterns in expression is supported, but introducing new variables is not supported. for example, `MATCH (v:player) WHERE (v)-->()<--(v)` is supported, but `MATCH (v:player) WHERE (v)-->(t)<--(v)` is not supported. `t` is a new variables.
-
-* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as `MATCH (:player)-[e:follow]->() RETURN rank(e);`.
+[Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as `MATCH (:player)-[e:follow]->() RETURN rank(e);`.
 
 ## Basic usage
 
