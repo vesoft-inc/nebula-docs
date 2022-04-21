@@ -72,7 +72,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-2032`| Invalid replica factor|
 |`-2033`| Invalid character set|
 |`-2034`| Invalid character sorting rules|
-|`-2035`| Character set and character sorting rule mismatch.|
+|`-2035`| Character set and character sorting rule mismatch|
 |`-2040`| Failed to generate a snapshot|
 |`-2041`| Failed to write block data|
 |`-2044`| Failed to add new task|
@@ -104,7 +104,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-3007`| Field value must be set if the field value is `NOT NULL` or has no default value|
 |`-3008`| The value is out of the range of the current type|
 |`-3010`| Data conflict|
-|`-3011`| Writes are delayed.|
+|`-3011`| Writes are delayed|
 |`-3021`| Incorrect data type|
 |`-3022`| Invalid VID length|
 |`-3031`| Invalid filter|
@@ -167,7 +167,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-5002`| Insufficient space|
 |`-5003`| No cache hit|
 |`-5005`| Write cache failed|
-|`-7001`| Number of machines exceeded the limit.|
+|`-7001`| Number of machines exceeded the limit|
 |`-7002`| Failed to resolve certificate|
 |`-8000`| Unknown error|
 
