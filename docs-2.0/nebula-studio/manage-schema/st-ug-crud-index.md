@@ -8,7 +8,7 @@ You can create an index for a Tag and/or an Edge type. An index lets traversal s
 
 ## Studio version
 
-Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
+Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-release-note.md).
 
 ## Prerequisites
 

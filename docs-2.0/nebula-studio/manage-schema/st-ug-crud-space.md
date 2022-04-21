@@ -4,7 +4,7 @@ When Studio is connected to Nebula Graph, you can create or delete a graph space
 
 ## Studio version
 
-Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-check-updates.md).
+Studio of v{{ studio.release }} or later versions supports this function. For more information, see [check updates](../about-studio/st-ug-release-note.md).
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ To create a graph space on the **Schema** page, follow these steps:
 
 !!! danger
 
-    Deleting the space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../7.data-security/3.manage-snapshot.md).
+    Deleting the space will delete all the data in it, and the deleted data cannot be restored if it is not [backed up](../../backup-and-restore/3.manage-snapshot.md).
 
 To delete a graph space on the **Schema** page, follow these steps:
 

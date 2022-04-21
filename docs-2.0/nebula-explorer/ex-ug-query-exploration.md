@@ -6,7 +6,7 @@
 
 !!! compatibility "Legacy version compatibility"
 
-    For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
 Click the **Start** ![query](https://docs-cdn.nebula-graph.com.cn/figures/nav-query2.png) icon to query target data on the Explorer page. The queried data will be displayed on the canvas. You have the following ways to query data:
 
