@@ -943,13 +943,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#legacy_version_compatibility" class="md-nav__link">
-    Legacy version compatibility
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#type_coercions_functions" class="md-nav__link">
     Type coercions functions
   </a>
@@ -5964,13 +5957,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#legacy_version_compatibility" class="md-nav__link">
-    Legacy version compatibility
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#type_coercions_functions" class="md-nav__link">
     Type coercions functions
   </a>
@@ -6004,13 +5990,6 @@
 
 <h1 id="type_conversiontype_coercions">Type Conversion/Type coercions<a class="headerlink" href="#type_conversiontype_coercions" title="Permanent link">&para;</a></h1>
 <p>Converting an expression of a given type to another type is known as type conversion.</p>
-<h2 id="legacy_version_compatibility">Legacy version compatibility<a class="headerlink" href="#legacy_version_compatibility" title="Permanent link">&para;</a></h2>
-<ul>
-<li>nGQL 1.0 adopts the <code>C</code>-style of type conversion (implicitly or explicitly): <code>(type_name)expression</code>. For example, the results of <code>YIELD (int)(TRUE)</code> is <code>1</code>. But it is error-prone to users who are not familiar with the C language.</li>
-</ul>
-<ul>
-<li>since nGQL 2.0, the openCypher way of type coercions is adopted.</li>
-</ul>
 <h2 id="type_coercions_functions">Type coercions functions<a class="headerlink" href="#type_coercions_functions" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -6031,6 +6010,10 @@
 <tr>
 <td>toInteger()</td>
 <td>Converts a floating point or string value to an integer value.</td>
+</tr>
+<tr>
+<td>toSet()</td>
+<td>Converts a list or set value to a set value.</td>
 </tr>
 <tr>
 <td>type()</td>
@@ -6091,6 +6074,19 @@ nebula&gt; MATCH (n:player) \
 +-------+
 | 2     |
 +-------+
+
+nebula&gt; RETURN toSet(list[1,2,3,1,2]) AS list2set;
++-----------+
+| list2set  |
++-----------+
+| {3, 1, 2} |
++-----------+
+nebula&gt; RETURN toSet(set{1,2,3,1,2}) AS set2set;
++-----------+
+| set2set   |
++-----------+
+| {3, 2, 1} |
++-----------+
 </code></pre></div>
 
   <hr>
@@ -6098,7 +6094,7 @@ nebula&gt; MATCH (n:player) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 20, 2022</span>
       
     
   </small>
