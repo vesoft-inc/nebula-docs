@@ -38,9 +38,9 @@ To create a schema on the **Console** page, follow these steps:
 
 2. In the **Current Graph Space** field, choose a graph space name. In this example, **basketballplayer** is used.
 
-   ![Choose a graph space name for the Current Graph Space field](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-031.png "Choose a graph space")
+   ![Choose a graph space name for the Current Graph Space field](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-009-en.png "Choose a graph space")
 
-3. In the input box, enter these statements one by one and click the button ![Icon of Run](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-008.png "Run").
+3. In the input box, enter these statements one by one and click the button **Run**.
 
    ```ngql
    // To create a tag named "player", with two property

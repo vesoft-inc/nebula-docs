@@ -20,7 +20,6 @@ Before connecting to the Nebula Graph database, you need to confirm the followin
 
         If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/).
 
-
 ## Procedure
 
 To connect Studio to Nebula Graph, follow these steps:

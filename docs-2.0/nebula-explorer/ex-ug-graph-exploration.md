@@ -7,7 +7,7 @@ The graph exploration can be performed from the following four aspects:
 - Search for Path
 - Inspect Property
 
-![query_exploration](https://docs-cdn.nebula-graph.com.cn/figures/exploration_query.gif)
+![query_exploration](https://docs-cdn.nebula-graph.com.cn/figures/exploration-query-22-04-06_en.gif)
 
 ## Prerequisite
 
