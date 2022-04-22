@@ -43,7 +43,7 @@ Before deploying Explorer, you must check the following information:
 
 ### Installation
 
-1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
+1. Select and download the RPM package according to your needs. It is recommended to select the latest version. 
 
   !!! enterpriseonly
 
@@ -54,30 +54,30 @@ Before deploying Explorer, you must check the following information:
    For example, use the following command to install Explorer. The default installation path is `/usr/local/nebula-explorer`.
 
    ```bash
-   $ sudo rpm -i nebula-explorer-<version>.x86_64.rpm
+   sudo rpm -i nebula-explorer-<version>.x86_64.rpm
    ```
 
    You can also install it to the specified path using the following command:
    ```bash
-   $ sudo rpm -i nebula-explorer-xxx.rpm --prefix=<path> 
+   sudo rpm -i nebula-explorer-xxx.rpm --prefix=<path> 
    ```
 
 3. Copy the license to the installation path.
 
    ```bash
-   $ cp -r <license> <explorer_path>
+   cp -r <license> <explorer_path>
    ```
 
    For example:
    ```bash
-   $ cp -r nebula.license /usr/local/nebula-explorer
+   cp -r nebula.license /usr/local/nebula-explorer
    ```
 
 4. After adding the license, you need to stop and restart the service using the following command.
 
    ```bash
-   $ systemctl stop nebula-explorer #Stop the service
-   $ systemctl start nebula-explorer #Start the service
+   systemctl stop nebula-explorer #Stop the service
+   systemctl start nebula-explorer #Start the service
    ```
 
 ### Start and stop
@@ -85,17 +85,17 @@ Before deploying Explorer, you must check the following information:
 You can use SystemCTL to start and stop the service.
 
 ```bash
-$ systemctl status nebula-explorer #Check the status
-$ systemctl stop nebula-explorer #Stop the service
-$ systemctl start nebula-explorer #Start the service
+systemctl status nebula-explorer #Check the status
+systemctl stop nebula-explorer #Stop the service
+systemctl start nebula-explorer #Start the service
 ```
 
 You can also start or stop the service manually using the following command in the installation directory.
 
   ```bash
-  $ cd ./scripts/rpm
-  $ bash ./start.sh #Start the service
-  $ bash ./stop.sh #Stop the service
+  cd ./scripts/rpm
+  bash ./start.sh #Start the service
+  bash ./stop.sh #Stop the service
   ```
 
 ### Uninstallation
@@ -103,7 +103,7 @@ You can also start or stop the service manually using the following command in t
 You can uninstall Explorer using the following command:
 
 ```bash
-$ sudo rpm -e nebula-graph-explorer-<version>.x86_64
+sudo rpm -e nebula-graph-explorer-<version>.x86_64
 ```
 
 ## DEB-based deployment
@@ -187,25 +187,25 @@ sudo dpkg -r nebula-explorer
 2. Use `tar -xvf` to decompress the TAR package.
 
    ```bash
-   $ tar -xvf nebula-graph-explorer-<version>.tar.gz
+   tar -xvf nebula-graph-explorer-<version>.tar.gz
    ```
 
 3. Copy the license to the `nebula-explorer` directory.
 
    ```bash
-   $ cp -r <license> <explorer_path>
+   cp -r <license> <explorer_path>
    ```
 
    For example:
    ```bash
-   $ cp -r nebula.license /usr/local/nebula-explorer
+   cp -r nebula.license /usr/local/nebula-explorer
    ```
 
 4. Enter the `nebula-explorer` folder to start Explorer.
 
   ```bash
-  $ cd nebula-explorer
-  $ ./nebula-httpd &
+  cd nebula-explorer
+  ./nebula-httpd &
   ```
 
 ### Stop Service
@@ -213,7 +213,7 @@ sudo dpkg -r nebula-explorer
 You can use `kill pid` to stop the service.
 
 ```bash
-$ kill $(lsof -t -i :7002)
+kill $(lsof -t -i :7002)
 ```
 
 ## Next to do
