@@ -47,7 +47,7 @@ Before deploying Explorer, you must check the following information:
 
   !!! enterpriseonly
 
-        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.com.cn/pricing/).
+        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
@@ -114,7 +114,7 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
   !!! enterpriseonly
 
-        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.com.cn/pricing/).
+        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 
 2. Run `sudo dpkg -i <package_name>` to unpack the DEB package.
