@@ -46,7 +46,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-1004`| Syntax error|
 |`-1005`| Execution error|
 |`-1006`| Statement is empty|
-|`-1008`| Wrong license|
+|`-1008`| Permission denied|
 |`-1009`| Semantic error|
 |`-1010`| Maximum number of connections exceeded|
 |`-1011`| Access to storage failed (only some requests succeeded)|
