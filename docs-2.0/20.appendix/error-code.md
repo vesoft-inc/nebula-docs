@@ -46,7 +46,7 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-1004`| Syntax error|
 |`-1005`| Execution error|
 |`-1006`| Statement is empty|
-|`-1008`| Wrong license|
+|`-1008`| Permission denied|
 |`-1009`| Semantic error|
 |`-1010`| Maximum number of connections exceeded|
 |`-1011`| Access to storage failed (only some requests succeeded)|
@@ -127,11 +127,11 @@ Nebula Graph returns an error code when an error occurs. This topic describes th
 |`-3052`| The user canceled the task|
 |`-3053`| Task execution failed|
 |`-3060`| Execution plan was cleared|
+|`-3061`| Client and server versions are not compatible|
+|`-3062`| Failed to get ID serial number|
 |`-3070`| The heartbeat process was not completed when the request was received|
 |`-3071`| Out-of-date heartbeat received from the old leader (the new leader has been elected)|
 |`-3073`| Concurrent write conflicts with later requests|
-|`-3061`| Client and server versions are not compatible|
-|`-3062`| Failed to get ID serial number|
 |`-3500`| Unknown partition|
 |`-3501`| Raft logs lag behind|
 |`-3502`| Raft logs are out of date|
