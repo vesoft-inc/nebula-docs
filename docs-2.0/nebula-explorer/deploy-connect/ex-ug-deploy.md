@@ -10,7 +10,7 @@ This topic describes how to deploy Explorer locally by RPM and tar packages.
 
 | Nebula Graph version | Explorer version |
 | --- | --- |
-| 3.x | 3.0.0 |
+| 3.0.0 ~ 3.1.x | 3.0.0 |
 | 2.5.x ~ 3.0.0| 2.2.0|
 | 2.6.x | 2.1.0 |
 | 2.5.x | 2.0.0 |
