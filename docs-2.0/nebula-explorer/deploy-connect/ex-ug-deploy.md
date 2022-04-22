@@ -15,13 +15,11 @@ This topic describes how to deploy Explorer locally by RPM and tar packages.
 | 2.6.x | 2.1.0 |
 | 2.5.x | 2.0.0 |
 
-## RPM-based deployment
+## Prerequisites
 
-### Prerequisites
+Before deploying Explorer, you must check the following information:
 
-Before you deploy Explorer, you must do a check of these:
-
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../4.deployment-and-installation/1.resource-preparations.md).
+- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -41,13 +39,15 @@ Before you deploy Explorer, you must do a check of these:
 
         License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
 
+## RPM-based deployment
+
 ### Installation
 
 1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
   !!! enterpriseonly
 
-        Explorer is only available in the enterprise version. Click [Pricing](https://nebula-graph.io/pricing/) to see more.
+        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.com.cn/pricing/).
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
@@ -106,31 +106,75 @@ You can uninstall Explorer using the following command:
 $ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 ```
 
-## TAR-based deployment
+## DEB-based deployment
 
-### Prerequisites
+### Installation
 
-Before deploying Explorer, you must check the following information:
-
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
-
-- Before the installation starts, the following ports are not occupied.
-
-   | Port | Description |
-   | ---- | ---- |
-   | 7002 | Web service provided by Explorer |
-
-  !!! caution
-
-        By default, Explorer uses the port `7002`. You can modify the `httpport` in the `conf/app.conf` file in the installation directory and restart the service.
-
-- The Linux distribution is CentOS.
-- GO of version above 1.13 is installed.
-- The license is ready.
+1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
   !!! enterpriseonly
 
-        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
+        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.com.cn/pricing/).
+
+
+2. Run `sudo dpkg -i <package_name>` to unpack the DEB package.
+
+  For example, run the following command to install Explorer (The default installation path is `/usr/local/nebula-explorer`).
+
+  ```bash
+  sudo dpkg -i nebula-explorer-{{explorer.release}}.x86_64.deb
+  ```
+
+  !!! note
+
+        You cannot customize the installation path of Explorer when installing a DEB package.
+
+3. Copy the license to the Explorer installation path.
+
+   ```bash
+   Sudo cp -r <license> <explorer_path>
+   ```
+
+   For example:
+
+   ```bash
+   Sudo cp -r nebula.license /usr/local/nebula-explorer
+   ```
+
+4. Run the following command to start the service.
+
+  ```bash
+  sudo systemctl start nebula-explorer.service
+  ```
+
+  You can also start the service manually using the following command in the `nebula-explorer/lib` directory.
+
+   ```bash
+   sudo bash ./start.sh
+   ```
+
+### View the status
+
+
+```bash
+sudo systemctl status nebula-explorer.service
+```
+
+### Stop the service
+
+```bash
+sudo systemctl stop nebula-explorer.service
+```
+
+### Uninstallation
+
+Run the following command to uninstall Explorer:
+
+```bash
+sudo dpkg -r nebula-explorer
+```
+
+## TAR-based deployment
 
 ### Installation
 
