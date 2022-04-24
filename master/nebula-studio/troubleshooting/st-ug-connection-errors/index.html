@@ -6360,20 +6360,31 @@
 <h3 id="step1_confirm_system_architecture">Step1: Confirm system architecture<a class="headerlink" href="#step1_confirm_system_architecture" title="Permanent link">&para;</a></h3>
 <p>It is necessary to confirm whether the machine where the Studio service is deployed is of x86_64 architecture. Currently, Studio only supports x86_64 architecture.</p>
 <h3 id="step2_check_if_the_studio_service_starts_normally">Step2: Check if the Studio service starts normally<a class="headerlink" href="#step2_check_if_the_studio_service_starts_normally" title="Permanent link">&para;</a></h3>
-<p>Run <code>docker-compose ps</code> to check if the service has started normally.</p>
+<ul>
+<li>For Studio deployed with RPM or DEB packages, use <code>systemctl status nebula-graph-studio</code> to see the running status.</li>
+</ul>
+<ul>
+<li>For Studio deployed with tar package, use <code>sudo lsof -i:7001</code> to check port status.</li>
+</ul>
+<ul>
+<li>
+<p>For Studio deployed with docker, use <code>docker-compose ps</code> to see the running status.
+Run <code>docker-compose ps</code> to check if the service has started normally.</p>
 <p>If the service is normal, the return result is as follows. Among them, the <code>State</code> column should all be displayed as <code>Up</code>.</p>
-<div class="highlight"><pre><span></span><code>      Name                          Command               State               Ports
- ------------------------------------------------------------------------------------------------------
- nebula-web-docker_client_1     ./nebula-go-api                  Up      <span class="m">0</span>.0.0.0:32782-&gt;8080/tcp
- nebula-web-docker_importer_1   nebula-importer --port<span class="o">=</span><span class="m">569</span> ...   Up      <span class="m">0</span>.0.0.0:32783-&gt;5699/tcp
- nebula-web-docker_nginx_1      /docker-entrypoint.sh ngin ...   Up      <span class="m">0</span>.0.0.0:7001-&gt;7001/tcp, <span class="m">80</span>/tcp
- nebula-web-docker_web_1        docker-entrypoint.sh npm r ...   Up      <span class="m">0</span>.0.0.0:32784-&gt;7001/tcp
+<div class="highlight"><pre><span></span><code>    Name                          Command               State               Ports
+------------------------------------------------------------------------------------------------------
+nebula-web-docker_client_1     ./nebula-go-api                  Up      <span class="m">0</span>.0.0.0:32782-&gt;8080/tcp
+nebula-web-docker_importer_1   nebula-importer --port<span class="o">=</span><span class="m">569</span> ...   Up      <span class="m">0</span>.0.0.0:32783-&gt;5699/tcp
+nebula-web-docker_nginx_1      /docker-entrypoint.sh ngin ...   Up      <span class="m">0</span>.0.0.0:7001-&gt;7001/tcp, <span class="m">80</span>/tcp
+nebula-web-docker_web_1        docker-entrypoint.sh npm r ...   Up      <span class="m">0</span>.0.0.0:32784-&gt;7001/tcp
 </code></pre></div>
+</li>
+</ul>
 <p>If the above result is not returned, stop Studio and restart it first. For details, refer to <a href="../../deploy-connect/st-ug-deploy/">Deploy Studio</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you used <code>docker-compose up -d</code> to satrt Nebula Graph before, you must run the <code>docker-compose down</code> to stop Nebula Graph.</p>
-</div>
+<p>!!! note</p>
+<div class="codehilite"><pre><span></span><code>    If you used `docker-compose up -d` to satrt Nebula Graph before, you must run the `docker-compose down` to stop Nebula Graph.
+</code></pre></div>
+
 <h3 id="step3_confirm_address">Step3: Confirm address<a class="headerlink" href="#step3_confirm_address" title="Permanent link">&para;</a></h3>
 <p>If Studio and the browser are on the same machine, users can use <code>localhost:7001</code>, <code>127.0.0.1:7001</code> or <code>0.0.0.0:7001</code> in the browser to access Studio.</p>
 <p>If Studio and the browser are not on the same machine, you must enter <code>&lt;studio_server_ip&gt;:7001</code> in the browser. Among them, <code>studio_server_ip</code> refers to the IP address of the machine where the Studio service is deployed.</p>
@@ -6394,7 +6405,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2022</span>
       
     
   </small>
