@@ -24,15 +24,11 @@ To create a graph schema on Studio, you must do a check of these:
 
 ## Create a schema with Schema
 
-To create a schema on the **Schema** page, follow these steps:
-
 1. Create tags. For more information, see [Operate tags](../manage-schema/st-ug-crud-tag.md).
 
 2. Create edge types. For more information, see [Operate edge types](../manage-schema/st-ug-crud-edge-type.md).
 
 ## Create a schema with Console
-
-To create a schema on the **Console** page, follow these steps:
 
 1. In the toolbar, click the **Console** tab.
 
