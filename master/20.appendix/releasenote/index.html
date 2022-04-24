@@ -6082,6 +6082,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    Optimization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bugfix" class="md-nav__link">
+    Bugfix
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#legacy_versions" class="md-nav__link">
     Legacy versions
   </a>
@@ -6244,6 +6258,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    Optimization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bugfix" class="md-nav__link">
+    Bugfix
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#legacy_versions" class="md-nav__link">
     Legacy versions
   </a>
@@ -6269,16 +6297,67 @@
 
 
 <h1 id="nebula_graph_master_release_notes">Nebula Graph master release notes<a class="headerlink" href="#nebula_graph_master_release_notes" title="Permanent link">&para;</a></h1>
-<p>TODO</p>
+<h2 id="optimization">Optimization<a class="headerlink" href="#optimization" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Patterns can now be used in <code>WHERE</code> statements. For example: <code>MATCH (v:player) WHERE (v)-[:like]-&gt;() RETURN v</code>. <a href="https://github.com/vesoft-inc/nebula/pull/3997">#3997</a> </li>
+<li><code>CLEAR SPACE</code> can be used to clear graph space and index data, but the graph space schema and index names are reserved. <a href="https://github.com/vesoft-inc/nebula/pull/3989">#3989</a> </li>
+<li>The vertex alias can be repeated in match patterns, like <code>MATCH (v)--&gt;(v)</code>. <a href="https://github.com/vesoft-inc/nebula/pull/3929">#3929</a> </li>
+<li>Optimized <code>SUBGRAPH</code> and <code>FIND PATH</code> for better performance. <a href="https://github.com/vesoft-inc/nebula/pull/3871">#3871</a> <a href="https://github.com/vesoft-inc/nebula/pull/4095">#4095</a>  </li>
+<li>Optimized query paths to reduce redundant paths and time complexity.<a href="https://github.com/vesoft-inc/nebula/pull/4162">4126</a> </li>
+<li>Optimized the method to get properties for better performance of <code>MATCH</code> statements. <a href="https://github.com/vesoft-inc/nebula/pull/3750">#3750</a> </li>
+<li>Optimized <code>GO</code> and <code>YIELD</code> clauses to avoid extracting redundant properties. <a href="https://github.com/vesoft-inc/nebula/pull/3974">#3974</a> </li>
+<li>Support for filter and limit pushdown when getting properties. <a href="https://github.com/vesoft-inc/nebula/pull/3844">3844</a> <a href="https://github.com/vesoft-inc/nebula/pull/3839">3839</a> </li>
+<li>Support for aggregation pushdown in <code>LOOKUP</code> statements. <a href="https://github.com/vesoft-inc/nebula/pull/3504">#3504</a> </li>
+<li><code>maxHop</code> is optional in MATCH variable-length paths.<a href="https://github.com/vesoft-inc/nebula/pull/3881">#3881</a> </li>
+<li>Graph spaces are physically deleted after using <code>DROP SPACE</code>. <a href="https://github.com/vesoft-inc/nebula/pull/3913">#3913</a> </li>
+<li>Optimized number parsing in date time, date, time. <a href="https://github.com/vesoft-inc/nebula/pull/3797">#3797</a> </li>
+<li>Added the <code>toSet</code> function which converts <code>LIST</code> or <code>SET</code> to <code>SET</code>. <a href="https://github.com/vesoft-inc/nebula/pull/3594">#3594</a> </li>
+<li>nGQL statements can be used to display the HTTP port of Nebula Graph services and the HTTP2 port has been disabled. <a href="https://github.com/vesoft-inc/nebula/pull/3808">#3808</a> </li>
+<li>The number of sessions for connections to each graphd with the same client IP and the same user is limited. <a href="https://github.com/vesoft-inc/nebula/pull/3729">#3729</a> </li>
+<li>Optimized the waiting mechanism to ensure a timely connection to the metad after the storaged starts. <a href="https://github.com/vesoft-inc/nebula/pull/3971">#3971</a> </li>
+<li>When a node has multiple paths and an error of the disk corresponding to a particular path occurs, it is no longer to rebuild the node. <a href="https://github.com/vesoft-inc/nebula/pull/4131">#4131</a></li>
+<li>Optimized the job manager. <a href="https://github.com/vesoft-inc/nebula/pull/3976">#3976</a> <a href="https://github.com/vesoft-inc/nebula/pull/4045">#4045</a> <a href="https://github.com/vesoft-inc/nebula/pull/4001">#4001</a>  </li>
+<li>The <code>DOWNLOAD</code> and <code>INGEST</code> SST files are now managed with the job manager. <a href="https://github.com/vesoft-inc/nebula/pull/3994">#3994</a></li>
+<li>Support for error code display when a job fails. <a href="https://github.com/vesoft-inc/nebula/pull/4067">#4067</a> </li>
+<li>The OS page cache can be disabled and the block cache and Nebula Graph storage cache can only be used in a shared environment, to avoid memory usage interference between applications. <a href="https://github.com/vesoft-inc/nebula/pull/3890">#3890</a> </li>
+<li>Updated the default value of the KV separation threshold from 0 to 100. <a href="https://github.com/vesoft-inc/nebula/pull/3879">#3879</a> </li>
+<li>Support for using gflag to set the upper limit of expression depth for a better fit of different machine environments. <a href="https://github.com/vesoft-inc/nebula/pull/3722">#3722</a> </li>
+<li>Added a permission check for <code>KILL QUERY</code>. When the authorization is enabled, the GOD user can kill any query and the users with other roles can only kill queries that they own. <a href="https://github.com/vesoft-inc/nebula/pull/3896">#3896</a> </li>
+<li>Support for more complier launchers, including distcc and sccache. <a href="https://github.com/vesoft-inc/nebula/pull/3896">#3896</a> </li>
+<li>More dumping tables are supported with the meta dump tool. <a href="https://github.com/vesoft-inc/nebula/pull/3870">#3870</a> </li>
+</ul>
+<h2 id="bugfix">Bugfix<a class="headerlink" href="#bugfix" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fixed the crash when using a function call as part of a filter in a <code>LOOKUP</code> statement. <a href="https://github.com/vesoft-inc/nebula/pull/4111">#4111</a> </li>
+<li>Fixed the crash when there were non-indexed properties in an <code>IN</code> clause. <a href="https://github.com/vesoft-inc/nebula/pull/3986">#3986</a> </li>
+<li>Fixed the storage service crash when concurrently scanning vertices and edges. <a href="https://github.com/vesoft-inc/nebula/pull/4190">#4190</a> </li>
+<li>Fixed the crash when performing aggregation queries with patterns in a <code>MATCH</code> statement. <a href="https://github.com/vesoft-inc/nebula/pull/4180">#4180</a> </li>
+<li>Fixed the crash when getting the JSON results of a <code>profile</code> query. <a href="https://github.com/vesoft-inc/nebula/pull/3998">#3998</a> </li>
+<li>Fixed the crash when the <code>async</code> interface in the Lambda function finished running and the task in <code>threadManager</code> was not executed. <a href="https://github.com/vesoft-inc/nebula/pull/4000">#4000</a> </li>
+<li>Fixed the <code>GROUP BY</code> output bug. <a href="https://github.com/vesoft-inc/nebula/pull/4128">#4128</a> </li>
+<li>Fixed the bug that the version wasn't displayed with <code>SHOW HOSTS</code> sometimes. <a href="https://github.com/vesoft-inc/nebula/pull/4116">#4116</a> </li>
+<li>Fixed the bug on parameters for <code>id(n) == $var</code>, <code>id(n) IN [$var]</code>, <code>id(n) == $var.foo.bar</code>, and <code>id(n) IN $var.foo.bar</code>. <a href="https://github.com/vesoft-inc/nebula/pull/4024">#4024</a> </li>
+<li>Fixed the bug that an incorrect path direction occurred in <code>MATCH...WHERE</code>. <a href="https://github.com/vesoft-inc/nebula/pull/4091">#4091</a> </li>
+<li>Fixed the bug that the result of referencing multiple <code>MATCH</code> variables in a <code>WHERE</code> clause was incorrect. <a href="https://github.com/vesoft-inc/nebula/pull/4143">#4143</a> </li>
+<li>Fixed the optimizer bug. <a href="https://github.com/vesoft-inc/nebula/pull/4146">#4146</a> </li>
+<li>Fixed the bug that the storage service failed to handle Raft snapshots. <a href="https://github.com/vesoft-inc/nebula/pull/4019">#4019</a> </li>
+<li>Fixed the bug that the storage service would not accept more logs after receiving a snapshot. <a href="https://github.com/vesoft-inc/nebula/pull/3909">#3909</a></li>
+<li>Fixed the bug that snapshots did not contain the vertices without tags. <a href="https://github.com/vesoft-inc/nebula/pull/4189">#4189</a> </li>
+<li>Fixed the latest schema version read failure when the schema version is greater than 255. <a href="https://github.com/vesoft-inc/nebula/pull/4023">#4023</a> </li>
+<li>Fixed the bug that <code>SHOW STATS</code> did not count the vertices that had no tags. <a href="https://github.com/vesoft-inc/nebula/pull/3967">#3967</a> </li>
+<li>Fixed the bug that the timestamp was fetched incorrectly sometimes. <a href="https://github.com/vesoft-inc/nebula/pull/3958">#3958</a> </li>
+<li>Fixed the bug that the <code>root</code> user could be granted with other roles in the graph space. <a href="https://github.com/vesoft-inc/nebula/pull/3868">#3868</a> </li>
+<li>Fixed the duplicate count of column indexes in the lexical parser bug. <a href="https://github.com/vesoft-inc/nebula/pull/3626">#3626</a> </li>
+</ul>
 <h2 id="legacy_versions">Legacy versions<a class="headerlink" href="#legacy_versions" title="Permanent link">&para;</a></h2>
-<p><a href="https://nebula-graph.com.cn/tags/release-note/">Release notes of legacy versions</a></p>
+<p><a href="https://nebula-graph.io/posts/">Release notes of legacy versions</a></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2022</span>
       
     
   </small>
