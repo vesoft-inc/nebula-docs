@@ -2,7 +2,7 @@
 
 ## Optimization 
 
-- Patterns can now be used in queries. For example: `MATCH (v:player) WHERE (v)-[:like]->() RETURN v`. [#3997](https://github.com/vesoft-inc/nebula/pull/3997) 
+- Patterns can now be used in `WHERE` statements. For example: `MATCH (v:player) WHERE (v)-[:like]->() RETURN v`. [#3997](https://github.com/vesoft-inc/nebula/pull/3997) 
 - `CLEAR SPACE` can be used to clear graph space and index data, but the graph space schema and index names are reserved. [#3989](https://github.com/vesoft-inc/nebula/pull/3989) 
 - The vertex alias can be repeated in match patterns, like `MATCH (v)-->(v)`. [#3929](https://github.com/vesoft-inc/nebula/pull/3929) 
 - Optimized `SUBGRAPH` and `FIND PATH` for better performance. [#3871](https://github.com/vesoft-inc/nebula/pull/3871) [#4095](https://github.com/vesoft-inc/nebula/pull/4095)  
@@ -18,7 +18,7 @@
 - nGQL statements can be used to display the HTTP port of Nebula Graph services and the HTTP2 port has been disabled. [#3808](https://github.com/vesoft-inc/nebula/pull/3808) 
 - The number of sessions for connections to each graphd with the same client IP and the same user is limited. [#3729](https://github.com/vesoft-inc/nebula/pull/3729) 
 - Optimized the waiting mechanism to ensure a timely connection to the metad after the storaged starts. [#3971](https://github.com/vesoft-inc/nebula/pull/3971) 
-- It is no longer to rebuild the vertex when it has multiple paths and an error of the disk corresponding to a particular path occurs. [#4131](https://github.com/vesoft-inc/nebula/pull/4131)
+- When a node has multiple paths and an error of the disk corresponding to a particular path occurs, it is no longer to rebuild the node. [#4131](https://github.com/vesoft-inc/nebula/pull/4131)
 - Optimized the job manager. [#3976](https://github.com/vesoft-inc/nebula/pull/3976) [#4045](https://github.com/vesoft-inc/nebula/pull/4045) [#4001](https://github.com/vesoft-inc/nebula/pull/4001)  
 - The `DOWNLOAD` and `INGEST` SST files are now managed with the job manager. [#3994](https://github.com/vesoft-inc/nebula/pull/3994)
 - Support for error code display when a job fails. [#4067](https://github.com/vesoft-inc/nebula/pull/4067) 
