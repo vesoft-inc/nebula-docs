@@ -41,18 +41,18 @@ To batch import data, follow these steps:
 
 2. In **Import** tab, click the **Import Data**.
 
-3. On the **New Import** page, click **Import Template** to import data through the configuration file or click the **+ New Import** button to complete these operations:
+3. On the **Import Data** page, click **+ New Import** button to complete these operations:
 
   !!! caution
 
-        The Studio imports data through the template same as [Nebula Importer](../../nebula-importer/use-importer.md), but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.
+        users can click **Import Template** to download the example configuration file `example.yaml`, and upload the configuration file after configuration. The configuration mode is similar to that of [Nebula Importer](../../nebula-importer/use-importer.md), but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.
 
-  - **Space**: Select a graph space.
-  - **Task Name**: Fill in the task name.
-  - （Optional）**Batch Size**: Fill in the batch size.
+  - Select a graph space.
+  - Fill in the task name.
+  - (Optional) Fill in the batch size.
   - In the **Map Vertices** section, click the **+ Bind Datasource** button, select bind source file in the dialog box, and click the **Confirm** button, the `vertex_player.csv` file is chosen.
     - In the **vertices 1** drop-down list, click **Select CSV Index**, and select the column where vertexID is located in the pop-up dialog box.
-    - Click the **+ Tag** button and click the ![down](https://docs-cdn.nebula-graph.com.cn/figures/down.png) icon on the right. In the displayed property list, bind the source data for the tag property. In this example, **player** is used for the `vertex_player.csv` file. For the **player** tag, choose **Column 1** for the age property, and choose **Column 2** for the name property.
+    - Click the **+ Add Tag** button and click the ![down](https://docs-cdn.nebula-graph.com.cn/figures/down.png) icon on the right. In the displayed property list, bind the source data for the tag property. In this example, **player** is used for the `vertex_player.csv` file. For the **player** tag, choose **Column 1** for the age property, and choose **Column 2** for the name property.
   - In the **Map Edges** section, click the **+ Bind Datasource** button, select bind source file in the dialog box, and click the **Confirm** button, the `edge_follow.csv` file is chosen.
     - In the **vertices 1** drop-down list, click **Select Edge Type**. In this example, follow is chosen.
     - Based on the edge type property, select the corresponding data column from the `edge_follow.csv` file. **srcId** and **dstId** are the VIDs of the source vertex and destination vertex of an edge. In this example, **srcId** must be set to the VIDs of the player and **dstId** must be set to the VIDs of another player. **Rank** is optional.

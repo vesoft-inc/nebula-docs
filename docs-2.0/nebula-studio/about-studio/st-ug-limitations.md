@@ -15,6 +15,7 @@ This topic introduces the limitations of Studio.
 | 2.5.x | 3.0.0 |
 | 2.6.x | 3.1.x |
 | 3.0.0 | 3.2.x |
+|{{nebula.release}}| {{studio.release}}|
 
 ## Architecture
 
