@@ -14,7 +14,7 @@ You can use the `BALANCE` statement to balance the distribution of partitions an
     
 !!! note
 
-    If the current graph space already has a failed `BALANCE DATA` job, you can resume the failed job, but cannot start a new `BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+    If the current graph space already has a `BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
 
 The `BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
 
