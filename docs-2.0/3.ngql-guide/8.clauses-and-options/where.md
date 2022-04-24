@@ -10,9 +10,7 @@ The `WHERE` clause usually works in the following queries:
 
 ## OpenCypher compatibility
 
-* Using patterns in `WHERE` is not supported (TODO: planning), for example `WHERE (v)-->(v2)`.
-
-* [Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as `MATCH (:player)-[e:follow]->() RETURN rank(e);`.
+[Filtering on edge rank](#filter_on_edge_rank) is a native nGQL feature. To retrieve the rank value in openCypher statements, use the rank() function, such as `MATCH (:player)-[e:follow]->() RETURN rank(e);`.
 
 ## Basic usage
 

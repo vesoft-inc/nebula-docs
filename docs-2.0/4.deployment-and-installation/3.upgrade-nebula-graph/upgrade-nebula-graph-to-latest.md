@@ -25,7 +25,7 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
 
 * You must upgrade the old Nebula Graph services on the same machines they are deployed. **DO NOT** change the IP addresses, configuration files of the machines, and **DO NOT** change the cluster topology.
 
-* The hard disk space of each machine should be **more than three times** as much as the space taken by the original data directories.
+* The hard disk space left on each machine should be **two times** as much as the space taken by the original data directories. Half of the reserved space is for storing the manual backup of data. The other half is for storing the WALs copied to the `dst_db_path` and the new keys generated to support vertices with no tags.
 
 * Known issues that could cause data loss are listed on [GitHub known issues](https://github.com/vesoft-inc/nebula-graph/issues/857). The issues are all related to altering schema or default values.
 
@@ -180,7 +180,7 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
   nebula> MATCH (v) RETURN v LIMIT 5;
   ```
 
-  You can also test against [new features]((../../20.appendix/releasenote.md)) in version {{nebula.release}}.
+  You can also test against [new features](../../20.appendix/releasenote.md) in version {{nebula.release}}.
 
 ## Upgrade failure and rollback
 

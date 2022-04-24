@@ -2,13 +2,13 @@
 
 !!! note
 
-    Select and click a target graph space before querying data. 
+    Select and click a target graph space before querying data. For more information, see [Choose graph spaces](13.choose-graphspace.md).
 
 !!! compatibility "Legacy version compatibility"
 
-    For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
-Click the **Start** ![query](https://docs-cdn.nebula-graph.com.cn/figures/nav-query2.png) icon to query target data. The queried data will be displayed on the canvas. You have the following ways to query data:
+Click the **Start** ![query](https://docs-cdn.nebula-graph.com.cn/figures/nav-query2.png) icon to query target data on the Explorer page. The queried data will be displayed on the canvas. You have the following ways to query data:
 
 - Query by VID
 - Query by Tag
@@ -25,15 +25,15 @@ There are three ways to generate VIDs: Manual input, Random import, and File imp
     - The VIDs entered or imported must exist in the graph space you have selected. 
     - Only one VID per row is supported in the querying area.
 
-The following GIF shows how to query data using the `nba` graph space and related data.
+The following GIF shows how to query data using the `basketballplayer` graph space and related data.
 
-![VID QUERY](https://docs-cdn.nebula-graph.com.cn/figures/vid_query.gif)
+![VID QUERY](https://docs-cdn.nebula-graph.com.cn/figures/vid-query-22-04-06_en.gif)
 
 ## Query by Tag
 
 !!! note
 
-Make sure that the corresponding tags and indexes exist in the graph space when querying by tag. For more information, [Create tags](../3.ngql-guide/10.tag-statements/1.create-tag.md) and [Create indexes](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    Make sure that the corresponding tags and indexes exist in the graph space when querying by tag. For more information, [Create tags](../3.ngql-guide/10.tag-statements/1.create-tag.md) and [Create indexes](../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
 You can limit the number of results and filter the results.
 

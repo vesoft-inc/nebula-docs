@@ -37,12 +37,16 @@ Nebula Analytics supports the following graph algorithms.
 |  PageRank             | It is used to rank web pages.          | Node importance measurement   |
 |  KCore                | k-Cores              | Node importance measurement   |
 |  DegreeCentrality     | It is a simple count of the total number of connections linked to a vertex.           | Node importance measurement   |
+|  DegreeWithTime        | Neighbor statistics based on the time range of edge ranks | Node importance measurement  |
+| BetweennessCentrality | Intermediate centrality | Node importance measurement|
+| ClosenessCentrality    | Closeness centrality   | Node importance measurement|
 |  TriangleCount        | It counts the number of triangles.         | Graph feature      |
 | LPA                   | Label Propagation Algorithm          |  Community discovery    |
 | WCC                   | World Competitive Contests          |  Community discovery    |
 | LOUVAIN               | It detects communities in large networks.          |  Community discovery   |
 | HANP                  | Hop attenuation & Node Preference   |  Community discovery    |
 | Clustering Coefficient| It is a measure of the degree to which nodes in a graph tend to cluster together.          |  Clustering       |
+| Jaccard               | Jaccard similarity | Similarity|
 
 ## Install Nebula Analytics
 
