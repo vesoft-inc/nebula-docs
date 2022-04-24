@@ -6495,7 +6495,7 @@
 <h3 id="control_changes_in_the_business_model_and_the_data_model">Control changes in the business model and the data model<a class="headerlink" href="#control_changes_in_the_business_model_and_the_data_model" title="Permanent link">&para;</a></h3>
 <p>Changes here refer to changes in business models and data models (meta-information), not changes in the data itself.</p>
 <p>Some graph databases are designed to be Schema-free, so their data modeling, including the modeling of the graph topology and properties, can be very flexible. Properties can be re-modeled to graph topology, and vice versa. Such systems are often specifically optimized for graph topology access.</p>
-<p>Nebula Graph master is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
+<p>Nebula Graph 3.1.0 is a strong-Schema (row storage) system, which means that the business model should not change frequently. For example, the property Schema should not change. It is similar to avoiding <code>ALTER TABLE</code> in MySQL.</p>
 <p>On the contrary, vertices and their edges can be added or deleted at low costs. Thus, the easy-to-change part of the business model should be transformed to vertices or edges, rather than properties.</p>
 <p>For example, in a business model, people have relatively fixed properties such as age, gender, and name. But their contact, place of visit, trade account, and login device are often changing. The former is suitable for modeling as properties and the latter as vertices or edges.</p>
 <h3 id="set_temporary_properties_through_self-loop_edges">Set temporary properties through self-loop edges<a class="headerlink" href="#set_temporary_properties_through_self-loop_edges" title="Permanent link">&para;</a></h3>
@@ -6528,7 +6528,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 </code></pre></div>
 <h3 id="about_dangling_edges">About dangling edges<a class="headerlink" href="#about_dangling_edges" title="Permanent link">&para;</a></h3>
 <p>A dangling edge is an edge that only connects to a single vertex and only one part of the edge connects to the vertex.</p>
-<p>In Nebula Graph master, dangling edges may appear in the following two cases.</p>
+<p>In Nebula Graph 3.1.0, dangling edges may appear in the following two cases.</p>
 <ol>
 <li>
 <p>Insert edges with <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a> statement before the source vertex or the destination vertex exists.</p>
@@ -6537,7 +6537,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 <p>Delete vertices with <a href="../../3.ngql-guide/12.vertex-statements/4.delete-vertex/">DELETE VERTEX</a> statement and the <code>WITH EDGE</code> option is not used. At this time, the system does not delete the related outgoing and incoming edges of the vertices. There will be dangling edges by default.</p>
 </li>
 </ol>
-<p>Dangling edges may appear in Nebula Graph master as the design allow it to exist. And there is no MERGE statement like openCypher has. The existence of dangling edges depends entirely on the application level. You can use <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> and <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statements to find a dangling edge, but cannot use the <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement to find a dangling edge.</p>
+<p>Dangling edges may appear in Nebula Graph 3.1.0 as the design allow it to exist. And there is no MERGE statement like openCypher has. The existence of dangling edges depends entirely on the application level. You can use <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> and <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statements to find a dangling edge, but cannot use the <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement to find a dangling edge.</p>
 <p>Examples:</p>
 <div class="highlight"><pre><span></span><code>// Insert an edge that connects two vertices which <span class="k">do</span> not exist <span class="k">in</span> the graph. The <span class="nb">source</span> vertex<span class="s1">&#39;s ID is &#39;</span><span class="m">11</span><span class="s1">&#39;. The destination vertex&#39;</span>s ID is<span class="s1">&#39;13&#39;</span>. 
 
@@ -6576,7 +6576,7 @@ Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time<
 <li>Nebula Graph has lower performance for depth-first traversal based on the Graph topology, and better performance for breadth-first traversal and obtaining properties. For example, if model A contains properties "name", "age", and "eye color", it is recommended to create a tag <code>person</code> and add properties <code>name</code>, <code>age</code>, and <code>eye_color</code> to it. If you create a tag <code>eye_color</code> and an edge type <code>has</code>, and then create an edge to represent the eye color owned by the person, the traversal performance will not be high.</li>
 </ul>
 <ul>
-<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph master, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
+<li>The performance of finding an edge by an edge property is close to that of finding a vertex by a vertex property. For some databases, it is recommended to re-model edge properties as those of the intermediate vertices. For example, model the pattern <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> as <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>. With Nebula Graph 3.1.0, you can use <code>(src)-[edge {P1, P2}]-&gt;(dst)</code> directly to decrease the depth of the traversal and increase the performance.</li>
 </ul>
 <h3 id="edge_directions">Edge directions<a class="headerlink" href="#edge_directions" title="Permanent link">&para;</a></h3>
 <p>To query in the opposite direction of an edge, use the following syntax:</p>
@@ -6594,7 +6594,7 @@ Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time<
 <p>Do not use long texts to create edge properties. Edge properties are stored twice and long texts lead to greater write amplification. For how edges properties are stored, see <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">Storage architecture</a>. It is recommended to store long texts in HBase or Elasticsearch and store its address in Nebula Graph.</p>
 <h2 id="dynamic_graphs_sequence_graphs_are_not_supported">Dynamic graphs (sequence graphs) are not supported<a class="headerlink" href="#dynamic_graphs_sequence_graphs_are_not_supported" title="Permanent link">&para;</a></h2>
 <p>In some scenarios, graphs need to have the time information to describe how the structure of the entire graph changes over time.<sup id="fnref:twitter"><a class="footnote-ref" href="#fn:twitter">1</a></sup></p>
-<p>The Rank field on Edges in Nebula Graph master can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
+<p>The Rank field on Edges in Nebula Graph 3.1.0 can be used to store time in int64, but no field on vertices can do this because if you store the time information as property values, it will be covered by new insertion. Thus Nebula Graph does not support sequence graphs.</p>
 <p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/figures/sequence.png" /></p>
 <div class="footnote">
 <hr />
