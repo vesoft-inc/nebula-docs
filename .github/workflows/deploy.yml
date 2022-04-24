@@ -2,7 +2,7 @@ name: Publish docs via GitHub Pages
 on:
   push:
     branches:
-      - master
+      - v3.1.0
 
 jobs:
   deploy:
@@ -35,9 +35,12 @@ jobs:
         run: |
           mike list
           
-      - name: Mike Deploy master
+      - name: Mike Deploy 3.1.0
         run: |
-          mike deploy master -p --rebase
+          # mike delete v3.1.0 -p
+          mkdocs build -v # this is a test
+          mike deploy 3.1.0 -p --rebase
+          # (unhide after publish) mike set-default 3.1.0 -p --rebase
           mike list
 
       # - name: Deploy
