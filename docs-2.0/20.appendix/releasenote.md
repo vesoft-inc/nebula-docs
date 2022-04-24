@@ -1,6 +1,6 @@
 # Nebula Graph {{ nebula.release }} release notes
 
-## Optimization 
+## Enhancement 
 
 - Patterns can now be used in `WHERE` statements. For example: `MATCH (v:player) WHERE (v)-[:like]->() RETURN v`. [#3997](https://github.com/vesoft-inc/nebula/pull/3997) 
 - `CLEAR SPACE` can be used to clear graph space and index data, but the graph space schema and index names are reserved. [#3989](https://github.com/vesoft-inc/nebula/pull/3989) 
