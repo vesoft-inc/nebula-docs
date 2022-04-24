@@ -185,7 +185,7 @@ The test environment for the operation example in this topic is as follows:
   ```bash
   # replication_basketballplayer is the synchronization target. It will be created in the following steps.
   nebula> ADD LISTENER SYNC \
-          META 192.168.10.103:9559 \
+          META 192.168.10.103:9569 \
           STORAGE 192.168.10.103:9789 \
           TO SPACE replication_basketballplayer;
   
@@ -194,7 +194,7 @@ The test environment for the operation example in this topic is as follows:
   +--------+--------+------------------------+--------------------------------+----------+
   | PartId | Type   | Host                   | SpaceName                      | Status   |
   +--------+--------+------------------------+--------------------------------+----------+
-  | 0      | "SYNC" | ""192.168.10.103":9559" | "replication_basketballplayer" | "ONLINE" |
+  | 0      | "SYNC" | ""192.168.10.103":9569" | "replication_basketballplayer" | "ONLINE" |
   | 1      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
   | 2      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
   | 3      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
@@ -308,7 +308,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 !!! note
 
-  Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
+    Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
 1. Log into the primary cluster and remove the old drainer and listener.
 
