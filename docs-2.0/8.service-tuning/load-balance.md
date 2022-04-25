@@ -11,6 +11,10 @@ You can use the `BALANCE` statement to balance the distribution of partitions an
 !!! enterpriseonly
 
     Only available for the Nebula Graph Enterprise Edition.
+    
+!!! note
+
+    If the current graph space already has a `BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
 
 The `BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
 
@@ -89,10 +93,17 @@ To stop a balance job, run `STOP JOB <job_id>`.
 
 !!! note
 
-    - `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
-    - After terminate and restart, the job status is set to `QUEUE`. If the previous status of subtasks was `INVALID` or `FAILED`, the status set to `IN_PROGRESS`. If it was `IN_PROGRESS` or `SUCCEEDED`, the status remains unchanged.
+    `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
 
 Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
+
+### Restore a balance job
+
+To restore a balance job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <job_id>`.
+
+!!! note
+
+    For a `STOPPED` `BALANCE DATA` job, Nebula Graph detects whether the same type of `FAILED` jobs or `FINISHED` jobs have been created since the start time of the job. If so, the `STOPPED` job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.
 
 ### Migrate partition
 
