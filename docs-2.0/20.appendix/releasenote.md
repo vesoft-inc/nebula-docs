@@ -28,6 +28,7 @@
 - Added a permission check for `KILL QUERY`. When the authorization is enabled, the GOD user can kill any query and the users with other roles can only kill queries that they own. [#3896](https://github.com/vesoft-inc/nebula/pull/3896) 
 - Support for more complier launchers, including distcc and sccache. [#3896](https://github.com/vesoft-inc/nebula/pull/3896) 
 - More dumping tables are supported with the meta dump tool. [#3870](https://github.com/vesoft-inc/nebula/pull/3870) 
+- The storage layer controls the concurrency of write operations (INSERT VERTEX or EDGE) from reporting an error and requiring a client retry to using the internal queueing mechanism. [#3926](https://github.com/vesoft-inc/nebula/pull/3926)
 
 ## Bugfix
 
