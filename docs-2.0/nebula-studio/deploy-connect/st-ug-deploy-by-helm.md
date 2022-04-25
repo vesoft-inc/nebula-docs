@@ -35,7 +35,7 @@ Before installing Studio, you need to install the following software and ensure 
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png "Studio is started")
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Studio is started")
 
 
 ## Uninstall
