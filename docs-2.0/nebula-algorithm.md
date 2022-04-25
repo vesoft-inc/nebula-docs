@@ -34,50 +34,33 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 - Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
 
-- When writing the algorithm results into the Nebula Graph, make sure that the Tag in the corresponding graph space has properties corresponding to the algorithm result name. The corresponding properties of each algorithm are as follows.
-
-  |        Algorithm         |     Properties name      |Properties type|
-  |:------------------------:|:-----------------------:|:-----------:|
-  |         pagerank         |         pagerank        |double/string|
-  |          louvain         |          louvain        | int/string  |
-  |          kcore           |           kcore         | int/string  |
-  |     labelpropagation     |           lpa           | int/string  |
-  |   connectedcomponent     |            cc           | int/string  |
-  |stronglyconnectedcomponent|            scc          | int/string  |
-  |         betweenness      |         betweenness     |double/string|
-  |        shortestpath      |        shortestpath     |   string    |
-  |        degreestatic      |degree,inDegree,outDegree| int/string  |
-  |        trianglecount     |       trianglecount     | int/string  |
-  |  clusteringcoefficient   |    clustercoefficient   |double/string|
-  |         closeness        |         closeness       |double/string|
-  |            hanp          |            hanp         | int/string  |
-  |            bfs           |            bfs          |    string   |
-  |         jaccard          |          jaccard        |    string   |
-  |        node2vec          |          node2vec       |    string   |
-
 ## Supported algorithms
 
 The graph computing algorithms supported by Nebula Algorithm are as follows.
 
-| Algorithm | Description| Scenario|
-| :-- |:--  | :--|
-| PageRank  | The rank of pages| Web page ranking, key node mining|
-| Louvain   | Community discovery | Community mining, hierarchical clustering|  
-| KCore     | K core | Community discovery, financial risk control|
-| LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|
-| Hanp |Label propagation advanced |Community discovery, recommendation system |
-| ConnectedComponent | Connected component | Community discovery, island discovery|
-| StronglyConnectedComponent |Strongly connected component  | Community discovery |
-| ShortestPath     |The shortest path | Path planning, network planning |
-| TriangleCount    |Triangle counting | Network structure analysis|
-| GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|
-| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |
-| ClosenessCentrality | Closeness centrality |Key node mining, node influence computing|
-| DegreeStatic    |Degree of statistical | Graph structure analysis|
-| ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|
-| Jaccard | Jaccard similarity | Similarity computing, recommendation system|
-| BFS       | Breadth-First Search| Sequence traversal, shortest path planning|
-| Node2Vec  |     -     | Graph classification         |
+| Algorithm | Description| Scenario|   Properties name      |Properties type|
+| :-- |:--  | :--|:--|:--|
+| PageRank  | The rank of pages| Web page ranking, key node mining|      pagerank        |double/string|
+| Louvain   | Community discovery | Community mining, hierarchical clustering|         louvain        | int/string  |
+| KCore     | K core | Community discovery, financial risk control|  kcore         | int/string  |
+| LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|      lpa           | int/string  |
+| Hanp |Label propagation advanced |Community discovery, recommendation system |       hanp         | int/string  |
+| ConnectedComponent | Connected component | Community discovery, island discovery|         cc           | int/string  |
+| StronglyConnectedComponent |Strongly connected component  | Community discovery |         scc          | int/string  |
+| ShortestPath     |The shortest path | Path planning, network planning |     shortestpath     |   string    |
+| TriangleCount    |Triangle counting | Network structure analysis|       trianglecount     | int/string  |
+| GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|  count  |  int|
+| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |     betweenness     |double/string|
+| ClosenessCentrality | Closeness centrality |Key node mining, node influence computing|    closeness       |double/string|
+| DegreeStatic    |Degree of statistical | Graph structure analysis| degree,inDegree,outDegree| int/string  |
+| ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|   clustercoefficient   |double/string|
+| Jaccard | Jaccard similarity | Similarity computing, recommendation system|    jaccard        |    string   |
+| BFS       | Breadth-First Search| Sequence traversal, shortest path planning|     bfs          |    string   |
+| Node2Vec  |     -     | Graph classification         |     node2vec       |    string   |
+
+!!! note
+
+    When writing the algorithm results into the Nebula Graph, make sure that the tag in the corresponding graph space has properties names and data types corresponding to the table above.
 
 ## Implementation methods
 
