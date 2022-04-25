@@ -3819,6 +3819,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#restore_a_balance_job" class="md-nav__link">
+    Restore a balance job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#migrate_partition" class="md-nav__link">
     Migrate partition
   </a>
@@ -6313,6 +6320,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#restore_a_balance_job" class="md-nav__link">
+    Restore a balance job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#migrate_partition" class="md-nav__link">
     Migrate partition
   </a>
@@ -6372,6 +6386,10 @@
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
 <p>Only available for the Nebula Graph Enterprise Edition.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the current graph space already has a <code>BALANCE DATA</code> job in the <code>FAILED</code> status, you can restore the <code>FAILED</code> job, but cannot start a new <code>BALANCE DATA</code> job. If the job continues to fail, manually stop it, and then you can start a new one.</p>
 </div>
 <p>The <code>BALANCE DATA</code> commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
@@ -6444,12 +6462,15 @@ nebula&gt; BALANCE DATA;
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li><code>STOP JOB &lt;job_id&gt;</code> does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to <code>INVALID</code>. The status of ongoing subtasks is set to <code>SUCCEEDED</code> or <code>FAILED</code> based on the result. You can run the <code>SHOW JOB &lt;job_id&gt;</code> command to check the stopped job status.</li>
-<li>After terminate and restart, the job status is set to <code>QUEUE</code>. If the previous status of subtasks was <code>INVALID</code> or <code>FAILED</code>, the status set to <code>IN_PROGRESS</code>. If it was <code>IN_PROGRESS</code> or <code>SUCCEEDED</code>, the status remains unchanged.</li>
-</ul>
+<p><code>STOP JOB &lt;job_id&gt;</code> does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to <code>INVALID</code>. The status of ongoing subtasks is set to <code>SUCCEEDED</code> or <code>FAILED</code> based on the result. You can run the <code>SHOW JOB &lt;job_id&gt;</code> command to check the stopped job status.</p>
 </div>
 <p>Once all the subtasks are finished or stopped, you can run <code>RECOVER JOB &lt;job_id&gt;</code> again to balance the partitions again, the subtasks continue to be executed in the original state.</p>
+<h3 id="restore_a_balance_job">Restore a balance job<a class="headerlink" href="#restore_a_balance_job" title="Permanent link">&para;</a></h3>
+<p>To restore a balance job in the <code>FAILED</code> or <code>STOPPED</code> status, run <code>RECOVER JOB &lt;job_id&gt;</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a <code>STOPPED</code> <code>BALANCE DATA</code> job, Nebula Graph detects whether the same type of <code>FAILED</code> jobs or <code>FINISHED</code> jobs have been created since the start time of the job. If so, the <code>STOPPED</code> job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.</p>
+</div>
 <h3 id="migrate_partition">Migrate partition<a class="headerlink" href="#migrate_partition" title="Permanent link">&para;</a></h3>
 <p>To migrate specified partitions and scale in the cluster, you can run <code>BALANCE DATA REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code>.</p>
 <p>For example, to migrate the partitions in server <code>192.168.8.100:9779</code>, the command as following:</p>
@@ -6612,7 +6633,7 @@ To remove the following storage servers.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2022</span>
       
     
   </small>
