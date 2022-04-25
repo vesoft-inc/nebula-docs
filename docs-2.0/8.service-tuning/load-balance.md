@@ -97,9 +97,9 @@ To stop a balance job, run `STOP JOB <job_id>`.
 
 Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
 
-### Restore a BALANCE job
+### Restore a balance job
 
-To restore a BALANCE job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <job_id>`.
+To restore a balance job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <job_id>`.
 
 !!! note
 
