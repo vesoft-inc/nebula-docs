@@ -69,7 +69,7 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
   !!! Note
 
-        `BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#Balance leader distribution).
+        `BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
   ```ngql
   nebula> SHOW HOSTS;
