@@ -11,8 +11,8 @@ The correspondence between the Nebula Algorithm release and the Nebula Graph cor
 |3.0-SNAPSHOT         |  nightly       |
 |{{algorithm.release}}|  {{nebula.release}}  |
 |  2.6.x              |  2.6.x  |
-|  2.5.0              |  2.5.0、2.5.1  |
-|  2.1.0              |  2.0.0、2.0.1  |
+|  2.5.0              |  2.5.0,2.5.1  |
+|  2.1.0              |  2.0.0,2.0.1  |
 
 ## Prerequisites
 
@@ -196,7 +196,7 @@ The `lib` repository provides 10 common graph algorithms.
           # StronglyConnectedComponent: scc
           # LabelPropagation: lpa
           # ShortestPath: shortestpath
-          # DegreeStatic: degree、inDegree、outDegree
+          # DegreeStatic: degree,inDegree,outDegree
           # KCore: kcore
           # TriangleCount: tranglecpunt
           # BetweennessCentrality: betweennedss
