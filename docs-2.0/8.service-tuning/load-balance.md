@@ -279,4 +279,4 @@ nebula> SHOW HOSTS;
 
 !!! caution
 
-    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, [FAQ](../20.appendix/0.FAQ.md).
+    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
