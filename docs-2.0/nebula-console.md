@@ -93,6 +93,12 @@ You can save parameters for parameterized queries.
   nebula> :params;
   ```
 
+- The command to view the specified parameters is as follows:
+
+  ```ngql
+  nebula> :params <param_name>;
+  ```
+
 - The command to delete a specified parameter is as follows:
 
   ```ngql
