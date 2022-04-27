@@ -196,10 +196,6 @@ Before you deploy tar-based Studio, you must do a check of these:
    $ ./server
    ```
 
-  !!! caution
-
-        Studio {{nebula.release}} version is not dependent on nebula-importer and nebula-http-gateway, so the installation and deployment procedure is different from Studio v3.1.0.
-
 4. When Studio is started, use `http://<ip address>:7001` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
