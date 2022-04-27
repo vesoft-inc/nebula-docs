@@ -65,7 +65,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document|
   | ------------------------------------------------------------ |
-  | [nGQL cheatsheet](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/6.cheatsheet-for-ngql/) |  
+  | [nGQL cheatsheet](../2.quick-start/6.cheatsheet-for-ngql/) |  
 
 ## 3. Hands-on practices
 
@@ -133,7 +133,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document |
   | ------------------------------------------------------------ |
-  |[Group & Zone](https://docs.nebula-graph.io/{{nebula.release}}/7.data-security/5.zone/)|
+  |[Group & Zone](../7.data-security/5.zone/)|
 -->
 
 - SSL encryption
@@ -160,7 +160,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data visualization     | [Nebula Graph Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [Nebula Dashboard Community Edition](https://docs.nebula-graph.io/{{nebula.release}}/nebula-dashboard/1.what-is-dashboard/)和 [Nebula Dashboard Enterprise Edition](https://docs.nebula-graph.io/{{nebula.release}}/nebula-dashboard-ent/1.what-is-dashboard-ent/) | -|
+  | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard/) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent/) | -|
   | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
 
 
@@ -169,8 +169,8 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Import and export | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data import       | [Nebula Importer](../nebula-importer/use-importer.md) | [Nebula Importer](https://www.bilibili.com/video/BV1ny4y1u7i4) |
-  | Data import       | [Nebula Spark Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-spark-connector/) | -                                                            |
-  | Data import       | [Nebula Flink Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-flink-connector/) | -                                                            |
+  | Data import       | [Nebula Spark Connector](../nebula-spark-connector/) | -                                                            |
+  | Data import       | [Nebula Flink Connector](../nebula-flink-connector/) | -                                                            |
   | Data import       | [Nebula Exchange Community Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
   | Data export       | [Nebula Exchange Enterprise Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | -                                                            |
   
@@ -207,7 +207,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [API & SDK](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/#api_sdk)|
+  | [API & SDK](../20.appendix/6.eco-tool-version/#api_sdk)|
 
 
 ## 5. Best practices
