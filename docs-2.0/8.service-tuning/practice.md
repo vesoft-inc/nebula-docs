@@ -20,15 +20,13 @@ Nebula Graph is used in a variety of industries. This topic presents a few best 
 
 - [BDD-Based Integration Testing Framework for Nebula Graph: Part II](https://nebula-graph.io/posts/bdd-testing-practice-volume-2/)
 
-- [Understanding Subgraph in Nebula Graph 2.0](https://nebula-graph.io/posts/nebula-graph-subgraph-introduction/)
+- [Understanding Subgraph in Nebula Graph](https://nebula-graph.io/posts/nebula-graph-subgraph-introduction/)
 
-- [Full-Text Indexing in Nebula Graph 2.0](https://nebula-graph.io/posts/how-fulltext-index-works/)
+- [Full-Text Indexing in Nebula Graph](https://nebula-graph.io/posts/how-fulltext-index-works/)
 
 ## Ecosystem tool
 
 - [Validating Import Performance of Nebula Importer](https://nebula-graph.io/posts/nebula-importer-practice/)
-
-- [Community Contribution | Nebula Graph 2.0 Performance Testing](https://nebula-graph.io/posts/v2.0-benchmark-and-nebula-importer-optimize/)
 
 - [Ecosystem Tools: Nebula Graph Dashboard for Monitoring](https://nebula-graph.io/posts/what-is-nebula-dashboard/)
 
