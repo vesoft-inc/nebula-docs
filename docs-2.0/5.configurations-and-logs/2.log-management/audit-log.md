@@ -43,7 +43,6 @@ Parameter descriptions are as follows:
 | `audit_log_es_batch_size`      | `1000`  | Takes effect only when `audit_log_handler=es`. The number of logs sent to Elasticsearch at one time.  |
 | `audit_log_exclude_spaces`      | -  |  The list of spaces for not tracking. Multiple graph spaces are separated by commas.  |
 | `audit_log_categories`      | `login,exit`  | The list of log categories for tracking. Multiple categories are separated by commas.   |
-|       |   |   |
 
 ## Audit logs format
 
