@@ -1,6 +1,6 @@
 # Nebula Importer
 
-Nebula Importer (Importer) is a standalone import tool for CSV files with [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
+Nebula Importer (Importer) is a standalone tool for importing data from CSV files into [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
 
 ## Scenario
 
