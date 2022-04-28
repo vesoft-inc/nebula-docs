@@ -14,7 +14,7 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 
 ## Release note
 
-[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}})
+[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}})
 
 ## Prerequisites
 
