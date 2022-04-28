@@ -3,21 +3,19 @@ site_name: Nebula Graph Database Manual
 site_description: Documentation for Nebula Graph Database
 site_author: Nebula Graph
 site_url: https://docs.nebula-graph.io/
-edit_uri: 'edit/v3.1.0/docs-2.0/'
 docs_dir: docs-2.0
-
-# repository
 repo_name: 'vesoft-inc/nebula-docs'
 repo_url: 'https://github.com/vesoft-inc/nebula-docs'
-
-# Copyright
 copyright: Copyright &copy; 2022 Nebula Graph
 
-# Configuration
+# modify
+edit_uri: 'edit/v3.1.0/docs-2.0/'
+
 theme:
-    name: 'material'
-    custom_dir: overrides
-    favicon: 'assets/images/favicon.ico'
+    name: material
+    custom_dir: material 
+    logo: 'https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png'
+    favicon: 'icon/favicon.ico'
     palette:
       - scheme: nebula
         toggle:
@@ -27,16 +25,82 @@ theme:
         toggle:
           icon: material/toggle-switch
           name: Switch to light mode
-    logo: 'https://cloud-cdn.nebula-graph.com.cn/vesoft-nebula-logo-white.png'
     features:
       - navigation.top
+      - header.autohide  
     language: 'en'
 
 extra_css:
-  - 'stylesheets/logo.css'
+  - stylesheets/logo.css
   - stylesheets/note.css
-  - css/version-select.css
   - stylesheets/extra.css
+  - css/version-select.css 
+
+# Extensions
+markdown_extensions:
+  - footnotes
+  - admonition
+  - codehilite:
+        guess_lang: false
+  - toc:
+        permalink: true
+        separator: "_"
+#        toc_depth: 1
+  - mdx_truly_sane_lists
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: docs-2.0/reuse/
+  - pymdownx.arithmatex:
+      generic: true
+
+# Plugins
+plugins:
+  - search
+  - macros:
+      include_dir: docs-2.0/reuse/
+  - git-revision-date-localized
+
+  - exclude:
+# Exclude files with unix-style wildcards (globs)
+      glob:
+# Exclude all files in a directory. The path starts with the directory name in docs-2.0, such as `20.appendix/*`.
+        - nebula-flink/*
+        - CHANGELOG.md
+        - spark-connector/*
+        - 4.deployment-and-installation/5.zone.md
+        - 4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md
+        - nebula-cloud/*
+
+# Exclude the file with the following file name.
+#        - abc.md
+# Exclude files with regular expressions (regexes)
+#    regex:
+#      - '.*\.(tmp|bin|tar)$'
+
+  - with-pdf:
+      copyright: 2022 Vesoft Inc.
+      cover_subtitle: 3.1.0
+      author: Min Wu, Yao Zhou, Cooper Liang, Foesa Yang, Abby Huang
+      cover: true
+      back_cover: true
+      cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'
+      output_path: pdf/NebulaGraph-EN.pdf
+      #show_anchors: true
+      #render_js: true
+      #headless_chrome_path: headless-chromium
+      #enabled_if_env: ENABLE_PDF_EXPORT
+      #debug_html: true
+      #show_anchors: true
+      #verbose: true
+
+extra_javascript:
+  - js/jquery.js
+  - js/search.js
+  - js/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - js/hotjar.js
+
 extra:
   analytics:
     provider: google
@@ -555,69 +619,3 @@ nav:
   - 中文手册: https://docs.nebula-graph.com.cn/
   - PDF: ./pdf/NebulaGraph-EN.pdf
 
-
-# Extensions
-markdown_extensions:
-  - footnotes
-  - admonition
-  - codehilite:
-        guess_lang: false
-  - toc:
-        permalink: true
-        separator: "_"
-#        toc_depth: 1
-  - mdx_truly_sane_lists
-  - pymdownx.superfences
-  - pymdownx.snippets:
-      base_path: docs-2.0/reuse/
-  - pymdownx.arithmatex:
-      generic: true
-
-# Plugins
-plugins:
-  - search
-  - macros:
-      include_dir: docs-2.0/reuse/
-  - git-revision-date-localized
-
-  - exclude:
-# Exclude files with unix-style wildcards (globs)
-      glob:
-# Exclude all files in a directory. The path starts with the directory name in docs-2.0, such as `20.appendix/*`.
-        - nebula-flink/*
-        - CHANGELOG.md
-        - spark-connector/*
-        - 4.deployment-and-installation/5.zone.md
-        - 4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md
-        - nebula-cloud/*
-
-# Exclude the file with the following file name.
-#        - abc.md
-# Exclude files with regular expressions (regexes)
-#    regex:
-#      - '.*\.(tmp|bin|tar)$'
-
-  - with-pdf:
-      copyright: 2022 Vesoft Inc.
-      cover_subtitle: 3.1.0
-      author: Min Wu, Yao Zhou, Cooper Liang, Foesa Yang, Abby Huang
-      cover: true
-      back_cover: true
-      cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'
-      output_path: pdf/NebulaGraph-EN.pdf
-      #show_anchors: true
-      #render_js: true
-      #headless_chrome_path: headless-chromium
-      #enabled_if_env: ENABLE_PDF_EXPORT
-      #debug_html: true
-      #show_anchors: true
-      #verbose: true
-
-extra_javascript:
-  - js/version-select.js
-  - js/jquery.js
-  - js/search.js
-  - js/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - js/hotjar.js
