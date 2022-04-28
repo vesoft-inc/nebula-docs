@@ -6363,29 +6363,29 @@ nebula&gt; INSERT EDGE any_shape_edge(geo) VALUES &quot;201&quot;-&gt;&quot;302&
 
 //Query the geography of Vertex 103.
 nebula&gt; FETCH PROP ON any_shape &quot;103&quot; YIELD ST_ASText(any_shape.geo);
-+----------+---------------------------------+
-| VertexID | ST_ASText(any_shape.geo)        |
-+----------+---------------------------------+
-| &quot;103&quot;    | &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot; |
-+----------+---------------------------------+
++---------------------------------+
+| ST_ASText(any_shape.geo)        |
++---------------------------------+
+| &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot; |
++---------------------------------+
 
 //Query the geography of the edge which traverses from Vertex 201 to Vertex 302.
 nebula&gt; FETCH PROP ON any_shape_edge &quot;201&quot;-&gt;&quot;302&quot; YIELD ST_ASText(any_shape_edge.geo);
-+---------------------+---------------------+----------------------+---------------------------------+
-| any_shape_edge._src | any_shape_edge._dst | any_shape_edge._rank | ST_ASText(any_shape_edge.geo)   |
-+---------------------+---------------------+----------------------+---------------------------------+
-| &quot;201&quot;               | &quot;302&quot;               | 0                    | &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot; |
-+---------------------+---------------------+----------------------+---------------------------------+
++---------------------------------+
+| ST_ASText(any_shape_edge.geo)   |
++---------------------------------+
+| &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot; |
++---------------------------------+
 
 //Create an index for the geography of the Tag any_shape and run LOOKUP.
 nebula&gt; CREATE TAG INDEX IF NOT EXISTS any_shape_geo_index ON any_shape(geo);
 nebula&gt; REBUILD TAG INDEX any_shape_geo_index;
 nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
-+----------+-------------------------------------------------+
-| VertexID | ST_ASText(any_shape.geo)                        |
-+----------+-------------------------------------------------+
-| &quot;103&quot;    | &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot;                 |
-+----------+-------------------------------------------------+
++---------------------------------+
+| ST_ASText(any_shape.geo)        |
++---------------------------------+
+| &quot;POLYGON((0 1, 1 2, 2 3, 0 1))&quot; |
++---------------------------------+
 </code></pre></div>
 <p>When creating an index for geography properties, you can specify the parameters for the index.</p>
 <!--https://www.cockroachlabs.com/docs/stable/spatial-indexes.html-->
@@ -6423,7 +6423,7 @@ nebula&gt; LOOKUP ON any_shape YIELD ST_ASText(any_shape.geo);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 12, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 28, 2022</span>
       
     
   </small>
