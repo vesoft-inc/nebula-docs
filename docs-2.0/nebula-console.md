@@ -6,7 +6,7 @@ Nebula Console is a native CLI client for Nebula Graph. It can be used to connec
 
 You can obtain Nebula Console in the following ways:
 
-- Obtain the binary file of Nebula Console from the `bin` directory in the Nebula Graph installation path.
+<!-- - Obtain the binary file of Nebula Console from the `bin` directory in the Nebula Graph installation path. -->
 
 - Download the binary file from the [GitHub releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page").
 
@@ -91,6 +91,12 @@ You can save parameters for parameterized queries.
 
   ```ngql
   nebula> :params;
+  ```
+
+- The command to view the specified parameters is as follows:
+
+  ```ngql
+  nebula> :params <param_name>;
   ```
 
 - The command to delete a specified parameter is as follows:

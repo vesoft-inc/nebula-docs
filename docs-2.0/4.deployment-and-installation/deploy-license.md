@@ -31,17 +31,19 @@ The example of the content of the license file (`nebula.license`) is as follows:
 {
   "vendor": "vesoft",
   "organization": "doc",
-  "issuedDate": "2022-03-06T16:00:00.000Z",
+  "issuedDate": "2022-04-06T16:00:00.000Z",
   "expirationDate": "2022-05-31T15:59:59.000Z",
   "product": "nebula_graph",
   "version": ">3.0.0",
   "licenseType": "enterprise",
+  "gracePeriod": 14,
   "graphdSpec": {
     "nodes": 3
   },
   "storagedSpec": {
     "nodes": 3
-  }
+  },
+  "clusterCode": "BAIAEAiAQAAG"
 }
 ----------License Content End----------
 
@@ -61,8 +63,10 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`product`|The product type. The product type of Nebula Graph is `nebula_graph`.|
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
+|`gracePeriod`| The buffer time (in days) for the service to continue to be used after the license expires, and the service will be stopped after the buffer period. The trial version of license has no buffer period after expiration and the default value of this parameter is 0. |
 |`graphdSpec`| The max number of graph services in a cluster. Nebula Graph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
 |`storagedSpec`| The max number of storage services in a cluster. Nebula Graph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
+|`clusterCode`| The user's hardware information, which is also the unique identifier of the cluster. This parameter is not available in the trial version of the license. |
 
 ## Deploy the license
 

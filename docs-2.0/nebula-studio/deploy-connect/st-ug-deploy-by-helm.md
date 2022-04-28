@@ -31,11 +31,11 @@ Before installing Studio, you need to install the following software and ensure 
     $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070 deployment/helm
     ```
 
-4. When Studio is started, use `http://address-of-node:30070/` to get access to Studio.
+4. When Studio is started, use `http://<node_address>:30070/` to get access to Studio.
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-025.png "Studio is started")
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Studio is started")
 
 
 ## Uninstall

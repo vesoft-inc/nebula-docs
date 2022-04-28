@@ -12,13 +12,13 @@ The synchronization works as follows:
 
 ![replication between clusters](https://docs-cdn.nebula-graph.com.cn/figures/replication-between-clusters.png)
 
-1. The primary cluster sends any data written into it to the Meta listener or the Storage listener.
-2. The listener sends the data to the drainer.
+1. The primary cluster sends any data written into it to the Meta listener or the Storage listener in the form of WALs or snapshots.
+2. The listener sends the data to the drainer in the form of WALs.
 3. The drainer sends the data to the partitions of the secondary cluster through the Meta client or the Storage client.
 
 ## Applicable Scenarios
 
-- Remote disaster recovery: Data synchronization enables cross-room or cross-city disaster recovery.
+- Remote disaster recovery: Data synchronization enables cross-data-center or cross-city disaster recovery.
 
 - Data migration: The migration can be implemented by synchronizing data and then switching cluster roles, without stopping the service.
 
@@ -35,6 +35,17 @@ The synchronization works as follows:
   - Supports chained synchronization but not synchronization from one primary cluster to multiple secondary clusters directly. An example of chained synchronization is from cluster A to cluster B, and then cluster B to cluster C.
 
 - The synchronization is implemented asynchronously, but with low latency.
+
+- The Meta listener listens to the Meta Service and the Storage listener listens to the Storage Service. Do not mix them up.
+
+- One graph space can have one Meta listener and one to multiple Storage listeners. These listeners can work with one to multiple drainers:
+  - One listener with one drainer.
+  - Multiple listeners with one drainer.
+  - Multiple listeners with multiple drainers.
+
+- The machines where the listeners and drainers run must have enough disk space to store the WAL or snapshot files.
+
+- If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
 
 ## Prerequisites
 
@@ -174,7 +185,7 @@ The test environment for the operation example in this topic is as follows:
   ```bash
   # replication_basketballplayer is the synchronization target. It will be created in the following steps.
   nebula> ADD LISTENER SYNC \
-          META 192.168.10.103:9559 \
+          META 192.168.10.103:9569 \
           STORAGE 192.168.10.103:9789 \
           TO SPACE replication_basketballplayer;
   
@@ -183,7 +194,7 @@ The test environment for the operation example in this topic is as follows:
   +--------+--------+------------------------+--------------------------------+----------+
   | PartId | Type   | Host                   | SpaceName                      | Status   |
   +--------+--------+------------------------+--------------------------------+----------+
-  | 0      | "SYNC" | ""192.168.10.103":9559" | "replication_basketballplayer" | "ONLINE" |
+  | 0      | "SYNC" | ""192.168.10.103":9569" | "replication_basketballplayer" | "ONLINE" |
   | 1      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
   | 2      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
   | 3      | "SYNC" | ""192.168.10.103":9789" | "replication_basketballplayer" | "ONLINE" |
@@ -291,13 +302,21 @@ The test environment for the operation example in this topic is as follows:
   +-------------+
   ```
 
+## Stop/Restart data synchronization
+
+The listener continuously sends the WALs to the drainer during data synchronization.
+
+To stop data synchronization, run the `stop sync` command. The listener stops sending the WALs to the drainer.
+
+To restart data synchronization, run the `restart sync` command. The listener sends the WALs accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.
+
 ## Switch between primary and secondary clusters
 
 To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.
 
 !!! note
 
-  Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
+    Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
 1. Log into the primary cluster and remove the old drainer and listener.
 
@@ -364,6 +383,12 @@ No. The synchronization is based on graph spaces, not other elements such as par
 Altering the schema may increase the synchronization latency.
 
 The schema data is synchronized through the Meta listener, while the vertex/edge data is through the Storage listener. When synchronizing the vertex/edge data, the system checks the schema version of the data. If the system finds that the version number of the schema is greater than that in the secondary cluster, it pauses the vertex/edge data update, and updates the schema data first.
+
+### How to deal with synchronization failures?
+
+- If problems happen on the primary cluster, the synchronization will be paused. Fixing the problems and then restarting the primary cluster can continue the synchronization.
+
+- If problems happen on the secondary cluster, listeners or drainers, when the problem is fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set starts.
 
 ### How to check the data synchronization status and progress?
 

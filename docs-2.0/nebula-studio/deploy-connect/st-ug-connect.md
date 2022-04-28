@@ -20,7 +20,6 @@ Before connecting to the Nebula Graph database, you need to confirm the followin
 
         If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/).
 
-
 ## Procedure
 
 To connect Studio to Nebula Graph, follow these steps:
@@ -55,18 +54,18 @@ One session continues for up to 30 minutes. If you do not operate Studio within 
 
 When Studio is successfully connected to Nebula Graph, you can do these operations:
 
-- If your account has GOD or ADMIN privilege, you can create a schema on the **[Console](../quick-start/st-ug-create-schema.md)** page or on the **[Schema](../manage-schema/st-ug-crud-space.md)** page.
+- If your account has GOD or ADMIN privilege, you can create a schema on the **[Console](../quick-start/st-ug-create-schema.md)** page or on the **[Schema](../manage-schema/st-ug-crud-space.md)** page, batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page, and execute nGQL statements on the **Console** page.
 
-- If your account has GOD, ADMIN, DBA, or USER privilege, you can batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page or insert data with nGQL statements on the **Console** page.
+- If your account has DBA or USER privilege, you can batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page or execute nGQL statements on the **Console** page.
 
-- If your account has GOD, ADMIN, DBA, USER, or GUEST privilege, you can retrieve data with nGQL statements on the **Console** page or explore and analyze data on the **Explore** page.
+- If your account has GUEST privilege, you can retrieve data with nGQL statements on the **Console** page or explore and analyze data on the **Explore** page.
 
-### Clear connection
+### Log out
 <!--
 On Nebula Graph Cloud Service, users cannot clear the connection.
 -->
-If you want to reset Nebula Graph, you can clear the connection and reconfigure the database.
+If you want to reset Nebula Graph, you can log out and reconfigure the database.
 
-When the Studio is still connected to a Nebula Graph database, you can choose **setting > clear connect** at the toolbar. If the **Config Server** page is displayed on the browser, it means that Studio has successfully disconnected from the Nebula Graph database.
+When the Studio is still connected to a Nebula Graph database, you can click the user profile picture in the upper right corner, and choose **Log out**. If the **Config Server** page is displayed on the browser, it means that Studio has successfully disconnected from the Nebula Graph database.
 
 ![reset](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)

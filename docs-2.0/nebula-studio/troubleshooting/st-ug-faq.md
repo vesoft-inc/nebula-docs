@@ -6,7 +6,7 @@
     
     1. Confirm that Nebula Graph is the latest version. If you use Docker Compose to deploy the Nebula Graph database, it is recommended to run `docker-compose pull && docker-compose up -d` to pull the latest Docker image and start the container.
     
-    2. Confirm that Studio is the latest version. For more information, refer to [check updates](../about-studio/st-ug-check-updates.md).
+    2. Confirm that Studio is the latest version. For more information, refer to [check updates](../about-studio/st-ug-release-note.md).
     
     3. Search the [nebula forum](https://discuss.nebula-graph.io/), [nebula](https://github.com/vesoft-inc/nebula) and [nebula-studio](https://github.com/vesoft-inc/nebula-studio) projects on the GitHub to confirm if there are already similar problems.
     
