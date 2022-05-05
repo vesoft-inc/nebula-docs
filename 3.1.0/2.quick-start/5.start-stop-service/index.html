@@ -20,15 +20,6 @@
 <link href="../../stylesheets/note.css" rel="stylesheet"/>
 <link href="../../stylesheets/extra.css" rel="stylesheet"/>
 <link href="../../css/version-select.css" rel="stylesheet"/>
-<meta content="website" property="og:type"/>
-<meta content="Nebula Graph Database Manual - Step 2 Manage Nebula Graph Service" property="og:title"/>
-<meta content="Documentation for Nebula Graph Database" property="og:description"/>
-<meta content="https://docs.nebula-graph.io/3.1.0/2.quick-start/5.start-stop-service/" property="og:url"/>
-<meta content="https://docs.nebula-graph.io/3.1.0assets/images/banner.png" property="og:image"/>
-<meta content="image/png" property="og:image:type"/>
-<meta content="1080" property="og:image:width"/>
-<meta content="568" property="og:image:height"/>
-<link href="../../overrides/assets/stylesheets/main.a40a2e23.min.css" rel="stylesheet"/>
 </head>
 <body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="nebula" dir="ltr">
 <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
@@ -268,11 +259,6 @@
       Table of contents
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#template_overridesmainhtml">
-    template: overrides/main.html
-  </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#manage_services_with_script">
     Manage services with script
@@ -2564,11 +2550,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#template_overridesmainhtml">
-    template: overrides/main.html
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#manage_services_with_script">
     Manage services with script
   </a>
@@ -2669,8 +2650,6 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="step_2_manage_nebula_graph_service">Step 2: Manage Nebula Graph Service<a class="headerlink" href="#step_2_manage_nebula_graph_service" title="Permanent link">¶</a></h1>
-<hr/>
-<h2 id="template_overridesmainhtml">template: overrides/main.html<a class="headerlink" href="#template_overridesmainhtml" title="Permanent link">¶</a></h2>
 <p>Nebula Graph supports managing services with scripts or systemd. This topic will describe the two methods in detail.</p>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
@@ -2750,8 +2729,15 @@
 <p>For easy maintenance, Nebula Graph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with <code>systemctl</code> commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>After installing Nebula Graph Enterprise Edition, the <code>.service</code> files required by systemd are located in the <code>etc/unit</code> path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the <code>.service</code> files into the path <code>/usr/lib/systemd/system</code> and the parameter <code>ExecStart</code> is generated based on the specified Nebula Graph installation path, so you can use <code>systemctl</code> commands directly.</p>
-<p>Otherwise, users need to move the <code>.service</code> files manually into the directory <code>/usr/lib/systemd/system</code>, and modify the file path of the parameter <code>ExecStart</code> in the <code>.service</code> files.</p>
+<ul>
+<li>After installing Nebula Graph Enterprise Edition, the <code>.service</code> files required by systemd are located in the <code>etc/unit</code> path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the <code>.service</code> files into the path <code>/usr/lib/systemd/system</code> and the parameter <code>ExecStart</code> is generated based on the specified Nebula Graph installation path, so you can use <code>systemctl</code> commands directly.</li>
+</ul>
+<ul>
+<li>The <code>systemctl</code> commands cannot be used to manage the Enterprise Edition cluster that is created with Dashboard of the Enterprise Edition.</li>
+</ul>
+<ul>
+<li>Otherwise, users need to move the <code>.service</code> files manually into the directory <code>/usr/lib/systemd/system</code>, and modify the file path of the parameter <code>ExecStart</code> in the <code>.service</code> files.</li>
+</ul>
 </div>
 <h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>$ systemctl &lt;start <span class="p">|</span> stop <span class="p">|</span> restart <span class="p">|</span> status &gt; &lt;nebula <span class="p">|</span> nebula-metad <span class="p">|</span> nebula-graphd <span class="p">|</span> nebula-storaged&gt;
@@ -2883,9 +2869,11 @@ Removing network nebula-docker-compose_nebula-net
 <ul>
 <li>
 <p>Nebula Graph is running normally if the following information is returned.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span> nebula-metad<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26601</span>, Listening on <span class="m">9559</span>
-<span class="o">[</span>INFO<span class="o">]</span> nebula-graphd<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26644</span>, Listening on <span class="m">9669</span>
-<span class="o">[</span>INFO<span class="o">]</span> nebula-storaged<span class="o">(</span>02b2091<span class="o">)</span>: Running as <span class="m">26709</span>, Listening on <span class="m">9779</span>
+<div class="highlight"><pre><span></span><code>INFO<span class="o">]</span> nebula-metad<span class="o">(</span>33fd35e<span class="o">)</span>: Running as <span class="m">29020</span>, Listening on <span class="m">9559</span>
+<span class="o">[</span>INFO<span class="o">]</span> nebula-graphd<span class="o">(</span>33fd35e<span class="o">)</span>: Running as <span class="m">29095</span>, Listening on <span class="m">9669</span>
+<span class="o">[</span>WARN<span class="o">]</span> nebula-storaged after v3.0.0 will not start service <span class="k">until</span> it is added to cluster.
+<span class="o">[</span>WARN<span class="o">]</span> See Manage Storage hosts:ADD HOSTS <span class="k">in</span> https://docs.nebula-graph.io/
+<span class="o">[</span>INFO<span class="o">]</span> nebula-storaged<span class="o">(</span>33fd35e<span class="o">)</span>: Running as <span class="m">29147</span>, Listening on <span class="m">9779</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
