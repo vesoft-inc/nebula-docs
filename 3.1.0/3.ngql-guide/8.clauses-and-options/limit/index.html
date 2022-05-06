@@ -2567,10 +2567,6 @@
 <p class="admonition-title">Note<p>When using <code>LIMIT</code> in either syntax above, it is important to use an <code>ORDER BY</code> clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.</p>
 </p>
 </div>
-<div class="admonition compatibility">
-<p class="admonition-title">Legacy version compatibility</p>
-<p>In Nebula Graph 2.6.0, <code>GO</code> statements support the new <code>LIMIT</code> syntax. Some operators related to <code>LIMIT</code> support computing pushdown.</p>
-</div>
 <h2 id="limit_in_native_ngql_statements">LIMIT in native nGQL statements<a class="headerlink" href="#limit_in_native_ngql_statements" title="Permanent link">¶</a></h2>
 <p>In native nGQL, <code>LIMIT</code> has general syntax and exclusive syntax in <code>GO</code> statements.</p>
 <h3 id="general_limit_syntax_in_native_ngql_statements">General LIMIT syntax in native nGQL statements<a class="headerlink" href="#general_limit_syntax_in_native_ngql_statements" title="Permanent link">¶</a></h3>
@@ -2645,16 +2641,14 @@ nebula&gt; GO FROM "player100" OVER follow REVERSELY \
 | "Manu Ginobili" | 41           |
 +-----------------+--------------+
 
-nebula&gt; GO 3 STEPS FROM "player102" OVER * \
+nebula&gt; GO 3 STEPS FROM "player102" OVER * BIDIRECT\
         YIELD dst(edge) \
         LIMIT [rand32(5),rand32(5),rand32(5)];
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| "team204"   |
-| "team215"   |
 | "player100" |
-| "player102" |
+| "player100" |
 +-------------+
 </code></pre></div>
 <h2 id="limit_in_opencypher_compatible_statements">LIMIT in openCypher compatible statements<a class="headerlink" href="#limit_in_opencypher_compatible_statements" title="Permanent link">¶</a></h2>
@@ -2750,7 +2744,7 @@ Nebula Graph 3.1.0 does not implement the pushdown optimization of the storage l
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 23, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2022</span>
 </small>
 </div>
 </article>
