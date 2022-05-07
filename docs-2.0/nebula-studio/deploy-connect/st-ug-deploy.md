@@ -234,17 +234,17 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
    
    | Installation package | Nebula Graph version |
    | ----- | ----- |
-   | [nebula-graph-studio-v{{studio.release}}.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-v{{studio.release}}.tar.gz) | {{nebula.release}} |
+   | [nebula-graph-studio-{{studio.release}}.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.tar.gz) | {{nebula.release}} |
 
-2. Create the `nebula-graph-studio-v{{studio.release}}` directory and decompress the installation package to the directory.
+2. Create the `nebula-graph-studio-{{studio.release}}` directory and decompress the installation package to the directory.
 
     ```bash
-    $ mkdir nebula-graph-studio-v{{studio.release}} -zxvf nebula-graph-studio-v{{studio.release}}.gz -C nebula-graph-studio-v{{studio.release}}
+    $ mkdir nebula-graph-studio-{{studio.release}} -zxvf nebula-graph-studio-{{studio.release}}.gz -C nebula-graph-studio-{{studio.release}}
     ```
 
-3. Change to the `nebula-graph-studio-v{{studio.release}}` directory.
+3. Change to the `nebula-graph-studio-{{studio.release}}` directory.
    ```bash
-   $ cd nebula-graph-studio-v{{studio.release}}
+   $ cd nebula-graph-studio-{{studio.release}}
    ```
 
 4. Pull the Docker image of Studio.
