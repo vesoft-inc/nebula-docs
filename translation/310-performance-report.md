@@ -4,7 +4,7 @@ This is a performance report for Nebula Graph [v3.1.0](https://github.com/vesoft
 
 ## Test result
 
-The query and data import performance of Nebula Graph v3.1.0 is basically the same as that of v3.0.0. Some new test cases have been added to this test for `MATCH` statements that have been optimized for property reading, and the property reading performance is significantly improved compared to v3.0.0.
+The query and data import performance of Nebula Graph v3.1.0 is almost the same as that of v3.0.0. Some new test cases have been added to this test for `MATCH` statements that have been optimized for property reading, and the property reading performance is significantly improved compared to v3.0.0.
 
 ## Test environment
 
