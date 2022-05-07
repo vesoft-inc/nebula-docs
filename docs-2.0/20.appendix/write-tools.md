@@ -11,4 +11,4 @@ There are many ways to write Nebula Graph {{ nebula.release }}:
 
 The following figure shows the positions of these ways:
 
- ![image](../images/write-choice.png)
+ ![image](https://docs-cdn.nebula-graph.com.cn/figures/write-choice.png)

@@ -1,145 +1,259 @@
 # Storage load balance
 
-You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or remove redundant Storage servers.
-
-## Balance partition distribution
-
-`BALANCE DATA` starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
+You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../synchronization-and-migration/2.balance-syntax.md).
 
 !!! danger
 
-    DO NOT stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
+    The `BALANCE` commands migrate data and balance the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
+
+## Balance partition distribution
+
+!!! enterpriseonly
+
+    Only available for the Nebula Graph Enterprise Edition.
+    
+!!! note
+
+    If the current graph space already has a `BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+
+The `BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
 
 ### Examples
 
 After you add new storage hosts into the cluster, no partition is deployed on the new hosts.
 
-1. Run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
+1. Run `SHOW HOSTS` to check the partition distribution.
 
     ```ngql
     nebual> SHOW HOSTS;
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged0" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged1" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged2" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged3" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged4" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
+    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+    | Host            | Port | HTTP port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
+    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+    | "192.168.8.101" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "3.1.0-ent" |
+    | "192.168.8.100" | 9779 | 19669     | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "3.1.0-ent" |
+    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
     ```
 
-2. Run `BALANCE DATA` to start balancing the storage partitions. If the partitions are already balanced, `BALANCE DATA` fails.
+2. Enter the graph space `basketballplayer`, and execute the command `BALANCE DATA` to balance the distribution of storage partitions.
 
     ```ngql
+    nebula> USE basketballplayer;
     nebula> BALANCE DATA;
     +------------+
-    | ID         |
+    | New Job Id |
     +------------+
-    | 1614237867 |
+    | 2          |
     +------------+
     ```
 
-3. A BALANCE task ID is returned after running `BALANCE DATA`. Run `BALANCE DATA <balance_id>` to check the status of the `BALANCE` task.
+3. The job ID is returned after running `BALANCE DATA`. Run `SHOW JOB <job_id>` to check the status of the job.
 
     ```ngql
-    nebula> BALANCE DATA 1614237867;
-    +--------------------------------------------------------------+-------------------+
-    | balanceId, spaceId:partId, src->dst                          | status            |
-    +--------------------------------------------------------------+-------------------+
-    | "[1614237867, 11:1, storaged1:9779->storaged3:9779]"         | "SUCCEEDED"       |
-    +--------------------------------------------------------------+-------------------+
-    | "[1614237867, 11:1, storaged2:9779->storaged4:9779]"         | "SUCCEEDED"       |
-    +--------------------------------------------------------------+-------------------+
-    | "[1614237867, 11:2, storaged1:9779->storaged3:9779]"         | "SUCCEEDED"       |
-    +--------------------------------------------------------------+-------------------+
-    ...
-    +--------------------------------------------------------------+-------------------+
-    | "Total:22, Succeeded:22, Failed:0, In Progress:0, Invalid:0" | 100               |
-    +--------------------------------------------------------------+-------------------+
+    nebula> SHOW JOB 2;
+    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+    | Job Id(spaceId:partId) | Command(src->dst)                        | Status      | Start Time                      | Stop Time                       | Error Code  |
+    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+    | 2                      | "DATA_BALANCE"                           | "FINISHED"  | "2022-04-12T03:41:43.000000000" | "2022-04-12T03:41:53.000000000" | "SUCCEEDED" |
+    | "2, 1:1"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "2, 1:2"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "2, 1:3"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "2, 1:4"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "2, 1:5"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "2, 1:6"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:43.000000      | "SUCCEEDED" |
+    | "2, 1:7"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
+    | "Total:7"              | "Succeeded:7"                            | "Failed:0"  | "In Progress:0"                 | "Invalid:0"                     | ""          |
+    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
     ```
 
 4. When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
 
   !!! Note
 
-        `BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#Balance leader distribution).
+        `BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
-    ```ngql
-    nebula> SHOW HOSTS;
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged0" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:9"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged1" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:9"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged2" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged3" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:9"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "storaged4" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:9"   |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    | "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-    +-------------+------+----------+--------------+-----------------------------------+------------------------+
-    ```
+  ```ngql
+  nebula> SHOW HOSTS;
+  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
+  | Host            | Port | HTTP port | Status   | Leader count | Leader distribution  | Partition distribution | Version     |
+  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
+  | "192.168.8.101" | 9779 | 19669     | "ONLINE" | 7            | "basketballplayer:7" | "basketballplayer:7"   | "3.1.0-ent" |
+  | "192.168.8.100" | 9779 | 19669     | "ONLINE" | 8            | "basketballplayer:8" | "basketballplayer:8"   | "3.1.0-ent" |
+  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
+  ```
 
-If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
 
-## Stop data balancing
+### Stop data balancing
 
-To stop a balance task, run `BALANCE DATA STOP`.
+To stop a balance job, run `STOP JOB <job_id>`.
 
-* If no balance task is running, an error is returned.
+* If no balance job is running, an error is returned.
 
-* If a balance task is running, the task ID (`balance_id`) is returned.
-
-`BALANCE DATA STOP` does not stop the running subtasks but cancels all follow-up subtasks. To check the status of the stopped balance task, run `BALANCE DATA <balance_id>`.
-
-Once all the subtasks are finished or stopped, you can run `BALANCE DATA` again to balance the partitions again.
-
-* If any subtask of the preceding balance task fails, Nebula Graph restarts the preceding balance task.
-
-* If no subtask of the preceding balance task fails, Nebula Graph starts a new balance task.
-
-## RESET a balance task
-
-If a balance task fails to be restarted after being stopped, run `BALANCE DATA RESET PLAN` to reset the task. After that, run `BALANCE DATA` again to start a new balance task.
-
-## Remove storage servers
-
-To remove specified storage servers and scale in the Storage Service, run `BALANCE DATA REMOVE <host_list>`.
-
-### Example
-
-To remove the following storage server,
-
-|Server name|IP address|Port|
-|:---|:---|:---|
-|storage3|192.168.0.8|9779|
-|storage4|192.168.0.9|9779|
-
-Run the following command:
-
-```ngql
-BALANCE DATA REMOVE 192.168.0.8:9779,192.168.0.9:9779;
-```
-
-Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
+* If a balance job is running, `Job stopped` is returned.
 
 !!! note
 
-    The state of the removed server will change to `OFFLINE`. This record will be deleted after one day. To retain it, you can change the meta configuration `removed_threshold_sec`.
+    `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
+
+Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
+
+### Restore a balance job
+
+To restore a balance job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <job_id>`.
+
+!!! note
+
+    For a `STOPPED` `BALANCE DATA` job, Nebula Graph detects whether the same type of `FAILED` jobs or `FINISHED` jobs have been created since the start time of the job. If so, the `STOPPED` job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.
+
+### Migrate partition
+
+To migrate specified partitions and scale in the cluster, you can run `BALANCE DATA REMOVE <ip:port> [,<ip>:<port> ...]`.
+
+For example, to migrate the partitions in server `192.168.8.100:9779`, the command as following:
+
+```ngql
+nebula> BALANCE DATA REMOVE 192.168.8.100:9779;
+nebula> SHOW HOSTS;
++-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+| Host            | Port | HTTP port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
++-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+| "192.168.8.101" | 9779 | 19669     | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "3.1.0-ent" |
+| "192.168.8.100" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "3.1.0-ent" |
++-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+```
+
+!!! note
+
+    This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
+
+<!-- balance-3.1
+!!! danger
+
+    The `BALANCE` commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
+
+## Balance partition distribution
+
+### Examples
+
+After you add new storage hosts into the zone, no partition is deployed on the new hosts.
+
+1. Add the three new storage hosts into a cluster, and add them respectively to the zone which the graph space `basketballplayer` belongs. For details about the Zone, see [Manage zone](../4.deployment-and-installation/5.zone.md).
+
+  ```ngql
+  nebual> ADD HOSTS 192.168.10.103:9779 INTO ZONE "zone1";
+  nebual> ADD HOSTS 192.168.10.104:9779 INTO ZONE "zone2";
+  nebual> ADD HOSTS 192.168.10.105:9779 INTO ZONE "zone3";
+  ```
+
+2. Run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
+
+  ```ngql
+  nebual> SHOW HOSTS;
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | 19669     | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.101" | 9779 | 19669     | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.102" | 9779 | 19669     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  | "3.1.0" |
+  | "192.168.10.103" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  | "192.168.10.104" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  | "192.168.10.105" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  ```
+
+3. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
+
+  ```ngql
+  nebula> USE basketballplayer;
+  nebula> BALANCE IN ZONE;
+  +------------+
+  | New Job Id |
+  +------------+
+  | 30         |
+  +------------+
+  ```
+
+4. A BALANCE job ID is returned after running `BALANCE IN ZONE`. Run `SHOW JOB <job_id>` to check the status of the `BALANCE` job.
+
+  ```ngql
+  nebula> SHOW JOB 30;
+  +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+  | Job Id(spaceId:partId)  | Command(src->dst)                          | Status      | Start Time                      | Stop Time                       | Error Code  |
+  +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+  | 30                      | "DATA_BALANCE"                             | "FINISHED"  | "2022-01-12T02:27:00.000000000" | "2022-01-12T02:30:31.000000000" | "SUCCEEDED" |
+  | "30, 23:1"              | "192.168.10.100:9779->192.168.10.103:9779" | "SUCCEEDED" | 2022-01-12T02:27:00.000000      | 2022-01-12T02:27:30.000000      | "SUCCEEDED" |
+  | "30, 23:2"              | "192.168.10.100:9779->192.168.10.103:9779" | "SUCCEEDED" | 2022-01-12T02:27:00.000000      | 2022-01-12T02:27:01.000000      | "SUCCEEDED" |
+  ......
+  | "Total:21"              | "Succeeded:21"                             | "Failed:0"  | "In Progress:0"                 | "Invalid:0"                     | ""          |
+  +-------------------------+--------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+  ```
+
+5. When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
+
+  !!! Note
+
+        `BALANCE IN ZONE` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
+
+  ```ngql
+  nebula> SHOW HOSTS;
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | 19669     | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.101" | 9779 | 19669     | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.102" | 9779 | 19669     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
+  | "192.168.10.103" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  | "192.168.10.104" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  | "192.168.10.105" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  ```
+
+If any subtask fails, run [`RECOVER JOB <job_id>`](../synchronization-and-migration/2.balance-syntax.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+
+## Stop data balancing
+
+To stop a balance task, run `STOP JOB <job_id>`.
+
+* If no balance task is running, an error is returned.
+
+* If a balance task is running, `Job stopped` is returned.
+
+!!! note
+
+    - `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
+    - After terminate and restart, the job status is set to `QUEUE`. If the previous status of subtasks was `INVALID` or `FAILED`, the status set to `IN_PROGRESS`. If it was `IN_PROGRESS` or `SUCCEEDED`, the status remains unchanged.
+
+Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
+
+## Remove storage servers
+
+To remove specified storage servers and scale in the Storage Service, you can run `BALANCE IN ZONE REMOVE <ip>:<port> [,<ip>:<port> ...]` command to clear specified storage servers, then run `DROP HOSTS <ip>:<port> [,<ip>:<port> ...]` command to remove specified storage servers.
+
+### Example
+
+To remove the following storage servers.
+
+|IP address|Port|
+|:---|:---|
+|192.168.10.104|9779|
+|192.168.10.105|9779|
+
+1. Clear specified storage servers. The command as following:
+
+  ```ngql
+  nebula> BALANCE IN ZONE REMOVE 192.168.10.104:9779,192.168.10.105:9779;
+  ```
+
+2. After the job is complete, remove the specified Storage servers. The command as following:
+
+  ```ngql
+  nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
+  ```
+-->
 
 ## Balance leader distribution
 
-`BALANCE DATA` only balances the partition distribution. If the raft leader distribution is not balanced, some of the leaders may overload. To balance the raft leaders, run `BALANCE LEADER`.
+To balance the raft leaders, run `BALANCE LEADER`.
 
 ### Example
 
@@ -151,21 +265,16 @@ Run `SHOW HOSTS` to check the balance result.
 
 ```ngql
 nebula> SHOW HOSTS;
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| Host        | Port | Status   | Leader count | Leader distribution               | Partition distribution |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "storaged0" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "storaged1" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "storaged2" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "storaged3" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "storaged4" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:9"   |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
-| "Total"     |      |          | 15           | "basketballplayer:15"             | "basketballplayer:45"  |
-+-------------+------+----------+--------------+-----------------------------------+------------------------+
++------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+| "192.168.10.100" | 9779 | 19669     | "ONLINE" | 4            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
+| "192.168.10.101" | 9779 | 19669     | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
+| "192.168.10.102" | 9779 | 19669     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
+| "192.168.10.103" | 9779 | 19669     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
+| "192.168.10.104" | 9779 | 19669     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
+| "192.168.10.105" | 9779 | 19669     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
++------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
 ```
 
 !!! caution

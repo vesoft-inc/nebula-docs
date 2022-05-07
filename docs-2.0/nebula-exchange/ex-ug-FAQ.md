@@ -2,7 +2,7 @@
 
 ## Compilation
 
-### Some packages not in central repository failed to download, error: `Could not resolve dependencies for project xxx`
+### Q: Some packages not in central repository failed to download, error: `Could not resolve dependencies for project xxx`
 
 Please check the `mirror` part of Maven installation directory `libexec/conf/settings.xml`:
 
@@ -19,9 +19,34 @@ Check whether the value of `mirrorOf` is configured to `*`. If it is, change it 
 
 **Reason**: There are two dependency packages in Exchange's `pom.xml` that are not in Maven's central repository. `pom.xml` configures the repository address for these two dependencies. If the `mirrorOf` value for the mirror address configured in Maven is `*`, all dependencies will be downloaded from the Central repository, causing the download to fail.
 
+### Q: Unable to download SNAPSHOT packages when compiling Exchange
+
+Problem description: The system reports `Could not find artifact com.vesoft:client:jar:xxx-SNAPSHOT` when compiling.
+
+Cause: There is no local Maven repository for storing or downloading SNAPSHOT packages. The default central repository in Maven only stores official releases, not development versions (SNAPSHOT).
+
+Solution: Add the following configuration in the `profiles` scope of Maven's `setting.xml` file:
+
+```xml
+  <profile>
+     <activation>
+        <activeByDefault>true</activeByDefault>
+     </activation>
+     <repositories>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+               <enabled>true</enabled>
+            </snapshots>
+      </repository>
+     </repositories>
+  </profile>
+```
+
 ## Execution
 
-### How to submit in Yarn-Cluster mode?
+### Q: How to submit in Yarn-Cluster mode?
 
 To submit a task in Yarn-Cluster mode, run the following command:
 
@@ -31,23 +56,23 @@ $SPARK_HOME/bin/spark-submit --class com.vesoft.nebula.exchange.Exchange \
 --files application.conf \
 --conf spark.driver.extraClassPath=./ \
 --conf spark.executor.extraClassPath=./ \
-nebula-exchange-2.0.0.jar \
+nebula-exchange-3.0.0.jar \
 -c application.conf
 ```
 
-### Error: `method name xxx not found`
+### Q: Error: `method name xxx not found`
 
 Generally, the port configuration is incorrect. Check the port configuration of the Meta service, Graph service, and Storage service.
 
-### Error: NoSuchMethod, MethodNotFound (`Exception in thread "main" java.lang.NoSuchMethodError`, etc)
+### Q: Error: NoSuchMethod, MethodNotFound (`Exception in thread "main" java.lang.NoSuchMethodError`, etc)
 
 Most errors are caused by JAR package conflicts or version conflicts. Check whether the version of the error reporting service is the same as that used in Exchange, especially Spark, Scala, and Hive.
 
-### When Exchange imports Hive data, error: `Exception in thread "main" org.apache.spark.sql.AnalysisException: Table or view not found`
+### Q: When Exchange imports Hive data, error: `Exception in thread "main" org.apache.spark.sql.AnalysisException: Table or view not found`
 
-Check whether the `-h` parameter is omitted in the command for submitting the Exchange task, check whether the table and database are correct, and run the user-configured exec statement in spark-SQL to verify the correctness of the exec statement.
+Check whether the `-h` parameter is omitted in the command for submitting the Exchange task and whether the table and database are correct, and run the user-configured exec statement in spark-SQL to verify the correctness of the exec statement.
 
-### Run error: `com.facebook.thrift.protocol.TProtocolException: Expected protocol id xxx`
+### Q: Run error: `com.facebook.thrift.protocol.TProtocolException: Expected protocol id xxx`
 
 Check that the Nebula Graph service port is configured correctly.
 
@@ -78,15 +103,60 @@ Check that the Nebula Graph service port is configured correctly.
 
     - The port number for Storage service are 33183, 33177, 33185.
 
+### Q: Error: `Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4`
+
+Check whether the version of Exchange is the same as that of Nebula Graph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
+
+### Q: How to correct the messy code when importing Hive data into Nebula Graph?
+
+It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:
+
+```bash
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+```
+
+Namely:
+
+```bash
+<spark_install_path>/bin/spark-submit --master "local" \
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
+--class com.vesoft.nebula.exchange.Exchange \
+<nebula-exchange-3.x.y.jar_path> -c <application.conf_path>
+```
+
+In YARN, use the following command:
+
+```bash
+<spark_install_path>/bin/spark-submit \
+--class com.vesoft.nebula.exchange.Exchange \
+--master yarn-cluster \
+--files <application.conf_path> \
+--conf spark.driver.extraClassPath=./ \
+--conf spark.executor.extraClassPath=./ \
+--conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8 \
+--conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8 \
+<nebula-exchange-3.x.y.jar_path> \
+-c application.conf
+```
+
+### Q: org.rocksdb.RocksDBException: While open a file for appending: /path/sst/1-xxx.sst: No such file or directory
+
+Solution:
+
+1. Check if `/path` exists. If not, or if the path is set incorrectly, create or correct it.
+2. Check if Spark's current user on each machine has the operation permission on `/path`. If not, grant the permission.
+
 ## Configuration
 
-### Which configuration items affect import performance?
+### Q: Which configuration fields will affect import performance?
 
-- batch: The number of pieces of data contained in each nGQL statement sent to the Nebula Graph service.
+- batch: The number of data contained in each nGQL statement sent to the Nebula Graph service.
 
-- partition: Number of Spark data partitions, indicating the number of concurrent data import.
+- partition: The number of Spark data partitions, indicating the number of concurrent data imports.
 
-- nebula.rate: Go to the token bucket to get a token before sending a request to Nebula Graph.
+- nebula.rate: Get a token from the token bucket before sending a request to Nebula Graph.
 
     - limit: Represents the size of the token bucket.
 
@@ -96,14 +166,14 @@ The values of these four parameters can be adjusted appropriately according to t
 
 ## Others
 
-### Which versions of Nebula Graph are supported by Exchange?
+### Q: Which versions of Nebula Graph are supported by Exchange?
 
 See [Limitations](about-exchange/ex-ug-limitations.md).
 
-### What is the relationship between Exchange and Spark Writer?
+### Q: What is the relationship between Exchange and Spark Writer?
 
-Exchange is the Spark application developed on the basis of Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
+Exchange is the Spark application developed based on Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
 
-- Supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
+- It supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
 
-- Fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema, so Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String, Exchange converts the source data of String type to the corresponding type.
+- It fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema. So Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String (e.g. double), Exchange converts the source data of String type to the corresponding type.

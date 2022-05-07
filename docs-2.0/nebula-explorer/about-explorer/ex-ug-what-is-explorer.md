@@ -10,9 +10,6 @@ Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is
 
     You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
 
-!!! Note
-
-    Users can also try out some functions online at [Explorer](https://explorer.nebula-graph.com.cn/).
 
 ## Scenarios
 
@@ -25,13 +22,17 @@ You can use Explorer in one of these scenarios:
 
 Explorer has these features:
 
-- Easy to use and user-friendly: Explorer can be deployed in simple steps. And use simple visual interaction, no need to conceive nGQL sentences, easy to realize graph exploration.
+- [Easy to use](../deploy-connect/ex-ug-deploy.md): Explorer can be deployed in simple steps. And 
 
-- Flexible: Explorer supports querying data through VID, Tag, Subgraph.
+- [User-friendly](../12.query-visually.md): Explorer uses simple visual interaction, no need to conceive nGQL sentences, easy to realize graph exploration.
 
-- Multiple operations: Explorer supports operations such as expanding operations on multiple vertexes, querying the common neighbors of multiple vertexes, and querying the path between the start vertex and the end vertex.
+- [Flexible](../ex-ug-query-exploration.md): Explorer supports querying data through VID, Tag, and Subgraph.
 
-- Various display: Explorer supports modifying the color and icon of the vertex in the canvas to highlight key nodes. You can also freely choose the data display mode in `dagre`, `force`, and `circular`.
+- [Exploration operations](../ex-ug-graph-exploration.md): Explorer supports exploration operations on multiple vertices, querying the common neighbors of multiple vertices, and querying the path between the source vertex and the destination vertex.
+
+- [Various display](../canvas-operations/canvas-overview.md): Explorer supports modifying the color and icon of the vertex in the canvas to highlight key nodes. Data can also be displayed in different modes.
+
+- [Data storage](../canvas-operations/canvas-snapshot.md): Data on a canvas can be stored and exported.
 
 ## Authentication
 

@@ -12,10 +12,6 @@ Native indexes allow querying data based on a given property. Features are as fo
 
 - Native indexes support indexing multiple properties on a tag or an edge type (composite indexes), but do not support indexing across multiple tags or edge types.
 
-- You can do partial match searches by using composite indexes. The declared fields in the composite index are used from left to right. For more information, see [LOOKUP FAQ](../7.general-query-statements/5.lookup.md#FAQ).
-
-- String operators like `CONTAINS` and `STARTS WITH` are not allowed in [LOOKUP](../7.general-query-statements/5.lookup.md) for native index searching. Use full-text indexes to do fuzzy searches.
-
 ### Operations on native indexes
 
 - [CREATE INDEX](1.create-native-index.md)

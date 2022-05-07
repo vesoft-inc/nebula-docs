@@ -36,14 +36,13 @@ After editing the configuration file, run the following commands to import speci
 
 The following table lists command parameters.
 
-| Paramenter | Required | Default Value | Description |
+| Parameter | Required | Default value | Description |
 | :--- | :--- | :--- | :--- |
 | `--class`  | Yes | - | Specify the main class of the driver.|
 | `--master`  | Yes | - | Specify the URL of the master process in a Spark cluster. For more information, see [master-urls](https://spark.apache.org/docs/latest/submitting-applications.html#master-urls "click to open Apache Spark documents"). |
 | `-c`  / `--config`  | Yes | - | Specify the path of the configuration file. |
 | `-h`  / `--hive`  | No | `false` | Indicate support for importing Hive data. |
 | `-D`  / `--dry`  | No | `false` | Check whether the format of the configuration file meets the requirements, but it does not check whether the configuration items of `tags` and `edges` are correct. This parameter cannot be added when users import data. |
-|-r / --reload | No  |  -  |  Specify the path of the reload file that needs to be reloaded. |
+| `-r` / `--reload` | No  |  -  |  Specify the path of the reload file that needs to be reloaded. |
 
 For more Spark parameter configurations, see [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html#runtime-environment).
-

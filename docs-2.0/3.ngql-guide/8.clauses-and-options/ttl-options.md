@@ -12,9 +12,9 @@ This topic applies to native nGQL only.
 
 * TTL options and indexes have coexistence issues.
 
-    +  TTL options and indexes CANNOT coexist on a tag or an edge type. If there is an index on a property, you cannot set TTL options on other properties.
+  + TTL options and indexes CANNOT coexist on a tag or an edge type. If there is an index on a property, you cannot set TTL options on other properties.
 
-    + If there are TTL options on a tag, an edge type, or a property, you can still add an index on them.
+  + If there are TTL options on a tag, an edge type, or a property, you can still add an index on them.
 
 ## Data expiration and deletion
 
@@ -59,7 +59,7 @@ If a tag or an edge type is already created, to set a timeout on a property boun
 
 ```ngql
 # Create a tag.
-nebula> CREATE TAG t1 (a timestamp);
+nebula> CREATE TAG IF NOT EXISTS t1 (a timestamp);
 
 # Use ALTER to update the tag and set the TTL options.
 nebula> ALTER TAG t1 ttl_col = "a", ttl_duration = 5;
@@ -74,10 +74,10 @@ Use TTL options in the `CREATE` statement to set a timeout when creating a tag o
 
 ```ngql
 # Create a tag and set the TTL options.
-nebula> CREATE TAG t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
+nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
 
-# Insert a vertex with tag t2. The timeout timestamp is 1612778164774 (1612778164674 + 100).
-nebula> INSERT VERTEX t2(a, b, c) values "102":(1612778164674, 30, "Hello");
+# Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
+nebula> INSERT VERTEX t2(a, b, c) values "102":(1648197138, 30, "Hello");
 ```
 
 ## Remove a timeout

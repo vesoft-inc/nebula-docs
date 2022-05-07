@@ -5,7 +5,7 @@
 The following statements will not work because they refer to two different spaces, i.e. `my_space` and `MY_SPACE`.
 
 ```ngql
-nebula> CREATE SPACE my_space (vid_type=FIXED_STRING(30));
+nebula> CREATE SPACE IF NOT EXISTS my_space (vid_type=FIXED_STRING(30));
 nebula> use MY_SPACE;
 [ERROR (-8)]: SpaceNotFound:
 ```

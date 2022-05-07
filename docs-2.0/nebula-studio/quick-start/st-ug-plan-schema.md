@@ -21,4 +21,4 @@ This table gives all the essential elements of the schema.
 
 This figure shows the relationship (**serve**/**follow**) between a **player** and a **team**.
 
-![The relationship between players and between players and teams](../figs/st-ug-006-1.png "Relationship between players and teams in the example dataset")
+![The relationship between players and between players and teams](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-013-cn.png "Relationship between players and teams in the example dataset")

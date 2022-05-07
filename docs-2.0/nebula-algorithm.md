@@ -1,6 +1,18 @@
 # Nebula Algorithm
 
-[Nebula Algorithm](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
+[Nebula Algorithm](https://github.com/vesoft-inc/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
+
+## Version compatibility
+
+The correspondence between the Nebula Algorithm release and the Nebula Graph core release is as follows.
+
+|Algorithm client|Nebula Graph|
+|:---|:---|
+|3.0-SNAPSHOT         |  nightly       |
+|{{algorithm.release}}|  {{nebula.release}}  |
+|  2.6.x              |  2.6.x  |
+|  2.5.0              |  2.5.0,2.5.1  |
+|  2.1.0              |  2.0.0,2.0.1  |
 
 ## Prerequisites
 
@@ -10,30 +22,45 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 - The Spark version is 2.4.x.
 
+- The Scala version is 2.11.
+
 - (Optional) If users need to clone, compile, and package the latest Algorithm in Github, install [Maven](https://maven.apache.org/download.cgi).
 
 ## Limitations
 
-The data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
+- When submitting the algorithm package directly, the data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
-For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
+- For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
+
+- Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
 
 ## Supported algorithms
 
 The graph computing algorithms supported by Nebula Algorithm are as follows.
 
-| Algorithm | Description| Scenario|
-| :-- |:--  | :--|
-| PageRank  | The rank of pages| Web page ranking, key node mining|
-| Louvain   | Community discovery | Community mining, hierarchical clustering|  
-| KCore     | K core | Community discovery, financial risk control|
-| LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|
-| ConnectedComponent | Connected component | Community discovery, island discovery|
-| StronglyConnectedComponent |Strongly connected component  | Community discovery |
-| ShortestPath     |The shortest path | Path planning, network planning |
-| TriangleCount    |Triangle counting | Network structure analysis|
-| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing | 
-| DegreeStatic    |Degree of statistical | Graph structure analysis|
+| Algorithm | Description| Scenario|   Properties name      |Properties type|
+| :-- |:--  | :--|:--|:--|
+| PageRank  | The rank of pages| Web page ranking, key node mining|      pagerank        |double/string|
+| Louvain   | Community discovery | Community mining, hierarchical clustering|         louvain        | int/string  |
+| KCore     | K core | Community discovery, financial risk control|  kcore         | int/string  |
+| LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|      lpa           | int/string  |
+| Hanp |Label propagation advanced |Community discovery, recommendation system |       hanp         | int/string  |
+| ConnectedComponent | Connected component | Community discovery, island discovery|         cc           | int/string  |
+| StronglyConnectedComponent |Strongly connected component  | Community discovery |         scc          | int/string  |
+| ShortestPath     |The shortest path | Path planning, network planning |     shortestpath     |   string    |
+| TriangleCount    |Triangle counting | Network structure analysis|       trianglecount     | int/string  |
+| GraphTriangleCount | Graph triangle counting | Network structure and tightness analysis|  count  |  int|
+| BetweennessCentrality | Intermediate centrality | Key node mining, node influence computing |     betweenness     |double/string|
+| ClosenessCentrality | Closeness centrality |Key node mining, node influence computing|    closeness       |double/string|
+| DegreeStatic    |Degree of statistical | Graph structure analysis| degree,inDegree,outDegree| int/string  |
+| ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|   clustercoefficient   |double/string|
+| Jaccard | Jaccard similarity | Similarity computing, recommendation system|    jaccard        |    string   |
+| BFS       | Breadth-First Search| Sequence traversal, shortest path planning|     bfs          |    string   |
+| Node2Vec  |     -     | Graph classification         |     node2vec       |    string   |
+
+!!! note
+
+    When writing the algorithm results into the Nebula Graph, make sure that the tag in the corresponding graph space has properties names and data types corresponding to the table above.
 
 ## Implementation methods
 
@@ -45,22 +72,22 @@ Nebula Algorithm implements the graph calculating as follows:
 
 3. Use graph algorithms provided by GraphX (such as PageRank) or self-implemented algorithms (such as Louvain).
 
-For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
+For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-algorithm/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
 
 ## Get Nebula Algorithm
 
 ### Compile and package
 
-1. Clone the repository `nebula-spark-utils`.
+1. Clone the repository `nebula-algorithm`.
 
   ```bash
-  $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
+  $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-algorithm.git
   ```
 
 2. Enter the directory `nebula-algorithm`.
 
   ```bash
-  $ cd nebula-spark-utils/nebula-algorithm
+  $ cd nebula-algorithm
   ```
 
 3. Compile and package.
@@ -69,11 +96,11 @@ For detailed implementation methods, see [Scala file](https://github.com/vesoft-
   $ mvn clean package -Dgpg.skip -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
   ```
 
-After the compilation, a similar file `nebula-algorithm-{{algorithm.release}}.jar` is generated in the directory `nebula-algorithm/target`.
+After the compilation, a similar file `nebula-algorithm-3.x.x.jar` is generated in the directory `nebula-algorithm/target`.
 
 ### Download maven from the remote repository
 
-[Download address](https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/{{algorithm.release}}/)
+[Download address](https://repo1.maven.org/maven2/com/vesoft/nebula-algorithm/)
 
 ## How to use
 
@@ -85,13 +112,13 @@ The `lib` repository provides 10 common graph algorithms.
 
   ```bash
   <dependency>
-  <groupId>com.vesoft</groupId>
-  <artifactId>nebula-algorithm</artifactId>
-  <version>{{algorithm.release}}</version>
+       <groupId>com.vesoft</groupId>
+       <artifactId>nebula-algorithm</artifactId>
+       <version>{{algorithm.release}}</version>
   </dependency>
   ```
 
-2. Use the algorithm (take PageRank as an example) by filling in parameters. For more algorithms, see [Test cases](https://github.com/vesoft-inc/nebula-spark-utils/tree/master/nebula-algorithm/src/test/scala/com/vesoft/nebula/algorithm/lib).
+2. Use the algorithm (take PageRank as an example) by filling in parameters. For more examples, see [example](https://github.com/vesoft-inc/nebula-algorithm/tree/master/example/src/main/scala/com/vesoft/nebula/algorithm).
 
   !!! note
         By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
@@ -100,13 +127,15 @@ The `lib` repository provides 10 common graph algorithms.
   val prConfig = new PRConfig(5, 1.0)
   val louvainResult = PageRankAlgo.apply(spark, data, prConfig, false)
   ```
+  
+  If your vertex IDs are Strings, see [Pagerank Example](https://github.com/vesoft-inc/nebula-algorithm/blob/master/example/src/main/scala/com/vesoft/nebula/algorithm/PageRankExample.scala) for how to encoding and decoding them.
 
 ### Submit the algorithm package directly
 
 !!! note
     There are limitations to use sealed packages. For example, when sinking a repository into Nebula Graph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
 
-1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
+1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
 
   ```bash
   {
@@ -167,7 +196,7 @@ The `lib` repository provides 10 common graph algorithms.
           # StronglyConnectedComponent: scc
           # LabelPropagation: lpa
           # ShortestPath: shortestpath
-          # DegreeStatic: degree、inDegree、outDegree
+          # DegreeStatic: degree,inDegree,outDegree
           # KCore: kcore
           # TriangleCount: tranglecpunt
           # BetweennessCentrality: betweennedss
@@ -200,15 +229,16 @@ The `lib` repository provides 10 common graph algorithms.
 
 
     algorithm: {
-      # The algorithm to execute. Optional values are pagerank, louvain, connectedcomponent,
-      # labelpropagation, shortestpaths, degreestatic, kcore,
-      # stronglyconnectedcomponent, trianglecount, betweenness,
+      # The algorithm to execute. Optional values are as follow: 
+      # pagerank, louvain, connectedcomponent, labelpropagation, shortestpaths, 
+      # degreestatic, kcore, stronglyconnectedcomponent, trianglecount ,
+      # betweenness, graphtriangleCount.
       executeAlgo: pagerank
  
       # PageRank
       pagerank: {
           maxIter: 10
-          resetProb: 0.15  # The default value is 0.15
+          resetProb: 0.15 
       }
  
       # Louvain
@@ -218,38 +248,8 @@ The `lib` repository provides 10 common graph algorithms.
           tol: 0.5
       }
 
-     # ConnectedComponent/StronglyConnectedComponent
-     connectedcomponent: {
-         maxIter: 20
-     }
+     # ...
 
-     # LabelPropagation
-     labelpropagation: {
-         maxIter: 20
-     }
-
-      # ShortestPath
-      shortestpaths: {
-          # several vertices to compute the shortest path to all vertices.
-          landmarks: "1"
-      }
-
-      # DegreeStatic
-      degreestatic: {}
-
-      # KCore
-      kcore:{
-          maxIter:10
-          degree:1
-      }
-
-      # TriangleCount
-      trianglecount:{}
- 
-      # BetweennessCentrality
-      betweenness:{
-          maxIter:5
-      }
   }
   }
   ```
@@ -257,11 +257,11 @@ The `lib` repository provides 10 common graph algorithms.
 2. Submit the graph computing task.
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-2.0.0.jar_path> -p <application.conf_path>
+  ${SPARK_HOME}/bin/spark-submit --master <mode> --class com.vesoft.nebula.algorithm.Main <nebula-algorithm-{{algorithm.release}}.jar_path> -p <application.conf_path>
   ```
 
   Example:
 
   ```bash
-  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-spark-utils/nebula-algorithm/target/nebula-algorithm-2.0.0.jar -p /root/nebula-spark-utils/nebula-algorithm/src/main/resources/application.conf
+  ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.algorithm.Main /root/nebula-algorithm/target/nebula-algorithm-3.0-SNAPSHOT.jar -p /root/nebula-algorithm/src/main/resources/application.conf
   ```

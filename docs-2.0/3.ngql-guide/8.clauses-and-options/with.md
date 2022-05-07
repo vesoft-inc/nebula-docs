@@ -28,33 +28,22 @@ nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
         WITH nodes(p) AS n \
         UNWIND n AS n1 \
         RETURN DISTINCT n1;
-+----------------------------------------------------------------------+
-| n1                                                                   |
-+----------------------------------------------------------------------+
-| ("player100" :star{} :person{} :player{age: 42, name: "Tim Duncan"}) |
-+----------------------------------------------------------------------+
-| ("player101" :player{age: 36, name: "Tony Parker"})                  |
-+----------------------------------------------------------------------+
-| ("team204" :team{name: "Spurs"})                                     |
-+----------------------------------------------------------------------+
-| ("player102" :player{age: 33, name: "LaMarcus Aldridge"})            |
-+----------------------------------------------------------------------+
-| ("player125" :player{age: 41, name: "Manu Ginobili"})                |
-+----------------------------------------------------------------------+
-| ("player104" :player{age: 32, name: "Marco Belinelli"})              |
-+----------------------------------------------------------------------+
-| ("player144" :player{age: 47, name: "Shaquile O'Neal"})              |
-+----------------------------------------------------------------------+
-| ("player105" :player{age: 31, name: "Danny Green"})                  |
-+----------------------------------------------------------------------+
-| ("player113" :player{age: 29, name: "Dejounte Murray"})              |
-+----------------------------------------------------------------------+
-| ("player107" :player{age: 32, name: "Aron Baynes"})                  |
-+----------------------------------------------------------------------+
-| ("player109" :player{age: 34, name: "Tiago Splitter"})               |
-+----------------------------------------------------------------------+
-| ("player108" :player{age: 36, name: "Boris Diaw"})                   |
-+----------------------------------------------------------------------+
++-----------------------------------------------------------+
+| n1                                                        |
++-----------------------------------------------------------+
+| ("player100" :player{age: 42, name: "Tim Duncan"})        |
+| ("player101" :player{age: 36, name: "Tony Parker"})       |
+| ("team204" :team{name: "Spurs"})                          |
+| ("player102" :player{age: 33, name: "LaMarcus Aldridge"}) |
+| ("player125" :player{age: 41, name: "Manu Ginobili"})     |
+| ("player104" :player{age: 32, name: "Marco Belinelli"})   |
+| ("player144" :player{age: 47, name: "Shaquille O'Neal"})  |
+| ("player105" :player{age: 31, name: "Danny Green"})       |
+| ("player113" :player{age: 29, name: "Dejounte Murray"})   |
+| ("player107" :player{age: 32, name: "Aron Baynes"})       |
+| ("player109" :player{age: 34, name: "Tiago Splitter"})    |
+| ("player108" :player{age: 36, name: "Boris Diaw"})        |
++-----------------------------------------------------------+
 ```
 
 ### Example 2
@@ -75,11 +64,7 @@ nebula> MATCH (v) \
 +----------+
 | tags_f   |
 +----------+
-| "star"   |
-+----------+
 | "player" |
-+----------+
-| "person" |
 +----------+
 ```
 
@@ -89,17 +74,15 @@ nebula> MATCH (v) \
 
 ```ngql
 nebula> MATCH (v:player)-->(v2:player) \
-        WITH DISTINCT v2 AS v2, v2.age AS Age \
+        WITH DISTINCT v2 AS v2, v2.player.age AS Age \
         ORDER BY Age \
         WHERE Age<25 \
-        RETURN v2.name AS Name, Age;
+        RETURN v2.player.name AS Name, Age;
 +----------------------+-----+
 | Name                 | Age |
 +----------------------+-----+
 | "Luka Doncic"        | 20  |
-+----------------------+-----+
 | "Ben Simmons"        | 22  |
-+----------------------+-----+
 | "Kristaps Porzingis" | 23  |
 +----------------------+-----+
 ```
@@ -110,7 +93,7 @@ Use a `WITH` clause to sort and limit the output before using `collect()` to tra
 
 ```ngql
 nebula> MATCH (v:player) \
-        WITH v.name AS Name \
+        WITH v.player.name AS Name \
         ORDER BY Name DESC \
         LIMIT 3 \
         RETURN collect(Name);
@@ -126,7 +109,7 @@ nebula> MATCH (v:player) \
 Set an alias using a `WITH` clause, and then output the result through a `RETURN` clause.
 
 ```ngql
-nebula> WITH [1, 2, 3] AS list  RETURN 3 IN list AS r;
+nebula> WITH [1, 2, 3] AS `list` RETURN 3 IN `list` AS r;
 +------+
 | r    |
 +------+

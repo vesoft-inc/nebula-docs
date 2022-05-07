@@ -1,20 +1,21 @@
-# Deploy Nebula Graph cluster with RPM/DEB package
+# Deploy a Nebula Graph cluster with RPM/DEB package on multiple servers 
 
-For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides some examples of deploying Nebula Graph clusters.
+For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides an example of deploying a Nebula Graph cluster on multiple servers (machines).
 
 ## Deployment
 
-| Machine name |IP address          | Number of graphd    | Number of storaged    | Number of metad   |
-| :----- |:---------------|:------------- | :----------------- | :---------------- |
-| A      | 192.168.10.111 |1               | 1                  | 1                |
-| B      | 192.168.10.112 |1               | 1                  | 1                |
-| C      | 192.168.10.113 |1               | 1                  | 1                |
-| D      | 192.168.10.114 |1               | 1                  | None                |
-| E      | 192.168.10.115 |1               | 1                  | None                |
+| Machine name |       IP address | Number of graphd | Number of storaged | Number of metad   |
+| :-----       | :--------------- |   :------------- | :----------------- | :---------------- |
+| A            |   192.168.10.111 |                1 |                  1 | 1                 |
+| B            |   192.168.10.112 |                1 |                  1 | 1                 |
+| C            |   192.168.10.113 |                1 |                  1 | 1                 |
+| D            |   192.168.10.114 |                1 |                  1 | None              |
+| E            |   192.168.10.115 |                1 |                  1 | None              |
 
 ## Prerequisites
 
-Prepare 5 machines for deploying the cluster.
+- Prepare 5 machines for deploying the cluster.
+- Use the NTP service to synchronize time in the cluster.
 
 ## Manual deployment process
 
@@ -32,13 +33,13 @@ To deploy Nebula Graph according to your requirements, you have to modify the co
 
 All the configuration files for Nebula Graph, including `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`, are stored in the `etc` directory in the installation path. You only need to modify the configuration for the corresponding service on the machines. The configurations that need to be modified for each machine are as follows.
 
-| Machine name | The configuration to be modified    |
-| :----- |:---------------|
-| A      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| B      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| C      | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf`|
-| D      | `nebula-graphd.conf`, `nebula-storaged.conf` |
-| E      | `nebula-graphd.conf`, `nebula-storaged.conf` |
+| Machine name | The configuration to be modified                                  |
+| :-----       | :---------------                                                  |
+| A            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| B            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| C            | `nebula-graphd.conf`, `nebula-storaged.conf`, `nebula-metad.conf` |
+| D            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
+| E            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
 
 Users can refer to the content of the following configurations, which only show part of the cluster settings. The hidden content uses the default setting so that users can better understand the relationship between the servers in the Nebula Graph cluster.
 
@@ -71,7 +72,7 @@ Users can refer to the content of the following configurations, which only show 
     ```
 
   - `nebula-storaged.conf`
-  
+
     ```bash
     ########## networking ##########
     # Comma separated Meta server addresses
@@ -256,15 +257,15 @@ Users can refer to the content of the following configurations, which only show 
 
 ### Step 3: Start the cluster
 
-Start the corresponding service on each machine. Descriptions are as follows.
+Start the corresponding service on **each machine**. Descriptions are as follows.
 
-| Machine name |The process to be started    |
-| :----- |:---------------|
-| A      | graphd, storaged, metad|
-| B      | graphd, storaged, metad|
-| C      | graphd, storaged, metad |
-| D      | graphd, storaged |
-| E      | graphd, storaged |
+| Machine name | The process to be started |
+| :-----       | :---------------          |
+| A            | graphd, storaged, metad   |
+| B            | graphd, storaged, metad   |
+| C            | graphd, storaged, metad   |
+| D            | graphd, storaged          |
+| E            | graphd, storaged          |
 
 The command to start the Nebula Graph services is as follows.
 
@@ -274,13 +275,15 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
 !!! note
 
+    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start Nebula Graph.
+
     - When the graphd process, the storaged process, and the metad process are all started, you can use `all` instead.
 
     - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../manage-service.md).
 
 ### Step 4: Check the cluster status
 
-Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md#_1), then connect to any machine that has started the graphd process, and run `SHOW HOSTS` to check the cluster status. For example:
+Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, run `ADD HOSTS` command to add storage hosts, and run `SHOW HOSTS` to check the cluster status. For example:
 
 ```bash
 $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
@@ -288,20 +291,15 @@ $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
 2021/05/25 01:41:19 [INFO] connection pool is initialized successfully
 Welcome to Nebula Graph!
 
+> ADD HOSTS 192.168.10.111:9779, 192.168.10.112:9779, 192.168.10.113:9779, 192.168.10.114:9779, 192.168.10.115:9779;
 > SHOW HOSTS;
-+------------------+------+----------+--------------+----------------------+------------------------+
-| Host             | Port | Status   | Leader count | Leader distribution  | Partition distribution |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.111" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.112" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.113" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.114" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "192.168.10.115" | 9779 | "ONLINE" | 0            | "No valid partition" | "No valid partition"   |
-+------------------+------+----------+--------------+----------------------+------------------------+
-| "Total"          |      |          | 0            |                      |                        |
-+------------------+------+----------+--------------+----------------------+------------------------+
++------------------+------+-----------+----------+--------------+----------------------+------------------------+---------+
+| Host             | Port | HTTP port | Status   | Leader count | Leader distribution  | Partition distribution | Version |
++------------------+------+-----------+----------+--------------+----------------------+------------------------+---------+
+| "192.168.10.111" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.1.0" |
+| "192.168.10.112" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.1.0" |
+| "192.168.10.113" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.1.0" |
+| "192.168.10.114" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.1.0" |
+| "192.168.10.115" | 9779 | 19669     | "ONLINE" | 0            | "No valid partition" | "No valid partition"   | "3.1.0" |
++------------------+------+-----------+----------+--------------+----------------------+------------------------+---------+
 ```

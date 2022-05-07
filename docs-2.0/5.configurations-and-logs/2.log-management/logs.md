@@ -1,10 +1,12 @@
-# Logs
+# Runtime logs
 
-**Nebula Graph** uses [glog](https://github.com/google/glog) to print logs, uses [gflags](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
+Runtime logs are provided for DBAs and developers to locate faults when the system fails.
+
+**Nebula Graph** uses [glog](https://github.com/google/glog) to print runtime logs, uses [gflags](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
 
 ## Log directory
 
-The default log directory is `/usr/local/nebula/logs/`.
+The default runtime log directory is `/usr/local/nebula/logs/`.
 
 If the log directory is deleted while Nebula Graph is running, the log would not continue to be printed. However, this operation will not affect the services. To recover the logs, restart the services.
 
@@ -53,8 +55,8 @@ $ curl -X PUT -H "Content-Type: application/json" -d '{"<key>":<value>[,"<key>":
 
 |Parameter|Description|
 |:---|:---|
-|`key`|The type of the log to be changed. For optional values, see [Parameter descriptions](#_3).|
-|`value`|The level of the log. For optional values, see [Parameter descriptions](#_3).|
+|`key`|The type of the log to be changed. For optional values, see [Parameter descriptions](#parameter_descriptions).|
+|`value`|The level of the log. For optional values, see [Parameter descriptions](#parameter_descriptions).|
 |`ws_ip`|The IP address for the HTTP service, which can be found in the configuration files above. The default value is `127.0.0.1`.|
 |`ws_port`|The port for the HTTP service, which can be found in the configuration files above. The default values are `19559`(Meta), `19669`(Graph), and `19779`(Storage) respectively.|
 
@@ -69,6 +71,6 @@ $ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "
 
 If the log level is changed while Nebula Graph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see [Configuration files](../1.configurations/1.configurations.md).
 
-## RocksDB logs
+## RocksDB runtime logs
 
-RocksDB logs are usually used to debug RocksDB parameters and stored in `/usr/local/nebula/data/storage/nebula/$id/data/LOG`. `$id` is the ID of the example.
+RocksDB runtime logs are usually used to debug RocksDB parameters and stored in `/usr/local/nebula/data/storage/nebula/$id/data/LOG`. `$id` is the ID of the example.

@@ -28,26 +28,22 @@ ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...];
 nebula> FETCH PROP ON player "player100", "player101", "player102", "player103" \
         YIELD player.age AS age, player.name AS name \
         | ORDER BY $-.age ASC, $-.name DESC;
-+-------------+-----+---------------------+
-| VertexID    | age | name                |
-+-------------+-----+---------------------+
-| "player103" | 32  | "Rudy Gay"          |
-+-------------+-----+---------------------+
-| "player102" | 33  | "LaMarcus Aldridge" |
-+-------------+-----+---------------------+
-| "player101" | 36  | "Tony Parker"       |
-+-------------+-----+---------------------+
-| "player100" | 42  | "Tim Duncan"        |
-+-------------+-----+---------------------+
++-----+---------------------+
+| age | name                |
++-----+---------------------+
+| 32  | "Rudy Gay"          |
+| 33  | "LaMarcus Aldridge" |
+| 36  | "Tony Parker"       |
+| 42  | "Tim Duncan"        |
++-----+---------------------+
 
 nebula> $var = GO FROM "player100" OVER follow \
-        YIELD follow._dst AS dst; \
+        YIELD dst(edge) AS dst; \
         ORDER BY $var.dst DESC;
 +-------------+
 | dst         |
 +-------------+
 | "player125" |
-+-------------+
 | "player101" |
 +-------------+
 ```
@@ -62,35 +58,28 @@ ORDER BY <expression> [ASC | DESC] [, <expression> [ASC | DESC] ...];
 ### Examples
 
 ```ngql
-nebula> MATCH (v:player) RETURN v.name AS Name, v.age AS Age  \
+nebula> MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age  \
         ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
 | "Yao Ming"      | 38  |
-+-----------------+-----+
 | "Vince Carter"  | 42  |
-+-----------------+-----+
 | "Tracy McGrady" | 39  |
-+-----------------+-----+
 | "Tony Parker"   | 36  |
-+-----------------+-----+
 | "Tim Duncan"    | 42  |
 +-----------------+-----+
 ...
 
 # In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.
-nebula> MATCH (v:player) RETURN v.age AS Age, v.name AS Name  \
+nebula> MATCH (v:player) RETURN v.player.age AS Age, v.player.name AS Name  \
         ORDER BY Age DESC, Name ASC;
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
 | 47  | "Shaquille O'Neal" |
-+-----+-------------------+
 | 46  | "Grant Hill"      |
-+-----+-------------------+
 | 45  | "Jason Kidd"      |
-+-----+-------------------+
 | 45  | "Steve Nash"      |
 +-----+-------------------+
 ...
@@ -102,28 +91,24 @@ nGQL lists NULL values at the end of the output for ascending sorting, and at th
 
 ```ngql
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
-        RETURN v2.name AS Name, v2.age AS Age  \
+        RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age;
 +-----------------+----------+
 | Name            | Age      |
 +-----------------+----------+
 | "Tony Parker"   | 36       |
-+-----------------+----------+
 | "Manu Ginobili" | 41       |
-+-----------------+----------+
-| "Spurs"         | __NULL__ |
+| __NULL__        | __NULL__ |
 +-----------------+----------+
 
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
-        RETURN v2.name AS Name, v2.age AS Age  \
+        RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+----------+
 | Name            | Age      |
 +-----------------+----------+
-| "Spurs"         | __NULL__ |
-+-----------------+----------+
+| __NULL__        | __NULL__ |
 | "Manu Ginobili" | 41       |
-+-----------------+----------+
 | "Tony Parker"   | 36       |
 +-----------------+----------+
 ```

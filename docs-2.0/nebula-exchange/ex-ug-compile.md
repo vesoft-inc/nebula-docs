@@ -1,68 +1,77 @@
-# Compile Exchange
+# Get Exchange
 
-This topic describes how to compile Nebula Exchange. Users can also [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
+This topic introduces how to get the JAR file of Nebula Exchange.
 
-## Prerequisites
+## Download the JAR file directly
+
+The JAR file of Exchange Community Edition can be [downloaded](https://github.com/vesoft-inc/nebula-exchange/releases) directly.
+
+To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.io/pricing/) first.
+
+## Get the JAR file by compiling the source code
+
+You can get the JAR file of Exchange Community Edition by compiling the source code. The following introduces how to compile the source code of Exchange.
+
+!!! enterpriseonly
+
+    You can get Exchange Enterprise Edition in Nebula Graph Enterprise Edition Package only.
+
+### Prerequisites
 
 - Install [Maven](https://maven.apache.org/download.cgi).
 
-<!-- The Maven library where Pulsar is located was officially closed on May 31st, and the migration location has not been found yet. You can delete it once you find it-->
-- Download [pulsar-spark-connector_2.11](https://oss-cdn.nebula-graph.com.cn/jar-packages/pulsar-spark-connector_2.11.zip), and unzip it to `io/streamnative/connectors` directory of the local Maven library.
+- Install the correct version of Apache Spark. Exporting data from different sources requires different Spark versions. For more information, see [Software dependencies](about-exchange/ex-ug-limitations.md).
 
 ## Steps
 
-1. Clone the repository `nebula-spark-utils` in the `/` directory.
+1. Clone the repository `nebula-exchange` in the `/` directory.
 
-   ```bash
-   git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
-   ```
+  ```bash
+  git clone -b {{exchange.branch}} https://github.com/vesoft-inc/nebula-exchange.git
+  ```
 
 2. Switch to the directory `nebula-exchange`.
 
-   ```bash
-   cd nebula-spark-utils/nebula-exchange
-   ```
+  ```bash
+  cd nebula-exchange
+  ```
 
-3. Package Nebula Exchange.
+3. Package Nebula Exchange. Run the following command based on the Spark version:
 
-   ```bash
-   mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-   ```
+  - For Spark 2.2：
 
-After the compilation is successful, you can view a directory structure similar to the following in the current directory.
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_2.2 -am -Pscala-2.11 -Pspark-2.2
+    ```
 
-```text
-.
-├── README-CN.md
-├── README.md
-├── pom.xml
-├── src
-│   ├── main
-│   └── test
-└── target
-    ├── classes
-    ├── classes.timestamp
-    ├── maven-archiver
-    ├── nebula-exchange-2.x.y-javadoc.jar
-    ├── nebula-exchange-2.x.y-sources.jar
-    ├── nebula-exchange-2.x.y.jar
-    ├── original-nebula-exchange-2.x.y.jar
-    └── site
-```
+  - For Spark 2.4：
 
-In the `target` directory, users can find the `exchange-2.x.y.jar` file.
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_2.4 -am -Pscala-2.11 -Pspark-2.4
+    ```
+
+  - For Spark 3.0：
+
+    ```bash
+    mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true \
+    -pl nebula-exchange_spark_3.0 -am -Pscala-2.12 -Pspark-3.0
+    ```
+
+After the compilation is successful, you can find the `nebula-exchange_spark_x.x-{{exchange.branch}}.jar` file in the `nebula-exchange_spark_x.x/target/` directory. `x.x` indicates the Spark version, for example, `2.4`.
 
 !!! note
 
     The JAR file version changes with the release of the Nebula Java Client. Users can view the latest version on the [Releases page](https://github.com/vesoft-inc/nebula-java/releases).
 
-When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-spark-utils/blob/master/nebula-exchange/src/main/resources/application.conf).
+When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf).
 
-## Failed to download the dependency package
+### Failed to download the dependency package
 
-If downloading dependencies fails at compile time:
+If downloading dependencies fails when compiling:
 
-- Check the network Settings and ensure that the network is normal.
+- Check the network settings and ensure that the network is normal.
 
 - Modify the `mirror` part of Maven installation directory `libexec/conf/settings.xml`:
 

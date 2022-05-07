@@ -10,7 +10,7 @@ Nebula Spark Connector is a Spark connector application for reading and writing 
 
   Provides a Spark SQL interface. This interface can be used to write DataFrames into Nebula Graph in a row-by-row or batch-import way.
 
-For more information, see [Nebula Spark Connector](https://github.com/vesoft-inc/nebula-spark-utils/blob/{{sparkconnector.branch}}/nebula-spark-connector/README.md).
+For more information, see [Nebula Spark Connector](https://github.com/vesoft-inc/nebula-spark-connector/blob/{{sparkconnector.branch}}/README_CN.md).
 
 ## Use cases
 
@@ -38,7 +38,11 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 * Unifies the extended data source of SparkSQL, and uses DataSourceV2 to extend Nebula Graph data.
 
-* Two write modes, `insert` and `update`, are supported. `insert` mode will insert (overwrite) data, and `update` mode will only update existing data.
+* Three write modes, `insert`, `update` and `delete`, are supported. `insert` mode will insert (overwrite) data, `update` mode will only update existing data, and `delete` mode will only delete data.
+
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-spark-connector/releases/tag/{{sparkconnector.tag}})
 
 ## Get Nebula Spark Connector
 
@@ -46,18 +50,18 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
 
 !!! note
 
-     Install Nebula Spark Connector of version 2.3 or above.
+     Install Nebula Spark Connector of version 2.4.x.
 
-1. Clone repository `nebula-spark-utils`.
+1. Clone repository `nebula-spark-connector`.
 
   ```bash
-  $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-utils.git
+  $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
 
 2. Make the `nebula-spark-connector` directory the current working directory.
 
   ```bash
-  $ cd nebula-spark-utils/nebula-spark-connector
+  $ cd nebula-spark-connector/nebula-spark-connector
   ```
 
 3. Compile package.
@@ -66,7 +70,7 @@ The features of Nebula Spark Connector {{sparkconnector.release}} are as follows
   $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
   ```
 
-After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `nebula-spark-connector/target`.
+After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `nebula-spark-connector/nebula-spark-connector/target/`.
 
 ### Download maven remote repository
 
@@ -144,6 +148,10 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
 ### Write data into Nebula Graph
 
+!!! note
+
+    The values of columns in a dataframe are automatically written to the Nebula Graph as property values.
+
 ```scala
 val config = NebulaConnectionConfig
   .builder()
@@ -219,7 +227,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSpace`  |Yes|  Nebula Graph space name.  |
   |`withTag`  |Yes|  The Tag name that needs to be associated when a vertex is written.  |
   |`withVidField`  |Yes|  The column in the DataFrame as the vertex ID.  |
-  |`withVidPolicy`  |No|  When writing the vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.  |
+  |`withVidPolicy`  |No|  When writing the vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.  |
   |`withVidAsProp`  |No|  Whether the column in the DataFrame that is the vertex ID is also written as an property. The default value is `false`. If set to `true`, make sure the Tag has the same property name as `VidField`.  |
   |`withUser`  |No|  Nebula Graph user name. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.   |
   |`withPasswd`  |No|  The password for the Nebula Graph user name.  |
@@ -233,9 +241,9 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSpace`  |Yes|  Nebula Graph space name.  |
   |`withEdge`  |Yes|  The Edge type name that needs to be associated when a edge is written.  |
   |`withSrcIdField`  |Yes|  The column in the DataFrame as the vertex ID.  |
-  |`withSrcPolicy`  |No| When writing the starting vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.   |
+  |`withSrcPolicy`  |No| When writing the starting vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.   |
   |`withDstIdField`  |Yes| The column in the DataFrame that serves as the destination vertex.   |
-  |`withDstPolicy`  |No| When writing the destination vertex ID, Nebula Graph 2.x use mapping function, supports HASH only. No mapping is performed by default.   |
+  |`withDstPolicy`  |No| When writing the destination vertex ID, Nebula Graph use mapping function, supports HASH only. No mapping is performed by default.   |
   |`withRankField`  |No| The column in the DataFrame as the rank. Rank is not written by default.   |
   |`withSrcAsProperty`  |No| Whether the column in the DataFrame that is the starting vertex is also written as an property.  The default value is `false`. If set to `true`, make sure Edge type has the same property name as `SrcIdField`.   |
   |`withDstAsProperty`  |No| Whether column that are destination vertex in the DataFrame are also written as property. The default value is `false`. If set to `true`, make sure Edge type has the same property name as `DstIdField`.   |

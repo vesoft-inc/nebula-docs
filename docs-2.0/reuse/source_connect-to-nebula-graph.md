@@ -1,33 +1,32 @@
-Nebula Graph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. This topic provides an overview of Nebula Graph clients and basic instructions on how to use the native CLI client, Nebula Console.
+This topic provides basic instruction on how to use the native CLI client Nebula Console to connect to Nebula Graph.
 
-## Nebula Graph clients
+!!! caution
 
-You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to Nebula Graph.<!--这里用外链。-->
+    When connecting to Nebula Graph for the first time, you must [register the Storage Service](../2.quick-start/3.1add-storage-hosts.md) before querying data.
 
-<!-- TODO cloud service can't be provided together with v2.0.0.
-If you don't have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building, and uses Nebula Graph Studio as its default client.
--->
+Nebula Graph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. For more information, see the [client list](../14.client/1.nebula-client.md).
 
-## Use Nebula Console to connect to Nebula Graph
+## Prerequisites
 
-### Prerequisites
+* You have started [Nebula Graph services](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--Use the external link here because this file is a source for reuse and using internal links creates errors.-->
 
-* You have started the Nebula Graph services. For how to start the services, see [Start and Stop Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
-* The machine you plan to run Nebula Console on has network access to the Nebula Graph services.
+* The machine on which you plan to run Nebula Console has network access to the Graph Service of Nebula Graph.
+
+* The Nebula Console version is compatible with the Nebula Graph version.
+
+  !!! note
+  
+        Nebula Console and Nebula Graph of the same version number are the most compatible. There may be compatibility issues when connecting to Nebula Graph with a different version of Nebula Console. The error message `incompatible version between client and server` is displayed when there is such an issue.
 
 ### Steps
 
-1. On the [nebula-console](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page") page, select a Nebula Console version and click **Assets**.
+1. On the Nebula Console [releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page"), select a Nebula Console version and click **Assets**.
 
   !!! note
 
-        We recommend that you select the **latest** release.
-
-    ![Select a Nebula Graph version and click **Assets**](https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-console-releases-1.png "Click Assets to show the available Nebula Graph binary files")
+        It is recommended to select the **latest** version.
 
 2. In the **Assets** area, find the correct binary file for the machine where you want to run Nebula Console and download the file to the machine.
-
-    ![Click to download the package according to your hardware architecture](https://docs-cdn.nebula-graph.com.cn/docs-2.0/2.quick-start/nebula-console-releases-2-1.png "Click the package name to download it")
 
 3. (Optional) Rename the binary file to `nebula-console` for convenience.
 
@@ -49,161 +48,35 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
 
 6. Run the following command to connect to Nebula Graph.
 
-   * For Linux or macOS:
+  * For Linux or macOS:
 
-   ```bash
-   $ ./nebula-console -addr <ip> -port <port> -u <username> -p <password>
-   [-t 120] [-e "nGQL_statement" | -f filename.nGQL]
-   ```
+  ```bash
+  $ ./nebula-console -addr <ip> -port <port> -u <username> -p <password>
+  [-t 120] [-e "nGQL_statement" | -f filename.nGQL]
+  ```
 
-   * For Windows:
+  * For Windows:
 
-   ```powershell
-   > nebula-console.exe -addr <ip> -port <port> -u <username> -p <password>
-   [-t 120] [-e "nGQL_statement" | -f filename.nGQL]
-   ```
+  ```powershell
+  > nebula-console.exe -addr <ip> -port <port> -u <username> -p <password>
+  [-t 120] [-e "nGQL_statement" | -f filename.nGQL]
+  ```
 
-   The description of the parameters is as follows.
+  Parameter descriptions are as follows:
+  
+  | Parameter | Description |
+  | - | - |
+  | `-h/-help` | Shows the help menu. |
+  | `-addr/-address` | Sets the IP address of the Graph service. The default address is 127.0.0.1. If Nebula Graph is deployed on [Nebula Cloud](https://docs.nebula-graph.io/2.6.2/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP address of the Private Endpoint as the parameter value. |
+  | `-P/-port` | Sets the port number of the graphd service. The default port number is 9669. |
+  | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
+  | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
+  | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
+  | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
+  | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
+  | `-enable_ssl` | Enables SSL encryption when connecting to Nebula Graph. |
+  | `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
+  | `-ssl_cert_path` | Sets the storage path of the certificate file. |
+  | `-ssl_private_key_path` | Sets the storage path of the private key file. |
 
-   | Option | Description |
-   | - | - |
-   | `-h` | Shows the help menu. |
-   | `-addr` | Sets the IP address of the graphd service. The default address is 127.0.0.1. |
-   | `-port` | Sets the port number of the graphd service. The default port number is 9669.<!-- If you have deployed Nebula Graph in a docker container but Nebula Console is working outside the container, check the [source port](2.deploy-nebula-graph-with-docker-compose.md/#check_the_nebula_graph_service_status_and_port) of any nebula-graphd process and use it for connection. -->|
-   | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
-   | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
-   | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
-   | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
-   | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. You'll get the return messages and the connection stops then. |
-
-You can find more details in the [Nebula Console Repository](https://github.com/vesoft-inc/nebula-console/tree/v2.0.0-ga).
-
-## Nebula Console commands
-
-Nebula Console can export CSV file, DOT file, and import too. 
-
-!!! note
-
-    The commands are case insensitive.
-
-### Export a CSV file
-
-!!! note
-
-    - A CSV file will be saved in the working directory, i.e., what linux command `pwd` show;
-
-    - This command only works for the next query statement.
-
-The command to export a csv file.
-
-```ngql
-nebula> :CSV <file_name.csv>
-```
-
-### Export a DOT file
-
-!!! Note
-
-    - A DOT file will be saved in the working directory, i.e., what linux command `pwd` show;
-
-    - You can copy the contents of DOT file, and paste in [GraphvizOnline](https://dreampuf.github.io/GraphvizOnline/), to visualize the excution plan;
-
-    - This command only works for the next query statement.
-
-The command to export a DOT file.
-
-```ngql
-nebula> :dot <file_name.dot>
-```
-
-For example,
-
-```ngql
-nebula> :dot a.dot
-nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
-```
-
-### Importing a testing dataset
-
-The testing dataset is named `nba`. Details about schema and data can be seen by commands `SHOW`.  
-
-Using the following command to import the testing dataset,
-
-```ngql
-nebula> :play nba
-```
-
-### Run a command multiple times
-
-Sometimes, you want to run a command multiple times. Run the following command.
-
-```ngql
-nebula> :repeat N
-```
-
-For example,
-
-```ngql
-nebula> :repeat 3
-nebula> GO FROM "player100" OVER follow;
-+-------------+
-| follow._dst |
-+-------------+
-| "player101" |
-+-------------+
-| "player125" |
-+-------------+
-Got 2 rows (time spent 2602/3214 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-+-------------+
-| follow._dst |
-+-------------+
-| "player101" |
-+-------------+
-| "player125" |
-+-------------+
-Got 2 rows (time spent 583/849 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-+-------------+
-| follow._dst |
-+-------------+
-| "player101" |
-+-------------+
-| "player125" |
-+-------------+
-Got 2 rows (time spent 496/671 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578 us)
-```
-
-### Sleep to wait
-
-Sleep N seconds. 
-
-It is usually used when altering schema. Since schema is altered in async way, and take effects in the next heartbeat cycle.
-
-```ngql
-nebula> :sleep N
-```
-
-## Disconnect Nebula Console from Nebula Graph
-
-You can use `:EXIT` or `:QUIT` to disconnect from Nebula Graph. For convenience, Nebula Console supports using these commands in lower case without the colon (":"), such as `quit`.
-
-```ngql
-nebula> :QUIT
-
-Bye root!
-```
-
-## FAQ
-
-### How can I install Nebula Console from the source code
-
-To download and compile the latest source code of Nebula Console, follow the instructions on [the nebula console GitHub page](https://github.com/vesoft-inc/nebula-console#build-nebula-graph-console).
+  For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).

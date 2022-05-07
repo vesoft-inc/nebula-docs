@@ -14,3 +14,7 @@ Nebula Flink Connector applies to the following scenarios:
 * Migrate data between different graph spaces in the same Nebula Graph cluster.
 
 * Migrate data between Nebula Graph and other data sources.
+
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-flink-connector/releases/tag/{{flinkconnector.tag}})

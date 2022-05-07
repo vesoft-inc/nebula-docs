@@ -32,9 +32,7 @@ nebula> SHOW CONFIGS STORAGE;
 | module    | name                                | type  | mode      | value                                                                                                |
 +-----------+-------------------------------------+-------+-----------+------------------------------------------------------------------------------------------------------+
 | "STORAGE" | "v"                                 | "int" | "MUTABLE" | 0                                                                                                    |
-+-----------+-------------------------------------+-------+-----------+------------------------------------------------------------------------------------------------------+
 ...
-+-----------+-------------------------------------+-------+-----------+------------------------------------------------------------------------------------------------------+
 | "STORAGE" | "rocksdb_column_family_options"     | "map" | "MUTABLE" | {max_bytes_for_level_base: "268435456", max_write_buffer_number: "4", write_buffer_size: "67108864"} |
 +-----------+-------------------------------------+-------+-----------+------------------------------------------------------------------------------------------------------+
 ...
@@ -48,9 +46,7 @@ nebula> SHOW CONFIGS STORAGE;
 | module    | name                                | type  | mode      | value                                                                                                                                |
 +-----------+-------------------------------------+-------+-----------+--------------------------------------------------------------------------------------------------------------------------------------+
 | "STORAGE" | "v"                                 | "int" | "MUTABLE" | 0                                                                                                                                    |
-+-----------+-------------------------------------+-------+-----------+--------------------------------------------------------------------------------------------------------------------------------------+
 ...
-+-----------+-------------------------------------+-------+-----------+--------------------------------------------------------------------------------------------------------------------------------------+
 | "STORAGE" | "rocksdb_column_family_options"     | "map" | "MUTABLE" | {disable_auto_compactions: true, max_bytes_for_level_base: "268435456", max_write_buffer_number: "4", write_buffer_size: "67108864"} |
 +-----------+-------------------------------------+-------+-----------+--------------------------------------------------------------------------------------------------------------------------------------+
 ...
@@ -96,7 +92,7 @@ These are some operation suggestions to keep Nebula Graph performing well.
 
     ```bash
     # Limit the read/write rate to 20MB/s.
-    --rate_limit=20 (in MB/s)
+    --rocksdb_rate_limit=20 (in MB/s)
     ```
 
 ## FAQ
@@ -122,9 +118,9 @@ Yes, you can. But the IO is much larger at this time and the efficiency may be a
 
 ### "How much time does it take for full `compactions`?"
 
-When `rate_limit` is set to `20`, you can estimate the full compaction time by dividing the hard disk usage by the `rate_limit`. If you do not set the `rate_limit` value, the empirical value is around 50 MB/s.
+When `rocksdb_rate_limit` is set to `20`, you can estimate the full compaction time by dividing the hard disk usage by the `rocksdb_rate_limit`. If you do not set the `rocksdb_rate_limit` value, the empirical value is around 50 MB/s.
 
-### "Can I modify `--rate_limit` dynamically?"
+### "Can I modify `--rocksdb_rate_limit` dynamically?"
 
 No, you cannot.
 

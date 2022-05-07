@@ -1,6 +1,6 @@
 # Nebula Importer
 
-Nebula Importer (Importer) is a standalone import tool for CSV files with [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
+Nebula Importer (Importer) is a standalone tool for importing data from CSV files into [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
 
 ## Scenario
 
@@ -11,6 +11,10 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 - Lightweight and fast: no complex environment can be used, fast data import.
 
 - Flexible filtering: You can flexibly filter CSV data through configuration files.
+
+## Release note
+
+[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}})
 
 ## Prerequisites
 
@@ -26,11 +30,21 @@ Before using Nebula Importer, make sure:
 
 - Schema is created in Nebula Graph, including space, Tag and Edge type, or set by parameter `clientSettings.postStart.commands`.
 
-- Golang environment has been deployed on the machine running the Importer. For details, see [Build Go environment](https://github.com/vesoft-inc/nebula-importer/blob/release-v2.0.0-ga/docs/golang-install-en.md).
+- Golang environment has been deployed on the machine running the Importer. For details, see [Build Go environment](https://github.com/vesoft-inc/nebula-importer/blob/{{importer.branch}}/docs/golang-install-en.md).
 
 ## Steps
 
 Configure the YAML file and prepare the CSV file to be imported to use the tool to batch write data to Nebula Graph.
+
+### Download binary package and run
+
+1. Download the [binary package](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}}) directly and add execute permission to it.
+
+2. Start the service.
+
+  ```bash
+  $ ./<binary_package_name> --config <yaml_config_file_path>
+  ```
 
 ### Source code compile and run
 
@@ -43,10 +57,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
   !!! note
   
         Use the correct branch.
-        Nebula Graph 1.x and 2.x have different RPC protocols, so:
-
-      - The Nebula Importer V1 branch can only connect to Nebula Graph 1.x.
-      - The Nebula Importer Master branch and v2 branch can connect to Nebula Graph 2.x.
+        Nebula Graph 2.x and 3.x have different RPC protocols.
 
 2. Access the directory `nebula-importer`.
 
@@ -76,7 +87,7 @@ If the server cannot be connected to the Internet, it is recommended to upload t
 1. Clone repository.
 
    ```bash
-   $ git clone -b {{importer.release}} https://github.com/vesoft-inc/nebula-importer.git
+   $ git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
    ```
 
 2. Use the following command to download and package the dependent source code.
@@ -112,7 +123,7 @@ $ docker run --rm -ti \
 
 - `<config_file>`: The absolute path to the local YAML configuration file.
 - `<csv_data_dir>`: The absolute path to the local CSV data file.
-- `<version>`: Nebula Graph 2.x Please fill in 'v2'.
+- `<version>`: Nebula Graph 2.x Please fill in 'v3'.
 
 !!! note
     A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.
@@ -121,12 +132,16 @@ $ docker run --rm -ti \
 
 Nebula Importer uses configuration(`nebula-importer/examples/v2/example.yaml`) files to describe information about the files to be imported, the Nebula Graph server, and more. You can refer to the example configuration file: [Configuration without Header](config-without-header.md)/[Configuration with Header](config-with-header.md). This section describes the fields in the configuration file by category.
 
+!!! note
+
+    If users download a binary package, create the configuration file manually.
+
 ### Basic configuration
 
 The example configuration is as follows:
 
 ```yaml
-version: v2
+version: v3
 description: example
 removeTempFiles: false
 ```

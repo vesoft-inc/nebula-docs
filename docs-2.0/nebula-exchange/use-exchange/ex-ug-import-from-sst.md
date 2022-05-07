@@ -1,10 +1,12 @@
 # Import data from SST files
 
-This topic provides an example of how to generate the data from the data source into an SST (Sorted String Table) file and save it on HDFS, and then import into Nebula Graph. The sample data source is a CSV file.
+This topic provides an example of how to generate the data from the data source into an SST (Sorted String Table) file and save it on HDFS, and then import it into Nebula Graph. The sample data source is a CSV file.
 
-!!! note
+## Precautions
 
-    The SST file can be imported only in Linux.
+- The SST file can be imported only in Linux.
+
+- The default value of the property is not supported.
 
 ## Background information
 
@@ -24,21 +26,21 @@ The following describes the scenarios, implementation methods, prerequisites, an
   
         Although the import speed is fast, write operations in the corresponding space are blocked during the import period (about 10 seconds). Therefore, you are advised to import data in off-peak hours.
 
-- Suitable for scenarios with a large amount of data from data sources and fast import.
+- Suitable for scenarios with a large amount of data from data sources for its fast import speed.
 
 ## Implementation methods
 
-Nebula Graph underlying uses RocksDB as the key-value storage engine. RocksDB is a hard disk based storage engine that provides a series of apis for creating and importing SST files to help quickly import massive data.
+The underlying code in Nebula Graph uses RocksDB as the key-value storage engine. RocksDB is a storage engine based on the hard disk, providing a series of APIs for creating and importing SST files to help quickly import massive data.
 
-SST file is an internal file containing an arbitrarily long set of ordered key-value pairs for efficient storage of large amounts of key-value data. The entire process of generating SST files is mainly done by Exchange Reader, sstProcessor, and sstWriter. The whole data processing process is as follows:
+The SST file is an internal file containing an arbitrarily long set of ordered key-value pairs for efficient storage of large amounts of key-value data. The entire process of generating SST files is mainly done by Exchange Reader, sstProcessor, and sstWriter. The whole data processing steps are as follows:
 
 1. Reader reads data from the data source.
 
 2. sstProcessor generates the SST file from the Nebula Graph's Schema information and uploads it to the HDFS. For details about the format of the SST file, see [Data Storage Format](../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
 
-3. SstWriter opens a file and inserts data. When generating SST files, keys must be written in sequence.
+3. sstWriter opens a file and inserts data. When generating SST files, keys must be written in sequence.
 
-4. After the SST file is generated, RocksDB imports the SST file into Nebula Graph using the `IngestExternalFile()` method. Such as:
+4. After the SST file is generated, RocksDB imports the SST file into Nebula Graph using the `IngestExternalFile()` method. For example:
 
   ```
   IngestExternalFileOptions ifo;
@@ -51,7 +53,7 @@ SST file is an internal file containing an arbitrarily long set of ordered key-v
   }
   ```
 
-  When the `IngestExternalFile()` method is called, RocksDB copies the file to the data directory by default and blocks the RocksDB write operation. If the key range in the SST file overwrites the Memtable key range, flush the Memtable to hard disk. After placing the SST file in an optimal location in the LSM tree, assign a global serial number to the file and turn on the write operation.
+  When the `IngestExternalFile()` method is called, RocksDB copies the file to the data directory by default and blocks the RocksDB write operation. If the key range in the SST file overwrites the Memtable key range, flush the Memtable to the hard disk. After placing the SST file in an optimal location in the LSM tree, assign a global serial number to the file and turn on the write operation.
 
 ## Data set
 
@@ -63,13 +65,13 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hardware specifications:
   - CPU: 1.7 GHz Quad-Core Intel Core i7
-  - memory: 16 GB
+  - Memory: 16 GB
 
-- Spark: 2.4.7, Stand-alone
+- Spark: 2.4.7, stand-alone
 
-- Hadoop: 2.9.2, Pseudo-distributed deployment
+- Hadoop: 2.9.2, pseudo-distributed deployment
 
-- Nebula Graph: {{nebula.release}} 
+- Nebula Graph: {{nebula.release}}.
 
 ## Prerequisites
 
@@ -77,21 +79,21 @@ Before importing data, you need to confirm the following information:
 
 - Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
-  - IP address and port of Graph and Meta services.
+  - IP addresses and ports of Graph and Meta services.
 
-  - User name and password with Nebula Graph write permission.
+  - The user name and password with write permission to Nebula Graph.
 
-  - `--ws_storage_http_port` in the Meta service configuration file is the same as `--ws_http_port` in the Storage service configuration file. For example, `1977`.
+  - `--ws_storage_http_port` in the Meta service configuration file is the same as `--ws_http_port` in the Storage service configuration file. For example, `19779`.
 
   - `--ws_meta_http_port` in the Graph service configuration file is the same as `--ws_http_port` in the Meta service configuration file. For example, `19559`.
 
-  - Schema information, including Tag and Edge type names, properties, and more.
+  - The information about the Schema, including names and properties of Tags and Edge types, and more.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- JDK 1.8 or later has been installed and the environment variable `JAVA_HOME` has been configured.
+- JDK 1.8 or the later version has been installed and the environment variable `JAVA_HOME` has been configured.
 
 - The Hadoop service has been installed and started.
 
@@ -101,6 +103,8 @@ Before importing data, you need to confirm the following information:
 
       - To generate SST files only, users do not need to install the Hadoop service on the machine where the Storage service is deployed.
 
+      - To delete the SST file after the ingest (data import) operation, add the configuration `-- move_Files =true` to the Storage Service configuration file.
+
 ## Steps
 
 ### Step 1: Create the Schema in Nebula Graph
@@ -109,7 +113,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 
 1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
 
-    | Element  | name | property |
+    | Element  | Name | Property |
     | :--- | :--- | :--- |
     | Tag | `player` | `name string, age int` |
     | Tag | `team` | `name string` |
@@ -119,25 +123,25 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
 2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
 
     ```ngql
-    ## create graph space
+    ## Create a graph space
     nebula> CREATE SPACE basketballplayer \
             (partition_num = 10, \
             replica_factor = 1, \
             vid_type = FIXED_STRING(30));
     
-    ## use the graph space basketballplayer
+    ## Use the graph space basketballplayer
     nebula> USE basketballplayer;
     
-    ## create Tag player
+    ## Create the Tag player
     nebula> CREATE TAG player(name string, age int);
     
-    ## create Tag team
+    ## Create the Tag team
     nebula> CREATE TAG team(name string);
     
-    ## create Edge type follow
+    ## Create the Edge type follow
     nebula> CREATE EDGE follow(degree int);
 
-    ## create Edge type serve
+    ## Create the Edge type serve
     nebula> CREATE EDGE serve(start_year int, end_year int);
     ```
 
@@ -155,16 +159,16 @@ Confirm the following information:
 
 2. Obtain the CSV file storage path.
 
-### Step 3: Modify configuration file
+### Step 3: Modify configuration files
 
-After Exchange is compiled, copy the conf file `target/classes/application.conf` settings SST data source configuration. In this case, the copied file is called `sst_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
+After Exchange is compiled, copy the conf file `target/classes/application.conf` to set SST data source configuration. In this example, the copied file is called `sst_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
 
 ```conf
 {
   # Spark configuration
   spark: {
     app: {
-      name: Nebula Exchange 2.0
+      name: Nebula Exchange {{exchange.release}}
     }
 
     master:local
@@ -195,66 +199,68 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # SST file configuration
     path:{
-        # Local directory that temporarily stores generated SST files
+        # The local directory that temporarily stores generated SST files
         local:"/tmp"
 
-        # Path for storing the SST file in the HDFS
+        # The path for storing the SST file in the HDFS
         remote:"/sst"
         
-        # NameNode address of HDFS
+        # The NameNode address of HDFS
         hdfs.namenode: "hdfs://*.*.*.*:9000"
     }
 
-    # Client connection parameters
-    connection {
-      # Timeout duration of socket connection and execution, in milliseconds.
+    # The connection parameters of clients
+    connection: {
+      # The timeout duration of socket connection and execution. Unit: milliseconds.
       timeout: 30000
     }
 
     error: {
-      # Maximum number of failures that will exit the application.
+      # The maximum number of failures that will exit the application.
       max: 32
       # Failed import jobs are logged in the output path.
       output: /tmp/errors
     }
 
-    # Use Google's RateLimiter to limit calls to NebulaGraph.
+    # Use Google's RateLimiter to limit requests to NebulaGraph.
     rate: {
       # Steady throughput of RateLimiter.
       limit: 1024
 
-      # Get the allowed timeout from RateLimiter, in milliseconds
+      # Get the allowed timeout duration from RateLimiter. Unit: milliseconds.
       timeout: 1000
     }
   }
 
 
-  # Processing vertex
+  # Processing vertices
   tags: [
-    # Set information about Tag player.
+    # Set the information about the Tag player.
     {
+      # Specify the Tag name defined in Nebula Graph.
       name: player
       type: {
-        # Specify the data source file format, set to CSV.
+        # Specify the data source file format to CSV.
         source: csv
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: sst
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://, for example, "hdfs://ip:port/xx/xx".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/vertex_player.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has headers, use the actual column names.
+      # If the CSV file has a header, use the actual column name.
       fields: [_c1, _c2]
 
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the property name defined in Nebula Graph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [age, name]
 
-      # Specify a column of data in the table as the source of vertex VID in the Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in Nebula Graph.
+      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
       # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
@@ -263,66 +269,100 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The delimiter specified. The default value is comma.
       separator: ","
 
-      # If the CSV file have header, set the header to true.
-      # If the CSV file does not have header, set the header to false. The default value is false.
+      # If the CSV file has a header, set the header to true.
+      # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 256
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
-    # Set Tag Team information.
+    # Set the information about the Tag Team.
     {
+      # Specify the Tag name defined in Nebula Graph.
       name: team
       type: {
-        source: csv
-        sink: sst
-      }
-      path: "hdfs://*.*.*.*:9000/dataset/vertex_team.csv"
-      fields: [_c1]
-      nebula.fields: [name]
-      vertex: {
-        field:_c0
-      }
-      separator: ","
-      header: false
-      batch: 256
-      partition: 32
-    }
-
-
-    # If more vertexes need to be added, refer to the previous configuration to add them.
-  ]
-  # Processing edge
-  edges: [
-    # Set information about Edge Type follow
-    {
-      # The corresponding Edge Type name in Nebula Graph.
-      name: follow
-      type: {
-        # Specify the data source file format, set to CSV.
+        # Specify the data source file format to CSV.
         source: csv
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: sst
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://, for example, "hdfs://ip:port/xx/xx".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
+      path: "hdfs://*.*.*.*:9000/dataset/vertex_team.csv"
+
+      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
+      # If the CSV file has a header, use the actual column name.
+      fields: [_c1]
+
+      # Specify the property name defined in Nebula Graph.
+      # The sequence of fields and nebula.fields must correspond to each other.
+      nebula.fields: [name]
+
+      # Specify a column of data in the table as the source of VIDs in Nebula Graph.
+      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
+      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      vertex: {
+        field:_c0
+      }
+
+      # The delimiter specified. The default value is comma.
+      separator: ","
+
+      # If the CSV file has a header, set the header to true.
+      # If the CSV file does not have a header, set the header to false. The default value is false.
+      header: false
+
+      # The number of data written to Nebula Graph in a single batch.
+      batch: 256
+
+      # The number of Spark partitions.
+      partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
+    }
+
+
+
+    # If more vertices need to be added, refer to the previous configuration to add them.
+  ]
+  # Processing edges
+  edges: [
+    # Set the information about the Edge Type follow.
+    {
+      # The Edge Type name defined in Nebula Graph.
+      name: follow
+      type: {
+        # Specify the data source file format to CSV.
+        source: csv
+
+        # Specify how to import the data into Nebula Graph: Client or SST.
+        sink: sst
+      }
+
+      # Specify the path to the CSV file.
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/edge_follow.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has headers, use the actual column names.
+      # If the CSV file has a header, use the actual column name.
       fields: [_c2]
 
-      # Specify the column names in the edge table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the property name defined in Nebula Graph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [degree]
 
-      # Specify a column as the source for the starting and destination vertexes.
+      # Specify a column as the source for the source and destination vertices.
+      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
       # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
@@ -334,41 +374,76 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The delimiter specified. The default value is comma.
       separator: ","
 
-      # (optionally) Specify a column as the source of the rank.
+      # (Optional) Specify a column as the source of the rank.
 
       #ranking: rank
 
-      # If the CSV file have header, set the header to true.
-      # If the CSV file does not have header, set the header to false. The default value is false.
+      # If the CSV file has a header, set the header to true.
+      # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # The number of data written to Nebula Graph in a single batch.
       batch: 256
 
-      # Number of Spark partitions
+      # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
-    # Set information about Edge Type serve.
+    # Set the information about the Edge Type serve.
     {
+      # Specify the Edge type name defined in Nebula Graph.
       name: serve
       type: {
+        # Specify the data source file format to CSV.
         source: csv
+
+        # Specify how to import the data into Nebula Graph: Client or SST.
         sink: sst
       }
+
+      # Specify the path to the CSV file.
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/edge_serve.csv"
+
+      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
+      # If the CSV file has a header, use the actual column name.
       fields: [_c2,_c3]
+
+      # Specify the property name defined in Nebula Graph.
+      # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [start_year, end_year]
+
+      # Specify a column as the source for the source and destination vertices.
+      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
+      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
       }
       target: {
         field: _c1
       }
+
+      # The delimiter specified. The default value is comma.
       separator: ","
+
+      # (Optional) Specify a column as the source of the rank.
+      #ranking: _c5
+
+      # If the CSV file has a header, set the header to true.
+      # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
+
+      # The number of data written to Nebula Graph in a single batch.
       batch: 256
+
+      # The number of Spark partitions.
       partition: 32
+
+      # Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file.
+      repartitionWithNebula: false
     }
 
   ]
@@ -381,20 +456,24 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 Run the following command to generate the SST file from the CSV source file. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <sst_application.conf_path> 
+${SPARK_HOME}/bin/spark-submit --master "local" --conf spark.sql.shuffle.partition=<shuffle_concurrency> --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <sst_application.conf_path> 
 ```
+
+!!! note
+
+    When generating SST files, the shuffle operation of Spark will be involved. Note that the configuration of `spark.sql.shuffle.partition` should be added when you submit the command.
 
 !!! note
 
     JAR packages are available in two ways: [compiled them yourself](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
-Example:
+For example:
 
 ```bash
-${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-spark-utils/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-spark-utils/nebula-exchange/target/classes/sst_application.conf
+${SPARK_HOME}/bin/spark-submit  --master "local" --conf spark.sql.shuffle.partition=200 --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
 ```
 
-After the task is complete, you can view the generated SST file in the `/sst` directory (specified by `nebula.path.remote` parameter) on HDFS.
+After the task is complete, you can view the generated SST file in the `/sst` directory (specified by the `nebula.path.remote` parameter) on HDFS.
 
 !!! note
 
@@ -406,7 +485,7 @@ After the task is complete, you can view the generated SST file in the `/sst` di
 
     Confirm the following information before importing:
 
-    - Confirm that the Hadoop service has been deployed on all the machines where the Storage service is deployed, and configure HADOOP_HOME and JAVA_HOME.
+    - Confirm that the Hadoop service has been deployed on all the machines where the Storage service is deployed, and configure `HADOOP_HOME` and `JAVA_HOME`.
 
     - The `--ws_storage_http_port` in the Meta service configuration file (add it manually if it does not exist) is the same as the `--ws_http_port` in the Storage service configuration file. For example, both are `19779`.
 
@@ -423,36 +502,36 @@ Connect to the Nebula Graph database using the client tool and import the SST fi
 2. Run the following command to download the SST file:
 
   ```ngql
-  nebula> DOWNLOAD HDFS "hdfs://<hadoop_address>:<hadoop_port>/<sst_file_path>";
+  nebula> SUBMIT JOB DOWNLOAD HDFS "hdfs://<hadoop_address>:<hadoop_port>/<sst_file_path>";
   ```
 
-  Example:
+  For example:
 
   ```ngql
-  nebula> DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";
+  nebula> SUBMIT JOB DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";
   ```
 
 2. Run the following command to import the SST file:
 
   ```ngql
-  nebula> INGEST;
+  nebula> SUBMIT JOB INGEST;
   ```
 
 !!! note
 
-    - To download the SST file again, delete the `download` folder in the space ID in the `data/storage/nebula` directory in the Nebula Graph installation path, and then download the SST file again. If the space is multiple copies, the `download` folder needs to be deleted on all machines where the copies are saved.
+    - To download the SST file again, delete the `download` folder in the space ID in the `data/storage/nebula` directory in the Nebula Graph installation path, and then download the SST file again. If the space has multiple copies, the `download` folder needs to be deleted on all machines where the copies are saved.
 
-    - If there is a problem with the import and you need to re-import, re-execute `INGEST;`.
+    - If there is a problem with the import and re-importing is required, re-execute `SUBMIT JOB INGEST;`.
 
-### Step 6: (optional) Validation data
+### Step 6: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). Such as:
+Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
 ```
 
-Users can also run the [SHOW STATS](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
+Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
 ### Step 7: (optional) Rebuild indexes in Nebula Graph
 
