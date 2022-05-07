@@ -14,7 +14,7 @@ The server and the pressure test server are all physical computer servers.
 
 ## Test data
 
-The test data is the LDBC-SNB SF100 data set with a size of 100 GB, a total of 282,386,021 vertexes, and 1,775,513,185 edges. The number of partitions of the test graph space is 24, and the number of replicas is 3.
+The test data is the LDBC-SNB SF100 data set with a size of 100 GB, a total of 282,386,021 vertices, and 1,775,513,185 edges. The number of partitions of the test graph space is 24, and the number of replicas is 3.
 
 ## About LDBC-SNB
 
@@ -33,11 +33,11 @@ The Linked Data Benchmark Council (LDBC) is a project that aims to develop bench
 
 1. [K6](https://k6.io/), developed based on Golang, is used as the load testing tool, and [nebula-go](https://github.com/vesoft-inc/nebula-go) is used as the client.
 
-2. The `vu` in `50_vu` and `100_vu` on the horizontal axis indicates `virtual user`, i.e. the number of concurrent users in the performance test. `50_vu` indicates 50 concurrent users, `100_vu` indicates 100 concurrent users, and so on...
+2. The `vu` in `50_vu` and `100_vu` on the horizontal axis indicates `virtual user`, i.e. the number of concurrent users in the performance test. `50_vu` indicates 50 concurrent users, `100_vu` indicates 100 concurrent users, and so on.
 
 3. Nebula Graph v3.0.0 is used as the performance baseline.
 
-4. ResponseTime =server-side processing time + network delay time + client-side deserializing time.
+4. ResponseTime = server-side processing time + network delay time + client-side deserializing time.
 
 ## Test cases and results
 
