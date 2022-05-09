@@ -159,7 +159,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Data visualization     | [Nebula Graph Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
+  | Data visualization     | [Nebula Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
   | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard/) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent/) | -|
   | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
 

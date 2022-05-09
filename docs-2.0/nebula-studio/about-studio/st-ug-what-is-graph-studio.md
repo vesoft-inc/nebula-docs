@@ -1,6 +1,6 @@
-# What is Nebula Graph Studio
+# What is Nebula Studio
 
-Nebula Graph Studio (Studio in short) is a browser-based visualization tool to manage Nebula Graph. It provides you with a graphical user interface to manipulate graph schemas, import data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. You can view the latest source code in the Nebula Graph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
+Nebula Studio (Studio in short) is a browser-based visualization tool to manage Nebula Graph. It provides you with a graphical user interface to manipulate graph schemas, import data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. You can view the latest source code in the Nebula Graph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
 
 ## Released versions
 

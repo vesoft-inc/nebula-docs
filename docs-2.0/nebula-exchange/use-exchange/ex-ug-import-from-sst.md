@@ -525,7 +525,7 @@ Connect to the Nebula Graph database using the client tool and import the SST fi
 
 ### Step 6: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
+Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
