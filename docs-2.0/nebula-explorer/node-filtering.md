@@ -20,11 +20,13 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
 - When filtering vertices and associated edges by **filter conditions**.
 
-  - Each set of filter conditions is only for the data with the target tag. The filtering conditions include Tag, Property, Operator, and Value. If the conditions are met, and the corresponding vertices will be automatically selected. If the conditions are not met, the corresponding vertices can be set to be **hidden** or **turning gray**. The vertices with other tags are not affected. 
+  - Each set of filter conditions is only for the data with the target tag. The filtering conditions include Tag, Property, Operator, and Value. If the conditions are met, and the corresponding vertices will be automatically selected. If the conditions are not met, the corresponding vertices can be set to be **hidden** or **turning gray**. The vertices with other tags are not affected.
 
-  - If the filter conditions include a selected tag (in gray), the corresponding data will not be displayed on the canvas.
+  - The priority filtered by **Tag** is the highest. If the filter conditions include a selected tag (in gray), the corresponding data will not be displayed on the canvas.
 
-- Each time you perform **Vertex Filter**, only one tag can be selected. If you want to filter data based on more tags, conduct **Add New Filter** multiple times.
+  - Each time you perform **Vertex Filter**, only one tag can be selected. If you want to filter data based on more tags, conduct **Add New Filter** multiple times.
+
+  - The same tag cannot be filtered multiple times. Only the result of the first filtering is displayed.
 
 ## Example
 
@@ -46,15 +48,8 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
 2. Click **Add New Filter**, and set filter conditions (The values in the example are `player`, `age`, `>`, and `33`).
 
-3. (Optional) Repeat the second step to add more sets of filtering conditions (This example adds only one set of filter conditions).
-
-4. Click **Hide** to hide the vertices or click **Grayscale** to gray the vertices that do not meet the filter conditions (**Grayscale** is set in this example).
-
-2. Click **Add New Filter** and then fill in the following values as shown below. 
-
-3. (Optional) Repeat the second step to add multiple filtering conditions.
+3. Click **Grayscale** to gray the vertices that do not meet the filter conditions.
 
 4. Turn on the **Apply Filter** button.
 
     ![vertex filtering](https://docs-cdn.nebula-graph.com.cn/figures/vertex-filtering-example2_en.png)
-
