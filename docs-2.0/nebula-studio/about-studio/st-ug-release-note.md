@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.3.1(2022.05.07)
+
+- Fix
+  - Fix the problem that the import log is occasionally empty.
+
 ## v3.3.0(2022.04.25)
 
  - Feature enhancements:
@@ -16,7 +21,3 @@
      - Support the display of historical statements results.
      - Add graph exploration to the console.
 
-## v3.3.1(2022.05.07)
-
-- Fix
-  - Fix the problem that the import log is occasionally empty.
