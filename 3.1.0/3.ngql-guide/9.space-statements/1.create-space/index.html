@@ -2599,11 +2599,24 @@
 -->
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>If the replica number is set to one, you will not be able to load balance or scale out the Nebula Graph Storage Service with the <a href="../../../8.service-tuning/load-balance/">BALANCE</a> statement.</p>
+<ul>
+<li>If the replica number is set to one, you will not be able to load balance or scale out the Nebula Graph Storage Service with the <a href="../../../8.service-tuning/load-balance/">BALANCE</a> statement.</li>
+</ul>
+<ul>
+<li>
+<p>Restrictions on VID type change and VID length:</p>
+<ul>
+<li>For Nebula Graph v1.x, the type of VIDs can only be <code>INT64</code>, and the String type is not allowed. For Nebula Graph v2.x, both <code>INT64</code> and <code>FIXED_STRING(&lt;N&gt;)</code> VID types are allowed. You must specify the VID type when creating a graph space, and use the same VID type in <code>INSERT</code> statements, otherwise, an error message <code>Wrong vertex id type: 1001</code> occurs.</li>
+</ul>
+<ul>
+<li>The length of the VID should not be longer than <code>N</code> characters. If it exceeds <code>N</code>, Nebula Graph throws <code>The VID must be a 64-bit integer or a string fitting space vertex id length limit.</code>.</li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="admonition caution">
-<p class="admonition-title">Restrictions on VID type change and VID length</p>
-<p>The length of the VID should not be longer than <code>N</code> characters. If it exceeds <code>N</code>, Nebula Graph throws <code>The VID must be a 64-bit integer or a string fitting space vertex id length limit.</code>.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<p>For Nebula Graph v2.x before v2.5.0, <code>vid_type</code> is optional and defaults to <code>FIXED_STRING(8)</code>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2680,7 +2693,7 @@ nebula&gt; SHOW HOSTS;
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 14, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2022</span>
 </small>
 </div>
 </article>
