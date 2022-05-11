@@ -191,7 +191,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       table:"player"
       user:"test"
       password:"123456"
-      sentence:"select playerid, age, name from basketball.player order by playerid;"
+      sentence:"select playerid, age, name from player order by playerid;"
 
       # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the Nebula Graph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -224,7 +224,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       table:"team"
       user:"test"
       password:"123456"
-      sentence:"select teamid, name from basketball.team order by teamid;"
+      sentence:"select teamid, name from team order by teamid;"
 
       fields: [name]
       nebula.fields: [name]
@@ -259,7 +259,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       table:"follow"
       user:"test"
       password:"123456"
-      sentence:"select src_player,dst_player,degree from basketball.follow order by src_player;"
+      sentence:"select src_player,dst_player,degree from follow order by src_player;"
 
       # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the Nebula Graph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -301,7 +301,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       table:"serve"
       user:"test"
       password:"123456"
-      sentence:"select playerid,teamid,start_year,end_year from basketball.serve order by playerid;"
+      sentence:"select playerid,teamid,start_year,end_year from serve order by playerid;"
       fields: [start_year,end_year]
       nebula.fields: [start_year,end_year]
       source: {
