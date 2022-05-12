@@ -26,7 +26,7 @@ There are three ways to generate VIDs: Manual input, Random import, and File imp
 
 !!! note
 
-    Only one VID per row is supported in the querying area. Use enter to separate the VIDs.
+    Only one VID per row is supported in the querying area. Press `Enter` to separate the VIDs.
 
 The following GIF shows how to query data using the `basketballplayer` graph space and related data.
 
