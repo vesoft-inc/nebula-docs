@@ -22,7 +22,7 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
   - Each set of filter conditions is only for the data with the target tag. The filtering conditions include Tag, Property, Operator, and Value. If the conditions are met, and the corresponding vertices will be automatically selected. If the conditions are not met, the corresponding vertices can be set to be **hidden** or **turning gray**. The vertices with other tags are not affected.
 
-  - The priority filtered by **Tag** is the highest. If the filter conditions include a selected tag (in gray), the corresponding data will not be displayed on the canvas.
+  - The filtering priority by **Tag** is the highest. If the filter conditions include a selected tag (in gray), the corresponding data will not be displayed on the canvas.
 
   - Each time you perform **Vertex Filter**, only one tag can be selected. If you want to filter data based on more tags, conduct **Add New Filter** multiple times.
 
