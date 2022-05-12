@@ -15,7 +15,7 @@ Make sure that there are vertices on the canvas. For more information, see [Star
 
 ## Expand
 
-1. In the navigation bar on the left side of the page, click ![expand](https://docs-cdn.nebula-graph.com.cn/figures/nav-expand.png) to open the **Expand** panel. You can set expansion conditions in the panel, including edge type, direction, vertex style, steps or filter, as described below.
+1. In the navigation bar on the left side of the page, click ![expand](https://docs-cdn.nebula-graph.com.cn/figures/nav-expand.png) to open the **Expand** panel. You can set expansion conditions on the panel, including edge type, direction, vertex style, steps or filter, as described below.
 
   | Parameter     | Description                                                         |
   | -------- | ------------------------------------------------------------ |
