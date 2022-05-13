@@ -10,9 +10,6 @@ The `LIMIT` clause constrains the number of rows in the output. The usage of `LI
 
         When using `LIMIT` in either syntax above, it is important to use an `ORDER BY` clause that constrains the output into a unique order. Otherwise, you will get an unpredictable subset of the output.
 
-!!! compatibility "Legacy version compatibility"
-
-    In Nebula Graph 2.6.0, `GO` statements support the new `LIMIT` syntax. Some operators related to `LIMIT` support computing pushdown.
 
 ## LIMIT in native nGQL statements
 
@@ -92,16 +89,14 @@ nebula> GO 3 STEPS FROM "player100" \
 | "Manu Ginobili" | 41           |
 +-----------------+--------------+
 
-nebula> GO 3 STEPS FROM "player102" OVER * \
+nebula> GO 3 STEPS FROM "player102" OVER * BIDIRECT\
         YIELD dst(edge) \
         LIMIT [rand32(5),rand32(5),rand32(5)];
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| "team204"   |
-| "team215"   |
 | "player100" |
-| "player102" |
+| "player100" |
 +-------------+
 ```
 

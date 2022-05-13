@@ -6,37 +6,27 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # fetch all commits/branches
+          fetch-depth: 0 # fetch all commits/branches for gitversion
 
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           architecture: 'x64'
 
-      - name: apt install
-        run: |
-          sudo apt update -y
-          sudo apt install -y $(cat pkglist.txt)
-
-      - name: Install dependencies
-        run: |
-          pip3 install --upgrade pip
-          pip3 install -r ./requirements.txt
+      - name : prepare
+        run: sh ./prepare.sh 
 
       - name: Git Config
         run: git config user.name whitewum && git config user.email min.wu@vesoft.com
-
-      - name: Mike Deploy
-        run: |
-          mike list
           
       - name: Mike Deploy master
         run: |
+          # mike delete master -p
           mike deploy master -p --rebase
           mike list
 
