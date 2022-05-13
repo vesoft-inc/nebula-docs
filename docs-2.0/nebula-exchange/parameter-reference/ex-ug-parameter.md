@@ -139,7 +139,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.table`|string|-|Yes|The name of a table used as a data source.|
 |`tags.user`|string|-|Yes|The MySQL/PostgreSQL username with read permissions.|
 |`tags.password`|string|-|Yes|The account password.
-|`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select teamid, name from basketball.team order by teamid;"`.|
+|`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select teamid, name from team order by teamid"`.|
 
 ### Specific parameters of ClickHouse data sources
 
