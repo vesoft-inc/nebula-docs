@@ -2,10 +2,6 @@
 
 Standalone Nebula Graph merges the Meta, Storage, and Graph services into a single process deployed on a single machine. This topic introduces scenarios, deployment steps, etc. of standalone Nebula Graph.
 
-!!! danger
-
-    Do not use standalone Nebula Graph in production environments. 
-
 ## Background
 
 The traditional Nebula Graph consists of three services, each service having executable binary files and the corresponding process. Processes communicate with each other by RPC. In standalone Nebula Graph, the three processes corresponding to the three services are combined into one process. For more information about Nebula Graph, see [Architecture overview](../1.introduction/3.nebula-graph-architecture/1.architecture-overview.md).
@@ -13,6 +9,10 @@ The traditional Nebula Graph consists of three services, each service having exe
 ## Scenarios
 
 Small data sizes and low availability requirements. For example, test environments that are limited by the number of machines, scenarios that are only used to verify functionality.
+
+!!! danger
+
+    Do not use standalone Nebula Graph in production environments. 
 
 ## Limitations
 

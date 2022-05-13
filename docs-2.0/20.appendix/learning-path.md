@@ -65,7 +65,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document|
   | ------------------------------------------------------------ |
-  | [nGQL cheatsheet](../2.quick-start/6.cheatsheet-for-ngql/) |  
+  | [nGQL cheatsheet](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/6.cheatsheet-for-ngql/) |  
 
 ## 3. Hands-on practices
 
@@ -80,8 +80,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Document                                                         |
   | ------------------------------------------------------------ |
   | [Upgrade Nebula Graph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md) |
-  
-  <!-- | [Upgrade Nebula Graph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) | -->
+  | [Upgrade Nebula Graph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) |
 
 ### 3.3 Configure Nebula Graph
 
@@ -133,7 +132,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document |
   | ------------------------------------------------------------ |
-  |[Group & Zone](../7.data-security/5.zone/)|
+  |[Group & Zone](https://docs.nebula-graph.io/{{nebula.release}}/7.data-security/5.zone/)|
 -->
 
 - SSL encryption
@@ -159,8 +158,8 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Data visualization     | [Nebula Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard/) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent/) | -|
+  | Data visualization     | [Nebula Graph Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
+  | Data monitoring and O&M | [Nebula Dashboard Community Edition](https://docs.nebula-graph.io/{{nebula.release}}/nebula-dashboard/1.what-is-dashboard/)和 [Nebula Dashboard Enterprise Edition](https://docs.nebula-graph.io/{{nebula.release}}/nebula-dashboard-ent/1.what-is-dashboard-ent/) | -|
   | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
 
 
@@ -169,8 +168,8 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Import and export | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data import       | [Nebula Importer](../nebula-importer/use-importer.md) | [Nebula Importer](https://www.bilibili.com/video/BV1ny4y1u7i4) |
-  | Data import       | [Nebula Spark Connector](../nebula-spark-connector/) | -                                                            |
-  | Data import       | [Nebula Flink Connector](../nebula-flink-connector/) | -                                                            |
+  | Data import       | [Nebula Spark Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-spark-connector/) | -                                                            |
+  | Data import       | [Nebula Flink Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-flink-connector/) | -                                                            |
   | Data import       | [Nebula Exchange Community Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
   | Data export       | [Nebula Exchange Enterprise Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | -                                                            |
   
@@ -207,7 +206,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [API & SDK](../20.appendix/6.eco-tool-version/#api_sdk)|
+  | [API & SDK](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/#api_sdk)|
 
 
 ## 5. Best practices
@@ -239,5 +238,5 @@ You can check if you have mastered Nebula Graph by completing the following prac
   | Deploy Studio, Dashboard, and Explorer             | [Deploy Studio](../nebula-studio/deploy-connect/st-ug-deploy.md), [Deploy Dashboard](../nebula-dashboard/2.deploy-dashboard.md), and [Deploy Explorer](../nebula-explorer/deploy-connect/ex-ug-deploy.md)                                                            |
   | Load test Nebula Graph with K6                               | [Nebula Bench](../nebula-bench.md) |
   | Import LDBC data                                          | [Nebula Graph 1.0 Benchmark Report based on the LDBC Dataset](https://nebula-graph.io/posts/nebula-graph-1.0-benchmark-report/)                                                           |
-  | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
+  | Query LDBC data（such as queries for vertices, paths, or subgraphs.） | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 

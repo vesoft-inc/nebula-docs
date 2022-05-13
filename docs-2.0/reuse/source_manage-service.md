@@ -41,15 +41,13 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 
 ## Manage services with systemd
 
-For easy maintenance, Nebula Graph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
+For easy maintenance, Nebula Graph supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
 
 !!! note
 
-    - After installing Nebula Graph Enterprise Edition, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
-  
-    - The `systemctl` commands cannot be used to manage the Enterprise Edition cluster that is created with Dashboard of the Enterprise Edition.
+    After installing Nebula Graph, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
 
-    - Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
+    Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
 
 ### Syntax
 
@@ -185,11 +183,9 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 * Nebula Graph is running normally if the following information is returned.
 
     ```bash
-    INFO] nebula-metad(33fd35e): Running as 29020, Listening on 9559
-    [INFO] nebula-graphd(33fd35e): Running as 29095, Listening on 9669
-    [WARN] nebula-storaged after v3.0.0 will not start service until it is added to cluster.
-    [WARN] See Manage Storage hosts:ADD HOSTS in https://docs.nebula-graph.io/
-    [INFO] nebula-storaged(33fd35e): Running as 29147, Listening on 9779
+    [INFO] nebula-metad(02b2091): Running as 26601, Listening on 9559
+    [INFO] nebula-graphd(02b2091): Running as 26644, Listening on 9669
+    [INFO] nebula-storaged(02b2091): Running as 26709, Listening on 9779
     ```
 
   !!! note

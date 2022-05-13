@@ -31,8 +31,12 @@
 
 7. 2021.8: Nebula Graph v2.5.0 was released.
 
+  ![image](https://docs-cdn.nebula-graph.com.cn/books/images/2.5.0.png)
+
 8. 2021.10: Nebula Graph v2.6.0 was released.
+
+  For more information about release notes, see [Releases](https://github.com/vesoft-inc/nebula/releases).
 
 9. 2022.2: Nebula Graph v3.0.0 was released.
 
-10. 2022.4: Nebula Graph v3.1.0 was released.
+  For more information about release notes, see [Releases](https://github.com/vesoft-inc/nebula/releases).

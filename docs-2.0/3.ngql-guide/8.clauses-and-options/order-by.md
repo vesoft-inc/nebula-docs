@@ -93,22 +93,22 @@ nGQL lists NULL values at the end of the output for ascending sorting, and at th
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age;
-+-----------------+----------+
-| Name            | Age      |
-+-----------------+----------+
-| "Tony Parker"   | 36       |
-| "Manu Ginobili" | 41       |
-| __NULL__        | __NULL__ |
-+-----------------+----------+
++-----------------+--------------+
+| Name            | Age          |
++-----------------+--------------+
+| "Tony Parker"   | 36           |
+| "Manu Ginobili" | 41           |
+| "Spurs"         | UNKNOWN_PROP |
++-----------------+--------------+
 
 nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age DESC;
-+-----------------+----------+
-| Name            | Age      |
-+-----------------+----------+
-| __NULL__        | __NULL__ |
-| "Manu Ginobili" | 41       |
-| "Tony Parker"   | 36       |
-+-----------------+----------+
++-----------------+--------------+
+| Name            | Age          |
++-----------------+--------------+
+| "Spurs"         | UNKNOWN_PROP |
+| "Manu Ginobili" | 41           |
+| "Tony Parker"   | 36           |
++-----------------+--------------+
 ```

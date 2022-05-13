@@ -32,6 +32,7 @@ Before deploying Explorer, you must check the following information:
         By default, Explorer uses the port `7002`. You can modify the `httpport` in the `conf/app.conf` file in the installation directory and restart the service.
 
 - The Linux distribution is CentOS.
+- GO of version above 1.13 is installed.
 - The license is ready.
 
   !!! enterpriseonly
@@ -58,7 +59,7 @@ Before deploying Explorer, you must check the following information:
 
    You can also install it to the specified path using the following command:
    ```bash
-   sudo rpm -i nebula-explorer-<version>.x86_64.rpm --prefix=<path>
+   sudo rpm -i nebula-explorer-xxx.rpm --prefix=<path> 
    ```
 
 3. Copy the license to the installation path.
@@ -72,10 +73,11 @@ Before deploying Explorer, you must check the following information:
    cp -r nebula.license /usr/local/nebula-explorer
    ```
 
-4. Start the service using the following command.
+4. After adding the license, you need to stop and restart the service using the following command.
 
    ```bash
-   systemctl start nebula-explorer
+   systemctl stop nebula-explorer #Stop the service
+   systemctl start nebula-explorer #Start the service
    ```
 
 ### Start and stop
