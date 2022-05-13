@@ -41,9 +41,9 @@ To connect Explorer to Nebula Graph, follow these steps:
   !!! note
 
         One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
+# Clear connection
 
-## Clear connection
+When Explorer is still connected to a Nebula Graph database, in the navigation bar on the left side of the page, select **Settings** ![icon](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup.png) > **Clear Connect**.
 
-When Explorer is still connected to a Nebula Graph database, on the upper right corner of the page, select ![icon](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup.png) > **Clear Connect**.
 
 After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the Nebula Graph.

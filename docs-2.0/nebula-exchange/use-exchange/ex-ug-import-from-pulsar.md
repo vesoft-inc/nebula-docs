@@ -302,7 +302,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 
 ### Step 4: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Studio). For example:
+Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;

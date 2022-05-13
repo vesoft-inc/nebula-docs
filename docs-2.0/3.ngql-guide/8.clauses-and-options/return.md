@@ -48,12 +48,9 @@ nebula> RETURN {zage: 32, name: "Marco Belinelli"};
 +-------------------------------------+
 ```
 
-## Return vertices or edges
-
-Use the `RETURN {<vertex_name> | <edge_name>}` to return vertices and edges all information.
+## Return vertices
 
 ```ngql
-// Return vertices
 nebula> MATCH (v:player) \
         RETURN v;
 +---------------------------------------------------------------+
@@ -66,8 +63,11 @@ nebula> MATCH (v:player) \
 | ("player125" :player{age: 41, name: "Manu Ginobili"})         |
 +---------------------------------------------------------------+
 ...
+```
 
-// Return edges
+## Return edges
+
+```ngql
 nebula> MATCH (v:player)-[e]->() \
         RETURN e;
 +------------------------------------------------------------------------------+
@@ -82,7 +82,7 @@ nebula> MATCH (v:player)-[e]->() \
 ...
 ```
 
-## Return VIDs
+### Return VIDs
 
 Use the `id()` function to retrieve VIDs.
 
@@ -97,7 +97,7 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) \
 
 ```
 
-## Return Tag
+### Return Tag
 
 Use the `labels()` function to return the list of tags on a vertex.
 
@@ -170,7 +170,7 @@ nebula> MATCH p=(v:player{name:"Tim Duncan"})-[e]->() \
 +----------+
 ```
 
-## Return paths
+### Return paths
 
 Use `RETURN <path_name>` to return all the information of the matched paths.
 

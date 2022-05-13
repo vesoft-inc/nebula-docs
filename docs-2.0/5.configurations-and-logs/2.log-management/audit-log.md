@@ -12,11 +12,11 @@ The Nebula Graph audit logs store all operations received by graph service in ca
 |:--|:--|:--|
 |`login` |-| Logs the information when the client tries to connect to graph service. |
 |`exit`  |-| Logs the information when the client disconnect from graph service. |
-|`ddl` |`CREATE SPACE`,`DROP SPACE`,`CREATE TAG`,`DROP TAG`,`ALTER TAG`,`DELETE TAG`,`CREATE EDGE`,`DROP EDGE`,`ALTER EDGE`,`CREATE INDEX`,`REBUILD INDEX`,`DROP INDEX`,`CREATE FULLTEXT INDEX`,`REBUILD FULLTEXT INDEX`,`DROP FULLTEXT INDEX`|Logs the information about DDL statements. |
-|`dql` |`MATCH`,`LOOKUP`,`GO`,`FETCH`,`GET SUBGRAPH`,`FIND PATH`,`UNWIND`,`GROUP BY`,`ORDER BY`,`YIELD`,`LIMIT`,`RETURN`|Logs the information about DQL statements.|
-|`dml` |`INSERT VERTEX`,`DELETE VERTEX`,`UPDATE VERTEX`,`UPSERT VERTEX`,`INSERT EDGE`,`DELETE EDGE`,`UPDATE EDGE`,`UPSERT EDGE`|Logs the information about DML statements. |
-|`dcl`|`CREATE USER`,`GRANT ROLE`,`REVOKE ROLE`,`CHANGE PASSWORD`,`ALTER USER`,`DROP USER`,`CREATE SNAPSHOT`,`DROP SNAPSHOT`,`ADD LISTENER`,`REMOVE LISTENER`,`BALANCE`,`SUBMIT JOB`,`STOP JOB`,`RECOVER JOB`,`ADD DRAINER`,`REMOVE DRAINER`|Logs the information about DCL statements.|
-|`util`|`SHOW HOSTS`,`SHOW USERS`,`SHOW ROLES`,`SHOW SNAPSHOTS`,`SHOW SPACES`,`SHOW PARTS`,`SHOW TAGS`,`SHOW EDGES`,`SHOW INDEXES`,`SHOW CREATE SPACE`,`SHOW CREATE TAG/EDGE`,`SHOW CREATE INDEX`,`SHOW INDEX STATUS`,`SHOW LISTENER`,`SHOW TEXT SEARCH CLIENTS`,`SHOW DRAINER CLIENTS`,`SHOW FULLTEXT INDEXES`,`SHOW CONFIGS`,`SHOW CHARSET`,`SHOW COLLATION`,`SHOW STATS`,`SHOW SESSIONS`,`SHOW META LEADER`,`SHOW DRAINERS`,`SHOW QUERIES`,`SHOW JOB`,`SHOW JOBS`,`DESCRIBE INDEX`,`DESCRIBE EDGE`,`DESCRIBE TAG`,`DESCRIBE SPACE`,`DESCRIBE USER`,`USE SPACE`,`SIGN IN TEXT SERVICE`,`SIGN OUT TEXT SERVICE`,`SIGN IN DRAINER SERVICE`,`SIGN OUT DRAINER SERVICE`,`EXPLAIN`,`PROFILE`,`KILL QUERY`,`DOWNLOAD HDFS`,`INGEST`|Logs the information about util statements. |
+|`ddl` |`CREATE SPACE`、`DROP SPACE`、`CREATE TAG`、`DROP TAG`、`ALTER TAG`、`DELETE TAG`、`CREATE EDGE`、`DROP EDGE`、`ALTER EDGE`、`CREATE INDEX`、`REBUILD INDEX`、`DROP INDEX`、`CREATE FULLTEXT INDEX`、`REBUILD FULLTEXT INDEX`、`DROP FULLTEXT INDEX`|Logs the information about DDL statements. |
+|`dql` |`MATCH`、`LOOKUP`、`GO`、`FETCH`、`GET SUBGRAPH`、`FIND PATH`、`UNWIND`、`GROUP BY`、`ORDER BY`、`YIELD`、`LIMIT`、`RETURN`|Logs the information about DQL statements.|
+|`dml` |`INSERT VERTEX`、`DELETE VERTEX`、`UPDATE VERTEX`、`UPSERT VERTEX`、`INSERT EDGE`、`DELETE EDGE`、`UPDATE EDGE`、`UPSERT EDGE`|Logs the information about DML statements. |
+|`dcl`|`CREATE USER`、`GRANT ROLE`、`REVOKE ROLE`、`CHANGE PASSWORD`、`ALTER USER`、`DROP USER`、`CREATE SNAPSHOT`、`DROP SNAPSHOT`、`ADD LISTENER`、`REMOVE LISTENER`、`BALANCE`、`SUBMIT JOB`、`STOP JOB`、`RECOVER JOB`、`ADD DRAINER`、`REMOVE DRAINER`|Logs the information about DCL statements.|
+|`util`|`SHOW HOSTS`、`SHOW USERS`、`SHOW ROLES`、`SHOW SNAPSHOTS`、`SHOW SPACES`、`SHOW PARTS`、`SHOW TAGS`、`SHOW EDGES`、`SHOW INDEXES`、`SHOW CREATE SPACE`、`SHOW CREATE TAG/EDGE`、`SHOW CREATE INDEX`、`SHOW INDEX STATUS`、`SHOW LISTENER`、`SHOW TEXT SEARCH CLIENTS`、`SHOW DRAINER CLIENTS`、`SHOW FULLTEXT INDEXES`、`SHOW CONFIGS`、`SHOW CHARSET`、`SHOW COLLATION`、`SHOW STATS`、`SHOW SESSIONS`、`SHOW META LEADER`、`SHOW DRAINERS`、`SHOW QUERIES`、`SHOW JOB`、`SHOW JOBS`、`DESCRIBE INDEX`、`DESCRIBE EDGE`、`DESCRIBE TAG`、`DESCRIBE SPACE`、`DESCRIBE USER`、`USE SPACE`、`SIGN IN TEXT SERVICE`、`SIGN OUT TEXT SERVICE`、`SIGN IN DRAINER SERVICE`、`SIGN OUT DRAINER SERVICE`、`EXPLAIN`、`PROFILE`、`KILL QUERY`、`DOWNLOAD HDFS`、`INGEST`|Logs the information about util statements. |
 |`unknown`|-|Logs the information about unrecognized statements.|
 
 ## Configure audit logs
@@ -43,6 +43,7 @@ Parameter descriptions are as follows:
 | `audit_log_es_batch_size`      | `1000`  | Takes effect only when `audit_log_handler=es`. The number of logs sent to Elasticsearch at one time.  |
 | `audit_log_exclude_spaces`      | -  |  The list of spaces for not tracking. Multiple graph spaces are separated by commas.  |
 | `audit_log_categories`      | `login,exit`  | The list of log categories for tracking. Multiple categories are separated by commas.   |
+|       |   |   |
 
 ## Audit logs format
 

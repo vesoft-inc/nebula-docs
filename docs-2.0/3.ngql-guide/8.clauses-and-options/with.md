@@ -64,7 +64,9 @@ nebula> MATCH (v) \
 +----------+
 | tags_f   |
 +----------+
+| "star"   |
 | "player" |
+| "person" |
 +----------+
 ```
 
@@ -109,7 +111,7 @@ nebula> MATCH (v:player) \
 Set an alias using a `WITH` clause, and then output the result through a `RETURN` clause.
 
 ```ngql
-nebula> WITH [1, 2, 3] AS `list` RETURN 3 IN `list` AS r;
+nebula> WITH [1, 2, 3] AS list  RETURN 3 IN list AS r;
 +------+
 | r    |
 +------+

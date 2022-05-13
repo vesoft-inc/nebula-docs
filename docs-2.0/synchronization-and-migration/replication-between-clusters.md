@@ -302,14 +302,6 @@ The test environment for the operation example in this topic is as follows:
   +-------------+
   ```
 
-## Stop/Restart data synchronization
-
-The listener continuously sends the WALs to the drainer during data synchronization.
-
-To stop data synchronization, run the `stop sync` command. The listener stops sending the WALs to the drainer.
-
-To restart data synchronization, run the `restart sync` command. The listener sends the WALs accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.
-
 ## Switch between primary and secondary clusters
 
 To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.

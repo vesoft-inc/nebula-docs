@@ -22,10 +22,6 @@ Nebula Graph supports multiple types of clients, including a CLI client, a GUI c
 
 1. On the Nebula Console [releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page"), select a Nebula Console version and click **Assets**.
 
-  !!! note
-
-        It is recommended to select the **latest** version.
-
 2. In the **Assets** area, find the correct binary file for the machine where you want to run Nebula Console and download the file to the machine.
 
 3. (Optional) Rename the binary file to `nebula-console` for convenience.
