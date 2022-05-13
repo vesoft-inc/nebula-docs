@@ -2759,19 +2759,19 @@
 <p>A NoSQL database document store is a key-value-based database, but with enhanced functionality. Data is still stored as keys, but the values in a document store are structured documents, not just a string or a single value. That is, because of the increased information structure, document stores are able to perform more optimized queries and make data retrieval easier. Therefore, document stores are particularly well suited for storing, indexing, and managing document-oriented data or similar semi-structured data.</p>
 <p>Technically speaking, as a semi-structured unit of information, a document in a document store can be any form of document available, including XML, JSON, YAML, etc., depending on the design of the database vendor. For example, JSON is a common choice. While JSON is not the best choice for structured data, JSON-type data can be used in both front-end and back-end applications. Common document storage databases include MongoDB, CouchDB, Terrastore, etc.</p>
 <h4 id="graph_store">Graph Store<a class="headerlink" href="#graph_store" title="Permanent link">¶</a></h4>
-<p>The last class of NoSQL databases is graph databases. Nebula Graph, is also a graph database. Although graph databases are also NoSQL databases, graph databases are fundamentally different from the above-mentioned NoSQL databases. Graph databases store data in the form of points, edges, and attributes. Its advantages include high flexibility, support for complex graph algorithms, and can be used to build complex relational graphs. We will discuss graph databases in detail in the subsequent topics. But in this topic, you just need to know that a graph database is a NoSQL type of database. Common graph databases include Nebula Graph, Neo4j, OrientDB, etc.</p>
+<p>The last class of NoSQL databases is graph databases. Nebula Graph, is also a graph database. Although graph databases are also NoSQL databases, graph databases are fundamentally different from the above-mentioned NoSQL databases. Graph databases store data in the form of vertices, edges, and properties. Its advantages include high flexibility, support for complex graph algorithms, and can be used to build complex relational graphs. We will discuss graph databases in detail in the subsequent topics. But in this topic, you just need to know that a graph database is a NoSQL type of database. Common graph databases include Nebula Graph, Neo4j, OrientDB, etc.</p>
 <h2 id="graph-related_technologies">Graph-related technologies<a class="headerlink" href="#graph-related_technologies" title="Permanent link">¶</a></h2>
 <p>Take a look at a panoramic view of graph technology in 2020 <sup id="fnref:lan"><a class="footnote-ref" href="#fn:lan">1</a></sup>.</p>
 <p><img alt="Image" src="https://docs-cdn.nebula-graph.com.cn/figures/GraphTechnologyLandscape.jpg"/></p>
 <p>There are many technologies that are related to graphs, which can be broadly classified into these categories:</p>
 <ul>
-<li>Infrastructure: including graph databases, graph computing (processing) engines, graph deep learning, cloud services, etc.</li>
+<li>Infrastructure: Graph databases, graph computing (processing) engines, graph deep learning, cloud services, etc.</li>
 </ul>
 <ul>
-<li>Applications: including visualization, knowledge graph, anti-fraud, cyber security, social network, etc.</li>
+<li>Applications: Visualization, knowledge graph, anti-fraud, cyber security, social network, etc.</li>
 </ul>
 <ul>
-<li>Development tools: including graph query languages, modeling tools, development frameworks, and libraries.</li>
+<li>Development tools: Graph query languages, modeling tools, development frameworks, and libraries.</li>
 </ul>
 <ul>
 <li>E-books <sup id="fnref:info"><a class="footnote-ref" href="#fn:info">2</a></sup> and conferences, etc.</li>
@@ -2800,27 +2800,27 @@
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/graphpipe.png"/></p>
 <p>Graph databases and graph processing systems have different origins and specialties (and weaknesses).</p>
 <ul>
-<li>(Online) The graph database is designed for persistent storage management of graphs and efficient subgraph operations. Hard disks and network) are the target operating devices, physical/logical data mapping, data integrity, and (fault) consistency are the main goals. Each request typically involves only a small part of the full graph and can usually be done on a single server. Request latency is usually in milliseconds or seconds, and request concurrency is typically in the thousands or hundreds of thousands. The early Neo4j was one of the origins of the graph database space.</li>
+<li>(Online) The graph database is designed for persistent storage management of graphs and efficient subgraph operations. Hard disks and network are the target operating devices, physical/logical data mapping, data integrity, and (fault) consistency are the main goals. Each request typically involves only a small part of the full graph and can usually be done on a single server. Request latency is usually in milliseconds or seconds, and request concurrency is typically in the thousands or hundreds of thousands. The early Neo4j was one of the origins of the graph database space.</li>
 </ul>
 <ul>
-<li>(Offline) The graph processing system is for high-volume, parallel, iterative, processing, and analysis of the full graph. Memory and network are the target operating devices. Each request involves all graph vertices and requires all servers to be involved in its completion. The latency of a single request is in the range of minutes to hours (days). The request concurrency is in single digits. Google's Pregel <sup id="fnref:Pregel"><a class="footnote-ref" href="#fn:Pregel">5</a></sup> represents the typical origin of graph processing systems. Its point-centric programming abstraction and BSP's operational model constitute a programming paradigm that is a more graph-friendly API abstraction than the previous Hadoop Map-Reduce.</li>
+<li>(Offline) The graph processing system is for high-volume, concurrency, iteration, processing, and analysis of the full graph. Memory and network are the target operating devices. Each request involves all graph vertices and requires all servers to be involved in its completion. The latency of a single request is in the range of minutes to hours (days). The request concurrency is in single digits. Google's Pregel <sup id="fnref:Pregel"><a class="footnote-ref" href="#fn:Pregel">5</a></sup> represents the typical origin of graph processing systems. Its point-centric programming abstraction and BSP's operational model constitute a programming paradigm that is a more graph-friendly API abstraction than the previous Hadoop Map-Reduce.</li>
 </ul>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/databaseandprocess.png"/>
 <sup id="fnref:iga"><a class="footnote-ref" href="#fn:iga">6</a></sup></p>
 <h3 id="graph_sharding_methods">Graph sharding methods<a class="headerlink" href="#graph_sharding_methods" title="Permanent link">¶</a></h3>
 <p>For large-scale graph data, it is difficult to store it in the memory of a single server, and even just storing the graph structure itself is not enough. By increasing the capacity of a single server, its cost price usually rises exponentially.</p>
 <p>As the volume of data increases, for example, 100 billion data already exceeds the capacity of all commercially available servers on the market.</p>
-<p>There is another option is to shard data and place each shard on a different server to increase reliability and performance. For NoSQL systems, such as key-value or document systems, the sharding method is intuitive and natural. Each record and data unit can usually be placed on a different server based on the key or docID.</p>
+<p>Another option is to shard data and place each shard on a different server to increase reliability and performance. For NoSQL systems, such as key-value or document systems, the sharding method is intuitive and natural. Each record and data unit can usually be placed on a different server based on the key or docID.</p>
 <p>However, the sharding of data structures like graphs is usually less intuitive, because usually, graphs are "fully connected" and each vertex can be connected to any other vertex in usually 6 hops.</p>
 <p>And it has been theoretically proven that the graph sharding problem is NP.</p>
 <p>When distributing the entire graph data across multiple servers, the cross-server network access latency is 10 times higher than the hardware (memory) access time inside the same server. Therefore, for some depth-first traversal scenarios, a large number of cross-network accesses occur, resulting in extremely high overall latency.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/lessrpc.png"/><sup id="fnref:gpml"><a class="footnote-ref" href="#fn:gpml">7</a></sup></p>
-<p>Usually, graphs have a clear power-law distribution. A small number of vertices have much denser neighboring edges than the average vertices. While processing these vertices can usually be within the same server, reducing cross-network access, also means that these servers will be far more stressed than the average.</p>
+<p>Usually, graphs have a clear power-law distribution. A small number of vertices have much denser neighboring edges than the average vertices. Though processing these vertices can usually be within the same server which reduces cross-network access, load will be far more heavier than the average.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/Power_Law_Distribution.png"/></p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/singleserver.png"/></p>
 <p>The common graph sharding methods are as follows:</p>
 <ul>
-<li>Biased application-level sharding: The application layer senses and controls which shard each vertex and edge should locate on, which can generally be judged based on the type of points and edges. A set of vertices of the same type is placed on one sharding and another set of vertices of the same type is placed on another sharding. Of course, for high reliability, the sharding itself can also be made multiple copies. When used by the application, the desired vertices and edges are fetched from each shard, and then on the off-application side (or some proxy server-side), the fetched data is assembled into the final result. This is typically represented by the Neo4j 4. x Fabric.</li>
+<li>Application-level sharding: The application layer senses and controls which shard each vertex and edge should locate on based on the type of vertices and edges. A set of vertices of the same type is placed on one sharding and another set of vertices of the same type is placed on another sharding. Of course, for high reliability, the sharding itself can also be made multiple replicas. When used by the application, the desired vertices and edges are fetched from each shard, and then on the off-application side (or some proxy server-side), the fetched data is assembled into the final result. This is typically represented by the Neo4j 4. x Fabric.</li>
 </ul>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/neo4j4x.png"/></p>
 <ul>
@@ -2837,10 +2837,10 @@
 <h3 id="technical_challenges">Technical challenges<a class="headerlink" href="#technical_challenges" title="Permanent link">¶</a></h3>
 <p>In the literature <sup id="fnref:Ubiquity"><a class="footnote-ref" href="#fn:Ubiquity">9</a></sup>, a thorough investigation of graphs and challenges is done, and the following lists the top ten graph technology challenges.</p>
 <ul>
-<li>Scalability: Loading and upgrading big graphs, performing graph computation and graph traversal, use of triggers and supernodes.</li>
-<li>Visualization: Customizable layouts, rendering and display big images, and display dynamic and updated display. </li>
-<li>Query language and programming API: Language expressiveness, standards compatibility, compatibility with existing systems, design of subqueries, and associative queries across multiple graphs.</li>
-<li>Faster graph algorithms.</li>
+<li>Scalability: Loading and upgrading big graphs, performing graph computation and graph traversal, use of triggers and supernodes</li>
+<li>Visualization: Customizable layouts, rendering and display big images, and display dynamic and updated display</li>
+<li>Query language and programming API: Language expressiveness, standards compatibility, compatibility with existing systems, design of subqueries, and associative queries across multiple graphs</li>
+<li>Faster graph algorithms</li>
 <li>Easy to use (configuration and usage)</li>
 <li>Performance metrics and testing</li>
 <li>General graph technology software (e.g., to handle offline, online, streaming computations.）</li>
@@ -2849,7 +2849,7 @@
 </ul>
 <h3 id="open-source_graph_tools_on_single_machines">Open-source graph tools on single machines<a class="headerlink" href="#open-source_graph_tools_on_single_machines" title="Permanent link">¶</a></h3>
 <p>There is a common misconception about graph databases that any data access involving graph structure needs to be stored in a graph database. </p>
-<p>When the amount of data is not large, single machine memory is enough to store the data. You can use some single machine open-source tools to store tens of millions of vertices and edges.</p>
+<p>When the amount of data is not large, single machine memory is enough to store the data. You can use some single-machine open-source tools to store tens of millions of vertices and edges.</p>
 <ul>
 <li>JGraphT<sup id="fnref:JGraphT"><a class="footnote-ref" href="#fn:JGraphT">10</a></sup>: A well-known open-source Java graph theory library, which implements a considerable number of efficient graph algorithms.</li>
 </ul>
@@ -2875,13 +2875,13 @@
 <p>An SNB dataset simulates the relationship between people and posts of a social network, taking into account the distribution properties of the social network, the activity of people, and other social information.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/ldbc.png"/></p>
 <p>The standard data size ranges from 0.1 GB (scale factor 0.1) to 1000 GB (sf 1000). Larger data sets of 10 TB and 100 TB can also be generated. The number of vertices and edges is as shown below.</p>
-<p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/ldbcsf.png"/></p>
+<p><img alt="data_size" src="https://docs-cdn.nebula-graph.com.cn/books/images/ldbcsf.png"/></p>
 <h2 id="trends">Trends<a class="headerlink" href="#trends" title="Permanent link">¶</a></h2>
 <h3 id="graph_technologies_of_different_origins_and_goals_are_learning_from_and_integrating_with_each_other">Graph technologies of different origins and goals are learning from and integrating with each other<a class="headerlink" href="#graph_technologies_of_different_origins_and_goals_are_learning_from_and_integrating_with_each_other" title="Permanent link">¶</a></h3>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/convergenceofcapability.png"/></p>
 <h3 id="the_trends_in_cloud_computing_place_higher_demands_on_scalability">The trends in cloud computing place higher demands on scalability.<a class="headerlink" href="#the_trends_in_cloud_computing_place_higher_demands_on_scalability" title="Permanent link">¶</a></h3>
 <p>According to Gartner's projections, cloud services have been growing at a rapid rate and penetration <sup id="fnref:cl"><a class="footnote-ref" href="#fn:cl">17</a></sup>. A large number of commercial software is gradually moving from a completely local and private model 10 years ago to a cloud services-based business model.
-One of the major advantages of cloud services is that they offer near-infinite scalability. It requires that various cloud infrastructure-based software must have a better ability to scale up and down quickly and elastically. </p>
+One of the major advantages of cloud services is that they offer near-infinite scalability. It requires that various cloud infrastructure-based software must have a better ability to scale quickly and elastically. </p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/cloudtrends.png"/></p>
 <h3 id="trends_in_hardware_that_ssd_will_be_the_mainstream_persistent_device">Trends in hardware that SSD will be the mainstream persistent device<a class="headerlink" href="#trends_in_hardware_that_ssd_will_be_the_mainstream_persistent_device" title="Permanent link">¶</a></h3>
 <p>Hardware determines software architecture. From the 1950s, when Moore's Law was discovered, to the 00s, when multi-core was introduced, hardware trends and speeds have profoundly determined software architecture. Database systems are mostly designed around "hard disk + memory", high-performance computing systems are mostly designed around "memory + CPU", and distributed systems are designed completely differently for 1 gigabit, 10 gigabits, and RDMA.</p>
@@ -2950,7 +2950,7 @@ One of the major advantages of cloud services is that they offer near-infinite s
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 28, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2022</span>
 </small>
 </div>
 </article>
@@ -3013,7 +3013,7 @@ One of the major advantages of cloud services is that they offer near-infinite s
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide"], "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing"}, "version": {"method": "mike"}}</script>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing"}, "version": {"method": "mike"}}</script>
 <script src="../../assets/javascripts/bundle.d892486b.min.js"></script>
 <script src="../../js/jquery.js"></script>
 <script src="../../js/search.js"></script>
