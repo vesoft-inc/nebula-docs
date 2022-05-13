@@ -88,7 +88,7 @@ YIELD [DISTINCT] <col> [AS <alias>] [, <col> [AS <alias>] ...]
 ```
 
 | Parameter    | Description                                                                                             |
-|--------------+---------------------------------------------------------------------------------------------------------|
+|--------------|---------------------------------------------------------------------------------------------------------|
 | `DISTINCT`   | Aggregates the output and makes the statement return a distinct result set.                             |
 | `col`        | A field to be returned. If no alias is set, `col` will be a column name in the output.                  |
 | `alias`      | An alias for `col`. It is set after the keyword `AS` and will be a column name in the output.           |

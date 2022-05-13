@@ -1,9 +1,5 @@
 RPM and DEB are common package formats on Linux systems. This topic shows how to quickly install Nebula Graph with the RPM or DEB package.
 
-## Prerequisites
-
-Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/1.resource-preparations/).<!--这里用外链。-->
-
 !!! note
 
     The console is not complied or packaged with Nebula Graph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
@@ -11,6 +7,10 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 !!! enterpriseonly
 
     For the Enterprise Edition, please send email to inquiry@vesoft.com.
+
+## Prerequisites
+
+Wget installed.
 
 ## Download the package from cloud service
 

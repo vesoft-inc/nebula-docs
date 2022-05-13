@@ -1,6 +1,6 @@
 # Nebula Importer
 
-Nebula Importer (Importer) is a standalone import tool for CSV files with [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
+Nebula Importer (Importer) is a standalone tool for importing data from CSV files into [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
 
 ## Scenario
 
@@ -14,7 +14,7 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 
 ## Release note
 
-[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}})
+[Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}})
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
 
 ### Download binary package and run
 
-1. Download the [binary package](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.branch}}) directly and add execute permission to it.
+1. Download the [binary package](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}}) directly and add execute permission to it.
 
 2. Start the service.
 
@@ -87,7 +87,7 @@ If the server cannot be connected to the Internet, it is recommended to upload t
 1. Clone repository.
 
    ```bash
-   $ git clone -b {{importer.release}} https://github.com/vesoft-inc/nebula-importer.git
+   $ git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
    ```
 
 2. Use the following command to download and package the dependent source code.

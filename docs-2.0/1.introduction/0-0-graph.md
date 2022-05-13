@@ -2,7 +2,7 @@
 
 People from tech giants (such as Amazon and Facebook) to small research teams are devoting significant resources to exploring the potential of graph databases to solve data relationships problems. What exactly is a graph database? What can it do? Where does it fit in the database landscape? To answer these questions, we first need to understand graphs.
 
-Graphs are one of the main areas of research in computer science. Graphs can efficiently solve many of the problems that exist today. This topic will start with graphs to explain the advantages of graph databases and their great potential in modern application development, and then describe the differences between distributed graph databases and several other types of databases.
+Graphs are one of the main areas of research in computer science. Graphs can efficiently solve many of the problems that exist today. This topic will start with graphs and explain the advantages of graph databases and their great potential in modern application development, and then describe the differences between distributed graph databases and several other types of databases.
 
 ## What are graphs?
 
@@ -30,7 +30,7 @@ Simply put, graph theory is the study of graphs. Graph theory began in the early
 
 [^171]: Souce of the picture: https://medium.freecodecamp.org/i-dont-understand-graph-theory-1c96572a1401.
 
-To solve this problem, the great mathematician Euler by abstracting the four regions of the city into points and the seven bridges connecting the city into edges connecting the points, proved that the problem was unsolvable. The simplified abstract diagram is as follows [^063].
+To solve this problem, the great mathematician Euler proved that the problem was unsolvable by abstracting the four regions of the city into points and the seven bridges connecting the city into edges connecting the points. The simplified abstract diagram is as follows [^063].
 
 ![image](https://user-images.githubusercontent.com/42762957/91538126-e578b900-e949-11ea-980c-5704254e8063.png)
 
@@ -48,15 +48,13 @@ From a mathematical point of view, graph theory studies the relationships betwee
 
 In real life, there are many examples of property graphs.
 
-For example, Qichacha or BOSS Zhipin use graphs to model business equity relationships. A vertex is usually a natural person or a business, and the edge is the equity relationship between a person and a business. The properties on vertices can be the name, age, ID number, etc. of the natural person. The properties on edges can be the investment amount, investment time, position such as director and supervisor.
-
-![image](https://docs-cdn.nebula-graph.com.cn/books/images/enterprise-relations.png)
+For example, Qichacha or BOSS Zhipin use graphs to model business equity relationships. A vertex usually represents a natural person or a business, and the edge represents the equity relationship between a person and a business. The properties on vertices can be the name, age, ID number, etc. of the natural person. The properties on edges can be the investment amount, investment time, position such as director and supervisor.
 
 A vertex can be a listed company and an edge can be a correlation between listed companies. The vertex property can be a stock code, abbreviation, market capitalization, sector, etc. The edge property can be the time-series correlation coefficient of the stock price [^T01].
 
 [^T01]: https://nebula-graph.com.cn/posts/stock-interrelation-analysis-jgrapht-nebula-graph/
 
-The graph relationship can also be similar to the character relationship in a TV series like Game of Thrones [^s-01]. Vertices are the characters. Edges are the interactions between the characters. Vertex properties are the character's names, ages, camps, etc., and edge properties are the number of interactions between two characters. 
+The graph relationship can also be similar to the character relationship in a TV series like Game of Thrones [^s-01]. Vertices stand for the characters. Edges represent the interactions between the characters. Vertex properties are the character's names, ages, camps, etc., and edge properties are the number of interactions between two characters. 
 
 ![image](https://docs-cdn.nebula-graph.com.cn/books/images/game-of-thrones-01.png)
 
