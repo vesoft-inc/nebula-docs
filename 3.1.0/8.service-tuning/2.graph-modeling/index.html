@@ -2653,7 +2653,7 @@
 <p>As a strong Schema system, Nebula Graph does not support List-type properties. And using <code>ALTER TAG</code> costs too much. If you need to add some temporary properties or List-type properties to a vertex, you can first create an edge type with the required properties, and then insert one or more edges that direct to the vertex itself. The figure is as follows.</p>
 <p><img alt="loop property" src="https://docs-cdn.nebula-graph.com.cn/figures/loop-property.png"/></p>
 <p>To retrieve temporary properties of vertices, fetch from self-loop edges. For example:</p>
-<div class="highlight"><pre><span></span><code>//Create the edge type and insert the loop property.
+<p><div class="highlight"><pre><span></span><code>//Create the edge type and insert the loop property.
 nebula&gt; CREATE EDGE IF NOT EXISTS temp(tmp int);
 nebula&gt; INSERT EDGE temp(tmp) VALUES "player100"-&gt;"player100"@1:(1);
 nebula&gt; INSERT EDGE temp(tmp) VALUES "player100"-&gt;"player100"@2:(2);
@@ -2677,6 +2677,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 | [1, 2, 3]      |
 +----------------+
 </code></pre></div>
+Operations on loops are not encapsulated with any syntactic sugars and you can use them just like those on normal edges.</p>
 <h3 id="about_dangling_edges">About dangling edges<a class="headerlink" href="#about_dangling_edges" title="Permanent link">¶</a></h3>
 <p>A dangling edge is an edge that only connects to a single vertex and only one part of the edge connects to the vertex.</p>
 <p>In Nebula Graph 3.1.0, dangling edges may appear in the following two cases.</p>
@@ -2759,7 +2760,7 @@ Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time<
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 18, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2022</span>
 </small>
 </div>
 </article>
