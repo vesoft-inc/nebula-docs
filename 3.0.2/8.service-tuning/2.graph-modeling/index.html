@@ -6194,7 +6194,7 @@
 <p>As a strong Schema system, Nebula Graph does not support List-type properties. And using <code>ALTER TAG</code> costs too much. If you need to add some temporary properties or List-type properties to a vertex, you can first create an edge type with the required properties, and then insert one or more edges that direct to the vertex itself. The figure is as follows.</p>
 <p><img alt="loop property" src="../loop-property.png" /></p>
 <p>To retrieve temporary properties of vertices, fetch from self-loop edges. For example:</p>
-<div class="highlight"><pre><span></span><code>//Create the edge type and insert the loop property.
+<p><div class="highlight"><pre><span></span><code>//Create the edge type and insert the loop property.
 nebula&gt; CREATE EDGE IF NOT EXISTS temp(tmp int);
 nebula&gt; INSERT EDGE temp(tmp) VALUES &quot;player100&quot;-&gt;&quot;player100&quot;@1:(1);
 nebula&gt; INSERT EDGE temp(tmp) VALUES &quot;player100&quot;-&gt;&quot;player100&quot;@2:(2);
@@ -6218,6 +6218,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 | [1, 2, 3]      |
 +----------------+
 </code></pre></div>
+Operations on loops are not encapsulated with any syntactic sugars and you can use them just like those on normal edges.</p>
 <h3 id="breadth-first_traversal_over_depth-first_traversal">Breadth-first traversal over depth-first traversal<a class="headerlink" href="#breadth-first_traversal_over_depth-first_traversal" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Nebula Graph has lower performance for depth-first traversal based on the Graph topology, and better performance for breadth-first traversal and obtaining properties. For example, if model A contains properties "name", "age", and "eye color", it is recommended to create a tag <code>person</code> and add properties <code>name</code>, <code>age</code>, and <code>eye_color</code> to it. If you create a tag <code>eye_color</code> and an edge type <code>has</code>, and then create an edge to represent the eye color owned by the person, the traversal performance will not be high.</li>
@@ -6257,7 +6258,7 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 14, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2022</span>
       
     
   </small>
