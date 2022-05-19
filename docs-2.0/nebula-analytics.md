@@ -53,7 +53,7 @@ Nebula Analytics supports the following graph algorithms.
 When installing a cluster of multiple Nebula Analytics on multiple nodes, you need to install Nebula Analytics to the same path and set up SSH-free login between nodes.
 
 ```bash
-sudo rpm -i nebula-analytics-3.1.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
+sudo rpm -i nebula-analytics-{{plato.release}}-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
 ```
 
 <!--
