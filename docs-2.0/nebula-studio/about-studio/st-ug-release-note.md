@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.3.2(2022.05.19)
+
+- Fix
+  - Fix the bug of rendering error when path has only starting vertex.
+
 ## v3.3.1(2022.05.07)
 
 - Fix
