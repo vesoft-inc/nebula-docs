@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.3.2(2022.05.19)
+
+- Fix
+  - Fix the rendering bug when a path has only one source vertex.
+
 ## v3.3.1(2022.05.07)
 
 - Fix
