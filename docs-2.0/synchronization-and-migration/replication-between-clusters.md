@@ -386,11 +386,11 @@ The schema data is synchronized through the Meta listener, while the vertex/edge
 
 ### How to deal with synchronization failures?
 
-Fix the problems in the cluster, and the synchronization will be automatically restored.
+Fix the problems in the cluster, and then the synchronization will be automatically restored.
 
-- If problems happened on the primary cluster, the synchronization would continue when the problems were fixed and the primary cluster restarted.
+- If problems have happened in the primary cluster, the synchronization continues when the problems are fixed and the primary cluster restarts.
 
-- If problems happened on the secondary cluster, listeners, or drainers, when the problems were fixed, the services that had the problems would receive the WALs accumulated from its upstream and the synchronization would continue. If the faulty machine were replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set would start automatically.
+- If problems have happened in the secondary cluster, listeners, or drainers, when the problems are fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue working. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set will start automatically.
 
 ### How to check the data synchronization status and progress?
 
