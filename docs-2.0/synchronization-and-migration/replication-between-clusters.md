@@ -1,6 +1,6 @@
 # Synchronize between two clusters
 
-Nebula Graph supports data synchronization from a primary to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
+Nebula Graph supports data synchronization from a primary cluster to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
 
 !!! enterpriseonly
 
@@ -76,7 +76,7 @@ The test environment for the operation example in this topic is as follows:
 
 1. Install Nebula Graph on all the machines.
 
-  For installing Nebula Graph, see the instructions in the [Compile and install Nebula directory](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+  For installation instructions, see [Install Nebula Graph](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
 2. Modify the configuration files on all the machines.
 
@@ -386,9 +386,11 @@ The schema data is synchronized through the Meta listener, while the vertex/edge
 
 ### How to deal with synchronization failures?
 
-- If problems happen on the primary cluster, the synchronization will be paused. Fixing the problems and then restarting the primary cluster can continue the synchronization.
+Fix the problems in the cluster, and then the synchronization will be automatically restored.
 
-- If problems happen on the secondary cluster, listeners or drainers, when the problem is fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set starts.
+- If problems have happened in the primary cluster, the synchronization continues when the problems are fixed and the primary cluster restarts.
+
+- If problems have happened in the secondary cluster, listeners, or drainers, when the problems are fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue working. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set will start automatically.
 
 ### How to check the data synchronization status and progress?
 
@@ -400,4 +402,4 @@ Find the WALs that has just been synchronized, and that has most recently been g
 - Compare the log ID to view the synchronization gap.
 -->
 
-There is no tool specially designed to do this for now.
+There is no tool specially designed to show the real-time status and overall progress of the synchronization for now.
