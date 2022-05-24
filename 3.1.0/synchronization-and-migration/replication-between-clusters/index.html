@@ -2676,7 +2676,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1 id="synchronize_between_two_clusters">Synchronize between two clusters<a class="headerlink" href="#synchronize_between_two_clusters" title="Permanent link">¶</a></h1>
-<p>Nebula Graph supports data synchronization from a primary to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.</p>
+<p>Nebula Graph supports data synchronization from a primary cluster to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.</p>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
 <p>This feature applies to the Enterprise Edition only.</p>
@@ -2769,7 +2769,7 @@
 <ol>
 <li>
 <p>Install Nebula Graph on all the machines.</p>
-<p>For installing Nebula Graph, see the instructions in the <a href="../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Compile and install Nebula directory</a>.</p>
+<p>For installation instructions, see <a href="../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Install Nebula Graph</a>.</p>
 </li>
 <li>
 <p>Modify the configuration files on all the machines.</p>
@@ -3060,11 +3060,12 @@ nebula&gt; SET VARIABLES <span class="nv">read_only</span><span class="o">=</spa
 <p>Altering the schema may increase the synchronization latency.</p>
 <p>The schema data is synchronized through the Meta listener, while the vertex/edge data is through the Storage listener. When synchronizing the vertex/edge data, the system checks the schema version of the data. If the system finds that the version number of the schema is greater than that in the secondary cluster, it pauses the vertex/edge data update, and updates the schema data first.</p>
 <h3 id="how_to_deal_with_synchronization_failures">How to deal with synchronization failures?<a class="headerlink" href="#how_to_deal_with_synchronization_failures" title="Permanent link">¶</a></h3>
+<p>Fix the problems in the cluster, and the synchronization will be automatically restored.</p>
 <ul>
-<li>If problems happen on the primary cluster, the synchronization will be paused. Fixing the problems and then restarting the primary cluster can continue the synchronization.</li>
+<li>If problems happened on the primary cluster, the synchronization would continue when the problems were fixed and the primary cluster restarted.</li>
 </ul>
 <ul>
-<li>If problems happen on the secondary cluster, listeners or drainers, when the problem is fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set starts.</li>
+<li>If problems happened on the secondary cluster, listeners, or drainers, when the problems were fixed, the services that had the problems would receive the WALs accumulated from its upstream and the synchronization would continue. If the faulty machine were replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set would start automatically.</li>
 </ul>
 <h3 id="how_to_check_the_data_synchronization_status_and_progress">How to check the data synchronization status and progress?<a class="headerlink" href="#how_to_check_the_data_synchronization_status_and_progress" title="Permanent link">¶</a></h3>
 <!--show sync
@@ -3074,12 +3075,12 @@ Find the WALs that has just been synchronized, and that has most recently been g
 
 - Compare the log ID to view the synchronization gap.
 -->
-<p>There is no tool specially designed to do this for now.</p>
+<p>There is no tool specially designed to show the real-time status and overall progress of the synchronization for now.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 26, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 24, 2022</span>
 </small>
 </div>
 </article>
