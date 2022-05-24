@@ -386,7 +386,7 @@ The schema data is synchronized through the Meta listener, while the vertex/edge
 
 ### How to deal with synchronization failures?
 
-Fix the problems in the cluster, and the synchronization will be automatically restored.
+Fix the problems in the cluster, and then the synchronization will be automatically restored.
 
 - If problems happened on the primary cluster, the synchronization would continue when the problems were fixed and the primary cluster restarted.
 
