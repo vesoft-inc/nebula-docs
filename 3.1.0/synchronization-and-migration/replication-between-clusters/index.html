@@ -3060,12 +3060,12 @@ nebula&gt; SET VARIABLES <span class="nv">read_only</span><span class="o">=</spa
 <p>Altering the schema may increase the synchronization latency.</p>
 <p>The schema data is synchronized through the Meta listener, while the vertex/edge data is through the Storage listener. When synchronizing the vertex/edge data, the system checks the schema version of the data. If the system finds that the version number of the schema is greater than that in the secondary cluster, it pauses the vertex/edge data update, and updates the schema data first.</p>
 <h3 id="how_to_deal_with_synchronization_failures">How to deal with synchronization failures?<a class="headerlink" href="#how_to_deal_with_synchronization_failures" title="Permanent link">¶</a></h3>
-<p>Fix the problems in the cluster, and the synchronization will be automatically restored.</p>
+<p>Fix the problems in the cluster, and then the synchronization will be automatically restored.</p>
 <ul>
-<li>If problems happened on the primary cluster, the synchronization would continue when the problems were fixed and the primary cluster restarted.</li>
+<li>If problems have happened in the primary cluster, the synchronization continues when the problems are fixed and the primary cluster restarts.</li>
 </ul>
 <ul>
-<li>If problems happened on the secondary cluster, listeners, or drainers, when the problems were fixed, the services that had the problems would receive the WALs accumulated from its upstream and the synchronization would continue. If the faulty machine were replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set would start automatically.</li>
+<li>If problems have happened in the secondary cluster, listeners, or drainers, when the problems are fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue working. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set will start automatically.</li>
 </ul>
 <h3 id="how_to_check_the_data_synchronization_status_and_progress">How to check the data synchronization status and progress?<a class="headerlink" href="#how_to_check_the_data_synchronization_status_and_progress" title="Permanent link">¶</a></h3>
 <!--show sync
