@@ -108,13 +108,13 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   Not recommended:
 
   ```ngql
-  go from "player100" over Follow
+  match (V:player) return V limit 5
   ```
   
   Recommended:
     
   ```ngql
-  GO FROM "player100" OVER follow
+  MATCH (v:player) RETURN v LIMIT 5
   ```
 
 ## Pattern
@@ -202,13 +202,13 @@ The strings should be surrounded by double quotes.
   Not recommended:
 
   ```ngql
-  FETCH PROP ON player "player100"
+  FETCH PROP ON player "player100" YIELD properties(vertex)
   ```
 
   Recommended:
 
   ```ngql
-  FETCH PROP ON player "player100";
+  FETCH PROP ON player "player100" YIELD properties(vertex);
   ```
 
 2. Use a pipe (|) to separate a composite statement, and end the statement with an English semicolon at the end of the last line. Using an English semicolon before a pipe will cause the statement to fail.
