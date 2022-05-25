@@ -108,13 +108,13 @@ In nGQL statements, characters other than keywords, punctuation marks, and blank
   Not recommended:
 
   ```ngql
-  match (V:player) return V limit 5
+  match (V:player) return V limit 5;
   ```
   
   Recommended:
     
   ```ngql
-  MATCH (v:player) RETURN v LIMIT 5
+  MATCH (v:player) RETURN v LIMIT 5;
   ```
 
 ## Pattern
@@ -202,7 +202,7 @@ The strings should be surrounded by double quotes.
   Not recommended:
 
   ```ngql
-  FETCH PROP ON player "player100" YIELD properties(vertex)
+  FETCH PROP ON player "player100" YIELD properties(vertex);
   ```
 
   Recommended:
