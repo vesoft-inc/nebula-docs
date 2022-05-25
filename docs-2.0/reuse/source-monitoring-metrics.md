@@ -116,7 +116,7 @@
 | `num_lookup`                   | The number of executions for the LookupProcessor.                  |
 
 
-### Space-level
+### Graph space
 
 | Parameter                                           | Description                                      |
 | ---------------------------------------------- | ----------------------------------------- |
