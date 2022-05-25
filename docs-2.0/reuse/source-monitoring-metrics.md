@@ -25,7 +25,7 @@
 | `optimizer_latency_us`                           | The latency of executing optimizer statements.                                             |
 | `query_latency_us`                               | The average latency of queries.                                           |
 | `slow_query_latency_us`                          | The average latency of slow queries.                                         |
-| `num_queries_hit_memory_watermark` | The number of queries that have reached the memory watermark. |
+| `num_queries_hit_memory_watermark` | The number of queries that reached the memory watermark. |
 
 ### Meta
 
@@ -133,12 +133,12 @@
 | `num_sort_executors`                             | The number of executions for the Sort operator.                     |
 | `num_indexscan_executors`                        | The number of executions for index scan operators.           |
 | `num_oom_queries`                                | The number of queries that caused memory to run out.         |
-| `num_auth_failed_sessions_bad_username_password` |  The number of sessions where authentication failed due to incorrect username and password.  |
+| `num_auth_failed_sessions_bad_username_password` | The number of sessions where authentication failed due to incorrect username and password.  |
 | `num_auth_failed_sessions`     | The number of sessions in which login authentication failed.                            |
 | `num_opened_sessions`          | The number of sessions connected to the server.                          |
-| `num_queries_hit_memory_watermark`  |  The number of queries that have reached the memory watermark.                           |
+| `num_queries_hit_memory_watermark`  |  The number of queries that reached the memory watermark.                           |
 | `num_reclaimed_expired_sessions` |  The number of expired sessions actively reclaimed by the server.                           |
-| `num_rpc_sent_to_metad_failed` |  The number of failed RPC requests that the Graphd service sends to the Metad service.  |
+| `num_rpc_sent_to_metad_failed` |  The number of failed RPC requests that the Graphd service sent to the Metad service.  |
 | `num_rpc_sent_to_metad`        |  The number of RPC requests that the Graphd service sent to the Metad service.                            |
 | `num_rpc_sent_to_storaged_failed` |  The number of failed RPC requests that the Graphd service sent to the Storaged service.                           |
 | `num_rpc_sent_to_storaged`     |  The number of RPC requests that the Graphd service sent to the Storaged service.                           |
