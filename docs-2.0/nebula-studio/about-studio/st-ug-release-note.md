@@ -1,5 +1,9 @@
 # Change Log
 
+## v3.1.1 (2022.05.25)
+
+- Fix:
+  - Fix gateway crash.
 ## v3.1.0 (2021.10.29)
 
 - Feature enhancements:
