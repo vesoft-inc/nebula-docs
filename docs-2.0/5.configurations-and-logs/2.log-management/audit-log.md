@@ -46,8 +46,11 @@ Parameter descriptions are as follows:
 
 ## Audit logs format
 
-The fields of audit logs are the same for different handlers and formats. For example, when the audit logs are stored in the default path `logs/audit/audit.log` and in the format of XML, the fields in the audit logs are described as follows:
+The fields of audit logs are the same for different handlers and formats. For example, when the audit logs are stored in the default path `/usr/local/nebula/logs/audit/audit.log` and in the format of XML, the fields in the audit logs are described as follows:
 
+!!! note
+
+    If the audit log directory is deleted while Nebula Graph is running, the log would not continue to be printed and this operation will not affect the services. To recover the logs, you should restart the services.
 
 ```bash
 <AUDIT_RECORD
