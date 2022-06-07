@@ -2697,14 +2697,14 @@
 </li>
 <li>
 <p>Use <code>tar -xzvf</code> to decompress the TAR package.</p>
-<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-&lt;version&gt;.linux-amd64.tar.gz 
+<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-&lt;version&gt;.linux-amd64.tar.gz -C &lt;install_path&gt;
 </code></pre></div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-3.0.0.linux-amd64.tar.gz 
+<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-3.0.0.linux-amd64.tar.gz -C /usr/local/
 </code></pre></div>
 </li>
 <li>
-<p>Edit <code>vim config/config.yaml</code> to modify the configuration.</p>
+<p>Edit <code>vim /usr/local/nebula-dashboard-ent/config/config.yaml</code> to modify the configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Information about the database</span>
 database:
   dialect: mysql <span class="c1"># The type of database used, which currently only supports MySQL.</span>
@@ -2742,6 +2742,14 @@ ldap:
   baseDN: <span class="nv">dc</span><span class="o">=</span>vesoft,dc<span class="o">=</span>com <span class="c1"># Set the path to query user data.</span>
   userFilter: <span class="s2">"&amp;(objectClass=*)"</span> <span class="c1"># Set a filter to LDAP search queries.</span>
   emailKey: mail <span class="c1"># Set the field name used to restore email in LDAP.</span>
+ monitor:
+   onStart:
+     disableNodeExporterDeploy: <span class="nb">false</span>
+     disableNebulaExporterConfig: <span class="nb">false</span>
+     disablePrometheusConfig: <span class="nb">false</span>
+     disablePrometheusRule: <span class="nb">false</span>
+     disableAlertManagerRoutes: <span class="nb">false</span>
+     disableRecoveryAlertMessage: <span class="nb">false</span>
 </code></pre></div>
 </li>
 <li>
@@ -2755,7 +2763,7 @@ ldap:
 <li>
 <p>Start Dashboard.</p>
 <p>You can use the following command to start the Dashboard with one click.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> scripts
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/local/nebula-dashboard-ent/scripts
 sudo ./dashboard.service start all
 </code></pre></div>
 <p>Or execute the following commands to start prometheus, webserver, exporter and gateway services to start Dashboard.</p>
@@ -3010,7 +3018,7 @@ ldap:
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2022</span>
 </small>
 </div>
 </article>
