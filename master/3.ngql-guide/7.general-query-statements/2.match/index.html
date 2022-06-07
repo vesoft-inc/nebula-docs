@@ -2812,6 +2812,11 @@ nebula&gt; SHOW JOB 122;
 ...
 </code></pre></div>
 <p>To match vertices with multiple tags, use colons (:).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not yet supported to add property conditions when matching vertices with multiple tags.</p>
+<p>For example, the statement <code>match (v1:player:team) where v1.player.name=="Tim Duncan" return v1 limit 10;</code> does not work.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG actor (name string, age int);
 nebula&gt; INSERT VERTEX actor(name, age) VALUES "player100":("Tim Duncan", 42);
 nebula&gt; MATCH (v:player:actor) \
@@ -3018,6 +3023,11 @@ nebula&gt; MATCH ()-[e:follow]-() \
 </code></pre></div>
 <h3 id="match_multiple_edge_types">Match multiple edge types<a class="headerlink" href="#match_multiple_edge_types" title="Permanent link">¶</a></h3>
 <p>The <code>|</code> symbol can help matching multiple edge types. For example: <code>[e:follow|:serve]</code>. The English colon (:) before the first edge type cannot be omitted, but the English colon before the subsequent edge type can be omitted, such as <code>[e:follow|serve]</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not yet supported to add property conditions when matching data with multiple tags and multiple edge types at the same time.</p>
+<p>For example, the statement <code>MATCH (v)-[e:follow|serve]-&gt;(v2) where v.player.name=="Tim Duncan" RETURN e limit 10;</code> does not work. <code>(v)</code> represents a vertex with all its tags.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Tim Duncan"})-[e:follow|:serve]-&gt;(v2) \
         RETURN e;
 +---------------------------------------------------------------------------+
@@ -3190,7 +3200,7 @@ nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})-[e:follow*1..]-&gt;(v2) \
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2022</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2022</span>
 </small>
 </div>
 </article>
