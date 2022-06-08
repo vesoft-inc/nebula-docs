@@ -182,7 +182,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
-|`tags.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
+|`tags.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files. If the number of the partition (partition_num) in the graph space is greater than `1`, set the parameter to `true`, otherwise, the generated data file may contain only vertexes without tag.|
 
 ### Specific parameters of Nebula Graph
 
