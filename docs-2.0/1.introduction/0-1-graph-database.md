@@ -180,7 +180,7 @@ Strictly speaking, Neo4j also offers several distributed capabilities, which are
   Return movie.title AS title
       UNION   
   USE graphB  
-  MATCH （move:Movie)
+  MATCH (move:Movie)
   RETURN movie.title AS title
   ```
 
