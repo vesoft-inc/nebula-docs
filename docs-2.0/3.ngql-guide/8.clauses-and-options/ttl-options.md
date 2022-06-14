@@ -62,10 +62,10 @@ If a tag or an edge type is already created, to set a timeout on a property boun
 nebula> CREATE TAG IF NOT EXISTS t1 (a timestamp);
 
 # Use ALTER to update the tag and set the TTL options.
-nebula> ALTER TAG t1 ttl_col = "a", ttl_duration = 5;
+nebula> ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;
 
 # Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
-nebula> INSERT VERTEX t1(a) values "101":(now());
+nebula> INSERT VERTEX t1(a) VALUES "101":(now());
 ```
 
 ### Set a timeout when creating a tag or an edge type
@@ -74,10 +74,10 @@ Use TTL options in the `CREATE` statement to set a timeout when creating a tag o
 
 ```ngql
 # Create a tag and set the TTL options.
-nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) ttl_duration= 100, ttl_col = "a";
+nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) TTL_DURATION= 100, TTL_COL = "a";
 
 # Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
-nebula> INSERT VERTEX t2(a, b, c) values "102":(1648197138, 30, "Hello");
+nebula> INSERT VERTEX t2(a, b, c) VALUES "102":(1648197138, 30, "Hello");
 ```
 
 ## Remove a timeout
@@ -93,11 +93,11 @@ To disable TTL and remove the timeout on a property, you can use the following a
 * Set `ttl_col` to an empty string.
 
     ```ngql
-    nebula> ALTER TAG t1 ttl_col = "";
+    nebula> ALTER TAG t1 TTL_COL = "";
     ```
 
 * Set `ttl_duration` to `0`. This operation keeps the TTL options and prevents the property from expiring and the property schema from being modified.
 
     ```ngql
-    nebula> ALTER TAG t1 ttl_duration = 0;
+    nebula> ALTER TAG t1 TTL_DURATION = 0;
     ```
