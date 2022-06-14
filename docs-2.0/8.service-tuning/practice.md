@@ -12,6 +12,8 @@ Nebula Graph is used in a variety of industries. This topic presents a few best 
 
 ## Kernel
 
+- [What is a graph database and what are its use cases - Definition, examples & trends](https://nebula-graph.io/posts/what-is-a-graph-database)
+
 - [Nebula Graph Source Code Explained: Variable-Length Pattern Matching](https://nebula-graph.io/posts/nebula-graph-source-code-reading-06/)
 
 - [Adding a Test Case for Nebula Graph](https://nebula-graph.io/posts/add-test-case-nebula-graph/)
