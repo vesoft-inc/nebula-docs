@@ -6,7 +6,7 @@
 
 The correspondence between the Nebula Algorithm release and the Nebula Graph core release is as follows.
 
-|Algorithm client|Nebula Graph|
+|Nebula Algorithm|Nebula Graph|
 |:---|:---|
 |3.0-SNAPSHOT         |  nightly       |
 |{{algorithm.release}}|  {{nebula.release}}  |
