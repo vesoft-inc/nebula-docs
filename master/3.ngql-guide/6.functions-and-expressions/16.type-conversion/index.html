@@ -12,14 +12,14 @@
         <meta name="author" content="Nebula Graph">
       
       
-        <link rel="canonical" href="https://docs.nebula-graph.io/master/3.ngql-guide/6.functions-and-expressions/10.collect/">
+        <link rel="canonical" href="https://docs.nebula-graph.io/master/3.ngql-guide/6.functions-and-expressions/16.type-conversion/">
       
       <link rel="icon" href="../../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.7">
     
     
       
-        <title>collect() - Nebula Graph Database Manual</title>
+        <title>Type conversion functions - Nebula Graph Database Manual</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#collect" class="md-skip">
+        <a href="#type_conversion_functions" class="md-skip">
           Skip to content
         </a>
       
@@ -126,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              collect()
+              Type conversion functions
             
           </span>
         </div>
@@ -1225,6 +1225,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../15.aggregating/" class="md-nav__link">
+        Aggregate functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../2.string/" class="md-nav__link">
         String functions
       </a>
@@ -1279,34 +1293,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../5.case-expressions/" class="md-nav__link">
-        Case expressions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../7.count/" class="md-nav__link">
-        count()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -1319,12 +1305,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          collect()
+          Type conversion functions
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        collect()
+        Type conversion functions
       </a>
       
         
@@ -1343,8 +1329,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#toboolean" class="md-nav__link">
+    toBoolean()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tofloat" class="md-nav__link">
+    toFloat()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tostring" class="md-nav__link">
+    toString()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tointeger" class="md-nav__link">
+    toInteger()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toset" class="md-nav__link">
+    toSet()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    hash()
   </a>
   
 </li>
@@ -1364,22 +1385,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../12.hash/" class="md-nav__link">
-        hash()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13.concat/" class="md-nav__link">
-        concat()
+      <a href="../5.conditional-expressions/" class="md-nav__link">
+        Conditional expressions
       </a>
     </li>
   
@@ -6267,8 +6274,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#toboolean" class="md-nav__link">
+    toBoolean()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tofloat" class="md-nav__link">
+    toFloat()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tostring" class="md-nav__link">
+    toString()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tointeger" class="md-nav__link">
+    toInteger()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#toset" class="md-nav__link">
+    toSet()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    hash()
   </a>
   
 </li>
@@ -6285,83 +6327,124 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/6.functions-and-expressions/10.collect.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vesoft-inc/nebula-docs/edit/master/docs-2.0/3.ngql-guide/6.functions-and-expressions/16.type-conversion.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="collect">collect()<a class="headerlink" href="#collect" title="Permanent link">&para;</a></h1>
-<p>The <code>collect()</code> function returns a list containing the values returned by an expression. Using this function aggregates data by merging multiple records or values into a single list.</p>
-<p>The aggregate function <code>collect()</code> works like <code>GROUP BY</code> in SQL.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a \
-        RETURN a;
-+---+
-| a |
-+---+
-| 1 |
-| 2 |
-| 1 |
-+---+
-
-nebula&gt; UNWIND [1, 2, 1] AS a \
-        RETURN collect(a);
+<h1 id="type_conversion_functions">Type conversion functions<a class="headerlink" href="#type_conversion_functions" title="Permanent link">&para;</a></h1>
+<p>This topic describes the type conversion functions supported by Nebula Graph.</p>
+<h2 id="toboolean">toBoolean()<a class="headerlink" href="#toboolean" title="Permanent link">&para;</a></h2>
+<p>toBoolean() converts a string value to a boolean value.</p>
+<p>Syntax: <code>toBoolean(&lt;value&gt;)</code></p>
+<ul>
+<li>Result type: Bool</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b \
+        RETURN toBoolean(b) AS b;
++----------+
+| b        |
++----------+
+| true     |
+| false    |
+| true     |
+| false    |
+| __NULL__ |
++----------+
+</code></pre></div>
+<h2 id="tofloat">toFloat()<a class="headerlink" href="#tofloat" title="Permanent link">&para;</a></h2>
+<p>toFloat() converts an integer or string value to a floating point number.</p>
+<p>Syntax: <code>toFloat(&lt;value&gt;)</code></p>
+<ul>
+<li>Result type: Float</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toFloat(1), toFloat(&#39;1.3&#39;), toFloat(&#39;1e3&#39;), toFloat(&#39;not a number&#39;);
++------------+----------------+----------------+-------------------------+
+| toFloat(1) | toFloat(&quot;1.3&quot;) | toFloat(&quot;1e3&quot;) | toFloat(&quot;not a number&quot;) |
++------------+----------------+----------------+-------------------------+
+| 1.0        | 1.3            | 1000.0         | __NULL__                |
++------------+----------------+----------------+-------------------------+
+</code></pre></div>
+<h2 id="tostring">toString()<a class="headerlink" href="#tostring" title="Permanent link">&para;</a></h2>
+<p>toString() converts non-compound types of data, such as numbers, booleans, and so on, to strings.</p>
+<p>Syntax: <code>toString(&lt;value&gt;)</code></p>
+<ul>
+<li>Result type: String</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toString(9669) AS int2str, toString(null) AS null2str;
++---------+----------+
+| int2str | null2str |
++---------+----------+
+| &quot;9669&quot;  | __NULL__ |
++---------+----------+
+</code></pre></div>
+<h2 id="tointeger">toInteger()<a class="headerlink" href="#tointeger" title="Permanent link">&para;</a></h2>
+<p>toInteger() converts a floating point or string value to an integer value.</p>
+<p>Syntax: <code>toInteger(&lt;value&gt;)</code></p>
+<ul>
+<li>Result type: Int</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toInteger(1), toInteger(&#39;1&#39;), toInteger(&#39;1e3&#39;), toInteger(&#39;not a number&#39;);
++--------------+----------------+------------------+---------------------------+
+| toInteger(1) | toInteger(&quot;1&quot;) | toInteger(&quot;1e3&quot;) | toInteger(&quot;not a number&quot;) |
++--------------+----------------+------------------+---------------------------+
+| 1            | 1              | 1000             | __NULL__                  |
++--------------+----------------+------------------+---------------------------+
+</code></pre></div>
+<h2 id="toset">toSet()<a class="headerlink" href="#toset" title="Permanent link">&para;</a></h2>
+<p>toSet() converts a list or set value to a set value.</p>
+<p>Syntax: <code>toSet(&lt;value&gt;)</code></p>
+<ul>
+<li>Result type: Set</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toSet(list[1,2,3,1,2]) AS list2set;
++-----------+
+| list2set  |
++-----------+
+| {3, 1, 2} |
++-----------+
+</code></pre></div>
+<h2 id="hash">hash()<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h2>
+<p>hash() returns the hash value of the argument. The argument can be a number, a string, a list, a boolean, null, or an expression that evaluates to a value of the preceding data types.</p>
+<p>The source code of the <code>hash()</code> function (MurmurHash2), seed (<code>0xc70f6907UL</code>), and other parameters can be found in <a href="https://github.com/vesoft-inc/nebula/blob/master/src/common/base/MurmurHash2.h"><code>MurmurHash2.h</code></a>.</p>
+<p>For Java, the hash function operates as follows.</p>
+<div class="highlight"><pre><span></span><code><span class="n">MurmurHash2</span><span class="p">.</span><span class="na">hash64</span><span class="p">(</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">().</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="mh">0xc70f6907</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Syntax: <code>hash(&lt;string&gt;)</code></p>
+<ul>
+<li>Result type: Int</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN hash(&quot;abcde&quot;);
++--------------------+
+| hash(&quot;abcde&quot;)      |
++--------------------+
+| 811036730794841393 |
++--------------------+
+nebula&gt; YIELD hash([1,2,3]);
++----------------+
+| hash([1,2,3])  |
++----------------+
+| 11093822460243 |
++----------------+
+nebula&gt; YIELD hash(NULL);
 +------------+
-| collect(a) |
+| hash(NULL) |
 +------------+
-| [1, 2, 1]  |
+| -1         |
 +------------+
-
-nebula&gt; UNWIND [1, 2, 1] AS a \
-        RETURN a, collect(a), size(collect(a));
-+---+------------+------------------+
-| a | collect(a) | size(COLLECT(a)) |
-+---+------------+------------------+
-| 2 | [2]        | 1                |
-| 1 | [1, 1]     | 2                |
-+---+------------+------------------+
-
-# The following examples sort the results in descending order, limit output rows to 3, and collect the output into a list.œ
-nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] AS p \
-        WITH p AS q \
-        ORDER BY q DESC LIMIT 3 \
-        RETURN collect(q);
-+-----------------+
-| collect(q)      |
-+-----------------+
-| [&quot;d&quot;, &quot;c&quot;, &quot;b&quot;] |
-+-----------------+
-
-nebula&gt; WITH [1, 1, 2, 2] AS coll \
-        UNWIND coll AS x \
-        WITH DISTINCT x \
-        RETURN collect(x) AS ss;
-+--------+
-| ss     |
-+--------+
-| [1, 2] |
-+--------+
-
-nebula&gt; MATCH (n:player) \
-        RETURN collect(n.player.age);
-+---------------------------------------------------------------+
-| collect(n.player.age)                                         |
-+---------------------------------------------------------------+
-| [32, 32, 34, 29, 41, 40, 33, 25, 40, 37, ...
-...
-
-# The following example aggregates all the players&#39; names by their ages.
-nebula&gt; MATCH (n:player) \
-        RETURN n.player.age AS age, collect(n.player.name);
-+-----+--------------------------------------------------------------------------+
-| age | collect(n.player.name)                                                   |
-+-----+--------------------------------------------------------------------------+
-| 24  | [&quot;Giannis Antetokounmpo&quot;]                                                |
-| 20  | [&quot;Luka Doncic&quot;]                                                          |
-| 25  | [&quot;Joel Embiid&quot;, &quot;Kyle Anderson&quot;]                                         |
-+-----+--------------------------------------------------------------------------+
-...
+nebula&gt; YIELD hash(toLower(&quot;HELLO NEBULA&quot;));
++-------------------------------+
+| hash(toLower(&quot;HELLO NEBULA&quot;)) |
++-------------------------------+
+| -8481157362655072082          |
++-------------------------------+
 </code></pre></div>
 
   <hr>
@@ -6369,7 +6452,7 @@ nebula&gt; MATCH (n:player) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 22, 2022</span>
       
     
   </small>
@@ -6396,7 +6479,7 @@ nebula&gt; MATCH (n:player) \
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../7.count/" class="md-footer__link md-footer__link--prev" aria-label="Previous: count()" rel="prev">
+        <a href="../6.list/" class="md-footer__link md-footer__link--prev" aria-label="Previous: List functions" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -6405,20 +6488,20 @@ nebula&gt; MATCH (n:player) \
               <span class="md-footer__direction">
                 Previous
               </span>
-              count()
+              List functions
             </div>
           </div>
         </a>
       
       
         
-        <a href="../12.hash/" class="md-footer__link md-footer__link--next" aria-label="Next: hash()" rel="next">
+        <a href="../5.conditional-expressions/" class="md-footer__link md-footer__link--next" aria-label="Next: Conditional expressions" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              hash()
+              Conditional expressions
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -6465,10 +6548,10 @@ nebula&gt; MATCH (n:player) \
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a877e258.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.0238f547.min.js"></script>
       
         <script src="../../../js/jquery.js"></script>
       

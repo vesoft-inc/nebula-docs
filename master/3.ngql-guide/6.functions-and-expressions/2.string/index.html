@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.nebula-graph.io/master/3.ngql-guide/6.functions-and-expressions/2.string/">
       
       <link rel="icon" href="../../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.7">
     
     
       
@@ -1223,6 +1223,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../15.aggregating/" class="md-nav__link">
+        Aggregate functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -1384,15 +1398,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tostring" class="md-nav__link">
-    toString()
+  <a href="#concat" class="md-nav__link">
+    concat()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hash" class="md-nav__link">
-    hash()
+  <a href="#concat_ws" class="md-nav__link">
+    concat_ws()
   </a>
   
 </li>
@@ -1454,8 +1468,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../5.case-expressions/" class="md-nav__link">
-        Case expressions
+      <a href="../16.type-conversion/" class="md-nav__link">
+        Type conversion functions
       </a>
     </li>
   
@@ -1468,50 +1482,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.count/" class="md-nav__link">
-        count()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../10.collect/" class="md-nav__link">
-        collect()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../12.hash/" class="md-nav__link">
-        hash()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../13.concat/" class="md-nav__link">
-        concat()
+      <a href="../5.conditional-expressions/" class="md-nav__link">
+        Conditional expressions
       </a>
     </li>
   
@@ -6524,15 +6496,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tostring" class="md-nav__link">
-    toString()
+  <a href="#concat" class="md-nav__link">
+    concat()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hash" class="md-nav__link">
-    hash()
+  <a href="#concat_ws" class="md-nav__link">
+    concat_ws()
   </a>
   
 </li>
@@ -6905,45 +6877,99 @@ nebula&gt; RETURN substr(&quot;abcdefg&quot;,2);
 | [&quot;b&quot;, &quot;sketb&quot;, &quot;llpl&quot;, &quot;yer&quot;] |
 +-------------------------------+
 </code></pre></div>
-<h2 id="tostring">toString()<a class="headerlink" href="#tostring" title="Permanent link">&para;</a></h2>
-<p>toString() takes in any non-compound data type and converts it into a string.</p>
-<p>Syntax: <code>toString(&lt;value&gt;)</code></p>
+<h2 id="concat">concat()<a class="headerlink" href="#concat" title="Permanent link">&para;</a></h2>
+<p>concat() returns strings concatenated by all strings.</p>
+<p>Syntax: <code>concat(&lt;string1&gt;,&lt;string2&gt;,...)</code></p>
 <ul>
-<li><code>value</code>: The data to be converted.</li>
+<li>The function requires at least two or more strings. If there is only one string, the string itself is returned.</li>
+</ul>
+<ul>
+<li>If any one of the strings is <code>NULL</code>, <code>NULL</code> is returned.</li>
 </ul>
 <ul>
 <li>Result type: String</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toString(true);
-+----------------+
-| toString(true) |
-+----------------+
-| &quot;true&quot;         |
-+----------------+
-nebula&gt; RETURN toString(12345);
-+-----------------+
-| toString(12345) |
-+-----------------+
-| &quot;12345&quot;         |
-+-----------------+
+<div class="highlight"><pre><span></span><code>//This example concatenates 1, 2, and 3.
+nebula&gt; RETURN concat(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;) AS r;
++-------+
+| r     |
++-------+
+| &quot;123&quot; |
++-------+
+
+//In this example, one of the string is NULL.
+nebula&gt; RETURN concat(&quot;1&quot;,&quot;2&quot;,NULL) AS r;
++----------+
+| r        |
++----------+
+| __NULL__ |
++----------+
+
+nebula&gt; GO FROM &quot;player100&quot; over follow \
+        YIELD concat(src(edge), properties($^).age, properties($$).name, properties(edge).degree) AS A;
++------------------------------+
+| A                            |
++------------------------------+
+| &quot;player10042Tony Parker95&quot;   |
+| &quot;player10042Manu Ginobili95&quot; |
++------------------------------+
 </code></pre></div>
-<h2 id="hash">hash()<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h2>
-<p>hash() takes in a specified string and encodes it into a hash value.</p>
-<p>Syntax: <code>hash(&lt;string&gt;)</code></p>
+<h2 id="concat_ws">concat_ws()<a class="headerlink" href="#concat_ws" title="Permanent link">&para;</a></h2>
+<p>concat_ws() returns strings concatenated by all strings that are delimited with a separator.</p>
+<p>Syntax: <code>concat_ws(&lt;separator&gt;,&lt;string1&gt;,&lt;string2&gt;,... )</code></p>
 <ul>
-<li><code>string</code>: A specified string.</li>
+<li>The function requires at least two or more strings.</li>
 </ul>
 <ul>
-<li>Result type: Int</li>
+<li>If the separator is <code>NULL</code>, the <code>concat_ws()</code> function returns <code>NULL</code>.</li>
+</ul>
+<ul>
+<li>If the separator is not <code>NULL</code> and there is only one string, the string itself is returned.</li>
+</ul>
+<ul>
+<li>If there is a <code>NULL</code> in the strings, <code>NULL</code> is ignored during the concatenation.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN hash(&quot;abcde&quot;);
-+--------------------+
-| hash(&quot;abcde&quot;)      |
-+--------------------+
-| 811036730794841393 |
-+--------------------+
+<div class="highlight"><pre><span></span><code>//This example concatenates a, b, and c with the separator +.
+nebula&gt; RETURN concat_ws(&quot;+&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;) AS r;
++---------+
+| r       |
++---------+
+| &quot;a+b+c&quot; |
++---------+
+
+//In this example, the separator is NULL.
+neubla&gt; RETURN concat_ws(NULL,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;) AS r;
++----------+
+| r        |
++----------+
+| __NULL__ |
++----------+
+
+//In this example, the separator is + and there is a NULL in the strings.
+nebula&gt; RETURN concat_ws(&quot;+&quot;,&quot;a&quot;,NULL,&quot;b&quot;,&quot;c&quot;) AS r;
++---------+
+| r       |
++---------+
+| &quot;a+b+c&quot; |
++---------+
+
+//In this example, the separator is + and there is only one string.
+nebula&gt; RETURN concat_ws(&quot;+&quot;,&quot;a&quot;) AS r;
++-----+
+| r   |
++-----+
+| &quot;a&quot; |
++-----+
+nebula&gt; GO FROM &quot;player100&quot; over follow \
+        YIELD concat_ws(&quot; &quot;,src(edge), properties($^).age, properties($$).name, properties(edge).degree) AS A;
++---------------------------------+
+| A                               |
++---------------------------------+
+| &quot;player100 42 Tony Parker 95&quot;   |
+| &quot;player100 42 Manu Ginobili 95&quot; |
++---------------------------------+
 </code></pre></div>
 
   <hr>
@@ -6951,7 +6977,7 @@ nebula&gt; RETURN toString(12345);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 10, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 22, 2022</span>
       
     
   </small>
@@ -6978,7 +7004,7 @@ nebula&gt; RETURN toString(12345);
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../1.math/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Math functions" rel="prev">
+        <a href="../15.aggregating/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Aggregate functions" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -6987,7 +7013,7 @@ nebula&gt; RETURN toString(12345);
               <span class="md-footer__direction">
                 Previous
               </span>
-              Math functions
+              Aggregate functions
             </div>
           </div>
         </a>
@@ -7047,10 +7073,10 @@ nebula&gt; RETURN toString(12345);
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a877e258.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.0238f547.min.js"></script>
       
         <script src="../../../js/jquery.js"></script>
       

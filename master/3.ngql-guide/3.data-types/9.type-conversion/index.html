@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.nebula-graph.io/master/3.ngql-guide/3.data-types/9.type-conversion/">
       
       <link rel="icon" href="../../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.7">
     
     
       
@@ -964,13 +964,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#type_coercions_functions" class="md-nav__link">
-    Type coercions functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -1273,6 +1266,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../6.functions-and-expressions/15.aggregating/" class="md-nav__link">
+        Aggregate functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../6.functions-and-expressions/2.string/" class="md-nav__link">
         String functions
       </a>
@@ -1329,8 +1336,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/5.case-expressions/" class="md-nav__link">
-        Case expressions
+      <a href="../../6.functions-and-expressions/16.type-conversion/" class="md-nav__link">
+        Type conversion functions
       </a>
     </li>
   
@@ -1343,50 +1350,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/7.count/" class="md-nav__link">
-        count()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/10.collect/" class="md-nav__link">
-        collect()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/12.hash/" class="md-nav__link">
-        hash()
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/13.concat/" class="md-nav__link">
-        concat()
+      <a href="../../6.functions-and-expressions/5.conditional-expressions/" class="md-nav__link">
+        Conditional expressions
       </a>
     </li>
   
@@ -6274,13 +6239,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#type_coercions_functions" class="md-nav__link">
-    Type coercions functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -6307,41 +6265,7 @@
 
 <h1 id="type_conversiontype_coercions">Type Conversion/Type coercions<a class="headerlink" href="#type_conversiontype_coercions" title="Permanent link">&para;</a></h1>
 <p>Converting an expression of a given type to another type is known as type conversion.</p>
-<h2 id="type_coercions_functions">Type coercions functions<a class="headerlink" href="#type_coercions_functions" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>toBoolean()</td>
-<td>Converts a string value to a boolean value.</td>
-</tr>
-<tr>
-<td>toFloat()</td>
-<td>Converts an integer or string value to a floating point number.</td>
-</tr>
-<tr>
-<td>toInteger()</td>
-<td>Converts a floating point or string value to an integer value.</td>
-</tr>
-<tr>
-<td>toString()</td>
-<td>Converts non-compound types of data, such as numbers, booleans, and so on, to strings.</td>
-</tr>
-<tr>
-<td>toSet()</td>
-<td>Converts a list or set value to a set value.</td>
-</tr>
-<tr>
-<td>type()</td>
-<td>Returns the string representation of the relationship type.</td>
-</tr>
-</tbody>
-</table>
+<p>Nebula Graph supports converting expressions explicit to other types. For details, see <a href="../../6.functions-and-expressions/16.type-conversion/">Type conversion functions</a>.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b \
         RETURN toBoolean(b) AS b;
@@ -6361,61 +6285,6 @@ nebula&gt; RETURN toFloat(1), toFloat(&#39;1.3&#39;), toFloat(&#39;1e3&#39;), to
 +------------+----------------+----------------+-------------------------+
 | 1.0        | 1.3            | 1000.0         | __NULL__                |
 +------------+----------------+----------------+-------------------------+
-
-nebula&gt; RETURN toInteger(1), toInteger(&#39;1&#39;), toInteger(&#39;1e3&#39;), toInteger(&#39;not a number&#39;);
-+--------------+----------------+------------------+---------------------------+
-| toInteger(1) | toInteger(&quot;1&quot;) | toInteger(&quot;1e3&quot;) | toInteger(&quot;not a number&quot;) |
-+--------------+----------------+------------------+---------------------------+
-| 1            | 1              | 1000             | __NULL__                  |
-+--------------+----------------+------------------+---------------------------+
-
-nebula&gt; MATCH (a:player)-[e]-() \
-        RETURN type(e);
-+----------+
-| type(e)  |
-+----------+
-| &quot;follow&quot; |
-| &quot;follow&quot; |
-+----------+
-
-nebula&gt; MATCH (a:player {name: &quot;Tim Duncan&quot;}) \
-        WHERE toInteger(right(id(a),3)) == 100 \
-        RETURN a;
-+----------------------------------------------------+
-| a                                                  |
-+----------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
-+----------------------------------------------------+
-
-nebula&gt; MATCH (n:player) \
-        WITH n LIMIT toInteger(ceil(1.8)) \
-        RETURN count(*) AS count;
-+-------+
-| count |
-+-------+
-| 2     |
-+-------+
-
-nebula&gt; RETURN toString(9669) AS int2str, toString(null) AS null2str;
-+---------+----------+
-| int2str | null2str |
-+---------+----------+
-| &quot;9669&quot;  | __NULL__ |
-+---------+----------+
-
-nebula&gt; RETURN toSet(list[1,2,3,1,2]) AS list2set;
-+-----------+
-| list2set  |
-+-----------+
-| {3, 1, 2} |
-+-----------+
-
-nebula&gt; RETURN toSet(set{1,2,3,1,2}) AS set2set;
-+-----------+
-| set2set   |
-+-----------+
-| {3, 2, 1} |
-+-----------+
 </code></pre></div>
 
   <hr>
@@ -6423,7 +6292,7 @@ nebula&gt; RETURN toSet(set{1,2,3,1,2}) AS set2set;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 31, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 22, 2022</span>
       
     
   </small>
@@ -6519,10 +6388,10 @@ nebula&gt; RETURN toSet(set{1,2,3,1,2}) AS set2set;
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a877e258.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.0238f547.min.js"></script>
       
         <script src="../../../js/jquery.js"></script>
       
