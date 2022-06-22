@@ -101,7 +101,7 @@ The data model property graph was first conceived in 2000. The founders of Neo4j
 
 Although this network model greatly improved productivity, its performance has been poor. So Johan Svensson, Neo4j co-founder, put a lot of effort into implementing a native data management system, that is Neo4j. For the first few years, Neo4j was successful as an in-house product. In 2007, the intellectual property of Neo4j was transferred to an independent database company. 
 
-In the first public release of Neo4j ( Neo4j 1.4，2011), the data model was consisted of vertices and typed edges. Vertices and edges have properties. The early versions of Neo4j did not have indexes. Applications had to construct their search structure from the root vertex. Because this was very unwieldy for the applications, Neo4j 2.0 (2013.12) introduced a new concept label on vertices. Based on labels, Neo4j can index some predefined vertex properties.
+In the first public release of Neo4j ( Neo4j 1.4, 2011), the data model was consisted of vertices and typed edges. Vertices and edges have properties. The early versions of Neo4j did not have indexes. Applications had to construct their search structure from the root vertex. Because this was very unwieldy for the applications, Neo4j 2.0 (2013.12) introduced a new concept label on vertices. Based on labels, Neo4j can index some predefined vertex properties.
 
 "Vertex", "Relationship", "Property", "Relationships can only have one label.", "Vertices can have zero or multiple labels.". All these concepts form the data model definitions for Neo4j property graphs. With the later addition of indexing, Cypher became the main way of interacting with Neo4j. This is because the application developer only needs to focus on the data itself, not on the search structure that the developer built himself as mentioned above.
 
@@ -180,7 +180,7 @@ Strictly speaking, Neo4j also offers several distributed capabilities, which are
   Return movie.title AS title
       UNION   
   USE graphB  
-  MATCH （move:Movie)
+  MATCH (move:Movie)
   RETURN movie.title AS title
   ```
 
@@ -198,7 +198,7 @@ The following picture shows the growth of Titan and Neo4j stars on Github.com fr
 
 After Aurelius (Titan) was acquired by DataStax in 2015, Titan was gradually transformed into a closed-source commercial product(DataStax Enterprise Graph).
 
-After the acquisition of Aurelius(Titan), there has been a strong demand for an open-source distributed graph database, and there were not many mature and active products in the market. In the era of big data, data is still being generated in a steady stream, far faster than Moore's Law. The Linux Foundation, along with some technology giants (Expero, Google, GRAKN.AI, Hortonworks, IBM, and Amazon) replicated and forked the original Titan project and started it as a new project  JanusGraph[^Janus]. Most of the community work including development, testing, release, and promotion, has been gradually shifted to the new JanusGraph。
+After the acquisition of Aurelius(Titan), there has been a strong demand for an open-source distributed graph database, and there were not many mature and active products in the market. In the era of big data, data is still being generated in a steady stream, far faster than Moore's Law. The Linux Foundation, along with some technology giants (Expero, Google, GRAKN.AI, Hortonworks, IBM, and Amazon) replicated and forked the original Titan project and started it as a new project  JanusGraph[^Janus]. Most of the community work including development, testing, release, and promotion, has been gradually shifted to the new JanusGraph.
 
 [^Janus]: https://github.com/JanusGraph/janusgraph
 

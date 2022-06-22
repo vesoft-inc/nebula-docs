@@ -10,7 +10,7 @@ In Nebula Graph {{ nebula.release }}, a `vertex` and its `properties` form a `ke
 
 Therefore, `directed traversals from this vertex` and `directed traversals ending at this vertex` both involve either `a large number of sequential IO scans` (ideally, after [Compaction](../8.service-tuning/compaction.md) or a large number of `random IO` (frequent writes to `the vertex` and its `ingoing and outgoing edges`).
 
-As a rule of thumb, a vertex is considered dense when the number of its edges exceeds 10,000. Some special cases require additional consideration。
+As a rule of thumb, a vertex is considered dense when the number of its edges exceeds 10,000. Some special cases require additional consideration.
 
 !!! Note
 

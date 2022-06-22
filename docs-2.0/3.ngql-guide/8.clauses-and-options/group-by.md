@@ -6,7 +6,7 @@ The `GROUP BY` clause can be used to aggregate data.
 
 This topic applies to native nGQL only.
 
-You can also use the [count()](../6.functions-and-expressions/7.count.md) function to aggregate data.
+You can also use the [count()](../6.functions-and-expressions/15.aggregating.md) function to aggregate data.
 
 ```ngql
 nebula>  MATCH (v:player)<-[:follow]-(:player) RETURN v.player.name AS Name, count(*) as cnt ORDER BY cnt DESC;

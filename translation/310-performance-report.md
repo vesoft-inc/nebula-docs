@@ -63,7 +63,7 @@ MATCH (m)-[:KNOWS]-(n) WHERE id(m)=={} OPTIONAL MATCH (n)<-[:KNOWS]-(l) RETURN l
 
 MATCH (m)-[:KNOWS]-(n) WHERE id(m)=={} MATCH (n)-[:KNOWS]-(l) WITH m AS x, n AS y, l RETURN x.Person.firstName AS n1, y.Person.firstName AS n2, CASE WHEN l.Person.firstName is not null THEN l.Person.firstName WHEN l.Person.gender is not null THEN l.Person.birthday ELSE 'null' END AS n3 ORDER BY n1, n2, n3 LIMIT 10
 
-## 3.1.0 vs 3.0.0（Baseline）
+## 3.1.0 vs 3.0.0 (Baseline)
 
 The following test data selects the value of P99.
 
