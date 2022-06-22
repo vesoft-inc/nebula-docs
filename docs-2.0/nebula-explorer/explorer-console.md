@@ -9,7 +9,7 @@ Explorer console allows you to enter nGQL statements and import the query result
 ## Enter nGQL statements
 
 1. In the left-side navigation bar, click ![console_input](figs/nav-console.png).
-2. In the input box of the console page, enter nGQL statements. For more information, see [nGQL cheatsheet](../2.quick-start/6.cheatsheet-for-ngql-command.md).
+2. In the input box of the console page, enter nGQL statements. For more information, see [nGQL cheatsheet](../2.quick-start/6.cheatsheet-for-ngql.md).
 3. Click the execution icon ![run](figs/console_run.png).
 4. (Optional) Click ![history](figs/console_history.png) to view commands executed before.
 5. (Optional) Click ![clear](figs/console_delete.png) to clear the current statement in the input box.
