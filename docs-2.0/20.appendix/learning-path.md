@@ -241,3 +241,11 @@ You can check if you have mastered Nebula Graph by completing the following prac
   | Import LDBC data                                          | [Nebula Graph 1.0 Benchmark Report based on the LDBC Dataset](https://nebula-graph.io/posts/nebula-graph-1.0-benchmark-report/)                                                           |
   | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 
+
+## 8. Get Nebula Graph Certifications
+
+Now you could get Nebula Graph Certifications from [Nebula Academy](https://academic.nebula-graph.io).
+
+- Nebula Graph Certified Insider(NGCI): The NGCI certification provides a birdview to graph databases and the Nebula Graph database. Passing NGCI shows that you have a good understanding of Nebula Graph.
+
+- Nebula Graph Certified Professional(NGCP): The NGCP certification drives you deep into the Nebula Graph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of Nebula Graph.
