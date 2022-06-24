@@ -8,7 +8,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 ## Getting started
 
-* [Learning path](20.appendix/learning-path.md)
+* [Learning path](20.appendix/learning-path.md) & [Get Nebula Graph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start](2.quick-start/1.quick-start-workflow.md)
 * [Preparations before deployment](4.deployment-and-installation/1.resource-preparations.md)
