@@ -243,7 +243,6 @@ You can check if you have mastered Nebula Graph by completing the following prac
   | Compile the source code of Nebula Graph                                                | [Install Nebula Graph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)                                                             |
   | Deploy Studio, Dashboard, and Explorer             | [Deploy Studio](../nebula-studio/deploy-connect/st-ug-deploy.md), [Deploy Dashboard](../nebula-dashboard/2.deploy-dashboard.md), and [Deploy Explorer](../nebula-explorer/deploy-connect/ex-ug-deploy.md)                                                            |
   | Load test Nebula Graph with K6                               | [Nebula Bench](../nebula-bench.md) |
-  | Import LDBC data                                          | [Nebula Graph 1.0 Benchmark Report based on the LDBC Dataset](https://nebula-graph.io/posts/nebula-graph-1.0-benchmark-report/)                                                           |
   | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 
 
