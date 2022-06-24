@@ -128,6 +128,11 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | ------------------------------------------------------------ |
   |[Create snapshots](../backup-and-restore/3.manage-snapshot.md)|
 
+- Backup & Restore
+
+  | Document |
+  | ------------------------------------------------------------ |
+  |[Backup&Restore](../backup-and-restore/nebula-br/1.what-is-br.md)|
 <!--
 - Resource isolation
 
@@ -160,8 +165,8 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data visualization     | [Nebula Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | -|
-  | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
+  | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | [Nebula Dashboard](https://www.youtube.com/watch?v=S9gmYcNXwVY)|
+  | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | [Nebula Explorer](https://www.youtube.com/watch?v=1Hj5puN9jeg)                      |
 
 
 - Data import and export
