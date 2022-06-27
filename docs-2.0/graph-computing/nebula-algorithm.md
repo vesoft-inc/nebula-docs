@@ -41,11 +41,11 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 | Algorithm | Description| Scenario|   Properties name      |Properties type|
 | :-- |:--  | :--|:--|:--|
 | PageRank  | The rank of pages| Web page ranking, key node mining|      pagerank        |double/string|
-| Louvain   | Community discovery | Community mining, hierarchical clustering|         louvain        | int/string  |
+| Louvain   | Louvain | Community mining, hierarchical clustering|         louvain        | int/string  |
 | KCore     | K core | Community discovery, financial risk control|  kcore         | int/string  |
 | LabelPropagation | Label propagation | Information spreading, advertising, and community discovery|      lpa           | int/string  |
 | Hanp |Label propagation advanced |Community discovery, recommendation system |       hanp         | int/string  |
-| ConnectedComponent | Connected component | Community discovery, island discovery|         cc           | int/string  |
+| ConnectedComponent | Weakly connected component | Community discovery, island discovery|         cc           | int/string  |
 | StronglyConnectedComponent |Strongly connected component  | Community discovery |         scc          | int/string  |
 | ShortestPath     |The shortest path | Path planning, network planning |     shortestpath     |   string    |
 | TriangleCount    |Triangle counting | Network structure analysis|       trianglecount     | int/string  |
