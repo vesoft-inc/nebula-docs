@@ -8,6 +8,7 @@ Add the Storage hosts to a Nebula Graph cluster.
 
 ```ngql
 ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
+ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 ```
 
 !!! note
@@ -15,6 +16,8 @@ ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
     - To make sure the follow-up operations work as expected, wait for two heartbeat cycles, i.e., 20 seconds, and then run `SHOW HOSTS` to check whether the host is online.
 
     - Make sure that the IP address and port number are the same as those in the configuration file. For example, the default IP address and port number in standalone deployment are `127.0.0.1:9779`.
+
+    - When using a domain name, enclose it in quotation marks, for example, `ADD HOSTS "foo-bar":9779`.
 
 ## Drop Storage hosts
 
@@ -26,4 +29,5 @@ Delete the Storage hosts from cluster.
 
 ```ngql
 DROP HOSTS <ip>:<port> [,<ip>:<port> ...];
+DROP HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 ```
