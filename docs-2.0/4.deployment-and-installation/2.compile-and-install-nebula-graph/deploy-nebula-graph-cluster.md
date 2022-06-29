@@ -27,7 +27,14 @@ Install Nebula Graph on each machine in the cluster. Available approaches of ins
 
 * [Install Nebula Graph by compiling the source code](1.install-nebula-graph-by-compiling-the-source-code.md)
 
-### Step 2: Modify the configurations
+
+### Step 2. Add a license (for the Enterprise Edition only).
+
+- Adding a license is only required when you deploy a Nebula Graph cluster with the Enterprise Edition. For details, see [Deploy a license for Nebula Graph Enterprise Edition](../../4.deployment-and-installation/deploy-license.md).
+
+- Skip this step when you deploy a cluster with the Community Edition.
+
+### Step 3: Modify the configurations
 
 To deploy Nebula Graph according to your requirements, you have to modify the configuration files.
 
@@ -255,7 +262,7 @@ Users can refer to the content of the following configurations, which only show 
     --port=9779
     ```
 
-### Step 3: Start the cluster
+### Step 4: Start the cluster
 
 Start the corresponding service on **each machine**. Descriptions are as follows.
 
@@ -281,7 +288,7 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
     - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../manage-service.md).
 
-### Step 4: Check the cluster status
+### Step 5: Check the cluster status
 
 Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, run `ADD HOSTS` command to add storage hosts, and run `SHOW HOSTS` to check the cluster status. For example:
 
