@@ -32,11 +32,11 @@ Before deploying Explorer, you must check the following information:
         By default, Explorer uses the port `7002`. You can modify the `httpport` in the `conf/app.conf` file in the installation directory and restart the service.
 
 - The Linux distribution is CentOS.
-- The license is ready.
+- The [license](3.explorer-license.md) is ready.
 
   !!! enterpriseonly
 
-        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform).
+        License is only available in the Enterprise Edition. To obtain the license, apply for [Nebula Explorer Free Trial](https://nebula-graph.io/visualization-tools-free-trial).
 
 ## RPM-based deployment
 
@@ -46,7 +46,7 @@ Before deploying Explorer, you must check the following information:
 
   !!! enterpriseonly
 
-        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
+        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
@@ -112,7 +112,7 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
   !!! enterpriseonly
 
-        You can [apply online](https://docs.google.com/forms/d/e/1FAIpQLSctV0HC0HDxZc-65IHj44qpZk3fATBPAYM1SjJsbXmdL5cs9w/viewform) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
+        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 
 2. Run `sudo dpkg -i <package_name>` to unpack the DEB package.
