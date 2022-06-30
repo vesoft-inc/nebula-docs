@@ -76,7 +76,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green">
+    <body dir="ltr" data-md-color-scheme="nebula" data-md-color-primary="" data-md-color-accent="">
   
     
     
@@ -137,7 +137,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="nebula" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -146,7 +146,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -4837,6 +4837,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#version_upgrade" class="md-nav__link">
+    Version Upgrade
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6383,6 +6390,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#version_upgrade" class="md-nav__link">
+    Version Upgrade
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6402,7 +6416,7 @@
 
 
 <h1 id="cluster_operation">Cluster operation<a class="headerlink" href="#cluster_operation" title="Permanent link">&para;</a></h1>
-<p>This topic introduces the cluster operation of Dashboard, including cluster node, cluster service, cluster scaling, service configuration, and member management.</p>
+<p>This topic introduces the cluster operation of Dashboard, including cluster node, cluster service, cluster scaling, service configuration, member management and version upgrade.</p>
 <h2 id="node">Node<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
 <p>On this page, the information of all nodes will be shown, including the cluster name, Host(SSH_User), CPU (Core), etc.</p>
 <ul>
@@ -6491,13 +6505,52 @@
 <li>At the top right of the <strong>Member Management</strong> page, you can search for cluster members.</li>
 <li>Click <img alt="delete" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" /> to delete members.</li>
 </ul>
+<h2 id="version_upgrade">Version Upgrade<a class="headerlink" href="#version_upgrade" title="Permanent link">&para;</a></h2>
+<p>Nebula Dashboard Enterprise Edition supports upgrading the version of the existing Nebula Graph cluster.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>During the upgrade, the cluster will replace binary files. The upgrade speed is fast, but the cluster will still be stopped and restarted.</li>
+<li>Automatic rollback is not supported. Users can manually upgrade the cluster again when the upgrade failed.</li>
+<li>The upgrade cannot be stopped or cancelled.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Only supports upgrading the Nebula Graph cluster that version greater than <strong>3.0.0</strong>.</li>
+<li>Do not supports upgrading cluster across major version.</li>
+<li>The community edition can be upgraded to the enterprise edition by uploading and verifying licenses, and the enterprise edition can be upgraded to the community edition.</li>
+<li>The cluster can be upgraded to a minor version in the current major version, including a smaller version than the current minor version.</li>
+</ul>
+</div>
+<ol>
+<li>At the top navigation bar of the Dashboard Enterprise Edition page, click <strong>Cluster Management</strong>.</li>
+<li>On the right side of the target cluster, click <strong>Detail</strong>.</li>
+<li>On the left-side navigation bar of the page, click <strong>Operation</strong>-&gt;<strong>Version Upgrade</strong>.</li>
+<li>
+<p>On the <strong>Version Upgrade</strong> page, confirm <strong>Current Nebula Graph version</strong>, select the upgrade version and then click <strong>Next</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you do not find the suitable version, click <strong>Package Management</strong> to download or upload the required version installation package. For details, see <a href="../11.manage-package.md">Package management</a>.</p>
+</div>
+</li>
+<li>
+<p>Perform the upgrade check, and then click <strong>Next</strong>.
+   The cluster will be shut down during the upgrade and automatically restart the services after the upgrade. You can use the <strong>diagnostics report</strong> to help you judge whether the timing to upgrade is suitable.</p>
+</li>
+<li>
+<p>Confirm the upgrade information again, including <strong>Cluster Name</strong>, <strong>Current Nebula Graph Version</strong> and <strong>Upgrade Nebula Graph Version</strong>, then click <strong>Upgrade</strong>.
+   Users can view the upgrade task information in <a href="../../10.tasks/">task center</a>, the task type is <code>version update</code>.</p>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 30, 2022</span>
       
     
   </small>
