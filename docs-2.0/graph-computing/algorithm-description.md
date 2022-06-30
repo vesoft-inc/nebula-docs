@@ -1,6 +1,6 @@
 # Algorithm overview
 
-Graph computing can detect the graph structure, such as the detection of the community in the graph, the division of the graph, etc., and also reveal the inherent characteristics of the correlation between various vertexes, such as the centrality and similarity of the vertexes. This topic introduces relevant algorithms and parameters.
+Graph computing can detect the graph structure, such as the communities in a graph and the division of a graph. It can also reveal the inherent characteristics of the correlation between various vertexes, such as the centrality and similarity of the vertices. This topic introduces the algorithms and parameters supported by Nebula Graph.
 
 <!--
 Nebula Graph supports some graph computing tools. This topic describes the algorithms and parameters supported by these tools.
