@@ -61,7 +61,7 @@ Parameter descriptions are as follows:
 
   |Parameter|Predefined value|Description|
   |:--|:--|:--|
-  |`TYPE`|`vertex`| The calculation type. Optional values are `vertex` and `subgraph`. When `vertex`, the system calculates the number of cores for each vertex.|
+  |`TYPE`|`vertex`| The calculation type. Available values are `vertex` and `subgraph`. When set to `vertex`, the system calculates the number of cores for each vertex.|
   |`VERTICES`|`0`| The number of vertexes. If set to `0`, the system automatically calculates the value.|
   |`EDGES`|`0`| The number of edges. If set to `0`, the system automatically calculates the value.|
   |`KMIN`|`1`| Set the minimum value of K when range calculation. Takes effect only when `TYPE`=`subgraph`. |
