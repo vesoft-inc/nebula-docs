@@ -435,4 +435,4 @@ Parameter descriptions are as follows:
   |:--|:--|:--|
   |`IDS1`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It is not allowed to be empty.|
   |`IDS2`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It can be empty, and empty represents all vertexes.|
-  |`REMOVED_SELF_EDGE`|`true`|Whether to exclude self-loop edge.|
+  |`REMOVED_SELF_EDGE`|`true`|Whether to exclude self-loop edges.|
