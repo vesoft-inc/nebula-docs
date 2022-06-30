@@ -181,7 +181,7 @@ Parameter descriptions are as follows:
 
 ### SSSP
 
-The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (starting vertex) to other vertexes. It is usually used in scenarios such as network routing and path design.
+The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (starting vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.
 
 Parameter descriptions are as follows:
 
