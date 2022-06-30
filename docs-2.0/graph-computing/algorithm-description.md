@@ -308,7 +308,7 @@ Parameter descriptions are as follows:
 
 ### ConnectedComponent
 
-The ConnectedComponent algorithm is used to calculate a subgraph of a graph in which all vertexes are connected to each other. Strongly Connected Component is considered in the path direction, Weakly Connected Component is not considered in the path direction.
+The ConnectedComponent algorithm is used to calculate a subgraph of a graph in which all vertexes are connected to each other. Strongly Connected Component takes the path direction into account, while Weakly Connected Component does not.
 
 !!! note
 
