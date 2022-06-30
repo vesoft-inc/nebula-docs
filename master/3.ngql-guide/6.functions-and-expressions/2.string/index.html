@@ -1411,6 +1411,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#extract" class="md-nav__link">
+    extract()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6551,6 +6558,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#extract" class="md-nav__link">
+    extract()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7013,13 +7027,40 @@ nebula&gt; GO FROM &quot;player100&quot; over follow \
 | &quot;player100 42 Manu Ginobili 95&quot; |
 +---------------------------------+
 </code></pre></div>
+<h2 id="extract">extract()<a class="headerlink" href="#extract" title="Permanent link">&para;</a></h2>
+<p>extract() uses regular expression matching to retrieve a single substring or all substrings from a string.</p>
+<p>Syntax: <code>extract(&lt;string&gt;,"&lt;regular_expression&gt;")</code></p>
+<ul>
+<li><code>string</code>: A specified string</li>
+<li><code>regular_expression</code>: A regular expression</li>
+<li>Result type: List</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (a:player)-[b:serve]-(c:team{name: &quot;Lakers&quot;}) \
+        WHERE a.player.age &gt; 45 \
+        RETURN extract(a.player.name, &quot;\\w+&quot;) AS result;
++----------------------------+
+| result                     |
++----------------------------+
+| [&quot;Shaquille&quot;, &quot;O&quot;, &quot;Neal&quot;] |
++----------------------------+
+
+nebula&gt; MATCH (a:player)-[b:serve]-(c:team{name: &quot;Lakers&quot;}) \
+        WHERE a.player.age &gt; 45 \
+        RETURN extract(a.player.name, &quot;hello&quot;) AS result;
++--------+
+| result |
++--------+
+| []     |
++--------+
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 22, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 30, 2022</span>
       
     
   </small>
