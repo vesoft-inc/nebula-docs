@@ -39,7 +39,7 @@ Parameter descriptions are as follows:
   |:--|:--|:--|
   |`ITERATIONS`|`10`| The maximum number of iterations.|
   |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`EPS`|`0.0001`| The convergence accuracy. When the sum of the differences between the two iterations is less than this value, the iteration is not continued.|
+  |`EPS`|`0.0001`| The convergence accuracy. When the difference between the result of two iterations is less than the `EPS` value, the iteration is not continued.|
   |`DAMPING`|`0.85`| The damping coefficient. It is the jump probability after visiting a page.|
 
 ### KCore
