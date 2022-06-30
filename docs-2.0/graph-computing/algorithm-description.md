@@ -333,7 +333,7 @@ Parameter descriptions are as follows:
 
 ### Louvain
 
-The Louvain algorithm is a community discovery algorithm based on modularity. This algorithm performs well in efficiency and effect, and can find hierarchical community structure. Its optimization goal is to maximize the modularity of the whole community network. Modularity is used to distinguish the difference of link density within and between communities, and to measure how well each vertex divides the community. In general, a good clustering approach will result in more modularity within communities than between communities.
+The Louvain algorithm is a community discovery algorithm based on modularity. This algorithm performs well in efficiency and effect, and can be used to find hierarchical community structures. Its optimization goal is to maximize the modularity of the whole community network. Modularity is used to distinguish the differences in link density within and between communities, and to measure how well each vertex divides the community. In general, a good clustering approach will result in more modularity within communities than between communities.
 
 Parameter descriptions are as follows:
 
