@@ -161,7 +161,7 @@ Parameter descriptions are as follows:
   |:--|:--|:--|
   |`ITERATIONS`|`10`| The maximum number of iterations.|
   |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`NUM_SAMPLES`|`10`| The number of sampling vertexes.|
+  |`NUM_SAMPLES`|`10`| The number of sample vertices.|
 
 ## Path
 
