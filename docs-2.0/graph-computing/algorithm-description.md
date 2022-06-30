@@ -20,7 +20,7 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 
 ### PageRank
 
-The PageRank algorithm calculates the relevance and importance of vertexes based on their relationships, it is commonly used in search engine page rankings. If a page is linked by many other pages, the page is more important (PageRank value is higher), if a page with a high PageRank value links to other pages, the PageRank value of the linked page will increase.
+The PageRank algorithm calculates the relevance and importance of vertices based on their relationships. It is commonly used in search engine page rankings. If a page is linked by many other pages, the page is more important (PageRank value is higher). If a page with a high PageRank value links to other pages, the PageRank value of the linked pages will increase.
 
 Parameter descriptions are as follows:
 
