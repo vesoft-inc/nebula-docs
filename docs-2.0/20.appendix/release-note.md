@@ -36,31 +36,31 @@
 
 ### Bugfix
 
-- Fix the crash of web service when receiving some special attack messages. [#4334](https://github.com/vesoft-inc/nebula/pull/4334)
+- Fix the web service crash when receiving some special attack messages. [#4334](https://github.com/vesoft-inc/nebula/pull/4334)
 
-- Fix the crash of storage service when scanning property concurrently. [#4268](https://github.com/vesoft-inc/nebula/pull/4268)
+- Fix the storage service crash when scanning properties concurrently. [#4268](https://github.com/vesoft-inc/nebula/pull/4268)
 
-- Fix the crash of storage service when `INSERT` edge that exceeds length. [#4305](https://github.com/vesoft-inc/nebula/pull/4305)
+- Fix the storage service crash when the name length of the inserting edge that exceeds the limit. [#4305](https://github.com/vesoft-inc/nebula/pull/4305)
 
-- Fix the crash when enabling querry concurrently mode. [#4288](https://github.com/vesoft-inc/nebula/pull/4288)
+- Fix the crash when enabling the concurrent querry mode. [#4288](https://github.com/vesoft-inc/nebula/pull/4288)
 
-- Fix the crash of storage when lookup index with nullable property. [#4234](https://github.com/vesoft-inc/nebula/pull/4234)
+- Fix the storage service crash when lookup indexes with nullable property. [#4234](https://github.com/vesoft-inc/nebula/pull/4234)
 
-- Fix the bug that standalone daemon exit after restart. [#4269](https://github.com/vesoft-inc/nebula/pull/4269)
+- Fix the bug that standalone daemon exits after restart. [#4269](https://github.com/vesoft-inc/nebula/pull/4269)
 
-- Fix the bug that the result of dot format explanation of Join is malformed for GraphViz online tool, which caused by twice json converting. [#4280](https://github.com/vesoft-inc/nebula/pull/4280)
+- Fix the bug that the result of the Join dot format explanation is incorrect for GraphViz online tool, which caused by twice JSON conversions. [#4280](https://github.com/vesoft-inc/nebula/pull/4280)
 
-- Fix the bug in property lookup, disable the use of dot in schema. [#4194](https://github.com/vesoft-inc/nebula/pull/4194)
+- Fix the bug in property queries that the use of dot in schema is disabled. [#4194](https://github.com/vesoft-inc/nebula/pull/4194)
 
 - Fix the bug that the machine lost the key when restoring data. [#4311](https://github.com/vesoft-inc/nebula/pull/4311)
 
 - Fix the bug that using the same statement to return same vertex different properties, the results show `BAD TYPE`. [#4151](https://github.com/vesoft-inc/nebula/pull/4151)
 
-- Fix the error message in statement `MATCH p=(:team)-->() RETURN p LIMIT 1` without index. [#4053](https://github.com/vesoft-inc/nebula/pull/4053)
+- Fix the error message in statement `MATCH p=(:team)-->() RETURN p LIMIT 1` without indexes. [#4053](https://github.com/vesoft-inc/nebula/pull/4053)
 
-- Enhancement the error message for operator `AND` and `OR`. [#4304](https://github.com/vesoft-inc/nebula/pull/4304)
+- Enhance the error message for operators `AND` and `OR`. [#4304](https://github.com/vesoft-inc/nebula/pull/4304)
 
-- Fix the bug that no stats in index condition. [#4353](https://github.com/vesoft-inc/nebula/pull/4353)
+- Fix the bug that there are no stats under the condition of using indexes. [#4353](https://github.com/vesoft-inc/nebula/pull/4353)
 
 ## Legacy versions
 
