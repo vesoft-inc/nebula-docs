@@ -20,7 +20,7 @@
 
 - Eliminated the VID predication filter. [#4249](https://github.com/vesoft-inc/nebula/pull/4249)
 
-- Reduced the amount of data to be copied for Join operations when moving data. [#4283](https://github.com/vesoft-inc/nebula/pull/4283)
+- Reduced the amount of data to be copied for Join operations. [#4283](https://github.com/vesoft-inc/nebula/pull/4283)
 
 - Obtained property values through subscripts to reduce the time-consuming of property queries. [#4242](https://github.com/vesoft-inc/nebula/pull/4242)
 
@@ -28,7 +28,7 @@
 
 - Optimized the performance of `SUBGRAPH`. [#4226](https://github.com/vesoft-inc/nebula/pull/4226)
 
-- Reduced the amount of data to be copied for Traverse and AppendVertices operators when moving data. [#4176](https://github.com/vesoft-inc/nebula/pull/4176)
+- Reduced the amount of data to be copied for Traverse and AppendVertices operators. [#4176](https://github.com/vesoft-inc/nebula/pull/4176)
 
 - Enhanced optimization rules for removing invalid project operators. [#4157](https://github.com/vesoft-inc/nebula/pull/4157)
 

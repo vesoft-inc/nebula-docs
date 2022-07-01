@@ -10,6 +10,7 @@ Nebula Analytics is a high-performance graph computing framework tool that perfo
 
 You can import data from data sources as Nebula Graph clusters, CSV files on HDFS, or local CSV files into Nebula Analytics and export the graph computation results to Nebula Graph clusters, CSV files on HDFS, or local CSV files from Nebula Analytics.
 
+Nebula Analytics can perform complex graph computing with Dag Controller. For details, see [Dag Controller](0.deploy-controller-analytics.md).
 
 ## Limitations
 
@@ -22,6 +23,7 @@ The version correspondence between Nebula Analytics and Nebula Graph is as follo
 |Nebula Analytics|Nebula Graph|
 |:---|:---|
 |{{plato.release}}|{{nebula.release}}|
+|3.1.0|3.1.0|
 |1.0.x|3.0.x|
 |0.9.0|2.6.x|
 
