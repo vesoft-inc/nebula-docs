@@ -40,7 +40,7 @@ Authentication is not enabled in Nebula Graph by default. Users can log into Stu
 
 When Nebula Graph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
 
-## Vedio
+## Video
 
 - [Nebula Explorer Intro Demo](https://www.youtube.com/watch?v=1Hj5puN9jeg)(5 minutes 22 seconds)
 
