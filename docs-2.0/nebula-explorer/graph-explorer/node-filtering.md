@@ -1,4 +1,4 @@
-# Vertex Filter 
+# Vertex filter 
 
 The Vertex Filter helps you filter the vertices and edges displayed on the canvas. You can filter data by tag only or by one or more sets of filter conditions. 
 
