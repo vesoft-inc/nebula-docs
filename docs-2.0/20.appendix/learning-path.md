@@ -253,3 +253,9 @@ Now you could get Nebula Graph Certifications from [Nebula Academy](https://acad
 - Nebula Graph Certified Insider(NGCI): The NGCI certification provides a birdview to graph databases and the Nebula Graph database. Passing NGCI shows that you have a good understanding of Nebula Graph.
 
 - Nebula Graph Certified Professional(NGCP): The NGCP certification drives you deep into the Nebula Graph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of Nebula Graph.
+
+### Video
+
+- [An Intro to Nebula Graph Certifications](https://www.youtube.com/watch?v=dZUKyw8L7uA)(4 minutes 17 seconds)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
