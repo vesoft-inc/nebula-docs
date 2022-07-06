@@ -128,6 +128,11 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | ------------------------------------------------------------ |
   |[Create snapshots](../backup-and-restore/3.manage-snapshot.md)|
 
+- Backup & Restore
+
+  | Document |
+  | ------------------------------------------------------------ |
+  |[Backup&Restore](../backup-and-restore/nebula-br/1.what-is-br.md)|
 <!--
 - Resource isolation
 
@@ -240,3 +245,17 @@ You can check if you have mastered Nebula Graph by completing the following prac
   | Load test Nebula Graph with K6                               | [Nebula Bench](../nebula-bench.md) |
   | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 
+
+## 8. Get Nebula Graph Certifications
+
+Now you could get Nebula Graph Certifications from [Nebula Academy](https://academic.nebula-graph.io).
+
+- Nebula Graph Certified Insider(NGCI): The NGCI certification provides a birdview to graph databases and the Nebula Graph database. Passing NGCI shows that you have a good understanding of Nebula Graph.
+
+- Nebula Graph Certified Professional(NGCP): The NGCP certification drives you deep into the Nebula Graph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of Nebula Graph.
+
+### Video
+
+- [An Intro to Nebula Graph Certifications](https://www.youtube.com/watch?v=dZUKyw8L7uA)(4 minutes 17 seconds)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

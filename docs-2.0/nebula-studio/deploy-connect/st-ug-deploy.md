@@ -5,10 +5,6 @@ Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Neb
 
 This topic describes how to deploy Studio locally by RPM, DEB, tar package and Docker.
 
-!!! Note
-
-    You can also try some [functions online](https://playground.nebula-graph.io/explorer) in Studio.
-
 ## RPM-based Studio
 
 ### Prerequisites
