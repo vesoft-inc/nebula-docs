@@ -1,4 +1,4 @@
-# Manage snapshots
+# Canvas snapshots
 
 Explorer provides a snapshot feature that lets you store the visualized canvas data so that the data can be restored when your browser is opened again.
 
