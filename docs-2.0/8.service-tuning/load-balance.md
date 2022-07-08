@@ -6,6 +6,7 @@ You can use the `BALANCE` statement to balance the distribution of partitions an
 
     The `BALANCE` commands migrate data and balance the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
 
+{{ ent.ent_begin }}
 ## Balance partition distribution
 
 !!! enterpriseonly
@@ -82,6 +83,8 @@ After you add new storage hosts into the cluster, no partition is deployed on th
   ```
 
 If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+
+{{ ent.ent_end }}
 
 ### Stop data balancing
 
