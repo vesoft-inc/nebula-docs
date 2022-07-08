@@ -2,8 +2,8 @@
 
 | Parameter                                           | Description                                                         |
 | ---------------------------------------------- | ------------------------------------------------------------ |
-| `num_active_queries`                             | The number of queries currently being executed.              |
-| `num_active_sessions`                            | The number of currently active sessions.                     |
+| `num_active_queries`                             | The number of active query changes in the last 5 seconds.<br> Formula: The number of queries that started executing in the last 5 seconds minus the number of queries that finished executing in the last 5 seconds.              |
+| `num_active_sessions`                            | The number of active session changes in the last 5 seconds.<br> Formula: The number of sessions logged in in the last 5 seconds minus the number of sessions logged out in the last 5 seconds.<br>For example: In the last 5 seconds, there were 10 sessions logged in and 30 sessions logged out, then the value of this metric is `-20` (10-30).                   |
 | `num_aggregate_executors`                        | The number of executions for the Aggregation operator.       |
 | `num_auth_failed_sessions_bad_username_password` | The number of sessions where authentication failed due to incorrect username and password. |
 | `num_auth_failed_sessions_out_of_max_allowed` |  The number of sessions that failed to authenticate logins because the value of the parameter `FLAG_OUT_OF_MAX_ALLOWED_CONNECTIONS` was exceeded.|
