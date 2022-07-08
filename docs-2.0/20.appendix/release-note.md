@@ -1,5 +1,7 @@
 # Nebula Graph {{ nebula.release }} release notes
 
+{{ ent.ent_begin }}
+
 ## Enterprise edition
 
 ### Feature
@@ -65,3 +67,5 @@
 ## Legacy versions
 
 [Release notes of legacy versions](https://nebula-graph.io/posts/)
+
+{{ ent.ent_end }}

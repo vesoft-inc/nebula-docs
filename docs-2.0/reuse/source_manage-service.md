@@ -1,4 +1,4 @@
-Nebula Graph supports managing services with scripts or systemd. This topic will describe the two methods in detail.
+Nebula Graph supports managing services with scripts or systemd. 
 
 !!! enterpriseonly
 
@@ -39,6 +39,8 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 |`storaged`|Set the Storage Service as the target service.|
 |`all`|Set all the Nebula Graph services as the target services.|
 
+{{ ent.ent_begin }}
+
 ## Manage services with systemd
 
 For easy maintenance, Nebula Graph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
@@ -67,6 +69,8 @@ $ systemctl <start | stop | restart | status > <nebula | nebula-metad | nebula-g
 |`nebula-metad`|Set the Meta Service as the target service.|
 |`nebula-graphd`|Set the Graph Service as the target service.|
 |`nebula-storaged`|Set the Storage Service as the target service.|
+
+{{ ent.ent_end }}
 
 ## Start Nebula Graph
 
