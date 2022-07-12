@@ -1,4 +1,4 @@
-# Deploy a Nebula Graph cluster with RPM/DEB package on multiple servers 
+# Deploy a Nebula Graph cluster with RPM/DEB package on multiple servers
 
 For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides an example of deploying a Nebula Graph cluster on multiple servers (machines).
 

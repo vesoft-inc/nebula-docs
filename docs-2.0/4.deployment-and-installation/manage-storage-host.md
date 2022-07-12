@@ -2,6 +2,10 @@
 
 Starting from Nebula Graph 3.0.0, setting Storage hosts in the configuration files only registers the hosts on the Meta side, but does not add them into the cluster. You must run the `ADD HOSTS` statement to add the Storage hosts.
 
+!!! note
+
+    Nebula Graph Cloud clusters add Storage hosts automatically. Cloud users do not need to manually run `ADD HOSTS`.
+
 ## Add Storage hosts
 
 Add the Storage hosts to a Nebula Graph cluster.
