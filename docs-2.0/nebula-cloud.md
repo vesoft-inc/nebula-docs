@@ -1,5 +1,14 @@
 # What is Nebula Graph Cloud
 
-Nebula Graph Cloud (Cloud for short) is a product that supports one-click deployment of Nebula Graph on the [Azure](https://azure.microsoft.com/en-us/) platform. You can create a graph database within minutes, and quickly expand computing and storage.
+Nebula Graph Cloud (Cloud for short) is an on-cloud service that integrates the Nebula Graph database and data services. Cloud supports one-click deployment and visualization tools of Nebula Graph. Users can create a graph database within minutes and quickly scale computing, storage, and other resources.
 
-Currently, only Nebula Graph 2.6.2 is supported. For more information. see [What is Nebula Graph Cloud](https://docs.nebula-graph.io/2.6.2/nebula-cloud/1.what-is-cloud/).
+<!--
+Cloud supports:
+
+- Fully managed cloud service based on Azure, that is Nebula Graph Cloud Azure Edition.
+- Self-managed cloud service based on Alibaba cloud, that is Nebula Graph Cloud Alibaba Edition.
+-->
+
+!!! note
+
+    For now, Cloud does not support Nebula Graph core of version {{nebula.release}}. For the latest version of Cloud docs, see [What is Nebula Graph Cloud](https://docs.nebula-graph.io/{{cloud.azureLatestRelease}}/what-is-cloud/)。
