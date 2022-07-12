@@ -17,7 +17,7 @@ Exploration of the data on a canvas is possible in 2D mode.
 | Parameter       | Description                                                         |
 | ---------- | ------------------------------------------------------------ |
 | Weight Degree | Weight Degree：Automatically resizes vertices according to the number of outgoing and incoming edges of all the vertices on the canvas.<br />Reset Degree：Resets the vertices on the canvas to their original size.      |
-| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Dangling Edges: Detects edges associated with vertices of one degree in the canvas (associated vertices are included).<br />Loop Detection: Detects the paths that connect a vertex to itself.<br /> Risk Detection: Starting from the selected vertex, the vertexes in the outbound direction are displayed on the canvas hop by hop.|
+| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Dangling Edges: Detects edges associated with vertices of one degree in the canvas (associated vertices are included).<br />Loop Detection: Detects the paths that connect a vertex to itself.<br /> N-step vertex Detection: Starting from the selected vertex, the vertexes in the outbound direction are displayed on the canvas hop by hop.|
 | Edit | Dismiss: Hide the selected vertices and edges on the canvas.<br />Dismiss Others: Hide the unselected vertices and edges on the canvas.<br />Undo: Undo the action in the previous step.<br />Redo: Restore the action that was previously undone. |
 
 For more information about the operations available in 2D mode, see [Canvas](canvas-overview.md).
