@@ -18,7 +18,7 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 
 !!! note
 
-    The algorithm parameters need to be set when performing graph computing, and the data source has requirements. The data source needs to contain starting vertexes and destination vertexes. PageRank, DegreeWithTime, SSSP, APSP, LPA, HANP, and Louvain algorithms must include weight.
+    The algorithm parameters need to be set when performing graph computing, and there are requirements for data sources. The data source needs to contain source vertexes and destination vertexes. PageRank, DegreeWithTime, SSSP, APSP, LPA, HANP, and Louvain algorithms must include weight.
 
     - If the data source comes from HDFS, users need to specify a CSV file that contains `src` and `dst` columns. Some algorithms also need to contain a `weight` column.
 
@@ -81,8 +81,8 @@ Parameter descriptions are as follows:
     |Parameter|Predefined value|Description|
     |:--|:--|:--|
     |`TYPE`|`vertex`| The calculation type. Available values are `vertex` and `subgraph`. When set to `vertex`, the system calculates the number of cores for each vertex.|
-    |`KMIN`|`1`| Set the minimum value of K when range calculation. Takes effect only when `TYPE`=`subgraph`. |
-    |`KMAX`|`1000000`| Set the maximum value of K when range calculation. Takes effect only when `TYPE`=`subgraph`.|
+    |`KMIN`|`1`| Set the minimum value of K when performing the range calculation. Takes effect only when `TYPE`=`subgraph`. |
+    |`KMAX`|`1000000`| Set the maximum value of K when performing the range calculation. Takes effect only when `TYPE`=`subgraph`.|
 
   - Output parameters when `TYPE=vertex`
 
@@ -96,7 +96,7 @@ Parameter descriptions are as follows:
     |Parameter|Type|Description|
     |:--|:--|:--|
     |`VID`|Determined by `vid_type`| The vertex ID.|
-    |`VALUE`|The same type as `VID`| Outputs the neighbors of the vertex.|
+    |`VALUE`|The same with `VID`| Outputs the neighbors of the vertex.|
 
 ### DegreeCentrality (NStepDegree)
 
@@ -276,13 +276,13 @@ Parameter descriptions are as follows:
 
   |Parameter|Type|Description|
   |:--|:--|:--|
-  |`VID1`|Determined by `vid_type`| The VID of the starting vertex.|
+  |`VID1`|Determined by `vid_type`| The VID of the source vertex.|
   |`VID2`|Determined by `vid_type`| The VID of the destination vertex.|
   |`DISTANCE`|double| Outputs the distance from `VID1` to `VID2`.|
 
 ### SSSP
 
-The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (starting vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.
+The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (source vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.
 
 Parameter descriptions are as follows:
 
@@ -291,7 +291,7 @@ Parameter descriptions are as follows:
 
   |Parameter|Predefined value|Description|
   |:--|:--|:--|
-  |`sourceid`|-|The VID of the starting vertex.|
+  |`sourceid`|-|The VID of the source vertex.|
 -->
 
 - Nebula Analytics
@@ -300,18 +300,18 @@ Parameter descriptions are as follows:
 
     |Parameter|Predefined value|Description|
     |:--|:--|:--|
-    |`ROOT`|-| The VID of the starting vertex.|
+    |`ROOT`|-| The VID of the source vertex.|
 
   - Output parameters
 
     |Parameter|Type|Description|
     |:--|:--|:--|
-    |`VID`|Determined by `vid_type`| The VID of the starting vertex.|
+    |`VID`|Determined by `vid_type`| The VID of the source vertex.|
     |`DISTANCE`|double| Outputs the distance from `ROOT` to `VID`.|
 
 ### BFS
 
-The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a starting vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.
+The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a source vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.
 
 Parameter descriptions are as follows:
 
@@ -333,13 +333,13 @@ Parameter descriptions are as follows:
     |Parameter|Predefined value|Description|
     |:--|:--|:--|
     |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-    |`ROOT`|-|The VID of the starting vertex.|
+    |`ROOT`|-|The VID of the source vertex.|
 
   - Output parameters
 
     |Parameter|Type|Description|
     |:--|:--|:--|
-    |`ROOT`|Determined by `vid_type`| The VID of the starting vertex.|
+    |`ROOT`|Determined by `vid_type`| The VID of the source vertex.|
     |`VISITED`|int| Outputs the number of the vertex accessed by `ROOT`.|
 
 <!--
@@ -405,7 +405,7 @@ Parameter descriptions are as follows:
     |Parameter|Type|Description|
     |:--|:--|:--|
     |`VID`|Determined by `vid_type`| The vertex ID.|
-    |`LABEL`|The same type as `VID`| Outputs the vertex IDs that are the same as the label.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### HANP
 
@@ -439,7 +439,7 @@ Parameter descriptions are as follows:
     |Parameter|Type|Description|
     |:--|:--|:--|
     |`VID`|Determined by `vid_type`| The vertex ID.|
-    |`LABEL`|The same type as `VID`| Outputs the vertex IDs that are the same as the label.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### ConnectedComponent
 
@@ -473,7 +473,7 @@ Parameter descriptions are as follows:
     |Parameter|Type|Description|
     |:--|:--|:--|
     |`VID`|Determined by `vid_type`| The vertex ID.|
-    |`LABEL`|The same type as `VID`| Outputs the vertex IDs that are the same as the label.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### Louvain
 
@@ -507,7 +507,7 @@ Parameter descriptions are as follows:
     |Parameter|Type|Description|
     |:--|:--|:--|
     |`VID`|Determined by `vid_type`| The vertex ID.|
-    |`LABEL`|The same type as `VID`| Outputs the vertex IDs that are the same as the label.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ## Graph feature
 
@@ -555,9 +555,9 @@ Parameter descriptions are as follows:
 
     |Parameter|Type|Description|
     |:--|:--|:--|
-    |`VID1`|The same type as `VID`| Outputs the ID of the vertex A that forms the triangle.|
-    |`VID2`|The same type as `VID`| Outputs the ID of the vertex B that forms the triangle.|
-    |`VID3`|The same type as `VID`| Outputs the ID of the vertex C that forms the triangle.|
+    |`VID1`|The same with `VID`| Outputs the ID of the vertex A that forms the triangle.|
+    |`VID2`|The same with `VID`| Outputs the ID of the vertex B that forms the triangle.|
+    |`VID3`|The same with `VID`| Outputs the ID of the vertex C that forms the triangle.|
 
 ## Clustering
 
