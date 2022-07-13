@@ -93,16 +93,10 @@ If the port is occupied and the process on that port cannot be terminated, you c
 
 ```bash
 //Open the configuration file
-$ vi config/config.default.js
+$ vi etc/studio-api.yam
 
 //Change the port
-web:
-#  task_id_path:
-#  upload_dir:
-#  tasks_dir:
-#  sqlitedb_file_path:
-#  ip:
-  port: 7001 // Modify this port number and change it to any 
+Port: 7001 // Modify this port number and change it to any 
 
 //Restart service
 $ systemctl restart nebula-graph-studio.service
