@@ -180,7 +180,7 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
   nebula> MATCH (v) RETURN v LIMIT 5;
   ```
 
-  You can also test against [new features](../../20.appendix/release-note.md) in version {{nebula.release}}.
+  You can also test against [new features](../../20.appendix/release-notes/nebula-comm-release-note.md) in version {{nebula.release}}.
 
 ## Upgrade failure and rollback
 

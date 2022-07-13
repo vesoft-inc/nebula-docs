@@ -1,6 +1,6 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "[View release notes](20.appendix/release-note.md)"
+!!! note "[View release notes](20.appendix/release-notes/nebula-comm-release-note.md)"
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with GitHub commit [{{ git.short_commit }}](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}).
 
@@ -20,7 +20,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
 
 - [To cite Nebula Graph](https://arxiv.org/abs/2206.07278)
 - [Nebula Graph Homepage](https://nebula-graph.io/)
-- [Release notes](20.appendix/release-note.md)
+- [Release notes](20.appendix/release-notes/nebula-comm-release-note.md)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blogs](https://nebula-graph.io/posts/)
 - [Videos](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
