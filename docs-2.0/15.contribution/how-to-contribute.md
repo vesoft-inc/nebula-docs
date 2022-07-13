@@ -81,7 +81,7 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
 
   ```bash
   cd $working_dir/nebula/.git/hooks
-  ln -s $working_dir/nebulah/.linters/cpp/hooks/pre-commit.sh .
+  ln -s $working_dir/nebula/.linters/cpp/hooks/pre-commit.sh .
   ```
 
   Sometimes, the pre-commit hook cannot be executed. You have to execute it manually.
