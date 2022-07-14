@@ -16,6 +16,14 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
     Different graph computing tools support different algorithms and different parameters. See below for details.
 -->
 
+!!! note
+
+    The algorithm parameters need to be set when performing graph computing, and there are requirements for data sources. The data source needs to contain source vertexes and destination vertexes. PageRank, DegreeWithTime, SSSP, APSP, LPA, HANP, and Louvain algorithms must include weight.
+
+    - If the data source comes from HDFS, users need to specify a CSV file that contains `src` and `dst` columns. Some algorithms also need to contain a `weight` column.
+
+    - If the data source comes from Nebula Graph, users need to specify the edge types that provide `src` and `dst` columns. Some algorithms also need to specify the properties of the edge types as `weight` columns.
+
 ## Node importance measurement
 
 ### PageRank
@@ -35,12 +43,21 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`ITERATIONS`|`10`| The maximum number of iterations.|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`EPS`|`0.0001`| The convergence accuracy. When the difference between the result of two iterations is less than the `EPS` value, the iteration is not continued.|
-  |`DAMPING`|`0.85`| The damping coefficient. It is the jump probability after visiting a page.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`ITERATIONS`|`10`| The maximum number of iterations.|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`EPS`|`0.0001`| The convergence accuracy. When the difference between the result of two iterations is less than the `EPS` value, the iteration is not continued.|
+    |`DAMPING`|`0.85`| The damping coefficient. It is the jump probability after visiting a page.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type` | The vertex ID.|
+    |`VALUE`|double| The PageRank value of the vertex.|
 
 ### KCore
 
@@ -59,14 +76,27 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`TYPE`|`vertex`| The calculation type. Available values are `vertex` and `subgraph`. When set to `vertex`, the system calculates the number of cores for each vertex.|
-  |`VERTICES`|`0`| The number of vertexes. If set to `0`, the system automatically calculates the value.|
-  |`EDGES`|`0`| The number of edges. If set to `0`, the system automatically calculates the value.|
-  |`KMIN`|`1`| Set the minimum value of K when range calculation. Takes effect only when `TYPE`=`subgraph`. |
-  |`KMAX`|`1000000`| Set the maximum value of K when range calculation. Takes effect only when `TYPE`=`subgraph`.|
-  |`ITERATIONS`|`10`| The maximum number of iterations.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`TYPE`|`vertex`| The calculation type. Available values are `vertex` and `subgraph`. When set to `vertex`, the system calculates the number of cores for each vertex.|
+    |`KMIN`|`1`| Set the minimum value of K when performing the range calculation. Takes effect only when `TYPE`=`subgraph`. |
+    |`KMAX`|`1000000`| Set the maximum value of K when performing the range calculation. Takes effect only when `TYPE`=`subgraph`.|
+
+  - Output parameters when `TYPE=vertex`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|int| Outputs the core degree of the vertex.|
+
+  - Output parameters when `TYPE=subgraph`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|The same with `VID`| Outputs the neighbors of the vertex.|
 
 ### DegreeCentrality (NStepDegree)
 
@@ -91,12 +121,37 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`STEP`|`3`| The degree of calculation. `-1` means infinity.|
-  |`BITS`|`6`| The hyperloglog bit width for cardinality estimation.|
-  |`TYPE`|`both`| The direction of the edges for calculation. Optional values are `in`, `out` and `both`.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`STEP`|`3`| The degree of calculation. `-1` means infinity.|
+    |`BITS`|`6`| The hyperloglog bit width for cardinality estimation.|
+    |`TYPE`|`both`| The direction of the edges for calculation. Optional values are `in`, `out` and `both`.|
+
+  - Output parameters when `TYPE=both`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`BOTH_DEGREE`|int| Outputs the bidirectional degree centrality of the vertex.|
+    |`OUT_DEGREE`|int| Outputs the outbound degree centrality of the vertex.|
+    |`IN_DEGREE`|int| Outputs the inbound degree centrality of the vertex.|
+
+  - Output parameters when `TYPE=out`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`OUT_DEGREE`|int| Outputs the outbound degree centrality of the vertex.|
+
+  - Output parameters when `TYPE=in`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`IN_DEGREE`|int| Outputs the inbound degree centrality of the vertex.|
 
 ### DegreeWithTime
 
@@ -108,12 +163,37 @@ The DegreeWithTime algorithm is used to count neighbors based on the time range 
 
 Parameter descriptions are as follows:
 
-|Parameter|Predefined value|Description|
-|:--|:--|:--|
-|`ITERATIONS`|`10`| The maximum number of iterations.|
-|`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-|`BEGIN_TIME`|-| The begin time.|
-|`END_TIME`|-| The end time.|
+- Input parameters
+
+  |Parameter|Predefined value|Description|
+  |:--|:--|:--|
+  |`ITERATIONS`|`10`| The maximum number of iterations.|
+  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+  |`BEGIN_TIME`|-| The begin time.|
+  |`END_TIME`|-| The end time.|
+
+- Output parameters when `TYPE=both`
+
+  |Parameter|Type|Description|
+  |:--|:--|:--|
+  |`VID`|Determined by `vid_type`| The vertex ID.|
+  |`BOTH_DEGREE`|int| Outputs the bidirectional popularity of the vertex.|
+  |`OUT_DEGREE`|int| Outputs the outbound popularity of the vertex.|
+  |`IN_DEGREE`|int| Outputs the inbound popularity of the vertex.|
+
+- Output parameters when `TYPE=out`
+
+  |Parameter|Type|Description|
+  |:--|:--|:--|
+  |`VID`|Determined by `vid_type`| The vertex ID.|
+  |`OUT_DEGREE`|int| Outputs the outbound popularity of the vertex.|
+
+- Output parameters when `TYPE=in`
+
+  |Parameter|Type|Description|
+  |:--|:--|:--|
+  |`VID`|Determined by `vid_type`| The vertex ID.|
+  |`IN_DEGREE`|int| Outputs the inbound popularity of the vertex.|
 
 ### BetweennessCentrality
 
@@ -131,12 +211,21 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`ITERATIONS`|`10`| The maximum number of iterations.|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`CHOSEN`|`-1`| The selected vertex ID, `-1` means random selection.|
-  |`CONSTANT`|`2`| The constant.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`ITERATIONS`|`10`| The maximum number of iterations.|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`CHOSEN`|`-1`| The selected vertex ID, `-1` means random selection.|
+    |`CONSTANT`|`2`| The constant.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|double| The betweenness centrality score of the vertex.|
 
 ### ClosenessCentrality
 
@@ -157,11 +246,19 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`ITERATIONS`|`10`| The maximum number of iterations.|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`NUM_SAMPLES`|`10`| The number of sample vertices.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`NUM_SAMPLES`|`10`| The number of sample vertices.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|double| The closeness centrality score of the vertex.|
 
 ## Path
 
@@ -175,13 +272,17 @@ The APSP (Full Graph Shortest Path) algorithm is used to find all shortest paths
 
 Parameter descriptions are as follows:
 
-|Parameter|Predefined value|Description|
-|:--|:--|:--|
-|`WEIGHT`|-| The maximum weight of edges.|
+- Output parameters
+
+  |Parameter|Type|Description|
+  |:--|:--|:--|
+  |`VID1`|Determined by `vid_type`| The VID of the source vertex.|
+  |`VID2`|Determined by `vid_type`| The VID of the destination vertex.|
+  |`DISTANCE`|double| Outputs the distance from `VID1` to `VID2`.|
 
 ### SSSP
 
-The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (starting vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.
+The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (source vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.
 
 Parameter descriptions are as follows:
 
@@ -190,19 +291,27 @@ Parameter descriptions are as follows:
 
   |Parameter|Predefined value|Description|
   |:--|:--|:--|
-  |`sourceid`|-|The VID of the starting vertex.|
+  |`sourceid`|-|The VID of the source vertex.|
 -->
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`WEIGHT`|-| The maximum weight of edges.|
-  |`ROOT`|-| The VID of the starting vertex.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`ROOT`|-| The VID of the source vertex.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The VID of the source vertex.|
+    |`DISTANCE`|double| Outputs the distance from `ROOT` to `VID`.|
 
 ### BFS
 
-The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a starting vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.
+The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a source vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.
 
 Parameter descriptions are as follows:
 
@@ -219,11 +328,19 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`WEIGHT`|-| The maximum weight of edges.|
-  |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`ROOT`|-|The VID of the starting vertex.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`ROOT`|-|The VID of the source vertex.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`ROOT`|Determined by `vid_type`| The VID of the source vertex.|
+    |`VISITED`|int| Outputs the number of the vertex accessed by `ROOT`.|
 
 <!--
 ### Node2Vec
@@ -275,11 +392,20 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`ITERATIONS`|`10`|The maximum number of iterations.|
-  |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`ITERATIONS`|`10`|The maximum number of iterations.|
+    |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### HANP
 
@@ -299,12 +425,21 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`ITERATIONS`|`10`|The maximum number of iterations.|
-  |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`PREFERENCE`|`1.0`| The bias of the neighbor vertex degree. `m>0`indicates biasing the neighbor with high vertex degree, `m<0` indicates biasing the neighbor with low vertex degree, and `m=0` indicates ignoring the neighbor vertex degree.|
-  |`HOP_ATT`|`0.1`|The attenuation coefficient. The value ranges from `0` to `1`. The larger the value, the faster it decays and the fewer times it can be passed.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`ITERATIONS`|`10`|The maximum number of iterations.|
+    |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`PREFERENCE`|`1.0`| The bias of the neighbor vertex degree. `m>0`indicates biasing the neighbor with high vertex degree, `m<0` indicates biasing the neighbor with low vertex degree, and `m=0` indicates ignoring the neighbor vertex degree.|
+    |`HOP_ATT`|`0.1`|The attenuation coefficient. The value ranges from `0` to `1`. The larger the value, the faster it decays and the fewer times it can be passed.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### ConnectedComponent
 
@@ -326,10 +461,19 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ### Louvain
 
@@ -349,12 +493,21 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
-  |`OUTER_ITERATION`|`20`|The maximum number of iterations in the first phase.|
-  |`INNER_ITERATION`|`10`|The maximum number of iterations in the second phase.|
-  |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
+    |`OUTER_ITERATION`|`20`|The maximum number of iterations in the first phase.|
+    |`INNER_ITERATION`|`10`|The maximum number of iterations in the second phase.|
+    |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
 ## Graph feature
 
@@ -377,11 +530,34 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`OPT`|`3`|The calculation type. Optional values are `1`, `2` and `3`. `1` indicates counting the entire graph, `2` indicates counting through each vertex, `3` indicates listing all triangles.|
-  |`REMOVED_DUPLICATION_EDGE`|`true`| Whether to exclude repeated edges.|
-  |`REMOVED_SELF_EDGE`|`true`| Whether to exclude self-loop edge.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`OPT`|`3`|The calculation type. Optional values are `1`, `2` and `3`. `1` indicates counting the entire graph, `2` indicates counting through each vertex, `3` indicates listing all triangles.|
+    |`REMOVED_DUPLICATION_EDGE`|`true`| Whether to exclude repeated edges.|
+    |`REMOVED_SELF_EDGE`|`true`| Whether to exclude self-loop edge.|
+
+  - Output parameters when `OPT=1`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`COUNT`|int| Outputs the number of the triangles in the full graph space.|
+
+  - Output parameters when `OPT=2`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`|The vertex ID.|
+    |`COUNT`|int| Outputs the number of the triangles based on the vertex.|
+
+  - Output parameters when `OPT=3`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID1`|The same with `VID`| Outputs the ID of the vertex A that forms the triangle.|
+    |`VID2`|The same with `VID`| Outputs the ID of the vertex B that forms the triangle.|
+    |`VID3`|The same with `VID`| Outputs the ID of the vertex C that forms the triangle.|
 
 ## Clustering
 
@@ -404,11 +580,27 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`TYPE`|`local`|The clustering type. Optional values are `local` and `global`. `local` indicates counting through each vertex, `global` indicates counting the entire graph.|
-  |`REMOVED_DUPLICATION_EDGE`|`true`| Whether to exclude repeated edges.|
-  |`REMOVED_SELF_EDGE`|`true`| Whether to exclude self-loop edge.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`TYPE`|`local`|The clustering type. Optional values are `local` and `global`. `local` indicates counting through each vertex, `global` indicates counting the entire graph.|
+    |`REMOVED_DUPLICATION_EDGE`|`true`| Whether to exclude repeated edges.|
+    |`REMOVED_SELF_EDGE`|`true`| Whether to exclude self-loop edge.|
+
+  - Output parameters when `TYPE=local`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|double| Outputs the clustering coefficient of the vertex.|
+
+  - Output parameters when `TYPE=global`
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`VALUE`|double| Outputs the clustering coefficient of the full graph space. There is only one line of data.|
 
 ## Similarity
 
@@ -431,8 +623,18 @@ Parameter descriptions are as follows:
 
 - Nebula Analytics
 
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`IDS1`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It is not allowed to be empty.|
-  |`IDS2`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It can be empty, and empty represents all vertexes.|
-  |`REMOVED_SELF_EDGE`|`true`|Whether to exclude self-loop edges.|
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`IDS1`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It is not allowed to be empty.|
+    |`IDS2`|-| A set of VIDs. Multiple VIDs are separated by commas (,). It can be empty, and empty represents all vertexes.|
+    |`REMOVED_SELF_EDGE`|`true`|Whether to exclude self-loop edges.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID1`|Determined by `vid_type`| The ID of the first vertex.|
+    |`VID2`|Determined by `vid_type`| The ID of the second vertex.|
+    |`VALUE`|double| The similarity between `VID1` and `VID2`.|
