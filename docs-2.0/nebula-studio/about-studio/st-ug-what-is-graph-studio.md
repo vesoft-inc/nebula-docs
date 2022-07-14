@@ -49,7 +49,7 @@ When Nebula Graph enables authentication, users can only sign into Studio with t
 
 ## Check updates
 
-Studio is in development. Users can view the latest releases features through [Changelog](../about-studio/st-ug-release-note.md).
+Studio is in development. Users can view the latest releases features through [Changelog](../../20.appendix/release-notes/studio-release-note.md).
 
 To view the Changelog, on the upper-right corner of the page, click the version and then **New version**.
 
