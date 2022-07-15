@@ -6844,6 +6844,16 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
     Different graph computing tools support different algorithms and different parameters. See below for details.
 -->
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The algorithm parameters need to be set when performing graph computing, and there are requirements for data sources. The data source needs to contain source vertexes and destination vertexes. PageRank, DegreeWithTime, SSSP, APSP, LPA, HANP, and Louvain algorithms must include weight.</p>
+<ul>
+<li>If the data source comes from HDFS, users need to specify a CSV file that contains <code>src</code> and <code>dst</code> columns. Some algorithms also need to contain a <code>weight</code> column.</li>
+</ul>
+<ul>
+<li>If the data source comes from Nebula Graph, users need to specify the edge types that provide <code>src</code> and <code>dst</code> columns. Some algorithms also need to specify the properties of the edge types as <code>weight</code> columns.</li>
+</ul>
+</div>
 <h2 id="node_importance_measurement">Node importance measurement<a class="headerlink" href="#node_importance_measurement" title="Permanent link">&para;</a></h2>
 <h3 id="pagerank">PageRank<a class="headerlink" href="#pagerank" title="Permanent link">&para;</a></h3>
 <p>The PageRank algorithm calculates the relevance and importance of vertices based on their relationships. It is commonly used in search engine page rankings. If a page is linked by many other pages, the page is more important (PageRank value is higher). If a page with a high PageRank value links to other pages, the PageRank value of the linked pages will increase.</p>
@@ -6860,6 +6870,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -6893,6 +6906,34 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">The PageRank value of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="kcore">KCore<a class="headerlink" href="#kcore" title="Permanent link">&para;</a></h3>
 <p>The KCore algorithm is used to calculate the subgraph composed of no vertexes less than K degree, usually used in community discovery, financial risk control and other scenarios. The calculation result is one of the most commonly used reference values to judge the importance of a vertex, which reflects the propagation ability of a vertex.</p>
 <p>Parameter descriptions are as follows:</p>
@@ -6908,6 +6949,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -6923,32 +6967,71 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <td align="left">The calculation type. Available values are <code>vertex</code> and <code>subgraph</code>. When set to <code>vertex</code>, the system calculates the number of cores for each vertex.</td>
 </tr>
 <tr>
-<td align="left"><code>VERTICES</code></td>
-<td align="left"><code>0</code></td>
-<td align="left">The number of vertexes. If set to <code>0</code>, the system automatically calculates the value.</td>
-</tr>
-<tr>
-<td align="left"><code>EDGES</code></td>
-<td align="left"><code>0</code></td>
-<td align="left">The number of edges. If set to <code>0</code>, the system automatically calculates the value.</td>
-</tr>
-<tr>
 <td align="left"><code>KMIN</code></td>
 <td align="left"><code>1</code></td>
-<td align="left">Set the minimum value of K when range calculation. Takes effect only when <code>TYPE</code>=<code>subgraph</code>.</td>
+<td align="left">Set the minimum value of K when performing the range calculation. Takes effect only when <code>TYPE</code>=<code>subgraph</code>.</td>
 </tr>
 <tr>
 <td align="left"><code>KMAX</code></td>
 <td align="left"><code>1000000</code></td>
-<td align="left">Set the maximum value of K when range calculation. Takes effect only when <code>TYPE</code>=<code>subgraph</code>.</td>
-</tr>
-<tr>
-<td align="left"><code>ITERATIONS</code></td>
-<td align="left"><code>10</code></td>
-<td align="left">The maximum number of iterations.</td>
+<td align="left">Set the maximum value of K when performing the range calculation. Takes effect only when <code>TYPE</code>=<code>subgraph</code>.</td>
 </tr>
 </tbody>
 </table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=vertex</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the core degree of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=subgraph</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the neighbors of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="degreecentrality_nstepdegree">DegreeCentrality (NStepDegree)<a class="headerlink" href="#degreecentrality_nstepdegree" title="Permanent link">&para;</a></h3>
@@ -6972,6 +7055,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7005,6 +7091,96 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=both</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>BOTH_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the bidirectional degree centrality of the vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>OUT_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the outbound degree centrality of the vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>IN_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the inbound degree centrality of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=out</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>OUT_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the outbound degree centrality of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=in</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>IN_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the inbound degree centrality of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="degreewithtime">DegreeWithTime<a class="headerlink" href="#degreewithtime" title="Permanent link">&para;</a></h3>
 <p>The DegreeWithTime algorithm is used to count neighbors based on the time range of edges to find out the popular vertexes in a graph.</p>
 <div class="admonition note">
@@ -7012,6 +7188,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <p>This algorithm is supported by Nebula Analytics only.</p>
 </div>
 <p>Parameter descriptions are as follows:</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7043,6 +7222,96 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </tr>
 </tbody>
 </table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=both</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>BOTH_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the bidirectional popularity of the vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>OUT_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the outbound popularity of the vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>IN_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the inbound popularity of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=out</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>OUT_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the outbound popularity of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=in</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>IN_DEGREE</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the inbound popularity of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 <h3 id="betweennesscentrality">BetweennessCentrality<a class="headerlink" href="#betweennesscentrality" title="Permanent link">&para;</a></h3>
 <p>The BetweennessCentrality algorithm is used to detect the amount of influence a vertex has on the flow of information in a graph. It is used to find the vertexes that act as bridges between one part of the graph and another. Each vertex is given a score, the betweenness centrality score, based on the number of shortest paths through that vertex.</p>
 <p>Parameter descriptions are as follows:</p>
@@ -7057,6 +7326,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7090,6 +7362,34 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">The betweenness centrality score of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="closenesscentrality">ClosenessCentrality<a class="headerlink" href="#closenesscentrality" title="Permanent link">&para;</a></h3>
 <p>The ClosenessCentrality algorithm is used to calculate the reciprocal of the average of the shortest distance from one vertex to all other reachable vertexes. The larger the value is, the closer the vertex is to the center of the graph, and it can also be used to measure how long it takes for information to be transmitted from that vertex to other vertexes.</p>
 <p>Parameter descriptions are as follows:</p>
@@ -7107,6 +7407,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7116,11 +7419,6 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </tr>
 </thead>
 <tbody>
-<tr>
-<td align="left"><code>ITERATIONS</code></td>
-<td align="left"><code>10</code></td>
-<td align="left">The maximum number of iterations.</td>
-</tr>
 <tr>
 <td align="left"><code>IS_DIRECTED</code></td>
 <td align="left"><code>true</code></td>
@@ -7135,6 +7433,34 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">The closeness centrality score of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="path">Path<a class="headerlink" href="#path" title="Permanent link">&para;</a></h2>
 <h3 id="apsp">APSP<a class="headerlink" href="#apsp" title="Permanent link">&para;</a></h3>
 <p>The APSP (Full Graph Shortest Path) algorithm is used to find all shortest paths between two vertexes in a graph.</p>
@@ -7143,61 +7469,102 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <p>This algorithm is supported by Nebula Analytics only.</p>
 </div>
 <p>Parameter descriptions are as follows:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Predefined value</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>WEIGHT</code></td>
-<td align="left">-</td>
-<td align="left">The maximum weight of edges.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="sssp">SSSP<a class="headerlink" href="#sssp" title="Permanent link">&para;</a></h3>
-<p>The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (starting vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.</p>
-<p>Parameter descriptions are as follows:</p>
-<!--
-- Nebula Algorithm
-
-  |Parameter|Predefined value|Description|
-  |:--|:--|:--|
-  |`sourceid`|-|The VID of the starting vertex.|
--->
-
 <ul>
 <li>
-<p>Nebula Analytics</p>
+<p>Output parameters</p>
 <table>
 <thead>
 <tr>
 <th align="left">Parameter</th>
-<th align="left">Predefined value</th>
+<th align="left">Type</th>
 <th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>WEIGHT</code></td>
-<td align="left">-</td>
-<td align="left">The maximum weight of edges.</td>
+<td align="left"><code>VID1</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The VID of the source vertex.</td>
 </tr>
 <tr>
-<td align="left"><code>ROOT</code></td>
-<td align="left">-</td>
-<td align="left">The VID of the starting vertex.</td>
+<td align="left"><code>VID2</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The VID of the destination vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>DISTANCE</code></td>
+<td align="left">double</td>
+<td align="left">Outputs the distance from <code>VID1</code> to <code>VID2</code>.</td>
 </tr>
 </tbody>
 </table>
 </li>
 </ul>
+<h3 id="sssp">SSSP<a class="headerlink" href="#sssp" title="Permanent link">&para;</a></h3>
+<p>The SSSP (Single source shortest Path) algorithm is used to calculate the shortest path length from a given vertex (source vertex) to other vertexes. It is usually used in scenarios such as network routing and path designing.</p>
+<p>Parameter descriptions are as follows:</p>
+<!--
+- Nebula Algorithm
+
+  |Parameter|Predefined value|Description|
+  |:--|:--|:--|
+  |`sourceid`|-|The VID of the source vertex.|
+-->
+
+<ul>
+<li>
+<p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>ROOT</code></td>
+<td align="left">-</td>
+<td align="left">The VID of the source vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The VID of the source vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>DISTANCE</code></td>
+<td align="left">double</td>
+<td align="left">Outputs the distance from <code>ROOT</code> to <code>VID</code>.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="bfs">BFS<a class="headerlink" href="#bfs" title="Permanent link">&para;</a></h3>
-<p>The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a starting vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.</p>
+<p>The BFS (Breadth First traversal) algorithm is a basic graph traversal algorithm. It gives a source vertex and accesses other vertexes with increasing hops, that is, it traverses all the adjacent vertexes of the vertex first and then extends to the adjacent vertexes of the adjacent vertexes.</p>
 <p>Parameter descriptions are as follows:</p>
 <!--
 - Nebula Algorithm
@@ -7213,6 +7580,9 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7222,11 +7592,6 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 </tr>
 </thead>
 <tbody>
-<tr>
-<td align="left"><code>WEIGHT</code></td>
-<td align="left">-</td>
-<td align="left">The maximum weight of edges.</td>
-</tr>
 <tr>
 <td align="left"><code>IS_DIRECTED</code></td>
 <td align="left"><code>true</code></td>
@@ -7235,10 +7600,38 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 <tr>
 <td align="left"><code>ROOT</code></td>
 <td align="left">-</td>
-<td align="left">The VID of the starting vertex.</td>
+<td align="left">The VID of the source vertex.</td>
 </tr>
 </tbody>
 </table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>ROOT</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The VID of the source vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>VISITED</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the number of the vertex accessed by <code>ROOT</code>.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 </li>
 </ul>
 <!--
@@ -7288,6 +7681,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7316,6 +7712,34 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>LABEL</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the vertex IDs that have the same label.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="hanp">HANP<a class="headerlink" href="#hanp" title="Permanent link">&para;</a></h3>
 <p>The HANP (Hop Preference &amp; Node Preference) algorithm is an optimization algorithm of LPA algorithm, which considers other information of labels, such as degree information, distance information, etc., and introduces attenuation coefficient during propagation to prevent transition propagation.</p>
 <p>Parameter descriptions are as follows:</p>
@@ -7332,6 +7756,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7365,6 +7792,34 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>LABEL</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the vertex IDs that have the same label.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="connectedcomponent">ConnectedComponent<a class="headerlink" href="#connectedcomponent" title="Permanent link">&para;</a></h3>
 <p>The ConnectedComponent algorithm is used to calculate a subgraph of a graph in which all vertexes are connected to each other. Strongly Connected Component takes the path direction into account, while Weakly Connected Component does not.</p>
 <div class="admonition note">
@@ -7383,6 +7838,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7406,6 +7864,34 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>LABEL</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the vertex IDs that have the same label.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="louvain">Louvain<a class="headerlink" href="#louvain" title="Permanent link">&para;</a></h3>
 <p>The Louvain algorithm is a community discovery algorithm based on modularity. This algorithm performs well in efficiency and effect, and can be used to find hierarchical community structures. Its optimization goal is to maximize the modularity of the whole community network. Modularity is used to distinguish the differences in link density within and between communities, and to measure how well each vertex divides the community. In general, a good clustering approach will result in more modularity within communities than between communities.</p>
 <p>Parameter descriptions are as follows:</p>
@@ -7422,6 +7908,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7455,6 +7944,34 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>LABEL</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the vertex IDs that have the same label.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="graph_feature">Graph feature<a class="headerlink" href="#graph_feature" title="Permanent link">&para;</a></h2>
 <h3 id="trianglecount">TriangleCount<a class="headerlink" href="#trianglecount" title="Permanent link">&para;</a></h3>
 <p>The TriangleCount algorithm is used to count the number of triangles in a graph. The more triangles, the higher the degree of vertex association in the graph, the tighter the organizational relationship.</p>
@@ -7473,6 +7990,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7501,6 +8021,86 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters when <code>OPT=1</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>COUNT</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the number of the triangles in the full graph space.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>OPT=2</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>COUNT</code></td>
+<td align="left">int</td>
+<td align="left">Outputs the number of the triangles based on the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>OPT=3</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID1</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the ID of the vertex A that forms the triangle.</td>
+</tr>
+<tr>
+<td align="left"><code>VID2</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the ID of the vertex B that forms the triangle.</td>
+</tr>
+<tr>
+<td align="left"><code>VID3</code></td>
+<td align="left">The same with <code>VID</code></td>
+<td align="left">Outputs the ID of the vertex C that forms the triangle.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="clustering">Clustering<a class="headerlink" href="#clustering" title="Permanent link">&para;</a></h2>
 <h3 id="clusteringcoefficient">ClusteringCoefficient<a class="headerlink" href="#clusteringcoefficient" title="Permanent link">&para;</a></h3>
 <p>The ClusteringCoefficient algorithm is used to calculate the clustering degree of vertexes in a graph. In all kinds of network structures reflecting the real world, especially social network structures, network groups with relatively high density tend to be formed between various vertexes. In other words, compared with the networks randomly connected between two vertexes, the aggregation coefficient of the real world network is higher.</p>
@@ -7519,6 +8119,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7547,6 +8150,60 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=local</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">Outputs the clustering coefficient of the vertex.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Output parameters when <code>TYPE=global</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The vertex ID.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">Outputs the clustering coefficient of the full graph space. There is only one line of data.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="similarity">Similarity<a class="headerlink" href="#similarity" title="Permanent link">&para;</a></h2>
 <h3 id="jaccard">Jaccard<a class="headerlink" href="#jaccard" title="Permanent link">&para;</a></h3>
 <p>The Jaccard algorithm is used to calculate the similarity of two vertexes (or sets) and predict the relationship between them. It is suitable for social network friend recommendation, relationship prediction and other scenarios.</p>
@@ -7565,6 +8222,9 @@ Parameter descriptions are as follows:
 <ul>
 <li>
 <p>Nebula Analytics</p>
+<ul>
+<li>
+<p>Input parameters</p>
 <table>
 <thead>
 <tr>
@@ -7593,13 +8253,46 @@ Parameter descriptions are as follows:
 </table>
 </li>
 </ul>
+<ul>
+<li>
+<p>Output parameters</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>VID1</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The ID of the first vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>VID2</code></td>
+<td align="left">Determined by <code>vid_type</code></td>
+<td align="left">The ID of the second vertex.</td>
+</tr>
+<tr>
+<td align="left"><code>VALUE</code></td>
+<td align="left">double</td>
+<td align="left">The similarity between <code>VID1</code> and <code>VID2</code>.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 1, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2022</span>
       
     
   </small>
