@@ -26,7 +26,7 @@ Instantiate the workflow when performing graph computing. The instantiated compo
 - The results of a graph query component can only be stored in the HDFS, which is convenient to be called by multiple algorithms.
 
 - The input to the graph computing component can be the specified data in the Nebula Graph or HDFS, or can depend on the results of the graph query component.
-  If the input depend on the result of the previous graph query component, the graph computing component must be fully connected to the graph query component, that is, the white output anchors of the previous graph query component are all connected to the white input anchors of the graph compute component.
+  If an input depends on the results of the previous graph query component, the graph computing component must be fully connected to the graph query component, that is, the white output anchors of the previous graph query component are all connected to the white input anchors of the graph compute component.
 
 - The parameters of some algorithms can also depend on the upstream components.
 
