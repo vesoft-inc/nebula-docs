@@ -8,7 +8,7 @@ The supported APIs are as follows:
 - [Get a list of all jobs](api-get-jobs.md)
 - [Get a list of jobs for a specified workflow](api-get-workflow-jobs.md)
 - [Query details for a specified job](api-desc-job.md)
-- [Cancel the running of a job](api-cancel-job.md)
+- [Cancel a running job](api-cancel-job.md)
 - [Get the result data of a specified task](api-desc-task.md)
 
 ## Request method

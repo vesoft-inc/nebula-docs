@@ -1,6 +1,6 @@
-# Cancel the running of a job
+# Cancel a running job
 
-This topic describes how to use API to cancel the running of a job.
+This topic describes how to use API to cancel a running job.
 
 ## API path
 
