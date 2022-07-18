@@ -4,7 +4,7 @@ You can visually explore data on a canvas. This topic introduces the composition
 
 Canvas overview diagram:
 
-![canvas](https://docs-cdn.nebula-graph.com.cn/figures/canvas-overview-22-04-06_en.png)
+![canvas](https://docs-cdn.nebula-graph.com.cn/figures/canvas-overview-220712-en.png)
 
 ## Tabs on the Top
 
