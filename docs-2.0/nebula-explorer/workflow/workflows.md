@@ -30,7 +30,7 @@ Instantiate the workflow when performing graph computing. The instantiated compo
 
 - The parameters of some algorithms can also depend on the upstream components.
 
-- The result of the graph computing components can be stored in the Nebula Graph or HDFS, but not all algorithm results are suitable for storing in Nebula Graph. Some algorithms can only be saved in HDFS when configuring the save results page.
+- The result of the graph computing components can be stored in the Nebula Graph or HDFS, but not all algorithm results are suitable to be stored in Nebula Graph. Some algorithms can only be saved in HDFS when configuring the save results page.
 
 ## Algorithm description
 
