@@ -1,6 +1,6 @@
 # Workflow overview
 
-Nebula Explorer supports visually complex graph computing according to custom workflows.
+Nebula Explorer supports visual and complex graph computing with custom workflows.
 
 ## Background
 
