@@ -15,7 +15,7 @@ Instantiate the workflow when performing graph computing. The instantiated compo
 - Add, view, modify, delete, compare, clone and rename workflows.
 - A workflow supports one query component and multiple graph computing components. You can search for, add, configure, and rename component.
 - View the lists, progresses, results and logs of the jobs, and rerun jobs.
-- Search the workflows or jobs.
+- Search for workflows or jobs.
 
 ## Precautions
 
