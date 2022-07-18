@@ -4,7 +4,7 @@ Nebula Explorer supports visual and complex graph computing with custom workflow
 
 ## Background
 
-Nebula Explorer provides multiple components, including graph query component and graph computing components. Users can freely combine these components based on the scheduling tool Dag Controller. For example, using the output of a graph query component as input to a graph computing component. The whole process is a directed acyclic workflow.
+Nebula Explorer provides multiple components, including graph query and graph computing components. Users can combine these components based on the scheduling tool Dag Controller for free. For example, using the output of a graph query component as an input to a graph computing component. The whole process is a directed acyclic workflow.
 
 ![workflow-example](https://docs-cdn.nebula-graph.com.cn/figures/ex-workflow-example-220621.png)
 
