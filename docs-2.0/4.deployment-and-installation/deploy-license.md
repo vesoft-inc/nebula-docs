@@ -82,6 +82,16 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 
         For the upload address of the license file for ecosystem tools, refer to the document of [Ecosystem tools overview](../20.appendix/6.eco-tool-version.md).
 
+## Renew a Nebula Graph Enterprise Edition license
+
+1. Email us at `inqury@vesoft.com` to apply for a new license file `nebula.license`.
+2. In `share/resources/` under the installation directory of each Meta service, replace the old license file with the new one.
+3. Restart Storage and Graph services. For information about how to restart services, see [Start Nebula Graph](manage-service.md). If your license expires within the buffer period (14 days by default), you do not have to restart Storage and Graph services.
+
+  !!! note
+
+        The Graph and Storage services are automatically stopped when your license expires beyond the buffer period after expiration. To ensure that the service is running properly, please renew your license in time.
+
 ## View the license
 
 - View the License file directly
