@@ -68,4 +68,3 @@
 
 [Release notes of legacy versions](https://nebula-graph.io/posts/)
 
-{{ ent.ent_end }}
