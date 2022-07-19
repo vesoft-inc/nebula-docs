@@ -1,6 +1,6 @@
 # Cancel a running job
 
-This topic describes how to use API to cancel a running job.
+This topic describes how to use an API to cancel a running job.
 
 ## API path
 
@@ -21,7 +21,7 @@ This topic describes how to use API to cancel a running job.
 |Parameters|Type|If required|Default value|Example| Description|
 |:---|:---|:---|:---|:---|:---|
 |`Content-Type`|string|yes|-|`application/x-www-form-urlencoded`|The content type.|
-|`explorer_token`|string|yes|-|`eyJhbxxx`|The authorization token that used to verify account information. For details, see [Workflow API overview](workflow-api-overview.md).|
+|`explorer_token`|string|yes|-|`eyJhbxxx`|The authorization token that is used to verify account information. For details, see [Workflow API overview](workflow-api-overview.md).|
 
 ### Body parameters
 
@@ -37,7 +37,7 @@ curl -i -X PUT -H "Content-Type: application/x-www-form-urlencoded" -H "Cookie: 
 
 |Parameters|Type|Example|Description|
 |:---|:---|:---|:---|
-|`code`    | number | `0`       |  The result code of the request. Return `0` if the request is successful, and return the error code if the request is unsuccessful. For details, see [Workflow API overview](workflow-api-overview.md).            |
+|`code`    | number | `0`       |  The result code of the request. Return `0` if the request is successful, and return an error code if the request is unsuccessful. For details, see [Workflow API overview](workflow-api-overview.md).            |
 |`message`   | string | `Success` | The result information of the execution. |
 |`data`    | object | -        | The list of returned data. |
 |&nbsp;&nbsp;&nbsp; - `success`         | bool   | `true` | Whether the job was canceled successfully.|
