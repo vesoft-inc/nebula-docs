@@ -84,8 +84,6 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
 If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
 
-{{ ent.ent_end }}
-
 ### Stop data balancing
 
 To stop a balance job, run `STOP JOB <job_id>`.
@@ -253,6 +251,7 @@ To remove the following storage servers.
   nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
   ```
 -->
+{{ ent.ent_end }}
 
 ## Balance leader distribution
 
