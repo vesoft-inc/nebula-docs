@@ -58,7 +58,7 @@
 
 - Fixed the bug that there were no stats under the condition of using indexes. [#4353](https://github.com/vesoft-inc/nebula/pull/4353)
 
-- Fixed the crash when having a put request without body.[#4405](https://github.com/vesoft-inc/nebula/pull/4405)
+- Fixed the crash when having a put request with no body.[#4405](https://github.com/vesoft-inc/nebula/pull/4405)
 
 - Fixed the storage service crash when the length of the VID in a vertex or edge deletion statement exceeds the defined length on an indexed base.[#4406](https://github.com/vesoft-inc/nebula/pull/4406)
 
