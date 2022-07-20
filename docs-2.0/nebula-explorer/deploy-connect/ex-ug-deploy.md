@@ -32,7 +32,7 @@ Before deploying Explorer, you must check the following information:
         By default, Explorer uses the port `7002`. You can modify the `httpport` in the `conf/app.conf` file in the installation directory and restart the service.
 
 - The Linux distribution is CentOS.
-- The license is ready.
+- The [license](3.explorer-license.md) is ready.
 
   !!! enterpriseonly
 

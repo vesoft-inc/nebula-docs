@@ -42,7 +42,7 @@ Nebula Analytics supports the following graph algorithms.
 | ClosenessCentrality    | Closeness centrality   | Node importance measurement|
 |  TriangleCount        | It counts the number of triangles.         | Graph feature      |
 | LPA                   | Label Propagation Algorithm          |  Community discovery    |
-| WCC                   | World Competitive Contests          |  Community discovery    |
+| WCC                   | Weakly connected component          |  Community discovery    |
 | LOUVAIN               | It detects communities in large networks.          |  Community discovery   |
 | HANP                  | Hop attenuation & Node Preference   |  Community discovery    |
 | Clustering Coefficient| It is a measure of the degree to which nodes in a graph tend to cluster together.          |  Clustering       |

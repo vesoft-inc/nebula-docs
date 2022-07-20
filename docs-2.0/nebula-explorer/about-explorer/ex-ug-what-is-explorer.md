@@ -5,11 +5,10 @@ Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is
 !!! enterpriseonly
 
     Explorer is only available in the enterprise version.
-    
+
 !!! Note
 
     You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
-
 
 ## Scenarios
 
@@ -26,9 +25,9 @@ Explorer has these features:
 
 - [User-friendly](../12.query-visually.md): Explorer uses simple visual interaction, no need to conceive nGQL sentences, easy to realize graph exploration.
 
-- [Flexible](../ex-ug-query-exploration.md): Explorer supports querying data through VID, Tag, and Subgraph.
+- [Flexible](../graph-explorer/ex-ug-query-exploration.md): Explorer supports querying data through VID, Tag, and Subgraph.
 
-- [Exploration operations](../ex-ug-graph-exploration.md): Explorer supports exploration operations on multiple vertices, querying the common neighbors of multiple vertices, and querying the path between the source vertex and the destination vertex.
+- [Exploration operations](../graph-explorer/ex-ug-graph-exploration.md): Explorer supports exploration operations on multiple vertices, querying the common neighbors of multiple vertices, and querying the path between the source vertex and the destination vertex.
 
 - [Various display](../canvas-operations/canvas-overview.md): Explorer supports modifying the color and icon of the vertex in the canvas to highlight key nodes. Data can also be displayed in different modes.
 
