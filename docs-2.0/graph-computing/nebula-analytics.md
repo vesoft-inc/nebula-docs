@@ -21,7 +21,7 @@ The version correspondence between Nebula Analytics and Nebula Graph is as follo
 
 |Nebula Analytics|Nebula Graph|
 |:---|:---|
-|{{plato.release}}|{{nebula.release}}|
+|{{plato.release}}|{{nebula.release}}、3.1.0|
 |1.0.x|3.0.x|
 |0.9.0|2.6.x|
 
