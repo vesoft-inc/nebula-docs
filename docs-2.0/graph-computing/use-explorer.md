@@ -6,4 +6,4 @@ For more details, see [Workflows](../nebula-explorer/workflow/workflows.md).
 
 !!! enterpriseonly
 
-    Nebula Explorer is only available in the enterprise version.
+    To apply for the Nebula Explorer installation package, send mail at `inquiry@vesoft.com`. 
