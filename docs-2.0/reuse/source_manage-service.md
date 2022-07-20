@@ -90,6 +90,7 @@ $ sudo /usr/local/nebula/scripts/nebula.service start all
 [INFO] Done
 ```
 
+{{ ent.ent_begin }}
 Users can also run the following command:
 
 ```bash
@@ -101,6 +102,7 @@ If users want to automatically start Nebula Graph when the machine starts, run t
 ```bash
 $ systemctl enable nebula
 ```
+{{ ent.ent_begin }}
 
 ### In docker container (deployed with docker-compose)
 
@@ -141,11 +143,13 @@ $ sudo /usr/local/nebula/scripts/nebula.service stop all
 [INFO] Done
 ```
 
+{{ ent.ent_begin }}
 Users can also run the following command:
 
 ```bash
 $ systemctl stop nebula
 ```
+{{ ent.ent_end }}
 
 ### In docker container (deployed with docker-compose)
 
@@ -210,6 +214,7 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
     [INFO] nebula-storaged: Running as 25646, Listening on 9779
     ```
 
+{{ ent.ent_begin }}
 Users can also run the following command:
 
 ```bash
@@ -228,6 +233,7 @@ $ systemctl status nebula
 3月 28 04:13:24 xxxxxx systemd[1]: Started nebula.service.
 ...
 ```
+{{ ent.ent_end }}
 
 The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the returned result to troubleshoot problems.
 
