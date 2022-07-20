@@ -1,12 +1,14 @@
-Nebula Graph supports managing services with scripts or systemd. 
+Nebula Graph supports managing services with scripts. 
 
+{{ ent.ent_begin }}
 !!! enterpriseonly
 
-    Managing Nebula Graph with systemd is only available in the Nebula Graph Enterprise Edition.
+    You can also manage Nebula Graph with systemd in the Nebula Graph Enterprise Edition.
 
 !!! danger
 
     The two methods are incompatible. It is recommended to use only one method in a cluster.
+{{ ent.ent_end }}
 
 ## Manage services with script
 

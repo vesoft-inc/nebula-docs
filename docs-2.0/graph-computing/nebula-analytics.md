@@ -4,7 +4,7 @@ Nebula Analytics is a high-performance graph computing framework tool that perfo
 
 !!! enterpriseonly
 
-    Only available for the Nebula Graph Enterprise Edition.
+    To apply for the Nebula Analytics installation package, send mail at `inquiry@vesoft.com`.
 
 ## Scenarios
 
