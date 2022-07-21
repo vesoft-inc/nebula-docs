@@ -1,6 +1,10 @@
 # Welcome to Nebula Graph {{ nebula.release }} Documentation
 
-!!! note "[View release notes](20.appendix/release-note.md)"
+!!! caution
+
+    The documents of this version are for Nebula Graph Enterprise Edition {{ nebula.release }}, Nebula Graph Community Edition {{ nebula.release }}, and the corresponding tools. For details, see [Release notes](20.appendix/release-note.md).
+
+!!! note
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with GitHub commit [{{ git.short_commit }}](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}).
 
