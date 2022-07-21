@@ -186,7 +186,7 @@ sudo dpkg -r nebula-explorer
 2. Use `tar -xvf` to decompress the TAR package.
 
    ```bash
-   tar -xvf nebula-graph-explorer-<version>.tar.gz
+   tar -xvf nebula-explorer-<version>.tar.gz
    ```
 
 3. Copy the license to the `nebula-explorer` directory.
@@ -204,7 +204,7 @@ sudo dpkg -r nebula-explorer
 
   ```bash
   cd nebula-explorer
-  ./nebula-httpd &
+  nohup ./nebula-explorer-server &
   ```
 
 ### Stop Service
