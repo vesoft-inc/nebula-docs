@@ -43,10 +43,6 @@ You can use Studio in one of these scenarios:
 
 ## Authentication
 
-<!--
-For Studio on Cloud, only the instance creator and the Nebula Graph Cloud Service accounts that are authorized to manipulate data in Nebula Graph can connect to Studio. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-cloud.io/en/posts/toc/dbaas-ug-toc/).
--->
-
 Authentication is not enabled in Nebula Graph by default. Users can log into Studio with the `root` account and any password.
 
 When Nebula Graph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).

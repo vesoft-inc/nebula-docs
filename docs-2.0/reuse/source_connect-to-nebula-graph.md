@@ -69,7 +69,7 @@ If you don't have a Nebula Graph database yet, we recommend that you try the clo
    | - | - |
    | `-h` | Shows the help menu. |
    | `-addr` | Sets the IP address of the graphd service. The default address is 127.0.0.1. |
-   | `-port` | Sets the port number of the graphd service. The default port number is 9669. If Nebula Graph is deployed on [Nebula Graph Cloud](../nebula-cloud/1.what-is-cloud.md), you need to create a Private Link, set to the IP address of the private endpoint.|
+   | `-port` | Sets the port number of the graphd service. The default port number is 9669.<!-- If Nebula Graph is deployed on [Nebula Graph Cloud](../nebula-cloud/1.what-is-cloud.md), you need to create a Private Link, set to the IP address of the private endpoint. -->|
    | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
    | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
    | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
