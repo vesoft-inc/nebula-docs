@@ -1,10 +1,7 @@
-# Upgrade Nebula Graph v2.0.x to v{{nebula.release}}
+# Upgrade Nebula Graph v3.x to v{{nebula.release}}
 
-To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the RPM/DEB package of v{{nebula.release}} for the upgrade, or [compile it](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) and then reinstall.
+To upgrade Nebula Graph v3.x to v{{nebula.release}}, you only need to use the RPM/DEB package of v{{nebula.release}} for the upgrade, or [compile it](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) and then reinstall.
 
-!!! note
-
-    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-latest.md).
 
 ## Upgrade steps with RPM/DEB packages
 
