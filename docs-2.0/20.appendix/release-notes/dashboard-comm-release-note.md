@@ -1,6 +1,6 @@
 # Nebula Dashboard Community Edition release notes
 
-## Community Edition 3.0.0
+## Community Edition 3.1.0
 
 - Feature
   - Support [deploying Nebula Dashboard with Docker Compose](../../nebula-dashboard/2.deploy-dashboard.md).

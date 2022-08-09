@@ -1,5 +1,10 @@
 # Nebula Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.1.1
+
+- Bugfix
+  - Fixed the upload verification problem of the license.
+
 ## Enterprise Edition 3.1.0
 
 - Feature

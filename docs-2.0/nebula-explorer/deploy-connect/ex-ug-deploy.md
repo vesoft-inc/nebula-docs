@@ -10,8 +10,8 @@ This topic describes how to deploy Explorer locally by RPM and tar packages.
 
 | Nebula Graph version | Explorer version |
 | --- | --- |
-| 3.2.0| 3.1.0|
-| 3.0.0 ~ 3.1.x | 3.0.0 |
+| 3.1.0 ~ 3.2.0| 3.1.0|
+| 3.0.0 ~ 3.1.0 | 3.0.0  |
 | 2.5.x ~ 3.0.0| 2.2.0|
 | 2.6.x | 2.1.0 |
 | 2.5.x | 2.0.0 |
@@ -186,7 +186,7 @@ sudo dpkg -r nebula-explorer
 2. Use `tar -xvf` to decompress the TAR package.
 
    ```bash
-   tar -xvf nebula-graph-explorer-<version>.tar.gz
+   tar -xvf nebula-explorer-<version>.tar.gz
    ```
 
 3. Copy the license to the `nebula-explorer` directory.
@@ -204,7 +204,7 @@ sudo dpkg -r nebula-explorer
 
   ```bash
   cd nebula-explorer
-  ./nebula-httpd &
+  nohup ./nebula-explorer-server &
   ```
 
 ### Stop Service
