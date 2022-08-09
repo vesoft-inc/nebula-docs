@@ -1,5 +1,11 @@
 # Nebula Studio release notes
 
+## v3.4.1
+
+- Bugfix
+
+  - Fixed the bug that the edges were not rendered on self-loop.
+
 ## v3.4.0
 
 - Enhancement
