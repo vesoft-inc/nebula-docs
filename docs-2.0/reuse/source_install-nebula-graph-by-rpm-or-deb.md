@@ -4,10 +4,11 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
     The console is not complied or packaged with Nebula Graph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
 
+{{ ent.ent_begin }}
 !!! enterpriseonly
 
     For the Enterprise Edition, please send email to inquiry@vesoft.com.
-
+{{ ent.ent_end }}
 ## Prerequisites
 
 Wget installed.
@@ -155,7 +156,9 @@ Wget installed.
 
 ## Next to do
 
+{{ ent.ent_begin }}
 - (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license)
+{{ ent.ent_end }}
 
 - [Start Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
 

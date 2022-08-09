@@ -1,10 +1,8 @@
 # Nebula Graph {{ nebula.release }} release notes
 
-## Feature
+## Enhancement
 
 - Support the [extract() function](../3.ngql-guide/6.functions-and-expressions/2.string.md). [#4098](https://github.com/vesoft-inc/nebula/pull/4098)
-
-## Enhancement
 
 - Optimized the configuration file and added some configurations. [#4310](https://github.com/vesoft-inc/nebula/pull/4310)
 

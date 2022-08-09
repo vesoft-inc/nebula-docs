@@ -4,7 +4,7 @@ Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is
 
 !!! enterpriseonly
 
-    Explorer is only available in the enterprise version.
+    To apply for the Nebula Explorer installation package, send mail at `inquiry@vesoft.com`. 
 
 !!! Note
 

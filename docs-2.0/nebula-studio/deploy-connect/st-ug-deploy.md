@@ -147,7 +147,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 You can uninstall Studio using the following command:
 
 ```bash
-$ sudo dpkg -r nebula-graph-studio-{{ studio.release }}.x86_64
+$ sudo dpkg -r nebula-graph-studio
 
 ```
 
