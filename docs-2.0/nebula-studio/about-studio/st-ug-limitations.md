@@ -16,7 +16,7 @@ This topic introduces the limitations of Studio.
 | 2.6.x | 3.1.x |
 | 3.0.0 | 3.2.x |
 | 3.1.0 | 3.3.2 |
-| 3.0.0 ～ 3.2.0| 3.4.0|
+| 3.0.0 ～ 3.2.0| 3.4.1、3.4.0|
 
 ## Architecture
 
