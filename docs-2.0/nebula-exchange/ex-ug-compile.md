@@ -1,12 +1,12 @@
 # Get Exchange
 
-This topic introduces how to get the JAR file of Nebula Exchange.
+This topic introduces how to get the JAR file of NebulaGraphExchange.
 
 ## Download the JAR file directly
 
 The JAR file of Exchange Community Edition can be [downloaded](https://github.com/vesoft-inc/nebula-exchange/releases) directly.
 
-To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.io/pricing/) first.
+To download Exchange Enterprise Edition, [get NebulaGraph Enterprise Edition Package](https://nebula-graph.io/pricing/) first.
 
 ## Get the JAR file by compiling the source code
 
@@ -14,7 +14,7 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
 
 !!! enterpriseonly
 
-    You can get Exchange Enterprise Edition in Nebula Graph Enterprise Edition Package only.
+    You can get Exchange Enterprise Edition in NebulaGraph Enterprise Edition Package only.
 
 ### Prerequisites
 
@@ -36,7 +36,7 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
   cd nebula-exchange
   ```
 
-3. Package Nebula Exchange. Run the following command based on the Spark version:
+3. Package NebulaGraphExchange. Run the following command based on the Spark version:
 
   - For Spark 2.2：
 
@@ -63,7 +63,7 @@ After the compilation is successful, you can find the `nebula-exchange_spark_x.x
 
 !!! note
 
-    The JAR file version changes with the release of the Nebula Java Client. Users can view the latest version on the [Releases page](https://github.com/vesoft-inc/nebula-java/releases).
+    The JAR file version changes with the release of the NebulaGraphJava Client. Users can view the latest version on the [Releases page](https://github.com/vesoft-inc/nebula-java/releases).
 
 When migrating data, you can refer to configuration file [`target/classes/application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf).
 

@@ -1,6 +1,6 @@
-# Deploy a Nebula Graph cluster with RPM/DEB package on multiple servers
+# Deploy a NebulaGraph cluster with RPM/DEB package on multiple servers
 
-For now, Nebula Graph does not provide an official deployment tool. Users can deploy a Nebula Graph cluster with RPM or DEB package manually. This topic provides an example of deploying a Nebula Graph cluster on multiple servers (machines).
+For now, NebulaGraph does not provide an official deployment tool. Users can deploy a NebulaGraph cluster with RPM or DEB package manually. This topic provides an example of deploying a NebulaGraph cluster on multiple servers (machines).
 
 ## Deployment
 
@@ -19,18 +19,18 @@ For now, Nebula Graph does not provide an official deployment tool. Users can de
 
 ## Manual deployment process
 
-### Install Nebula Graph
+### Install NebulaGraph
 
-Install Nebula Graph on each machine in the cluster. Available approaches of installation are as follows.
+Install NebulaGraph on each machine in the cluster. Available approaches of installation are as follows.
 
-* [Install Nebula Graph with RPM or DEB package](2.install-nebula-graph-by-rpm-or-deb.md)
+* [Install NebulaGraph with RPM or DEB package](2.install-nebula-graph-by-rpm-or-deb.md)
 
-* [Install Nebula Graph by compiling the source code](1.install-nebula-graph-by-compiling-the-source-code.md)
+* [Install NebulaGraph by compiling the source code](1.install-nebula-graph-by-compiling-the-source-code.md)
 
 {{ ent.ent_begin }}
 ### Add a license (for the Enterprise Edition only).
 
-- Adding a license is only required when you deploy a Nebula Graph cluster with the Enterprise Edition. For details, see [Deploy a license for Nebula Graph Enterprise Edition](../../4.deployment-and-installation/deploy-license.md).
+- Adding a license is only required when you deploy a NebulaGraph cluster with the Enterprise Edition. For details, see [Deploy a license for NebulaGraph Enterprise Edition](../../4.deployment-and-installation/deploy-license.md).
 
 - Skip this step when you deploy a cluster with the Community Edition.
 
@@ -38,9 +38,9 @@ Install Nebula Graph on each machine in the cluster. Available approaches of ins
 
 ### Modify the configurations
 
-To deploy Nebula Graph according to your requirements, you have to modify the configuration files.
+To deploy NebulaGraph according to your requirements, you have to modify the configuration files.
 
-All the configuration files for Nebula Graph, including `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`, are stored in the `etc` directory in the installation path. You only need to modify the configuration for the corresponding service on the machines. The configurations that need to be modified for each machine are as follows.
+All the configuration files for NebulaGraph, including `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`, are stored in the `etc` directory in the installation path. You only need to modify the configuration for the corresponding service on the machines. The configurations that need to be modified for each machine are as follows.
 
 | Machine name | The configuration to be modified                                  |
 | :-----       | :---------------                                                  |
@@ -50,7 +50,7 @@ All the configuration files for Nebula Graph, including `nebula-graphd.conf`, `n
 | D            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
 | E            | `nebula-graphd.conf`, `nebula-storaged.conf`                      |
 
-Users can refer to the content of the following configurations, which only show part of the cluster settings. The hidden content uses the default setting so that users can better understand the relationship between the servers in the Nebula Graph cluster.
+Users can refer to the content of the following configurations, which only show part of the cluster settings. The hidden content uses the default setting so that users can better understand the relationship between the servers in the NebulaGraph cluster.
 
 !!! note
 
@@ -276,7 +276,7 @@ Start the corresponding service on **each machine**. Descriptions are as follows
 | D            | graphd, storaged          |
 | E            | graphd, storaged          |
 
-The command to start the Nebula Graph services is as follows.
+The command to start the NebulaGraph services is as follows.
 
 ```bash
 sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
@@ -284,21 +284,21 @@ sudo /usr/local/nebula/scripts/nebula.service start <metad|graphd|storaged|all>
 
 !!! note
 
-    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start Nebula Graph.
+    - Make sure all the processes of services on each machine are started. Otherwise, you will fail to start NebulaGraph.
 
     - When the graphd process, the storaged process, and the metad process are all started, you can use `all` instead.
 
-    - `/usr/local/nebula` is the default installation path for Nebula Graph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage Nebula Graph services](../manage-service.md).
+    - `/usr/local/nebula` is the default installation path for NebulaGraph. Use the actual path if you have customized the path. For more information about how to start and stop the services, see [Manage NebulaGraph services](../manage-service.md).
 
 ### Check the cluster status
 
-Install the native CLI client [Nebula Console](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, run `ADD HOSTS` command to add storage hosts, and run `SHOW HOSTS` to check the cluster status. For example:
+Install the native CLI client [NebulaGraphConsole](../../2.quick-start/3.connect-to-nebula-graph.md), then connect to any machine that has started the graphd process, run `ADD HOSTS` command to add storage hosts, and run `SHOW HOSTS` to check the cluster status. For example:
 
 ```bash
 $ ./nebula-console --addr 192.168.10.111 --port 9669 -u root -p nebula
 
 2021/05/25 01:41:19 [INFO] connection pool is initialized successfully
-Welcome to Nebula Graph!
+Welcome to NebulaGraph!
 
 > ADD HOSTS 192.168.10.111:9779, 192.168.10.112:9779, 192.168.10.113:9779, 192.168.10.114:9779, 192.168.10.115:9779;
 > SHOW HOSTS;

@@ -1,42 +1,42 @@
-# Nebula Console
+# NebulaGraphConsole
 
-Nebula Console is a native CLI client for Nebula Graph. It can be used to connect a Nebula Graph cluster and execute queries. It also supports special commands to manage parameters, export query results, import test datasets, etc.
+NebulaGraphConsole is a native CLI client for NebulaGraph. It can be used to connect a NebulaGraph cluster and execute queries. It also supports special commands to manage parameters, export query results, import test datasets, etc.
 
-## Obtain Nebula Console
+## Obtain NebulaGraphConsole
 
-You can obtain Nebula Console in the following ways:
+You can obtain NebulaGraphConsole in the following ways:
 
-<!-- - Obtain the binary file of Nebula Console from the `bin` directory in the Nebula Graph installation path. -->
+<!-- - Obtain the binary file of NebulaGraphConsole from the `bin` directory in the NebulaGraph installation path. -->
 
 - Download the binary file from the [GitHub releases page](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page").
 
 - Compile the source code to obtain the binary file. For more information, see [Install from source code](https://github.com/vesoft-inc/nebula-console#from-source-code).
 
-## Nebula Console functions
+## NebulaGraphConsole functions
 
-### Connect to Nebula Graph
+### Connect to NebulaGraph
 
-To connect to Nebula Graph with the `nebula-console` file, use the following syntax:
+To connect to NebulaGraph with the `nebula-console` file, use the following syntax:
 
 ```bash
 <path_of_console> -addr <ip> -port <port> -u <username> -p <password>
 ```
 
-`path_of_console` indicates the storage path of the Nebula Console binary file.
+`path_of_console` indicates the storage path of the NebulaGraphConsole binary file.
 
 Parameter descriptions are as follows:
 
 | Parameter | Description |
 | - | - |
 | `-h/-help` | Shows the help menu. |
-| `-addr/-address` | Sets the IP address of the Graph service. The default address is 127.0.0.1. <!--If Nebula Graph is deployed on [Nebula Cloud](https://docs.nebula-graph.io/3.1.0/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP address of the Private Endpoint as the parameter value.--> |
+| `-addr/-address` | Sets the IP address of the Graph service. The default address is 127.0.0.1. <!--If NebulaGraph is deployed on [NebulaGraphCloud](https://docs.nebula-graph.io/3.1.0/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP address of the Private Endpoint as the parameter value.--> |
 | `-P/-port` | Sets the port number of the graphd service. The default port number is 9669. |
-| `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
-| `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
+| `-u/-user` | Sets the username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
+| `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. |
 | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
 | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
 | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
-| `-enable_ssl` | Enables SSL encryption when connecting to Nebula Graph. |
+| `-enable_ssl` | Enables SSL encryption when connecting to NebulaGraph. |
 | `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
 | `-ssl_cert_path` | Sets the storage path of the certificate file. |
 | `-ssl_private_key_path` | Sets the storage path of the private key file. |
@@ -194,15 +194,15 @@ Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578
 
 ### Sleep
 
-This command will make Nebula Console sleep for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
+This command will make NebulaGraphConsole sleep for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
 
 ```ngql
 nebula> :sleep N
 ```
 
-### Disconnect Nebula Console from Nebula Graph
+### Disconnect NebulaGraphConsole from NebulaGraph
 
-You can use `:EXIT` or `:QUIT` to disconnect from Nebula Graph. For convenience, Nebula Console supports using these commands in lower case without the colon (":"), such as `quit`.
+You can use `:EXIT` or `:QUIT` to disconnect from NebulaGraph. For convenience, NebulaGraphConsole supports using these commands in lower case without the colon (":"), such as `quit`.
 
 The example is as follows:
 

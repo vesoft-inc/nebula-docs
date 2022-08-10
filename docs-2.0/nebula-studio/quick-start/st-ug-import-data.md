@@ -1,12 +1,12 @@
 # Import data
 
-After CSV files of data and a schema are created, you can use the **Import** page to batch import vertex and edge data into Nebula Graph for graph exploration and data analysis.
+After CSV files of data and a schema are created, you can use the **Import** page to batch import vertex and edge data into NebulaGraph for graph exploration and data analysis.
 
 ## Prerequisites
 
 To batch import data, do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 
 - A schema is created.
 
@@ -45,7 +45,7 @@ To batch import data, follow these steps:
 
   !!! caution
 
-        users can click **Import Template** to download the example configuration file `example.yaml`, and upload the configuration file after configuration. The configuration mode is similar to that of [Nebula Importer](../../nebula-importer/use-importer.md), but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.
+        users can click **Import Template** to download the example configuration file `example.yaml`, and upload the configuration file after configuration. The configuration mode is similar to that of [NebulaGraphImporter](../../nebula-importer/use-importer.md), but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.
 
   - Select a graph space.
   - Fill in the task name.
@@ -61,7 +61,7 @@ To batch import data, follow these steps:
 
 4. After completing the settings, click the **Import** button.
   
-5. You need to enter the password of your Nebula account before importing data.
+5. You need to enter the password of your NebulaGraphaccount before importing data.
   ![enter password](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-014-en.png)
 
 6. After importing data, you can view logs, download logs, download configuration files, and delete tasks on the **Import Data** tab.

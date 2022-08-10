@@ -1,16 +1,16 @@
-# Nebula Graph learning path
+# NebulaGraph learning path
 
-This topic is for anyone interested in learning more about Nebula Graph. You can master Nebula Graph from zero to hero through the documentation and videos in Nebula Graph learning path. 
+This topic is for anyone interested in learning more about NebulaGraph. You can master NebulaGraph from zero to hero through the documentation and videos in NebulaGraph learning path. 
 
  ![learning path](https://docs-cdn.nebula-graph.com.cn/figures/learning-path.png)
 
-## 1. About Nebula Graph
+## 1. About NebulaGraph
 
-### 1.1 What is Nebula Graph?
+### 1.1 What is NebulaGraph?
 
 | Document                                                         | Video                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [What is Nebula Graph](../1.introduction/1.what-is-nebula-graph.md) | [Nebula Graph](https://www.youtube.com/watch?v=LNwCzn2xdYI)|
+| [What is NebulaGraph](../1.introduction/1.what-is-nebula-graph.md) | [NebulaGraph](https://www.youtube.com/watch?v=LNwCzn2xdYI)|
 
 ### 1.2 Data models
   
@@ -28,7 +28,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
 
 
-### 1.4 Nebula Graph architecture
+### 1.4 NebulaGraph architecture
 
   | Document                                                         | 
   | ------------------------------------------------------------ | 
@@ -39,27 +39,27 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
 ## 2. Quick start
 
-### 2.1 Install Nebula Graph
+### 2.1 Install NebulaGraph
 
   | Document                                                         | Video                                                         |
   | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | [Install with a RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) | -                                                            |
   | [Install with a TAR package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/4.install-nebula-graph-from-tar.md) | -                                                            |
-  | [Install with Docker](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md) | [Install Nebula Graph with Docker and Docker Compose](https://www.youtube.com/watch?v=yM5GDpJedEI) |
-  | [Install from source](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) | [Install Nebula Graph with Source Code](https://www.youtube.com/watch?v=x-I835eEBz0)                                                             |
+  | [Install with Docker](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md) | [Install NebulaGraph with Docker and Docker Compose](https://www.youtube.com/watch?v=yM5GDpJedEI) |
+  | [Install from source](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) | [Install NebulaGraph with Source Code](https://www.youtube.com/watch?v=x-I835eEBz0)                                                             |
   
 
-### 2.2 Start Nebula Graph
+### 2.2 Start NebulaGraph
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Start and stop Nebula Graph](../2.quick-start/5.start-stop-service.md) |
+  | [Start and stop NebulaGraph](../2.quick-start/5.start-stop-service.md) |
 
-### 2.3 Connect to Nebula Graph
+### 2.3 Connect to NebulaGraph
 
   | Document
   | ------------------------------------------------------------ |
-  | [Connect to Nebula Graph](../2.quick-start/3.connect-to-nebula-graph.md) |
+  | [Connect to NebulaGraph](../2.quick-start/3.connect-to-nebula-graph.md) |
 
 ### 2.4 Use nGQL statements 
 
@@ -73,17 +73,17 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document |
   | ------------------------------------------------------------ |
-  | [Deploy a Nebula Graph cluster with RPM/DEB](../4.deployment-and-installation/2.compile-and-install-nebula-graph/deploy-nebula-graph-cluster.md) |  
+  | [Deploy a NebulaGraph cluster with RPM/DEB](../4.deployment-and-installation/2.compile-and-install-nebula-graph/deploy-nebula-graph-cluster.md) |  
 
-### 3.2 Upgrade Nebula Graph
+### 3.2 Upgrade NebulaGraph
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Upgrade Nebula Graph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md) |
+  | [Upgrade NebulaGraph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md) |
   
-  <!-- | [Upgrade Nebula Graph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) | -->
+  <!-- | [Upgrade NebulaGraph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) | -->
 
-### 3.3 Configure Nebula Graph
+### 3.3 Configure NebulaGraph
 
   | Document                                                         |
   | ------------------------------------------------------------ |
@@ -119,7 +119,7 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Nebula Graph metrics](../6.monitor-and-metrics/1.query-performance-metrics.md) |
+  | [NebulaGraph metrics](../6.monitor-and-metrics/1.query-performance-metrics.md) |
   | [RocksDB statistics](../6.monitor-and-metrics/2.rocksdb-statistics.md) |
 
 - Data snapshot
@@ -164,48 +164,48 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Data visualization     | [Nebula Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [Nebula Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [Nebula Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [Nebula Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | -|
-  | Data analysis       | [Nebula Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
+  | Data visualization     | [NebulaGraphStudio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [NebulaGraphStudio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
+  | Data monitoring and O&M | [NebulaGraphDashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [NebulaGraphDashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | -|
+  | Data analysis       | [NebulaGraphExplorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
 
 
 - Data import and export
 
   | Import and export | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Data import       | [Nebula Importer](../nebula-importer/use-importer.md) | [Nebula Importer](https://www.bilibili.com/video/BV1ny4y1u7i4) |
-  | Data import       | [Nebula Spark Connector](../nebula-spark-connector.md) | -                                                            |
-  | Data import       | [Nebula Flink Connector](../nebula-flink-connector.md) | -                                                            |
-  | Data import       | [Nebula Exchange Community Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
-  | Data export       | [Nebula Exchange Enterprise Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | -                                                            |
+  | Data import       | [NebulaGraphImporter](../nebula-importer/use-importer.md) | [NebulaGraphImporter](https://www.bilibili.com/video/BV1ny4y1u7i4) |
+  | Data import       | [NebulaGraphSpark Connector](../nebula-spark-connector.md) | -                                                            |
+  | Data import       | [NebulaGraphFlink Connector](../nebula-flink-connector.md) | -                                                            |
+  | Data import       | [NebulaGraphExchange Community Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
+  | Data export       | [NebulaGraphExchange Enterprise Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | -                                                            |
   
 - Performance test
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Nebula Bench](../nebula-bench.md) |
+  | [NebulaGraphBench](../nebula-bench.md) |
 
 - Cluster O&M
 
   | Document  |
   | -------- |
-  | [Nebula Operator](../nebula-operator/1.introduction-to-nebula-operator.md) |
+  | [NebulaGraphOperator](../nebula-operator/1.introduction-to-nebula-operator.md) |
 
 - Graph algorithm
 
   | Document   |
   | ------- |
-  | [Nebula Algorithm](../nebula-algorithm.md) |
+  | [NebulaGraphAlgorithm](../nebula-algorithm.md) |
 
 - Clients
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Nebula Console](../2.quick-start/3.connect-to-nebula-graph.md) |
-  | [Nebula CPP](../14.client/3.nebula-cpp-client.md) |
-  | [Nebula Java](../14.client/4.nebula-java-client.md) |
-  | [Nebula Python](../14.client/5.nebula-python-client.md) |
-  | [Nebula Go](../14.client/6.nebula-go-client.md) |
+  | [NebulaGraphConsole](../2.quick-start/3.connect-to-nebula-graph.md) |
+  | [NebulaGraphCPP](../14.client/3.nebula-cpp-client.md) |
+  | [NebulaGraphJava](../14.client/4.nebula-java-client.md) |
+  | [NebulaGraphPython](../14.client/5.nebula-python-client.md) |
+  | [NebulaGraphGo](../14.client/6.nebula-go-client.md) |
 
 
 ## 4. API & SDK
@@ -220,11 +220,11 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
   | Document                                                         |
   | ------------------------------------------------------------ |
   | [Handling Tens of Billions of Threat Intelligence Data with Graph Database at Kuaishou](https://nebula-graph.io/posts/kuaishou-security-intelligence-platform-with-nebula-graph/) |
-  | [Import data from Neo4j to Nebula Graph via Nebula Exchange: Best Practices](https://nebula-graph.io/posts/neo4j-nebula-graph-import-best-practice/) |
-  | [Hands-On Experience: Import Data to Nebula Graph with Spark](https://nebula-graph.io/posts/best-practices-import-data-spark-nebula-graph/) |
+  | [Import data from Neo4j to NebulaGraph via NebulaGraphExchange: Best Practices](https://nebula-graph.io/posts/neo4j-nebula-graph-import-best-practice/) |
+  | [Hands-On Experience: Import Data to NebulaGraph with Spark](https://nebula-graph.io/posts/best-practices-import-data-spark-nebula-graph/) |
   | [How to Select a Graph Database: Best Practices at RoyalFlush](https://nebula-graph.io/posts/how-to-select-a-graph-database/) |
-  | [Practicing Nebula Operator on Cloud](https://nebula-graph.io/posts/nebula-operator-practice/) |
-  | [Using Ansible to Automate Deployment of Nebula Graph Cluster](https://nebula-graph.io/posts/deploy-nebula-graph-with-ansible/) |
+  | [Practicing NebulaGraphOperator on Cloud](https://nebula-graph.io/posts/nebula-operator-practice/) |
+  | [Using Ansible to Automate Deployment of NebulaGraph Cluster](https://nebula-graph.io/posts/deploy-nebula-graph-with-ansible/) |
 
 
 ## 6. FAQ
@@ -236,26 +236,26 @@ This topic is for anyone interested in learning more about Nebula Graph. You can
 
 ## 7. Practical tasks
 
-You can check if you have mastered Nebula Graph by completing the following practical tasks. 
+You can check if you have mastered NebulaGraph by completing the following practical tasks. 
 
   | Task                                                | Reference                                                         |
   | ------------------------------------------------------- | ------------------------------------------------------------ |
-  | Compile the source code of Nebula Graph                                                | [Install Nebula Graph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)                                                             |
+  | Compile the source code of NebulaGraph                                                | [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)                                                             |
   | Deploy Studio, Dashboard, and Explorer             | [Deploy Studio](../nebula-studio/deploy-connect/st-ug-deploy.md), [Deploy Dashboard](../nebula-dashboard/2.deploy-dashboard.md), and [Deploy Explorer](../nebula-explorer/deploy-connect/ex-ug-deploy.md)                                                            |
-  | Load test Nebula Graph with K6                               | [Nebula Bench](../nebula-bench.md) |
+  | Load test NebulaGraph with K6                               | [NebulaGraphBench](../nebula-bench.md) |
   | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 
 
-## 8. Get Nebula Graph Certifications
+## 8. Get NebulaGraph Certifications
 
-Now you could get Nebula Graph Certifications from [Nebula Academy](https://academic.nebula-graph.io).
+Now you could get NebulaGraph Certifications from [NebulaGraphAcademy](https://academic.nebula-graph.io).
 
-- Nebula Graph Certified Insider(NGCI): The NGCI certification provides a birdview to graph databases and the Nebula Graph database. Passing NGCI shows that you have a good understanding of Nebula Graph.
+- NebulaGraph Certified Insider(NGCI): The NGCI certification provides a birdview to graph databases and the NebulaGraph database. Passing NGCI shows that you have a good understanding of NebulaGraph.
 
-- Nebula Graph Certified Professional(NGCP): The NGCP certification drives you deep into the Nebula Graph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of Nebula Graph.
+- NebulaGraph Certified Professional(NGCP): The NGCP certification drives you deep into the NebulaGraph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of NebulaGraph.
 
 ### Video
 
-- [An Intro to Nebula Graph Certifications](https://www.youtube.com/watch?v=dZUKyw8L7uA)(4 minutes 17 seconds)
+- [An Intro to NebulaGraph Certifications](https://www.youtube.com/watch?v=dZUKyw8L7uA)(4 minutes 17 seconds)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

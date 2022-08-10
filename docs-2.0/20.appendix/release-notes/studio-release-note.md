@@ -1,4 +1,4 @@
-# Nebula Studio release notes
+# NebulaGraphStudio release notes
 
 ## v3.4.1
 
@@ -10,7 +10,7 @@
 
 - Enhancement
 
-  - Adapted for Nebula Graph 3.2.0.
+  - Adapted for NebulaGraph 3.2.0.
   - Clear the session corresponding to the service when stopping the Studio service.
 
 - Bugfix

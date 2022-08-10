@@ -1,10 +1,10 @@
-# Nebula Importer
+# NebulaGraphImporter
 
-Nebula Importer (Importer) is a standalone tool for importing data from CSV files into [Nebula Graph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the Nebula Graph database.
+NebulaGraphImporter (Importer) is a standalone tool for importing data from CSV files into [NebulaGraph](https://github.com/vesoft-inc/nebula). Importer can read the local CSV file and then import the data into the NebulaGraph database.
 
 ## Scenario
 
-Importer is used to import the contents of a local CSV file into the Nebula Graph.
+Importer is used to import the contents of a local CSV file into the NebulaGraph.
 
 ## Advantage
 
@@ -18,23 +18,23 @@ Importer is used to import the contents of a local CSV file into the Nebula Grap
 
 ## Prerequisites
 
-Before using Nebula Importer, make sure:
+Before using NebulaGraphImporter, make sure:
 
-- Nebula Graph service has been deployed. There are currently three deployment modes:
+- NebulaGraph service has been deployed. There are currently three deployment modes:
   
-  - [Deploy Nebula Graph with Docker Compose](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md)
+  - [Deploy NebulaGraph with Docker Compose](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md)
   
-  - [Install Nebula Graph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
+  - [Install NebulaGraph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
   
-  - [Install Nebula Graph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
+  - [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
 
-- Schema is created in Nebula Graph, including space, Tag and Edge type, or set by parameter `clientSettings.postStart.commands`.
+- Schema is created in NebulaGraph, including space, Tag and Edge type, or set by parameter `clientSettings.postStart.commands`.
 
 - Golang environment has been deployed on the machine running the Importer. For details, see [Build Go environment](https://github.com/vesoft-inc/nebula-importer/blob/{{importer.branch}}/docs/golang-install-en.md).
 
 ## Steps
 
-Configure the YAML file and prepare the CSV file to be imported to use the tool to batch write data to Nebula Graph.
+Configure the YAML file and prepare the CSV file to be imported to use the tool to batch write data to NebulaGraph.
 
 ### Download binary package and run
 
@@ -57,7 +57,7 @@ Configure the YAML file and prepare the CSV file to be imported to use the tool 
   !!! note
   
         Use the correct branch.
-        Nebula Graph 2.x and 3.x have different RPC protocols.
+        NebulaGraph 2.x and 3.x have different RPC protocols.
 
 2. Access the directory `nebula-importer`.
 
@@ -110,7 +110,7 @@ If the server cannot be connected to the Internet, it is recommended to upload t
 
 ### Run in Docker mode
 
-Instead of installing the Go locale locally, you can use Docker to pull the [image](https://hub.docker.com/r/vesoft/nebula-importer) of the Nebula Importer and mount the local configuration file and CSV data file into the container. The command is as follows:
+Instead of installing the Go locale locally, you can use Docker to pull the [image](https://hub.docker.com/r/vesoft/nebula-importer) of the NebulaGraphImporter and mount the local configuration file and CSV data file into the container. The command is as follows:
 
 ```bash
 $ docker run --rm -ti \
@@ -123,14 +123,14 @@ $ docker run --rm -ti \
 
 - `<config_file>`: The absolute path to the local YAML configuration file.
 - `<csv_data_dir>`: The absolute path to the local CSV data file.
-- `<version>`: Nebula Graph 2.x Please fill in 'v3'.
+- `<version>`: NebulaGraph 2.x Please fill in 'v3'.
 
 !!! note
     A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.
 
 ## Configuration File Description
 
-Nebula Importer uses configuration(`nebula-importer/examples/v2/example.yaml`) files to describe information about the files to be imported, the Nebula Graph server, and more. You can refer to the example configuration file: [Configuration without Header](config-without-header.md)/[Configuration with Header](config-with-header.md). This section describes the fields in the configuration file by category.
+NebulaGraphImporter uses configuration(`nebula-importer/examples/v2/example.yaml`) files to describe information about the files to be imported, the NebulaGraph server, and more. You can refer to the example configuration file: [Configuration without Header](config-without-header.md)/[Configuration with Header](config-with-header.md). This section describes the fields in the configuration file by category.
 
 !!! note
 
@@ -148,13 +148,13 @@ removeTempFiles: false
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
-|`version`|v2|Yes|Target version of Nebula Graph.|
+|`version`|v2|Yes|Target version of NebulaGraph.|
 |`description`|example|No|Description of the configuration file.|
 |`removeTempFiles`|false|No|Whether to delete temporarily generated logs and error data files.|
 
 ### Client configuration
 
-The client configuration stores the configurations associated with Nebula Graph.
+The client configuration stores the configurations associated with NebulaGraph.
 
 The example configuration is as follows:
 
@@ -182,15 +182,15 @@ clientSettings:
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
 |`clientSettings.retry`|3|No|Retry times of nGQL statement execution failures.|
-|`clientSettings.concurrency`|10|No|Number of Nebula Graph client concurrency.|
-|`clientSettings.channelBufferSize`|128|No|Cache queue size per Nebula Graph client.|
-|`clientSettings.space`|-|Yes|Specifies the Nebula Graph space to import the data into. Do not import multiple spaces at the same time to avoid performance impact.|
-|`clientSettings.connection.user`|-|Yes|Nebula Graph user name.|
-|`clientSettings.connection.password`|-|Yes|The password for the Nebula Graph user name.|
+|`clientSettings.concurrency`|10|No|Number of NebulaGraph client concurrency.|
+|`clientSettings.channelBufferSize`|128|No|Cache queue size per NebulaGraph client.|
+|`clientSettings.space`|-|Yes|Specifies the NebulaGraph space to import the data into. Do not import multiple spaces at the same time to avoid performance impact.|
+|`clientSettings.connection.user`|-|Yes|NebulaGraph user name.|
+|`clientSettings.connection.password`|-|Yes|The password for the NebulaGraph user name.|
 |`clientSettings.connection.address`|-|Yes|Addresses and ports for all Graph services.|
-|`clientSettings.postStart.commands`|-|No|Configure some of the operations to perform after connecting to the Nebula Graph server, and before inserting data.|
+|`clientSettings.postStart.commands`|-|No|Configure some of the operations to perform after connecting to the NebulaGraph server, and before inserting data.|
 |`clientSettings.postStart.afterPeriod`|-|No|The interval, between executing the above `commands` and executing the insert data command, such as `8s`.|
-|`clientSettings.preStop.commands`|-|No|Configure some of the actions you performed before disconnecting from the Nebula Graph server.|
+|`clientSettings.preStop.commands`|-|No|Configure some of the actions you performed before disconnecting from the NebulaGraph server.|
 
 ### File configuration
 
@@ -263,7 +263,7 @@ schema:
 |`files.schema.vertex.vid.type`|-|No|The data type of the vertex ID. Possible values are `int` and `string`.|
 |`files.schema.vertex.vid.index`|-|No|The vertex ID corresponds to the column number in the CSV file.|
 |`files.schema.vertex.tags.name`|-|Yes|Tag name.|
-|`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the Nebula Graph.|
+|`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the NebulaGraph.|
 |`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
@@ -303,7 +303,7 @@ schema:
 |`files.schema.edge.dstVID.type`|-|No|The data type of the destination vertex ID of the edge.|
 |`files.schema.edge.dstVID.index`|-|No|The destination vertex ID of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.rank.index`|-|No|The rank value of the edge corresponds to the column number in the CSV file.|
-|`files.schema.edge.props.name`|-|Yes|The Edge Type property name must match the Edge Type property in the Nebula Graph.|
+|`files.schema.edge.props.name`|-|Yes|The Edge Type property name must match the Edge Type property in the NebulaGraph.|
 |`files.schema.edge.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
 |`files.schema.edge.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 

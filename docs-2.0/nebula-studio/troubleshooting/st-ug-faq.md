@@ -4,7 +4,7 @@
 
     If you find that a function cannot be used, it is recommended to troubleshoot the problem according to the following steps:
     
-    1. Confirm that Nebula Graph is the latest version. If you use Docker Compose to deploy the Nebula Graph database, it is recommended to run `docker-compose pull && docker-compose up -d` to pull the latest Docker image and start the container.
+    1. Confirm that NebulaGraph is the latest version. If you use Docker Compose to deploy the NebulaGraph database, it is recommended to run `docker-compose pull && docker-compose up -d` to pull the latest Docker image and start the container.
     
     2. Confirm that Studio is the latest version. For more information, refer to [check updates](../../20.appendix/release-notes/studio-release-note.md).
     

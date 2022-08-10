@@ -1,12 +1,12 @@
-# Nebula Algorithm
+# NebulaGraphAlgorithm
 
-[Nebula Algorithm](https://github.com/vesoft-inc/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the Nebula Graph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
+[NebulaGraphAlgorithm](https://github.com/vesoft-inc/nebula-algorithm) (Algorithm) is a Spark application based on [GraphX](https://spark.apache.org/graphx/). It uses a complete algorithm tool to perform graph computing on the data in the NebulaGraph database by submitting a Spark task. You can also programmatically use the algorithm under the lib repository to perform graph computing on DataFrame.
 
 ## Version compatibility
 
-The correspondence between the Nebula Algorithm release and the Nebula Graph core release is as follows.
+The correspondence between the NebulaGraphAlgorithm release and the NebulaGraph core release is as follows.
 
-|Nebula Algorithm|Nebula Graph|
+|NebulaGraphAlgorithm|NebulaGraph|
 |:---|:---|
 |3.0-SNAPSHOT         |  nightly       |
 |{{algorithm.release}}|  {{nebula.release}}  |
@@ -16,9 +16,9 @@ The correspondence between the Nebula Algorithm release and the Nebula Graph cor
 
 ## Prerequisites
 
-Before using the Nebula Algorithm, users need to confirm the following information:
+Before using the NebulaGraphAlgorithm, users need to confirm the following information:
 
-- The Nebula Graph services have been deployed and started. For details, see [Nebula Installation](../4.deployment-and-installation/1.resource-preparations.md).
+- The NebulaGraph services have been deployed and started. For details, see [NebulaGraphInstallation](../4.deployment-and-installation/1.resource-preparations.md).
 
 - The Spark version is 2.4.x.
 
@@ -36,7 +36,7 @@ Before using the Nebula Algorithm, users need to confirm the following informati
 
 ## Supported algorithms
 
-The graph computing algorithms supported by Nebula Algorithm are as follows.
+The graph computing algorithms supported by NebulaGraphAlgorithm are as follows.
 
 | Algorithm | Description| Scenario|   Properties name      |Properties type|
 | :-- |:--  | :--|:--|:--|
@@ -60,13 +60,13 @@ The graph computing algorithms supported by Nebula Algorithm are as follows.
 
 !!! note
 
-    When writing the algorithm results into the Nebula Graph, make sure that the tag in the corresponding graph space has properties names and data types corresponding to the table above.
+    When writing the algorithm results into the NebulaGraph, make sure that the tag in the corresponding graph space has properties names and data types corresponding to the table above.
 
 ## Implementation methods
 
-Nebula Algorithm implements the graph calculating as follows:
+NebulaGraphAlgorithm implements the graph calculating as follows:
 
-1. Read the graph data of DataFrame from the Nebula Graph database using the Nebula Spark Connector.
+1. Read the graph data of DataFrame from the NebulaGraph database using the NebulaGraphSpark Connector.
 
 2. Transform the graph data of DataFrame to the GraphX graph.
 
@@ -74,7 +74,7 @@ Nebula Algorithm implements the graph calculating as follows:
 
 For detailed implementation methods, see [Scala file](https://github.com/vesoft-inc/nebula-algorithm/tree/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib).
 
-## Get Nebula Algorithm
+## Get NebulaGraphAlgorithm
 
 ### Compile and package
 
@@ -121,7 +121,7 @@ The `lib` repository provides 10 common graph algorithms.
 2. Use the algorithm (take PageRank as an example) by filling in parameters. For more examples, see [example](https://github.com/vesoft-inc/nebula-algorithm/tree/master/example/src/main/scala/com/vesoft/nebula/algorithm).
 
   !!! note
-        By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the Nebula Graph).
+        By default, the DataFrame that executes the algorithm sets the first column as the starting vertex, the second column as the destination vertex, and the third column as the edge weights (not the rank in the NebulaGraph).
 
   ```bash
   val prConfig = new PRConfig(5, 1.0)
@@ -133,7 +133,7 @@ The `lib` repository provides 10 common graph algorithms.
 ### Submit the algorithm package directly
 
 !!! note
-    There are limitations to use sealed packages. For example, when sinking a repository into Nebula Graph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
+    There are limitations to use sealed packages. For example, when sinking a repository into NebulaGraph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
 
 1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
 
@@ -158,38 +158,38 @@ The `lib` repository provides 10 common graph algorithms.
       hasWeight: false
     }
 
-    # Configurations related to Nebula Graph
+    # Configurations related to NebulaGraph
     nebula: {
-      # Data source. When Nebula Graph is the data source of the graph computing, the configuration of `nebula.read` is valid.
+      # Data source. When NebulaGraph is the data source of the graph computing, the configuration of `nebula.read` is valid.
       read: {
           # The IP addresses and ports of all Meta services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
-          # To deploy Nebula Graph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
+          # To deploy NebulaGraph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
           # Check the status with `docker-compose ps`.
           metaAddress: "192.168.*.10:9559"
-          # The name of the graph space in Nebula Graph.
+          # The name of the graph space in NebulaGraph.
           space: basketballplayer
-          # Edge types in Nebula Graph. When there are multiple labels, the data of multiple edges will be merged.
+          # Edge types in NebulaGraph. When there are multiple labels, the data of multiple edges will be merged.
           labels: ["serve"]
-          # The property name of each edge type in Nebula Graph. This property will be used as the weight column of the algorithm. Make sure that it corresponds to the edge type.
+          # The property name of each edge type in NebulaGraph. This property will be used as the weight column of the algorithm. Make sure that it corresponds to the edge type.
           weightCols: ["start_year"]
       }
 
-      # Data sink. When the graph computing result sinks into Nebula Graph, the configuration of `nebula.write` is valid.
+      # Data sink. When the graph computing result sinks into NebulaGraph, the configuration of `nebula.write` is valid.
       write:{
           # The IP addresses and ports of all Graph services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
           # To deploy by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
           # Check the status with `docker-compose ps`.
           graphAddress: "192.168.*.11:9669"
           # The IP addresses and ports of all Meta services. Multiple addresses are separated by commas (,). Example: "ip1:port1,ip2:port2".
-          # To deploy Nebula Graph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
+          # To deploy NebulaGraph by using Docker Compose, fill in the port with which Docker Compose maps to the outside.
           # Check the staus with `docker-compose ps`.
           metaAddress: "192.168.*.12:9559"
           user:root
           pswd:nebula
           # Before submitting the graph computing task, create the graph space and tag.
-          # The name of the graph space in Nebula Graph.
+          # The name of the graph space in NebulaGraph.
           space:nb
-          # The name of the tag in Nebula Graph. The graph computing result will be written into this tag. The property name of this tag is as follows.
+          # The name of the tag in NebulaGraph. The graph computing result will be written into this tag. The property name of this tag is as follows.
           # PageRank: pagerank
           # Louvain: louvain
           # ConnectedComponent: cc
