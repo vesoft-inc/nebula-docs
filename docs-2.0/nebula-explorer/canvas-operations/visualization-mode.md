@@ -37,4 +37,4 @@ At the top left of the page, toggle the view button to switch to 3D mode. 3D mod
 
 !!! compatibility "Legacy version compatibility"
 
-    For versions of Nebula Graph below 3.0.0, you need to create an index before using the Bird View feature. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    For versions of NebulaGraph below 3.0.0, you need to create an index before using the Bird View feature. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).

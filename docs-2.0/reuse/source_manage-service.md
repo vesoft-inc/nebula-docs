@@ -1,9 +1,9 @@
-Nebula Graph supports managing services with scripts. 
+NebulaGraph supports managing services with scripts. 
 
 {{ ent.ent_begin }}
 !!! enterpriseonly
 
-    You can also manage Nebula Graph with systemd in the Nebula Graph Enterprise Edition.
+    You can also manage NebulaGraph with systemd in the NebulaGraph Enterprise Edition.
 
 !!! danger
 
@@ -12,7 +12,7 @@ Nebula Graph supports managing services with scripts.
 
 ## Manage services with script
 
-You can use the `nebula.service` script to start, stop, restart, terminate, and check the Nebula Graph services.
+You can use the `nebula.service` script to start, stop, restart, terminate, and check the NebulaGraph services.
 
 !!! note
 
@@ -39,17 +39,17 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 |`metad`|Set the Meta Service as the target service.|
 |`graphd`|Set the Graph Service as the target service.|
 |`storaged`|Set the Storage Service as the target service.|
-|`all`|Set all the Nebula Graph services as the target services.|
+|`all`|Set all the NebulaGraph services as the target services.|
 
 {{ ent.ent_begin }}
 
 ## Manage services with systemd
 
-For easy maintenance, Nebula Graph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
+For easy maintenance, NebulaGraph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
 
 !!! note
 
-    - After installing Nebula Graph Enterprise Edition, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. Nebula Graph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified Nebula Graph installation path, so you can use `systemctl` commands directly.
+    - After installing NebulaGraph Enterprise Edition, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. NebulaGraph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified NebulaGraph installation path, so you can use `systemctl` commands directly.
   
     - The `systemctl` commands cannot be used to manage the Enterprise Edition cluster that is created with Dashboard of the Enterprise Edition.
 
@@ -67,18 +67,18 @@ $ systemctl <start | stop | restart | status > <nebula | nebula-metad | nebula-g
 |`stop`|Stop the target services.|
 |`restart`|Restart the target services.|
 |`status`|Check the status of the target services.|
-|`nebula`|Set all the Nebula Graph services as the target services.|
+|`nebula`|Set all the NebulaGraph services as the target services.|
 |`nebula-metad`|Set the Meta Service as the target service.|
 |`nebula-graphd`|Set the Graph Service as the target service.|
 |`nebula-storaged`|Set the Storage Service as the target service.|
 
 {{ ent.ent_end }}
 
-## Start Nebula Graph
+## Start NebulaGraph
 
 ### In non-container environment
 
-Run the following command to start Nebula Graph.
+Run the following command to start NebulaGraph.
 
 ```bash
 $ sudo /usr/local/nebula/scripts/nebula.service start all
@@ -97,7 +97,7 @@ Users can also run the following command:
 $ systemctl start nebula
 ```
 
-If users want to automatically start Nebula Graph when the machine starts, run the following command:
+If users want to automatically start NebulaGraph when the machine starts, run the following command:
 
 ```bash
 $ systemctl enable nebula
@@ -106,7 +106,7 @@ $ systemctl enable nebula
 
 ### In docker container (deployed with docker-compose)
 
-Run the following command in the `nebula-docker-compose/` directory to start Nebula Graph.
+Run the following command in the `nebula-docker-compose/` directory to start NebulaGraph.
 
 ```bash
 [nebula-docker-compose]$ docker-compose up -d
@@ -123,7 +123,7 @@ Creating nebula-docker-compose_graphd2_1   ... done
 Creating nebula-docker-compose_graphd_1    ... done
 ```
 
-## Stop Nebula Graph
+## Stop NebulaGraph
 
 !!! danger
 
@@ -131,7 +131,7 @@ Creating nebula-docker-compose_graphd_1    ... done
 
 ### In non-container environment
 
-Run the following command to stop Nebula Graph.
+Run the following command to stop NebulaGraph.
 
 ```bash
 $ sudo /usr/local/nebula/scripts/nebula.service stop all
@@ -153,7 +153,7 @@ $ systemctl stop nebula
 
 ### In docker container (deployed with docker-compose)
 
-Run the following command in the `nebula-docker-compose/` directory to stop Nebula Graph.
+Run the following command in the `nebula-docker-compose/` directory to stop NebulaGraph.
 
 ```bash
 nebula-docker-compose]$ docker-compose down
@@ -180,19 +180,19 @@ Removing network nebula-docker-compose_nebula-net
 
 !!! Note
 
-    If you are using a developing or nightly version for testing and have compatibility issues, try to run `docker-compose down -v` to **DELETE** all data stored in Nebula Graph and import data again.
+    If you are using a developing or nightly version for testing and have compatibility issues, try to run `docker-compose down -v` to **DELETE** all data stored in NebulaGraph and import data again.
 
 ## Check the service status
 
 ### In non-container environment
 
-Run the following command to check the service status of Nebula Graph.
+Run the following command to check the service status of NebulaGraph.
 
 ```bash
 $ sudo /usr/local/nebula/scripts/nebula.service status all
 ```
 
-* Nebula Graph is running normally if the following information is returned.
+* NebulaGraph is running normally if the following information is returned.
 
     ```bash
     INFO] nebula-metad(33fd35e): Running as 29020, Listening on 9559
@@ -204,9 +204,9 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 
   !!! note
 
-        After starting Nebula Graph, the port of the `nebula-storaged` process is shown in red. Because the `nebula-storaged` process waits for the `nebula-metad` to add the current Storage service during the startup process. The Storage works after it receives the ready signal. Starting from Nebula Graph 3.0.0, the Meta service cannot directly read or write data in the Storage service that you add in the configuration file. The configuration file only registers the Storage service to the Meta service. You must run the `ADD HOSTS` command to enable the Meta to read and write data in the Storage service. For more information, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
+        After starting NebulaGraph, the port of the `nebula-storaged` process is shown in red. Because the `nebula-storaged` process waits for the `nebula-metad` to add the current Storage service during the startup process. The Storage works after it receives the ready signal. Starting from NebulaGraph 3.0.0, the Meta service cannot directly read or write data in the Storage service that you add in the configuration file. The configuration file only registers the Storage service to the Meta service. You must run the `ADD HOSTS` command to enable the Meta to read and write data in the Storage service. For more information, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
-* If the returned result is similar to the following one, there is a problem. You may also go to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help.
+* If the returned result is similar to the following one, there is a problem. You may also go to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help.
 
     ```bash
     [INFO] nebula-metad: Running as 25600, Listening on 9559
@@ -235,11 +235,11 @@ $ systemctl status nebula
 ```
 {{ ent.ent_end }}
 
-The Nebula Graph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the returned result to troubleshoot problems.
+The NebulaGraph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the returned result to troubleshoot problems.
 
 ### In docker container (deployed with docker-compose)
 
-Run the following command in the `nebula-docker-compose/` directory to check the service status of Nebula Graph.
+Run the following command in the `nebula-docker-compose/` directory to check the service status of NebulaGraph.
 
 ```bash
 nebula-docker-compose]$ docker-compose ps
@@ -289,4 +289,4 @@ nebula-docker-compose]$ docker exec -it 2a6c56c405f5 bash
 
 ## Next to do
 
-[Connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
+[Connect to NebulaGraph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->

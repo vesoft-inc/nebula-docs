@@ -1,8 +1,8 @@
-RPM and DEB are common package formats on Linux systems. This topic shows how to quickly install Nebula Graph with the RPM or DEB package.
+RPM and DEB are common package formats on Linux systems. This topic shows how to quickly install NebulaGraph with the RPM or DEB package.
 
 !!! note
 
-    The console is not complied or packaged with Nebula Graph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
+    The console is not complied or packaged with NebulaGraph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
 
 {{ ent.ent_begin }}
 !!! enterpriseonly
@@ -101,8 +101,8 @@ Wget installed.
 
 * Download the release version.
 
-   + On the [Nebula Graph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
-   ![Select a Nebula Graph release version](https://docs-cdn.nebula-graph.com.cn/figures/console-1.png)
+   + On the [NebulaGraph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
+   ![Select a NebulaGraph release version](https://docs-cdn.nebula-graph.com.cn/figures/console-1.png)
 
    + In the **Assets** area, click the package to download it.
 
@@ -112,14 +112,14 @@ Wget installed.
 
         Nightly versions are usually used to test new features. Do not use it in a production environment.
 
-   + On the [Nebula Graph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest **package** on the top of the package list.
+   + On the [NebulaGraph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest **package** on the top of the package list.
    
-   ![Select a Nebula Graph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
+   ![Select a NebulaGraph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
 
    + In the **Artifacts** area, click the package to download it.
 -->
 
-## Install Nebula Graph
+## Install NebulaGraph
 
 * Use the following syntax to install with an RPM package.
 
@@ -142,7 +142,7 @@ Wget installed.
   ```
 
   !!! note
-        Customizing the installation path is not supported when installing Nebula Graph with a DEB package. The default installation path is `/usr/local/nebula/`.
+        Customizing the installation path is not supported when installing NebulaGraph with a DEB package. The default installation path is `/usr/local/nebula/`.
 
   For example, to install a DEB package for the {{nebula.release}} version, run the following command.
 
@@ -160,6 +160,6 @@ Wget installed.
 - (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license)
 {{ ent.ent_end }}
 
-- [Start Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
+- [Start NebulaGraph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
 
-- [Connect to Nebula Graph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->
+- [Connect to NebulaGraph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/3.connect-to-nebula-graph/)<!--这里用外链。-->

@@ -1,6 +1,6 @@
 # Deploy Studio
 <!--
-Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Nebula Graph instance on Nebula Graph Cloud Service, Studio on Cloud is deployed automatically. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/). For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.
+Studio on Cloud can be used on NebulaGraph Cloud Service. When you create a NebulaGraph instance on NebulaGraph Cloud Service, Studio on Cloud is deployed automatically. For more information, see [NebulaGraph Cloud Service User Guide](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/). For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.
 -->
 
 This topic describes how to deploy Studio locally by RPM, DEB, tar package and Docker.
@@ -11,7 +11,7 @@ This topic describes how to deploy Studio locally by RPM, DEB, tar package and D
 
 Before you deploy RPM-based Studio, you must confirm that:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - The Linux distribution is CentOS, install `lsof`.
 
@@ -25,7 +25,7 @@ Before you deploy RPM-based Studio, you must confirm that:
 
 1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
-   | Installation package | Checksum | Nebula version |
+   | Installation package | Checksum | NebulaGraph version |
    | ----- | ----- | ----- |
    | [nebula-graph-studio-{{studio.release}}.x86_64.rpm](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.x86_64.rpm) |  [nebula-graph-studio-{{studio.release}}.x86_64.rpm.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.x86_64.rpm.sha256) | {{nebula.release}} |
 
@@ -45,9 +45,9 @@ Before you deploy RPM-based Studio, you must confirm that:
    When the screen returns the following message, it means that the PRM-based Studio has been successfully started.
 
    ```bash
-   Start installing Nebula Studio now...
-   Nebula Studio has been installed.
-   Nebula Studio started automatically.
+   Start installing NebulaGraph Studio now...
+   NebulaGraph Studio has been installed.
+   NebulaGraph Studio started automatically.
    ```
 
 3. When Studio is started, use `http://<ip address>:7001` to get access to Studio.
@@ -67,7 +67,7 @@ $ sudo rpm -e nebula-graph-studio-{{studio.release}}.x86_64
 If these lines are returned, PRM-based Studio has been uninstalled.
 
 ```bash
-Nebula Studio removed, bye~
+NebulaGraph Studio removed, bye~
 ```
 ### Exception handling
 
@@ -108,7 +108,7 @@ $ systemctl restart nebula-graph-studio.service
 
 Before you deploy DEB-based Studio, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - The Linux distribution is Ubuntu.
 
@@ -124,7 +124,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
 1. Select and download the DEB package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
-   | Installation package | Checksum | Nebula version|
+   | Installation package | Checksum | NebulaGraph version|
    | ----- | ----- | ----- |
    | [nebula-graph-studio-{{studio.release}}.x86_64.deb](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.x86_64.deb) |  [nebula-graph-studio-{{studio.release}}.x86_64.deb.sha256](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.x86_64.deb.sha256) | {{ nebula.release }} |
 
@@ -157,7 +157,7 @@ $ sudo dpkg -r nebula-graph-studio
 
 Before you deploy tar-based Studio, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -205,7 +205,7 @@ $ kill $(lsof -t -i :7001) #stop nebula-graph-studio
 
 Before you deploy Docker-based Studio, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - On the machine where Studio will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
 
@@ -218,11 +218,11 @@ Before you deploy Docker-based Studio, you must do a check of these:
 
 ### Procedure
 
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph v{{nebula.release}} for demonstration:
+To deploy and start Docker-based Studio, run the following commands. Here we use NebulaGraph v{{nebula.release}} for demonstration:
 
 1. Download the configuration files for the deployment.
    
-   | Installation package | Nebula Graph version |
+   | Installation package | NebulaGraph version |
    | ----- | ----- |
    | [nebula-graph-studio-{{studio.release}}.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/{{studio.release}}/nebula-graph-studio-{{studio.release}}.tar.gz) | {{nebula.release}} |
 
@@ -267,4 +267,4 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
 ## Next to do
 
-On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).
+On the **Config Server** page, connect Docker-based Studio to NebulaGraph. For more information, see [Connect to NebulaGraph](st-ug-connect.md).

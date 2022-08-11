@@ -1,6 +1,6 @@
 # Synchronize between two clusters
 
-Nebula Graph supports data synchronization from a primary cluster to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
+NebulaGraph supports data synchronization from a primary cluster to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
 
 !!! enterpriseonly
 
@@ -28,7 +28,7 @@ The synchronization works as follows:
 
 - The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
 
-- About the synchronization topology, Nebula Graph:
+- About the synchronization topology, NebulaGraph:
 
   - Supports synchronizing from one primary cluster to one secondary cluster, but not multiple primary clusters to one secondary cluster.
 
@@ -53,7 +53,7 @@ The synchronization works as follows:
   
   The listener and drainer can be deployed in a standalone way, or on the machines hosting the primary and secondary clusters. The latter way can increase the machine load and decrease the service performance.
 
-- Prepare the license file for the Nebula Graph Enterprise Edition.
+- Prepare the license file for the NebulaGraph Enterprise Edition.
 
 ## Test environment
 
@@ -74,9 +74,9 @@ The test environment for the operation example in this topic is as follows:
 
 ### Step 1: Set up the clusters, listeners, and drainer
 
-1. Install Nebula Graph on all the machines.
+1. Install NebulaGraph on all the machines.
 
-  For installation instructions, see [Install Nebula Graph](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+  For installation instructions, see [Install NebulaGraph](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
 2. Modify the configuration files on all the machines.
 
@@ -93,9 +93,9 @@ The test environment for the operation example in this topic is as follows:
 
   For more information about the configurations, see [Configurations](../5.configurations-and-logs/1.configurations/1.configurations.md).
 
-3. On the machines of the primary cluster, secondary cluster, and listeners, upload the license files into the `share/resources/` directories in the Nebula Graph installation directories.
+3. On the machines of the primary cluster, secondary cluster, and listeners, upload the license files into the `share/resources/` directories in the NebulaGraph installation directories.
 
-4. Go to the Nebula Graph installation directories on the machines and start the needed services.
+4. Go to the NebulaGraph installation directories on the machines and start the needed services.
 
   - On the primary and secondary machines, run `sudo scripts/nebula.service start all`.
 

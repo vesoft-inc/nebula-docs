@@ -1,10 +1,10 @@
-# What is Nebula Explorer
+# What is NebulaGraph Explorer
 
-Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is used with the Nebula Graph core to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
+NebulaGraph Explorer (Explorer in short) is a browser-based visualization tool. It is used with the NebulaGraph core to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
 
 !!! enterpriseonly
 
-    To apply for the Nebula Explorer installation package, send mail at `inquiry@vesoft.com`. 
+    To apply for the NebulaGraph Explorer installation package, send mail at `inquiry@vesoft.com`. 
 
 !!! Note
 
@@ -35,12 +35,12 @@ Explorer has these features:
 
 ## Authentication
 
-Authentication is not enabled in Nebula Graph by default. Users can log into Studio with the `root` account and any password.
+Authentication is not enabled in NebulaGraph by default. Users can log into Studio with the `root` account and any password.
 
-When Nebula Graph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
+When NebulaGraph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
 
 ## Video
 
-- [Nebula Explorer Intro Demo](https://www.youtube.com/watch?v=1Hj5puN9jeg)(5 minutes 22 seconds)
+- [NebulaGraph Explorer Intro Demo](https://www.youtube.com/watch?v=1Hj5puN9jeg)(5 minutes 22 seconds)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1Hj5puN9jeg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

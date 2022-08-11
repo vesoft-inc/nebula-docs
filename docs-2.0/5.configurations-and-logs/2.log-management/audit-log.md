@@ -1,10 +1,10 @@
 # Audit logs
 
-The Nebula Graph audit logs store all operations received by graph service in categories, then provide the logs for users to track specific types of operations as needed.
+The NebulaGraph audit logs store all operations received by graph service in categories, then provide the logs for users to track specific types of operations as needed.
 
 !!! enterpriseonly
 
-    Only available for the Nebula Graph Enterprise Edition.
+    Only available for the NebulaGraph Enterprise Edition.
 
 ## Log categories
 
@@ -50,7 +50,7 @@ The fields of audit logs are the same for different handlers and formats. For ex
 
 !!! note
 
-    If the audit log directory is deleted while Nebula Graph is running, the log would not continue to be printed and this operation will not affect the services. To recover the logs, you should restart the services.
+    If the audit log directory is deleted while NebulaGraph is running, the log would not continue to be printed and this operation will not affect the services. To recover the logs, you should restart the services.
 
 ```bash
 <AUDIT_RECORD
@@ -93,7 +93,7 @@ The fields of audit logs are the same for different handlers and formats. For ex
 |`CONNECTION_ID`| The session ID of the connection. |
 |`CONNECTION_STATUS`| The status of the connection. `0` indicates success, and other numbers indicate different error messages.|
 |`CONNECTION_MESSAGE`| An error message is displayed when the connection fails.|
-|`USER`| The user name of the Nebula Graph connection. |
+|`USER`| The user name of the NebulaGraph connection. |
 |`CLIENT_HOST`| The IP address of the client.|
 |`HOST`| The IP address of the host. |
 |`SPACE`| The graph space where you perform queries.|
