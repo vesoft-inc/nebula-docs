@@ -23,6 +23,8 @@ ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 
     - When using a domain name, enclose it in quotation marks, for example, `ADD HOSTS "foo-bar":9779`.
 
+    - Ensure that the storage host to be added is not used by any other cluster, otherwise, the storage adding operation will fail.
+
 ## Drop Storage hosts
 
 Delete the Storage hosts from cluster.
