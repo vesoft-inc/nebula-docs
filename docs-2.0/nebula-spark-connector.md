@@ -252,5 +252,4 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withUser`  |No|  NebulaGraph user name. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.  |
   |`withPasswd`  |No|  The password for the NebulaGraph user name.  |
   |`withBatch`  |Yes|  The number of rows of data written at a time. The default value is  `1000`.  |
-  |`withWriteMode`|No|Write mode. The optional values are `insert` and `update`. The default value is `insert`.|
-
+  |`withWriteMode`|No|Write mode. The optional values are `insert`, `update` and `delete`. The default value is `insert`.|
