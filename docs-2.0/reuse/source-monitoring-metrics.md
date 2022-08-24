@@ -116,7 +116,7 @@
 | `num_lookup`                   | The number of executions for the LookupProcessor.                  |
 | `num_sync_data`                | The number of times the Storage service synchronizes data from the Drainer.            |
 | `num_sync_data_errors`         | The number of errors that occur when the Storage service synchronizes data from the Drainer.              |
-| `sync_data_latency_us`         | The latency of Storage service synchronizing data from the Drainer.  |
+| `sync_data_latency_us`         | The latency of the Storage service synchronizing data from the Drainer.  |
 
 
 ### Graph space
