@@ -3,7 +3,7 @@
 ## Enterprise Edition 3.1.2
 
 - Bugfix
-  - Fixed the startup problem of the `nebula-stats-exporter` service in the DEB or RPM package.
+  - Fixed the startup problem of the `nebula-stats-exporter` service with the DEB or RPM package.
 
 ## Enterprise Edition 3.1.1
 
