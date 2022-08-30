@@ -344,7 +344,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
   ```bash
   nebula> SIGN IN DRAINER SERVICE(192.168.10.106:9889);
-  nebula> ADD LISTENER SYNC META 192.168.10.105:9559 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
+  nebula> ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
   nebula> REMOVE DRAINER;
   ```
 
