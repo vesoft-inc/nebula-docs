@@ -226,7 +226,7 @@ files:
 |`files.type`|-|Yes|The file type.|
 |`files.csv.withHeader`|`false`|Yes|Whether there is a header.|
 |`files.csv.withLabel`|`false`|Yes|Whether there is a  label.|
-|`files.csv.delimiter`|`","`|Yes|Specifies the delimiter for the CSV file. A string delimiter that supports only one character.|
+|`files.csv.delimiter`|`","`|Yes|Specifies the delimiter for the CSV file. A string delimiter that supports only one character. For more details of special characters escaping in YAML format, see [Escaped Characters](https://yaml.org/spec/1.2.2/#escaped-characters).|
 
 #### Schema configuration
 
