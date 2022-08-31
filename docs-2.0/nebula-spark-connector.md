@@ -50,7 +50,7 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
 
 !!! note
 
-     Install NebulaGraph Spark Connector of version 2.4.x.
+     Install NebulaGraph Spark Connector 2.4.x or 2.2.x.
 
 1. Clone repository `nebula-spark-connector`.
 
@@ -58,19 +58,37 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
   $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
 
-2. Make the `nebula-spark-connector` directory the current working directory.
+2. Compile package. The procedure varies with Spark versions.
 
-  ```bash
-  $ cd nebula-spark-connector/nebula-spark-connector
-  ```
+  - Spark 2.4.x
 
-3. Compile package.
+    1. Enter the `nebula-spark-connector` directory.
 
-  ```bash
-  $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-  ```
+      ```bash
+      cd nebula-spark-connector/nebula-spark-connector
+      ```
 
-After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `nebula-spark-connector/nebula-spark-connector/target/`.
+    2. Compile package.
+
+      ```bash
+      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
+      ```
+
+  - Spark 2.2.x
+
+    1. Enter the `nebula-spark-connector_2.2` directory.
+
+      ```bash
+      cd nebula-spark-connector/nebula-spark-connector_2.2
+      ```
+
+    2. Compile package.
+
+      ```bash
+      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
+      ```
+
+After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `target` of the folder.
 
 ### Download maven remote repository
 
