@@ -88,10 +88,14 @@ These are some operation suggestions to keep Nebula Graph performing well.
 - Set `disable_auto_compactions` to `false` during daytime to improve read performance in a short time.
 -->
 
-- To control the read and write traffic limitation for `compactions`, set the following parameter in the `nebula-storaged.conf` configuration file.
+- To control the write traffic limitation for `compactions`, set the following parameter in the `nebula-storaged.conf` configuration file.
+  
+  !!! note
+
+        This parameter limits the rate of all writes including normal writes and compaction writes. 
 
     ```bash
-    # Limit the read/write rate to 20MB/s.
+    # Limit the write rate to 20MB/s.
     --rocksdb_rate_limit=20 (in MB/s)
     ```
 
