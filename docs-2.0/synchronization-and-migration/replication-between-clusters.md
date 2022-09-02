@@ -366,9 +366,7 @@ Yes. After receiving the WAL from the listener, if the drainer finds that the da
 
 ### Will the pre-existent data in the secondary cluster affect the synchronization?
 
-If the pre-existent data in the secondary cluster is a subset of the data in the primary cluster, the data in the primary and secondary clusters will eventually become consistent through synchronization.
-
-The pre-existent data that is not in the primary cluster will stay in the secondary cluster until manually deleted.
+If the pre-existent data in the secondary cluster is a subset of the data in the primary cluster, the data in the primary and secondary clusters will eventually become consistent through synchronization. If there is any pre-existent data (not a subset of the data in the primary cluster) in the secondary cluster before the synchronization, the data may be lost after the synchronization. It is recommended to use a secondary cluster without data for synchronization.
 
 ### Will the pre-existent schema information in the secondary cluster affect the synchronization?
 
