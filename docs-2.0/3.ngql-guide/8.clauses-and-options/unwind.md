@@ -72,7 +72,7 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +------------+
   ```
 
-- To use a `UNWIND` clause in a `MATCH` statement.
+- To use an `UNWIND` clause in a `MATCH` statement.
 
   ```ngql
   // Get a list of the vertices in the matched path, transform the list into a unique set of rows, and then transform the rows into a list. 
@@ -94,7 +94,7 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +----------------------------------------------------------------------------------------------------------------------+
   ```
 
-- To use a `UNWIND` clause in a `GO` statement.
+- To use an `UNWIND` clause in a `GO` statement.
 
   ```ngql 
   // Query the vertices in a list for the corresponding edges with a specified statement.
@@ -111,7 +111,7 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +----------------------------------------------------+
   ```
 
-- To use a `UNWIND` clause in a `LOOKUP` statement.
+- To use an `UNWIND` clause in a `LOOKUP` statement.
 
   ```ngql
   // Find all the properties of players whose age is greater than 46, get a list of unique properties, and then transform the list into rows. 
@@ -127,10 +127,10 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +--------+
   ```
 
-- To use a `UNWIND` clause in a `FETCH` statement. 
+- To use an `UNWIND` clause in a `FETCH` statement. 
 
   ```ngql
-  // Query player101 for all tags related to player101, get a list of the tags, and then transform the list into rows.
+  // Query player101 for all tags related to player101, get a list of the tags and then transform the list into rows.
 
   nebula> CREATE TAG hero(like string, height int);
           INSERT VERTEX hero(like, height) VALUES "player101":("deep", 182);
@@ -144,7 +144,7 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +----------+
   ```
   
-- To use a `UNWIND` clause in a `GET SUBGRAPH` statement. 
+- To use an `UNWIND` clause in a `GET SUBGRAPH` statement. 
 
   ```ngql
   // Get the subgraph including outgoing and incoming serve edges within 0~2 hops from/to player100, and transform the result into rows.
@@ -175,7 +175,7 @@ UNWIND <list> AS <alias> <RETURN clause>;
   +----------------------------------------------+
   ```
 
-- To use a `UNWIND` clause in a `FIND PATH` statement.
+- To use an `UNWIND` clause in a `FIND PATH` statement.
 
   ```ngql
   // Find all the vertices in the shortest path from player101 to team204 along the serve edge, and transform the result into rows. 
