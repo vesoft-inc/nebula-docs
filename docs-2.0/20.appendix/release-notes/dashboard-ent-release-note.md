@@ -1,5 +1,10 @@
 # Nebula Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.1.3
+
+- Feature
+  - Support add a node by using [SSH secret key](../../nebula-dashboard-ent/4.cluster-operator/4.manage.md).
+
 ## Enterprise Edition 3.1.2
 
 - Bugfix
