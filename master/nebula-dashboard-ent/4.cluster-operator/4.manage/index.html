@@ -4716,6 +4716,26 @@
     Node
   </a>
   
+    <nav class="md-nav" aria-label="Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add_node" class="md-nav__link">
+    Add node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other_node_operations" class="md-nav__link">
+    Other node operations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4736,26 +4756,6 @@
   <a href="#member_management" class="md-nav__link">
     Member Management
   </a>
-  
-    <nav class="md-nav" aria-label="Member Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#add_cluster_members" class="md-nav__link">
-    Add cluster members
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other_operations" class="md-nav__link">
-    Other operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6753,6 +6753,26 @@
     Node
   </a>
   
+    <nav class="md-nav" aria-label="Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add_node" class="md-nav__link">
+    Add node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other_node_operations" class="md-nav__link">
+    Other node operations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6773,26 +6793,6 @@
   <a href="#member_management" class="md-nav__link">
     Member Management
   </a>
-  
-    <nav class="md-nav" aria-label="Member Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#add_cluster_members" class="md-nav__link">
-    Add cluster members
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other_operations" class="md-nav__link">
-    Other operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6822,15 +6822,20 @@
 
 
 <h1 id="cluster_operation">Cluster operation<a class="headerlink" href="#cluster_operation" title="Permanent link">&para;</a></h1>
-<p>This topic introduces the cluster operation of Dashboard, including cluster node, cluster service, cluster scaling, service configuration, member management and version upgrade.</p>
+<p>This topic introduces the cluster operation of Dashboard, including cluster node, cluster service, cluster scaling, service configuration, member management, and version upgrade.</p>
 <h2 id="node">Node<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
-<p>On this page, the information of all nodes will be shown, including the cluster name, Host(SSH_User), CPU (Core), etc.</p>
+<p>On this page, the information of all nodes will be shown, including the cluster name, Host(SSH_User), CPU (Core), etc. Users can add nodes, view node monitoring, and manage services on the node.</p>
+<h3 id="add_node">Add node<a class="headerlink" href="#add_node" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Add Node</strong> and enter the following information, the Host, SSH port, SSH user, authentication type, NebulaGraph package, etc., and click <strong>OK</strong>.</p>
+<p>The authentication type is described as follows:</p>
 <ul>
-<li>To add a node quickly, click <strong>Add Node</strong> and enter the following information, the Host, SSH port, SSH user, SSH password, and select a NebulaGraph package.</li>
+<li>SSH Password: Enter the password of the SSH user.</li>
 </ul>
 <ul>
-<li>
-<p>Click the <img alt="plus" src="https://docs-cdn.nebula-graph.com.cn/figures/Plus.png" /> button to view the process name, service type, status, runtime directory of the corresponding node.</p>
+<li>SSH Key: Click <strong>Upload</strong> and select the private key file of the node. You need to generate the secret key files on the node to be added and send the private key file to the current computer (not the machine where Dashboard is deployed). If the passphrase is set, this parameter is also required.</li>
+</ul>
+<h3 id="other_node_operations">Other node operations<a class="headerlink" href="#other_node_operations" title="Permanent link">&para;</a></h3>
+<p>Click the <img alt="plus" src="https://docs-cdn.nebula-graph.com.cn/figures/Plus.png" /> button to view the process name, service type, status, and runtime directory of the corresponding node.</p>
 <ul>
 <li>Click <strong>Node Monitoring</strong> to jump to the detailed node monitoring page. For more information, see <a href="../2.monitor/">Cluster monitoring</a>.</li>
 </ul>
@@ -6838,14 +6843,13 @@
 <li>Click <strong>Service Management</strong> to jump to the service management page.</li>
 </ul>
 <ul>
-<li>Click <strong>Edit Node</strong> to modify the SSH port, SSH user, and SSH password.</li>
+<li>Click <strong>Edit Node</strong> to modify the node settings.</li>
 </ul>
 <ul>
-<li>If a node has no service, you can <strong>Delete Node</strong>.</li>
-</ul>
-</li>
+<li>If a node has no service, you can <strong>Delete Node</strong>. For details about how to delete a service, see section <strong>Scale</strong> below.</li>
 </ul>
 <!--    
+
 ## Scale
 
 !!! enterpriseonly 
@@ -6854,17 +6858,19 @@
 
 - On this page, you can **add node** and **import node in batches** quickly, and add **Graph services** and **Storage services** to the existing nodes.
 
-- Click the **Reset** button to restore to the initial state.
+- Click the **Reset** button to cancel all uncommitted operations and restore to the initial state.
 
 !!! caution
 
     - Currently, you can dynamically scale Storaged and Graphd services through Dashboard. The Metad service cannot be scaled. When scaling a cluster, it is recommended to back up data in advance so that data can be rolled back when scaling fails. For more information, see [FAQ](../../20.appendix/0.FAQ.md).
 
-    - Make sure that services of the same type are not deployed on the same node, and at least one of each type of services is deployed in the cluster.
+    - Make sure that services of the same type are not deployed on the same node, and that at least one of each type of service is deployed in the cluster.
 
 In this example, storage services with nodes `192.168.8.143` and `192.168.8.167` are added, and Graph services with node `192.168.8.169` are deleted. If the box is dotted and the service name is greyed, it means the service is removed. If the box is solid, it means the service is newly added.
 
 In the **Services** section below, green indicates services that will be added soon, and red indicates services that will be removed. You can modify the port, HTTP port, and HTTP2 port of the newly added service.
+
+After the modification, click **OK** at the bottom of the page.
 
 ![scaling](https://docs-cdn.nebula-graph.com.cn/figures/scaling-ds-2022_4-14_en.png)
 
@@ -6882,7 +6888,7 @@ In the **Services** section below, green indicates services that will be added s
 <p>If you click <strong>Stop</strong>/<strong>Restart</strong>, the running task will be stopped instantly, which may cause data inconsistency. It is recommended to perform this operation during the low peak period of the business.</p>
 </div>
 <h2 id="update_config">Update Config<a class="headerlink" href="#update_config" title="Permanent link">&para;</a></h2>
-<p>On this page, you can modify configuration files of Storage and Graph services. For more information, see <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration</a> and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration</a>. Updating configuration files is a batch operation, and each Storage/Graph configuration file will be modified.</p>
+<p>On this page, you can modify the configuration files of Storage and Graph services. For more information, see <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration</a> and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration</a>. Updating configuration files is a batch operation, and each Storage/Graph configuration file will be modified.</p>
 <ul>
 <li>After clicking <strong>Save</strong>, the configuration will take effect after the next service restart.</li>
 </ul>
@@ -6896,22 +6902,21 @@ In the **Services** section below, green indicates services that will be added s
 </li>
 </ul>
 <h2 id="member_management">Member Management<a class="headerlink" href="#member_management" title="Permanent link">&para;</a></h2>
-<p>Accounts with the role <code>admin</code> and cluster creators with the role <code>user</code> can add members to manage clusters. By default, the role of cluster creators is <code>owner</code>, and is displayed on the <strong>Member Management</strong> page. The role of added members is <code>operator</code>.</p>
-<p>For more information about accounts and roles, see <a href="../../5.account-management/">Authority management</a>.</p>
-<h3 id="add_cluster_members">Add cluster members<a class="headerlink" href="#add_cluster_members" title="Permanent link">&para;</a></h3>
-<p>The accounts of cluster members must be included in Dashboard accounts. For information about how to create an account, see <a href="../../5.account-management/">Authority management</a>.</p>
-<p>You can follow the below steps to add cluster members.</p>
-<ol>
-<li>At the top navigation bar of the Dashboard Enterprise Edition page, click <strong>Cluster Management</strong>.</li>
-<li>On the right side of the target cluster, click <strong>Detail</strong>.</li>
-<li>On the left-side navigation bar of the page, click <strong>Operation</strong>-&gt;<strong>Member Management</strong>.</li>
-<li>On the <strong>Member Management</strong> page, click the search box at the top left.</li>
-<li>In the drop-down list, select the target account that you want to add to be the administrator of the cluster, and then click <strong>Add</strong>.</li>
-</ol>
-<h3 id="other_operations">Other operations<a class="headerlink" href="#other_operations" title="Permanent link">&para;</a></h3>
+<p><strong>Member Management</strong> page shows only the cluster creator account (<code>owner</code> role) by default. The account with the <code>owner</code> role can add and delete the cluster administrator (<code>operator</code> role).</p>
 <ul>
-<li>At the top right of the <strong>Member Management</strong> page, you can search for cluster members.</li>
-<li>Click <img alt="delete" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" /> to delete members.</li>
+<li>
+<p>Add the cluster administrator: Click the search box at the top left. Select the target account that you want to add to be the administrator of the cluster in the drop-down list, and then click <strong>Add</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The accounts of cluster members must be included in Dashboard accounts. For information about how to create an account, see <a href="../../5.account-management/">Authority management</a>.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li>Delete the cluster administrator: Click <img alt="delete" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" /> in the operation column on the right of the cluster administrator account, and then click <strong>Confirm</strong>.</li>
+</ul>
+<ul>
+<li>Transfer the <code>owner</code> role: Click <strong>Transfer</strong> in the operation column on the right of the <code>owner</code> role. Select the target account that you want to be transferred, and then click <strong>Confirm</strong>.</li>
 </ul>
 <h2 id="version_upgrade">Version Upgrade<a class="headerlink" href="#version_upgrade" title="Permanent link">&para;</a></h2>
 <p>NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the existing NebulaGraph cluster.</p>
@@ -6920,14 +6925,14 @@ In the **Services** section below, green indicates services that will be added s
 <ul>
 <li>During the upgrade, the cluster will replace binary files. The upgrade speed is fast, but the cluster will still be stopped and restarted.</li>
 <li>Automatic rollback is not supported. Users can manually upgrade the cluster again when the upgrade failed.</li>
-<li>The upgrade cannot be stopped or cancelled.</li>
+<li>The upgrade cannot be stopped or canceled.</li>
 </ul>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
 <li>Only supports upgrading the NebulaGraph cluster that version greater than <strong>3.0.0</strong>.</li>
-<li>Do not supports upgrading cluster across major version.</li>
+<li>Do not support upgrading clusters across the major version.</li>
 <li>The community edition can be upgraded to the enterprise edition by uploading and verifying licenses, and the enterprise edition can be upgraded to the community edition.</li>
 <li>The cluster can be upgraded to a minor version in the current major version, including a smaller version than the current minor version.</li>
 </ul>
@@ -6948,7 +6953,7 @@ In the **Services** section below, green indicates services that will be added s
    The cluster will be shut down during the upgrade and automatically restart the services after the upgrade. You can use the <strong>diagnostics report</strong> to help you judge whether the timing to upgrade is suitable.</p>
 </li>
 <li>
-<p>Confirm the upgrade information again, including <strong>Cluster Name</strong>, <strong>Current NebulaGraph Version</strong> and <strong>Upgrade NebulaGraph Version</strong>, then click <strong>Upgrade</strong>.
+<p>Confirm the upgrade information again, including <strong>Cluster Name</strong>, <strong>Current NebulaGraph Version</strong>, and <strong>Upgrade NebulaGraph Version</strong>, then click <strong>Upgrade</strong>.
    Users can view the upgrade task information in <a href="../../10.tasks/">task center</a>, the task type is <code>version update</code>.</p>
 </li>
 </ol>
@@ -6958,7 +6963,7 @@ In the **Services** section below, green indicates services that will be added s
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2022</span>
       
     
   </small>
