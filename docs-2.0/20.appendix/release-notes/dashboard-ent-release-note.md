@@ -13,9 +13,9 @@
 ## Enterprise Edition 3.1.0
 
 - Feature
-  - Support [Upgrading the NebulaGraph version in a specified cluster](../../nebula-dashboard-ent/4.cluster-operator/4.manage.md).
-  - Support [full backup and full restore](../../nebula-dashboard-ent/4.cluster-operator/8.backup-and-restore.md) functions.
-  - Support [managing the installation packages](../../nebula-dashboard-ent/11.manage-package.md).
+  - Support [Upgrading the NebulaGraph version in a specified cluster](../../nebula-dashboard-ent/4.cluster-operator/operator/version-upgrade.md).
+  - Support [full backup and full restore](../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore.md) functions.
+  - Support [managing the installation packages](../../nebula-dashboard-ent/system-settings/manage-package.md).
   - Support using [SQLite database](../../nebula-dashboard-ent/2.deploy-connect-dashboard-ent.md) when deploying the NebulaGraph Dashboard.
 
 - Enhancement
@@ -26,7 +26,7 @@
     - Support monitoring all the disk usages in the cluster.
     - Support displaying all the monitoring metrics of a specified dimension.
   - Alert
-    - Support [muting the alert messages](../../nebula-dashboard-ent/9.alerts.md).
+    - Support [muting the alert messages](../../nebula-dashboard-ent/4.cluster-operator/9.notification.md).
   - Configuration
     - Support modifying the service port in the file `config.yaml`.
     - Support searching the configuration name on the `Update Config` page.
