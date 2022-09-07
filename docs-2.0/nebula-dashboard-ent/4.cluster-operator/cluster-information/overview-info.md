@@ -1,37 +1,29 @@
-# Cluster information
+# Information overview
 
-This topic introduces the cluster information of Dashboard from two parts **Overview Info** and **Cluster Diagnostics**. The **Overview Info** section displays the overview information of the NebulaGraph cluster. The **Cluster Diagnostics** section displays the cluster Diagnostics information of the NebulaGraph cluster.
+On the **Overview Info** page, you can see the information of the NebulaGraph cluster, including Storage leader distribution, Storage service details, versions and hosts information of each NebulaGraph service, and partition distribution and details.
 
 ## Entry
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
 2. On the right side of the target cluster, click **Detail**.
-3. On the left-side navigation bar of the page, **Information** contains **Overview Info** and **Cluster Diagnostics**.
-
-## Overview Info
+3. On the left-side navigation bar of the page, click **Information**->**Overview Info**.
 
 !!! note
 
     Before viewing the cluster information, you need to select any online Graph service address, enter the account to log in to NebulaGraph (not the Dashboard login account), and the corresponding password.
 
-!!! caution
-
-    You need to ensure that NebulaGraph services have been deployed and started. For more information, see [NebulaGraph installation and deployment](../../4.deployment-and-installation/1.resource-preparations.md "Click to go to NebulaGraph installation and deployment").
-
 ![coreinfo](https://docs-cdn.nebula-graph.com.cn/figures/clustercore-info_2022-04-11_en.png)
-
-On the **Overview Info** page, you can see the information of the NebulaGraph cluster, including Storage leader distribution, Storage service details, versions and hosts information of each NebulaGraph service, and partition distribution and details.
 
 ## Storage Leader Distribution
 
 In this section, the number of Leaders and the Leader distribution will be shown.
 
-- Click the **Balance Leader** button in the upper right corner to distribute Leaders evenly and quickly in the NebulaGraph cluster. For details about the Leader, see [Storage Service](../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
+- Click the **Balance Leader** button in the upper right corner to distribute Leaders evenly and quickly in the NebulaGraph cluster. For details about the Leader, see [Storage Service](../../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
 
 - Click **Detail** in the upper right corner to view the details of the Leader distribution.
 
 
-### Version
+## Version
 
 In this section, the version and host information of each NebulaGraph service will be shown. Click **Detail** in the upper right corner to view the details of the version and host information.
 
@@ -94,6 +86,3 @@ On this page, the information of all jobs will be shown. Before viewing the job 
 |`Start Time`| Shows a timestamp indicating the time when the job or task starts RUNNING.|
 | `Stop Time` | Shows a timestamp indicating the time when the job or task gets `FINISHED`, `FAILED`, or`STOPPED`. | -->
 
-## Cluster Diagnostics
-
-You can click **Cluster Diagnostics** under the **Cluster Information** menu bar to locate and analyze the problem that occurs in the cluster. For details, see [Cluster Diagnostics](7.cluster-diagnosis.md).
