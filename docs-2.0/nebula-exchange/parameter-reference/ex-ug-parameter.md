@@ -141,6 +141,17 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.password`|string|-|Yes|The account password.
 |`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select teamid, name from team order by teamid"`.|
 
+### Specific parameters of Oracle data sources
+
+|Parameter|Type|Default value|Required|Description|
+|:---|:---|:---|:---|:---|
+|`tags.url`|string|-|Yes|The Oracle server address.|
+|`tags.driver`|string|-|Yes|The Oracle driver address.|
+|`tags.user`|string|-|Yes|The Oracle username with read permissions.|
+|`tags.password`|string|-|Yes|The account password.|
+|`tags.table`|string|-|Yes|The name of a table used as a data source.|
+|`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select playerid, name, age from player"`.|
+
 ### Specific parameters of ClickHouse data sources
 
 |Parameter|Type|Default value|Required|Description|

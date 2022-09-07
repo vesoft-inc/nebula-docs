@@ -1,4 +1,4 @@
-# Cluster Diagnositics
+# Cluster diagnositics
 
 The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and analyze the current cluster problems within a specified time range and summarize the diagnostic results and cluster monitoring information to web-based diagnostic reports.
 
@@ -33,7 +33,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 ## View diagnostic reports
 
-In the diagnostic report list, you can view the diagnostic reports by clicking **Detail** on the right side of the target report.
+In the diagnostic report list, you can view the diagnostic reports by clicking **Detail** on the right side of the target report. You can also download the diagnostic report in PDF format.
 
 A diagnostic report contains the following information:
 
@@ -166,4 +166,4 @@ The descriptions of other parameters are as follows:
 
 Lists all configuration information for Graph, Meta, and Storage services in the current cluster.
 
-For information about the configurations of each service in NebulaGraph, see [Configurations](../../5.configurations-and-logs/1.configurations/1.configurations.md).
+For information about the configurations of each service in NebulaGraph, see [Configurations](../../../5.configurations-and-logs/1.configurations/1.configurations.md).

@@ -72,6 +72,7 @@ Exchange {{exchange.release}} supports converting data from the following format
 - Relational database:
   - [MySQL](../use-exchange/ex-ug-import-from-mysql.md)
   - [PostgreSQL](../use-exchange/ex-ug-import-from-mysql.md)
+  - [Oracle](../use-exchange/ex-ug-import-from-oracle.md)
 
 - Column database: [ClickHouse](../use-exchange/ex-ug-import-from-clickhouse.md)
 

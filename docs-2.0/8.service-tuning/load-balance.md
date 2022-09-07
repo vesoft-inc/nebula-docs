@@ -127,7 +127,7 @@ nebula> SHOW HOSTS;
 
     This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
-/* balance-3.1
+<!-- 下面是注释内容
 !!! danger
 
     The `BALANCE` commands migrates data and balances the distribution of partitions by creating and executing a set of subtasks. **DO NOT** stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
@@ -250,7 +250,7 @@ To remove the following storage servers.
   ```ngql
   nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
   ```
-*/
+-->
 
 {{ ent.ent_end }}
 
