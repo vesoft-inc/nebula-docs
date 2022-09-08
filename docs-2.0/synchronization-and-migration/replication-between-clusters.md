@@ -1,6 +1,6 @@
 # Synchronize between two clusters
 
-NebulaGraph supports data synchronization from a primary cluster to a secondary cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
+NebulaGraph supports data synchronization from a master cluster to a slave cluster in almost real-time. It applies to scenarios such as disaster recovery and load balancing, and helps reduce the risk of data loss and enhance data security.
 
 !!! enterpriseonly
 
@@ -12,9 +12,9 @@ The synchronization works as follows:
 
 ![replication between clusters](https://docs-cdn.nebula-graph.com.cn/figures/replication-between-clusters.png)
 
-1. The primary cluster sends any data written into it to the Meta listener or the Storage listener in the form of WALs or snapshots.
+1. The master cluster sends any data written into it to the Meta listener or the Storage listener in the form of WALs or snapshots.
 2. The listener sends the data to the drainer in the form of WALs.
-3. The drainer sends the data to the partitions of the secondary cluster through the Meta client or the Storage client.
+3. The drainer sends the data to the partitions of the slave cluster through the Meta client or the Storage client.
 
 ## Applicable Scenarios
 
@@ -22,17 +22,17 @@ The synchronization works as follows:
 
 - Data migration: The migration can be implemented by synchronizing data and then switching cluster roles, without stopping the service.
 
-- Read/Write splitting: Enable only writing on the primary cluster and only reading on the secondary cluster to lower the system load, and improve stability and usability.
+- Read/Write splitting: Enable only writing on the master cluster and only reading on the slave cluster to lower the system load, and improve stability and usability.
 
 ## Precautions
 
-- The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
+- The synchronization is based on graph spaces, i.e., from one graph space in the master cluster to another in the slave cluster.
 
 - About the synchronization topology, NebulaGraph:
 
-  - Supports synchronizing from one primary cluster to one secondary cluster, but not multiple primary clusters to one secondary cluster.
+  - Supports synchronizing from one master cluster to one slave cluster, but not multiple master clusters to one slave cluster.
 
-  - Supports chained synchronization but not synchronization from one primary cluster to multiple secondary clusters directly. An example of chained synchronization is from cluster A to cluster B, and then cluster B to cluster C.
+  - Supports chained synchronization but not synchronization from one master cluster to multiple slave clusters directly. An example of chained synchronization is from cluster A to cluster B, and then cluster B to cluster C.
 
 - The synchronization is implemented asynchronously, but with low latency.
 
@@ -45,13 +45,13 @@ The synchronization works as follows:
 
 - The machines where the listeners and drainers run must have enough disk space to store the WAL or snapshot files.
 
-- If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
+- If the target graph space in the slave cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
 
 ## Prerequisites
 
-- Prepare at least two machines to deploy the primary and secondary clusters, the listeners, and the drainer.
+- Prepare at least two machines to deploy the master and slave clusters, the listeners, and the drainer.
   
-  The listener and drainer can be deployed in a standalone way, or on the machines hosting the primary and secondary clusters. The latter way can increase the machine load and decrease the service performance.
+  The listener and drainer can be deployed in a standalone way, or on the machines hosting the master and slave clusters. The latter way can increase the machine load and decrease the service performance.
 
 - Prepare the license file for the NebulaGraph Enterprise Edition.
 
@@ -59,12 +59,12 @@ The synchronization works as follows:
 
 The test environment for the operation example in this topic is as follows:
 
-- The primary cluster runs on the machine with the IP address 192.168.10.101. The cluster has one nebula-graphd process, one nebula-metad process, and one nebula-storaged process.
+- The master cluster runs on the machine with the IP address 192.168.10.101. The cluster has one nebula-graphd process, one nebula-metad process, and one nebula-storaged process.
 
-- The secondary cluster runs on the machine with the IP address 192.168.10.102. The cluster has one nebula-graphd process, one nebula-metad process, and one nebula-storaged process.
+- The slave cluster runs on the machine with the IP address 192.168.10.102. The cluster has one nebula-graphd process, one nebula-metad process, and one nebula-storaged process.
 
   !!! note
-        The primary and secondary clusters can have different cluster specifications, such as different numbers of machines, service processes, and data partitions.
+        The master and slave clusters can have different cluster specifications, such as different numbers of machines, service processes, and data partitions.
 
 - The processes for the Meta and Storage listeners run on the machine with the IP address 192.168.10.103.
 
@@ -83,21 +83,21 @@ The test environment for the operation example in this topic is as follows:
   !!! note
         For newly installed services, remove the suffix `.default` or `.production` of a configuration template file in the `conf` directory to make it take effect.
 
-  - On the primary and secondary cluster machines, modify `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`. In all three files, set real IP addresses for `local_ip` instead of `127.0.0.1`, and set the IP addresses and ports for their own nebula-metad processes as the `meta_server_addrs` values. In `nebula-graphd.conf`, set `enable_authorize=true`.
+  - On the master and slave cluster machines, modify `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`. In all three files, set real IP addresses for `local_ip` instead of `127.0.0.1`, and set the IP addresses and ports for their own nebula-metad processes as the `meta_server_addrs` values. In `nebula-graphd.conf`, set `enable_authorize=true`.
 
-  - On the Meta listener machine, modify `nebula-metad-listener.conf`. Set the IP addresses and ports of the **primary cluster's** nebula-metad processes for `meta_server_addrs`, and those of the listener process for `meta_sync_listener`.
+  - On the Meta listener machine, modify `nebula-metad-listener.conf`. Set the IP addresses and ports of the **master cluster's** nebula-metad processes for `meta_server_addrs`, and those of the listener process for `meta_sync_listener`.
 
-  - On the Storage listener machine, modify `nebula-storaged-listener.conf`. Set the IP addresses and ports of the **primary cluster's** nebula-metad processes for `meta_server_addrs`.
+  - On the Storage listener machine, modify `nebula-storaged-listener.conf`. Set the IP addresses and ports of the **master cluster's** nebula-metad processes for `meta_server_addrs`.
 
-  - On the drainer machine, modify `nebula-drainerd.conf`. Set the IP addresses and ports of the **secondary cluster's** nebula-metad processes for `meta_server_addrs`.
+  - On the drainer machine, modify `nebula-drainerd.conf`. Set the IP addresses and ports of the **slave cluster's** nebula-metad processes for `meta_server_addrs`.
 
   For more information about the configurations, see [Configurations](../5.configurations-and-logs/1.configurations/1.configurations.md).
 
-3. On the machines of the primary cluster, secondary cluster, and listeners, upload the license files into the `share/resources/` directories in the NebulaGraph installation directories.
+3. On the machines of the master cluster, slave cluster, and listeners, upload the license files into the `share/resources/` directories in the NebulaGraph installation directories.
 
 4. Go to the NebulaGraph installation directories on the machines and start the needed services.
 
-  - On the primary and secondary machines, run `sudo scripts/nebula.service start all`.
+  - On the master and slave machines, run `sudo scripts/nebula.service start all`.
 
   - On the Meta listener machine, run `sudo bin/nebula-metad --flagfile etc/nebula-metad-listener.conf`.
 
@@ -105,7 +105,7 @@ The test environment for the operation example in this topic is as follows:
 
   - On the drainer machine, run `sudo scripts/nebula-drainerd.service start`.
 
-5. Log into the primary cluster, add the Storage hosts, and check the status of the listeners.
+5. Log into the master cluster, add the Storage hosts, and check the status of the listeners.
 
   ```ngql
   # Add the Storage hosts first.
@@ -134,7 +134,7 @@ The test environment for the operation example in this topic is as follows:
   +------------------+------+----------+-----------------+--------------+----------------------+
   ```
 
-6. Log into the secondary cluster, add the Storage hosts, and check the status of the drainer.
+6. Log into the slave cluster, add the Storage hosts, and check the status of the drainer.
 
   ```ngql
   nebula> ADD HOSTS 192.168.10.102:9779;
@@ -155,7 +155,7 @@ The test environment for the operation example in this topic is as follows:
 
 ### Step 2: Set up the synchronization
 
-1. Log into the primary cluster and create a graph space `basketballplayer`.
+1. Log into the master cluster and create a graph space `basketballplayer`.
 
   ```
   nebula> CREATE SPACE basketballplayer(partition_num=15, \
@@ -213,7 +213,7 @@ The test environment for the operation example in this topic is as follows:
   +--------+--------+------------------------+--------------------------------+----------+
   ```
 
-4. Log into the secondary cluster and create graph space `replication_basketballplayer`.
+4. Log into the slave cluster and create graph space `replication_basketballplayer`.
 
   ```ngql
   nebula> CREATE SPACE replication_basketballplayer(partition_num=15, \
@@ -259,7 +259,7 @@ The test environment for the operation example in this topic is as follows:
 
 ### Step 3: Validate the data
 
-1. Log into the primary cluster, create the schema, and insert data.
+1. Log into the master cluster, create the schema, and insert data.
 
   ```ngql
   nebula> USE basketballplayer;
@@ -270,7 +270,7 @@ The test environment for the operation example in this topic is as follows:
   nebula> INSERT EDGE follow(degree) VALUES "player101" -> "player100":(95);
   ```
 
-2. Log into the secondary cluster and validate the data.
+2. Log into the slave cluster and validate the data.
 
   ```ngql
   nebula> USE replication_basketballplayer;
@@ -306,19 +306,128 @@ The test environment for the operation example in this topic is as follows:
 
 The listener continuously sends the WALs to the drainer during data synchronization.
 
-To stop data synchronization, run the `stop sync` command. The listener stops sending the WALs to the drainer.
+To stop data synchronization, run the `STOP SYNC` command. The listener stops sending data to the drainer.
 
-To restart data synchronization, run the `restart sync` command. The listener sends the WALs accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.
+To restart data synchronization, run the `RESTART SYNC` command. The listener sends the data accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the master cluster and synchronizes data again.
 
-## Switch between primary and secondary clusters
+## View the status of inter-cluster data synchronization
 
-To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.
+When data is written to the master cluster, you can check the status of inter-cluster data synchronization and tell whether data synchronization is normal.
+
+### Check the status of synchronized data in the master cluster
+
+You can execute the `SHOW SYNC STATUS` command in the master cluster to view the status of the data sent from the master cluster to the slave cluster. `SHOW SYNC STATUS` gets the information of data synchronization status between clusters in real-time, and sends synchronized data to the slave cluster only when the master cluster has written successfully.
+
+Examples are as follows.
+
+```ngql
+// Write data to the master cluster.
+nebula> INSERT VERTEX player(name,age) VALUES "player102":("LaMarcus Aldridge", 33);
+nebula> INSERT VERTEX player(name,age) VALUES "player102":("LaMarcus Aldridge", 33);
+nebula> INSERT VERTEX player(name,age) VALUES "player103":("Rudy Gay", 32);
+nebula> INSERT VERTEX player(name,age) VALUES "player104":("Marco Belinelli", 32);
+
+// Check the status of data synchronization in the current cluster (the returned result indicates that data is being sent to the slave cluster).
+nebula> SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 1         | 46242122     |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+
+// Check the status of data synchronization in the current cluster again (the returned result indicates that the data is fully synchronized to the slave cluster and there is no data to be synchronized).
+nebula> SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 0         | 0            |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+```
+
+After executing the `SHOW SYNC STATUS` command, the parameters in the returned result are described as follows.
+
+| Parameter   | Description   |
+|:---    |:---   |
+| PartId | The partition ID in the specified graph space in the master cluster. The Meta data to be synchronized by Meta listener is located in the partition `0`. The Storage data to be synchronized by Storage listener is located in other partitions. |
+| Sync Status | Indicates the status of the listener service.<br>When the listener is `ONLINE`, it continuously sends data to the drainer service.<br>When the listener is `OFFLINE`, it stops sending data to the drainer.|
+| LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to the slave cluster from the corresponding partition of the master cluster. <br>The value `0` indicates that there are no logs to be sent in the corresponding partition of the master cluster. |
+| Time Latency | The difference between the timestamp in the WAL of the last log to be sent and the timestamp in the WAL of the last log that has been sent in the corresponding partition of the master cluster. <br>The value `0` indicates that data has been sent to the slave cluster. |
+
+### Check the status of synchronized data in the slave cluster
+
+In the slave cluster, run `SHOW DRAINER SYNC STATUS` to view the status of synchronizing data to the Meta and Storage services in the slave cluster. 
+
+```ngql
+nebula> SHOW DRAINER SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 0         | 0            |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+```
+After executing `SHOW DRAINER SYNC STATUS`, the parameters in the returned result are described as follows.
+
+| Parameter   | Description   |
+|:---    |:---   |
+| PartId | The partition ID in the specified graph space in the master cluster. The partition `0` is where the Meta data to be synchronized is located. The Storage data is located in other partitions.|
+| Sync Status |  Indicates the status of the drainer service.<br>When drainer is `ONLINE`, it continuously sends WAL to `metaClient`/`storageClient` in the slave cluster for data synchronization.<br>When drainer is `OFFLINE`, it stops sending WAL to `metaClient`/`storageClient` in the slave cluster for data synchronization.|
+| LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to `metaClient`/`storageClient` from the corresponding drainer partition in the slave cluster.<br>The value `0` indicates that there are no logs to be synchronized in the corresponding drainer partition.|
+| Time Latency | The difference between the timestamp in the WAL of the newest log received by the corresponding drainer partition between the timestamp in the WAL of the last log that has been synchronized to `metaClient`/`storageClient` in the slave cluster.<br>The value `0` indicates that drainer partition data has been sent to `metaClient`/`storageClient`.|
+
+## Switch between master and slave clusters
+
+To migrate data or implement disaster recovery, manually switch between the master and slave clusters.
 
 !!! note
 
-    Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
+    Before the switching, set up a listener for the new master cluster, and a drainer for the new slave cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
-1. Log into the primary cluster and remove the old drainer and listener.
+1. Log into the master cluster and remove the old drainer and listener.
 
   ```ngql
   nebula> USE basketballplayer;
@@ -332,7 +441,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
   nebula> SET VARIABLES read_only=true;
   ```
 
-3. Log into the secondary cluster, disable read-only, and remove the old drainer.
+3. Log into the slave cluster, disable read-only, and remove the old drainer.
 
   ```ngql
   nebula> USE replication_basketballplayer;
@@ -340,7 +449,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
   nebula> REMOVE DRAINER;
   ```
 
-4. Change the secondary cluster to the new primary cluster.
+4. Change the slave cluster to the new master cluster.
 
   ```ngql
   nebula> SIGN IN DRAINER SERVICE(192.168.10.106:9889);
@@ -348,7 +457,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
   nebula> REMOVE DRAINER;
   ```
 
-5. Log into the old primary cluster and change it to the new secondary cluster.
+5. Log into the old master cluster and change it to the new slave cluster.
 
   ```ngql
   nebula> USE basketballplayer;
@@ -360,35 +469,35 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 ## FAQ
 
-### Can the pre-existent data in the primary cluster be synchronized to the secondary cluster?
+### Can the pre-existent data in the master cluster be synchronized to the slave cluster?
 
-Yes. After receiving the WAL from the listener, if the drainer finds that the data to be updated does not exist in the secondary cluster, it starts the synchronization of the complete data set.
+Yes. After receiving the WAL from the listener, if the drainer finds that the data to be updated does not exist in the slave cluster, it starts the synchronization of the complete data set.
 
-### Will the pre-existent data in the secondary cluster affect the synchronization?
+### Will the pre-existent data in the slave cluster affect the synchronization?
 
-If the pre-existent data in the secondary cluster is a subset of the data in the primary cluster, the data in the primary and secondary clusters will eventually become consistent through synchronization. If there is any pre-existent data (not a subset of the data in the primary cluster) in the secondary cluster before the synchronization, the data may be lost after the synchronization. It is recommended to use a secondary cluster without data for synchronization.
+If the pre-existent data in the slave cluster is a subset of the data in the master cluster, the data in the master and slave clusters will eventually become consistent through synchronization. If there is any pre-existent data (not a subset of the data in the master cluster) in the slave cluster before the synchronization, the data may be lost after the synchronization. It is recommended to use a slave cluster without data for synchronization.
 
-### Will the pre-existent schema information in the secondary cluster affect the synchronization?
+### Will the pre-existent schema information in the slave cluster affect the synchronization?
 
-The pre-existent schema information must not conflict with the schema of the primary cluster. Otherwise, it will be overwritten, and related data in the secondary cluster might become invalid.
+The pre-existent schema information must not conflict with the schema of the master cluster. Otherwise, it will be overwritten, and related data in the slave cluster might become invalid.
 
-### Should the number of machines, replicas, and partitions in the primary and secondary clusters be the same?
+### Should the number of machines, replicas, and partitions in the master and slave clusters be the same?
 
-No. The synchronization is based on graph spaces, not other elements such as partitions and replicas. The primary and secondary clusters do not need to have the exact specifications.
+No. The synchronization is based on graph spaces, not other elements such as partitions and replicas. The master and slave clusters do not need to have the exact specifications.
 
-### Does altering the schema in the primary cluster affect the synchronization?
+### Does altering the schema in the master cluster affect the synchronization?
 
 Altering the schema may increase the synchronization latency.
 
-The schema data is synchronized through the Meta listener, while the vertex/edge data is through the Storage listener. When synchronizing the vertex/edge data, the system checks the schema version of the data. If the system finds that the version number of the schema is greater than that in the secondary cluster, it pauses the vertex/edge data update, and updates the schema data first.
+The schema data is synchronized through the Meta listener, while the vertex/edge data is through the Storage listener. When synchronizing the vertex/edge data, the system checks the schema version of the data. If the system finds that the version number of the schema is greater than that in the slave cluster, it pauses the vertex/edge data update, and updates the schema data first.
 
 ### How to deal with synchronization failures?
 
 Fix the problems in the cluster, and then the synchronization will be automatically restored.
 
-- If problems have happened in the primary cluster, the synchronization continues when the problems are fixed and the primary cluster restarts.
+- If problems have happened in the master cluster, the synchronization continues when the problems are fixed and the master cluster restarts.
 
-- If problems have happened in the secondary cluster, listeners, or drainers, when the problems are fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue working. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set will start automatically.
+- If problems have happened in the slave cluster, listeners, or drainers, when the problems are fixed, the services that had the problems will receive the WALs accumulated from its upstream and the synchronization will continue working. If the faulty machine is replaced with a new one, all the data of the synchronization services on the faulty machine must be copied to the new machine. Otherwise, the synchronization of the complete data set will start automatically.
 
 ### How to check the data synchronization status and progress?
 
