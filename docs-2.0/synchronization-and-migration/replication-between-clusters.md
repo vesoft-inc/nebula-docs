@@ -381,7 +381,7 @@ After executing the `SHOW SYNC STATUS` command, the parameters in the returned r
 | PartId | The partition ID in the specified graph space in the master cluster. The Meta data to be synchronized by Meta listener is located in the partition `0`. The Storage data to be synchronized by Storage listener is located in other partitions. |
 | Sync Status | Indicates the status of the listener service.<br>When the listener is `ONLINE`, it continuously sends data to the drainer service.<br>When the listener is `OFFLINE`, it stops sending data to the drainer.|
 | LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to the slave cluster from the corresponding partition of the master cluster. <br>The value `0` indicates that there are no logs to be sent in the corresponding partition of the master cluster. |
-| Time Latency | The difference between the timestamp in the WAL of the last log to be sent and the timestamp in the WAL of the last log that has been sent in the corresponding partition of the master cluster. <br>The value `0` indicates that data has been sent to the slave cluster. |
+| Time Latency | The difference between the timestamp in the WAL of the last log to be sent and the timestamp in the WAL of the last log that has been sent in the corresponding partition of the master cluster. <br>The value `0` indicates that data has been sent to the slave cluster. <br> Unit: Millisecond.|
 
 ### Check the status of synchronized data in the slave cluster
 
@@ -417,7 +417,7 @@ After executing `SHOW DRAINER SYNC STATUS`, the parameters in the returned resul
 | PartId | The partition ID in the specified graph space in the master cluster. The partition `0` is where the Meta data to be synchronized is located. The Storage data is located in other partitions.|
 | Sync Status |  Indicates the status of the drainer service.<br>When drainer is `ONLINE`, it continuously sends WAL to `metaClient`/`storageClient` in the slave cluster for data synchronization.<br>When drainer is `OFFLINE`, it stops sending WAL to `metaClient`/`storageClient` in the slave cluster for data synchronization.|
 | LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to `metaClient`/`storageClient` from the corresponding drainer partition in the slave cluster.<br>The value `0` indicates that there are no logs to be synchronized in the corresponding drainer partition.|
-| Time Latency | The difference between the timestamp in the WAL of the newest log received by the corresponding drainer partition between the timestamp in the WAL of the last log that has been synchronized to `metaClient`/`storageClient` in the slave cluster.<br>The value `0` indicates that drainer partition data has been sent to `metaClient`/`storageClient`.|
+| Time Latency | The difference between the timestamp in the WAL of the newest log received by the corresponding drainer partition between the timestamp in the WAL of the last log that has been synchronized to `metaClient`/`storageClient` in the slave cluster. <br>The value `0` indicates that drainer partition data has been sent to `metaClient`/`storageClient`. <br> Unit: Millisecond.|
 
 ## Switch between master and slave clusters
 
