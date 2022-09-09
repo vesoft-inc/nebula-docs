@@ -1,4 +1,4 @@
-# Nebula Dashboard Enterprise Edition release notes
+# NebulaGraph Dashboard Enterprise Edition release notes
 
 ## Enterprise Edition 3.1.3
 
@@ -18,13 +18,13 @@
 ## Enterprise Edition 3.1.0
 
 - Feature
-  - Support [Upgrading the Nebula Graph version in a specified cluster](../../nebula-dashboard-ent/4.cluster-operator/4.manage.md).
+  - Support [Upgrading the NebulaGraph version in a specified cluster](../../nebula-dashboard-ent/4.cluster-operator/4.manage.md).
   - Support [full backup and full restore](../../nebula-dashboard-ent/4.cluster-operator/8.backup-and-restore.md) functions.
   - Support [managing the installation packages](../../nebula-dashboard-ent/11.manage-package.md).
-  - Support using [SQLite database](../../nebula-dashboard-ent/2.deploy-connect-dashboard-ent.md) when deploying the Nebula Dashboard.
+  - Support using [SQLite database](../../nebula-dashboard-ent/2.deploy-connect-dashboard-ent.md) when deploying the NebulaGraph Dashboard.
 
 - Enhancement
-  - Adapted for Nebula Graph 3.2.0.
+  - Adapted for NebulaGraph 3.2.0.
   - Monitoring
     - Support configuring the monitoring time range globally.
     - Support configuring the monitoring refresh frequency globally.

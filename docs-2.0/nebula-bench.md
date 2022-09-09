@@ -1,12 +1,12 @@
-# Nebula Bench
+# NebulaGraph Bench
 
-Nebula Bench is a performance test tool for Nebula Graph using the LDBC data set.
+NebulaGraph Bench is a performance test tool for NebulaGraph using the LDBC data set.
 
 ## Scenario
 
-- Generate test data and import Nebula Graph.
+- Generate test data and import NebulaGraph.
 
-- Performance testing in the Nebula Graph cluster.
+- Performance testing in the NebulaGraph cluster.
 
 ## Release note
 
@@ -14,4 +14,4 @@ Nebula Bench is a performance test tool for Nebula Graph using the LDBC data set
 
 ## Test process
 
-For detailed usage instructions, see [Nebula Bench](https://github.com/vesoft-inc/nebula-bench/blob/{{bench.branch}}/README.md).
+For detailed usage instructions, see [NebulaGraph Bench](https://github.com/vesoft-inc/nebula-bench/blob/{{bench.branch}}/README.md).

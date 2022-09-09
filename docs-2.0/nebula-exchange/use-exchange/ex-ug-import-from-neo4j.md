@@ -1,6 +1,6 @@
 # Import data from Neo4j
 
-This topic provides an example of how to use Exchange to import Nebula Graph data stored in Neo4j.
+This topic provides an example of how to use Exchange to import NebulaGraph data stored in Neo4j.
 
 ## Implementation method
 
@@ -16,11 +16,11 @@ When Exchange reads Neo4j data, it needs to do the following:
 
 4. The Reader finally processes the returned data into a DataFrame.
 
-At this point, Exchange has finished exporting the Neo4j data. The data is then written in parallel to the Nebula Graph database.
+At this point, Exchange has finished exporting the Neo4j data. The data is then written in parallel to the NebulaGraph database.
 
 The whole process is illustrated below.
 
-![Nebula Graph&reg; Exchange exports data from the Neo4j database and imports it into the Nebula Graph database in parallel](https://docs-cdn.nebula-graph.com.cn/figures/ex-ug-002.png "Nebula Graph&reg; Exchange migrates Neo4j data")
+![NebulaGraph&reg; Exchange exports data from the Neo4j database and imports it into the NebulaGraph database in parallel](https://docs-cdn.nebula-graph.com.cn/figures/ex-ug-002.png "NebulaGraph&reg; Exchange migrates Neo4j data")
 
 ## Data set
 
@@ -41,31 +41,31 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Neo4j: 3.5.20 Community Edition
 
-- Nebula Graph: {{nebula.release}}. [Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
-  - The user name and password with Nebula Graph write permission.
+  - The user name and password with NebulaGraph write permission.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.
+- Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 ## Steps
 
-### Step 1: Create the Schema in Nebula Graph
+### Step 1: Create the Schema in NebulaGraph
 
-Analyze the data to create a Schema in Nebula Graph by following these steps:
+Analyze the data to create a Schema in NebulaGraph by following these steps:
 
-1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
+1. Identify the Schema elements. The Schema elements in the NebulaGraph are shown in the following table.
 
     | Element  | Name | Property |
     | :--- | :--- | :--- |
@@ -74,7 +74,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
+2. Create a graph space **basketballplayer** in the NebulaGraph and create a Schema as shown below.
 
     ```ngql
     ## Create a graph space
@@ -132,7 +132,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   }
 
 
-  # Nebula Graph configuration
+  # NebulaGraph configuration
   nebula: {
     address:{
       graph:["127.0.0.1:9669"]
@@ -278,15 +278,15 @@ Exchange needs to execute different `SKIP` and `LIMIT` Cypher statements on diff
 
 #### tags.vertex or edges.vertex configuration
 
-Nebula Graph uses ID as the unique primary key when creating vertexes and edges, overwriting the data in that primary key if it already exists. So, if a Neo4j property value is given as the Nebula Graph'S ID and the value is duplicated in Neo4j, duplicate IDs will be generated. One and only one of their corresponding data will be stored in the Nebula Graph, and the others will be overwritten. Because the data import process is concurrently writing data to Nebula Graph, the final saved data is not guaranteed to be the latest data in Neo4j.
+NebulaGraph uses ID as the unique primary key when creating vertexes and edges, overwriting the data in that primary key if it already exists. So, if a Neo4j property value is given as the NebulaGraph'S ID and the value is duplicated in Neo4j, duplicate IDs will be generated. One and only one of their corresponding data will be stored in the NebulaGraph, and the others will be overwritten. Because the data import process is concurrently writing data to NebulaGraph, the final saved data is not guaranteed to be the latest data in Neo4j.
 
 #### check_point_path configuration
 
 If breakpoint transfers are enabled, to avoid data loss, the state of the database should not change between the breakpoint and the transfer. For example, data cannot be added or deleted, and the `partition` quantity configuration should not be changed.
 
-### Step 4: Import data into Nebula Graph
+### Step 4: Import data into NebulaGraph
 
-Run the following command to import Neo4j data into Nebula Graph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
+Run the following command to import Neo4j data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <neo4j_application.conf_path> 
@@ -306,7 +306,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 
 ### Step 5: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Studio). For example:
+Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
@@ -314,6 +314,6 @@ GO FROM "player100" OVER follow;
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 6: (optional) Rebuild indexes in Nebula Graph
+### Step 6: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in Nebula Graph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).

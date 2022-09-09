@@ -28,7 +28,7 @@ This method applies to contribute codes, modify multiple documents in batches, o
 
 ## Step 1: Fork in the github.com
 
-The Nebula Graph project has many [repositories](https://github.com/vesoft-inc). Take [the nebul repository](https://github.com/vesoft-inc/nebula) for example:
+The NebulaGraph project has many [repositories](https://github.com/vesoft-inc). Take [the nebul repository](https://github.com/vesoft-inc/nebula) for example:
 
 1. Visit [https://github.com/vesoft-inc/nebula](https://github.com/vesoft-inc/nebula).
 
@@ -75,7 +75,7 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
 
 4. (Optional) Define a pre-commit hook.
 
-  Please link the Nebula Graph pre-commit hook into the `.git` directory.
+  Please link the NebulaGraph pre-commit hook into the `.git` directory.
 
   This hook checks the commits for formatting, building, doc generation, etc.
 
@@ -123,7 +123,7 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
 
 - Code style
 
-  **Nebula Graph** adopts `cpplint` to make sure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed.
+  **NebulaGraph** adopts `cpplint` to make sure that the project conforms to Google's coding style guides. The checker will be implemented before the code is committed.
 
 - Unit tests requirements
 
@@ -131,7 +131,7 @@ The Nebula Graph project has many [repositories](https://github.com/vesoft-inc).
 
 - Build your code with unit tests enabled
 
-  For more information, see [Install Nebula Graph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md).
+  For more information, see [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md).
 
   !!! Note
 
@@ -192,7 +192,7 @@ For detailed methods, see [How to add test cases](https://github.com/vesoft-inc/
 
 ### Step 1: Confirm the project donation
 
-Contact the official Nebula Graph staff via email, WeChat, Slack, etc. to confirm the donation project. The project will be donated to the [Nebula Contrib organization](https://github.com/nebula-contrib).
+Contact the official NebulaGraph staff via email, WeChat, Slack, etc. to confirm the donation project. The project will be donated to the [NebulaGraph Contrib organization](https://github.com/nebula-contrib).
 
 Email address: info@vesoft.com
 
@@ -202,10 +202,10 @@ Slack: [Join Slack](https://join.slack.com/t/nebulagraph/shared_invite/zt-7ybeju
 
 ### Step 2: Get the information of the project recipient
 
-The Nebula Graph official staff will give the recipient ID of the Nebula Contrib project.
+The NebulaGraph official staff will give the recipient ID of the NebulaGraph Contrib project.
 
 ### Step 3: Donate a project
 
-The user transfers the project to the recipient of this donation, and the recipient transfers the project to the Nebula Contrib organization. After the donation, the user will continue to lead the development of community projects as a Maintainer.
+The user transfers the project to the recipient of this donation, and the recipient transfers the project to the NebulaGraph Contrib organization. After the donation, the user will continue to lead the development of community projects as a Maintainer.
 
 For operations of transferring a repository on GitHub, see [Transferring a repository owned by your user account](https://docs.github.com/en/enterprise-server@3.0/github/administering-a-repository/managing-repository-settings/transferring-a-repository#transferring-a-repository-owned-by-your-user-account).

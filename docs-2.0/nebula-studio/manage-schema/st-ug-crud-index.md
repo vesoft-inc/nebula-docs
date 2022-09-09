@@ -4,13 +4,13 @@ You can create an index for a Tag and/or an Edge type. An index lets traversal s
 
 !!! note
 
-    You can create an index when a Tag or an Edge Type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md "Click to go to the Nebula Graph website").
+    You can create an index when a Tag or an Edge Type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md "Click to go to the NebulaGraph website").
 
 ## Prerequisites
 
 To operate an index on the **Schema** page of Studio, you must do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - A graph Space, Tags, and Edge Types are created.
 - Your account has the authority of GOD, ADMIN, or DBA.
 

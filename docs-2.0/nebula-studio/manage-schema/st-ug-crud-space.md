@@ -1,15 +1,15 @@
 # Operate graph spaces
 
-When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in Nebula Graph.
+When Studio is connected to NebulaGraph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in NebulaGraph.
 
 ## Prerequisites
 
 To operate a graph space on the **Schema** page of Studio, you must do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - Your account has the authority of GOD. It means that:
-  - If the authentication is enabled in Nebula Graph, you can use `root` and any password to sign in to Studio.
-  - If the authentication is disabled in Nebula Graph, you must use `root` and its password to sign in to Studio.
+  - If the authentication is enabled in NebulaGraph, you can use `root` and any password to sign in to Studio.
+  - If the authentication is disabled in NebulaGraph, you must use `root` and its password to sign in to Studio.
 
 ## Create a graph space
 
@@ -23,7 +23,7 @@ To operate a graph space on the **Schema** page of Studio, you must do a check o
 
   - **Comment**: Enter the description for graph space. The maximum length is 256 bytes. By default, there will be no comments on a space. But in this example, `Statistics of basketball players` is used.
 
-  - **Optional Parameters**: Set the values of `partition_num` and `replica_factor` respectively. In this example, these parameters are set to `100` and `1` respectively. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the Nebula Graph website").
+  - **Optional Parameters**: Set the values of `partition_num` and `replica_factor` respectively. In this example, these parameters are set to `100` and `1` respectively. For more information, see [`CREATE SPACE` syntax](../../3.ngql-guide/9.space-statements/1.create-space.md "Click to go to the NebulaGraph website").
 
   In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
    

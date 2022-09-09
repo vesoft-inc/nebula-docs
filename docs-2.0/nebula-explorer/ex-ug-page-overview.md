@@ -1,8 +1,8 @@
 # Page overview
 
-This topic introduces the Nebula Explorer page to help you learn more about Nebula Explorer's functions.
+This topic introduces the NebulaGraph Explorer page to help you learn more about NebulaGraph Explorer's functions.
 
-The Nebula Explorer page consists of three modules top navigation bar, left-side navigation bar, and canvas. 
+The NebulaGraph Explorer page consists of three modules top navigation bar, left-side navigation bar, and canvas. 
 
 ![explorer-overview](https://docs-cdn.nebula-graph.com.cn/figures/ex-overview-220622-en.png)
 
@@ -13,12 +13,12 @@ The Nebula Explorer page consists of three modules top navigation bar, left-side
 | **Explorer**                                                 | Visually explore and analyze data. For more information, see [Start querying](graph-explorer/ex-ug-query-exploration.md), [Vertex Filter](graph-explorer/node-filtering.md), [Graph exploration](graph-explorer/ex-ug-graph-exploration.md) and [Graph algorithm](graph-explorer/graph-algorithm.md).     |
 | **Visual Query**                                             | Visually construct scenarios for data queries. For more information, see [Visual Query](12.query-visually.md).          |
 | **Workflow** |  Visually construct custom workflows for complex graph computing. For more information, see [Workflow overview](workflow/workflows.md). |
-| ![create_schema](https://docs-cdn.nebula-graph.com.cn/figures/studio-nav-schema.png) | Manage Nebula Graph database graph spaces. For more information, see [Create a schema](db-management/10.create-schema.md).       |
-| ![import_data](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png) | Bulk import of data into Nebula Graph. For more information, see [Import data](db-management/11.import-data.md).          |
-| ![Console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) | Query the Nebula Graph data with nGQL statements. For more information, see [Console](db-management/explorer-console.md). |
-| ![language](https://docs-cdn.nebula-graph.com.cn/figures/navbar-language.png) | Select the language of  Nebula Explorer page. Chinese and English are supported.   |
-| ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) | Guide and help you in using Nebula Graph.          |
-| ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/image-icon10.png) | Show the Nebula Graph version and allow you to disconnect from Nebula Explorer.    |
+| ![create_schema](https://docs-cdn.nebula-graph.com.cn/figures/studio-nav-schema.png) | Manage NebulaGraph database graph spaces. For more information, see [Create a schema](db-management/10.create-schema.md).       |
+| ![import_data](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png) | Bulk import of data into NebulaGraph. For more information, see [Import data](db-management/11.import-data.md).          |
+| ![Console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) | Query the NebulaGraph data with nGQL statements. For more information, see [Console](db-management/explorer-console.md). |
+| ![language](https://docs-cdn.nebula-graph.com.cn/figures/navbar-language.png) | Select the language of  NebulaGraph Explorer page. Chinese and English are supported.   |
+| ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) | Guide and help you in using NebulaGraph.          |
+| ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/image-icon10.png) | Show the NebulaGraph version and allow you to disconnect from NebulaGraph Explorer.    |
 
 ## Left-side navigation bar
 
@@ -39,7 +39,7 @@ Click the icons in the left-side navigation bar to import, analyze, and explore 
 | ![graph-algorithm](https://docs-cdn.nebula-graph.com.cn/figures/rightclickmenu-graphCalculation.png)| Perform graph computing based on the vertexes and edges in the canvas. For more Information see [Graph computing](graph-explorer/ex-ug-graph-exploration.md). |
 | ![snapshot](https://docs-cdn.nebula-graph.com.cn/figures/snapshot-history.png) | View historical snapshots. For more information, see [Canvas snapshots](canvas-operations/canvas-snapshot.md).     |
 | ![graphSpace](https://docs-cdn.nebula-graph.com.cn/figures/nav-graphSpace.png) | View all graph spaces. Click a graph space to create a canvas corresponding to it. For more information, see [Choose graph spaces](graph-explorer/13.choose-graphspace.md).    |
-| ![Help](https://docs-cdn.nebula-graph.com.cn/figures/nav-help.png) | View Explorer documents and Nebula Graph forum.     |
+| ![Help](https://docs-cdn.nebula-graph.com.cn/figures/nav-help.png) | View Explorer documents and NebulaGraph forum.     |
 | ![Setup](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup2.png) | View your account, explorer version and shortcuts, limit returned results.|
 
 ## Canvas

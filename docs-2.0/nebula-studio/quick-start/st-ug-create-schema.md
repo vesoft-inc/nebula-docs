@@ -1,16 +1,16 @@
 # Create a schema
 
-To batch import data into Nebula Graph, you must have a graph schema. You can create a schema on the **Console** page or on the **Schema** page of Studio.
+To batch import data into NebulaGraph, you must have a graph schema. You can create a schema on the **Console** page or on the **Schema** page of Studio.
 
 !!! note
 
-    You can use nebula-console to create a schema. For more information, see [Nebula Graph Manual](../../README.md) and [Get started with Nebula Graph](../../2.quick-start/1.quick-start-workflow.md).
+    You can use nebula-console to create a schema. For more information, see [NebulaGraph Manual](../../README.md) and [Get started with NebulaGraph](../../2.quick-start/1.quick-start-workflow.md).
 
 ## Prerequisites
 
 To create a graph schema on Studio, you must do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 
 - Your account has the privilege of GOD, ADMIN, or DBA.
 
