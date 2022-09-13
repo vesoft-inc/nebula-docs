@@ -1,4 +1,4 @@
-# Nebula Explorer release notes
+# NebulaGraph Explorer release notes
 
 ## v3.1.0
 
@@ -8,7 +8,7 @@
   - Support [N-Step Vertex Detection](../../nebula-explorer/canvas-operations/visualization-mode.md) function based on the canvas.
 
 - Enhancement
-  - Adapted for Nebula Graph 3.2.0.
+  - Adapted for NebulaGraph 3.2.0.
   - Support storing the canvas snapshots persistent. The snapshot data is saved on the server to avoid snapshot loss when users clearing browser data.
   - Support [setting the maximum number of the vertices and edges](../../nebula-explorer/canvas-operations/visualization-mode.md) displayed in the bird view mode.
   - Increase the distribution on the Z-axis by default to avoid the flat feeling in 3D mode when the 2D mode switches to 3D mode.

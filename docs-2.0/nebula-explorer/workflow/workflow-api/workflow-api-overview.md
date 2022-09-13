@@ -1,6 +1,6 @@
 # Workflow API overview
 
-Nebula Explorer provides some APIs for using workflow.
+NebulaGraph Explorer provides some APIs for using workflow.
 
 The supported APIs are as follows:
 
@@ -23,9 +23,9 @@ curl <options> http://<explorer_address>:<explorer_port>/<api_path>?{<body>}
 
 - `<options>`: Curl supports a large number of options. The most commonly used options for workflow are `-X`, `-H` and `-d`. For more information about options, see [curl official documentation](https://curl.se/docs/manpage.html).
 
-- `<explorer_address>`: The access address of the Nebula Explorer.
+- `<explorer_address>`: The access address of the NebulaGraph Explorer.
 
-- `<explorer_port>`: The access port of the Nebula Explorer.
+- `<explorer_port>`: The access port of the NebulaGraph Explorer.
 
 - `<api_path>`: The call path of APIs. For example: `api-open/v1/jobs`.
 
@@ -39,11 +39,11 @@ Token information verification is required when calling an API. Run the followin
 curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <account_base64_encode>" -d '{"address":"<nebula_address>","port":<nebula_port>}' http://<explorer_address>:<explorer_port>/api-open/v1/connect
 ```
 
-- `<account_base64_encode>`: The Base64 encoded Nebula Graph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
-- `<nebula_address>`: The access address of the Nebula Graph.
-- `<nebula_port>`: The access port of the Nebula Graph.
-- `<explorer_address>`: The access address of the Nebula Explorer.
-- `<explorer_port>`: The access port of the Nebula Explorer.
+- `<account_base64_encode>`: The Base64 encoded NebulaGraph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
+- `<nebula_address>`: The access address of the NebulaGraph.
+- `<nebula_port>`: The access port of the NebulaGraph.
+- `<explorer_address>`: The access address of the NebulaGraph Explorer.
+- `<explorer_port>`: The access port of the NebulaGraph Explorer.
 
 Example: 
 

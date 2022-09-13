@@ -148,7 +148,7 @@ Cypher has inspired a series of graph query languages, including:
 
 [^GSQL]: https://docs.tigergraph.com/dev/gsql-ref
 
-2019, Nebula Graph released Nebula Graph Query Language (nGQL) based on openCypher.
+2019, NebulaGraph released NebulaGraph Query Language (nGQL) based on openCypher.
 
 ![Image](https://docs-cdn.nebula-graph.com.cn/books/images/langhis.jpg "图语言的历史")
 
@@ -237,6 +237,6 @@ Oracle Graph[^Oracle] is a product of the relational database giant Oracle in th
 
 [^Oracle]: https://www.oracle.com/database/graph/
 
-#### Nebula Graph, a new generation of open-source distributed graph databases
+#### NebulaGraph, a new generation of open-source distributed graph databases
 
-In the following topics, we will formally introduce Nebula Graph, a new generation of open-source distributed graph databases.
+In the following topics, we will formally introduce NebulaGraph, a new generation of open-source distributed graph databases.

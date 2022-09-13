@@ -1,4 +1,4 @@
-# Nebula Graph {{ nebula.release }} release notes
+# NebulaGraph {{ nebula.release }} release notes
 
 ## Feature
 
