@@ -318,6 +318,10 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
     Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
+!!! caution
+
+    DO NOT write data to the master cluster and make sure that the data in the master cluster has been synchronized to the slave cluster before switching between master and slave clusters.
+
 1. Log into the primary cluster and remove the old drainer and listener.
 
   ```bash
@@ -344,8 +348,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
   ```bash
   nebula> SIGN IN DRAINER SERVICE(192.168.10.106:9889);
-  nebula> ADD LISTENER SYNC META 192.168.10.105:9559 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
-  nebula> REMOVE DRAINER;
+  nebula> ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
   ```
 
 5. Log into the old primary cluster and change it to the new secondary cluster.
