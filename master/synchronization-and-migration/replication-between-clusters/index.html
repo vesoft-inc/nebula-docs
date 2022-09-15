@@ -7381,6 +7381,10 @@ nebula&gt; GO FROM &quot;player101&quot; OVER follow \
 <p class="admonition-title">Note</p>
 <p>Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.</p>
 </div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>DO NOT write data to the master cluster and make sure that the data in the master cluster has been synchronized to the slave cluster before switching between master and slave clusters.</p>
+</div>
 <ol>
 <li>
 <p>Log into the primary cluster and remove the old drainer and listener.</p>
@@ -7405,7 +7409,6 @@ nebula&gt; REMOVE DRAINER;
 <p>Change the secondary cluster to the new primary cluster.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SIGN IN DRAINER SERVICE(192.168.10.106:9889);
 nebula&gt; ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
-nebula&gt; REMOVE DRAINER;
 </code></pre></div>
 </li>
 <li>
@@ -7454,7 +7457,7 @@ Find the WALs that has just been synchronized, and that has most recently been g
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2022</span>
       
     
   </small>
