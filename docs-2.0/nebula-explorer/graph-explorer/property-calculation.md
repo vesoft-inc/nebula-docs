@@ -16,7 +16,7 @@ There were [aggregated edges](../canvas-operations/visualization-mode.md) on the
 
 ## Steps
 
-### method 1
+### Method 1
 
 1. In the left navigation bar, click ![propertyCalculation](https://docs-cdn.nebula-graph.com.cn/figures/icon-nav-propertyCalculation.png) to open the **Property Calculation** panel.
 
@@ -28,7 +28,7 @@ Click **+** to add more edge types for property calculation.
 
 ![propertycalculation](https://docs-cdn.nebula-graph.com.cn/figures/propertycalculation-220913-en.png)
 
-### method 2
+### Method 2
 
 1. Right-click the aggregated edge on the canvas and select **Property Calculation**.
 
