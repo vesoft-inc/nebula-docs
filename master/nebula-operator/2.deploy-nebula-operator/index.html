@@ -6397,13 +6397,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#description_of_software" class="md-nav__link">
-    Description of software
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -7118,13 +7111,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#description_of_software" class="md-nav__link">
-    Description of software
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -7211,7 +7197,7 @@
 <p><a href="../1.introduction-to-nebula-operator/">NebulaGraph Operator</a> automates the management of NebulaGraph clusters, and eliminates the need for you to install, scale, upgrade, and uninstall NebulaGraph clusters, which lightens the burden on managing different application versions.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="install_software">Install software<a class="headerlink" href="#install_software" title="Permanent link">&para;</a></h3>
-<p>Before installing NebulaGraph Operator, you need to install the following software and ensure the correct version of the software:</p>
+<p>Before installing NebulaGraph Operator, you need to install the following software and ensure the correct version of the software :</p>
 <table>
 <thead>
 <tr>
@@ -7232,46 +7218,17 @@
 <td><a href="https://github.com/coredns/coredns">CoreDNS</a></td>
 <td>>= 1.6.0</td>
 </tr>
-<tr>
-<td><a href="https://cert-manager.io">CertManager</a></td>
-<td>>= 1.2.0</td>
-</tr>
-<tr>
-<td><a href="https://openkruise.io">OpenKruise</a></td>
-<td>>= 0.8.0</td>
-</tr>
 </tbody>
 </table>
-<p>If using a role-based access control policy, you need to enable <a href="https://kubernetes.io/docs/admin/authorization/rbac">RBAC</a> (optional).</p>
-<h3 id="description_of_software">Description of software<a class="headerlink" href="#description_of_software" title="Permanent link">&para;</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The following software used by NebulaGraph Operator is from the third party. NebulaGraph Operator is not responsible for any problems that may arise during the software installation.</p>
+<ul>
+<li>If using a role-based access control policy, you need to enable <a href="https://kubernetes.io/docs/admin/authorization/rbac">RBAC</a> (optional).</li>
+</ul>
+<ul>
+<li><a href="https://coredns.io/">CoreDNS</a> is a flexible and scalable DNS server that is <a href="https://github.com/coredns/deployment/tree/master/kubernetes">installed</a> for Pods in NebulaGraph clusters.</li>
+</ul>
 </div>
-<ul>
-<li>
-<p><a href="https://coredns.io/">CoreDNS</a></p>
-<p>CoreDNS is a flexible and scalable DNS server that is <a href="https://github.com/coredns/deployment/tree/master/kubernetes">installed</a> for Pods in NebulaGraph clusters.</p>
-<p>Components in a NebulaGraph cluster communicate with each other via DNS resolutions for domain names, like <code>x.default.svc.cluster.local</code>.</p>
-</li>
-</ul>
-<ul>
-<li>
-<p><a href="https://cert-manager.io/">cert-manager</a></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have set the value of the NebulaGraph Operator configuration item <code>admissionWebhook.create</code> to <code>false</code>, there is no need to install cert-manager. For details about NebulaGraph Operator configuration items, see the <strong>Customize Helm charts</strong> section in <strong>Install NebulaGraph Operator</strong> below.</p>
-</div>
-<p>cert-manager is a tool that automates the management of certificates. It leverages extensions of the Kubernetes API and uses the Webhook server to provide dynamic access control to cert-manager resources. For more information about installation, see <a href="https://cert-manager.io/docs/installation/kubernetes/">cert-manager installation documentation</a>.</p>
-<p>cert-manager is used to validate the numeric value of replicas for each component in a NebulaGraph cluster. If you run it in a production environment and care about the high availability of NebulaGraph clusters, it is recommended to set the value of <code>admissionWebhook.create</code> to <code>true</code> before installing cert-manager.</p>
-</li>
-</ul>
-<ul>
-<li>
-<p><a href="https://openkruise.io/en-us/">OpenKruise</a></p>
-<p>OpenKruise is a full set of standard extensions for Kubernetes. It works well with original Kubernetes and provides more powerful and efficient features for managing Pods, sidecar containers, and even container images in clusters. OpenKruise is required to enable advanced features for StatefulSets when NebulaGraph Operator starts. For information about installation, see <a href="https://openkruise.io/en-us/docs/installation.html">openkruise installation documentation</a>.</p>
-</li>
-</ul>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="install_nebulagraph_operator">Install NebulaGraph Operator<a class="headerlink" href="#install_nebulagraph_operator" title="Permanent link">&para;</a></h3>
 <ol>
@@ -7438,7 +7395,10 @@
 <h3 id="upgrade_nebulagraph_operator">Upgrade NebulaGraph Operator<a class="headerlink" href="#upgrade_nebulagraph_operator" title="Permanent link">&para;</a></h3>
 <div class="admonition compatibility">
 <p class="admonition-title">Legacy version compatibility</p>
-<p>The 1.x version NebulaGraph Operator is not compatible with NebulaGraph of version below v3.x.</p>
+<ul>
+<li>Does not support upgrading 0.9.0 and below version NebulaGraph Operator to 1.x.</li>
+<li>The 1.x version NebulaGraph Operator is not compatible with NebulaGraph of version below v3.x.</li>
+</ul>
 </div>
 <ol>
 <li>
@@ -7521,7 +7481,7 @@ NebulaGraph Operator installed!
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2022</span>
       
     
   </small>
