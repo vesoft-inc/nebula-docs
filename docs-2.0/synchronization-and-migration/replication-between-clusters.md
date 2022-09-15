@@ -224,6 +224,8 @@ The test environment for the operation example in this topic is as follows:
 5. Use `replication_basketballplayer` and configure the drainer service.
 
   ```ngql
+  nebula> USE replication_basketballplayer;
+
   # Configure the drainer service.
   nebula> ADD DRAINER 192.168.10.104:9889;
 
@@ -236,14 +238,13 @@ The test environment for the operation example in this topic is as follows:
   +-------------------------+----------+
   ```
 
-6. Set the target graph space as read-only to avoid data inconsistency.
+6. Set the target graph space `replication_basketballplayer` as read-only to avoid data inconsistency.
 
   !!! note
 
         This step only sets the target graph space, not other graph spaces.
 
   ```ngql
-  nebula> USE replication_basketballplayer;
   
   # Set the working graph space as read-only.
   nebula> SET VARIABLES read_only=true;
