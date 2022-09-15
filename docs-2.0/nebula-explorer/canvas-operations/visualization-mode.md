@@ -16,12 +16,21 @@ Exploration of the data on a canvas is possible in 2D mode.
 
 | Parameter       | Description                                                         |
 | ---------- | ------------------------------------------------------------ |
-| Weight Degree | Weight Degree：Automatically resizes vertices according to the number of outgoing and incoming edges of all the vertices on the canvas.<br />Reset Degree：Resets the vertices on the canvas to their original size.      |
-| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Hang Edge: Detects edges associated with vertices of one degree in the canvas (associated vertices are included).<br />Loop Detection: Detects the paths that connect a vertex to itself.<br /> N-Step Vertex Detection: Starting from the selected vertex, the vertexes in the outbound direction are displayed on the canvas hop by hop.|
+| Auto | Weight Degree：Automatically resizes vertices according to the number of outgoing and incoming edges of all the vertices on the canvas.<br />Reset Degree：Resets the vertices on the canvas to their original size. <br />Edge Aggregation: Automatically aggregate all edges on the canvas that match the aggregation rules. <br />Edge Disaggregate: Resets the aggregated edges on the canvas.     |
+| Detection   | Outlier: Detects the vertices that connect no edges on a canvas.<br />Hang Edge: Detects edges associated with vertices of one degree in the canvas (associated vertices are included).<br />Loop Detection: Detects the paths that connect a vertex to itself.<br /> N-Step Vertex Detection: Starting from the selected vertex, the vertices in the outbound direction are displayed on the canvas hop by hop.|
+| Aggregation| Aggregate the edges between the vertices: Aggregate the edges between the selected vertices on the canvas.<br />Cancels aggregation of edges between vertices: Resets the aggregated edges between the selected vertices on the canvas. |
 | Edit | Dismiss: Hide the selected vertices and edges on the canvas.<br />Dismiss Others: Hide the unselected vertices and edges on the canvas.<br />Undo: Undo the action in the previous step.<br />Redo: Restore the action that was previously undone. |
 
 For more information about the operations available in 2D mode, see [Canvas](canvas-overview.md).
 
+### Edge aggregation description
+
+When there are a large number of vertices in the canvas, to enhance the readability and analyzability of the graph, edges with the same start vertex, end vertex and edge type can be aggregated to make the relationship between vertices clearer.
+
+- Edge aggregation automatically displays the number of aggregated edges.
+- Edge aggregation supports the calculation of properties in it. For details, see [Property calculation](../graph-explorer/property-calculation.md).
+- Hovering over the aggregated edge displays the edge type, the number of aggregated edges, edge properties, and property values. If the property calculation was performed, the result is also displayed.
+- In addition to canceling edge aggregation in the upper bar, you can also double-click the aggregated edge or right-click the aggregated edge and select **disaggregate**.
 
 ## 3D mode
 
