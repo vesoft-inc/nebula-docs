@@ -5,7 +5,7 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 !!! note
 
     - After the configuration is complete, you can create the account and activate the invitation. For details，see [Authority management](../5.account-management.md).
-    - You can quickly switch on or off LDAP or OAuth2.0 login using the switch in the left navigation bar.
+    - You can quickly switch on or off LDAP or OAuth2.0 in the left navigation bar.
 
 ## LDAP configuration
 
