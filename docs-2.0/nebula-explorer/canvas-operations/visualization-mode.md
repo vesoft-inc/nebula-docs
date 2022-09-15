@@ -25,7 +25,7 @@ For more information about the operations available in 2D mode, see [Canvas](can
 
 ### Edge aggregation description
 
-When there are a large number of vertices in the canvas, to enhance the readability and analyzability of the graph, edges with the same starting vertex, end vertex and edge type can be aggregated to make the relationship between vertices clearer.
+When there are a large number of vertices in the canvas, to enhance the readability and analyzability of the graph, edges with the same start vertex, end vertex and edge type can be aggregated to make the relationship between vertices clearer.
 
 - Edge aggregation automatically displays the number of aggregated edges.
 - Edge aggregation supports the calculation of properties in it. For details, see [Property calculation](../graph-explorer/property-calculation.md).
