@@ -36,5 +36,5 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
 
    The cluster will be shut down during the upgrade and automatically restart the services after the upgrade. You can use the **diagnostics report** to help you judge whether the timing to upgrade is suitable.
 
-7. Confirm the upgrade information again, including **Cluster Name**, **Current NebulaGraph Version**, and **Upgrade NebulaGraph Version**, then click **Upgrade**.
+7. Confirm the upgrade information again, including **Cluster Name**, **Current NebulaGraph Version**, and **Upgrade NebulaGraph Version**, and then click **Upgrade**.
    Users can view the upgrade task information in [task center](../../10.tasks.md), the task type is `version update`.
