@@ -1,6 +1,6 @@
 # Property calculation
 
-When there are a large number of vertices in the canvas, to enhance the readability and analyzability of the graph, edges with the same starting vertex, end vertex and edge type can be aggregated. The aggregated edges can be computed and displayed based on their properties.
+When there are a large number of vertices in the canvas, to enhance the readability and analyzability of the graph, edges with the same start vertex, end vertex and edge type can be aggregated. The aggregated edges can be computed and displayed based on their properties.
 
 ## Prerequisites
 
