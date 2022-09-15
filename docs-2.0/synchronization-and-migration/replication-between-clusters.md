@@ -320,7 +320,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 !!! caution
 
-    DO NOT write data to the master cluster and make sure that the data in the master cluster has been synchronized to the slave cluster before switching between master and slave clusters.
+    DO NOT write data to the primary cluster and make sure that the data in the primary cluster has been synchronized to the secondary cluster before switching between primary and secondary clusters.
 
 1. Log into the primary cluster and remove the old drainer and listener.
 
