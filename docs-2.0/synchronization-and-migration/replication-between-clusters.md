@@ -107,7 +107,7 @@ The test environment for the operation example in this topic is as follows:
 
 5. Log into the primary cluster, add the Storage hosts, and check the status of the listeners.
 
-  ```bash
+  ```ngql
   # Add the Storage hosts first.
   nebula> ADD HOSTS 192.168.10.101:9779;
   nebula> SHOW HOSTS STORAGE;
@@ -130,13 +130,13 @@ The test environment for the operation example in this topic is as follows:
   +------------------+------+----------+-----------------+--------------+----------------------+
   | Host             | Port | Status   | Role            | Git Info Sha | Version              |
   +------------------+------+----------+-----------------+--------------+----------------------+
-  | "192.168.10.103" | 9559 | "ONLINE" | "META_LISTENER" | "xxxxxxx"    |  "ent-3.1.0"         |
+  | "192.168.10.103" | 9569 | "ONLINE" | "META_LISTENER" | "xxxxxxx"    |  "ent-3.1.0"         |
   +------------------+------+----------+-----------------+--------------+----------------------+
   ```
 
 6. Log into the secondary cluster, add the Storage hosts, and check the status of the drainer.
 
-  ```bash
+  ```ngql
   nebula> ADD HOSTS 192.168.10.102:9779;
   nebula> SHOW HOSTS STORAGE;
   +------------------+------+----------+-----------+--------------+----------------------+
@@ -165,7 +165,7 @@ The test environment for the operation example in this topic is as follows:
 
 2. Use the graph space `basketballplayer` and register the drainer service.
 
-  ```bash
+  ```ngql
   nebula> USE basketballplayer;
 
   # Register the drainer service.
@@ -182,7 +182,7 @@ The test environment for the operation example in this topic is as follows:
 
 3. Configure the listener service.
 
-  ```bash
+  ```ngql
   # replication_basketballplayer is the synchronization target. It will be created in the following steps.
   nebula> ADD LISTENER SYNC \
           META 192.168.10.103:9569 \
@@ -215,7 +215,7 @@ The test environment for the operation example in this topic is as follows:
 
 4. Log into the secondary cluster and create graph space `replication_basketballplayer`.
 
-  ```bash
+  ```ngql
   nebula> CREATE SPACE replication_basketballplayer(partition_num=15, \
           replica_factor=1, \
           vid_type=fixed_string(30));
@@ -223,7 +223,9 @@ The test environment for the operation example in this topic is as follows:
 
 5. Use `replication_basketballplayer` and configure the drainer service.
 
-  ```bash
+  ```ngql
+  nebula> USE replication_basketballplayer;
+
   # Configure the drainer service.
   nebula> ADD DRAINER 192.168.10.104:9889;
 
@@ -236,14 +238,13 @@ The test environment for the operation example in this topic is as follows:
   +-------------------------+----------+
   ```
 
-6. Set the target graph space as read-only to avoid data inconsistency.
+6. Set the target graph space `replication_basketballplayer` as read-only to avoid data inconsistency.
 
   !!! note
 
         This step only sets the target graph space, not other graph spaces.
 
-  ```bash
-  nebula> USE replication_basketballplayer;
+  ```ngql
   
   # Set the working graph space as read-only.
   nebula> SET VARIABLES read_only=true;
@@ -261,7 +262,7 @@ The test environment for the operation example in this topic is as follows:
 
 1. Log into the primary cluster, create the schema, and insert data.
 
-  ```bash
+  ```ngql
   nebula> USE basketballplayer;
   nebula> CREATE TAG player(name string, age int);
   nebula> CREATE EDGE follow(degree int);
@@ -272,7 +273,7 @@ The test environment for the operation example in this topic is as follows:
 
 2. Log into the secondary cluster and validate the data.
 
-  ```bash
+  ```ngql
   nebula> USE replication_basketballplayer;
   nebula> SUBMIT JOB STATS;
   nebula> SHOW STATS;
@@ -320,7 +321,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 1. Log into the primary cluster and remove the old drainer and listener.
 
-  ```bash
+  ```ngql
   nebula> USE basketballplayer;
   nebula> SIGN OUT DRAINER SERVICE;
   nebula> REMOVE LISTENER SYNC;
@@ -328,13 +329,13 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 2. Set the working graph space as read-only to avoid data inconsistency.
 
-  ```bash
+  ```ngql
   nebula> SET VARIABLES read_only=true;
   ```
 
 3. Log into the secondary cluster, disable read-only, and remove the old drainer.
 
-  ```bash
+  ```ngql
   nebula> USE replication_basketballplayer;
   nebula> SET VARIABLES read_only=false;
   nebula> REMOVE DRAINER;
@@ -342,15 +343,15 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 4. Change the secondary cluster to the new primary cluster.
 
-  ```bash
+  ```ngql
   nebula> SIGN IN DRAINER SERVICE(192.168.10.106:9889);
-  nebula> ADD LISTENER SYNC META 192.168.10.105:9559 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
+  nebula> ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
   nebula> REMOVE DRAINER;
   ```
 
 5. Log into the old primary cluster and change it to the new secondary cluster.
 
-  ```bash
+  ```ngql
   nebula> USE basketballplayer;
   # Disable read-only for the working graph space, otherwise adding drainer fails.
   nebula> SET VARIABLES read_only=false;
@@ -366,9 +367,7 @@ Yes. After receiving the WAL from the listener, if the drainer finds that the da
 
 ### Will the pre-existent data in the secondary cluster affect the synchronization?
 
-If the pre-existent data in the secondary cluster is a subset of the data in the primary cluster, the data in the primary and secondary clusters will eventually become consistent through synchronization.
-
-The pre-existent data that is not in the primary cluster will stay in the secondary cluster until manually deleted.
+If the pre-existent data in the secondary cluster is a subset of the data in the primary cluster, the data in the primary and secondary clusters will eventually become consistent through synchronization. If there is any pre-existent data (not a subset of the data in the primary cluster) in the secondary cluster before the synchronization, the data may be lost after the synchronization. It is recommended to use a secondary cluster without data for synchronization.
 
 ### Will the pre-existent schema information in the secondary cluster affect the synchronization?
 
