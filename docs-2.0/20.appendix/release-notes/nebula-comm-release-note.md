@@ -6,7 +6,7 @@
 
 - Fix the crash caused by an invalid filter in GetProp. [#4568](https://github.com/vesoft-inc/nebula/pull/4568)
 
-- Fix the crash caused by evaluating an expression with wrong a syntax. [#4607](https://github.com/vesoft-inc/nebula/pull/4607)
+- Fix the crash caused by handling a wrong syntax expression. [#4607](https://github.com/vesoft-inc/nebula/pull/4607)
 
 - Fix concurrent exception related to multi-match statement. [#4605](https://github.com/vesoft-inc/nebula/pull/4605)
 
