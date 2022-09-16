@@ -8,7 +8,7 @@
 
 - Fix the crash caused by handling a wrong syntax expression. [#4607](https://github.com/vesoft-inc/nebula/pull/4607)
 
-- Fix concurrent exception related to multi-match statement. [#4605](https://github.com/vesoft-inc/nebula/pull/4605)
+- Fix concurrent exceptions related to the multi-match statements. [#4605](https://github.com/vesoft-inc/nebula/pull/4605)
 
 - Fix the bug that scan vertex or edge don't filter the expired data out.[#4578](https://github.com/vesoft-inc/nebula/pull/4578)
 
