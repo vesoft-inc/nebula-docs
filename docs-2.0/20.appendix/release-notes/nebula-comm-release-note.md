@@ -2,7 +2,7 @@
 
 ## Bug fix
 
-- Fix the crash caused by LOOKUP statement with AND and IN expression.[#4551](https://github.com/vesoft-inc/nebula/issues/4551)
+- Fix the crash caused by LOOKUP statements with AND and IN operators.[#4551](https://github.com/vesoft-inc/nebula/issues/4551)
 
 - Fix the crash caused by invalid filter in GetProp. [#4568](https://github.com/vesoft-inc/nebula/pull/4568)
 
