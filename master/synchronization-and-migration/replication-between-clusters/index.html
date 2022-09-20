@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.nebula-graph.io/master/synchronization-and-migration/replication-between-clusters/">
       
       <link rel="icon" href="../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.5.0">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.5.2">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.2e8b5541.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.9f9400aa.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
@@ -7062,6 +7062,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#view_the_status_of_inter-cluster_data_synchronization" class="md-nav__link">
+    View the status of inter-cluster data synchronization
+  </a>
+  
+    <nav class="md-nav" aria-label="View the status of inter-cluster data synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check_the_status_of_synchronized_data_in_the_primary_cluster" class="md-nav__link">
+    Check the status of synchronized data in the primary cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check_the_status_of_synchronized_data_in_the_secondary_cluster" class="md-nav__link">
+    Check the status of synchronized data in the secondary cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#switch_between_primary_and_secondary_clusters" class="md-nav__link">
     Switch between primary and secondary clusters
   </a>
@@ -7476,8 +7503,143 @@ nebula&gt; GO FROM &quot;player101&quot; OVER follow \
 </ol>
 <h2 id="stoprestart_data_synchronization">Stop/Restart data synchronization<a class="headerlink" href="#stoprestart_data_synchronization" title="Permanent link">&para;</a></h2>
 <p>The listener continuously sends the WALs to the drainer during data synchronization.</p>
-<p>To stop data synchronization, run the <code>stop sync</code> command. The listener stops sending the WALs to the drainer.</p>
-<p>To restart data synchronization, run the <code>restart sync</code> command. The listener sends the WALs accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.</p>
+<p>To stop data synchronization, run the <code>STOP SYNC</code> command. The listener stops sending data to the drainer.</p>
+<p>To restart data synchronization, run the <code>RESTART SYNC</code> command. The listener sends the data accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.</p>
+<h2 id="view_the_status_of_inter-cluster_data_synchronization">View the status of inter-cluster data synchronization<a class="headerlink" href="#view_the_status_of_inter-cluster_data_synchronization" title="Permanent link">&para;</a></h2>
+<p>When data is written to the primary cluster, you can check the status of inter-cluster data synchronization and tell whether data synchronization is normal.</p>
+<h3 id="check_the_status_of_synchronized_data_in_the_primary_cluster">Check the status of synchronized data in the primary cluster<a class="headerlink" href="#check_the_status_of_synchronized_data_in_the_primary_cluster" title="Permanent link">&para;</a></h3>
+<p>You can execute the <code>SHOW SYNC STATUS</code> command in the primary cluster to view the status of the data sent from the primary cluster to the secondary cluster. <code>SHOW SYNC STATUS</code> gets the information of data synchronization status between clusters in real-time, and sends synchronized data to the secondary cluster only when the primary cluster has written successfully.</p>
+<p>Examples are as follows.</p>
+<div class="highlight"><pre><span></span><code>// Write data to the primary cluster.
+nebula&gt; INSERT VERTEX player(name,age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);
+nebula&gt; INSERT VERTEX player(name,age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);
+nebula&gt; INSERT VERTEX player(name,age) VALUES &quot;player103&quot;:(&quot;Rudy Gay&quot;, 32);
+nebula&gt; INSERT VERTEX player(name,age) VALUES &quot;player104&quot;:(&quot;Marco Belinelli&quot;, 32);
+
+// Check the status of data synchronization in the current cluster (the returned result indicates that data is being sent to the secondary cluster).
+nebula&gt; SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | &quot;ONLINE&quot;    | 0         | 0            |
+| 1      | &quot;ONLINE&quot;    | 0         | 0            |
+| 2      | &quot;ONLINE&quot;    | 0         | 0            |
+| 3      | &quot;ONLINE&quot;    | 0         | 0            |
+| 4      | &quot;ONLINE&quot;    | 0         | 0            |
+| 5      | &quot;ONLINE&quot;    | 1         | 46242122     |
+| 6      | &quot;ONLINE&quot;    | 0         | 0            |
+| 7      | &quot;ONLINE&quot;    | 0         | 0            |
+| 8      | &quot;ONLINE&quot;    | 0         | 0            |
+| 9      | &quot;ONLINE&quot;    | 0         | 0            |
+| 10     | &quot;ONLINE&quot;    | 0         | 0            |
+| 11     | &quot;ONLINE&quot;    | 0         | 0            |
+| 12     | &quot;ONLINE&quot;    | 0         | 0            |
+| 13     | &quot;ONLINE&quot;    | 0         | 0            |
+| 14     | &quot;ONLINE&quot;    | 0         | 0            |
+| 15     | &quot;ONLINE&quot;    | 0         | 0            |
++--------+-------------+-----------+--------------+
+
+// Check the status of data synchronization in the current cluster again (the returned result indicates that the data is fully synchronized to the secondary cluster and there is no data to be synchronized).
+nebula&gt; SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | &quot;ONLINE&quot;    | 0         | 0            |
+| 1      | &quot;ONLINE&quot;    | 0         | 0            |
+| 2      | &quot;ONLINE&quot;    | 0         | 0            |
+| 3      | &quot;ONLINE&quot;    | 0         | 0            |
+| 4      | &quot;ONLINE&quot;    | 0         | 0            |
+| 5      | &quot;ONLINE&quot;    | 0         | 0            |
+| 6      | &quot;ONLINE&quot;    | 0         | 0            |
+| 7      | &quot;ONLINE&quot;    | 0         | 0            |
+| 8      | &quot;ONLINE&quot;    | 0         | 0            |
+| 9      | &quot;ONLINE&quot;    | 0         | 0            |
+| 10     | &quot;ONLINE&quot;    | 0         | 0            |
+| 11     | &quot;ONLINE&quot;    | 0         | 0            |
+| 12     | &quot;ONLINE&quot;    | 0         | 0            |
+| 13     | &quot;ONLINE&quot;    | 0         | 0            |
+| 14     | &quot;ONLINE&quot;    | 0         | 0            |
+| 15     | &quot;ONLINE&quot;    | 0         | 0            |
++--------+-------------+-----------+--------------+
+</code></pre></div>
+<p>After executing the <code>SHOW SYNC STATUS</code> command, the parameters in the returned result are described as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">PartId</td>
+<td align="left">The partition ID in the specified graph space in the primary cluster. The Meta data to be synchronized by Meta listener is located in the partition <code>0</code>. The Storage data to be synchronized by Storage listener is located in other partitions.</td>
+</tr>
+<tr>
+<td align="left">Sync Status</td>
+<td align="left">Indicates the status of the listener service.<br>When the listener is <code>ONLINE</code>, it continuously sends data to the drainer service.<br>When the listener is <code>OFFLINE</code>, it stops sending data to the drainer.</td>
+</tr>
+<tr>
+<td align="left">LogId Lag</td>
+<td align="left">Indicates the difference between Log IDs, that is how many logs are still sent to the secondary cluster from the corresponding partition of the primary cluster. <br>The value <code>0</code> indicates that there are no logs to be sent in the corresponding partition of the primary cluster.</td>
+</tr>
+<tr>
+<td align="left">Time Latency</td>
+<td align="left">The difference between the timestamp in the WAL of the last log to be sent and the timestamp in the WAL of the last log that has been sent in the corresponding partition of the primary cluster. <br>The value <code>0</code> indicates that data has been sent to the secondary cluster. <br> Unit: Millisecond.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="check_the_status_of_synchronized_data_in_the_secondary_cluster">Check the status of synchronized data in the secondary cluster<a class="headerlink" href="#check_the_status_of_synchronized_data_in_the_secondary_cluster" title="Permanent link">&para;</a></h3>
+<p>In the secondary cluster, run <code>SHOW DRAINER SYNC STATUS</code> to view the status of synchronizing data to the Meta and Storage services in the secondary cluster. </p>
+<p><div class="highlight"><pre><span></span><code>nebula&gt; SHOW DRAINER SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | &quot;ONLINE&quot;    | 0         | 0            |
+| 1      | &quot;ONLINE&quot;    | 0         | 0            |
+| 2      | &quot;ONLINE&quot;    | 0         | 0            |
+| 3      | &quot;ONLINE&quot;    | 0         | 0            |
+| 4      | &quot;ONLINE&quot;    | 0         | 0            |
+| 5      | &quot;ONLINE&quot;    | 0         | 0            |
+| 6      | &quot;ONLINE&quot;    | 0         | 0            |
+| 7      | &quot;ONLINE&quot;    | 0         | 0            |
+| 8      | &quot;ONLINE&quot;    | 0         | 0            |
+| 9      | &quot;ONLINE&quot;    | 0         | 0            |
+| 10     | &quot;ONLINE&quot;    | 0         | 0            |
+| 11     | &quot;ONLINE&quot;    | 0         | 0            |
+| 12     | &quot;ONLINE&quot;    | 0         | 0            |
+| 13     | &quot;ONLINE&quot;    | 0         | 0            |
+| 14     | &quot;ONLINE&quot;    | 0         | 0            |
+| 15     | &quot;ONLINE&quot;    | 0         | 0            |
++--------+-------------+-----------+--------------+
+</code></pre></div>
+After executing <code>SHOW DRAINER SYNC STATUS</code>, the parameters in the returned result are described as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">PartId</td>
+<td align="left">The partition ID in the specified graph space in the primary cluster. The partition <code>0</code> is where the Meta data to be synchronized is located. The Storage data is located in other partitions.</td>
+</tr>
+<tr>
+<td align="left">Sync Status</td>
+<td align="left">Indicates the status of the drainer service.<br>When drainer is <code>ONLINE</code>, it continuously sends WAL to <code>metaClient</code>/<code>storageClient</code> in the secondary cluster for data synchronization.<br>When drainer is <code>OFFLINE</code>, it stops sending WAL to <code>metaClient</code>/<code>storageClient</code> in the secondary cluster for data synchronization.</td>
+</tr>
+<tr>
+<td align="left">LogId Lag</td>
+<td align="left">Indicates the difference between Log IDs, that is how many logs are still sent to <code>metaClient</code>/<code>storageClient</code> from the corresponding drainer partition in the secondary cluster.<br>The value <code>0</code> indicates that there are no logs to be synchronized in the corresponding drainer partition.</td>
+</tr>
+<tr>
+<td align="left">Time Latency</td>
+<td align="left">The difference between the timestamp in the WAL of the newest log received by the corresponding drainer partition between the timestamp in the WAL of the last log that has been synchronized to <code>metaClient</code>/<code>storageClient</code> in the secondary cluster. <br>The value <code>0</code> indicates that drainer partition data has been sent to <code>metaClient</code>/<code>storageClient</code>. <br> Unit: Millisecond.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="switch_between_primary_and_secondary_clusters">Switch between primary and secondary clusters<a class="headerlink" href="#switch_between_primary_and_secondary_clusters" title="Permanent link">&para;</a></h2>
 <p>To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.</p>
 <div class="admonition note">
@@ -7560,7 +7722,7 @@ Find the WALs that has just been synchronized, and that has most recently been g
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2022</span>
       
     
   </small>
@@ -7631,7 +7793,7 @@ Find the WALs that has just been synchronized, and that has most recently been g
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"method": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.48f2be22.min.js"></script>
+      <script src="../../assets/javascripts/bundle.39f04ddb.min.js"></script>
       
         <script src="../../js/jquery.js"></script>
       
