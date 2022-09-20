@@ -307,9 +307,118 @@ The test environment for the operation example in this topic is as follows:
 
 The listener continuously sends the WALs to the drainer during data synchronization.
 
-To stop data synchronization, run the `stop sync` command. The listener stops sending the WALs to the drainer.
+To stop data synchronization, run the `STOP SYNC` command. The listener stops sending data to the drainer.
 
-To restart data synchronization, run the `restart sync` command. The listener sends the WALs accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.
+To restart data synchronization, run the `RESTART SYNC` command. The listener sends the data accumulated during the period when the synchronization is stopped to the drainer. If the WALs are lost, the listener pulls the snapshot from the primary cluster and synchronizes data again.
+
+## View the status of inter-cluster data synchronization
+
+When data is written to the primary cluster, you can check the status of inter-cluster data synchronization and tell whether data synchronization is normal.
+
+### Check the status of synchronized data in the primary cluster
+
+You can execute the `SHOW SYNC STATUS` command in the primary cluster to view the status of the data sent from the primary cluster to the secondary cluster. `SHOW SYNC STATUS` gets the information of data synchronization status between clusters in real-time, and sends synchronized data to the secondary cluster only when the primary cluster has written successfully.
+
+Examples are as follows.
+
+```ngql
+// Write data to the primary cluster.
+nebula> INSERT VERTEX player(name,age) VALUES "player102":("LaMarcus Aldridge", 33);
+nebula> INSERT VERTEX player(name,age) VALUES "player102":("LaMarcus Aldridge", 33);
+nebula> INSERT VERTEX player(name,age) VALUES "player103":("Rudy Gay", 32);
+nebula> INSERT VERTEX player(name,age) VALUES "player104":("Marco Belinelli", 32);
+
+// Check the status of data synchronization in the current cluster (the returned result indicates that data is being sent to the secondary cluster).
+nebula> SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 1         | 46242122     |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+
+// Check the status of data synchronization in the current cluster again (the returned result indicates that the data is fully synchronized to the secondary cluster and there is no data to be synchronized).
+nebula> SHOW SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 0         | 0            |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+```
+
+After executing the `SHOW SYNC STATUS` command, the parameters in the returned result are described as follows.
+
+| Parameter   | Description   |
+|:---    |:---   |
+| PartId | The partition ID in the specified graph space in the primary cluster. The Meta data to be synchronized by Meta listener is located in the partition `0`. The Storage data to be synchronized by Storage listener is located in other partitions. |
+| Sync Status | Indicates the status of the listener service.<br>When the listener is `ONLINE`, it continuously sends data to the drainer service.<br>When the listener is `OFFLINE`, it stops sending data to the drainer.|
+| LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to the secondary cluster from the corresponding partition of the primary cluster. <br>The value `0` indicates that there are no logs to be sent in the corresponding partition of the primary cluster. |
+| Time Latency | The difference between the timestamp in the WAL of the last log to be sent and the timestamp in the WAL of the last log that has been sent in the corresponding partition of the primary cluster. <br>The value `0` indicates that data has been sent to the secondary cluster. <br> Unit: Millisecond.|
+
+### Check the status of synchronized data in the secondary cluster
+
+In the secondary cluster, run `SHOW DRAINER SYNC STATUS` to view the status of synchronizing data to the Meta and Storage services in the secondary cluster. 
+
+```ngql
+nebula> SHOW DRAINER SYNC STATUS;
++--------+-------------+-----------+--------------+
+| PartId | Sync Status | LogId Lag | Time Latency |
++--------+-------------+-----------+--------------+
+| 0      | "ONLINE"    | 0         | 0            |
+| 1      | "ONLINE"    | 0         | 0            |
+| 2      | "ONLINE"    | 0         | 0            |
+| 3      | "ONLINE"    | 0         | 0            |
+| 4      | "ONLINE"    | 0         | 0            |
+| 5      | "ONLINE"    | 0         | 0            |
+| 6      | "ONLINE"    | 0         | 0            |
+| 7      | "ONLINE"    | 0         | 0            |
+| 8      | "ONLINE"    | 0         | 0            |
+| 9      | "ONLINE"    | 0         | 0            |
+| 10     | "ONLINE"    | 0         | 0            |
+| 11     | "ONLINE"    | 0         | 0            |
+| 12     | "ONLINE"    | 0         | 0            |
+| 13     | "ONLINE"    | 0         | 0            |
+| 14     | "ONLINE"    | 0         | 0            |
+| 15     | "ONLINE"    | 0         | 0            |
++--------+-------------+-----------+--------------+
+```
+After executing `SHOW DRAINER SYNC STATUS`, the parameters in the returned result are described as follows.
+
+| Parameter   | Description   |
+|:---    |:---   |
+| PartId | The partition ID in the specified graph space in the primary cluster. The partition `0` is where the Meta data to be synchronized is located. The Storage data is located in other partitions.|
+| Sync Status |  Indicates the status of the drainer service.<br>When drainer is `ONLINE`, it continuously sends WAL to `metaClient`/`storageClient` in the secondary cluster for data synchronization.<br>When drainer is `OFFLINE`, it stops sending WAL to `metaClient`/`storageClient` in the secondary cluster for data synchronization.|
+| LogId Lag | Indicates the difference between Log IDs, that is how many logs are still sent to `metaClient`/`storageClient` from the corresponding drainer partition in the secondary cluster.<br>The value `0` indicates that there are no logs to be synchronized in the corresponding drainer partition.|
+| Time Latency | The difference between the timestamp in the WAL of the newest log received by the corresponding drainer partition between the timestamp in the WAL of the last log that has been synchronized to `metaClient`/`storageClient` in the secondary cluster. <br>The value `0` indicates that drainer partition data has been sent to `metaClient`/`storageClient`. <br> Unit: Millisecond.|
 
 ## Switch between primary and secondary clusters
 
