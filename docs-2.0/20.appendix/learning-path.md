@@ -4,6 +4,10 @@ This topic is for anyone interested in learning more about NebulaGraph. You can 
 
  ![learning path](https://docs-cdn.nebula-graph.com.cn/figures/learning-path.png)
 
+After completing NebulaGraph learning path, taking [NebulaGraph Certification](https://www.bilibili.com/video/BV1Ga411x7RE) exams will earn you certifications. For more information, see the **Get NebulaGraph Certifications** section below.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## 1. About NebulaGraph
 
 ### 1.1 What is NebulaGraph?
@@ -254,8 +258,10 @@ Now you could get NebulaGraph Certifications from [NebulaGraph Academy](https://
 
 - NebulaGraph Certified Professional(NGCP): The NGCP certification drives you deep into the NebulaGraph database and its ecosystem, providing a 360-degree view of the leading-edge graph database. Passing NGCP proves that you are a professional with a profound understanding of NebulaGraph.
 
-### Video
+## Reference documents
 
-- [An Intro to NebulaGraph Certifications](https://www.youtube.com/watch?v=dZUKyw8L7uA)(4 minutes 17 seconds)
+- For an introduction to the principles of NebulaGraph, see [Nebula Graph: An open source distributed graph database](https://arxiv.org/pdf/2206.07278.pdf).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+- For the principle description of [NebulaGraph indexes](../3.ngql-guide/14.native-index-statements/README.md), see Section 2.4 in the [Nebula Graph: An open source distributed graph database](https://arxiv.org/pdf/2206.07278.pdf) paper.
+
+- For an overview of the NebulaGraph language, see Section 2.8 in the [Nebula Graph: An open source distributed graph database](https://arxiv.org/pdf/2206.07278.pdf) paper.
