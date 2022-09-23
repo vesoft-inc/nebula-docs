@@ -4,7 +4,7 @@ This topic is for anyone interested in learning more about NebulaGraph. You can 
 
  ![learning path](https://docs-cdn.nebula-graph.com.cn/figures/learning-path.png)
 
-After completing NebulaGraph learning path, taking [NebulaGraph Certification](https://www.bilibili.com/video/BV1Ga411x7RE) exams will earn you certifications. For more information, see the **Get NebulaGraph Certifications** section below.
+After completing the NebulaGraph learning path, taking [NebulaGraph Certification](https://www.bilibili.com/video/BV1Ga411x7RE) exams will earn you certifications. For more information, see the **Get NebulaGraph Certifications** section below.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dZUKyw8L7uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
