@@ -505,12 +505,6 @@ Fix the problems in the cluster, and then the synchronization will be automatica
 
 ### How to check the data synchronization status and progress?
 
-<!--show sync
-Find the WALs that has just been synchronized, and that has most recently been generated, then:
+You can run `SHOW SYNC STATUS` to check the status of the data sent by the primary cluster and run `SHOW DRAINER SYNC STATUS` to check the status of the data received by the secondary cluster. If all the data is sent successfully from the primary cluster and all the data is received successfully by the secondary cluster, the data synchronization is completed.
 
-- Compare their timestamps to see if the synchronization is working correctly.
 
-- Compare the log ID to view the synchronization gap.
--->
-
-There is no tool specially designed to show the real-time status and overall progress of the synchronization for now.
