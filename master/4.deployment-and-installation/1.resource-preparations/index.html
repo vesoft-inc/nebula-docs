@@ -7496,7 +7496,7 @@ $ apt-get install -y make <span class="se">\</span>
                      libreadline-dev <span class="se">\</span>
                      ncurses-dev <span class="se">\</span>
                      cmake <span class="se">\</span>
-                     gettext
+                     bzip2
 </code></pre></div>
 </li>
 </ul>
@@ -7739,7 +7739,7 @@ You can adjust some of the kernel parameters to better accommodate the need for 
 <tr>
 <td align="left">Disk space for a cluster</td>
 <td align="left">Bytes</td>
-<td align="left"><code>the_sum_of_edge_number_and_vertex_number</code> * <code>average_bytes_of_properties</code> * 6 * 120%</td>
+<td align="left"><code>the_sum_of_edge_number_and_vertex_number</code> * <code>average_bytes_of_properties</code> * 7.5 * 120%</td>
 <td align="left">For more information, see <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">Edge partitioning and storage amplification</a>.</td>
 </tr>
 <tr>
@@ -7757,13 +7757,19 @@ You can adjust some of the kernel parameters to better accommodate the need for 
 </tbody>
 </table>
 <ul>
-<li>Question 1: Why do we multiply the disk space and memory by 120%?<p>Answer: The extra 20% is for buffer.</p>
+<li>Question 1: Why do I need to multiply by 7.5 in the disk space estimation formula?<p>Answer: On one hand, the data in one single replica takes up about 2.5 times more space than that of the original data file (csv) according to test values. 
+  On the other hand, indexes take up additional space. Each indexed vertex or edge takes up 16 bytes of memory. The hard disk space occupied by the index can be empirically estimated as the total number of indexed vertices or edges * 50 bytes.</p>
+</li>
+</ul>
+<ul>
+<li>Question 2: Why do we multiply the disk space and memory by 120%?<p>Answer: The extra 20% is for buffer.</p>
 </li>
 </ul>
 <ul>
 <li>
-<p>Question 2: How to get the number of RocksDB instances?</p>
-<p>Answer: Each directory in the <code>--data_path</code> item in the <code>etc/nebula-storaged.conf</code> file corresponds to a RocksDB instance. Count the number of directories to get the RocksDB instance number.</p>
+<p>Question 3: How to get the number of RocksDB instances?</p>
+<p>Answer: Each graph space corresponds to one RocksDB instance and each directory in the <code>--data_path</code> item in the <code>etc/nebula-storaged.conf</code> file corresponds to one RocksDB instance. 
+  That is, the number of RocksDB instances = the number of directories * the number of graph spaces.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Users can decrease the memory size occupied by the bloom filter by adding <code>--enable_partitioned_index_filter=true</code> in <code>etc/nebula-storaged.conf</code>. But it may decrease the read performance in some random-seek cases.</p>
@@ -7808,7 +7814,7 @@ NebulaGraph is intended for NVMe SSD, but if you don't have a choice, optimizing
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

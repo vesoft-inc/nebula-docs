@@ -5015,6 +5015,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauth20_accounts" class="md-nav__link">
+    OAuth2.0 accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#general_accounts" class="md-nav__link">
     General accounts
   </a>
@@ -7092,6 +7099,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauth20_accounts" class="md-nav__link">
+    OAuth2.0 accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#general_accounts" class="md-nav__link">
     General accounts
   </a>
@@ -7153,65 +7167,18 @@
 
 <h1 id="authority_management">Authority management<a class="headerlink" href="#authority_management" title="Permanent link">&para;</a></h1>
 <p>You can log into NebulaGraph Dashboard Enterprise Edition with different types of accounts. Different accounts have different permissions. This article introduces account types, roles, and permissions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to configure the related protocols before using LDAP accounts or OAuth2.0 accounts. For details, see <a href="../system-settings/single-sign-on/">Single sign-on</a>.</p>
+</div>
 <h2 id="account_types">Account types<a class="headerlink" href="#account_types" title="Permanent link">&para;</a></h2>
-<p>Once you log into Dashboard Enterprise Edition using the initialized account name <code>nebula</code> and password <code>nebula</code>, you can create different types of accounts: LDAP accounts and general accounts. </p>
+<p>Once you log into Dashboard Enterprise Edition using the initialized account name <code>nebula</code> and password <code>nebula</code>, you can create different types of accounts: LDAP accounts, OAuth2.0 accounts and general accounts.</p>
 <h3 id="ldap_accounts">LDAP accounts<a class="headerlink" href="#ldap_accounts" title="Permanent link">&para;</a></h3>
 <p>Dashboard Enterprise Edition enables you to log into it with your enterprise account by accessing <a href="https://ldap.com/">LDAP (Lightweight Directory Access Protocol)</a>.</p>
-<p>Before using an LDAP account, LDAP configurations are required.</p>
-<ol>
-<li>In the Dashboard Enterprise Edition installation path, such as <code>nebula-graph-dashboard-ent/nebula-dashboard-ent/config</code>, find the configuration file <code>config.yaml</code>.</li>
-<li>
-<p>In <code>config.yaml</code>, add the following content.</p>
-<div class="highlight"><pre><span></span><code>ldap:
-  server: ldap://127.0.0.1 
-  bindDN: cn=admin,dc=vesoft,dc=com 
-  bindPassword: &quot;&quot; 
-  baseDN: dc=vesoft,dc=com 
-  userFilter: &quot;&amp;(objectClass=*)&quot; 
-  emailKey: mail 
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>server</td>
-<td>The LDAP server address.</td>
-</tr>
-<tr>
-<td>bindDN</td>
-<td>The LDAP login username.</td>
-</tr>
-<tr>
-<td>bindPassword</td>
-<td>The LDAP login password.</td>
-</tr>
-<tr>
-<td>baseDN</td>
-<td>Set the path to query user data.</td>
-</tr>
-<tr>
-<td>userFilter</td>
-<td>Set a filter to LDAP search queries.</td>
-</tr>
-<tr>
-<td>emailKey</td>
-<td>Set the field name used to restore email in LDAP.</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>Restart Dashboard Enterprise Edition to apply changes.  </p>
-</li>
-</ol>
-<p>After the LDAP is configured successfully, and use the initialized account name <code>nebula</code> and password <code>nebula</code> to log into Dashboard Enterprise Edition, you can create an LDAP account then. For information about how to create an account, see <a href="#create_accounts">Create accounts</a>.</p>
+<h3 id="oauth20_accounts">OAuth2.0 accounts<a class="headerlink" href="#oauth20_accounts" title="Permanent link">&para;</a></h3>
+<p>Dashboard Enterprise Edition enables you to use access_token to authorize the third-party applications to access the protected information based on <a href="https://oauth.net/2/">OAuth2.0</a>.</p>
 <h3 id="general_accounts">General accounts<a class="headerlink" href="#general_accounts" title="Permanent link">&para;</a></h3>
-<p>All accounts are general accounts except for LDAP accounts.</p>
+<p>Dashboard Enterprise Edition enables you to create local accounts.</p>
 <h2 id="account_roles">Account roles<a class="headerlink" href="#account_roles" title="Permanent link">&para;</a></h2>
 <p>You can set different roles for your accounts. Roles are different in permissions. There are two types of account roles in Dashboard Enterprise Edition: system roles (<code>admin</code> and <code>user</code>) and cluster roles (<code>owner</code> and <code>operator</code>).</p>
 <p>The relationship between system roles and cluster roles and their descriptions are as follows.</p>
@@ -7267,16 +7234,10 @@
 <li>
 <p>Select one method and input information to create an account, and click <strong>OK</strong>.</p>
 <ul>
-<li>
-<p>Invite: Set the invitee's enterprise email and role. After the invitee clicks the <strong>Accept</strong> button in the email to activate the account, the invitee needs to click <strong>Login</strong> to automatically jump to the Dashboard Enterprise Edition login page. The invitee can log into Dashboard with his/her enterprise email account and password.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When selecting the <strong>Invite</strong> method to add accounts, ensure that the invitee's email has been added to the enterprise LDAP server.</p>
-</div>
-</li>
+<li>Invite (LDAP or OAuth2.0 accounts): Set the invitee's account type, enterprise email and role. After the invitee clicks the <strong>Accept</strong> button in the email to activate the account, the invitee needs to click <strong>Login</strong> to automatically jump to the Dashboard Enterprise Edition login page. The invitee can log into Dashboard with his/her enterprise email account and password.</li>
 </ul>
 <ul>
-<li>Create Account: Set the login name, password, and role for the new account. For information about roles, <a href="#account_roles">Account roles</a>.</li>
+<li>Create Account (general accounts): Set the login name, password, and role for the new account. For information about roles, see the above content.</li>
 </ul>
 </li>
 </ol>
@@ -7286,7 +7247,7 @@
 <li>
 <p>You can view the username, account type, role, associated cluster, and create time of accounts.</p>
 <ul>
-<li><strong>Account Type</strong>: Includes <strong>platform</strong> and <strong>ldap</strong>. <strong>platform</strong> is a general account and <strong>ldap</strong> is an LDAP account.</li>
+<li><strong>Account Type</strong>: Includes <strong>ldap</strong>, <strong>oauth2.0</strong> and <strong>platform</strong>. <strong>platform</strong> is a general account.</li>
 <li><strong>Role</strong>: Displays the role of an account, including <strong>admin</strong> and <strong>user</strong>. For more information about roles, see the above content.</li>
 <li><strong>Associated Clusters</strong>: Displays all the clusters that can be operated by an account. If the cluster was created by the account, the associated cluster has the <code>owner</code> tag.</li>
 </ul>
@@ -7308,7 +7269,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2022</span>
       
     
   </small>
