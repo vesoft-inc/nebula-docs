@@ -49,6 +49,11 @@ The native nGQL TTL feature has the following options.
 |`ttl_col`|Specifies the property to set a timeout on. The data type of the property must be `int` or `timestamp`.|
 |`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.|
 
+
+!!! Note
+
+    When the TTL options are set for a property and the property's value is `NULL`, the property never expires. 
+
 ## Use TTL options
 
 You must use the TTL options together to set a valid timeout on a property.
