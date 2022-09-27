@@ -158,4 +158,4 @@ Graph, Meta, and Storage services all have their own single process metrics.
 | `memory_bytes_gauge`           |  The number of bytes of memory used.                  |
 | `open_filedesc_gauge`           |  The number of file descriptors.                   |
 | `read_bytes_total`           |   The number of bytes read.                  |
-| `write_bytes_total`           |   The number of bytes write.                |
+| `write_bytes_total`           |   The number of bytes written.                |
