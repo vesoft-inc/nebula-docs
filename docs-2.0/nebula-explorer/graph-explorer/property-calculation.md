@@ -26,7 +26,7 @@ There were [aggregated edges](../canvas-operations/visualization-mode.md) on the
 
 Click **+** to add more edge types for property calculation.
 
-![propertycalculation](https://docs-cdn.nebula-graph.com.cn/figures/propertycalculation-220913-en.png)
+![propertycalculation](https://docs-cdn.nebula-graph.com.cn/figures/propertycalculation-220928-en.png)
 
 ### Method 2
 

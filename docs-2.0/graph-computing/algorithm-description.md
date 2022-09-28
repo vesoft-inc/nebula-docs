@@ -342,35 +342,6 @@ Parameter descriptions are as follows:
     |`ROOT`|Determined by `vid_type`| The VID of the source vertex.|
     |`VISITED`|int| Outputs the number of the vertex accessed by `ROOT`.|
 
-<!--
-### Node2Vec
-
-The Node2Vec algorithm proposed a more reasonable graph feature learning method based on DeepWalk, and proposed a semi-supervised algorithm for scalable feature learning in networks. SGD was used to optimize a custom graph-based objective function, which could maximize the network domain information of nodes reserved in d-dimensional feature space. Based on the random walk, a second order random walk process is designed, which is equivalent to an extension of DeepWalk algorithm, and preserves the graph characteristics of neighbor nodes. Applicable to node function similarity comparison, node structure similarity comparison, community clustering and other scenarios.R
-
-!!! note
-    
-    This algorithm is supported by NebulaGraph Algorithm only.
-
-Parameter descriptions are as follows:
-
-|Parameter|Predefined value|Description|
-|:--|:--|:--|
-|`maxIter`|`10`|Maximum number of iterations.|
-|`lr`|`0.025`||
-|`dataNumPartition`|`10`||
-|`modelNumPartition`|`10`||
-|`dim`|`10`|The map dimensions.|
-|`window`|`3`||
-|`walkLength`|`5`| The random step size.|
-|`numWalks`|`3`| The number of random steps for each node.|
-|`p`|`1.0`| The rollback parameters.|
-|`q`|`1.0`|The forward parameters.|
-|`directed`|`false`||
-|`degree`|`30`||
-|`embSeparate`|`","`||
-|`modelPath`|`"hdfs://127.0.0.1:9000/model"`||
--->
-
 ## Community discovery
 
 ### LPA
@@ -558,6 +529,49 @@ Parameter descriptions are as follows:
     |`VID1`|The same with `VID`| Outputs the ID of the vertex A that forms the triangle.|
     |`VID2`|The same with `VID`| Outputs the ID of the vertex B that forms the triangle.|
     |`VID3`|The same with `VID`| Outputs the ID of the vertex C that forms the triangle.|
+
+
+### Node2Vec
+
+The Node2Vec algorithm proposed a more reasonable graph feature learning method based on DeepWalk, and proposed a semi-supervised algorithm for scalable feature learning in networks. SGD was used to optimize a custom graph-based objective function, which could maximize the network domain information of nodes reserved in d-dimensional feature space. Based on the random walk, a second order random walk process is designed, which is equivalent to an extension of DeepWalk algorithm, and preserves the graph characteristics of neighbor nodes. Applicable to node function similarity comparison, node structure similarity comparison, community clustering and other scenarios.R
+
+Parameter descriptions are as follows:
+
+
+<!--
+- NebulaGraph Algorithm
+
+  |Parameter|Predefined value|Description|
+  |:--|:--|:--|
+  |`maxIter`|`10`|Maximum number of iterations.|
+  |`lr`|`0.025`||
+  |`dataNumPartition`|`10`||
+  |`modelNumPartition`|`10`||
+  |`dim`|`10`|The map dimensions.|
+  |`window`|`3`||
+  |`walkLength`|`5`| The random step size.|
+  |`numWalks`|`3`| The number of random steps for each node.|
+  |`p`|`1.0`| The rollback parameters.|
+  |`q`|`1.0`|The forward parameters.|
+  |`directed`|`false`||
+  |`degree`|`30`||
+  |`embSeparate`|`","`||
+  |`modelPath`|`"hdfs://127.0.0.1:9000/model"`||
+-->
+
+- NebulaGraph Analytics
+  - Input parameters
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`is_weighted`|`false`|  Random walk with bias or not.|
+    |`p`|`1.0`| The backward bias for random walk.|
+    |`q`|`0.5`| The forward bias for random walk.|
+    |`epoch`|`1`| The number of iterations.|
+    |`step`|`10`| The number of steps per iteration.|
+    |`rate`|`0.02`| The rate of the random walk.|
+
+  - Output parameters
+    Output multiple columns where vertices in the same column are associated.
 
 ## Clustering
 
