@@ -16,6 +16,7 @@ The NebulaGraph Explorer page consists of three modules top navigation bar, left
 | ![create_schema](https://docs-cdn.nebula-graph.com.cn/figures/studio-nav-schema.png) | Manage NebulaGraph database graph spaces. For more information, see [Create a schema](db-management/10.create-schema.md).       |
 | ![import_data](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png) | Bulk import of data into NebulaGraph. For more information, see [Import data](db-management/11.import-data.md).          |
 | ![Console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) | Query the NebulaGraph data with nGQL statements. For more information, see [Console](db-management/explorer-console.md). |
+| ![Template](https://docs-cdn.nebula-graph.com.cn/figures/icon-navbar-queryTemplate.png)| The template of the nGQL. For details, see [nGQL template](db-management/ngql-template.md).|
 | ![language](https://docs-cdn.nebula-graph.com.cn/figures/navbar-language.png) | Select the language of  NebulaGraph Explorer page. Chinese and English are supported.   |
 | ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) | Guide and help you in using NebulaGraph.          |
 | ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/image-icon10.png) | Show the NebulaGraph version and allow you to disconnect from NebulaGraph Explorer.    |
