@@ -195,7 +195,7 @@ This topic is for anyone interested in learning more about NebulaGraph. You can 
 
   | Document   |
   | ------- |
-  | [NebulaGraph Algorithm](../nebula-algorithm.md) |
+  | [NebulaGraph Algorithm](../graph-computing/nebula-algorithm.md) |
 
 - Clients
 

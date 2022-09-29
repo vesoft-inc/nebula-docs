@@ -22,4 +22,4 @@ Click **Edit** to modify the configuration and click **Confirm**, then click **S
   !!! note
 
       - Updating configuration files is a batch operation, and each Storage/Graph configuration file will be modified.
-      - For more information about parameter, see [Storage service configuration](../../5.configurations-and-logs/1.configurations/4.storage-config.md) and [Graph service configuration](../../5.configurations-and-logs/1.configurations/3.graph-config.md). 
+      - For more information about parameter, see [Storage service configuration](../../../5.configurations-and-logs/1.configurations/4.storage-config.md) and [Graph service configuration](../../../5.configurations-and-logs/1.configurations/3.graph-config.md). 

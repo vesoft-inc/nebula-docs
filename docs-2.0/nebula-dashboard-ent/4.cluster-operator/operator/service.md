@@ -16,4 +16,4 @@ On **Service** page, you can select the service type, service status, and host t
 
 - Select the services to be managed in filter box.
 
-- Click the ![nav](https://docs-cdn.nebula-graph.com.cn/figures/nav-dashboard.png) icon to quickly view the [Service monitoring](../4.cluster-operator/2.monitor.md).
+- Click the ![nav](https://docs-cdn.nebula-graph.com.cn/figures/nav-dashboard.png) icon to quickly view the [Service monitoring](../2.monitor.md).

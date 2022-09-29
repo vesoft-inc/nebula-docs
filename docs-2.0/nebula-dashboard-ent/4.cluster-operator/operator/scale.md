@@ -35,7 +35,7 @@ Download and fill in the CSV template file, then upload the file and select the 
 
 !!! caution
 
-    - Currently, you can dynamically scale Storaged and Graphd services through Dashboard. The Metad service cannot be scaled. When scaling a cluster, it is recommended to back up data in advance so that data can be rolled back when scaling fails. For more information, see [FAQ](../../20.appendix/0.FAQ.md).
+    - Currently, you can dynamically scale Storaged and Graphd services through Dashboard. The Metad service cannot be scaled. When scaling a cluster, it is recommended to back up data in advance so that data can be rolled back when scaling fails. For more information, see [FAQ](../../../20.appendix/0.FAQ.md).
 
     - Make sure that services of the same type are not deployed on the same node, and that at least one of each type of service is deployed in the cluster.
 
