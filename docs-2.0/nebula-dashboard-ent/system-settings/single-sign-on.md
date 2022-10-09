@@ -42,4 +42,6 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 |`AuthURL` | `https://accounts.google.com/o/oauth2/auth` | The URL used for authentication.  |
 |`TokenURL` | `https://oauth2.googleapis.com/token`| The URL used to get the access_token. |
 |`UserInfoURL` | `https://www.googleapis.com/oauth2/v1/userinfo`| The URL used to get the user information. |
-|`Name` | `vesoft`| The name of Oauth. |
+|`Username Key` | `email`| The key of user name. |
+|`Organization` |  `vesoft company`       |  The organization name.             |
+|`Requested scopes for OAuth`| `email`| Scope of OAuth permissions. The scope of permissions needs to be a subset of the scope configured by the vendor's OAuth2.0 platform, otherwise the request will fail. The requested scope needs to be able to get the value of `Username Key`. |
