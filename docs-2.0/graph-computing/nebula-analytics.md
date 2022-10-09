@@ -41,6 +41,7 @@ NebulaGraph Analytics supports the following graph algorithms.
 | BetweennessCentrality | Intermediate centrality | Node importance measurement|
 | ClosenessCentrality    | Closeness centrality   | Node importance measurement|
 |  TriangleCount        | It counts the number of triangles.         | Graph feature      |
+|  Node2Vec              | Graph neural network        | Graph feature       |
 | LPA                   | Label Propagation Algorithm          |  Community discovery    |
 | WCC                   | Weakly connected component          |  Community discovery    |
 | LOUVAIN               | It detects communities in large networks.          |  Community discovery   |
