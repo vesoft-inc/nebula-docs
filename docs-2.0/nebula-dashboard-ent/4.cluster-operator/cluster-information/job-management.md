@@ -21,7 +21,7 @@ After you select the graph space, the page will display all the job information 
 - Select a job status for filtering. The status includes `QUEUE`, `RUNNING`, `FINISHED`, `FAILED`, and `STOPPED`. For the status description, see [Job manager and the JOB statements](../../../3.ngql-guide/4.job-statements.md).
 - Select a time range for filtering. You can view the job information of the maximum of 7 days by default. You can also select a time range or quickly select latest 12 hours, 1 day, 3 days, or 7 days.
 - Select a `Job ID` or `Command` for filtering and enter what you want to search for.
-- By default, the monitoring information page will not be updated automatically. You can set the update frequency of the monitoring information page globally or click the ![setup](https://docs-cdn.nebula-graph.com.cn/figures/refresh-220616.png) button to update the page manually.
+- By default, the job information page will not be updated automatically. You can set the update frequency of the job information page globally or click the ![setup](https://docs-cdn.nebula-graph.com.cn/figures/refresh-220616.png) button to update the page manually.
 - Click `Detail` in the `Operation` column on the right side of the target job to view more information, including `Task ID`, `Host`, `Error Code`, etc. You can also stop or recover the job, or search for a task id.
 
 ## Stop job
