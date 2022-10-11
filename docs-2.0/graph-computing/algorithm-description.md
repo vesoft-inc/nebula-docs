@@ -514,7 +514,7 @@ The InfoMap algorithm uses double encoding to classify directed graphs into comm
     |Parameter|Predefined value|Description|
     |:--|:--|:--|
     |`pagerank_iter`|`10`| The maximum number of iterations of the internal PageRank algorithm.|
-    |`pagerank_threshold`|`0.0001`| The convergence accuracy of internal PageRank algorithm.|
+    |`pagerank_threshold`|`0.0001`| The convergence accuracy of the internal PageRank algorithm.|
     |`teleport_prob`|`0.15`| The teleportation probability.|
     |`inner_iter`|`3`| The number of inner iterations.|
     |`outer_iter`|`2`| The number of outer iterations.|
