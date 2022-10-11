@@ -622,7 +622,7 @@ Parameter descriptions are as follows:
 
 ### Tree_stat
 
-The Tree_stat algorithm counts the width or depth of a subgraph that specifies the root vertex.
+The Tree_stat algorithm counts the width or depth of a subgraph with a specified root vertex.
 
 !!! note
 
