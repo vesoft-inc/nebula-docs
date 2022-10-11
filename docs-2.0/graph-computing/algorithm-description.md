@@ -344,7 +344,7 @@ Parameter descriptions are as follows:
 
 ### ShortestPath
 
-The ShortestPath algorithm is used to find the shortest path between any pairwise starting vertices and destination vertices in the graph, which is suitable for path design, network planning.
+The ShortestPath algorithm is used to find the shortest path between any two vertices in the graph, which is frequently applied in scenarios such as path design and network planning.
 
 - NebulaGraph Analytics
 
