@@ -501,7 +501,7 @@ Parameter descriptions are as follows:
 
 ### InfoMap
 
-The InfoMap algorithm uses double encoding to classify directed graph into communities. The encoding reuse of nodes in different communities can greatly shorten the length of description information. In terms of implementation, the algorithm includes PageRank algorithm, which is used to convert a random walk into a random surf.
+The InfoMap algorithm uses double encoding to classify directed graphs into communities. The encoding reuse of nodes in different communities can greatly shorten the length of description information. In terms of implementation, the algorithm includes the PageRank algorithm, which converts a random walk into a random surf.
 
 !!! note
 
