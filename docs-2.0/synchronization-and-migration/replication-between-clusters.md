@@ -424,52 +424,84 @@ After executing `SHOW DRAINER SYNC STATUS`, the parameters in the returned resul
 
 To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.
 
-!!! note
+!!! caution
 
     Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
-!!! caution
 
-    DO NOT write data to the primary cluster and make sure that the data in the primary cluster has been synchronized to the secondary cluster before switching between primary and secondary clusters.
+1. Log into the old primary cluster and set the working graph space as read-only to avoid data inconsistency.
 
-1. Log into the primary cluster and remove the old drainer and listener.
-
-  ```ngql
+  ```
   nebula> USE basketballplayer;
+  nebula> SET VARIABLES read_only=true;
+  ```
+
+2. Check whether the data in the old primary cluster has been synchronized to the old secondary cluster. Make sure the data in the old primary cluster has been synchronized to the old secondary cluster.
+
+  1. In the old primary cluster, view the status of the data sent from the old primary cluster to the old secondary cluster.
+
+  ```
+  nebula> SHOW SYNC STATUS;
+  ```
+
+  2. Log into the old secondary cluster and then view the status of synchronizing data to the Meta and Storage services.
+
+  ```
+  nebula> USE replication_basketballplayer;
+  nebula> SHOW DRAINER SYNC STATUS;
+  ```
+
+  When the values of `LogId Lag` and `Time Latency` in the returned results in both old primary and secondary clusters are `0`, the data synchronization is complete.
+
+3. In the old secondary cluster, disable read-only for the working graph space.
+
+  ```
+  nebula> SET VARIABLES read_only=false;
+  ```
+
+  !!! note
+
+        If there is business data to be written, you can now write the business data to the old secondary cluster (the new primary cluster).
+
+4. In the old secondary cluster, remove the old drainer service.
+
+  ```
+  nebula> REMOVE DRAINER;
+  ```
+
+5. Log into the old primary cluster, disable read-only, sign out the drainer, and remove the listener.
+
+  ```
+  nebula> USE basketballplayer;
+  //Disable read-only for the working graph space, otherwise adding drainer fails.
+  nebula> SET VARIABLES read_only=false;
   nebula> SIGN OUT DRAINER SERVICE;
   nebula> REMOVE LISTENER SYNC;
   ```
 
-2. Set the working graph space as read-only to avoid data inconsistency.
+6. In the old primary cluster, change the old primary cluster to the new secondary cluster by adding the new drainer service and setting the working graph space as read-only. 
 
-  ```ngql
+  !!! note
+
+        Ensure that the new drainer service is deployed and started for the new secondary cluster.
+
+  ```
+  nebula> ADD DRAINER 192.168.10.106:9889;
   nebula> SET VARIABLES read_only=true;
   ```
 
-3. Log into the secondary cluster, disable read-only, and remove the old drainer.
+7. Log into the old secondary cluster and change the old secondary cluster to the new primary cluster.
 
-  ```ngql
-  nebula> USE replication_basketballplayer;
-  nebula> SET VARIABLES read_only=false;
-  nebula> REMOVE DRAINER;
+  !!! note
+
+        Ensure that the new meta listener and storage listener services are deployed and started for the new primary cluster.
+
   ```
-
-4. Change the secondary cluster to the new primary cluster.
-
-  ```ngql
   nebula> SIGN IN DRAINER SERVICE(192.168.10.106:9889);
   nebula> ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
   ```
 
-5. Log into the old primary cluster and change it to the new secondary cluster.
-
-  ```ngql
-  nebula> USE basketballplayer;
-  # Disable read-only for the working graph space, otherwise adding drainer fails.
-  nebula> SET VARIABLES read_only=false;
-  nebula> ADD DRAINER 192.168.10.106:9889;
-  nebula> SET VARIABLES read_only=true;
-  ```
+  The primary-secondary cluster switch is now complete.
 
 ## FAQ
 
