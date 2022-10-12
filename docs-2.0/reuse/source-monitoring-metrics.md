@@ -146,3 +146,16 @@
 | `num_rpc_sent_to_storaged_failed` |  The number of failed RPC requests that the Graphd service sent to the Storaged service.                           |
 | `num_rpc_sent_to_storaged`     |  The number of RPC requests that the Graphd service sent to the Storaged service.                           |
 | `slow_query_latency_us`        |  The latency of slow queries.                           |
+
+### Single process metrics
+
+Graph, Meta, and Storage services all have their own single process metrics.
+
+| Parameter                                           | Description                                      |
+| ---------------------------------------------- | ----------------------------------------- |
+| `context_switches_total`           |  The number of context switches.                   |
+| `cpu_seconds_total`           |  The CPU usage based on user and system time.                   |
+| `memory_bytes_gauge`           |  The number of bytes of memory used.                  |
+| `open_filedesc_gauge`           |  The number of file descriptors.                   |
+| `read_bytes_total`           |   The number of bytes read.                  |
+| `write_bytes_total`           |   The number of bytes written.                |

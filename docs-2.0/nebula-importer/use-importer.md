@@ -264,7 +264,7 @@ schema:
 |`files.schema.vertex.vid.index`|-|No|The vertex ID corresponds to the column number in the CSV file.|
 |`files.schema.vertex.tags.name`|-|Yes|Tag name.|
 |`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the NebulaGraph.|
-|`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
+|`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp`, `string`, and `geo`.|
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
 !!! note
@@ -304,7 +304,7 @@ schema:
 |`files.schema.edge.dstVID.index`|-|No|The destination vertex ID of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.rank.index`|-|No|The rank value of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.props.name`|-|Yes|The Edge Type property name must match the Edge Type property in the NebulaGraph.|
-|`files.schema.edge.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp` and `string`.|
+|`files.schema.edge.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp`, `string`, and `geo`.|
 |`files.schema.edge.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
 ## About the CSV file header
