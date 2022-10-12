@@ -473,7 +473,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
   ```
   nebula> USE basketballplayer;
-  //Disable read-only for the working graph space, otherwise adding drainer fails.
+  // Disable read-only for the working graph space, otherwise adding drainer fails.
   nebula> SET VARIABLES read_only=false;
   nebula> SIGN OUT DRAINER SERVICE;
   nebula> REMOVE LISTENER SYNC;
