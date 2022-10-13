@@ -21,7 +21,7 @@ You can use Explorer in one of these scenarios:
 
 Explorer has these features:
 
-- [Easy to use](../deploy-connect/ex-ug-deploy.md): Explorer can be deployed in simple steps. And 
+- [Easy to use](../deploy-connect/ex-ug-deploy.md): Explorer can be deployed in simple steps.
 
 - [User-friendly](../12.query-visually.md): Explorer uses simple visual interaction, no need to conceive nGQL sentences, easy to realize graph exploration.
 
