@@ -44,7 +44,7 @@ To connect Explorer to NebulaGraph, follow these steps:
 
 A welcome page is displayed on the first login, showing the relevant functions according to the usage process, and the test datasets can be automatically downloaded and imported.
 
-To visit welcome page again, click ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) -> **Beginner's Guide**.
+To visit the welcome page, click ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) -> **Beginner's Guide**.
 
 ## Clear connection
 
