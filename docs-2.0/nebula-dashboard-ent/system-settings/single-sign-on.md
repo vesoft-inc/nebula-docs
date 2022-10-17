@@ -36,8 +36,8 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 
 |Parameter|Example|Description|
 |:--|:--|:--|
-|`ClientID` | `4953xxx-mmnoge13xx.apps.googleusercontent.com`| The application's ClientId。  |
-|`ClientSecret` | `GOCxxx-xaytomFexxx` | The application's ClientSecret。 |
+|`ClientID` | `4953xxx-mmnoge13xx.apps.googleusercontent.com`| The application's ClientId. |
+|`ClientSecret` | `GOCxxx-xaytomFexxx` | The application's ClientSecret. |
 |`RedirectURL` | `http://dashboard.vesoft-inc.com/login` |The URL that redirects to Dashboard.   |
 |`AuthURL` | `https://accounts.google.com/o/oauth2/auth` | The URL used for authentication.  |
 |`TokenURL` | `https://oauth2.googleapis.com/token`| The URL used to get the access_token. |
