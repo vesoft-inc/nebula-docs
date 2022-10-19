@@ -424,7 +424,7 @@ After executing `SHOW DRAINER SYNC STATUS`, the parameters in the returned resul
 
 To migrate data or implement disaster recovery, manually switch between the primary and secondary clusters.
 
-!!! caution
+!!! note
 
     Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.
 
