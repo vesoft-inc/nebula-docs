@@ -34,6 +34,7 @@ NebulaGraph Analytics supports the following graph algorithms.
 |  APSP                 | All Pair Shortest Path      |  Path       |
 |  SSSP                 | Single Source Shortest Path      | Path        |
 |  BFS                  | Breadth-first search      |  Path       |
+| ShortestPath | The shortest path | Path |
 |  PageRank             | It is used to rank web pages.          | Node importance measurement   |
 |  KCore                | k-Cores              | Node importance measurement   |
 |  DegreeCentrality     | It is a simple count of the total number of connections linked to a vertex.           | Node importance measurement   |
@@ -42,9 +43,12 @@ NebulaGraph Analytics supports the following graph algorithms.
 | ClosenessCentrality    | Closeness centrality   | Node importance measurement|
 |  TriangleCount        | It counts the number of triangles.         | Graph feature      |
 |  Node2Vec              | Graph neural network        | Graph feature       |
+|  Tree_stat             | Tree structure statistics        | Graph feature       |
+|  HyperANF              | Estimate the average distance of the graph     | Graph feature      |
 | LPA                   | Label Propagation Algorithm          |  Community discovery    |
 | WCC                   | Weakly connected component          |  Community discovery    |
 | LOUVAIN               | It detects communities in large networks.          |  Community discovery   |
+| InfoMap | Community classification | Community discovery |
 | HANP                  | Hop attenuation & Node Preference   |  Community discovery    |
 | Clustering Coefficient| It is a measure of the degree to which nodes in a graph tend to cluster together.          |  Clustering       |
 | Jaccard               | Jaccard similarity | Similarity|

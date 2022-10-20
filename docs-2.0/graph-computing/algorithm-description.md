@@ -342,6 +342,25 @@ Parameter descriptions are as follows:
     |`ROOT`|Determined by `vid_type`| The VID of the source vertex.|
     |`VISITED`|int| Outputs the number of the vertex accessed by `ROOT`.|
 
+### ShortestPath
+
+The ShortestPath algorithm is used to find the shortest path between any two vertices in the graph, which is frequently applied in scenarios such as path design and network planning.
+
+- NebulaGraph Analytics
+
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`src`|`"100"`|Starting vertices. Multiple VIDs are separated by commas (,).|
+    |`dst`|`"200"`|Destination vertices. Multiple VIDs are separated by commas (,).|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VALUE`|list| Returns the vertices in the shortest path. The format is`src, vid1,vid2...dst`. If there are multiple shortest paths between two vertices, only one path is returned.|
+
 ## Community discovery
 
 ### LPA
@@ -480,6 +499,34 @@ Parameter descriptions are as follows:
     |`VID`|Determined by `vid_type`| The vertex ID.|
     |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
 
+### InfoMap
+
+The InfoMap algorithm uses double encoding to classify directed graphs into communities. The encoding reuse of nodes in different communities can greatly shorten the length of description information. In terms of implementation, the algorithm includes the PageRank algorithm, which converts a random walk into a random surf.
+
+!!! note
+
+    This algorithm is supported by NebulaGraph Analytics only.
+
+- NebulaGraph Analytics
+
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`pagerank_iter`|`10`| The maximum number of iterations of the internal PageRank algorithm.|
+    |`pagerank_threshold`|`0.0001`| The convergence accuracy of the internal PageRank algorithm.|
+    |`teleport_prob`|`0.15`| The teleportation probability.|
+    |`inner_iter`|`3`| The number of inner iterations.|
+    |`outer_iter`|`2`| The number of outer iterations.|
+    |`comm_info_num`|`100`| The number of communities exported.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VID`|Determined by `vid_type`| The vertex ID.|
+    |`LABEL`|The same with `VID`| Outputs the vertex IDs that have the same label.|
+
 ## Graph feature
 
 ### TriangleCount
@@ -572,6 +619,51 @@ Parameter descriptions are as follows:
 
   - Output parameters
     Output multiple columns where vertices in the same column are associated.
+
+### Tree_stat
+
+The Tree_stat algorithm counts the width or depth of a subgraph with a specified root vertex.
+
+!!! note
+
+    This algorithm is supported by NebulaGraph Analytics only.
+
+- NebulaGraph Analytics
+
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`root`|`100`| The VID of the root vertex.|
+    |`stat`|`width,depth`|Counts width or depth. Multiple values are separated by commas (,).|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VALUE`|list| Returns a row of statistics in the same format as the `stat` parameter.|
+
+### HyperANF
+
+The HyperANF algorithm is used to evaluate the average distance between any two vertices in a graph.
+
+!!! note
+
+    This algorithm is supported by NebulaGraph Analytics only.
+
+- NebulaGraph Analytics
+
+  - Input parameters
+
+    |Parameter|Predefined value|Description|
+    |:--|:--|:--|
+    |`bits`|`6`| The bit length of the HyperLogLog counter. The value ranges from 6 to 16.|
+
+  - Output parameters
+
+    |Parameter|Type|Description|
+    |:--|:--|:--|
+    |`VALUE`|double| The average distance.|
 
 ## Clustering
 
