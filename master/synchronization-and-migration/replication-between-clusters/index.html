@@ -7674,44 +7674,71 @@ After executing <code>SHOW DRAINER SYNC STATUS</code>, the parameters in the ret
 <p class="admonition-title">Note</p>
 <p>Before the switching, set up a listener for the new primary cluster, and a drainer for the new secondary cluster. In the following example, the listener has IP address 192.168.10.105 and drainer 192.168.10.106.</p>
 </div>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>DO NOT write data to the primary cluster and make sure that the data in the primary cluster has been synchronized to the secondary cluster before switching between primary and secondary clusters.</p>
-</div>
 <ol>
 <li>
-<p>Log into the primary cluster and remove the old drainer and listener.</p>
+<p>Log into the old primary cluster and set the working graph space as read-only to avoid data inconsistency.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
+nebula&gt; SET VARIABLES read_only=true;
+</code></pre></div>
+</li>
+<li>
+<p>Check whether the data in the old primary cluster has been synchronized to the old secondary cluster. Make sure the data in the old primary cluster has been synchronized to the old secondary cluster.</p>
+<ol>
+<li>In the old primary cluster, view the status of the data sent from the old primary cluster to the old secondary cluster.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SYNC STATUS;
+</code></pre></div>
+<ol>
+<li>Log into the old secondary cluster and then view the status of synchronizing data to the Meta and Storage services.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>nebula&gt; USE replication_basketballplayer;
+nebula&gt; SHOW DRAINER SYNC STATUS;
+</code></pre></div>
+<p>When the values of <code>LogId Lag</code> and <code>Time Latency</code> in the returned results in both old primary and secondary clusters are <code>0</code>, the data synchronization is complete.</p>
+</li>
+<li>
+<p>In the old secondary cluster, disable read-only for the working graph space.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SET VARIABLES read_only=false;
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there is business data to be written, you can now write the business data to the old secondary cluster (the new primary cluster).</p>
+</div>
+</li>
+<li>
+<p>In the old secondary cluster, remove the old drainer service.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; REMOVE DRAINER;
+</code></pre></div>
+</li>
+<li>
+<p>Log into the old primary cluster, disable read-only, sign out the drainer, and remove the listener.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
+// Disable read-only for the working graph space, otherwise adding drainer fails.
+nebula&gt; SET VARIABLES read_only=false;
 nebula&gt; SIGN OUT DRAINER SERVICE;
 nebula&gt; REMOVE LISTENER SYNC;
 </code></pre></div>
 </li>
 <li>
-<p>Set the working graph space as read-only to avoid data inconsistency.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SET VARIABLES read_only=true;
+<p>In the old primary cluster, change the old primary cluster to the new secondary cluster by adding the new drainer service and setting the working graph space as read-only. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that the new drainer service is deployed and started for the new secondary cluster.</p>
+</div>
+<div class="highlight"><pre><span></span><code>nebula&gt; ADD DRAINER 192.168.10.106:9889;
+nebula&gt; SET VARIABLES read_only=true;
 </code></pre></div>
 </li>
 <li>
-<p>Log into the secondary cluster, disable read-only, and remove the old drainer.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE replication_basketballplayer;
-nebula&gt; SET VARIABLES read_only=false;
-nebula&gt; REMOVE DRAINER;
-</code></pre></div>
-</li>
-<li>
-<p>Change the secondary cluster to the new primary cluster.</p>
+<p>Log into the old secondary cluster and change the old secondary cluster to the new primary cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that the new meta listener and storage listener services are deployed and started for the new primary cluster.</p>
+</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SIGN IN DRAINER SERVICE(192.168.10.106:9889);
 nebula&gt; ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:9789 TO SPACE basketballplayer;
 </code></pre></div>
-</li>
-<li>
-<p>Log into the old primary cluster and change it to the new secondary cluster.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
-# Disable read-only for the working graph space, otherwise adding drainer fails.
-nebula&gt; SET VARIABLES read_only=false;
-nebula&gt; ADD DRAINER 192.168.10.106:9889;
-nebula&gt; SET VARIABLES read_only=true;
-</code></pre></div>
+<p>The primary-secondary cluster switch is now complete.</p>
 </li>
 </ol>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
@@ -7742,7 +7769,7 @@ nebula&gt; SET VARIABLES read_only=true;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
       
     
   </small>
