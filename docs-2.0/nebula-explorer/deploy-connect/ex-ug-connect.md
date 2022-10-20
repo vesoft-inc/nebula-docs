@@ -42,6 +42,10 @@ To connect Explorer to NebulaGraph, follow these steps:
 
         One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
 
+A welcome page is displayed on the first login, showing the relevant functions according to the usage process, and the test datasets can be automatically downloaded and imported.
+
+To visit the welcome page, click ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) -> **Beginner's Guide**.
+
 ## Clear connection
 
 When Explorer is still connected to a NebulaGraph database, on the upper right corner of the page, select ![icon](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup.png) > **Clear Connect**.
