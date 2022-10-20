@@ -4920,6 +4920,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/job-management/" class="md-nav__link">
+        Job management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore/" class="md-nav__link">
         Backup and restore
       </a>
@@ -7688,14 +7702,9 @@ disable_auto_compactions
 <td align="left">The size of memory reserved for Storage caches. The value must be slightly greater than the sum of <code>vertex_pool_capacity</code> and <code>empty_key_pool_capacity</code>. The configuration is measured in MB.</td>
 </tr>
 <tr>
-<td align="left"><code>storage_cache_buckets_power</code></td>
+<td align="left"><code>storage_cache_entries_power</code></td>
 <td align="left"><code>20</code></td>
-<td align="left">The number of buckets. The value is a logarithm with a base of 2. Optional values are 0~32. For example, the value 20 indicates that the number of buckets is 2<span class="arithmatex">\(^{20}\)</span>. The recommended value is <code>ceil(log2(cacheEntries * 1.6))</code>. <code>cacheEntries</code> indicates the total number of cache items.</td>
-</tr>
-<tr>
-<td align="left"><code>storage_cache_locks_power</code></td>
-<td align="left"><code>10</code></td>
-<td align="left">The number of locks. The value is a logarithm with a base of 2. Optional values are 0~32. For example, the value 10 indicates that the number of locks is 2<span class="arithmatex">\(^{10}\)</span>. The recommended value is <code>max(1, storage_cache_buckets_power - 10)</code>.</td>
+<td align="left">Estimated number of cache entries on this storage node in base 2 logarithm. E.g., in case of the value 20, the estimated number of entries will be 2<span class="arithmatex">\(^{20}\)</span>. A good value of this parameter can be log2(the number of vertices on this storage node). The maximum allowed is 31.</td>
 </tr>
 <tr>
 <td align="left"><code>enable_vertex_pool</code></td>
@@ -7713,19 +7722,19 @@ disable_auto_compactions
 <td align="left">The TTL of vertex cache pool items. The configuration is measured in seconds.</td>
 </tr>
 <tr>
-<td align="left"><code>enable_empty_key_pool</code></td>
+<td align="left"><code>enable_negative_pool</code></td>
 <td align="left"><code>false</code></td>
-<td align="left">Whether or not to add an empty_key pool in the cache. Only valid when the storage cache is enabled. The empty_key indicates a key that was queried but does not actually exist.</td>
+<td align="left">Whether to add a negative pool in cache. Only valid when <code>enable_storage_cache</code> is set to <code>true</code>.</td>
 </tr>
 <tr>
-<td align="left"><code>empty_key_pool_capacity</code></td>
+<td align="left"><code>negative_pool_capacity</code></td>
 <td align="left"><code>50</code></td>
-<td align="left">The size of the empty_key cache pool. The configuration is measured in MB.</td>
+<td align="left">The negative pool size in MB.</td>
 </tr>
 <tr>
-<td align="left"><code>empty_key_item_ttl</code></td>
+<td align="left"><code>negative_item_ttl</code></td>
 <td align="left"><code>300</code></td>
-<td align="left">The TTL of the empty_key cache pool items. The configuration is measured in seconds.</td>
+<td align="left">The TTL in seconds for negative items in the cache.</td>
 </tr>
 </tbody>
 </table>
@@ -7759,7 +7768,7 @@ disable_auto_compactions
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
       
     
   </small>
