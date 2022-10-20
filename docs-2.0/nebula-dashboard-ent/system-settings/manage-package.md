@@ -37,7 +37,7 @@ Users can filter packages through the search box in the upper right corner.
 
 4. Click **Download**.
 
-Users can view the download task information in [task center](10.tasks.md), the task type is `package download`. If the task status is `success`, users can return to the **Package Management** page to view the newly downloaded installation package.
+Users can view the download task information in [task center](../10.tasks.md), the task type is `package download`. If the task status is `success`, users can return to the **Package Management** page to view the newly downloaded installation package.
 
 ### Upload packages
 

@@ -22,7 +22,7 @@ The authentication type is described as follows:
 
 Click the ![plus](https://docs-cdn.nebula-graph.com.cn/figures/Plus.png) button to view the process name, service type, status, and runtime directory of the corresponding node.
 
-- Click **Node Monitoring** to jump to the detailed node monitoring page. For more information, see [Cluster monitoring](../4.cluster-operator/2.monitor.md).
+- Click **Node Monitoring** to jump to the detailed node monitoring page. For more information, see [Cluster monitoring](../2.monitor.md).
 
 - Click **Service Management** to jump to the service management page.
 

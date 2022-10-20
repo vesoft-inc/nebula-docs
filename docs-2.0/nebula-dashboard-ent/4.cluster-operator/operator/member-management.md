@@ -14,7 +14,7 @@
 
   !!! note
 
-        The accounts of cluster members must be included in Dashboard accounts. For information about how to create an account, see [Authority management](../5.account-management.md).
+        The accounts of cluster members must be included in Dashboard accounts. For information about how to create an account, see [Authority management](../../5.account-management.md).
 
 - Delete the cluster administrator: Click ![delete](https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png) in the operation column on the right of the cluster administrator account, and then click **Confirm**.
 

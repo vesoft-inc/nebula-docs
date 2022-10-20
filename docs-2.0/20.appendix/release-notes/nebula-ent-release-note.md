@@ -2,9 +2,9 @@
 
 ## Feature
 
-- Support the [Elasticsearch query functions](../3.ngql-guide/6.functions-and-expressions/17.ES-function.md) to send a GET request to an independently deployed Elasticsearch to read data. [#924](https://github.com/vesoft-inc/nebula-ent/pull/924)
+- Support the [Elasticsearch query functions](../../3.ngql-guide/6.functions-and-expressions/17.ES-function.md) to send a GET request to an independently deployed Elasticsearch to read data. [#924](https://github.com/vesoft-inc/nebula-ent/pull/924)
 
-- Support the [extract() function](../3.ngql-guide/6.functions-and-expressions/2.string.md). [#4098](https://github.com/vesoft-inc/nebula/pull/4098)
+- Support the [extract() function](../../3.ngql-guide/6.functions-and-expressions/2.string.md). [#4098](https://github.com/vesoft-inc/nebula/pull/4098)
 
 ## Enhancement
 

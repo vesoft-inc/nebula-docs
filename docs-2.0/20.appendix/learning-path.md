@@ -199,7 +199,7 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
 
   | Document   |
   | ------- |
-  | [NebulaGraph Algorithm](../nebula-algorithm.md) |
+  | [NebulaGraph Algorithm](../graph-computing/nebula-algorithm.md) |
 
 - Clients
 
