@@ -1,6 +1,6 @@
-# Schema draft
+# Schema drafting
 
-Explorer supports the schema draft function. Users can design their schemas on the canvas to visually display the relationships between vertices and edges, and apply the schema to a specified graph space after the design is completed.
+Explorer supports the schema drafting function. Users can design their schemas on the canvas to visually display the relationships between vertices and edges, and apply the schema to a specified graph space after the design is completed.
 
 ## Features
 
