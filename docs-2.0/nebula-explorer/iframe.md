@@ -39,7 +39,7 @@ The Explorer has been installed.
   - `-sha512`: Specifies the algorithm of the message digest.
   - `-days`: The number of days that the certificate generated with parameter `-x509` is valid.
   - `-nodes`: Outputs the secret key without encryption.
-  - `-subj`: Set the subject of the request.
+  - `-subj`: Sets the subject of the request.
   - `-out`: Specifies the name of the generated certificate request or self-signed certificate.
   - `-keyout`: Specifies the name of the automatically generated secret key.
 
