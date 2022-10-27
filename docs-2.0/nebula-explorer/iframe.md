@@ -62,7 +62,7 @@ The Explorer has been installed.
     - `host`: The graph service address of NebulaGraph.
     - `space`: The name of the target graph space.
 
-5. Start Explorer service.
+5. Start the Explorer service.
 
   !!! note
 
