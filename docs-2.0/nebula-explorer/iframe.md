@@ -8,7 +8,7 @@ The Explorer has been installed.
 
 ## Precautions
 
-- Embedded Explorer pages access the target graph space directly by default, so some pages and functions are blocked. For example, the upper navigation bar, the functions of query templates and switch spaces in the left navigation bar. If you need to access multiple graph spaces, you can embed them separately on multiple pages.
+- Embedded Explorer pages only access the corresponding graph space by default, so some pages and features are not displayed. For example, the upper navigation bar and some left-navigation-bar features are hidden. If you need to access multiple graph spaces, you can embed them separately on multiple pages.
 - Language switching is not supported. The default language is Chinese.
 
 ## Steps
