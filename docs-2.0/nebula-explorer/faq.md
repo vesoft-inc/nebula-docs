@@ -16,7 +16,7 @@ The Dag Controller contains graph query components and graph computing component
 
 ## The HDFS server cannot be connected and the task status is running.
 
-Set the timeout period and times for HDFS connections as follows:
+Set the timeout period for HDFS connections as follows:
 
 ```bash
 <configuration>
@@ -36,7 +36,7 @@ Set the timeout period and times for HDFS connections as follows:
 
 Modify the configuration file `dag-ctrl/etc/dag-ctrl-api.yaml` to configure the `UserName` of the SSH.
 
-## How to resolve the error  `bash: /home/xxx/nebula-analytics/scripts/run_algo.sh: No such file or directory`?
+## How to resolve the error `bash: /home/xxx/nebula-analytics/scripts/run_algo.sh: No such file or directory`?
 
 Modify the configuration file `dag-ctrl/etc/tasks.yaml`to configure the algorithm execution path parameter `exec_file`.
 
