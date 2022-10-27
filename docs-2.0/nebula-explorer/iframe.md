@@ -72,6 +72,6 @@ The Explorer has been installed.
   ./scripts/start.sh
   ```
 
-6. Check whether the embedded Explorer page is displayed on the third-party page. For example, the first page displays the graph space `basketballplayer`, and the second and third pages display the other graph spaces.
+6. Check whether the embedded Explorer page is displayed on the third-party page. For example, the first page displays the graph space `basketballplayer`, and the second and third pages display other graph spaces.
 
   ![iframe_example](https://docs-cdn.nebula-graph.com.cn/figures/explorer_iframe_example_221025.png)
