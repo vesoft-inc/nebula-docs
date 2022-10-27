@@ -4,7 +4,7 @@ This topic introduces the NebulaGraph Explorer page to help you learn more about
 
 The NebulaGraph Explorer page consists of three modules top navigation bar, left-side navigation bar, and canvas. 
 
-![explorer-overview](https://docs-cdn.nebula-graph.com.cn/figures/ex-overview-220622-en.png)
+![explorer-overview](https://docs-cdn.nebula-graph.com.cn/figures/ex-overview-221027-en.png)
 
 ## Top navigation bar
 
