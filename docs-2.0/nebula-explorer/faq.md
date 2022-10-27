@@ -52,7 +52,7 @@ Reconfigure the permissions to `744` on the folder `.ssh` and `600` on the file 
 
 The possible causes are as follows:
 
-- The NebulaGraph Analytics has not been deployed. Configure the NebulaGraph Analytics as described in this document.
+- The NebulaGraph Analytics has not been deployed. Check whether the Analytics environment variables and algorithm path are correct. For example, the Analytics address is incorrectly configured. Whether the SSH password-free login for each node is configured. Whether the users of each service are not uniform.
 
 - The NebulaGraph Analytics has been deployed, but can not connect to the Dag Controller. For example, the IP address is incorrect, SSH is not configured, and the startup users of the two services are inconsistent (causing SSH login failures).
 
