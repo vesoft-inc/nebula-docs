@@ -14,7 +14,7 @@ At the top navigation bar, click ![Template](https://docs-cdn.nebula-graph.com.c
 
 ## Design schema
 
-Introduce how to design a schema by the schema of the dataset `basketballplayer` as an example.
+The following steps take designing the schema of the `basketballplayer` dataset as an example to demonstrate how to use the schema drafting function.
 
 1. At the upper left corner of the page, click **New**.
 2. Create a tag by selecting the appropriate color tag under the canvas. You can hold down the left button and drag the tag into the canvas.
