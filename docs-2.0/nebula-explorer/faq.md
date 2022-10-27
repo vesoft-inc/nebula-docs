@@ -50,11 +50,23 @@ Reconfigure the permissions to `744` on the folder `.ssh` and `600` on the file 
 
 ## How to resolve the error `There are 0 NebulaGraph Analytics available. clusterSize should be less than or equal to it`?
 
-The possible causes are as follows:
+Check according to the following procedure:
 
-- The NebulaGraph Analytics has not been deployed. Check whether the Analytics environment variables and algorithm path are correct. For example, the Analytics address is incorrectly configured. Whether the SSH password-free login for each node is configured. Whether the users of each service are not uniform.
+1. Check whether the configuration of SSH password-free login between nodes is successful. You can run the `ssh <user_name>@<node_ip>` command on the Dag Controller machine to check whether the login succeeds.
 
-- The NebulaGraph Analytics has been deployed, but can not connect to the Dag Controller. For example, the IP address is incorrect, SSH is not configured, and the startup users of the two services are inconsistent (causing SSH login failures).
+  !!! note
+
+        If the Dag Controller and Analytics are on the same machine, you also need to configure SSH password-free login.
+
+2. Check the configuration file of the Dag Controller.
+
+  - Check whether the SSH user in `etc/dag-ctrl-api.yaml` is the same as the user who starts the Dag Controller service and the user who configs SSH password-free login.
+
+  - Check whether the algorithm path in `etc/tasks.yaml` is correct.
+
+  - Check whether Hadoop and Java paths in `scripts/set_env.sh` are correct.
+
+3. Restart the Dag Controller for the settings to take effect.
 
 ## How to resolve the error `broadcast.hpp:193] Check failed: (size_t)recv_bytes >= sizeof(chunk_tail_t) recv message too small: 0`?
 
