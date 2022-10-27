@@ -23,7 +23,7 @@ Exploration of the data on a canvas is possible in 2D mode.
 
 !!! note
 
-    It is recommended to limit the number of vertices displayed on the canvas to no more than 3000 in 2D mode, otherwise, it may stuck when using related functions.
+    It is recommended to limit the number of vertices and edges displayed on the canvas to no more than 5000 in 2D mode, otherwise, it may stuck when rendering.
 
 For more information about the operations available in 2D mode, see [Canvas](canvas-overview.md).
 
