@@ -35,7 +35,7 @@ The Explorer has been installed.
   ```
 
   - `-newkey`: The secret key is automatically generated when a certificate request or self-signed certificate is generated.
-  - `-x509`: Generate a self-signed certificate.
+  - `-x509`: Generates a self-signed certificate.
   - `-sha512`: Specifies the algorithm of the message digest.
   - `-days`: The number of days that the certificate generated with parameter `-x509` is valid.
   - `-nodes`: Output the secret key without encryption.
