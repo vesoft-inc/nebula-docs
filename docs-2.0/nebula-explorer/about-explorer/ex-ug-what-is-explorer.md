@@ -33,6 +33,8 @@ Explorer has these features:
 
 - [Data storage](../canvas-operations/canvas-snapshot.md): Data on a canvas can be stored and exported.
 
+- [Inline frame](../nebula-explorer/iframe.md): Explorer supports embedding the canvas in third-party pages.
+
 ## Authentication
 
 Authentication is not enabled in NebulaGraph by default. Users can log into Studio with the `root` account and any password.
