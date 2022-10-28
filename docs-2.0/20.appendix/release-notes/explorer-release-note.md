@@ -1,19 +1,32 @@
 # NebulaGraph Explorer release notes
 
-## v3.1.0
+## v3.2.0
 
 - Feature
-  - Support [workflow](../../nebula-explorer/workflow/workflows.md) function. A workflow is formed by connecting graph query and graph computing tasks.
-  - Support [subgraph computing](../../nebula-explorer/graph-explorer/graph-algorithm.md) function.
-  - Support [N-Step Vertex Detection](../../nebula-explorer/canvas-operations/visualization-mode.md) function based on the canvas.
+  - Support [edge aggregation](../..//nebula-explorer/canvas-operations/visualization-mode.md). The edges with the same starting vertex, end vertex and edge type on the canvas are aggregated, making it clear which vertices have a lot of relationships. It also supports the computation of properties of aggregated edges.
+  - Support [schema drafting](../../nebula-explorer/db-management/draft.md). The Schema is designed directly by dragging and dropping on the canvas. The vertex and edge relationship is more intuitive and supports applying the schema to a graph space with one click.
+  - Support [iFrame](../../nebula-explorer/iframe.md). You can embedding canvas into third-party pages by using inline frameworks.
+  - Support [OAuth 2.0 authentication](../../nebula-explorer/deploy-connect/ex-ug-connect.md). Users can log in to Explorer only after being authenticated by OAuth2.0 to ensure data security.
+  - Support [custom icon library and edge style](../../nebula-explorer/canvas-operations/canvas-overview.md). Explorer has ten built-in icons for industry categories and supports uploading pictures as an icon.
+  - Support [nGQL template](../../nebula-explorer/db-management/ngql-template.md). Design the query statement template directly or make nGQL statement as a template in the console, and then directly call the template and fill in the parameters to query.
+  - Support [database user management](../../nebula-explorer/db-management/dbuser_management.md). Manage database users visually, including creating and authorizing users.
+  - Workflow added [node2vec algorithm](../../graph-computing/algorithm-description.md).
 
 - Enhancement
-  - Adapted for NebulaGraph 3.2.0.
-  - Support storing the canvas snapshots persistent. The snapshot data is saved on the server to avoid snapshot loss when users clearing browser data.
-  - Support [setting the maximum number of the vertices and edges](../../nebula-explorer/canvas-operations/visualization-mode.md) displayed in the bird view mode.
-  - Increase the distribution on the Z-axis by default to avoid the flat feeling in 3D mode when the 2D mode switches to 3D mode.
+  - The [Dag Controller](../../nebula-explorer/deploy-connect/ex-ug-deploy.md) is built into the installation package.
+  - The welcome page provides some demo datasets.
+  - Increases the drag effect of the vertex.
+  - The console supports adding comments with `//`.
+  - The favorites folder contents can be saved on the server.
+  - Support searching graph space names in the graph space list.
+  - The workflow prompts you to enter a missing parameter manually.
+  - The help page provides introductory videos.
+  - Workflow supports the configuration of resources on the page.
+  - Added a white screen page for the crash.
 
 - Bugfix
-  - Fixed the bug that users could not view the canvas snapshot when importing a canvas snapshot.
-  - Fixed the bug that users could not select the new tab when opening too many tabs.
-  - Fixed the bug that special characters were added to `<edge_type_list>` when performing the `FIND PATH` statement in the console.
+  - Fixed the bug for canvas full-screen mode.
+  - Fixed the bug that the right-click menu would not collapse automatically.
+  - Fixed the bug that the canvas auto-scaling when adding filter criteria.
+  - Fixed the bug that the canvas shook when switching to 3D mode with a large amount of data.
+  - Fixed the bug that importing Int8/16/32 and fixed_string data failed.

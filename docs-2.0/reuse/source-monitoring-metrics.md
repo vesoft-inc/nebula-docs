@@ -58,8 +58,10 @@
 | `delete_edges_latency_us`      | The latency of deleting edges.                                  |
 | `delete_vertices_latency_us`   | The latency of deleting vertices.                                  |
 | `get_neighbors_latency_us`     | The latency of querying neighbor vertices.                                  |
+| `get_dst_by_src_latency_us`    | The latency of querying get the destination vertex from the source vertex.  |
 | `num_get_prop`                 | The number of executions for the GetPropProcessor.                       |
 | `num_get_neighbors_errors`     | The number of execution errors for the GetNeighborsProcessor.             |
+| `num_get_dst_by_src_errors`    | The number of execution errors for the GetDstBySrcProcessor.    |
 | `get_prop_latency_us`          | The latency of executions for the GetPropProcessor.|
 | `num_edges_deleted`            | The number of deleted edges.                                      |
 | `num_edges_inserted`           | The number of inserted edges.                                      |
@@ -111,6 +113,7 @@
 | `delete_tags_latency_us`       | The latency of deleting tags.                 |
 | `num_update_edge_errors`       | The number of execution errors for the UpdateEdgeProcessor.                   |
 | `num_get_neighbors`            | The number of executions for the GetNeighborsProcessor.                  |
+| `num_get_dst_by_src`           | The number of executions for the GetDstBySrcProcessor.|
 | `num_get_prop_errors`          | The number of execution errors for the GetPropProcessor.                  |
 | `num_delete_vertices`          | The number of times that vertices are deleted.                  |
 | `num_lookup`                   | The number of executions for the LookupProcessor.                  |

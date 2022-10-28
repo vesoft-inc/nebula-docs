@@ -59,6 +59,10 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`-2009`| Invalid parameter|
 |`-2010`| Wrong cluster|
 |`-2011`| Listener conflicts|
+|`-2012`| Host not exist|
+|`-2013`| Schema name already exists|
+|`-2014`| There are still indexes related to tag or edge, cannot drop it|
+|`-2015`| There are still some space on the host, cannot drop it|
 |`-2021`| Failed to store data|
 |`-2022`| Illegal storage segment|
 |`-2023`| Invalid data balancing plan|
@@ -83,6 +87,10 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`-2049`| Task report failed|
 |`-2050`| The current task is not in the graph space|
 |`-2051`| The current task needs to be resumed|
+|`-2052`| The job status has already been failed or finished |
+|`-2053`| Job default status|
+|`-2054`| The given job do not support stop|
+|`-2055`| The leader distribution has not been reported, so can't send task to storage|
 |`-2065`| Invalid task|
 |`-2066`| Backup terminated (index being created)|
 |`-2067`| Graph space does not exist at the time of backup|

@@ -61,10 +61,10 @@ On the right side of the page, click ![list-left](https://docs-cdn.nebula-graph.
 On the data overview panel, you are enabled to:
 
 - See the number of tags and edge types, and the number of the corresponding vertices and edges on a canvas.  
-- Click the tag color icon to customize the color, size, and icon of the vertices with the same tag.
+- Click the color icon of the tags or edge types to customize the color and size. You can also customize the icons and images of the tags.
 
   !!! note
-        Vertices with the same tag have the same color. Right-click a single vertex on a canvas to manually modify the style of the vertex.
+        You can only change colors in batches in the data overview panel. Right-click a single vertex on a canvas to manually modify the style of the vertex.
 
 - Upload images to personalize the style of the vertices in the canvas, and the uploaded images are stored in the browser. To store uploaded images permanently, save the canvas data as a snapshot. For details, see [Manage snapshots](canvas-snapshot.md).
 

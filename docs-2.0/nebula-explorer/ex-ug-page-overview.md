@@ -4,7 +4,7 @@ This topic introduces the NebulaGraph Explorer page to help you learn more about
 
 The NebulaGraph Explorer page consists of three modules top navigation bar, left-side navigation bar, and canvas. 
 
-![explorer-overview](https://docs-cdn.nebula-graph.com.cn/figures/ex-overview-220622-en.png)
+![explorer-overview](https://docs-cdn.nebula-graph.com.cn/figures/ex-overview-221027-en.png)
 
 ## Top navigation bar
 
@@ -17,9 +17,10 @@ The NebulaGraph Explorer page consists of three modules top navigation bar, left
 | ![import_data](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png) | Bulk import of data into NebulaGraph. For more information, see [Import data](db-management/11.import-data.md).          |
 | ![Console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) | Query the NebulaGraph data with nGQL statements. For more information, see [Console](db-management/explorer-console.md). |
 | ![Template](https://docs-cdn.nebula-graph.com.cn/figures/icon-navbar-queryTemplate.png)| The template of the nGQL. For details, see [nGQL template](db-management/ngql-template.md).|
+| ![db_user_management](https://docs-cdn.nebula-graph.com.cn/figures/db_user_management_221024.png) | Manage the users in NebulaGraph database. For more information, see [Database user Management](db-management/dbuser_management.md)。 |
 | ![language](https://docs-cdn.nebula-graph.com.cn/figures/navbar-language.png) | Select the language of  NebulaGraph Explorer page. Chinese and English are supported.   |
 | ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) | Guide and help you in using NebulaGraph.          |
-| ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/image-icon10.png) | Show the NebulaGraph version and allow you to disconnect from NebulaGraph Explorer.    |
+| ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) | Show the connection information and version information. You can change passwords and log out.  |
 
 ## Left-side navigation bar
 
