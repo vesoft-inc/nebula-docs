@@ -18,6 +18,10 @@ The authentication type is described as follows:
 
 - SSH Key: Click **Upload** and select the private key file of the node. You need to generate the secret key files on the node to be added and send the private key file to the current computer (not the machine where Dashboard is deployed). If the passphrase is set, this parameter is also required.
 
+!!! note
+
+    After a node is added, data is not automatically load balanced. You need to select the graph space on the [Overview Info](../cluster-information/overview-info.md) page to perform the `Balance Data` and `Balance Leader` operations.
+
 ## Other node operations
 
 Click the ![plus](https://docs-cdn.nebula-graph.com.cn/figures/Plus.png) button to view the process name, service type, status, and runtime directory of the corresponding node.
