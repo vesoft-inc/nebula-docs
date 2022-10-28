@@ -25,7 +25,6 @@
   - Added a white screen page for the crash.
 
 - Bugfix
-  - Fixed the bug for canvas full-screen mode.
   - Fixed the bug that the right-click menu would not collapse automatically.
   - Fixed the bug that the canvas auto-scaling when adding filter criteria.
   - Fixed the bug that the canvas shook when switching to 3D mode with a large amount of data.
