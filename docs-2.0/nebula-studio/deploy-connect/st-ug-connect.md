@@ -44,9 +44,7 @@ To connect Studio to NebulaGraph, follow these steps:
 
 2. After the configuration, click the **Connect** button.
 
-   If you can see the **Explore** page, Studio is successfully connected to NebulaGraph.
-
-   ![The Console page shows that the connection is successful](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-003-en.png "NebulaGraph is connected")
+   A welcome page is displayed on the first login, showing the relevant functions according to the usage process, and the test datasets can be automatically downloaded and imported.
 
 One session continues for up to 30 minutes. If you do not operate Studio within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
 
@@ -54,11 +52,14 @@ One session continues for up to 30 minutes. If you do not operate Studio within 
 
 When Studio is successfully connected to NebulaGraph, you can do these operations:
 
-- If your account has GOD or ADMIN privilege, you can create a schema on the **[Console](../quick-start/st-ug-create-schema.md)** page or on the **[Schema](../manage-schema/st-ug-crud-space.md)** page, batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page, and execute nGQL statements on the **Console** page.
+- Create a schema on the **[Console](../quick-start/st-ug-create-schema.md)** page or on the **[Schema](../manage-schema/st-ug-crud-space.md)** page.
+- Batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page.
+- Execute nGQL statements on the **Console** page.
+- Design the schema visually on the **Schema drafting** page.
 
-- If your account has DBA or USER privilege, you can batch import data on the **[Import](../quick-start/st-ug-import-data.md)** page or execute nGQL statements on the **Console** page.
+!!! note
 
-- If your account has GUEST privilege, you can retrieve data with nGQL statements on the **Console** page or explore and analyze data on the **Explore** page.
+    The permissions of an account determine the operations that can be performed. For details, see [Roles and privileges](../../7.data-security/1.authentication/3.role-list.md).
 
 ### Log out
 <!--
