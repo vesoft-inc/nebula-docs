@@ -58,7 +58,7 @@
 | `delete_edges_latency_us`      | The latency of deleting edges.                                  |
 | `delete_vertices_latency_us`   | The latency of deleting vertices.                                  |
 | `get_neighbors_latency_us`     | The latency of querying neighbor vertices.                                  |
-| `get_dst_by_src_latency_us`    | The latency of querying get the destination vertex from the source vertex.  |
+| `get_dst_by_src_latency_us`    | The latency of querying the destination vertex by the source vertex.  |
 | `num_get_prop`                 | The number of executions for the GetPropProcessor.                       |
 | `num_get_neighbors_errors`     | The number of execution errors for the GetNeighborsProcessor.             |
 | `num_get_dst_by_src_errors`    | The number of execution errors for the GetDstBySrcProcessor.    |
