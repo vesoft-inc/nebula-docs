@@ -7210,7 +7210,7 @@
 <h1 id="system_design_suggestions">System design suggestions<a class="headerlink" href="#system_design_suggestions" title="Permanent link">&para;</a></h1>
 <h2 id="qps_or_low-latency_first">QPS or low-latency first<a class="headerlink" href="#qps_or_low-latency_first" title="Permanent link">&para;</a></h2>
 <ul>
-<li>NebulaGraph master is good at handling small requests with high concurrency. In such scenarios, the whole graph is huge, containing maybe trillions of vertices or edges, but the subgraphs accessed by each request are not large (containing millions of vertices or edges), and the latency of a single request is low. The concurrent number of such requests, i.e., the QPS, can be huge.</li>
+<li>NebulaGraph 3.3.0 is good at handling small requests with high concurrency. In such scenarios, the whole graph is huge, containing maybe trillions of vertices or edges, but the subgraphs accessed by each request are not large (containing millions of vertices or edges), and the latency of a single request is low. The concurrent number of such requests, i.e., the QPS, can be huge.</li>
 </ul>
 <ul>
 <li>On the other hand, in interactive analysis scenarios, the request concurrency is usually not high, but the subgraphs accessed by each request are large, with thousands of millions of vertices or edges. To lower the latency of big requests in such scenarios, you can split big requests into multiple small requests in the application, and concurrently send them to multiple graphd processes. This can decrease the memory used by each graphd process as well. Besides, you can use <a href="../../graph-computing/nebula-algorithm/">NebulaGraph Algorithm</a> for such scenarios.</li>
@@ -7218,7 +7218,7 @@
 <!--
 ## Horizontal or vertical scaling
 
-NebulaGraph master supports horizontal scaling.
+NebulaGraph 3.3.0 supports horizontal scaling.
 
 + The horizontal scaling of the Storaged process:
 
@@ -7234,14 +7234,14 @@ NebulaGraph master supports horizontal scaling.
 
 + Metad does not support horizontal scaling.
 
-Vertical scaling usually has higher hardware costs, but relatively simple operations. NebulaGraph master can also be scaled vertically.
+Vertical scaling usually has higher hardware costs, but relatively simple operations. NebulaGraph 3.3.0 can also be scaled vertically.
 -->
 <h2 id="data_transmission_and_optimization">Data transmission and optimization<a class="headerlink" href="#data_transmission_and_optimization" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Read/write balance. NebulaGraph fits into OLTP scenarios with balanced read/write, i.e., concurrent write and read. It is not suitable for OLAP scenarios that usually need to write once and read many times.</li>
 <li>Select different write methods. For large batches of data writing, use SST files. For small batches of data writing, use <code>INSERT</code>.</li>
 <li>Run <code>COMPACTION</code> and <code>BALANCE</code> jobs to optimize data format and storage distribution at the right time.</li>
-<li>NebulaGraph master does not support transactions and isolation in the relational database and is closer to NoSQL.</li>
+<li>NebulaGraph 3.3.0 does not support transactions and isolation in the relational database and is closer to NoSQL.</li>
 </ul>
 <h2 id="query_preheating_and_data_preheating">Query preheating and data preheating<a class="headerlink" href="#query_preheating_and_data_preheating" title="Permanent link">&para;</a></h2>
 <p>Preheat on the application side:</p>
