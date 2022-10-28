@@ -6098,6 +6098,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nebula-explorer/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -6945,20 +6959,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../graph-computing/0.deploy-controller-analytics/" class="md-nav__link">
-        Dag Controller
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -7523,11 +7523,11 @@
 <h2 id="using_patterns_in_match_statements">Using patterns in MATCH statements<a class="headerlink" href="#using_patterns_in_match_statements" title="Permanent link">&para;</a></h2>
 <h3 id="create_indexes">Create indexes<a class="headerlink" href="#create_indexes" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># The following example creates an index on both the name property of the tag player and the edge type follow.
-nebula&gt; CREATE TAG INDEX IF NOT EXISTS name ON player(name(20));
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index_1 ON player(name(20));
 nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 
 # The following example rebuilds the index.
-nebula&gt; REBUILD TAG INDEX name;
+nebula&gt; REBUILD TAG INDEX player_index_1;
 +------------+
 | New Job Id |
 +------------+
@@ -7958,7 +7958,9 @@ nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..]-&gt;(v
 </code></pre></div>
 <h3 id="match_multiple_patterns">Match multiple patterns<a class="headerlink" href="#match_multiple_patterns" title="Permanent link">&para;</a></h3>
 <p>You can separate multiple patterns with commas (,).</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;Spurs&quot;}) \
+<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS team_index ON team(name(20));
+nebula&gt; REBUILD TAG INDEX team_index;
+nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;Spurs&quot;}) \
         RETURN v1,v2;
 +----------------------------------------------------+----------------------------------+
 | v1                                                 | v2                               |
@@ -7990,7 +7992,7 @@ nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..]-&gt;(v
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2022</span>
       
     
   </small>

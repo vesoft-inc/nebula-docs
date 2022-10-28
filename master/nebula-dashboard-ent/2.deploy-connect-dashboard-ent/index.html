@@ -6059,6 +6059,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nebula-explorer/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -6906,20 +6920,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../graph-computing/0.deploy-controller-analytics/" class="md-nav__link">
-        Dag Controller
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -7472,68 +7472,60 @@
 <div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-&lt;version&gt;.linux-amd64.tar.gz -C &lt;install_path&gt;
 </code></pre></div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-3.1.2.linux-amd64.tar.gz -C /usr/local/
+<div class="highlight"><pre><span></span><code>tar -xzvf nebula-dashboard-ent-3.2.0.linux-amd64.tar.gz -C /usr/local/
 </code></pre></div>
 </li>
 <li>
 <p>Edit <code>vim /usr/local/nebula-dashboard-ent/config/config.yaml</code> to modify the configuration.</p>
-<div class="highlight"><pre><span></span><code>server:
-  host: <span class="m">0</span>.0.0.0 <span class="c1"># Specifies the address segment that can access Dashboard.</span>
-  port: <span class="m">7005</span> <span class="c1"># The default port used to access Dashboard Enterprise Edition.  </span>
-  certFile: <span class="s2">&quot;&quot;</span> <span class="c1"># The local device certificate path for accessing Dashboard via HTTPS.</span>
-  keyFile: <span class="s2">&quot;&quot;</span> <span class="c1"># The local device certificate key path for accessing Dashboard via HTTPS.</span>
-database:
-  dialect: sqlite <span class="c1"># The database type used to store metadata. Only support SQLite and MySQL currently. The default value is SQLite.</span>
-  autoMigrate: <span class="nb">true</span> <span class="c1"># Whether to automatically create a database table. Defaults to true.</span>
-
-  <span class="c1"># SQLite-related configurations, configured only when dialect is set to sqlite.</span>
-  sqliteFilePath: data/dashboard.sqlite.db <span class="c1"># The default path for storing information in SQLite.</span>
-
-  <span class="c1"># MySQL-related configurations, configured only when dialect is set to mysql.</span>
-  host: <span class="m">192</span>.168.8.157 <span class="c1"># The IP address of the connected MySQL database.</span>
-  port: <span class="m">3306</span> <span class="c1"># The port of the connected MySQL database.</span>
-  username: root <span class="c1"># The username to log in MySQL.</span>
-  password: nebula <span class="c1"># The password to log in MySQL.</span>
-  name: dashboard <span class="c1"># The name of the corresponding database.</span>
-  autoMigrate: <span class="nb">true</span> <span class="c1"># Auto database tables creation, the default value of which is true.</span>
+<div class="highlight"><pre><span></span><code>Name: dashboard-api
+Host: <span class="m">0</span>.0.0.0     <span class="c1"># Specifies the address segment that can access Dashboard.</span>
+Port: <span class="m">7005</span>  <span class="c1"># The default port used to access Dashboard Enterprise Edition.  </span>
+MaxBytes: <span class="m">1073741824</span> <span class="c1"># The maximum content length of an Http request that can be accepted. The default value is 1048576. Value range: 0 ~ 8388608.</span>
+Timeout: <span class="m">15000</span>  <span class="c1"># Timeout duration of the access.</span>
+Debug:      <span class="c1"># Whether to enable the Debug mode.</span>
+  Enable: <span class="nb">false</span>
+Log:     <span class="c1"># Dashboard run log settings.</span>
+  KeepDays: <span class="m">7</span>    <span class="c1"># The number of days for keeping log.</span>
+  Mode: console   <span class="c1"># The save mode of the log.</span>
+Database:
+  Dialect: sqlite  <span class="c1"># The database type used to store metadata. Only support SQLite and MySQL currently. The default value is SQLite.</span>
+  AutoMigrate: <span class="nb">true</span> <span class="c1"># Whether to automatically create a database table. Defaults to true.</span>
+  Host: <span class="m">127</span>.0.0.1 <span class="c1"># The IP address of the connected MySQL database.</span>
+  Port: <span class="m">3306</span>  <span class="c1"># The port of the connected MySQL database.</span>
+  Username: root <span class="c1"># The username to log in MySQL.</span>
+  Password: nebula <span class="c1"># The password to log in MySQL.</span>
+  Name: dashboard <span class="c1"># The name of the corresponding database.</span>
 
 <span class="c1"># Information about the exporter port</span>
-exporter:
-  nodePort: <span class="m">9100</span> <span class="c1"># The port of the node-exporter service.</span>
-  nebulaPort: <span class="m">9200</span> <span class="c1"># The port of the nebula-stats-exporter service.</span>
+Exporter:
+  NodePort: <span class="m">9100</span> <span class="c1"># The port of the node-exporter service.</span>
+  NebulaPort: <span class="m">9200</span> <span class="c1"># The port of the nebula-stats-exporter service.</span>
 
-<span class="c1"># Information of services</span>
-proxy:
-  prometheus:
-    target: <span class="s2">&quot;127.0.0.1:9090&quot;</span> <span class="c1"># The IP address and port of the prometheus service.</span>
-  alertmanager:
-    target: <span class="s2">&quot;127.0.0.1:9093&quot;</span> <span class="c1"># The IP address and port of the Alertmanager service.</span>
+<span class="c1"># Information of services </span>
+Proxy:
+  PrometheusAddr: <span class="m">127</span>.0.0.1:9090 <span class="c1"># The IP address and port of the prometheus service.</span>
+  AlertmanagerAddr: <span class="m">127</span>.0.0.1:9093 <span class="c1"># The IP address and port of the Alertmanager service.</span>
 
 <span class="c1"># Information of the sender&#39;s Email used to invite LDAP accounts.</span>
-mail:
-  host: smtp.office365.com <span class="c1">#  The SMTP server address.</span>
-  port: <span class="m">587</span> <span class="c1"># The port number of the SMTP server.</span>
-  username: <span class="s2">&quot;&quot;</span> <span class="c1"># The SMTP server account name.</span>
-  password: <span class="s2">&quot;&quot;</span> <span class="c1"># The SMTP server password.</span>
+Mail:
+  Host: smtp.office365.com <span class="c1">#  The SMTP server address.</span>
+  Port: <span class="m">587</span> <span class="c1"># The port number of the SMTP server.</span>
+  Username: <span class="s2">&quot;&quot;</span> <span class="c1"># The SMTP server account name.</span>
+  Password: <span class="s2">&quot;&quot;</span> <span class="c1"># The SMTP server password.</span>
 
 <span class="c1"># System information</span>
-system:
-  webAddress: http://127.0.0.1:7005 <span class="c1"># The external access for Dashboard. It can be set as a hostname, used for interface callbacks. For example, the invitee who is invited by mail can use this link to access Dashboard.</span>
-  messageStore: <span class="m">90</span> <span class="c1"># It sets the number of days to keep alert messages, the value of which is 90 by default. </span>
+System:
+  WebAddress: http://127.0.0.1:7005 <span class="c1"># The external access for Dashboard. It can be set as a hostname, used for interface callbacks. For example, the invitee who is invited by mail can use this link to access Dashboard.</span>
+  MessageStore: <span class="m">90</span> <span class="c1"># It sets the number of days to keep alert messages, the value of which is 90 by default.</span>
 
 <span class="c1"># LDAP information</span>
-ldap:
-  server: ldap://127.0.0.1 <span class="c1"># The LDAP server address.</span>
-  bindDN: <span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>vesoft,dc<span class="o">=</span>com <span class="c1"># The LDAP login username.</span>
-  bindPassword: <span class="s2">&quot;&quot;</span> <span class="c1"># The LDAP login password.</span>
-  baseDN: <span class="nv">dc</span><span class="o">=</span>vesoft,dc<span class="o">=</span>com <span class="c1"># Set the path to query user data.</span>
-  userFilter: <span class="s2">&quot;&amp;(objectClass=*)&quot;</span> <span class="c1"># Set a filter to LDAP search queries.</span>
-  emailKey: mail <span class="c1"># Set the field name used to restore email in LDAP.</span>
-...
-<span class="c1"># BR</span>
-br:
-backupLogsDir: <span class="s2">&quot;logs/br/backupLogsDir&quot;</span>
-restoreLogsDir: <span class="s2">&quot;logs/br/restoreLogsDir&quot;</span>
+LDAP:
+  Server: ldap://127.0.0.1 <span class="c1"># The LDAP server address.</span>
+  BindDN: <span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>vesoft,dc<span class="o">=</span>com <span class="c1"># The LDAP login username.</span>
+  BindPassword: <span class="s2">&quot;&quot;</span> <span class="c1"># The LDAP login password.</span>
+  BaseDN: <span class="nv">dc</span><span class="o">=</span>vesoft,dc<span class="o">=</span>com <span class="c1"># Set the path to query user data.</span>
+  UserFilter: <span class="s2">&quot;&amp;(objectClass=*)&quot;</span> <span class="c1"># Set a filter to LDAP search queries.</span>
+  EmailKey: mail <span class="c1"># Set the field name used to restore email in LDAP.</span>
 </code></pre></div>
 </li>
 <li>
@@ -7735,8 +7727,8 @@ ldap:
 <p class="admonition-title">Note</p>
 <p>Custom installation paths are not supported when installing Dashboard Enterprise Edition with DEB. The default installation path is <code>/usr/local/nebula-dashboard-ent/</code>.</p>
 </div>
-<p>For example, to install the DEB package of the 3.1.2 version:</p>
-<div class="highlight"><pre><span></span><code>sudo dpkg -i nebula-dashboard-ent-3.1.2.ubuntu1804.amd64.deb
+<p>For example, to install the DEB package of the 3.2.0 version:</p>
+<div class="highlight"><pre><span></span><code>sudo dpkg -i nebula-dashboard-ent-3.2.0.ubuntu1804.amd64.deb
 </code></pre></div>
 <p>During the installation process, you need to enter the path to the license and choose a database for storing Dashboard metadata. Currently, we support MySQL and SQLite.</p>
 <p>For example:</p>
@@ -7814,7 +7806,7 @@ system:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2022</span>
       
     
   </small>

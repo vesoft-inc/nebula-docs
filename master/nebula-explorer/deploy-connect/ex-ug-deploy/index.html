@@ -5310,6 +5310,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     Prerequisites
   </a>
@@ -5409,6 +5416,33 @@
           <li class="md-nav__item">
   <a href="#stop_service" class="md-nav__link">
     Stop Service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure_dag_controller" class="md-nav__link">
+    Configure Dag Controller
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure Dag Controller">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    Steps
   </a>
   
 </li>
@@ -6062,6 +6096,20 @@
     <li class="md-nav__item">
       <a href="../../ex-ug-shortcuts/" class="md-nav__link">
         Basic operations and shortcuts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        FAQ
       </a>
     </li>
   
@@ -6915,20 +6963,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../graph-computing/0.deploy-controller-analytics/" class="md-nav__link">
-        Dag Controller
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -7278,6 +7312,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     Prerequisites
   </a>
@@ -7387,6 +7428,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configure_dag_controller" class="md-nav__link">
+    Configure Dag Controller
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure Dag Controller">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_1" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    Steps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next_to_do" class="md-nav__link">
     Next to do
   </a>
@@ -7414,7 +7482,7 @@
 
 
 <h1 id="deploy_explorer">Deploy Explorer<a class="headerlink" href="#deploy_explorer" title="Permanent link">&para;</a></h1>
-<p>This topic describes how to deploy Explorer locally by RPM and tar packages.</p>
+<p>This topic describes how to deploy Explorer locally by RPM, DEB and tar packages.</p>
 <h2 id="nebulagraph_version">NebulaGraph version<a class="headerlink" href="#nebulagraph_version" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -7428,6 +7496,10 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>3.3.0</td>
+<td>3.2.0</td>
+</tr>
 <tr>
 <td>3.1.0 ~ 3.2.0</td>
 <td>3.1.0</td>
@@ -7450,6 +7522,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<p>The Dag Controller installation package is built in Explorer starting from version 3.2.0, which provides graph computing services. The user can decide whether or not to start the Dag Controller service. If the Dag Controller service is not started, the <strong>Workflow</strong> menu in Explorer will appear gray and cannot be clicked.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before deploying Explorer, you must check the following information:</p>
 <ul>
@@ -7509,15 +7583,22 @@
 </li>
 <li>
 <p>Copy the license to the installation path.</p>
-<div class="highlight"><pre><span></span><code>cp -r &lt;license&gt; &lt;explorer_path&gt;
+<div class="highlight"><pre><span></span><code>sudo cp -r &lt;license&gt; &lt;explorer_path&gt;
 </code></pre></div>
 <p>For example:
- <div class="highlight"><pre><span></span><code>cp -r nebula.license /usr/local/nebula-explorer
+ <div class="highlight"><pre><span></span><code>sudo cp -r nebula.license /usr/local/nebula-explorer
 </code></pre></div></p>
 </li>
 <li>
-<p>Start the service using the following command.</p>
-<div class="highlight"><pre><span></span><code>systemctl start nebula-explorer
+<p>(Optional) Configure the Dag Controller. See the <strong>Configure Dag Controller</strong> section below.</p>
+</li>
+<li>
+<p>Enter the folder <code>nebula-explorer</code>, start the service using the following command.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-explorer
+<span class="c1"># Start Explorer.</span>
+sudo ./scripts/start.sh
+<span class="c1"># (Optional) Start Dag Controller.</span>
+sudo ./dag-ctrl/scripts/start.sh
 </code></pre></div>
 </li>
 </ol>
@@ -7528,9 +7609,10 @@ systemctl stop nebula-explorer <span class="c1">#Stop the service</span>
 systemctl start nebula-explorer <span class="c1">#Start the service</span>
 </code></pre></div>
 <p>You can also start or stop the service manually using the following command in the installation directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ./scripts/rpm
-bash ./start.sh <span class="c1">#Start the service</span>
-bash ./stop.sh <span class="c1">#Stop the service</span>
+<div class="highlight"><pre><span></span><code>sudo ./scripts/start.sh <span class="c1">#Start Explorer</span>
+sudo ./scripts/stop.sh <span class="c1">#Stop Explorer</span>
+sudo ./dag-ctrl/scripts/start.sh <span class="c1">#Start Dag Controller</span>
+sudo ./dag-ctrl/scripts/stop.sh <span class="c1">#Stop Dag Controller</span>
 </code></pre></div>
 <h3 id="uninstallation">Uninstallation<a class="headerlink" href="#uninstallation" title="Permanent link">&para;</a></h3>
 <p>You can uninstall Explorer using the following command:</p>
@@ -7549,7 +7631,7 @@ bash ./stop.sh <span class="c1">#Stop the service</span>
 <li>
 <p>Run <code>sudo dpkg -i &lt;package_name&gt;</code> to unpack the DEB package.</p>
 <p>For example, run the following command to install Explorer (The default installation path is <code>/usr/local/nebula-explorer</code>).</p>
-<div class="highlight"><pre><span></span><code>sudo dpkg -i nebula-explorer-3.1.0.x86_64.deb
+<div class="highlight"><pre><span></span><code>sudo dpkg -i nebula-explorer-3.2.0.x86_64.deb
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -7565,12 +7647,16 @@ bash ./stop.sh <span class="c1">#Stop the service</span>
 </code></pre></div>
 </li>
 <li>
-<p>Run the following command to start the service.</p>
-<div class="highlight"><pre><span></span><code>sudo systemctl start nebula-explorer.service
-</code></pre></div>
-<p>You can also start the service manually using the following command in the <code>nebula-explorer/lib</code> directory.</p>
-<div class="highlight"><pre><span></span><code>sudo bash ./start.sh
-</code></pre></div>
+<p>(Optional) Configure the Dag Controller. See the <strong>Configure Dag Controller</strong> section below.</p>
+</li>
+<li>
+<p>Enter the folder <code>nebula-explorer</code>, start the service using the following command.</p>
+<p><code>bash
+ cd nebula-explorer
+ # Start Explorer.
+ sudo ./lib/start.sh
+ # (Optional) Start Dag Controller.
+ sudo ./dag-ctrl/lib/start.sh</code></p>
 </li>
 </ol>
 <h3 id="view_the_status">View the status<a class="headerlink" href="#view_the_status" title="Permanent link">&para;</a></h3>
@@ -7607,9 +7693,15 @@ bash ./stop.sh <span class="c1">#Stop the service</span>
 </code></pre></div></p>
 </li>
 <li>
-<p>Enter the <code>nebula-explorer</code> folder to start Explorer.</p>
+<p>(Optional) Configure the Dag Controller. See the <strong>Configure Dag Controller</strong> section below.</p>
+</li>
+<li>
+<p>Enter the folder <code>nebula-explorer</code>, start the service using the following command.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> nebula-explorer
-nohup ./nebula-explorer-server <span class="p">&amp;</span>
+<span class="c1"># Start Explorer and Dag Controller.</span>
+sudo ./scripts/start.sh
+<span class="c1"># Start Explorer separately.</span>
+sudo nohup ./nebula-explorer-server &gt; explorer.log <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
 </code></pre></div>
 </li>
 </ol>
@@ -7617,6 +7709,96 @@ nohup ./nebula-explorer-server <span class="p">&amp;</span>
 <p>You can use <code>kill pid</code> to stop the service.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">kill</span> <span class="k">$(</span>lsof -t -i :7002<span class="k">)</span>
 </code></pre></div>
+<h2 id="configure_dag_controller">Configure Dag Controller<a class="headerlink" href="#configure_dag_controller" title="Permanent link">&para;</a></h2>
+<p>Dag Controller is a task scheduling tool that can schedule the jobs which type is DAG (directed acyclic graph). The job consists of multiple tasks to form a directed acyclic graph, and there is a dependency between the tasks.</p>
+<p>The Dag Controller can perform complex graph computing with NebulaGraph Analytics. For example, the Dag Controller sends an algorithm request to NebulaGraph Analytics, which saves the result to NebulaGraph or HDFS. The Dag Controller then takes the result as input to the next algorithmic task to create a new task.</p>
+<h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html">HDFS</a> 2.2.x or later has been deployed.</li>
+</ul>
+<ul>
+<li>The JDK 1.8 has been deployed.</li>
+</ul>
+<h3 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Complete the SSH password-free configurations so that the Dag Controller machine can log directly into the NebulaGraph Analytics machines and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.</p>
+<p>For example, the user in the machine A (Dag Controller) log directly into machine B-1 in the NebulaGraph Analytics cluster over SSH  without passwords. Run the following commands on the machine A:</p>
+<div class="highlight"><pre><span></span><code>//Press Enter to execute the default option to generate the key.
+ssh-keygen -t rsa
+
+//After the public key file of machine A is installed to the user of the machine B-1, you can log into the machine B-1 from the machine A without passwords.
+ssh-copy-id -i ~/.ssh/id_rsa.pub &lt;B_user&gt;@&lt;B_IP&gt;
+</code></pre></div>
+<p>In the same way, complete the SSH password-free configurations so that the user in the machine A can log directly into the machine B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.</p>
+</li>
+<li>
+<p>Add the following to the file <code>~/.bash_profile</code> and run the command <code>source ~/.bash_profile</code> to make it effective.</p>
+<div class="highlight"><pre><span></span><code>eval $(ssh-agent)
+ssh-add ~/.ssh/id_rsa
+</code></pre></div>
+</li>
+<li>
+<p>Configure the username and port of the NebulaGraph Analytics in the file <code>dag-ctrl-api.yaml</code>, the file path is <code>dag-ctrl/etc/dag-ctrl-api.yaml</code>. If there are multiple machines, ensure that the usernames and ports are the same.</p>
+<div class="highlight"><pre><span></span><code># configuration name.
+Name: task-api
+
+Host: 0.0.0.0     # The IP address of Dag Controller.
+Port: 9002        # The port of Dag Controller.
+Timeout: 60000    # he timeout duration of HTTP interface requests.
+RPC_HDFS_PASSWORD: &quot;123456&quot;  # Reserved parameter.
+
+Log:              # The parameters related to log printing. For more Information, see https://go-zero.dev/cn/docs/blog/tool/logx/
+  Mode: file      # The log printing method
+  KeepDays: 7     # The maximum number of days to keep logs
+  Path: logs      # The output path of the log file
+  Level: info     # The log printing level
+  Compress: false  #  Whether the log needs to be compressed
+
+# The user name and SSH port of the NebulaGraph Analytics machine.
+SSH:
+ UserName: vesoft
+ Port: 22  
+
+# The parallel thread pool sizes of the tasks and jobs.
+JobPool:
+ Sleep: 3    # Check every 3 seconds for any outstanding jobs.
+ Size: 3    # Up to 3 jobs can be executed in parallel.
+TaskPool:
+ CheckStatusSleep: 1    # Check the task status every second.
+ Size: 10    # Up to 10 tasks can be executed in parallel.
+Dag:
+ VarDataListMaxSize: 100    # If HDFS columns are read, the number is limited to 100 at a time.
+
+# Other
+Debug:
+  Enable: false  #  Whether to enable Debugging.
+
+# The key for the Explorer to communicate with the Dag Controller. No modification is required.
+RsaPriKey: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIICXAIBAAKBgQDcR0keIMmmV...
+  -----END RSA PRIVATE KEY-----  
+RsaPubKey: |
+  -----BEGIN RSA PUBLIC KEY-----
+  MIGJAoGBANxHSR4gyaZX7uet7...
+  -----END RSA PUBLIC KEY-----
+</code></pre></div>
+</li>
+<li>
+<p>Configure the algorithm file path (<code>exec_file</code>) only in the file <code>tasks.yaml</code>, the file path of which is <code>dag-ctrl/etc/tasks.yaml</code>. Currently, all <code>exec_file</code> parameters are set to the path of the <code>run_algo.sh</code> file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The algorithm files are provided by NebulaGraph Analytics. Please find the <code>scripts</code> directory under the installation path of NebulaGraph Analytics above. All algorithm files are in this directory.  </li>
+<li>If there are multiple machines, ensure that the algorithm file paths are the same.</li>
+<li>The other parameters are the execution parameters of the algorithms and are configured later on the <a href="../../workflow/2.create-workflow/">visual workflow page</a>.</li>
+</ul>
+</div>
+<div class="highlight"><pre><span></span><code>exec_file: /home/xxx/nebula-analytics/scripts/run_algo.sh
+</code></pre></div>
+</li>
+</ol>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">&para;</a></h2>
 <p>When Explorer is started, use <code>http://&lt;ip_address&gt;:7002</code> to get access to Explorer.</p>
 <p>The following login page shows that Explorer is successfully connected to NebulaGraph.</p>
@@ -7632,7 +7814,7 @@ nohup ./nebula-explorer-server <span class="p">&amp;</span>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2022</span>
       
     
   </small>
