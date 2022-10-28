@@ -4,7 +4,8 @@ To batch import data into NebulaGraph, you must have a graph schema. You can cre
 
 !!! note
 
-    You can use nebula-console to create a schema. For more information, see [NebulaGraph Manual](../../README.md) and [Get started with NebulaGraph](../../2.quick-start/1.quick-start-workflow.md).
+    - Users can use nebula-console to create a schema. For more information, see [NebulaGraph Manual](../../README.md) and [Get started with NebulaGraph](../../2.quick-start/1.quick-start-workflow.md).
+    - Users can use the Schema drafting function to design schema visually. For more information, see [Schema drafting](draft.md).
 
 ## Prerequisites
 
