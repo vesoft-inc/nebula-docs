@@ -20,7 +20,7 @@ The authentication type is described as follows:
 
 !!! note
 
-    After a node is added, data is not automatically load balanced. You need to select the graph space on the [Overview Info](../cluster-information/overview-info.md) page to perform the `Balance Data` and `Balance Leader` operations.
+    After a node is added, data is not automatically imbalanced. You need to select the target graph space on the [Overview Info](../cluster-information/overview-info.md) page and then perform the `Balance Data` and `Balance Leader` operations.
 
 ## Other node operations
 
