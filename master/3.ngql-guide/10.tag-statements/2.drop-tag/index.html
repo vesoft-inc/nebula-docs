@@ -7227,12 +7227,16 @@
 <p><code>DROP TAG</code> drops a tag with the given name in the current working graph space.</p>
 <p>A vertex can have one or more tags.</p>
 <ul>
-<li>If a vertex has only one tag, the vertex will become a vertex without tag.</li>
+<li>If a vertex has only one tag, the vertex <strong>CANNOT</strong> be accessed after you drop it. The vertex will be dropped in the next compaction. But its edges are available, this operation will result in dangling edges.</li>
 </ul>
 <ul>
 <li>If a vertex has multiple tags, the vertex is still accessible after you drop one of them. But all the properties defined by this dropped tag <strong>CANNOT</strong> be accessed.</li>
 </ul>
 <p>This operation only deletes the Schema data. All the files or directories in the disk will not be deleted directly until the next compaction.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<p>In NebulaGraph 3.3.0, inserting vertex without tag is not supported by default. If you want to use the vertex without tags, add <code>--graph_use_vertex_key=true</code> to the configuration files (<code>nebula-graphd.conf</code>) of all Graph services in the cluster, and add <code>--use_vertex_key=true</code> to the configuration files (<code>nebula-storaged.conf</code>) of all Storage services in the cluster.</p>
+</div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Running the <code>DROP TAG</code> statement requires some <a href="../../../7.data-security/1.authentication/3.role-list/">privileges</a> for the graph space. Otherwise, NebulaGraph throws an error.</li>
@@ -7259,7 +7263,7 @@ nebula&gt; DROP TAG test;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>

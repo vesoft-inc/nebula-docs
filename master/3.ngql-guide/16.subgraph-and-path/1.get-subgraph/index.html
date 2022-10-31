@@ -2744,6 +2744,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -7210,6 +7217,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
   </a>
@@ -7268,6 +7282,7 @@
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>GET SUBGRAPH [WITH PROP] [&lt;step_count&gt; STEPS] FROM {&lt;vid&gt;, &lt;vid&gt;...}
 [{IN | OUT | BOTH} &lt;edge_type&gt;, &lt;edge_type&gt;...]
+[WHERE &lt;expression&gt; [AND &lt;expression&gt; ...]]
 YIELD {[VERTICES AS &lt;vertex_alias&gt;] [,EDGES AS &lt;edge_alias&gt;]};
 </code></pre></div>
 <ul>
@@ -7277,22 +7292,29 @@ YIELD {[VERTICES AS &lt;vertex_alias&gt;] [,EDGES AS &lt;edge_alias&gt;]};
 <li><code>step_count</code> specifies the number of hops from the source vertices and returns the subgraph from 0 to <code>step_count</code> hops. It must be a non-negative integer. Its default value is 1.</li>
 </ul>
 <ul>
-<li><code>vid</code> specifies the vertex IDs.</li>
+<li><code>vid</code> specifies the vertex IDs. </li>
 </ul>
 <ul>
 <li><code>edge_type</code> specifies the edge type. You can use <code>IN</code>, <code>OUT</code>, and <code>BOTH</code> to specify the traversal direction of the edge type. The default is <code>BOTH</code>.</li>
 </ul>
 <ul>
+<li><code>&lt;WHERE clause&gt;</code> specifies the filter conditions for the traversal, which can be used with the boolean operator <code>AND</code>.</li>
+</ul>
+<ul>
 <li><code>YIELD</code> defines the output that needs to be returned. You can return only vertices or edges. A column alias must be set.</li>
 </ul>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>The <code>GET SUBGRAPH</code> statement does not work with the <code>WHERE</code> clause.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The path type of <code>GET SUBGRAPH</code> is <code>trail</code>. Only vertices can be repeatedly visited in graph traversal. For more information, see <a href="../../../1.introduction/2.1.path/">Path</a>.</p>
 </div>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>While using the <code>WHERE</code> clause in a <code>GET SUBGRAPH</code> statement, note the following restrictions:</p>
+<ul>
+<li><strong>Only support</strong> the <code>AND</code> operator.</li>
+<li><strong>Only support</strong> filter destination vertex, the vertex format must be <code>$$.tagName.propName</code>.</li>
+<li><strong>Support</strong> math functions, aggregate functions, string functions, datetime functions, type conversion functions and general functions in list functions.</li>
+<li><strong>Not support</strong> aggregate functions, schema functions, conditional expression, predicate functions, geography function and user-defined functions.</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following graph is used as the sample.</p>
 <p><img alt="A sample graph for GET SUBGRAPH" src="https://docs-cdn.nebula-graph.com.cn/figures/subgraph_2022_8_3.png" /></p>
@@ -7379,7 +7401,7 @@ nebula&gt; GO 1 STEPS FROM &quot;A&quot; OVER follow YIELD src(edge),dst(edge);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>
