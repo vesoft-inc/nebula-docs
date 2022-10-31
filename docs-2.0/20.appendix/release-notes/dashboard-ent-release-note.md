@@ -1,38 +1,33 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
-## Enterprise Edition 3.1.2
-
-- Bugfix
-  - Fixed the startup problem of the `nebula-stats-exporter` service with the DEB or RPM package.
-
-## Enterprise Edition 3.1.1
-
-- Bugfix
-  - Fixed the upload verification problem of the license.
-
-## Enterprise Edition 3.1.0
+## Enterprise Edition 3.2.0
 
 - Feature
-  - Support [Upgrading the NebulaGraph version in a specified cluster](../../nebula-dashboard-ent/4.cluster-operator/operator/version-upgrade.md).
-  - Support [full backup and full restore](../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore.md) functions.
-  - Support [managing the installation packages](../../nebula-dashboard-ent/system-settings/manage-package.md).
-  - Support using [SQLite database](../../nebula-dashboard-ent/2.deploy-connect-dashboard-ent.md) when deploying the NebulaGraph Dashboard.
+
+  - Cluster security:
+    - Support [OAuth2.0 authentication](../..//nebula-dashboard-ent/5.account-management.md) in the single sign-on feature.
 
 - Enhancement
-  - Adapted for NebulaGraph 3.2.0.
-  - Monitoring
-    - Support configuring the monitoring time range globally.
-    - Support configuring the monitoring refresh frequency globally.
-    - Support monitoring all the disk usages in the cluster.
-    - Support displaying all the monitoring metrics of a specified dimension.
-  - Alert
-    - Support [muting the alert messages](../../nebula-dashboard-ent/4.cluster-operator/9.notification.md).
-  - Configuration
-    - Support modifying the service port in the file `config.yaml`.
-    - Support searching the configuration name on the `Update Config` page.
-  - Enhanced the system error message.
+
+  - monitoring:
+    - Added single process metrics of the service.
+    - Optimized the disk monitoring.
+    - Added some storage monitoring metrics.
+  - Alert:
+    - support configuring [composite conditions](../..//nebula-dashboard-ent/4.cluster-operator/9.notification.md). When both conditions are met, the alarm is triggered.
+    - Optimized the disk alert.
+  - Security:
+    - support [SSH key](../../nebula-dashboard-ent/4.cluster-operator/operator/node.md).
+  - usability:
+    - Adjusted the package structure. Make sure that the NebulaGraph clusters installed through the Dashboard are consistent with the package structure of the clusters deployed separately.
+    - Display the operating system information of each node.
+    - Support modifying the port of prometheus and alertmanager.
+    - Support searching for monitoring metrics and viewing metric details.
+    - Supports partitioning service run logs and setting log retention days.
 
 - Bugfix
-  - Fixed the bug that the load and traffic information was lost in the diagnostic report.
-  - Fixed the selection problem on the monitoring page.
-  - Fixed the bug that the system could not identify the `Alias` column in the CSV file containing Chinese characters when importing nodes in batches.
+
+  - Fixed the bug that the service page does not jump to the monitoring page when clicking the **View** button.
+  - Fixed the bug that the baseline cannot be set on the service monitoring page.
+  - Fixed the bug that the authorization failure when importing the cluster.
+  - Fixed the bug that the cluster diagnostic reporting language is not automatically switching according to the platform's global language.
