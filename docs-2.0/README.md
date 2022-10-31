@@ -10,6 +10,10 @@
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with GitHub commit [{{ git.short_commit }}](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}).
 
+!!! Compatibility
+
+    In the version of NebulaGraph 3.2, the vertex without tags is allowed. But since NebulaGraph 3.3.0, the vertex without tags is not supported by default.
+
 NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
 ## Getting started
