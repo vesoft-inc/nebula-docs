@@ -19,11 +19,12 @@ When you import NebulaGraph cluster data into NebulaGraph Analytics and export t
 
 The version correspondence between NebulaGraph Analytics and NebulaGraph is as follows.
 
-|NebulaGraph Analytics|NebulaGraph|
+|NebulaGraph |NebulaGraph Analytics |
 |:---|:---|
-|{{plato.release}}|{{nebula.release}}、3.1.0|
-|1.0.x|3.0.x|
-|0.9.0|2.6.x|
+|3.3.0      | 3.3.0 |
+|3.1.0 ~ 3.2.x| 3.2.0 |
+|3.0.x      | 1.0.x |
+|2.6.x      | 0.9.0 |
 
 ## Graph algorithms
 

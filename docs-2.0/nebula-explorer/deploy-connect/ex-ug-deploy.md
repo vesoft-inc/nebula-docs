@@ -2,21 +2,6 @@
 
 This topic describes how to deploy Explorer locally by RPM, DEB and tar packages.
 
-## NebulaGraph version
-
-!!! Note
-
-    Explorer is released separately, not synchronized with NebulaGraph. And the version naming of Explorer is different from that of NebulaGraph. The version correspondence between NebulaGraph and Explorer is as follows.
-
-| NebulaGraph version | Explorer version |
-| --- | --- |
-| 3.3.0 | 3.2.0|
-| 3.1.0 ~ 3.2.0| 3.1.0|
-| 3.0.0 ~ 3.1.0 | 3.0.0  |
-| 2.5.x ~ 3.0.0| 2.2.0|
-| 2.6.x | 2.1.0 |
-| 2.5.x | 2.0.0 |
-
 ## Precautions
 
 The Dag Controller installation package is built in Explorer starting from version 3.2.0, which provides graph computing services. The user can decide whether or not to start the Dag Controller service. If the Dag Controller service is not started, the **Workflow** menu in Explorer will appear gray and cannot be clicked.

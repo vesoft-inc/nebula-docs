@@ -6,14 +6,13 @@
 
 The correspondence between the NebulaGraph Algorithm release and the NebulaGraph core release is as follows.
 
-|NebulaGraph Algorithm|NebulaGraph|
+|NebulaGraph |NebulaGraph Algorithm |
 |:---|:---|
-|3.0-SNAPSHOT         |  nightly       |
-|{{algorithm.release}}|  {{nebula.release}}  |
-|  2.6.x              |  2.6.x  |
-|  2.5.0              |  2.5.0,2.5.1  |
-|  2.1.0              |  2.0.0,2.0.1  |
-
+|  nightly         |  3.0-SNAPSHOT |
+| 3.0.0 ~ 3.3.x      |  3.0.0        |
+| 2.6.x            |  2.6.x        | 
+| 2.5.0、2.5.1      |  2.5.0        | 
+| 2.0.0、2.0.1      |  2.1.0        |
 ## Prerequisites
 
 Before using the NebulaGraph Algorithm, users need to confirm the following information:

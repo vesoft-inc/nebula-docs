@@ -50,6 +50,19 @@ Exchange has the following advantages:
 
 - Easy to use: It adopts the Human-Optimized Config Object Notation (HOCON) configuration file format and has an object-oriented style, which is easy to understand and operate.
 
+## Version compatibility
+
+The correspondence between the NebulaGraph Exchange release (the JAR version) and the NebulaGraph core release is as follows.
+
+|NebulaGraph |Exchange client |
+|:---|:---|
+|nightly     |3.0-SNAPSHOT|
+|3.3.0       |3.3.0       |
+|3.0.0 ~ 3.2.x |3.0.0       |
+|2.6.x       |2.6.x       |
+|2.5.x       |2.5.x       |
+|2.0.0、2.0.1|2.1.0、2.0.1、2.0.0|
+
 ## Data source
 
 Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that NebulaGraph can recognize, and then importing them into NebulaGraph in the form of nGQL statements:
