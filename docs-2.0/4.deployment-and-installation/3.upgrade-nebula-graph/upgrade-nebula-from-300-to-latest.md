@@ -11,7 +11,7 @@ To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM
 
   !!! caution
 
-        If you want to use the vertex without tags, add `--graph_use_vertex_key=true` to the configuration files (`nebula-graphd.conf`) of all Graph services in the cluster; add `--use_vertex_key=true` to the configuration files (`nebula-storaged.conf`) of all Storage services in the cluster.
+        If you want to use the vertex without tags, add `--graph_use_vertex_key=true` to the configuration files (`nebula-graphd.conf`) of all Graph services in the cluster, add `--use_vertex_key=true` to the configuration files (`nebula-storaged.conf`) of all Storage services in the cluster.
 
 3. Execute the following command to upgrade:
 
