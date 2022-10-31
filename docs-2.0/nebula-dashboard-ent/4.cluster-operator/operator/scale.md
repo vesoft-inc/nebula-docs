@@ -18,6 +18,10 @@ On **Scale** page, you can **add node** and **import node in batches** quickly, 
 
 See [Node](node.md).
 
+!!! note
+
+    After a node is added, data is not automatically imbalanced. You need to select the target graph space on the [Overview Info](../cluster-information/overview-info.md) page and then perform the `Balance Data` and `Balance Leader` operations.
+
 ### Batch import of node
 
 Download and fill in the CSV template file, then upload the file and select the installation package. Click **OK** to import nodes in batches.
@@ -38,6 +42,8 @@ Download and fill in the CSV template file, then upload the file and select the 
     - Currently, you can dynamically scale Storaged and Graphd services through Dashboard. The Metad service cannot be scaled. When scaling a cluster, it is recommended to back up data in advance so that data can be rolled back when scaling fails. For more information, see [FAQ](../../../20.appendix/0.FAQ.md).
 
     - Make sure that services of the same type are not deployed on the same node, and that at least one of each type of service is deployed in the cluster.
+
+    - Before removing the storage service, you must migrate the data stored on the node. You need to perform the `Balance Data Remove` operation on the [Overview Info](../cluster-information/overview-info.md) page.
 
 In this example, storage services with nodes `192.168.8.143` and `192.168.8.167` are added, and Graph services with node `192.168.8.169` are deleted. If the box is dotted and the service name is greyed, it means the service is removed. If the box is solid, it means the service is newly added.
 
