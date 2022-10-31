@@ -47,6 +47,23 @@ Authentication is not enabled in NebulaGraph by default. Users can log into Stud
 
 When NebulaGraph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
 
+
+## Version compatibility
+
+!!! Note
+
+    The Studio version is released independently of the NebulaGraph core. The correspondence between the versions of Studio and the NebulaGraph core, as shown in the table below.
+
+| NebulaGraph version | Studio version |
+| --- | --- |
+| 3.0.0 ～ 3.2.0| 3.4.1、3.4.0|
+| 3.1.0 | 3.3.2 |
+| 3.0.0 | 3.2.x |
+| 2.6.x | 3.1.x |
+| 2.6.x | 3.1.x |
+| 2.0 & 2.0.1 | 2.x |
+| 1.x | 1.x|
+
 ## Check updates
 
 Studio is in development. Users can view the latest releases features through [Changelog](../../20.appendix/release-notes/studio-release-note.md).

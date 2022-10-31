@@ -2,22 +2,6 @@
 
 This topic introduces the limitations of Studio.
 
-## NebulaGraph versions
-
-!!! Note
-
-    The Studio version is released independently of the NebulaGraph core. The correspondence between the versions of Studio and the NebulaGraph core, as shown in the table below.
-
-| NebulaGraph version | Studio version |
-| --- | --- |
-| 1.x | 1.x|
-| 2.0 & 2.0.1 | 2.x |
-| 2.5.x | 3.0.0 |
-| 2.6.x | 3.1.x |
-| 3.0.0 | 3.2.x |
-| 3.1.0 | 3.3.2 |
-| 3.0.0 ～ 3.2.0| 3.4.1、3.4.0|
-
 ## Architecture
 
 For now, Studio v3.x supports x86_64 architecture only.

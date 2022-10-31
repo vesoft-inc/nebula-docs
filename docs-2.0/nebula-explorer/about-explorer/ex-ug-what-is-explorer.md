@@ -41,6 +41,23 @@ Authentication is not enabled in NebulaGraph by default. Users can log into Stud
 
 When NebulaGraph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
 
+
+## Version compatibility
+
+!!! Note
+
+    Explorer is released separately, not synchronized with NebulaGraph. And the version naming of Explorer is different from that of NebulaGraph. The version correspondence between NebulaGraph and Explorer is as follows.
+
+| NebulaGraph version | Explorer version |
+| --- | --- |
+| 3.3.0 | 3.2.0|
+| 3.1.0 ~ 3.2.0| 3.1.0|
+| 3.0.0 ~ 3.1.0 | 3.0.0  |
+| 2.5.x ~ 3.0.0| 2.2.0|
+| 2.6.x | 2.1.0 |
+| 2.5.x | 2.0.0 |
+
+
 ## Video
 
 - [NebulaGraph Explorer Intro Demo](https://www.youtube.com/watch?v=1Hj5puN9jeg)(5 minutes 22 seconds)
