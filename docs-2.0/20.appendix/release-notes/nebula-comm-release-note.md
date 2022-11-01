@@ -2,27 +2,27 @@
 
 ## Enhancement
 
-- Optimize the performance of k-hop. [#4560](https://github.com/vesoft-inc/nebula/pull/4560) [#4736](https://github.com/vesoft-inc/nebula/pull/4736)  [#4566](https://github.com/vesoft-inc/nebula/pull/4566) [#4582](https://github.com/vesoft-inc/nebula/pull/4582) [#4558](https://github.com/vesoft-inc/nebula/pull/4558) [#4556](https://github.com/vesoft-inc/nebula/pull/4556) [#4555](https://github.com/vesoft-inc/nebula/pull/4555) [#4516](https://github.com/vesoft-inc/nebula/pull/4516) [#4531](https://github.com/vesoft-inc/nebula/pull/4531) [#4522](https://github.com/vesoft-inc/nebula/pull/4522) [#4754](https://github.com/vesoft-inc/nebula/pull/4754) [#4762](https://github.com/vesoft-inc/nebula/pull/4762)
+- Optimized the performance of k-hop. [#4560](https://github.com/vesoft-inc/nebula/pull/4560) [#4736](https://github.com/vesoft-inc/nebula/pull/4736)  [#4566](https://github.com/vesoft-inc/nebula/pull/4566) [#4582](https://github.com/vesoft-inc/nebula/pull/4582) [#4558](https://github.com/vesoft-inc/nebula/pull/4558) [#4556](https://github.com/vesoft-inc/nebula/pull/4556) [#4555](https://github.com/vesoft-inc/nebula/pull/4555) [#4516](https://github.com/vesoft-inc/nebula/pull/4516) [#4531](https://github.com/vesoft-inc/nebula/pull/4531) [#4522](https://github.com/vesoft-inc/nebula/pull/4522) [#4754](https://github.com/vesoft-inc/nebula/pull/4754) [#4762](https://github.com/vesoft-inc/nebula/pull/4762)
 
-- Optimize `GO` statement join performance. [#4599](https://github.com/vesoft-inc/nebula/pull/4599) [#4750](https://github.com/vesoft-inc/nebula/pull/4750)
+- Optimized `GO` statement join performance. [#4599](https://github.com/vesoft-inc/nebula/pull/4599) [#4750](https://github.com/vesoft-inc/nebula/pull/4750)
 
-- Support using `GET SUBGRAPH` to filter vertices. [#4357](https://github.com/vesoft-inc/nebula/pull/4357)
+- Supported using `GET SUBGRAPH` to filter vertices. [#4357](https://github.com/vesoft-inc/nebula/pull/4357)
 
-- Support using `GetNeighbors` to filter vertices. [#4671](https://github.com/vesoft-inc/nebula/pull/4671)
+- Supported using `GetNeighbors` to filter vertices. [#4671](https://github.com/vesoft-inc/nebula/pull/4671)
 
-- Optimize the loop handling of `FIND SHORTEST PATH`. [#4672](https://github.com/vesoft-inc/nebula/pull/4672)
+- Optimized the loop handling of `FIND SHORTEST PATH`. [#4672](https://github.com/vesoft-inc/nebula/pull/4672)
 
-- Support the conversion between timestamp and date time. [#4626](https://github.com/vesoft-inc/nebula/pull/4526)
+- Supported the conversion between timestamp and date time. [#4626](https://github.com/vesoft-inc/nebula/pull/4526)
 
-- Support the reference of local variable in pattern expressions. [#4498](https://github.com/vesoft-inc/nebula/pull/4498)
+- Supported the reference of local variable in pattern expressions. [#4498](https://github.com/vesoft-inc/nebula/pull/4498)
 
-- Optimize the job manager. [#4446](https://github.com/vesoft-inc/nebula/pull/4446) [#4442](https://github.com/vesoft-inc/nebula/pull/4442) [#4444](https://github.com/vesoft-inc/nebula/pull/4444) [#4460](https://github.com/vesoft-inc/nebula/pull/4460) [#4500](https://github.com/vesoft-inc/nebula/pull/4500) [#4633](https://github.com/vesoft-inc/nebula/pull/4633) [#4654](https://github.com/vesoft-inc/nebula/pull/4654) [#4663](https://github.com/vesoft-inc/nebula/pull/4663) [#4722](https://github.com/vesoft-inc/nebula/pull/4722) [#4742](https://github.com/vesoft-inc/nebula/pull/4742)
+- Optimized the job manager. [#4446](https://github.com/vesoft-inc/nebula/pull/4446) [#4442](https://github.com/vesoft-inc/nebula/pull/4442) [#4444](https://github.com/vesoft-inc/nebula/pull/4444) [#4460](https://github.com/vesoft-inc/nebula/pull/4460) [#4500](https://github.com/vesoft-inc/nebula/pull/4500) [#4633](https://github.com/vesoft-inc/nebula/pull/4633) [#4654](https://github.com/vesoft-inc/nebula/pull/4654) [#4663](https://github.com/vesoft-inc/nebula/pull/4663) [#4722](https://github.com/vesoft-inc/nebula/pull/4722) [#4742](https://github.com/vesoft-inc/nebula/pull/4742)
 
-- Add flags of experimental features, `enable_toss` for `TOSS` and `enable_data_balance` for `BALANCE DATA`. [#4728](https://github.com/vesoft-inc/nebula/pull/4728)
+- Added flags of experimental features, `enable_toss` for `TOSS` and `enable_data_balance` for `BALANCE DATA`. [#4728](https://github.com/vesoft-inc/nebula/pull/4728)
 
 - Stats log print to console when the process is started. [#4550](https://github.com/vesoft-inc/nebula/pull/4550)
 
-- Support the `JSON_EXTRACT` function. [#4743](https://github.com/vesoft-inc/nebula/pull/4743)
+- Supported the `JSON_EXTRACT` function. [#4743](https://github.com/vesoft-inc/nebula/pull/4743)
 
 ## Bugfix
 
