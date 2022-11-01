@@ -93,6 +93,8 @@ Exchange {{exchange.release}} supports converting data from the following format
 
 - Publish/Subscribe messaging platform: [Apache Pulsar 2.4.5](../use-exchange/ex-ug-import-from-pulsar.md)
 
+- [JDBC](../use-exchange/ex-ug-import-from-jdbc.md)
+
 In addition to importing data as nGQL statements, Exchange supports generating SST files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
 
 In addition, Exchange Enterprise Edition also supports [exporting data to a CSV file](../use-exchange/ex-ug-export-from-nebula.md) using NebulaGraph as data sources.
