@@ -33,7 +33,7 @@ Explorer has these features:
 
 - [Data storage](../canvas-operations/canvas-snapshot.md): Data on a canvas can be stored and exported.
 
-- [Inline frame](../iframe.md): Explorer supports embedding the canvas in third-party pages.
+- [Inline frame](../iframe.md): Explorer supports embedding the canvas on third-party pages.
 
 ## Authentication
 
