@@ -1,6 +1,6 @@
 # NebulaGraph Dashboard Community Edition release notes
 
-## Community Edition 3..0
+## Community Edition 3.2.0
 
 - Added single process metrics of the service.
 - Optimized the disk monitoring.
