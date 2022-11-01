@@ -1,16 +1,9 @@
 # NebulaGraph Dashboard Community Edition release notes
 
-## Community Edition 3.1.0
+## Community Edition 3.2.0
 
-- Feature
-  - Support [deploying NebulaGraph Dashboard with Docker Compose](../../nebula-dashboard/2.deploy-dashboard.md).
-
-- Enhancement
-  - Adapted for NebulaGraph 3.2.0.
-  - Monitoring
-    - Support configuring the monitoring time range globally.
-    - Support configuring the monitoring refresh frequency globally.
-    - Support monitoring all the disk usages in the cluster.
-    - Support displaying all the monitoring metrics of a specified dimension.
-  - Configuration
-    - Support searching the configuration name on the `Update Config` page.
+- Added single-process metrics for each NebulaGraph service.
+- Optimized the disk monitoring feature.
+- Added some monitoring metrics for the Storage service.
+- Added the cluster information overview on the management page.
+- Supported searching for monitoring metrics and viewing metric details.
