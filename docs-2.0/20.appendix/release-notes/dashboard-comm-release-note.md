@@ -2,8 +2,8 @@
 
 ## Community Edition 3.2.0
 
-- Added single process metrics of the service.
-- Optimized the disk monitoring.
-- Added some storage monitoring metrics.
-- Added the cluster information overview to the management page.
-- Support searching for monitoring metrics and viewing metric details.
+- Added single-process metrics for each NebulaGraph service.
+- Optimized the disk monitoring feature.
+- Added some monitoring metrics for the Storage service.
+- Added the cluster information overview on the management page.
+- Supported searching for monitoring metrics and viewing metric details.
