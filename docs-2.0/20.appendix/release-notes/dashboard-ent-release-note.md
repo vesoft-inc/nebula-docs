@@ -9,16 +9,16 @@
 
 - Enhancement
 
-  - monitoring:
+  - Monitoring:
     - Added single process metrics of the service.
     - Optimized the disk monitoring.
     - Added some storage monitoring metrics.
   - Alert:
-    - support configuring [composite conditions](../..//nebula-dashboard-ent/4.cluster-operator/9.notification.md). When both conditions are met, the alarm is triggered.
+    - Support configuring [composite conditions](../..//nebula-dashboard-ent/4.cluster-operator/9.notification.md). When both conditions are met, the alarm is triggered.
     - Optimized the disk alert.
   - Security:
-    - support [SSH key](../../nebula-dashboard-ent/4.cluster-operator/operator/node.md).
-  - usability:
+    - Support [SSH key](../../nebula-dashboard-ent/4.cluster-operator/operator/node.md).
+  - Usability:
     - Adjusted the package structure. Make sure that the NebulaGraph clusters installed through the Dashboard are consistent with the package structure of the clusters deployed separately.
     - Display the operating system information of each node.
     - Support modifying the port of prometheus and alertmanager.
