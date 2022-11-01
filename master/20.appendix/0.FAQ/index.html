@@ -4859,20 +4859,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-dashboard-ent/4.cluster-operator/cluster-information/job-management/" class="md-nav__link">
-        Job management
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore/" class="md-nav__link">
         Backup and restore
       </a>
@@ -7305,13 +7291,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_scale_out_or_scale_in_enterprise_edition_only" class="md-nav__link">
-    "How to scale out or scale in? (Enterprise Edition only)"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -7748,13 +7727,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how_to_scale_out_or_scale_in_enterprise_edition_only" class="md-nav__link">
-    "How to scale out or scale in? (Enterprise Edition only)"
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -8075,36 +8047,31 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>Run <code>rpm -qa |grep nebula</code> to check the version of NebulaGraph.</p>
 </li>
 </ul>
-<!-- -->
-<h3 id="how_to_scale_out_or_scale_in_enterprise_edition_only">"How to scale out or scale in? (Enterprise Edition only)"<a class="headerlink" href="#how_to_scale_out_or_scale_in_enterprise_edition_only" title="Permanent link">&para;</a></h3>
-<ul>
-<li>You can scale Graph and Storage services with Dashboard Enterprise Edition. For details, see <a href="../../nebula-dashboard-ent/4.cluster-operator/operator/scale/">Scale</a>. </li>
-<li>You can also use NebulaGraph Operator to scale Graph and Storage services. For details, see <a href="../../nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Deploy NebulaGraph clusters with Kubectl</a> and <a href="../../nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm/">Deploy NebulaGraph clusters with Helm</a>.</li>
-</ul>
-<p>NebulaGraph 3.3.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:</p>
-<ol>
-<li>
-<p>Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can use the <a href="https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh">Meta transfer script tool</a> to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.</p>
-</div>
-</li>
-<li>
-<p>Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.</p>
-</li>
-<li>
-<p>Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.</p>
-</li>
-<li>
-<p>Scale in storaged: See <a href="../../8.service-tuning/load-balance/">Balance remove command</a>. After the command is finished, stop this storaged process.</p>
-</li>
-<li>
-<p>Scale out storaged: Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see <a href="../../2.quick-start/3.1add-storage-hosts/">Register storaged services</a>.</p>
-</li>
-</ol>
-<p>You also need to run <a href="../../8.service-tuning/load-balance/">Balance Data and Balance leader</a> after scaling in/out storaged.</p>
-<!-- -->
+<!--
+### "How to scale out or scale in? (Enterprise Edition only)"
+
+- You can scale Graph and Storage services with Dashboard Enterprise Edition. For details, see [Scale](../nebula-dashboard-ent/4.cluster-operator/operator/scale.md). 
+- You can also use NebulaGraph Operator to scale Graph and Storage services. For details, see [Deploy NebulaGraph clusters with Kubectl](../nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md) and [Deploy NebulaGraph clusters with Helm](../nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm.md).
+
+NebulaGraph 3.3.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:
+
+1. Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.
+
+  !!! note
+
+         You can use the [Meta transfer script tool](https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh) to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.
+
+2. Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.
+
+3. Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.
+
+4. Scale in storaged: See [Balance remove command](../8.service-tuning/load-balance.md). After the command is finished, stop this storaged process.
+
+5. Scale out storaged: Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see [Register storaged services](../2.quick-start/3.1add-storage-hosts.md).
+
+You also need to run [Balance Data and Balance leader](../8.service-tuning/load-balance.md) after scaling in/out storaged.
+
+-->
 
 <h3 id="after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do">"After changing the name of the host, the old one keeps displaying <code>OFFLINE</code>. What should I do?"<a class="headerlink" href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" title="Permanent link">&para;</a></h3>
 <p>Hosts with the status of <code>OFFLINE</code> will be automatically deleted after one day.</p>
