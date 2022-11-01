@@ -2,9 +2,10 @@
 
 NebulaGraph Analytics is a high-performance graph computing framework tool that performs graph analysis of data in the NebulaGraph database.
 
-!!! enterpriseonly
+## Prerequisites
 
-    To apply for the NebulaGraph Analytics installation package, send mail at `inquiry@vesoft.com`.
+- The NebulaGraph Analytics installation package has been obtained. Send mail to `inquiry@vesoft.com` to apply.
+- The [license](analytics-ent-license.md) is ready.
 
 ## Scenarios
 
@@ -56,11 +57,13 @@ NebulaGraph Analytics supports the following graph algorithms.
 
 ## Install NebulaGraph Analytics
 
-When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.
+1. When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.
 
-```bash
-sudo rpm -i nebula-analytics-{{plato.release}}-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
-```
+  ```bash
+  sudo rpm -i nebula-analytics-{{plato.release}}-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
+  ```
+
+2. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
 
 <!--
 ### Install NebulaGraph Analytics with the source code
