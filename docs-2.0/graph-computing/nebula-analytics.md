@@ -4,7 +4,7 @@ NebulaGraph Analytics is a high-performance graph computing framework tool that 
 
 ## Prerequisites
 
-- The NebulaGraph Analytics installation package has been obtained. Send mail to `inquiry@vesoft.com` to apply.
+- The NebulaGraph Analytics installation package has been obtained. [Contact us](https://www.nebula-graph.io/contact) to apply.
 - The [license](analytics-ent-license.md) is ready.
 
 ## Scenarios

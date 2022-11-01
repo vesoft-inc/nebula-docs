@@ -4,7 +4,7 @@ NebulaGraph Enterprise Edition requires the user to deploy a license file before
 
 !!! enterpriseonly
 
-    License is a software authorization certificate provided for users of the Enterprise Edition. Users of the Enterprise Edition can send email to `inquiry@vesoft.com` to apply for a license file.
+    License is a software authorization certificate provided for users of the Enterprise Edition. Users of the Enterprise Edition can [contact us](https://www.nebula-graph.io/contact) to apply for a license file.
 
 ## Precautions
 
@@ -12,7 +12,7 @@ NebulaGraph Enterprise Edition requires the user to deploy a license file before
 
 - Do not modify the license file, otherwise the license will become invalid.
 
-- If the license is about to expire, send email to `inquiry@vesoft.com` to apply for renewal.
+- If the license is about to expire, [contact us](https://www.nebula-graph.io/contact) to apply for renewal.
 
 - The transition period after the license expires is 14 days:
 
@@ -70,11 +70,11 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 
 ## Deploy the license
 
-1. Send email to `inquiry@vesoft.com` to apply for the NebulaGraph Enterprise Edition package.
+1. [Contact us](https://www.nebula-graph.io/contact) to apply for the NebulaGraph Enterprise Edition package.
 
 2. Install NebulaGraph Enterprise Edition. The installation method is the same as the Community Edition. See [Install NebulaGraph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
-3. Send email to `inquiry@vesoft.com` to apply for the license file `nebula.license`.
+3. [Contact us](https://www.nebula-graph.io/contact) to apply for the license file `nebula.license`.
 
 4. Upload the license file to all hosts that contain Meta services. The path is in the `share/resources/` of each Meta service installation directory.
 

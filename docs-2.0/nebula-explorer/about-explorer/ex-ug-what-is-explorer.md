@@ -4,7 +4,7 @@ NebulaGraph Explorer (Explorer in short) is a browser-based visualization tool. 
 
 !!! enterpriseonly
 
-    To apply for the NebulaGraph Explorer installation package, send mail at `inquiry@vesoft.com`. 
+    To apply for the NebulaGraph Explorer installation package, [contact us](https://www.nebula-graph.io/contact). 
 
 !!! Note
 

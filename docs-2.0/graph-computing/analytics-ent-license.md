@@ -8,7 +8,7 @@ A license is a software authorization certificate used to authorize the use of a
 
 - Do not modify the license file, otherwise the license will become invalid.
 
-- If the license is about to expire, send email to `inquiry@vesoft.com` to apply for renewal.
+- If the license is about to expire, [contact us](https://www.nebula-graph.io/contact) to apply for renewal.
 
 - The transition period after the license expires is 14 days:
 
@@ -21,7 +21,7 @@ A license is a software authorization certificate used to authorize the use of a
 
 ## Obtain a NebulaGraph Analytics license
 
-Send email to `inquiry@vesoft.com` to apply for a NebulaGraph Analytics license.
+[Contact us](https://www.nebula-graph.io/contact) to apply for a NebulaGraph Analytics license.
 
 !!! note
 
@@ -79,7 +79,7 @@ For how to use a NebulaGraph Analytics license, see [NebulaGraph Analytics](nebu
 
 Follow the steps below to renew your NebulaGraph Analytics license.
 
-1. Email us at `inquiry@vesoft.com` to apply for a new NebulaGraph Analytics license file `nebula.license`.
+1. [Contact us](https://www.nebula-graph.io/contact) to apply for a new NebulaGraph Analytics license file `nebula.license`.
 
 2. In the NebulaGraph Analytics installation directory, such as `/usr/local/nebula-analytics/scripts/`, replace the old license file with the new one. 
 

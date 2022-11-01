@@ -6,7 +6,7 @@ NebulaGraph Dashboard Enterprise Edition supports managing NebulaGraph installat
 
 - Only the admin user can manage the installation package.
 
-- Do not support downloading enterprise edition installation packages. For downloading Enterprise Edition packages, please send email to **inquiry@vesoft.com**.
+- Do not support downloading enterprise edition installation packages. For downloading Enterprise Edition packages, please [contact us](https://www.nebula-graph.io/contact).
 
 ## Entry
 

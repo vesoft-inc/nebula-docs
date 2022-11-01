@@ -37,7 +37,7 @@ Before deploying Explorer, you must check the following information:
 
   !!! enterpriseonly
 
-        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
+        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. [Contact us](https://www.nebula-graph.io/contact) to purchase. For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
@@ -110,7 +110,7 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
   !!! enterpriseonly
 
-        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. To purchase, contact our sales team via email (inquiry@vesoft.com). For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
+        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. [Contact us](https://www.nebula-graph.io/contact) to purchase. For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 
 2. Run `sudo dpkg -i <package_name>` to unpack the DEB package.
