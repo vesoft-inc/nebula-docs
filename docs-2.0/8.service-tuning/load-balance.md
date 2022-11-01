@@ -127,6 +127,8 @@ nebula> SHOW HOSTS;
 
     This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
+{{ ent.ent_end }}
+
 <!-- 下面是注释内容
 !!! danger
 
@@ -251,9 +253,6 @@ To remove the following storage servers.
   nebula> DROP HOSTS 192.168.10.104:9779,192.168.10.105:9779;
   ```
 -->
-
-{{ ent.ent_end }}
-
 ## Balance leader distribution
 
 To balance the raft leaders, run `BALANCE LEADER`.
