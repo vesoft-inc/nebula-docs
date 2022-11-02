@@ -5,7 +5,7 @@
 - Feature
 
   - Cluster security:
-    - Supported the single sign-on [OAuth2.0 authentication](../..//nebula-dashboard-ent/5.account-management.md) feature.
+    - (Beta) Supported the single sign-on [OAuth2.0 authentication](../..//nebula-dashboard-ent/5.account-management.md) feature.
 
 - Enhancement
 
