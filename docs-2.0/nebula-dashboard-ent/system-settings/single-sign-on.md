@@ -27,6 +27,10 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 
 ## OAuth2.0 configuration
 
+!!! caution
+
+    The feature is still in beta. It will continue to be optimized.
+
 ### Entry
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **System Settings**.

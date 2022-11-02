@@ -14,6 +14,10 @@ Before connecting to the NebulaGraph database, you need to confirm the following
 
 ## OAuth2.0 Configuration
 
+!!! caution
+
+    The feature is still in beta. It will continue to be optimized.
+
 !!! note
 
     If you want to connect directly to NebulaGraph, see **Procedure** below.
