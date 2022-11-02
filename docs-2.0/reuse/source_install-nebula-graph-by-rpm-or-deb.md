@@ -7,7 +7,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 {{ ent.ent_begin }}
 !!! enterpriseonly
 
-    For the Enterprise Edition, please send email to inquiry@vesoft.com.
+    For the Enterprise Edition, please [contact us](https://www.nebula-graph.io/contact).
 {{ ent.ent_end }}
 ## Prerequisites
 
