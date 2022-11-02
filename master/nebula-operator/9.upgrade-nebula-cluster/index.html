@@ -6381,6 +6381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../nebula-exchange/use-exchange/ex-ug-import-from-jdbc/" class="md-nav__link">
+        Import data from JDBC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../nebula-exchange/use-exchange/ex-ug-import-from-sst/" class="md-nav__link">
         Import data from SST files
       </a>
@@ -7295,11 +7309,17 @@
 </div>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Only for NebulaGraph clusters that have been created with NebulaGraph Operator.</li>
+<li>Only for upgrading the NebulaGraph clusters created with NebulaGraph Operator.</li>
 </ul>
 <ul>
 <li>Only support upgrading the NebulaGraph version from 3.0.0 to 3.3.x.</li>
 </ul>
+<!--
+
+- For upgrading NebulaGraph Enterprise Edition clusters, [contact us](https://www.nebula-graph.com.cn/contact).
+
+-->
+
 <h2 id="upgrade_a_nebulagraph_cluster_with_kubectl">Upgrade a NebulaGraph cluster with Kubectl<a class="headerlink" href="#upgrade_a_nebulagraph_cluster_with_kubectl" title="Permanent link">&para;</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <p>You have created a NebulaGraph cluster with Kubectl. For details, see <a href="../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Create a NebulaGraph cluster with Kubectl</a>.</p>
@@ -7342,7 +7362,7 @@
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
@@ -7358,12 +7378,12 @@
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
@@ -7375,16 +7395,18 @@
 <span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span><span class="w"></span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0 //Change the value from 3.0.0 to v3.3.0.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dataVolumeClaims</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gp2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">  </span><span class="nt">reference</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span><span class="w"></span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
@@ -7462,7 +7484,7 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
       
     
   </small>

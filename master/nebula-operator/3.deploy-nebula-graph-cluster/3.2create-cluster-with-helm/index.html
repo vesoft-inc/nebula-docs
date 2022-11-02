@@ -6381,6 +6381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../nebula-exchange/use-exchange/ex-ug-import-from-jdbc/" class="md-nav__link">
+        Import data from JDBC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../nebula-exchange/use-exchange/ex-ug-import-from-sst/" class="md-nav__link">
         Import data from SST files
       </a>
@@ -7257,7 +7271,17 @@
 <p>The 1.x version NebulaGraph Operator is not compatible with NebulaGraph of version below v3.x.</p>
 </div>
 <h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
-<p><a href="../../2.deploy-nebula-operator/">Install NebulaGraph Operator</a></p>
+<ul>
+<li><a href="../../2.deploy-nebula-operator/">Install NebulaGraph Operator</a></li>
+</ul>
+<!--
+- You have prepared the license file for NebulaGraph Enterprise Edition clusters.
+
+  !!! enterpriseonly
+
+        The license file is required only when creating a NebulaGraph Enterprise Edition cluster.
+-->
+
 <h2 id="create_clusters">Create clusters<a class="headerlink" href="#create_clusters" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -7274,13 +7298,33 @@
 <p>Set environment variables to your desired values.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula         <span class="c1"># The desired NebulaGraph cluster name.</span>
 <span class="nb">export</span> <span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula    <span class="c1"># The desired namespace where your NebulaGraph cluster locates.</span>
-<span class="nb">export</span> <span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>gp2             <span class="c1"># The desired StorageClass name in your NebulaGraph cluster.</span>
+<span class="nb">export</span> <span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>fast-disks             <span class="c1"># The desired StorageClass name in your NebulaGraph cluster.</span>
 </code></pre></div>
 </li>
 <li>
 <p>Create a namespace for your NebulaGraph cluster (If you have created one, skip this step).</p>
 <div class="highlight"><pre><span></span><code>kubectl create namespace <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
+<!--
+
+5. Configure the license for the Enterprise Edition cluster.
+
+  !!! enterpriseonly
+
+      - This step is required only for creating a NebulaGraph Grpah Enterprise Edition cluster.
+
+      - Ignore this step if you are creating a NebulaGraph Community Edition cluster.
+
+
+  <div class="highlight"><pre><span></span><code>kubectl create secret generic nebula-license --from-file<span class="o">=</span>nebula.license
+</code></pre></div>
+
+  To check the details of the license, run the following command:
+
+  <div class="highlight"><pre><span></span><code>kubectl get secrets nebula-license -o yaml
+</code></pre></div>
+  -->
+
 </li>
 <li>
 <p>Apply the variables to the Helm chart to create a NebulaGraph cluster.</p>
@@ -7289,6 +7333,14 @@
     --set <span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span> <span class="se">\</span>
     --set nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
+<!--
+
+  !!! enterpriseonly
+
+        You must add `--set nebula.metad.license.secretName=nebula-license` and `--set nebula.metad.license.licenseKey=nebula.license` when creating a NebulaGraph Enterprise Edition cluster. 
+
+  -->
+
 </li>
 <li>
 <p>Check the status of the NebulaGraph cluster you created.</p>
@@ -7341,8 +7393,8 @@ You can click on [nebula-cluster/values.yaml](https://github.com/vesoft-inc/nebu
 <div class="highlight"><pre><span></span><code>helm uninstall <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span> --namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 <p>Or use variable values to delete a NebulaGraph cluster with Helm:</p>
-<p>```bash
-helm uninstall nebula --namespace=nebula</p>
+<div class="highlight"><pre><span></span><code>helm uninstall nebula --namespace<span class="o">=</span>nebula
+</code></pre></div>
 <h2 id="whats_next">What's next<a class="headerlink" href="#whats_next" title="Permanent link">&para;</a></h2>
 <p><a href="../../4.connect-to-nebula-graph-service/">Connect to NebulaGraph Databases</a></p>
 <h2 id="configuration_parameters_of_the_nebula-cluster_helm_chart">Configuration parameters of the nebula-cluster Helm chart<a class="headerlink" href="#configuration_parameters_of_the_nebula-cluster_helm_chart" title="Permanent link">&para;</a></h2>
@@ -7481,6 +7533,11 @@ helm uninstall nebula --namespace=nebula</p>
 <td>The data disk capacity for the Metad service.</td>
 </tr>
 <tr>
+<td align="left"><code>nebula.metad.license</code></td>
+<td align="left"><code>{}</code></td>
+<td>The license configurations for creating a NebulaGraph Enterprise Edition cluster.</td>
+</tr>
+<tr>
 <td align="left"><code>nebula.metad.podLabels</code></td>
 <td align="left"><code>{}</code></td>
 <td>Labels for the Metad pod in a NebulaGraph cluster.</td>
@@ -7603,7 +7660,7 @@ helm uninstall nebula --namespace=nebula</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
       
     
   </small>
