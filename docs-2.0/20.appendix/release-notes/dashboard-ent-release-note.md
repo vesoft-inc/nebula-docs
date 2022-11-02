@@ -30,4 +30,3 @@
   - Fixed the bug that the service page did not jump to the monitoring page when clicking the **View** button.
   - Fixed the bug that the baseline could not be set on the service monitoring page.
   - Fixed the authorization failure when importing the cluster.
-  - Fixed the bug that the cluster diagnostic reporting language is not automatically switched when the platform's global language is changed.
