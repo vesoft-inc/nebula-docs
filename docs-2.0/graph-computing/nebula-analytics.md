@@ -5,7 +5,12 @@ NebulaGraph Analytics is a high-performance graph computing framework tool that 
 ## Prerequisites
 
 - The NebulaGraph Analytics installation package has been obtained. [Contact us](https://www.nebula-graph.io/contact) to apply.
+
 - The [license](analytics-ent-license.md) is ready.
+
+- The [HDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html) 2.2.x or later has been deployed.
+
+- The JDK 1.8 has been deployed.
 
 ## Scenarios
 
