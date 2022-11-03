@@ -62,13 +62,28 @@ NebulaGraph Analytics supports the following graph algorithms.
 
 ## Install NebulaGraph Analytics
 
-1. When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.
+1. Install the NebulaGraph Analytics.
 
-  ```bash
-  sudo rpm -i nebula-analytics-{{plato.release}}-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
+  ```
+  sudo rpm -ivh <analytics_package_name> --prefix <install_path>
+  sudo chown <user>:<user> -R <install path>
   ```
 
-2. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
+  For example:
+
+  ```
+  sudo rpm -ivh nebula-analytics-{{plato.release}}-centos.x86_64.rpm --prefix=/home/vesoft/nebula-analytics
+  sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics
+  ```
+
+2. Configure the correct Hadoop path and JDK path in the file `set_env.sh`, the file path is `nebula-analytics/scripts/set_env.sh`. If there are multiple machines, ensure that the paths are the same.
+
+  ```
+  export HADOOP_HOME=<hadoop_path>
+  export JAVA_HOME=<java_path>
+  ```
+
+3. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
 
 <!--
 ### Install NebulaGraph Analytics with the source code
