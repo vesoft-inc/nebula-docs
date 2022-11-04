@@ -4,11 +4,12 @@ NebulaGraph Explorer (Explorer in short) is a browser-based visualization tool. 
 
 !!! enterpriseonly
 
-    To apply for the NebulaGraph Explorer installation package, [contact us](https://www.nebula-graph.io/contact). 
+    - To purchase the NebulaGraph Explorer, [contact us](https://www.nebula-graph.io/contact). 
+    - New users can [apply for a 30-day trial](https://www.nebula-graph.io/visualization-tools-free-trial). You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
 
 !!! Note
 
-    You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
+    
 
 ## Scenarios
 
