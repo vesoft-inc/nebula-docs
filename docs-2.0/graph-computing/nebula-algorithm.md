@@ -252,7 +252,7 @@ The `lib` repository provides 10 common graph algorithms.
 
   !!! note
 
-        When `sink: nebula` is configured, it means that the algorithm results will be written back to the NebulaGraph cluster. The property names of the tag have implicit conventions. For details, see [README](https://github.com/vesoft-inc/nebula-algorithm).
+        When `sink: nebula` is configured, it means that the algorithm results will be written back to the NebulaGraph cluster. The property names of the tag have implicit conventions. For details, see **Supported algorithms** section of this topic.
 
 2. Submit the graph computing task.
 
