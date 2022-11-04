@@ -23,6 +23,7 @@
   - The help page provides introductory videos.
   - Workflow supports the configuration of resources on the page.
   - Added a white screen page for the crash.
+  - Optimize page loading speed.
 
 - Bugfix
   - Fixed the bug that the right-click menu would not collapse automatically.
