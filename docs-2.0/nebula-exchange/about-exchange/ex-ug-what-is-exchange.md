@@ -57,7 +57,7 @@ The correspondence between the NebulaGraph Exchange release (the JAR version) an
 |NebulaGraph |Exchange client |
 |:---|:---|
 |nightly     |3.0-SNAPSHOT|
-|3.3.0       |3.3.0       |
+|3.0.0 ~ 3.3.0 |3.3.0       |
 |3.0.0 ~ 3.2.x |3.0.0       |
 |2.6.x       |2.6.x       |
 |2.5.x       |2.5.x       |
