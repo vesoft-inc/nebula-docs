@@ -131,9 +131,6 @@ The `lib` repository provides 10 common graph algorithms.
 
 ### Submit the algorithm package directly
 
-!!! note
-    There are limitations to use sealed packages. For example, when sinking a repository into NebulaGraph, the property name of the tag created in the sunk graph space must match the preset name in the code. The first method is recommended if the user has development skills.
-
 1. Set the [Configuration file](https://github.com/vesoft-inc/nebula-algorithm/blob/{{algorithm.branch}}/nebula-algorithm/src/main/resources/application.conf).
 
   ```bash
@@ -252,6 +249,10 @@ The `lib` repository provides 10 common graph algorithms.
   }
   }
   ```
+
+  !!! note
+
+        When `sink: nebula` is configured, it means that the algorithm results will be written back to the NebulaGraph cluster. The property names of the tag have implicit conventions. For details, see [README](https://github.com/vesoft-inc/nebula-algorithm).
 
 2. Submit the graph computing task.
 
