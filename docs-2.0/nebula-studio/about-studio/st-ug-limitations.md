@@ -36,9 +36,9 @@ For Studio on Cloud, besides the preceding syntax, you cannot run these account 
 - `DROP USER`
 - `GRANT ROLE`
 - `REVOKE ROLE`  
--->
 
-For more information about the preceding statements, see[User management](../../7.data-security/1.authentication/2.management-user.md)
+For more information about the preceding statements, see [User management](../../7.data-security/1.authentication/2.management-user.md).
+-->
 
 ## Browser
 
