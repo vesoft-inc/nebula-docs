@@ -7320,13 +7320,15 @@ spec:
         requests:
           storage: 2Gi
       storageClassName: fast-disks
-    dataVolumeClaims:
+    dataVolumeClaims:  // You can mount multiple disks starting from NebulaGraph Operator 1.3.0.
     - resources:
         requests:
           storage: 2Gi
+      storageClassName: fast-disks
     - resources:
         requests:
           storage: 2Gi
+      storageClassName: fast-disks
     enableAutoBalance: true
   reference:
     name: statefulsets.apps
@@ -7406,7 +7408,8 @@ spec:
   | `spec.storaged.replicas`     | `3`                                                          | The numeric value of replicas of the Storaged service.       |
   | `spec.storaged.images`       | `vesoft/nebula-storaged`                                     | The container image of the Storaged service.     |
   | `spec.storaged.version`      | `v3.3.0`                                          | The version of the Storaged service.       |
-  | `spec.storaged.dataVolumeClaims.resources.requests.storage` | - | Data disk storage size for the Storaged service. You can specify multiple data disks to store data. |
+  | `spec.storaged.dataVolumeClaims.resources.requests.storage` | - | Data disk storage size for the Storaged service. You can specify multiple data disks to store data. When multiple disks are specified, the storage path is `/usr/local/nebula/data1`, `/usr/local/nebula/data2`, etc.|
+  | `spec.storaged.dataVolumeClaims.resources.storageClassName` | - | The data disk storage configurations for Storaged. If not specified, the global storage parameter is applied. |
   | `spec.storaged.logVolumeClaim.storageClassName`|-                                           | The log disk storage configurations for the Storaged service.|
   | `spec.storaged.enableAutoBalance` | `true` |Whether to balance data automatically. |
   | `spec.reference.name`        | -                                                            | The name of the dependent controller.           |
@@ -7487,9 +7490,11 @@ The following shows how to scale out a NebulaGraph cluster by changing the numbe
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span><span class="w"></span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
@@ -7547,7 +7552,7 @@ The principle of scaling in a cluster is the same as scaling out a cluster. You 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2022</span>
       
     
   </small>
