@@ -10,7 +10,6 @@
 - Optimized the method to get properties for better performance of `MATCH` statements. [#3750](https://github.com/vesoft-inc/nebula/pull/3750) 
 - Optimized `GO` and `YIELD` clauses to avoid extracting redundant properties. [#3974](https://github.com/vesoft-inc/nebula/pull/3974) 
 - Support for filter and limit pushdown when getting properties. [3844](https://github.com/vesoft-inc/nebula/pull/3844) [3839](https://github.com/vesoft-inc/nebula/pull/3839) 
-- Support for aggregation pushdown in `LOOKUP` statements. [#3504](https://github.com/vesoft-inc/nebula/pull/3504) 
 - `maxHop` is optional in MATCH variable-length paths.[#3881](https://github.com/vesoft-inc/nebula/pull/3881) 
 - Graph spaces are physically deleted after using `DROP SPACE`. [#3913](https://github.com/vesoft-inc/nebula/pull/3913) 
 - Optimized number parsing in date time, date, time. [#3797](https://github.com/vesoft-inc/nebula/pull/3797) 
