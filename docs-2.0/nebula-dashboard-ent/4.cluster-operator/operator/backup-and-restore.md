@@ -28,7 +28,7 @@ To prevent data loss due to operational errors or system failures, NebulaGraph o
 
 1. In the top navigation bar, click **Cluster Management**.
 2. On the right side of the target cluster, click **Detail**. 
-3. In the left navigation bar, click **Information**->**Backup&Restore**.
+3. In the left navigation bar, click **Operation**->**Backup&Restore**.
    
 ### Back up data
 
