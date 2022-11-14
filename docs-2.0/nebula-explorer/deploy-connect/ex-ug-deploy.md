@@ -238,12 +238,11 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
 
   In the same way, complete the SSH password-free configurations so that the user in the machine A can log directly into the machine B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
 
-2. Add the following to the file `~/.bash_profile` and run the command `source ~/.bash_profile` to make it effective.
+2. Run `eval $(ssh-agent)` on the Dag Controller machine to start the ssh-agent, then run `ssh-add ~/.ssh/id_rsa` to give the private key to the ssh-agent to manage.
 
-  ```
-  eval $(ssh-agent)
-  ssh-add ~/.ssh/id_rsa
-  ```
+  !!! note
+
+        ssh-agent is a key manager that manages multiple keys and provides proxies for other programs that need to use SSH key pairs.
 
 3. Configure the username and port of the NebulaGraph Analytics in the file `dag-ctrl-api.yaml`, the file path is `dag-ctrl/etc/dag-ctrl-api.yaml`. If there are multiple machines, ensure that the usernames and ports are the same.
 
