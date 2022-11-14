@@ -144,9 +144,9 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
   ```bash
    cd nebula-explorer
    # Start Explorer.
-   sudo ./lib/start.sh
+   sudo ./scripts/start.sh
    # (Optional) Start Dag Controller.
-   sudo ./dag-ctrl/lib/start.sh
+   sudo ./dag-ctrl/scripts/start.sh
    ```
 
 ### View the status
