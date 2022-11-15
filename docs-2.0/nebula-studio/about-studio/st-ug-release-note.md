@@ -1,5 +1,10 @@
 # Change Log
 
+## v3.2.5(2022.11.15)
+
+- Fix:
+  - Fix the readme content.
+
 ## v3.2.4(2022.11.14)
 
 - Fix:
