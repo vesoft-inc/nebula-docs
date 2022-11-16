@@ -1262,13 +1262,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#aggregating_example" class="md-nav__link">
-    Aggregating example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#std" class="md-nav__link">
     std()
   </a>
@@ -1278,6 +1271,13 @@
         <li class="md-nav__item">
   <a href="#sum" class="md-nav__link">
     sum()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregating_example" class="md-nav__link">
+    Aggregating example
   </a>
   
 </li>
@@ -7240,13 +7240,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#aggregating_example" class="md-nav__link">
-    Aggregating example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#std" class="md-nav__link">
     std()
   </a>
@@ -7256,6 +7249,13 @@
         <li class="md-nav__item">
   <a href="#sum" class="md-nav__link">
     sum()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregating_example" class="md-nav__link">
+    Aggregating example
   </a>
   
 </li>
@@ -7510,19 +7510,30 @@ nebula&gt; MATCH (n:player) \
 | 25  | [&quot;Joel Embiid&quot;, &quot;Kyle Anderson&quot;]                                         |
 +-----+--------------------------------------------------------------------------+
 ...
-</code></pre></div>
-<h2 id="aggregating_example">Aggregating example<a class="headerlink" href="#aggregating_example" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt;  GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS dst, properties($$).age AS age \
-         | GROUP BY $-.dst \
-         YIELD \
-         $-.dst AS dst, \
-         toInteger((sum($-.age)/count($-.age)))+avg(distinct $-.age+1)+1 AS statistics;
-+-------------+------------+
-| dst         | statistics |
-+-------------+------------+
-| &quot;player125&quot; | 84.0       |
-| &quot;player101&quot; | 74.0       |
-+-------------+------------+
+
+nebula&gt; GO FROM &quot;player100&quot; OVER serve \
+        YIELD properties($$).name AS name \
+        | GROUP BY $-.name \
+        YIELD collect($-.name) AS name;
++-----------+
+| name      |
++-----------+
+| [&quot;Spurs&quot;] |
++-----------+
+
+nebula&gt; LOOKUP ON player \
+        YIELD player.age As playerage \
+        | GROUP BY $-.playerage \
+        YIELD collect($-.playerage) AS playerage;
++------------------+
+| playerage        |
++------------------+
+| [22]             |
+| [47]             |
+| [43]             |
+| [25, 25]         |
++------------------+
+...
 </code></pre></div>
 <h2 id="std">std()<a class="headerlink" href="#std" title="Permanent link">&para;</a></h2>
 <p>std() returns the population standard deviation.</p>
@@ -7552,13 +7563,26 @@ nebula&gt; MATCH (n:player) \
 | 1698              |
 +-------------------+
 </code></pre></div>
+<h2 id="aggregating_example">Aggregating example<a class="headerlink" href="#aggregating_example" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>nebula&gt;  GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS dst, properties($$).age AS age \
+         | GROUP BY $-.dst \
+         YIELD \
+         $-.dst AS dst, \
+         toInteger((sum($-.age)/count($-.age)))+avg(distinct $-.age+1)+1 AS statistics;
++-------------+------------+
+| dst         | statistics |
++-------------+------------+
+| &quot;player125&quot; | 84.0       |
+| &quot;player101&quot; | 74.0       |
++-------------+------------+
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2022</span>
       
     
   </small>
