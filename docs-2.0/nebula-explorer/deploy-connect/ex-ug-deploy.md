@@ -29,6 +29,12 @@ Before deploying Explorer, you must check the following information:
 
         License is only available in the Enterprise Edition. To obtain the license, apply for [NebulaGraph Explorer Free Trial](https://nebula-graph.io/visualization-tools-free-trial).
 
+- The HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
+
+  !!! caution
+
+       If the HDFS port is unavailable, the connection timeout message may be displayed.
+
 ## RPM-based deployment
 
 ### Installation
