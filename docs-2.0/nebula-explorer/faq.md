@@ -68,6 +68,19 @@ Check according to the following procedure:
 
 3. Restart the Dag Controller for the settings to take effect.
 
+## How to resolve the error  `no available namenodes: dial tcp xx.xx.xx.xx:8020: connect: connection timed out`?
+
+Check whether the HDFS namenode port 8020 is open.
+
+## How to resolve the error  `org.apache.hadoop.net.ConnectTimeoutException: 60000 millis timeout`?
+
+Check whether the HDFS datanode port 50010 is open.
+
+If the port is not opened, an error similar to the following may be reported:
+
+- `Check failed: false close hdfs-file failed`
+- `org.apache.hadoop.ipc.RemoteException(java.io.IOException): File /analytics/xx/tasks/analytics_xxx/xxx.csv could only be replicated to 0 nodes instead of minReplication`
+
 ## How to resolve the error `broadcast.hpp:193] Check failed: (size_t)recv_bytes >= sizeof(chunk_tail_t) recv message too small: 0`?
 
 The amount of data to be processed is too small, but the number of compute nodes and processes is too large. Smaller `clusterSize` and `processes` need to be set when submitting jobs.
