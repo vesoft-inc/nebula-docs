@@ -1,5 +1,9 @@
 # OPTIONAL MATCH
 
+!!! caution
+
+    The feature is still in beta. It will continue to be optimized.
+
 The `OPTIONAL MATCH` clause is used to search for the pattern described in it. `OPTIONAL MATCH` matches patterns against your graph database, just like `MATCH` does. The difference is that if no matches are found, `OPTIONAL MATCH` will use a null for missing parts of the pattern.
 
 ## OpenCypher Compatibility
