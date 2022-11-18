@@ -61,6 +61,8 @@ The following is an example of VIDs `Kings` and `Suns`, step number `2`, and inc
 
 You can select the created nGQL template, and set the parameter value.
 
+![query_template](https://docs-cdn.nebula-graph.com.cn/figures/query_template_221118_en.png)
+
 - When the returned result is vertices, they will be displayed on the canvas.
 - When the returned result is not vertices, they will be displayed in table format. For example, return player name, age, etc.
 

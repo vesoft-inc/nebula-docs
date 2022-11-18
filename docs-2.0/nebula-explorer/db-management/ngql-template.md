@@ -40,4 +40,6 @@ At the top navigation bar, click ![Template](https://docs-cdn.nebula-graph.com.c
 
 ## Use template
 
-In addition to clicking ![console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) on the template list page to automatically jump to the console and enter the template, templates can also be used on the graph exploration page. For details, see [Start querying](../graph-explorer/ex-ug-query-exploration.md).
+- (Recommended) Use templates on the graph exploration page. For details, see [Start querying](../graph-explorer/ex-ug-query-exploration.md).
+
+- Click ![console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) on the template list page to automatically jump to the console and enter the template. You need to modify the parameterized text.
