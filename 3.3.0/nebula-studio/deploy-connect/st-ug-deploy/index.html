@@ -4327,6 +4327,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#helm-based_studio" class="md-nav__link">
+    Helm-based Studio
+  </a>
+  
+    <nav class="md-nav" aria-label="Helm-based Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_4" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_2" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstall_2" class="md-nav__link">
+    Uninstall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next_to_do" class="md-nav__link">
     Next to do
   </a>
@@ -4337,20 +4371,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../st-ug-deploy-by-helm/" class="md-nav__link">
-        Deploy Studio with Helm
-      </a>
     </li>
   
 
@@ -7428,6 +7448,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#helm-based_studio" class="md-nav__link">
+    Helm-based Studio
+  </a>
+  
+    <nav class="md-nav" aria-label="Helm-based Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites_4" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_2" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstall_2" class="md-nav__link">
+    Uninstall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next_to_do" class="md-nav__link">
     Next to do
   </a>
@@ -7775,6 +7829,111 @@ $ ./server
 <p><img alt="The Config Server page shows that Docker-based Studio is started successfully" src="https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png" title="Docker-based Studio is started" /></p>
 </li>
 </ol>
+<h2 id="helm-based_studio">Helm-based Studio<a class="headerlink" href="#helm-based_studio" title="Permanent link">&para;</a></h2>
+<p>This section describes how to deploy Studio with Helm.</p>
+<h3 id="prerequisites_4">Prerequisites<a class="headerlink" href="#prerequisites_4" title="Permanent link">&para;</a></h3>
+<p>Before installing Studio, you need to install the following software and ensure the correct version of the software:</p>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://kubernetes.io">Kubernetes</a></td>
+<td>>= 1.14</td>
+</tr>
+<tr>
+<td><a href="https://helm.sh">Helm</a></td>
+<td>>= 3.2.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install_2">Install<a class="headerlink" href="#install_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Use Git to clone the source code of Studio to the host.</p>
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/vesoft-inc/nebula-studio.git
+</code></pre></div>
+</li>
+<li>
+<p>Make the <code>nebula-studio</code> directory the current working directory.</p>
+<p><code>bash
+  $ cd nebula-studio</code></p>
+</li>
+<li>
+<p>Assume using release name:<code>my-studio</code>, installed Studio in Helm Chart.</p>
+<div class="highlight"><pre><span></span><code>$ helm upgrade --install my-studio --set service.type<span class="o">=</span>NodePort --set service.port<span class="o">=</span>30070deployment/helm
+</code></pre></div>
+<p>The configuration parameters of the Helm Chart are described below.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replicaCount</td>
+<td>0</td>
+<td>The number of replicas for Deployment.</td>
+</tr>
+<tr>
+<td>image.nebulaStudio.name</td>
+<td>vesoft/nebula-graph-studio</td>
+<td>The image name of   nebula-graph-studio.</td>
+</tr>
+<tr>
+<td>image.nebulaStudio.version</td>
+<td>v3.2.0</td>
+<td>The image version of nebula-graph-studio.</td>
+</tr>
+<tr>
+<td>service.type</td>
+<td>ClusterIP</td>
+<td>The service type, which should be one of <code>NodePort</code>, <code>ClusterIP</code>,   and <code>LoadBalancer</code>.</td>
+</tr>
+<tr>
+<td>service.port</td>
+<td>7001</td>
+<td>The expose port for nebula-graph-studio's web.</td>
+</tr>
+<tr>
+<td>service.nodePort</td>
+<td>32701</td>
+<td>The proxy port for accessing nebula-studio outside kubernetes   cluster.</td>
+</tr>
+<tr>
+<td>resources.nebulaStudio</td>
+<td>{}</td>
+<td>The resource limits/requests for nebula-studio.</td>
+</tr>
+<tr>
+<td>persistent.storageClassName</td>
+<td>""</td>
+<td>The name of storageClass. The default value will be used   if not specified.</td>
+</tr>
+<tr>
+<td>persistent.size</td>
+<td>5Gi</td>
+<td>The persistent volume size.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>When Studio is started, use <code>http://&lt;node_address&gt;:30070/</code> to get access to Studio.</p>
+<p>If you can see the <strong>Config Server</strong> page on the browser, Studio is started successfully.</p>
+<p><img alt="The Config Server page shows that Studio is started successfully" src="https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png" title="Studio is started" /></p>
+</li>
+</ol>
+<h3 id="uninstall_2">Uninstall<a class="headerlink" href="#uninstall_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code> $ helm uninstall my-studio
+</code></pre></div>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">&para;</a></h2>
 <p>On the <strong>Config Server</strong> page, connect Docker-based Studio to NebulaGraph. For more information, see <a href="../st-ug-connect/">Connect to NebulaGraph</a>.</p>
 
@@ -7783,7 +7942,7 @@ $ ./server
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
       
     
   </small>
@@ -7833,13 +7992,13 @@ $ ./server
       
       
         
-        <a href="../st-ug-deploy-by-helm/" class="md-footer__link md-footer__link--next" aria-label="Next: Deploy Studio with Helm" rel="next">
+        <a href="../st-ug-connect/" class="md-footer__link md-footer__link--next" aria-label="Next: Connect to NebulaGraph" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Deploy Studio with Helm
+              Connect to NebulaGraph
             </div>
           </div>
           <div class="md-footer__button md-icon">
