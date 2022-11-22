@@ -1795,8 +1795,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#group_and_calculate_with_functions" class="md-nav__link">
-    Group and calculate with functions
+  <a href="#implicit_group_by" class="md-nav__link">
+    Implicit GROUP BY
   </a>
   
 </li>
@@ -7006,8 +7006,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#group_and_calculate_with_functions" class="md-nav__link">
-    Group and calculate with functions
+  <a href="#implicit_group_by" class="md-nav__link">
+    Implicit GROUP BY
   </a>
   
 </li>
@@ -7076,7 +7076,6 @@
 | &quot;Aron Baynes&quot;       | 1          |
 +---------------------+------------+
 </code></pre></div>
-<h2 id="group_and_calculate_with_functions">Group and calculate with functions<a class="headerlink" href="#group_and_calculate_with_functions" title="Permanent link">&para;</a></h2>
 <p>The following statement finds all the vertices connected directly to vertex <code>"player100"</code>, groups the result set by source vertices, and returns the sum of degree values.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
         YIELD src(edge) AS player, properties(edge).degree AS degree \
@@ -7089,6 +7088,23 @@
 +----------------+
 </code></pre></div>
 <p>For more information about the <code>sum()</code> function, see <a href="../../6.functions-and-expressions/1.math/">Built-in math functions</a>.</p>
+<h2 id="implicit_group_by">Implicit GROUP BY<a class="headerlink" href="#implicit_group_by" title="Permanent link">&para;</a></h2>
+<p>The usage of <code>GROUP BY</code> in the above nGQL statements that explicitly write <code>GROUP BY</code> and act as grouping fields is called explicit <code>GROUP BY</code>, while in openCypher, the <code>GROUP BY</code> is implicit, i.e., <code>GROUP BY</code> groups fields without explicitly writing <code>GROUP BY</code>. The explicit <code>GROUP BY</code> in nGQL is the same as the implicit <code>GROUP BY</code> in openCypher, and nGQL also supports the implicit <code>GROUP BY</code>. For the implicit usage of <code>GROUP BY</code>, see <a href="https://stackoverflow.com/questions/52722671/how-to-make-group-by-in-a-cypher-query">how-to-make-group-by-in-a-cypher-query</a>.</p>
+<p>For example, to look up the players over 34 years old with the same length of service, you can use the following statement:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.age &gt; 34 YIELD id(vertex) AS v | \
+        GO FROM $-.v OVER serve YIELD serve.start_year AS start_year, serve.end_year AS end_year | \
+        YIELD $-.start_year, $-.end_year, count(*) AS count | \
+        ORDER BY $-.count DESC | LIMIT 5;
++---------------+-------------+-------+
+| $-.start_year | $-.end_year | count |
++---------------+-------------+-------+
+| 2018          | 2019        | 3     |
+| 1998          | 2004        | 2     |
+| 2012          | 2013        | 2     |
+| 2007          | 2012        | 2     |
+| 2010          | 2011        | 2     |
++---------------+-------------+-------+ 
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
