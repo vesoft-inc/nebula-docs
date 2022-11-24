@@ -1,5 +1,25 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition v3.2.2
+
+- Enhancement
+
+  - Delete unnecessary public folders.
+
+- Bugfix
+
+  - Fixed the bug that the RPM and DEB packages could not automatically register services with the Dashboard.
+
+## Enterprise Edition v3.2.1
+
+- Enhancement
+
+  - Add NebulaGraph 3.3.0 version to download list.
+
+- Bugfix
+
+  - Fixed the bug that the BR failed in NebulaGraph Community 3.3.0 version.
+
 ## Enterprise Edition 3.2.0
 
 - Feature
