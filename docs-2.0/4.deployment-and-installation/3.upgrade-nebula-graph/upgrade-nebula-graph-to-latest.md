@@ -161,6 +161,11 @@ All NebulaGraph clients in use must be switched to the old version.
 
 A: No. You must stop all NebulaGraph services during the upgrade.
 
+
+### The `Space 0 not found` warning message during the upgrade process
+
+When the `Space 0 not found` warning message appears during the upgrade process, you can ignore it. The space `0` is used to store meta information about the Storage service and does not contain user data, so it will not affect the upgrade.
+
 ### How to upgrade if a machine has only the Graph Service, but not the Storage Service?
 
 A: You only need to update the configuration files and binaries of the Graph Service.
