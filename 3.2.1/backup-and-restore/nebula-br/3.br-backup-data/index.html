@@ -3553,7 +3553,7 @@
   
     <li class="md-nav__item">
       <a href="../2.compile-br/" class="md-nav__link">
-        Compile BR
+        Install BR
       </a>
     </li>
   
@@ -6751,17 +6751,14 @@
 
 
 <h1 id="use_br_to_back_up_data">Use BR to back up data<a class="headerlink" href="#use_br_to_back_up_data" title="Permanent link">&para;</a></h1>
-<p>After the BR is compiled, you can back up data of the entire graph space. This topic introduces how to use the BR to back up data.</p>
+<p>After the BR is installed, you can back up data of the entire graph space. This topic introduces how to use the BR to back up data.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To back up data with the BR, do a check of these:</p>
 <ul>
-<li>The BR is compiled. For more information, see <a href="../2.compile-br/">Compile BR</a>.</li>
+<li><a href="../2.compile-br/">Install BR and Agent</a> and run Agent on each host in the cluster.</li>
 </ul>
 <ul>
 <li>The NebulaGraph services are running.</li>
-</ul>
-<ul>
-<li>The <a href="https://github.com/vesoft-inc/nebula-agent">nebula-agent</a> has been downloaded and the nebula-agent service is running on each host in the cluster.</li>
 </ul>
 <ul>
 <li>
@@ -6773,17 +6770,17 @@
 </li>
 </ul>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
-<p>Run the following command to perform a full backup for the entire cluster.</p>
+<p>In the BR installation directory (the default path of the compiled BR is <code>./bin/br</code>), run the following command to perform a full backup for the entire cluster.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Make sure that the local path where the backup file is stored exists.</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt;
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt;
 </code></pre></div>
 <p>For example: </p>
 <ul>
 <li>
-<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>127.0.0.1:9559</code>, and save the backup file to <code>/home/nebula/backup/</code>.</p>
+<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>192.168.8.129:9559</code>, and save the backup file to <code>/home/nebula/backup/</code>.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>If there are multiple metad addresses, you can use any one of them.</p>
@@ -6792,14 +6789,14 @@
 <p class="admonition-title">Caution</p>
 <p>If you back up data to a local disk, only the data of the leader metad is backed up by default. So if there are multiple metad processes, you need to manually copy the directory of the leader metad (path <code>&lt;storage_path&gt;/meta</code>) and overwrite the corresponding directory of other follower meatd processes.</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta <span class="s2">&quot;127.0.0.1:9559&quot;</span> --storage <span class="s2">&quot;local:///home/nebula/backup/&quot;</span>
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta <span class="s2">&quot;192.168.8.129:9559&quot;</span> --storage <span class="s2">&quot;local:///home/nebula/backup/&quot;</span>
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
-<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>127.0.0.1:9559</code>, and save the backup file to <code>backup</code> in the <code>br-test</code> bucket of the object storage service compatible with S3 protocol.</p>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta <span class="s2">&quot;127.0.0.1:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://127.0.0.1:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
+<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>192.168.8.129:9559</code>, and save the backup file to <code>backup</code> in the <code>br-test</code> bucket of the object storage service compatible with S3 protocol.</p>
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta <span class="s2">&quot;192.168.8.129:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://192.168.8.129:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
 </code></pre></div>
 </li>
 </ul>
@@ -6823,32 +6820,32 @@
 <td>Checks help for restoration.</td>
 </tr>
 <tr>
-<td><code>-debug</code></td>
+<td><code>--debug</code></td>
 <td>-</td>
 <td>No</td>
 <td>None</td>
 <td>Checks for more log information.</td>
 </tr>
 <tr>
-<td><code>-log</code></td>
+<td><code>--log</code></td>
 <td>string</td>
 <td>No</td>
 <td><code>"br.log"</code></td>
 <td>Specifies detailed log path for restoration and backup.</td>
 </tr>
 <tr>
-<td><code>-meta</code></td>
+<td><code>--meta</code></td>
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
 <td>The IP address and port of the meta service.</td>
 </tr>
 <tr>
-<td><code>-name</code></td>
+<td><code>--space</code></td>
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
-<td>The name of backup.</td>
+<td>(Experimental feature) Specifies the names of the spaces to be backed up. All spaces will be backed up if not specified. Multiple spaces can be specified, and format is <code>--spaces nba_01 --spaces nba_02</code>.</td>
 </tr>
 <tr>
 <td><code>--storage</code></td>
@@ -6895,7 +6892,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
       
     
   </small>
@@ -6929,7 +6926,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../2.compile-br/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Compile BR" rel="prev">
+        <a href="../2.compile-br/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Install BR" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -6938,7 +6935,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Compile BR
+              Install BR
             </div>
           </div>
         </a>
