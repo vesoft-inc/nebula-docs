@@ -3610,7 +3610,7 @@
   
     <li class="md-nav__item">
       <a href="../2.compile-br/" class="md-nav__link">
-        Compile BR
+        Install BR
       </a>
     </li>
   
@@ -7014,10 +7014,7 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To restore data with the BR, do a check of these:</p>
 <ul>
-<li>The BR is compiled. For more information, see <a href="../2.compile-br/">Compile BR</a>.</li>
-</ul>
-<ul>
-<li>Download <a href="https://github.com/vesoft-inc/nebula-agent">nebula-agent</a> and start the agent service in each cluster(including metad, storaged, graphd) host.</li>
+<li><a href="../2.compile-br/">Install BR and Agent</a> and run Agent on each host in the cluster.</li>
 </ul>
 <ul>
 <li>No application is connected to the target Nebula Graph cluster.</li>
@@ -7026,13 +7023,14 @@
 <li>Make sure that the target and the source Nebula Graph clusters have the same topology, which means that they have exactly the same number of hosts. The number of data folders for each host is consistently distributed.</li>
 </ul>
 <h2 id="procedures">Procedures<a class="headerlink" href="#procedures" title="Permanent link">&para;</a></h2>
+<p>In the BR installation directory (the default path of the compiled BR is <code>./bin/br</code>), run the following command to perform a full backup for the entire cluster.</p>
 <ol>
 <li>
 <p>Users can use the following command to list the existing backup information:</p>
-<p><div class="highlight"><pre><span></span><code>$ ./bin/br show --storage &lt;ip_address&gt;
+<div class="highlight"><pre><span></span><code>$ ./br show --storage &lt;storage_path&gt;
 </code></pre></div>
-For example, run the following command to list the backup information in the local <code>/home/nebula/backup</code> path.
-<div class="highlight"><pre><span></span><code>$ ./bin/br show --storage <span class="s2">&quot;local:///home/nebula/backup&quot;</span>
+<p>For example, run the following command to list the backup information in the local <code>/home/nebula/backup</code> path.
+<div class="highlight"><pre><span></span><code>$ ./br show --storage <span class="s2">&quot;local:///home/nebula/backup&quot;</span>
 +----------------------------+---------------------+------------------------+-------------+------------+
 <span class="p">|</span>            NAME            <span class="p">|</span>     CREATE TIME     <span class="p">|</span>         SPACES         <span class="p">|</span> FULL BACKUP <span class="p">|</span> ALL SPACES <span class="p">|</span>
 +----------------------------+---------------------+------------------------+-------------+------------+
@@ -7040,8 +7038,8 @@ For example, run the following command to list the backup information in the loc
 <span class="p">|</span> BACKUP_2022_02_11_08_26_43 <span class="p">|</span> <span class="m">2022</span>-02-11 <span class="m">08</span>:26:47 <span class="p">|</span> basketballplayer,foesa <span class="p">|</span> <span class="nb">true</span>        <span class="p">|</span> <span class="nb">true</span>       <span class="p">|</span>
 +----------------------------+---------------------+------------------------+-------------+------------+
 </code></pre></div></p>
-<p>Or, you can run the following command to list the backup information stored in S3 URL <code>s3://127.0.0.1:9000/br-test/backup</code>.
-<div class="highlight"><pre><span></span><code>$ ./bin/br show --s3.endpoint <span class="s2">&quot;http://127.0.0.1:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
+<p>Or, you can run the following command to list the backup information stored in S3 URL <code>s3://192.168.8.129:9000/br-test/backup</code>.
+<div class="highlight"><pre><span></span><code>$ ./br show --s3.endpoint <span class="s2">&quot;http://192.168.8.129:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
 </code></pre></div></p>
 <table>
 <thead>
@@ -7115,13 +7113,13 @@ For example, run the following command to list the backup information in the loc
 </li>
 <li>
 <p>Run the following command to restore data.</p>
-<div class="highlight"><pre><span></span><code>$ ./bin/br restore full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;
+<div class="highlight"><pre><span></span><code>$ ./br restore full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;
 </code></pre></div>
-<p>For example, run the following command to upload the backup files from the local <code>/home/nebula/backup/</code> to the cluster where the meta service's address is <code>127.0.0.1:9559</code>.</p>
-<div class="highlight"><pre><span></span><code>$ ./bin/br restore full --meta &quot;127.0.0.1:9559&quot; --storage &quot;local:///home/nebula/backup/&quot; --name BACKUP_2021_12_08_18_38_08
+<p>For example, run the following command to upload the backup files from the local <code>/home/nebula/backup/</code> to the cluster where the meta service's address is <code>192.168.8.129:9559</code>.</p>
+<div class="highlight"><pre><span></span><code>$ ./br restore full --meta &quot;192.168.8.129:9559&quot; --storage &quot;local:///home/nebula/backup/&quot; --name BACKUP_2021_12_08_18_38_08
 </code></pre></div>
-<p>Or, you can run the following command to upload the backup files from the S3 URL <code>s3://127.0.0.1:9000/br-test/backup</code>.
-<div class="highlight"><pre><span></span><code>$ ./bin/br restore full --meta <span class="s2">&quot;127.0.0.1:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://127.0.0.1:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span><span class="s2">&quot;default&quot;</span> --name BACKUP_2021_12_08_18_38_08
+<p>Or, you can run the following command to upload the backup files from the S3 URL <code>s3://192.168.8.129:9000/br-test/backup</code>.
+<div class="highlight"><pre><span></span><code>$ ./br restore full --meta <span class="s2">&quot;192.168.8.129:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://192.168.8.129:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span><span class="s2">&quot;default&quot;</span> --name BACKUP_2021_12_08_18_38_08
 </code></pre></div></p>
 <p>If the following information is returned, the data is restored successfully.
 <div class="highlight"><pre><span></span><code>Restore succeed.
@@ -7217,7 +7215,7 @@ For example, run the following command to list the backup information in the loc
 </li>
 <li>
 <p>Run the following command to clean up temporary files if any error occurred during backup. It will clean the files in cluster and external storage. You could also use it to clean up old backups files in external storage.</p>
-<div class="highlight"><pre><span></span><code>$ ./bin/br cleanup --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;
+<div class="highlight"><pre><span></span><code>$ ./br cleanup --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;
 </code></pre></div>
 <p>The parameters are as follows.</p>
 <table>
@@ -7311,7 +7309,7 @@ For example, run the following command to list the backup information in the loc
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
       
     
   </small>
