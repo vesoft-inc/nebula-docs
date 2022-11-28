@@ -16,6 +16,16 @@
 
 NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
+## Getting started
+
+* [Learning path](20.appendix/learning-path.md) & [Get NebulaGraph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
+* [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
+* [Quick start](2.quick-start/1.quick-start-workflow.md)
+* [Preparations before deployment](4.deployment-and-installation/1.resource-preparations.md)
+* [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
+* [FAQ](20.appendix/0.FAQ.md)
+* [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
+  
 
 ## Release notes
 
@@ -27,16 +37,6 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 - [NebulaGraph Dashboard Enterprise Edition](20.appendix/release-notes/dashboard-ent-release-note.md)
 
 
-## Getting started
-
-* [Learning path](20.appendix/learning-path.md) & [Get NebulaGraph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
-* [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
-* [Quick start](2.quick-start/1.quick-start-workflow.md)
-* [Preparations before deployment](4.deployment-and-installation/1.resource-preparations.md)
-* [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
-* [FAQ](20.appendix/0.FAQ.md)
-* [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
-  
 ## Other Sources
 
 - [To cite NebulaGraph](https://arxiv.org/abs/2206.07278)
