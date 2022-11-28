@@ -16,7 +16,6 @@
 
 NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
-
 ## Getting started
 
 * [Learning path](20.appendix/learning-path.md) & [Get NebulaGraph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
