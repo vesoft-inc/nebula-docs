@@ -24,7 +24,7 @@
 - Fixed the crash caused by a wrong expression syntax.
 - Fixed the crash caused by `LOOKUP` statements with `AND` and `IN` operators.
 - Fixed the crash when running a complex `MATCH` statement.
-- Fixed the crash when `YIELD 1 AS number MINUS YIELD 2 AS number`.
+- Fixed the crash when running `YIELD 1 AS number MINUS YIELD 2 AS number`.
 - Fixed the crash in the optimization phase of multiple `MATCH`.
 - Fixed the crash when collecting variable types.
 - Fixed the crash caused by an illegal expression.
@@ -50,10 +50,10 @@
 - Fixed the bug that the audit logs of DML and DQL types are not recorded when using ElasticSearch to store audit logs.
 - Fixed the bug that the service could not be started if the log directory did not exist when `ENABLE_BREAKPAD` was enabled.
 - Fixed the bug that when there was a GOD whose name was not `root`, the root user were created when the meta initiated.
-- Fixed the bug of backup failure after dropping space. 
-- Fixed the bug that scan edge or vertex doesn't handle TTL. 
-- Fixed the bug that time of TTL isn't consistent between `INSERT` and check the valid of TTL field. 
-- Fixed the bug that synchronize between two clusters fail when vid type is string. 
+- Fixed the backup failure after dropping a space. 
+- Fixed the TTL non-handling problem when scanning vertices or edges. 
+- Fixed the time inconsistency when running `INSERT` and checking the valid of the TTL field. 
+- Fixed the bug that the synchronization between two clusters may fail when the vid type was string. 
 
 ## Legacy versions
 
