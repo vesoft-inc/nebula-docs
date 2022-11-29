@@ -127,45 +127,12 @@ To upgrade Nebula Graph from historical versions to {{nebula.release}}:
   !!! note
         If the operation fails, stop the upgrade and ask for help on [the forum](https://discuss.nebula-graph.com.cn/) or [GitHub](https://github.com/vesoft-inc/nebula/issues).
 
-5. Use the new db_upgrader file in the `bin` directory to upgrade the format of old data.
-
-  !!! danger
-        This step DOES NOT back up the Storage data. To avoid data loss, before executing this step, make sure that you have followed the **Preparations before the upgrade** section and backed up the Meta data and Storage data.
-
-  Command syntax:
-
-  ```
-  <nebula_install_path>/bin/db_upgrader \
-  --src_db_path=<old_storage_data_path> \
-  --dst_db_path=<data_backup_path> \
-  --upgrade_meta_server=<meta_server_ip>:<port>[, <meta_server_ip>:<port> ...] \
-  --upgrade_version=2:3
-  ```
-
-  - `old_storage_data_path` indicates the path of the Storage data. It is defined by the `data_path` parameter in the Storage configuration files.
-  - `data_backup_path` indicates a custom path for data backup. **This option does not work for the current version and the old data will not be backed up to any path.**
-  - `meta_server_ip` and `port` indicate the IP address and port number of a Meta server.
-  - `2:3` indicates that the upgrade is from version 2.x to 3.x.
-
-  Example for the test in this topic:
-
-  ```
-  <nebula_install_path>/bin/db_upgrader \
-  --src_db_path=/usr/local/nebula/data/storage \
-  --dst_db_path=/home/vesoft/nebula/data-backup \
-  --upgrade_meta_server=192.168.8.132:9559 \
-  --upgrade_version=2:3
-  ```
+5. Start all the Graph and Storage services.
 
   !!! note
         If the operation fails, stop the upgrade and ask for help on [the forum](https://discuss.nebula-graph.com.cn/) or [GitHub](https://github.com/vesoft-inc/nebula/issues).
 
-6. Start all the Graph and Storage services.
-
-  !!! note
-        If the operation fails, stop the upgrade and ask for help on [the forum](https://discuss.nebula-graph.com.cn/) or [GitHub](https://github.com/vesoft-inc/nebula/issues).
-
-7. Connect to the new version of Nebula Graph to verify that services are available and data are complete. For how to connect, see [Connect to Nebula Graph](../connect-to-nebula-graph.md).
+6. Connect to the new version of Nebula Graph to verify that services are available and data are complete. For how to connect, see [Connect to Nebula Graph](../connect-to-nebula-graph.md).
 
   Currently, there is no official way to check whether the upgrade is successful. You can run the following reference statements to test the upgrade:
 
