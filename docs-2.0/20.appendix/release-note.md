@@ -22,8 +22,9 @@
 - Fixed the raft crash in certain cases.
 - Fixed the storage service crash when the length of the VID in a vertex or edge deletion statement exceeds the defined length on an indexed base.
 - Fixed the crash caused by a wrong expression syntax.
-- Fixed the crash when running a `LOOKUP` statement.
+- Fixed the crash caused by `LOOKUP` statements with `AND` and `IN` operators.
 - Fixed the crash when running a complex `MATCH` statement.
+- Fixed the crash when `YIELD 1 AS number MINUS YIELD 2 AS number`.
 - Fixed the crash in the optimization phase of multiple `MATCH`.
 - Fixed the crash when collecting variable types.
 - Fixed the crash caused by an illegal expression.
@@ -35,7 +36,6 @@
 - Fixed the bug that the machine key is lost when restoring.
 - Fixed the bug that the host can't stop when canceling the progress of sending snapshots.
 - Fixed the cache size overflow and deadlock bug.
-- Fixed the bug of missing the `RETURN` clause in MetaDaemon.
 - Fixed the raft split brain problem.
 - Fixed the bug that the meta listener validated the license.
 - Fixed the bug that the meta listener didn't clean data.
@@ -50,6 +50,10 @@
 - Fixed the bug that the audit logs of DML and DQL types are not recorded when using ElasticSearch to store audit logs.
 - Fixed the bug that the service could not be started if the log directory did not exist when `ENABLE_BREAKPAD` was enabled.
 - Fixed the bug that when there was a GOD whose name was not `root`, the root user were created when the meta initiated.
+- Fixed the bug of backup failure after dropping space. 
+- Fixed the bug that scan edge or vertex doesn't handle TTL. 
+- Fixed the bug that time of TTL isn't consistent between `INSERT` and check the valid of TTL field. 
+- Fixed the bug that synchronize between two clusters fail when vid type is string. 
 
 ## Legacy versions
 
