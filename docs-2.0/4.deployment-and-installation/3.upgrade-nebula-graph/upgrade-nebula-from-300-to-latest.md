@@ -1,16 +1,17 @@
-# Upgrade Nebula Graph v2.0.x to v{{nebula.release}}
+# Upgrade Nebula Graph v3.x to v{{nebula.release}}
 
-To upgrade Nebula Graph v2.0.x to v{{nebula.release}}, you only need to use the RPM/DEB package of v{{nebula.release}} for the upgrade, or [compile it](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) and then reinstall.
+To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM/DEB package of v{{nebula.release}} for the upgrade, or [compile it](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) and then reinstall.
 
-!!! note
-
-    Nebula Graph v2.0.x refers to v2.0.0-GA and v2.0.1 releases. If your Nebula Graph version is too low (v2.0.0-RC, v2.0.0-beta, v1.x), see [Upgrade Nebula Graph to v{{nebula.release}}](upgrade-nebula-graph-to-latest.md).
 
 ## Upgrade steps with RPM/DEB packages
 
 1. Download the [RPM/DEB package](https://github.com/vesoft-inc/nebula-graph/releases/tag/v{{nebula.release}}).
 
 2. Stop all Nebula Graph services. For details, see [Manage Nebula Graph Service](../../2.quick-start/5.start-stop-service.md). It is recommended to back up the configuration file before updating.
+
+  !!! caution
+
+        If you want to use the vertex without tags, add `--graph_use_vertex_key=true` to the configuration files (`nebula-graphd.conf`) of all Graph services in the cluster, add `--use_vertex_key=true` to the configuration files (`nebula-storaged.conf`) of all Storage services in the cluster.
 
 3. Execute the following command to upgrade:
 

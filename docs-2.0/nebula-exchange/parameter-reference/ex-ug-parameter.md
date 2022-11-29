@@ -68,6 +68,25 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`nebula.rate.limit`|int|`1024`|No|The limit on the number of tokens in the token bucket when importing data.|
 |`nebula.rate.timeout`|int|`1000`|No|The timeout period for getting tokens from a token bucket. Unit: milliseconds.|
 
+!!! note
+
+    NebulaGraph doesn't support vertices without tags by default. To import vertices without tags, [enable vertices without tags](../..//3.ngql-guide/12.vertex-statements/1.insert-vertex.md) in the NebulaGraph cluster and then add parameter `nebula.enableTagless` to the Exchange configuration with the value `true`. For example:
+
+    ```bash
+    nebula: {
+        address:{
+          graph:["127.0.0.1:9669"]
+          meta:["127.0.0.1:9559"]
+        }
+        user: root
+        pswd: nebula
+        space: test
+        enableTagless: true
+        ......
+
+     }
+    ```
+
 ## Vertex configurations
 
 For different data sources, the vertex configurations are different. There are many general parameters and some specific parameters. General parameters and specific parameters of different data sources need to be configured when users configure vertices.
@@ -182,7 +201,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
-|`tags.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files. If the number of the partition (partition_num) in the graph space is greater than `1`, set the parameter to `true`, otherwise, the generated data file may only contain vertices without tags.|
+|`tags.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 
@@ -222,7 +241,7 @@ For the specific parameters of different data sources for edge configurations, p
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`edges.path`|string|-|Yes|The path of the source file specified to generate SST files.|
-|`edges.repartitionWithNebula`|bool|`false`|No|Whether to repartition data based on the number of partitions of graph spaces in Nebula Graph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
+|`edges.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
 ### Specific parameters of Nebula Graph
 

@@ -50,6 +50,34 @@ Exchange has the following advantages:
 
 - Easy to use: It adopts the Human-Optimized Config Object Notation (HOCON) configuration file format and has an object-oriented style, which is easy to understand and operate.
 
+## Version compatibility
+
+The correspondence between the NebulaGraph Exchange version (the JAR version), the NebulaGraph core version and the Spark version is as follows.
+
+| Exchange version | NebulaGraph version | Spark version |
+|:----------|:-----------|:-------|
+|nebula-exchange_spark_3.0-3.0-SNAPSHOT.jar|  nightly       |3.3.x、3.2.x、3.1.x、3.0.x |
+|nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar|  nightly       |2.4.x |
+|nebula-exchange_spark_2.2-3.0-SNAPSHOT.jar|  nightly       |2.2.x |
+|nebula-exchange_spark_3.0-3.3.0.jar       |  3.x.x         |3.3.x、3.2.x、3.1.x、3.0.x|
+|nebula-exchange_spark_2.4-3.3.0.jar       |  3.x.x         |2.4.x |
+|nebula-exchange_spark_2.2-3.3.0.jar       |  3.x.x         |2.2.x |
+|nebula-exchange_spark_3.0-3.0.0.jar       |  3.x.x         |3.3.x、3.2.x、3.1.x、3.0.x|
+|nebula-exchange_spark_2.4-3.0.0.jar       |  3.x.x         |2.4.x |
+|nebula-exchange_spark_2.2-3.0.0.jar       |  3.x.x         |2.2.x |
+|nebula-exchange-2.6.3.jar                 |  2.6.1、2.6.0  |2.4.x |
+|nebula-exchange-2.6.2.jar                 |  2.6.1、2.6.0  |2.4.x |
+|nebula-exchange-2.6.1.jar                 |  2.6.1、2.6.0  |2.4.x |
+|nebula-exchange-2.6.0.jar                 |  2.6.1、2.6.0  |2.4.x |
+|nebula-exchange-2.5.2.jar                 |  2.5.1、2.5.0  |2.4.x |
+|nebula-exchange-2.5.1.jar                 |  2.5.1、2.5.0  |2.4.x |
+|nebula-exchange-2.5.0.jar                 |  2.5.1、2.5.0  |2.4.x |
+|nebula-exchange-2.1.0.jar                 |  2.0.1、2.0.0  |2.4.x |
+|nebula-exchange-2.0.1.jar                 |  2.0.1、2.0.0  |2.4.x |
+|nebula-exchange-2.0.0.jar                 |  2.0.1、2.0.0  |2.4.x |
+
+JAR packages are available in two ways: [compile them yourself](../ex-ug-compile.md) or download them from the Maven repository.
+
 ## Data source
 
 Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that Nebula Graph can recognize, and then importing them into Nebula Graph in the form of nGQL statements:
@@ -78,6 +106,8 @@ Exchange {{exchange.release}} supports converting data from the following format
 - Stream processing software platform: [Apache Kafka&reg;](../use-exchange/ex-ug-import-from-kafka.md)
 
 - Publish/Subscribe messaging platform: [Apache Pulsar 2.4.5](../use-exchange/ex-ug-import-from-pulsar.md)
+
+- [JDBC](../use-exchange/ex-ug-import-from-jdbc.md)
 
 In addition to importing data as nGQL statements, Exchange supports generating SST files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
 

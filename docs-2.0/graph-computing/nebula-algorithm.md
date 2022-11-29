@@ -18,7 +18,7 @@ The correspondence between the Nebula Algorithm release and the Nebula Graph cor
 
 Before using the Nebula Algorithm, users need to confirm the following information:
 
-- The Nebula Graph services have been deployed and started. For details, see [Nebula Installation](4.deployment-and-installation/1.resource-preparations.md).
+- The Nebula Graph services have been deployed and started. For details, see [Nebula Installation](../4.deployment-and-installation/1.resource-preparations.md).
 
 - The Spark version is 2.4.x.
 
