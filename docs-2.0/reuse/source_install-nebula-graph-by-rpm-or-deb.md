@@ -15,6 +15,10 @@ Wget installed.
 
 ## Download the package from cloud service
 
+!!! note
+
+    NebulaGraph is currently only supported for installation on Linux systems, and only CentOS 7.x, CentOS 8.x, Ubuntu 16.04, Ubuntu 18.04, and Ubuntu 20.04 operating systems are supported. 
+
 * Download the released version.
 
     URL:
