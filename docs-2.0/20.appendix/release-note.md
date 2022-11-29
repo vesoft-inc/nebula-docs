@@ -42,7 +42,7 @@
 - Fixed the bug that the drainer synchronized dirty data.
 - Fixed the bug that the drainer daemon can't exit normally.
 - Fixed the problem that audit log cannot be used asynchronously.
-- Fixed the concurrent exception when executing multiple `MATCHES`.
+- Fixed the concurrent exception when executing multiple `MATCH` statements.
 - Fixed the bug that the tag index rebuilding task could not be re-executed properly.
 - Fixed the bug that the tag index rebuilding task always failed after stopping a running job.
 - Fixed the bug that the ElasticSearch writing error caused by truncation of UTF8 characters.
