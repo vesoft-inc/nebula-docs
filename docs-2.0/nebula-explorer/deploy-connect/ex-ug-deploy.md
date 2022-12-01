@@ -259,7 +259,6 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   Host: 0.0.0.0     # The IP address of Dag Controller.
   Port: 9002        # The port of Dag Controller.
   Timeout: 60000    # he timeout duration of HTTP interface requests.
-  RPC_HDFS_PASSWORD: "123456"  # Reserved parameter.
 
   Log:              # The parameters related to log printing. For more Information, see https://go-zero.dev/cn/docs/blog/tool/logx/
     Mode: file      # The log printing method
