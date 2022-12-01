@@ -1,5 +1,11 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition v3.2.3
+
+- Enhancement
+
+  - Hidden Backup&Restore page if the NebulaGraph Enterprise Edition version is above 3.3.0.
+
 ## Enterprise Edition v3.2.2
 
 - Enhancement
