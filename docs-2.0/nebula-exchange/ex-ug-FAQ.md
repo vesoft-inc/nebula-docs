@@ -46,9 +46,9 @@ Solution: Add the following configuration in the `profiles` scope of Maven's `se
 
 ## Execution
 
-### Q: How to submit in Yarn-Cluster mode?
+### Q: Error: `java.lang.ClassNotFoundException: com.vesoft.nebula.exchange.Exchange`
 
-To submit a task in Yarn-Cluster mode, run the following command:
+To submit a task in Yarn-Cluster mode, run the following command, **especially the two '--conf' commands in the example**.
 
 ```bash
 $SPARK_HOME/bin/spark-submit --class com.vesoft.nebula.exchange.Exchange \
