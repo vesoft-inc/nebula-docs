@@ -1,5 +1,11 @@
 # NebulaGraph Explorer release notes
 
+## v3.2.1
+
+- Bugfix
+  - Fixed the bug that the connection timeout and HTTP error `500` when connecting to a non-existent address.
+  - Fixed the bug that the vertex properties could not be displayed on the canvas when randomly importing vertices.
+
 ## v3.2.0
 
 - Feature
