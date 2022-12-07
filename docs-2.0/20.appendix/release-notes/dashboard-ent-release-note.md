@@ -1,5 +1,11 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition v3.2.4
+
+- Enhancement
+
+  - Close experimental features by default when installing NebulaGraph Enterprise Edition 3.1.3 or 3.4.
+
 ## Enterprise Edition v3.2.3
 
 - Enhancement
