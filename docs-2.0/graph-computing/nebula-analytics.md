@@ -144,8 +144,6 @@ After installation, you can set parameters of different algorithms and then exec
       --space=baskeyballplayer  
 
       # Read data from NebulaGraph.
-      # The metad process address.
-      --meta_server_addrs=192.168.8.100:9559, 192.168.8.101:9559, 192.168.8.102:9559
       # The name of edges.
       --edges=LIKES  
       # The name of the property to be read as the weight of the edge. Can be either the attribute name or _rank.
@@ -172,6 +170,12 @@ After installation, you can set parameters of different algorithms and then exec
       --write_batch_size=1000 
       # The file path where the data failed to be written back to NebulaGraph is stored.
       --err_file=/home/xxx/analytics/err.txt 
+      
+      # other
+      # The access timeout period of the service.
+      --graphd_timeout=60000
+      --metad_timeout=60000
+      --storaged_timeout=60000
       ```
     
     2. Modify the related parameters in the script to be used, such as `run_pagerank.sh`. 
