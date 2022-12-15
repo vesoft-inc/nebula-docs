@@ -1407,8 +1407,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#precautions" class="md-nav__link">
-    Precautions
+  <a href="#limitations" class="md-nav__link">
+    Limitations
   </a>
   
 </li>
@@ -7131,8 +7131,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#precautions" class="md-nav__link">
-    Precautions
+  <a href="#limitations" class="md-nav__link">
+    Limitations
   </a>
   
 </li>
@@ -7301,7 +7301,7 @@
 <p>A <code>MATCH</code> statement defines a search pattern and uses it to match data stored in NebulaGraph and to retrieve them in the form defined in the <code>RETURN</code> clause.</p>
 <p>The examples in this topic use the <a href="../../1.nGQL-overview/1.overview/#example_data_basketballplayer">basketballplayer</a> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. But generally, it can be summarized as follows.</p>
+<p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. The path type of the <code>MATCH</code> statement is <code>trail</code>. That is, only vertices can be repeatedly visited in the graph traversal. Edges cannot be repeatedly visited. For details, see <a href="../../../1.introduction/2.1.path/">path</a>. But generally, it can be summarized as follows.</p>
 <div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;clause_1&gt;] RETURN &lt;output&gt; [&lt;clause_2&gt;];
 </code></pre></div>
 <ul>
@@ -7316,32 +7316,30 @@
 <ul>
 <li><code>clause_2</code>: The <code>ORDER BY</code> and <code>LIMIT</code> clauses are supported.</li>
 </ul>
-<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <div class="admonition compatibility">
 <p class="admonition-title">Legacy version compatibility</p>
 <p>Starting from NebulaGraph version 3.0.0, in order to distinguish the properties of different tags, you need to specify a tag name when querying properties. The original statement <code>RETURN variable_name.property_name</code> is changed to <code>RETURN variable_name.&lt;tag_name&gt;.property_name</code>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Currently the <code>match</code> statement cannot find dangling edges.</p>
+<ul>
+<li>Currently the <code>match</code> statement cannot find dangling edges.</li>
+<li>It is not supported to traverse the specified Tag and Edge Type at the same time when there is no index. For example, executing <code>MATCH (v:player)-[e:follow]-&gt;() RETURN e LIMIT N</code> an error will occur.</li>
+</ul>
 </div>
-<ul>
-<li>The <code>MATCH</code> statement retrieves data according to the <code>RETURN</code> clause.</li>
-</ul>
-<ul>
-<li>The path type of the <code>MATCH</code> statement is <code>trail</code>. That is, only vertices can be repeatedly visited in the graph traversal. Edges cannot be repeatedly visited. For details, see <a href="../../../1.introduction/2.1.path/">path</a>.</li>
-</ul>
+<p>When no <a href="../../14.native-index-statements/1.create-native-index/">index</a> has been created, the <code>MATCH</code> statements is only supported in the following cases. When you get an error executing the <code>MATCH</code> statement, you can create and rebuild the index and then execute the <code>MATCH</code> statement.</p>
 <ul>
 <li>In a valid <code>MATCH</code> statement, the VID of a specific vertex must be specified with the id() function in the <code>WHERE</code> clause. There is no need to create an index.</li>
 </ul>
 <ul>
-<li>When traversing all vertices and edges with <code>MATCH</code>, such as <code>MATCH (v) RETURN v LIMIT N</code>, there is no need to create an index, but you need to use <code>LIMIT</code> to limit the number of output results.</li>
+<li>When traversing all vertices o r edges with <code>MATCH</code>, such as <code>MATCH (v) RETURN v LIMIT N</code>,<code>MATCH ()-[e]-&gt;() RETURN e LIMIT N</code>.</li>
 </ul>
 <ul>
-<li>When traversing all vertices of the specified Tag or edge of the specified Edge Type, such as <code>MATCH (v:player) RETURN v LIMIT N</code>, there is no need to create an index, but you need to use <code>LIMIT</code> to limit the number of output results.</li>
+<li>When traversing all vertices of the specified Tag, such as <code>MATCH (v:player) RETURN v LIMIT N</code>.</li>
 </ul>
 <ul>
-<li>In addition to the foregoing, make sure there is at least one index in the <code>MATCH</code> statement. How to create native indexes, see <a href="../../14.native-index-statements/1.create-native-index/">CREATE INDEX</a>.</li>
+<li>When traversing all edges of the specified Edge Type(edges must have direction), such as <code>MATCH ()-[e:follow]-&gt;() RETURN e LIMIT N</code>.</li>
 </ul>
 <h2 id="using_patterns_in_match_statements">Using patterns in MATCH statements<a class="headerlink" href="#using_patterns_in_match_statements" title="Permanent link">&para;</a></h2>
 <h3 id="create_indexes">Create indexes<a class="headerlink" href="#create_indexes" title="Permanent link">&para;</a></h3>
