@@ -127,6 +127,7 @@ files:
            type: string
 
         # Tag Settings.
+        tags:
             # Tag name.
           - name: student
            
