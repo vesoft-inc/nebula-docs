@@ -4,11 +4,12 @@ NebulaGraph Explorer (Explorer in short) is a browser-based visualization tool. 
 
 !!! enterpriseonly
 
-    To apply for the NebulaGraph Explorer installation package, [contact us](https://www.nebula-graph.io/contact). 
+    - To purchase the NebulaGraph Explorer, [contact us](https://www.nebula-graph.io/contact). 
+    - New users can [apply for a 30-day trial](https://www.nebula-graph.io/visualization-tools-free-trial). You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
 
 !!! Note
 
-    You can also try some functions online in [Explorer](https://explorer.nebula-graph.io/).
+    
 
 ## Scenarios
 
@@ -50,7 +51,7 @@ When NebulaGraph enables authentication, users can only sign into Studio with th
 
 | NebulaGraph version | Explorer version |
 | --- | --- |
-| 3.3.0 | 3.2.0|
+| 3.3.0 | 3.2.1, 3.2.0|
 | 3.1.0 ~ 3.2.x| 3.1.0|
 | 3.0.0 ~ 3.1.0 | 3.0.0  |
 | 2.5.x ~ 3.0.0| 2.2.0|

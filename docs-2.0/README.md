@@ -26,11 +26,21 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
   
+
+## Release notes
+
+- [NebulaGraph Community Edition {{ nebula.release }}](20.appendix/release-notes/nebula-comm-release-note.md)
+<!-- - [NebulaGraph Enterprise Edition {{ nebula.release }}](20.appendix/release-notes/nebula-ent-release-note.md)。 -->
+- [NebulaGraph Studio](20.appendix/release-notes/studio-release-note.md)
+- [NebulaGraph Explorer](20.appendix/release-notes/explorer-release-note.md)
+- [NebulaGraph Dashboard Community Edition](20.appendix/release-notes/dashboard-comm-release-note.md)
+- [NebulaGraph Dashboard Enterprise Edition](20.appendix/release-notes/dashboard-ent-release-note.md)
+
+
 ## Other Sources
 
 - [To cite NebulaGraph](https://arxiv.org/abs/2206.07278)
 - [NebulaGraph Homepage](https://nebula-graph.io/)
-- [Release notes](20.appendix/release-notes/nebula-comm-release-note.md)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blogs](https://nebula-graph.io/posts/)
 - [Videos](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)

@@ -8,10 +8,7 @@ NebulaGraph Studio (Studio in short) is a browser-based visualization tool to ma
 
 ## Released versions
 
-You can deploy Studio using the following methods:
-
-- You can deploy Studio with Docker, RPM-based, Tar-based or DEB-based and connect it to NebulaGraph. For more information, see [Deploy Studio](../deploy-connect/st-ug-deploy.md).
-- Helm-based. You can deploy Studio with Helm in the Kubernetes cluster and connect it to NebulaGraph. For more information, see [Helm-based Studio](../deploy-connect/st-ug-deploy-by-helm.md).
+In addition to deploying Studio with RPM-based, DEB-based, or Tar-based package, or with Docker. You can also deploy Studio with Helm in the Kubernetes cluster. For more information, see [Deploy Studio](../deploy-connect/st-ug-deploy.md).
 
 <!--
 - Cloud Service: You can create NebulaGraph database instances in NebulaGraph Cloud Service and connect Cloud Service Studio with one click. For more information, see [NebulaGraph Cloud Service Manual](https://cloud-docs.nebula-graph.com.cn/cn/posts/manage-instances/dbaas-ug-connect-nebulastudio/ "Click to go to NebulaGraph Cloud Service Manual").

@@ -5,7 +5,12 @@ NebulaGraph Analytics is a high-performance graph computing framework tool that 
 ## Prerequisites
 
 - The NebulaGraph Analytics installation package has been obtained. [Contact us](https://www.nebula-graph.io/contact) to apply.
+
 - The [license](analytics-ent-license.md) is ready.
+
+- The [HDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html) 2.2.x or later has been deployed.
+
+- The JDK 1.8 has been deployed.
 
 ## Scenarios
 
@@ -57,13 +62,28 @@ NebulaGraph Analytics supports the following graph algorithms.
 
 ## Install NebulaGraph Analytics
 
-1. When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.
+1. Install the NebulaGraph Analytics.
 
-  ```bash
-  sudo rpm -i nebula-analytics-{{plato.release}}-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
+  ```
+  sudo rpm -ivh <analytics_package_name> --prefix <install_path>
+  sudo chown <user>:<user> -R <install path>
   ```
 
-2. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
+  For example:
+
+  ```
+  sudo rpm -ivh nebula-analytics-{{plato.release}}-centos.x86_64.rpm --prefix=/home/vesoft/nebula-analytics
+  sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics
+  ```
+
+2. Configure the correct Hadoop path and JDK path in the file `set_env.sh`, the file path is `nebula-analytics/scripts/set_env.sh`. If there are multiple machines, ensure that the paths are the same.
+
+  ```
+  export HADOOP_HOME=<hadoop_path>
+  export JAVA_HOME=<java_path>
+  ```
+
+3. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
 
 <!--
 ### Install NebulaGraph Analytics with the source code
@@ -124,8 +144,6 @@ After installation, you can set parameters of different algorithms and then exec
       --space=baskeyballplayer  
 
       # Read data from NebulaGraph.
-      # The metad process address.
-      --meta_server_addrs=192.168.8.100:9559, 192.168.8.101:9559, 192.168.8.102:9559
       # The name of edges.
       --edges=LIKES  
       # The name of the property to be read as the weight of the edge. Can be either the attribute name or _rank.
@@ -152,6 +170,12 @@ After installation, you can set parameters of different algorithms and then exec
       --write_batch_size=1000 
       # The file path where the data failed to be written back to NebulaGraph is stored.
       --err_file=/home/xxx/analytics/err.txt 
+      
+      # other
+      # The access timeout period of the service.
+      --graphd_timeout=60000
+      --metad_timeout=60000
+      --storaged_timeout=60000
       ```
     
     2. Modify the related parameters in the script to be used, such as `run_pagerank.sh`. 

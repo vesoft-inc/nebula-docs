@@ -141,14 +141,14 @@ NebulaGraph Importer uses configuration(`nebula-importer/examples/v2/example.yam
 The example configuration is as follows:
 
 ```yaml
-version: v3
+version: v2
 description: example
 removeTempFiles: false
 ```
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
-|`version`|v2|Yes|Target version of NebulaGraph.|
+|`version`|v2|Yes|Target version of the configuration file.|
 |`description`|example|No|Description of the configuration file.|
 |`removeTempFiles`|false|No|Whether to delete temporarily generated logs and error data files.|
 

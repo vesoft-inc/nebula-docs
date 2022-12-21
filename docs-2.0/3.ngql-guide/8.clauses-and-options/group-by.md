@@ -59,8 +59,6 @@ nebula> GO FROM "player100" OVER follow BIDIRECT \
 +---------------------+------------+
 ```
 
-## Group and calculate with functions
-
 The following statement finds all the vertices connected directly to vertex `"player100"`, groups the result set by source vertices, and returns the sum of degree values.
 
 ```ngql
@@ -76,3 +74,27 @@ nebula> GO FROM "player100" OVER follow \
 ```
 
 For more information about the `sum()` function, see [Built-in math functions](../6.functions-and-expressions/1.math.md).
+
+
+## Implicit GROUP BY
+
+The usage of `GROUP BY` in the above nGQL statements that explicitly write `GROUP BY` and act as grouping fields is called explicit `GROUP BY`, while in openCypher, the `GROUP BY` is implicit, i.e., `GROUP BY` groups fields without explicitly writing `GROUP BY`. The explicit `GROUP BY` in nGQL is the same as the implicit `GROUP BY` in openCypher, and nGQL also supports the implicit `GROUP BY`. For the implicit usage of `GROUP BY`, see [how-to-make-group-by-in-a-cypher-query](https://stackoverflow.com/questions/52722671/how-to-make-group-by-in-a-cypher-query).
+
+
+For example, to look up the players over 34 years old with the same length of service, you can use the following statement:
+
+```ngql
+nebula> LOOKUP ON player WHERE player.age > 34 YIELD id(vertex) AS v | \
+        GO FROM $-.v OVER serve YIELD serve.start_year AS start_year, serve.end_year AS end_year | \
+        YIELD $-.start_year, $-.end_year, count(*) AS count | \
+        ORDER BY $-.count DESC | LIMIT 5;
++---------------+-------------+-------+
+| $-.start_year | $-.end_year | count |
++---------------+-------------+-------+
+| 2018          | 2019        | 3     |
+| 1998          | 2004        | 2     |
+| 2012          | 2013        | 2     |
+| 2007          | 2012        | 2     |
+| 2010          | 2011        | 2     |
++---------------+-------------+-------+ 
+```

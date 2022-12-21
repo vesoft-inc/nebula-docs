@@ -29,6 +29,12 @@ Before deploying Explorer, you must check the following information:
 
         License is only available in the Enterprise Edition. To obtain the license, apply for [NebulaGraph Explorer Free Trial](https://nebula-graph.io/visualization-tools-free-trial).
 
+- The HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
+
+  !!! caution
+
+       If the HDFS port is unavailable, the connection timeout message may be displayed.
+
 ## RPM-based deployment
 
 ### Installation
@@ -146,7 +152,7 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
    # Start Explorer.
    sudo ./lib/start.sh
    # (Optional) Start Dag Controller.
-   sudo ./dag-ctrl/lib/start.sh
+   sudo ./dag-ctrl/scripts/start.sh
    ```
 
 ### View the status
@@ -222,12 +228,6 @@ Dag Controller is a task scheduling tool that can schedule the jobs which type i
 
 The Dag Controller can perform complex graph computing with NebulaGraph Analytics. For example, the Dag Controller sends an algorithm request to NebulaGraph Analytics, which saves the result to NebulaGraph or HDFS. The Dag Controller then takes the result as input to the next algorithmic task to create a new task.
 
-### Prerequisites
-
-- The [HDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html) 2.2.x or later has been deployed.
-
-- The JDK 1.8 has been deployed.
-
 ### Steps
 
 1. Complete the SSH password-free configurations so that the Dag Controller machine can log directly into the NebulaGraph Analytics machines and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
@@ -244,12 +244,11 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
 
   In the same way, complete the SSH password-free configurations so that the user in the machine A can log directly into the machine B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
 
-2. Add the following to the file `~/.bash_profile` and run the command `source ~/.bash_profile` to make it effective.
+2. Run `eval $(ssh-agent)` on the Dag Controller machine to start the ssh-agent, then run `ssh-add ~/.ssh/id_rsa` to give the private key to the ssh-agent to manage.
 
-  ```
-  eval $(ssh-agent)
-  ssh-add ~/.ssh/id_rsa
-  ```
+  !!! note
+
+        ssh-agent is a key manager that manages multiple keys and provides proxies for other programs that need to use SSH key pairs.
 
 3. Configure the username and port of the NebulaGraph Analytics in the file `dag-ctrl-api.yaml`, the file path is `dag-ctrl/etc/dag-ctrl-api.yaml`. If there are multiple machines, ensure that the usernames and ports are the same.
 
@@ -260,7 +259,6 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   Host: 0.0.0.0     # The IP address of Dag Controller.
   Port: 9002        # The port of Dag Controller.
   Timeout: 60000    # he timeout duration of HTTP interface requests.
-  RPC_HDFS_PASSWORD: "123456"  # Reserved parameter.
 
   Log:              # The parameters related to log printing. For more Information, see https://go-zero.dev/cn/docs/blog/tool/logx/
     Mode: file      # The log printing method
