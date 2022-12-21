@@ -3377,7 +3377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.monitor-and-metrics/3.bbox/3.1.bbox/" class="md-nav__link">
+      <a href="../../6.monitor-and-metrics/3.bbox/3.1.bbox.md" class="md-nav__link">
         What is black-box monitoring
       </a>
     </li>
@@ -3391,7 +3391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.monitor-and-metrics/3.bbox/3.2.bbox-reviewer/" class="md-nav__link">
+      <a href="../../6.monitor-and-metrics/3.bbox/3.2.bbox-reviewer.md" class="md-nav__link">
         Black-box monitoring tool
       </a>
     </li>
@@ -3684,7 +3684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-and-restore/nebula-br-ent/1.br-ent-overview/" class="md-nav__link">
+      <a href="../../backup-and-restore/nebula-br-ent/1.br-ent-overview.md" class="md-nav__link">
         What is Backup & Restore (Enterprise Edition)
       </a>
     </li>
@@ -3698,7 +3698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-and-restore/nebula-br-ent/2.install-tools/" class="md-nav__link">
+      <a href="../../backup-and-restore/nebula-br-ent/2.install-tools.md" class="md-nav__link">
         Install BR
       </a>
     </li>
@@ -3712,7 +3712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-and-restore/nebula-br-ent/3.backup-data/" class="md-nav__link">
+      <a href="../../backup-and-restore/nebula-br-ent/3.backup-data.md" class="md-nav__link">
         Back up data with BR
       </a>
     </li>
@@ -3726,7 +3726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-and-restore/nebula-br-ent/4.restore-data/" class="md-nav__link">
+      <a href="../../backup-and-restore/nebula-br-ent/4.restore-data.md" class="md-nav__link">
         Restore data with BR
       </a>
     </li>
@@ -4194,7 +4194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-studio/deploy-connect/st-ug-deploy-by-helm/" class="md-nav__link">
+      <a href="../../nebula-studio/deploy-connect/st-ug-deploy-by-helm.md" class="md-nav__link">
         Deploy Studio with Helm
       </a>
     </li>
@@ -4859,7 +4859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore/" class="md-nav__link">
+      <a href="../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore.md" class="md-nav__link">
         Backup and restore
       </a>
     </li>
@@ -4920,7 +4920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-dashboard-ent/4.cluster-operator/operator/scale/" class="md-nav__link">
+      <a href="../../nebula-dashboard-ent/4.cluster-operator/operator/scale.md" class="md-nav__link">
         Scale
       </a>
     </li>
@@ -7296,7 +7296,15 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The NebulaGraph Analytics installation package has been obtained. <a href="https://www.nebula-graph.io/contact">Contact us</a> to apply.</li>
+</ul>
+<ul>
 <li>The <a href="../analytics-ent-license/">license</a> is ready.</li>
+</ul>
+<ul>
+<li>The <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html">HDFS</a> 2.2.x or later has been deployed.</li>
+</ul>
+<ul>
+<li>The JDK 1.8 has been deployed.</li>
 </ul>
 <h2 id="scenarios">Scenarios<a class="headerlink" href="#scenarios" title="Permanent link">&para;</a></h2>
 <p>You can import data from data sources as NebulaGraph clusters, CSV files on HDFS, or local CSV files into NebulaGraph Analytics and export the graph computation results to NebulaGraph clusters, CSV files on HDFS, or local CSV files from NebulaGraph Analytics.</p>
@@ -7451,8 +7459,19 @@
 <h2 id="install_nebulagraph_analytics">Install NebulaGraph Analytics<a class="headerlink" href="#install_nebulagraph_analytics" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.</p>
-<div class="highlight"><pre><span></span><code>sudo rpm -i nebula-analytics-3.3.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-analytics
+<p>Install the NebulaGraph Analytics.</p>
+<div class="highlight"><pre><span></span><code>sudo rpm -ivh &lt;analytics_package_name&gt; --prefix &lt;install_path&gt;
+sudo chown &lt;user&gt;:&lt;user&gt; -R &lt;install path&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>sudo rpm -ivh nebula-analytics-3.3.0-centos.x86_64.rpm --prefix=/home/vesoft/nebula-analytics
+sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics
+</code></pre></div>
+</li>
+<li>
+<p>Configure the correct Hadoop path and JDK path in the file <code>set_env.sh</code>, the file path is <code>nebula-analytics/scripts/set_env.sh</code>. If there are multiple machines, ensure that the paths are the same.</p>
+<div class="highlight"><pre><span></span><code>export HADOOP_HOME=&lt;hadoop_path&gt;
+export JAVA_HOME=&lt;java_path&gt;
 </code></pre></div>
 </li>
 <li>
@@ -7512,8 +7531,6 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 --space<span class="o">=</span>baskeyballplayer  
 
 <span class="c1"># Read data from NebulaGraph.</span>
-<span class="c1"># The metad process address.</span>
---meta_server_addrs<span class="o">=</span><span class="m">192</span>.168.8.100:9559, <span class="m">192</span>.168.8.101:9559, <span class="m">192</span>.168.8.102:9559
 <span class="c1"># The name of edges.</span>
 --edges<span class="o">=</span>LIKES  
 <span class="c1"># The name of the property to be read as the weight of the edge. Can be either the attribute name or _rank.</span>
@@ -7540,6 +7557,12 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 --write_batch_size<span class="o">=</span><span class="m">1000</span> 
 <span class="c1"># The file path where the data failed to be written back to NebulaGraph is stored.</span>
 --err_file<span class="o">=</span>/home/xxx/analytics/err.txt 
+
+<span class="c1"># other</span>
+<span class="c1"># The access timeout period of the service.</span>
+--graphd_timeout<span class="o">=</span><span class="m">60000</span>
+--metad_timeout<span class="o">=</span><span class="m">60000</span>
+--storaged_timeout<span class="o">=</span><span class="m">60000</span>
 </code></pre></div>
 </li>
 <li>
@@ -7644,7 +7667,7 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
       
     
   </small>

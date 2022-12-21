@@ -3377,7 +3377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../6.monitor-and-metrics/3.bbox/3.1.bbox/" class="md-nav__link">
+      <a href="../../../6.monitor-and-metrics/3.bbox/3.1.bbox.md" class="md-nav__link">
         What is black-box monitoring
       </a>
     </li>
@@ -3391,7 +3391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../6.monitor-and-metrics/3.bbox/3.2.bbox-reviewer/" class="md-nav__link">
+      <a href="../../../6.monitor-and-metrics/3.bbox/3.2.bbox-reviewer.md" class="md-nav__link">
         Black-box monitoring tool
       </a>
     </li>
@@ -3743,7 +3743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-br-ent/1.br-ent-overview/" class="md-nav__link">
+      <a href="../../nebula-br-ent/1.br-ent-overview.md" class="md-nav__link">
         What is Backup & Restore (Enterprise Edition)
       </a>
     </li>
@@ -3757,7 +3757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-br-ent/2.install-tools/" class="md-nav__link">
+      <a href="../../nebula-br-ent/2.install-tools.md" class="md-nav__link">
         Install BR
       </a>
     </li>
@@ -3771,7 +3771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-br-ent/3.backup-data/" class="md-nav__link">
+      <a href="../../nebula-br-ent/3.backup-data.md" class="md-nav__link">
         Back up data with BR
       </a>
     </li>
@@ -3785,7 +3785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nebula-br-ent/4.restore-data/" class="md-nav__link">
+      <a href="../../nebula-br-ent/4.restore-data.md" class="md-nav__link">
         Restore data with BR
       </a>
     </li>
@@ -4253,7 +4253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../nebula-studio/deploy-connect/st-ug-deploy-by-helm/" class="md-nav__link">
+      <a href="../../../nebula-studio/deploy-connect/st-ug-deploy-by-helm.md" class="md-nav__link">
         Deploy Studio with Helm
       </a>
     </li>
@@ -4918,7 +4918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore/" class="md-nav__link">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/backup-and-restore.md" class="md-nav__link">
         Backup and restore
       </a>
     </li>
@@ -4979,7 +4979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../nebula-dashboard-ent/4.cluster-operator/operator/scale/" class="md-nav__link">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/operator/scale.md" class="md-nav__link">
         Scale
       </a>
     </li>
@@ -7238,17 +7238,14 @@
 
 
 <h1 id="use_br_to_back_up_data">Use BR to back up data<a class="headerlink" href="#use_br_to_back_up_data" title="Permanent link">&para;</a></h1>
-<p>After the BR is compiled, you can back up data of the entire graph space. This topic introduces how to use the BR to back up data.</p>
+<p>After the BR is installed, you can back up data of the entire graph space. This topic introduces how to use the BR to back up data.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To back up data with the BR, do a check of these:</p>
 <ul>
-<li>The BR is compiled. For more information, see <a href="../2.compile-br/">Compile BR</a>.</li>
+<li><a href="../2.compile-br/">Install BR and Agent</a> and run Agent on each host in the cluster.</li>
 </ul>
 <ul>
 <li>The NebulaGraph services are running.</li>
-</ul>
-<ul>
-<li>The <a href="https://github.com/vesoft-inc/nebula-agent">nebula-agent</a> has been downloaded and the nebula-agent service is running on each host in the cluster.</li>
 </ul>
 <ul>
 <li>
@@ -7260,17 +7257,17 @@
 </li>
 </ul>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
-<p>Run the following command to perform a full backup for the entire cluster.</p>
+<p>In the BR installation directory (the default path of the compiled BR is <code>./bin/br</code>), run the following command to perform a full backup for the entire cluster.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Make sure that the local path where the backup file is stored exists.</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt;
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt;
 </code></pre></div>
 <p>For example: </p>
 <ul>
 <li>
-<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>127.0.0.1:9559</code>, and save the backup file to <code>/home/nebula/backup/</code>.</p>
+<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>192.168.8.129:9559</code>, and save the backup file to <code>/home/nebula/backup/</code>.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>If there are multiple metad addresses, you can use any one of them.</p>
@@ -7279,14 +7276,14 @@
 <p class="admonition-title">Caution</p>
 <p>If you back up data to a local disk, only the data of the leader metad is backed up by default. So if there are multiple metad processes, you need to manually copy the directory of the leader metad (path <code>&lt;storage_path&gt;/meta</code>) and overwrite the corresponding directory of other follower meatd processes.</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta <span class="s2">&quot;127.0.0.1:9559&quot;</span> --storage <span class="s2">&quot;local:///home/nebula/backup/&quot;</span>
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta <span class="s2">&quot;192.168.8.129:9559&quot;</span> --storage <span class="s2">&quot;local:///home/nebula/backup/&quot;</span>
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
-<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>127.0.0.1:9559</code>, and save the backup file to <code>backup</code> in the <code>br-test</code> bucket of the object storage service compatible with S3 protocol.</p>
-<div class="highlight"><pre><span></span><code>$ ./bin/br backup full --meta <span class="s2">&quot;127.0.0.1:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://127.0.0.1:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
+<p>Run the following command to perform a full backup for the entire cluster whose meta service address is <code>192.168.8.129:9559</code>, and save the backup file to <code>backup</code> in the <code>br-test</code> bucket of the object storage service compatible with S3 protocol.</p>
+<div class="highlight"><pre><span></span><code>$ ./br backup full --meta <span class="s2">&quot;192.168.8.129:9559&quot;</span> --s3.endpoint <span class="s2">&quot;http://192.168.8.129:9000&quot;</span> --storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span> --s3.access_key<span class="o">=</span>minioadmin --s3.secret_key<span class="o">=</span>minioadmin --s3.region<span class="o">=</span>default
 </code></pre></div>
 </li>
 </ul>
@@ -7310,32 +7307,32 @@
 <td>Checks help for restoration.</td>
 </tr>
 <tr>
-<td><code>-debug</code></td>
+<td><code>--debug</code></td>
 <td>-</td>
 <td>No</td>
 <td>None</td>
 <td>Checks for more log information.</td>
 </tr>
 <tr>
-<td><code>-log</code></td>
+<td><code>--log</code></td>
 <td>string</td>
 <td>No</td>
 <td><code>"br.log"</code></td>
 <td>Specifies detailed log path for restoration and backup.</td>
 </tr>
 <tr>
-<td><code>-meta</code></td>
+<td><code>--meta</code></td>
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
 <td>The IP address and port of the meta service.</td>
 </tr>
 <tr>
-<td><code>-name</code></td>
+<td><code>--space</code></td>
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
-<td>The name of backup.</td>
+<td>(Experimental feature) Specifies the names of the spaces to be backed up. All spaces will be backed up if not specified. Multiple spaces can be specified, and format is <code>--spaces nba_01 --spaces nba_02</code>.</td>
 </tr>
 <tr>
 <td><code>--storage</code></td>
@@ -7382,7 +7379,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
       
     
   </small>
