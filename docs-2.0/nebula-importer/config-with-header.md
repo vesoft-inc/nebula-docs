@@ -129,7 +129,7 @@ files:
   - path: ./student_with_header.csv
 
     # Insert the failed data file storage path, so that data can be written later.
-    failDataPath: ./err/studenterr.csv
+    failDataPath: ./err/studenterr
 
     # The number of statements inserting data in a batch.
     batchSize: 10
@@ -159,7 +159,7 @@ files:
 
     # The second data file in this example is edge data.
   - path: ./follow_with_header.csv
-    failDataPath: ./err/followerr.csv
+    failDataPath: ./err/followerr
     batchSize: 10
     limit: 10
     inOrder: true

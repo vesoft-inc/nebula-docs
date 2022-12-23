@@ -201,22 +201,25 @@ File configuration Stores the configuration of data files and logs, and details 
 The example configuration is as follows:
 
 ```yaml
-logPath: ./err/test.log
-files:
-  - path: ./student_without_header.csv
-    failDataPath: ./err/studenterr.csv
-    batchSize: 128
-    limit: 10
-    inOrder: false
+workingDir: ./data/
+ logPath: ./err/test.log
+ files:
+   - path: ./student.csv
+     failDataPath: ./err/student
+     batchSize: 128
+     limit: 10
+     inOrder: false
     type: csv
     csv:
-      withHeader: false
-      withLabel: false
-      delimiter: ","
+       withHeader: false
+       withLabel: false
+       delimiter: ","
+       lazyQuotes: false
 ```
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
+|`workingDir`|-|No| Use this parameter to switch between multiple directories where multiple directories contain data with the same file structure. For example, the values of `path` and `failDataPath` configured below will automatically change to `./data/student` and `./data/err/student`. The parameters can be absolute or relative.|
 |`logPath`|-|No|Path for exporting log information, such as errors during import.|
 |`files.path`|-|Yes|Path for storing data files. If a relative path is used, the path is merged with the current configuration file directory. You can use an asterisk (\*) for fuzzy matching to import multiple files with similar names, but the files need to be the same structure.|
 |`files.failDataPath`|-|Yes|Insert the failed data file storage path, so that data can be written later.|
@@ -227,6 +230,7 @@ files:
 |`files.csv.withHeader`|`false`|Yes|Whether there is a header.|
 |`files.csv.withLabel`|`false`|Yes|Whether there is a  label.|
 |`files.csv.delimiter`|`","`|Yes|Specifies the delimiter for the CSV file. A string delimiter that supports only one character.|
+|`files.csv.lazyQuotes`|`false`|No|If `lazyQuotes` is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.|
 
 #### Schema configuration
 
