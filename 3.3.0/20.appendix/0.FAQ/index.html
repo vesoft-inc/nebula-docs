@@ -7120,6 +7120,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#how_do_i_view_the_dmp_file" class="md-nav__link">
+    "How do I view the dmp file?"
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7556,6 +7563,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#how_do_i_view_the_dmp_file" class="md-nav__link">
+    "How do I view the dmp file?"
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7898,6 +7912,30 @@ You also need to run [Balance Data and Balance leader](../8.service-tuning/load-
 
 <h3 id="after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do">"After changing the name of the host, the old one keeps displaying <code>OFFLINE</code>. What should I do?"<a class="headerlink" href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" title="Permanent link">&para;</a></h3>
 <p>Hosts with the status of <code>OFFLINE</code> will be automatically deleted after one day.</p>
+<h3 id="how_do_i_view_the_dmp_file">"How do I view the dmp file?"<a class="headerlink" href="#how_do_i_view_the_dmp_file" title="Permanent link">&para;</a></h3>
+<p>The dmp file is an error report file detailing the process exit information, which can be viewed with the gdb tool that comes with the operating system. The dmp file is saved in the current directory of the startup binary(default is <code>/usr/local/nebula</code> directory) and will be generated automatically when the NebulaGraph service crashes.
+1. Check the Core file process name, pid is usually a numeric value.
+   <div class="highlight"><pre><span></span><code>$ file core.&lt;pid&gt;
+</code></pre></div>
+2. Use gdb to debug.
+   <div class="highlight"><pre><span></span><code>$ gdb &lt;process.name&gt; core.&lt;pid&gt;
+</code></pre></div>
+3. View the contents of the file.
+   <div class="highlight"><pre><span></span><code>$(gdb) bt
+</code></pre></div>
+For example:
+<div class="highlight"><pre><span></span><code>$ file core.1316027
+core.1316027: ELF <span class="m">64</span>-bit LSB core file, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, SVR4-style, from <span class="s1">&#39;/home/workspace/fork/nebula-debug/bin/nebula-metad --flagfile /home/k&#39;</span>, real uid: <span class="m">1008</span>, effective uid: <span class="m">1008</span>, real gid: <span class="m">1008</span>, effective gid: <span class="m">1008</span>, execfn: <span class="s1">&#39;/home/workspace/fork/nebula-debug/bin/nebula-metad&#39;</span>, platform: <span class="s1">&#39;x86_64&#39;</span>
+
+$ gdb /home/workspace/fork/nebula-debug/bin/nebula-metad core.1316027
+
+<span class="k">$(</span>gdb<span class="k">)</span> bt
+<span class="c1">#0  0x00007f9de58fecf5 in __memcpy_ssse3_back () from /lib64/libc.so.6</span>
+<span class="c1">#1  0x0000000000eb2299 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct&lt;char*&gt;(char*, char*, std::forward_iterator_tag) ()</span>
+<span class="c1">#2  0x0000000000ef71a7 in nebula::meta::cpp2::QueryDesc::QueryDesc(nebula::meta::cpp2::QueryDesc const&amp;) ()</span>
+...
+</code></pre></div></p>
+<p>If the user is not sure about the information related to the dmp printout, you can post the printout on the <a href="https://github.com/vesoft-inc/nebula/discussions">NebulaGraph Forum</a> with the operating system version, hardware configuration, error logs before and after the Core file was generated and actions that may have caused the error for help.</p>
 <h2 id="about_connections">About connections<a class="headerlink" href="#about_connections" title="Permanent link">&para;</a></h2>
 <h3 id="which_ports_should_be_opened_on_the_firewalls">"Which ports should be opened on the firewalls?"<a class="headerlink" href="#which_ports_should_be_opened_on_the_firewalls" title="Permanent link">&para;</a></h3>
 <p>If you have not modified the predefined ports in the <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Configurations</a>, open the following ports for the NebulaGraph services:</p>
