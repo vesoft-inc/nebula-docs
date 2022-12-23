@@ -41,7 +41,7 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 
 - [To cite NebulaGraph](https://arxiv.org/abs/2206.07278)
 - [NebulaGraph Homepage](https://nebula-graph.io/)
-- [Forum](https://discuss.nebula-graph.io/)
+- [Forum](https://github.com/vesoft-inc/nebula/discussion)
 - [Blogs](https://nebula-graph.io/posts/)
 - [Videos](https://www.youtube.com/channel/UC73V8q795eSEMxDX4Pvdwmw)
 - [Chinese Docs](https://docs.nebula-graph.com.cn/)
