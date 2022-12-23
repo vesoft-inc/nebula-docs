@@ -7396,7 +7396,7 @@
 <p><code>graph_space_name</code>, <code>partition_num</code>, <code>replica_factor</code>, <code>vid_type</code>, and <code>comment</code> cannot be modified once set. To modify them, drop the current working graph space with <a href="../5.drop-space/"><code>DROP SPACE</code></a> and create a new one with <code>CREATE SPACE</code>.</p>
 </div>
 <h3 id="clone_graph_spaces">Clone graph spaces<a class="headerlink" href="#clone_graph_spaces" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE SPACE &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;
+<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;
 </code></pre></div>
 <table>
 <thead>
@@ -7406,6 +7406,10 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><code>IF NOT EXISTS</code></td>
+<td align="left">Detects if the new graph space exists. If it does not exist, the new one will be created. The graph space existence detection here only compares the graph space name (excluding properties).</td>
+</tr>
 <tr>
 <td align="left"><code>&lt;new_graph_space_name&gt;</code></td>
 <td align="left">The name of the graph space that is newly created. The name of the graph space starts with a letter, supports 1 to 4 bytes UTF-8 encoded characters, such as English letters (case-sensitive), digits, and Chinese characters, but does not support special characters except underscores. For more information, see <a href="../../1.nGQL-overview/keywords-and-reserved-words/">Keywords and reserved words</a>. When a new graph space is created, the schema of the old graph space <code>&lt;old_graph_space_name&gt;</code> will be cloned, including its parameters (the number of partitions and replicas, etc.), Tag, Edge type and native indexes.</td>
@@ -7468,7 +7472,7 @@ nebula&gt; SHOW HOSTS;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 23, 2022</span>
       
     
   </small>
