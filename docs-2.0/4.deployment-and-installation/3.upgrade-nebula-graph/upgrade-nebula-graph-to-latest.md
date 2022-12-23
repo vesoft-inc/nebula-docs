@@ -25,8 +25,6 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
 * You must upgrade the old NebulaGraph services on the same machines they are deployed. **DO NOT** change the IP addresses, configuration files of the machines, and **DO NOT** change the cluster topology.
 
-* The hard disk space left on each machine should be **two times** as much as the space taken by the original data directories. Half of the reserved space is for storing the manual backup of data. The other half is for storing the WALs that will be copied to the `dst_db_path` and the new keys supporting vertices with no tags.
-
 * Known issues that could cause data loss are listed on [GitHub known issues](https://github.com/vesoft-inc/nebula-graph/issues/857). The issues are all related to altering schema or default values.
 
 * **DO NOT** use soft links to switch the data directories.
@@ -34,16 +32,6 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 * You must have the sudo privileges to complete the steps in this topic.
 
 ## Upgrade influences
-
-- Data swelling
-  
-  The NebulaGraph 3.x version expands the original data format with one more key per vertex, so the data takes up more space after the upgrade.
-  
-  The format of the new key is:
-  
-  Type (1 byte) + Partition ID (3 bytes) + VID (size depends on the data type).
-  
-  The value of the new key is empty. The extra space taken can be calculated based on the number of vertices and the data type of the VID. For example, if there are 100 million vertices in the dataset and the VIDs are INT64, the new key will take 100 million x (1 + 3 + 8) = 1.2 billion bytes, i.e., about 1.2 GB.
 
 - Client compatibility
 
