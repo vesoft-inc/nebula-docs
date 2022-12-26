@@ -1,6 +1,6 @@
 # System settings
 
-On the **System Settings** page, you can modify the page title, logo image, and cover image.
+On the **System Settings** page, you can modify the page title, logo image, and cover image, and also switch language or help prompts.
 
 ## Entry
 
@@ -9,4 +9,8 @@ On the **System Settings** page, you can modify the page title, logo image, and 
 
 ## Steps
 
-After modifying the page title, logo image, and cover image, click **Save**.
+- After modifying the page title, logo image, and cover image, click **Save**.
+- Change the display language. Currently, only Chinese and English are supported.
+- Turn on or off help tips. An example of tips is as follows.
+  
+  ![tips](https://docs-cdn.nebula-graph.com.cn/figures/tips.png)
