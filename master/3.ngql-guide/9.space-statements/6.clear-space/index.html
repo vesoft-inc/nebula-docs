@@ -7253,6 +7253,10 @@
 
 <h1 id="clear_space">CLEAR SPACE<a class="headerlink" href="#clear_space" title="Permanent link">&para;</a></h1>
 <p><code>CLEAR SPACE</code> deletes the vertices and edges in a graph space, but does not delete the graph space itself and the schema information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is recommended to execute <a href="../../4.job-statements/#submit_job_compact"><code>SUBMIT JOB COMPACT</code></a> immediately after executing the <code>CLEAR SPACE</code> operation improve the query performance. Note that the COMPACT operation may affect query performance, and it is recommended to perform this operation during low business hours (e.g., early morning).</p>
+</div>
 <h2 id="permission_requirements">Permission requirements<a class="headerlink" href="#permission_requirements" title="Permanent link">&para;</a></h2>
 <p>Only the <a href="../../../7.data-security/1.authentication/3.role-list/">God role</a> has the permission to run <code>CLEAR SPACE</code>.</p>
 <h2 id="caution">Caution<a class="headerlink" href="#caution" title="Permanent link">&para;</a></h2>
@@ -7260,22 +7264,18 @@
 <li>Once cleared, the data <strong>CANNOT be recovered</strong>. Use <code>CLEAR SPACE</code> with caution.</li>
 <li><code>CLEAR SPACE</code> is not an atomic operation. If an error occurs, re-run <code>CLEAR SPACE</code> to avoid data remaining.</li>
 <li>The larger the amount of data in the graph space, the longer it takes to clear it. If the execution fails due to client connection timeout, increase the value of the <code>storage_client_timeout_ms</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph Service configuration</a>.</li>
-<li>
-<p>During the execution of <code>CLEAR SPACE</code>, writing data into the graph space is not automatically prohibited. Such write operations can result in incomplete data clearing, and the residual data can be damaged.</p>
+<li>During the execution of <code>CLEAR SPACE</code>, writing data into the graph space is not automatically prohibited. Such write operations can result in incomplete data clearing, and the residual data can be damaged.</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li>The NebulaGraph Community Edition does not support blocking data writing while allowing <code>CLEAR SPACE</code>.</li>
-</ul>
+<p>The NebulaGraph Community Edition does not support blocking data writing while allowing <code>CLEAR SPACE</code>.</p>
 </div>
-</li>
-</ul>
 <!-- -->
-<p>!!! enterpriseonly</p>
-<div class="codehilite"><pre><span></span><code>  - The NebulaGraph Community Edition does not support blocking data writing while allowing `CLEAR SPACE`.
-  - The NebulaGraph Enterprise Edition supports blocking data writing by setting `VARIABLE read_only=true` before running `CLEAR SPACE`. After the data are cleared successfully, run `SET VARIABLE read_only=false` to allow data writing again.
-</code></pre></div>
 
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly</p>
+<p>The NebulaGraph Enterprise Edition supports blocking data writing by setting <code>VARIABLE read_only=true</code> before running <code>CLEAR SPACE</code>. After the data are cleared successfully, run <code>SET VARIABLE read_only=false</code> to allow data writing again.</p>
+</div>
 <!-- -->
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>CLEAR SPACE [IF EXISTS] &lt;space_name&gt;;
@@ -7409,7 +7409,7 @@ Got 2 rows (time spent 523/978 us)
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 23, 2022</span>
       
     
   </small>

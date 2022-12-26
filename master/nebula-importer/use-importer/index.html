@@ -7717,18 +7717,20 @@ $ go build -mod vendor cmd/importer.go
 <p>File configuration Stores the configuration of data files and logs, and details about the Schema.</p>
 <h4 id="file_and_log_configuration">File and log configuration<a class="headerlink" href="#file_and_log_configuration" title="Permanent link">&para;</a></h4>
 <p>The example configuration is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">logPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./err/test.log</span><span class="w"></span>
-<span class="nt">files</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./student_without_header.csv</span><span class="w"></span>
-<span class="w">    </span><span class="nt">failDataPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./err/studenterr.csv</span><span class="w"></span>
-<span class="w">    </span><span class="nt">batchSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
-<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-<span class="w">    </span><span class="nt">inOrder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">workingDir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/</span><span class="w"></span>
+<span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logPath</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./err/test.log</span><span class="w"></span>
+<span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">files</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./student.csv</span><span class="w"></span>
+<span class="w">     </span><span class="nt">failDataPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./err/student</span><span class="w"></span>
+<span class="w">     </span><span class="nt">batchSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">     </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
+<span class="w">     </span><span class="nt">inOrder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">   </span><span class="w w-Error"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span><span class="w"></span>
 <span class="w">    </span><span class="nt">csv</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">withHeader</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">      </span><span class="nt">withLabel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">      </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"></span>
+<span class="w">       </span><span class="nt">withHeader</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">       </span><span class="nt">withLabel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">       </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"></span>
+<span class="w">       </span><span class="nt">lazyQuotes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <table>
 <thead>
@@ -7740,6 +7742,12 @@ $ go build -mod vendor cmd/importer.go
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><code>workingDir</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Use this parameter to switch between multiple directories where multiple directories contain data with the same file structure. For example, the values of <code>path</code> and <code>failDataPath</code> configured below will automatically change to <code>./data/student</code> and <code>./data/err/student</code>. The parameters can be absolute or relative.</td>
+</tr>
 <tr>
 <td align="left"><code>logPath</code></td>
 <td align="left">-</td>
@@ -7799,6 +7807,12 @@ $ go build -mod vendor cmd/importer.go
 <td align="left"><code>","</code></td>
 <td align="left">Yes</td>
 <td align="left">Specifies the delimiter for the CSV file. A string delimiter that supports only one character.</td>
+</tr>
+<tr>
+<td align="left"><code>files.csv.lazyQuotes</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">If <code>lazyQuotes</code> is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.</td>
 </tr>
 </tbody>
 </table>
@@ -7993,7 +8007,7 @@ $ go build -mod vendor cmd/importer.go
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 23, 2022</span>
       
     
   </small>
