@@ -21,7 +21,7 @@ At the top navigation bar, click ![Template](https://docs-cdn.nebula-graph.com.c
   |Template name|`test`|The name of the template.|
   |Space|`basketballplayer`|The graph space to which the template applies.|
   |Description|`Returns the neighbor name of the specified player`| Describes the function of the template.|
-  |Query template|`MATCH (v:player{name:"${name}"})--(v2:player) RETURN v2.player.name AS Name;`|nGQL template. You can select the text you want to parameterize, click **+ parameterize selected content** on the right, and set the parameter name and description. In the example, `${name}` is parameterized text. In actual use, you can fill in a name such as `Tim Duncan`.|
+  |Query template|`MATCH (v:player{name:"${name}"})--(v2:player) RETURN v2.player.name AS Name;`|nGQL template. You can select the text you want to parameterize, click **+ parameterize selected content** on the right, and set the parameter name and description. In the example, `${name}` is parameterized text. In actual use, you can fill in a name such as `Tim Duncan`.<br>You can add comments in a single line using `//`.|
   |Input|-|Displays parameterized text content. You can edit or delete it.|
 
   !!! note

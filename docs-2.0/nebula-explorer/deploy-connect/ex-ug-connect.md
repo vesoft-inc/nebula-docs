@@ -49,12 +49,14 @@ To connect Explorer to NebulaGraph, follow these steps:
 
 1. On the **Config Server** page of Explorer, configure these fields:
 
-   - **Host**: Enter the IP address and the port of the Graph service of NebulaGraph. The valid format is `IP:port`. The default port is `9669`.  
+  - **Graphd IP address**: Enter the IP address of the Graph service of NebulaGraph. For example, `192.168.10.100`.
 
     !!! note
 
-      - When NebulaGraph and Explorer are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
-      - When connecting a NebulaGraph database on a new tab, The new session will overwrite the sessions of the old TAB. If you need to log in to multiple NebulaGraph databases at the same time, you can use different browsers or non-trace mode.
+        - When NebulaGraph and Explorer are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+        - When connecting a NebulaGraph database on a new tab, The new session will overwrite the sessions of the old TAB. If you need to log in to multiple NebulaGraph databases at the same time, you can use different browsers or non-trace mode.
+
+  - **Port**: The port of the Graph service. The default port is `9669`.
 
   - **Username** and **Password**: Fill in the log in account according to the [authentication settings](../../7.data-security/1.authentication/1.authentication.md) of NebulaGraph.
 
