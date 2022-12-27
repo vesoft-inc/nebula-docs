@@ -85,6 +85,8 @@ The test environment for the operation example in this topic is as follows:
 
   - On the primary and secondary cluster machines, modify `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`. In all three files, set real IP addresses for `local_ip` instead of `127.0.0.1`, and set the IP addresses and ports for their own nebula-metad processes as the `meta_server_addrs` values. In `nebula-graphd.conf`, set `enable_authorize=true`.
 
+  - On the primary cluster, set `--snapshot_send_files=false` in both the `nebula-storaged.conf` file and the `nebula-metad.conf` file. 
+
   - On the Meta listener machine, modify `nebula-metad-listener.conf`. Set the IP addresses and ports of the **primary cluster's** nebula-metad processes for `meta_server_addrs`, and those of the listener process for `meta_sync_listener`.
 
   - On the Storage listener machine, modify `nebula-storaged-listener.conf`. Set the IP addresses and ports of the **primary cluster's** nebula-metad processes for `meta_server_addrs`.
@@ -540,3 +542,6 @@ Fix the problems in the cluster, and then the synchronization will be automatica
 You can run `SHOW SYNC STATUS` to check the status of the data sent by the primary cluster and run `SHOW DRAINER SYNC STATUS` to check the status of the data received by the secondary cluster. If all the data is sent successfully from the primary cluster and all the data is received successfully by the secondary cluster, the data synchronization is completed.
 
 
+### My WAL log files has expired and will it affect the cluster synchronization?
+
+Expired WAL files (beyond the time set by `--wal-ttl`) will cause unsynchronization of cluster data. You can manually add `--snapshot_send_files=false` to the configuration files of the Meta and Storage services to synchronize data. After updating the configuration file, you need to restart the services. For more information about the configuration files, see [Configuration Files](../5.configurations-and-logs/1.configurations/1.configurations.md).
