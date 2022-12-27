@@ -29,7 +29,7 @@ To prevent data loss due to operational errors or system failures, NebulaGraph o
 2. On the right side of the target cluster, click **Detail**. 
 3. In the left navigation bar, click **Operation**->**Backup&Restore**.
 
-### Full backup data
+### Full backup
 
 Data is backed up to the cloud storage service by creating a backup file as follows.
 
