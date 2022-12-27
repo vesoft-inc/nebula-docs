@@ -93,7 +93,7 @@ Data is backed up to the cloud storage service by creating a backup file as foll
 
         Do not modify the file name and storage path of backup files, otherwise, the backup data cannot be restored to the cluster.
 
-### Incremental backup data
+### Incremental backup
 
 Users can perform incremental backup based on existing backup files. Incremental backup only covers all files that have changed or been modified since the last backup was made.
 
