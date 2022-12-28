@@ -544,4 +544,4 @@ You can run `SHOW SYNC STATUS` to check the status of the data sent by the prima
 
 ### My WAL log files has expired and will it affect the cluster synchronization?
 
-Expired WAL files (beyond the time set by `--wal-ttl`) will cause unsynchronization of cluster data. You can manually add `--snapshot_send_files=false` to the configuration files of the Meta and Storage services to synchronize data. After updating the configuration file, you need to restart the services. For more information about the configuration files, see [Configuration Files](../5.configurations-and-logs/1.configurations/1.configurations.md).
+Expired WAL files (beyond the time set by `--wal-ttl`) will cause unsynchronization of cluster data. You can manually add `--snapshot_send_files=false` to the configuration files of the Meta and Storage services to synchronize data. After updating the configuration files, you need to restart the services. For more information about the configuration files, see [Configuration Files](../5.configurations-and-logs/1.configurations/1.configurations.md).
