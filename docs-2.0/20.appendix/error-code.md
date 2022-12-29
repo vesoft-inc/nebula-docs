@@ -31,6 +31,9 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_USER_NOT_FOUND`|`-18`| User does not exist|
 |`E_STATS_NOT_FOUND`|`-19`| Statistics do not exist|
 |`E_SERVICE_NOT_FOUND`|`-20`| No current service found|
+|`E_DRAINER_NOT_FOUND`|`-21`| Drainer does not exist|
+ |`E_DRAINER_CLIENT_NOT_FOUND`|`-22`| Drainer client does not exist|
+ |`E_PART_STOPPED`|`-23`| The current partition has already been stopped|
 |`E_BACKUP_FAILED`|`-24`| Backup failed|
 |`E_BACKUP_EMPTY_TABLE`|`-25`| The backed-up table is empty|
 |`E_BACKUP_TABLE_FAILED`|`-26`| Table backup failure|
@@ -99,6 +102,9 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_LIST_CLUSTER_NO_AGENT_FAILURE`|`-2072`| Unable to get an agent when getting cluster information|
 |`E_QUERY_NOT_FOUND`|`-2073`| Query not found|
 |`E_AGENT_HB_FAILUE`|`-2074`| Failed to receive heartbeat from agent|
+|`E_HOST_CAN_NOT_BE_ADDED`|`-2082`|The host can not be added for it's not a storage host|
+|`E_ACCESS_ES_FAILURE`|`-2090`|Failed to access elasticsearch|
+|`E_GRAPH_MEMORY_EXCEEDED`|`-2600`| Graph memory exceeded|
 |`E_CONSENSUS_ERROR`|`-3001`| Consensus cannot be reached during an election|
 |`E_KEY_HAS_EXISTS`|`-3002`| Key already exists|
 |`E_DATA_TYPE_MISMATCH`|`-3003`| Data type mismatch|
@@ -157,6 +163,22 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_RAFT_ATOMIC_OP_FAILED`|`-3530`| Atomic operation failed|
 |`E_LEADER_LEASE_FAILED`|`-3531`| Leader lease expired|
 |`E_RAFT_CAUGHT_UP`|`-3532`| Data has been synchronized on Raft|
+|`E_STORAGE_MEMORY_EXCEEDED`|`-3600`|Storage memory exceeded|
+|`E_LOG_GAP`|`-4001`| Drainer logs lag behind|
+|`E_LOG_STALE`|`-4002`| Drainer logs are out of date|
+|`E_INVALID_DRAINER_STORE`|`-4003`| The drainer data storage is invalid|
+|`E_SPACE_MISMATCH`|`-4004`| Graph space mismatch|
+|`E_PART_MISMATCH`|`-4005`| Partition mismatch|
+|`E_DATA_CONFLICT`|`-4006`| Data conflict|
+|`E_REQ_CONFLICT`|`-4007`| Request conflict|
+|`E_DATA_ILLEGAL`|`-4008`| Illegal data|
+|`E_CACHE_CONFIG_ERROR`|`-5001`| Cache configuration error|
+|`E_NOT_ENOUGH_SPACE`|`-5002`| Insufficient space|
+|`E_CACHE_MISS`|`-5003`| No cache hit|
+|`E_CACHE_WRITE_FAILURE`|`-5005`| Write cache failed|
+|`E_NODE_NUMBER_EXCEED_LIMIT`|`-7001`| Number of machines exceeded the limit|
+|`E_PARSING_LICENSE_FAILURE`|`-7002`| Failed to resolve certificate|
+|`E_UNKNOWN`|`-8000`| Unknown error|
 
 <!--
 |``|`-14`| Zone does not exist |
@@ -170,25 +192,5 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |``|`-2081`| Variable value and type do not match|
 |``|`-3061`| Client and server versions are not compatible|
 |``|`-3062`| Failed to get ID serial number|
-
-//enterprise 
-|``|`-21`| Drainer does not exist|
-|``|`-22`| Drainer client does not exist|
-
-|``|`-4001`| Drainer logs lag behind|
-|``|`-4002`| Drainer logs are out of date|
-|``|`-4003`| The drainer data storage is invalid|
-|``|`-4004`| Graph space mismatch|
-|``|`-4005`| Partition mismatch|
-|``|`-4006`| Data conflict|
-|``|`-4007`| Request conflict|
-|``|`-4008`| Illegal data|
-|``|`-5001`| Cache configuration error|
-|``|`-5002`| Insufficient space|
-|``|`-5003`| No cache hit|
-|``|`-5005`| Write cache failed|
-|``|`-7001`| Number of machines exceeded the limit|
-|``|`-7002`| Failed to resolve certificate|
-|``|`-8000`| Unknown error|
 
 -->
