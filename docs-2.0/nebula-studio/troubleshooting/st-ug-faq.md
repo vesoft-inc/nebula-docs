@@ -8,6 +8,6 @@
     
     2. Confirm that Studio is the latest version. For more information, refer to [check updates](../../20.appendix/release-notes/studio-release-note.md).
     
-    3. Search the [nebula forum](https://discuss.nebula-graph.io/), [nebula](https://github.com/vesoft-inc/nebula) and [nebula-studio](https://github.com/vesoft-inc/nebula-studio) projects on the GitHub to confirm if there are already similar problems.
+    3. Search the [nebula forum](https://github.com/vesoft-inc/nebula/discussions), [nebula](https://github.com/vesoft-inc/nebula) and [nebula-studio](https://github.com/vesoft-inc/nebula-studio) projects on the GitHub to confirm if there are already similar problems.
     
     4. If none of the above steps solve the problem, you can submit a problem on the forum.

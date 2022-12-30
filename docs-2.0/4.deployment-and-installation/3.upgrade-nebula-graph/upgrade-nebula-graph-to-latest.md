@@ -65,7 +65,7 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
 !!! caution
 
-    There may be other undiscovered influences. Before the upgrade, we recommend that you read the release notes and user manual carefully, and keep an eye on the [posts](https://discuss.nebula-graph.io/) on the forum and [issues](https://github.com/vesoft-inc/nebula/issues) on Github.
+    There may be other undiscovered influences. Before the upgrade, we recommend that you read the release notes and user manual carefully, and keep an eye on the [posts](https://github.com/vesoft-inc/nebula/discussions) on the forum and [issues](https://github.com/vesoft-inc/nebula/issues) on Github.
 
 ## Preparations before the upgrade
 
@@ -100,7 +100,7 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
   !!! note
 
-        If the services are not fully stopped in 20 minutes, stop upgrading and ask for help on [the forum](https://discuss.nebula-graph.io/) or [Github](https://github.com/vesoft-inc/nebula/issues).
+        If the services are not fully stopped in 20 minutes, stop upgrading and ask for help on [the forum](https://github.com/vesoft-inc/nebula/discussions) or [Github](https://github.com/vesoft-inc/nebula/issues).
 
 2. In the target path where you unpacked the TAR file, use the binaries in the `bin` directory to replace the old binaries in the `bin` directory in the NebulaGraph installation path.
 

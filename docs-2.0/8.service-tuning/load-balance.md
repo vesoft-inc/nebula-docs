@@ -82,7 +82,7 @@ After you add new storage hosts into the cluster, no partition is deployed on th
   +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
   ```
 
-If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
 
 ### Stop data balancing
 
@@ -211,7 +211,7 @@ After you add new storage hosts into the zone, no partition is deployed on the n
   +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
-If any subtask fails, run [`RECOVER JOB <job_id>`](../synchronization-and-migration/2.balance-syntax.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run [`RECOVER JOB <job_id>`](../synchronization-and-migration/2.balance-syntax.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
 
 ## Stop data balancing
 
