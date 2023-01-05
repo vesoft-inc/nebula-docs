@@ -19,7 +19,7 @@ The NebulaGraph Explorer page consists of three modules top navigation bar, left
 | ![Console](https://docs-cdn.nebula-graph.com.cn/figures/nav-console2.png) | Query the NebulaGraph data with nGQL statements. For more information, see [Console](db-management/explorer-console.md). |
 | ![Template](https://docs-cdn.nebula-graph.com.cn/figures/icon-navbar-queryTemplate.png)| The template of the nGQL. For details, see [nGQL template](db-management/ngql-template.md).|
 | ![db_user_management](https://docs-cdn.nebula-graph.com.cn/figures/db_user_management_221024.png) | Manage the users in NebulaGraph database. For more information, see [Database user Management](db-management/dbuser_management.md)。 |
-| ![setting](https://docs-cdn.nebula-graph.com.cn/figures/navbar-setting-0105.png) | Global Settings. You can set the language of the Explorer page, enable Beta functions, and the maximum number of vertices and edges to return for canvas queries.   |
+| ![setting](https://docs-cdn.nebula-graph.com.cn/figures/navbar-setting-0105.png) | Global Settings. You can set the language of the Explorer page, enable Beta functions, and the maximum number of canvas query results.   |
 | ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png) | Guide and help you in using NebulaGraph.          |
 | ![feedback](https://docs-cdn.nebula-graph.com.cn/figures/navbar-feedback-230105.png) | Feedback page. You can report troubles, submit suggestions, participate in research, or contact the NebulaGraph team. |
 | ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) | Show the connection information and version information. You can change passwords and log out.  |
