@@ -26,6 +26,8 @@ The synchronization works as follows:
 
 ## Precautions
 
+- Make sure that the primary and secondary clusters are deployed in the same NebulaGraph version. Otherwise, the synchronization will fail.
+  
 - The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
 
 - About the synchronization topology, NebulaGraph:
