@@ -182,7 +182,11 @@ The test environment for the operation example in this topic is as follows:
   +-----------+------------------+------+
   ```
 
-3. Configure the listener service.
+  !!! caution
+  
+        Only the `root` user can register the drainer service in the primary cluster.
+
+1. Configure the listener service.
 
   ```ngql
   # replication_basketballplayer is the synchronization target. It will be created in the following steps.
