@@ -12,7 +12,7 @@ Before submitting your question, make sure you have:
 - Searched existing Stack Overflow questions.
 - Googled your question.
 - Searched the open and closed [GitHub issues](https://github.com/vesoft-inc/nebula-docs/issues).
-- Searched our [Forum](https://discuss.nebula-graph.io/).
+- Searched our [Forum](https://github.com/vesoft-inc/nebula/discussions).
 - Read the documentation:
   - [docs](https://docs.nebula-graph.io/)
 

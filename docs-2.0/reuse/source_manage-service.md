@@ -150,7 +150,7 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
 
         After starting NebulaGraph, the port of the `nebula-storaged` process is shown in red. Because the `nebula-storaged` process waits for the `nebula-metad` to add the current Storage service during the startup process. The Storage works after it receives the ready signal. Starting from NebulaGraph 3.0.0, the Meta service cannot directly read or write data in the Storage service that you add in the configuration file. The configuration file only registers the Storage service to the Meta service. You must run the `ADD HOSTS` command to enable the Meta to read and write data in the Storage service. For more information, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
 
-* If the returned result is similar to the following one, there is a problem. You may also go to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help.
+* If the returned result is similar to the following one, there is a problem. You may also go to the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions) for help.
 
     ```bash
     [INFO] nebula-metad: Running as 25600, Listening on 9559

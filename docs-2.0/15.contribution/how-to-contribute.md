@@ -4,7 +4,7 @@
 
 ### Commit an issue on the github or forum
 
-You are welcome to contribute any code or files to the project. But firstly we suggest you raise an issue on the [github](https://github.com/vesoft-inc/nebula) or the [forum](https://discuss.nebula-graph.io/) to start a discussion with the community. Check through the topic for Github.
+You are welcome to contribute any code or files to the project. But firstly we suggest you raise an issue on the [github](https://github.com/vesoft-inc/nebula) or the [forum](https://github.com/vesoft-inc/nebula/discussions) to start a discussion with the community. Check through the topic for Github.
 
 ### Sign the Contributor License Agreement (CLA)
 
