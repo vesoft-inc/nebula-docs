@@ -52,7 +52,7 @@ The native nGQL TTL feature has the following options.
 
 !!! Note
 
-    When the TTL options are set for a property and the property's value is `NULL`, the property never expires. 
+    When the TTL options are set for a property and the property's value is `NULL` or `now()`, the property never expires. 
 
 ## Use TTL options
 
