@@ -16,8 +16,23 @@ This topic applies to native nGQL only.
 
   + If there are TTL options on a tag, an edge type, or a property, you can still add an index on them.
 
+## TTL options
+
+The native nGQL TTL feature has the following options.
+
+|Option|Description|
+|:---|:---|
+|`ttl_col`|Specifies the property to set a timeout on. The data type of the property must be `int` or `timestamp`.|
+|`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.|
+
+
 ## Data expiration and deletion
 
+!!! caution
+
+    - When the TTL options are set for a property of a tag or an edge type and the property's value is `NULL`, the property never expires. 
+    - If a property with a default value of `now()` is added to a tag or an edge type and the TTL options are set for the property, the history data related to the tag or the edge type will never expire because the value of that property for the history data is the current timestamp.
+  
 ### Vertex property expiration
 
 Vertex property expiration has the following impact.
@@ -26,20 +41,10 @@ Vertex property expiration has the following impact.
 
 * If a vertex has multiple tags, once a property of the vertex expires, properties bound to the same tag with the expired property also expire, but the vertex does not expire and other properties of it remain untouched.
 
-
-!!! caution
-
-    - When the TTL options are set for a property and the property's value is `NULL`, the property never expires. 
-    - If a property with a default value of `now()` is added to a tag and the TTL options are set for the property, the history data related to the tag will never expire because the value of that property for the history data is the current timestamp.
-
 ### Edge property expiration
 
 Since an edge can have only one edge type, once an edge property expires, the edge expires.
 
-!!! caution
-
-    If a property with a default value of `now()` is added to a tag and the TTL options are set for the property, the history data related to the tag will never expire because the value of that property for the history data is the current timestamp.
-    
 ### Data deletion
 
 The expired data are still stored on the disk, but queries will filter them out.
@@ -49,15 +54,6 @@ NebulaGraph automatically deletes the expired data and reclaims the disk space d
 !!! note
 
     If TTL is [disabled](#remove_a_timeout), the corresponding data deleted after the last compaction can be queried again.
-
-## TTL options
-
-The native nGQL TTL feature has the following options.
-
-|Option|Description|
-|:---|:---|
-|`ttl_col`|Specifies the property to set a timeout on. The data type of the property must be `int` or `timestamp`.|
-|`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.|
 
 ## Use TTL options
 
