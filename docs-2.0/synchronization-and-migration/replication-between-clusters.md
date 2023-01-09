@@ -47,6 +47,8 @@ The synchronization works as follows:
 
 - If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
 
+- During the synchronization, do not perform data recovery (backup recovery and snapshot recovery) operations on the primary cluster at the same time. Otherwise, the synchronization will fail.
+
 ## Prerequisites
 
 - Prepare at least two machines to deploy the primary and secondary clusters, the listeners, and the drainer.
