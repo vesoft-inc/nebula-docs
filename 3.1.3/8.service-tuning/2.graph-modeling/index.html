@@ -7271,37 +7271,37 @@ Operations on loops are not encapsulated with any syntactic sugars and you can u
 </ol>
 <p>Dangling edges may appear in Nebula Graph 3.1.3 as the design allow it to exist. And there is no MERGE statement like openCypher has. The existence of dangling edges depends entirely on the application level. You can use <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> and <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> statements to find a dangling edge, but cannot use the <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> statement to find a dangling edge.</p>
 <p>Examples:</p>
-<div class="highlight"><pre><span></span><code>// Insert an edge that connects two vertices which <span class="k">do</span> not exist <span class="k">in</span> the graph. The <span class="nb">source</span> vertex<span class="s1">&#39;s ID is &#39;</span><span class="m">11</span><span class="s1">&#39;. The destination vertex&#39;</span>s ID is<span class="s1">&#39;13&#39;</span>. 
+<div class="highlight"><pre><span></span><code>//<span class="w"> </span>Insert<span class="w"> </span>an<span class="w"> </span>edge<span class="w"> </span>that<span class="w"> </span>connects<span class="w"> </span>two<span class="w"> </span>vertices<span class="w"> </span>which<span class="w"> </span><span class="k">do</span><span class="w"> </span>not<span class="w"> </span>exist<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>graph.<span class="w"> </span>The<span class="w"> </span><span class="nb">source</span><span class="w"> </span>vertex<span class="s1">&#39;s ID is &#39;</span><span class="m">11</span><span class="s1">&#39;. The destination vertex&#39;</span>s<span class="w"> </span>ID<span class="w"> </span>is<span class="s1">&#39;13&#39;</span>.<span class="w"> </span>
 
-nebula&gt; CREATE EDGE IF NOT EXISTS e1 <span class="o">(</span>name string, age int<span class="o">)</span><span class="p">;</span>
-nebula&gt; INSERT EDGE e1 <span class="o">(</span>name, age<span class="o">)</span> VALUES <span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span>:<span class="o">(</span><span class="s2">&quot;n1&quot;</span>, <span class="m">1</span><span class="o">)</span><span class="p">;</span>
+nebula&gt;<span class="w"> </span>CREATE<span class="w"> </span>EDGE<span class="w"> </span>IF<span class="w"> </span>NOT<span class="w"> </span>EXISTS<span class="w"> </span>e1<span class="w"> </span><span class="o">(</span>name<span class="w"> </span>string,<span class="w"> </span>age<span class="w"> </span>int<span class="o">)</span><span class="p">;</span>
+nebula&gt;<span class="w"> </span>INSERT<span class="w"> </span>EDGE<span class="w"> </span>e1<span class="w"> </span><span class="o">(</span>name,<span class="w"> </span>age<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span>:<span class="o">(</span><span class="s2">&quot;n1&quot;</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="p">;</span>
 
-// Query using the <span class="sb">`</span>GO<span class="sb">`</span> statement
+//<span class="w"> </span>Query<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>GO<span class="sb">`</span><span class="w"> </span>statement
 
-nebula&gt; GO FROM <span class="s2">&quot;11&quot;</span> over e1 YIELD properties<span class="o">(</span>edge<span class="o">)</span><span class="p">;</span>
+nebula&gt;<span class="w"> </span>GO<span class="w"> </span>FROM<span class="w"> </span><span class="s2">&quot;11&quot;</span><span class="w"> </span>over<span class="w"> </span>e1<span class="w"> </span>YIELD<span class="w"> </span>properties<span class="o">(</span>edge<span class="o">)</span><span class="p">;</span>
 +----------------------+
-<span class="p">|</span> properties<span class="o">(</span>EDGE<span class="o">)</span>     <span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>properties<span class="o">(</span>EDGE<span class="o">)</span><span class="w">     </span><span class="p">|</span>
 +----------------------+
-<span class="p">|</span> <span class="o">{</span>age: <span class="m">1</span>, name: <span class="s2">&quot;n1&quot;</span><span class="o">}</span> <span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="o">{</span>age:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;n1&quot;</span><span class="o">}</span><span class="w"> </span><span class="p">|</span>
 +----------------------+
 
-// Query using the <span class="sb">`</span>LOOKUP<span class="sb">`</span> statement
+//<span class="w"> </span>Query<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>LOOKUP<span class="sb">`</span><span class="w"> </span>statement
 
-nebula&gt; LOOKUP ON e1 YIELD EDGE AS r<span class="p">;</span>
+nebula&gt;<span class="w"> </span>LOOKUP<span class="w"> </span>ON<span class="w"> </span>e1<span class="w"> </span>YIELD<span class="w"> </span>EDGE<span class="w"> </span>AS<span class="w"> </span>r<span class="p">;</span>
 +-------------------------------------------------------+
-<span class="p">|</span> r                                                     <span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>r<span class="w">                                                     </span><span class="p">|</span>
 +-------------------------------------------------------+
-<span class="p">|</span> <span class="o">[</span>:e2 <span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span> @0 <span class="o">{</span>age: <span class="m">1</span>, name: <span class="s2">&quot;n1&quot;</span><span class="o">}]</span>              <span class="p">|</span>
+<span class="p">|</span><span class="w"> </span><span class="o">[</span>:e2<span class="w"> </span><span class="s2">&quot;11&quot;</span>-&gt;<span class="s2">&quot;13&quot;</span><span class="w"> </span>@0<span class="w"> </span><span class="o">{</span>age:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;n1&quot;</span><span class="o">}]</span><span class="w">              </span><span class="p">|</span>
 +-------------------------------------------------------+
 
-// Query using the <span class="sb">`</span>MATCH<span class="sb">`</span> statement
+//<span class="w"> </span>Query<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>MATCH<span class="sb">`</span><span class="w"> </span>statement
 
-nebula&gt; MATCH <span class="o">()</span>-<span class="o">[</span>e:e1<span class="o">]</span>-&gt;<span class="o">()</span> RETURN e LIMIT <span class="m">100</span><span class="p">;</span>
+nebula&gt;<span class="w"> </span>MATCH<span class="w"> </span><span class="o">()</span>-<span class="o">[</span>e:e1<span class="o">]</span>-&gt;<span class="o">()</span><span class="w"> </span>RETURN<span class="w"> </span>e<span class="w"> </span>LIMIT<span class="w"> </span><span class="m">100</span><span class="p">;</span>
 +---+
-<span class="p">|</span> e <span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>e<span class="w"> </span><span class="p">|</span>
 +---+
 +---+
-Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time</span> spent <span class="m">3153</span>/3573 us<span class="o">)</span>
+Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="o">(</span><span class="nb">time</span><span class="w"> </span>spent<span class="w"> </span><span class="m">3153</span>/3573<span class="w"> </span>us<span class="o">)</span>
 </code></pre></div>
 <h3 id="breadth-first_traversal_over_depth-first_traversal">Breadth-first traversal over depth-first traversal<a class="headerlink" href="#breadth-first_traversal_over_depth-first_traversal" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7342,7 +7342,7 @@ Empty <span class="nb">set</span> <span class="o">(</span><span class="nb">time<
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2023</span>
       
     
   </small>

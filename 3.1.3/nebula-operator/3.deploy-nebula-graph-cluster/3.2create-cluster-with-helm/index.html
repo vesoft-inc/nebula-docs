@@ -7082,48 +7082,48 @@
 <ol>
 <li>
 <p>Add the Nebula Operator chart repository to Helm（If you have already added the chart, skip the 1-2 steps and start from step 3).</p>
-<div class="highlight"><pre><span></span><code>helm repo add nebula-operator https://vesoft-inc.github.io/nebula-operator/charts
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>nebula-operator<span class="w"> </span>https://vesoft-inc.github.io/nebula-operator/charts
 </code></pre></div>
 </li>
 <li>
 <p>Update information of available charts locally from chart repositories.</p>
-<div class="highlight"><pre><span></span><code>helm repo update
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Set environment variables to your desired values.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula         <span class="c1"># The desired Nebula Graph cluster name.</span>
-<span class="nb">export</span> <span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula    <span class="c1"># The desired namespace where your Nebula Graph cluster locates.</span>
-<span class="nb">export</span> <span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>gp2             <span class="c1"># The desired StorageClass name in your Nebula Graph cluster.</span>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula<span class="w">         </span><span class="c1"># The desired Nebula Graph cluster name.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula<span class="w">    </span><span class="c1"># The desired namespace where your Nebula Graph cluster locates.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>gp2<span class="w">             </span><span class="c1"># The desired StorageClass name in your Nebula Graph cluster.</span>
 </code></pre></div>
 </li>
 <li>
 <p>Create a namespace for your Nebula Graph cluster（If you have created one, skip this step）.</p>
-<div class="highlight"><pre><span></span><code>kubectl create namespace <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Apply the variables to the Helm chart to create a Nebula Graph cluster.</p>
-<div class="highlight"><pre><span></span><code>helm install <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span> nebula-operator/nebula-cluster <span class="se">\</span>
-    --namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-    --set <span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span> <span class="se">\</span>
-    --set nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Check the status of the Nebula Graph cluster you created.</p>
-<div class="highlight"><pre><span></span><code>kubectl -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span> get pod -l <span class="s2">&quot;app.kubernetes.io/cluster=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/cluster=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 <p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME                READY   STATUS    RESTARTS   AGE
-nebula-graphd-0     <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-graphd-1     <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-metad-0      <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-metad-1      <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-metad-2      <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-storaged-0   <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-storaged-1   <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
-nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</span>          5m34s
+<div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-graphd-0<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-graphd-1<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-metad-0<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-metad-1<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-metad-2<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-storaged-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-storaged-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
+nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
 </code></pre></div>
 </li>
 </ol>
@@ -7137,11 +7137,11 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 </div>
 <p>You can scale a Nebula Graph cluster by defining the value of the <code>replicas</code> corresponding to the different services in the cluster.</p>
 <p>For example, run the following command to scale out a Nebula Graph cluster by changing the number of Storage services from 2 (the original value) to 5:  </p>
-<div class="highlight"><pre><span></span><code>helm upgrade <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span> nebula-operator/nebula-cluster <span class="se">\</span>
-    --namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-    --set <span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span> <span class="se">\</span>
-    --set nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-    --set nebula.storaged.replicas<span class="o">=</span><span class="m">5</span>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.replicas<span class="o">=</span><span class="m">5</span>
 </code></pre></div>
 <p>Similarly, you can scale in a Nebula Graph cluster by setting the value of the <code>replicas</code> corresponding to the different services in the cluster smaller than the original value.</p>
 <div class="admonition caution">
@@ -7151,7 +7151,7 @@ nebula-storaged-2   <span class="m">1</span>/1     Running   <span class="m">0</
 <p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.1.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a Nebula Graph cluster with Helm:</p>
-<div class="highlight"><pre><span></span><code>helm uninstall <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span> --namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 <p>Or use variable values to delete a Nebula Graph cluster with Helm:</p>
 <p>```bash
@@ -7416,7 +7416,7 @@ helm uninstall nebula --namespace=nebula</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2023</span>
       
     
   </small>
