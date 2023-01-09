@@ -124,6 +124,10 @@
 
 ### Graph space
 
+!!! note
+
+    Space-level metrics are created dynamically, so that only when the behavior is triggered in the graph space, the corresponding metric is created and can be queried by the user.
+
 | Parameter                                           | Description                                      |
 | ---------------------------------------------- | ----------------------------------------- |
 | `num_active_queries`                             | The number of queries currently being executed.                    |
@@ -138,7 +142,6 @@
 | `num_aggregate_executors`                        | The number of executions for the Aggregation operator.               |
 | `num_sort_executors`                             | The number of executions for the Sort operator.                     |
 | `num_indexscan_executors`                        | The number of executions for index scan operators.           |
-| `num_oom_queries`                                | The number of queries that caused memory to run out.         |
 | `num_auth_failed_sessions_bad_username_password` | The number of sessions where authentication failed due to incorrect username and password.  |
 | `num_auth_failed_sessions`     | The number of sessions in which login authentication failed.                            |
 | `num_opened_sessions`          | The number of sessions connected to the server.                          |
