@@ -153,6 +153,8 @@
 | `num_rpc_sent_to_storaged`     |  The number of RPC requests that the Graphd service sent to the Storaged service.                           |
 | `slow_query_latency_us`        |  The latency of slow queries.                           |
 
+{{ent.ent_begin}}
+
 ### Single process metrics
 
 Graph, Meta, and Storage services all have their own single process metrics.
@@ -165,3 +167,5 @@ Graph, Meta, and Storage services all have their own single process metrics.
 | `open_filedesc_gauge`           |  The number of file descriptors.                   |
 | `read_bytes_total`           |   The number of bytes read.                  |
 | `write_bytes_total`           |   The number of bytes written.                |
+
+{{ent.ent_end}}
