@@ -3984,6 +3984,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#role_permission_requirements" class="md-nav__link">
+    Role permission requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#faq" class="md-nav__link">
     FAQ
   </a>
@@ -7506,6 +7513,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#role_permission_requirements" class="md-nav__link">
+    Role permission requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#faq" class="md-nav__link">
     FAQ
   </a>
@@ -7655,6 +7669,9 @@
 </ul>
 <ul>
 <li>If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.</li>
+</ul>
+<ul>
+<li>It is recommended to use the NebulaGraph <code>root</code> user with the God privileges to perform the cluster data synchronization. The required user roles for each synchronization command are different. For details, see the <strong>Role permission requirements</strong> section at the end of this topic.</li>
 </ul>
 <ul>
 <li>During the synchronization, do not perform data recovery (backup recovery and snapshot recovery) operations on the primary cluster at the same time. Otherwise, the synchronization will fail.</li>
@@ -7808,6 +7825,10 @@ nebula&gt; SHOW DRAINER CLIENTS;
 | &quot;DRAINER&quot; | &quot;192.168.10.104&quot; | 9889 |
 +-----------+------------------+------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To register multiple drainer services, run the command such as <code>SIGN IN DRAINER SERVICE(192.168.8.x:9889),(192.168.8.x:9889)</code>.</p>
+</div>
 </li>
 <li>
 <p>Configure the listener service.</p>
@@ -7840,6 +7861,10 @@ nebula&gt; SHOW LISTENER SYNC;
 | 15     | &quot;SYNC&quot; | &quot;&quot;192.168.10.103&quot;:9789&quot; | &quot;replication_basketballplayer&quot; | &quot;ONLINE&quot; |
 +--------+--------+------------------------+--------------------------------+----------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To configure multiple storage listener services, run the command such as <code>ADD LISTENER SYNC META 192.168.10.xxx:9569 STORAGE 192.168.10.xxx:9789,192.168.10.xxx:9789 TO SPACE replication_basketballplayer</code>.</p>
+</div>
 </li>
 <li>
 <p>Log into the secondary cluster and create graph space <code>replication_basketballplayer</code>.</p>
@@ -7863,6 +7888,10 @@ nebula&gt; SHOW DRAINERS;
 | &quot;&quot;192.168.10.104&quot;:9889&quot; | &quot;ONLINE&quot; |
 +-------------------------+----------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To configure multiple drainer services, run the command such as <code>ADD DRAINER 192.168.8.x:9889,192.168.8.x:9889</code>.</p>
+</div>
 </li>
 <li>
 <p>Set the target graph space <code>replication_basketballplayer</code> as read-only to avoid data inconsistency.</p>
@@ -8139,6 +8168,78 @@ nebula&gt; ADD LISTENER SYNC META 192.168.10.105:9569 STORAGE 192.168.10.105:978
 <p>The primary-secondary cluster switch is now complete.</p>
 </li>
 </ol>
+<h2 id="role_permission_requirements">Role permission requirements<a class="headerlink" href="#role_permission_requirements" title="Permanent link">&para;</a></h2>
+<p>The required user roles for each synchronization command are different. The required roles for each command are as follows (A check mark indicates that the role has the permission).</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>God</th>
+<th>Admin</th>
+<th>DBA</th>
+<th>User</th>
+<th>Guest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SIGN IN / SIGN OUT DRAINER SERVICE</code></td>
+<td>√</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ADD / REMOVE LISTENER SYNC</code></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SHOW DRAINER CLIENTS</code></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td><code>SHOW LISTENER SYNC</code></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td><code>ADD / REMOVE DRAINER</code></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SET VARIABLES read_only</code></td>
+<td>√</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SHOW DRAINERS</code></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
 <h3 id="can_the_pre-existent_data_in_the_primary_cluster_be_synchronized_to_the_secondary_cluster">Can the pre-existent data in the primary cluster be synchronized to the secondary cluster?<a class="headerlink" href="#can_the_pre-existent_data_in_the_primary_cluster_be_synchronized_to_the_secondary_cluster" title="Permanent link">&para;</a></h3>
 <p>Yes. After receiving the WAL from the listener, if the drainer finds that the data to be updated does not exist in the secondary cluster, it starts the synchronization of the complete data set.</p>
