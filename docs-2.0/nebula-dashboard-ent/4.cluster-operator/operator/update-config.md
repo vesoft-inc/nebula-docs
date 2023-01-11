@@ -1,6 +1,6 @@
 # Update config
 
-On **Update Config** page, you can modify the configuration files of Storage and Graph services.
+On **Update Config** page, you can view and modify the service configuration files.
 
 ## Entry
 
@@ -10,16 +10,14 @@ On **Update Config** page, you can modify the configuration files of Storage and
 
 ## Steps
 
-Click **Edit** to modify the configuration and click **Confirm**, then click **Save** or **Save and Restart** in the upper right corner.
+1. Select the type of service whose configuration you want to modify.
+2. Locate the configuration to be modified and click **Edit** in the **Operation** column.
+3. In the pop-up dialog box, you can modify the **Value** individually. They can also be modified uniformly at the top, and you need to click **Apply To All Services** after modification.
 
-- **Save**: The configuration will take effect after the next service restart.
-- **Save and Restart**: Restart the service directly to make the configuration take effect immediately.
+  ![config](https://docs-cdn.nebula-graph.com.cn/figures/ds_config_230109_en.png)
 
-  !!! danger
+4. Click **Confirm** after the modification is complete.
 
-        If you click **Save and Restart**, the running task will be stopped and the cluster will be restarted instantly, which may cause data inconsistency. It is recommended to perform this operation during the low peak period of the business.
+!!! danger
 
-  !!! note
-
-      - Updating configuration files is a batch operation, and each Storage/Graph configuration file will be modified.
-      - For more information about parameter, see [Storage service configuration](../../../5.configurations-and-logs/1.configurations/4.storage-config.md) and [Graph service configuration](../../../5.configurations-and-logs/1.configurations/3.graph-config.md). 
+    You need to restart the corresponding service in the **Service** page after the configuration modification. For details, see [Service](service.md).

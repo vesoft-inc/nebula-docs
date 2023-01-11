@@ -119,10 +119,13 @@
 | `num_sync_data`                | The number of times the Storage service synchronizes data from the Drainer.            |
 | `num_sync_data_errors`         | The number of errors that occur when the Storage service synchronizes data from the Drainer.              |
 | `sync_data_latency_us`         | The latency of the Storage service synchronizing data from the Drainer.  |
-<!-- | `add_edges_atomic_latency_us`  | The latency of adding atomic edge after TOSS is enabled. | -->
 
 
 ### Graph space
+
+!!! note
+
+    Space-level metrics are created dynamically, so that only when the behavior is triggered in the graph space, the corresponding metric is created and can be queried by the user.
 
 | Parameter                                           | Description                                      |
 | ---------------------------------------------- | ----------------------------------------- |
@@ -138,7 +141,6 @@
 | `num_aggregate_executors`                        | The number of executions for the Aggregation operator.               |
 | `num_sort_executors`                             | The number of executions for the Sort operator.                     |
 | `num_indexscan_executors`                        | The number of executions for index scan operators.           |
-| `num_oom_queries`                                | The number of queries that caused memory to run out.         |
 | `num_auth_failed_sessions_bad_username_password` | The number of sessions where authentication failed due to incorrect username and password.  |
 | `num_auth_failed_sessions`     | The number of sessions in which login authentication failed.                            |
 | `num_opened_sessions`          | The number of sessions connected to the server.                          |
@@ -149,6 +151,8 @@
 | `num_rpc_sent_to_storaged_failed` |  The number of failed RPC requests that the Graphd service sent to the Storaged service.                           |
 | `num_rpc_sent_to_storaged`     |  The number of RPC requests that the Graphd service sent to the Storaged service.                           |
 | `slow_query_latency_us`        |  The latency of slow queries.                           |
+
+{{ent.ent_begin}}
 
 ### Single process metrics
 
@@ -162,3 +166,5 @@ Graph, Meta, and Storage services all have their own single process metrics.
 | `open_filedesc_gauge`           |  The number of file descriptors.                   |
 | `read_bytes_total`           |   The number of bytes read.                  |
 | `write_bytes_total`           |   The number of bytes written.                |
+
+{{ent.ent_end}}

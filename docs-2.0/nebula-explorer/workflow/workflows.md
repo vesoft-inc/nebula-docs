@@ -19,6 +19,8 @@ Instantiate the workflow when performing graph computing. The instantiated compo
 
 ## Precautions
 
+- The **Workflow** page can be displayed only when **Workflow** is enabled in ![setting](https://docs-cdn.nebula-graph.com.cn/figures/navbar-setting-0105.png).
+
 - Additional deployment of the Dag Controller and the NebulaGraph Analytics is required to use a workflow. For details, see [NebulaGraph Analytics](../..//graph-computing/nebula-analytics.md) and [Deploy Explorer](../deploy-connect/ex-ug-deploy.md).
 
 - The input to the graph query component can only be the nGQL.
