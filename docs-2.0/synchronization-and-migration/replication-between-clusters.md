@@ -49,7 +49,10 @@ The synchronization works as follows:
 
 - If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
 
+- It is recommended to use the NebulaGraph `root` user with the God privileges to perform the cluster data synchronization. The required user roles for each synchronization command are different. For details, see the **Role permission requirements** section at the end of this topic.
+
 - During the synchronization, do not perform data recovery (backup recovery and snapshot recovery) operations on the primary cluster at the same time. Otherwise, the synchronization will fail.
+
 
 ## Prerequisites
 
@@ -186,7 +189,12 @@ The test environment for the operation example in this topic is as follows:
   +-----------+------------------+------+
   ```
 
-3. Configure the listener service.
+  !!! note
+
+        To register multiple drainer services, run the command such as `SIGN IN DRAINER SERVICE(192.168.8.x:9889),(192.168.8.x:9889)`.
+
+
+1. Configure the listener service.
 
   ```ngql
   # replication_basketballplayer is the synchronization target. It will be created in the following steps.
@@ -219,7 +227,12 @@ The test environment for the operation example in this topic is as follows:
   +--------+--------+------------------------+--------------------------------+----------+
   ```
 
-4. Log into the secondary cluster and create graph space `replication_basketballplayer`.
+
+  !!! note
+
+        To configure multiple storage listener services, run the command such as `ADD LISTENER SYNC META 192.168.10.xxx:9569 STORAGE 192.168.10.xxx:9789,192.168.10.xxx:9789 TO SPACE replication_basketballplayer`.
+
+1. Log into the secondary cluster and create graph space `replication_basketballplayer`.
 
   ```ngql
   nebula> CREATE SPACE replication_basketballplayer(partition_num=15, \
@@ -244,7 +257,12 @@ The test environment for the operation example in this topic is as follows:
   +-------------------------+----------+
   ```
 
-6. Set the target graph space `replication_basketballplayer` as read-only to avoid data inconsistency.
+  !!! note
+
+        To configure multiple drainer services, run the command such as `ADD DRAINER 192.168.8.x:9889,192.168.8.x:9889`.
+
+
+1. Set the target graph space `replication_basketballplayer` as read-only to avoid data inconsistency.
 
   !!! note
 
@@ -508,6 +526,22 @@ To migrate data or implement disaster recovery, manually switch between the prim
   ```
 
   The primary-secondary cluster switch is now complete.
+
+## Role permission requirements
+
+The required user roles for each synchronization command are different. The required roles for each command are as follows (A check mark indicates that the role has the permission).
+
+
+| Command                              | God  | Admin | DBA  | User | Guest |
+| ------------------------------------ | ---- | ----- | ---- | ---- | ----- |
+| `SIGN IN / SIGN OUT DRAINER SERVICE` | √    |       |      |      |       |
+| `ADD / REMOVE LISTENER SYNC`         | √    | √     | √    |      |       |
+| `SHOW DRAINER CLIENTS`               | √    | √     | √    | √    | √     |
+| `SHOW LISTENER SYNC`                 | √    | √     | √    | √    | √     |
+| `ADD / REMOVE DRAINER`               | √    | √     | √    |      |       |
+| `SET VARIABLES read_only`            | √    |       |      |      |       |
+| `SHOW DRAINERS`                      | √    | √     | √    | √    | √     |
+
 
 ## FAQ
 
