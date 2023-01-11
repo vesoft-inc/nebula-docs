@@ -524,7 +524,7 @@ To migrate data or implement disaster recovery, manually switch between the prim
 
 ## Role permission requirements
 
-The required user roles for each synchronization command are different. The required roles for each command are as follows (A check mark indicates the role have the permission).
+The required user roles for each synchronization command are different. The required roles for each command are as follows (A check mark indicates that the role has the permission).
 
 
 | Command                              | God  | Admin | DBA  | User | Guest |
