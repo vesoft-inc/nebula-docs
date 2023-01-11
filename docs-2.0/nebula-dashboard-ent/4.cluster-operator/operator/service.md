@@ -1,6 +1,6 @@
 # Service
 
-On **Service** page, you can select the service type, service status, and host to filter the shown data, quickly select one or multiple services, and start/stop/restart the service with one click.
+On **Service** page, you can view the host, path, and status of the services, and start, stop, kill, or restart the services. In addition, you can easily and quickly view the contents of the log file.
 
 ## Entry
 
@@ -14,6 +14,8 @@ On **Service** page, you can select the service type, service status, and host t
 
     If you click **Stop**/**Restart**, the running task will be stopped instantly, which may cause data inconsistency. It is recommended to perform this operation during the low peak period of the business.
 
-- Select the services to be managed in filter box.
+- Locate the target service and perform the related operation in the **Operation** column.
 
-- Click the ![nav](https://docs-cdn.nebula-graph.com.cn/figures/nav-dashboard.png) icon to quickly view the [Service monitoring](../2.monitor.md).
+- Select multiple services and perform batch operations at the upper corner of the page.
+
+- Click the ![nav](https://docs-cdn.nebula-graph.com.cn/figures/nav-dashboard.png) icon to quickly view the [service monitoring information](../2.monitor.md).

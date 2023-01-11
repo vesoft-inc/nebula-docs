@@ -52,7 +52,7 @@ At the top navigation bar, click ![db_user_management](https://docs-cdn.nebula-g
     Only the `root` user can view the **User List**.
 
 - View: View the user permissions in each space.
-- Change Password: Change the password of the user. You do not need to provide the old password when changing the password. If the user is not `root`, you can change the password in ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) on the upper right corner of the page.
+- Edit: Change the password and IP whitelist of the user. You do not need to provide the old password when changing the password. If the user is not `root`, you can change the password in ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) on the upper right corner of the page.
 - Delete User: Only the `root` user can delete other users.
 - Search user: Search for the account by keyword.
 

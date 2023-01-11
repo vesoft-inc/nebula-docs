@@ -26,6 +26,8 @@ The synchronization works as follows:
 
 ## Precautions
 
+- Make sure that the primary and secondary clusters are deployed in the same NebulaGraph version. Otherwise, the synchronization will fail.
+  
 - The synchronization is based on graph spaces, i.e., from one graph space in the primary cluster to another in the secondary cluster.
 
 - About the synchronization topology, NebulaGraph:
@@ -46,6 +48,8 @@ The synchronization works as follows:
 - The machines where the listeners and drainers run must have enough disk space to store the WAL or snapshot files.
 
 - If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
+
+- During the synchronization, do not perform data recovery (backup recovery and snapshot recovery) operations on the primary cluster at the same time. Otherwise, the synchronization will fail.
 
 ## Prerequisites
 
