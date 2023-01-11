@@ -18,7 +18,7 @@
 
 - Optimized the job manager. [#4446](https://github.com/vesoft-inc/nebula/pull/4446) [#4442](https://github.com/vesoft-inc/nebula/pull/4442) [#4444](https://github.com/vesoft-inc/nebula/pull/4444) [#4460](https://github.com/vesoft-inc/nebula/pull/4460) [#4500](https://github.com/vesoft-inc/nebula/pull/4500) [#4633](https://github.com/vesoft-inc/nebula/pull/4633) [#4654](https://github.com/vesoft-inc/nebula/pull/4654) [#4663](https://github.com/vesoft-inc/nebula/pull/4663) [#4722](https://github.com/vesoft-inc/nebula/pull/4722) [#4742](https://github.com/vesoft-inc/nebula/pull/4742)
 
-- Added flags of experimental features, <!-- `enable_toss` for `TOSS` and -->`enable_data_balance` for `BALANCE DATA`. [#4728](https://github.com/vesoft-inc/nebula/pull/4728)
+- Added flags of experimental features, `enable_data_balance` for `BALANCE DATA`. [#4728](https://github.com/vesoft-inc/nebula/pull/4728)
 
 - Stats log print to console when the process is started. [#4550](https://github.com/vesoft-inc/nebula/pull/4550)
 
