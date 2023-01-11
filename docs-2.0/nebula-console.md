@@ -147,9 +147,9 @@ Export query results,  which can be saved as a CSV file, DOT file, and a format 
   nebula> :explain <file_name>;
   ```
 
-!!! note
+  !!! note
 
-    The text file output executed by this command is the preferred way to report issues in GitHub and execution plans in forums, and for graph query tuning because it has more information and is more readable than a screenshot or CSV file in Studio.
+        The text file output by the above command is the preferred way to report issues in GitHub and execution plans in forums, and for graph query tuning because it has more information and is more readable than a screenshot or CSV file in Studio.
 
   The example is as follows:
 
