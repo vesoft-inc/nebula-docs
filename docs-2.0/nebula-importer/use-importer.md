@@ -201,10 +201,11 @@ File configuration Stores the configuration of data files and logs, and details 
 The example configuration is as follows:
 
 ```yaml
+workingDir: ./data/
 logPath: ./err/test.log
 files:
-  - path: ./student_without_header.csv
-    failDataPath: ./err/studenterr.csv
+  - path: ./student.csv
+    failDataPath: ./err/student.csv
     batchSize: 128
     limit: 10
     inOrder: false
@@ -217,6 +218,7 @@ files:
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
+|`workingDir`|-|No|If you have multiple directories containing data with the same file structure, you can use this parameter to switch between them. For example, the value of `path` and `failDataPath` of the configuration below will be automatically changed to `./data/student.csv` and .`/data/err/student`. If you change workingDir to ./data1, the path will be changed accordingly. The param can be either absolute or relative.|
 |`logPath`|-|No|Path for exporting log information, such as errors during import.|
 |`files.path`|-|Yes|Path for storing data files. If a relative path is used, the path is merged with the current configuration file directory. You can use an asterisk (\*) for fuzzy matching to import multiple files with similar names, but the files need to be the same structure.|
 |`files.failDataPath`|-|Yes|Insert the failed data file storage path, so that data can be written later.|
@@ -241,20 +243,17 @@ schema:
   type: vertex
   vertex:
     vid:
-      type: string
-      index: 0
+      index: 1
+      function: hash
+      prefix: abc
     tags:
       - name: student
         props:
-          - name: name
-            type: string
-            index: 1
           - name: age
             type: int
             index: 2
           - name: gender
             type: string
-            index: 3
 ```
 
 |Parameter|Default value|Required|Description|
@@ -262,9 +261,11 @@ schema:
 |`files.schema.type`|-|Yes|Schema type. Possible values are `vertex` and `edge`.|
 |`files.schema.vertex.vid.type`|-|No|The data type of the vertex ID. Possible values are `int` and `string`.|
 |`files.schema.vertex.vid.index`|-|No|The vertex ID corresponds to the column number in the CSV file.|
+|`files.schema.vertex.vid.function`|-|No|Functions to generate the VIDs. Currently, we only support function `hash`.|
+|`files.schema.vertex.vid.prefix`|-|No|Add prefix to the original vid. When function is specified also, `prefix` is applied to the original vid before `function`.|
 |`files.schema.vertex.tags.name`|-|Yes|Tag name.|
 |`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the NebulaGraph.|
-|`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp`, `string`, and `geo`.|
+|`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`,`int`,`float`,`double`,`string`,`time`,`timestamp`,`date`,`datetime`,`geography`,`geography(point)`,`geography(linestring)` and `geography(polygon)`.|
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 
 !!! note
@@ -279,18 +280,17 @@ schema:
   type: edge
   edge:
     name: follow
-    withRanking: true
     srcVID:
-      type: string
       index: 0
+      function: hash
     dstVID:
-      type: string
       index: 1
+      function: 
     rank:
       index: 2
     props:
-      - name: degree
-        type: double
+      - name: grade
+        type: int
         index: 3
 ```
 
@@ -298,10 +298,10 @@ schema:
 |:---|:---|:---|:---|
 |`files.schema.type`|-|Yes|Schema type. Possible values are `vertex` and `edge`.|
 |`files.schema.edge.name`|-|Yes|Edge type name.|
-|`files.schema.edge.srcVID.type`|-|No|边的起始点ID的数据类型.|
 |`files.schema.edge.srcVID.index`|-|No|The data type of the starting vertex ID of the edge.|
-|`files.schema.edge.dstVID.type`|-|No|The data type of the destination vertex ID of the edge.|
+|`files.schema.edge.srcVID.function`|-|No|Functions to generate the source vertex. Currently, we only support function `hash`.|
 |`files.schema.edge.dstVID.index`|-|No|The destination vertex ID of the edge corresponds to the column number in the CSV file.|
+|`files.schema.edge.dstVID.function`|-|No|Functions to generate the destination vertex. Currently, we only support function `hash`.|
 |`files.schema.edge.rank.index`|-|No|The rank value of the edge corresponds to the column number in the CSV file.|
 |`files.schema.edge.props.name`|-|Yes|The Edge Type property name must match the Edge Type property in the NebulaGraph.|
 |`files.schema.edge.props.type`|-|Yes|Property data type, supporting `bool`, `int`, `float`, `double`, `timestamp`, `string`, and `geo`.|
