@@ -12,6 +12,8 @@ Before connecting to the NebulaGraph database, you need to confirm the following
 
 - You have a NebulaGraph account and its password.
 
+- We recommend you to use the Chrome browser of the version above 89. Otherwise, there may be compatibility issues.
+
 ## OAuth2.0 Configuration
 
 !!! caution
@@ -47,7 +49,17 @@ After the configuration is complete, restart the Explorer service. The OAuth aut
 
 To connect Explorer to NebulaGraph, follow these steps:
 
-1. On the **Config Server** page of Explorer, configure these fields:
+1. Type `http://<ip_address>:7002` in the address bar of your browser.
+
+  The following login page shows that Explorer is successfully connected to NebulaGraph.
+
+  ![NebulaGraph Explorer Login page](https://docs-cdn.nebula-graph.com.cn/figures/explorer_connect_230116_en.png)
+
+  !!! note
+
+        When logging into NebulaGraph Explorer for the first time, the content of *END USER LICENSE AGREEMENT* is displayed on the login page. Please read it and then click **I agree**.
+
+2. On the **Config Server** page of Explorer, configure these fields:
 
   - **Graphd IP address**: Enter the IP address of the Graph service of NebulaGraph. For example, `192.168.10.100`.
 
@@ -66,7 +78,7 @@ To connect Explorer to NebulaGraph, follow these steps:
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
 
-2. After the configuration, click the **Login** button.
+3. After the configuration, click the **Login** button.
 
   !!! note
 
