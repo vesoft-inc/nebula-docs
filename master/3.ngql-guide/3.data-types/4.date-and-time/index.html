@@ -7518,6 +7518,16 @@ nebula&gt; RETURN timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;));
 </code></pre></div>
 </li>
 <li>
+<p>Query whether the value of property <code>p1</code> on the <code>test1</code> tag is <code>2021-03-17</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  RETURN v.date1.p1 == date(&quot;2021-03-17&quot;);
++----------------------------------+
+| (v.date1.p1==date(&quot;2021-03-17&quot;)) |
++----------------------------------+
+| true                             |
++----------------------------------+
+</code></pre></div>
+</li>
+<li>
 <p>Return the content of the property <code>p1</code> on <code>test1</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS date1_index ON date1(p1);
 nebula&gt; REBUILD TAG INDEX date1_index;
@@ -7527,6 +7537,18 @@ nebula&gt; MATCH (v:date1) RETURN v.date1.p1;
 +------------------+
 | 3                |
 +------------------+
+</code></pre></div>
+</li>
+<li>
+<p>Search for vertices with <code>p3</code> property values less than <code>2023-01-01T00:00:00.000000</code>, and return the <code>p3</code> values.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  \
+WHERE v.date1.p3 &lt; datetime(&quot;2023-01-01T00:00:00.000000&quot;) \
+RETURN v.date1.p3;
++----------------------------+
+| v.date1.p3                 |
++----------------------------+
+| 2017-03-04T14:30:40.003000 |
++----------------------------+
 </code></pre></div>
 </li>
 <li>
@@ -7582,7 +7604,7 @@ nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2023</span>
       
     
   </small>
