@@ -107,7 +107,7 @@ You can save parameters for parameterized queries.
 
 ### Export query results
 
-Export query results,  which can be saved as a CSV file or DOT file.
+Export query results,  which can be saved as a CSV file, DOT file, and a format of Profile or Explain.
 
 !!! note
 
@@ -134,6 +134,32 @@ Export query results,  which can be saved as a CSV file or DOT file.
   ```ngql
   nebula> :dot a.dot
   nebula> PROFILE FORMAT="dot" GO FROM "player100" OVER follow;
+  ```
+
+- The command to export a PROFILE or EXPLAIN format is as follows: 
+
+  ```ngql
+  nebula> :profile <file_name>;
+  ```
+  or
+
+  ```ngql
+  nebula> :explain <file_name>;
+  ```
+
+  !!! note
+
+        The text file output by the above command is the preferred way to report issues in GitHub and execution plans in forums, and for graph query tuning because it has more information and is more readable than a screenshot or CSV file in Studio.
+
+  The example is as follows:
+
+  ```ngql
+  nebula> :profile profile.log
+  nebula> PROFILE GO FROM "player102" OVER serve YIELD dst(edge);
+  nebula> :profile profile.dot
+  nebula> PROFILE FORMAT="dot" GO FROM "player102" OVER serve YIELD dst(edge);
+  nebula> :explain explain.log
+  nebula> EXPLAIN GO FROM "player102" OVER serve YIELD dst(edge);
   ```
 
 ### Import a testing dataset
