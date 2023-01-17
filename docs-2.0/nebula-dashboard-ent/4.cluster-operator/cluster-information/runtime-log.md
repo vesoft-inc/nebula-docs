@@ -1,6 +1,6 @@
 # Runtime log
 
-Runtime logs are provided for DBAs and developers to locate faults when the system fails. Dashboard Enterprise Edition allows you to quickly view runtime logs.
+DBAs and developers can use runtime logs to investigate and identify issues when the system malfunctions. Dashboard Enterprise Edition allows you to quickly view runtime logs.
 
 ## Entry
 
