@@ -1,6 +1,6 @@
 # Job management
 
-Users can manage the jobs in a specified graph space through the dashboard, including viewing, stopping, and recovering jobs, and supports viewing the details of a single job.
+Users can manage the jobs in a specified graph space through the Dashboard, including viewing, stopping, and recovering jobs, and supports viewing the details of a single job.
 
 !!! note
 
@@ -18,19 +18,19 @@ Users can manage the jobs in a specified graph space through the dashboard, incl
 
 After you select the graph space, the page will display all the job information that has not expired by default. You can quickly find jobs through the filter box at the top of the page as follows:
 
-- Select a job status for filtering. The status includes `QUEUE`, `RUNNING`, `FINISHED`, `FAILED`, and `STOPPED`. For the status description, see [Job manager and the JOB statements](../../../3.ngql-guide/4.job-statements.md).
+- Select a job status for filtering. The status includes `QUEUE`, `RUNNING`, `FINISHED`, `FAILED`, `STOPPED`, and `SUCCEEDED`. For the status description, see [Job manager and the JOB statements](../../../3.ngql-guide/4.job-statements.md).
 - Select a time range for filtering. You can view the job information of the maximum of 7 days by default. You can also select a time range or quickly select latest 12 hours, 1 day, 3 days, or 7 days.
 - Select a `Job ID` or `Command` for filtering and enter what you want to search for.
 - By default, the job information page will not be updated automatically. You can set the update frequency of the job information page globally or click the ![setup](https://docs-cdn.nebula-graph.com.cn/figures/refresh-220616.png) button to update the page manually.
-- Click `Detail` in the `Operation` column on the right side of the target job to view more information, including `Task ID`, `Host`, `Error Code`, etc. You can also stop or recover the job, or search for a task id.
+- Click `Detail` in the `Operation` column on the right side of the target job to view more information, including `Task ID`, `Host`, `Error Code`, etc.
 
 ## Stop job
 
-Click `Stop Job` in the `Operation` column on the right side of the target job to stop the job whose status is `QUEUE`, `RUNNING` or `FAILED`. After clicking, the status of the job becomes `STOPPED`.
+Click `Stop Job` in the `Operation` column on the right side of the target job to stop an unfinished job. After clicking, the status of the job becomes `STOPPED`.
 
 ## Recover job
 
-Click `Recover Job` in the `Operation` column on the right side of the target job to recover the job whose status is `QUEUE`, `FAILED` or `STOPPED`. After clicking, the status of the job becomes `RUNNING`.
+Click `Recover Job` in the `Operation` column on the right side of the target job to recover the job whose status is `FAILED` or `STOPPED`. After clicking, the status of the job becomes `RUNNING`.
 
 !!! note
 
