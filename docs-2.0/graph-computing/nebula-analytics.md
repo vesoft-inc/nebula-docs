@@ -78,6 +78,10 @@ NebulaGraph Analytics supports the following graph algorithms.
 
 2. Configure the correct Hadoop path and JDK path in the file `set_env.sh`, the file path is `nebula-analytics/scripts/set_env.sh`. If there are multiple machines, ensure that the paths are the same.
 
+  !!! note
+
+        The default TCP port range used by the MPICH process manager and MPICH library is 10000 to 10100. To adjust this, modify the value of the environment variable `MPIR_CVAR_CH3_PORT_RANGE` in the `set_env.sh` file.
+
   ```
   export HADOOP_HOME=<hadoop_path>
   export JAVA_HOME=<java_path>
