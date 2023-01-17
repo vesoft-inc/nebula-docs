@@ -218,7 +218,7 @@ files:
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
-|`workingDir`|-|No|If you have multiple directories containing data with the same file structure, you can use this parameter to switch between them. For example, the value of `path` and `failDataPath` of the configuration below will be automatically changed to `./data/student.csv` and .`/data/err/student`. If you change workingDir to ./data1, the path will be changed accordingly. The param can be either absolute or relative.|
+|`workingDir`|-|No|If you have multiple directories containing data with the same file structure, you can use this parameter to switch between them. For example, the value of `path` and `failDataPath` of the configuration below will be automatically changed to `./data/student.csv` and .`/data/err/student`. If you change `workingDir` to `./data1`, the path will be changed accordingly. The param can be either absolute or relative.|
 |`logPath`|-|No|Path for exporting log information, such as errors during import.|
 |`files.path`|-|Yes|Path for storing data files. If a relative path is used, the path is merged with the current configuration file directory. You can use an asterisk (\*) for fuzzy matching to import multiple files with similar names, but the files need to be the same structure.|
 |`files.failDataPath`|-|Yes|Insert the failed data file storage path, so that data can be written later.|
