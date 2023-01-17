@@ -1,6 +1,6 @@
 # Audit log
 
-The NebulaGraph audit logs store all operations received by graph service in categories. Dashboard Enterprise Edition allows you to quickly view audit logs.
+The NebulaGraph audit logs store and categorize all operations performed on the Graph service. Dashboard Enterprise Edition allows you to quickly view audit logs.
 
 !!! enterpriseonly
 
