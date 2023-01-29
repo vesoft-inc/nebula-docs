@@ -25,6 +25,14 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 |`User Filter` | `&(objectClass=*)` | Set a filter to LDAP search queries. |
 |`Email Key` | `mail`| Set the field name used to restore email in LDAP. |
 
+### Instruction
+
+After LDAP is enabled, you can register an LDAP account in two ways:
+
+- [Email invitation](../5.account-management.md): When creating an account on the **Members** page, you can invite others to register by email. The advantage is that you can set the role permissions of the account.
+
+- Automatic registration: When you enter an unregistered account in LDAP mode on the login page, the Dashboard automatically registers the account, but the [role permission](../5.account-management.md) is `user`.
+
 ## OAuth2.0 configuration
 
 !!! caution
@@ -49,3 +57,7 @@ NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP account
 |`Username Key` | `email`| The key of user name. |
 |`Organization` |  `vesoft company`       |  The organization name.             |
 |`Requested scopes for OAuth`| `email`| Scope of OAuth permissions. The scope of permissions needs to be a subset of the scope configured by the vendor's OAuth2.0 platform, otherwise, the request will fail. Make sure the `Username Key` is accessible within the requested scope. |
+
+### Instruction
+
+After OAuth2.0 is enabled, you can invite others to register by [email](../5.account-management.md).
