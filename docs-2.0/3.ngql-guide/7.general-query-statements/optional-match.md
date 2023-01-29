@@ -12,7 +12,7 @@ This topic applies to the openCypher syntax in nGQL only.
 
 ## Limitations
 
-The `WHERE` clause cannot be used in a `OPTIONAL MATCH` clause.
+The `WHERE` clause cannot be used in an `OPTIONAL MATCH` clause.
 
 ## Example
 
