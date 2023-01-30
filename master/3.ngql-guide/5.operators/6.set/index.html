@@ -1124,13 +1124,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#opencypher_compatibility" class="md-nav__link">
-    OpenCypher compatibility
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#union_union_distinct_and_union_all" class="md-nav__link">
     UNION, UNION DISTINCT, and UNION ALL
   </a>
@@ -5035,6 +5028,48 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/job-management.md" class="md-nav__link">
+        Job management
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/audit-log/" class="md-nav__link">
+        Audit log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nebula-dashboard-ent/4.cluster-operator/cluster-information/runtime-log/" class="md-nav__link">
+        Runtime log
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -7334,13 +7369,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#opencypher_compatibility" class="md-nav__link">
-    OpenCypher compatibility
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#union_union_distinct_and_union_all" class="md-nav__link">
     UNION, UNION DISTINCT, and UNION ALL
   </a>
@@ -7443,8 +7471,10 @@
 <h1 id="set_operators">Set operators<a class="headerlink" href="#set_operators" title="Permanent link">&para;</a></h1>
 <p>This topic will describe the set operators, including <code>UNION</code>, <code>UNION ALL</code>, <code>INTERSECT</code>, and <code>MINUS</code>. To combine multiple queries, use these set operators.</p>
 <p>All set operators have equal precedence. If a nGQL statement contains multiple set operators, NebulaGraph will evaluate them from left to right unless parentheses explicitly specify another order.</p>
-<h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
-<p>Set operators apply to native nGQL only.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The names and order of the variables defined in the query statements before and after the set operator must be consistent. For example, the names and order of <code>a,b,c</code> in <code>RETURN a,b,c UNION RETURN a,b,c</code> need to be consistent.</p>
+</div>
 <h2 id="union_union_distinct_and_union_all">UNION, UNION DISTINCT, and UNION ALL<a class="headerlink" href="#union_union_distinct_and_union_all" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]
 </code></pre></div>
@@ -7470,6 +7500,21 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
 | &quot;player125&quot; |
 +-------------+
 
+nebula&gt; MATCH (v:player) \
+        WITH v.player.name AS v \
+        RETURN n ORDER BY n LIMIT 3 \
+        UNION \
+        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        RETURN n;
++---------------------+
+| n                   |
++---------------------+
+| &quot;Amar&#39;e Stoudemire&quot; |
+| &quot;Aron Baynes&quot;       |
+| &quot;Ben Simmons&quot;       |
+| &quot;Tony Parker&quot;       |
++---------------------+
+
 # The following statement returns the union of two query results with duplicated elements.
 nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
         UNION ALL \
@@ -7482,6 +7527,22 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
 | &quot;player101&quot; |
 | &quot;player125&quot; |
 +-------------+
+
+nebula&gt; MATCH (v:player) \
+        WITH v.player.name AS n \
+        RETURN n ORDER BY n LIMIT 3 \
+        UNION ALL \
+        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        RETURN n;
++---------------------+
+| n                   |
++---------------------+
+| &quot;Amar&#39;e Stoudemire&quot; |
+| &quot;Aron Baynes&quot;       |
+| &quot;Ben Simmons&quot;       |
+| &quot;Tony Parker&quot;       |
+| &quot;Ben Simmons&quot;       |
++---------------------+
 
 # UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
 nebula&gt; GO FROM &quot;player102&quot; OVER follow \
@@ -7508,7 +7569,8 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 <li>Similar to <code>UNION</code>, the <code>left</code> and <code>right</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<div class="highlight"><pre><span></span><code># The following statement returns the intersection of two query results.
+nebula&gt; GO FROM &quot;player102&quot; OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
         INTERSECT \
         GO FROM &quot;player100&quot; OVER follow \
@@ -7517,13 +7579,25 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 | id | Degree | Age |
 +----+--------+-----+
 +----+--------+-----+
+
+nebula&gt; UNWIND [1,2] AS a RETURN a \
+        INTERSECT \
+        UNWIND [1,2,3,4] AS a \
+        RETURN a;
++---+
+| a |
++---+
+| 1 |
+| 2 |
++---+
 </code></pre></div>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
 </code></pre></div>
 <p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by <code>A-B</code>). Always pay attention to the order of <code>left</code> and <code>right</code>. The set <code>A-B</code> consists of elements that are in A but not in B.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
+<div class="highlight"><pre><span></span><code># The following statement returns the elements in the first query result but not in the second query result.
+nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
         MINUS \
         GO FROM &quot;player102&quot; OVER follow YIELD dst(edge);
 +-------------+
@@ -7540,6 +7614,18 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
 +-------------+
 | &quot;player100&quot; |
 +-------------+
+
+nebula&gt; UNWIND [1,2,3] AS a RETURN a \
+        MINUS \
+        WITH 4 AS a \
+        RETURN a;
++---+
+| a |
++---+
+| 1 |
+| 2 |
+| 3 |
++---+
 </code></pre></div>
 <h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">&para;</a></h2>
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
@@ -7577,7 +7663,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2023</span>
       
     
   </small>
