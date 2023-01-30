@@ -309,20 +309,6 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   exec_file: /home/xxx/nebula-analytics/scripts/run_algo.sh
   ```
 
-
-
-
-
 ## Next to do
 
-When Explorer is started, use `http://<ip_address>:7002` to get access to Explorer.
-
-The following login page shows that Explorer is successfully connected to NebulaGraph.
-
-![NebulaGraph Explorer Login page](https://docs-cdn.nebula-graph.com.cn/figures/explorer_deploy.png)
-
-!!! note
-
-    When logging into NebulaGraph Explorer for the first time, the content of *END USER LICENSE AGREEMENT* is displayed on the login page. Please read it and then click **I agree**.
-
-After entering the Explorer login interface, you need to connect to NebulaGraph. For more information, refer to [Connecting to the NebulaGraph](../deploy-connect/ex-ug-connect.md).
+[Connect to Explorer](ex-ug-connect.md)
