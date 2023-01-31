@@ -119,7 +119,7 @@ Displays the session-related information for all Graph services in the cluster.
 | -------------------------------- | ---- |
 | `num_opened_sessions`            | The number of sessions connected to the server.     |
 | `num_auth_failed_sessions`       | The number of sessions in which login authentication failed.|
-| `num_active_sessions`            | The number of currently active sessions.|
+| `num_active_sessions`            | The number of changes in active sessions.|
 | `num_reclaimed_expired_sessions` | The number of expired sessions actively reclaimed by the server.     |
 
 ### Service Info
