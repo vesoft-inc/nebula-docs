@@ -16,4 +16,4 @@ In the **Graph Space List** page, find a graph space and then perform the follow
 
 - View Schema DDL: Displays schema creation statements for the graph space, including graph spaces, tags, edge types, and indexes.
 - Clone Graph Space: Clones the schema of the graph space to a new graph space.
-- Delete Graph pace: Delete the graph space, including the schema and all vertices and edges.
+- Delete Graph pace: Deletes the graph space, including the schema and all vertices and edges.
