@@ -15,5 +15,5 @@ Users can visually view schemas in NebulaGraph Studio.
 In the **Graph Space List** page, find a graph space and then perform the following operations in the **Operations** column:
 
 - View Schema DDL: Displays schema creation statements for the graph space, including graph spaces, tags, edge types, and indexes.
-- Clone Graph Space: Clone the schema of the graph space to a new graph space.
+- Clone Graph Space: Clones the schema of the graph space to a new graph space.
 - Delete Graph pace: Delete the graph space, including the schema and all vertices and edges.
