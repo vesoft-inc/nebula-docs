@@ -7016,31 +7016,31 @@
 <p>Problem description: The system reports <code>Could not find artifact com.vesoft:client:jar:xxx-SNAPSHOT</code> when compiling.</p>
 <p>Cause: There is no local Maven repository for storing or downloading SNAPSHOT packages. The default central repository in Maven only stores official releases, not development versions (SNAPSHOT).</p>
 <p>Solution: Add the following configuration in the <code>profiles</code> scope of Maven's <code>setting.xml</code> file:</p>
-<div class="highlight"><pre><span></span><code>  <span class="nt">&lt;profile&gt;</span>
-     <span class="nt">&lt;activation&gt;</span>
-        <span class="nt">&lt;activeByDefault&gt;</span>true<span class="nt">&lt;/activeByDefault&gt;</span>
-     <span class="nt">&lt;/activation&gt;</span>
-     <span class="nt">&lt;repositories&gt;</span>
-        <span class="nt">&lt;repository&gt;</span>
-            <span class="nt">&lt;id&gt;</span>snapshots<span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots/<span class="nt">&lt;/url&gt;</span>
-            <span class="nt">&lt;snapshots&gt;</span>
-               <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-            <span class="nt">&lt;/snapshots&gt;</span>
-      <span class="nt">&lt;/repository&gt;</span>
-     <span class="nt">&lt;/repositories&gt;</span>
-  <span class="nt">&lt;/profile&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&lt;profile&gt;</span>
+<span class="w">     </span><span class="nt">&lt;activation&gt;</span>
+<span class="w">        </span><span class="nt">&lt;activeByDefault&gt;</span>true<span class="nt">&lt;/activeByDefault&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/activation&gt;</span>
+<span class="w">     </span><span class="nt">&lt;repositories&gt;</span>
+<span class="w">        </span><span class="nt">&lt;repository&gt;</span>
+<span class="w">            </span><span class="nt">&lt;id&gt;</span>snapshots<span class="nt">&lt;/id&gt;</span>
+<span class="w">            </span><span class="nt">&lt;url&gt;</span>https://oss.sonatype.org/content/repositories/snapshots/<span class="nt">&lt;/url&gt;</span>
+<span class="w">            </span><span class="nt">&lt;snapshots&gt;</span>
+<span class="w">               </span><span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/snapshots&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/repository&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/repositories&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/profile&gt;</span>
 </code></pre></div>
 <h2 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">&para;</a></h2>
 <h3 id="q_how_to_submit_in_yarn-cluster_mode">Q: How to submit in Yarn-Cluster mode?<a class="headerlink" href="#q_how_to_submit_in_yarn-cluster_mode" title="Permanent link">&para;</a></h3>
 <p>To submit a task in Yarn-Cluster mode, run the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit --class com.vesoft.nebula.exchange.Exchange <span class="se">\</span>
---master yarn-cluster <span class="se">\</span>
---files application.conf <span class="se">\</span>
---conf spark.driver.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
---conf spark.executor.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
-nebula-exchange-3.0.0.jar <span class="se">\</span>
--c application.conf
+<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
+--master<span class="w"> </span>yarn-cluster<span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>application.conf<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+nebula-exchange-3.0.0.jar<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>application.conf
 </code></pre></div>
 <h3 id="q_error_method_name_xxx_not_found">Q: Error: <code>method name xxx not found</code><a class="headerlink" href="#q_error_method_name_xxx_not_found" title="Permanent link">&para;</a></h3>
 <p>Generally, the port configuration is incorrect. Check the port configuration of the Meta service, Graph service, and Storage service.</p>
@@ -7055,16 +7055,16 @@ nebula-exchange-3.0.0.jar <span class="se">\</span>
 </ul>
 <ul>
 <li>For docker installation, configure the docker mapped port number as follows:<p>Execute <code>docker-compose ps</code> in the <code>nebula-docker-compose</code> directory, for example:</p>
-<div class="highlight"><pre><span></span><code>$ docker-compose ps
-              Name                             Command                  State                                                         Ports
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker-compose<span class="w"> </span>ps
+<span class="w">              </span>Name<span class="w">                             </span>Command<span class="w">                  </span>State<span class="w">                                                         </span>Ports
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-nebula-docker-compose_graphd_1      /usr/local/nebula/bin/nebu ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33205-&gt;19669/tcp, <span class="m">0</span>.0.0.0:33204-&gt;19670/tcp, <span class="m">0</span>.0.0.0:9669-&gt;9669/tcp
-nebula-docker-compose_metad0_1      ./bin/nebula-metad --flagf ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33165-&gt;19559/tcp, <span class="m">0</span>.0.0.0:33162-&gt;19560/tcp, <span class="m">0</span>.0.0.0:33167-&gt;9559/tcp, <span class="m">9560</span>/tcp
-nebula-docker-compose_metad1_1      ./bin/nebula-metad --flagf ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33166-&gt;19559/tcp, <span class="m">0</span>.0.0.0:33163-&gt;19560/tcp, <span class="m">0</span>.0.0.0:33168-&gt;9559/tcp, <span class="m">9560</span>/tcp
-nebula-docker-compose_metad2_1      ./bin/nebula-metad --flagf ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33161-&gt;19559/tcp, <span class="m">0</span>.0.0.0:33160-&gt;19560/tcp, <span class="m">0</span>.0.0.0:33164-&gt;9559/tcp, <span class="m">9560</span>/tcp
-nebula-docker-compose_storaged0_1   ./bin/nebula-storaged --fl ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33180-&gt;19779/tcp, <span class="m">0</span>.0.0.0:33178-&gt;19780/tcp, <span class="m">9777</span>/tcp, <span class="m">9778</span>/tcp, <span class="m">0</span>.0.0.0:33183-&gt;9779/tcp, <span class="m">9780</span>/tcp
-nebula-docker-compose_storaged1_1   ./bin/nebula-storaged --fl ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33175-&gt;19779/tcp, <span class="m">0</span>.0.0.0:33172-&gt;19780/tcp, <span class="m">9777</span>/tcp, <span class="m">9778</span>/tcp, <span class="m">0</span>.0.0.0:33177-&gt;9779/tcp, <span class="m">9780</span>/tcp
-nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up <span class="o">(</span>healthy<span class="o">)</span>   <span class="m">0</span>.0.0.0:33184-&gt;19779/tcp, <span class="m">0</span>.0.0.0:33181-&gt;19780/tcp, <span class="m">9777</span>/tcp, <span class="m">9778</span>/tcp, <span class="m">0</span>.0.0.0:33185-&gt;9779/tcp, <span class="m">9780</span>/tcp
+nebula-docker-compose_graphd_1<span class="w">      </span>/usr/local/nebula/bin/nebu<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33205-&gt;19669/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33204-&gt;19670/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:9669-&gt;9669/tcp
+nebula-docker-compose_metad0_1<span class="w">      </span>./bin/nebula-metad<span class="w"> </span>--flagf<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33165-&gt;19559/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33162-&gt;19560/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33167-&gt;9559/tcp,<span class="w"> </span><span class="m">9560</span>/tcp
+nebula-docker-compose_metad1_1<span class="w">      </span>./bin/nebula-metad<span class="w"> </span>--flagf<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33166-&gt;19559/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33163-&gt;19560/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33168-&gt;9559/tcp,<span class="w"> </span><span class="m">9560</span>/tcp
+nebula-docker-compose_metad2_1<span class="w">      </span>./bin/nebula-metad<span class="w"> </span>--flagf<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33161-&gt;19559/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33160-&gt;19560/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33164-&gt;9559/tcp,<span class="w"> </span><span class="m">9560</span>/tcp
+nebula-docker-compose_storaged0_1<span class="w">   </span>./bin/nebula-storaged<span class="w"> </span>--fl<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33180-&gt;19779/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33178-&gt;19780/tcp,<span class="w"> </span><span class="m">9777</span>/tcp,<span class="w"> </span><span class="m">9778</span>/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33183-&gt;9779/tcp,<span class="w"> </span><span class="m">9780</span>/tcp
+nebula-docker-compose_storaged1_1<span class="w">   </span>./bin/nebula-storaged<span class="w"> </span>--fl<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33175-&gt;19779/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33172-&gt;19780/tcp,<span class="w"> </span><span class="m">9777</span>/tcp,<span class="w"> </span><span class="m">9778</span>/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33177-&gt;9779/tcp,<span class="w"> </span><span class="m">9780</span>/tcp
+nebula-docker-compose_storaged2_1<span class="w">   </span>./bin/nebula-storaged<span class="w"> </span>--fl<span class="w"> </span>...<span class="w">   </span>Up<span class="w"> </span><span class="o">(</span>healthy<span class="o">)</span><span class="w">   </span><span class="m">0</span>.0.0.0:33184-&gt;19779/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33181-&gt;19780/tcp,<span class="w"> </span><span class="m">9777</span>/tcp,<span class="w"> </span><span class="m">9778</span>/tcp,<span class="w"> </span><span class="m">0</span>.0.0.0:33185-&gt;9779/tcp,<span class="w"> </span><span class="m">9780</span>/tcp
 </code></pre></div>
 <p>Check the <code>Ports</code> column to find the docker mapped port number, for example:</p>
 <p>- The port number available for Graph service is 9669.</p>
@@ -7076,27 +7076,27 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up <span cl
 <p>Check whether the version of Exchange is the same as that of NebulaGraph. For more information, see <a href="../about-exchange/ex-ug-limitations/">Limitations</a>.</p>
 <h3 id="q_how_to_correct_the_messy_code_when_importing_hive_data_into_nebulagraph">Q: How to correct the messy code when importing Hive data into NebulaGraph?<a class="headerlink" href="#q_how_to_correct_the_messy_code_when_importing_hive_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:</p>
-<div class="highlight"><pre><span></span><code>--conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
---conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
+<div class="highlight"><pre><span></span><code>--conf<span class="w"> </span>spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
+--conf<span class="w"> </span>spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8
 </code></pre></div>
 <p>Namely:</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit --master <span class="s2">&quot;local&quot;</span> <span class="se">\</span>
---conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
---conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
---class com.vesoft.nebula.exchange.Exchange <span class="se">\</span>
-&lt;nebula-exchange-3.x.y.jar_path&gt; -c &lt;application.conf_path&gt;
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
+&lt;nebula-exchange-3.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;
 </code></pre></div>
 <p>In YARN, use the following command:</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit <span class="se">\</span>
---class com.vesoft.nebula.exchange.Exchange <span class="se">\</span>
---master yarn-cluster <span class="se">\</span>
---files &lt;application.conf_path&gt; <span class="se">\</span>
---conf spark.driver.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
---conf spark.executor.extraClassPath<span class="o">=</span>./ <span class="se">\</span>
---conf spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
---conf spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8 <span class="se">\</span>
-&lt;nebula-exchange-3.x.y.jar_path&gt; <span class="se">\</span>
--c application.conf
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
+--master<span class="w"> </span>yarn-cluster<span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraJavaOptions<span class="o">=</span>-Dfile.encoding<span class="o">=</span>utf-8<span class="w"> </span><span class="se">\</span>
+&lt;nebula-exchange-3.x.y.jar_path&gt;<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>application.conf
 </code></pre></div>
 <h3 id="q_orgrocksdbrocksdbexception_while_open_a_file_for_appending_pathsst1-xxxsst_no_such_file_or_directory">Q: org.rocksdb.RocksDBException: While open a file for appending: /path/sst/1-xxx.sst: No such file or directory<a class="headerlink" href="#q_orgrocksdbrocksdbexception_while_open_a_file_for_appending_pathsst1-xxxsst_no_such_file_or_directory" title="Permanent link">&para;</a></h3>
 <p>Solution:</p>
@@ -7135,7 +7135,7 @@ nebula-docker-compose_storaged2_1   ./bin/nebula-storaged --fl ...   Up <span cl
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2023</span>
       
     
   </small>
