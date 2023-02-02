@@ -1547,6 +1547,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#match_shortest_paths" class="md-nav__link">
+    Match shortest paths
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7575,6 +7582,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#match_shortest_paths" class="md-nav__link">
+    Match shortest paths
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8133,6 +8147,26 @@ nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;S
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) | (&quot;team204&quot; :team{name: &quot;Spurs&quot;}) |
 +----------------------------------------------------+----------------------------------+
 </code></pre></div>
+<h3 id="match_shortest_paths">Match shortest paths<a class="headerlink" href="#match_shortest_paths" title="Permanent link">&para;</a></h3>
+<p>The <code>allShortestPaths</code> function can be used to find all shortest paths between two vertices.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = allShortestPaths((a:player{name:&quot;Tim Duncan&quot;})-[e*..5]-(b:player{name:&quot;Tony Parker&quot;})) \
+        RETURN p;
++------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                  |
++------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&lt;-[:follow@0 {degree: 95}]-(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt; |
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt; |
++------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+<p>The <code>shortestPath</code> function can be used to find a single shortest path between two vertices.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p = shortestPath((a:player{name:&quot;Tim Duncan&quot;})-[e*..5]-(b:player{name:&quot;Tony Parker&quot;})) \
+        RETURN p;
++------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                  |
++------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&lt;-[:follow@0 {degree: 95}]-(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt; |
++------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
 <h2 id="retrieve_with_multiple_match">Retrieve with multiple match<a class="headerlink" href="#retrieve_with_multiple_match" title="Permanent link">&para;</a></h2>
 <p>Multiple <code>MATCH</code> can be used when different patterns have different filtering criteria and return the rows that exactly match the pattern.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
@@ -8157,7 +8191,7 @@ nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;S
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 2, 2023</span>
       
     
   </small>
