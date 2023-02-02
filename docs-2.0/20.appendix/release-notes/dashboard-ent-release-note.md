@@ -23,7 +23,7 @@
   - Support logging **update configuration** and **delete backup** operations on **operation record** page.
   - Support auto-registration after LDAP is enabled.
   - Log information of the task center is more detailed.
-  - Browser compatibility tips.
+  - Browser compatibility hint.
   - NebulaGraph license expiration reminder.
   - Support for Red Flag OS Asianux Linux 7 (Core).
   - Optimize multiple interactions such as connecting to the database, creating a cluster, scaling and batch importing nodes.
