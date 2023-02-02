@@ -1,38 +1,47 @@
 # NebulaGraph Explorer release notes
 
-## v3.2.1
-
-- Bugfix
-  - Fixed the bug that the connection timeout and HTTP error `500` when connecting to a non-existent address.
-  - Fixed the bug that the vertex properties could not be displayed on the canvas when randomly importing vertices.
-
-## v3.2.0
+## v3.4.0
 
 - Feature
-  - Support [edge aggregation](../..//nebula-explorer/canvas-operations/visualization-mode.md). The edges with the same starting vertex, end vertex and edge type on the canvas are aggregated, making it clear which vertices have a lot of relationships. It also supports the computation of properties of aggregated edges.
-  - Support [schema drafting](../../nebula-explorer/db-management/draft.md). The Schema is designed directly by dragging and dropping on the canvas. The vertex and edge relationship is more intuitive and supports applying the schema to a graph space with one click.
-  - Support [iFrame](../../nebula-explorer/iframe.md). You can embedding canvas into third-party pages by using inline frameworks.
-  - Support [custom icon library and edge style](../../nebula-explorer/canvas-operations/canvas-overview.md). Explorer has ten built-in icons for industry categories and supports uploading pictures as an icon.
-  - Support [nGQL template](../../nebula-explorer/db-management/ngql-template.md). Design the query statement template directly or make nGQL statement as a template in the console, and then directly call the template and fill in the parameters to query.
-  - Support [database user management](../../nebula-explorer/db-management/dbuser_management.md). Manage database users visually, including creating and authorizing users.
-  - Workflow added [node2vec algorithm](../../graph-computing/algorithm-description.md).
-  - (Beta) Support [OAuth 2.0 authentication](../../nebula-explorer/deploy-connect/ex-ug-connect.md). Users can log in to Explorer only after being authenticated by OAuth2.0 to ensure data security.
+
+  - Support viewing the [creation statements](../../nebula-explorer/db-management/10.create-schema.md) of the schema.
+  - Add beta function switch on the global settings page.
+  - Add product feedback page.
 
 - Enhancement
-  - The [Dag Controller](../../nebula-explorer/deploy-connect/ex-ug-deploy.md) is built into the installation package.
-  - The welcome page provides some demo datasets.
-  - Increases the drag effect of the vertex.
-  - The console supports adding comments with `//`.
-  - The favorites folder contents can be saved on the server.
-  - Support searching graph space names in the graph space list.
-  - The workflow prompts you to enter a missing parameter manually.
-  - The help page provides introductory videos.
-  - Workflow supports the configuration of resources on the page.
-  - Added a white screen page for the crash.
-  - Optimize page loading speed.
+
+  - Remove the timeout limit for slow queries.
+  - Keep history on the console page after switching pages.
+  - Support adding comments with `#` on the console page.
+  - Support adding comments with `#` or `//` when creating nGQL templates.
+  - Update the global settings page.
+  - Support the visual modification of the IP whitelist.
+  - Show VID on canvas by default.
+  - Browser compatibility hint.
+  - Show the kernel version in the connection information.
+  - Add indexes to the built-in dataset.
+  - Optimize the login page.
+  - Optimize Workflow:
+    - Add algorithm descriptions.
+    - Optimize the parameter configurations of the graph algorithm.
+    - Optimize the presentation of the result.
+  - Optimize interaction:
+    - Vertex filter
+    - Query by tag
+    - Search path
+  - Optimize presentation:
+    - Optimize the presentation of schema statistics.
+    - Optimize the layout of force.
+    - Optimize the layout of the visual query results after importing them to the canvas.
+    - Optimize the presentation of vertices on dangling edges.
+    - Optimize the console page.
+  - Optimize hint:
+    - Optimize guidances.
+    - Optimize error messages.
 
 - Bugfix
-  - Fixed the bug that the right-click menu would not collapse automatically.
-  - Fixed the bug that the canvas auto-scaling when adding filter criteria.
-  - Fixed the bug that the canvas shook when switching to 3D mode with a large amount of data.
-  - Fixed the bug that importing Int8/16/32 and fixed_string data failed.
+
+  - Fix the bug that can not be able to view the import task log.
+  - Fix the bug that some data of the edges in the `demo_basketballplayer` dataset is missing.
+  - Fix the crash of the page.
+  - Fix the bug that the results of the graph algorithm in the workflow can not show the details of vertices after importing them to canvas.
