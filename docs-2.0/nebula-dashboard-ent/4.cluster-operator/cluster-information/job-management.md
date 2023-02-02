@@ -8,8 +8,8 @@ Users can manage the jobs in a specified graph space through the Dashboard, incl
 
 ## Prerequisites
 
-- The job management feature is only available in NebulaGraph Enterprise Edition 3.4.0 and above versions
-- NebulaGraph Community Edition 3.3.0 and above supports job management.
+- The job management feature is available in NebulaGraph Enterprise Edition 3.4.0 and above versions.
+- The job management feature is available in NebulaGraph Community Edition 3.3.0 and above versions.
 
 ## Entry
 
