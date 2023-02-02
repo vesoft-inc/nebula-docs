@@ -214,6 +214,7 @@ files:
       withHeader: false
       withLabel: false
       delimiter: ","
+      lazyQuotes: false
 ```
 
 |Parameter|Default value|Required|Description|
@@ -229,6 +230,7 @@ files:
 |`files.csv.withHeader`|`false`|Yes|Whether there is a header.|
 |`files.csv.withLabel`|`false`|Yes|Whether there is a  label.|
 |`files.csv.delimiter`|`","`|Yes|Specifies the delimiter for the CSV file. A string delimiter that supports only one character.|
+|`lazyQuotes`|`false`|No|If `lazyQuotes` is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.|
 
 #### Schema configuration
 
@@ -252,14 +254,23 @@ schema:
           - name: age
             type: int
             index: 2
+          - name: name
+            type: string
+            index: 1
           - name: gender
             type: string
+          - name: phone
+            type: string
+            nullable: true
+          - name: wechat
+            type: string
+            nullable: true
+            nullValue: "__NULL__"
 ```
 
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
 |`files.schema.type`|-|Yes|Schema type. Possible values are `vertex` and `edge`.|
-|`files.schema.vertex.vid.type`|-|No|The data type of the vertex ID. Possible values are `int` and `string`.|
 |`files.schema.vertex.vid.index`|-|No|The vertex ID corresponds to the column number in the CSV file.|
 |`files.schema.vertex.vid.function`|-|No|Functions to generate the VIDs. Currently, we only support function `hash`.|
 |`files.schema.vertex.vid.prefix`|-|No|Add prefix to the original vid. When function is specified also, `prefix` is applied to the original vid before `function`.|
@@ -267,6 +278,10 @@ schema:
 |`files.schema.vertex.tags.props.name`|-|Yes|Tag property name, which must match the Tag property in the NebulaGraph.|
 |`files.schema.vertex.tags.props.type`|-|Yes|Property data type, supporting `bool`,`int`,`float`,`double`,`string`,`time`,`timestamp`,`date`,`datetime`,`geography`,`geography(point)`,`geography(linestring)` and `geography(polygon)`.|
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
+|`files.schema.vertex.tags.props.nullable`|`false`|No|Whether this prop property can be `NULL`, optional values is `true` or `false`.|
+|`files.schema.vertex.tags.props.nullValue`|`""`|No|Ignored when nullable is false. The property is set to NULL when the value is equal to nullValue.|
+|`files.schema.vertex.tags.props.alternativeIndices`|-|No| Ignored when `nullable` is `false`. The property is fetched from csv according to the indices in order until not equal to `nullValue`.|
+|`files.schema.vertex.tags.props.defaultValue`|-|No| Ignored when `nullable` is false. The property default value, when all the values obtained by `index` and `alternativeIndices` are `nullValue`.|
 
 !!! note
     The sequence numbers of the columns in the CSV file start from 0, that is, the sequence numbers of the first column are 0, and the sequence numbers of the second column are 1.
