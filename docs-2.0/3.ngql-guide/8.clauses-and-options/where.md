@@ -171,6 +171,19 @@ nebula> GO FROM "1" \
 | "1"       | "2"       | 4    | 14                  |
 | "1"       | "2"       | 3    | 13                  |
 +-----------+-----------+------+---------------------+
+
+# Filter edges by rank. Find follow edges with rank equal to 0.
+nebula> MATCH (v)-[e:follow]->() \
+         WHERE rank(e)==0 \
+         RETURN *;
++------------------------------------------------------------+-----------------------------------------------------+
+| v                                                          | e                                                   |
++------------------------------------------------------------+-----------------------------------------------------+
+| ("player142" :player{age: 29, name: "Klay Thompson"})      | [:follow "player142"->"player117" @0 {degree: 90}]  |
+| ("player139" :player{age: 34, name: "Marc Gasol"})         | [:follow "player139"->"player138" @0 {degree: 99}]  |
+| ("player108" :player{age: 36, name: "Boris Diaw"})         | [:follow "player108"->"player100" @0 {degree: 80}]  |
+| ("player108" :player{age: 36, name: "Boris Diaw"})         | [:follow "player108"->"player101" @0 {degree: 80}]  |
+...
 ```
 
 ## Filter on strings
