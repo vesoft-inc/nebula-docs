@@ -280,7 +280,7 @@ schema:
 |`files.schema.vertex.tags.props.index`|-|No|Property corresponds to the sequence number of the column in the CSV file.|
 |`files.schema.vertex.tags.props.nullable`|`false`|No|Whether this prop property can be `NULL`, optional values is `true` or `false`.|
 |`files.schema.vertex.tags.props.nullValue`|`""`|No|Ignored when nullable is false. The property is set to NULL when the value is equal to nullValue.|
-|`files.schema.vertex.tags.props.alternativeIndices`|-|No| Ignored when `nullable` is `false`. The property is fetched from csv according to the indices in order until not equal to `nullValue`.|
+|`files.schema.vertex.tags.props.alternativeIndices`|-|No| Ignored when `nullable` is `false`. When the property value is not `nullValue`, the value is fetched from csv according to the index sequence.|
 |`files.schema.vertex.tags.props.defaultValue`|-|No| Ignored when `nullable` is false. The property default value, when all the values obtained by `index` and `alternativeIndices` are `nullValue`.|
 
 !!! note
