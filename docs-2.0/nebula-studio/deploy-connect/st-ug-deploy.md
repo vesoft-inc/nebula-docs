@@ -54,7 +54,7 @@ Before you deploy RPM-based Studio, you must confirm that:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
 
 ### Uninstall
 
@@ -140,7 +140,7 @@ Before you deploy DEB-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
 
 ### Uninstall
 
@@ -190,7 +190,7 @@ Before you deploy tar-based Studio, you must do a check of these:
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
 
 ### Stop Service
 
@@ -263,7 +263,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
    If you can see the **Config Server** page on the browser, Docker-based Studio is started successfully.
 
-   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Docker-based Studio is started")
+   ![The Config Server page shows that Docker-based Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png "Docker-based Studio is started")
 
 ## Helm-based Studio
 
@@ -316,7 +316,7 @@ Before installing Studio, you need to install the following software and ensure 
 
    If you can see the **Config Server** page on the browser, Studio is started successfully.
 
-   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Studio is started")
+   ![The Config Server page shows that Studio is started successfully](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png "Studio is started")
 
 ### Uninstall
 

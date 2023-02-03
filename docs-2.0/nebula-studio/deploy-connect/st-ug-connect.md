@@ -9,28 +9,29 @@ Before connecting to the NebulaGraph database, you need to confirm the following
 - The NebulaGraph services and Studio are started. For more information, see [Deploy Studio](st-ug-deploy.md).
 
 - You have the local IP address and the port used by the Graph service of NebulaGraph. The default port is `9669`.  
-  
-  !!! note
-
-        Run `ifconfig` or `ipconfig` on the machine to get the IP address.
 
 - You have a NebulaGraph account and its password.
-
-  !!! note
-
-        If authentication is enabled in NebulaGraph and different role-based accounts are created, you must use the assigned account to connect to NebulaGraph. If authentication is disabled, you can use the `root` and any password to connect to NebulaGraph. For more information, see [NebulaGraph Database Manual](https://docs.nebula-graph.io/).
 
 ## Procedure
 
 To connect Studio to NebulaGraph, follow these steps:
 
-1. On the **Config Server** page of Studio, configure these fields:
+1. Type `http://<ip_address>:7001` in the address bar of your browser.
 
-  - **Host**: Enter the IP address and the port of the Graph service of NebulaGraph. The valid format is `IP:port`. The default port is `9669`.  
+  The following login page shows that Studio is successfully connected to NebulaGraph.
+
+  ![NebulaGraph Studio Login page](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
+
+2. On the **Config Server** page of Studio, configure these fields:
+
+  - **Graphd IP address**: Enter the IP address of the Graph service of NebulaGraph. For example, `192.168.10.100`.
 
     !!! note
 
-        When NebulaGraph and Studio are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+        - When NebulaGraph and Studio are deployed on the same machine, you must enter the IP address of the machine, instead of `127.0.0.1` or `localhost`.
+        - When connecting to a NebulaGraph database on a new tab, a new session will overwrite the sessions of the old TAB. If you need to log in to multiple NebulaGraph databases simultaneously, you can use a different browser or non-trace mode.
+
+  - **Port**: The port of the Graph service. The default port is `9669`.
 
   - **Username** and **Password**: Fill in the log in account according to the authentication settings of NebulaGraph.
  
@@ -39,14 +40,16 @@ To connect Studio to NebulaGraph, follow these steps:
     - If authentication is enabled and no account information has been created, you can only log in as GOD role and use `root` and `nebula` as the username and its password.
 
     - If authentication is enabled and different users are created and assigned roles, users in different roles log in with their accounts and passwords.
-    
-    ![The Config Server page shows the fields to be configured for connection](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png "Config Server")
 
-2. After the configuration, click the **Connect** button.
+3. After the configuration, click the **Connect** button.
 
-   A welcome page is displayed on the first login, showing the relevant functions according to the usage process, and the test datasets can be automatically downloaded and imported.
+  !!! note
 
-One session continues for up to 30 minutes. If you do not operate Studio within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
+        One session continues for up to 30 minutes. If you do not operate Studio within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
+
+A welcome page is displayed on the first login, showing the relevant functions according to the usage process, and the test datasets can be automatically downloaded and imported.
+
+To visit the welcome page, click ![help](https://docs-cdn.nebula-graph.com.cn/figures/navbar-help.png).
 
 ## Next to do
 
@@ -67,6 +70,4 @@ On NebulaGraph Cloud Service, users cannot clear the connection.
 -->
 If you want to reset NebulaGraph, you can log out and reconfigure the database.
 
-When the Studio is still connected to a NebulaGraph database, you can click the user profile picture in the upper right corner, and choose **Log out**. If the **Config Server** page is displayed on the browser, it means that Studio has successfully disconnected from the NebulaGraph database.
-
-![reset](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-000-en.png)
+Click the user profile picture in the upper right corner, and choose **Log out**.
