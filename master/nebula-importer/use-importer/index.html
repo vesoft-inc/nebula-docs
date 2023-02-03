@@ -7843,6 +7843,7 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
 <span class="w">      </span><span class="nt">withHeader</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">withLabel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;,&quot;</span>
+<span class="w">      </span><span class="nt">lazyQuotes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 <table>
 <thead>
@@ -7920,6 +7921,12 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
 <td align="left">Yes</td>
 <td align="left">Specifies the delimiter for the CSV file. A string delimiter that supports only one character.</td>
 </tr>
+<tr>
+<td align="left"><code>lazyQuotes</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">If <code>lazyQuotes</code> is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.</td>
+</tr>
 </tbody>
 </table>
 <h4 id="schema_configuration">Schema configuration<a class="headerlink" href="#schema_configuration" title="Permanent link">&para;</a></h4>
@@ -7941,8 +7948,18 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">age</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
 <span class="w">            </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">            </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gender</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">phone</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">            </span><span class="nt">nullable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wechat</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">            </span><span class="nt">nullable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">            </span><span class="nt">nullValue</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;__NULL__&quot;</span>
 </code></pre></div>
 <table>
 <thead>
@@ -7959,12 +7976,6 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
 <td align="left">-</td>
 <td align="left">Yes</td>
 <td align="left">Schema type. Possible values are <code>vertex</code> and <code>edge</code>.</td>
-</tr>
-<tr>
-<td align="left"><code>files.schema.vertex.vid.type</code></td>
-<td align="left">-</td>
-<td align="left">No</td>
-<td align="left">The data type of the vertex ID. Possible values are <code>int</code> and <code>string</code>.</td>
 </tr>
 <tr>
 <td align="left"><code>files.schema.vertex.vid.index</code></td>
@@ -8007,6 +8018,30 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
 <td align="left">-</td>
 <td align="left">No</td>
 <td align="left">Property corresponds to the sequence number of the column in the CSV file.</td>
+</tr>
+<tr>
+<td align="left"><code>files.schema.vertex.tags.props.nullable</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">Whether this prop property can be <code>NULL</code>, optional values is <code>true</code> or <code>false</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>files.schema.vertex.tags.props.nullValue</code></td>
+<td align="left"><code>""</code></td>
+<td align="left">No</td>
+<td align="left">Ignored when nullable is false. The property is set to NULL when the value is equal to nullValue.</td>
+</tr>
+<tr>
+<td align="left"><code>files.schema.vertex.tags.props.alternativeIndices</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Ignored when <code>nullable</code> is <code>false</code>. When the property value is not <code>nullValue</code>, the value is fetched from csv according to the index sequence.</td>
+</tr>
+<tr>
+<td align="left"><code>files.schema.vertex.tags.props.defaultValue</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Ignored when <code>nullable</code> is false. The property default value, when all the values obtained by <code>index</code> and <code>alternativeIndices</code> are <code>nullValue</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -8121,7 +8156,7 @@ $<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
       
     
   </small>
