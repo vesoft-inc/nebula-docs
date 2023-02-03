@@ -6,6 +6,11 @@ Users can manage the jobs in a specified graph space through the Dashboard, incl
 
     How to run jobs, see [Job manager and the JOB statements](../../../3.ngql-guide/4.job-statements.md).
 
+## Prerequisites
+
+- The job management feature is available in NebulaGraph Enterprise Edition 3.4.0 and above versions.
+- The job management feature is available in NebulaGraph Community Edition 3.3.0 and above versions.
+
 ## Entry
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
