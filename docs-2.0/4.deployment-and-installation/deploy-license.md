@@ -86,7 +86,13 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 ## Renew a NebulaGraph Enterprise Edition license
 
 1. Email us at `inqury@vesoft.com` to apply for a new license file `nebula.license`.
+
 2. In `share/resources/` under the installation directory of each Meta service, replace the old license file with the new one.
+
+  !!! note
+
+        It is recommended to replace the license file using either the `cp` or `scp` command in Linux or by editing the original file using tools such as vi. Note that if you opt to use the `mv` command, all Meta servers will need to be restarted following the replacement.
+
 3. Restart Storage and Graph services. For information about how to restart services, see [Start NebulaGraph](manage-service.md). If your license expires within the buffer period (14 days by default), you do not have to restart Storage and Graph services.
 
   !!! note
