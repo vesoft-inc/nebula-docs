@@ -7701,6 +7701,19 @@ nebula&gt; GO FROM &quot;1&quot; \
 | &quot;1&quot;       | &quot;2&quot;       | 4    | 14                  |
 | &quot;1&quot;       | &quot;2&quot;       | 3    | 13                  |
 +-----------+-----------+------+---------------------+
+
+# Filter edges by rank. Find follow edges with rank equal to 0.
+nebula&gt; MATCH (v)-[e:follow]-&gt;() \
+         WHERE rank(e)==0 \
+         RETURN *;
++------------------------------------------------------------+-----------------------------------------------------+
+| v                                                          | e                                                   |
++------------------------------------------------------------+-----------------------------------------------------+
+| (&quot;player142&quot; :player{age: 29, name: &quot;Klay Thompson&quot;})      | [:follow &quot;player142&quot;-&gt;&quot;player117&quot; @0 {degree: 90}]  |
+| (&quot;player139&quot; :player{age: 34, name: &quot;Marc Gasol&quot;})         | [:follow &quot;player139&quot;-&gt;&quot;player138&quot; @0 {degree: 99}]  |
+| (&quot;player108&quot; :player{age: 36, name: &quot;Boris Diaw&quot;})         | [:follow &quot;player108&quot;-&gt;&quot;player100&quot; @0 {degree: 80}]  |
+| (&quot;player108&quot; :player{age: 36, name: &quot;Boris Diaw&quot;})         | [:follow &quot;player108&quot;-&gt;&quot;player101&quot; @0 {degree: 80}]  |
+...
 </code></pre></div>
 <h2 id="filter_on_strings">Filter on strings<a class="headerlink" href="#filter_on_strings" title="Permanent link">&para;</a></h2>
 <p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> clauses to match a specific part of a string. String matching is case-sensitive.</p>
@@ -7839,7 +7852,7 @@ nebula&gt; LOOKUP ON player \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
       
     
   </small>

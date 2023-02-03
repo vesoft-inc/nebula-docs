@@ -7695,12 +7695,16 @@ nebula&gt; &gt; SHOW GRANTS test;
 nebula&gt; REVOKE READ,WRITE EDGE * FROM test;
 
 # Show `test` user permissions
-nebula&gt; SHOW GRANTS test
+nebula&gt; SHOW GRANTS test;
 +--------+------------+------------+------------+-------------+
 | user   | READ(TAG)  | READ(EDGE) | WRITE(TAG) | WRITE(EDGE) |
 +--------+------------+------------+------------+-------------+
 | &quot;test&quot; | [&quot;player&quot;] | []         | [&quot;player&quot;] | []          |
 +--------+------------+------------+------------+-------------+
+
+# When Basic role users read data without permission, the following error will occur.
+nebula&gt;  MATCH (v:player)-[:likex]-() RETURN v;
+[ERROR (-1008)]: PermissionError: Edge `likex&#39; does not exist or is not readable.
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -7713,7 +7717,7 @@ nebula&gt; SHOW GRANTS test
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
       
     
   </small>
