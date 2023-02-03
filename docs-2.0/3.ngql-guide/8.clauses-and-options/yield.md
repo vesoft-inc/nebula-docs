@@ -127,6 +127,19 @@ nebula> $var1 = GO FROM "player101" OVER follow \
 +-------------+
 ```
 
+The following query finds the vertices in the player that are older than 30 and younger than 32, and returns the de-duplicate results.
+
+```ngql
+nebula> LOOKUP ON player  \
+        WHERE player.age < 32 and player.age >30  \
+        YIELD DISTINCT properties(vertex).age as v;
++--------+
+| v      |
++--------+
+| 31     |
++--------+
+```
+
 ### Use a standalone YIELD statement
 
 A `YIELD` statement can calculate a valid expression and output the result.
