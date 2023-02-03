@@ -4,11 +4,11 @@
 
 - Feature
   - Support viewing the [creation statements](../../nebula-studio/manage-schema/st-ug-view-schema.md) of the schema.
-  - Add product feedback page.
+  - Add a product feedback page.
 
 - Enhancement
   - Remove the timeout limit for slow queries.
-  - Browser compatibility hint.
+  - Display browser compatibility hints.
   - Optimize the login page.
   - Support adding comments with `#` on the console page.
   - Optimize the console page.
