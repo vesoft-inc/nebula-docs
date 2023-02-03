@@ -7,6 +7,6 @@
   - Support viewing the configuration of Meta services.
 
 - Enhancement
-  - Adjust the directory structure and simplifies the [deployment steps](../../nebula-dashboard/2.deploy-dashboard.md).
+  - Adjust the directory structure and simplify the [deployment steps](../../nebula-dashboard/2.deploy-dashboard.md).
   - Display the names of the monitoring metrics on the overview page of `machine`.
   - Optimize the calculation of monitoring metrics such as `num_queries`, and adjust the display to time series aggregation.
