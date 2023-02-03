@@ -1435,6 +1435,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     Example
   </a>
@@ -7310,6 +7317,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     Example
   </a>
@@ -7344,27 +7358,38 @@
 <p>The <code>OPTIONAL MATCH</code> clause is used to search for the pattern described in it. <code>OPTIONAL MATCH</code> matches patterns against your graph database, just like <code>MATCH</code> does. The difference is that if no matches are found, <code>OPTIONAL MATCH</code> will use a null for missing parts of the pattern.</p>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>This topic applies to the openCypher syntax in nGQL only.</p>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>The <code>WHERE</code> clause cannot be used in an <code>OPTIONAL MATCH</code> clause.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>The example of the use of <code>OPTIONAL MATCH</code> in the <code>MATCH</code> statement is as follows:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
-        OPTIONAL MATCH (n)-[]-&gt;(l) WHERE id(n)==&quot;player125&quot; \
+        OPTIONAL MATCH (n)-[]-&gt;(l) \
         RETURN id(m),id(n),id(l);
 +-------------+-------------+-------------+
 | id(m)       | id(n)       | id(l)       |
 +-------------+-------------+-------------+
 | &quot;player100&quot; | &quot;team204&quot;   | __NULL__    |
-| &quot;player100&quot; | &quot;player101&quot; | __NULL__    |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;team204&quot;   |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;team215&quot;   |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player100&quot; |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player102&quot; |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player125&quot; |
 | &quot;player100&quot; | &quot;player125&quot; | &quot;team204&quot;   |
 | &quot;player100&quot; | &quot;player125&quot; | &quot;player100&quot; |
 +-------------+-------------+-------------+
 </code></pre></div>
 <p>Using multiple <code>MATCH</code> instead of <code>OPTIONAL MATCH</code> returns rows that match the pattern exactly. The example is as follows:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
-        MATCH (n)-[]-&gt;(l) WHERE id(n)==&quot;player125&quot; \
+        MATCH (n)-[]-&gt;(l) \
         RETURN id(m),id(n),id(l);
 +-------------+-------------+-------------+
 | id(m)       | id(n)       | id(l)       |
 +-------------+-------------+-------------+
+| &quot;player100&quot; | &quot;player101&quot; | &quot;team204&quot;   |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;team215&quot;   |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player100&quot; |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player102&quot; |
+| &quot;player100&quot; | &quot;player101&quot; | &quot;player125&quot; |
 | &quot;player100&quot; | &quot;player125&quot; | &quot;team204&quot;   |
 | &quot;player100&quot; | &quot;player125&quot; | &quot;player100&quot; |
 +-------------+-------------+-------------+
@@ -7375,7 +7400,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
       
     
   </small>

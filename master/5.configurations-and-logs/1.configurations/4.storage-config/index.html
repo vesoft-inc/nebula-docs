@@ -3323,13 +3323,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#storage_cache_configurations" class="md-nav__link">
-    Storage cache configurations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#black_box_configurations" class="md-nav__link">
     Black box configurations
   </a>
@@ -7450,13 +7443,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#storage_cache_configurations" class="md-nav__link">
-    Storage cache configurations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#black_box_configurations" class="md-nav__link">
     Black box configurations
   </a>
@@ -7913,67 +7899,26 @@ disable_auto_compactions
 <p>For more information, see <a href="https://rocksdb.org/">RocksDB official documentation</a>.</p>
 <!-- -->
 
-<h2 id="storage_cache_configurations">Storage cache configurations<a class="headerlink" href="#storage_cache_configurations" title="Permanent link">&para;</a></h2>
-<div class="admonition enterpriseonly">
-<p class="admonition-title">Enterpriseonly<p>Only available for the NebulaGraph Enterprise Edition.</p>
-</p>
-</div>
-<table>
-<thead>
-<tr>
-<th align="left">Name</th>
-<th align="left">Predefined value</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>enable_storage_cache</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">Whether or not to cache Storage data.</td>
-</tr>
-<tr>
-<td align="left"><code>storage_cache_capacity</code></td>
-<td align="left"><code>0</code></td>
-<td align="left">The size of memory reserved for Storage caches. The value must be slightly greater than the sum of <code>vertex_pool_capacity</code> and <code>negative_pool_capacity</code>. The configuration is measured in MB.</td>
-</tr>
-<tr>
-<td align="left"><code>storage_cache_entries_power</code></td>
-<td align="left"><code>20</code></td>
-<td align="left">Estimated number of cache entries on this storage node in base 2 logarithm. E.g., in case of the value 20, the estimated number of entries will be 2<span class="arithmatex">\(^{20}\)</span>. A good value of this parameter can be log2(the number of vertices on this storage node). The maximum allowed is 31.</td>
-</tr>
-<tr>
-<td align="left"><code>enable_vertex_pool</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">Whether or not to add a vertex cache pool. Only valid when the storage cache feature is enabled.</td>
-</tr>
-<tr>
-<td align="left"><code>vertex_pool_capacity</code></td>
-<td align="left"><code>50</code></td>
-<td align="left">The size of the vertex cache pool. The configuration is measured in MB.</td>
-</tr>
-<tr>
-<td align="left"><code>vertex_item_ttl</code></td>
-<td align="left"><code>300</code></td>
-<td align="left">The TTL of vertex cache pool items. The configuration is measured in seconds.</td>
-</tr>
-<tr>
-<td align="left"><code>enable_negative_pool</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">Whether to add a negative pool in cache. Only valid when <code>enable_storage_cache</code> is set to <code>true</code>.</td>
-</tr>
-<tr>
-<td align="left"><code>negative_pool_capacity</code></td>
-<td align="left"><code>50</code></td>
-<td align="left">The negative pool size in MB.</td>
-</tr>
-<tr>
-<td align="left"><code>negative_item_ttl</code></td>
-<td align="left"><code>300</code></td>
-<td align="left">The TTL in seconds for negative items in the cache.</td>
-</tr>
-</tbody>
-</table>
+<!-- open after being fully tested
+
+## Storage cache configurations
+
+!!! enterpriseonly
+
+        Only available for the NebulaGraph Enterprise Edition.
+
+| Name                          | Predefined value  | Description                   |
+| :-----------------------------| :------| :------------------------------- |
+| `enable_storage_cache`        | `false`|  Whether or not to cache Storage data. |
+| `storage_cache_capacity`      | `0`    |  The size of memory reserved for Storage caches. The value must be slightly greater than the sum of `vertex_pool_capacity` and `negative_pool_capacity`. The configuration is measured in MB.|
+| `storage_cache_entries_power` | `20`   |  Estimated number of cache entries on this storage node in base 2 logarithm. E.g., in case of the value 20, the estimated number of entries will be 2$^{20}$. A good value of this parameter can be log2(the number of vertices on this storage node). The maximum allowed is 31.|
+| `enable_vertex_pool`          | `false`| Whether or not to add a vertex cache pool. Only valid when the storage cache feature is enabled.  |
+| `vertex_pool_capacity`        | `50`   | The size of the vertex cache pool. The configuration is measured in MB.|
+| `vertex_item_ttl`             | `300`  | The TTL of vertex cache pool items. The configuration is measured in seconds. |
+| `enable_negative_pool`       | `false`| Whether to add a negative pool in cache. Only valid when `enable_storage_cache` is set to `true`.  |
+| `negative_pool_capacity`     | `50`   | The negative pool size in MB. |
+| `negative_item_ttl`          | `300`  | The TTL in seconds for negative items in the cache.  | -->
+
 <h2 id="black_box_configurations">Black box configurations<a class="headerlink" href="#black_box_configurations" title="Permanent link">&para;</a></h2>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
@@ -8025,7 +7970,7 @@ disable_auto_compactions
 <tr>
 <td align="left"><code>memory_tracker_limit_ratio</code></td>
 <td align="left"><code>0.8</code></td>
-<td align="left">The percentage of free memory. When the free memory is lower than this value, NebulaGraph stops accepting queries. <br/> Calculated as follows: <br/> <code>Free memory / (Total memory - Reserved memory)</code> <br/> <strong>Note</strong>: For clusters with a mixed-used environment, the value of <code>memory_tracker_limit_ratio</code> should be set to a <strong>lower</strong> value. For example, when Graphd is expected to occupy only 50% of memory, the value can be set to less than <code>0.5</code>.</td>
+<td align="left">The value of this parameter can be set to <code>(0, 1]</code>, <code>2</code>, and <code>3</code>.<br/><code>(0, 1]</code>: The percentage of free memory. When the free memory is lower than this value, NebulaGraph stops accepting queries. <br/> Calculated as follows: <br/> <code>Free memory / (Total memory - Reserved memory)</code> <br/> <strong>Note</strong>: For clusters with a mixed-used environment, the value of <code>memory_tracker_limit_ratio</code> should be set to a <strong>lower</strong> value. For example, when Graphd is expected to occupy only 50% of memory, the value can be set to less than <code>0.5</code>.<br/><code>2</code>: Dynamic Self Adaptive mode. MemoryTracker dynamically adjusts the available memory based on the system's current available memory. <br/><strong>Note</strong>: This feature is experimental. As memory usage cannot be monitored in real time in dynamic adaptive mode, an OOM error may still occur to handle large memory allocations. <br/><code>3</code>: Disable MemoryTracker. MemoryTracker only logs memory usage and does not interfere with executions even if the limit is exceeded.</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_untracked_reserved_memory_mb</code></td>

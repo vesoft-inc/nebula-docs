@@ -7580,6 +7580,18 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 +----+--------+-----+
 +----+--------+-----+
 
+nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) == &quot;player102&quot; \
+        RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age \
+        INTERSECT \
+        MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) == &quot;player100&quot; \
+        RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age;
++----+--------+-----+
+| id | Degree | Age |
++----+--------+-----+
++----+--------+-----+
+
 nebula&gt; UNWIND [1,2] AS a RETURN a \
         INTERSECT \
         UNWIND [1,2,3,4] AS a \
@@ -7606,11 +7618,24 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
 | &quot;player125&quot; |
 +-------------+
 
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
+nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) AS id\
         MINUS \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id;
 +-------------+
-| dst(EDGE)   |
+| id          |
++-------------+
+| &quot;player100&quot; |
++-------------+
+
+nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) ==&quot;player102&quot; \
+        RETURN id(v2) AS id\
+        MINUS \
+        MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) ==&quot;player100&quot; \
+        RETURN id(v2) AS id;
++-------------+
+| id          |
 +-------------+
 | &quot;player100&quot; |
 +-------------+
@@ -7663,7 +7688,7 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
       
     
   </small>
