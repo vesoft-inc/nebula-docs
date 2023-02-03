@@ -19,3 +19,5 @@ On **Service** page, you can view the host, path, and status of the services, an
 - Select multiple services and perform batch operations at the upper corner of the page.
 
 - Click the ![nav](https://docs-cdn.nebula-graph.com.cn/figures/nav-dashboard.png) icon to quickly view the [service monitoring information](../2.monitor.md).
+
+- When synchronizing data, you can view and manage related services on the **Dependency** page. For details about data synchronization, see [Synchronize between two clusters](../../../synchronization-and-migration/replication-between-clusters.md).
