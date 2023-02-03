@@ -1,16 +1,21 @@
 # NebulaGraph Studio release notes
 
-## v3.5.0
+## v3.6.0
 
 - Feature
-  - Support [schema drafting](../../nebula-studio/quick-start/draft.md). The Schema is designed directly by dragging and dropping on the canvas. The vertex and edge relationship is more intuitive and supports applying the schema to a graph space with one click.
+  - Support viewing the [creation statements](../../nebula-studio/manage-schema/st-ug-view-schema.md) of the schema.
+  - Add product feedback page.
 
 - Enhancement
-  - The welcome page provides some demo datasets.
-  - The console supports adding comments with `//`.
-  - The favorites folder contents can be saved on the server.
-  - Support searching graph space names in the graph space list.
-  - Added a white screen page for the crash.
+  - Remove the timeout limit for slow queries.
+  - Browser compatibility hint.
+  - Optimize the login page.
+  - Support adding comments with `#` on the console page.
+  - Optimize the console page.
 
 - Bugfix
-  - Fixed the bug that importing Int8/16/32 and fixed_string data failed.
+
+  - Fix the bug that the list has not been refreshed after uploading files.
+  - Fix the invalid error message of the schema drafting.
+  - Fix the bug that the **view schema** data has not been cleared after switching the login user.
+  - Fix the presentation problem of the thumbnail in the schema drafting.

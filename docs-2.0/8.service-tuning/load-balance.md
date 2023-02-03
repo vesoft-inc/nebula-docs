@@ -27,12 +27,12 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
     ```ngql
     nebual> SHOW HOSTS;
-    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
-    | Host            | Port | HTTP port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
-    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
-    | "192.168.8.101" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "3.1.0-ent" |
-    | "192.168.8.100" | 9779 | 19779     | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "3.1.0-ent" |
-    +-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
+    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+    | Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
+    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+    | "192.168.8.101" | 9779 | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "{{nebula.release}}" |
+    | "192.168.8.100" | 9779 | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "{{nebula.release}}" |
+    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
     ```
 
 2. Enter the graph space `basketballplayer`, and execute the command `BALANCE DATA` to balance the distribution of storage partitions.
@@ -74,12 +74,12 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
   ```ngql
   nebula> SHOW HOSTS;
-  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
-  | Host            | Port | HTTP port | Status   | Leader count | Leader distribution  | Partition distribution | Version     |
-  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
-  | "192.168.8.101" | 9779 | 19779     | "ONLINE" | 7            | "basketballplayer:7" | "basketballplayer:7"   | "3.1.0-ent" |
-  | "192.168.8.100" | 9779 | 19779     | "ONLINE" | 8            | "basketballplayer:8" | "basketballplayer:8"   | "3.1.0-ent" |
-  +-----------------+------+-----------+----------+--------------+----------------------+------------------------+-------------+
+  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
+  | Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version     |
+  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
+  | "192.168.8.101" | 9779 | "ONLINE" | 7            | "basketballplayer:7" | "basketballplayer:7"   | "{{nebula.release}}" |
+  | "192.168.8.100" | 9779 | "ONLINE" | 8            | "basketballplayer:8" | "basketballplayer:8"   | "{{nebula.release}}" |
+  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
   ```
 
 If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
@@ -115,12 +115,12 @@ For example, to migrate the partitions in server `192.168.8.100:9779`, the comma
 ```ngql
 nebula> BALANCE DATA REMOVE 192.168.8.100:9779;
 nebula> SHOW HOSTS;
-+-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
-| Host            | Port | HTTP port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
-+-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
-| "192.168.8.101" | 9779 | 19779     | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "3.1.0-ent" |
-| "192.168.8.100" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "3.1.0-ent" |
-+-----------------+------+-----------+----------+--------------+-----------------------+------------------------+-------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+| "192.168.8.101" | 9779 | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "{{nebula.release}}" |
+| "192.168.8.100" | 9779 | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "{{nebula.release}}" |
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
 ```
 
 !!! note
@@ -152,19 +152,19 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   ```ngql
   nebual> SHOW HOSTS;
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-  | Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-  | "192.168.10.100" | 9779 | 19779     | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  | "3.1.0" |
-  | "192.168.10.101" | 9779 | 19779     | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  | "3.1.0" |
-  | "192.168.10.102" | 9779 | 19779     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  | "3.1.0" |
-  | "192.168.10.103" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
-  | "192.168.10.104" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
-  | "192.168.10.105" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "3.1.0" |
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  | "{{nebula.release}}" |
+  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  | "{{nebula.release}}" |
+  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  | "{{nebula.release}}" |
+  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
+  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
+  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
-3. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
+1. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
 
   ```ngql
   nebula> USE basketballplayer;
@@ -199,15 +199,15 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   ```ngql
   nebula> SHOW HOSTS;
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-  | Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-  | "192.168.10.100" | 9779 | 19779     | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   | "3.1.0" |
-  | "192.168.10.101" | 9779 | 19779     | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   | "3.1.0" |
-  | "192.168.10.102" | 9779 | 19779     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
-  | "192.168.10.103" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
-  | "192.168.10.104" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
-  | "192.168.10.105" | 9779 | 19779     | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "3.1.0" |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   | "{{nebula.release}}" |
+  | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   | "{{nebula.release}}" |
+  | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
+  | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
+  | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
+  | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
   +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
@@ -267,15 +267,14 @@ Run `SHOW HOSTS` to check the balance result.
 
 ```ngql
 nebula> SHOW HOSTS;
-+------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-| Host             | Port | HTTP port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-+------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
-| "192.168.10.100" | 9779 | 19779     | "ONLINE" | 4            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
-| "192.168.10.101" | 9779 | 19779     | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
-| "192.168.10.102" | 9779 | 19779     | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "3.1.0" |
-| "192.168.10.103" | 9779 | 19779     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
-| "192.168.10.104" | 9779 | 19779     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
-| "192.168.10.105" | 9779 | 19779     | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "3.1.0" |
++------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
++------------------+------+--------------+-----------------------------------+------------------------+---------+
+| "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
+| "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
+| "192.168.10.103" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
+| "192.168.10.104" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
+| "192.168.10.105" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
 +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
 ```
 

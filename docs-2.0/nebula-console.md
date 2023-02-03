@@ -33,7 +33,7 @@ Parameter descriptions are as follows:
 | `-P/-port` | Sets the port number of the graphd service. The default port number is 9669. |
 | `-u/-user` | Sets the username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
 | `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. |
-| `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
+| `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is millisecond. The default value is 120. |
 | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
 | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
 | `-enable_ssl` | Enables SSL encryption when connecting to NebulaGraph. |

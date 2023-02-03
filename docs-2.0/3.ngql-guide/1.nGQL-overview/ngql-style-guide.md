@@ -202,7 +202,7 @@ The strings should be surrounded by double quotes.
   Not recommended:
 
   ```ngql
-  FETCH PROP ON player "player100" YIELD properties(vertex);
+  FETCH PROP ON player "player100" YIELD properties(vertex)
   ```
 
   Recommended:
