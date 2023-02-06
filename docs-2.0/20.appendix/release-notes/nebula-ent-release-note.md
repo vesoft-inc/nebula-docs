@@ -37,6 +37,8 @@
 
 ## Bugfix
 
+- Fix the bug about query plan generation and optimization.
+
 - Fix the bugs related to indexes:
 
   - Full-text indexes
@@ -52,7 +54,6 @@
   - Using illegal data types
   - Time zone, date, time, etc
   - Clauses and operators
-  - Query plan generation and optimization
 
 - Fix the bugs related to DDL and DML statements:
 
