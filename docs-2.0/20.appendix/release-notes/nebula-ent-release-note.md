@@ -2,69 +2,88 @@
 
 ## Feature
 
-- Support the [Elasticsearch query functions](../../3.ngql-guide/6.functions-and-expressions/17.ES-function.md) to send a GET request to an independently deployed Elasticsearch to read data. [#924](https://github.com/vesoft-inc/nebula-ent/pull/924)
-
-- Support the [extract() function](../../3.ngql-guide/6.functions-and-expressions/2.string.md). [#4098](https://github.com/vesoft-inc/nebula/pull/4098)
+- Support [incremental backup](../../backup-and-restore/nebula-br-ent/1.br-ent-overview.md).
+- Support [fine-grained permission management]((../../7.data-security/1.authentication/3.role-list.md)) at the Tag/Edge type level.
+- Support [killing sessions](../../3.ngql-guide/17.query-tuning-statements/2.kill-session.md).
+- Support [Memory Tracker](../../5.configurations-and-logs/1.configurations/4.storage-config.md) to optimize memory management.
+- Support [black-box monitoring](../../6.monitor-and-metrics/3.bbox/3.1.bbox.md).
+- Support function [json_extract](../../3.ngql-guide/6.functions-and-expressions/2.string.md).
+- Support function [extract](../../3.ngql-guide/6.functions-and-expressions/2.string.md).
 
 ## Enhancement
 
-- Optimized the configuration file and added some configurations. [#4310](https://github.com/vesoft-inc/nebula/pull/4310)
-
-- Added optimization rules to remove the useless AppendVertices operator. [#4277](https://github.com/vesoft-inc/nebula/pull/4277)
-
-- Added optimization rules for pushing down the filter of edges. [#4270](https://github.com/vesoft-inc/nebula/pull/4270)
-
-- Added optimization rules for pushing down the filter of vertex properties. [#4260](https://github.com/vesoft-inc/nebula/pull/4260)
-
-- Eliminated the VID predication filter. [#4249](https://github.com/vesoft-inc/nebula/pull/4249)
-
-- Reduced the amount of data to be copied for Join operations when moving data. [#4283](https://github.com/vesoft-inc/nebula/pull/4283)
-
-- Obtained property values through subscripts to reduce the time-consuming of property queries. [#4242](https://github.com/vesoft-inc/nebula/pull/4242)
-
-- Optimized the performance of `SHORTEST PATH`. [#4071](https://github.com/vesoft-inc/nebula/pull/4071)
-
-- Optimized the performance of `SUBGRAPH`. [#4226](https://github.com/vesoft-inc/nebula/pull/4226)
-
-- Reduced the amount of data to be copied for Traverse and AppendVertices operators when moving data. [#4176](https://github.com/vesoft-inc/nebula/pull/4176)
-
-- Enhanced optimization rules for removing invalid project operators. [#4157](https://github.com/vesoft-inc/nebula/pull/4157)
-
-- Optimized memory allocation with Arena Allocator. [#4239](https://github.com/vesoft-inc/nebula/pull/4239)
+- Support using `GET SUBGRAPH` to filter vertices.
+- Support using `GetNeighbors` to filter vertices.
+- Support the conversion between timestamp and date time.
+- Support the reference of local variable in pattern expressions.
+- Optimize job management.
+- Optimize the full-text index.
+- Optimize the treatment scheme when the pattern expressions are used as predicates.
+- Optimize the join performance of the GO statement.
+- Optimize the performance of k-hop.
+- Optimize the performance of the shortest path query.
+- Optimize the push-down of the filtering of the vertex property.
+- Optimize the push-down of the edge filtering.
+- Optimize the loop conditions of the subgraph query.
+- Optimize the rules of the property cropping.
+- Remove the invalid `Project` operators.
+- Remove the invalid `AppendVertices` operators.
+- Reduce the amount of data replication for connection operations.
+- Reduce the amount of data replication for `Traverse` and `AppendVertices` operators.
+- Modify the default value of the Graph service parameter `session_reclaim_interval_secs` to 60 seconds.
+- Adjust the default level of `stderrthreshold` in the configuration file.
+- Get the property values by subscript to reduce the time of property query.
+- Limit the maximum depth of the plan tree in the optimizer to avoid stack overflows.
 
 ## Bugfix
 
-- Fixed the web service crash when receiving some special attack messages. [#4334](https://github.com/vesoft-inc/nebula/pull/4334)
+- Fix the bugs related to indexes:
 
-- Fixed the storage service crash when scanning properties concurrently. [#4268](https://github.com/vesoft-inc/nebula/pull/4268)
+  - Full-text indexes
+  - String indexes
 
-- Fixed the storage service crash when the name length of the inserting edge that exceeded the limit. [#4305](https://github.com/vesoft-inc/nebula/pull/4305)
+- Fix the bugs related to query statements:
 
-- Fixed the crash when enabling the concurrent querry mode. [#4288](https://github.com/vesoft-inc/nebula/pull/4288)
+  - Variables
+  - Filter conditions and expressions
+  - Properties of vertices or edges
+  - parameters
+  - Functions and aggregations
+  - Using illegal data types
+  - Time zone, date, time, etc
+  - Clauses and operators
+  - Query plan generation and optimization
 
-- Fixed the storage service crash when querying for indexes with the NULL property. [#4234](https://github.com/vesoft-inc/nebula/pull/4234)
+- Fix the bugs related to DDL and DML statements:
 
-- Fixed the bug that standalone daemon exited after a restart. [#4269](https://github.com/vesoft-inc/nebula/pull/4269)
+  - ALTER TAG
+  - UPDATE
 
-- Fixed the bug that the result of the Join dot format explanation was incorrect for GraphViz online tool, which caused by twice JSON conversions. [#4280](https://github.com/vesoft-inc/nebula/pull/4280)
+- Fix the bugs related to other functions:
 
-- Fixed the bug in property queries. The use of dots in schema is now disabled. [#4194](https://github.com/vesoft-inc/nebula/pull/4194)
+  - TTL
+  - Synchronization
+  - Authentication
+  - Services
+  - Logs
+  - Monitoring and statistics
 
-- Fixed the bug that the machine lost the key when restoring data. [#4311](https://github.com/vesoft-inc/nebula/pull/4311)
+## Change
 
-- Fixed the bug that using the same statement to return same vertex different properties, and the results showed `BAD TYPE`. [#4151](https://github.com/vesoft-inc/nebula/pull/4151)
-
-- Fixed the error message in statement `MATCH p=(:team)-->() RETURN p LIMIT 1` without indexes. [#4053](https://github.com/vesoft-inc/nebula/pull/4053)
-
-- Enhanced the error message for operators `AND` and `OR`. [#4304](https://github.com/vesoft-inc/nebula/pull/4304)
-
-- Fixed the bug that there were no stats under the condition of using indexes. [#4353](https://github.com/vesoft-inc/nebula/pull/4353)
-
-- Fixed the crash when having a put request with no body.[#4405](https://github.com/vesoft-inc/nebula/pull/4405)
-
-- Fixed the storage crash when the length of the VID in a vertex or edge deletion statement exceeds the defined length on an indexed base.[#4406](https://github.com/vesoft-inc/nebula/pull/4406)
+- If you want to upgrade NebulaGraph from version 3.1 to 3.4, please follow the instructions in the [upgrade document](../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-ent-from-3.x-3.4.md).
+- The added property name can not be the same as an existing or deleted property name, otherwise, the operation of adding a property fails.
+- Limit the type conversion when modifying the schema.
+- The default value must be specified when creating a property of type `NOT NULL`.
+- Add the multithreaded query parameter `query_concurrently` to  the configuration file with a default value of `true`.
+- Remove the parameter `kv_separation` of the KV separation storage function from the configuration file, which is turned off by default.
+- Modify the default value of `local_config` in the configuration file to `true`.
+- Consistent use of `v.tag.property` to get property values, because it is necessary to specify the Tag. Using `v.property` to access the property of a Tag on `v` was incorrectly allowed in the previous version.
+- Remove the column `HTTP port` from the command `SHOW HOSTS`.
+- Disable the queries of the form `OPTIONAL MATCH <pattern> WHERE <condition>`.
+- Disable the functions of the form `COUNT(DISTINCT *)`.
+- Disable TOSS.
+- Rename Listener's pid filename and log directory name.
 
 ## Legacy versions
 
 [Release notes of legacy versions](https://nebula-graph.io/posts/)
-
