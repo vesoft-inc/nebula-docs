@@ -87,4 +87,4 @@
 
 ## Legacy versions
 
-[Release notes of legacy versions](https://nebula-graph.io/posts/)
+[Release notes of legacy versions](https://www.nebula-graph.io/tags/release-notes)
