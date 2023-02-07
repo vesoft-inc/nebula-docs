@@ -38,21 +38,11 @@ Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a
 
 - Full-text indexes allow indexing just one property.
 
-- Only strings within a specified length (no longer than 256 bytes) are indexed.
-
 - Full-text indexes do not support logical operations such as `AND`, `OR`, and `NOT`.
 
 !!! Note
 
     To do complete string matches, use native indexes.
-
-### Operations on full-text indexes
-
-Before doing any operations on full-text indexes, please make sure that you deploy full-text indexes. Details on full-text indexes deployment, see [Deploy Elasticsearch](../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es.md) and [Deploy Listener](../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener.md).
-
-At this time, full-text indexes are created automatically on the Elasticsearch cluster. And rebuilding or altering full-text indexes are not supported. To drop full-text indexes, you need to drop them on the Elasticsearch cluster manually.
-
-To query full-text indexes, see [Search with full-text indexes](../15.full-text-index-statements/1.search-with-text-based-index.md).
 
 ## Null values
 
