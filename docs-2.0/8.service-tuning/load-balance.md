@@ -27,12 +27,12 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
     ```ngql
     nebual> SHOW HOSTS;
-    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
-    | Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
-    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+    +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
+    | Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
+    +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
     | "192.168.8.101" | 9779 | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "{{nebula.release}}" |
     | "192.168.8.100" | 9779 | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "{{nebula.release}}" |
-    +-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+    +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
     ```
 
 2. Enter the graph space `basketballplayer`, and execute the command `BALANCE DATA` to balance the distribution of storage partitions.
@@ -43,27 +43,20 @@ After you add new storage hosts into the cluster, no partition is deployed on th
     +------------+
     | New Job Id |
     +------------+
-    | 2          |
+    | 25         |
     +------------+
     ```
 
 3. The job ID is returned after running `BALANCE DATA`. Run `SHOW JOB <job_id>` to check the status of the job.
 
     ```ngql
-    nebula> SHOW JOB 2;
-    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
-    | Job Id(spaceId:partId) | Command(src->dst)                        | Status      | Start Time                      | Stop Time                       | Error Code  |
-    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
-    | 2                      | "DATA_BALANCE"                           | "FINISHED"  | "2022-04-12T03:41:43.000000000" | "2022-04-12T03:41:53.000000000" | "SUCCEEDED" |
-    | "2, 1:1"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "2, 1:2"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "2, 1:3"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "2, 1:4"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "2, 1:5"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "2, 1:6"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:43.000000      | "SUCCEEDED" |
-    | "2, 1:7"               | "192.168.8.100:9779->192.168.8.101:9779" | "SUCCEEDED" | 2022-04-12T03:41:43.000000      | 2022-04-12T03:41:53.000000      | "SUCCEEDED" |
-    | "Total:7"              | "Succeeded:7"                            | "Failed:0"  | "In Progress:0"                 | "Invalid:0"                     | ""          |
-    +------------------------+------------------------------------------+-------------+---------------------------------+---------------------------------+-------------+
+    nebula> SHOW JOB 25;
+    +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
+    | Job Id(spaceId:partId) | Command(src->dst) | Status     | Start Time                 | Stop Time                  | State       |
+    +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
+    | 25                     | "DATA_BALANCE"    | "FINISHED" | 2023-01-17T06:24:35.000000 | 2023-01-17T06:24:35.000000 | "SUCCEEDED" |
+    | "Total:0"              | "Succeeded:0"     | "Failed:0" | "In Progress:0"            | "Invalid:0"                | ""          |
+    +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
     ```
 
 4. When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
@@ -74,12 +67,12 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
   ```ngql
   nebula> SHOW HOSTS;
-  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
-  | Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version     |
-  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
+  +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
+  | Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version              |
+  +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
   | "192.168.8.101" | 9779 | "ONLINE" | 7            | "basketballplayer:7" | "basketballplayer:7"   | "{{nebula.release}}" |
   | "192.168.8.100" | 9779 | "ONLINE" | 8            | "basketballplayer:8" | "basketballplayer:8"   | "{{nebula.release}}" |
-  +-----------------+------+----------+--------------+----------------------+------------------------+-------------+
+  +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
   ```
 
 If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
@@ -115,12 +108,12 @@ For example, to migrate the partitions in server `192.168.8.100:9779`, the comma
 ```ngql
 nebula> BALANCE DATA REMOVE 192.168.8.100:9779;
 nebula> SHOW HOSTS;
-+-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
-| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
-+-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
+| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
++-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 | "192.168.8.101" | 9779 | "ONLINE" | 15           | "basketballplayer:15" | "basketballplayer:15"  | "{{nebula.release}}" |
 | "192.168.8.100" | 9779 | "ONLINE" | 0            | "No valid partition"  | "No valid partition"   | "{{nebula.release}}" |
-+-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 ```
 
 !!! note
@@ -152,16 +145,16 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   ```ngql
   nebual> SHOW HOSTS;
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
-  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version              |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
   | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:15"  | "{{nebula.release}}" |
   | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:15"  | "{{nebula.release}}" |
   | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:15"  | "{{nebula.release}}" |
   | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
   | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
   | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "No valid partition"   | "{{nebula.release}}" |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
   ```
 
 1. Run `BALANCE IN ZONE` to start a job to balance the distribution of storage partitions in each zone in the current graph space. 
@@ -199,16 +192,16 @@ After you add new storage hosts into the zone, no partition is deployed on the n
 
   ```ngql
   nebula> SHOW HOSTS;
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
-  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-  +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
+  | Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version              |
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
   | "192.168.10.100" | 9779 | "ONLINE" | 4            | "basketballplayer:4"              | "basketballplayer:8"   | "{{nebula.release}}" |
   | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:8"              | "basketballplayer:8"   | "{{nebula.release}}" |
   | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
   | "192.168.10.103" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
   | "192.168.10.104" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
   | "192.168.10.105" | 9779 | "ONLINE" | 0            | "No valid partition"              | "basketballplayer:7"   | "{{nebula.release}}" |
-  +------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
+  +------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
   ```
 
 If any subtask fails, run [`RECOVER JOB <job_id>`](../synchronization-and-migration/2.balance-syntax.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
@@ -267,15 +260,15 @@ Run `SHOW HOSTS` to check the balance result.
 
 ```ngql
 nebula> SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
-| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version |
-+------------------+------+--------------+-----------------------------------+------------------------+---------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version              |
++------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
 | "192.168.10.101" | 9779 | "ONLINE" | 8            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
 | "192.168.10.102" | 9779 | "ONLINE" | 3            | "basketballplayer:3"              | "basketballplayer:8"   | "{{nebula.release}}" |
 | "192.168.10.103" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
 | "192.168.10.104" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
 | "192.168.10.105" | 9779 | "ONLINE" | 0            | "basketballplayer:2"              | "basketballplayer:7"   | "{{nebula.release}}" |
-+------------------+------+-----------+----------+--------------+-----------------------------------+------------------------+---------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
 ```
 
 !!! caution
