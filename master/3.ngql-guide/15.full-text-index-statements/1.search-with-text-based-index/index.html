@@ -1317,20 +1317,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.functions-and-expressions/17.ES-function/" class="md-nav__link">
-        Elasticsearch functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../6.functions-and-expressions/9.user-defined-functions/" class="md-nav__link">
         User-defined functions
       </a>
@@ -3186,7 +3172,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph to the latest version
+        Upgrade NebulaGraph from v2.x to v3.4 (Community Edition)
       </a>
     </li>
   
@@ -3200,7 +3186,21 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph from v3.x to the current version
+        Upgrade NebulaGraph from v3.x to v3.4 (Community Edition)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-ent-from-3.x-3.4/" class="md-nav__link">
+        Upgrade NebulaGraph from v3.x to v3.4 (Enterprise Edition)
       </a>
     </li>
   
@@ -7482,10 +7482,10 @@
 <h2 id="precaution">Precaution<a class="headerlink" href="#precaution" title="Permanent link">&para;</a></h2>
 <p>Before using the full-text index, make sure that you know the <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/1.text-based-index-restrictions/">restrictions</a>.</p>
 <h2 id="natural_language_full-text_search">Natural language full-text search<a class="headerlink" href="#natural_language_full-text_search" title="Permanent link">&para;</a></h2>
-<p>A natural language search interprets the search string as a phrase in natural human language. The search is case-insensitive. By default, each substring (separated by spaces) will be searched separately. For example, there are three vertices with the tag <code>player</code>. The tag <code>player</code> contains the property <code>name</code>. The <code>name</code> of these three vertices are <code>Kevin Durant</code>, <code>Tim Duncan</code>, and <code>David Beckham</code>. Now that the full-text index of <code>player.name</code> is established, these three vertices will be queried when using the prefix search statement <code>LOOKUP ON player WHERE PREFIX(player.name,"d");</code>.</p>
+<p>A natural language search interprets the search string as a phrase in natural human language. The search is case-sensitive and by default prefixes the string with a match. For example, there are three vertices with the tag <code>player</code>. The tag <code>player</code> contains the property <code>name</code>. The <code>name</code> of these three vertices are <code>Kevin Durant</code>, <code>Tim Duncan</code>, and <code>David Beckham</code>. Now that the full-text index of <code>player.name</code> is established, only <code>David Beckham</code> will be queried when using the prefix search statement <code>LOOKUP ON player WHERE PREFIX(player.name,"D");</code>.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <h3 id="create_full-text_indexes">Create full-text indexes<a class="headerlink" href="#create_full-text_indexes" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name_list&gt;]);
+<div class="highlight"><pre><span></span><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} ([&lt;prop_name&gt;]);
 </code></pre></div>
 <h3 id="show_full-text_indexes">Show full-text indexes<a class="headerlink" href="#show_full-text_indexes" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>SHOW FULLTEXT INDEXES;
@@ -7493,6 +7493,10 @@
 <h3 id="rebuild_full-text_indexes">Rebuild full-text indexes<a class="headerlink" href="#rebuild_full-text_indexes" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>REBUILD FULLTEXT INDEX;
 </code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>When there is a large amount of data, rebuilding full-text index is slow, you can modify <code>snapshot_send_files=false</code> in the configuration file of Storage service(<code>nebula-storaged.conf</code>).</p>
+</div>
 <h3 id="drop_full-text_indexes">Drop full-text indexes<a class="headerlink" href="#drop_full-text_indexes" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>DROP FULLTEXT INDEX &lt;index_name&gt;;
 </code></pre></div>
@@ -7553,13 +7557,7 @@ nebula&gt; SHOW LISTENER;
 // This example creates the tag.
 nebula&gt; CREATE TAG IF NOT EXISTS player(name string, age int);
 
-// This example creates the native index.
-nebula&gt; CREATE TAG INDEX IF NOT EXISTS name ON player(name(20));
-
-// This example rebuilds the native index.
-nebula&gt; REBUILD TAG INDEX;
-
-// This example creates the full-text index. The index name starts with &quot;nebula&quot;.
+// This example creates the full-text index. The index name starts with &quot;nebula_&quot;.
 nebula&gt; CREATE FULLTEXT TAG INDEX nebula_index_1 ON player(name);
 
 // This example rebuilds the full-text index.
@@ -7644,7 +7642,7 @@ nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 24, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2023</span>
       
     
   </small>
