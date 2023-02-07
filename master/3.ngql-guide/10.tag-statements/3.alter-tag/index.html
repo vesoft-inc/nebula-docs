@@ -7390,6 +7390,12 @@
 <ul>
 <li>The property name must be unique in a tag. If you add a property with the same name as an existing property or a dropped property, the operation fails.</li>
 </ul>
+<ul>
+<li>Only the length of a <code>FIXED_STRING</code> or an <code>INT</code> can be increased.</li>
+</ul>
+<ul>
+<li>Only the data type conversions from FIXED_STRING to STRING and from FLOAT to DOUBLE are allowed.</li>
+</ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
     &lt;alter_definition&gt; [[, alter_definition] ...]
@@ -7419,6 +7425,9 @@ nebula&gt; ALTER TAG t1 ADD (p3 int, p4 string);
 nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = &quot;p2&quot;;
 nebula&gt; ALTER TAG t1 COMMENT = &#39;test1&#39;;
 nebula&gt; ALTER TAG t1 ADD (p5 double NOT NULL DEFAULT 0.4 COMMENT &#39;p5&#39;) COMMENT=&#39;test2&#39;;
+// Change the `p3` property to INT8 
+nebula&gt; ALTER TAG t1 CHANGE (p3 int8, p4 string);
+[ERROR(-1005)]: Unsupported!
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
 <p>Trying to use a newly altered tag may fail because the alteration of the tag is implemented asynchronously. To make sure the follow-up operations work as expected, Wait for two heartbeat cycles, i.e., 20 seconds.</p>
@@ -7429,7 +7438,7 @@ nebula&gt; ALTER TAG t1 ADD (p5 double NOT NULL DEFAULT 0.4 COMMENT &#39;p5&#39;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2023</span>
       
     
   </small>

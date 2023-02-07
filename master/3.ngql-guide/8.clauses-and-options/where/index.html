@@ -1921,6 +1921,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#filter_on_pattern" class="md-nav__link">
+    Filter on pattern
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7475,6 +7482,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#filter_on_pattern" class="md-nav__link">
+    Filter on pattern
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7729,6 +7743,26 @@ nebula&gt; MATCH (v)-[e:follow]-&gt;() \
 | (&quot;player108&quot; :player{age: 36, name: &quot;Boris Diaw&quot;})         | [:follow &quot;player108&quot;-&gt;&quot;player101&quot; @0 {degree: 80}]  |
 ...
 </code></pre></div>
+<h3 id="filter_on_pattern">Filter on pattern<a class="headerlink" href="#filter_on_pattern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(t) \
+        WHERE (v)-[e]-&gt;(t:team) \
+        RETURN (v)--&gt;();
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| (v)--&gt;() = (v)--&gt;()                                                                                                                                                                                                                                                                                                                                                                                              |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [&lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;] |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;(t) \
+        WHERE NOT (v)-[e]-&gt;(t:team) \
+        RETURN (v)--&gt;();
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| (v)--&gt;() = (v)--&gt;()                                                                                                                                                                                                                                                                                                                                                                                              |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [&lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;] |
+| [&lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:serve@0 {end_year: 2016, start_year: 1997}]-&gt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})&gt;, &lt;(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})-[:follow@0 {degree: 95}]-&gt;(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;})&gt;] |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
 <h2 id="filter_on_strings">Filter on strings<a class="headerlink" href="#filter_on_strings" title="Permanent link">&para;</a></h2>
 <p>Use <code>STARTS WITH</code>, <code>ENDS WITH</code>, or <code>CONTAINS</code> in <code>WHERE</code> clauses to match a specific part of a string. String matching is case-sensitive.</p>
 <h3 id="starts_with"><code>STARTS WITH</code><a class="headerlink" href="#starts_with" title="Permanent link">&para;</a></h3>
@@ -7866,7 +7900,7 @@ nebula&gt; LOOKUP ON player \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2023</span>
       
     
   </small>
