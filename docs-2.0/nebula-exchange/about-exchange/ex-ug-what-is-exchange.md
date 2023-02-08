@@ -59,6 +59,9 @@ The correspondence between the NebulaGraph Exchange version (the JAR version), t
 |nebula-exchange_spark_3.0-3.0-SNAPSHOT.jar|  nightly       |3.3.x、3.2.x、3.1.x、3.0.x |
 |nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar|  nightly       |2.4.x |
 |nebula-exchange_spark_2.2-3.0-SNAPSHOT.jar|  nightly       |2.2.x |
+|nebula-exchange_spark_3.0-3.4.0.jar       |  3.x.x         |3.3.x、3.2.x、3.1.x、3.0.x |
+|nebula-exchange_spark_2.4-3.4.0.jar       |  3.x.x         |2.4.x |
+|nebula-exchange_spark_2.2-3.4.0.jar       |  3.x.x         |2.2.x |
 |nebula-exchange_spark_3.0-3.3.0.jar       |  3.x.x         |3.3.x、3.2.x、3.1.x、3.0.x|
 |nebula-exchange_spark_2.4-3.3.0.jar       |  3.x.x         |2.4.x |
 |nebula-exchange_spark_2.2-3.3.0.jar       |  3.x.x         |2.2.x |
