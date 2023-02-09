@@ -10,7 +10,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
   
 - The remaining disk space on the machine must be at least 1.5 times the size of the original data directory.
   
-- Before upgrading a NebulaGraph cluster deployed full-text indexes, you must manually delete the full-text indexes in Elasticsearch, and then run the `SIGN IN` command to log into ES and recreate the indexes after the upgrade is complete.
+- Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the `SIGN IN` command to log into ES and recreate the indexes after the upgrade is complete.
 
   !!! note
 
