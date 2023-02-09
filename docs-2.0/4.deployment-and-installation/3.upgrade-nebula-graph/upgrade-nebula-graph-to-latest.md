@@ -4,11 +4,11 @@ This topic describes how to upgrade NebulaGraph from version 2.x to {{nebula.rel
 
 ## Applicable source versions
 
-This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.
+This topic applies to upgrading NebulaGraph from 2.5.0 and later 2.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.5.0, including the 1.x versions.
 
 To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
-1. Upgrade it to the latest 2.x version according to the docs of that version.
+1. Upgrade it to the latest 2.5 version according to the docs of that version.
 2. Follow this topic to upgrade it to {{nebula.release}}.
 
 !!! caution
@@ -62,6 +62,10 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
   - The `YIELD` clause is required in the `FETCH`, `GO`, `LOOKUP`, `FIND PATH` and `GET SUBGRAPH` statements.
 
   - It is required to specify a tag to query properties of a vertex in a `MATCH` statement. For example, from `return v.name` to `return v.player.name`.
+
+- Full-text indexes
+
+  Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the `SIGN IN` command to log into ES and recreate the indexes after the upgrade is complete. To manually delete the full-text indexes in Elasticsearch, you can use the curl command `curl -XDELETE -u <es_username>:<es_password> '<es_access_ip>:<port>/<fullindex_name>'`, for example, `curl -XDELETE -u elastic:elastic 'http://192.168.8.xxx:9200/nebula_index_2534'`. If no username and password are set for Elasticsearch, you can omit the `-u <es_username>:<es_password>` part.
 
 !!! caution
 
