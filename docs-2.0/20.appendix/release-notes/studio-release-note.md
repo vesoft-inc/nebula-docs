@@ -1,5 +1,10 @@
 # NebulaGraph Studio release notes
 
+## v3.5.1
+
+- Bugfix
+  - Fixed the bug that the docker image importing task cannot be configured properly.
+
 ## v3.5.0
 
 - Feature
