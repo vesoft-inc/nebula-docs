@@ -1,74 +1,66 @@
 # NebulaGraph {{ nebula.release }} release notes
 
+## Feature
+
+- Support [killing sessions](../../3.ngql-guide/17.query-tuning-statements/2.kill-session.md). [#5146](https://github.com/vesoft-inc/nebula/pull/5146)
+- Support [Memory Tracker](../../5.configurations-and-logs/1.configurations/4.storage-config.md) to optimize memory management. [#5082](https://github.com/vesoft-inc/nebula/pull/5082)
+
 ## Enhancement
 
-- Optimized the performance of k-hop. [#4560](https://github.com/vesoft-inc/nebula/pull/4560) [#4736](https://github.com/vesoft-inc/nebula/pull/4736)  [#4566](https://github.com/vesoft-inc/nebula/pull/4566) [#4582](https://github.com/vesoft-inc/nebula/pull/4582) [#4558](https://github.com/vesoft-inc/nebula/pull/4558) [#4556](https://github.com/vesoft-inc/nebula/pull/4556) [#4555](https://github.com/vesoft-inc/nebula/pull/4555) [#4516](https://github.com/vesoft-inc/nebula/pull/4516) [#4531](https://github.com/vesoft-inc/nebula/pull/4531) [#4522](https://github.com/vesoft-inc/nebula/pull/4522) [#4754](https://github.com/vesoft-inc/nebula/pull/4754) [#4762](https://github.com/vesoft-inc/nebula/pull/4762)
+- Optimize job management. [#5212](https://github.com/vesoft-inc/nebula/pull/5212) [#5093](https://github.com/vesoft-inc/nebula/pull/5093) [#5099](https://github.com/vesoft-inc/nebula/pull/5099) [#4872](https://github.com/vesoft-inc/nebula/pull/4872)
 
-- Optimized `GO` statement join performance. [#4599](https://github.com/vesoft-inc/nebula/pull/4599) [#4750](https://github.com/vesoft-inc/nebula/pull/4750)
+- Modify the default value of the Graph service parameter `session_reclaim_interval_secs` to 60 seconds. [#5246](https://github.com/vesoft-inc/nebula/pull/5246)
 
-- Supported using `GET SUBGRAPH` to filter vertices. [#4357](https://github.com/vesoft-inc/nebula/pull/4357)
+- Adjust the default level of `stderrthreshold` in the configuration file. [#5188](https://github.com/vesoft-inc/nebula/pull/5188)
 
-- Supported using `GetNeighbors` to filter vertices. [#4671](https://github.com/vesoft-inc/nebula/pull/4671)
+- Optimize the full-text index. [#5077](https://github.com/vesoft-inc/nebula/pull/5077) [#4900](https://github.com/vesoft-inc/nebula/pull/4900) [#4925](https://github.com/vesoft-inc/nebula/pull/4925)
 
-- Optimized the loop handling of `FIND SHORTEST PATH`. [#4672](https://github.com/vesoft-inc/nebula/pull/4672)
+- Limit the maximum depth of the plan tree in the optimizer to avoid stack overflows. [#5050](https://github.com/vesoft-inc/nebula/pull/5050)
 
-- Supported the conversion between timestamp and date time. [#4626](https://github.com/vesoft-inc/nebula/pull/4526)
-
-- Supported the reference of local variable in pattern expressions. [#4498](https://github.com/vesoft-inc/nebula/pull/4498)
-
-- Optimized the job manager. [#4446](https://github.com/vesoft-inc/nebula/pull/4446) [#4442](https://github.com/vesoft-inc/nebula/pull/4442) [#4444](https://github.com/vesoft-inc/nebula/pull/4444) [#4460](https://github.com/vesoft-inc/nebula/pull/4460) [#4500](https://github.com/vesoft-inc/nebula/pull/4500) [#4633](https://github.com/vesoft-inc/nebula/pull/4633) [#4654](https://github.com/vesoft-inc/nebula/pull/4654) [#4663](https://github.com/vesoft-inc/nebula/pull/4663) [#4722](https://github.com/vesoft-inc/nebula/pull/4722) [#4742](https://github.com/vesoft-inc/nebula/pull/4742)
-
-- Added flags of experimental features, `enable_data_balance` for `BALANCE DATA`. [#4728](https://github.com/vesoft-inc/nebula/pull/4728)
-
-- Stats log print to console when the process is started. [#4550](https://github.com/vesoft-inc/nebula/pull/4550)
-
-- Supported the `JSON_EXTRACT` function. [#4743](https://github.com/vesoft-inc/nebula/pull/4743)
+- Optimize the treatment scheme when the pattern expressions are used as predicates. [#4916](https://github.com/vesoft-inc/nebula/pull/4916)
 
 ## Bugfix
 
-- Fixed the crash of variable types collected. [#4724](https://github.com/vesoft-inc/nebula/pull/4724)
+- Fix the bug about query plan generation and optimization. [#4863](https://github.com/vesoft-inc/nebula/pull/4863) [#4813](https://github.com/vesoft-inc/nebula/pull/4813)
 
-- Fixed the crash in the optimization phase of multiple `MATCH`. [#4780](https://github.com/vesoft-inc/nebula/pull/4780)
+- Fix the bugs related to indexes:
 
-- Fixed the bug of aggregate expression type deduce. [#4706](https://github.com/vesoft-inc/nebula/pull/4706)
+  - Full-text indexes [#5214](https://github.com/vesoft-inc/nebula/pull/5214) [#5260](https://github.com/vesoft-inc/nebula/pull/5260)
+  - String indexes [5126](https://github.com/vesoft-inc/nebula/pull/5126)
 
-- Fixed the incorrect result of the `OPTIONAL MATCH` statement. [#4670](https://github.com/vesoft-inc/nebula/pull/4670)
+- Fix the bugs related to query statements:
 
-- Fixed the bug of parameter expression in the `LOOKUP` statement. [#4664](https://github.com/vesoft-inc/nebula/pull/4664)
+  - Variables [#5192](https://github.com/vesoft-inc/nebula/pull/5192)
+  - Filter conditions and expressions [#4952](https://github.com/vesoft-inc/nebula/pull/4952) [#4893](https://github.com/vesoft-inc/nebula/pull/4893) [#4863](https://github.com/vesoft-inc/nebula/pull/4863)
+  - Properties of vertices or edges [#5230](https://github.com/vesoft-inc/nebula/pull/5230) [#4846](https://github.com/vesoft-inc/nebula/pull/4846) [#4841](https://github.com/vesoft-inc/nebula/pull/4841) [#5238](https://github.com/vesoft-inc/nebula/pull/5238)
+  - Functions and aggregations [#5135](https://github.com/vesoft-inc/nebula/pull/5135) [#5121](https://github.com/vesoft-inc/nebula/pull/5121) [#4884](https://github.com/vesoft-inc/nebula/pull/4884)
+  - Using illegal data types [#5242](https://github.com/vesoft-inc/nebula/pull/5242)
+  - Clauses and operators [#5241](https://github.com/vesoft-inc/nebula/pull/5241) [#4965](https://github.com/vesoft-inc/nebula/pull/4965)
 
-- Fixed the bug that `YIELD DISTINCT` returned a distinct result set in the `LOOKUP` statement. [#4651](https://github.com/vesoft-inc/nebula/pull/4651)
+- Fix the bugs related to DDL and DML statements:
 
-- Fixed the bug that `ColumnExpression` encode and decode are not matched. [#4413](https://github.com/vesoft-inc/nebula/pull/4413)
+  - ALTER TAG [#5105](https://github.com/vesoft-inc/nebula/pull/5105) [#5136](https://github.com/vesoft-inc/nebula/pull/5136)
+  - UPDATE [#4933](https://github.com/vesoft-inc/nebula/pull/4933)
 
-- Fixed the bug that `id($$)` filter was incorrect in the `GO` statement.  [#4768](https://github.com/vesoft-inc/nebula/pull/4768)
+- Fix the bugs related to other functions:
 
-- Fixed the bug that full scan of `MATCH` statement when there is a relational `In` predicate. [#4748](https://github.com/vesoft-inc/nebula/pull/4748)
+  - TTL [#4961](https://github.com/vesoft-inc/nebula/pull/4961)
+  - Authentication [#4885](https://github.com/vesoft-inc/nebula/pull/4885)
+  - Services [#4896](https://github.com/vesoft-inc/nebula/pull/4896)
 
-- Fixed the optimizer error of `MATCH` statement.[#4771](https://github.com/vesoft-inc/nebula/pull/4771)
+## Change
 
-- Fixed wrong output when using `pattern` expression as the filter in `MATCH` statement.  [#4778](https://github.com/vesoft-inc/nebula/pull/4778)
-
-- Fixed the bug that tag, edge, tag index and edge index display incorrectly. [#4616](https://github.com/vesoft-inc/nebula/pull/4616)
-
-- Fixed the bug of date time format. [#4524](https://github.com/vesoft-inc/nebula/pull/4524)
-
-- Fixed the bug that the return value of the date time vertex was changed. [#4448](https://github.com/vesoft-inc/nebula/pull/4448)
-
-- Fixed the bug that the startup service failed when the log directory not existed and `enable_breakpad` was enabled. [#4623](https://github.com/vesoft-inc/nebula/pull/4623)
-
-- Fixed the bug that after the metad stopped, the status remained online. [#4610](https://github.com/vesoft-inc/nebula/pull/4610)
-
-- Fixed the corruption of the log file. [#4409](https://github.com/vesoft-inc/nebula/pull/4409)
-
-- Fixed the bug that `ENABLE_CCACHE` option didn't work. [#4648](https://github.com/vesoft-inc/nebula/pull/4648)
-
-- Abandoned uppercase letters in full-text index names.  [#4628](https://github.com/vesoft-inc/nebula/pull/4628)
-
-- Disable `COUNT(DISTINCT *)` . [#4553](https://github.com/vesoft-inc/nebula/pull/4553)
-
-### Change
-
-- Vertices without tags are not supported by default. If you want to use the vertex without tags, add `--graph_use_vertex_key=true` to the configuration files (`nebula-graphd.conf`) of all Graph services in the cluster, add `--use_vertex_key=true` to the configuration files (`nebula-storaged.conf`) of all Storage services in the cluster. [#4629](https://github.com/vesoft-inc/nebula/pull/4629) 
+- The added property name can not be the same as an existing or deleted property name, otherwise, the operation of adding a property fails. [#5130](https://github.com/vesoft-inc/nebula/pull/5130)
+- Limit the type conversion when modifying the schema. [#5098](https://github.com/vesoft-inc/nebula/pull/5098)
+- The default value must be specified when creating a property of type `NOT NULL`. [#5105](https://github.com/vesoft-inc/nebula/pull/5105)
+- Add the multithreaded query parameter `query_concurrently` to  the configuration file with a default value of `true`. [#5119](https://github.com/vesoft-inc/nebula/pull/5119)
+- Remove the parameter `kv_separation` of the KV separation storage function from the configuration file, which is turned off by default. [#5119](https://github.com/vesoft-inc/nebula/pull/5119)
+- Modify the default value of `local_config` in the configuration file to `true`. [#5119](https://github.com/vesoft-inc/nebula/pull/5119)
+- Consistent use of `v.tag.property` to get property values, because it is necessary to specify the Tag. Using `v.property` to access the property of a Tag on `v` was incorrectly allowed in the previous version. [#5230](https://github.com/vesoft-inc/nebula/pull/5230)
+- Remove the column `HTTP port` from the command `SHOW HOSTS`. [#5056](https://github.com/vesoft-inc/nebula/pull/5056)
+- Disable the queries of the form `OPTIONAL MATCH <pattern> WHERE <condition>`. [#5273](https://github.com/vesoft-inc/nebula/pull/5273)
+- Disable TOSS. [#5119](https://github.com/vesoft-inc/nebula/pull/5119)
+- Rename Listener's pid filename and log directory name. [#5119](https://github.com/vesoft-inc/nebula/pull/5119)
 
 ## Notes for upgrading
 
@@ -76,9 +68,11 @@ To upgrade to v3.4.0, follow the upgrade guide:
 
 - [Upgrade NebulaGraph from v2.x to v3.4.0](../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md)
 - [Upgrade NebulaGraph from v3.x to v3.4.0](../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest.md)
-
-
-
+  
 ## Legacy versions
 
-[Release notes of legacy versions](https://www.nebula-graph.io/tags/release-notes)
+[Release notes of legacy versions](https://nebula-graph.io/posts/)
+
+
+
+
