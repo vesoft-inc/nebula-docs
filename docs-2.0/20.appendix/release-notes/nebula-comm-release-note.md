@@ -70,6 +70,15 @@
 
 - Vertices without tags are not supported by default. If you want to use the vertex without tags, add `--graph_use_vertex_key=true` to the configuration files (`nebula-graphd.conf`) of all Graph services in the cluster, add `--use_vertex_key=true` to the configuration files (`nebula-storaged.conf`) of all Storage services in the cluster. [#4629](https://github.com/vesoft-inc/nebula/pull/4629) 
 
+## Notes for upgrading
+
+To upgrade to v3.4.0, follow the upgrade guide:
+
+- [Upgrade NebulaGraph from v2.x to v3.4.0](../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md)
+- [Upgrade NebulaGraph from v3.x to v3.4.0](../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest.md)
+
+
+
 ## Legacy versions
 
 [Release notes of legacy versions](https://www.nebula-graph.io/tags/release-notes)
