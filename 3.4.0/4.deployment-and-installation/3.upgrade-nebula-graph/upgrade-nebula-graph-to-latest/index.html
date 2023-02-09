@@ -7279,10 +7279,10 @@
 <h1 id="upgrade_nebulagraph_from_version_2x_to_340">Upgrade NebulaGraph from version 2.x to 3.4.0<a class="headerlink" href="#upgrade_nebulagraph_from_version_2x_to_340" title="Permanent link">&para;</a></h1>
 <p>This topic describes how to upgrade NebulaGraph from version 2.x to 3.4.0, taking upgrading from version 2.6.1 to 3.4.0 as an example.</p>
 <h2 id="applicable_source_versions">Applicable source versions<a class="headerlink" href="#applicable_source_versions" title="Permanent link">&para;</a></h2>
-<p>This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x versions to 3.4.0. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.</p>
+<p>This topic applies to upgrading NebulaGraph from 2.5.0 and later 2.x versions to 3.4.0. It does not apply to historical versions earlier than 2.5.0, including the 1.x versions.</p>
 <p>To upgrade NebulaGraph from historical versions to 3.4.0:</p>
 <ol>
-<li>Upgrade it to the latest 2.x version according to the docs of that version.</li>
+<li>Upgrade it to the latest 2.5 version according to the docs of that version.</li>
 <li>Follow this topic to upgrade it to 3.4.0.</li>
 </ol>
 <div class="admonition caution">
@@ -7349,6 +7349,12 @@
 <ul>
 <li>It is required to specify a tag to query properties of a vertex in a <code>MATCH</code> statement. For example, from <code>return v.name</code> to <code>return v.player.name</code>.</li>
 </ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Full-text indexes</p>
+<p>Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the <code>SIGN IN</code> command to log into ES and recreate the indexes after the upgrade is complete. To manually delete the full-text indexes in Elasticsearch, you can use the curl command <code>curl -XDELETE -u &lt;es_username&gt;:&lt;es_password&gt; '&lt;es_access_ip&gt;:&lt;port&gt;/&lt;fullindex_name&gt;'</code>, for example, <code>curl -XDELETE -u elastic:elastic 'http://192.168.8.xxx:9200/nebula_index_2534'</code>. If no username and password are set for Elasticsearch, you can omit the <code>-u &lt;es_username&gt;:&lt;es_password&gt;</code> part.</p>
 </li>
 </ul>
 <div class="admonition caution">
