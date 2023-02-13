@@ -55,6 +55,7 @@ The graph computing algorithms supported by NebulaGraph Algorithm are as follows
 | ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|   clustercoefficient   |double/string|
 | Jaccard | Jaccard similarity | Similarity computing, recommendation system|    jaccard        |    string   |
 | BFS       | Breadth-First Search| Sequence traversal, shortest path planning|     bfs          |    string   |
+| DFS       | Depth-First Search  | Sequence traversal, shortest path planning|     dfs          |    string   |
 | Node2Vec  |     -     | Graph classification         |     node2vec       |    string   |
 
 !!! note
