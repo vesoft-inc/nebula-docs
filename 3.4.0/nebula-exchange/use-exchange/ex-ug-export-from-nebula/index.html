@@ -7178,14 +7178,10 @@
 
 
 <h1 id="export_data_from_nebulagraph">Export data from NebulaGraph<a class="headerlink" href="#export_data_from_nebulagraph" title="Permanent link">&para;</a></h1>
-<p>This topic uses an example to illustrate how to use Exchange to export data from NebulaGraph to a CSV file.</p>
+<p>The Exchange allows you to export data from NebulaGraph to a CSV file or another NebulaGraph space (supporting different NebulaGraph clusters). This topic describes the specific procedure.</p>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
-<p>Only Exchange Enterprise Edition supports exporting data from NebulaGraph to a CSV file.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>SSL encryption is not supported when exporting data from NebulaGraph.</p>
+<p>Only Exchange Enterprise Edition supports exporting data from NebulaGraph.</p>
 </div>
 <h2 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h2>
 <p>This example is completed on a virtual machine equipped with Linux. The hardware and software you need to prepare before exporting data are as follows.</p>
@@ -7285,77 +7281,233 @@
 </li>
 <li>
 <p>Modify the configuration file.</p>
-<p>Exchange Enterprise Edition provides the configuration template <code>export_application.conf</code> for exporting NebulaGraph data. For details, see <a href="../../parameter-reference/ex-ug-parameter/">Exchange parameters</a>. The core content of the configuration file used in this example is as follows:</p>
-<div class="highlight"><pre><span></span><code>...
+<p>Exchange Enterprise Edition provides the configuration template <code>export_to_csv.conf</code> and <code>export_to_nebula.conf</code> for exporting NebulaGraph data. For details, see <a href="../../parameter-reference/ex-ug-parameter/">Exchange parameters</a>. The core content of the configuration file used in this example is as follows:</p>
+<ul>
+<li>Export to a CSV file:</li>
+</ul>
+<div class="highlight"><pre><span></span><code># Use the command to submit the exchange job:
+
+# spark-submit \
+# --master &quot;spark://master_ip:7077&quot; \
+# --driver-memory=2G --executor-memory=30G  \
+# --total-executor-cores=60 --executor-cores=20 \
+# --class com.vesoft.nebula.exchange.Exchange \
+# nebula-exchange-3.0-SNAPSHOT.jar -c export_to_csv.conf
+
+{
+  # Spark config
+  spark: {
+    app: {
+      name: NebulaGraph Exchange
+    }
+  }
+
+  # Nebula Graph config
+  # if you export nebula data to csv, please ignore these nebula config
+  nebula: {
+    address:{
+      graph:[&quot;127.0.0.1:9669&quot;]
+
+      # the address of any of the meta services
+      meta:[&quot;127.0.0.1:9559&quot;]
+    }
+    user: root
+    pswd: nebula
+    space: test
+
+    # nebula client connection parameters
+    connection {
+      # socket connect &amp; execute timeout, unit: millisecond
+      timeout: 30000
+    }
+
+    error: {
+      # max number of failures, if the number of failures is bigger than max, then exit the   application.
+      max: 32
+      # failed data will be recorded in output path, format with ngql
+      output: /tmp/errors
+    }
+
+    # use google&#39;s RateLimiter to limit the requests send to NebulaGraph
+    rate: {
+      # the stable throughput of RateLimiter
+      limit: 1024
+      # Acquires a permit from RateLimiter, unit: MILLISECONDS
+      # if it can&#39;t be obtained within the specified timeout, then give up the request.
+      timeout: 1000
+    }
+  }
 
   # Processing tags
-  # There are tag config examples for different dataSources.
   tags: [
-    # export NebulaGraph tag data to csv, only support export to CSV for now.
     {
-      name: player
+      # you can ignore the tag name when export nebula data to csv
+      name: tag-name-1
       type: {
-        source: Nebula
-        sink: CSV
+        source: nebula
+        sink: csv
       }
-      # the path to save the NebulaGrpah data, make sure the path doesn&#39;t exist.
-      path:&quot;hdfs://192.168.8.177:9000/vertex/player&quot;
-      # if no need to export any properties when export NebulaGraph tag data
-      # if noField is configured true, just export vertexId
-      noField:false
-      # define properties to export from NebulaGraph tag data
-      # if return.fields is configured as empty list, then export all properties
-      return.fields:[]
-      # nebula space partition number
-      partition:10
+
+      # config the fields you want to export from nebula
+      fields: [nebula-field-0, nebula-field-1, nebula-field-2]
+      noFields:false  # default false, if true, just export id
+      partition: 60
+      # config the path to save your csv file. if your file in not in hdfs, config &quot;file:///path/  test.csv&quot;
+      path: &quot;hdfs://ip:port/path/person&quot;
+      separator: &quot;,&quot;
+      header: true
     }
-
-...
-
   ]
 
-  # Processing edges
-  # There are edge config examples for different dataSources.
+  # process edges
   edges: [
-    # export NebulaGraph tag data to csv, only support export to CSV for now.
     {
-      name: follow
+      # you can ignore the edge name when export nebula data to csv
+      name: edge-name-1
       type: {
-        source: Nebula
-        sink: CSV
+        source: nebula
+        sink: csv
       }
-      # the path to save the NebulaGrpah data, make sure the path doesn&#39;t exist.
-      path:&quot;hdfs://192.168.8.177:9000/edge/follow&quot;
-      # if no need to export any properties when export NebulaGraph edge data
-      # if noField is configured true, just export src,dst,rank
-      noField:false
-      # define properties to export from NebulaGraph edge data
-      # if return.fields is configured as empty list, then export all properties
-      return.fields:[]
-      # nebula space partition number
-      partition:10
+      # config the fields you want to export from nebula
+      fields: [nebula-field-0, nebula-field-1, nebula-field-2]
+      noFields:false  # default false, if true, just export id
+      partition: 60
+      # config the path to save your csv file. if your file in not in hdfs, config &quot;file:///path/  test.csv&quot;
+      path: &quot;hdfs://ip:port/path/friend&quot;
+      separator: &quot;,&quot;
+      header: true
+    }
+  ]
+}
+</code></pre></div>
+<ul>
+<li>Export to another graph space:</li>
+</ul>
+<div class="highlight"><pre><span></span><code># Use the command to submit the exchange job:
+
+# spark-submit \
+# --master &quot;spark://master_ip:7077&quot; \
+# --driver-memory=2G --executor-memory=30G  \
+# --total-executor-cores=60 --executor-cores=20 \
+# --class com.vesoft.nebula.exchange.Exchange \
+# nebula-exchange-3.0-SNAPSHOT.jar -c export_to_nebula.conf
+
+{
+  # Spark config
+  spark: {
+    app: {
+      name: NebulaGraph Exchange
+    }
+  }
+
+  # Nebula Graph config, just config the sink nebula information
+  nebula: {
+    address:{
+      graph:[&quot;127.0.0.1:9669&quot;]
+
+      # the address of any of the meta services
+      meta:[&quot;127.0.0.1:9559&quot;]
+    }
+    user: root
+    pswd: nebula
+    space: test
+
+    # nebula client connection parameters
+    connection {
+      # socket connect &amp; execute timeout, unit: millisecond
+      timeout: 30000
     }
 
-...
+    error: {
+      # max number of failures, if the number of failures is bigger than max, then exit the   application.
+      max: 32
+      # failed data will be recorded in output path, format with ngql
+      output: /tmp/errors
+    }
 
+    # use google&#39;s RateLimiter to limit the requests send to NebulaGraph
+    rate: {
+      # the stable throughput of RateLimiter
+      limit: 1024
+      # Acquires a permit from RateLimiter, unit: MILLISECONDS
+      # if it can&#39;t be obtained within the specified timeout, then give up the request.
+      timeout: 1000
+    }
+  }
+
+  # Processing tags
+  tags: [
+    {
+      name: tag-name-1
+      type: {
+        source: nebula
+        sink: client
+      }
+      # data source nebula config
+      metaAddress:&quot;127.0.0.1:9559&quot;
+      space:&quot;test&quot;
+      label:&quot;person&quot;
+      # mapping the fields of the original NebulaGraph to the fields of the target NebulaGraph.
+      fields: [source_nebula-field-0, source_nebula-field-1, source_nebula-field-2]
+      nebula.fields: [target_nebula-field-0, target_nebula-field-1, target_nebula-field-2]
+      limit:10000
+      vertex: _vertexId  # must be `_vertexId`
+      batch: 2000
+      partition: 60
+    }
   ]
+
+  # process edges
+  edges: [
+    {
+      name: edge-name-1
+      type: {
+        source: csv
+        sink: client
+      }
+      # data source nebula config
+      metaAddress:&quot;127.0.0.1:9559&quot;
+      space:&quot;test&quot;
+      label:&quot;friend&quot;
+      fields: [source_nebula-field-0, source_nebula-field-1, source_nebula-field-2]
+      nebula.fields: [target_nebula-field-0, target_nebula-field-1, target_nebula-field-2]
+      limit:1000
+      source: _srcId # must be `_srcId`
+      target: _dstId # must be `_dstId`
+      ranking: source_nebula-field-2
+      batch: 2000
+      partition: 60
+    }
+  ]   
 }
 </code></pre></div>
 </li>
 <li>
 <p>Export data from NebulaGraph with the following command.</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>nebula-exchange-x.y.z.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;export_application.conf_path&gt;
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The parameters of the Driver and Executor process can be modified based on your own machine configuration.</p>
+</div>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://&lt;master_ip&gt;:7077&quot;</span><span class="w"> </span><span class="se">\</span>
+--driver-memory<span class="o">=</span>2G<span class="w"> </span>--executor-memory<span class="o">=</span>30G<span class="w"> </span><span class="se">\</span>
+--total-executor-cores<span class="o">=</span><span class="m">60</span><span class="w"> </span>--executor-cores<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>nebula-exchange-x.y.z.jar_path&gt;<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>&lt;conf_file_path&gt;
 </code></pre></div>
-<p>The command used in this example is as follows.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>~/exchange-ent/nebula-exchange-ent-3.4.0.jar<span class="w"> </span>-c<span class="w"> </span>~/exchange-ent/export_application.conf
+<p>The following is an example command to export the data to a CSV file.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://192.168.10.100:7077&quot;</span><span class="w"> </span><span class="se">\</span>
+--driver-memory<span class="o">=</span>2G<span class="w"> </span>--executor-memory<span class="o">=</span>30G<span class="w"> </span><span class="se">\</span>
+--total-executor-cores<span class="o">=</span><span class="m">60</span><span class="w"> </span>--executor-cores<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>~/exchange-ent/nebula-exchange-ent-3.4.0.jar<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>~/exchange-ent/export_to_csv.conf
 </code></pre></div>
 </li>
 <li>
 <p>Check the exported data.</p>
-<ol>
+<ul>
 <li>
-<p>Check whether the CSV file is successfully generated under the target path.</p>
+<p>Export to a CSV file:</p>
+<p>Check whether the CSV file is successfully generated under the target path, and check the contents of the CSV file to ensure that the data export is successful.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>hadoop<span class="w"> </span>fs<span class="w"> </span>-ls<span class="w"> </span>/vertex/player
 Found<span class="w"> </span><span class="m">11</span><span class="w"> </span>items
 -rw-r--r--<span class="w">   </span><span class="m">3</span><span class="w"> </span>nebula<span class="w"> </span>supergroup<span class="w">          </span><span class="m">0</span><span class="w"> </span><span class="m">2021</span>-11-05<span class="w"> </span><span class="m">07</span>:36<span class="w"> </span>/vertex/player/_SUCCESS
@@ -7371,10 +7523,13 @@ Found<span class="w"> </span><span class="m">11</span><span class="w"> </span>it
 -rw-r--r--<span class="w">   </span><span class="m">3</span><span class="w"> </span>nebula<span class="w"> </span>supergroup<span class="w">        </span><span class="m">119</span><span class="w"> </span><span class="m">2021</span>-11-05<span class="w"> </span><span class="m">07</span>:36<span class="w"> </span>/vertex/player/<span class="w">    </span>part-00009-17293020-ba2e-4243-b834-34495c0536b3-c000.csv
 </code></pre></div>
 </li>
+</ul>
+<ul>
 <li>
-<p>Check the contents of the CSV file to ensure that the data export is successful.</p>
+<p>Export to another graph space:</p>
+<p>Log in to the new graph space and check the statistics through <code>SUBMIT JOB STATS</code> and <code>SHOW STATS</code> commands to ensure the data export is successful.</p>
 </li>
-</ol>
+</ul>
 </li>
 </ol>
 
@@ -7383,7 +7538,7 @@ Found<span class="w"> </span><span class="m">11</span><span class="w"> </span>it
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 14, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 15, 2023</span>
       
     
   </small>
