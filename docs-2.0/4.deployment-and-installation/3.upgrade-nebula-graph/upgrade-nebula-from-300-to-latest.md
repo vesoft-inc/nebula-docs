@@ -8,7 +8,7 @@ To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM
 
 ## Upgrade steps with RPM/DEB packages
 
-1. Download the [RPM/DEB package](https://github.com/vesoft-inc/nebula-graph/releases/tag/v{{nebula.release}}).
+1. Download the [RPM/DEB package](https://www.nebula-graph.io/download).
 
 2. Stop all NebulaGraph services. For details, see [Manage NebulaGraph Service](../../2.quick-start/5.start-stop-service.md). It is recommended to back up the configuration file before updating.
 
