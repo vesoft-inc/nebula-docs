@@ -155,6 +155,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If there are multiple addresses, the format is "ip1:port","ip2:port","ip3:port".
       # Addresses are separated by commas.
       graph:["127.0.0.1:9669"]
+      # the address of any of the meta services.
+      # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
       meta:["127.0.0.1:9559"]
     }
 
