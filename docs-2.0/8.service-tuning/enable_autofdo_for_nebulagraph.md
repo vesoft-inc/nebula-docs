@@ -1,17 +1,22 @@
 # Enable AutoFDO for NebulaGraph
 
-This document will help you to enable the AutoFDO for NebulaGraph.
-More background about the AutoFDO, please refer [AutoFDO Wiki](https://gcc.gnu.org/wiki/AutoFDO)
+The AutoFDO can analyze the performance of an optimized program and use the program's performance information to guide the compiler to re-optimize the program. This document will help you to enable the AutoFDO for NebulaGraph.
+
+More information about the AutoFDO, please refer [AutoFDO Wiki](https://gcc.gnu.org/wiki/AutoFDO).
 
 ## Resource Preparations
+
 ### Install Dependencies
+
 #### Install perf
+
 ```bash
 sudo apt-get update
 sudo apt-get install -y linux-tools-common \
 linux-tools-generic \
 linux-tools-`uname -r`
 ```
+
 #### Install autofdo tool
 
 ```bash
@@ -25,10 +30,13 @@ Or you can compile the ***autofdo tool*** from [source](https://github.com/googl
 
 For how to build NebulaGraph from source, please refer to the official document: [Install NebulaGraph by compiling the source code](https://docs.nebula-graph.io/3.3.0/4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/).
 In the configure step, replace `CMAKE_BUILD_TYPE=Release` with `CMAKE_BUILD_TYPE=Debug` as below:
+
 ```bash
 $ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/nebula -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=Debug ..
 ```
-Or manually add the dbeug symbol by add compile option `-g` like below.
+
+Or manually add the dbeug symbol by add compile option `-g` like below:
+
 ```diff
 diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralCompilerConfig.cmake
 @@ -20,6 +20,8 @@ add_compile_options(-Wshadow)
@@ -41,23 +49,35 @@ diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralComp
 ## Prepare Test Data
 
 In our test environment, we use [NebulaGraph Bench](https://github.com/nebula-contrib/NebulaGraph-Bench) to prepare the test data and collect the profile data by running the ***FindShortestPath***, ***Go1Step***, ***Go2Step***, ***Go3Step***, ***InsertPersonScenario*** 5 scenarios. 
->**Note:** You can use your ***TopN*** queries in your production environment to collect the profile data, the performance can gain more in your environment.
+
+!!! note
+
+    You can use your ***TopN*** queries in your production environment to collect the profile data, the performance can gain more in your environment.
+
 ## Prepare Profile Data
+
 ### Collect Perf Data For AutoFdo Tool
+
 After the test data preparation work done. Collect the perf data for different scenarios.
 Get the pid of `storaged`, `graphd`, `metad`.
+
 ```bash
 $ nebula.service status all
 [INFO] nebula-metad: Running as 305422, Listening on 9559
 [INFO] nebula-graphd: Running as 305516, Listening on 9669
 [INFO] nebula-storaged: Running as 305707, Listening on 9779
 ```
+
 Start the ***perf record*** for *nebula-graphd* and *nebula-storaged*. 
+
 ```bash
 perf record -p 305516,305707 -b -e br_inst_retired.near_taken:pp -o ~/FindShortestPath.data
 ```
 
-***Note:*** Because the `nebula-metad` service contribution percent is small compared with `nebula-graphd` and `nebula-storaged` services. To reduce effort, we didn't collect the perf data for `nebula-metad` service.
+!!! note
+
+    Because the `nebula-metad` service contribution percent is small compared with `nebula-graphd` and `nebula-storaged` services. To reduce effort, we didn't collect the perf data for `nebula-metad` service.
+
 Start the benchmark test for ***FindShortestPath*** scenario.
 
 ```bash
@@ -66,6 +86,7 @@ python3 run.py stress run -s benchmark -scenario find_path.FindShortestPath -a l
 ```
 
 After the benchmark finished, end the ***perf record*** by ***Ctrl + c***.
+
 Repeat above steps to collect corresponding profile data for the rest  ***Go1Step***, ***Go2Step***, ***Go3Step*** and ***InsertPersonScenario*** scenarios.
 
 ### Create Gcov File
@@ -98,11 +119,13 @@ profile_merger ~/FindShortestPath-graphd.gcov \
 ~/InsertPersonScenario-storaged.gcov \
 ~/InsertPersonScenario-graphd.gcov
 ```
+
 You will get a merged profile which is named `fbdata.afdo` after that.
 
 ## Recompile GraphNebula Binary with the Merged Profile
 
-Recompile the GraphNebula Binary by passing the profile with compile option `-fauto-profile`
+Recompile the GraphNebula Binary by passing the profile with compile option `-fauto-profile`.
+
 ```diff
 diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralCompilerConfig.cmake
 @@ -20,6 +20,8 @@ add_compile_options(-Wshadow)
@@ -111,6 +134,7 @@ diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralComp
  add_compile_options(-Wignored-qualifiers)
 +add_compile_options(-fauto-profile=~/fbdata.afdo)
 ```
+
 ***Note:*** When you use multiple fbdata.afdo to compile multiple times, please remember to `make clean` before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.
 
 ## Performance Test Result
