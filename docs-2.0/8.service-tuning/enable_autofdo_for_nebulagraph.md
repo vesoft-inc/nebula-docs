@@ -29,21 +29,10 @@ More information about the AutoFDO, please refer [AutoFDO Wiki](https://gcc.gnu.
 ### NebulaGraph Binary with Debug Version
 
 For how to build NebulaGraph from source, please refer to the official document: [Install NebulaGraph by compiling the source code](https://docs.nebula-graph.io/3.3.0/4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/).
-In the configure step, replace `CMAKE_BUILD_TYPE=Release` with `CMAKE_BUILD_TYPE=Debug` as below:
+In the configure step, replace `CMAKE_BUILD_TYPE=Release` with `CMAKE_BUILD_TYPE=RelWithDebInfo` as below:
 
 ```bash
-$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/nebula -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=Debug ..
-```
-
-Or manually add the dbeug symbol by add compile option `-g` like below:
-
-```diff
-diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralCompilerConfig.cmake
-@@ -20,6 +20,8 @@ add_compile_options(-Wshadow)
- add_compile_options(-Wnon-virtual-dtor)
- add_compile_options(-Woverloaded-virtual)
- add_compile_options(-Wignored-qualifiers)
-+add_compile_options(-g)
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/nebula -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 ```
 
 ## Prepare Test Data
