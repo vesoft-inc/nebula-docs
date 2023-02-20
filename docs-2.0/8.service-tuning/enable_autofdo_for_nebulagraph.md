@@ -8,23 +8,23 @@ More information about the AutoFDO, please refer [AutoFDO Wiki](https://gcc.gnu.
 
 ### Install Dependencies
 
-#### Install perf
+- Install perf
 
-```bash
-sudo apt-get update
-sudo apt-get install -y linux-tools-common \
-linux-tools-generic \
-linux-tools-`uname -r`
-```
+  ```bash
+  sudo apt-get update
+  sudo apt-get install -y linux-tools-common \
+  linux-tools-generic \
+  linux-tools-`uname -r`
+  ```
 
-#### Install autofdo tool
+- Install autofdo tool
 
-```bash
-sudo apt-get update
-sudo apt-get install -y autofdo
-```
+  ```bash
+  sudo apt-get update
+  sudo apt-get install -y autofdo
+  ```
 
-Or you can compile the ***autofdo tool*** from [source](https://github.com/google/autofdo.git).
+  Or you can compile the ***autofdo tool*** from [source](https://github.com/google/autofdo.git).
 
 ### NebulaGraph Binary with Debug Version
 
