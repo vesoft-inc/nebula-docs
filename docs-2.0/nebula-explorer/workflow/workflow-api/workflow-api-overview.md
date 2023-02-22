@@ -39,7 +39,11 @@ Token information verification is required when calling an API. Run the followin
 curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <account_base64_encode>" -d '{"address":"<nebula_address>","port":<nebula_port>}' http://<explorer_address>:<explorer_port>/api-open/v1/connect
 ```
 
+<<<<<<< HEAD
 - `<account_base64_encode>`: The Base64 encoded NebulaGraph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
+=======
+- `<account_base64_encode>`: The character string of the base64 encoded NebulaGraph account and password. Take the username `root` and password `123` as an example, the serialized string is `["root", "123"]`. After the encoding, the result is `WyJyb290IiwiMTIzIl0=`.
+>>>>>>> 2f8007f0 (Update workflow-api-overview.md (#1967))
 - `<nebula_address>`: The access address of the NebulaGraph.
 - `<nebula_port>`: The access port of the NebulaGraph.
 - `<explorer_address>`: The access address of the NebulaGraph Explorer.
