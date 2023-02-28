@@ -3270,6 +3270,26 @@
     Modify configurations
   </a>
   
+    <nav class="md-nav" aria-label="Modify configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying_configurations_in_the_configuration_file" class="md-nav__link">
+    Modifying configurations in the configuration file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamically_modifying_configurations_using_command" class="md-nav__link">
+    Dynamically modifying configurations using command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7438,6 +7458,26 @@
     Modify configurations
   </a>
   
+    <nav class="md-nav" aria-label="Modify configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying_configurations_in_the_configuration_file" class="md-nav__link">
+    Modifying configurations in the configuration file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamically_modifying_configurations_using_command" class="md-nav__link">
+    Dynamically modifying configurations using command
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7561,6 +7601,12 @@ curl<span class="w"> </span><span class="m">127</span>.0.0.1:19779/flags
 <p>The services cannot be configured for clusters installed with Helm.</p>
 </div>
 <h2 id="modify_configurations">Modify configurations<a class="headerlink" href="#modify_configurations" title="Permanent link">&para;</a></h2>
+<p>You can modify the configurations of NebulaGraph in the configuration file or use commands to dynamically modify configurations.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Using both methods to modify the configuration can cause the configuration information to be managed inconsistently, which may result in confusion. It is recommended to only use the configuration file to manage the configuration, or to make the same modifications to the configuration file after dynamically updating the configuration through commands to ensure consistency.</p>
+</div>
+<h3 id="modifying_configurations_in_the_configuration_file">Modifying configurations in the configuration file<a class="headerlink" href="#modifying_configurations_in_the_configuration_file" title="Permanent link">&para;</a></h3>
 <p>By default, each NebulaGraph service gets configured from its configuration files. You can modify configurations and make them valid according to the following steps:</p>
 <ul>
 <li>
@@ -7590,13 +7636,27 @@ curl<span class="w"> </span><span class="m">127</span>.0.0.1:19779/flags
 <p>For details, see <a href="../../../nebula-operator/8.custom-cluster-configurations/8.1.custom-conf-parameter/">Customize configuration parameters for a NebulaGraph cluster</a>.</p>
 </li>
 </ul>
+<h3 id="dynamically_modifying_configurations_using_command">Dynamically modifying configurations using command<a class="headerlink" href="#dynamically_modifying_configurations_using_command" title="Permanent link">&para;</a></h3>
+<p>You can dynamically modify the configuration of NebulaGraph by using the curl command. For example, to modify the <code>wal_ttl</code> parameter of the Storage service to <code>600</code>, use the following command:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="s1">&#39;{&quot;wal_ttl&quot;:&quot;600&quot;}&#39;</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://192.168.15.6:19779/flags&quot;</span>
+</code></pre></div>
+<p>In this command, <code>{"wal_ttl":"600"}</code> specifies the configuration parameter and its value to be modified, and <code>192.168.15.6:19779</code> specifies the IP address and HTTP port number of the Storage service.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>The functionality of dynamically modifying configurations is only applicable to prototype verification and testing environments. It is not recommended to use this feature in production environments. This is because when the <code>local_config</code> value is set to <code>true</code>, the dynamically modified configuration is not persisted, and the configuration will be restored to the initial configuration after the service is restarted.</li>
+</ul>
+<ul>
+<li>Only <strong>part of</strong> the configuration parameters can be dynamically modified. For the specific list of parameters that can be modified, see the description of <strong>Whether supports runtime dynamic modifications</strong> in the respective service configuration.</li>
+</ul>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 28, 2023</span>
       
     
   </small>

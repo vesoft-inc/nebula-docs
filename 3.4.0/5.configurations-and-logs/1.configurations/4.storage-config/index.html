@@ -3310,7 +3310,7 @@
       
         <li class="md-nav__item">
   <a href="#misc_configurations" class="md-nav__link">
-    misc configurations
+    Misc configurations
   </a>
   
 </li>
@@ -3331,7 +3331,7 @@
       
         <li class="md-nav__item">
   <a href="#memory_tracker_configurations" class="md-nav__link">
-    memory tracker configurations
+    Memory tracker configurations
   </a>
   
 </li>
@@ -7472,7 +7472,7 @@
       
         <li class="md-nav__item">
   <a href="#misc_configurations" class="md-nav__link">
-    misc configurations
+    Misc configurations
   </a>
   
 </li>
@@ -7493,7 +7493,7 @@
       
         <li class="md-nav__item">
   <a href="#memory_tracker_configurations" class="md-nav__link">
-    memory tracker configurations
+    Memory tracker configurations
   </a>
   
 </li>
@@ -7545,6 +7545,10 @@
 <p>To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> from the initial configuration file for the Meta Service to apply the configurations defined in it.</p>
 <h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">&para;</a></h2>
 <p>If a parameter is not set in the configuration file, NebulaGraph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>. For parameters that are not included in <code>nebula-metad.conf.default</code>, see <code>nebula-storaged.conf.production</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Some parameter values in the configuration file can be dynamically modified during runtime. We label these parameters as <strong>Yes</strong> that supports runtime dynamic modification in this article. When the <code>local_config</code> value is set to <code>true</code>, the dynamically modified configuration is not persisted, and the configuration will be restored to the initial configuration after the service is restarted. For more information, see <a href="../1.configurations/">Modify configurations</a>.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The configurations of the Raft Listener and the Storage service are different. For details, see <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener/">Deploy Raft listener</a>.</p>
@@ -7557,6 +7561,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7564,21 +7569,25 @@
 <td align="left"><code>daemonize</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">When set to <code>true</code>, the process is a daemon process.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>pid_file</code></td>
 <td align="left"><code>pids/nebula-storaged.pid</code></td>
 <td align="left">The file that records the process ID.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>timezone_name</code></td>
 <td align="left"><code>UTC+00:00:00</code></td>
 <td align="left">Specifies the NebulaGraph time zone. This parameter is not predefined in the initial configuration files, if you need to use this parameter, add it manually. For the format of the parameter value, see <a href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html" title="Click to view the timezone-related content in the GNU C Library manual">Specifying the Time Zone with TZ</a>. For example, <code>--timezone_name=UTC+08:00</code> represents the GMT+8 time zone.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>local_config</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">When set to <code>true</code>, the process gets configurations from the configuration files.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7596,6 +7605,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7603,46 +7613,55 @@
 <td align="left"><code>log_dir</code></td>
 <td align="left"><code>logs</code></td>
 <td align="left">The directory that stores the Meta Service log. It is recommended to put logs on a different hard disk from the data.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>minloglevel</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the minimum level of the log. That is, log messages at or above this level. Optional values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), <code>3</code> (FATAL). It is recommended to set it to <code>0</code> during debugging and <code>1</code> in a production environment. If it is set to <code>4</code>, NebulaGraph will not print any logs.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>v</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the detailed level of VLOG. That is, log all VLOG messages less or equal to the level. Optional values are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>. The VLOG macro provided by glog allows users to define their own numeric logging levels and control verbose messages that are logged with the parameter <code>v</code>. For details, see <a href="https://github.com/google/glog#verbose-logging">Verbose Logging</a>.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>logbufsecs</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the maximum time to buffer the logs. If there is a timeout, it will output the buffered log to the log file. <code>0</code> means real-time output. This configuration is measured in seconds.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>redirect_stdout</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">When set to <code>true</code>, the process redirects the<code>stdout</code> and <code>stderr</code> to separate output files.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stdout_log_file</code></td>
 <td align="left"><code>graphd-stdout.log</code></td>
 <td align="left">Specifies the filename for the <code>stdout</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stderr_log_file</code></td>
 <td align="left"><code>graphd-stderr.log</code></td>
 <td align="left">Specifies the filename for the <code>stderr</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stderrthreshold</code></td>
 <td align="left"><code>3</code></td>
 <td align="left">Specifies the <code>minloglevel</code> to be copied to the <code>stderr</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>timestamp_in_logfile_name</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Specifies if the log file name contains a timestamp. <code>true</code> indicates yes, <code>false</code> indicates no.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7653,6 +7672,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7660,31 +7680,37 @@
 <td align="left"><code>meta_server_addrs</code></td>
 <td align="left"><code>127.0.0.1:9559</code></td>
 <td align="left">Specifies the IP addresses and ports of all Meta Services.  Multiple addresses are separated with commas.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>local_ip</code></td>
 <td align="left"><code>127.0.0.1</code></td>
 <td align="left">Specifies the local IP for the Storage Service. The local IP address is used to identify the nebula-storaged process. If it is a distributed cluster or requires remote access, modify it to the corresponding address.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>port</code></td>
 <td align="left"><code>9779</code></td>
 <td align="left">Specifies RPC daemon listening port of the Storage service. The external port for the Meta Service is predefined to <code>9779</code>. The internal port is predefined to <code>9777</code>, <code>9778</code>, and <code>9780</code>. Nebula Graph uses the internal port for multi-replica interactions. <br/> <code>9777</code>: The port used by the Drainer service, which is only exposed in the Enterprise Edition cluster. <code>9778</code>: The port used by the Admin service, which receives Meta commands for Storage. <code>9780</code>: The port used for Raft communication.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ws_ip</code></td>
 <td align="left"><code>0.0.0.0</code></td>
 <td align="left">Specifies the IP address for the HTTP service.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ws_http_port</code></td>
 <td align="left"><code>19779</code></td>
 <td align="left">Specifies the port for the HTTP service.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>heartbeat_interval_secs</code></td>
 <td align="left"><code>10</code></td>
 <td align="left">Specifies the default heartbeat interval. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise NebulaGraph <strong>CANNOT</strong> work normally. This configuration is measured in seconds.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7699,6 +7725,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7706,16 +7733,19 @@
 <td align="left"><code>raft_heartbeat_interval_secs</code></td>
 <td align="left"><code>30</code></td>
 <td align="left">Specifies the time to expire the Raft election. The configuration is measured in seconds.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>raft_rpc_timeout_ms</code></td>
 <td align="left"><code>500</code></td>
 <td align="left">Specifies the time to expire the Raft RPC. The configuration is measured in milliseconds.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>wal_ttl</code></td>
 <td align="left"><code>14400</code></td>
 <td align="left">Specifies the lifetime of the RAFT WAL. The configuration is measured in seconds.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7726,6 +7756,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7733,71 +7764,85 @@
 <td align="left"><code>data_path</code></td>
 <td align="left"><code>data/storage</code></td>
 <td align="left">Specifies the data storage path. Multiple paths are separated with commas. One RocksDB example corresponds to one path.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>minimum_reserved_bytes</code></td>
 <td align="left"><code>268435456</code></td>
 <td align="left">Specifies the minimum remaining space of each data storage path. When the value is lower than this standard, the cluster data writing may fail. This configuration is measured in bytes.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_batch_size</code></td>
 <td align="left"><code>4096</code></td>
 <td align="left">Specifies the block cache for a batch operation. The configuration is measured in bytes.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_block_cache</code></td>
 <td align="left"><code>4</code></td>
 <td align="left">Specifies the block cache for BlockBasedTable. The configuration is measured in megabytes.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>disable_page_cache</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">Enables or disables the operating system's page cache for NebulaGraph. By default, the parameter value is <code>false</code> and page cache is enabled. If the value is set to <code>true</code>, page cache is disabled and sufficient block cache space must be configured for NebulaGraph.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>engine_type</code></td>
 <td align="left"><code>rocksdb</code></td>
 <td align="left">Specifies the engine type.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_compression</code></td>
 <td align="left"><code>lz4</code></td>
 <td align="left">Specifies the compression algorithm for RocksDB. Optional values are <code>no</code>, <code>snappy</code>, <code>lz4</code>, <code>lz4hc</code>, <code>zlib</code>, <code>bzip2</code>, and <code>zstd</code>.<br>This parameter modifies the compression algorithm for each level. If you want to set different compression algorithms for each level, use the parameter <code>rocksdb_compression_per_level</code>.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_compression_per_level</code></td>
 <td align="left">\</td>
 <td align="left">Specifies the compression algorithm for each level. The priority is higher than <code>rocksdb_compression</code>. For example, <code>no:no:lz4:lz4:snappy:zstd:snappy</code>.<br>You can also not set certain levels of compression algorithms, for example, <code>no:no:lz4:lz4::zstd</code>, level L4 and L6 use the compression algorithm of <code>rocksdb_compression</code>.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>enable_rocksdb_statistics</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">When set to <code>false</code>, RocksDB statistics is disabled.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_stats_level</code></td>
 <td align="left"><code>kExceptHistogramOrTimers</code></td>
 <td align="left">Specifies the stats level for RocksDB. Optional values are <code>kExceptHistogramOrTimers</code>, <code>kExceptTimers</code>, <code>kExceptDetailedTimers</code>, <code>kExceptTimeForMutex</code>, and <code>kAll</code>.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>enable_rocksdb_prefix_filtering</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">When set to <code>true</code>, the prefix bloom filter for RocksDB is enabled. Enabling prefix bloom filter makes the graph traversal faster but occupies more memory.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>enable_rocksdb_whole_key_filtering</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">When set to <code>true</code>, the whole key bloom filter for RocksDB is enabled.</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_filtering_prefix_length</code></td>
 <td align="left"><code>12</code></td>
 <td align="left">Specifies the prefix length for each key. Optional values are <code>12</code> and <code>16</code>. The configuration is measured in bytes.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>enable_partitioned_index_filter</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">When set to <code>true</code>, it reduces the amount of memory used by the bloom filter. But in some random-seek situations, it may reduce the read performance. This parameter is not predefined in the initial configuration files, if you need to use this parameter, add it manually.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7811,7 +7856,7 @@
 | `rocksdb_blob_compression`  | `lz4`    | Compression algorithm for BlobDB. Optional values are  `no`, `snappy`, `lz4`, `lz4hc`, `zlib`, `bzip2`, and `zstd`.     |
 | `rocksdb_enable_blob_garbage_collection`  | `true`    | Whether to perform BlobDB garbage collection during compaction.     | -->
 
-<h2 id="misc_configurations">misc configurations<a class="headerlink" href="#misc_configurations" title="Permanent link">&para;</a></h2>
+<h2 id="misc_configurations">Misc configurations<a class="headerlink" href="#misc_configurations" title="Permanent link">&para;</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>The configuration <code>snapshot</code> in the following table is different from the snapshot in NebulaGraph. The <code>snapshot</code> here refers to the stock data on the leader when synchronizing Raft.</p>
@@ -7822,6 +7867,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7829,46 +7875,55 @@
 <td align="left"><code>query_concurrently</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to turn on multi-threaded queries. Enabling it can improve the latency performance of individual queries, but it will reduce the overall throughput under high pressure.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>auto_remove_invalid_space</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">After executing <code>DROP SPACE</code>, the specified graph space will be deleted. This parameter sets whether to delete all the data in the specified graph space at the same time. When the value is <code>true</code>, all the data in the specified graph space will be deleted at the same time.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>num_io_threads</code></td>
 <td align="left"><code>16</code></td>
 <td align="left">The number of network I/O threads used to send RPC requests and receive responses.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>num_worker_threads</code></td>
 <td align="left"><code>32</code></td>
 <td align="left">The number of worker threads for one RPC-based Storage service.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>max_concurrent_subtasks</code></td>
 <td align="left"><code>10</code></td>
 <td align="left">The maximum number of concurrent subtasks to be executed by the task manager.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>snapshot_part_rate_limit</code></td>
 <td align="left"><code>10485760</code></td>
 <td align="left">The rate limit when the Raft leader synchronizes the stock data with other members of the Raft group. Unit: bytes/s.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>snapshot_batch_size</code></td>
 <td align="left"><code>1048576</code></td>
 <td align="left">The amount of data sent in each batch when the Raft leader synchronizes the stock data with other members of the Raft group. Unit: bytes.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>rebuild_index_part_rate_limit</code></td>
 <td align="left"><code>4194304</code></td>
 <td align="left">The rate limit when the Raft leader synchronizes the index data rate with other members of the Raft group during the index rebuilding process. Unit: bytes/s.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>rebuild_index_batch_size</code></td>
 <td align="left"><code>1048576</code></td>
 <td align="left">The amount of data sent in each batch when the Raft leader synchronizes the index data with other members of the Raft group during the index rebuilding process. Unit: bytes.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7879,6 +7934,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7886,16 +7942,19 @@
 <td align="left"><code>rocksdb_db_options</code></td>
 <td align="left"><code>{}</code></td>
 <td align="left">Specifies the RocksDB database options.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_column_family_options</code></td>
 <td align="left"><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
 <td align="left">Specifies the RocksDB column family options.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>rocksdb_block_based_table_options</code></td>
 <td align="left"><code>{"block_size":"8192"}</code></td>
 <td align="left">Specifies the RocksDB block based table options.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7972,6 +8031,7 @@ disable_auto_compactions
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7979,33 +8039,38 @@ disable_auto_compactions
 <td align="left"><code>ng_black_box_switch</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to enable the <a href="../../../6.monitor-and-metrics/3.bbox/3.1.bbox/">Nebula-BBox</a> feature.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_home</code></td>
 <td align="left"><code>black_box</code></td>
 <td align="left">The name of the directory to store Nebula-BBox file data.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_dump_period_seconds</code></td>
 <td align="left"><code>5</code></td>
 <td align="left">The time interval for Nebula-BBox to collect metric data. Unit: Second.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_file_lifetime_seconds</code></td>
 <td align="left"><code>1800</code></td>
 <td align="left">Storage time for Nebula-BBox files generated after collecting metric data. Unit: Second.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
 <!-- -->
 
-<h2 id="memory_tracker_configurations">memory tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
+<h2 id="memory_tracker_configurations">Memory tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -8013,31 +8078,37 @@ disable_auto_compactions
 <td align="left"><code>memory_tracker_limit_ratio</code></td>
 <td align="left"><code>0.8</code></td>
 <td align="left">The value of this parameter can be set to <code>(0, 1]</code>, <code>2</code>, and <code>3</code>.<br/><code>(0, 1]</code>: The percentage of free memory. When the free memory is lower than this value, NebulaGraph stops accepting queries. <br/> Calculated as follows: <br/> <code>Free memory / (Total memory - Reserved memory)</code> <br/> <strong>Note</strong>: For clusters with a mixed-used environment, the value of <code>memory_tracker_limit_ratio</code> should be set to a <strong>lower</strong> value. For example, when Graphd is expected to occupy only 50% of memory, the value can be set to less than <code>0.5</code>.<br/><code>2</code>: Dynamic Self Adaptive mode. MemoryTracker dynamically adjusts the available memory based on the system's current available memory. <br/><strong>Note</strong>: This feature is experimental. As memory usage cannot be monitored in real time in dynamic adaptive mode, an OOM error may still occur to handle large memory allocations. <br/><code>3</code>: Disable MemoryTracker. MemoryTracker only logs memory usage and does not interfere with executions even if the limit is exceeded.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_untracked_reserved_memory_mb</code></td>
 <td align="left"><code>50</code></td>
 <td align="left">The reserved memory that is not tracked by the memory tracker. Unit: MB.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_detail_log</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">Whether to enable the memory tracker log. When the value is <code>true</code>, the memory tracker log is generated.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_detail_log_interval_ms</code></td>
 <td align="left"><code>60000</code></td>
 <td align="left">The time interval for generating the memory tracker log. Unit: Millisecond. <code>memory_tracker_detail_log</code> is <code>true</code> when this parameter takes effect.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_purge_enabled</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to enable the memory purge feature. When the value is <code>true</code>, the memory purge feature is enabled.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_purge_interval_seconds</code></td>
 <td align="left"><code>10</code></td>
 <td align="left">The time interval for the memory purge feature to purge memory. Unit: Second. This parameter only takes effect if <code>memory_purge_enabled</code> is set to true.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -8049,6 +8120,7 @@ disable_auto_compactions
 <th align="left">Property name</th>
 <th align="left">Default value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -8056,6 +8128,7 @@ disable_auto_compactions
 <td align="left">max_edge_returned_per_vertex</td>
 <td align="left"><code>2147483647</code></td>
 <td align="left">Specifies the maximum number of edges returned for each dense vertex. Excess edges are truncated and not returned. This parameter is not predefined in the initial configuration files, if you need to use this parameter, add it manually.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -8071,7 +8144,7 @@ disable_auto_compactions
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 28, 2023</span>
       
     
   </small>

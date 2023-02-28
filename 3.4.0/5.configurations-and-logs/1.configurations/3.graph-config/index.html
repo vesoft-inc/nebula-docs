@@ -3324,7 +3324,7 @@
       
         <li class="md-nav__item">
   <a href="#session_configurations" class="md-nav__link">
-    session configurations
+    Session configurations
   </a>
   
 </li>
@@ -3345,7 +3345,7 @@
       
         <li class="md-nav__item">
   <a href="#memory_tracker_configurations" class="md-nav__link">
-    memory tracker configurations
+    Memory tracker configurations
   </a>
   
 </li>
@@ -7514,7 +7514,7 @@
       
         <li class="md-nav__item">
   <a href="#session_configurations" class="md-nav__link">
-    session configurations
+    Session configurations
   </a>
   
 </li>
@@ -7535,7 +7535,7 @@
       
         <li class="md-nav__item">
   <a href="#memory_tracker_configurations" class="md-nav__link">
-    memory tracker configurations
+    Memory tracker configurations
   </a>
   
 </li>
@@ -7573,6 +7573,10 @@
 <p>To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> from the initial configuration file for the Meta Service to apply the configurations defined in it.</p>
 <h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">&para;</a></h2>
 <p>If a parameter is not set in the configuration file, NebulaGraph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Some parameter values in the configuration file can be dynamically modified during runtime. We label these parameters as <strong>Yes</strong> that supports runtime dynamic modification in this article. When the <code>local_config</code> value is set to <code>true</code>, the dynamically modified configuration is not persisted, and the configuration will be restored to the initial configuration after the service is restarted. For more information, see <a href="../1.configurations/">Modify configurations</a>.</p>
+</div>
 <p>For all parameters and their current values, see <a href="../1.configurations/">Configurations</a>.</p>
 <h2 id="basics_configurations">Basics configurations<a class="headerlink" href="#basics_configurations" title="Permanent link">&para;</a></h2>
 <table>
@@ -7581,6 +7585,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7588,26 +7593,31 @@
 <td><code>daemonize</code></td>
 <td><code>true</code></td>
 <td>When set to <code>true</code>, the process is a daemon process.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>pid_file</code></td>
 <td><code>pids/nebula-graphd.pid</code></td>
 <td>The file that records the process ID.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>enable_optimizer</code></td>
 <td><code>true</code></td>
 <td>When set to <code>true</code>, the optimizer is enabled.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>timezone_name</code></td>
 <td>-</td>
 <td>Specifies the NebulaGraph time zone. This parameter is not predefined in the initial configuration files. The system default value is <code>UTC+00:00:00</code>. For the format of the parameter value, see <a href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html" title="Click to view the timezone-related content in the GNU C Library manual">Specifying the Time Zone with TZ</a>. For example, <code>--timezone_name=UTC+08:00</code> represents the GMT+8 time zone.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>local_config</code></td>
 <td><code>true</code></td>
 <td>When set to <code>true</code>, the process gets configurations from the configuration files.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7625,6 +7635,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7632,46 +7643,55 @@
 <td><code>log_dir</code></td>
 <td><code>logs</code></td>
 <td>The directory that stores the Meta Service log. It is recommended to put logs on a different hard disk from the data.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>minloglevel</code></td>
 <td><code>0</code></td>
 <td>Specifies the minimum level of the log. That is, log messages at or above this level. Optional values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), <code>3</code> (FATAL). It is recommended to set it to <code>0</code> during debugging and <code>1</code> in a production environment. If it is set to <code>4</code>, NebulaGraph will not print any logs.</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><code>v</code></td>
 <td><code>0</code></td>
 <td>Specifies the detailed level of VLOG. That is, log all VLOG messages less or equal to the level. Optional values are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>. The VLOG macro provided by glog allows users to define their own numeric logging levels and control verbose messages that are logged with the parameter <code>v</code>. For details, see <a href="https://github.com/google/glog#verbose-logging">Verbose Logging</a>.</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><code>logbufsecs</code></td>
 <td><code>0</code></td>
 <td>Specifies the maximum time to buffer the logs. If there is a timeout, it will output the buffered log to the log file. <code>0</code> means real-time output. This configuration is measured in seconds.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>redirect_stdout</code></td>
 <td><code>true</code></td>
 <td>When set to <code>true</code>, the process redirects the<code>stdout</code> and <code>stderr</code> to separate output files.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>stdout_log_file</code></td>
 <td><code>graphd-stdout.log</code></td>
 <td>Specifies the filename for the <code>stdout</code> log.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>stderr_log_file</code></td>
 <td><code>graphd-stderr.log</code></td>
 <td>Specifies the filename for the <code>stderr</code> log.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>stderrthreshold</code></td>
 <td><code>3</code></td>
 <td>Specifies the <code>minloglevel</code> to be copied to the <code>stderr</code> log.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>timestamp_in_logfile_name</code></td>
 <td><code>true</code></td>
 <td>Specifies if the log file name contains a timestamp. <code>true</code> indicates yes, <code>false</code> indicates no.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7682,6 +7702,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7689,16 +7710,19 @@
 <td><code>accept_partial_success</code></td>
 <td><code>false</code></td>
 <td>When set to <code>false</code>, the process treats partial success as an error. This configuration only applies to read-only requests. Write requests always treat partial success as an error.</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><code>session_reclaim_interval_secs</code></td>
 <td><code>60</code></td>
 <td>Specifies the interval that the Session information is sent to the Meta service. This configuration is measured in seconds.</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><code>max_allowed_query_size</code></td>
 <td><code>4194304</code></td>
 <td>Specifies the maximum length of queries. Unit: bytes. The default value is <code>4194304</code>, namely 4MB.</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7709,6 +7733,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7716,96 +7741,115 @@
 <td><code>meta_server_addrs</code></td>
 <td><code>127.0.0.1:9559</code></td>
 <td>Specifies the IP addresses and ports of all Meta Services.  Multiple addresses are separated with commas.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>local_ip</code></td>
 <td><code>127.0.0.1</code></td>
 <td>Specifies the local IP for the Graph Service. The local IP address is used to identify the nebula-graphd process. If it is a distributed cluster or requires remote access, modify it to the corresponding address.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>listen_netdev</code></td>
 <td><code>any</code></td>
 <td>Specifies the listening network device.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>port</code></td>
 <td><code>9669</code></td>
 <td>Specifies RPC daemon listening port of the Graph service.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>reuse_port</code></td>
 <td><code>false</code></td>
 <td>When set to <code>false</code>, the <code>SO_REUSEPORT</code> is closed.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>listen_backlog</code></td>
 <td><code>1024</code></td>
 <td>Specifies the maximum length of the connection queue for socket monitoring. This configuration must be modified together with the <code>net.core.somaxconn</code>.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>client_idle_timeout_secs</code></td>
 <td><code>28800</code></td>
 <td>Specifies the time to expire an idle connection. The value ranges from 1 to 604800. The default is 8 hours. This configuration is measured in seconds.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>session_idle_timeout_secs</code></td>
 <td><code>28800</code></td>
 <td>Specifies the time to expire an idle session. The value ranges from 1 to 604800. The default is 8 hours. This configuration is measured in seconds.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>num_accept_threads</code></td>
 <td><code>1</code></td>
 <td>Specifies the number of threads that accept incoming connections.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>num_netio_threads</code></td>
 <td><code>0</code></td>
 <td>Specifies the number of networking IO threads. <code>0</code> is the number of CPU cores.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>num_worker_threads</code></td>
 <td><code>0</code></td>
 <td>Specifies the number of threads that execute queries. <code>0</code> is the number of CPU cores.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>ws_ip</code></td>
 <td><code>0.0.0.0</code></td>
 <td>Specifies the IP address for the HTTP service.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>ws_http_port</code></td>
 <td><code>19669</code></td>
 <td>Specifies the port for the HTTP service.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>heartbeat_interval_secs</code></td>
 <td><code>10</code></td>
 <td>Specifies the default heartbeat interval. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise NebulaGraph <strong>CANNOT</strong> work normally. This configuration is measured in seconds.</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><code>storage_client_timeout_ms</code></td>
 <td>-</td>
 <td>Specifies the RPC connection timeout threshold between the Graph Service and the Storage Service. This parameter is not predefined in the initial configuration files. You can manually set it if you need it. The system default value is <code>60000</code> ms.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>enable_record_slow_query</code></td>
 <td><code>true</code></td>
 <td>Whether to record slow queries. <br/> Only available in NebulaGraph Enterprise Edition.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>slow_query_limit</code></td>
 <td><code>100</code></td>
 <td>The maximum number of slow queries that can be recorded. <br/> Only available in NebulaGraph Enterprise Edition.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>slow_query_threshold_us</code></td>
 <td><code>200000</code></td>
 <td>When the execution time of a query exceeds the value, the query is called a slow query. Unit: Microsecond.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>ws_meta_http_port</code></td>
 <td><code>19559</code></td>
 <td>Specifies the Meta service listening port used by the HTTP protocol. It must be consistent with the <code>ws_http_port</code> in the Meta service configuration file.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7820,6 +7864,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7827,11 +7872,13 @@
 <td><code>default_charset</code></td>
 <td><code>utf8</code></td>
 <td>Specifies the default charset when creating a new graph space.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>default_collate</code></td>
 <td><code>utf8_bin</code></td>
 <td>Specifies the default collate when creating a new graph space.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7842,6 +7889,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7849,11 +7897,13 @@
 <td><code>enable_authorize</code></td>
 <td><code>false</code></td>
 <td>When set to <code>false</code>, the system authentication is not enabled. For more information, see <a href="../../../7.data-security/1.authentication/1.authentication/">Authentication</a>.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>auth_type</code></td>
 <td><code>password</code></td>
 <td>Specifies the login method. Available values are <code>password</code>, <code>ldap</code>, and <code>cloud</code>.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7864,6 +7914,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7871,6 +7922,7 @@
 <td><code>system_memory_high_watermark_ratio</code></td>
 <td><code>0.8</code></td>
 <td>Specifies the trigger threshold of the high-level memory alarm mechanism. If the system memory usage is higher than this value, an alarm mechanism will be triggered, and NebulaGraph will stop querying. This parameter is not predefined in the initial configuration files.</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7885,29 +7937,17 @@
 <!-- -->
 
 <h2 id="metrics_configurations">Metrics configurations<a class="headerlink" href="#metrics_configurations" title="Permanent link">&para;</a></h2>
+<p>| Name | Predefined value | Description |Whether supports runtime dynamic modifications|
+| - | - | - |
+| <code>enable_space_level_metrics</code> | <code>false</code> | Enable or disable space-level metrics. Such metric names contain the name of the graph space that it monitors, for example, <code>query_latency_us{space=basketballplayer}.avg.3600</code>. You can view the supported metrics with the <code>curl</code> command. For more information, see <a href="../../../6.monitor-and-metrics/1.query-performance-metrics/">Query NebulaGraph metrics</a>. | No|</p>
+<h2 id="session_configurations">Session configurations<a class="headerlink" href="#session_configurations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>enable_space_level_metrics</code></td>
-<td><code>false</code></td>
-<td>Enable or disable space-level metrics. Such metric names contain the name of the graph space that it monitors, for example, <code>query_latency_us{space=basketballplayer}.avg.3600</code>. You can view the supported metrics with the <code>curl</code> command. For more information, see <a href="../../../6.monitor-and-metrics/1.query-performance-metrics/">Query NebulaGraph metrics</a>.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="session_configurations">session configurations<a class="headerlink" href="#session_configurations" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Predefined value</th>
-<th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7915,6 +7955,7 @@
 <td><code>max_sessions_per_ip_per_user</code></td>
 <td><code>300</code></td>
 <td>The maximum number of active sessions that can be created from a single IP adddress for a single user.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7925,18 +7966,21 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>enable_experimental_feature</code></td>
 <td><code>false</code></td>
-<td>Specifies the experimental feature. Optional values are <code>true</code> and <code>false</code>. For currently supported experimental features, see below.</td>
+<td>Specifies the experimental feature. Optional values are <code>true</code> and <code>false</code>.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>enable_data_balance</code></td>
 <td><code>true</code></td>
 <td>Whether to enable the <a href="../../../8.service-tuning/load-balance/">BALANCE DATA</a> feature. Only works when <code>enable_experimental_feature</code> is <code>true</code>.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7953,6 +7997,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7960,33 +8005,38 @@
 <td align="left"><code>ng_black_box_switch</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to enable the <a href="../../../6.monitor-and-metrics/3.bbox/3.1.bbox/">Nebula-BBox</a> feature.</td>
+<td>No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_home</code></td>
 <td align="left"><code>black_box</code></td>
 <td align="left">The name of the directory to store Nebula-BBox file data.</td>
+<td>No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_dump_period_seconds</code></td>
 <td align="left"><code>5</code></td>
 <td align="left">The time interval for Nebula-BBox to collect metric data. Unit: Second.</td>
+<td>No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_file_lifetime_seconds</code></td>
 <td align="left"><code>1800</code></td>
 <td align="left">Storage time for Nebula-BBox files generated after collecting metric data. Unit: Second.</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
 <!-- -->
 
-<h2 id="memory_tracker_configurations">memory tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
+<h2 id="memory_tracker_configurations">Memory tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7994,31 +8044,37 @@
 <td align="left"><code>memory_tracker_limit_ratio</code></td>
 <td align="left"><code>0.8</code></td>
 <td align="left">The percentage of free memory. When the free memory is lower than this value, NebulaGraph stops accepting queries. <br/> Calculated as follows: <br/> <code>Free memory / (Total memory - Reserved memory)</code> <br/> <strong>Note</strong>: For clusters with a mixed-used environment, the value of <code>memory_tracker_limit_ratio</code> should be set to a <strong>lower</strong> value. For example, when Graphd is expected to occupy only 50% of memory, the value can be set to less than <code>0.5</code>.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_untracked_reserved_memory_mb</code></td>
 <td align="left"><code>50</code></td>
 <td align="left">The reserved memory that is not tracked by the memory tracker. Unit: MB.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_detail_log</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">Whether to enable the memory tracker log. When the value is <code>true</code>, the memory tracker log is generated.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_tracker_detail_log_interval_ms</code></td>
 <td align="left"><code>60000</code></td>
 <td align="left">The time interval for generating the memory tracker log. Unit: Millisecond. <code>memory_tracker_detail_log</code> is <code>true</code> when this parameter takes effect.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_purge_enabled</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to enable the memory purge feature. When the value is <code>true</code>, the memory purge feature is enabled.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>memory_purge_interval_seconds</code></td>
 <td align="left"><code>10</code></td>
 <td align="left">The time interval for the memory purge feature to purge memory. Unit: Second. This parameter only takes effect if <code>memory_purge_enabled</code> is set to true.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -8028,7 +8084,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 28, 2023</span>
       
     
   </small>
