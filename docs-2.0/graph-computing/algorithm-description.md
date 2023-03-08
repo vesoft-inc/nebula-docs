@@ -389,6 +389,8 @@ Parameter descriptions are as follows:
     |`ITERATIONS`|`10`|The maximum number of iterations.|
     |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
     |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+    |`IS_OUTPUT_MODULARITY`|`false`|Whether to calculate and output module degrees. When set to `true`, the default output is to the third column of the file, but it can also be output to NebulaGraph with options `-nebula_output_props` and `-nebula_output_types`. Output to NebulaGraph is not yet supported when using Explorer.|
+    |`IS_STAT_COMMUNITY`|`false`|Whether to count the number of communities.|
 
   - Output parameters
 
@@ -423,6 +425,8 @@ Parameter descriptions are as follows:
     |`IS_DIRECTED`|`true`|Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
     |`PREFERENCE`|`1.0`| The bias of the neighbor vertex degree. `m>0`indicates biasing the neighbor with high vertex degree, `m<0` indicates biasing the neighbor with low vertex degree, and `m=0` indicates ignoring the neighbor vertex degree.|
     |`HOP_ATT`|`0.1`|The attenuation coefficient. The value ranges from `0` to `1`. The larger the value, the faster it decays and the fewer times it can be passed.|
+    |`IS_OUTPUT_MODULARITY`|`false`|Whether to calculate and output module degrees. When set to `true`, the default output is to the third column of the file, but it can also be output to NebulaGraph with options `-nebula_output_props` and `-nebula_output_types`. Output to NebulaGraph is not yet supported when using Explorer.|
+    |`IS_STAT_COMMUNITY`|`false`|Whether to count the number of communities.|
 
   - Output parameters
 
@@ -457,6 +461,8 @@ Parameter descriptions are as follows:
     |:--|:--|:--|
     |`IS_DIRECTED`|`true`| Whether to consider the direction of the edges. If set to `false`, the system automatically adds the reverse edge.|
     |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+    |`IS_OUTPUT_MODULARITY`|`false`|Whether to calculate and output module degrees. When set to `true`, the default output is to the third column of the file, but it can also be output to NebulaGraph with options `-nebula_output_props` and `-nebula_output_types`. Output to NebulaGraph is not yet supported when using Explorer.|
+    |`IS_STAT_COMMUNITY`|`false`|Whether to count the number of communities.|
 
   - Output parameters
 
@@ -491,6 +497,8 @@ Parameter descriptions are as follows:
     |`OUTER_ITERATION`|`20`|The maximum number of iterations in the first phase.|
     |`INNER_ITERATION`|`10`|The maximum number of iterations in the second phase.|
     |`IS_CALC_MODULARITY`|`false`| Whether to calculate modularity.|
+    |`IS_OUTPUT_MODULARITY`|`false`|Whether to calculate and output module degrees. When set to `true`, the default output is to the third column of the file, but it can also be output to NebulaGraph with options `-nebula_output_props` and `-nebula_output_types`. Output to NebulaGraph is not yet supported when using Explorer.|
+    |`IS_STAT_COMMUNITY`|`false`|Whether to count the number of communities.|
 
   - Output parameters
 
