@@ -530,7 +530,7 @@ Connect to the NebulaGraph database using the client tool and import the SST fil
 Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
 
 ```ngql
-GO FROM "player100" OVER follow;
+LOOKUP ON player YIELD id(vertex);
 ```
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
