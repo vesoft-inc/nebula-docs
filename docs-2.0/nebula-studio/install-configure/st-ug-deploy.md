@@ -6,10 +6,10 @@ This article introduces how to deploy Docker-based Studio v2.x.
 
 Before you deploy Docker-based Studio v2.x, you must do a check of these:
 
-- The Nebula Graph v2.x services are deployed and started. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
+- The NebulaGraph v2.x services are deployed and started. For more information, see [NebulaGraph Database Manual](https://docs.nebula-graph.io/2.0/2.quick-start/1.quick-start-workflow/).
   !!! note
 
-      Different methods are available for you to deploy Nebula Graph. If this is your first time to use Nebula Graph, we recommend that you use Docker Compose to deploy Nebula Graph. For more information, see [Deploy Nebula Graph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
+      Different methods are available for you to deploy NebulaGraph. If this is your first time to use NebulaGraph, we recommend that you use Docker Compose to deploy NebulaGraph. For more information, see [Deploy NebulaGraph with Docker Compose](https://docs.nebula-graph.io/2.0/2.quick-start/2.deploy-nebula-graph-with-docker-compose/).
 
 - On the machine where Studio v2.x will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
 
@@ -61,4 +61,4 @@ To deploy and start Docker-based Studio v2.x, run these commands one by one:
 
 ## Next to do
 
-On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).
+On the **Config Server** page, connect Docker-based Studio to NebulaGraph. For more information, see [Connect to NebulaGraph](st-ug-connect.md).

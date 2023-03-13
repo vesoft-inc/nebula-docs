@@ -30,7 +30,7 @@ Since an edge can have only one edge type, once an edge property expires, the ed
 
 The expired data are still stored on the disk, but queries will filter them out.
 
-Nebula Graph automatically deletes the expired data and reclaims the disk space during the next [compaction](../../8.service-tuning/compaction.md).
+NebulaGraph automatically deletes the expired data and reclaims the disk space during the next [compaction](../../8.service-tuning/compaction.md).
 
 !!! note
 

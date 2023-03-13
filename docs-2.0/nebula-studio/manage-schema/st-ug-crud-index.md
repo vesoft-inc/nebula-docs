@@ -6,7 +6,7 @@ You can create an index for a tag and/or an edge type. An index lets traversal s
 
 !!! note
 
-    You can create an index when a tag or an edge type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [nGQL Manual](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/ "Click to go to the Nebula Graph website").
+    You can create an index when a tag or an edge type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [nGQL Manual](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/ "Click to go to the NebulaGraph website").
 
 ## Studio version
 
@@ -21,7 +21,7 @@ docker-compose pull && docker-compose up
 To operate an index on the **Schema** page of Studio, you must do a check of these:
 
 - The version of Studio is v1.2.0-beta or later.
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - A graph space, tags, and edge types are created.
 - Your account has the authority of GOD, ADMIN, or DBA.
 
@@ -44,7 +44,7 @@ To create an index on the **Schema** page, follow these steps:
    d. **Indexed Properties**: Click **Add**, and then, in the dialog box, choose a property. If necessary, repeat this step to choose more properties. You can drag the properties to sort them. In this example, `actionId` and `label` are chosen.
    !!! note
 
-       The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax/#error_code_411 "Click to go to the Nebula Graph website").
+       The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/2.data-query-and-manipulation-statements/lookup-syntax/#error_code_411 "Click to go to the NebulaGraph website").
 
    When the settings are done, the **Equivalent to the following nGQL statement** panel shows the statement equivalent to the settings.  
 ![A page for index creation](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-030.png "Create an index")

@@ -19,7 +19,7 @@ If you have any question, send an email to `info@vesoft.com`.
 
 ## Step 1: Fork in the github.com
 
-The Nebula Graph project has many [repositories](https://github.com/vesoft-inc). Take [the graph engine repository](https://github.com/vesoft-inc/nebula-graph) for example:
+The NebulaGraph project has many [repositories](https://github.com/vesoft-inc). Take [the graph engine repository](https://github.com/vesoft-inc/nebula-graph) for example:
 
 1. Visit https://github.com/vesoft-inc/nebula-graph
 1. Click the `Fork` button (top right) to establish an online fork.
@@ -66,7 +66,7 @@ git remote -v
 
 ### Define a Pre-Commit Hook
 
-Please link the **Nebula Graph** pre-commit hook into your `.git` directory.
+Please link the **NebulaGraph** pre-commit hook into your `.git` directory.
 
 This hook checks your commits for formatting, building, doc generation, etc.
 

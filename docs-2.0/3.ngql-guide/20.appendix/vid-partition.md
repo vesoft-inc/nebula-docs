@@ -4,7 +4,7 @@
 
 `VID` is short for vertex identifier.
 
-In Nebula Graph, vertices are identified with vertex identifiers (i.e. `VID`s). 
+In NebulaGraph, vertices are identified with vertex identifiers (i.e. `VID`s). 
 The VID can be an int64 or a fixed length string.
 When inserting a vertex, you must specify a `VID` for it. 
 
@@ -20,7 +20,7 @@ Two `VID`s in two different graph spaces are totally independent of each other.
 
 ## Partition ID
 
-When inserting into Nebula Graph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. If you want certain vertices to locate on the same partition (i.e., on the same machine), you can control the generation of the `VID`s by using the following [formula / code](https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp).
+When inserting into NebulaGraph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. If you want certain vertices to locate on the same partition (i.e., on the same machine), you can control the generation of the `VID`s by using the following [formula / code](https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp).
 
 ```C++
     // If the length of the id is 8, we will treat it as int64_t to be compatible
