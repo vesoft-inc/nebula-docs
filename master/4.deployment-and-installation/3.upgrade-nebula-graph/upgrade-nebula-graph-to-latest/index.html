@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#upgrade_nebulagraph_from_version_2x_to_340" class="md-skip">
+        <a href="#upgrade_nebulagraph_from_version_2x_to_341" class="md-skip">
           Skip to content
         </a>
       
@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6973,6 +6973,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../nebula-operator/10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../nebula-operator/5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7585,18 +7599,18 @@
   </a>
 
 
-<h1 id="upgrade_nebulagraph_from_version_2x_to_340">Upgrade NebulaGraph from version 2.x to 3.4.0<a class="headerlink" href="#upgrade_nebulagraph_from_version_2x_to_340" title="Permanent link">&para;</a></h1>
-<p>This topic describes how to upgrade NebulaGraph from version 2.x to 3.4.0, taking upgrading from version 2.6.1 to 3.4.0 as an example.</p>
+<h1 id="upgrade_nebulagraph_from_version_2x_to_341">Upgrade NebulaGraph from version 2.x to 3.4.1<a class="headerlink" href="#upgrade_nebulagraph_from_version_2x_to_341" title="Permanent link">&para;</a></h1>
+<p>This topic describes how to upgrade NebulaGraph from version 2.x to 3.4.1, taking upgrading from version 2.6.1 to 3.4.1 as an example.</p>
 <h2 id="applicable_source_versions">Applicable source versions<a class="headerlink" href="#applicable_source_versions" title="Permanent link">&para;</a></h2>
-<p>This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x versions to 3.4.0. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.</p>
-<p>To upgrade NebulaGraph from historical versions to 3.4.0:</p>
+<p>This topic applies to upgrading NebulaGraph from 2.5.0 and later 2.x versions to 3.4.1. It does not apply to historical versions earlier than 2.5.0, including the 1.x versions.</p>
+<p>To upgrade NebulaGraph from historical versions to 3.4.1:</p>
 <ol>
-<li>Upgrade it to the latest 2.x version according to the docs of that version.</li>
-<li>Follow this topic to upgrade it to 3.4.0.</li>
+<li>Upgrade it to the latest 2.5 version according to the docs of that version.</li>
+<li>Follow this topic to upgrade it to 3.4.1.</li>
 </ol>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>To upgrade NebulaGraph from versions earlier than 2.0.0 (including the 1.x versions) to 3.4.0, you need to find the <code>date_time_zonespec.csv</code> in the <code>share/resources</code> directory of 3.4.0 files, and then copy it to the same directory in the NebulaGraph installation path.</p>
+<p>To upgrade NebulaGraph from versions earlier than 2.0.0 (including the 1.x versions) to 3.4.1, you need to find the <code>date_time_zonespec.csv</code> in the <code>share/resources</code> directory of 3.4.1 files, and then copy it to the same directory in the NebulaGraph installation path.</p>
 </div>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <ul>
@@ -7636,7 +7650,7 @@
 <ul>
 <li>
 <p>Client compatibility</p>
-<p>After the upgrade, you will not be able to connect to NebulaGraph from old clients. You will need to upgrade all clients to a version compatible with NebulaGraph 3.4.0.</p>
+<p>After the upgrade, you will not be able to connect to NebulaGraph from old clients. You will need to upgrade all clients to a version compatible with NebulaGraph 3.4.1.</p>
 </li>
 </ul>
 <ul>
@@ -7660,6 +7674,12 @@
 </ul>
 </li>
 </ul>
+<ul>
+<li>
+<p>Full-text indexes</p>
+<p>Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the <code>SIGN IN</code> command to log into ES and recreate the indexes after the upgrade is complete. To manually delete the full-text indexes in Elasticsearch, you can use the curl command <code>curl -XDELETE -u &lt;es_username&gt;:&lt;es_password&gt; '&lt;es_access_ip&gt;:&lt;port&gt;/&lt;fullindex_name&gt;'</code>, for example, <code>curl -XDELETE -u elastic:elastic 'http://192.168.8.xxx:9200/nebula_index_2534'</code>. If no username and password are set for Elasticsearch, you can omit the <code>-u &lt;es_username&gt;:&lt;es_password&gt;</code> part.</p>
+</li>
+</ul>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>There may be other undiscovered influences. Before the upgrade, we recommend that you read the release notes and user manual carefully, and keep an eye on the <a href="https://github.com/vesoft-inc/nebula/discussions">posts</a> on the forum and <a href="https://github.com/vesoft-inc/nebula/issues">issues</a> on Github.</p>
@@ -7667,7 +7687,7 @@
 <h2 id="preparations_before_the_upgrade">Preparations before the upgrade<a class="headerlink" href="#preparations_before_the_upgrade" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Download the TAR file of NebulaGraph 3.4.0 according to your operating system and system architecture. You need the binary files during the upgrade. Find the TAR file on <a href="https://nebula-graph.io/download/">the download page</a>.</p>
+<p>Download the TAR file of NebulaGraph 3.4.1 according to your operating system and system architecture. You need the binary files during the upgrade. Find the TAR file on <a href="https://nebula-graph.io/download/">the download page</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can also get the new binaries from the source code or the RPM/DEB package.</p>
@@ -7753,7 +7773,7 @@ nebula&gt; SUBMIT JOB STATS;
 nebula&gt; SHOW STATS;
 nebula&gt; MATCH (v) RETURN v LIMIT 5;
 </code></pre></div>
-<p>You can also test against <a href="../../../20.appendix/release-notes/nebula-comm-release-note/">new features</a> in version 3.4.0.</p>
+<p>You can also test against <a href="../../../20.appendix/release-notes/nebula-comm-release-note/">new features</a> in version 3.4.1.</p>
 </li>
 </ol>
 <h2 id="upgrade_failure_and_rollback">Upgrade failure and rollback<a class="headerlink" href="#upgrade_failure_and_rollback" title="Permanent link">&para;</a></h2>
@@ -7788,7 +7808,7 @@ nebula&gt; MATCH (v) RETURN v LIMIT 5;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
       
     
   </small>
@@ -7859,7 +7879,7 @@ nebula&gt; MATCH (v) RETURN v LIMIT 5;
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   

@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6962,6 +6962,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../nebula-operator/10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../nebula-operator/5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7602,6 +7616,8 @@ In the configure step, replace <code>CMAKE_BUILD_TYPE=Release</code> with <code>
 </div>
 <h2 id="prepare_profile_data">Prepare Profile Data<a class="headerlink" href="#prepare_profile_data" title="Permanent link">&para;</a></h2>
 <h3 id="collect_perf_data_for_autofdo_tool">Collect Perf Data For AutoFdo Tool<a class="headerlink" href="#collect_perf_data_for_autofdo_tool" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
 <p>After the test data preparation work done. Collect the perf data for different scenarios.
 Get the pid of <code>storaged</code>, <code>graphd</code>, <code>metad</code>.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>nebula.service<span class="w"> </span>status<span class="w"> </span>all
@@ -7609,6 +7625,8 @@ Get the pid of <code>storaged</code>, <code>graphd</code>, <code>metad</code>.</
 <span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>nebula-graphd:<span class="w"> </span>Running<span class="w"> </span>as<span class="w"> </span><span class="m">305516</span>,<span class="w"> </span>Listening<span class="w"> </span>on<span class="w"> </span><span class="m">9669</span>
 <span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>nebula-storaged:<span class="w"> </span>Running<span class="w"> </span>as<span class="w"> </span><span class="m">305707</span>,<span class="w"> </span>Listening<span class="w"> </span>on<span class="w"> </span><span class="m">9779</span>
 </code></pre></div>
+</li>
+<li>
 <p>Start the <strong><em>perf record</em></strong> for <em>nebula-graphd</em> and <em>nebula-storaged</em>. </p>
 <div class="highlight"><pre><span></span><code>perf<span class="w"> </span>record<span class="w"> </span>-p<span class="w"> </span><span class="m">305516</span>,305707<span class="w"> </span>-b<span class="w"> </span>-e<span class="w"> </span>br_inst_retired.near_taken:pp<span class="w"> </span>-o<span class="w"> </span>~/FindShortestPath.data
 </code></pre></div>
@@ -7616,12 +7634,20 @@ Get the pid of <code>storaged</code>, <code>graphd</code>, <code>metad</code>.</
 <p class="admonition-title">Note</p>
 <p>Because the <code>nebula-metad</code> service contribution percent is small compared with <code>nebula-graphd</code> and <code>nebula-storaged</code> services. To reduce effort, we didn't collect the perf data for <code>nebula-metad</code> service.</p>
 </div>
+</li>
+<li>
 <p>Start the benchmark test for <strong><em>FindShortestPath</em></strong> scenario.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>NebulaGraph-Bench<span class="w"> </span>
 python3<span class="w"> </span>run.py<span class="w"> </span>stress<span class="w"> </span>run<span class="w"> </span>-s<span class="w"> </span>benchmark<span class="w"> </span>-scenario<span class="w"> </span>find_path.FindShortestPath<span class="w"> </span>-a<span class="w"> </span>localhost:9669<span class="w"> </span>--args<span class="o">=</span><span class="s1">&#39;-u 100 -i 100000&#39;</span>
 </code></pre></div>
+</li>
+<li>
 <p>After the benchmark finished, end the <strong><em>perf record</em></strong> by <strong><em>Ctrl + c</em></strong>.</p>
+</li>
+<li>
 <p>Repeat above steps to collect corresponding profile data for the rest  <strong><em>Go1Step</em></strong>, <strong><em>Go2Step</em></strong>, <strong><em>Go3Step</em></strong> and <strong><em>InsertPersonScenario</em></strong> scenarios.</p>
+</li>
+</ol>
 <h3 id="create_gcov_file">Create Gcov File<a class="headerlink" href="#create_gcov_file" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="nv">$NEBULA_HOME</span>/bin/nebula-storaged<span class="w"> </span><span class="se">\</span>
 --profile<span class="o">=</span>~/FindShortestPath.data<span class="w"> </span><span class="se">\</span>
@@ -7656,60 +7682,63 @@ create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="
 <span class="w"> </span>add_compile_options(-Wignored-qualifiers)
 <span class="gi">+add_compile_options(-fauto-profile=~/fbdata.afdo)</span>
 </code></pre></div>
-<p><strong><em>Note:</em></strong> When you use multiple fbdata.afdo to compile multiple times, please remember to <code>make clean</code> before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you use multiple fbdata.afdo to compile multiple times, please remember to <code>make clean</code> before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.</p>
+</div>
 <h2 id="performance_test_result">Performance Test Result<a class="headerlink" href="#performance_test_result" title="Permanent link">&para;</a></h2>
 <h3 id="hardware_software_environment">Hardware &amp; Software Environment<a class="headerlink" href="#hardware_software_environment" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th align="left">Key</th>
-<th align="right">Value</th>
+<th align="left">Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">CPU Processor#</td>
-<td align="right">2</td>
+<td align="left">2</td>
 </tr>
 <tr>
 <td align="left">Sockets</td>
-<td align="right">2</td>
+<td align="left">2</td>
 </tr>
 <tr>
 <td align="left">NUMA</td>
-<td align="right">2</td>
+<td align="left">2</td>
 </tr>
 <tr>
 <td align="left">CPU Type</td>
-<td align="right">Intel(R) Xeon(R) Platinum 8380 CPU @ 2.30GHz</td>
+<td align="left">Intel(R) Xeon(R) Platinum 8380 CPU @ 2.30GHz</td>
 </tr>
 <tr>
 <td align="left">Cores per Processor</td>
-<td align="right">40C80T</td>
+<td align="left">40C80T</td>
 </tr>
 <tr>
 <td align="left">Cache</td>
-<td align="right">L1 data: 48KB L1 i: 32KB  L2: 1.25MB per physical core  L3: shared 60MB per processor</td>
+<td align="left">L1 data: 48KB L1 i: 32KB  L2: 1.25MB per physical core  L3: shared 60MB per processor</td>
 </tr>
 <tr>
 <td align="left">Memory</td>
-<td align="right">Micron DDR4 3200MT/s 16GB<em>16Micron DDR4 3200MT/s 16GB</em>16</td>
+<td align="left">Micron DDR4 3200MT/s 16GB<em>16Micron DDR4 3200MT/s 16GB</em>16</td>
 </tr>
 <tr>
 <td align="left">SSD Disk</td>
-<td align="right">INTEL SSDPE2KE016T8</td>
+<td align="left">INTEL SSDPE2KE016T8</td>
 </tr>
 <tr>
 <td align="left">SSD R/W Sequential</td>
-<td align="right">3200 MB/s (read) / 2100 MB/s(write)</td>
+<td align="left">3200 MB/s (read) / 2100 MB/s(write)</td>
 </tr>
 <tr>
 <td align="left">Nebula Version</td>
-<td align="right">master with commit id 51d84a4ed7d2a032a337e3b996c927e3bc5d1415</td>
+<td align="left">master with commit id 51d84a4ed7d2a032a337e3b996c927e3bc5d1415</td>
 </tr>
 <tr>
 <td align="left">Kernel</td>
-<td align="right">4.18.0-408.el8.x86_64</td>
+<td align="left">4.18.0-408.el8.x86_64</td>
 </tr>
 </tbody>
 </table>
@@ -8140,7 +8169,7 @@ create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
       
     
   </small>
@@ -8211,7 +8240,7 @@ create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   

@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6876,6 +6876,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7392,9 +7406,8 @@
 
 
 <h1 id="reclaim_pvs">Reclaim PVs<a class="headerlink" href="#reclaim_pvs" title="Permanent link">&para;</a></h1>
-<p>NebulaGraph Operator uses PVs (Persistent Volumes) and PVCs (Persistent Volume Claims) to store persistent data. If you accidentally deletes a NebulaGraph cluster, PV and PVC objects and the relevant data will be retained to ensure data security.</p>
-<p>You can define whether to reclaim PVs or not in the configuration file of the cluster's CR instance with the parameter <code>enablePVReclaim</code>.</p>
-<p>If you need to release a graph space and retain the relevant data, update your nebula cluster by setting the parameter <code>enablePVReclaim</code> to <code>true</code>.</p>
+<p>NebulaGraph Operator uses PVs (Persistent Volumes) and PVCs (Persistent Volume Claims) to store persistent data. If you accidentally deletes a NebulaGraph cluster, by default, PV and PVC objects and the relevant data will be retained to ensure data security.</p>
+<p>You can also define the automatic deletion of PVCs to release data by setting the parameter <code>spec.enablePVReclaim</code> to <code>true</code> in the configuration file of the cluster instance. As for whether PV will be deleted automatically after PVC is deleted, you need to customize the PV reclaim policy. See <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#reclaim-policy">reclaimPolicy in StorageClass</a> and <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming">PV Reclaiming</a> for details.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>You have created a cluster. For how to create a cluster with Kubectl, see <a href="../../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Create a cluster with Kubectl</a>. </p>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
@@ -7428,7 +7441,7 @@
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.4.1</span>
 <span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span>
@@ -7450,7 +7463,7 @@
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.4.1</span>
 <span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">nebula</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud</span>
 <span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
@@ -7481,7 +7494,7 @@
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.4.1</span>
 <span class="nn">...</span><span class="w">    </span>
 </code></pre></div>
 </li>
@@ -7495,7 +7508,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
       
     
   </small>
@@ -7566,7 +7579,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   

@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6938,6 +6938,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../nebula-operator/10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../nebula-operator/5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7536,7 +7550,7 @@
 <li>Hadoop: 2.9.2, pseudo-distributed deployment</li>
 </ul>
 <ul>
-<li>NebulaGraph: 3.4.0. <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose/">Deploy NebulaGraph with Docker Compose</a>.</li>
+<li>NebulaGraph: 3.4.1. <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose/">Deploy NebulaGraph with Docker Compose</a>.</li>
 </ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before importing data, you need to confirm the following information:</p>
@@ -7646,7 +7660,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   # Spark configuration
   spark: {
     app: {
-      name: NebulaGraph Exchange 3.3.0
+      name: NebulaGraph Exchange 3.4.0
     }
     driver: {
       cores: 1
@@ -7668,6 +7682,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       # If there are multiple addresses, the format is &quot;ip1:port&quot;,&quot;ip2:port&quot;,&quot;ip3:port&quot;.
       # Addresses are separated by commas.
       graph:[&quot;127.0.0.1:9669&quot;]
+      # the address of any of the meta services.
+      # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
       meta:[&quot;127.0.0.1:9559&quot;]
     }
 
@@ -7723,7 +7739,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       # The value of vertex must be consistent with the field in the Parquet file.
-      # Currently, NebulaGraph 3.4.0 supports only strings or integers of VID.
+      # Currently, NebulaGraph 3.4.1 supports only strings or integers of VID.
       vertex: {
         field:id
       }
@@ -7762,7 +7778,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       # The value of vertex must be consistent with the field in the Parquet file.
-      # Currently, NebulaGraph 3.4.0 supports only strings or integers of VID.
+      # Currently, NebulaGraph 3.4.1 supports only strings or integers of VID.
       vertex: {
         field:id
       }
@@ -7807,7 +7823,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Specify a column as the source for the source and destination vertexes.
       # The values of vertex must be consistent with the fields in the Parquet file.
-      # Currently, NebulaGraph 3.4.0 supports only strings or integers of VID.
+      # Currently, NebulaGraph 3.4.1 supports only strings or integers of VID.
       source: {
         field: src
       }
@@ -7852,7 +7868,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # Specify a column as the source for the source and destination vertexes.
       # The values of vertex must be consistent with the fields in the Parquet file.
-      # Currently, NebulaGraph 3.4.0 supports only strings or integers of VID.
+      # Currently, NebulaGraph 3.4.1 supports only strings or integers of VID.
       source: {
         field: src
       }
@@ -7876,19 +7892,19 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="step_4_import_data_into_nebulagraph">Step 4: Import data into NebulaGraph<a class="headerlink" href="#step_4_import_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Run the following command to import Parquet data into NebulaGraph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.3.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;parquet_application.conf_path&gt;<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.4.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;parquet_application.conf_path&gt;<span class="w"> </span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.3.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/parquet_application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.4.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/parquet_application.conf
 </code></pre></div>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_5_optional_validate_data">Step 5: (optional) Validate data<a class="headerlink" href="#step_5_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
-<div class="highlight"><pre><span></span><code>GO FROM &quot;player100&quot; OVER follow;
+<div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
 </code></pre></div>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/"><code>SHOW STATS</code></a> command to view statistics.</p>
 <h3 id="step_6_optional_rebuild_indexes_in_nebulagraph">Step 6: (optional) Rebuild indexes in NebulaGraph<a class="headerlink" href="#step_6_optional_rebuild_indexes_in_nebulagraph" title="Permanent link">&para;</a></h3>
@@ -7899,7 +7915,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
       
     
   </small>
@@ -7970,7 +7986,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   

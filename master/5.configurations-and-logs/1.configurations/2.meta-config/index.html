@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6925,6 +6925,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../nebula-operator/10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../nebula-operator/5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7502,6 +7516,10 @@
 <p>To use the initial configuration file, choose one of the above two files and delete the suffix <code>.default</code> or <code>.production</code> from the initial configuration file for the Meta Service to apply the configurations defined in it.</p>
 <h2 id="about_parameter_values">About parameter values<a class="headerlink" href="#about_parameter_values" title="Permanent link">&para;</a></h2>
 <p>If a parameter is not set in the configuration file, NebulaGraph uses the default value. Not all parameters are predefined. And the predefined parameters in the two initial configuration files are different. This topic uses the parameters in <code>nebula-metad.conf.default</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Some parameter values in the configuration file can be dynamically modified during runtime. We label these parameters as <strong>Yes</strong> that supports runtime dynamic modification in this article. When the <code>local_config</code> value is set to <code>true</code>, the dynamically modified configuration is not persisted, and the configuration will be restored to the initial configuration after the service is restarted. For more information, see <a href="../1.configurations/">Modify configurations</a>.</p>
+</div>
 <p>For all parameters and their current values, see <a href="../1.configurations/">Configurations</a>.</p>
 <h2 id="basics_configurations">Basics configurations<a class="headerlink" href="#basics_configurations" title="Permanent link">&para;</a></h2>
 <table>
@@ -7510,6 +7528,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7517,16 +7536,19 @@
 <td><code>daemonize</code></td>
 <td><code>true</code></td>
 <td>When set to <code>true</code>, the process is a daemon process.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>pid_file</code></td>
 <td><code>pids/nebula-metad.pid</code></td>
 <td>The file that records the process ID.</td>
+<td>No</td>
 </tr>
 <tr>
 <td><code>timezone_name</code></td>
 <td>-</td>
 <td>Specifies the NebulaGraph time zone. This parameter is not predefined in the initial configuration files. You can manually set it if you need it. The system default value is <code>UTC+00:00:00</code>. For the format of the parameter value, see <a href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html" title="Click to view the timezone-related content in the GNU C Library manual">Specifying the Time Zone with TZ</a>. For example, <code>--timezone_name=UTC+08:00</code> represents the GMT+8 time zone.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7537,6 +7559,7 @@
 <th>Name</th>
 <th>Predefined value</th>
 <th>Description</th>
+<th>Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7544,6 +7567,7 @@
 <td><code>license_path</code></td>
 <td><code>share/resources/nebula.license</code></td>
 <td>Path of the license of the NebulaGraph Enterprise Edition. Users need to <a href="../../../4.deployment-and-installation/deploy-license/">deploy a license file</a> before starting the Enterprise Edition. This parameter is required only for the NebulaGraph Enterprise Edition. For details about how to configure licenses for other ecosystem tools, see the deployment documents of the corresponding ecosystem tools.</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
@@ -7563,6 +7587,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7570,46 +7595,55 @@
 <td align="left"><code>log_dir</code></td>
 <td align="left"><code>logs</code></td>
 <td align="left">The directory that stores the Meta Service log. It is recommended to put logs on a different hard disk from the data.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>minloglevel</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the minimum level of the log. That is, log messages at or above this level. Optional values are <code>0</code> (INFO), <code>1</code> (WARNING), <code>2</code> (ERROR), <code>3</code> (FATAL). It is recommended to set it to <code>0</code> during debugging and <code>1</code> in a production environment. If it is set to <code>4</code>, NebulaGraph will not print any logs.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>v</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the detailed level of VLOG. That is, log all VLOG messages less or equal to the level. Optional values are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>. The VLOG macro provided by glog allows users to define their own numeric logging levels and control verbose messages that are logged with the parameter <code>v</code>. For details, see <a href="https://github.com/google/glog#verbose-logging">Verbose Logging</a>.</td>
+<td align="left">Yes</td>
 </tr>
 <tr>
 <td align="left"><code>logbufsecs</code></td>
 <td align="left"><code>0</code></td>
 <td align="left">Specifies the maximum time to buffer the logs. If there is a timeout, it will output the buffered log to the log file. <code>0</code> means real-time output. This configuration is measured in seconds.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>redirect_stdout</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">When set to <code>true</code>, the process redirects the<code>stdout</code> and <code>stderr</code> to separate output files.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stdout_log_file</code></td>
 <td align="left"><code>metad-stdout.log</code></td>
 <td align="left">Specifies the filename for the <code>stdout</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stderr_log_file</code></td>
 <td align="left"><code>metad-stderr.log</code></td>
 <td align="left">Specifies the filename for the <code>stderr</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>stderrthreshold</code></td>
 <td align="left"><code>3</code></td>
 <td align="left">Specifies the <code>minloglevel</code> to be copied to the <code>stderr</code> log.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>timestamp_in_logfile_name</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Specifies if the log file name contains a timestamp. <code>true</code> indicates yes, <code>false</code> indicates no.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7620,6 +7654,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7627,36 +7662,43 @@
 <td align="left"><code>meta_server_addrs</code></td>
 <td align="left"><code>127.0.0.1:9559</code></td>
 <td align="left">Specifies the IP addresses and ports of all Meta Services.  Multiple addresses are separated with commas.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>local_ip</code></td>
 <td align="left"><code>127.0.0.1</code></td>
 <td align="left">Specifies the local IP for the Meta Service. The local IP address is used to identify the nebula-metad process. If it is a distributed cluster or requires remote access, modify it to the corresponding address.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>port</code></td>
 <td align="left"><code>9559</code></td>
 <td align="left">Specifies RPC daemon listening port of the Meta service. The external port for the Meta Service is predefined to <code>9559</code>. The internal port is predefined to <code>port + 1</code>, i.e., <code>9560</code>. Nebula Graph uses the internal port for multi-replica interactions.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ws_ip</code></td>
 <td align="left"><code>0.0.0.0</code></td>
 <td align="left">Specifies the IP address for the HTTP service.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ws_http_port</code></td>
 <td align="left"><code>19559</code></td>
 <td align="left">Specifies the port for the HTTP service.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ws_storage_http_port</code></td>
 <td align="left"><code>19779</code></td>
 <td align="left">Specifies the Storage service listening port used by the HTTP protocol. It must be consistent with the <code>ws_http_port</code> in the Storage service configuration file. This parameter only applies to standalone NebulaGraph.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>heartbeat_interval_secs</code></td>
 <td align="left"><code>10</code></td>
 <td align="left">Specifies the default heartbeat interval. Make sure the <code>heartbeat_interval_secs</code> values for all services are the same, otherwise NebulaGraph <strong>CANNOT</strong> work normally. This configuration is measured in seconds.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7671,6 +7713,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined Value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7678,6 +7721,7 @@
 <td align="left"><code>data_path</code></td>
 <td align="left"><code>data/meta</code></td>
 <td align="left">The storage path for Meta data.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7688,6 +7732,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined Value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7695,11 +7740,13 @@
 <td align="left"><code>default_parts_num</code></td>
 <td align="left"><code>100</code></td>
 <td align="left">Specifies the default partition number when creating a new graph space.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>default_replica_factor</code></td>
 <td align="left"><code>1</code></td>
 <td align="left">Specifies the default replica number when creating a new graph space.</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7710,6 +7757,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined Value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7717,6 +7765,7 @@
 <td align="left"><code>rocksdb_wal_sync</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Enables or disables RocksDB WAL synchronization. Available values are <code>true</code> (enable) and <code>false</code> (disable).</td>
+<td align="left">No</td>
 </tr>
 </tbody>
 </table>
@@ -7732,6 +7781,7 @@
 <th align="left">Name</th>
 <th align="left">Predefined Value</th>
 <th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
 </tr>
 </thead>
 <tbody>
@@ -7739,21 +7789,25 @@
 <td align="left"><code>ng_black_box_switch</code></td>
 <td align="left"><code>true</code></td>
 <td align="left">Whether to enable the <a href="../../../6.monitor-and-metrics/3.bbox/3.1.bbox/">Nebula-BBox</a> feature.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_home</code></td>
 <td align="left"><code>black_box</code></td>
 <td align="left">The name of the directory to store Nebula-BBox file data.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_dump_period_seconds</code></td>
 <td align="left"><code>5</code></td>
 <td align="left">The time interval for Nebula-BBox to collect metric data. Unit: Second.</td>
+<td align="left">No</td>
 </tr>
 <tr>
 <td align="left"><code>ng_black_box_file_lifetime_seconds</code></td>
 <td align="left"><code>1800</code></td>
 <td align="left">Storage time for Nebula-BBox files generated after collecting metric data. Unit: Second.</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -7764,7 +7818,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
       
     
   </small>
@@ -7835,7 +7889,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   

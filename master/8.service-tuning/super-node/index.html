@@ -535,7 +535,7 @@
   
     <li class="md-nav__item">
       <a href="../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Quick start workflow
+        Getting started with NebulaGraph
       </a>
     </li>
   
@@ -6907,6 +6907,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../nebula-operator/10.backup-restore-using-operator/" class="md-nav__link">
+        Backup and restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../nebula-operator/5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -7459,16 +7473,16 @@
 <h2 id="principle_introduction">Principle introduction<a class="headerlink" href="#principle_introduction" title="Permanent link">&para;</a></h2>
 <p>In graph theory, a super vertex, also known as a dense vertex, is a vertex with an extremely high number of adjacent edges. The edges can be outgoing or incoming.</p>
 <p>Super vertices are very common because of the power-law distribution. For example, popular leaders in social networks (Internet celebrities), top stocks in the stock market, Big Four in the banking system, hubs in transportation networks, websites with high clicking rates on the Internet, and best sellers in E-commerce.</p>
-<p>In NebulaGraph 3.4.0, a <code>vertex</code> and its <code>properties</code> form a <code>key-value pair</code>, with its <code>VID</code> and other meta information as the <code>key</code>. Its <code>Out-Edge Key-Value</code> and <code>In-Edge Key-Value</code> are stored in <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">the same partition</a> in the form of LSM-trees in hard disks and caches.</p>
+<p>In NebulaGraph 3.4.1, a <code>vertex</code> and its <code>properties</code> form a <code>key-value pair</code>, with its <code>VID</code> and other meta information as the <code>key</code>. Its <code>Out-Edge Key-Value</code> and <code>In-Edge Key-Value</code> are stored in <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">the same partition</a> in the form of LSM-trees in hard disks and caches.</p>
 <p>Therefore, <code>directed traversals from this vertex</code> and <code>directed traversals ending at this vertex</code> both involve either <code>a large number of sequential IO scans</code> (ideally, after <a href="../compaction/">Compaction</a> or a large number of <code>random IO</code> (frequent writes to <code>the vertex</code> and its <code>ingoing and outgoing edges</code>).</p>
 <p>As a rule of thumb, a vertex is considered dense when the number of its edges exceeds 10,000. Some special cases require additional consideration.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In NebulaGraph 3.4.0, there is not any data structure to store the out/in degree for each vertex. Therefore, there is no direct method to know whether it is a super vertex or not. You can try to use Spark to count the degrees periodically. </p>
+<p>In NebulaGraph 3.4.1, there is not any data structure to store the out/in degree for each vertex. Therefore, there is no direct method to know whether it is a super vertex or not. You can try to use Spark to count the degrees periodically. </p>
 </div>
 <h3 id="indexes_for_duplicate_properties">Indexes for duplicate properties<a class="headerlink" href="#indexes_for_duplicate_properties" title="Permanent link">&para;</a></h3>
 <p>In a property graph, there is another class of cases similar to super vertices: <strong>a property has a very high duplication rate</strong>, i.e., many vertices with the same <code>tag</code> but different <code>VIDs</code> have identical property and property values.</p>
-<p>Property indexes in NebulaGraph 3.4.0 are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as <code>keys with the same prefix</code>. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.</p>
+<p>Property indexes in NebulaGraph 3.4.1 are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as <code>keys with the same prefix</code>. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.</p>
 <p>For more information about property indexes, see <a href="https://nebula-graph.io/posts/how-indexing-works-in-nebula-graph/">How indexing works in NebulaGraph</a>.</p>
 <p>Usually, special design and processing are required when the number of duplicate property values exceeds 10,000.</p>
 <h3 id="suggested_solutions">Suggested solutions<a class="headerlink" href="#suggested_solutions" title="Permanent link">&para;</a></h3>
@@ -7581,7 +7595,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2022 NebulaGraph
+      Copyright &copy; 2023 NebulaGraph
     </div>
   
   
