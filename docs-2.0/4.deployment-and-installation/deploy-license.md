@@ -1,6 +1,6 @@
 # Deploy license
 
-Nebula Graph Enterprise Edition requires the user to deploy a license file before starting the Enterprise Edition. This topic describes how to deploy a license file for the Enterprise Edition.
+NebulaGraph Enterprise Edition requires the user to deploy a license file before starting the Enterprise Edition. This topic describes how to deploy a license file for the Enterprise Edition.
 
 !!! enterpriseonly
 
@@ -8,7 +8,7 @@ Nebula Graph Enterprise Edition requires the user to deploy a license file befor
 
 ## Precautions
 
-- If the license file is not deployed, Nebula Graph Enterprise Edition cannot be started.
+- If the license file is not deployed, NebulaGraph Enterprise Edition cannot be started.
 
 - Do not modify the license file, otherwise the license will become invalid.
 
@@ -52,15 +52,15 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`organization`|The username.|
 |`issuedDate`|The date that the license is issued. |
 |`expirationDate`|The date that the license expires.|
-|`product`|The product type. The product type of Nebula Graph is `nebula_graph`.|
+|`product`|The product type. The product type of NebulaGraph is `nebula_graph`.|
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
 
 ## Steps
 
-1. Send email to `inquiry@vesoft.com` to apply for the Nebula Graph Enterprise Edition package.
+1. Send email to `inquiry@vesoft.com` to apply for the NebulaGraph Enterprise Edition package.
 
-2. Install Nebula Graph Enterprise Edition. The installation method is the same as the Community Edition. See [Install Nebula Graph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+2. Install NebulaGraph Enterprise Edition. The installation method is the same as the Community Edition. See [Install NebulaGraph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
 3. Send email to `inquiry@vesoft.com` to apply for the license file `nebula.license`.
 
