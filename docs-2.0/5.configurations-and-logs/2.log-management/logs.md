@@ -1,16 +1,16 @@
 # Logs
 
-**Nebula Graph** uses [glog](https://github.com/google/glog) to print logs, uses [gflags](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
+**NebulaGraph** uses [glog](https://github.com/google/glog) to print logs, uses [gflags](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
 
 ## Log directory
 
 The default log directory is `/usr/local/nebula/logs/`.
 
-If the log directory is deleted while Nebula Graph is running, the log would not continue to be printed. However, this operation will not affect the services. To recover the logs, restart the services.
+If the log directory is deleted while NebulaGraph is running, the log would not continue to be printed. However, this operation will not affect the services. To recover the logs, restart the services.
 
 ## Parameter descriptions
 
-- `minloglevel`: Specifies the minimum level of the log. That is, no logs below this level will be printed. Optional values are `0` (INFO), `1` (WARNING), `2` (ERROR), `3` (FATAL). It is recommended to set it to `0` during debugging and `1` in a production environment. If it is set to `4`, Nebula Graph will not print any logs.
+- `minloglevel`: Specifies the minimum level of the log. That is, no logs below this level will be printed. Optional values are `0` (INFO), `1` (WARNING), `2` (ERROR), `3` (FATAL). It is recommended to set it to `0` during debugging and `1` in a production environment. If it is set to `4`, NebulaGraph will not print any logs.
 
 - `v`: Specifies the detailed level of the log. The larger the value, the more detailed the log is. Optional values are `0`, `1`, `2`, `3`.
 
@@ -67,7 +67,7 @@ $ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "
 
 ```
 
-If the log level is changed while Nebula Graph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see [Configuration files](../1.configurations/1.configurations.md).
+If the log level is changed while NebulaGraph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see [Configuration files](../1.configurations/1.configurations.md).
 
 ## RocksDB logs
 
