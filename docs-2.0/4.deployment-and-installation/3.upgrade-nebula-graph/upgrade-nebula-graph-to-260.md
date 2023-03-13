@@ -1,26 +1,26 @@
-# Upgrade Nebula Graph to v{{nebula.release}}
+# Upgrade NebulaGraph to v{{nebula.release}}
 
-The legacy versions of Nebula Graph refer to the versions lower than Nebula Graph v2.0.0-GA. This topic describes how to upgrade Nebula Graph to v{{nebula.release}}.
+The legacy versions of NebulaGraph refer to the versions lower than NebulaGraph v2.0.0-GA. This topic describes how to upgrade NebulaGraph to v{{nebula.release}}.
 
 !!! note
 
-     To upgrade Nebula Graph v2.0.0-GA or later versions to v{{nebula.release}}, see [Nebula Graph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-260.md).
+     To upgrade NebulaGraph v2.0.0-GA or later versions to v{{nebula.release}}, see [NebulaGraph v2.0.x to v{{nebula.release}}](upgrade-nebula-from-200-to-260.md).
 
 ## Limitations
 
-* Rolling Upgrade is not supported. You must stop the Nebula Graph services before the upgrade.
+* Rolling Upgrade is not supported. You must stop the NebulaGraph services before the upgrade.
 
 * There is no upgrade script. You have to manually upgrade each server in the cluster.
 
-* This topic does not apply to scenarios where Nebula Graph is deployed with Docker, including Docker Swarm, Docker Compose, and K8s.
+* This topic does not apply to scenarios where NebulaGraph is deployed with Docker, including Docker Swarm, Docker Compose, and K8s.
 
-* You must upgrade the old Nebula Graph services on the same machines they are deployed. **DO NOT** change the IP addresses, configuration files of the machines, and **DO NOT** change the cluster topology.
+* You must upgrade the old NebulaGraph services on the same machines they are deployed. **DO NOT** change the IP addresses, configuration files of the machines, and **DO NOT** change the cluster topology.
 
 * The hard disk space of each machine should be **three times** as much as the space taken by the original data directories.
 
 * Known issues that could cause data loss are listed on [GitHub known issues](https://github.com/vesoft-inc/nebula-graph/issues/857). The issues are all related to altering schema or default values.
 
-* To connect to Nebula Graph 2.0.0, you must upgrade all the Nebula Graph clients. The communication protocols of the old versions and the latest versions are not compatible.
+* To connect to NebulaGraph 2.0.0, you must upgrade all the NebulaGraph clients. The communication protocols of the old versions and the latest versions are not compatible.
 
 * The upgrade takes about 30 minutes in [this test environment](#appendix_1_test_environment).
 
@@ -32,7 +32,7 @@ The legacy versions of Nebula Graph refer to the versions lower than Nebula Grap
 
 ### Old installation path
 
-By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, hereinafter referred to as `${nebula-old}`. The default configuration file path is `${nebula-old}/etc/`.
+By default, old versions of NebulaGraph are installed in `/usr/local/nebula/`, hereinafter referred to as `${nebula-old}`. The default configuration file path is `${nebula-old}/etc/`.
 
 * Storaged data path is defined by the `--data_path` option in the `${nebula-old}/etc/nebula-storaged.conf` file. The default path is `data/storage`.
 
@@ -44,7 +44,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
 ### New installation path
 
-`${nebula-new}` represents the installation path of the new Nebula Graph version, such as `/usr/local/nebula-new/`.
+`${nebula-new}` represents the installation path of the new NebulaGraph version, such as `/usr/local/nebula-new/`.
 
 ```
 # mkdir -p ${nebula-new}
@@ -60,7 +60,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
    [INFO] Done
    ```
 
-2. Run the following commands to stop all services of the old version Nebula Graph.
+2. Run the following commands to stop all services of the old version NebulaGraph.
 
    ```
    # ${nebula-old}/scripts/nebula.service stop all
@@ -72,13 +72,13 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
    [INFO] Done
    ```
 
-   The `storaged` process needs about 1 minute to flush data. Wait 1 minute and then run `ps -ef | grep nebula` to check and make sure that all the Nebula Graph services are stopped.
+   The `storaged` process needs about 1 minute to flush data. Wait 1 minute and then run `ps -ef | grep nebula` to check and make sure that all the NebulaGraph services are stopped.
 
   !!! Note
 
-        If the services are not fully stopped in 20 minutes, **stop upgrading** and go to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help.
+        If the services are not fully stopped in 20 minutes, **stop upgrading** and go to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help.
 
-3. Install the new version of Nebula Graph on each machine.
+3. Install the new version of NebulaGraph on each machine.
 
    1. Install the new binary file.
 
@@ -89,9 +89,9 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
        # sudo dpkg -i --instdir==${nebula-new} ${nebula-package-name.deb} # for ubuntu
        ```
 
-       For detailed steps, see [Install Nebula Graph with RPM or DEB package](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+       For detailed steps, see [Install NebulaGraph with RPM or DEB package](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
-    - To install with the source code, follow the substeps. For detailed steps, see [Install Nebula Graph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md). Some key commands are as follows.
+    - To install with the source code, follow the substeps. For detailed steps, see [Install NebulaGraph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md). Some key commands are as follows.
 
       - Clone the source code.
   
@@ -181,7 +181,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
   
   !!! Note
 
-        If any nebula-metad process cannot start normally, **stop upgrading, start the Nebula Graph services from the old directories**, and take the error logs to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help.
+        If any nebula-metad process cannot start normally, **stop upgrading, start the NebulaGraph services from the old directories**, and take the error logs to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help.
 
 7. Run the following commands to upgrade the Storage data format.
 
@@ -201,7 +201,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
    - `--upgrade_meta_server`: Specifies the addresses of the new Meta servers that you started in step 6.
 
-   - `--upgrade_version`: If the old Nebula Graph version is v1.2.0, set the parameter value to `1`. If the old version is v2.0.0-RC1, set the value to `2`. Do not set the value to other numbers.
+   - `--upgrade_version`: If the old NebulaGraph version is v1.2.0, set the parameter value to `1`. If the old version is v2.0.0-RC1, set the value to `2`. Do not set the value to other numbers.
 
   !!! danger
 
@@ -229,7 +229,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
   !!! Note
   
-      - If anything goes wrong, **Stop upgrading, stop all the Meta servers, and start the Nebula Graph services from the old directories.**
+      - If anything goes wrong, **Stop upgrading, stop all the Meta servers, and start the NebulaGraph services from the old directories.**
       - Make sure that all the Storage servers have finished the upgrade. 
 
 8.  Start the new Storage Service on each Storage server.
@@ -240,7 +240,7 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
    ```
 
   !!! note
-        If this step goes wrong on any server, Take the logs in `${nebula-new}/logs/` to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help. **Stop upgrading. Stop all the Meta servers and Storage servers. Start the Nebula Graph services from the old directories.**
+        If this step goes wrong on any server, Take the logs in `${nebula-new}/logs/` to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help. **Stop upgrading. Stop all the Meta servers and Storage servers. Start the NebulaGraph services from the old directories.**
 
 9.  Start the new Graph Service on each Graph server.
 
@@ -251,9 +251,9 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
   !!! note
 
-        If this step goes wrong on any server, take the logs in `${nebula-new}/logs/` to the [Nebula Graph community](https://discuss.nebula-graph.io/) for help. **Stop upgrading. Stop all the Meta servers, Storage servers, and Graph servers. Start the Nebula Graph services from the old directories.**
+        If this step goes wrong on any server, take the logs in `${nebula-new}/logs/` to the [NebulaGraph community](https://discuss.nebula-graph.io/) for help. **Stop upgrading. Stop all the Meta servers, Storage servers, and Graph servers. Start the NebulaGraph services from the old directories.**
 
-10.  Connect to Nebula Graph with the new versions of [Nebula Console](https://github.com/vesoft-inc/nebula-console). Verify if the Nebula Graph services are available and if the data can be accessed normally. Make sure that the command parameters, including the IP address and port of the Graph Service, are the same as the old one.
+10.  Connect to NebulaGraph with the new versions of [Nebula Console](https://github.com/vesoft-inc/nebula-console). Verify if the NebulaGraph services are available and if the data can be accessed normally. Make sure that the command parameters, including the IP address and port of the Graph Service, are the same as the old one.
 
     ```ngql
     nebula> SHOW HOSTS;
@@ -268,9 +268,9 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
         The old releases of Nebula Console may have compatibility issues.
 
-11. Upgrade other Nebula Graph clients.
+11. Upgrade other NebulaGraph clients.
 
-    You must upgrade all other clients to corresponding Nebula Graph v{{nebula.release}}. The clients include but are not limited to [Python](https://github.com/vesoft-inc/nebula-python), [Java](https://github.com/vesoft-inc/nebula-java), [go](https://github.com/vesoft-inc/nebula-go), [C++](https://github.com/vesoft-inc/nebula-cpp), [Flink-connector](https://github.com/vesoft-inc/nebula-flink-connector), [Algorithm](https://github.com/vesoft-inc/nebula-algorithm), [Exchange](https://github.com/vesoft-inc/nebula-exchange), [Spark-connector](https://github.com/vesoft-inc/nebula-spark-connector), and [Nebula Bench](https://github.com/vesoft-inc/nebula-bench). Find the v{{nebula.release}} branch for each client.
+    You must upgrade all other clients to corresponding NebulaGraph v{{nebula.release}}. The clients include but are not limited to [Python](https://github.com/vesoft-inc/nebula-python), [Java](https://github.com/vesoft-inc/nebula-java), [go](https://github.com/vesoft-inc/nebula-go), [C++](https://github.com/vesoft-inc/nebula-cpp), [Flink-connector](https://github.com/vesoft-inc/nebula-flink-connector), [Algorithm](https://github.com/vesoft-inc/nebula-algorithm), [Exchange](https://github.com/vesoft-inc/nebula-exchange), [Spark-connector](https://github.com/vesoft-inc/nebula-spark-connector), and [Nebula Bench](https://github.com/vesoft-inc/nebula-bench). Find the v{{nebula.release}} branch for each client.
 
   !!! Note
 
@@ -280,9 +280,9 @@ By default, old versions of Nebula Graph are installed in `/usr/local/nebula/`, 
 
 ## Upgrade failure and rollback
 
-If the upgrade fails, stop all Nebula Graph services of the new version, and start the services of the old version.
+If the upgrade fails, stop all NebulaGraph services of the new version, and start the services of the old version.
 
-All Nebula Graph clients in use must be switched to the **old version**.
+All NebulaGraph clients in use must be switched to the **old version**.
 
 ## Appendix 1: Test Environment
 
@@ -290,7 +290,7 @@ The test environment for this topic is as follows:
 
 * Machine specifications: 32 CPU cores, 62 GB memory, and SSD.
 
-* Data size: 100 GB of Nebula Graph 1.2.0 LDBC test data, with 1 graph space, 24 partitions, and 92 GB of data directory size.
+* Data size: 100 GB of NebulaGraph 1.2.0 LDBC test data, with 1 graph space, 24 partitions, and 92 GB of data directory size.
 
 * Concurrent configuration: `--max_concurrent=5`, `--max_concurrent_parts=24`, and `--write_batch_num=100`.
 
@@ -302,7 +302,7 @@ The upgrade cost **21 minutes** in all, including 13 minutes of compaction. The 
 |`--max_concurrent_parts`|10|
 |`--write_batch_num`|100|
 
-## Appendix 2: Nebula Graph V2.0.0 code address and commit ID
+## Appendix 2: NebulaGraph V2.0.0 code address and commit ID
 
 | Code address | Commit ID |
 |:---|:---|

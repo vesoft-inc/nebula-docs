@@ -1,6 +1,6 @@
 # What is Nebula Explorer
 
-Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is used with the Nebula Graph core to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
+Nebula Explorer (Explorer in short) is a browser-based visualization tool. It is used with the NebulaGraph core to visualize interaction with graph data. Even if there is no experience in graph database, you can quickly become a graph exploration expert.
 
 !!! enterpriseonly
 
@@ -33,6 +33,6 @@ Explorer has these features:
 
 ## Authentication
 
-Authentication is not enabled in Nebula Graph by default. Users can log into Studio with the `root` account and any password.
+Authentication is not enabled in NebulaGraph by default. Users can log into Studio with the `root` account and any password.
 
-When Nebula Graph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).
+When NebulaGraph enables authentication, users can only sign into Studio with the specified account. For more information, see [Authentication](../../7.data-security/1.authentication/1.authentication.md).

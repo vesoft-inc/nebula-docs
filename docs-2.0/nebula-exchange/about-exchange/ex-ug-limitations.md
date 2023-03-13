@@ -2,11 +2,11 @@
 
 This topic describes some of the limitations of using Exchange 2.x.
 
-## Nebula Graph releases
+## NebulaGraph releases
 
-The correspondence between the Nebula Exchange release (the JAR version) and the Nebula Graph release is as follows.
+The correspondence between the Nebula Exchange release (the JAR version) and the NebulaGraph release is as follows.
 
-|Exchange client|Nebula Graph|
+|Exchange client|NebulaGraph|
 |:---|:---|
 |2.5-SNAPSHOT|nightly|
 |{{exchange.release}}|{{nebula.release}}|
@@ -18,7 +18,7 @@ The correspondence between the Nebula Exchange release (the JAR version) and the
 
 JAR packages are available in two ways: [compile them yourself](../ex-ug-compile.md) or download them from the Maven repository.
 
-If you are using Nebula Graph 1.x, use [Nebula Exchange 1.x](https://github.com/vesoft-inc/nebula-java/tree/v1.0/tools "Click to go to GitHub").
+If you are using NebulaGraph 1.x, use [Nebula Exchange 1.x](https://github.com/vesoft-inc/nebula-java/tree/v1.0/tools "Click to go to GitHub").
 
 ## Environment
 

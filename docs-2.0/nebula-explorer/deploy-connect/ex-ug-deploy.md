@@ -8,7 +8,7 @@ This topic describes how to deploy Explorer locally by RPM, and tar package.
 
 Before you deploy Explorer, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -68,7 +68,7 @@ If the automatic start fails during the installation process or you want to manu
 
 Before you deploy Explorer, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -130,8 +130,8 @@ $ npm run stop # stop nebula-graph-explorer
 
 When Explorer is started, use `http://ip address:7002` to get access to Explorer.
 
-Seeing the following login interface, Explorer is successfully connected to Nebula Graph.
+Seeing the following login interface, Explorer is successfully connected to NebulaGraph.
 
 ![Nebula Explorer](../figs/ex-ug-001-1.png)
 
-After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).
+After entering the Explorer login interface, you need to connect to NebulaGraph. For more information, refer to [Connecting to the NebulaGraph](../deploy-connect/ex-ug-connect.md).
