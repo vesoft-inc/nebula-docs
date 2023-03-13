@@ -75,7 +75,8 @@ Such as `student.name:string`, `follow.degree:double`.
 ## Sample configuration
 
 ```yaml
-version: v2
+# Connected to the NebulaGraph version, set to v3 when connected to 3.x.
+version: v3
 
 description: example
 

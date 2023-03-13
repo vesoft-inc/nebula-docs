@@ -304,7 +304,7 @@ Before installing Studio, you need to install the following software and ensure 
   |-----------|-------------|---------|
   | replicaCount  | 0 | The number of replicas for Deployment.   |
   | image.nebulaStudio.name  |  vesoft/nebula-graph-studio  | The image name of   nebula-graph-studio. |
-  | image.nebulaStudio.version  | {{studio.tag}} |  The image version of nebula-graph-studio.  |
+  | image.nebulaStudio.version  | v3.2.0 |  The image version of nebula-graph-studio.  |
   | service.type  | ClusterIP |  The service type, which should be one of `NodePort`, `ClusterIP`,   and `LoadBalancer`. |
   | service.port  | 7001 |  The expose port for nebula-graph-studio's web.  |
   | service.nodePort | 32701 | The proxy port for accessing nebula-studio outside kubernetes   cluster. |

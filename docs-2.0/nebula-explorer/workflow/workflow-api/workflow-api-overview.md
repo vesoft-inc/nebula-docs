@@ -39,7 +39,7 @@ Token information verification is required when calling an API. Run the followin
 curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <account_base64_encode>" -d '{"address":"<nebula_address>","port":<nebula_port>}' http://<explorer_address>:<explorer_port>/api-open/v1/connect
 ```
 
-- `<account_base64_encode>`: The character string of the base64 encoded NebulaGraph account and password. Take the username `root` and password `123` as an example, the serialized string is `["root", "123"]`. After the encoding, the result is `WyJyb290IiwiMTIzIl0=`.
+- `<account_base64_encode>`: The Base64 encoded NebulaGraph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
 - `<nebula_address>`: The access address of the NebulaGraph.
 - `<nebula_port>`: The access port of the NebulaGraph.
 - `<explorer_address>`: The access address of the NebulaGraph Explorer.
@@ -48,7 +48,7 @@ curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <a
 Example: 
 
 ```bash
-curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer WyJyb290IiwiMTIzIl0=" -d '{"address":"192.168.8.111","port":9669}' http://192.168.8.145:7002/api-open/v1/connect
+curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer cm9vdDoxMjM=" -d '{"address":"192.168.8.111","port":9669}' http://192.168.8.145:7002/api-open/v1/connect
 ```
 
 Response:

@@ -27,7 +27,6 @@ The version correspondence between NebulaGraph Analytics and NebulaGraph is as f
 
 |NebulaGraph |NebulaGraph Analytics |
 |:---|:---|
-|3.4.0 ~ 3.4.1  | 3.4.0 |
 |3.3.0      | 3.3.0 |
 |3.1.0 ~ 3.2.x| 3.2.0 |
 |3.0.x      | 1.0.x |
@@ -63,7 +62,7 @@ NebulaGraph Analytics supports the following graph algorithms.
 
 ## Install NebulaGraph Analytics
 
-1. Install the NebulaGraph Analytics. When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.
+1. Install the NebulaGraph Analytics.
 
   ```
   sudo rpm -ivh <analytics_package_name> --prefix <install_path>

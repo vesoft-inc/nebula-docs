@@ -12,28 +12,6 @@ NebulaGraph Spark Connector is a Spark connector application for reading and wri
 
 For more information, see [NebulaGraph Spark Connector](https://github.com/vesoft-inc/nebula-spark-connector/blob/{{sparkconnector.branch}}/README_CN.md).
 
-## Version compatibility
-
-The correspondence between the NebulaGraph Spark Connector version, the NebulaGraph core version and the Spark version is as follows.
-
-| Spark Connector version | NebulaGraph version | Spark version |
-|:----------|:-----------|:-------|
-|nebula-spark-connector_3.0-3.0-SNAPSHOT.jar|	nightly|	3.x|
-|nebula-spark-connector_2.2-3.0-SNAPSHOT.jar|	nightly|	2.2.x|
-|nebula-spark-connector-3.0-SNAPSHOT.jar|	nightly|	2.4.x|
-|nebula-spark-connector_2.2-3.4.0.jar|	3.x|	2.2.x|
-|nebula-spark-connector-3.4.0.jar|	3.x|	2.4.x|
-|nebula-spark-connector_2.2-3.3.0.jar|	3.x|	2.2.x|
-|nebula-spark-connector-3.3.0.jar|	3.x|	2.4.x|
-|nebula-spark-connector-3.0.0.jar|	3.x|	2.4.x|
-|nebula-spark-connector-2.6.1.jar|	2.6.0, 2.6.1|	2.4.x|
-|nebula-spark-connector-2.6.0.jar|	2.6.0, 2.6.1|	2.4.x|
-|nebula-spark-connector-2.5.1.jar|	2.5.0, 2.5.1|	2.4.x|
-|nebula-spark-connector-2.5.0.jar|	2.5.0, 2.5.1|	2.4.x|
-|nebula-spark-connector-2.1.0.jar|	2.0.0, 2.0.1|	2.4.x|
-|nebula-spark-connector-2.0.1.jar|	2.0.0, 2.0.1|	2.4.x|
-|nebula-spark-connector-2.0.0.jar|	2.0.0, 2.0.1|	2.4.x|
-
 ## Use cases
 
 NebulaGraph Spark Connector applies to the following scenarios:

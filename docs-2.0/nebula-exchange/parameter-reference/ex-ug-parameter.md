@@ -115,7 +115,7 @@ For different data sources, the vertex configurations are different. There are m
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of vertex data files in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
-|`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,). For special characters, such as the control character `^A`, you can use ASCII octal `\001` or UNICODE encoded hexadecimal `\u0001`, for the control character `^B`, use ASCII octal `\002` or UNICODE encoded hexadecimal `\u0002`, for the control character `^C`, use ASCII octal `\003` or UNICODE encoded hexadecimal `\u0003`.|
+|`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,).|
 |`tags.header`|bool|`true`|Yes|Whether the file has a header.|
 
 ### Specific parameters of Hive data sources

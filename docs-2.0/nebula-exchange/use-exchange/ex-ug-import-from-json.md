@@ -155,8 +155,6 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If there are multiple addresses, the format is "ip1:port","ip2:port","ip3:port".
       # Addresses are separated by commas.
       graph:["127.0.0.1:9669"]
-      # the address of any of the meta services.
-      # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
       meta:["127.0.0.1:9559"]
     }
 
@@ -390,7 +388,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
 
 ```ngql
-LOOKUP ON player YIELD id(vertex);
+GO FROM "player100" OVER follow;
 ```
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
