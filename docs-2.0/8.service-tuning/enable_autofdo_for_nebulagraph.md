@@ -47,36 +47,36 @@ In our test environment, we use [NebulaGraph Bench](https://github.com/nebula-co
 
 ### Collect Perf Data For AutoFdo Tool
 
-After the test data preparation work done. Collect the perf data for different scenarios.
+1. After the test data preparation work done. Collect the perf data for different scenarios.
 Get the pid of `storaged`, `graphd`, `metad`.
 
-```bash
-$ nebula.service status all
-[INFO] nebula-metad: Running as 305422, Listening on 9559
-[INFO] nebula-graphd: Running as 305516, Listening on 9669
-[INFO] nebula-storaged: Running as 305707, Listening on 9779
-```
+  ```bash
+  $ nebula.service status all
+  [INFO] nebula-metad: Running as 305422, Listening on 9559
+  [INFO] nebula-graphd: Running as 305516, Listening on 9669
+  [INFO] nebula-storaged: Running as 305707, Listening on 9779
+  ```
 
-Start the ***perf record*** for *nebula-graphd* and *nebula-storaged*. 
+2. Start the ***perf record*** for *nebula-graphd* and *nebula-storaged*. 
 
-```bash
-perf record -p 305516,305707 -b -e br_inst_retired.near_taken:pp -o ~/FindShortestPath.data
-```
+  ```bash
+  perf record -p 305516,305707 -b -e br_inst_retired.near_taken:pp -o ~/FindShortestPath.data
+  ```
 
-!!! note
+  !!! note
 
-    Because the `nebula-metad` service contribution percent is small compared with `nebula-graphd` and `nebula-storaged` services. To reduce effort, we didn't collect the perf data for `nebula-metad` service.
+        Because the `nebula-metad` service contribution percent is small compared with `nebula-graphd` and `nebula-storaged` services. To reduce effort, we didn't collect the perf data for `nebula-metad` service.
 
-Start the benchmark test for ***FindShortestPath*** scenario.
+3. Start the benchmark test for ***FindShortestPath*** scenario.
 
-```bash
-cd NebulaGraph-Bench 
-python3 run.py stress run -s benchmark -scenario find_path.FindShortestPath -a localhost:9669 --args='-u 100 -i 100000'
-```
+  ```bash
+  cd NebulaGraph-Bench 
+  python3 run.py stress run -s benchmark -scenario find_path.FindShortestPath -a localhost:9669 --args='-u 100 -i 100000'
+  ```
 
-After the benchmark finished, end the ***perf record*** by ***Ctrl + c***.
+4. After the benchmark finished, end the ***perf record*** by ***Ctrl + c***.
 
-Repeat above steps to collect corresponding profile data for the rest  ***Go1Step***, ***Go2Step***, ***Go3Step*** and ***InsertPersonScenario*** scenarios.
+5. Repeat above steps to collect corresponding profile data for the rest  ***Go1Step***, ***Go2Step***, ***Go3Step*** and ***InsertPersonScenario*** scenarios.
 
 ### Create Gcov File
 
@@ -124,14 +124,16 @@ diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralComp
 +add_compile_options(-fauto-profile=~/fbdata.afdo)
 ```
 
-***Note:*** When you use multiple fbdata.afdo to compile multiple times, please remember to `make clean` before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.
+!!! note
+
+    When you use multiple fbdata.afdo to compile multiple times, please remember to `make clean` before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.
 
 ## Performance Test Result
 
 ### Hardware & Software Environment
 
 |Key|Value|
-|:---|---:|
+|:---|:---|
 |CPU Processor#|2|
 |Sockets|2|
 |NUMA|2|

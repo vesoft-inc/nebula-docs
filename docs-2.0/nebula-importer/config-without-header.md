@@ -34,8 +34,7 @@ The following is an example of a CSV file without header:
 ## Sample configuration
 
 ```yaml
-# Connected to the NebulaGraph version, set to v3 when connected to 3.x.
-version: v3
+version: v2
 
 description: example
 
