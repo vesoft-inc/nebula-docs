@@ -2,13 +2,13 @@
 
 This topic describes how to deploy Explorer locally by RPM and tar packages.
 
-## Nebula Graph version
+## NebulaGraph version
 
 !!! Note
 
-    Explorer is released separately, not synchronized with Nebula Graph. And the version naming of Explorer is different from that of Nebula Graph. The version correspondence between Nebula Graph and Explorer is as follows.
+    Explorer is released separately, not synchronized with NebulaGraph. And the version naming of Explorer is different from that of NebulaGraph. The version correspondence between NebulaGraph and Explorer is as follows.
 
-| Nebula Graph version | Explorer version |
+| NebulaGraph version | Explorer version |
 | --- | --- |
 | 2.5.x ~ 3.0.1| 2.2.0|
 | 2.6.x | 2.1.0 |
@@ -20,7 +20,7 @@ This topic describes how to deploy Explorer locally by RPM and tar packages.
 
 Before you deploy Explorer, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../4.deployment-and-installation/1.resource-preparations.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../4.deployment-and-installation/1.resource-preparations.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -111,7 +111,7 @@ $ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
 Before deploying Explorer, you must check the following information:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
 
@@ -175,7 +175,7 @@ $ kill $(lsof -t -i :7002)
 
 When Explorer is started, use `http://<ip_address>:7002` to get access to Explorer.
 
-The following login page shows that Explorer is successfully connected to Nebula Graph.
+The following login page shows that Explorer is successfully connected to NebulaGraph.
 
 ![Nebula Explorer Login page](../figs/explorer_deploy.png)
 
@@ -183,4 +183,4 @@ The following login page shows that Explorer is successfully connected to Nebula
 
     When logging into Nebula Explorer for the first time, the content of *END USER LICENSE AGREEMENT* is displayed on the login page. Please read it and then click **I agree**.
 
-After entering the Explorer login interface, you need to connect to Nebula Graph. For more information, refer to [Connecting to the Nebula Graph](../deploy-connect/ex-ug-connect.md).
+After entering the Explorer login interface, you need to connect to NebulaGraph. For more information, refer to [Connecting to the NebulaGraph](../deploy-connect/ex-ug-connect.md).

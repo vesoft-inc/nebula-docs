@@ -2,13 +2,13 @@
 
 This topic introduces the limitations of Studio.
 
-## Nebula Graph versions
+## NebulaGraph versions
 
 !!! Note
 
-    The Studio version is released independently of the Nebula Graph core. The correspondence between the versions of Studio and the Nebula Graph core, as shown in the table below.
+    The Studio version is released independently of the NebulaGraph core. The correspondence between the versions of Studio and the NebulaGraph core, as shown in the table below.
 
-| Nebula Graph version | Studio version |
+| NebulaGraph version | Studio version |
 | --- | --- |
 | 1.x | 1.x|
 | 2.0 & 2.0.1 | 2.x |
@@ -23,11 +23,11 @@ For now, Studio v3.x supports x86_64 architecture only.
 ## Upload data
 
 <!--
-During the public beta of Nebula Graph Cloud Service, Studio on Cloud has these limitations:
+During the public beta of NebulaGraph Cloud Service, Studio on Cloud has these limitations:
 
 - Only CSV files without headers are supported, and only commas are separators separator.
 - Each file of a maximum of 100 MB is supported.
-- A total amount of a maximum of 1 GB is supported for each Nebula graph instance.
+- A total amount of a maximum of 1 GB is supported for each NebulaGraph instance.
 - Each file is stored for only one calendar day.
 
 -->

@@ -1,34 +1,34 @@
-# Connect to Nebula Graph
+# Connect to NebulaGraph
 
-After successfully launching Explorer, you need to configure to connect to Nebula Graph. This topic describes how Explorer connects to the Nebula Graph database.
+After successfully launching Explorer, you need to configure to connect to NebulaGraph. This topic describes how Explorer connects to the NebulaGraph database.
 
 ## Prerequisites
 
-Before connecting to the Nebula Graph database, you need to confirm the following information:
+Before connecting to the NebulaGraph database, you need to confirm the following information:
 
-- The Nebula Graph services and Explorer are started. For more information, see [Deploy Explorer](../deploy-connect/ex-ug-connect.md).
+- The NebulaGraph services and Explorer are started. For more information, see [Deploy Explorer](../deploy-connect/ex-ug-connect.md).
 
-- You have the local IP address and the port used by the Graph service of Nebula Graph. The default port is `9669`.
+- You have the local IP address and the port used by the Graph service of NebulaGraph. The default port is `9669`.
 
-- You have a Nebula Graph account and its password.
+- You have a NebulaGraph account and its password.
 
   !!! note
         
-        If authentication is enabled in Nebula Graph and different role-based accounts are created, you must use the assigned account to connect to Nebula Graph. If authentication is disabled, you can use the `root` and any password to connect to Nebula Graph. For more information, see [Nebula Graph Database Manual](https://docs.nebula-graph.io/).
+        If authentication is enabled in NebulaGraph and different role-based accounts are created, you must use the assigned account to connect to NebulaGraph. If authentication is disabled, you can use the `root` and any password to connect to NebulaGraph. For more information, see [NebulaGraph Database Manual](https://docs.nebula-graph.io/).
 
 ## Procedure
 
-To connect Explorer to Nebula Graph, follow these steps:
+To connect Explorer to NebulaGraph, follow these steps:
 
 1. On the **Config Server** page of Explorer, configure these fields:
 
-   - **Host**: Enter the IP address and the port of the Graph service of Nebula Graph. The valid format is `IP:port`. The default port is `9669`.  
+   - **Host**: Enter the IP address and the port of the Graph service of NebulaGraph. The valid format is `IP:port`. The default port is `9669`.  
 
     !!! note
 
-        When Nebula Graph and Explorer are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
+        When NebulaGraph and Explorer are deployed on the same machine, you must enter the IP address of the machine, but not `127.0.0.1` or `localhost`, in the **Host** field.
 
-  - **Username** and **Password**: Fill in the log in account according to the authentication settings of Nebula Graph.
+  - **Username** and **Password**: Fill in the log in account according to the authentication settings of NebulaGraph.
 
     - If authentication is not enabled, you can use `root` and any password as the username and its password.
 
@@ -40,10 +40,10 @@ To connect Explorer to Nebula Graph, follow these steps:
 
   !!! note
 
-        One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
+        One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
 # Clear connection
 
-When Explorer is still connected to a Nebula Graph database, in the navigation bar on the left side of the page, select **Settings** ![icon](../figs/nav-setup.png) > **Clear Connect**.
+When Explorer is still connected to a NebulaGraph database, in the navigation bar on the left side of the page, select **Settings** ![icon](../figs/nav-setup.png) > **Clear Connect**.
 
 
-After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the Nebula Graph.
+After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the NebulaGraph.
