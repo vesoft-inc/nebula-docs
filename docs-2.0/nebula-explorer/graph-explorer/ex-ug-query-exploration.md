@@ -8,7 +8,7 @@ Select a target graph space before querying data. For more information, see [Cho
 
 !!! compatibility "Legacy version compatibility"
 
-    For versions of Nebula Graph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
+    For versions of NebulaGraph below 3.0.0, you need to create an index before querying data. For more information, see [Create an index](../../3.ngql-guide/14.native-index-statements/1.create-native-index.md).
 
 ## Steps
 

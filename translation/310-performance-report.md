@@ -1,10 +1,10 @@
-# Nebula Graph v3.1.0 Performance Report
+# NebulaGraph v3.1.0 Performance Report
 
-This is a performance report for Nebula Graph [v3.1.0](https://github.com/vesoft-inc/nebula/tree/release-3.1).
+This is a performance report for NebulaGraph [v3.1.0](https://github.com/vesoft-inc/nebula/tree/release-3.1).
 
 ## Test result
 
-The query and data import performance of Nebula Graph v3.1.0 is almost the same as that of v3.0.0. Some new test cases have been added to this test for `MATCH` statements that have been optimized for property reading, and the property reading performance is significantly improved compared to v3.0.0.
+The query and data import performance of NebulaGraph v3.1.0 is almost the same as that of v3.0.0. Some new test cases have been added to this test for `MATCH` statements that have been optimized for property reading, and the property reading performance is significantly improved compared to v3.0.0.
 
 ## Test environment
 
@@ -35,7 +35,7 @@ The Linked Data Benchmark Council (LDBC) is a project that aims to develop bench
 
 2. The `vu` in `50_vu` and `100_vu` on the horizontal axis indicates `virtual user`, i.e. the number of concurrent users in the performance test. `50_vu` indicates 50 concurrent users, `100_vu` indicates 100 concurrent users, and so on.
 
-3. Nebula Graph v3.0.0 is used as the performance baseline.
+3. NebulaGraph v3.0.0 is used as the performance baseline.
 
 4. ResponseTime = server-side processing time + network delay time + client-side deserializing time.
 
@@ -87,4 +87,4 @@ MATCH (m)-[:KNOWS]-(n) WHERE id(m)=={} OPTIONAL MATCH (n)<-[:KNOWS]-(l) RETURN l
 
 MATCH (m)-[:KNOWS]-(n) WHERE id(m)=={} MATCH (n)-[:KNOWS]-(l) WITH m AS x, n AS y, l RETURN x.Person.firstName AS n1, y.Person.firstName AS n2, CASE WHEN l.Person.firstName is not null THEN l.Person.firstName WHEN l.Person.gender is not null THEN l.Person.birthday ELSE 'null' END AS n3 ORDER BY n1, n2, n3 LIMIT 10
 
-You are welcome to check out GitHub for [Nebula Graph v3.1.0](https://github.com/vesoft-inc/nebula/releases/tag/v3.1.0). 
+You are welcome to check out GitHub for [NebulaGraph v3.1.0](https://github.com/vesoft-inc/nebula/releases/tag/v3.1.0). 

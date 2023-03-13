@@ -6,7 +6,7 @@ Graphs are one of the main areas of research in computer science. Graphs can eff
 
 ## What are graphs?
 
-Graphs are everywhere. When hearing the word graph, many people think of bar charts or line charts, because sometimes we call them graphs, which show the connections between two or more data systems. The simplest example is the following picture, which shows the number of Nebula Graph GitHub repository stars over time.
+Graphs are everywhere. When hearing the word graph, many people think of bar charts or line charts, because sometimes we call them graphs, which show the connections between two or more data systems. The simplest example is the following picture, which shows the number of NebulaGraph GitHub repository stars over time.
 
 ![image](https://user-images.githubusercontent.com/42762957/91426247-d3861000-e88e-11ea-8e17-e3d7d7069bd1.png "This is not the graph talked about in this book")
 

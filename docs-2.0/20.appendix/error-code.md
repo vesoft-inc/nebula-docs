@@ -1,6 +1,6 @@
 # Error code
 
-Nebula Graph returns an error code when an error occurs. This topic describes the details of the error code returned.  
+NebulaGraph returns an error code when an error occurs. This topic describes the details of the error code returned.  
 
 
 !!! note
