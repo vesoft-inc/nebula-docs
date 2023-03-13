@@ -1,6 +1,6 @@
 # Options for import
 
-After editing the configuration file, run the following commands to import specified source data into the Nebula Graph database.
+After editing the configuration file, run the following commands to import specified source data into the NebulaGraph database.
 
 - First import
 

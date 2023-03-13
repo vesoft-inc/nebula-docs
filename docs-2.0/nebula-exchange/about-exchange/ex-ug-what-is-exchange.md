@@ -1,26 +1,26 @@
 # What is Nebula Exchange
 
-[Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/tree/{{exchange.branch}}/nebula-exchange) (Exchange) is an Apache Spark&trade; application for bulk migration of cluster data to Nebula Graph in a distributed environment, supporting batch and streaming data migration in a variety of formats.
+[Nebula Exchange](https://github.com/vesoft-inc/nebula-spark-utils/tree/{{exchange.branch}}/nebula-exchange) (Exchange) is an Apache Spark&trade; application for bulk migration of cluster data to NebulaGraph in a distributed environment, supporting batch and streaming data migration in a variety of formats.
 
-Exchange consists of Reader, Processor, and Writer. After Reader reads data from different sources and returns a DataFrame, the Processor iterates through each row of the DataFrame and obtains the corresponding value based on the mapping between `fields` in the configuration file. After iterating through the number of rows in the specified batch, Writer writes the captured data to the Nebula Graph at once. The following figure illustrates the process by which Exchange completes the data conversion and migration.
+Exchange consists of Reader, Processor, and Writer. After Reader reads data from different sources and returns a DataFrame, the Processor iterates through each row of the DataFrame and obtains the corresponding value based on the mapping between `fields` in the configuration file. After iterating through the number of rows in the specified batch, Writer writes the captured data to the NebulaGraph at once. The following figure illustrates the process by which Exchange completes the data conversion and migration.
 
-![Nebula Graph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to Nebula Graph](../figs/ex-ug-003.png)
+![NebulaGraph&reg; Exchange consists of Reader, Processor, and Writer that can migrate data from a variety of formats and sources to NebulaGraph](../figs/ex-ug-003.png)
 
 ## Scenario
 
 Exchange is applicable to the following scenarios:
 
-- Need to streaming data from Kafka, Pulsar platform, such as log files, online data, game players activities, social networking information and financial transactions within the hall or geospatial services, as well as from within the data center of the connected device or instrument into properties such as telemetry data diagram of data vertex or edge, and import the Nebula Graph database.
+- Need to streaming data from Kafka, Pulsar platform, such as log files, online data, game players activities, social networking information and financial transactions within the hall or geospatial services, as well as from within the data center of the connected device or instrument into properties such as telemetry data diagram of data vertex or edge, and import the NebulaGraph database.
 
-- Batch data, such as data from a time period, needs to be read from a relational database (such as MySQL) or a distributed file system (such as HDFS), converted into vertex or edge data for a property Graph, and imported into the Nebula Graph database.
+- Batch data, such as data from a time period, needs to be read from a relational database (such as MySQL) or a distributed file system (such as HDFS), converted into vertex or edge data for a property Graph, and imported into the NebulaGraph database.
 
-- A large volume of data needs to be generated into SST files that Nebula Graph can recognize and then imported into the Nebula Graph database.
+- A large volume of data needs to be generated into SST files that NebulaGraph can recognize and then imported into the NebulaGraph database.
 
 ## Advantage
 
 Exchange has the following advantages:
 
-- Adaptable: Support for importing data into the Nebula Graph database in a variety of formats or from a variety of sources, making it easy to migrate data.
+- Adaptable: Support for importing data into the NebulaGraph database in a variety of formats or from a variety of sources, making it easy to migrate data.
 
 - SST import: Converts data from different sources into SST files for data import.
 
@@ -40,7 +40,7 @@ Exchange has the following advantages:
 
 ## Data source
 
-Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that Nebula Graph can recognize, and then importing them into Nebula Graph in the form of **nGQL** statements:
+Exchange {{exchange.release}} supports converting data from the following formats or sources into vertexes and edges that NebulaGraph can recognize, and then importing them into NebulaGraph in the form of **nGQL** statements:
 
 - Data stored in HDFS or locally:
   - [Apache Parquet](../use-exchange/ex-ug-import-from-parquet.md)

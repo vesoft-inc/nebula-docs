@@ -1,8 +1,8 @@
 <!--
-# Nebula Graph Studio User Guide
+# NebulaGraph Studio User Guide
 
-- About Nebula Graph Studio
-  - [What is Nebula Graph Studio](about-studio/st-ug-what-is-graph-studio.md)
+- About NebulaGraph Studio
+  - [What is NebulaGraph Studio](about-studio/st-ug-what-is-graph-studio.md)
   [Glossary] [DOC_TO_DO]
   - [Limitations](about-studio/st-ug-limitations.md)
   - [Check updates](about-studio/st-ug-check-updates.md)
@@ -10,7 +10,7 @@
 
 - Deploy and connect
   - [Deploy Studio](install-configure/st-ug-deploy.md)
-  - [Connect to Nebula Graph](install-configure/st-ug-connect.md)
+  - [Connect to NebulaGraph](install-configure/st-ug-connect.md)
   [Clear connection] [DOC_TO_DO]
 
   - [Design a schema](quick-start/st-ug-plan-schema.md)

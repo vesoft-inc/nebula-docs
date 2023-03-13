@@ -6,7 +6,7 @@ In graph theory, a super vertex, also known as a dense vertex, is a vertex with 
 
 Super vertices are very common because of the power-law distribution. For example, popular leaders in social networks (Internet celebrities), hot stocks in the stock market, four major banks in the banking system, hubs in transportation networks, high-traffic websites on the Internet, and on-fire products in E-commerce networks.
 
-In Nebula Graph, a vertex and its properties form a key-value pair, with the ID of the vertex and other meta information as the key. Its outgoing edges are stored with it in [the same partition](../1.introduction/3.nebula-graph-architecture/4.storage-service.md) in the form of different key-value pairs, and they are stored in LSM-trees in hard disks and caches.
+In NebulaGraph, a vertex and its properties form a key-value pair, with the ID of the vertex and other meta information as the key. Its outgoing edges are stored with it in [the same partition](../1.introduction/3.nebula-graph-architecture/4.storage-service.md) in the form of different key-value pairs, and they are stored in LSM-trees in hard disks and caches.
 
 Therefore, directed traversals from this vertex and directed traversals ending at this vertex both involve either a large number of sequential IO scans (ideally, after compaction) or a large number of random IO (frequent writes to the vertex and its ingoing and outgoing edges).
 
@@ -16,9 +16,9 @@ As a rule of thumb, a vertex is considered dense when the number of its edges ex
 
 In a property graph, there is another class of cases similar to super vertices: a property has a very high duplication rate, i.e., many vertices with the same Tag but different VIDs have identical property and property values.
 
-Property indexes in Nebula Graph are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as keys with the same prefix. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.
+Property indexes in NebulaGraph are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as keys with the same prefix. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.
 
-For more information about property indexes, see [How indexing works in Nebula Graph](https://nebula-graph.io/posts/how-indexing-works-in-nebula-graph/).
+For more information about property indexes, see [How indexing works in NebulaGraph](https://nebula-graph.io/posts/how-indexing-works-in-nebula-graph/).
 
 Usually, special design and processing are required when the number of duplicate property values exceeds 10,000.
 

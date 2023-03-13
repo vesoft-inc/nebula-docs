@@ -190,7 +190,7 @@ The strings should be surrounded by double quotes.
     When single or double quotes need to be nested in a string, use a backslash (\) to escape. For example:
 
     ```ngql
-    RETURN "\"Nebula Graph is amazing,\" the user says.";
+    RETURN "\"NebulaGraph is amazing,\" the user says.";
     ```
 
 <!--## 空格 TODO-->

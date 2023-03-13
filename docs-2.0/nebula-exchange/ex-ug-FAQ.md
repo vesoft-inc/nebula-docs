@@ -49,7 +49,7 @@ Check whether the `-h` parameter is omitted in the command for submitting the Ex
 
 ### Run error: `com.facebook.thrift.protocol.TProtocolException: Expected protocol id xxx`
 
-Check that the Nebula Graph service port is configured correctly.
+Check that the NebulaGraph service port is configured correctly.
 
 - For source, RPM, or DEB installations, configure the port number corresponding to `--port` in the configuration file for each service.
 
@@ -82,11 +82,11 @@ Check that the Nebula Graph service port is configured correctly.
 
 ### Which configuration items affect import performance?
 
-- batch: The number of pieces of data contained in each nGQL statement sent to the Nebula Graph service.
+- batch: The number of pieces of data contained in each nGQL statement sent to the NebulaGraph service.
 
 - partition: Number of Spark data partitions, indicating the number of concurrent data import.
 
-- nebula.rate: Go to the token bucket to get a token before sending a request to Nebula Graph.
+- nebula.rate: Go to the token bucket to get a token before sending a request to NebulaGraph.
 
     - limit: Represents the size of the token bucket.
 
@@ -96,14 +96,14 @@ The values of these four parameters can be adjusted appropriately according to t
 
 ## Others
 
-### Which versions of Nebula Graph are supported by Exchange?
+### Which versions of NebulaGraph are supported by Exchange?
 
 See [Limitations](about-exchange/ex-ug-limitations.md).
 
 ### What is the relationship between Exchange and Spark Writer?
 
-Exchange is the Spark application developed on the basis of Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
+Exchange is the Spark application developed on the basis of Spark Writer. Both are suitable for bulk migration of cluster data to NebulaGraph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
 
 - Supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
 
-- Fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema, so Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String, Exchange converts the source data of String type to the corresponding type.
+- Fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the NebulaGraph's Schema, so Exchange adds automatic data type matching and type conversion. When the data type in the NebulaGraph's Schema is non-String, Exchange converts the source data of String type to the corresponding type.

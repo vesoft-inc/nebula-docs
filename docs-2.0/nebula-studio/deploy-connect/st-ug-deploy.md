@@ -1,6 +1,6 @@
 # Deploy Studio
 <!--
-Studio on Cloud can be used on Nebula Graph Cloud Service. When you create a Nebula Graph instance on Nebula Graph Cloud Service, Studio on Cloud is deployed automatically. For more information, see [Nebula Graph Cloud Service User Guide](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/). For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.
+Studio on Cloud can be used on NebulaGraph Cloud Service. When you create a NebulaGraph instance on NebulaGraph Cloud Service, Studio on Cloud is deployed automatically. For more information, see [NebulaGraph Cloud Service User Guide](https://cloud-docs.nebula-graph.com.cn/en/posts/manage-instances/dbaas-ug-connect-nebulastudio/). For Docker-based and PRM-based Studio, you must deploy it. This article introduces how to deploy Docker-based and RPM-based Studio.
 -->
 
 This topic describes how to deploy Studio locally by Docker, RPM, and tar package.
@@ -14,7 +14,7 @@ This topic describes how to deploy Studio locally by Docker, RPM, and tar packag
 
 Before you deploy Studio, you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - On the machine where Studio will run, Docker Compose is installed and started. For more information, see [Docker Compose Documentation](https://docs.docker.com/compose/install/ "Click to go to Docker Documentation").
 
@@ -29,11 +29,11 @@ Before you deploy Studio, you must do a check of these:
 
 ### Procedure
 
-To deploy and start Docker-based Studio, run the following commands. Here we use Nebula Graph v{{nebula.release}} for demonstration:
+To deploy and start Docker-based Studio, run the following commands. Here we use NebulaGraph v{{nebula.release}} for demonstration:
 
 1. Download the configuration files for the deployment.
    
-   | Installation package | Nebula Graph version |
+   | Installation package | NebulaGraph version |
    | ----- | ----- |
    | [nebula-graph-studio-v3.tar.gz](https://oss-cdn.nebula-graph.io/nebula-graph-studio/nebula-graph-studio-v3.tar.gz) | v{{nebula.release}} |
 
@@ -85,7 +85,7 @@ To deploy and start Docker-based Studio, run the following commands. Here we use
 
 Before you deploy Docker-based Studio, you must confirm that:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - If your Linux distribution is CentOS, install `lsof` and [Node.js](https://nodejs.org/en/) of versions above v10.16.0+.
   
@@ -195,7 +195,7 @@ If the port is occupied and the process on that port cannot be terminated, you c
 
 Before you deploy Docker-based Studio , you must do a check of these:
 
-- The Nebula Graph services are deployed and started. For more information, see [Nebula Graph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
+- The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - The Linux distribution is CentOS, installed `lsof` and [Node.js](https://nodejs.org/en/) of version above v10.16.0+.
   
@@ -280,4 +280,4 @@ $ npm run stop # stop nebula-graph-studio
 
 ## Next to do
 
-On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).
+On the **Config Server** page, connect Docker-based Studio to NebulaGraph. For more information, see [Connect to NebulaGraph](st-ug-connect.md).
