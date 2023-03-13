@@ -12,7 +12,7 @@ The `LIMIT` clause constrains the number of rows in the output. The usage of `LI
 
 !!! compatibility "Legacy version compatibility"
 
-    In Nebula Graph 2.6.0, `GO` statements support the new `LIMIT` syntax. Some operators related to `LIMIT` support computing pushdown.
+    In NebulaGraph 2.6.0, `GO` statements support the new `LIMIT` syntax. Some operators related to `LIMIT` support computing pushdown.
 
 ## LIMIT in native nGQL statements
 
@@ -195,5 +195,5 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 <!--
 ## Performance tip
 
-Nebula Graph {{ nebula.release }} does not implement the pushdown optimization of the storage layer of the `LIMIT` statement. Statements similar to `MATCH (n:T) RETURN n LIMIT 10` or `LOOKUP on i_T | LIMIT 10` will generate excessive resource occupancies in the graphd process. A graphd process will retrieve all T-type vertices from all storaged processes and then return 10 vertices. If the total amount of data is large, the graphd process will consume a lot of memory at this time and even cause OOM.
+NebulaGraph {{ nebula.release }} does not implement the pushdown optimization of the storage layer of the `LIMIT` statement. Statements similar to `MATCH (n:T) RETURN n LIMIT 10` or `LOOKUP on i_T | LIMIT 10` will generate excessive resource occupancies in the graphd process. A graphd process will retrieve all T-type vertices from all storaged processes and then return 10 vertices. If the total amount of data is large, the graphd process will consume a lot of memory at this time and even cause OOM.
 -->

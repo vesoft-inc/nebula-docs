@@ -6,7 +6,7 @@ This topic introduces how to get the JAR file of Nebula Exchange.
 
 The JAR file of Exchange Community Edition can be [downloaded](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) directly.
 
-To download Exchange Enterprise Edition, [get Nebula Graph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/) first.
+To download Exchange Enterprise Edition, [get NebulaGraph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/) first.
 
 ## Get the JAR file by compiling the source code
 
@@ -14,7 +14,7 @@ You can get the JAR file of Exchange Community Edition by compiling the source c
 
 !!! enterpriseonly
 
-    You can get Exchange Enterprise Edition in Nebula Graph Enterprise Edition Package only.
+    You can get Exchange Enterprise Edition in NebulaGraph Enterprise Edition Package only.
 
 ### Prerequisites
 

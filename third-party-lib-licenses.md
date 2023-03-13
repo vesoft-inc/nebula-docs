@@ -1,6 +1,6 @@
 # Other Licenses
 
-A list of the licenses of the libraries that are used for building Nebula Graph.
+A list of the licenses of the libraries that are used for building NebulaGraph.
 
 ## libreadline
 

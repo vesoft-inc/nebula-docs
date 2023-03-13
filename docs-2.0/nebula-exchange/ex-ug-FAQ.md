@@ -49,7 +49,7 @@ Check whether the `-h` parameter is omitted in the command for submitting the Ex
 
 ### Run error: `com.facebook.thrift.protocol.TProtocolException: Expected protocol id xxx`
 
-Check that the Nebula Graph service port is configured correctly.
+Check that the NebulaGraph service port is configured correctly.
 
 - For source, RPM, or DEB installations, configure the port number corresponding to `--port` in the configuration file for each service.
 
@@ -80,9 +80,9 @@ Check that the Nebula Graph service port is configured correctly.
 
 ### Error: `Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4`
 
-Check whether the version of Exchange is the same as that of Nebula Graph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
+Check whether the version of Exchange is the same as that of NebulaGraph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
 
-### How to correct the messy code when importing Hive data into Nebula Graph?
+### How to correct the messy code when importing Hive data into NebulaGraph?
 
 It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:
 
@@ -120,11 +120,11 @@ In YARN, use the following command:
 
 ### Which configuration fields will affect import performance?
 
-- batch: The number of data contained in each nGQL statement sent to the Nebula Graph service.
+- batch: The number of data contained in each nGQL statement sent to the NebulaGraph service.
 
 - partition: The number of Spark data partitions, indicating the number of concurrent data imports.
 
-- nebula.rate: Get a token from the token bucket before sending a request to Nebula Graph.
+- nebula.rate: Get a token from the token bucket before sending a request to NebulaGraph.
 
     - limit: Represents the size of the token bucket.
 
@@ -134,14 +134,14 @@ The values of these four parameters can be adjusted appropriately according to t
 
 ## Others
 
-### Which versions of Nebula Graph are supported by Exchange?
+### Which versions of NebulaGraph are supported by Exchange?
 
 See [Limitations](about-exchange/ex-ug-limitations.md).
 
 ### What is the relationship between Exchange and Spark Writer?
 
-Exchange is the Spark application developed based on Spark Writer. Both are suitable for bulk migration of cluster data to Nebula Graph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
+Exchange is the Spark application developed based on Spark Writer. Both are suitable for bulk migration of cluster data to NebulaGraph in a distributed environment, but later maintenance work will be focused on Exchange. Compared with Spark Writer, Exchange has the following improvements:
 
 - It supports more abundant data sources, such as MySQL, Neo4j, Hive, HBase, Kafka, Pulsar, etc.
 
-- It fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the Nebula Graph's Schema. So Exchange adds automatic data type matching and type conversion. When the data type in the Nebula Graph's Schema is non-String (e.g. double), Exchange converts the source data of String type to the corresponding type.
+- It fixed some problems of Spark Writer. For example, when Spark reads data from HDFS, the default source data is String, which may be different from the NebulaGraph's Schema. So Exchange adds automatic data type matching and type conversion. When the data type in the NebulaGraph's Schema is non-String (e.g. double), Exchange converts the source data of String type to the corresponding type.
