@@ -46,7 +46,7 @@ Before installing Studio, you need to install the following software and ensure 
 
 ## Next to do
 
-On the **Config Server** page, connect Docker-based Studio to Nebula Graph. For more information, see [Connect to Nebula Graph](st-ug-connect.md).
+On the **Config Server** page, connect Docker-based Studio to NebulaGraph. For more information, see [Connect to NebulaGraph](st-ug-connect.md).
 
 ## Configuration
 

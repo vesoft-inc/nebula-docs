@@ -1,20 +1,20 @@
-# Connect to Nebula Graph
+# Connect to NebulaGraph
 
-After successfully launching Explorer, you need to configure to connect to Nebula Graph. This topic describes how Explorer connects to the Nebula Graph database.
+After successfully launching Explorer, you need to configure to connect to NebulaGraph. This topic describes how Explorer connects to the NebulaGraph database.
 
 ## Prerequisites
 
-Before connecting to the Nebula Graph database, you need to confirm the following information:
+Before connecting to the NebulaGraph database, you need to confirm the following information:
 
-- The Nebula Graph services and Explorer are started. For more information, see [Deploy Explorer](../deploy-connect/ex-ug-connect.md).
+- The NebulaGraph services and Explorer are started. For more information, see [Deploy Explorer](../deploy-connect/ex-ug-connect.md).
 
-- You have the local IP address and the port used by the Graph service of Nebula Graph. The default port is `9669`.
+- You have the local IP address and the port used by the Graph service of NebulaGraph. The default port is `9669`.
 
-- You have a Nebula Graph account and its password.
+- You have a NebulaGraph account and its password.
 
 ## Procedure
 
-To connect Explorer to Nebula Graph, follow these steps:
+To connect Explorer to NebulaGraph, follow these steps:
 
 1. On the **Config Server** page of Explorer, configure these fields:
 
@@ -38,10 +38,10 @@ To connect Explorer to Nebula Graph, follow these steps:
 
   !!! note
 
-        One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to Nebula Graph again.
+        One session continues for up to 30 minutes. If you do not operate Explorer within 30 minutes, the active session will time out and you must connect to NebulaGraph again.
 
 ## Clear connection
 
-When Explorer is still connected to a Nebula Graph database, on the upper right corner of the page, select ![icon](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup.png) > **Clear Connect**.
+When Explorer is still connected to a NebulaGraph database, on the upper right corner of the page, select ![icon](https://docs-cdn.nebula-graph.com.cn/figures/nav-setup.png) > **Clear Connect**.
 
-After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the Nebula Graph.
+After that, if the **configuration database** page is displayed on the browser, it means that Explorer has successfully disconnected from the NebulaGraph.

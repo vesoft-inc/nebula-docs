@@ -1,4 +1,4 @@
-# Upgrade Nebula Graph v3.x to v{{nebula.release}}
+# Upgrade NebulaGraph v3.x to v{{nebula.release}}
 
 To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM/DEB package of v{{nebula.release}} for the upgrade, or [compile it](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) and then reinstall.
 
@@ -7,7 +7,7 @@ To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM
 
 1. Download the [RPM/DEB package](https://github.com/vesoft-inc/nebula-graph/releases/tag/v{{nebula.release}}).
 
-2. Stop all Nebula Graph services. For details, see [Manage Nebula Graph Service](../../2.quick-start/5.start-stop-service.md). It is recommended to back up the configuration file before updating.
+2. Stop all NebulaGraph services. For details, see [Manage NebulaGraph Service](../../2.quick-start/5.start-stop-service.md). It is recommended to back up the configuration file before updating.
 
   !!! caution
 
@@ -33,13 +33,13 @@ To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM
       $ sudo dpkg -i <package_name>
       ```
 
-4. Start the required services on each server. For details, see [Manage Nebula Graph Service](../../2.quick-start/5.start-stop-service.md).
+4. Start the required services on each server. For details, see [Manage NebulaGraph Service](../../2.quick-start/5.start-stop-service.md).
 
 ## Upgrade steps by compiling the new source code
 
-1. Back up the old version of the configuration file. The configuration file is saved in the `etc` directory of the Nebula Graph installation path.
+1. Back up the old version of the configuration file. The configuration file is saved in the `etc` directory of the NebulaGraph installation path.
 
-2. Update the repository and compile the source code. For details, see [Install Nebula Graph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md).
+2. Update the repository and compile the source code. For details, see [Install NebulaGraph by compiling the source code](../2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md).
 
   !!! note
 
@@ -51,6 +51,6 @@ To upgrade NebulaGraph v3.x to v{{nebula.release}}, you only need to use the RPM
 
 2. Execute the command `docker-compose pull` in the directory `nebula-docker-compose` to update the images of all services.
 
-3. Execute the command `docker-compose down` to stop the Nebula Graph service.
+3. Execute the command `docker-compose down` to stop the NebulaGraph service.
 
-4. Execute the command `docker-compose up -d` to start the Nebula Graph service.
+4. Execute the command `docker-compose up -d` to start the NebulaGraph service.

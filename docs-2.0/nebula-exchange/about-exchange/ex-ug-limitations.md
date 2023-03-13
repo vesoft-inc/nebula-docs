@@ -37,7 +37,7 @@ To ensure the healthy operation of Exchange, ensure that the following software 
   | MaxCompute | N | Y | N |
   | Pulsar | N | Y | Untested |
   | Kafka | N | Y | Untested |
-  | Nebula Graph | N | Y | N |
+  | NebulaGraph | N | Y | N |
 
 Hadoop Distributed File System (HDFS) needs to be deployed in the following scenarios:
 

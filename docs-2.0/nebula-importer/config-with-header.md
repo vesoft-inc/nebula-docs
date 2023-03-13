@@ -75,7 +75,7 @@ Such as `student.name:string`, `follow.degree:double`.
 ## Sample configuration
 
 ```yaml
-# Connected to the Nebula Graph version, set to v3 when connected to 3.x.
+# Connected to the NebulaGraph version, set to v3 when connected to 3.x.
 version: v3
 
 description: example
@@ -88,13 +88,13 @@ clientSettings:
   # Retry times of nGQL statement execution failures.
   retry: 3
 
-  # Number of Nebula Graph client concurrency.
+  # Number of NebulaGraph client concurrency.
   concurrency: 10 
 
-  # Cache queue size per Nebula Graph client.
+  # Cache queue size per NebulaGraph client.
   channelBufferSize: 128
 
-  # Specifies the Nebula Graph space to import the data into.
+  # Specifies the NebulaGraph space to import the data into.
   space: student
 
   # Connection information.
@@ -104,7 +104,7 @@ clientSettings:
     address: 192.168.*.13:9669
 
   postStart:
-    # Configure some of the operations to perform after connecting to the Nebula Graph server, and before inserting data.
+    # Configure some of the operations to perform after connecting to the NebulaGraph server, and before inserting data.
     commands: |
       DROP SPACE IF EXISTS student;
       CREATE SPACE IF NOT EXISTS student(partition_num=5, replica_factor=1, vid_type=FIXED_STRING(20));
@@ -116,7 +116,7 @@ clientSettings:
     afterPeriod: 15s
   
   preStop:
-    # Configure some of the actions you performed before disconnecting from the Nebula Graph server.
+    # Configure some of the actions you performed before disconnecting from the NebulaGraph server.
     commands: |
 
 # Path of the error log file.

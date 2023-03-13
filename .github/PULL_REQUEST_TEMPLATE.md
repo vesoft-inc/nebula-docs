@@ -1,4 +1,4 @@
-<!--Thanks for your contribution to Nebula Graph documentation. See [CONTRIBUTING](https://github.com/vesoft-inc/nebula-docs/blob/master/CONTRIBUTING.md) before filing this pull request (PR).-->
+<!--Thanks for your contribution to NebulaGraph documentation. See [CONTRIBUTING](https://github.com/vesoft-inc/nebula-docs/blob/master/CONTRIBUTING.md) before filing this pull request (PR).-->
 
 ### What is changed, added or deleted? (Required)
 

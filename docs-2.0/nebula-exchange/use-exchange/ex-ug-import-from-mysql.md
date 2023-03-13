@@ -1,7 +1,7 @@
 # Import data from MySQL/PostgreSQL
 
-This topic provides an example of how to use Exchange to export MySQL data and import to Nebula Graph. It also applies to exporting
-data from PostgreSQL into Nebula Graph.
+This topic provides an example of how to use Exchange to export MySQL data and import to NebulaGraph. It also applies to exporting
+data from PostgreSQL into NebulaGraph.
 ## Data set
 
 This topic takes the [basketballplayer dataset](https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip) as an example.
@@ -60,33 +60,33 @@ This example is done on MacOS. Here is the environment configuration information
 
 - MySQL: 8.0.23
 
-- Nebula Graph: {{nebula.release}}. [Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
-  - The user name and password with write permission to Nebula Graph.
+  - The user name and password with write permission to NebulaGraph.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.
+- Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - The Hadoop service has been installed and started.
 
 ## Steps
 
-### Step 1: Create the Schema in Nebula Graph
+### Step 1: Create the Schema in NebulaGraph
 
-Analyze the data to create a Schema in Nebula Graph by following these steps:
+Analyze the data to create a Schema in NebulaGraph by following these steps:
 
-1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
+1. Identify the Schema elements. The Schema elements in the NebulaGraph are shown in the following table.
 
     | Element  | Name | Property |
     | :--- | :--- | :--- |
@@ -95,7 +95,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
+2. Create a graph space **basketballplayer** in the NebulaGraph and create a Schema as shown below.
 
     ```ngql
     ## Create a graph space.
@@ -142,7 +142,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     }
   }
 
-  # Nebula Graph configuration
+  # NebulaGraph configuration
   nebula: {
     address:{
       # Specify the IP addresses and ports for Graph and Meta services.
@@ -151,10 +151,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       graph:["127.0.0.1:9669"]
       meta:["127.0.0.1:9559"]
     }
-    # The account entered must have write permission for the Nebula Graph space.
+    # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
-    # Fill in the name of the graph space you want to write data to in the Nebula Graph.
+    # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection: {
       timeout: 3000
@@ -176,12 +176,12 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   tags: [
     # Set the information about the Tag player.
     {
-      # The Tag name in Nebula Graph.
+      # The Tag name in NebulaGraph.
       name: player
       type: {
         # Specify the data source file format to MySQL.
         source: mysql
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -193,18 +193,18 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       password:"123456"
       sentence:"select playerid, age, name from player order by playerid;"
 
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       # If multiple column names need to be specified, separate them by commas.
       fields: [age,name]
       nebula.fields: [age,name]
 
-      # Specify a column of data in the table as the source of VIDs in the Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       vertex: {
         field:playerid
       }
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -241,15 +241,15 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   edges: [
     # Set the information about the Edge Type follow.
     {
-      # The corresponding Edge Type name in Nebula Graph.
+      # The corresponding Edge Type name in NebulaGraph.
       name: follow
 
       type: {
         # Specify the data source file format to MySQL.
         source: mysql
 
-        # Specify how to import the Edge type data into Nebula Graph.
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the Edge type data into NebulaGraph.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -261,7 +261,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       password:"123456"
       sentence:"select src_player,dst_player,degree from follow order by src_player;"
 
-      # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       # If multiple column names need to be specified, separate them by commas.
       fields: [degree]
@@ -280,7 +280,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -317,9 +317,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 }
 ```
 
-### Step 3: Import data into Nebula Graph
+### Step 3: Import data into NebulaGraph
 
-Run the following command to import MySQL data into Nebula Graph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
+Run the following command to import MySQL data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <mysql_application.conf_path>
@@ -339,7 +339,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 
 ### Step 4: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Studio). For example:
+Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, Nebula Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
@@ -347,6 +347,6 @@ GO FROM "player100" OVER follow;
 
 Users can also run the [SHOW STATS](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 5: (optional) Rebuild indexes in Nebula Graph
+### Step 5: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in Nebula Graph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
