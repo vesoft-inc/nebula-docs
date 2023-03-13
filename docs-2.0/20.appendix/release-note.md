@@ -1,4 +1,4 @@
-# Nebula Graph {{ nebula.release }} release notes
+# NebulaGraph {{ nebula.release }} release notes
 
 ## Enhancement 
 
@@ -14,14 +14,14 @@
 - Graph spaces are physically deleted after using `DROP SPACE`. [#3913](https://github.com/vesoft-inc/nebula/pull/3913) 
 - Optimized number parsing in date time, date, time. [#3797](https://github.com/vesoft-inc/nebula/pull/3797) 
 - Added the `toSet` function which converts `LIST` or `SET` to `SET`. [#3594](https://github.com/vesoft-inc/nebula/pull/3594) 
-- nGQL statements can be used to display the HTTP port of Nebula Graph services and the HTTP2 port has been disabled. [#3808](https://github.com/vesoft-inc/nebula/pull/3808) 
+- nGQL statements can be used to display the HTTP port of NebulaGraph services and the HTTP2 port has been disabled. [#3808](https://github.com/vesoft-inc/nebula/pull/3808) 
 - The number of sessions for connections to each graphd with the same client IP and the same user is limited. [#3729](https://github.com/vesoft-inc/nebula/pull/3729) 
 - Optimized the waiting mechanism to ensure a timely connection to the metad after the storaged starts. [#3971](https://github.com/vesoft-inc/nebula/pull/3971) 
 - When a node has multiple paths and an error of the disk corresponding to a particular path occurs, it is no longer to rebuild the node. [#4131](https://github.com/vesoft-inc/nebula/pull/4131)
 - Optimized the job manager. [#3976](https://github.com/vesoft-inc/nebula/pull/3976) [#4045](https://github.com/vesoft-inc/nebula/pull/4045) [#4001](https://github.com/vesoft-inc/nebula/pull/4001)  
 - The `DOWNLOAD` and `INGEST` SST files are now managed with the job manager. [#3994](https://github.com/vesoft-inc/nebula/pull/3994)
 - Support for error code display when a job fails. [#4067](https://github.com/vesoft-inc/nebula/pull/4067) 
-- The OS page cache can be disabled and the block cache and Nebula Graph storage cache can only be used in a shared environment, to avoid memory usage interference between applications. [#3890](https://github.com/vesoft-inc/nebula/pull/3890) 
+- The OS page cache can be disabled and the block cache and NebulaGraph storage cache can only be used in a shared environment, to avoid memory usage interference between applications. [#3890](https://github.com/vesoft-inc/nebula/pull/3890) 
 - Updated the default value of the KV separation threshold from 0 to 100. [#3879](https://github.com/vesoft-inc/nebula/pull/3879) 
 - Support for using gflag to set the upper limit of expression depth for a better fit of different machine environments. [#3722](https://github.com/vesoft-inc/nebula/pull/3722) 
 - Added a permission check for `KILL QUERY`. When the authorization is enabled, the GOD user can kill any query and the users with other roles can only kill queries that they own. [#3896](https://github.com/vesoft-inc/nebula/pull/3896) 

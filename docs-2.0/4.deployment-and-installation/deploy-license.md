@@ -1,6 +1,6 @@
-# Deploy a license for Nebula Graph Enterprise Edition
+# Deploy a license for NebulaGraph Enterprise Edition
 
-Nebula Graph Enterprise Edition requires the user to deploy a license file before starting the Enterprise Edition. This topic describes how to deploy a license file for the Enterprise Edition.
+NebulaGraph Enterprise Edition requires the user to deploy a license file before starting the Enterprise Edition. This topic describes how to deploy a license file for the Enterprise Edition.
 
 !!! enterpriseonly
 
@@ -8,7 +8,7 @@ Nebula Graph Enterprise Edition requires the user to deploy a license file befor
 
 ## Precautions
 
-- If the license file is not deployed, Nebula Graph Enterprise Edition cannot be started.
+- If the license file is not deployed, NebulaGraph Enterprise Edition cannot be started.
 
 - Do not modify the license file, otherwise the license will become invalid.
 
@@ -60,19 +60,19 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 |`organization`|The username.|
 |`issuedDate`|The date that the license is issued. |
 |`expirationDate`|The date that the license expires.|
-|`product`|The product type. The product type of Nebula Graph is `nebula_graph`.|
+|`product`|The product type. The product type of NebulaGraph is `nebula_graph`.|
 |`version`|The version information.|
 |`licenseType`|The license type, including `enterprise`, `samll_bussiness`, `pro`, and `individual`. |
 |`gracePeriod`| The buffer time (in days) for the service to continue to be used after the license expires, and the service will be stopped after the buffer period. The trial version of license has no buffer period after expiration and the default value of this parameter is 0. |
-|`graphdSpec`| The max number of graph services in a cluster. Nebula Graph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
-|`storagedSpec`| The max number of storage services in a cluster. Nebula Graph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
+|`graphdSpec`| The max number of graph services in a cluster. NebulaGraph detects the number of active graph services in real-time. You are unable to connect to the cluster once the max number is reached. |
+|`storagedSpec`| The max number of storage services in a cluster. NebulaGraph detects the number of active storage services in real-time. You are unable to connect to the cluster once the max number is reached. |
 |`clusterCode`| The user's hardware information, which is also the unique identifier of the cluster. This parameter is not available in the trial version of the license. |
 
 ## Deploy the license
 
-1. Send email to `inquiry@vesoft.com` to apply for the Nebula Graph Enterprise Edition package.
+1. Send email to `inquiry@vesoft.com` to apply for the NebulaGraph Enterprise Edition package.
 
-2. Install Nebula Graph Enterprise Edition. The installation method is the same as the Community Edition. See [Install Nebula Graph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
+2. Install NebulaGraph Enterprise Edition. The installation method is the same as the Community Edition. See [Install NebulaGraph with RPM or DEB package](2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md).
 
 3. Send email to `inquiry@vesoft.com` to apply for the license file `nebula.license`.
 
@@ -82,11 +82,11 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 
         For the upload address of the license file for ecosystem tools, refer to the document of [Ecosystem tools overview](../20.appendix/6.eco-tool-version.md).
 
-## Renew a Nebula Graph Enterprise Edition license
+## Renew a NebulaGraph Enterprise Edition license
 
 1. Email us at `inqury@vesoft.com` to apply for a new license file `nebula.license`.
 2. In `share/resources/` under the installation directory of each Meta service, replace the old license file with the new one.
-3. Restart Storage and Graph services. For information about how to restart services, see [Start Nebula Graph](manage-service.md). If your license expires within the buffer period (14 days by default), you do not have to restart Storage and Graph services.
+3. Restart Storage and Graph services. For information about how to restart services, see [Start NebulaGraph](manage-service.md). If your license expires within the buffer period (14 days by default), you do not have to restart Storage and Graph services.
 
   !!! note
 
@@ -100,4 +100,4 @@ The license file contains information such as `issuedDate` and `expirationDate`.
 
 - View the License file with HTTP port
 
-  When the Nebula Graph cluster is running normally, you can view the license file with the HTTP port (default port is 19559) of the meta service. For example: `curl -G "http://192.168.10.101:19559/license"`.
+  When the NebulaGraph cluster is running normally, you can view the license file with the HTTP port (default port is 19559) of the meta service. For example: `curl -G "http://192.168.10.101:19559/license"`.

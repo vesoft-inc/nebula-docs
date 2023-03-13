@@ -1,18 +1,18 @@
-# Welcome to Nebula Graph {{ nebula.release }} Documentation
+# Welcome to NebulaGraph {{ nebula.release }} Documentation
 
 !!! caution
 
-    The documents of this version are for Nebula Graph Enterprise Edition {{ nebula.release }}, Nebula Graph Community Edition {{ nebula.release }}, and the corresponding tools. For details, see [Release notes](20.appendix/release-note.md).
+    The documents of this version are for NebulaGraph Enterprise Edition {{ nebula.release }}, NebulaGraph Community Edition {{ nebula.release }}, and the corresponding tools. For details, see [Release notes](20.appendix/release-note.md).
 
 !!! note
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with GitHub commit [{{ git.short_commit }}](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}).
 
-Nebula Graph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
+NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
 ## Getting started
 
-* [Learning path](20.appendix/learning-path.md) & [Get Nebula Graph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
+* [Learning path](20.appendix/learning-path.md) & [Get NebulaGraph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
 * [What is Nebula Graph](1.introduction/1.what-is-nebula-graph.md)
 * [Quick start](2.quick-start/1.quick-start-workflow.md)
 * [Preparations before deployment](4.deployment-and-installation/1.resource-preparations.md)
@@ -22,7 +22,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
   
 ## Other Sources
 
-- [Nebula Graph Homepage](https://nebula-graph.io/)
+- [NebulaGraph Homepage](https://nebula-graph.io/)
 - [Release notes](20.appendix/release-note.md)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blogs](https://nebula-graph.io/posts/)
@@ -63,8 +63,8 @@ This manual has over 80 compatibilities and corresponding tips.
 
 !!! enterpriseonly
 
-    Differences between the Nebula Graph Community and Enterprise editions.
+    Differences between the NebulaGraph Community and Enterprise editions.
 
 ## Modify errors
  
-This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
+This NebulaGraph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.

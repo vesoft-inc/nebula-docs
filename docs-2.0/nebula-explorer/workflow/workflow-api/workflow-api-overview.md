@@ -39,9 +39,9 @@ Token information verification is required when calling an API. Run the followin
 curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <account_base64_encode>" -d '{"address":"<nebula_address>","port":<nebula_port>}' http://<explorer_address>:<explorer_port>/api-open/v1/connect
 ```
 
-- `<account_base64_encode>`: The Base64 encoded Nebula Graph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
-- `<nebula_address>`: The access address of the Nebula Graph.
-- `<nebula_port>`: The access port of the Nebula Graph.
+- `<account_base64_encode>`: The Base64 encoded NebulaGraph account and password. Before the encoding, the format is `<account>:<password>`, for example, `root:123`. After the encoding, the result is `cm9vdDoxMjM=`.
+- `<nebula_address>`: The access address of the NebulaGraph.
+- `<nebula_port>`: The access port of the NebulaGraph.
 - `<explorer_address>`: The access address of the Nebula Explorer.
 - `<explorer_port>`: The access port of the Nebula Explorer.
 

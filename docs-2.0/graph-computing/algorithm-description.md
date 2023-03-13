@@ -1,9 +1,9 @@
 # Algorithm overview
 
-Graph computing can detect the graph structure, such as the communities in a graph and the division of a graph. It can also reveal the inherent characteristics of the correlation between various vertexes, such as the centrality and similarity of the vertices. This topic introduces the algorithms and parameters supported by Nebula Graph.
+Graph computing can detect the graph structure, such as the communities in a graph and the division of a graph. It can also reveal the inherent characteristics of the correlation between various vertexes, such as the centrality and similarity of the vertices. This topic introduces the algorithms and parameters supported by NebulaGraph.
 
 <!--
-Nebula Graph supports some graph computing tools. This topic describes the algorithms and parameters supported by these tools.
+NebulaGraph supports some graph computing tools. This topic describes the algorithms and parameters supported by these tools.
 -->
 
 !!! note
@@ -22,7 +22,7 @@ Nebula Graph supports some graph computing tools. This topic describes the algor
 
     - If the data source comes from HDFS, users need to specify a CSV file that contains `src` and `dst` columns. Some algorithms also need to contain a `weight` column.
 
-    - If the data source comes from Nebula Graph, users need to specify the edge types that provide `src` and `dst` columns. Some algorithms also need to specify the properties of the edge types as `weight` columns.
+    - If the data source comes from NebulaGraph, users need to specify the edge types that provide `src` and `dst` columns. Some algorithms also need to specify the properties of the edge types as `weight` columns.
 
 ## Node importance measurement
 

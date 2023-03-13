@@ -1,12 +1,12 @@
 # Import data
 
-After CSV files of data and a schema are created, you can use the **Import** page to batch import vertex and edge data into Nebula Graph for graph exploration and data analysis.
+After CSV files of data and a schema are created, you can use the **Import** page to batch import vertex and edge data into NebulaGraph for graph exploration and data analysis.
 
 ## Prerequisites
 
 To batch import data, do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 
 - A schema is created.
 

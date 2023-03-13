@@ -1,14 +1,14 @@
-# Export data from Nebula Graph
+# Export data from NebulaGraph
 
-This topic uses an example to illustrate how to use Exchange to export data from Nebula Graph to a CSV file.
+This topic uses an example to illustrate how to use Exchange to export data from NebulaGraph to a CSV file.
 
 !!! enterpriseonly
 
-    Only Exchange Enterprise Edition supports exporting data from Nebula Graph to a CSV file.
+    Only Exchange Enterprise Edition supports exporting data from NebulaGraph to a CSV file.
 
 !!! note
 
-    SSL encryption is not supported when exporting data from Nebula Graph.
+    SSL encryption is not supported when exporting data from NebulaGraph.
 
 ## Preparation
 
@@ -34,11 +34,11 @@ CentOS 7.9.2009
 | Hadoop | 2.10.1 |
 | Scala | 2.12.11 |
 | Spark | 2.4.7 |
-| Nebula Graph | {{nebula.release}} |
+| NebulaGraph | {{nebula.release}} |
 
 ### Dataset
 
-As the data source, Nebula Graph stores the [basketballplayer dataset](https://docs.nebula-graph.io/2.0/basketballplayer-2.X.ngql) in this example, the Schema elements of which are shown as follows.
+As the data source, NebulaGraph stores the [basketballplayer dataset](https://docs.nebula-graph.io/2.0/basketballplayer-2.X.ngql) in this example, the Schema elements of which are shown as follows.
 
 | Element  | Name | Property |
 | :--- | :--- | :--- |
@@ -49,11 +49,11 @@ As the data source, Nebula Graph stores the [basketballplayer dataset](https://d
 
 ## Steps
 
-1. Get the JAR file of Exchange Enterprise Edition from the [Nebula Graph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/).
+1. Get the JAR file of Exchange Enterprise Edition from the [NebulaGraph Enterprise Edition Package](https://nebula-graph.com.cn/pricing/).
 
 2. Modify the configuration file.
   
-  Exchange Enterprise Edition provides the configuration template `export_application.conf` for exporting Nebula Graph data. For details, see [Exchange parameters](../parameter-reference/ex-ug-parameter.md). The core content of the configuration file used in this example is as follows:
+  Exchange Enterprise Edition provides the configuration template `export_application.conf` for exporting NebulaGraph data. For details, see [Exchange parameters](../parameter-reference/ex-ug-parameter.md). The core content of the configuration file used in this example is as follows:
   
   ```conf
   ...
@@ -112,7 +112,7 @@ As the data source, Nebula Graph stores the [basketballplayer dataset](https://d
   }
   ```
 
-3. Export data from Nebula Graph with the following command.
+3. Export data from NebulaGraph with the following command.
   
   ```bash
   <spark_install_path>/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange nebula-exchange-x.y.z.jar_path> -c <export_application.conf_path>
