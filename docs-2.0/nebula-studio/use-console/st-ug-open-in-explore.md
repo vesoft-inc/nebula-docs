@@ -10,7 +10,7 @@ Studio of v{{ studio.release }} or later versions supports this function. For mo
 
 To use the **Open in Explore** function, you must do a check of these:
 
-- Studio is connected to Nebula Graph. For more information, see [Connect to Nebula Graph](../deploy-connect/st-ug-connect.md).
+- Studio is connected to NebulaGraph. For more information, see [Connect to NebulaGraph](../deploy-connect/st-ug-connect.md).
 
 - A dataset exists in the database. For more information, see [Import data](../quick-start/st-ug-import-data.md).
 

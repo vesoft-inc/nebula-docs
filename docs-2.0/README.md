@@ -1,4 +1,4 @@
-# Welcome to Nebula Graph {{ nebula.release }} Documentation
+# Welcome to NebulaGraph {{ nebula.release }} Documentation
 
 !!! danger 
 
@@ -10,7 +10,7 @@
 !!! note "This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with [GitHub commit](https://github.com/vesoft-inc/nebula-docs/commits/master) {{ git.short_commit }}."
 
 
-Nebula Graph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
+NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
 
 ## Getting started
 
@@ -22,7 +22,7 @@ Nebula Graph is a distributed, scalable, and lightning-fast graph database. It i
   
 ## Other Sources
 
-- [Nebula Graph Homepage](https://nebula-graph.io/)
+- [NebulaGraph Homepage](https://nebula-graph.io/)
 - [Release note](20.appendix/releasenote.md)
 - [Forum](https://discuss.nebula-graph.io/)
 - [Blog](https://nebula-graph.io/posts/)
@@ -63,10 +63,10 @@ This manual has over 80 compatibilities and corresponding tips.
 
 !!! enterpriseonly
 
-    Differences between the Nebula Graph Open Source and Enterprise editions.
+    Differences between the NebulaGraph Open Source and Enterprise editions.
 
 ## Modify errors
  
-This Nebula Graph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
+This NebulaGraph manual is written in the Markdown language. Users can click the pencil sign on the upper right side of each document title and modify errors.
 
 -->

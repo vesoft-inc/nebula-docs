@@ -1,6 +1,6 @@
 # Contribute to Documentation
 
-Contributing to the **Nebula Graph** documentation can be a rewarding experience. We welcome your participation to help make the documentation better!
+Contributing to the **NebulaGraph** documentation can be a rewarding experience. We welcome your participation to help make the documentation better!
 
 ## What to Contribute
 

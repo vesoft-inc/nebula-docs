@@ -12,7 +12,7 @@ To use the **View Subgraphs** function, you must do a check of these:
 
 - The version of Studio is v{{studio.release}} or later.
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 
 - A dataset exists in the database. In the example of this article, the **basketballplayer** dataset is used. For more information, see [Import data](../quick-start/st-ug-import-data.md).
 

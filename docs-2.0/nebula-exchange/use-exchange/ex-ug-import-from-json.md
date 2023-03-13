@@ -1,6 +1,6 @@
 # Import data from JSON files
 
-This topic provides an example of how to use Exchange to import Nebula Graph data stored in HDFS or local JSON files.
+This topic provides an example of how to use Exchange to import NebulaGraph data stored in HDFS or local JSON files.
 
 ## Data set
 
@@ -52,35 +52,35 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hadoop: 2.9.2, Pseudo-distributed deployment
 
-- Nebula Graph: {{nebula.release}} ([Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md))
+- NebulaGraph: {{nebula.release}} ([Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md))
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP address and port of Graph and Meta services.
 
-  - User name and password with Nebula Graph write permission.
+  - User name and password with NebulaGraph write permission.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including Tag and Edge type names, properties, and more.
+- Learn about the Schema created in NebulaGraph, including Tag and Edge type names, properties, and more.
 
 - If files are stored in HDFS, ensure that the Hadoop service is running properly.
 
-- If files are stored locally and Nebula Graph is a cluster architecture, you need to place the files in the same directory locally on each machine in the cluster.
+- If files are stored locally and NebulaGraph is a cluster architecture, you need to place the files in the same directory locally on each machine in the cluster.
 
 ## Steps
 
-### Step 1: Create the Schema in Nebula Graph
+### Step 1: Create the Schema in NebulaGraph
 
-Analyze the data to create a Schema in Nebula Graph by following these steps:
+Analyze the data to create a Schema in NebulaGraph by following these steps:
 
-1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
+1. Identify the Schema elements. The Schema elements in the NebulaGraph are shown in the following table.
 
     | Element  | name | property |
     | :--- | :--- | :--- |
@@ -89,7 +89,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
+2. Create a graph space **basketballplayer** in the NebulaGraph and create a Schema as shown below.
 
     ```ngql
     ## create graph space
@@ -148,7 +148,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     }
   }
 
-  # Nebula Graph configuration
+  # NebulaGraph configuration
   nebula: {
     address:{
       # Specify the IP addresses and ports for Graph and all Meta services.
@@ -158,11 +158,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       meta:["127.0.0.1:9559"]
     }
 
-    # The account entered must have write permission for the Nebula Graph space.
+    # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
 
-    # Fill in the name of the graph space you want to write data to in the Nebula Graph.
+    # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection {
       timeout: 3000
@@ -190,7 +190,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         # Specify the data source file format, set to JSON.
         source: json
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specifies how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -199,21 +199,21 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks around the path, starting with file://, for example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/vertex_player.json"
 
-      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple column names need to be specified, separate them by commas.
       fields: [age,name]
 
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [age, name]
 
-      # Specify a column of data in the table as the source of vertex VID in the Nebula Graph.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Specify a column of data in the table as the source of vertex VID in the NebulaGraph.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:id
       }
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # Number of pieces of data written to NebulaGraph in a single batch.
       batch: 256
 
       # Number of Spark partitions
@@ -244,13 +244,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   edges: [
     # Set information about Edge Type follow
     {
-      # The corresponding Edge Type name in Nebula Graph.
+      # The corresponding Edge Type name in NebulaGraph.
       name: follow
       type: {
         # Specify the data source file format, set to JSON.
         source: json
 
-        # Specifies how to import the data into Nebula Graph: Client or SST.
+        # Specifies how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -259,16 +259,16 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks around the path, starting with file://, for example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/edge_follow.json"
 
-      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple column names need to be specified, separate them by commas.
       fields: [degree]
 
-      # Specify the column names in the edge table in fields, and their corresponding values are specified as properties in the Nebula Graph.
+      # Specify the column names in the edge table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [degree]
 
       # Specify a column as the source for the starting and destination vertexes.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: src
       }
@@ -280,7 +280,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # (optionally) Specify a column as the source of the rank.
       #ranking: rank
 
-      # Number of pieces of data written to Nebula Graph in a single batch.
+      # Number of pieces of data written to NebulaGraph in a single batch.
       batch: 256
 
       # Number of Spark partitions
@@ -312,9 +312,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 }
 ```
 
-### Step 4: Import data into Nebula Graph
+### Step 4: Import data into NebulaGraph
 
-Run the following command to import JSON data into Nebula Graph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
+Run the following command to import JSON data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <json_application.conf_path> 
@@ -334,7 +334,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 
 ### Step 5: (optional) Validation data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). Such as:
+Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). Such as:
 
 ```ngql
 GO FROM "player100" OVER follow;
@@ -342,6 +342,6 @@ GO FROM "player100" OVER follow;
 
 Users can also run the [SHOW STATS](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 6: (optional) Rebuild indexes in Nebula Graph
+### Step 6: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in Nebula Graph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
