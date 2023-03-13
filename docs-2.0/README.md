@@ -10,12 +10,6 @@
 
     This manual is revised on {{ now().year }}-{{ now().month }}-{{ now().day }}, with GitHub commit [{{ git.short_commit }}](https://github.com/vesoft-inc/nebula-docs/commits/v{{nebula.release}}).
 
-!!! Compatibility
-
-    In the version of NebulaGraph 3.2, the vertex without tags is allowed. But since NebulaGraph 3.3.0, the vertex without tags is not supported by default.
-
-NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is the optimal solution in the world capable of hosting graphs with dozens of billions of vertices (nodes) and trillions of edges (relationships) with millisecond latency.
-
 ## Getting started
 
 * [Learning path](20.appendix/learning-path.md) & [Get NebulaGraph Certifications](https://academic.nebula-graph.io/?lang=EN_US)
@@ -25,17 +19,6 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 * [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
-  
-
-## Release notes
-
-- [NebulaGraph Community Edition {{ nebula.release }}](20.appendix/release-notes/nebula-comm-release-note.md)
-<!-- - [NebulaGraph Enterprise Edition {{ nebula.release }}](20.appendix/release-notes/nebula-ent-release-note.md)。 -->
-- [NebulaGraph Studio](20.appendix/release-notes/studio-release-note.md)
-- [NebulaGraph Explorer](20.appendix/release-notes/explorer-release-note.md)
-- [NebulaGraph Dashboard Community Edition](20.appendix/release-notes/dashboard-comm-release-note.md)
-- [NebulaGraph Dashboard Enterprise Edition](20.appendix/release-notes/dashboard-ent-release-note.md)
-
 
 ## Other Sources
 

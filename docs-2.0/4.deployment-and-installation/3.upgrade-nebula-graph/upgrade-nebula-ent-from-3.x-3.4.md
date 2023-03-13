@@ -4,12 +4,17 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
 ## Notes
 
-- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x to v3.4.0. <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> If your version is below 3.0.0, please upgrade to enterprise edition 3.x before upgrading to v3.4.0. For details, see [Upgrade NebulaGraph Enterprise Edition 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
+- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x to v3.4.0. <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> If your version is below 3.0.0, please upgrade to enterprise edition 3.1.0 before upgrading to v3.4.0. For details, see [Upgrade NebulaGraph Enterprise Edition 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
 
 - The IP address of the machine performing the upgrade operation must be the same as the original machine.
   
 - The remaining disk space on the machine must be at least 1.5 times the size of the original data directory.
   
+- Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the `SIGN IN` command to log into ES and recreate the indexes after the upgrade is complete.
+
+  !!! note
+
+        To manually delete the full-text indexes in Elasticsearch, you can use the curl command `curl -XDELETE -u <es_username>:<es_password> '<es_access_ip>:<port>/<fullindex_name>'`, for example, `curl -XDELETE -u elastic:elastic 'http://192.168.8.223:9200/nebula_index_2534'`. If no username and password are set for Elasticsearch, you can omit the `-u <es_username>:<es_password>` part.
 
 ## Steps
 

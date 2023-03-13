@@ -36,3 +36,9 @@
 9. 2022.2: NebulaGraph v3.0.0 was released.
 
 10. 2022.4: NebulaGraph v3.1.0 was released.
+
+11. 2022.7: NebulaGraph v3.2.0 was released.
+
+12. 2022.10: NebulaGraph v3.3.0 was released.
+
+13. 2023.2: NebulaGraph v3.4.0 was released.
