@@ -1,8 +1,8 @@
 # Nebula Console
 
-Nebula Console is a native CLI client for Nebula Graph. It can be used to connect a Nebula Graph cluster and execute queries. It can also support special commands to manage parameters, export query results, import test datasets, etc. This topic describes these special commands.
+Nebula Console is a native CLI client for NebulaGraph. It can be used to connect a NebulaGraph cluster and execute queries. It can also support special commands to manage parameters, export query results, import test datasets, etc. This topic describes these special commands.
 
-To connect Nebula Graph using Nebula Console, see [Step 3: Connect to Nebula Graph](2.quick-start/3.connect-to-nebula-graph.md).
+To connect NebulaGraph using Nebula Console, see [Step 3: Connect to NebulaGraph](2.quick-start/3.connect-to-nebula-graph.md).
 
 !!! note
 
@@ -147,15 +147,15 @@ Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578
 
 ## Sleep to wait
 
-This command will make Nebula Graph services sleep and wait for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
+This command will make NebulaGraph services sleep and wait for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:
 
 ```ngql
 nebula> :sleep N
 ```
 
-## Disconnect Nebula Console from Nebula Graph
+## Disconnect Nebula Console from NebulaGraph
 
-You can use `:EXIT` or `:QUIT` to disconnect from Nebula Graph. For convenience, Nebula Console supports using these commands in lower case without the colon (":"), such as `quit`.
+You can use `:EXIT` or `:QUIT` to disconnect from NebulaGraph. For convenience, Nebula Console supports using these commands in lower case without the colon (":"), such as `quit`.
 
 The example is as follows:
 

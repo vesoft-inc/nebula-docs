@@ -14,7 +14,7 @@
 ## v3.2.0 (2022.02.15)
 
 - Feature enhancements:
-  - Compatible with Nebula Graph v3.0.0.
+  - Compatible with NebulaGraph v3.0.0.
   - Added the use of DEB to deploy and start Studio.
   - Import:
     - Added password confirmation when importing to enhance security.

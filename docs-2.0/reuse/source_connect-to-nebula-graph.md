@@ -1,26 +1,26 @@
-Nebula Graph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. This topic provides an overview of Nebula Graph clients and basic instructions on how to use the native CLI client, Nebula Console.
+NebulaGraph supports multiple types of clients, including a CLI client, a GUI client, and clients developed in popular programming languages. This topic provides an overview of NebulaGraph clients and basic instructions on how to use the native CLI client, Nebula Console.
 
-## Nebula Graph clients
+## NebulaGraph clients
 
-You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to Nebula Graph.<!--这里用外链。-->
+You can use supported [clients or console](https://docs.nebula-graph.io/{{nebula.release}}/20.appendix/6.eco-tool-version/) to connect to NebulaGraph.<!--这里用外链。-->
 
 <!-- TODO The cloud service cannot be provided together with v{{ nebula.release }}.
-If you do not have a Nebula Graph database yet, we recommend that you try the cloud service. [Nebula Graph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building with Nebula Graph Studio as its default client.
+If you do not have a NebulaGraph database yet, we recommend that you try the cloud service. [NebulaGraph Cloud Service](https://www.nebula-cloud.io/) supports on-demand deployment and fast building with NebulaGraph Studio as its default client.
 -->
 
-## Use Nebula Console to connect to Nebula Graph
+## Use Nebula Console to connect to NebulaGraph
 
 ### Prerequisites
 
-* You have started [Nebula Graph services](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
+* You have started [NebulaGraph services](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/manage-service/).<!--这里用外链。-->
 
-* The machine you plan to run Nebula Console on has network access to Nebula Graph services.
+* The machine you plan to run Nebula Console on has network access to NebulaGraph services.
 
-* The Nebula Console version is compatible with the Nebula Graph version.
+* The Nebula Console version is compatible with the NebulaGraph version.
 
   !!! note
   
-        The same version of Nebula Console and Nebula Graph is the most compatible. There may be compatibility issues when connecting to Nebula Graph with a different version of Nebula Console. You may be unable to connenct to Nebula Graph due to the compatibiltiy issue and an error message `incompatible version between client and server` is displayed.
+        The same version of Nebula Console and NebulaGraph is the most compatible. There may be compatibility issues when connecting to NebulaGraph with a different version of Nebula Console. You may be unable to connenct to NebulaGraph due to the compatibiltiy issue and an error message `incompatible version between client and server` is displayed.
 
 ### Steps
 
@@ -50,7 +50,7 @@ If you do not have a Nebula Graph database yet, we recommend that you try the cl
 
 5. In the command line interface, change the working directory to the one where the nebula-console binary file is stored.
 
-6. Run the following command to connect to Nebula Graph.
+6. Run the following command to connect to NebulaGraph.
 
    * For Linux or macOS:
 
@@ -72,9 +72,9 @@ If you do not have a Nebula Graph database yet, we recommend that you try the cl
    | - | - |
    | `-h` | Shows the help menu. |
    | `-addr` | Sets the IP address of the graphd service. The default address is 127.0.0.1. |
-   | `-port` | Sets the port number of the graphd service. The default port number is 9669.<!-- If you have deployed Nebula Graph in a docker container but Nebula Console is working outside the container, check the [source port](2.deploy-nebula-graph-with-docker-compose.md/#check_the_nebula_graph_service_status_and_port) of any nebula-graphd process and use it for connection. -->|
-   | `-u/-user` | Sets the username of your Nebula Graph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
-   | `-p/-password` | Sets the password of your Nebula Graph account. Before enabling authentication, you can use any characters as the password. |
+   | `-port` | Sets the port number of the graphd service. The default port number is 9669.<!-- If you have deployed NebulaGraph in a docker container but Nebula Console is working outside the container, check the [source port](2.deploy-nebula-graph-with-docker-compose.md/#check_the_nebula_graph_service_status_and_port) of any nebula-graphd process and use it for connection. -->|
+   | `-u/-user` | Sets the username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
+   | `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. |
    | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is second. The default value is 120. |
    | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
    | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |

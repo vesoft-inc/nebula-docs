@@ -2,7 +2,7 @@
 
 OpenCypher has the features of `SET label` and `REMOVE label` to speed up the process of querying or labeling.
 
-Nebula Graph achieves the same operations by creating and inserting tags to an existing vertex, which can quickly query vertices based on the tag name. Users can also run `DELETE TAG` to delete some vertices that are no longer needed.
+NebulaGraph achieves the same operations by creating and inserting tags to an existing vertex, which can quickly query vertices based on the tag name. Users can also run `DELETE TAG` to delete some vertices that are no longer needed.
 
 ## Examples
 
