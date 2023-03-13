@@ -1,8 +1,8 @@
 # Import data from ORC files
 
-This topic provides an example of how to use Exchange to import Nebula Graph data stored in HDFS or local ORC files.
+This topic provides an example of how to use Exchange to import NebulaGraph data stored in HDFS or local ORC files.
 
-To import a local ORC file to Nebula Graph, see [Nebula Importer](https://github.com/vesoft-inc/nebula-importer "Click to go to GitHub").
+To import a local ORC file to NebulaGraph, see [Nebula Importer](https://github.com/vesoft-inc/nebula-importer "Click to go to GitHub").
 
 ## Data set
 
@@ -20,35 +20,35 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hadoop: 2.9.2, pseudo-distributed deployment
 
-- Nebula Graph: {{nebula.release}}. [Deploy Nebula Graph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
-  - The user name and password with write permission to Nebula Graph.
+  - The user name and password with write permission to NebulaGraph.
 
 - Exchange has been [compiled](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
 
 - Spark has been installed.
 
-- Learn about the Schema created in Nebula Graph, including names and properties of Tags and Edge types, and more.
+- Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - If files are stored in HDFS, ensure that the Hadoop service is running properly.
 
-- If files are stored locally and Nebula Graph is a cluster architecture, you need to place the files in the same directory locally on each machine in the cluster.
+- If files are stored locally and NebulaGraph is a cluster architecture, you need to place the files in the same directory locally on each machine in the cluster.
 
 ## Steps
 
-### Step 1: Create the Schema in Nebula Graph
+### Step 1: Create the Schema in NebulaGraph
 
-Analyze the data to create a Schema in Nebula Graph by following these steps:
+Analyze the data to create a Schema in NebulaGraph by following these steps:
 
-1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
+1. Identify the Schema elements. The Schema elements in the NebulaGraph are shown in the following table.
 
     | Element  | Name | Property |
     | :--- | :--- | :--- |
@@ -57,7 +57,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
+2. Create a graph space **basketballplayer** in the NebulaGraph and create a Schema as shown below.
 
     ```ngql
     ## Create a graph space.
@@ -116,7 +116,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     }
   }
 
-  # Nebula Graph configuration
+  # NebulaGraph configuration
   nebula: {
     address:{
       # Specify the IP addresses and ports for Graph and all Meta services.
@@ -126,11 +126,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       meta:["127.0.0.1:9559"]
     }
 
-    # The account entered must have write permission for the Nebula Graph space.
+    # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
 
-    # Fill in the name of the graph space you want to write data to in the Nebula Graph.
+    # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection: {
       timeout: 3000
@@ -158,7 +158,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         # Specify the data source file format to ORC.
         source: orc
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -167,22 +167,22 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.orc".
       path: "hdfs://192.168.*.*:9000/data/vertex_player.orc"
 
-      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple values need to be specified, separate them with commas.
       fields: [age,name]
 
-      # Specify the property names defined in Nebula Graph.
+      # Specify the property names defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [age, name]
 
-      # Specify a column of data in the table as the source of VIDs in the Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       # The value of vertex must be consistent with the field in the ORC file.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:id
       }
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -191,13 +191,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Tag team.
     {
-      # Specify the Tag name defined in Nebula Graph.
+      # Specify the Tag name defined in NebulaGraph.
       name: team
       type: {
         # Specify the data source file format to ORC.
         source: orc
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -206,23 +206,23 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.orc".
       path: "hdfs://192.168.*.*:9000/data/vertex_team.orc"
 
-      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple values need to be specified, separate them with commas.
       fields: [name]
 
-      # Specify the property names defined in Nebula Graph.
+      # Specify the property names defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [name]
 
-      # Specify a column of data in the table as the source of VIDs in the Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       # The value of vertex must be consistent with the field in the ORC file.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:id
       }
 
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -237,13 +237,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   edges: [
     # Set the information about the Edge Type follow.
     {
-      # Specify the Edge Type name defined in Nebula Graph.
+      # Specify the Edge Type name defined in NebulaGraph.
       name: follow
       type: {
         # Specify the data source file format to ORC.
         source: orc
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -252,17 +252,17 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.orc".
       path: "hdfs://192.168.*.*:9000/data/edge_follow.orc"
 
-      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple values need to be specified, separate them with commas.
       fields: [degree]
 
-      # Specify the property names defined in Nebula Graph.
+      # Specify the property names defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [degree]
 
       # Specify a column as the source for the source and destination vertexes.
       # The value of vertex must be consistent with the field in the ORC file.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: src
       }
@@ -273,7 +273,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -282,13 +282,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Edge type serve.
     {
-      # Specify the Edge type name defined in Nebula Graph.
+      # Specify the Edge type name defined in NebulaGraph.
       name: serve
       type: {
         # Specify the data source file format to ORC.
         source: orc
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
 
@@ -297,17 +297,17 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.orc".
       path: "hdfs://192.168.*.*:9000/data/edge_serve.orc"
 
-      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the Nebula Graph.
+      # Specify the key name in the ORC file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
       # If multiple values need to be specified, separate them with commas.
       fields: [start_year,end_year]
 
-      # Specify the property names defined in Nebula Graph.
+      # Specify the property names defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [start_year, end_year]
 
       # Specify a column as the source for the source and destination vertexes.
       # The value of vertex must be consistent with the field in the ORC file.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: src
       }
@@ -318,7 +318,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # (Optional) Specify a column as the source of the rank.
       #ranking: _c5
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -329,9 +329,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 }
 ```
 
-### Step 4: Import data into Nebula Graph
+### Step 4: Import data into NebulaGraph
 
-Run the following command to import ORC data into Nebula Graph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
+Run the following command to import ORC data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <orc_application.conf_path> 
@@ -351,7 +351,7 @@ You can search for `batchSuccess.<tag_name/edge_name>` in the command output to 
 
 ### Step 5: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Studio). For example:
+Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, Nebula Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
@@ -359,6 +359,6 @@ GO FROM "player100" OVER follow;
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 6: (optional) Rebuild indexes in Nebula Graph
+### Step 6: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in Nebula Graph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
