@@ -4,7 +4,7 @@ You can use the `BALANCE` statement to balance the distribution of partitions an
 
 ## Balance partition distribution
 
-`BALANCE DATA` starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
+`BALANCE DATA` starts a task to equally distribute the storage partitions in a NebulaGraph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
 
 !!! danger
 
@@ -76,7 +76,7 @@ After you add new storage hosts into the cluster, no partition is deployed on th
     +-------------+------+----------+--------------+-----------------------------------+------------------------+
     ```
 
-If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://discuss.nebula-graph.io/).
 
 ## Stop data balancing
 
@@ -90,9 +90,9 @@ To stop a balance task, run `BALANCE DATA STOP`.
 
 Once all the subtasks are finished or stopped, you can run `BALANCE DATA` again to balance the partitions again.
 
-* If any subtask of the preceding balance task fails, Nebula Graph restarts the preceding balance task.
+* If any subtask of the preceding balance task fails, NebulaGraph restarts the preceding balance task.
 
-* If no subtask of the preceding balance task fails, Nebula Graph starts a new balance task.
+* If no subtask of the preceding balance task fails, NebulaGraph starts a new balance task.
 
 ## RESET a balance task
 
@@ -117,7 +117,7 @@ Run the following command:
 BALANCE DATA REMOVE 192.168.0.8:9779,192.168.0.9:9779;
 ```
 
-Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
+NebulaGraph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
 
 !!! note
 
@@ -151,4 +151,4 @@ nebula> SHOW HOSTS;
 
 !!! caution
 
-    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
+    In NebulaGraph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
