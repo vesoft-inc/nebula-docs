@@ -10,7 +10,7 @@ The `application.conf` file contains the following content types:
 
 - Hive configurations (optional)
 
-- Nebula Graph configurations
+- NebulaGraph configurations
 
 - Vertex configurations
 
@@ -40,13 +40,13 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`hive.connectionUserName`|list\[string\]|-|Yes|The username for connections.|
 |`hive.connectionPassword`|list\[string\]|-|Yes|The account password.|
 
-## Nebula Graph configurations
+## NebulaGraph configurations
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`nebula.address.graph`|list\[string\]|`["127.0.0.1:9669"]`|Yes|The addresses of all Graph services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.address.meta`|list\[string\]|`["127.0.0.1:9559"]`|Yes|The addresses of all Meta services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
-|`nebula.user`|string|-|Yes|The username with write permissions for Nebula Graph.|
+|`nebula.user`|string|-|Yes|The username with write permissions for NebulaGraph.|
 |`nebula.pswd`|string|-|Yes|The account password.|
 |`nebula.space`|string|-|Yes|The name of the graph space where data needs to be imported.|
 |`nebula.ssl.enable.graph`|bool|`false`|Yes|Enables the [SSL encryption](https://en.wikipedia.org/wiki/Transport_Layer_Security) between Exchange and Graph services. If the value is `true`, the SSL encryption is enabled and the following SSL parameters take effect. If Exchange is run on a multi-machine cluster, you need to store the corresponding files in the same path on each machine when setting the following SSL-related paths.|
@@ -76,13 +76,13 @@ For different data sources, the vertex configurations are different. There are m
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
-|`tags.name`|string|-|Yes|The tag name defined in Nebula Graph.|
+|`tags.name`|string|-|Yes|The tag name defined in NebulaGraph.|
 |`tags.type.source`|string|-|Yes|Specify a data source. For example, `csv`.|
 |`tags.type.sink`|string|`client`|Yes|Specify an import method. Optional values are `client` and `SST`.|
 |`tags.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or a column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
-|`tags.nebula.fields`|list\[string\]|-|Yes|Property names defined in Nebula Graph, the order of which must correspond to `tags.fields`. For example, `[_c1, _c2]` corresponds to `[name, age]`, which means that values in the second column are the values of the property `name`, and values in the third column are the values of the property `age`.|
+|`tags.nebula.fields`|list\[string\]|-|Yes|Property names defined in NebulaGraph, the order of which must correspond to `tags.fields`. For example, `[_c1, _c2]` corresponds to `[name, age]`, which means that values in the second column are the values of the property `name`, and values in the third column are the values of the property `age`.|
 |`tags.vertex.field`|string|-|Yes|The column of vertex IDs. For example, when a CSV file has no header, users can use `_c0` to indicate values in the first column are vertex IDs.|
-|`tags.batch`|int|`256`|Yes|The maximum number of vertices written into Nebula Graph in a single batch.|
+|`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
 |`tags.partition`|int|`32`|Yes|The number of Spark partitions.|
 
 ### Specific parameters of Parquet/JSON/ORC data sources
@@ -183,11 +183,11 @@ For different data sources, the vertex configurations are different. There are m
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 
-### Specific parameters of Nebula Graph
+### Specific parameters of NebulaGraph
 
 !!! enterpriseonly
 
-    Specific parameters of Nebula Graph are used for exporting Nebula Graph data, which is supported by Exchange Enterprise Edition only.
+    Specific parameters of NebulaGraph are used for exporting NebulaGraph data, which is supported by Exchange Enterprise Edition only.
 
 |Parameter|Data type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -205,18 +205,18 @@ For the specific parameters of different data sources for edge configurations, p
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
-|`edges.name`| string|-|Yes|The edge type name defined in Nebula Graph.|
+|`edges.name`| string|-|Yes|The edge type name defined in NebulaGraph.|
 |`edges.type.source`|string|-|Yes|The data source of edges. For example, `csv`.|
 |`edges.type.sink`|string|`client`|Yes|The method specified to import data. Optional values are `client` and `SST`.|
 |`edges.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
-|`edges.nebula.fields`|list\[string\]|-|Yes|Edge names defined in Nebula Graph, the order of which must correspond to `edges.fields`. For example, `[_c2, _c3]` corresponds to `[start_year, end_year]`, which means that values in the third column are the values of the start year, and values in the fourth column are the values of the end year.|
+|`edges.nebula.fields`|list\[string\]|-|Yes|Edge names defined in NebulaGraph, the order of which must correspond to `edges.fields`. For example, `[_c2, _c3]` corresponds to `[start_year, end_year]`, which means that values in the third column are the values of the start year, and values in the fourth column are the values of the end year.|
 |`edges.source.field`|string|-|Yes|The column of source vertices of edges. For example, `_c0` indicates a value in the first column that is used as the source vertex of an edge.|
 |`edges.target.field`|string|-|Yes|The column of destination vertices of edges. For example, `_c0` indicates a value in the first column that is used as the destination vertex of an edge.|
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
-|`edges.batch`|int|`256`|Yes|The maximum number of edges written into Nebula Graph in a single batch.|
+|`edges.batch`|int|`256`|Yes|The maximum number of edges written into NebulaGraph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
 
-### Specific parameters of Nebula Graph
+### Specific parameters of NebulaGraph
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|

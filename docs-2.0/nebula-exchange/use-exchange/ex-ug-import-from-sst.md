@@ -1,6 +1,6 @@
 # Import data from SST files
 
-This topic provides an example of how to generate the data from the data source into an SST (Sorted String Table) file and save it on HDFS, and then import it into Nebula Graph. The sample data source is a CSV file.
+This topic provides an example of how to generate the data from the data source into an SST (Sorted String Table) file and save it on HDFS, and then import it into NebulaGraph. The sample data source is a CSV file.
 
 ## Precautions
 
@@ -12,9 +12,9 @@ This topic provides an example of how to generate the data from the data source 
 
 Exchange supports two data import modes:
 
-- Import the data from the data source directly into Nebula Graph as **nGQL** statements.
+- Import the data from the data source directly into NebulaGraph as **nGQL** statements.
 
-- Generate the SST file from the data source, and use Console to import the SST file into Nebula Graph.
+- Generate the SST file from the data source, and use Console to import the SST file into NebulaGraph.
 
 The following describes the scenarios, implementation methods, prerequisites, and steps for generating an SST file and importing data.
 
@@ -30,17 +30,17 @@ The following describes the scenarios, implementation methods, prerequisites, an
 
 ## Implementation methods
 
-The underlying code in Nebula Graph uses RocksDB as the key-value storage engine. RocksDB is a storage engine based on the hard disk, providing a series of APIs for creating and importing SST files to help quickly import massive data.
+The underlying code in NebulaGraph uses RocksDB as the key-value storage engine. RocksDB is a storage engine based on the hard disk, providing a series of APIs for creating and importing SST files to help quickly import massive data.
 
 The SST file is an internal file containing an arbitrarily long set of ordered key-value pairs for efficient storage of large amounts of key-value data. The entire process of generating SST files is mainly done by Exchange Reader, sstProcessor, and sstWriter. The whole data processing steps are as follows:
 
 1. Reader reads data from the data source.
 
-2. sstProcessor generates the SST file from the Nebula Graph's Schema information and uploads it to the HDFS. For details about the format of the SST file, see [Data Storage Format](../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
+2. sstProcessor generates the SST file from the NebulaGraph's Schema information and uploads it to the HDFS. For details about the format of the SST file, see [Data Storage Format](../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
 
 3. sstWriter opens a file and inserts data. When generating SST files, keys must be written in sequence.
 
-4. After the SST file is generated, RocksDB imports the SST file into Nebula Graph using the `IngestExternalFile()` method. For example:
+4. After the SST file is generated, RocksDB imports the SST file into NebulaGraph using the `IngestExternalFile()` method. For example:
 
   ```
   IngestExternalFileOptions ifo;
@@ -71,17 +71,17 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hadoop: 2.9.2, pseudo-distributed deployment
 
-- Nebula Graph: {{nebula.release}}.
+- NebulaGraph: {{nebula.release}}.
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- Nebula Graph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
-  - The user name and password with write permission to Nebula Graph.
+  - The user name and password with write permission to NebulaGraph.
 
   - `--ws_storage_http_port` in the Meta service configuration file is the same as `--ws_http_port` in the Storage service configuration file. For example, `19779`.
 
@@ -107,11 +107,11 @@ Before importing data, you need to confirm the following information:
 
 ## Steps
 
-### Step 1: Create the Schema in Nebula Graph
+### Step 1: Create the Schema in NebulaGraph
 
-Analyze the data to create a Schema in Nebula Graph by following these steps:
+Analyze the data to create a Schema in NebulaGraph by following these steps:
 
-1. Identify the Schema elements. The Schema elements in the Nebula Graph are shown in the following table.
+1. Identify the Schema elements. The Schema elements in the NebulaGraph are shown in the following table.
 
     | Element  | Name | Property |
     | :--- | :--- | :--- |
@@ -120,7 +120,7 @@ Analyze the data to create a Schema in Nebula Graph by following these steps:
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. Create a graph space **basketballplayer** in the Nebula Graph and create a Schema as shown below.
+2. Create a graph space **basketballplayer** in the NebulaGraph and create a Schema as shown below.
 
     ```ngql
     ## Create a graph space
@@ -187,7 +187,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     }
   }
 
-  # Nebula Graph configuration
+  # NebulaGraph configuration
   nebula: {
     address:{
       graph:["127.0.0.1:9669"]
@@ -237,13 +237,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   tags: [
     # Set the information about the Tag player.
     {
-      # Specify the Tag name defined in Nebula Graph.
+      # Specify the Tag name defined in NebulaGraph.
       name: player
       type: {
         # Specify the data source file format to CSV.
         source: csv
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
 
@@ -255,13 +255,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, use the actual column name.
       fields: [_c1, _c2]
 
-      # Specify the property name defined in Nebula Graph.
+      # Specify the property name defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [age, name]
 
-      # Specify a column of data in the table as the source of VIDs in Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in NebulaGraph.
       # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
       }
@@ -273,7 +273,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -282,13 +282,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Tag Team.
     {
-      # Specify the Tag name defined in Nebula Graph.
+      # Specify the Tag name defined in NebulaGraph.
       name: team
       type: {
         # Specify the data source file format to CSV.
         source: csv
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
 
@@ -300,13 +300,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, use the actual column name.
       fields: [_c1]
 
-      # Specify the property name defined in Nebula Graph.
+      # Specify the property name defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [name]
 
-      # Specify a column of data in the table as the source of VIDs in Nebula Graph.
+      # Specify a column of data in the table as the source of VIDs in NebulaGraph.
       # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
       }
@@ -318,7 +318,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -333,13 +333,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   edges: [
     # Set the information about the Edge Type follow.
     {
-      # The Edge Type name defined in Nebula Graph.
+      # The Edge Type name defined in NebulaGraph.
       name: follow
       type: {
         # Specify the data source file format to CSV.
         source: csv
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
 
@@ -351,13 +351,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, use the actual column name.
       fields: [_c2]
 
-      # Specify the property name defined in Nebula Graph.
+      # Specify the property name defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [degree]
 
       # Specify a column as the source for the source and destination vertices.
       # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
       }
@@ -376,7 +376,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -385,13 +385,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Edge Type serve.
     {
-      # Specify the Edge type name defined in Nebula Graph.
+      # Specify the Edge type name defined in NebulaGraph.
       name: serve
       type: {
         # Specify the data source file format to CSV.
         source: csv
 
-        # Specify how to import the data into Nebula Graph: Client or SST.
+        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
 
@@ -403,13 +403,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, use the actual column name.
       fields: [_c2,_c3]
 
-      # Specify the property name defined in Nebula Graph.
+      # Specify the property name defined in NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [start_year, end_year]
 
       # Specify a column as the source for the source and destination vertices.
       # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, Nebula Graph {{nebula.release}} supports only strings or integers of VID.
+      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
       }
@@ -427,7 +427,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
-      # The number of data written to Nebula Graph in a single batch.
+      # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
       # The number of Spark partitions.
@@ -479,7 +479,7 @@ After the task is complete, you can view the generated SST file in the `/sst` di
 
     - The `--ws_meta_http_port` in the Graph service configuration file (add it manually if it does not exist) is the same as the `--ws_http_port` in the Meta service configuration file. For example, both are `19559`.
 
-Connect to the Nebula Graph database using the client tool and import the SST file as follows:
+Connect to the NebulaGraph database using the client tool and import the SST file as follows:
 
 1. Run the following command to select the graph space you created earlier.
 
@@ -507,13 +507,13 @@ Connect to the Nebula Graph database using the client tool and import the SST fi
 
 !!! note
 
-    - To download the SST file again, delete the `download` folder in the space ID in the `data/storage/nebula` directory in the Nebula Graph installation path, and then download the SST file again. If the space has multiple copies, the `download` folder needs to be deleted on all machines where the copies are saved.
+    - To download the SST file again, delete the `download` folder in the space ID in the `data/storage/nebula` directory in the NebulaGraph installation path, and then download the SST file again. If the space has multiple copies, the `download` folder needs to be deleted on all machines where the copies are saved.
 
     - If there is a problem with the import and re-importing is required, re-execute `INGEST;`.
 
 ### Step 6: (optional) Validate data
 
-Users can verify that data has been imported by executing a query in the Nebula Graph client (for example, Nebula Graph Studio). For example:
+Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
 
 ```ngql
 GO FROM "player100" OVER follow;
@@ -521,6 +521,6 @@ GO FROM "player100" OVER follow;
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 7: (optional) Rebuild indexes in Nebula Graph
+### Step 7: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in Nebula Graph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
