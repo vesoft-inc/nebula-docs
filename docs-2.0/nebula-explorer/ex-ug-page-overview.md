@@ -30,7 +30,7 @@ Click the icons in the left-side navigation bar to import, analyze, and explore 
 | ![Redo](figs/redo.png) | Restores the action that was previously undone.     |
 | ![snapshot](figs/snapshot-history.png) | View historical snapshots. For more information, see [Canvas snapshots](canvas-operations/canvas-snapshot.md).     |
 | ![graphSpace](figs/nav-graphSpace.png) | View all graph spaces. Click a graph space to create a canvas corresponding to it.     |
-| ![Help](figs/nav-help.png) | View Explorer documents and Nebula Graph forum.     |
+| ![Help](figs/nav-help.png) | View Explorer documents and NebulaGraph forum.     |
 | ![Setup](figs/nav-setup.png) | View your account and shortcuts, edit languages, limit returned results, and clear connection.|
 | ![Console](figs/nav-console.png) | Query data by entering nGQL statements. Querying results are imported on canvas. For more information, see [Explorer console](explorer-console.md).   |
 

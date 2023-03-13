@@ -88,7 +88,7 @@ After you add new storage hosts into the zone, no partition is deployed on the n
   +------------------+------+----------+--------------+-----------------------------------+------------------------+---------+
   ```
 
-If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run [`RECOVER JOB <job_id>`](../3.ngql-guide/18.operation-and-maintenance-statements/4.job-statements.md) to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://discuss.nebula-graph.io/).
 
 ## Stop data balancing
 
@@ -159,4 +159,4 @@ nebula> SHOW HOSTS;
 
 !!! caution
 
-    In Nebula Graph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
+    In NebulaGraph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).

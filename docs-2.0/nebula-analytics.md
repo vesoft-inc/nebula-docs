@@ -1,25 +1,25 @@
 # Nebula Analytics
 
-Nebula Analytics is a high-performance graph computing framework tool that performs graph analysis of data in the Nebula Graph database.
+Nebula Analytics is a high-performance graph computing framework tool that performs graph analysis of data in the NebulaGraph database.
 
 !!! enterpriseonly
 
-    Only available for the Nebula Graph Enterprise Edition.
+    Only available for the NebulaGraph Enterprise Edition.
 
 ## Scenarios
 
-You can import data from data sources as Nebula Graph clusters, CSV files on HDFS, or local CSV files into Nebula Analytics and export the graph computation results to Nebula Graph clusters, CSV files on HDFS, or local CSV files from Nebula Analytics.
+You can import data from data sources as NebulaGraph clusters, CSV files on HDFS, or local CSV files into Nebula Analytics and export the graph computation results to NebulaGraph clusters, CSV files on HDFS, or local CSV files from Nebula Analytics.
 
 
 ## Limitations
 
-When you import Nebula Graph cluster data into Nebula Analytics and export the graph computation results from Nebula Analytics to a Nebula Graph cluster, the graph computation results can only be exported to the graph space where the data source is located.
+When you import NebulaGraph cluster data into Nebula Analytics and export the graph computation results from Nebula Analytics to a NebulaGraph cluster, the graph computation results can only be exported to the graph space where the data source is located.
 
 ## Version compatibility
 
-The version correspondence between Nebula Analytics and Nebula Graph is as follows.
+The version correspondence between Nebula Analytics and NebulaGraph is as follows.
 
-|Nebula Analytics|Nebula Graph|
+|Nebula Analytics|NebulaGraph|
 |:---|:---|
 |1.0.x|3.0.x|
 |0.9.0|2.6.x|
@@ -54,7 +54,7 @@ sudo rpm -i nebula-analytics-1.0.0-centos.x86_64.rpm  --prefix /home/xxx/nebula-
 <!--
 ### Install Nebula Analytics with the source code
 
-The preparations for compiling Nebula Analytics are similar to compiling Nebula Graph. For details, see [Resource preparations](4.deployment-and-installation/1.resource-preparations.md).
+The preparations for compiling Nebula Analytics are similar to compiling NebulaGraph. For details, see [Resource preparations](4.deployment-and-installation/1.resource-preparations.md).
  
 1. Clone the `analytics` repository.
 
@@ -99,17 +99,17 @@ After installation, you can set parameters of different algorithms and then exec
 
 2. Confirm the data source and export path. Configuration steps are as follows.
    
-  - Nebula Graph clusters as the data source
+  - NebulaGraph clusters as the data source
    
-    1. Modify the configuration file `nebula.conf` to configure the Nebula Graph cluster. 
+    1. Modify the configuration file `nebula.conf` to configure the NebulaGraph cluster. 
 
       ```bash
-      # The number of retries connecting to Nebula Graph.
+      # The number of retries connecting to NebulaGraph.
       --retry=3  
       # The name of the graph space where you read or write data.
       --space=baskeyballplayer  
 
-      # Read data from Nebula Graph.
+      # Read data from NebulaGraph.
       # The metad process address.
       --meta_server_addrs=192.168.8.100:9559, 192.168.8.101:9559, 192.168.8.102:9559
       # The name of edges.
@@ -119,16 +119,16 @@ After installation, you can set parameters of different algorithms and then exec
       # The number of rows read per scan.
       --read_batch_size=10000  
 
-      # Write data to Nebula Graph.
+      # Write data to NebulaGraph.
       # The graphd process address.
       --graph_server_addrs=192.168.8.100:9669  
-      # The account to log into Nebula Graph.
+      # The account to log into NebulaGraph.
       --user=root  
-      # The password to log into Nebula Graph.
+      # The password to log into NebulaGraph.
       --password=nebula  
-      # The pattern used to write data back to Nebula Graph: insert or update.
+      # The pattern used to write data back to NebulaGraph: insert or update.
       --mode=insert  
-      # The tag name written back to Nebula Graph.
+      # The tag name written back to NebulaGraph.
       --tag=pagerank  
       # The property name corresponding to the tag.
       --prop=pr  
@@ -136,7 +136,7 @@ After installation, you can set parameters of different algorithms and then exec
       --type=double 
       # The number of rows per write. 
       --write_batch_size=1000 
-      # The file path where the data failed to be written back to Nebula Graph is stored.
+      # The file path where the data failed to be written back to NebulaGraph is stored.
       --err_file=/home/xxx/analytics/err.txt 
       ```
     
@@ -148,13 +148,13 @@ After installation, you can set parameters of different algorithms and then exec
       # The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.
       WCORES=4  
       # The path to the data source.
-      # Set to read data from Nebula Graph via the nebula.conf file.
+      # Set to read data from NebulaGraph via the nebula.conf file.
       INPUT=${INPUT:="nebula:$PROJECT/scripts/nebula.conf"}  
       # Set to read data from the CSV files on HDFS or on local directories.
       # #INPUT=${INPUT:="$PROJECT/data/graph/v100_e2150_ua_c3.csv"}
 
       # The export path to the graph computation results.
-      # Data can be exported to a Nebula Graph. If the data source is also a Nebula Graph, the results will be exported to the graph space specified in nebula.conf.
+      # Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.
       OUTPUT=${OUTPUT:="nebula:$PROJECT/scripts/nebula.conf"}
       # Data can also be exported to the CSV files on HDFS or on local directories.
       # OUTPUT=${OUTPUT:='hdfs://192.168.8.100:9000/_test/output'}
@@ -184,13 +184,13 @@ After installation, you can set parameters of different algorithms and then exec
     # The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.
     WCORES=4  
     # The path to the data source.
-    # Set to read data from Nebula Graph via the nebula.conf file.
+    # Set to read data from NebulaGraph via the nebula.conf file.
     # INPUT=${INPUT:="nebula:$PROJECT/scripts/nebula.conf"}  
     # Set to read data from the CSV files on HDFS or on local directories.
     INPUT=${INPUT:="$PROJECT/data/graph/v100_e2150_ua_c3.csv"}
 
     # The export path to the graph computation results.
-    # Data can be exported to a Nebula Graph. If the data source is also a Nebula Graph, the results will be exported to the graph space specified in nebula.conf.
+    # Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.
     # OUTPUT=${OUTPUT:="nebula:$PROJECT/scripts/nebula.conf"}
     # Data can also be exported to the CSV files on HDFS or on local directories.
     OUTPUT=${OUTPUT:='hdfs://192.168.8.100:9000/_test/output'}
@@ -227,6 +227,6 @@ After installation, you can set parameters of different algorithms and then exec
 
 5. View the graph computation results in the export path.
 
-  - For exporting to a Nebula Graph cluster, check the results according to the settings in `nebula.conf`.
+  - For exporting to a NebulaGraph cluster, check the results according to the settings in `nebula.conf`.
 
   - For exporting the results to the CSV files on HDFS or on local directories, check the results according to the settings in `OUTPUT`, which is a compressed file in the `.gz` format.
