@@ -9,10 +9,11 @@ The correspondence between the NebulaGraph Algorithm release and the NebulaGraph
 |NebulaGraph |NebulaGraph Algorithm |
 |:---|:---|
 |  nightly         |  3.0-SNAPSHOT |
-| 3.0.0 ~ 3.3.x      |  3.0.0        |
+| 3.0.0 ~ 3.4.x      |  3.x.0        |
 | 2.6.x            |  2.6.x        | 
 | 2.5.0、2.5.1      |  2.5.0        | 
 | 2.0.0、2.0.1      |  2.1.0        |
+
 ## Prerequisites
 
 Before using the NebulaGraph Algorithm, users need to confirm the following information:
@@ -27,11 +28,13 @@ Before using the NebulaGraph Algorithm, users need to confirm the following info
 
 ## Limitations
 
-- When submitting the algorithm package directly, the data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
-
 - For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
 
 - Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
+
+!!!
+
+    Before Algorithm v3.1.0, when submitting the algorithm package directly, the data of the vertex ID must be an integer. That is, the vertex ID can be INT or String, but the data itself is an integer.
 
 ## Supported algorithms
 
@@ -55,6 +58,7 @@ The graph computing algorithms supported by NebulaGraph Algorithm are as follows
 | ClusteringCoefficient |Aggregation coefficient| Recommendation system, telecom fraud analysis|   clustercoefficient   |double/string|
 | Jaccard | Jaccard similarity | Similarity computing, recommendation system|    jaccard        |    string   |
 | BFS       | Breadth-First Search| Sequence traversal, shortest path planning|     bfs          |    string   |
+| DFS       | Depth-First Search  | Sequence traversal, shortest path planning|     dfs          |    string   |
 | Node2Vec  |     -     | Graph classification         |     node2vec       |    string   |
 
 !!! note
