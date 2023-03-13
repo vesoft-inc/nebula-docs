@@ -1,6 +1,6 @@
 # Logs
 
-**Nebula Graph** uses [glog](https://github.com/google/glog) to print logs, uses [gflag](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
+**NebulaGraph** uses [glog](https://github.com/google/glog) to print logs, uses [gflag](https://gflags.github.io/gflags/) to control the severity level of the log, and provides an HTTP interface to dynamically change the log level at runtime to facilitate tracking.
 
 ## Log Directory
 
@@ -58,7 +58,7 @@ nebula> UPDATE CONFIGS graph:minloglevel=0;
 
 To change the severity of the storage log, replace the port in the preceding command with `storage` port.
 
-> **NOTE**: Nebula Graph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
+> **NOTE**: NebulaGraph only supports modifying the graph and storage log severity by using the console. And the severity level of meta logs can only be modified with the `curl` command.
 
 **Close** all logs print (FATAL only) with the following command.
 

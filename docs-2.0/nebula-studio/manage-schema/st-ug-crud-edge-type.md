@@ -2,7 +2,7 @@
 
 # Operate edge types
 
-After a graph space is created in Nebula Graph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This article only introduces how to use the **Schema** page to operate edge types in a graph space.
+After a graph space is created in NebulaGraph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This article only introduces how to use the **Schema** page to operate edge types in a graph space.
 
 ## Studio version
 
@@ -17,7 +17,7 @@ docker-compose pull && docker-compose up
 To operate an edge type on the **Schema** page of Studio, you must do a check of these:
 
 - The version of Studio is v1.2.0-beta or later.
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - A graph space is created.
 - Your account has the authority of GOD, ADMIN, or DBA.
 
@@ -45,7 +45,7 @@ To create an edge type on the **Schema** page, follow these steps:
 
    - To cancel a defined property: Besides the **Defaults** column, click the button ![Icon of deletion](https://docs-cdn.nebula-graph.com.cn/nebula-studio-docs/st-ug-020.png "Cancel").
 
-   c. (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](https://docs.nebula-graph.com.cn/manual-CN/2.query-language/4.statement-syntax/1.data-definition-statements/TTL/> "Click to go to Nebula Graph website").
+   c. (Optional) If no index is set for the edge type, you can set the TTL configuration: In the upper left corner of the **Set TTL** panel, click the check box to expand the panel, and configure `TTL_COL` and `TTL_ DURATION`. For more information about both parameters, see [TTL configuration](https://docs.nebula-graph.com.cn/manual-CN/2.query-language/4.statement-syntax/1.data-definition-statements/TTL/> "Click to go to NebulaGraph website").
 
 6. When the preceding settings are completed, in the **Equivalent to the following nGQL statement** panel, you can see the nGQL statement equivalent to these settings.
 

@@ -8,7 +8,7 @@ To use the **Open in Explore** function, you must do a check of these:
 
 - The version of Studio is v2.0.0 or later.
 
-- Studio is connected to Nebula Graph v2.x.
+- Studio is connected to NebulaGraph v2.x.
 
 - A dataset exists in the database.
 

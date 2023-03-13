@@ -4,11 +4,11 @@ This document gives some information about compaction.
 
 ## Introduction to compaction
 
-In Nebula Graph, compaction is the most important background process. Compaction has an important effect on performance.
+In NebulaGraph, compaction is the most important background process. Compaction has an important effect on performance.
 
 Compaction reads the data that is written on the hard disk, then re-organizes the data structure and the indexes to make the data easier to read. The read performance can increase by times after compaction. Thus, to get high read performance, trigger compaction manually when writing a large amount of data into Nebula Graph. Note that compaction leads to long time hard disk IO, we suggest that you do compaction during off-peak hours (for example, early morning).
 
-Nebula Graph has two types of compaction: automatic compaction and full compaction.
+NebulaGraph has two types of compaction: automatic compaction and full compaction.
 
 ## Automatic compaction
 

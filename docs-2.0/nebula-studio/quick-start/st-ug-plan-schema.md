@@ -1,8 +1,8 @@
 # Design a schema
 
-To manipulate graph data in Nebula Graph with Studio, you must have a graph schema. This article introduces how to design a graph schema for Nebula Graph.
+To manipulate graph data in NebulaGraph with Studio, you must have a graph schema. This article introduces how to design a graph schema for NebulaGraph.
 
-A graph schema for Nebula Graph must have these essential elements:
+A graph schema for NebulaGraph must have these essential elements:
 
 - Tags (namely vertex types) and their properties.
 

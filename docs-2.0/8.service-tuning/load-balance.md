@@ -4,15 +4,15 @@ You can use the `BALANCE` statements to balance the distribution of partitions a
 
 ## Prerequisites
 
-The graph spaces stored in Nebula Graph must have more than one replicas for the system to balance the distribution of partitions and Raft leaders.
+The graph spaces stored in NebulaGraph must have more than one replicas for the system to balance the distribution of partitions and Raft leaders.
 
 ## Balance partition distribution
 
-`BALANCE DATA` starts a task to equally distribute the storage partitions in a Nebula Graph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
+`BALANCE DATA` starts a task to equally distribute the storage partitions in a NebulaGraph cluster. A group of subtasks will be created and implemented to migrate data and balance the partition distribution.
 
 >**DON'T:** DON'T stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.
 
-Take scaling out Nebula Graph for an example.
+Take scaling out NebulaGraph for an example.
 
 After you add new storage hosts into the cluster, no partition is deployed on the new hosts. You can run [`SHOW HOSTS`](../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts.md) to check the partition distribution.
 
@@ -92,7 +92,7 @@ nebula> SHOW HOSTS;
 Got 6 rows (time spent 849/1420 us)
 ```
 
-If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [Nebula Graph community](https://discuss.nebula-graph.io/).
+If any subtask fails, run `BALANCE DATA` again to restart the balancing. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://discuss.nebula-graph.io/).
 
 ## Stop data balancing
 
@@ -108,9 +108,9 @@ To check the status of the stopped balance task, run `BALANCE DATA <balance_id>`
 
 Once all the subtasks are finished or stopped, you can run `BALANCE DATA` again to balance the partitions again.
 
-* If any subtask of the preceding balance task failed, Nebula Graph restarts the preceding balance task.
+* If any subtask of the preceding balance task failed, NebulaGraph restarts the preceding balance task.
 
-* If no subtask of the preceding balance task failed, Nebula Graph starts a new balance task.
+* If no subtask of the preceding balance task failed, NebulaGraph starts a new balance task.
 
 ## Remove storage servers
 
@@ -129,7 +129,7 @@ Run the following statement:
 BALANCE DATA REMOVE 192.168.0.8:19779,192.168.0.9:19779;
 ```
 
-Nebula Graph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
+NebulaGraph will start a balance task, migrate the storage partitions in storage3 and storage4, and then remove them from the cluster.
 
 ## Balance leader distribution
 

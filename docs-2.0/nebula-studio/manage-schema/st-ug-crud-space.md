@@ -1,7 +1,7 @@
 <!-- will be updated when Import and Schema modules can work as expected. 
 # Operate graph spaces
 
-When Studio is connected to Nebula Graph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in Nebula Graph.
+When Studio is connected to NebulaGraph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in NebulaGraph.
 
 ## Studio version
 
@@ -16,10 +16,10 @@ docker-compose pull && docker-compose up
 To operate a graph space on the **Schema** page of Studio, you must do a check of these:
 
 - The version of Studio is v1.2.0-beta or later.
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - Your account has the authority of GOD. It means that:
-  - If the authentication is enabled in Nebula Graph, you can use `user` and `password` to sign in to Studio.
-  - If the authentication is disabled in Nebula Graph, you must use `root` and its password to sign in to Studio.
+  - If the authentication is enabled in NebulaGraph, you can use `user` and `password` to sign in to Studio.
+  - If the authentication is disabled in NebulaGraph, you must use `root` and its password to sign in to Studio.
 
 ## Create a graph space
 
@@ -31,7 +31,7 @@ To create a graph space on the **Schema** page, follow these steps:
 
    a. **Name**: Specify a name to the new graph space. In this example, `mooc_actions` is used. The name must be distinct in the database.
 
-   b. **Optional Parameters**: Set `partition_num`, `replica_factor`, `charset`, or `collate`. In this example, these parameters are set to `10`, `1`, `utf8`, and `utf8_bin` separately. For more information, see [`CREATE SPACE` syntax](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax/ "Click to go to the Nebula Graph website").
+   b. **Optional Parameters**: Set `partition_num`, `replica_factor`, `charset`, or `collate`. In this example, these parameters are set to `10`, `1`, `utf8`, and `utf8_bin` separately. For more information, see [`CREATE SPACE` syntax](https://docs.nebula-graph.io/manual-EN/2.query-language/4.statement-syntax/1.data-definition-statements/create-space-syntax/ "Click to go to the NebulaGraph website").
 
    In the **Equivalent to the following nGQL statement** panel, you can see the statement equivalent to the preceding settings.
 

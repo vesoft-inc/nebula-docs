@@ -2,11 +2,11 @@
 
 This article introduces the limitations of Studio v2.x.
 
-## Nebula Graph versions
+## NebulaGraph versions
 
-Only Nebula Graph v2.x is supported.
+Only NebulaGraph v2.x is supported.
 
-If you are using Nebula Graph v1.x, please use Studio v1.x. For more information, see [Studio v1.x User Guide](https://docs.nebula-graph.io/1.1/nebula-studio/about-studio/st-ug-what-is-graph-studio/).
+If you are using NebulaGraph v1.x, please use Studio v1.x. For more information, see [Studio v1.x User Guide](https://docs.nebula-graph.io/1.1/nebula-studio/about-studio/st-ug-what-is-graph-studio/).
 
 ## Architecture
 

@@ -1,6 +1,6 @@
 ## Contributor List
 
-A lot of people have made a contribution to Nebula Graph. These contributors are listed below.
+A lot of people have made a contribution to NebulaGraph. These contributors are listed below.
 
 ### Nebula Repository Contributors
 
