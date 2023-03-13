@@ -1,12 +1,12 @@
 # Nebula Bench
 
-Nebula Bench is a performance test tool for Nebula Graph using the LDBC data set.
+Nebula Bench is a performance test tool for NebulaGraph using the LDBC data set.
 
 ## Scenario
 
-- Generate test data and import Nebula Graph.
+- Generate test data and import NebulaGraph.
 
-- Performance testing in the Nebula Graph cluster.
+- Performance testing in the NebulaGraph cluster.
 
 ## Release note
 
@@ -16,7 +16,7 @@ Nebula Bench is a performance test tool for Nebula Graph using the LDBC data set
 
 1. Generate test data by using ldbc_snb_datagen.
 
-2. Import data to Nebula Graph by using the Importer.
+2. Import data to NebulaGraph by using the Importer.
 
 3. Performance testing by using K6 with the XK6-Nebula plug-in.
 

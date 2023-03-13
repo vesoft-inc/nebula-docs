@@ -25,5 +25,5 @@ Please answer the following questions before submitting your issue. Thanks!
 <!-- Please check the boxes by putting an x in the [ ] like so: [x] -->
 
 - [ ] I searched for existing GitHub issues
-- [ ] I updated Nebula Graph to most recent version
+- [ ] I updated NebulaGraph to most recent version
 - [ ] I included all the necessary information above

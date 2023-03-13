@@ -1,4 +1,4 @@
-# Welcome to Nebula Graph {{ nebula.release }} Documentation
+# Welcome to NebulaGraph {{ nebula.release }} Documentation
 
 !!! danger 
 

@@ -1,4 +1,4 @@
-# Nebula Graph {{ nebula.release }} release notes
+# NebulaGraph {{ nebula.release }} release notes
 
 ## Feature
 
@@ -6,7 +6,7 @@
 
 - Support [openCypher queries with multiple MATCH statements](../3.ngql-guide/7.general-query-statements/2.match.md). [#3519](https://github.com/vesoft-inc/nebula/pull/3519) [#3318](https://github.com/vesoft-inc/nebula/pull/3318)
 
-- Support [Standalone Nebula Graph](../4.deployment-and-installation/standalone-deployment.md). [#3310](https://github.com/vesoft-inc/nebula/pull/3310)
+- Support [Standalone NebulaGraph](../4.deployment-and-installation/standalone-deployment.md). [#3310](https://github.com/vesoft-inc/nebula/pull/3310)
 
 - Support [key-value separation for the storage engine](../5.configurations-and-logs/1.configurations/4.storage-config.md). [#3281](https://github.com/vesoft-inc/nebula/pull/3281)
 
@@ -118,7 +118,7 @@
 
 ## Incompatibility
 
-Nebula Graph {{ nebula.release }} does not support the most ecosystem tools of v2.x, please upgrade the [ecosystem tools](6.eco-tool-version.md).
+NebulaGraph {{ nebula.release }} does not support the most ecosystem tools of v2.x, please upgrade the [ecosystem tools](6.eco-tool-version.md).
 
 - The storage services added in the configuration files cannot be read or written directly. The configuration files only register the storage services into the meta services. You must run the `ADD HOSTS` command to read and write data on storage servers. [#3343](https://github.com/vesoft-inc/nebula/pull/3343)
 

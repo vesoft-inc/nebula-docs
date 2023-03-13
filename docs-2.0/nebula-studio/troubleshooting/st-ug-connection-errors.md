@@ -31,7 +31,7 @@ If the above result is not returned, stop Studio and restart it first. For detai
 
 !!! note
 
-    If you used `docker-compose up -d` to satrt Nebula Graph before, you must run the `docker-compose down` to stop Nebula Graph.
+    If you used `docker-compose up -d` to satrt NebulaGraph before, you must run the `docker-compose down` to stop NebulaGraph.
 
 ### Step3: Confirm address
 
@@ -47,8 +47,8 @@ If the connection is refused, check according to the following steps:
 
 If the connection fails, check according to the following steps:
 
-- If Studio and Nebula Graph are on the same machine, check if the port is exposed.
+- If Studio and NebulaGraph are on the same machine, check if the port is exposed.
 
-- If Studio and Nebula Graph are not on the same machine, check the network configuration of the Nebula Graph server, such as firewall, gateway, and port.
+- If Studio and NebulaGraph are not on the same machine, check the network configuration of the NebulaGraph server, such as firewall, gateway, and port.
 
-If you cannot connect to the Nebula Graph service after troubleshooting with the above steps, please go to the [Nebula Graph forum](https://discuss.nebula-graph.io) for consultation.
+If you cannot connect to the NebulaGraph service after troubleshooting with the above steps, please go to the [NebulaGraph forum](https://discuss.nebula-graph.io) for consultation.

@@ -4,7 +4,7 @@ You can create an index for a Tag and/or an Edge type. An index lets traversal s
 
 !!! note
 
-    You can create an index when a Tag or an Edge Type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [nGQL Manual](../../3.ngql-guide/14.native-index-statements/README.md "Click to go to the Nebula Graph website").
+    You can create an index when a Tag or an Edge Type is created. But an index can decrease the write speed during data import. We recommend that you import data firstly and then create and rebuild an index. For more information, see [nGQL Manual](../../3.ngql-guide/14.native-index-statements/README.md "Click to go to the NebulaGraph website").
 
 ## Studio version
 
@@ -14,7 +14,7 @@ Studio of v{{ studio.release }} or later versions supports this function. For mo
 
 To operate an index on the **Schema** page of Studio, you must do a check of these:
 
-- Studio is connected to Nebula Graph.
+- Studio is connected to NebulaGraph.
 - A graph Space, Tags, and Edge Types are created.
 - Your account has the authority of GOD, ADMIN, or DBA.
 
@@ -38,7 +38,7 @@ To create an index on the **Schema** page, follow these steps:
 
     !!! note
 
-        The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](../../3.ngql-guide/7.general-query-statements/5.lookup.md "Click to go to the Nebula Graph website").
+        The order of the indexed properties has an effect on the result of the `LOOKUP` statement. For more information, see [nGQL Manual](../../3.ngql-guide/7.general-query-statements/5.lookup.md "Click to go to the NebulaGraph website").
 
   - **Comment**: The remarks of a certain property or the index itself. The maximum length is 256 bytes. By default, there will be no comments on an index. But in this example, `follow_index` is used.
 
