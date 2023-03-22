@@ -1,10 +1,10 @@
-# Upgrade NebulaGraph from version 2.x to {{nebula.release}}
+# Upgrade NebulaGraph to {{nebula.release}}
 
-This topic describes how to upgrade NebulaGraph from version 2.x to {{nebula.release}}, taking upgrading from version 2.6.1 to {{nebula.release}} as an example.
+This topic describes how to upgrade NebulaGraph from version 2.x and 3.x to {{nebula.release}}, taking upgrading from version 2.6.1 to {{nebula.release}} as an example.
 
 ## Applicable source versions
 
-This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.
+This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x, and 3.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.
 
 To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
@@ -57,7 +57,7 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
 ## Preparations before the upgrade
 
-- Download the TAR file of NebulaGraph {{nebula.release}} according to your operating system and system architecture. You need the binary files during the upgrade. Find the TAR file on [the download page](https://nebula-graph.io/download/).
+- Download the package of NebulaGraph {{nebula.release}} according to your operating system and system architecture. You need the binary files during the upgrade. Find the package on [the download page](https://nebula-graph.io/download/).
 
   !!! note
         You can also get the new binaries from the source code or the RPM/DEB package.
@@ -90,7 +90,11 @@ To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
         If the services are not fully stopped in 20 minutes, stop upgrading and ask for help on [the forum](https://discuss.nebula-graph.io/) or [Github](https://github.com/vesoft-inc/nebula/issues).
 
-2. In the target path where you unpacked the TAR file, use the binaries in the `bin` directory to replace the old binaries in the `bin` directory in the NebulaGraph installation path.
+  !!! caution
+
+        Starting from version 3.0.0, it is possible to insert vertices without tags. If you need to keep vertices without tags, add `--graph_use_vertex_key=true` in the configuration file (`nebula-graphd.conf`) of all Graph services within the cluster; and add `--use_vertex_key=true` in the configuration file (`nebula-storaged.conf`) of all Storage services."
+
+2. In the target path where you unpacked the package, use the binaries in the `bin` directory to replace the old binaries in the `bin` directory in the NebulaGraph installation path.
 
   !!! note
         Update the binary of the corresponding service on each NebulaGraph server.
