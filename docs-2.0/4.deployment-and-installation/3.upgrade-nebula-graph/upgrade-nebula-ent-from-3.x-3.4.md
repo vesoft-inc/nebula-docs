@@ -4,7 +4,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
 ## Notes
 
-- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
+- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. For upgrading from version 3.4.0 and above to {{nebula.release}}, you can directly replace the binary files for upgrade. For specific operations, please refer to [Upgrade NebulaGraph to {{nebula.release}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/) .<!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
   !!! note
 
         If your version is below 3.0.0, please upgrade to enterprise edition 3.1.0 before upgrading to v{{nebula.release}}. For details, see [Upgrade NebulaGraph Enterprise Edition 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
