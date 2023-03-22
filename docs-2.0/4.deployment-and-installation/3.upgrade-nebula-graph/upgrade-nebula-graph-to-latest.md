@@ -4,7 +4,7 @@ This topic describes how to upgrade NebulaGraph from version 2.x and 3.x to {{ne
 
 ## Applicable source versions
 
-This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x and 3.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.
+This topic applies to upgrading NebulaGraph from 2.0.0 and later 2.x, and 3.x versions to {{nebula.release}}. It does not apply to historical versions earlier than 2.0.0, including the 1.x versions.
 
 To upgrade NebulaGraph from historical versions to {{nebula.release}}:
 
