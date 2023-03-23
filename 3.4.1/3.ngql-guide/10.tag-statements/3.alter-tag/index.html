@@ -7432,12 +7432,6 @@
 <ul>
 <li>The property name must be unique in a tag. If you add a property with the same name as an existing property or a dropped property, the operation fails.</li>
 </ul>
-<ul>
-<li>Only the length of a <code>FIXED_STRING</code> or an <code>INT</code> can be increased.</li>
-</ul>
-<ul>
-<li>Only the data type conversions from FIXED_STRING to STRING and from FLOAT to DOUBLE are allowed.</li>
-</ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
     &lt;alter_definition&gt; [[, alter_definition] ...]
@@ -7461,14 +7455,25 @@ ttl_definition:
 <ul>
 <li>When a property value is set to <code>NOT NULL</code> using <code>ADD</code> or <code>CHANGE</code>, a default value must be specified for the property, that is, the value of <code>DEFAULT</code> must be specified.</li>
 </ul>
+<ul>
+<li>
+<p>When using <code>CHANGE</code> to modify the data type of a property:</p>
+<ul>
+<li>Only the length of a <code>FIXED_STRING</code> or an <code>INT</code> can be increased. The length of a <code>STRING</code> or an <code>INT</code> cannot be decreased.</li>
+</ul>
+<ul>
+<li>Only the data type conversions from FIXED_STRING to STRING and from FLOAT to DOUBLE are allowed.</li>
+</ul>
+</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t1 (p1 string, p2 int);
-nebula&gt; ALTER TAG t1 ADD (p3 int, p4 string);
+nebula&gt; ALTER TAG t1 ADD (p3 int32, fixed_string(10));
 nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = &quot;p2&quot;;
 nebula&gt; ALTER TAG t1 COMMENT = &#39;test1&#39;;
 nebula&gt; ALTER TAG t1 ADD (p5 double NOT NULL DEFAULT 0.4 COMMENT &#39;p5&#39;) COMMENT=&#39;test2&#39;;
-// Change the `p3` property to INT8 
-nebula&gt; ALTER TAG t1 CHANGE (p3 int8, p4 string);
+// Change the data type of p3 in the TAG t1 from INT32 to INT64, and that of p4 from FIXED_STRING(10) to STRING.
+nebula&gt; ALTER TAG t1 CHANGE (p3 int64, p4 string);
 [ERROR(-1005)]: Unsupported!
 </code></pre></div>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
@@ -7480,7 +7485,7 @@ nebula&gt; ALTER TAG t1 CHANGE (p3 int8, p4 string);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 23, 2023</span>
       
     
   </small>
