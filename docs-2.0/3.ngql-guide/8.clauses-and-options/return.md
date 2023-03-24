@@ -141,9 +141,10 @@ nebula> MATCH (v:player) \
 +------------------+--------------+
 ```
 
-Use the `properties()` function to return all properties on a vertex or an edge.
+Use the syntax `<vertex_name>.<tag_name>.<property_name>` to return the property of a vertex; use the syntax `<edge_name>.<property_name>` to return the property of an edge.
 
 ```ngql
+// Return the property of a vertex
 nebula> MATCH p=(v:player{name:"Tim Duncan"})-[]->(v2) \
         RETURN properties(v2);
 +----------------------------------+
@@ -153,6 +154,19 @@ nebula> MATCH p=(v:player{name:"Tim Duncan"})-[]->(v2) \
 | {age: 36, name: "Tony Parker"}   |
 | {age: 41, name: "Manu Ginobili"} |
 +----------------------------------+
+```
+
+```ngql
+// Return the property of an edge
+nebula> MATCH (v:player{name:"Tim Duncan"})-[e]->() \
+        RETURN e.start_year, e.degree \
++--------------+----------+
+| e.start_year | e.degree |
++--------------+----------+
+| __NULL__     | 95       |
+| __NULL__     | 95       |
+| 1997         | __NULL__ |
++--------------+----------+
 ```
 
 ## Return edge type
