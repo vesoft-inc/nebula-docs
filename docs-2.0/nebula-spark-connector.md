@@ -70,45 +70,38 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
 
 ### Compile package
 
-!!! note
 
-     Install NebulaGraph Spark Connector 2.4.x or 2.2.x.
 
 1. Clone repository `nebula-spark-connector`.
 
   ```bash
   $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
+2. Enter the `nebula-spark-connector` directory.
 
-2. Compile package. The procedure varies with Spark versions.
+3. Compile package. The procedure varies with Spark versions.
 
-  - Spark 2.4.x
+!!! note
 
-    1. Enter the `nebula-spark-connector` directory.
+        Spark of the corresponding version has been installed.
 
-      ```bash
-      cd nebula-spark-connector/nebula-spark-connector
-      ```
+  - Spark 2.4
 
-    2. Compile package.
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector -am -Pscala-2.11 -Pspark-2.4
+    ```
 
-      ```bash
-      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-      ```
+  - Spark 2.2
 
-  - Spark 2.2.x
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector_2.2 -am -Pscala-2.11 -Pspark-2.2
+    ```
 
-    1. Enter the `nebula-spark-connector_2.2` directory.
+  - Spark 3.x
 
-      ```bash
-      cd nebula-spark-connector/nebula-spark-connector_2.2
-      ```
-
-    2. Compile package.
-
-      ```bash
-      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-      ```
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector_3.0 -am -Pscala-2.12 -Pspark-3.0
+    ```
 
 After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `target` of the folder.
 

@@ -154,3 +154,7 @@ Follow the steps below to restore data.
 
   - You can filter restoration records by creation time and status, or search backup file names for restoration records.
 
+### View backup/restore progress
+
+After the backup or restoration has started, you can click **View Log** in the **Operation** column of the corresponding task to view the progress.
+

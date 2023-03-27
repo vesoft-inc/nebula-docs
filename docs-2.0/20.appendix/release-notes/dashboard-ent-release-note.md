@@ -1,5 +1,12 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.4.2
+
+- Enhancement
+
+  - Support viewing the data backup and restoration progress on the **Backup&Restore** page.
+  - The installation package for NebulaGraph Enterprise v3.4.1 is built in.
+
 ## Enterprise Edition 3.4.1
 
 - Bugfix
