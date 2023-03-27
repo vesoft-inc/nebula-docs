@@ -3085,21 +3085,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph from v2.x to v3.4 (Community Edition)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph from v3.x to v3.4 (Community Edition)
+        Upgrade NebulaGraph to the latest version (Community Edition)
       </a>
     </li>
   
@@ -3113,7 +3099,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-ent-from-3.x-3.4/" class="md-nav__link">
-        Upgrade NebulaGraph from v3.x to v3.4 (Enterprise Edition)
+        Upgrade NebulaGraph to the latest version (Enterprise Edition)
       </a>
     </li>
   
@@ -6721,6 +6707,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../../4.connect-to-nebula-graph-service/" class="md-nav__link">
+        Connect to NebulaGraph databases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -6728,18 +6728,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_19_5" type="checkbox" id="__nav_19_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_19_6" type="checkbox" id="__nav_19_6" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_19_5">
+        <label class="md-nav__link" for="__nav_19_6">
           Configure clusters
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Configure clusters" data-md-level="2">
-        <label class="md-nav__title" for="__nav_19_5">
+        <label class="md-nav__title" for="__nav_19_6">
           <span class="md-nav__icon md-icon"></span>
           Configure clusters
         </label>
@@ -6799,6 +6799,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modify_cluster_configurations_online" class="md-nav__link">
+    Modify cluster configurations online
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#learn_more" class="md-nav__link">
     Learn more
   </a>
@@ -6842,6 +6849,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8.4.manage-running-logs/" class="md-nav__link">
+        Manage cluster logs
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -6869,8 +6890,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.connect-to-nebula-graph-service/" class="md-nav__link">
-        Connect to NebulaGraph databases
+      <a href="../../11.rolling-update-strategy/" class="md-nav__link">
+        Specify a rolling update strategy
       </a>
     </li>
   
@@ -7393,6 +7414,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modify_cluster_configurations_online" class="md-nav__link">
+    Modify cluster configurations online
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#learn_more" class="md-nav__link">
     Learn more
   </a>
@@ -7426,7 +7454,7 @@
 <p>It is not available to customize configuration parameters for NebulaGraph Clusters deployed with Helm.</p>
 </div>
 <p>The structure of <code>config</code> is as follows.</p>
-<div class="highlight"><pre><span></span><code>Config map[string]string `json:&quot;config,omitempty&quot;`
+<div class="highlight"><pre><span></span><code><span class="nx">Config</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;config,omitempty&quot;`</span>
 </code></pre></div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>You have created a NebulaGraph cluster. For how to create a cluster with Kubectl, see <a href="../../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Create a cluster with Kubectl</a>. </p>
@@ -7467,21 +7495,26 @@
 <span class="w">      </span><span class="s">&quot;auth_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
 <span class="nn">...</span>
 </code></pre></div>
+<p>To add the <code>config</code> for the Meta and Storage services, add <code>spec.metad.config</code> and <code>spec.storaged.config</code> respectively.</p>
 </li>
 <li>
 <p>Run <code>kubectl apply -f nebula_cluster.yaml</code> to push your configuration changes to the cluster.</p>
 <p>After customizing the parameters <code>enable_authorize</code> and <code>auth_type</code>, the configurations in the corresponding ConfigMap (<code>nebula-graphd</code>) of the Graph service will be overwritten.</p>
 </li>
 </ol>
+<h2 id="modify_cluster_configurations_online">Modify cluster configurations online<a class="headerlink" href="#modify_cluster_configurations_online" title="Permanent link">&para;</a></h2>
+<p>Cluster configurations are modified online by calling the HTTP interface, without the need to restart the cluster Pod.</p>
+<p>It should be noted that only when all configuration items in <code>config</code> are the parameters that can be dynamically modified at runtime, can the operation of online modifications be triggered. If the configuration items in <code>config</code> contain parameters that cannot be dynamically modified, then the cluster configuration will be updated by restarting the Pod.</p>
+<p>For information about the parameters that can be dynamically modified for each service, see the parameter table column of <strong>Whether supports runtime dynamic modifications</strong> in <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration parameters</a>, <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration parameters</a>, and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration parameters</a>, respectively.</p>
 <h2 id="learn_more">Learn more<a class="headerlink" href="#learn_more" title="Permanent link">&para;</a></h2>
-<p>For more information on the configuration parameters of Meta, Storage, and Graph services, see <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">Configurations</a>.</p>
+<p>For more information about the configuration parameters of Meta, Storage, and Graph services, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration parameters</a>, <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration parameters</a>, and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration parameters</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 27, 2023</span>
       
     
   </small>
@@ -7515,7 +7548,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../../3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Deploy clusters with Helm" rel="prev">
+        <a href="../../4.connect-to-nebula-graph-service/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Connect to NebulaGraph databases" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -7524,7 +7557,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Deploy clusters with Helm
+              Connect to NebulaGraph databases
             </div>
           </div>
         </a>

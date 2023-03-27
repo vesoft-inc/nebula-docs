@@ -3241,21 +3241,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph from v2.x to v3.4 (Community Edition)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest/" class="md-nav__link">
-        Upgrade NebulaGraph from v3.x to v3.4 (Community Edition)
+        Upgrade NebulaGraph to the latest version (Community Edition)
       </a>
     </li>
   
@@ -3269,7 +3255,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-ent-from-3.x-3.4/" class="md-nav__link">
-        Upgrade NebulaGraph from v3.x to v3.4 (Enterprise Edition)
+        Upgrade NebulaGraph to the latest version (Enterprise Edition)
       </a>
     </li>
   
@@ -6876,22 +6862,36 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../nebula-operator/4.connect-to-nebula-graph-service/" class="md-nav__link">
+        Connect to NebulaGraph databases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_19_5" type="checkbox" id="__nav_19_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_19_6" type="checkbox" id="__nav_19_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_19_5">
+        <label class="md-nav__link" for="__nav_19_6">
           Configure clusters
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Configure clusters" data-md-level="2">
-        <label class="md-nav__title" for="__nav_19_5">
+        <label class="md-nav__title" for="__nav_19_6">
           <span class="md-nav__icon md-icon"></span>
           Configure clusters
         </label>
@@ -6939,6 +6939,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nebula-operator/8.custom-cluster-configurations/8.4.manage-running-logs/" class="md-nav__link">
+        Manage cluster logs
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -6966,8 +6980,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../nebula-operator/4.connect-to-nebula-graph-service/" class="md-nav__link">
-        Connect to NebulaGraph databases
+      <a href="../../../nebula-operator/11.rolling-update-strategy/" class="md-nav__link">
+        Specify a rolling update strategy
       </a>
     </li>
   
@@ -7729,8 +7743,9 @@ nebula&gt; MATCH (v:player)-[e]-&gt;() \
 | &quot;David West&quot;     | 38           |
 +------------------+--------------+
 </code></pre></div>
-<p>Use the <code>properties()</code> function to return all properties on a vertex or an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
+<p>Use the syntax <code>&lt;vertex_name&gt;.&lt;tag_name&gt;.&lt;property_name&gt;</code> to return the property of a vertex; use the syntax <code>&lt;edge_name&gt;.&lt;property_name&gt;</code> to return the property of an edge.</p>
+<div class="highlight"><pre><span></span><code>// Return the property of a vertex
+nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[]-&gt;(v2) \
         RETURN properties(v2);
 +----------------------------------+
 | properties(v2)                   |
@@ -7739,6 +7754,17 @@ nebula&gt; MATCH (v:player)-[e]-&gt;() \
 | {age: 36, name: &quot;Tony Parker&quot;}   |
 | {age: 41, name: &quot;Manu Ginobili&quot;} |
 +----------------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>// Return the property of an edge
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e]-&gt;() \
+        RETURN e.start_year, e.degree \
++--------------+----------+
+| e.start_year | e.degree |
++--------------+----------+
+| __NULL__     | 95       |
+| __NULL__     | 95       |
+| 1997         | __NULL__ |
++--------------+----------+
 </code></pre></div>
 <h2 id="return_edge_type">Return edge type<a class="headerlink" href="#return_edge_type" title="Permanent link">&para;</a></h2>
 <p>Use the <code>type()</code> function to return the matched edge types.</p>
@@ -7927,7 +7953,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tony Parker&quot;})--(v2:player) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 27, 2023</span>
       
     
   </small>
