@@ -2,7 +2,7 @@
 
 ## Bugfix
 
-- Fix the crash caused by encoding parameter expressions to the storage layer for execution.
+- Fix the crash caused by encoding the parameter expression and evaluating it in the storage. 
 
 - Fix some crashes for the list function.
 
