@@ -26,13 +26,14 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 2. Confirm the configuration of the **Formula Config**. Users can adjust the formula by themselves.
 
-  The formula for the weight function is `weight(value>conditionValue , weightValue)`, where the blue font supports modification. The formula for calculating the value of the function is `(value - conditionValue)/(maxValue - conditionValue) * weightValue`.
+  The formula for the weight function is `weight(value>conditionValue , weightValue)`, where the blue font supports modification. The formula for calculating the value of the function is `(value - conditionValue * timeRange)/((maxValue - conditionValue) * timeRange) * weightValue`.
   
   - value: Current metric value.
-  - maxValue: The maximum metric value.
   - conditionValue: The lowest value that matches the condition.
+  - timeRange: The number of days in the time range. For avg type metrics, the value of this parameter is 1.
+  - maxValue: The maximum metric value. The value for the percentage type is 100, and the value for the rest of the types is 2 times the conditionValue.
   
-  For example `weight(max_avg_cpu_usage > 60%, 30)`, when `max_avg_cpu_usage = 75%`, the formula is `(75 - 60)/(100-60) * 30 = 11.25`。
+  For example `weight(hit_memory_times > 10 * days, 10)`, when the time range is selected as 2 days and `hit_memory_times = 40`, the formula is `(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10`。
 
 3. Click **Start**.
 
