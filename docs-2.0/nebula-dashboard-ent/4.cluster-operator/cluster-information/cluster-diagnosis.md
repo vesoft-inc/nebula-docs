@@ -26,6 +26,14 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 2. Confirm the configuration of the **Formula Config**. Users can adjust the formula by themselves.
 
+  The formula for the weight function is `weight(value>conditionValue , weightValue)`, where the blue font supports modification. The formula for calculating the value of the function is `(value - conditionValue)/(maxValue - conditionValue) * weightValue`.
+  
+  - value: Current metric value.
+  - maxValue: The maximum metric value.
+  - conditionValue: The lowest value that matches the condition.
+  
+  For example `weight(max_avg_cpu_usage > 60%, 30)`, when `max_avg_cpu_usage = 75%`, the formula is `(75 - 60)/(100-60) * 30 = 11.25`。
+
 3. Click **Start**.
 
   ![diagnosepage](https://docs-cdn.nebula-graph.com.cn/figures/cluster_diagnose_230327_en.png)
