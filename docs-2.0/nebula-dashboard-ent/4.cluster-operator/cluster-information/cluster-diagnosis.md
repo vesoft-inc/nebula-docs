@@ -24,7 +24,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
         Note that the end time of the diagnostic range you set cannot be longer than the current time. If the end time is longer than the current time, the end time will be set to the current time.
 
-2. Confirm the configuration of the **Formula Config**. Users can adjust the formula by themselves.
+2. Confirm the configuration of the **Formula Config**. Users can adjust the formula manually.
 
   The weight function in the formula is `weight(value>conditionValue , weightValue)`, where the numbers in the blue font support modification. The method for calculating the value of the function is `(value - conditionValue * timeRange)/((maxValue - conditionValue) * timeRange) * weightValue`.
   
