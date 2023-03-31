@@ -2832,6 +2832,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the_tck_format" class="md-nav__link">
+    The tck format
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7441,6 +7448,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the_tck_format" class="md-nav__link">
+    The tck format
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7470,17 +7484,17 @@
 <p>For example, a <code>SHOW TAGS</code> statement is processed into two <code>actions</code> and assigned to a <code>Start operator</code> and a <code>ShowTags operator</code>, while a more complex <code>GO</code> statement may be processed into more than 10 <code>actions</code> and assigned to 10 operators.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>EXPLAIN</code><div class="highlight"><pre><span></span><code>EXPLAIN [format= {&quot;row&quot; | &quot;dot&quot;}] &lt;your_nGQL_statement&gt;;
+<li><code>EXPLAIN</code><div class="highlight"><pre><span></span><code>EXPLAIN [format= {&quot;row&quot; | &quot;dot&quot; | &quot;tck&quot;}] &lt;your_nGQL_statement&gt;;
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li><code>PROFILE</code><div class="highlight"><pre><span></span><code>PROFILE [format= {&quot;row&quot; | &quot;dot&quot;}] &lt;your_nGQL_statement&gt;;
+<li><code>PROFILE</code><div class="highlight"><pre><span></span><code>PROFILE [format= {&quot;row&quot; | &quot;dot&quot; | &quot;tck&quot;}] &lt;your_nGQL_statement&gt;;
 </code></pre></div>
 </li>
 </ul>
 <h2 id="output_formats">Output formats<a class="headerlink" href="#output_formats" title="Permanent link">&para;</a></h2>
-<p>The output of an <code>EXPLAIN</code> or a <code>PROFILE</code> statement has two formats, the default <code>row</code> format and the <code>dot</code> format. You can use the <code>format</code> option to modify the output format. Omitting the <code>format</code> option indicates using the default <code>row</code> format.</p>
+<p>The output of an <code>EXPLAIN</code> or a <code>PROFILE</code> statement has three formats, the default <code>row</code> format, the <code>dot</code> format, and the <code>tck</code> format. You can use the <code>format</code> option to modify the output format. Omitting the <code>format</code> option indicates using the default <code>row</code> format.</p>
 <h2 id="the_row_format">The <code>row</code> format<a class="headerlink" href="#the_row_format" title="Permanent link">&para;</a></h2>
 <p>The <code>row</code> format outputs the return message in a table as follows.</p>
 <ul>
@@ -7577,13 +7591,45 @@ Execution Plan
 </code></pre></div>
 <p>The Graphviz graph transformed from the above DOT statement is as follows.</p>
 <p><img alt="Graphviz graph of EXPLAIN SHOW TAGS" src="https://docs-cdn.nebula-graph.com.cn/docs-2.0/3.ngql-guide/16.query-tuning-statements/explain-show-tags.png" /></p>
+<h2 id="the_tck_format">The <code>tck</code> format<a class="headerlink" href="#the_tck_format" title="Permanent link">&para;</a></h2>
+<p>The tck format is similar to a table, but without borders and dividing lines between rows. You can use the results as test cases for unit testing. 
+For information on tck format test cases, see <a href="https://github.com/vesoft-inc/nebula/tree/master/tests/tck/features">TCK cases</a>.</p>
+<ul>
+<li><code>EXPLAIN</code><div class="highlight"><pre><span></span><code>nebula&gt; EXPLAIN format=&quot;tck&quot; FETCH PROP ON player &quot;player_1&quot;,&quot;player_2&quot;,&quot;player_3&quot; YIELD properties(vertex).name as name, properties(vertex).age as age;
+Execution succeeded (time spent 261µs/613.718µs)
+Execution Plan (optimize time 28 us)
+| id | name        | dependencies | profiling data | operator info |
+|  2 | Project     | 1            |                |               |
+|  1 | GetVertices | 0            |                |               |
+|  0 | Start       |              |                |               |
+
+Wed, 22 Mar 2023 23:15:52 CST
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li><code>PROFILE</code><div class="highlight"><pre><span></span><code>nebula&gt; PROFILE format=&quot;tck&quot; FETCH PROP ON player &quot;player_1&quot;,&quot;player_2&quot;,&quot;player_3&quot; YIELD properties(vertex).name as name, properties(vertex).age as age;
+| name         | age |
+| &quot;Piter Park&quot; | 24  |
+| &quot;aaa&quot;        | 24  |
+| &quot;ccc&quot;        | 24  |
+Got 3 rows (time spent 1.474ms/2.19677ms)
+Execution Plan (optimize time 41 us)
+| id | name        | dependencies | profiling data                                                                                                      | operator info |
+|  2 | Project     | 1            | {&quot;rows&quot;:3,&quot;version&quot;:0}                                                                                              |               |
+|  1 | GetVertices | 0            | {&quot;resp[0]&quot;:{&quot;exec&quot;:&quot;232(us)&quot;,&quot;host&quot;:&quot;127.0.0.1:9779&quot;,&quot;total&quot;:&quot;758(us)&quot;},&quot;rows&quot;:3,&quot;total_rpc&quot;:&quot;875(us)&quot;,&quot;version&quot;:0} |               |
+|  0 | Start       |              | {&quot;rows&quot;:0,&quot;version&quot;:0}                                                                                              |               |
+Wed, 22 Mar 2023 23:16:13 CST
+</code></pre></div>
+</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 31, 2023</span>
       
     
   </small>
