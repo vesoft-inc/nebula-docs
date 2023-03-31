@@ -26,7 +26,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 2. Confirm the configuration of the **Formula Config**. Users can adjust the formula by themselves.
 
-  The formula for the weight function is `weight(value>conditionValue , weightValue)`, where the blue font supports modification. The formula for calculating the value of the function is `(value - conditionValue * timeRange)/((maxValue - conditionValue) * timeRange) * weightValue`.
+  The weight function in the formula is `weight(value>conditionValue , weightValue)`, where the numbers in the blue font support modification. The method for calculating the value of the function is `(value - conditionValue * timeRange)/((maxValue - conditionValue) * timeRange) * weightValue`.
   
   - value: Current metric value.
   - conditionValue: The lowest value that matches the condition.
