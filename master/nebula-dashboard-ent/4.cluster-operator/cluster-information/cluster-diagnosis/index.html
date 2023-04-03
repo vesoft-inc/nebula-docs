@@ -5008,61 +5008,6 @@
     View diagnostic reports
   </a>
   
-    <nav class="md-nav" aria-label="View diagnostic reports">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#diagnosis_result" class="md-nav__link">
-    Diagnosis Result
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic_info" class="md-nav__link">
-    Basic Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#load_info" class="md-nav__link">
-    Load Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#network" class="md-nav__link">
-    Network
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#session" class="md-nav__link">
-    Session
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service_info" class="md-nav__link">
-    Service Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration_info" class="md-nav__link">
-    Configuration Info
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -7482,61 +7427,6 @@
     View diagnostic reports
   </a>
   
-    <nav class="md-nav" aria-label="View diagnostic reports">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#diagnosis_result" class="md-nav__link">
-    Diagnosis Result
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic_info" class="md-nav__link">
-    Basic Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#load_info" class="md-nav__link">
-    Load Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#network" class="md-nav__link">
-    Network
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#session" class="md-nav__link">
-    Session
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service_info" class="md-nav__link">
-    Service Info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration_info" class="md-nav__link">
-    Configuration Info
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -7583,291 +7473,56 @@
 </div>
 </li>
 <li>
-<p>On the <strong>Cluster Diagnostics</strong> page, click <strong>Start</strong>.</p>
-<p><img alt="diagnosepage" src="https://docs-cdn.nebula-graph.com.cn/figures/cluster-diagnose_2022-04-11_en.png" /></p>
+<p>Confirm the configuration of the <strong>Formula Config</strong>. Users can adjust the formula manually.</p>
+<p>The weight function in the formula is <code>weight(value&gt;conditionValue , weightValue)</code>, where the numbers in the blue font support modification. The method for calculating the value of the function is <code>(value - conditionValue * timeRange)/((maxValue - conditionValue) * timeRange) * weightValue</code>.</p>
+<ul>
+<li>value: Current metric value.</li>
+<li>conditionValue: The lowest value that matches the condition.</li>
+<li>timeRange: The number of days in the time range. For avg type metrics, the value of this parameter is 1.</li>
+<li>maxValue: The maximum metric value. The value for the percentage type is 100, and the value for the rest of the types is 2 times the conditionValue.</li>
+</ul>
+<p>For example <code>weight(hit_memory_times &gt; 10 * days, 10)</code>, when the time range is selected as 2 days and <code>hit_memory_times = 40</code>, the formula is <code>(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10</code>。</p>
 </li>
 <li>
-<p>Wait for the diagnostic report to be generated. When the diagnostic status is changed to <strong>success</strong> from <strong>generating</strong>, the diagnostic report is ready. </p>
+<p>Click <strong>Start</strong>.</p>
+<p><img alt="diagnosepage" src="https://docs-cdn.nebula-graph.com.cn/figures/cluster_diagnose_230327_en.png" /></p>
+</li>
+<li>
+<p>Wait for the diagnostic report to be generated. When the diagnostic status is changed to <strong>success</strong>, the diagnostic report is ready.</p>
 </li>
 </ol>
 <h2 id="view_diagnostic_reports">View diagnostic reports<a class="headerlink" href="#view_diagnostic_reports" title="Permanent link">&para;</a></h2>
-<p>In the diagnostic report list, you can view the diagnostic reports by clicking <strong>Detail</strong> on the right side of the target report. You can also download the diagnostic report in PDF format.</p>
+<p>In the diagnostic report list, you can view the diagnostic reports by clicking <strong>Detail</strong> on the right side of the target report.</p>
 <p>A diagnostic report contains the following information:</p>
 <ul>
-<li>Diagnosis Result</li>
-<li>Basic Info</li>
-<li>Load Info</li>
-<li>Network</li>
-<li>Session</li>
-<li>Service Info</li>
-<li>Configuration Info</li>
+<li>Basic Info<ul>
+<li>Displays information that needs to be focused on, such as emergency alarms, warning alarms, tips, etc.</li>
+<li>Display cluster health score, maximum average CPU usage, maximum average memory usage, etc.</li>
 </ul>
-<h3 id="diagnosis_result">Diagnosis Result<a class="headerlink" href="#diagnosis_result" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>When the following parameters are abnormal, the corresponding information is displayed in the <strong>Diagnosis Result</strong> section, including the parameter name, type, severity, and details.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>num_queries_hit_memory_watermark</code></td>
-<td>The total number of nGQL statements that reach the memory high-water mark during execution.</td>
-</tr>
-<tr>
-<td><code>graphd_down</code></td>
-<td>Graph services stopped running.</td>
-</tr>
-<tr>
-<td><code>storaged_down</code></td>
-<td>Storage services stopped running.</td>
-</tr>
-<tr>
-<td><code>metad_down</code></td>
-<td>Meta services stopped running.</td>
-</tr>
-<tr>
-<td><code>node-exporter down</code></td>
-<td>The service used to collect data from the node stopped running.</td>
-</tr>
-</tbody>
-</table>
+</li>
+<li>Node Info<ul>
+<li>Display the Host, instances, architecture, and system of each node.</li>
+<li>Display CPU, memory, disk, and network traffic of each node.</li>
+</ul>
+</li>
+<li>Service Info<ul>
+<li>Show the online status and session information of each service.</li>
+<li>Display graph, meta, and storage service stability information.</li>
+</ul>
+</li>
+<li>Configuration Info<ul>
+<li>Display configuration change information.</li>
+</ul>
 </li>
 </ul>
-<ul>
-<li>When no abnormality is diagnosed, <strong>no diagnostic information</strong> is displayed in the diagnostic result.</li>
-</ul>
-<h3 id="basic_info">Basic Info<a class="headerlink" href="#basic_info" title="Permanent link">&para;</a></h3>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/basicinfo_2022-04-13_en.png" /></p>
-<ul>
-<li><strong>Report Time Range</strong>: Displays the time range of the diagnostic report.</li>
-</ul>
-<ul>
-<li>
-<p><strong>Node Info</strong>: Displays the basic information of the node, including the node IP, number of services, CPU, memory, and disk.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>HOST</code></td>
-<td>The IP address of the node.</td>
-</tr>
-<tr>
-<td><code>INSTANCE</code></td>
-<td>The number of NebulaGraph services deployed on this node. Such as: <code>metad*1 graphd*1 storaged*1</code>.</td>
-</tr>
-<tr>
-<td><code>CPU</code></td>
-<td>The number of CPU cores. Unit: Core.</td>
-</tr>
-<tr>
-<td><code>MEMORY</code></td>
-<td>The memory size of the node. Unit: GB.</td>
-</tr>
-<tr>
-<td><code>DISK</code></td>
-<td>The disk size of the node. Unit: GB.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul>
-<li><strong>Service Info</strong>: Displays the type, node IP, HTTP port, and operational status of each NebulaGraph service.</li>
-</ul>
-<ul>
-<li>
-<p><strong>Leader Distribution</strong>: Displays the distribution of Leaders in Storage services.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Storage Service</code></td>
-<td>Displays the access addresses for Storage services.</td>
-</tr>
-<tr>
-<td><code>Number of Leaders</code></td>
-<td>Displays the number of Leaders in the corresponding Storage service.</td>
-</tr>
-<tr>
-<td><code>Leader Distribution</code></td>
-<td>Displays the number of Leader distributions for different space graphs in the corresponding Storage service.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<h3 id="load_info">Load Info<a class="headerlink" href="#load_info" title="Permanent link">&para;</a></h3>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/load_2022-04-13_en.png" /></p>
-<p>Displays the load information of the node, including the average value (AVG), maximum value (MAX), minimum value (MIN) of the following metrics of the node within the time range: </p>
-<ul>
-<li><strong>Memory Utilization</strong>: Displays the node memory usage in %.</li>
-</ul>
-<ul>
-<li><strong>CPU Utilization</strong>: Displays the node CPU usage in %.</li>
-</ul>
-<ul>
-<li><strong>Disk Utilization</strong>: Displays the total disk utilization of the node and the utilization of each disk in the node in %.</li>
-</ul>
-<h3 id="network">Network<a class="headerlink" href="#network" title="Permanent link">&para;</a></h3>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/network_2022-04-13.png" /></p>
-<p>Displays the network traffic information of all nodes in the cluster, including the average (AVG), maximum (MAX), and minimum (MIN) values of the following metrics: </p>
-<ul>
-<li><strong>NetworkOut</strong>: Displays the magnitude of network outflow speed for each node in the cluster, and the magnitude of outflow speed for each NIC in each node. Unit: Bytes/s.</li>
-</ul>
-<ul>
-<li><strong>NetworkIn</strong>: Shows the magnitude of network inflow speed for each server node in the cluster and the magnitude of inflow speed for each NIC in each node. Unit: Bytes/s.</li>
-</ul>
-<h3 id="session">Session<a class="headerlink" href="#session" title="Permanent link">&para;</a></h3>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/session_2022-04-13.png" /></p>
-<p>Displays the session-related information for all Graph services in the cluster.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>num_opened_sessions</code></td>
-<td>The number of sessions connected to the server.</td>
-</tr>
-<tr>
-<td><code>num_auth_failed_sessions</code></td>
-<td>The number of sessions in which login authentication failed.</td>
-</tr>
-<tr>
-<td><code>num_active_sessions</code></td>
-<td>The number of changes in active sessions.</td>
-</tr>
-<tr>
-<td><code>num_reclaimed_expired_sessions</code></td>
-<td>The number of expired sessions actively reclaimed by the server.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="service_info">Service Info<a class="headerlink" href="#service_info" title="Permanent link">&para;</a></h3>
-<p>Displays metrics related to the stability of each service in the cluster.</p>
-<ul>
-<li>
-<p><strong>Graph</strong>: </p>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/Service_Graph_2022-04-13_en.png" /></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>METRIC_NAME</code></td>
-<td><code>query</code>: The number of all queries.<br />    <code>slow_queries</code>: The number of slow queries.<br /><code>num_killed_queries</code>: The number of killed queries.<br /><code>num_queries_hit_memory_watermark</code>: The total number of nGQL statements that reach the memory high-water mark during execution.<br /><code>num_rpc_sent_to_metad</code>: The number of RPC requests that the Graphd service sent to the Metad service.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul>
-<li>
-<p><strong>Meta</strong>: </p>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/Service_meta_2022-04-13_en.png" /></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>METRIC_NAME</code></td>
-<td><code>heartbeat</code>: The number of heartbeats.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul>
-<li>
-<p><strong>Storage</strong>: </p>
-<p><img alt="basic-info" src="https://docs-cdn.nebula-graph.com.cn/figures/Service_Storage_2022-04-13_en.png" /></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>METRIC_NAME</code></td>
-<td><code>delete_vertices</code>: The number of deleted vertices.<br />    <code>delete_edges</code>: The number of deleted edges.<br /><code>delete_tags</code>: The number of deleted tags.<br /><code>num_rpc_sent_to_metad</code>: The number of RPC requests that the Storaged service sent to the Metad service.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<p>The descriptions of other parameters are as follows: </p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>TOTAL</code></td>
-<td>The total number of times this monitoring metric is executed.</td>
-</tr>
-<tr>
-<td><code>ERROR</code></td>
-<td>The number of errors that occurred.</td>
-</tr>
-<tr>
-<td><code>P75</code></td>
-<td>The 75th percentile latency.</td>
-</tr>
-<tr>
-<td><code>P95</code></td>
-<td>The 95th percentile latency.</td>
-</tr>
-<tr>
-<td><code>P99</code></td>
-<td>The 99th percentile latency.</td>
-</tr>
-<tr>
-<td><code>P999</code></td>
-<td>The 99.9th percentile latency.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="configuration_info">Configuration Info<a class="headerlink" href="#configuration_info" title="Permanent link">&para;</a></h3>
-<p>Lists all configuration information for Graph, Meta, and Storage services in the current cluster.</p>
-<p>For information about the configurations of each service in NebulaGraph, see <a href="../../../../5.configurations-and-logs/1.configurations/1.configurations/">Configurations</a>.</p>
+<p>You can also download the diagnostic report in HTML or PDF format.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 3, 2023</span>
       
     
   </small>
