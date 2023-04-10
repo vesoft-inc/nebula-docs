@@ -2,6 +2,17 @@
 
 Indexes are built to fast process graph queries. Nebula Graph supports two kinds of indexes: native indexes and full-text indexes. This topic introduces the index types and helps choose the right index.
 
+## Usage Instructions
+
+- Indexes can improve query performance but may reduce write performance.
+
+- An index is a prerequisite for locating data when executing a `LOOKUP `statement. If there is no index, an error will be reported when executing the `LOOKUP` statement.
+  
+- When using an index, NebulaGraph will automatically select the most optimal index.
+  
+- Indexes with high selectivity, that is, when the ratio of the number of records with unique values in the index column to the total number of records is high (for example, the ratio for `ID numbers` is `1`), can significantly improve query performance. For indexes with low selectivity (such as `country`), query performance might not experience a substantial improvement.
+
+
 ## Native indexes
 
 Native indexes allow querying data based on a given property. Features are as follows.
