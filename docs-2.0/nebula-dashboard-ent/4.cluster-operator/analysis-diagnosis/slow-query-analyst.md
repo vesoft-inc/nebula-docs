@@ -1,6 +1,6 @@
 # Slow query analyst
 
-In the daily work of DBAs, they need to analyze and govern the execution of query statements of the cluster. NebulaGraph Dashboard supports viewing the slow queries, including statements, duration, categories, execution plans, etc.
+DBAs need to analyze and manage the execution of query statements in a cluster as part of their daily work. NebulaGraph Dashboard provides a feature that allows users to view slow queries, including the statements, duration, categories, execution plans, and more.
 
 ## Features
 
