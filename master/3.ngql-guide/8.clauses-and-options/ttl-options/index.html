@@ -7604,10 +7604,19 @@
 </tr>
 <tr>
 <td align="left"><code>ttl_duration</code></td>
-<td align="left">Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the <code>ttl_duration</code> value is smaller than the current timestamp. If the <code>ttl_duration</code> value is <code>0</code>, the property never expires.</td>
+<td align="left">Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the <code>ttl_duration</code> value is smaller than the current timestamp. If the <code>ttl_duration</code> value is <code>0</code>, the property never expires.<br/>You can set <code>ttl_use_ms</code> to <code>true</code> in the configuration file <code>nebula-storaged.conf</code> (default path: <code>/usr/local/nightly/etc/</code>) to set the default unit to milliseconds.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>Before setting <code>ttl_use_ms</code> to <code>true</code>, make sure that no TTL has been set for any property, as shortening the expiration time may cause data to be erroneously deleted.</li>
+</ul>
+<ul>
+<li>After setting <code>ttl_use_ms</code> to <code>true</code>, which sets the default TTL unit to milliseconds, the data type of the property specified by <code>ttl_col</code> must be <code>int</code>, and the property value needs to be manually converted to milliseconds. For example, when setting <code>ttl_col</code> to <code>a</code>, you need to convert the value of <code>a</code> to milliseconds, such as when the value of <code>a</code> is <code>now()</code>, you need to set the value of <code>a</code> to <code>now() * 1000</code>.</li>
+</ul>
+</div>
 <h2 id="data_expiration_and_deletion">Data expiration and deletion<a class="headerlink" href="#data_expiration_and_deletion" title="Permanent link">&para;</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -7677,7 +7686,7 @@ nebula&gt; INSERT VERTEX t2(a, b, c) VALUES &quot;102&quot;:(1648197138, 30, &qu
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2023</span>
       
     
   </small>

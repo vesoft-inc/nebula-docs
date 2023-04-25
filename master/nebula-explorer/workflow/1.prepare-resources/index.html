@@ -7420,7 +7420,7 @@
 
 
 <h1 id="prepare_resources">Prepare resources<a class="headerlink" href="#prepare_resources" title="Permanent link">&para;</a></h1>
-<p>You must prepare your environment for running a workflow, including NebulaGraph configurations, HDFS configurations, and NebulaGraph Analytics configurations.</p>
+<p>You must prepare your environment for running a workflow, including NebulaGraph configurations, DAG configurations, NebulaGraph Analytics configurations and HDFS configurations.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>NebulaGraph Analytics 3.4.0 or later have been deployed. For details, see <a href="../../../graph-computing/nebula-analytics/">NebulaGraph Analytics</a>.</li>
@@ -7434,36 +7434,59 @@
 <p>At the top of the Explorer page, click <strong>Workflow</strong>.</p>
 </li>
 <li>
-<p>In the <strong>Workflows</strong> tab, click <strong>Configuration</strong>.</p>
+<p>Click <strong>Workflow Configuration</strong> in the upper right corner of the page.</p>
 </li>
 <li>
-<p>Configure the following resources:</p>
-<p><img alt="workflow_configuration" src="https://docs-cdn.nebula-graph.com.cn/figures/workflow_configuration_221117_en.png" /></p>
-<table>
-<thead>
-<tr>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">NebulaGraph Configuration</td>
-<td align="left">The access address of the graph service that executes a graph query or to which the graph computing result is written. The default address is the address that you use to log into Explorer and can not be changed. You can set timeout periods for three services.</td>
-</tr>
-<tr>
-<td align="left">HDFS Configuration</td>
-<td align="left">The HDFS address that stores the result of the graph query or graph computing. Click <strong>Add</strong> to add a new address, you can set the HDFS name, HDFS path (<code>fs.defaultFS</code>), and HDFS username. You can configure the save path, such as <code>hdfs://192.168.8.100:9000/test</code>. The configuration takes effect only after the HDFS client is installed on the machine where the Analytics is installed.</td>
-</tr>
-<tr>
-<td align="left">NebulaGraph Analytics Configuration</td>
-<td align="left">The NebulaGraph Analytics address that performs the graph computing. Click <strong>Add</strong> to add a new address.</td>
-</tr>
-</tbody>
-</table>
+<p>Configure the following resources.</p>
+<p><img alt="workflow_configuration" src="https://docs-cdn.nebula-graph.com.cn/figures/workflow_configuration_230424_en.png" /></p>
+<ul>
+<li>
+<p>NebulaGraph configuration</p>
+<p>The access address of the graph service that executes a graph query or to which the graph computing result is written. The default address is the address that you use to log into Explorer and can not be changed. You can set timeout periods for three services.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>DAG configuration</p>
+<p>The configuration of the Dag Controller for the graph computing.</p>
+<ul>
+<li>Username: Fixed to <code>vesoft</code> and does not need to be changed.</li>
+<li>Local data directory: The Analytics data directory, the shared directory of NFS service. By default, the workflow uses NFS to store the graph computing results, but the user needs to install NFS and mount the directory manually.</li>
+<li>SSH key path for passwordless auth: The path to the private key file of the machine where Dag Controller is located. It is used for SSH-free login between machines.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>NebulaGraph Analytics configuration</p>
+<p>Add the address of the NebulaGraph Analytics where the graph computing will be performed.</p>
+<ul>
+<li>Nebula Analytics Node IP address: fill in the new Analytics node IP address.</li>
+<li>Username: Default is <code>vesoft</code> and does not need to be changed.</li>
+<li>SSH port number: Default is <code>22</code>.</li>
+<li>SSH key path for passwordless auth: Used for SSH-free login between machines. Default is <code>~/.ssh/id_rsa</code>.</li>
+<li>Local data directory: Default is <code>~/analytics-data</code>.</li>
+<li>ALGORITHM script path: Default is <code>~/nebula-analytics/scripts/run_algo.sh</code>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>HDFS configuration (Optional)</p>
+<p>By default, NFS is used to save the graph computing results. If you need to use HDFS, please install the HDFS client on the machine where Analytics is located first.</p>
+<ul>
+<li>HDFS name: Fill in the name of HDFS configuration, it is convenient to distinguish different HDFS configurations.</li>
+<li>HDFS path: The <code>fs.defaultFS</code> configuration in HDFS. Support configure the save path, such as <code>hdfs://192.168.8.100:9000/test</code>.</li>
+<li>HDFS username: The name of the user using HDFS.</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p>Click <strong>Confirm</strong>.</p>
+<p>Click <strong>Save</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Configuration Check</strong> in the upper right corner and click <strong>Start Check</strong> to check if the configuration is working.</p>
 </li>
 </ol>
 
@@ -7472,7 +7495,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 25, 2023</span>
       
     
   </small>
