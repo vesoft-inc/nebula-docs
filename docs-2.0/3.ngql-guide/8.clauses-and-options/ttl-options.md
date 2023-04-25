@@ -23,7 +23,13 @@ The native nGQL TTL feature has the following options.
 |Option|Description|
 |:---|:---|
 |`ttl_col`|Specifies the property to set a timeout on. The data type of the property must be `int` or `timestamp`.|
-|`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.|
+|`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.<br/>You can set `ttl_use_ms` to `true` in the configuration file `nebula-storaged.conf` (default path: `/usr/local/nightly/etc/`) to set the default unit to milliseconds.|
+
+!!! caution
+
+    - Before setting `ttl_use_ms` to `true`, make sure that no TTL has been set for any property, as shortening the expiration time may cause data to be erroneously deleted.
+ 
+    - After setting `ttl_use_ms` to `true`, which sets the default TTL unit to milliseconds, the data type of the property specified by `ttl_col` must be `int`, and the property value needs to be manually converted to milliseconds. For example, when setting `ttl_col` to `a`, you need to convert the value of `a` to milliseconds, such as when the value of `a` is `now()`, you need to set the value of `a` to `now() * 1000`.
 
 
 ## Data expiration and deletion
