@@ -4,7 +4,7 @@ Keywords have significance in nGQL. It can be classified into reserved keywords 
 
 If you must use keywords in schema:
 
-- Non-reserved keywords are permitted as identifiers without quoting. 
+- Non-reserved keywords can be used as identifiers without quotes if they are all in lowercase. However, if a non-reserved keyword contains any uppercase letters when used as an identifier, it must be enclosed in backticks (\`), for example, \`Comment\`.
 
 - To use special characters or reserved keywords as identifiers, quote them with backticks such as `AND`.
 
@@ -56,6 +56,7 @@ DISTINCT
 DOUBLE
 DOWNLOAD
 DROP
+DURATION
 EDGE
 EDGES
 EXISTS

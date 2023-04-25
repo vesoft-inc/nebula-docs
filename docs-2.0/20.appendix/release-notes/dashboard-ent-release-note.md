@@ -1,5 +1,20 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.4.2
+
+- Enhancement
+
+  - Support viewing the data backup and restoration progress on the **Backup&Restore** page.
+  - The installation package for NebulaGraph Enterprise v3.4.1 is built in.
+
+## Enterprise Edition 3.4.1
+
+- Bugfix
+
+  - Fix the bug that the RPM package cannot execute `nebula-agent` due to permission issues.
+  - Fix the bug that the cluster import information can not be viewed due to the `goconfig` folder permission.
+  - Fix the page error when the license expiration time is less than `30` days and `gracePeriod` is greater than `0`.
+
 ## Enterprise Edition 3.4.0
 
 - Feature

@@ -12,6 +12,28 @@ NebulaGraph Spark Connector is a Spark connector application for reading and wri
 
 For more information, see [NebulaGraph Spark Connector](https://github.com/vesoft-inc/nebula-spark-connector/blob/{{sparkconnector.branch}}/README_CN.md).
 
+## Version compatibility
+
+The correspondence between the NebulaGraph Spark Connector version, the NebulaGraph core version and the Spark version is as follows.
+
+| Spark Connector version | NebulaGraph version | Spark version |
+|:----------|:-----------|:-------|
+|nebula-spark-connector_3.0-3.0-SNAPSHOT.jar|	nightly|	3.x|
+|nebula-spark-connector_2.2-3.0-SNAPSHOT.jar|	nightly|	2.2.x|
+|nebula-spark-connector-3.0-SNAPSHOT.jar|	nightly|	2.4.x|
+|nebula-spark-connector_2.2-3.4.0.jar|	3.x|	2.2.x|
+|nebula-spark-connector-3.4.0.jar|	3.x|	2.4.x|
+|nebula-spark-connector_2.2-3.3.0.jar|	3.x|	2.2.x|
+|nebula-spark-connector-3.3.0.jar|	3.x|	2.4.x|
+|nebula-spark-connector-3.0.0.jar|	3.x|	2.4.x|
+|nebula-spark-connector-2.6.1.jar|	2.6.0, 2.6.1|	2.4.x|
+|nebula-spark-connector-2.6.0.jar|	2.6.0, 2.6.1|	2.4.x|
+|nebula-spark-connector-2.5.1.jar|	2.5.0, 2.5.1|	2.4.x|
+|nebula-spark-connector-2.5.0.jar|	2.5.0, 2.5.1|	2.4.x|
+|nebula-spark-connector-2.1.0.jar|	2.0.0, 2.0.1|	2.4.x|
+|nebula-spark-connector-2.0.1.jar|	2.0.0, 2.0.1|	2.4.x|
+|nebula-spark-connector-2.0.0.jar|	2.0.0, 2.0.1|	2.4.x|
+
 ## Use cases
 
 NebulaGraph Spark Connector applies to the following scenarios:
@@ -48,45 +70,38 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
 
 ### Compile package
 
-!!! note
 
-     Install NebulaGraph Spark Connector 2.4.x or 2.2.x.
 
 1. Clone repository `nebula-spark-connector`.
 
   ```bash
   $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
+2. Enter the `nebula-spark-connector` directory.
 
-2. Compile package. The procedure varies with Spark versions.
+3. Compile package. The procedure varies with Spark versions.
 
-  - Spark 2.4.x
+!!! note
 
-    1. Enter the `nebula-spark-connector` directory.
+        Spark of the corresponding version has been installed.
 
-      ```bash
-      cd nebula-spark-connector/nebula-spark-connector
-      ```
+  - Spark 2.4
 
-    2. Compile package.
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector -am -Pscala-2.11 -Pspark-2.4
+    ```
 
-      ```bash
-      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-      ```
+  - Spark 2.2
 
-  - Spark 2.2.x
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector_2.2 -am -Pscala-2.11 -Pspark-2.2
+    ```
 
-    1. Enter the `nebula-spark-connector_2.2` directory.
+  - Spark 3.x
 
-      ```bash
-      cd nebula-spark-connector/nebula-spark-connector_2.2
-      ```
-
-    2. Compile package.
-
-      ```bash
-      $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true
-      ```
+    ```bash
+    $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector_3.0 -am -Pscala-2.12 -Pspark-3.0
+    ```
 
 After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `target` of the folder.
 
