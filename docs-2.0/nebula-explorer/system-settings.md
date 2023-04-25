@@ -20,6 +20,6 @@ Canvas query limit: the maximum number of query results for vertices and edges d
 
 Custom settings include the product logo, login page logo, and product name settings.
 
-Product logo: supports uploading images as the logo on the top left corner of the main page.
-Login page logo: supports uploading images as the logo on the login page.
+Product logo: supports uploading an image as the logo on the top left corner of the main page.
+Login page logo: supports uploading an image as the logo on the login page.
 Product name: supports modifying the product name displayed on the login page.
