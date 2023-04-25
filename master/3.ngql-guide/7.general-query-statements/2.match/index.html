@@ -8213,6 +8213,14 @@ nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*1..]-&gt;(v
 | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})       | 3         |
 +-----------------------------------------------------------+-----------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the variable <code>e</code> to match fixed-length or variable-length paths in a pattern, such as <code>-[e:follow*0..3]-&gt;</code>, it is not supported to reference <code>e</code> in other patterns. For example, the following statement is not supported.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e:like*1..3]-&gt;(n) \
+        WHERE (n)-[e*1..4]-&gt;(:player) \
+        RETURN v;
+</code></pre></div>
+</div>
 <h3 id="match_variable-length_paths_with_multiple_edge_types">Match variable-length paths with multiple edge types<a class="headerlink" href="#match_variable-length_paths_with_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>You can specify multiple edge types in a fixed-length or variable-length pattern. In this case, <code>hop</code>, <code>minHop</code>, and <code>maxHop</code> take effect on all edge types.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow|serve*2]-&gt;(v2) \
