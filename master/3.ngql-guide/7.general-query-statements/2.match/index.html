@@ -1434,8 +1434,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    Limitations
+  <a href="#notes" class="md-nav__link">
+    Notes
   </a>
   
 </li>
@@ -1447,13 +1447,6 @@
   
     <nav class="md-nav" aria-label="Using patterns in MATCH statements">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_indexes" class="md-nav__link">
-    Create indexes
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#match_vertices" class="md-nav__link">
@@ -7539,8 +7532,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    Limitations
+  <a href="#notes" class="md-nav__link">
+    Notes
   </a>
   
 </li>
@@ -7552,13 +7545,6 @@
   
     <nav class="md-nav" aria-label="Using patterns in MATCH statements">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create_indexes" class="md-nav__link">
-    Create indexes
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#match_vertices" class="md-nav__link">
@@ -7712,101 +7698,45 @@
 
 
 <h1 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">&para;</a></h1>
-<p>The <code>MATCH</code> statement supports searching based on pattern matching.</p>
-<p>A <code>MATCH</code> statement defines a search pattern and uses it to match data stored in NebulaGraph and to retrieve them in the form defined in the <code>RETURN</code> clause.</p>
+<p>The <code>MATCH</code> statement provides pattern-based search functionality, allowing you to retrieve data that matches one or more patterns in NebulaGraph. By defining one or more patterns, you can search for data that matches the patterns in NebulaGraph. Once the matching data is retrieved, you can use the <code>RETURN</code> clause to return it as a result.</p>
 <p>The examples in this topic use the <a href="../../1.nGQL-overview/1.overview/#example_data_basketballplayer">basketballplayer</a> dataset as the sample dataset.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The syntax of <code>MATCH</code> is relatively more flexible compared with that of other query statements such as <code>GO</code> or <code>LOOKUP</code>. The path type of the <code>MATCH</code> statement is <code>trail</code>. That is, only vertices can be repeatedly visited in the graph traversal. Edges cannot be repeatedly visited. For details, see <a href="../../../1.introduction/2.1.path/">path</a>. But generally, it can be summarized as follows.</p>
 <div class="highlight"><pre><span></span><code>MATCH &lt;pattern&gt; [&lt;clause_1&gt;] RETURN &lt;output&gt; [&lt;clause_2&gt;];
 </code></pre></div>
 <ul>
-<li><code>pattern</code>: For the detailed description of patterns, see <a href="../../1.nGQL-overview/3.graph-patterns/">Patterns</a>. The <code>MATCH</code> statement supports matching one or multiple patterns. Multiple patterns are separated by commas (,). For example: <code>(a)-[]-&gt;(b),(c)-[]-&gt;(d)</code>.</li>
+<li><code>pattern</code>: The <code>MATCH</code> statement supports matching one or multiple patterns. Multiple patterns are separated by commas (,). For example: <code>(a)-[]-&gt;(b),(c)-[]-&gt;(d)</code>. For the detailed description of patterns, see <a href="../../1.nGQL-overview/3.graph-patterns/">Patterns</a>. </li>
 </ul>
 <ul>
 <li><code>clause_1</code>: The <code>WHERE</code>, <code>WITH</code>, <code>UNWIND</code>, and <code>OPTIONAL MATCH</code> clauses are supported, and the <code>MATCH</code> clause can also be used.</li>
 </ul>
 <ul>
-<li><code>output</code>: Define the output to be returned. You can rename the output column by using <code>AS</code>.</li>
+<li><code>output</code>: Define the list name for the output results to be returned. You can use <code>AS</code> to set an alias for the list.</li>
 </ul>
 <ul>
 <li><code>clause_2</code>: The <code>ORDER BY</code> and <code>LIMIT</code> clauses are supported.</li>
 </ul>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <div class="admonition compatibility">
 <p class="admonition-title">Legacy version compatibility</p>
-<p>Starting from NebulaGraph version 3.0.0, in order to distinguish the properties of different tags, you need to specify a tag name when querying properties. The original statement <code>RETURN variable_name.property_name</code> is changed to <code>RETURN variable_name.&lt;tag_name&gt;.property_name</code>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <ul>
-<li>Currently the <code>match</code> statement cannot find dangling edges.</li>
-<li>It is not supported to traverse the specified Tag and Edge Type at the same time when there is no index. For example, executing <code>MATCH (v:player)-[e:follow]-&gt;() RETURN e LIMIT N</code> an error will occur.</li>
+<li>Starting from version 3.5.0, the <code>MATCH</code> statement supports full table scans. It can traverse vertices or edges in the graph without using any indexes or filter conditions. In previous versions, the <code>MATCH</code> statement required an index for certain queries or needed to use <code>LIMIT</code> to restrict the number of output results.</li>
+</ul>
+<ul>
+<li>Starting from NebulaGraph version 3.0.0, in order to distinguish the properties of different tags, you need to specify a tag name when querying properties. The original statement <code>RETURN &lt;variable_name&gt;.&lt;property_name&gt;</code> is changed to <code>RETURN &lt;variable_name&gt;.&lt;tag_name&gt;.&lt;property_name&gt;</code>.</li>
 </ul>
 </div>
-<p>When no <a href="../../14.native-index-statements/1.create-native-index/">index</a> has been created, the <code>MATCH</code> statements is only supported in the following cases. When you get an error executing the <code>MATCH</code> statement, you can create and rebuild the index and then execute the <code>MATCH</code> statement.</p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>In a valid <code>MATCH</code> statement, the VID of a specific vertex must be specified with the id() function in the <code>WHERE</code> clause. There is no need to create an index.</li>
+<li>Avoid full table scans, as they may result in decreased query performance, and if there is insufficient memory during a full table scan, the query may fail, and the system will report an error. It is recommended to use queries with filter conditions or specifying tags and edge types, such as <code>v:player</code> and <code>v.player.name</code> in the statement <code>MATCH (v:player) RETURN v.player.name AS Name</code>.</li>
 </ul>
 <ul>
-<li>When traversing all vertices o r edges with <code>MATCH</code>, such as <code>MATCH (v) RETURN v LIMIT N</code>,<code>MATCH ()-[e]-&gt;() RETURN e LIMIT N</code>.</li>
+<li>You can create an index for a tag, edge type, or a specific property of a tag or edge type to improve query performance. For example, you can create an index for the <code>player</code> tag or the name property of the <code>player</code> tag. For more information about the usage and considerations for indexes, see <a href="../../14.native-index-statements/1.create-native-index/">Must-read for using indexes</a>.</li>
 </ul>
 <ul>
-<li>When traversing all vertices of the specified Tag, such as <code>MATCH (v:player) RETURN v LIMIT N</code>.</li>
-</ul>
-<ul>
-<li>When traversing all edges of the specified Edge Type(edges must have direction), such as <code>MATCH ()-[e:follow]-&gt;() RETURN e LIMIT N</code>.</li>
+<li>The <code>MATCH</code> statement cannot query dangling edges.</li>
 </ul>
 <h2 id="using_patterns_in_match_statements">Using patterns in MATCH statements<a class="headerlink" href="#using_patterns_in_match_statements" title="Permanent link">&para;</a></h2>
-<h3 id="create_indexes">Create indexes<a class="headerlink" href="#create_indexes" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following example creates an index on both the name property of the tag player and the edge type follow.
-nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index_1 ON player(name(20));
-nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
-
-# The following example rebuilds the index.
-nebula&gt; REBUILD TAG INDEX player_index_1;
-+------------+
-| New Job Id |
-+------------+
-| 121        |
-+------------+
-
-nebula&gt; REBUILD EDGE INDEX follow_index;
-+------------+
-| New Job Id |
-+------------+
-| 122        |
-+------------+
-
-
-# The following example makes sure the index is rebuilt successfully.
-nebula&gt; SHOW JOB 121;
-+----------------+---------------------+------------+----------------------------+----------------------------+-------------+
-| Job Id(TaskId) | Command(Dest)       | Status     | Start Time                 | Stop Time                  | Error Code  |
-+----------------+---------------------+------------+----------------------------+----------------------------+-------------+
-| 121            | &quot;REBUILD_TAG_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 | &quot;SUCCEEDED&quot; |
-| 0              | &quot;storaged1&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 | &quot;SUCCEEDED&quot; |
-| 1              | &quot;storaged0&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 | &quot;SUCCEEDED&quot; |
-| 2              | &quot;storaged2&quot;         | &quot;FINISHED&quot; | 2021-05-27T02:18:02.000000 | 2021-05-27T02:18:02.000000 | &quot;SUCCEEDED&quot; |
-| &quot;Total:3&quot;      | &quot;Succeeded:3&quot;       | &quot;Failed:0&quot; | &quot;In Progress:0&quot;            | &quot;&quot;                         | &quot;&quot;          |
-+----------------+---------------------+------------+----------------------------+----------------------------+-------------+
-
-nebula&gt; SHOW JOB 122;
-+----------------+----------------------+------------+----------------------------+----------------------------+-------------+
-| Job Id(TaskId) | Command(Dest)        | Status     | Start Time                 | Stop Time                  | Error Code  |
-+----------------+----------------------+------------+----------------------------+----------------------------+-------------+
-| 122            | &quot;REBUILD_EDGE_INDEX&quot; | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:11.000000 | &quot;SUCCEEDED&quot; |
-| 0              | &quot;storaged1&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 | &quot;SUCCEEDED&quot; |
-| 1              | &quot;storaged0&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 | &quot;SUCCEEDED&quot; |
-| 2              | &quot;storaged2&quot;          | &quot;FINISHED&quot; | 2021-05-27T02:18:11.000000 | 2021-05-27T02:18:21.000000 | &quot;SUCCEEDED&quot; |
-| &quot;Total:3&quot;      | &quot;Succeeded:3&quot;       | &quot;Failed:0&quot; | &quot;In Progress:0&quot;            | &quot;&quot;                         | &quot;&quot;          |
-+----------------+----------------------+------------+----------------------------+----------------------------+-------------+
-</code></pre></div>
 <h3 id="match_vertices">Match vertices<a class="headerlink" href="#match_vertices" title="Permanent link">&para;</a></h3>
-<div class="admonition compatibility">
-<p class="admonition-title">Legacy version compatibility</p>
-<p>As of version 3.0.0, nGQL support <code>MATCH (v) RETURN v LIMIT n</code>, there is no need to create an index. But you must use <code>LIMIT</code> to limit the number of output results.</p>
-<p>nGQL still does not support <code>MATCH (v) RETURN v</code>.</p>
-</div>
 <p>You can use a user-defined variable in a pair of parentheses to represent a vertex in a pattern. For example: <code>(v)</code>.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
         RETURN v \
@@ -7820,9 +7750,17 @@ nebula&gt; SHOW JOB 122;
 +-----------------------------------------------------------+
 </code></pre></div>
 <h3 id="match_tags">Match tags<a class="headerlink" href="#match_tags" title="Permanent link">&para;</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In NebulaGraph versions earlier than 3.0.0, the prerequisite for matching a tag is that the tag itself has an index or a certain property of the tag has an index. As of version 3.0.0, there is no need to create an index for matching a tag, but you need to use <code>LIMIT</code> to limit the number of output results.</p>
+<div class="admonition compatibility">
+<p class="admonition-title">Legacy version compatibility</p>
+<ul>
+<li>In NebulaGraph versions earlier than 3.0.0, the prerequisite for matching a tag is that the tag itself has an index or a certain property of the tag has an index. </li>
+</ul>
+<ul>
+<li>Starting from NebulaGraph 3.0.0, you can match tags without creating an index, but you need to use <code>LIMIT</code> to restrict the number of output results.</li>
+</ul>
+<ul>
+<li>Starting from NebulaGraph 3.5.0, the <code>MATCH</code> statement supports full table scans. There is no need to create an index for a tag or a specific property of a tag, nor use <code>LIMIT</code> to restrict the number of output results in order to execute the <code>MATCH</code> statement.</li>
+</ul>
 </div>
 <p>You can specify a tag with <code>:&lt;tag_name&gt;</code> after the vertex in a pattern.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
@@ -7836,16 +7774,10 @@ nebula&gt; SHOW JOB 122;
 ...
 </code></pre></div>
 <p>To match vertices with multiple tags, use colons (:).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It is not yet supported to add property conditions when matching vertices with multiple tags.</p>
-<p>For example, the statement <code>match (v1:player:team) where v1.player.name=="Tim Duncan" return v1 limit 10;</code> does not work.</p>
-</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG actor (name string, age int);
 nebula&gt; INSERT VERTEX actor(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
 nebula&gt; MATCH (v:player:actor) \
         RETURN v \
-        LIMIT 10;
 +----------------------------------------------------------------------------------------+
 | v                                                                                      |
 +----------------------------------------------------------------------------------------+
@@ -7884,7 +7816,7 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 <p>Use the <code>WHERE</code> clause to directly get all the vertices with the vertex property value Tim Duncan.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
         WITH v, properties(v) as props, keys(properties(v)) as kk \
-        LIMIT 10000 WHERE [i in kk where props[i] == &quot;Tim Duncan&quot;] \
+        WHERE [i in kk where props[i] == &quot;Tim Duncan&quot;] \
         RETURN v;
 +----------------------------------------------------+
 | v                                                  |
@@ -8006,10 +7938,6 @@ nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot
 <p>In nGQL, the <code>@</code> symbol represents the rank of an edge, but openCypher has no such concept.</p>
 </div>
 <h3 id="match_edges">Match edges<a class="headerlink" href="#match_edges" title="Permanent link">&para;</a></h3>
-<div class="admonition compatibility">
-<p class="admonition-title">OpenCypher compatibility</p>
-<p>In NebulaGraph versions earlier than 3.0.0, the prerequisite for matching a edge is that the edge itself has an index or a certain property of the edge has an index. As of version 3.0.0, there is no need to create an index for matching a edge, but you need to use <code>LIMIT</code> to limit the number of output results and you must specify the direction of the edge.</p>
-</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()&lt;-[e]-() \
         RETURN e \
         LIMIT 3;
@@ -8025,30 +7953,25 @@ nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot
 <p>Just like vertices, you can specify edge types with <code>:&lt;edge_type&gt;</code> in a pattern. For example: <code>-[e:follow]-</code>.</p>
 <div class="admonition compatibility">
 <p class="admonition-title">OpenCypher compatibility</p>
-<p>In NebulaGraph versions earlier than 3.0.0, the prerequisite for matching a edge type is that the edge type itself has an index or a certain property of the edge type has an index. As of version 3.0.0, there is no need to create an index for matching a edge type, but you need to use <code>LIMIT</code> to limit the number of output results and you must specify the direction of the edge.</p>
+<ul>
+<li>In NebulaGraph versions earlier than 3.0.0, the prerequisite for matching a edge type is that the edge type itself has an index or a certain property of the edge type has an index. </li>
+</ul>
+<ul>
+<li>Starting from version 3.0.0, there is no need to create an index for matching a edge type, but you need to use <code>LIMIT</code> to limit the number of output results and you must specify the direction of the edge.</li>
+</ul>
+<ul>
+<li>Starting from NebulaGraph 3.5.0, you can use the <code>MATCH</code> statement to match edges without creating an index for edge type or using <code>LIMIT</code> to restrict the number of output results.</li>
+</ul>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()-[e:follow]-&gt;() \
-        RETURN e \
-        limit 3;
+        RETURN e;
 +----------------------------------------------------+
 | e                                                  |
 +----------------------------------------------------+
 | [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}] |
 | [:follow &quot;player102&quot;-&gt;&quot;player101&quot; @0 {degree: 75}] |
 | [:follow &quot;player129&quot;-&gt;&quot;player116&quot; @0 {degree: 90}] |
-+----------------------------------------------------+
-
-# Before you execute the following statement, you must create an index on the edge type itself or a certain property of the edge type
-nebula&gt; MATCH ()-[e:follow]-() \
-        RETURN e;
-+-----------------------------------------------------+
-| e                                                   |
-+-----------------------------------------------------+
-| [:follow &quot;player126&quot;-&gt;&quot;player116&quot; @0 {degree: 13}]  |
-| [:follow &quot;player142&quot;-&gt;&quot;player117&quot; @0 {degree: 90}]  |
-| [:follow &quot;player136&quot;-&gt;&quot;player117&quot; @0 {degree: 90}]  |
-| [:follow &quot;player136&quot;-&gt;&quot;player148&quot; @0 {degree: 85}]  |
-···
+...
 </code></pre></div>
 <h3 id="match_edge_type_properties">Match edge type properties<a class="headerlink" href="#match_edge_type_properties" title="Permanent link">&para;</a></h3>
 <div class="admonition note">
@@ -8068,7 +7991,7 @@ nebula&gt; MATCH ()-[e:follow]-() \
 <p>Use the <code>WHERE</code> clause to directly get all the edges with the edge property value 90.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()-[e]-&gt;() \
         WITH e, properties(e) as props, keys(properties(e)) as kk \
-        LIMIT 10000 WHERE [i in kk where props[i] == 90] \
+        WHERE [i in kk where props[i] == 90] \
         RETURN e;
 +----------------------------------------------------+
 | e                                                  |
@@ -8082,11 +8005,6 @@ nebula&gt; MATCH ()-[e:follow]-() \
 </code></pre></div>
 <h3 id="match_multiple_edge_types">Match multiple edge types<a class="headerlink" href="#match_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>The <code>|</code> symbol can help matching multiple edge types. For example: <code>[e:follow|:serve]</code>. The English colon (:) before the first edge type cannot be omitted, but the English colon before the subsequent edge type can be omitted, such as <code>[e:follow|serve]</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It is not yet supported to add property conditions when matching data with multiple tags and multiple edge types at the same time.</p>
-<p>For example, the statement <code>MATCH (v)-[e:follow|serve]-&gt;(v2) where v.player.name=="Tim Duncan" RETURN e limit 10;</code> does not work. <code>(v)</code> represents a vertex with all its tags.</p>
-</div>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})-[e:follow|:serve]-&gt;(v2) \
         RETURN e;
 +---------------------------------------------------------------------------+
