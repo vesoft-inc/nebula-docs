@@ -60,8 +60,6 @@ The synchronization works as follows:
   
   The listener and drainer can be deployed in a standalone way, or on the machines hosting the primary and secondary clusters. The latter way can increase the machine load and decrease the service performance.
 
-- Prepare the license file for the NebulaGraph Enterprise Edition.
-
 ## Test environment
 
 The test environment for the operation example in this topic is as follows:
@@ -90,6 +88,8 @@ The test environment for the operation example in this topic is as follows:
   !!! note
         For newly installed services, remove the suffix `.default` or `.production` of a configuration template file in the `conf` directory to make it take effect.
 
+  - In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the license management tool is located, e.g. `192.168.8.100:9119`.
+
   - On the primary and secondary cluster machines, modify `nebula-graphd.conf`, `nebula-metad.conf`, and `nebula-storaged.conf`. In all three files, set real IP addresses for `local_ip` instead of `127.0.0.1`, and set the IP addresses and ports for their own nebula-metad processes as the `meta_server_addrs` values. In `nebula-graphd.conf`, set `enable_authorize=true`.
 
   - On the primary cluster, set `--snapshot_send_files=false` in both the `nebula-storaged.conf` file and the `nebula-metad.conf` file. 
@@ -102,9 +102,7 @@ The test environment for the operation example in this topic is as follows:
 
   For more information about the configurations, see [Configurations](../5.configurations-and-logs/1.configurations/1.configurations.md).
 
-3. On the machines of the primary cluster, secondary cluster, and listeners, upload the license files into the `share/resources/` directories in the NebulaGraph installation directories.
-
-4. Go to the NebulaGraph installation directories on the machines and start the needed services.
+3. Go to the NebulaGraph installation directories on the machines and start the needed services.
 
   - On the primary and secondary machines, run `sudo scripts/nebula.service start all`.
 
@@ -114,7 +112,7 @@ The test environment for the operation example in this topic is as follows:
 
   - On the drainer machine, run `sudo scripts/nebula-drainerd.service start`.
 
-5. Log into the primary cluster, add the Storage hosts, and check the status of the listeners.
+4. Log into the primary cluster, add the Storage hosts, and check the status of the listeners.
 
   ```ngql
   # Add the Storage hosts first.
@@ -143,7 +141,7 @@ The test environment for the operation example in this topic is as follows:
   +------------------+------+----------+-----------------+--------------+----------------------+
   ```
 
-6. Log into the secondary cluster, add the Storage hosts, and check the status of the drainer.
+5. Log into the secondary cluster, add the Storage hosts, and check the status of the drainer.
 
   ```ngql
   nebula> ADD HOSTS 192.168.10.102:9779;

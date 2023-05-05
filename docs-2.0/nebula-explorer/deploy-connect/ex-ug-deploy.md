@@ -10,6 +10,8 @@ The Dag Controller installation package is built in Explorer starting from versi
 
 Before deploying Explorer, you must check the following information:
 
+- The [license management tool](../../9.about-license/2.license-management-suite/3.license-manager.md) is installed and the [license code](../../9.about-license/4.generate-and-load-license-key.md) is loaded.
+
 - The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 
 - Before the installation starts, the following ports are not occupied.
@@ -23,11 +25,6 @@ Before deploying Explorer, you must check the following information:
         By default, Explorer uses the port `7002`. You can modify the `httpport` in the `conf/app.conf` file in the installation directory and restart the service.
 
 - The Linux distribution is CentOS.
-- The [license](3.explorer-license.md) is ready.
-
-  !!! enterpriseonly
-
-        License is only available in the Enterprise Edition. To obtain the license, apply for [NebulaGraph Explorer Free Trial](https://nebula-graph.io/visualization-tools-free-trial).
 
 - The HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
 
@@ -58,16 +55,7 @@ Before deploying Explorer, you must check the following information:
    sudo rpm -i nebula-explorer-<version>.x86_64.rpm --prefix=<path>
    ```
 
-3. Copy the license to the installation path.
-
-   ```bash
-   sudo cp -r <license> <explorer_path>
-   ```
-
-   For example:
-   ```bash
-   sudo cp -r nebula.license /usr/local/nebula-explorer
-   ```
+3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
@@ -131,17 +119,7 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
         You cannot customize the installation path of Explorer when installing a DEB package.
 
-3. Copy the license to the Explorer installation path.
-
-   ```bash
-   Sudo cp -r <license> <explorer_path>
-   ```
-
-   For example:
-
-   ```bash
-   Sudo cp -r nebula.license /usr/local/nebula-explorer
-   ```
+3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
@@ -191,16 +169,7 @@ sudo dpkg -r nebula-explorer
    tar -xvf nebula-explorer-<version>.tar.gz
    ```
 
-3. Copy the license to the `nebula-explorer` directory.
-
-   ```bash
-   cp -r <license> <explorer_path>
-   ```
-
-   For example:
-   ```bash
-   cp -r nebula.license /usr/local/nebula-explorer
-   ```
+3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 

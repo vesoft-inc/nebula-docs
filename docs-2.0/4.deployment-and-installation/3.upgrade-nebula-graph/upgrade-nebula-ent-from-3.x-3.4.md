@@ -88,9 +88,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   After the upgrade, a `data` directory will be generated in the v{{nebula.release}} installation directory, containing the upgraded data files.
 
-4. Upload the license file to the `share/resources` directory under the v{{nebula.release}} installation directory.
-
-5. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
+4. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
    
   ```
   nebula> SHOW HOSTS;

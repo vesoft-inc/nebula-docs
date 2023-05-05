@@ -12,7 +12,7 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
 
     - Only supports upgrading the NebulaGraph cluster that version greater than **3.0.0** to the version equal to or lower than **3.2.1**. To upgrade to **3.3.0**, see [manual upgrade](../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-300-to-latest.md). 
     - Do not support upgrading clusters across the major version.
-    - The community edition can be upgraded to the enterprise edition by uploading and verifying licenses, and the enterprise edition can be upgraded to the community edition.
+    - The community edition can be upgraded to the enterprise edition, and the enterprise edition can be upgraded to the community edition.
     - The cluster can be upgraded to a minor version in the current major version, including a smaller version than the current minor version.
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
@@ -25,16 +25,14 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
         If you do not find the suitable version, click **Package Management** to download or upload the required version installation package. For details, see [Package management](../../system-settings/manage-package.md).
 
 {{ent.ent_begin}}        
-5. Click **Upload License** to upload the NebulaGraph Dashboard license (skip this step if upgrading a NebulaGraph cluster of the Community Edition).
+  !!! note
 
-  !!! enterpriseonly
-
-        This step is for NebulaGraph Enterprise Edition clusters.
+        When upgrading Enterprise Edition clusters with version below 3.5.0, you need to click **Upload Certificate** to upload license.
 {{ent.ent_end}}
 
-6. Click **Next** to perform the upgrade check, and then click **Next**.
+5. Click **Next** to perform the upgrade check, and then click **Next**.
 
    The cluster will be shut down during the upgrade and automatically restart the services after the upgrade. You can use the **diagnostics report** to help you judge whether the timing to upgrade is suitable.
 
-7. Confirm the upgrade information again, including **Cluster Name**, **Current NebulaGraph Version**, and **Upgrade NebulaGraph Version**, and then click **Upgrade**.
+6. Confirm the upgrade information again, including **Cluster Name**, **Current NebulaGraph Version**, and **Upgrade NebulaGraph Version**, and then click **Upgrade**.
    Users can view the upgrade task information in [task center](../../10.tasks.md), the task type is `version update`.
