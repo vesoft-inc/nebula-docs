@@ -24,11 +24,11 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
 
         If you do not find the suitable version, click **Package Management** to download or upload the required version installation package. For details, see [Package management](../../system-settings/manage-package.md).
 
-{{ent.ent_begin}}        
+  {{ent.ent_begin}}
   !!! note
 
         When upgrading Enterprise Edition clusters with version below 3.5.0, you need to click **Upload Certificate** to upload license.
-{{ent.ent_end}}
+  {{ent.ent_end}}
 
 5. Click **Next** to perform the upgrade check, and then click **Next**.
 
