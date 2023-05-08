@@ -10,7 +10,7 @@ The Dag Controller installation package is built in Explorer starting from versi
 
 Before deploying Explorer, you must check the following information:
 
-- The [license management tool](../../9.about-license/2.license-management-suite/3.license-manager.md) is installed and the [license code](../../9.about-license/4.generate-and-load-license-key.md) is loaded.
+- The [license key](../../9.about-license/2.license-management-suite/3.license-manager.md) is loaded.
 
 - The NebulaGraph services are deployed and started. For more information, see [NebulaGraph Database Manual](../../2.quick-start/1.quick-start-workflow.md).
 

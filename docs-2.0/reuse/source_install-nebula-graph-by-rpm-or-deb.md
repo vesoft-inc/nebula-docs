@@ -12,7 +12,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 ## Prerequisites
 
 - The tool `wget` is installed.
-- The [license management tool](https://docs.nebula-graph.io/{{nebula.release}}/9.about-license/2.license-management-suite/3.license-manager/) is installed and the [license code](https://docs.nebula-graph.io/{{nebula.release}}/9.about-license/4.generate-and-load-license-key/) is loaded.
+- The [license key](https://docs.nebula-graph.io/{{nebula.release}}/9.about-license/2.license-management-suite/3.license-manager/) is loaded.
 
 ## Download the package from cloud service
 
