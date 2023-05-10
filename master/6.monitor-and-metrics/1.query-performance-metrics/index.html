@@ -3405,19 +3405,6 @@
     Metrics structure
   </a>
   
-    <nav class="md-nav" aria-label="Metrics structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#space-level_metrics" class="md-nav__link">
-    Space-level metrics
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -3436,8 +3423,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#query_a_single_metric" class="md-nav__link">
+    Query a single metric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_multiple_metrics" class="md-nav__link">
+    Query multiple metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_a_json_result" class="md-nav__link">
+    Return a JSON result.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_all_metrics_in_a_service" class="md-nav__link">
+    Query all metrics in a service.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#space-level_metrics" class="md-nav__link">
+    Space-level metrics
   </a>
   
 </li>
@@ -7469,19 +7484,6 @@
     Metrics structure
   </a>
   
-    <nav class="md-nav" aria-label="Metrics structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#space-level_metrics" class="md-nav__link">
-    Space-level metrics
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -7500,8 +7502,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#query_a_single_metric" class="md-nav__link">
+    Query a single metric
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_multiple_metrics" class="md-nav__link">
+    Query multiple metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return_a_json_result" class="md-nav__link">
+    Return a JSON result.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query_all_metrics_in_a_service" class="md-nav__link">
+    Query all metrics in a service.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#space-level_metrics" class="md-nav__link">
+    Space-level metrics
   </a>
   
 </li>
@@ -7609,13 +7639,6 @@
 </tr>
 </tbody>
 </table>
-<h3 id="space-level_metrics">Space-level metrics<a class="headerlink" href="#space-level_metrics" title="Permanent link">&para;</a></h3>
-<p>The Graph service supports a set of space-level metrics that record the information of different graph spaces separately.</p>
-<p>To enable space-level metrics, set the value of <code>enable_space_level_metrics</code> to <code>true</code> in the Graph service configuration file before starting NebulaGraph. For details about how to modify the configuration, see <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Configuration Management</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Space-level metrics can be queried only by querying all metrics. For example, run <code>curl -G "http://192.168.8.40:19559/stats"</code> to show all metrics. The returned result contains the graph space name in the form of '{space=space_name}', such as <code>num_active_queries{space=basketballplayer}.sum.5=0</code>.</p>
-</div>
 <h2 id="query_metrics_over_http">Query metrics over HTTP<a class="headerlink" href="#query_metrics_over_http" title="Permanent link">&para;</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;http://&lt;ip&gt;:&lt;port&gt;/stats?stats=&lt;metric_name_list&gt; [&amp;format=json]&quot;</span>
@@ -7650,19 +7673,12 @@
 <p class="admonition-title">Note</p>
 <p>If NebulaGraph is deployed with <a href="../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose/">Docker Compose</a>, run <code>docker-compose ps</code> to check the ports that are mapped from the service ports inside of the container and then query through them.</p>
 </div>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>Query a single metric</p>
+<h3 id="query_a_single_metric">Query a single metric<a class="headerlink" href="#query_a_single_metric" title="Permanent link">&para;</a></h3>
 <p>Query the query number in the last 10 minutes in the Graph Service.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;http://192.168.8.40:19669/stats?stats=num_queries.sum.600&quot;</span>
 num_queries.sum.600<span class="o">=</span><span class="m">400</span>
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
-<p>Query multiple metrics</p>
+<h3 id="query_multiple_metrics">Query multiple metrics<a class="headerlink" href="#query_multiple_metrics" title="Permanent link">&para;</a></h3>
 <p>Query the following metrics together:</p>
 <ul>
 <li>The average heartbeat latency in the last 1 minute.</li>
@@ -7676,20 +7692,12 @@ heartbeat_latency_us.p99.600<span class="o">=</span><span class="m">985</span>
 </code></pre></div>
 </li>
 </ul>
-</li>
-</ul>
-<ul>
-<li>
-<p>Return a JSON result.</p>
+<h3 id="return_a_json_result">Return a JSON result.<a class="headerlink" href="#return_a_json_result" title="Permanent link">&para;</a></h3>
 <p>Query the number of new vertices in the Storage Service in the last 10 minutes and return the result in the JSON format.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;http://192.168.8.40:19779/stats?stats=num_add_vertices.sum.600&amp;format=json&quot;</span>
 <span class="o">[{</span><span class="s2">&quot;value&quot;</span>:1,<span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;num_add_vertices.sum.600&quot;</span><span class="o">}]</span>
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
-<p>Query all metrics in a service.</p>
+<h3 id="query_all_metrics_in_a_service">Query all metrics in a service.<a class="headerlink" href="#query_all_metrics_in_a_service" title="Permanent link">&para;</a></h3>
 <p>If no metric is specified in the query, NebulaGraph returns all metrics in the service.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;http://192.168.8.40:19559/stats&quot;</span>
 heartbeat_latency_us.avg.5<span class="o">=</span><span class="m">304</span>
@@ -7718,8 +7726,13 @@ num_heartbeats.sum.600<span class="o">=</span><span class="m">394</span>
 num_heartbeats.sum.3600<span class="o">=</span><span class="m">2364</span>
 ...
 </code></pre></div>
-</li>
-</ul>
+<h3 id="space-level_metrics">Space-level metrics<a class="headerlink" href="#space-level_metrics" title="Permanent link">&para;</a></h3>
+<p>The Graph service supports a set of space-level metrics that record the information of different graph spaces separately.</p>
+<p>Space-level metrics can be queried only by querying all metrics. For example, run <code>curl -G "http://192.168.8.40:19559/stats"</code> to show all metrics. The returned result contains the graph space name in the form of '{space=space_name}', such as <code>num_active_queries{space=basketballplayer}.sum.5=0</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>To enable space-level metrics, set the value of <code>enable_space_level_metrics</code> to <code>true</code> in the Graph service configuration file before starting NebulaGraph. For details about how to modify the configuration, see <a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Configuration Management</a>.</p>
+</div>
 <h2 id="metric_description">Metric description<a class="headerlink" href="#metric_description" title="Permanent link">&para;</a></h2>
 <h3 id="graph">Graph<a class="headerlink" href="#graph" title="Permanent link">&para;</a></h3>
 <table>
@@ -8332,7 +8345,7 @@ num_heartbeats.sum.3600<span class="o">=</span><span class="m">2364</span>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 10, 2023</span>
       
     
   </small>
