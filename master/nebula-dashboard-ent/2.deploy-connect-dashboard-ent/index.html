@@ -4853,19 +4853,6 @@
     Manage services in Dashboard
   </a>
   
-    <nav class="md-nav" aria-label="Manage services in Dashboard">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -7570,19 +7557,6 @@
     Manage services in Dashboard
   </a>
   
-    <nav class="md-nav" aria-label="Manage services in Dashboard">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -7651,7 +7625,7 @@
 <td>The port through which Dashboard Enterprise Edition provides the web service.</td>
 </tr>
 <tr>
-<td>9090</td>
+<td>9091</td>
 <td>The port of the prometheus service.</td>
 </tr>
 <tr>
@@ -7664,7 +7638,7 @@
 </tr>
 <tr>
 <td>9100</td>
-<td>The port of the node-exporter service. The node-exporter is aumatically deployed on the target machine after a cluster is created or imported. It is used to collect the source information of machines in the cluster, including the CPU, memory, load, disk, and network.</td>
+<td>The port of the node-exporter service. The node-exporter is automatically deployed on the target machine after a cluster is created or imported. It is used to collect the source information of machines in the cluster, including the CPU, memory, load, disk, and network.</td>
 </tr>
 </tbody>
 </table>
@@ -7805,16 +7779,16 @@ sudo<span class="w"> </span>./dashboard.service<span class="w"> </span>start<spa
 </code></pre></div>
 </li>
 <li>
-<p>(Optional) Run the following commands to view the status of and start all the services.</p>
+<p>Run the following commands to view the status of and start all the services.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl list-dependencies nebula-dashboard.target  # View the status of all the services.
 sudo systemctl start nebula-dashboard.target   # Start all the services.
 </code></pre></div>
-<p>You can also view, start, and stop a single service. For example: </p>
+<p>You can also view, start, and stop a single service.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl {status|stop|start} {nbd-prometheus.service|nbd-alert-manager.service|nbd-stats-exporter.service|nbd-webserver.service}
 </code></pre></div>
 </li>
 <li>
-<p>(Optional) To configure recipients of cluster alert notifications and to configure LDAP accounts, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
+<p>To configure recipients of cluster alert notifications and to configure LDAP accounts, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
 <div class="highlight"><pre><span></span><code># Information of the sender&#39;s Email used to invite LDAP accounts.
 mail:
   host: smtp.office365.com #  The SMTP server address.
@@ -7871,16 +7845,16 @@ ldap:
 </code></pre></div>
 </li>
 <li>
-<p>(Optional) Run the following commands to view the status of and start all the services.</p>
+<p>Run the following commands to view the status of and start all the services.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl list-dependencies nebula-dashboard.target  # View the status of all the services.
 sudo systemctl start nebula-dashboard.target   # Start all the services.
 </code></pre></div>
-<p>You can also view, start, and stop a single service. For example: </p>
+<p>You can also view, start, and stop a single service.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl {status|stop|start} {nbd-prometheus.service|nbd-alert-manager.service|nbd-stats-exporter.service|nbd-webserver.service}
 </code></pre></div>
 </li>
 <li>
-<p>(Optional) To configure the sender's email address used to invite LDAP and OAuth2.0 accounts and configure the duration for storing alert messages, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
+<p>To configure the sender's email address used to invite LDAP and OAuth2.0 accounts and configure the duration for storing alert messages, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
 <div class="highlight"><pre><span></span><code># Information of the sender&#39;s Email used to invite LDAP accounts.
 mail:
   host: smtp.office365.com #  The SMTP server address.
@@ -7899,9 +7873,12 @@ system:
 <div class="highlight"><pre><span></span><code>sudo dpkg -r &lt;package_name&gt;
 </code></pre></div>
 <h2 id="manage_services_in_dashboard">Manage services in Dashboard<a class="headerlink" href="#manage_services_in_dashboard" title="Permanent link">&para;</a></h2>
+<p>The following section presents two methods for managing the Dashboard service. It's important to note that these methods are not interchangeable. For instance, you can't start the service using the <code>dashboard.service</code> script and then use the <code>systemctl</code> command to stop it.</p>
+<ul>
+<li>
 <p>You can use the <code>dashboard.service</code> script to start, restart, stop, and check the Dashboard services.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>&lt;dashboard_path&gt;/scripts/dashboard.service
-<span class="o">[</span>-v<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span>
+<span class="o">[</span>-v<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-version<span class="o">]</span>
 &lt;start<span class="p">|</span>restart<span class="p">|</span>stop<span class="p">|</span>status&gt;<span class="w">  </span>&lt;prometheus<span class="p">|</span>webserver<span class="p">|</span>exporter<span class="p">|</span>gateway<span class="p">|</span>all&gt;
 </code></pre></div>
 <table>
@@ -7923,6 +7900,10 @@ system:
 <tr>
 <td align="left"><code>-h</code></td>
 <td align="left">Display help information.</td>
+</tr>
+<tr>
+<td align="left"><code>-version</code></td>
+<td align="left">Display the Dashboard version.</td>
 </tr>
 <tr>
 <td align="left"><code>start</code></td>
@@ -7962,19 +7943,31 @@ system:
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To view the Dashboard version, run the command <code>./dashboard.service -version</code>.</p>
-</div>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>Dashboard is installed in the current directory, and you can use the following commands to manage services.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>start<span class="w"> </span>all<span class="w"> </span><span class="c1">#Start Dashboard. </span>
-sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span><span class="c1">#Stop Dashboard. </span>
-sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>status<span class="w"> </span>all<span class="w"> </span><span class="c1">#Check Dashboard status.</span>
-sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>restart<span class="w"> </span>all<span class="w"> </span><span class="c1">#Restart Dashboard.</span>
+<p>For example, if Dashboard is installed in the current directory, you can manage its services using the following commands:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>start<span class="w"> </span>all<span class="w"> </span><span class="c1"># Start Dashboard. </span>
+sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span><span class="c1"># Stop Dashboard. </span>
+sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>status<span class="w"> </span>all<span class="w"> </span><span class="c1"># Check Dashboard status.</span>
+sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w"> </span>restart<span class="w"> </span>all<span class="w"> </span><span class="c1"># Restart Dashboard.</span>
 </code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>If you installed Dashboard using RPM or DEB packages, you can manage the service using systemd. You can start, view, restart and stop the service using the <code>systemctl</code> command.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>nebula-dashboard.target<span class="w"> </span><span class="c1"># Start all service.</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>nebula-dashboard.target<span class="w"> </span><span class="c1"># Check Dashboard status.</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>&lt;nbd-prometheus.service<span class="p">|</span>nbd-alert-manager.service<span class="p">|</span>nbd-stats-exporter.service<span class="p">|</span>nbd-webserver.service&gt;<span class="w"> </span><span class="c1"># Restart service respectively.</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>&lt;nbd-prometheus.service<span class="p">|</span>nbd-alert-manager.service<span class="p">|</span>nbd-stats-exporter.service<span class="p">|</span>nbd-webserver.service&gt;<span class="w"> </span><span class="c1"># Stop service respectively.</span>
+</code></pre></div>
+<p>For example, to stop the Prometheus service, run the following command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>nbd-prometheus.service
+</code></pre></div>
+</li>
+</ul>
 <h2 id="view_logs">View logs<a class="headerlink" href="#view_logs" title="Permanent link">&para;</a></h2>
-<p>You can view the Dashboard Enterprise Edition logs in the <code>logs</code> path.</p>
+<ul>
+<li>
+<p>Users who manage services using <code>dashboard.service</code> can view the Dashboard Enterprise Edition logs in the <code>logs</code> directory.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>cat logs/prometheus.log
 </code></pre></div>
@@ -8029,6 +8022,18 @@ sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w">
 </tr>
 </tbody>
 </table>
+</li>
+</ul>
+<ul>
+<li>
+<p>Users managing services with systemd can access the logs for each Dashboard Enterprise Edition service through <code>journalctl</code>.</p>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span><span class="o">{</span>nbd-prometheus.service<span class="p">|</span>nbd-alert-manager.service<span class="p">|</span>nbd-stats-exporter.service<span class="p">|</span>nbd-webserver.service<span class="o">}</span><span class="w"> </span>-b
+</code></pre></div>
+<p>For example, to view the logs of the Prometheus service:</p>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>nbd-prometheus.service<span class="w"> </span>-b
+</code></pre></div>
+</li>
+</ul>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">&para;</a></h2>
 <p><a href="../3.connect-dashboard/">Connect to Dashboard</a></p>
 
@@ -8037,7 +8042,7 @@ sudo<span class="w"> </span>/dashboard/scripts/dashboard.service<span class="w">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 12, 2023</span>
       
     
   </small>
