@@ -8,7 +8,7 @@ Global settings include the language settings, beta functions, and canvas query 
 
 Language settings: switch the interface language, supporting Chinese and English.
 
-Beta functions: switch for beta features. Currently, beta features include [workflow](workflow/workflows.md) and [view schema](db-management/10.create-schema.md).
+Beta functions: switch on/off for beta features. Currently, beta features include [workflow](workflow/workflows.md) and [view schema](db-management/10.create-schema.md).
 
 Canvas query limit: the maximum number of query results for vertices and edges displayed on the canvas.
 
