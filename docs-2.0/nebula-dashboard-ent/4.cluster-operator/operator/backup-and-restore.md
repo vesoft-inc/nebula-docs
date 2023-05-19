@@ -9,7 +9,7 @@ To prevent data loss due to operational errors or system failures, NebulaGraph o
 
   !!! note
 
-        To back up data to a local device, see [What is Backup & Restore](../../../backup-and-restore/nebula-br/1.what-is-br.md).
+        To back up data to a local device, see [What is Backup & Restore](../../../backup-and-restore/nebula-br-ent/1.br-ent-overview.md).
 
 - Backup and restoration of space-level data are not supported.
 - Backup data can only be restored to the original cluster, and cannot be restored across clusters.
