@@ -159,6 +159,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The key is the same as the value above, indicating that key is used as both VID and property name.
       vertex:{
           field:key
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
@@ -222,11 +227,21 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # In target, use a column in the topic as the source of the edge's destination vertex.
       source:{
           field:timestamp
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
       target:{
           field:offset
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # (Optional) Specify a column as the source of the rank.

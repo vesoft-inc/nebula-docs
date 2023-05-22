@@ -159,6 +159,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       vertex:{
           field:playerid
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
@@ -229,10 +234,20 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # In target, use a column in the follow table as the source of the edge's destination vertex.
       source:{
           field:src_player
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       target:{
           field:dst_player
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # (Optional) Specify a column as the source of the rank.

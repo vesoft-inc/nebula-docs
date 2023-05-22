@@ -101,6 +101,9 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or a column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
 |`tags.nebula.fields`|list\[string\]|-|Yes|Property names defined in NebulaGraph, the order of which must correspond to `tags.fields`. For example, `[_c1, _c2]` corresponds to `[name, age]`, which means that values in the second column are the values of the property `name`, and values in the third column are the values of the property `age`.|
 |`tags.vertex.field`|string|-|Yes|The column of vertex IDs. For example, when a CSV file has no header, users can use `_c0` to indicate values in the first column are vertex IDs.|
+|`tags.vertex.udf.separator`|string|-|No|Support merging multiple columns by custom rules. This parameter specifies the join character.|
+|`tags.vertex.udf.oldColNames`|list|-|No|Support merging multiple columns by custom rules. This parameter specifies the names of the columns to be merged. Multiple columns are separated by commas.|
+|`tags.vertex.udf.newColName`|string|-|No|Support merging multiple columns by custom rules. This parameter specifies the new column name. |
 |`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
 |`tags.partition`|int|`32`|Yes|The number of Spark partitions.|
 
