@@ -1,5 +1,9 @@
 # Welcome to NebulaGraph {{ nebula.release }} Documentation
 
+!!! caution
+
+    The documents of this version are for NebulaGraph Enterprise Edition {{ nebula.release }} and the corresponding tools. NebulaGraph Community Edition {{ nebula.release }} is not available at this time. For details, see [Release notes](20.appendix/release-notes/nebula-ent-release-note.md).
+
 <!--
 !!! caution
 
