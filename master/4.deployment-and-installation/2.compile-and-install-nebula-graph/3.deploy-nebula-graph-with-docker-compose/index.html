@@ -7821,11 +7821,46 @@
 <p class="admonition-title">Note</p>
 <p>The <code>x.y</code> version of Docker Compose aligns to the <code>x.y</code> version of NebulaGraph. For the NebulaGraph <code>z</code> version, Docker Compose does not publish the corresponding <code>z</code> version, but pulls the <code>z</code> version of the NebulaGraph image.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For installation of the NebulaGraph enterprise version, <a href="https://www.nebula-graph.io/contact">contact us</a>.</p>
+</div>
 </li>
 <li>
 <p>Go to the <code>nebula-docker-compose</code> directory.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>nebula-docker-compose/
 </code></pre></div>
+<!-- -->
+
+</li>
+<li>
+<p>Configure License Manager address (skip this step if you are using the community version).</p>
+<ol>
+<li>
+<p>Edit the <code>docker-compose.yml</code> file.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>nebula-docker-compose/
+$<span class="w"> </span>vim<span class="w"> </span>docker-compose.yml
+</code></pre></div>
+</li>
+<li>
+<p>Add the <code>license_manager_url</code> field under all <code>services.metad{number}.command</code> and set its value to the access address of LM.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metad0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--license_manager_url=&lt;LM_ADDR&gt;:&lt;LM_PORT&gt; // &lt;LM_ADDR&gt; is the address of the LM service, and &lt;LM_PORT&gt; is the port of the LM service, which is 9119 by default.</span>
+<span class="w">  </span><span class="nt">metad1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--license_manager_url=&lt;LM_ADDR&gt;:&lt;LM_PORT&gt;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+</li>
+<li>
+<p>Save and exit.</p>
+</li>
+</ol>
+<!-- -->
+
 </li>
 <li>
 <p>Run the following command to start all the NebulaGraph services.</p>
@@ -8044,7 +8079,7 @@ Removing<span class="w"> </span>network<span class="w"> </span>nebuladockercompo
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
       
     
   </small>
