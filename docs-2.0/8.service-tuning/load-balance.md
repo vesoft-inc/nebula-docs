@@ -1,6 +1,6 @@
 # Storage load balance
 
-You can use the `BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [BALANCE](../synchronization-and-migration/2.balance-syntax.md).
+You can use the `SUBMIT JOB BALANCE` statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see [SUBMIT JOB BALANCE](../synchronization-and-migration/2.balance-syntax.md).
 
 !!! danger
 
@@ -15,9 +15,9 @@ You can use the `BALANCE` statement to balance the distribution of partitions an
     
 !!! note
 
-    If the current graph space already has a `BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+    If the current graph space already has a `SUBMIT JOB BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `SUBMIT JOB BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
 
-The `BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
+The `SUBMIT JOB BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
 
 ### Examples
 
@@ -35,11 +35,11 @@ After you add new storage hosts into the cluster, no partition is deployed on th
     +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
     ```
 
-2. Enter the graph space `basketballplayer`, and execute the command `BALANCE DATA` to balance the distribution of storage partitions.
+2. Enter the graph space `basketballplayer`, and execute the command `SUBMIT JOB BALANCE DATA` to balance the distribution of storage partitions.
 
     ```ngql
     nebula> USE basketballplayer;
-    nebula> BALANCE DATA;
+    nebula> SUBMIT JOB BALANCE DATA;
     +------------+
     | New Job Id |
     +------------+
@@ -47,7 +47,7 @@ After you add new storage hosts into the cluster, no partition is deployed on th
     +------------+
     ```
 
-3. The job ID is returned after running `BALANCE DATA`. Run `SHOW JOB <job_id>` to check the status of the job.
+3. The job ID is returned after running `SUBMIT JOB BALANCE DATA`. Run `SHOW JOB <job_id>` to check the status of the job.
 
     ```ngql
     nebula> SHOW JOB 25;
@@ -63,7 +63,7 @@ After you add new storage hosts into the cluster, no partition is deployed on th
 
   !!! Note
 
-        `BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
+        `SUBMIT JOB BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
 
   ```ngql
   nebula> SHOW HOSTS;
@@ -97,16 +97,16 @@ To restore a balance job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <
 
 !!! note
 
-    For a `STOPPED` `BALANCE DATA` job, NebulaGraph detects whether the same type of `FAILED` jobs or `FINISHED` jobs have been created since the start time of the job. If so, the `STOPPED` job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.
+    For a `STOPPED` `SUBMIT JOB BALANCE DATA` job, NebulaGraph detects whether the same type of `FAILED` jobs or `FINISHED` jobs have been created since the start time of the job. If so, the `STOPPED` job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.
 
 ### Migrate partition
 
-To migrate specified partitions and scale in the cluster, you can run `BALANCE DATA REMOVE <ip:port> [,<ip>:<port> ...]`.
+To migrate specified partitions and scale in the cluster, you can run `SUBMIT JOB BALANCE DATA REMOVE <ip:port> [,<ip>:<port> ...]`.
 
 For example, to migrate the partitions in server `192.168.8.100:9779`, the command as following:
 
 ```ngql
-nebula> BALANCE DATA REMOVE 192.168.8.100:9779;
+nebula> SUBMIT JOB BALANCE DATA REMOVE 192.168.8.100:9779;
 nebula> SHOW HOSTS;
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 | Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
@@ -248,12 +248,12 @@ To remove the following storage servers.
 -->
 ## Balance leader distribution
 
-To balance the raft leaders, run `BALANCE LEADER`.
+To balance the raft leaders, run `SUBMIT JOB BALANCE LEADER`.
 
 ### Example
 
 ```ngql
-nebula> BALANCE LEADER;
+nebula> SUBMIT JOB BALANCE LEADER;
 ```
 
 Run `SHOW HOSTS` to check the balance result.
