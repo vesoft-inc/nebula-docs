@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#macro_rendering_error" class="md-skip">
+        <a href="#balance_syntax" class="md-skip">
           Skip to content
         </a>
       
@@ -5629,21 +5629,43 @@
   </a>
 
 
-<h1 id="macro_rendering_error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro_rendering_error" title="Permanent link">&para;</a></h1>
-<p><em>File</em>: <code>synchronization-and-migration/2.balance-syntax.md</code></p>
-<p><em>UndefinedError</em>: 'comm' is undefined</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/mkdocs_macros/plugin.py&quot;, line 523, in render
-    return md_template.render(**page_variables)
-  File &quot;/opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/jinja2/environment.py&quot;, line 1301, in render
-    self.environment.handle_exception()
-  File &quot;/opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/jinja2/environment.py&quot;, line 936, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 11, in top-level template code
-  File &quot;/opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/jinja2/environment.py&quot;, line 485, in getattr
-    return getattr(obj, attribute)
-jinja2.exceptions.UndefinedError: &#39;comm&#39; is undefined
-</code></pre></div>
+<h1 id="balance_syntax">BALANCE syntax<a class="headerlink" href="#balance_syntax" title="Permanent link">&para;</a></h1>
+<p>We can submit tasks to load balance Storage services in NebulaGraph. For more information about storage load balancing and examples, see <a href="../../8.service-tuning/load-balance/">Storage load balance</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For other job management commands, see <a href="../../3.ngql-guide/4.job-statements/">Job manager and the JOB statements</a>.</p>
+</div>
+<p>The syntax for load balance is described as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Syntax</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>SUBMIT JOB BALANCE LEADER</code></td>
+<td align="left">Starts a job to balance the distribution of all the storage leaders in all graph spaces. It returns the job ID.</td>
+</tr>
+<tr>
+<td align="left"><code>SUBMIT JOB BALANCE DATA</code></td>
+<td align="left">Starts a job to balance the distribution of storage partitions in the current graph space. It returns the job ID.</td>
+</tr>
+<tr>
+<td align="left"><code>SUBMIT JOB BALANCE DATA REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code></td>
+<td align="left">Migrate the partitions in the specified storage host to other storage hosts in the current graph space.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><code>SUBMIT JOB BALANCE DATA REMOVE</code> can only clear the partitions of the current graph space. If a Storage service has a large number of graph spaces, you need to switch to all different graph spaces to perform the <code>REMOVE</code> operation.</li>
+<li>Only NebulaGraph Enterprise Edition supports the commands <code>SUBMIT JOB BALANCE DATA</code> and <code>SUBMIT JOB BALANCE DATA REMOVE</code>.</li>
+</ul>
+</div>
+<p>For details about how to view, stop, and restart a job, see <a href="../../3.ngql-guide/4.job-statements/">Job manager and the JOB statements</a>.</p>
 
   <hr>
 <div class="md-source-file">
