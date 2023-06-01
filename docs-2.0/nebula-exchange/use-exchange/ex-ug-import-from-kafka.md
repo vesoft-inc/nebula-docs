@@ -174,6 +174,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       partition: 10
       # The interval for message reading. Unit: second.
       interval.seconds: 10
+      # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+      startingOffsets: latest
+      # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+      # maxOffsetsPerTrigger:10000
     }
     # Set the information about the Tag Team.
     {
@@ -192,6 +196,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       batch: 10
       partition: 10
       interval.seconds: 10
+      startingOffsets: latest
+      # maxOffsetsPerTrigger:10000
     }
 
   ]
@@ -255,6 +261,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The interval for message reading. Unit: second.
       interval.seconds: 10
+      # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+      startingOffsets: latest
+      # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+      # maxOffsetsPerTrigger:10000
     }
 
     # Set the information about the Edge Type serve.
@@ -283,6 +293,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       batch: 10
       partition: 10
       interval.seconds: 10
+      startingOffsets: latest
+      # maxOffsetsPerTrigger:10000
     }
   ]
 }
