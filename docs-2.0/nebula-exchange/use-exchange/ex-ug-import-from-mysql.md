@@ -76,6 +76,8 @@ Before importing data, you need to confirm the following information:
 
 - Spark has been installed.
 
+- [mysql-connector-java-xxx.jar](https://mvnrepository.com/artifact/mysql/mysql-connector-java) has been downloaded and placed in the directory `SPARK_HOME/jars` of Spark.
+
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - The Hadoop service has been installed and started.

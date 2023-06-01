@@ -28,6 +28,14 @@ Before importing data, you need to confirm the following information:
 
 - Spark has been installed.
 
+- The following JAR files have been downloaded and placed in the directory `SPARK_HOME/jars` of Spark:
+
+  - [spark-streaming-kafka_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka)
+
+  - [spark-sql-kafka-0-10_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10)
+
+  - [kafka-clients-xxx.jar](https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients)
+
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - The Kafka service has been installed and started.
