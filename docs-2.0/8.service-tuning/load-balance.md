@@ -248,7 +248,7 @@ To remove the following storage servers.
 -->
 ## Balance leader distribution
 
-To balance the raft leaders, run `SUBMIT JOB BALANCE LEADER`.
+To balance the raft leaders, run `SUBMIT JOB BALANCE LEADER`. It will start a job to balance the distribution of all the storage leaders in all graph spaces.
 
 ### Example
 
