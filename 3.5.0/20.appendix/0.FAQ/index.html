@@ -5780,6 +5780,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#how_to_scale_my_cluster_updown_or_outin" class="md-nav__link">
+    "How to scale my cluster up/down or out/in?"
+  </a>
+  
+    <nav class="md-nav" aria-label=""How to scale my cluster up/down or out/in?"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#increase_or_decrease_the_number_of_meta_graph_or_storage_nodes" class="md-nav__link">
+    Increase or decrease the number of Meta, Graph, or Storage nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_or_remove_disks_in_the_storage_nodes" class="md-nav__link">
+    Add or remove disks in the Storage nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -6223,6 +6250,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#how_to_scale_my_cluster_updown_or_outin" class="md-nav__link">
+    "How to scale my cluster up/down or out/in?"
+  </a>
+  
+    <nav class="md-nav" aria-label=""How to scale my cluster up/down or out/in?"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#increase_or_decrease_the_number_of_meta_graph_or_storage_nodes" class="md-nav__link">
+    Increase or decrease the number of Meta, Graph, or Storage nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_or_remove_disks_in_the_storage_nodes" class="md-nav__link">
+    Add or remove disks in the Storage nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" class="md-nav__link">
     "After changing the name of the host, the old one keeps displaying OFFLINE. What should I do?"
   </a>
@@ -6552,32 +6606,74 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>Run <code>rpm -qa |grep nebula</code> to check the version of NebulaGraph.</p>
 </li>
 </ul>
+<h3 id="how_to_scale_my_cluster_updown_or_outin">"How to scale my cluster up/down or out/in?"<a class="headerlink" href="#how_to_scale_my_cluster_updown_or_outin" title="Permanent link">&para;</a></h3>
+<div class="admonition enterpriseonly">
+<p class="admonition-title">Enterpriseonly</p>
+<p>The cluster scaling function has not been officially released in the community edition. The operations involving <code>SUBMIT JOB BALANCE DATA REMOVE</code> and <code>SUBMIT JOB BALANCE DATA</code> are experimental features in the community edition and the functionality is not stable. Before using it in the community edition, make sure to back up your data first and set <code>enable_experimental_feature</code> and <code>enable_data_balance</code> to <code>true</code> in the <a href="../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph configuration file</a>.</p>
+</div>
+<h4 id="increase_or_decrease_the_number_of_meta_graph_or_storage_nodes">Increase or decrease the number of Meta, Graph, or Storage nodes<a class="headerlink" href="#increase_or_decrease_the_number_of_meta_graph_or_storage_nodes" title="Permanent link">&para;</a></h4>
+<p>NebulaGraph 3.5.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:</p>
+<ol>
+<li>
+<p>Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use the <a href="https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh">Meta transfer script tool</a> to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.</p>
+</div>
+</li>
+<li>
+<p>Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.</p>
+</li>
+<li>
+<p>Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.</p>
+</li>
+<li>
+<p>Scale in storaged: See <a href="../../8.service-tuning/load-balance/">Balance remove command</a>. After the command is finished, stop this storaged process.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>Before executing this command to migrate the data in the specified Storage node, make sure that the number of other Storage nodes is sufficient to meet the set replication factor. For example, if the replication factor is set to 3, then before executing this command, make sure that the number of other Storage nodes is greater than or equal to 3.</li>
+</ul>
+<ul>
+<li>If there are multiple space partitions in the Storage node to be migrated, execute this command in each space to migrate all space partitions in the Storage node.</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Scale out storaged: Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see <a href="../../2.quick-start/3.1add-storage-hosts/">Register storaged services</a>.</p>
+</li>
+</ol>
+<p>You also need to run <a href="../../8.service-tuning/load-balance/">Balance Data and Balance leader</a> after scaling in/out storaged.</p>
 <!--
-### "How to scale out or scale in? (Enterprise Edition only)"
+You can scale Graph and Storage services with Dashboard Enterprise Edition. For details, see [Scale](../nebula-dashboard-ent/4.cluster-operator/operator/scale.md). 
 
-- You can scale Graph and Storage services with Dashboard Enterprise Edition. For details, see [Scale](../nebula-dashboard-ent/4.cluster-operator/operator/scale.md). 
-- You can also use NebulaGraph Operator to scale Graph and Storage services. For details, see [Deploy NebulaGraph clusters with Kubectl](../nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md) and [Deploy NebulaGraph clusters with Helm](../nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm.md).
+You can also use NebulaGraph Operator to scale Graph and Storage services. For details, see [Deploy NebulaGraph clusters with Kubectl](../nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md) and [Deploy NebulaGraph clusters with Helm](../nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm.md).
+ -->
 
-NebulaGraph 3.5.0 does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:
-
-1. Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.
-
-  !!! note
-
-         You can use the [Meta transfer script tool](https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh) to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.
-
-2. Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.
-
-3. Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.
-
-4. Scale in storaged: See [Balance remove command](../8.service-tuning/load-balance.md). After the command is finished, stop this storaged process.
-
-5. Scale out storaged: Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see [Register storaged services](../2.quick-start/3.1add-storage-hosts.md).
-
-You also need to run [Balance Data and Balance leader](../8.service-tuning/load-balance.md) after scaling in/out storaged.
-
--->
-
+<h4 id="add_or_remove_disks_in_the_storage_nodes">Add or remove disks in the Storage nodes<a class="headerlink" href="#add_or_remove_disks_in_the_storage_nodes" title="Permanent link">&para;</a></h4>
+<p>Currently, Storage cannot dynamically recognize new added disks. You can add or remove disks in the Storage nodes of the distributed cluster by following these steps:</p>
+<ol>
+<li>
+<p>Execute <code>SUBMIT JOB BALANCE DATA REMOVE &lt;ip:port&gt;</code> to migrate data in the Storage node with the disk to be added or removed to other Storage nodes.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<ul>
+<li>Before executing this command to migrate the data in the specified Storage node, make sure that the number of other Storage nodes is sufficient to meet the set replication factor. For example, if the replication factor is set to 3, then before executing this command, make sure that the number of other Storage nodes is greater than or equal to 3.</li>
+</ul>
+<ul>
+<li>If there are multiple space partitions in the Storage node to be migrated, execute this command in each space to migrate all space partitions in the Storage node.</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Execute <code>DROP HOSTS &lt;ip:port&gt;</code> to remove the Storage node with the disk to be added or removed.</p>
+</li>
+<li>
+<p>In the configuration file of all Storage nodes, configure the path of the new disk to be added or removed through <code>--data_path</code>, see <a href="../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage configuration file</a> for details.</p>
+</li>
+<li>Execute <code>ADD HOSTS &lt;ip:port&gt;</code> to re-add the Storage node with the disk to be added or removed.</li>
+<li>As needed, execute <code>SUBMIT JOB BALANCE DATA</code> to evenly distribute the shards of the current space to all Storage nodes and execute <code>SUBMIT JOB BALANCE LEADER</code> command to balance the leaders in all spaces. Before running the command, select a space.</li>
+</ol>
 <h3 id="after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do">"After changing the name of the host, the old one keeps displaying <code>OFFLINE</code>. What should I do?"<a class="headerlink" href="#after_changing_the_name_of_the_host_the_old_one_keeps_displaying_offline_what_should_i_do" title="Permanent link">&para;</a></h3>
 <p>Hosts with the status of <code>OFFLINE</code> will be automatically deleted after one day.</p>
 <h3 id="how_do_i_view_the_dmp_file">"How do I view the dmp file?"<a class="headerlink" href="#how_do_i_view_the_dmp_file" title="Permanent link">&para;</a></h3>
@@ -6962,7 +7058,7 @@ telnet:<span class="w"> </span>connect<span class="w"> </span>to<span class="w">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 1, 2023</span>
       
     
   </small>
