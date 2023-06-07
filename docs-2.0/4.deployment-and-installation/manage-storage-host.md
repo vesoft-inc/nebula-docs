@@ -8,7 +8,7 @@ Starting from NebulaGraph 3.0.0, setting Storage hosts in the configuration file
 
 ## Prerequisites
 
-- [You have connected to the Nebula Graph database](connect-to-nebula-graph.md).
+- [You have connected to the NebulaGraph database](connect-to-nebula-graph.md).
 
 ## Add Storage hosts
 
