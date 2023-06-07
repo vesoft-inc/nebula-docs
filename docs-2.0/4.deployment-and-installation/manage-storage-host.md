@@ -6,13 +6,17 @@ Starting from NebulaGraph 3.0.0, setting Storage hosts in the configuration file
 
     NebulaGraph Cloud clusters add Storage hosts automatically. Cloud users do not need to manually run `ADD HOSTS`.
 
+## Prerequisites
+
+- [You have connected to the Nebula Graph database](connect-to-nebula-graph.md).
+
 ## Add Storage hosts
 
 Add the Storage hosts to a NebulaGraph cluster.
 
 ```ngql
-ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
-ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
+nebula> ADD HOSTS <ip>:<port> [,<ip>:<port> ...];
+nebula> ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 ```
 
 !!! note
@@ -34,6 +38,22 @@ Delete the Storage hosts from cluster.
     You can not delete an in-use Storage host directly. Delete the associated graph space before deleting the Storage host.
 
 ```ngql
-DROP HOSTS <ip>:<port> [,<ip>:<port> ...];
-DROP HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
+nebula> DROP HOSTS <ip>:<port> [,<ip>:<port> ...];
+nebula> DROP HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
+```
+
+
+## View Storage hosts
+
+View the Storage hosts in the cluster.
+
+```ngql
+nebula> SHOW HOSTS STORAGE;
++-------------+------+----------+-----------+--------------+----------------------+
+| Host        | Port | Status   | Role      | Git Info Sha | Version              |
++-------------+------+----------+-----------+--------------+----------------------+
+| "storaged0" | 9779 | "ONLINE" | "STORAGE" | "3ba41bd"    | "{{nebula.release}}" |
+| "storaged1" | 9779 | "ONLINE" | "STORAGE" | "3ba41bd"    | "{{nebula.release}}" |
+| "storaged2" | 9779 | "ONLINE" | "STORAGE" | "3ba41bd"    | "{{nebula.release}}" |
++-------------+------+----------+-----------+--------------+--------------- ------+
 ```
