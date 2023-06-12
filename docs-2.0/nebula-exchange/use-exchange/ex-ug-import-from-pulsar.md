@@ -32,6 +32,10 @@ Before importing data, you need to confirm the following information:
 
 - The Pulsar service has been installed and started.
 
+## Precautions
+
+Only client mode is supported when importing Pulsar data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -138,7 +142,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       type: {
         # Specify the data source file format to Pulsar.
         source: pulsar
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
       # The address of the Pulsar server.
@@ -211,7 +215,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         source: pulsar
 
         # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
 
