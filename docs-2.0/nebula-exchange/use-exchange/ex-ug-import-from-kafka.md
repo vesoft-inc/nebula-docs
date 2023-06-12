@@ -40,6 +40,10 @@ Before importing data, you need to confirm the following information:
 
 - The Kafka service has been installed and started.
 
+## Precautions
+
+Only client mode is supported when importing Kafka data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -149,7 +153,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       type: {
         # Specify the data source file format to Kafka.
         source: kafka
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
       # Kafka server address.
@@ -222,7 +226,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         source: kafka
 
         # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
 
