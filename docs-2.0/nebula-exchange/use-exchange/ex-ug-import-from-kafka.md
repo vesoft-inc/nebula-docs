@@ -2,6 +2,10 @@
 
 This topic provides a simple guide to importing Data stored on Kafka into NebulaGraph using Exchange.
 
+!!! compatibility
+
+    Please use Exchange 3.3.0/3.0.0 when importing Kafka data. In version 3.4.0, caching of imported data was added, and streaming data import is not supported.
+
 ## Environment
 
 This example is done on MacOS. Here is the environment configuration information:
