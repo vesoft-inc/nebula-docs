@@ -5628,22 +5628,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tar" class="md-nav__link">
-    TAR
+  <a href="#using_the_tar_package" class="md-nav__link">
+    Using the TAR Package
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rpm" class="md-nav__link">
-    RPM
+  <a href="#using_the_rpm_package" class="md-nav__link">
+    Using the RPM package
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#deb" class="md-nav__link">
-    DEB
+  <a href="#using_the_deb_package" class="md-nav__link">
+    Using the DEB package
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using_dashboard" class="md-nav__link">
+    Using Dashboard
   </a>
   
 </li>
@@ -5669,15 +5676,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#view_license_information" class="md-nav__link">
-    View license information
+  <a href="#load_a_license_key" class="md-nav__link">
+    Load a license key
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#load_a_license_key" class="md-nav__link">
-    Load a license key
+  <a href="#view_license_information" class="md-nav__link">
+    View license information
   </a>
   
 </li>
@@ -5793,8 +5800,8 @@
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <p>An LM is a single-process service. To ensure the reliability and continuity of the LM, it is recommended that you use systemd to manage the LM and set a restart policy for the LM.</p>
 <h2 id="install_and_start_lm">Install and start LM<a class="headerlink" href="#install_and_start_lm" title="Permanent link">&para;</a></h2>
-<p>An LM can be installed on Linux amd64 or arm64 systems. </p>
-<h3 id="tar">TAR<a class="headerlink" href="#tar" title="Permanent link">&para;</a></h3>
+<p>An LM can be installed on Linux amd64 or arm64 systems or installed through Dashboard.</p>
+<h3 id="using_the_tar_package">Using the TAR Package<a class="headerlink" href="#using_the_tar_package" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Unpack the LM TAR package.</p>
@@ -5837,7 +5844,7 @@ WantedBy=multi-user.target
 </code></pre></div>
 </li>
 </ol>
-<h3 id="rpm">RPM<a class="headerlink" href="#rpm" title="Permanent link">&para;</a></h3>
+<h3 id="using_the_rpm_package">Using the RPM package<a class="headerlink" href="#using_the_rpm_package" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Unpack the LM RPM package.</p>
@@ -5859,7 +5866,7 @@ WantedBy=multi-user.target
 </code></pre></div>
 </li>
 </ol>
-<h3 id="deb">DEB<a class="headerlink" href="#deb" title="Permanent link">&para;</a></h3>
+<h3 id="using_the_deb_package">Using the DEB package<a class="headerlink" href="#using_the_deb_package" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Unpack the LM DEB package.</p>
@@ -5881,6 +5888,8 @@ WantedBy=multi-user.target
 </code></pre></div>
 </li>
 </ol>
+<h3 id="using_dashboard">Using Dashboard<a class="headerlink" href="#using_dashboard" title="Permanent link">&para;</a></h3>
+<p>LM can be installed and started through Dashboard. For more information, see <a href="../../../nebula-dashboard-ent/3.connect-dashboard/">Connect to Dashboard</a>.</p>
 <h2 id="use_lm">Use LM<a class="headerlink" href="#use_lm" title="Permanent link">&para;</a></h2>
 <p>After your LM starts, in the LM installation path you can use the LM CLI to view license information.</p>
 <h3 id="view_lm_cli_version">View LM CLI version<a class="headerlink" href="#view_lm_cli_version" title="Permanent link">&para;</a></h3>
@@ -5890,31 +5899,35 @@ WantedBy=multi-user.target
 <p class="admonition-title">Note</p>
 <p>When LM starts, its version information is printed in the logs.</p>
 </div>
+<h3 id="load_a_license_key">Load a license key<a class="headerlink" href="#load_a_license_key" title="Permanent link">&para;</a></h3>
+<p>After <a href="../2.license-center/#bind-lmid-to-generate-a-license-key">generating a license key</a>, you need to use the LM client tool to load the license key.</p>
+<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>load<span class="w"> </span>--key<span class="w"> </span>&lt;license-key&gt;<span class="w"> </span>--force
+</code></pre></div>
+<ul>
+<li><code>&lt;license-key&gt;</code>: The license key string, such as <code>MSY2-LGQ6O-69521-XXXXX-XXXXX</code>.</li>
+<li><code>--force</code>: Loads the license key without checking the current license status. This flag is optional.</li>
+</ul>
 <h3 id="view_license_information">View license information<a class="headerlink" href="#view_license_information" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>license<span class="w"> </span>info
+<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>info
 </code></pre></div>
 <ul>
 <li>
 <p>When the license key is not loaded, the output is as follows:</p>
-<div class="highlight"><pre><span></span><code>┌───────────────┬───────────┐
-│ LMID          │ QPDH-XXXX │
-│ LicenseStatus │ NotExist  │
-└───────────────┴───────────┘
+<div class="highlight"><pre><span></span><code>          LMID:  RUZB-XXXX                     
+ LicenseStatus:  NotExist
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
 <p>When the license key is loaded, the output is as follows:</p>
-<div class="highlight"><pre><span></span><code>┌───────────────┬───────────────────────────────┐
-│ LMID          │ QPDH-XXXX                     │
-│ LicenseStatus │ Normal                        │
-│ LicenseKey    │ PMSY2-LGQ6O-69521-XXXXX-XXXXX │
-│ Type          │ NODE                          │
-│ Query Node    │ X                             │
-│ Storage Node  │ X                             │
-│ ExpireAt      │ 2023-05-25 12:00:00 +0800 CST │
-└───────────────┴───────────────────────────────┘
+<div class="highlight"><pre><span></span><code>          LMID:  RUZB-XXXX                    
+ LicenseStatus:  Normal                      
+    LicenseKey:  MM90U-9H4Q0-W093M-XXXXX-XXXXX 
+          Type:  NODE                          
+    Query Node:  3                             
+  Storage Node:  3                             
+      ExpireAt:  2023-06-25 12:00:00 +0800 CST 
 </code></pre></div>
 </li>
 </ul>
@@ -5929,7 +5942,7 @@ WantedBy=multi-user.target
 <tbody>
 <tr>
 <td align="left"><code>LMID</code></td>
-<td align="left">The ID of your LM. When you obtain a license key, this LMID needs to be bound. For more information, see <a href="../../4.generate-and-load-license-key/">Obtain a license key</a>.</td>
+<td align="left">The ID of your LM. When you obtain a license key, this LMID needs to be bound. For more information, see <a href="../2.license-center/#bind-lmid-to-generate-a-license-key">Generate a license key</a>.</td>
 </tr>
 <tr>
 <td align="left"><code>LicenseStatus</code></td>
@@ -5957,30 +5970,20 @@ WantedBy=multi-user.target
 </tr>
 </tbody>
 </table>
-<h3 id="load_a_license_key">Load a license key<a class="headerlink" href="#load_a_license_key" title="Permanent link">&para;</a></h3>
-<p>After <a href="../../4.generate-and-load-license-key/">obtaining a license key</a>, you need to use the LM client tool to load the license key.</p>
-<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>license<span class="w"> </span>load<span class="w"> </span>--key<span class="w"> </span>&lt;license-key&gt;<span class="w"> </span>--force
-</code></pre></div>
-<ul>
-<li><code>&lt;license-key&gt;</code>: The license key string, such as <code>MSY2-LGQ6O-69521-XXXXX-XXXXX</code>.</li>
-<li><code>--force</code>: Loads the license key without checking the current license status. This flag is optional.</li>
-</ul>
 <h3 id="synchronize_license_info">Synchronize license info<a class="headerlink" href="#synchronize_license_info" title="Permanent link">&para;</a></h3>
 <p>When the license key loaded into LM is in online mode, the LM periodically synchronizes the license information from LC every 1 to 2 hours. You can also manually synchronize the license key using the following command.</p>
-<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>license<span class="w"> </span>sync
+<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>sync
 </code></pre></div>
 <h3 id="check_the_license_quota_usage">Check the license quota usage<a class="headerlink" href="#check_the_license_quota_usage" title="Permanent link">&para;</a></h3>
 <p>You can run the following command to check the current usage of the license quota (the number of nodes purchased) and the usage status of the associated software.</p>
-<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>license<span class="w"> </span>usage
+<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>usage
 </code></pre></div>
 <h3 id="view_the_license_information_on_a_specified_lm">View the license information on a specified LM<a class="headerlink" href="#view_the_license_information_on_a_specified_lm" title="Permanent link">&para;</a></h3>
 <p>For a database administrator (DBA), there may be a need to view the license information on a specified LM. To achieve this, run the following command:</p>
-<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>license<span class="w"> </span>&lt;command&gt;<span class="w"> </span>--addr<span class="w"> </span>&lt;host&gt;:9119
+<div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>&lt;command&gt;<span class="w"> </span>--addr<span class="w"> </span>&lt;host&gt;:9119
 </code></pre></div>
 <ul>
 <li><code>&lt;command&gt;</code>: The command to be executed. Options include <code>info</code>, <code>usage</code>, <code>sync</code>, and <code>load --key &lt;license-key&gt; --force</code>.</li>
-</ul>
-<ul>
 <li><code>&lt;host&gt;</code>: The IP address of the host where the specified LM is located.</li>
 </ul>
 <h2 id="configure_lm">Configure LM<a class="headerlink" href="#configure_lm" title="Permanent link">&para;</a></h2>
@@ -6005,7 +6008,7 @@ A: No. The LM is bound to the host where it is installed. If you need to change 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 12, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>
