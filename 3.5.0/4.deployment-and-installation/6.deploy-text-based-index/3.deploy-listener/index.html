@@ -2671,8 +2671,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step_1_install_the_storage_service" class="md-nav__link">
-    Step 1: Install the Storage service
+  <a href="#step_1_install_the_listener_service" class="md-nav__link">
+    Step 1: Install the Listener service
   </a>
   
 </li>
@@ -5761,8 +5761,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step_1_install_the_storage_service" class="md-nav__link">
-    Step 1: Install the Storage service
+  <a href="#step_1_install_the_listener_service" class="md-nav__link">
+    Step 1: Install the Listener service
   </a>
   
 </li>
@@ -5876,10 +5876,10 @@
 <li>For now, you can only add all Listeners to a graph space once and for all. Trying to add a new Listener to a graph space that already has a Listener will fail. To add all Listeners, set them <a href="#step_4_add_listeners_to_nebula_graph">in one statement</a>.</li>
 </ul>
 <h2 id="deployment_process">Deployment process<a class="headerlink" href="#deployment_process" title="Permanent link">&para;</a></h2>
-<h3 id="step_1_install_the_storage_service">Step 1: Install the Storage service<a class="headerlink" href="#step_1_install_the_storage_service" title="Permanent link">&para;</a></h3>
-<p>The Listener process and the storaged process use the same binary file. However, their configuration files and using ports are different. You can install NebulaGraph on all servers that need to deploy a Listener, but only the Storage service can be used. For details, see <a href="../../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Install NebulaGraph by RPM or DEB Package</a>.</p>
+<h3 id="step_1_install_the_listener_service">Step 1: Install the Listener service<a class="headerlink" href="#step_1_install_the_listener_service" title="Permanent link">&para;</a></h3>
+<p>The Listener service uses the same binary as the storaged service. However, the configuration files are different and the processes use different ports. You can install NebulaGraph on all servers that need to deploy a Listener, but only the storaged service can be used. For details, see <a href="../../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/">Install NebulaGraph by RPM or DEB Package</a>.</p>
 <h3 id="step_2_prepare_the_configuration_file_for_the_listener">Step 2: Prepare the configuration file for the Listener<a class="headerlink" href="#step_2_prepare_the_configuration_file_for_the_listener" title="Permanent link">&para;</a></h3>
-<p>You have to prepare a corresponding configuration file on the machine that you want to deploy a Listener. The file must be named as <code>nebula-storaged-listener.conf</code> and stored in the <code>etc</code> directory. A <a href="https://github.com/vesoft-inc/nebula-storage/blob/master/conf/nebula-storaged-listener.conf.production">template</a> is provided for your reference. Note that the file suffix <code>.production</code> should be removed.</p>
+<p>In the <code>etc</code> directory, remove the suffix from <code>nebula-storaged-listener.conf.default</code> or <code>nebula-storaged-listener.conf.production</code> to <code>nebula-storaged-listener.conf</code>, and then modify the configuration content.</p>
 <p>Most configurations are the same as the configurations of <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage Service</a>. This topic only introduces the differences.</p>
 <table>
 <thead>
@@ -5908,7 +5908,7 @@
 <tr>
 <td align="left"><code>local_ip</code></td>
 <td align="left">-</td>
-<td align="left">The local IP address of the Listener service.</td>
+<td align="left">The local IP address of the Listener service. Use real IP addresses instead of domain names or loopback IP addresses such as <code>127.0.0.1</code>.</td>
 </tr>
 <tr>
 <td align="left"><code>port</code></td>
@@ -5957,15 +5957,10 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Use real IP addresses in the configuration file instead of domain names or loopback IP addresses such as <code>127.0.0.1</code>.</p>
-</div>
 <h3 id="step_3_start_listeners">Step 3: Start Listeners<a class="headerlink" href="#step_3_start_listeners" title="Permanent link">&para;</a></h3>
 <p>To initiate the Listener, navigate to the installation path of the desired cluster and execute the following command:</p>
-<div class="highlight"><pre><span></span><code>./bin/nebula-storaged<span class="w"> </span>--flagfile<span class="w"> </span>&lt;listener_config_path&gt;/nebula-storaged-listener.conf
+<div class="highlight"><pre><span></span><code>./bin/nebula-storaged<span class="w"> </span>--flagfile<span class="w"> </span>etc/nebula-storaged-listener.conf
 </code></pre></div>
-<p><code>${listener_config_path}</code> is the path where you store the Listener configuration file.</p>
 <h3 id="step_4_add_listeners_to_nebulagraph">Step 4: Add Listeners to NebulaGraph<a class="headerlink" href="#step_4_add_listeners_to_nebulagraph" title="Permanent link">&para;</a></h3>
 <p><a href="../../../2.quick-start/3.connect-to-nebula-graph/">Connect to NebulaGraph</a> and run <a href="../../../3.ngql-guide/9.space-statements/2.use-space/"><code>USE &lt;space&gt;</code></a> to enter the graph space that you want to create full-text indexes for. Then run the following statement to add a Listener into NebulaGraph.</p>
 <div class="highlight"><pre><span></span><code>ADD LISTENER ELASTICSEARCH &lt;listener_ip:port&gt; [,&lt;listener_ip:port&gt;, ...]
@@ -5974,20 +5969,20 @@
 <p class="admonition-title">Warning</p>
 <p>You must use real IPs for a Listener.</p>
 <p>Add all Listeners in one statement completely.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.5:9789,192.168.8.6:9789;
+<div class="highlight"><pre><span></span><code>nebula&gt; ADD LISTENER ELASTICSEARCH 192.168.8.100:9789,192.168.8.101:9789;
 </code></pre></div>
 </div>
 <h2 id="show_listeners">Show Listeners<a class="headerlink" href="#show_listeners" title="Permanent link">&para;</a></h2>
 <p>Run the <code>SHOW LISTENER</code> statement to list all Listeners.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW LISTENER;
-+--------+-----------------+-----------------------+----------+
-| PartId | Type            | Host                  | Status   |
-+--------+-----------------+-----------------------+----------+
-| 1      | &quot;ELASTICSEARCH&quot; | &quot;[192.168.8.5:46780]&quot; | &quot;ONLINE&quot; |
-| 2      | &quot;ELASTICSEARCH&quot; | &quot;[192.168.8.5:46780]&quot; | &quot;ONLINE&quot; |
-| 3      | &quot;ELASTICSEARCH&quot; | &quot;[192.168.8.5:46780]&quot; | &quot;ONLINE&quot; |
-+--------+-----------------+-----------------------+----------+
++--------+-----------------+------------------------+-------------+
+| PartId | Type            | Host                   | Host Status |
++--------+-----------------+------------------------+-------------+
+| 1      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
+| 2      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
+| 3      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
++--------+-----------------+------------------------+-------------+
 </code></pre></div>
 <h2 id="remove_listeners">Remove Listeners<a class="headerlink" href="#remove_listeners" title="Permanent link">&para;</a></h2>
 <p>Run the <code>REMOVE LISTENER ELASTICSEARCH</code> statement to remove all Listeners in a graph space.</p>
@@ -6000,7 +5995,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 14, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>

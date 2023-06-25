@@ -5859,13 +5859,9 @@
 <p>Before you start using the full-text index, please make sure that you know the <a href="../1.text-based-index-restrictions/">restrictions</a>.</p>
 <h2 id="deploy_elasticsearch_cluster">Deploy Elasticsearch cluster<a class="headerlink" href="#deploy_elasticsearch_cluster" title="Permanent link">&para;</a></h2>
 <p>To deploy an Elasticsearch cluster, see <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-elasticsearch.html">Kubernetes Elasticsearch deployment</a> or <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.15/targz.html">Elasticsearch installation</a>.</p>
-<div class="admonition compatibility">
-<p class="admonition-title">Compatibility</p>
-<p>For NebulaGraph 3.4 and later versions, no additional templates need to be created.</p>
-</div>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>The full-text index name must starts with <code>nebula_</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To support external network access to Elasticsearch, set <code>network.host</code> to <code>0.0.0.0</code> in <code>config/elasticsearch.yml</code>.</p>
 </div>
 <p>You can configure the Elasticsearch to meet your business needs. To customize the Elasticsearch, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html">Elasticsearch Document</a>.</p>
 <h2 id="sign_in_to_the_text_search_clients">Sign in to the text search clients<a class="headerlink" href="#sign_in_to_the_text_search_clients" title="Permanent link">&para;</a></h2>
@@ -5874,7 +5870,7 @@
 <div class="highlight"><pre><span></span><code>SIGN IN TEXT SERVICE (&lt;elastic_ip:port&gt;, {HTTP | HTTPS} [,&quot;&lt;username&gt;&quot;, &quot;&lt;password&gt;&quot;]) [, (&lt;elastic_ip:port&gt;, ...)];
 </code></pre></div>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; SIGN IN TEXT SERVICE (127.0.0.1:9200, HTTP);
+<div class="highlight"><pre><span></span><code>nebula&gt; SIGN IN TEXT SERVICE (192.168.8.100:9200, HTTP);
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5891,13 +5887,11 @@
 </code></pre></div>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW TEXT SEARCH CLIENTS;
-+-------------+------+
-| Host        | Port |
-+-------------+------+
-| &quot;127.0.0.1&quot; | 9200 |
-| &quot;127.0.0.1&quot; | 9200 |
-| &quot;127.0.0.1&quot; | 9200 |
-+-------------+------+
++-----------------+-----------------+------+
+| Type            | Host            | Port |
++-----------------+-----------------+------+
+| &quot;ELASTICSEARCH&quot; | &quot;192.168.8.100&quot; | 9200 |
++-----------------+-----------------+------+
 </code></pre></div>
 <h2 id="sign_out_to_the_text_search_clients">Sign out to the text search clients<a class="headerlink" href="#sign_out_to_the_text_search_clients" title="Permanent link">&para;</a></h2>
 <p>The <code>SIGN OUT TEXT SERVICE</code> statement can sign out all the text search clients.</p>
@@ -5913,7 +5907,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>
