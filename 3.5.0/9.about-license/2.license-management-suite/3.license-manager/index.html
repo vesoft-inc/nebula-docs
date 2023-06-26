@@ -5661,6 +5661,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#view_lm_configuration_file" class="md-nav__link">
+    View LM configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#use_lm" class="md-nav__link">
     Use LM
   </a>
@@ -5795,6 +5802,9 @@
 <p class="admonition-title">Note</p>
 <p>LM installation packages are sent to you by email after you purchase a license.</p>
 </div>
+<ul>
+<li>LM uses 9119 as the default port, make sure that port is not occupied.</li>
+</ul>
 </li>
 </ul>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
@@ -5817,15 +5827,15 @@
 <ol>
 <li>
 <p>Create the LM service file <code>/etc/systemd/system/yueshu-license-manager.service</code> with the following contents:</p>
-<div class="highlight"><pre><span></span><code>[Unit]
-Description=License Manager
-[Service]
-Type=simple
-ExecStart=&lt;path&gt;/yueshu-license-manager/yueshu-license-manager
-WorkingDirectory=&lt;path&gt;/yueshu-license-manager
-Restart=always
-[Install]
-WantedBy=multi-user.target
+<div class="highlight"><pre><span></span><code><span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>License<span class="w"> </span>Manager
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>simple
+<span class="nv">ExecStart</span><span class="o">=</span>&lt;path&gt;/yueshu-license-manager/yueshu-license-manager
+<span class="nv">WorkingDirectory</span><span class="o">=</span>&lt;path&gt;/yueshu-license-manager
+<span class="nv">Restart</span><span class="o">=</span>always
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
 </code></pre></div>
 <ul>
 <li><code>&lt;path&gt;</code>: Refers to the directory where the LM package is extracted.</li>
@@ -5833,7 +5843,7 @@ WantedBy=multi-user.target
 </li>
 <li>
 <p>Start the LM service:</p>
-<div class="highlight"><pre><span></span><code>sudo systemctl start yueshu-license-manager
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>yueshu-license-manager
 </code></pre></div>
 </li>
 </ol>
@@ -5862,7 +5872,7 @@ WantedBy=multi-user.target
 </li>
 <li>
 <p>Set up LM to start automatically on boot.</p>
-<div class="highlight"><pre><span></span><code>sudo systemctl enable yueshu-license-manager
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>yueshu-license-manager
 </code></pre></div>
 </li>
 </ol>
@@ -5884,12 +5894,39 @@ WantedBy=multi-user.target
 </li>
 <li>
 <p>Set up LM to start automatically on boot.</p>
-<div class="highlight"><pre><span></span><code>sudo systemctl enable yueshu-license-manager
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>yueshu-license-manager
 </code></pre></div>
 </li>
 </ol>
 <h3 id="using_dashboard">Using Dashboard<a class="headerlink" href="#using_dashboard" title="Permanent link">&para;</a></h3>
 <p>LM can be installed and started through Dashboard. For more information, see <a href="../../../nebula-dashboard-ent/3.connect-dashboard/">Connect to Dashboard</a>.</p>
+<h2 id="view_lm_configuration_file">View LM configuration file<a class="headerlink" href="#view_lm_configuration_file" title="Permanent link">&para;</a></h2>
+<p>The configuration file name for LM is <code>nebula-license-manager.yaml</code>.</p>
+<ul>
+<li>For RPM and DEB packages, the default path is <code>/usr/local/yueshu-license-manager/etc/nebula-license-manager.yaml</code>.</li>
+</ul>
+<ul>
+<li>For the TAR package, the path is <code>yueshu-license-manager/etc/nebula-license-manager.yaml</code> under the LM installation directory.</li>
+</ul>
+<p>The contents of the LM configuration file are as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-license-manager</span><span class="w">  </span>
+<span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span><span class="w">                 </span><span class="c1"># The host address LM binds to.   </span>
+<span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9119</span><span class="w">                    </span><span class="c1"># The port number LM listens on. The default is 9119.</span>
+<span class="nt">Timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span><span class="w">                 </span><span class="c1"># The timeout period for LM waiting for client requests, in milliseconds. The default is 3000 milliseconds.   </span>
+<span class="nt">DataPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span><span class="w">                </span><span class="c1"># The path for storing LM status data.</span>
+<span class="nt">Notify</span><span class="p">:</span><span class="w">                       </span><span class="c1"># LM notification related configuration. </span>
+<span class="w">  </span><span class="nt">Mail</span><span class="p">:</span><span class="w">                       </span><span class="c1"># Mail notification related configuration.</span>
+<span class="w">    </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># SMTP server address.</span>
+<span class="w">    </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">465</span><span class="w">                 </span><span class="c1"># SMTP server port number.</span>
+<span class="w">    </span><span class="nt">User</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># SMTP email.</span>
+<span class="w">    </span><span class="nt">Password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">              </span><span class="c1"># SMTP email password.  </span>
+<span class="w">    </span><span class="nt">To</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w">                    </span><span class="c1"># The list of emails to receive notifications.   </span>
+<span class="nt">Log</span><span class="p">:</span><span class="w">                          </span><span class="c1"># Logging related configuration.</span>
+<span class="w">  </span><span class="nt">Mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span><span class="w">                  </span><span class="c1"># The logging mode. It can be file (output to file) or console (output to console). The default is file.</span>
+<span class="w">  </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logs</span><span class="w">                  </span><span class="c1"># The path for storing log files.</span>
+<span class="w">  </span><span class="nt">Level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span><span class="w">                 </span><span class="c1"># The log level. It can be debug, info, error, or severe. The default is info. </span>
+<span class="w">  </span><span class="nt">KeepDays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">                </span><span class="c1"># The longest number of days to keep logs. The default is 30 days.</span>
+</code></pre></div>
 <h2 id="use_lm">Use LM<a class="headerlink" href="#use_lm" title="Permanent link">&para;</a></h2>
 <p>After your LM starts, in the LM installation path you can use the LM CLI to view license information.</p>
 <h3 id="view_lm_cli_version">View LM CLI version<a class="headerlink" href="#view_lm_cli_version" title="Permanent link">&para;</a></h3>
@@ -6008,7 +6045,7 @@ A: No. The LM is bound to the host where it is installed. If you need to change 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 26, 2023</span>
       
     
   </small>
