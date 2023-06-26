@@ -10,7 +10,7 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
 
 !!! note
 
-    - Only supports upgrading the NebulaGraph cluster that version greater than **3.0.0** to the version equal to or lower than **3.2.1**. To upgrade to **3.3.0**, see [manual upgrade](../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md). 
+    - Only supports upgrading the NebulaGraph cluster that version greater than **3.0.0** to the version equal to or lower than **3.2.1**. To upgrade to **3.3.0**, see [manual upgrade](../../../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-ent-from-3.x-3.4.md). 
     - Do not support upgrading clusters across the major version.
     - The community edition can be upgraded to the enterprise edition, and the enterprise edition can be upgraded to the community edition.
     - The cluster can be upgraded to a minor version in the current major version, including a smaller version than the current minor version.
@@ -36,3 +36,4 @@ NebulaGraph Dashboard Enterprise Edition supports upgrading the version of the e
 
 6. Confirm the upgrade information again, including **Cluster Name**, **Current NebulaGraph Version**, and **Upgrade NebulaGraph Version**, and then click **Upgrade**.
    Users can view the upgrade task information in [task center](../../10.tasks.md), the task type is `version update`.
+

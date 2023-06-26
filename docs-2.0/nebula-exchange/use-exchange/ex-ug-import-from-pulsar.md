@@ -32,6 +32,10 @@ Before importing data, you need to confirm the following information:
 
 - The Pulsar service has been installed and started.
 
+## Precautions
+
+Only client mode is supported when importing Pulsar data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -138,7 +142,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       type: {
         # Specify the data source file format to Pulsar.
         source: pulsar
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
       # The address of the Pulsar server.
@@ -159,6 +163,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
       vertex:{
           field:playerid
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
@@ -206,7 +215,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         source: pulsar
 
         # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
 
@@ -229,10 +238,20 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # In target, use a column in the follow table as the source of the edge's destination vertex.
       source:{
           field:src_player
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       target:{
           field:dst_player
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # (Optional) Specify a column as the source of the rank.

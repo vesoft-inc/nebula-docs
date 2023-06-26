@@ -2,6 +2,10 @@
 
 This topic provides a simple guide to importing Data stored on Kafka into NebulaGraph using Exchange.
 
+!!! compatibility
+
+    Please use Exchange 3.5.0/3.3.0/3.0.0 when importing Kafka data. In version 3.4.0, caching of imported data was added, and streaming data import is not supported.
+    
 ## Environment
 
 This example is done on MacOS. Here is the environment configuration information:
@@ -28,9 +32,21 @@ Before importing data, you need to confirm the following information:
 
 - Spark has been installed.
 
+- The following JAR files have been downloaded and placed in the directory `SPARK_HOME/jars` of Spark:
+
+  - [spark-streaming-kafka_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka)
+
+  - [spark-sql-kafka-0-10_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10)
+
+  - [kafka-clients-xxx.jar](https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients)
+
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - The Kafka service has been installed and started.
+
+## Precautions
+
+Only client mode is supported when importing Kafka data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
 
 ## Steps
 
@@ -141,7 +157,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       type: {
         # Specify the data source file format to Kafka.
         source: kafka
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
       # Kafka server address.
@@ -159,6 +175,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The key is the same as the value above, indicating that key is used as both VID and property name.
       vertex:{
           field:key
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
@@ -169,6 +190,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       partition: 10
       # The interval for message reading. Unit: second.
       interval.seconds: 10
+      # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+      startingOffsets: latest
+      # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+      # maxOffsetsPerTrigger:10000
     }
     # Set the information about the Tag Team.
     {
@@ -187,6 +212,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       batch: 10
       partition: 10
       interval.seconds: 10
+      startingOffsets: latest
+      # maxOffsetsPerTrigger:10000
     }
 
   ]
@@ -203,7 +230,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         source: kafka
 
         # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
 
@@ -222,11 +249,21 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # In target, use a column in the topic as the source of the edge's destination vertex.
       source:{
           field:timestamp
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
       target:{
           field:offset
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # (Optional) Specify a column as the source of the rank.
@@ -240,6 +277,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # The interval for message reading. Unit: second.
       interval.seconds: 10
+      # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+      startingOffsets: latest
+      # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+      # maxOffsetsPerTrigger:10000
     }
 
     # Set the information about the Edge Type serve.
@@ -268,6 +309,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       batch: 10
       partition: 10
       interval.seconds: 10
+      startingOffsets: latest
+      # maxOffsetsPerTrigger:10000
     }
   ]
 }
