@@ -5464,6 +5464,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster" class="md-nav__link">
+    How to view the logs of each service in the NebulaGraph cluster?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" class="md-nav__link">
+    How to resolve the host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local error?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5862,6 +5876,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster" class="md-nav__link">
+    How to view the logs of each service in the NebulaGraph cluster?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" class="md-nav__link">
+    How to resolve the host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local error?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5891,13 +5919,54 @@
 <p>It is suggested to back up data in advance so that you can roll back data in case of failure.</p>
 <h2 id="is_the_replica_in_the_operator_docs_the_same_as_the_replica_in_the_nebulagraph_core_docs">Is the replica in the Operator docs the same as the replica in the NebulaGraph core docs?<a class="headerlink" href="#is_the_replica_in_the_operator_docs_the_same_as_the_replica_in_the_nebulagraph_core_docs" title="Permanent link">&para;</a></h2>
 <p>They are different concepts. A replica in the Operator docs indicates a pod replica in K8s, while a replica in the core docs is a replica of a NebulaGraph storage partition.</p>
+<h2 id="how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster">How to view the logs of each service in the NebulaGraph cluster?<a class="headerlink" href="#how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster" title="Permanent link">&para;</a></h2>
+<p>The logs for the NebulaGraph cluster are not gathered in the K8s cluster, which also means that they cannot be retrieved through the <code>kubectl logs</code> command. To obtain the logs of each cluster service, you need to access the container and view the log files that are stored inside. This is the only option available for users to get the service logs individually in the NebulaGraph cluster.</p>
+<p>Steps to view the logs of each service in the NebulaGraph cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># To view the name of the pod where the container you want to access is located. </span>
+<span class="c1"># Replace &lt;cluster-name&gt; with the name of the cluster.</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>&lt;cluster-name&gt;
+
+<span class="c1"># To access the container within the pod, such as the nebula-graphd-0 container.</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>nebula-graphd-0<span class="w"> </span>--<span class="w"> </span>/bin/bash
+
+<span class="c1"># To go to /usr/local/nebula/logs directory to view the logs.</span>
+<span class="nb">cd</span><span class="w"> </span>/usr/local/nebula/logs
+</code></pre></div>
+<h2 id="how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error">How to resolve the <code>host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local</code> error?<a class="headerlink" href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" title="Permanent link">&para;</a></h2>
+<p>This error is generally caused by a DNS resolution failure, and you need to check whether the cluster domain has been modified. If the cluster domain has been modified, you need to modify the <code>kubernetesClusterDomain</code> field in the NebulaGraph Operator configuration file accordingly. The steps for modifying the Operator configuration file are as follows:</p>
+<ol>
+<li>
+<p>View the Operator configuration file.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">abby@master ~</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">$ helm show values nebula-operator/nebula-operator</span><span class="w">   </span>
+<span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="nt">nebulaOperator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:v1.4.2</span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">  </span><span class="nt">kubeRBACProxy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io/kubebuilder/kube-rbac-proxy:v0.13.0</span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">  </span><span class="nt">kubeScheduler</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.k8s.io/kube-scheduler:v1.24.11</span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="nt">kubernetesClusterDomain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># The cluster domain name, and the default is cluster.local.</span>
+</code></pre></div>
+</li>
+<li>
+<p>Modify the value of the <code>kubernetesClusterDomain</code> field to the updated cluster domain name.</p>
+<p><div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace=&lt;nebula-operator-system&gt; --version=1.4.2 --set kubernetesClusterDomain=&lt;cluster-domain&gt;
+</code></pre></div>
+<nebula-operator-system> is the namespace where Operator is located and <cluster-domain> is the updated domain name.</p>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 26, 2023</span>
       
     
   </small>
