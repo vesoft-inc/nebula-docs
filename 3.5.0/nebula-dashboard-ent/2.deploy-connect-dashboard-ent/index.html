@@ -5732,6 +5732,9 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before deploying Dashboard Enterprise Edition, you must do a check of these:</p>
 <ul>
+<li>The <a href="../../9.about-license/2.license-management-suite/3.license-manager/">license key</a> is loaded.</li>
+</ul>
+<ul>
 <li>Select and download Dashboard Enterprise Edition of the correct version. For information about the version correspondence between Dashboard Enterprise Edition and NebulaGraph, see <a href="../1.what-is-dashboard-ent/">Version compatibility</a>.</li>
 </ul>
 <ul>
@@ -5780,7 +5783,7 @@
 </ul>
 <ul>
 <li>
-<p>The <a href="../11.dashboard-ent-license/">license</a> is ready.</p>
+<p>The <a href="11.dashboard-ent-license.md">license</a> is ready.</p>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
 <p>The license is only available in the Enterprise Edition. To obtain the license, apply for <a href="https://nebula-graph.io/visualization-tools-free-trial">NebulaGraph Dashboard Free Trial</a>.</p>
@@ -5806,17 +5809,16 @@
 </code></pre></div>
 </li>
 <li>
-<p>Edit <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> to modify the configuration.</p>
+<p>Enter the extracted folder and modify the <code>config.yaml</code> file in the <code>etc</code> directory to set the relevant configuration.</p>
 <div class="highlight"><pre><span></span><code>Name:<span class="w"> </span>dashboard-api
 Host:<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w">     </span><span class="c1"># Specifies the address segment that can access Dashboard.</span>
 Port:<span class="w"> </span><span class="m">7005</span><span class="w">  </span><span class="c1"># The default port used to access Dashboard Enterprise Edition.  </span>
 MaxBytes:<span class="w"> </span><span class="m">1073741824</span><span class="w"> </span><span class="c1"># The maximum content length of an Http request that can be accepted. The default value is 1048576. Value range: 0 ~ 8388608.</span>
-Timeout:<span class="w"> </span><span class="m">15000</span><span class="w">  </span><span class="c1"># Timeout duration of the access.</span>
-Debug:<span class="w">      </span><span class="c1"># Whether to enable the Debug mode.</span>
-<span class="w">  </span>Enable:<span class="w"> </span><span class="nb">false</span>
+Timeout:<span class="w"> </span><span class="m">60000</span><span class="w">  </span><span class="c1"># Timeout duration of the access.</span>
 Log:<span class="w">     </span><span class="c1"># Dashboard run log settings.</span>
 <span class="w">  </span>KeepDays:<span class="w"> </span><span class="m">7</span><span class="w">    </span><span class="c1"># The number of days for keeping log.</span>
-<span class="w">  </span>Mode:<span class="w"> </span>console<span class="w">   </span><span class="c1"># The save mode of logs, including console and file. console means the service logs are logged in webserver.log. file means the service logs are logged in access.log, error.log, severe.log, slow.log, and stat.log respectively.</span>
+<span class="w">  </span>Mode:<span class="w"> </span>file<span class="w">   </span><span class="c1"># The save mode of logs, including console and file. console means the service logs are logged in webserver.log. file means the service logs are logged in access.log, error.log, severe.log, slow.log, and stat.log respectively.</span>
+<span class="w">  </span>Encoding:<span class="w"> </span>plain<span class="w"> </span><span class="c1"># Log encoding method, plain and json are supported.</span>
 Database:
 <span class="w">  </span>Dialect:<span class="w"> </span>sqlite<span class="w">  </span><span class="c1"># The database type used to store metadata. Only support SQLite and MySQL currently. The default value is SQLite.</span>
 <span class="w">  </span>AutoMigrate:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># Whether to automatically create a database table. Defaults to true.</span>
@@ -5843,27 +5845,19 @@ Mail:
 <span class="w">  </span>Username:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server account name.</span>
 <span class="w">  </span>Password:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server password.</span>
 
+<span class="c1"># SlowQuery</span>
+SlowQuery:
+<span class="w">  </span>Enable:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># The switch of slowquery data polling.</span>
+<span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="c1"># Slow queary data store time (day).</span>
+<span class="w">  </span>ScrapeInterval:<span class="w"> </span>2m<span class="w"> </span><span class="c1"># The interval time for slow query data pulling, eg: 1s, 10s, 2m, 3h</span>
+
 <span class="c1"># System information</span>
 System:
 <span class="w">  </span>WebAddress:<span class="w"> </span>http://127.0.0.1:7005<span class="w"> </span><span class="c1"># The external access for Dashboard. It can be set as a hostname, used for interface callbacks. For example, the invitee who is invited by mail can use this link to access Dashboard.</span>
 <span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="c1"># It sets the number of days to keep alert messages, the value of which is 90 by default.</span>
 
-<span class="c1"># LDAP information</span>
-LDAP:
-<span class="w">  </span>Server:<span class="w"> </span>ldap://127.0.0.1<span class="w"> </span><span class="c1"># The LDAP server address.</span>
-<span class="w">  </span>BindDN:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>vesoft,dc<span class="o">=</span>com<span class="w"> </span><span class="c1"># The LDAP login username.</span>
-<span class="w">  </span>BindPassword:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The LDAP login password.</span>
-<span class="w">  </span>BaseDN:<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>vesoft,dc<span class="o">=</span>com<span class="w"> </span><span class="c1"># Set the path to query user data.</span>
-<span class="w">  </span>UserFilter:<span class="w"> </span><span class="s2">&quot;&amp;(objectClass=*)&quot;</span><span class="w"> </span><span class="c1"># Set a filter to LDAP search queries.</span>
-<span class="w">  </span>EmailKey:<span class="w"> </span>mail<span class="w"> </span><span class="c1"># Set the field name used to restore email in LDAP.</span>
-</code></pre></div>
-</li>
-<li>
-<p>Copy the license file to the <code>nebula-dashboard-ent</code> directory.</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>&lt;license&gt;<span class="w"> </span>&lt;dashboard_path&gt;
-</code></pre></div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>nebula.license<span class="w"> </span>/usr/local/nebula-dashboard-ent
+CloudProvider:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># cloud provider name, used for aliyun now.</span>
+LicenseManagerURL:<span class="w"> </span>http://192.168.8.166:9119<span class="w"> </span><span class="c1"># license manager url.</span>
 </code></pre></div>
 </li>
 <li>
@@ -5905,11 +5899,55 @@ sudo<span class="w"> </span>./dashboard.service<span class="w"> </span>start<spa
 </code></pre></div>
 </li>
 <li>
-<p>Copy the license file to the <code>nebula-dashboard-ent</code> directory.</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>&lt;license&gt;<span class="w"> </span>&lt;dashboard_path&gt;
-</code></pre></div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>nebula.license<span class="w"> </span>/usr/local/nebula-dashboard-ent
+<p>Enter the extracted folder and modify the <code>config.yaml</code> file in the <code>etc</code> directory to set the relevant configuration.</p>
+<div class="highlight"><pre><span></span><code>Name:<span class="w"> </span>dashboard-api
+Host:<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w">     </span><span class="c1"># Specifies the address segment that can access Dashboard.</span>
+Port:<span class="w"> </span><span class="m">7005</span><span class="w">  </span><span class="c1"># The default port used to access Dashboard Enterprise Edition.  </span>
+MaxBytes:<span class="w"> </span><span class="m">1073741824</span><span class="w"> </span><span class="c1"># The maximum content length of an Http request that can be accepted. The default value is 1048576. Value range: 0 ~ 8388608.</span>
+Timeout:<span class="w"> </span><span class="m">60000</span><span class="w">  </span><span class="c1"># Timeout duration of the access.</span>
+Log:<span class="w">     </span><span class="c1"># Dashboard run log settings.</span>
+<span class="w">  </span>KeepDays:<span class="w"> </span><span class="m">7</span><span class="w">    </span><span class="c1"># The number of days for keeping log.</span>
+<span class="w">  </span>Mode:<span class="w"> </span>file<span class="w">   </span><span class="c1"># The save mode of logs, including console and file. console means the service logs are logged in webserver.log. file means the service logs are logged in access.log, error.log, severe.log, slow.log, and stat.log respectively.</span>
+<span class="w">  </span>Encoding:<span class="w"> </span>plain<span class="w"> </span><span class="c1"># Log encoding method, plain and json are supported.</span>
+Database:
+<span class="w">  </span>Dialect:<span class="w"> </span>sqlite<span class="w">  </span><span class="c1"># The database type used to store metadata. Only support SQLite and MySQL currently. The default value is SQLite.</span>
+<span class="w">  </span>AutoMigrate:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># Whether to automatically create a database table. Defaults to true.</span>
+<span class="w">  </span>Host:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="c1"># The IP address of the connected MySQL database.</span>
+<span class="w">  </span>Port:<span class="w"> </span><span class="m">3306</span><span class="w">  </span><span class="c1"># The port of the connected MySQL database.</span>
+<span class="w">  </span>Username:<span class="w"> </span>root<span class="w"> </span><span class="c1"># The username to log in MySQL.</span>
+<span class="w">  </span>Password:<span class="w"> </span>nebula<span class="w"> </span><span class="c1"># The password to log in MySQL.</span>
+<span class="w">  </span>Name:<span class="w"> </span>dashboard<span class="w"> </span><span class="c1"># The name of the corresponding database.</span>
+
+<span class="c1"># Information about the exporter port</span>
+Exporter:
+<span class="w">  </span>NodePort:<span class="w"> </span><span class="m">9100</span><span class="w"> </span><span class="c1"># The port of the node-exporter service.</span>
+<span class="w">  </span>NebulaPort:<span class="w"> </span><span class="m">9200</span><span class="w"> </span><span class="c1"># The port of the nebula-stats-exporter service.</span>
+
+<span class="c1"># Information of services </span>
+Proxy:
+<span class="w">  </span>PrometheusAddr:<span class="w"> </span><span class="m">127</span>.0.0.1:9090<span class="w"> </span><span class="c1"># The IP address and port of the prometheus service.</span>
+<span class="w">  </span>AlertmanagerAddr:<span class="w"> </span><span class="m">127</span>.0.0.1:9093<span class="w"> </span><span class="c1"># The IP address and port of the Alertmanager service.</span>
+
+<span class="c1"># Information of the sender&#39;s Email used to invite LDAP accounts.</span>
+Mail:
+<span class="w">  </span>Host:<span class="w"> </span>smtp.office365.com<span class="w"> </span><span class="c1">#  The SMTP server address.</span>
+<span class="w">  </span>Port:<span class="w"> </span><span class="m">587</span><span class="w"> </span><span class="c1"># The port number of the SMTP server.</span>
+<span class="w">  </span>Username:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server account name.</span>
+<span class="w">  </span>Password:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server password.</span>
+
+<span class="c1"># SlowQuery</span>
+SlowQuery:
+<span class="w">  </span>Enable:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># The switch of slowquery data polling.</span>
+<span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="c1"># Slow queary data store time (day).</span>
+<span class="w">  </span>ScrapeInterval:<span class="w"> </span>2m<span class="w"> </span><span class="c1"># The interval time for slow query data pulling, eg: 1s, 10s, 2m, 3h</span>
+
+<span class="c1"># System information</span>
+System:
+<span class="w">  </span>WebAddress:<span class="w"> </span>http://127.0.0.1:7005<span class="w"> </span><span class="c1"># The external access for Dashboard. It can be set as a hostname, used for interface callbacks. For example, the invitee who is invited by mail can use this link to access Dashboard.</span>
+<span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="c1"># It sets the number of days to keep alert messages, the value of which is 90 by default.</span>
+
+CloudProvider:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># cloud provider name, used for aliyun now.</span>
+LicenseManagerURL:<span class="w"> </span>http://192.168.8.166:9119<span class="w"> </span><span class="c1"># license manager url.</span>
 </code></pre></div>
 </li>
 <li>
@@ -5919,28 +5957,6 @@ sudo systemctl start nebula-dashboard.target   # Start all the services.
 </code></pre></div>
 <p>You can also view, start, and stop a single service.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl {status|stop|start} {nbd-prometheus.service|nbd-alert-manager.service|nbd-stats-exporter.service|nbd-webserver.service}
-</code></pre></div>
-</li>
-<li>
-<p>To configure recipients of cluster alert notifications and to configure LDAP accounts, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
-<div class="highlight"><pre><span></span><code># Information of the sender&#39;s Email used to invite LDAP accounts.
-mail:
-  host: smtp.office365.com #  The SMTP server address.
-  port: 587 # The port number of the SMTP server.
-  username: &quot;&quot; # The SMTP server account name.
-  password: &quot;&quot; # The SMTP server password.
-# System information
-system:
-  webAddress: http://127.0.0.1:7005 # The address to access Dashboard for the invitee who is invited by mail.
-  messageStore: 90 # It sets the number of days to keep alert messages, the value of which is 90 by default. 
-# LDAP information
-ldap:
-  server: ldap://127.0.0.1 # The LDAP server address.
-  bindDN: cn=admin,dc=vesoft,dc=com # The LDAP login username.
-  bindPassword: &quot;&quot; # The LDAP login password.
-  baseDN: dc=vesoft,dc=com # Set the path to query user data.
-  userFilter: &quot;&amp;(objectClass=*)&quot; # Set a filter to LDAP search queries.
-  emailKey: mail # Set the field name used to restore email in LDAP.
 </code></pre></div>
 </li>
 </ol>
@@ -5971,11 +5987,55 @@ ldap:
 </code></pre></div>
 </li>
 <li>
-<p>Copy the license file to the <code>nebula-dashboard-ent</code> directory.</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>&lt;license&gt;<span class="w"> </span>&lt;dashboard_path&gt;
-</code></pre></div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>nebula.license<span class="w"> </span>/usr/local/nebula-dashboard-ent
+<p>Enter the extracted folder and modify the <code>config.yaml</code> file in the <code>etc</code> directory to set the relevant configuration.</p>
+<div class="highlight"><pre><span></span><code>Name:<span class="w"> </span>dashboard-api
+Host:<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w">     </span><span class="c1"># Specifies the address segment that can access Dashboard.</span>
+Port:<span class="w"> </span><span class="m">7005</span><span class="w">  </span><span class="c1"># The default port used to access Dashboard Enterprise Edition.  </span>
+MaxBytes:<span class="w"> </span><span class="m">1073741824</span><span class="w"> </span><span class="c1"># The maximum content length of an Http request that can be accepted. The default value is 1048576. Value range: 0 ~ 8388608.</span>
+Timeout:<span class="w"> </span><span class="m">60000</span><span class="w">  </span><span class="c1"># Timeout duration of the access.</span>
+Log:<span class="w">     </span><span class="c1"># Dashboard run log settings.</span>
+<span class="w">  </span>KeepDays:<span class="w"> </span><span class="m">7</span><span class="w">    </span><span class="c1"># The number of days for keeping log.</span>
+<span class="w">  </span>Mode:<span class="w"> </span>file<span class="w">   </span><span class="c1"># The save mode of logs, including console and file. console means the service logs are logged in webserver.log. file means the service logs are logged in access.log, error.log, severe.log, slow.log, and stat.log respectively.</span>
+<span class="w">  </span>Encoding:<span class="w"> </span>plain<span class="w"> </span><span class="c1"># Log encoding method, plain and json are supported.</span>
+Database:
+<span class="w">  </span>Dialect:<span class="w"> </span>sqlite<span class="w">  </span><span class="c1"># The database type used to store metadata. Only support SQLite and MySQL currently. The default value is SQLite.</span>
+<span class="w">  </span>AutoMigrate:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># Whether to automatically create a database table. Defaults to true.</span>
+<span class="w">  </span>Host:<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="c1"># The IP address of the connected MySQL database.</span>
+<span class="w">  </span>Port:<span class="w"> </span><span class="m">3306</span><span class="w">  </span><span class="c1"># The port of the connected MySQL database.</span>
+<span class="w">  </span>Username:<span class="w"> </span>root<span class="w"> </span><span class="c1"># The username to log in MySQL.</span>
+<span class="w">  </span>Password:<span class="w"> </span>nebula<span class="w"> </span><span class="c1"># The password to log in MySQL.</span>
+<span class="w">  </span>Name:<span class="w"> </span>dashboard<span class="w"> </span><span class="c1"># The name of the corresponding database.</span>
+
+<span class="c1"># Information about the exporter port</span>
+Exporter:
+<span class="w">  </span>NodePort:<span class="w"> </span><span class="m">9100</span><span class="w"> </span><span class="c1"># The port of the node-exporter service.</span>
+<span class="w">  </span>NebulaPort:<span class="w"> </span><span class="m">9200</span><span class="w"> </span><span class="c1"># The port of the nebula-stats-exporter service.</span>
+
+<span class="c1"># Information of services </span>
+Proxy:
+<span class="w">  </span>PrometheusAddr:<span class="w"> </span><span class="m">127</span>.0.0.1:9090<span class="w"> </span><span class="c1"># The IP address and port of the prometheus service.</span>
+<span class="w">  </span>AlertmanagerAddr:<span class="w"> </span><span class="m">127</span>.0.0.1:9093<span class="w"> </span><span class="c1"># The IP address and port of the Alertmanager service.</span>
+
+<span class="c1"># Information of the sender&#39;s Email used to invite LDAP accounts.</span>
+Mail:
+<span class="w">  </span>Host:<span class="w"> </span>smtp.office365.com<span class="w"> </span><span class="c1">#  The SMTP server address.</span>
+<span class="w">  </span>Port:<span class="w"> </span><span class="m">587</span><span class="w"> </span><span class="c1"># The port number of the SMTP server.</span>
+<span class="w">  </span>Username:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server account name.</span>
+<span class="w">  </span>Password:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># The SMTP server password.</span>
+
+<span class="c1"># SlowQuery</span>
+SlowQuery:
+<span class="w">  </span>Enable:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="c1"># The switch of slowquery data polling.</span>
+<span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="c1"># Slow queary data store time (day).</span>
+<span class="w">  </span>ScrapeInterval:<span class="w"> </span>2m<span class="w"> </span><span class="c1"># The interval time for slow query data pulling, eg: 1s, 10s, 2m, 3h</span>
+
+<span class="c1"># System information</span>
+System:
+<span class="w">  </span>WebAddress:<span class="w"> </span>http://127.0.0.1:7005<span class="w"> </span><span class="c1"># The external access for Dashboard. It can be set as a hostname, used for interface callbacks. For example, the invitee who is invited by mail can use this link to access Dashboard.</span>
+<span class="w">  </span>MessageStore:<span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="c1"># It sets the number of days to keep alert messages, the value of which is 90 by default.</span>
+
+CloudProvider:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># cloud provider name, used for aliyun now.</span>
+LicenseManagerURL:<span class="w"> </span>http://192.168.8.166:9119<span class="w"> </span><span class="c1"># license manager url.</span>
 </code></pre></div>
 </li>
 <li>
@@ -5985,20 +6045,6 @@ sudo systemctl start nebula-dashboard.target   # Start all the services.
 </code></pre></div>
 <p>You can also view, start, and stop a single service.</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl {status|stop|start} {nbd-prometheus.service|nbd-alert-manager.service|nbd-stats-exporter.service|nbd-webserver.service}
-</code></pre></div>
-</li>
-<li>
-<p>To configure the sender's email address used to invite LDAP and OAuth2.0 accounts and configure the duration for storing alert messages, run <code>vim /usr/local/nebula-dashboard-ent/etc/config.yaml</code> and add the following settings.</p>
-<div class="highlight"><pre><span></span><code># Information of the sender&#39;s Email used to invite LDAP accounts.
-mail:
-  host: smtp.office365.com #  The SMTP server address.
-  port: 587 # The port number of the SMTP server.
-  username: &quot;&quot; # The SMTP server account name.
-  password: &quot;&quot; # The SMTP server password.
-# System information
-system:
-  webAddress: http://127.0.0.1:7005 # The address to access Dashboard for the invitee who is invited by mail.
-  messageStore: 90 # It sets the number of days to keep alert messages, the value of which is 90 by default. 
 </code></pre></div>
 </li>
 </ol>
@@ -6176,7 +6222,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 12, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 26, 2023</span>
       
     
   </small>
