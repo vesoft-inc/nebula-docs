@@ -126,22 +126,24 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) \
 
 ## Return properties
 
-To return a vertex or edge property, use the `{<vertex_name>|<edge_name>}.<property>` syntax.
+When returning properties of a vertex, it is necessary to specify the tag to which the properties belong because a vertex can have multiple tags and the same property name can appear on different tags.
+
+It is possible to specify the tag of a vertex to return all properties of that tag, or to specify both the tag and a property name to return only that property of the tag.
 
 ```ngql
 nebula> MATCH (v:player) \
-        RETURN v.player.name, v.player.age \
+        RETURN v.player, v.player.name, v.player.age \
         LIMIT 3;
-+------------------+--------------+
-| v.player.name    | v.player.age |
-+------------------+--------------+
-| "Danny Green"    | 31           |
-| "Tiago Splitter" | 34           |
-| "David West"     | 38           |
-+------------------+--------------+
++--------------------------------------+---------------------+--------------+
+| v.player                             | v.player.name       | v.player.age |
++--------------------------------------+---------------------+--------------+
+| {age: 33, name: "LaMarcus Aldridge"} | "LaMarcus Aldridge" | 33           |
+| {age: 25, name: "Kyle Anderson"}     | "Kyle Anderson"     | 25           |
+| {age: 40, name: "Kobe Bryant"}       | "Kobe Bryant"       | 40           |
++--------------------------------------+---------------------+--------------+
 ```
 
-Use the syntax `<vertex_name>.<tag_name>.<property_name>` to return the property of a vertex; use the syntax `<edge_name>.<property_name>` to return the property of an edge.
+When returning edge properties, it is not necessary to specify the edge type to which the properties belong, because an edge can only have one edge type.
 
 ```ngql
 // Return the property of a vertex

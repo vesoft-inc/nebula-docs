@@ -11,7 +11,8 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 {{ ent.ent_end }}
 ## Prerequisites
 
-Wget installed.
+- The tool `wget` is installed.
+- The [license key](https://docs.nebula-graph.io/{{nebula.release}}/9.about-license/2.license-management-suite/3.license-manager/) is loaded.
 
 ## Download the package from cloud service
 
@@ -158,11 +159,13 @@ Wget installed.
 
         The default installation path is `/usr/local/nebula/`.
 
-## Next to do
-
 {{ ent.ent_begin }}
-- (Enterprise Edition)[Deploy license](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/deploy-license)
+## Configure the address of license management
+
+In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the license management tool is located, e.g. `192.168.8.100:9119`.
 {{ ent.ent_end }}
+
+## Next to do
 
 - [Start NebulaGraph](https://docs.nebula-graph.io/{{nebula.release}}/2.quick-start/5.start-stop-service/)  <!--这里用外链。-->
 
