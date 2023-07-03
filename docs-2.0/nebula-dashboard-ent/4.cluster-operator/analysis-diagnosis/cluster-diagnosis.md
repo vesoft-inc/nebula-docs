@@ -13,7 +13,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 1. In the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
 2. On the right side of the target cluster, click **Detail**.
-3. In the left navigation bar, click **Information**->**Cluster Diagnostics**.
+3. In the left navigation bar, click **Analysis**->**Cluster Diagnostics**.
 
 ## Create diagnostic reports
 
