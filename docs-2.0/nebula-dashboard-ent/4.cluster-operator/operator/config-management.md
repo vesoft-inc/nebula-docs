@@ -1,6 +1,6 @@
-# Update config
+# Config Management
 
-On **Update Config** page, you can view and update the service configuration files.
+On the **Config Management** page, you can view and update the service configuration files.
 
 ## Precautions
 
@@ -10,7 +10,7 @@ You need to restart the corresponding service in the **Service** page after the 
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
 2. On the right side of the target cluster, click **Detail**.
-3. On the left-side navigation bar of the page, click **Operation**->**Update Config**.
+3. On the left-side navigation bar of the page, click **Operation**->**Config Management**.
 
 ## Modify configuration
 

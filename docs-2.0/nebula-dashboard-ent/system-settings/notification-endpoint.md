@@ -34,4 +34,4 @@ Dashboard supports sending and receiving alert messages for all clusters via E-m
 
 Dashboard supports configuring Webhook to bring all cluster alert messages into third-party projects.
   
-On the left-side navigation bar of the **Interface Settings** page, click **Notification Endpoints**->**Webhook** to input the **Webhook URL** used to receive alert messages. You can turn on or off the Webhook feature at the top right of the page.
+On the left-side navigation bar of the **System Settings** page, click **Notification Endpoints**->**Webhook** to input the **Webhook URL** and **Webhook request body** (optional) used to receive alert messages. You can turn on or off the Webhook feature at the top right of the page.

@@ -1,4 +1,4 @@
-# Cluster diagnositics
+# Cluster diagnostics
 
 The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and analyze the current cluster problems within a specified time range and summarize the diagnostic results and cluster monitoring information to web-based diagnostic reports.
 
@@ -8,7 +8,6 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 - Quickly understand the basic information of the nodes, services, service configurations, and query sessions in the cluster.
 - Based on the diagnostic reports, you can make operation and maintenance recommendations and cluster alerts.
 
-
 ## Entry
 
 1. In the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
@@ -16,7 +15,6 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 3. In the left navigation bar, click **Information**->**Cluster Diagnostics**.
 
 ## Create diagnostic reports
-
 
 1. Select a time range for diagnostics. You can customize the time range or set the range by selecting time intervals, including `1 Hour`, `6 Hours`, `12 Hours`, `1 Day`, `3 Days`, `7 Days`, and `14 Days`.
 
@@ -33,7 +31,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
   - timeRange: The number of days in the time range. For avg type metrics, the value of this parameter is 1.
   - maxValue: The maximum metric value. The value for the percentage type is 100, and the value for the rest of the types is 2 times the conditionValue.
   
-  For example `weight(hit_memory_times > 10 * days, 10)`, when the time range is selected as 2 days and `hit_memory_times = 40`, the formula is `(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10`。
+  For example, `weight(hit_memory_times > 10 * days, 10)`, when the time range is selected as 2 days and `hit_memory_times = 40`, the formula is `(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10`。
 
 3. Click **Start**.
 

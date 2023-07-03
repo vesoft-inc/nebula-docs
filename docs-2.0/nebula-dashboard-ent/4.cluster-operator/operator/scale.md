@@ -1,6 +1,6 @@
 # Scale
 
-On **Scale** page, you can **add node** and **import node in batches** quickly, and add **Graph services** and **Storage services** to the existing nodes.
+On the **Scale** page, you can **add node** and **import node in batches** quickly, and add **Graph services** and **Storage services** to the existing nodes.
 
 !!! enterpriseonly 
 
@@ -51,4 +51,4 @@ In this example, storage services with nodes `192.168.8.143` and `192.168.8.167`
 
 ### Reset
 
-Click the **Reset** button to cancel all uncommitted operations and restore to the initial state.
+Click the **Reset** button to cancel all uncommitted operations and restore them to the initial state.
