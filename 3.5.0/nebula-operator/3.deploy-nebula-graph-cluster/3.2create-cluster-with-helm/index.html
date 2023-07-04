@@ -7616,12 +7616,11 @@
 <ul>
 <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">You have created StorageClass</a></li>
 </ul>
-<!-->
-
-- [LM has been installed and the License Key has been successfully loaded](../../9.about-license/2.license-management-suite/3.license-manager.md)
-
-<!-->
-
+<!--- --->
+<ul>
+<li><a href="../../../9.about-license/2.license-management-suite/3.license-manager/">LM has been installed and the License Key has been successfully loaded</a></li>
+</ul>
+<!--- --->
 <h2 id="create_clusters">Create clusters<a class="headerlink" href="#create_clusters" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -7649,10 +7648,10 @@
 <li>
 <p>Apply the variables to the Helm chart to create a NebulaGraph cluster.</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>&lt;!--&gt;
+<span class="w">    </span>&lt;!-<span class="w"> </span>-&gt;
 <span class="w">    </span><span class="c1"># Configure the access address and port (default port is &#39;9119&#39;) that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="sb">`</span><span class="m">192</span>.168.8.XXX:9119<span class="sb">`</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>&lt;!--&gt;
+<span class="w">    </span>&lt;!-<span class="w"> </span>-&gt;
 <span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># Specify the version of the NebulaGraph cluster. </span>
@@ -7683,31 +7682,25 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 <ul>
 <li>The cluster scaling feature is for NebulaGraph Enterprise Edition only. </li>
 </ul>
-<!-->
-
-- Scaling a NebulaGraph cluster for Enterprise Edition is supported only with NebulaGraph Operator version 1.1.0 or later. 
-
-You can scale a NebulaGraph cluster by defining the value of the `replicas` corresponding to the different services in the cluster.
-
-For example, run the following command to scale out a NebulaGraph cluster by changing the number of Storage services from 2 (the original value) to 5:  
-
+<!--- --->
+<ul>
+<li>Scaling a NebulaGraph cluster for Enterprise Edition is supported only with NebulaGraph Operator version 1.1.0 or later. </li>
+</ul>
+<p>You can scale a NebulaGraph cluster by defining the value of the <code>replicas</code> corresponding to the different services in the cluster.</p>
+<p>For example, run the following command to scale out a NebulaGraph cluster by changing the number of Storage services from 2 (the original value) to 5:  </p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storaged.replicas<span class="o">=</span><span class="m">5</span>
 </code></pre></div>
-
-Similarly, you can scale in a NebulaGraph cluster by setting the value of the `replicas` corresponding to the different services in the cluster smaller than the original value.
-
-!!! caution
-
-    NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.
-
-You can click on [nebula-cluster/values.yaml](https://github.com/vesoft-inc/nebula-operator/blob/v1.4.2/charts/nebula-cluster/values.yaml) to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see **Configuration parameters of the nebula-cluster Helm chart** below.
-
-<!-->
-
+<p>Similarly, you can scale in a NebulaGraph cluster by setting the value of the <code>replicas</code> corresponding to the different services in the cluster smaller than the original value.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.</p>
+</div>
+<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.4.2/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
+<!--- --->
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Helm:</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
