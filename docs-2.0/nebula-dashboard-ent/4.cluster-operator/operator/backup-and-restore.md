@@ -1,6 +1,6 @@
 # Back up and restore NebulaGraph data
 
-To prevent data loss due to operational errors or system failures, NebulaGraph offers the Backup & Restore (BR) tool to help users back up and restore graph data. Dashboard Enterprise Edition integrates BR capabilities and offers simple UIs that allow users to perform data backup and restore operations in just a few steps. This document describes how to use Dashboard Enterprise Edition to backup and restore NebulaGraph data.
+To prevent data loss due to operational errors or system failures, NebulaGraph offers the Backup & Restore (BR) tool to help users back up and restore graph data. Dashboard Enterprise Edition integrates BR capabilities and offers simple UIs that allow users to perform data backup and restore operations in just a few steps. This document describes how to use Dashboard Enterprise Edition to back up and restore NebulaGraph data.
 
 
 ## Limits
@@ -30,6 +30,8 @@ To prevent data loss due to operational errors or system failures, NebulaGraph o
 3. In the left navigation bar, click **Operation**->**Backup&Restore**.
 
 ### Full backup
+
+#### Backup to cloud storage compatible with S3
 
 Data is backed up to the cloud storage service by creating a backup file as follows.
 
@@ -65,7 +67,8 @@ Data is backed up to the cloud storage service by creating a backup file as foll
 
   Environment check includes:
 
-  - Your NebulaGraph cluster is running.
+  - The NebulaGraph services are running.
+  - The cluster must have at least one space.
   - The access key to log onto the storage service has not expired.
   - The status of business traffic. It only checks if the QPS of your business is 0. When QPS is not 0, you are prompted to back up data during off-peak hours.
 
@@ -88,6 +91,34 @@ Data is backed up to the cloud storage service by creating a backup file as foll
   ![br_s3_path](https://docs-cdn.nebula-graph.com.cn/figures/br_s3_2022-06-20_12-07-37.png)
   - Alibaba Cloud Object Storage Service:
   ![aliyun_oss_backup_cn](https://docs-cdn.nebula-graph.com.cn/figures/aliyun_oss_backup_2022-06-27_13-52-23_en.png)
+
+  !!! danger
+
+        Do not modify the file name and storage path of backup files, otherwise, the backup data cannot be restored to the cluster.
+
+#### Backup to local
+
+Users can save the backup data locally by creating a backup file, the operation is as follows.
+
+1. In the upper right corner of the page, click **Create New Backup**.
+2. On the **Create New Backup** page, choose **Full backup**.
+3. In **Backup type**, choose **Local**.
+4. Enter the storage path of the backup file in **Storage Path**.
+5. Click **Environment check** to check whether the relevant configurations are working properly, and then click **Submit**.
+
+  Environment check includes:
+
+  - The NebulaGraph services are running.
+  - The cluster must have at least one space.
+  - The status of business traffic. It only checks if the QPS of your business is 0. When QPS is not 0, you are prompted to back up data during off-peak hours.
+
+6. View the created backup file in the backup list.
+
+  !!! note
+
+        You are unable to perform a new backup until the previous backup is completed. 
+
+7. Check if the created backup file exists in the storage path. Successfully created backup files are stored in the storage path set above.
 
   !!! danger
 
