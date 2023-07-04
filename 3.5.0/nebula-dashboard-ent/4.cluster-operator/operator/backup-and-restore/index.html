@@ -610,21 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../9.about-license/4.generate-and-load-license-key.md" class="md-nav__link">
-        Generate and load a license key
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../9.about-license/5.manage-license.md" class="md-nav__link">
+      <a href="../../../../9.about-license/4.manage-license/" class="md-nav__link">
         Manage licenses
       </a>
     </li>
@@ -5182,6 +5168,26 @@
     Full backup
   </a>
   
+    <nav class="md-nav" aria-label="Full backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup_to_cloud_storage_compatible_with_s3" class="md-nav__link">
+    Backup to cloud storage compatible with S3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup_to_local" class="md-nav__link">
+    Backup to local
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -7612,6 +7618,26 @@
     Full backup
   </a>
   
+    <nav class="md-nav" aria-label="Full backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup_to_cloud_storage_compatible_with_s3" class="md-nav__link">
+    Backup to cloud storage compatible with S3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup_to_local" class="md-nav__link">
+    Backup to local
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -7661,7 +7687,7 @@
 
 
 <h1 id="back_up_and_restore_nebulagraph_data">Back up and restore NebulaGraph data<a class="headerlink" href="#back_up_and_restore_nebulagraph_data" title="Permanent link">&para;</a></h1>
-<p>To prevent data loss due to operational errors or system failures, NebulaGraph offers the Backup &amp; Restore (BR) tool to help users back up and restore graph data. Dashboard Enterprise Edition integrates BR capabilities and offers simple UIs that allow users to perform data backup and restore operations in just a few steps. This document describes how to use Dashboard Enterprise Edition to backup and restore NebulaGraph data.</p>
+<p>To prevent data loss due to operational errors or system failures, NebulaGraph offers the Backup &amp; Restore (BR) tool to help users back up and restore graph data. Dashboard Enterprise Edition integrates BR capabilities and offers simple UIs that allow users to perform data backup and restore operations in just a few steps. This document describes how to use Dashboard Enterprise Edition to back up and restore NebulaGraph data.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -7691,6 +7717,7 @@
 <li>In the left navigation bar, click <strong>Operation</strong>-&gt;<strong>Backup&amp;Restore</strong>.</li>
 </ol>
 <h3 id="full_backup">Full backup<a class="headerlink" href="#full_backup" title="Permanent link">&para;</a></h3>
+<h4 id="backup_to_cloud_storage_compatible_with_s3">Backup to cloud storage compatible with S3<a class="headerlink" href="#backup_to_cloud_storage_compatible_with_s3" title="Permanent link">&para;</a></h4>
 <p>Data is backed up to the cloud storage service by creating a backup file as follows.</p>
 <ol>
 <li>On the <strong>Backup&amp;Restore</strong> page, click the <strong>Backup List</strong> tab. </li>
@@ -7753,7 +7780,8 @@
 <p>Click <strong>Environment check</strong> to check whether the relevant configurations are working properly, and then click <strong>Submit</strong>.</p>
 <p>Environment check includes:</p>
 <ul>
-<li>Your NebulaGraph cluster is running.</li>
+<li>The NebulaGraph services are running.</li>
+<li>The cluster must have at least one space.</li>
 <li>The access key to log onto the storage service has not expired.</li>
 <li>The status of business traffic. It only checks if the QPS of your business is 0. When QPS is not 0, you are prompted to back up data during off-peak hours.</li>
 </ul>
@@ -7779,6 +7807,37 @@
 <li>Alibaba Cloud Object Storage Service:
 <img alt="aliyun_oss_backup_cn" src="https://docs-cdn.nebula-graph.com.cn/figures/aliyun_oss_backup_2022-06-27_13-52-23_en.png" /></li>
 </ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Do not modify the file name and storage path of backup files, otherwise, the backup data cannot be restored to the cluster.</p>
+</div>
+</li>
+</ol>
+<h4 id="backup_to_local">Backup to local<a class="headerlink" href="#backup_to_local" title="Permanent link">&para;</a></h4>
+<p>Users can save the backup data locally by creating a backup file, the operation is as follows.</p>
+<ol>
+<li>In the upper right corner of the page, click <strong>Create New Backup</strong>.</li>
+<li>On the <strong>Create New Backup</strong> page, choose <strong>Full backup</strong>.</li>
+<li>In <strong>Backup type</strong>, choose <strong>Local</strong>.</li>
+<li>Enter the storage path of the backup file in <strong>Storage Path</strong>.</li>
+<li>
+<p>Click <strong>Environment check</strong> to check whether the relevant configurations are working properly, and then click <strong>Submit</strong>.</p>
+<p>Environment check includes:</p>
+<ul>
+<li>The NebulaGraph services are running.</li>
+<li>The cluster must have at least one space.</li>
+<li>The status of business traffic. It only checks if the QPS of your business is 0. When QPS is not 0, you are prompted to back up data during off-peak hours.</li>
+</ul>
+</li>
+<li>
+<p>View the created backup file in the backup list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You are unable to perform a new backup until the previous backup is completed. </p>
+</div>
+</li>
+<li>
+<p>Check if the created backup file exists in the storage path. Successfully created backup files are stored in the storage path set above.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>Do not modify the file name and storage path of backup files, otherwise, the backup data cannot be restored to the cluster.</p>
@@ -7863,7 +7922,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 23, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 4, 2023</span>
       
     
   </small>
