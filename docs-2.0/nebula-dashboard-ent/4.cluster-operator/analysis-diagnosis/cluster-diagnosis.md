@@ -1,4 +1,4 @@
-# Cluster diagnositics
+# Cluster diagnostics
 
 The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and analyze the current cluster problems within a specified time range and summarize the diagnostic results and cluster monitoring information to web-based diagnostic reports.
 
@@ -33,7 +33,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
   - timeRange: The number of days in the time range. For avg type metrics, the value of this parameter is 1.
   - maxValue: The maximum metric value. The value for the percentage type is 100, and the value for the rest of the types is 2 times the conditionValue.
   
-  For example `weight(hit_memory_times > 10 * days, 10)`, when the time range is selected as 2 days and `hit_memory_times = 40`, the formula is `(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10`。
+  For example, `weight(hit_memory_times > 10 * days, 10)`, when the time range is selected as 2 days and `hit_memory_times = 40`, the formula is `(40 - 10 * 2)/((10*2 - 10) * 2) * 10 = 10`。
 
 3. Click **Start**.
 
