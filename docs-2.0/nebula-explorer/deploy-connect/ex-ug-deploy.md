@@ -32,15 +32,15 @@ In addition, if you need to use **Workflow** for complex graph computing, you ne
 
        If the HDFS port is unavailable, the connection timeout message may be displayed. -->
 
+!!! enterpriseonly
+
+    You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. NebulaGraph Explorer Enterprise Edition is available exclusively through our Enterprise Edition package and is not sold separately. [Contact us](https://www.nebula-graph.io/contact) for details.
+
 ## RPM-based deployment
 
 ### Installation
 
 1. Select and download the RPM package according to your needs. It is recommended to select the latest version.
-
-  !!! enterpriseonly
-
-        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. [Contact us](https://www.nebula-graph.io/contact) to purchase. For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
@@ -102,10 +102,6 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
 1. Select and download the RPM package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
-  !!! enterpriseonly
-
-        You can [apply online](https://nebula-graph.io/visualization-tools-free-trial) for Explorer free trial. [Contact us](https://www.nebula-graph.io/contact) to purchase. For features of Explorer, see [Pricing](https://nebula-graph.io/pricing/).
-
 
 2. Run `sudo dpkg -i <package_name>` to unpack the DEB package.
 
@@ -159,9 +155,6 @@ sudo dpkg -r nebula-explorer
 
 1. Select and download the TAR package according to your needs. It is recommended to select the latest version. Common links are as follows:
 
-  !!! enterpriseonly
-
-        Explorer is only available in the Enterprise Edition. Click [Pricing](https://nebula-graph.io/pricing/) to see more.
 
 2. Use `tar -xvf` to decompress the TAR package.
 
