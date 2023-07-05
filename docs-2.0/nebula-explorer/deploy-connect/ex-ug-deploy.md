@@ -1,6 +1,6 @@
 # Deploy Explorer
 
-This topic describes how to deploy Explorer locally by RPM, DEB and tar packages.
+This topic describes how to deploy Explorer locally by RPM, DEB, and tar packages.
 
 ## Precautions
 
@@ -26,17 +26,17 @@ Before deploying Explorer, you must check the following information:
 
 - The Linux distribution is CentOS.
 
-- The HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
+- The NFS or HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
 
-  !!! caution
+<!--  !!! caution
 
-       If the HDFS port is unavailable, the connection timeout message may be displayed.
+       If the HDFS port is unavailable, the connection timeout message may be displayed. -->
 
 ## RPM-based deployment
 
 ### Installation
 
-1. Select and download the RPM package according to your needs. It is recommended to select the latest version. 
+1. Select and download the RPM package according to your needs. It is recommended to select the latest version.
 
   !!! enterpriseonly
 
@@ -55,11 +55,11 @@ Before deploying Explorer, you must check the following information:
    sudo rpm -i nebula-explorer-<version>.x86_64.rpm --prefix=<path>
    ```
 
-3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
+3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
-5. Enter the folder `nebula-explorer`, start the service using the following command.
+5. Enter the folder `nebula-explorer`, and start the service using the following command.
 
    ```bash
    cd nebula-explorer
@@ -119,11 +119,11 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
         You cannot customize the installation path of Explorer when installing a DEB package.
 
-3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
+3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
-5. Enter the folder `nebula-explorer`, start the service using the following command.
+5. Enter the folder `nebula-explorer`, and start the service using the following command.
 
   ```bash
    cd nebula-explorer
@@ -169,11 +169,11 @@ sudo dpkg -r nebula-explorer
    tar -xvf nebula-explorer-<version>.tar.gz
    ```
 
-3. Enter the extracted folder, modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example `192.168.8.100:9119`.
+3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
-5. Enter the folder `nebula-explorer`, start the service using the following command.
+5. Enter the folder `nebula-explorer`, and start the service using the following command.
 
   ```bash
   cd nebula-explorer
@@ -193,7 +193,7 @@ kill $(lsof -t -i :7002)
 
 ## Configure Dag Controller
 
-Dag Controller is a task scheduling tool that can schedule the jobs which type is DAG (directed acyclic graph). The job consists of multiple tasks to form a directed acyclic graph, and there is a dependency between the tasks.
+Dag Controller is a task scheduling tool that can schedule the jobs whose type is DAG (directed acyclic graph). The job consists of multiple tasks to form a directed acyclic graph, and there is a dependency between the tasks.
 
 The Dag Controller can perform complex graph computing with NebulaGraph Analytics. For example, the Dag Controller sends an algorithm request to NebulaGraph Analytics, which saves the result to NebulaGraph or HDFS. The Dag Controller then takes the result as input to the next algorithmic task to create a new task.
 
@@ -201,7 +201,7 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
 
 1. Complete the SSH password-free configurations so that the Dag Controller machine can log directly into the NebulaGraph Analytics machines and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
 
-  For example, the user in the machine A (Dag Controller) log directly into machine B-1 in the NebulaGraph Analytics cluster over SSH  without passwords. Run the following commands on the machine A:
+  For example, the user in machine A (Dag Controller) logs directly into machine B-1 in the NebulaGraph Analytics cluster over SSH  without passwords. Run the following commands on machine A:
 
   ```
   //Press Enter to execute the default option to generate the key.
@@ -211,7 +211,7 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   ssh-copy-id -i ~/.ssh/id_rsa.pub <B_user>@<B_IP>
   ```
 
-  In the same way, complete the SSH password-free configurations so that the user in the machine A can log directly into the machine B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
+  In the same way, complete the SSH password-free configurations so that the user in machine A can log directly into machines B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
 
 2. Run `eval $(ssh-agent)` on the Dag Controller machine to start the ssh-agent, then run `ssh-add ~/.ssh/id_rsa` to give the private key to the ssh-agent to manage.
 
