@@ -17,7 +17,7 @@ For now, NebulaGraph does not provide an official deployment tool. Users can dep
 - Prepare 5 machines for deploying the cluster.
 - Use the NTP service to synchronize time in the cluster.
 {{ ent.ent_begin }}
-- * For NebulaGraph Enterprise, you must have the [license key](../../9.about-license/1.license-overview.md#licensing-process) loaded in [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
+- For NebulaGraph Enterprise, you must have the [license key](../../9.about-license/1.license-overview.md#licensing-process) loaded in [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
 {{ ent.ent_end }}
 
 ## Manual deployment process

@@ -20,7 +20,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 - For NebulaGraph Enterprise, you must have the [license key](../9.about-license/1.license-overview.md#licensing-process) loaded in [LM](../9.about-license/2.license-management-suite/3.license-manager.md).
 {{ ent.ent_end }}
 
-## Download the package from cloud service
+## Step 1: Download the package from cloud service
 
 !!! note
 
@@ -31,9 +31,6 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
     URL:
 
     ```bash
-    //Centos 6
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el6.x86_64.rpm
-
     //Centos 7
     https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el7.x86_64.rpm
 
@@ -74,9 +71,6 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
     URL:
 
     ```bash
-    //Centos 6
-    https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el6.x86_64.rpm
-
     //Centos 7
     https://oss-cdn.nebula-graph.io/package/nightly/<yyyy.mm.dd>/nebula-graph-<yyyy.mm.dd>-nightly.el7.x86_64.rpm
 
@@ -107,30 +101,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
     wget https://oss-cdn.nebula-graph.io/package/nightly/2021.11.28/nebula-graph-2021.11.28-nightly.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
-<!--
-## Download the package from GitHub
-
-* Download the release version.
-
-   + On the [NebulaGraph Releases](https://github.com/vesoft-inc/nebula-graph/releases) page, find the required version and click **Assets**.
-   ![Select a NebulaGraph release version](https://docs-cdn.nebula-graph.com.cn/figures/console-1.png)
-
-   + In the **Assets** area, click the package to download it.
-
-* Download the nightly version.
-
-  !!! danger
-
-        Nightly versions are usually used to test new features. Do not use it in a production environment.
-
-   + On the [NebulaGraph package](https://github.com/vesoft-inc/nebula/actions/workflows/package.yaml) page, click the latest **package** on the top of the package list.
-   
-   ![Select a NebulaGraph nightly version](https://github.com/vesoft-inc/nebula-docs/blob/master/docs-2.0/figs/4.deployment-and-installation/2.complie-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb/nightly-page.png?raw=true)
-
-   + In the **Artifacts** area, click the package to download it.
--->
-
-## Install NebulaGraph
+## Step 2: Install NebulaGraph
 
 * Use the following syntax to install with an RPM package.
 
@@ -167,13 +138,13 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
 {{ ent.ent_begin }}
 
-## Configure the address of license management
+## Step 3: Configure the address of the License Manager
 
 !!! enterpriseonly
 
     This step is required only for NebulaGraph Enterprise.
 
-In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the license management tool is located, e.g. `192.168.8.100:9119`.
+In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the License Manager ([LM](../9.about-license/2.license-management-suite/3.license-manager.md)) is located, e.g. `192.168.8.100:9119`.
 {{ ent.ent_end }}
 
 ## Next to do
