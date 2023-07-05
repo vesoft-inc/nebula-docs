@@ -7823,9 +7823,10 @@
 
 
 <h1 id="license_manager">License Manager<a class="headerlink" href="#license_manager" title="Permanent link">&para;</a></h1>
-<p>A License Manager (LM) is an essential service that runs on a server for you to manage your license and to license the NebulaGraph enterprise edition database and its associated software. You can use an LM client that communicates with the LM service to load <a href="../2.license-center/">license keys</a> and view license information, including the license validity period and purchased nodes. By configuring the LM service address in the NebulaGraph database and its associated software, the validity of the license can be verified to ensure the normal use of the NebulaGraph database and its associated software.</p>
+<p>A License Manager (LM) is an essential service that runs on a server for you to manage your license and to license the NebulaGraph enterprise edition database and its associated software. You can use an LM client that communicates with the LM service to load <a href="../2.license-center/#license_key">license keys</a> and view license information, including the license validity period and purchased nodes. By configuring the LM service address in the NebulaGraph database and its associated software, the validity of the license can be verified to ensure the normal use of the NebulaGraph database and its associated software.</p>
 <p>This article introduces how to deploy and use an LM service, as well as how to configure it within the Nebula Graph database and its associated software.</p>
 <h2 id="preparations">Preparations<a class="headerlink" href="#preparations" title="Permanent link">&para;</a></h2>
+<p>To use an LM, you need to make sure the following:</p>
 <ul>
 <li><a href="../../3.purchase-license/">You have purchased a NebulaGraph license</a>.</li>
 <li>
@@ -7842,7 +7843,7 @@
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <p>An LM is a single-process service. To ensure the reliability and continuity of the LM, it is recommended that you use systemd to manage the LM and set a restart policy for the LM.</p>
 <h2 id="install_and_start_lm">Install and start LM<a class="headerlink" href="#install_and_start_lm" title="Permanent link">&para;</a></h2>
-<p>An LM can be installed on Linux amd64 or arm64 systems or installed through Dashboard.</p>
+<p>An LM can be installed on Linux amd64 or arm64 systems, or installed through Dashboard.</p>
 <h3 id="using_the_tar_package">Using the TAR Package<a class="headerlink" href="#using_the_tar_package" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -7969,7 +7970,7 @@
 <p>When LM starts, its version information is printed in the logs.</p>
 </div>
 <h3 id="load_a_license_key">Load a license key<a class="headerlink" href="#load_a_license_key" title="Permanent link">&para;</a></h3>
-<p>After <a href="../2.license-center/#bind-lmid-to-generate-a-license-key">generating a license key</a>, you need to use the LM client tool to load the license key.</p>
+<p>After <a href="../2.license-center/#bind_lmid_to_generate_a_license_key">generating a license key</a>, you need to use the LM client tool to load the license key.</p>
 <div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>load<span class="w"> </span>--key<span class="w"> </span>&lt;license-key&gt;<span class="w"> </span>--force
 </code></pre></div>
 <ul>
@@ -8011,7 +8012,7 @@
 <tbody>
 <tr>
 <td align="left"><code>LMID</code></td>
-<td align="left">The ID of your LM. When you obtain a license key, this LMID needs to be bound. For more information, see <a href="../2.license-center/#bind-lmid-to-generate-a-license-key">Generate a license key</a>.</td>
+<td align="left">The ID of your LM. When you obtain a license key, this LMID needs to be bound. For more information, see <a href="../2.license-center/#bind_lmid_to_generate_a_license_key">Generate a license key</a>.</td>
 </tr>
 <tr>
 <td align="left"><code>LicenseStatus</code></td>
@@ -8019,7 +8020,7 @@
 </tr>
 <tr>
 <td align="left"><code>LicenseKey</code></td>
-<td align="left">An encrypted string containing authorization information, which is the only credential for you to obtain the authorization of the NebulaGraph database and its associated software. For details, see <a href="../2.license-center/">License key</a>.</td>
+<td align="left">An encrypted string containing authorization information, which is the only credential for you to obtain the authorization of the NebulaGraph database and its associated software. For details, see <a href="../2.license-center/#license_key">License key</a>.</td>
 </tr>
 <tr>
 <td align="left"><code>Type</code></td>
@@ -8040,7 +8041,7 @@
 </tbody>
 </table>
 <h3 id="synchronize_license_info">Synchronize license info<a class="headerlink" href="#synchronize_license_info" title="Permanent link">&para;</a></h3>
-<p>When the license key loaded into LM is in online mode, the LM periodically synchronizes the license information from LC every 1 to 2 hours. You can also manually synchronize the license key using the following command.</p>
+<p>When the license key loaded into LM is in online mode, the LM periodically synchronizes the license information from LC every one to two hours. You can also manually synchronize the license key using the following command.</p>
 <div class="highlight"><pre><span></span><code>./nebula-license-manager-cli<span class="w"> </span>sync
 </code></pre></div>
 <h3 id="check_the_license_quota_usage">Check the license quota usage<a class="headerlink" href="#check_the_license_quota_usage" title="Permanent link">&para;</a></h3>
@@ -8057,7 +8058,7 @@
 </ul>
 <h2 id="configure_lm">Configure LM<a class="headerlink" href="#configure_lm" title="Permanent link">&para;</a></h2>
 <h3 id="configure_lm_in_nebulagraph">Configure LM in NebulaGraph<a class="headerlink" href="#configure_lm_in_nebulagraph" title="Permanent link">&para;</a></h3>
-<p>In the NebulaGraph database Meta service configuration file (<code>nebula-metad.conf</code>), set the <code>license_manager_url</code> value to reflect the IP address of the LM host and port number <code>9119</code> in the format like <code>192.168.8.xxx:9119</code>. For more information, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration</a>.</p>
+<p>In the NebulaGraph database Meta service configuration file (<code>nebula-metad.conf</code>), set the <code>license_manager_url</code> value to reflect the IP address of the LM host and port number <code>9119</code> in the format like <code>192.168.8.xxx:9119</code>. For more information, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/#license_configurations">Meta service configuration</a>.</p>
 <p>After the configuration is complete, <a href="../../../2.quick-start/5.start-stop-service/">restart the Meta service</a>. </p>
 <h3 id="configure_lm_in_explorer">Configure LM in Explorer<a class="headerlink" href="#configure_lm_in_explorer" title="Permanent link">&para;</a></h3>
 <p>In the Explorer installation directory, enter the <code>config</code> folder and modify the <code>app-config.yaml</code> file. Set the value of <code>LicenseManagerURL</code> to reflect the IP address of the LM host and port number <code>9119</code> in the format like <code>192.168.8.xxx:9119</code>.</p>
@@ -8069,15 +8070,15 @@
 <p>In the Analytics installation directory, enter the <code>scripts</code> folder and modify the <code>analytics.conf</code> file. Set the value of <code>license_manager_url</code> to the IP address of the LM host and the port number <code>9119</code>, for example, <code>192.168.8.xxx:9119</code>.</p>
 <p>After the configuration is complete, run <code>./run_pagerank.sh</code> in the <code>scripts</code> folder to start the Analytics service. For more information, see <a href="../../../graph-computing/nebula-analytics/">NebulaGraph Analytics</a>.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
-<p>Q: Can I change the host on which my LM is located?
-A: No. The LM is bound to the host where it is installed. If you need to change the host, or the host is unable to be used, you need to <a href="https://www.nebula-graph.io/contact">contact Vesoft sales</a> to rebind the LMID.</p>
+<p>Q: Can I change the host on which my LM is located?</p>
+<p>A: No. The LM is bound to the host where it is installed. If you need to change the host, or the host is unable to be used, you need to <a href="https://www.nebula-graph.io/contact">contact Vesoft sales</a> to rebind the LMID.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 4, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 5, 2023</span>
       
     
   </small>
