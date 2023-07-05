@@ -2,10 +2,6 @@
 
 This topic describes how to deploy Explorer locally by RPM, DEB, and tar packages.
 
-## Precautions
-
-The Dag Controller installation package is built in Explorer starting from version 3.2.0, which provides graph computing services. The user can decide whether or not to start the Dag Controller service. If the Dag Controller service is not started, the **Workflow** menu in Explorer will appear gray and cannot be clicked.
-
 ## Prerequisites
 
 Before deploying Explorer, you must check the following information:
@@ -26,7 +22,11 @@ Before deploying Explorer, you must check the following information:
 
 - The Linux distribution is CentOS.
 
-- The NFS or HDFS services are deployed if graph computing is required. The namenode uses port 8020 by default, and the datanode uses port 50010 by default.
+## Precautions
+
+The Dag Controller installation package is built in Explorer starting from version 3.2.0, which provides graph computing services. The user can decide whether or not to start the Dag Controller service. If the Dag Controller service is not started, the **Workflow** menu in Explorer will appear gray and cannot be clicked.
+
+In addition, if you need to use **Workflow** for complex graph computing, you need to configure NFS or HDFS after installing Explorer. Namenode uses port 8020 by default, and datanode uses port 50010 by default. For details, see [Prepare resources](../../nebula-explorer/workflow/1.prepare-resources.md) of **Workflow**.
 
 <!--  !!! caution
 
