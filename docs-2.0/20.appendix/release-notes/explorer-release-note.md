@@ -9,10 +9,6 @@
   - [Import data](../../nebula-explorer/db-management/11.import-data.md) supports historical task re-import, and the data source type supports `cloud` and `SFTP`.
   - Support for the new [License](../../9.about-license/1.license-overview.md).
 
-- Enhancement
-
-  - [Import Data](../../nebula-explorer/db-management/11.import-data.md) function optimization.
-
 ## v3.4.0
 
 - Feature

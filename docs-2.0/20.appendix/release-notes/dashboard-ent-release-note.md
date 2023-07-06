@@ -10,6 +10,8 @@
   - The [Cluster diagnostics](../../nebula-dashboard-ent/4.cluster-operator/cluster-information/cluster-diagnosis.md) formula supports configuration.
   - [Config Management](../../nebula-dashboard-ent/4.cluster-operator/operator/config-management.md) support **Add Config**, view the **Effective value** of the current configuration, and **View inconsistent configurations**.
   - In the [Notification endpoint](../../nebula-dashboard-ent/system-settings/notification-endpoint.md), the webhook supports configuring the **Webhook request body**.
+  - Support [custom monitoring panel](../../nebula-dashboard-ent/4.cluster-operator/2.monitor.md).
+
 
 - Enhancement
 
@@ -17,6 +19,9 @@
   - [Cluster Overview](../../nebula-dashboard-ent/4.cluster-operator/1.overview.md) page optimization.
   - [Data Synchronization](../../nebula-dashboard-ent/4.cluster-operator/7.data-synchronization.md) optimization.
   - By default, the configuration of newly added nodes is consistent with that of the first node in the cluster.
+  - Optimize cluster diagnostic report content.
+  - Support changing the port number of `Prometheus` service in the `config.yaml` file.
+
 
 ## Enterprise Edition 3.4.2
 
