@@ -730,6 +730,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#monitor_lm" class="md-nav__link">
+    Monitor LM
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitor LM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitor_lm_status" class="md-nav__link">
+    Monitor LM status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view_lm_metrics" class="md-nav__link">
+    View LM metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configure_connection_to_lm" class="md-nav__link">
     Configure connection to LM
   </a>
@@ -7466,6 +7493,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#monitor_lm" class="md-nav__link">
+    Monitor LM
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitor LM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitor_lm_status" class="md-nav__link">
+    Monitor LM status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view_lm_metrics" class="md-nav__link">
+    View LM metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configure_connection_to_lm" class="md-nav__link">
     Configure connection to LM
   </a>
@@ -7779,6 +7833,52 @@
 <li><code>&lt;command&gt;</code>: The command to be executed. Options include <code>info</code>, <code>usage</code>, <code>sync</code>, and <code>load --key &lt;license-key&gt; --force</code>.</li>
 <li><code>&lt;host&gt;</code>: The IP address of the host where the specified LM is located.</li>
 </ul>
+<h2 id="monitor_lm">Monitor LM<a class="headerlink" href="#monitor_lm" title="Permanent link">&para;</a></h2>
+<h3 id="monitor_lm_status">Monitor LM status<a class="headerlink" href="#monitor_lm_status" title="Permanent link">&para;</a></h3>
+<p>You can use monitoring tools to monitor the status of the LM service.</p>
+<ul>
+<li>
+<p>Use Dashboard Enterprise</p>
+<p>When LM is running normally, the <strong>License Manager</strong> page displays the status of LM as <strong>Running</strong>, otherwise, it displays <strong>Exited</strong>. For more information, see <a href="../../../nebula-dashboard-ent/11.license-manager/">License Manager</a>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Use Prometheus</p>
+<p>You need to configure the Prometheus server before monitoring LM. </p>
+<p>Add the following configuration to the Prometheus configuration file. For more information about the Prometheus configuration file, see <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration">Prometheus Configuration</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">license-manager</span>
+<span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span><span class="w">                </span><span class="c1"># The interval for pulling data.</span>
+<span class="w">  </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics</span><span class="w">              </span><span class="c1"># The monitoring metrics path of LM, which is `/metrics`.</span>
+<span class="w">  </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w">                        </span><span class="c1"># The protocol type of LM, which is HTTP.</span>
+<span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">                     </span><span class="c1"># The address and port of LM (default 9119).</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">&lt;ip</span><span class="p p-Indicator">:</span><span class="nv">lm_port&gt;</span><span class="p p-Indicator">]</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>After the configuration is complete, you can monitor the status of LM through its built-in metric <code>up</code>. If the value is <code>1</code>, it means that LM is running normally; if the value is <code>0</code>, it means that LM is not running. To view the metric, enter <code>up</code> in the Prometheus query box as shown below:</p>
+<div class="highlight"><pre><span></span><code>up{instance=&quot;&lt;ip:lm_port&gt;&quot;, job=&quot;job_name&quot;}
+</code></pre></div>
+<ul>
+<li><code>&lt;ip:lm_port&gt;</code>: The IP address and port of LM.</li>
+<li><code>job_name</code>: The name of the job.</li>
+</ul>
+<p>For example, up{instance="192.168.8.xxx:9119", job="license-manager"}.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, LM uses port <code>9119</code>. If you need to change the port number, you can modify the value of the <code>Port</code> field in the LM configuration file above, or modify the value of <code>port</code> in the YAML file of <a href="../../../nebula-operator/3.deploy-nebula-graph-cluster/3.0.deploy-lm/">Deploying LM in K8s</a>.</p>
+</div>
+</li>
+</ul>
+<h3 id="view_lm_metrics">View LM metrics<a class="headerlink" href="#view_lm_metrics" title="Permanent link">&para;</a></h3>
+<p>You can view the built-in metrics of LM through the following URL:</p>
+<div class="highlight"><pre><span></span><code>http://&lt;ip:lm_port&gt;/metrics
+</code></pre></div>
+<ul>
+<li><code>&lt;ip:lm_port&gt;</code>: The IP address and port of LM.</li>
+</ul>
+<p>You can also collect LM metrics data through monitoring tools. To use Prometheus, you need to configure the Prometheus server before collecting LM metrics. For more information, see the above section <strong>Monitor LM status</strong>.</p>
 <h2 id="configure_connection_to_lm">Configure connection to LM<a class="headerlink" href="#configure_connection_to_lm" title="Permanent link">&para;</a></h2>
 <h3 id="configure_lm_in_nebulagraph">Configure LM in NebulaGraph<a class="headerlink" href="#configure_lm_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>In the NebulaGraph database Meta service configuration file (<code>nebula-metad.conf</code>), set the <code>license_manager_url</code> value to reflect the IP address of the LM host and port number <code>9119</code> in the format like <code>192.168.8.xxx:9119</code>. For more information, see <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/#license_configurations">Meta service configuration</a>.</p>
