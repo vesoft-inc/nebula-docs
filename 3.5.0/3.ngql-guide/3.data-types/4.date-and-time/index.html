@@ -1373,6 +1373,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../5.operators/10.arithmetic/" class="md-nav__link">
+        Arithmetic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../5.operators/9.precedence/" class="md-nav__link">
         Precedence
       </a>
@@ -7315,6 +7329,12 @@
 <ul>
 <li><code>date()</code>, <code>time()</code>, and <code>datetime()</code> all accept the property name to return a specific property value of itself. For example, <code>date().month</code> returns the current month, while <code>time("02:59:40").minute</code> returns the minutes of the importing time.</li>
 </ul>
+<ul>
+<li>For time operations it is recommended to use <code>duration()</code> to calculate the offset of the moment. Addition and subtraction of <code>date()</code> and <code>date()</code>, <code>timestamp()</code> and <code>timestamp()</code> are also supported.</li>
+</ul>
+<ul>
+<li>When setting the year of the time as a negative number, you need to use Map type data.</li>
+</ul>
 <h2 id="opencypher_compatibility">OpenCypher Compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>In nGQL:</p>
 <ul>
@@ -7331,7 +7351,28 @@
 </ul>
 <h2 id="date">DATE<a class="headerlink" href="#date" title="Permanent link">&para;</a></h2>
 <p>The <code>DATE</code> type is used for values with a date part but no time part. Nebula Graph retrieves and displays <code>DATE</code> values in the <code>YYYY-MM-DD</code> format. The supported range is <code>-32768-01-01</code> to <code>32767-12-31</code>.</p>
-<p>The properties of <code>date()</code> include <code>year</code>, <code>month</code>, and <code>day</code>.</p>
+<p>The properties of <code>date()</code> include <code>year</code>, <code>month</code>, and <code>day</code>. <code>date()</code> supports the input of <code>YYYYY</code>, <code>YYYYY-MM</code> or <code>YYYYY-MM-DD</code>, and defaults to <code>01</code> for an untyped month or day.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN DATE({year:-123, month:12, day:3});
++------------------------------------+
+| date({year:-(123),month:12,day:3}) |
++------------------------------------+
+| -123-12-03                         |
++------------------------------------+
+
+nebula&gt; RETURN DATE(&quot;23333&quot;);
++---------------+
+| date(&quot;23333&quot;) |
++---------------+
+| 23333-01-01   |
++---------------+
+
+nebula&gt; RETURN DATE(&quot;2023-12-12&quot;) - DATE(&quot;2023-12-11&quot;);
++-----------------------------------------+
+| (date(&quot;2023-12-12&quot;)-date(&quot;2023-12-11&quot;)) |
++-----------------------------------------+
+| 1                                       |
++-----------------------------------------+
+</code></pre></div>
 <h2 id="time">TIME<a class="headerlink" href="#time" title="Permanent link">&para;</a></h2>
 <p>The <code>TIME</code> type is used for values with a time part but no date part. Nebula Graph retrieves and displays <code>TIME</code> values in <code>hh:mm:ss.msmsmsususus</code> format. The supported range is <code>00:00:00.000000</code> to <code>23:59:59.999999</code>.</p>
 <p>The properties of <code>time()</code> include <code>hour</code>, <code>minute</code>, and <code>second</code>.</p>
@@ -7534,7 +7575,7 @@ nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2023</span>
       
     
   </small>
