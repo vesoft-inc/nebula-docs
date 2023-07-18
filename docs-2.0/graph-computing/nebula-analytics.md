@@ -6,7 +6,7 @@ NebulaGraph Analytics is a high-performance graph computing framework tool that 
 
 - The NebulaGraph Analytics installation package has been obtained. [Contact us](https://www.nebula-graph.io/contact) to apply.
 
-- The [license](analytics-ent-license.md) is ready.
+- The [license key](../9.about-license/2.license-management-suite/3.license-manager.md) is loaded.
 
 - The [HDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html) 2.2.x or later has been deployed.
 
@@ -27,7 +27,8 @@ The version correspondence between NebulaGraph Analytics and NebulaGraph is as f
 
 |NebulaGraph |NebulaGraph Analytics |
 |:---|:---|
-|3.4.0 ~ 3.4.1  | 3.4.0 |
+|3.5.0| 3.5.0 |
+|3.4.0 ~ 3.4.1| 3.5.0、3.4.0 |
 |3.3.0      | 3.3.0 |
 |3.1.0 ~ 3.2.x| 3.2.0 |
 |3.0.x      | 1.0.x |
@@ -88,7 +89,7 @@ NebulaGraph Analytics supports the following graph algorithms.
   export JAVA_HOME=<java_path>
   ```
 
-3. Copy the license into the directory `scripts` of the NebulaGraph Analytics installation path on all machines.
+3. Configure the `analytics.conf` file with the path `nebula-analytics/scripts/analytics.conf`. Set the value of `license_manager_url` to the host IP and port number `9119` where the license management tool is located, e.g. `192.168.8.100:9119`.
 
 <!--
 ### Install NebulaGraph Analytics with the source code

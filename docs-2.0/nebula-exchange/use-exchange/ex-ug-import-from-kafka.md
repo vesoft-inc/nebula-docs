@@ -2,6 +2,10 @@
 
 This topic provides a simple guide to importing Data stored on Kafka into NebulaGraph using Exchange.
 
+!!! compatibility
+
+    Please use Exchange 3.5.0/3.3.0/3.0.0 when importing Kafka data. In version 3.4.0, caching of imported data was added, and streaming data import is not supported.
+    
 ## Environment
 
 This example is done on MacOS. Here is the environment configuration information:
@@ -28,9 +32,21 @@ Before importing data, you need to confirm the following information:
 
 - Spark has been installed.
 
+- The following JAR files have been downloaded and placed in the directory `SPARK_HOME/jars` of Spark:
+
+  - [spark-streaming-kafka_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka)
+
+  - [spark-sql-kafka-0-10_xxx.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-sql-kafka-0-10)
+
+  - [kafka-clients-xxx.jar](https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients)
+
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
 - The Kafka service has been installed and started.
+
+## Precautions
+
+Only client mode is supported when importing Kafka data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
 
 ## Steps
 
@@ -81,6 +97,10 @@ For more information, see [Quick start workflow](../../2.quick-start/1.quick-sta
     If some data is stored in Kafka's value field, you need to modify the source code, get the value from Kafka, parse the value through the from_JSON function, and return it as a Dataframe.
 
 After Exchange is compiled, copy the conf file `target/classes/application.conf` to set Kafka data source configuration. In this example, the copied file is called `kafka_application.conf`. For details on each configuration item, see [Parameters in the configuration file](../parameter-reference/ex-ug-parameter.md).
+
+!!! note
+
+    When importing Kafka data, a configuration file can only handle one tag or edge type. If there are multiple tag or edge types, you need to create multiple configuration files.
 
 ```conf
 {
@@ -141,7 +161,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       type: {
         # Specify the data source file format to Kafka.
         source: kafka
-        # Specify how to import the data into NebulaGraph: Client or SST.
+        # Specify how to import the data into NebulaGraph. Only client is supported.
         sink: client
       }
       # Kafka server address.
@@ -159,6 +179,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The key is the same as the value above, indicating that key is used as both VID and property name.
       vertex:{
           field:key
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
 
@@ -169,107 +194,78 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       partition: 10
       # The interval for message reading. Unit: second.
       interval.seconds: 10
+      # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+      startingOffsets: latest
+      # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+      # maxOffsetsPerTrigger:10000
     }
-    # Set the information about the Tag Team.
-    {
-      name: team
-      type: {
-        source: kafka
-        sink: client
-      }
-      service: "127.0.0.1:9092"
-      topic: "topic_name2"
-      fields: [key]
-      nebula.fields: [name]
-      vertex:{
-          field:key
-      }
-      batch: 10
-      partition: 10
-      interval.seconds: 10
-    }
-
   ]
 
   # Processing edges
-  edges: [
-    # Set the information about the Edge Type follow.
-    {
-      # The corresponding Edge Type name in NebulaGraph.
-      name: follow
+  #edges: [
+  #  # Set the information about the Edge Type follow.
+  #  {
+  #    # The corresponding Edge Type name in NebulaGraph.
+  #    name: follow
 
-      type: {
-        # Specify the data source file format to Kafka.
-        source: kafka
+  #    type: {
+  #      # Specify the data source file format to Kafka.
+  #      source: kafka
 
-        # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
-        sink: client
-      }
+  #      # Specify how to import the Edge type data into NebulaGraph.
+  #      # Specify how to import the data into NebulaGraph. Only client is supported.
+  #      sink: client
+  #    }
 
-      # Kafka server address.
-      service: "127.0.0.1:9092"
-      # Message category.
-      topic: "topic_name3"
+  #    # Kafka server address.
+  #    service: "127.0.0.1:9092"
+  #    # Message category.
+  #    topic: "topic_name3"
 
-      # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
-      # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
-      # Specify the field name in fields. For example, use key for degree in Nebula, as shown in the following.
-      fields: [key]
-      nebula.fields: [degree]
+  #    # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
+  #    # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
+  #    # Specify the field name in fields. For example, use key for degree in Nebula, as shown in the following.
+  #    fields: [key]
+  #    nebula.fields: [degree]
 
-      # In source, use a column in the topic as the source of the edge's source vertex.
-      # In target, use a column in the topic as the source of the edge's destination vertex.
-      source:{
-          field:timestamp
-      }
+  #    # In source, use a column in the topic as the source of the edge's source vertex.
+  #    # In target, use a column in the topic as the source of the edge's destination vertex.
+  #    source:{
+  #        field:timestamp
+  #    # udf:{
+  #    #            separator:"_"
+  #    #            oldColNames:[field-0,field-1,field-2]
+  #    #            newColName:new-field
+  #    #        }
+  #    }
 
 
-      target:{
-          field:offset
-      }
+  #    target:{
+  #        field:offset
+  #    # udf:{
+  #    #            separator:"_"
+  #    #            oldColNames:[field-0,field-1,field-2]
+  #    #            newColName:new-field
+  #    #        }
+  #    }
 
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: rank
+  #    # (Optional) Specify a column as the source of the rank.
+  #    #ranking: rank
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 10
+  #    # The number of data written to NebulaGraph in a single batch.
+  #    batch: 10
 
-      # The number of Spark partitions.
-      partition: 10
+  #    # The number of Spark partitions.
+  #    partition: 10
 
-      # The interval for message reading. Unit: second.
-      interval.seconds: 10
-    }
-
-    # Set the information about the Edge Type serve.
-    {
-      name: serve
-      type: {
-        source: kafka
-        sink: client
-      }
-      service: "127.0.0.1:9092"
-      topic: "topic_name4"
-
-      fields: [timestamp,offset]
-      nebula.fields: [start_year,end_year]
-      source:{
-          field:key
-      }
-
-      target:{
-          field:value
-      }
-
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: rank
-
-      batch: 10
-      partition: 10
-      interval.seconds: 10
-    }
-  ]
+  #    # The interval for message reading. Unit: second.
+  #    interval.seconds: 10
+  #    # The consumer offsets. The default value is latest. Optional value are latest and earliest.
+  #    startingOffsets: latest
+  #    # Flow control, with a rate limit on the maximum offset processed per trigger interval, may not be configured.
+  #    # maxOffsetsPerTrigger:10000
+  #  }
+  #]
 }
 ```
 

@@ -21,10 +21,6 @@ Exploration of the data on a canvas is possible in 2D mode.
 | Aggregation| Aggregate the edges between the vertices: Aggregate the edges between the selected vertices on the canvas.<br />Cancels aggregation of edges between vertices: Resets the aggregated edges between the selected vertices on the canvas. |
 | Edit | Dismiss: Hide the selected vertices and edges on the canvas.<br />Dismiss Others: Hide the unselected vertices and edges on the canvas.<br />Undo: Undo the action in the previous step.<br />Redo: Restore the action that was previously undone. |
 
-!!! note
-
-    It is recommended to limit the number of vertices and edges displayed on the canvas to no more than 5000 in 2D mode, otherwise, it may stuck when rendering.
-
 For more information about the operations available in 2D mode, see [Canvas](canvas-overview.md).
 
 ### Edge aggregation description
