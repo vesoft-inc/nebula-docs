@@ -183,6 +183,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:id
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # The number of data written to NebulaGraph in a single batch.
@@ -267,9 +272,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: src
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
       target: {
         field: dst
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # (Optional) Specify a column as the source of the rank.

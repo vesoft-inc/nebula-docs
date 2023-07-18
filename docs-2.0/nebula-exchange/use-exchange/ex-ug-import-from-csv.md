@@ -187,6 +187,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
         # policy:hash
       }
 
@@ -286,9 +291,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
       target: {
         field: _c1
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
 
       # The delimiter specified. The default value is comma.

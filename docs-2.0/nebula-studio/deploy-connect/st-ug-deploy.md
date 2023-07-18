@@ -89,14 +89,14 @@ If you encounter an error `bind EADDRINUSE 0.0.0.0:7001` when starting the servi
 $ lsof -i:7001
 ```
 
-If the port is occupied and the process on that port cannot be terminated, you can use the following command to change Studio service port and restart the service.
+If the port is occupied and the process on that port cannot be terminated, you can modify the startup port within the studio configuration and restart the service.
 
 ```bash
-//Open the configuration file
+//Modify the studio service configuration. The default path to the configuration file is `/usr/local/nebula-graph-studio`.
 $ vi etc/studio-api.yam
 
-//Change the port
-Port: 7001 // Modify this port number and change it to any 
+//Modify this port number and change it to any 
+Port: 7001
 
 //Restart service
 $ systemctl restart nebula-graph-studio.service

@@ -2,6 +2,10 @@
 
 NebulaGraph Console is a native CLI client for NebulaGraph. It can be used to connect a NebulaGraph cluster and execute queries. It also supports special commands to manage parameters, export query results, import test datasets, etc.
 
+## Compatibility with NebulaGraph
+
+See [github](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
+
 ## Obtain NebulaGraph Console
 
 You can obtain NebulaGraph Console in the following ways:

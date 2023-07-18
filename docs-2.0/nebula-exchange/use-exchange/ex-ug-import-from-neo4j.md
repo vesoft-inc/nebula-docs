@@ -184,6 +184,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       nebula.fields: [age,name]
       vertex: {
         field:id
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
       partition: 10
       batch: 1000
@@ -230,9 +235,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       nebula.fields: [degree]
       source: {
         field: src
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
       target: {
         field: dst
+      # udf:{
+      #            separator:"_"
+      #            oldColNames:[field-0,field-1,field-2]
+      #            newColName:new-field
+      #        }
       }
       #ranking: rank
       partition: 10
