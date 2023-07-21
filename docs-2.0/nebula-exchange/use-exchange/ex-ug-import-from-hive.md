@@ -82,7 +82,7 @@ Before importing data, you need to confirm the following information:
 
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
-- Hadoop has been installed and started, and the Hive Metastore database (MySQL in this example) has been started.
+- The Hive Metastore database (MySQL in this example) has been started.
 
 ## Steps
 
