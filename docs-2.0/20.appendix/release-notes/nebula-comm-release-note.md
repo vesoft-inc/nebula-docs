@@ -2,59 +2,31 @@
 
 ## Features
 
-- Support full table scan without index. [#5416](https://github.com/vesoft-inc/nebula/pull/5416)
-- Support UDF. [#4804](https://github.com/vesoft-inc/nebula/pull/4804) [#5391](https://github.com/vesoft-inc/nebula/pull/5391)
-- Support expressions like `v.tag` in return statements. [#5440](https://github.com/vesoft-inc/nebula/pull/5440)
-- Support `json_extract` function in UPDATE statements. [#5457](https://github.com/vesoft-inc/nebula/pull/5457)
-- Support TCK format in EXPLAIN output. [#5414](https://github.com/vesoft-inc/nebula/pull/5414)
-- DML supports parameters. [#5328](https://github.com/vesoft-inc/nebula/pull/5328)
+- Enhance full-text index. [#5567](https://github.com/vesoft-inc/nebula/pull/5567) [#5575](https://github.com/vesoft-inc/nebula/pull/5575) [#5577](https://github.com/vesoft-inc/nebula/pull/5577) [#5580](https://github.com/vesoft-inc/nebula/pull/5580) [#5584](https://github.com/vesoft-inc/nebula/pull/5584) [#5587](https://github.com/vesoft-inc/nebula/pull/5587)
 
 ## Optimizations
 
-- Support TTL in milliseconds. [#5430](https://github.com/vesoft-inc/nebula/pull/5430)
-- Enhance attribute trimming in aggregation functions. [#5301](https://github.com/vesoft-inc/nebula/pull/5301)
-- Improve the performance of traversal executor. [#5308](https://github.com/vesoft-inc/nebula/pull/5308)
-- Optimize FIND ALL PATH performance. [#5409](https://github.com/vesoft-inc/nebula/pull/5409)
-- Removes some Raft locks to improve performance. [#5451](https://github.com/vesoft-inc/nebula/pull/5451)
-- Optimize predicate function filtering for variable-length edges. [#5464](https://github.com/vesoft-inc/nebula/pull/5464) [#5470](https://github.com/vesoft-inc/nebula/pull/5470) [#5481](https://github.com/vesoft-inc/nebula/pull/5481) [#5503](https://github.com/vesoft-inc/nebula/pull/5503)
-- Parallel traversal executor. [#5314](https://github.com/vesoft-inc/nebula/pull/5314)
-- MATCH supports ID collection. [#5360](https://github.com/vesoft-inc/nebula/pull/5360)
-- Refactor the GO planner. [#5369](https://github.com/vesoft-inc/nebula/pull/5369)
-- Add some Graph performance options in the configuration file. [#5463](https://github.com/vesoft-inc/nebula/pull/5463)
-- Add maximum connection number flag. [#5309](https://github.com/vesoft-inc/nebula/pull/5309)    
+- Support variable when seeking vertex id or property index in match clause. [#5486](https://github.com/vesoft-inc/nebula/pull/5486) [#5553](https://github.com/vesoft-inc/nebula/pull/5553)
+- Support parallel startup of RocksDB instances to speed up the startup of the Storage service. [#5521](https://github.com/vesoft-inc/nebula/pull/5521)
+- Optimize the prefix search performance of the RocksDB iterator after the `DeleteRange` operation. [#5525](https://github.com/vesoft-inc/nebula/pull/5525)
+- Optimize the appendLog sending logic to avoid impacting write performance when a follower is down. [#5571](https://github.com/vesoft-inc/nebula/pull/5571)
+- Optimize the performance of the `MATCH` statement when querying for non-existent properties. [#5634](https://github.com/vesoft-inc/nebula/pull/5634)
 
 ## Bug fixes
 
-- Fix the defect where RocksDB data import invalidates the leader lease.  [#5271](https://github.com/vesoft-inc/nebula/pull/5271)
-- Fix the error message when `DESC USER` does not exist. [#5345](https://github.com/vesoft-inc/nebula/pull/5345)
-- Fix the defect where `CREATE IF NOT EXIST` fails when SPACE exists.  [#5375](https://github.com/vesoft-inc/nebula/pull/5375)
-- Fix the incorrect edge direction in GetNeighbors plan. [#5386](https://github.com/vesoft-inc/nebula/pull/5386)
-- Fix the client IP format in the `SHOW SESSIONS` command. [#5388](https://github.com/vesoft-inc/nebula/pull/5388)
-- Fix the defect where attributes are pruned in USE and MATCH. [#5263](https://github.com/vesoft-inc/nebula/issues/5263)
-- Fix the defect where the filter is not pushed down in some cases. [#5395](https://github.com/vesoft-inc/nebula/pull/5395)
-- Fix the defect where the filter is incorrectly filtered in some cases. [#5422](https://github.com/vesoft-inc/nebula/pull/5422)
-- Fix the incorrect handling of internal variables in pattern expressions. [#5424](https://github.com/vesoft-inc/nebula/pull/5424)
-- Fix defects involving EMPTY comparisons. [#5433](https://github.com/vesoft-inc/nebula/pull/5433)
-- Fix the defect where duplicate columns are returned when all columns are requested in MATCH. [#5443](https://github.com/vesoft-inc/nebula/pull/5443)
-- Fix the error in comparing paths involving reflexive edges. [#5444](https://github.com/vesoft-inc/nebula/pull/5444)
-- Fix the defect of redefining aliases in a MATCH path. [#5446](https://github.com/vesoft-inc/nebula/pull/5446)
-- Fix the type check defect when inserting geographical location values. [#5460](https://github.com/vesoft-inc/nebula/pull/5460)
-- Fix the crash in a shortest path. [#5472](https://github.com/vesoft-inc/nebula/pull/5472)
-- Fix the crash in GEO. [#5475](https://github.com/vesoft-inc/nebula/pull/5475)
-- Fix the error in `MATCH...contains`. [#5485](https://github.com/vesoft-inc/nebula/pull/5485)
-- Fix the bug of incorrect session count in concurrency. [#5496](https://github.com/vesoft-inc/nebula/pull/5496)
-- Fix the defect of SUBGRAPH and PATH parameters. [#5500](https://github.com/vesoft-inc/nebula/pull/5500)
-- Fix the defect in regular expressions. [#5507](https://github.com/vesoft-inc/nebula/pull/5507)  
-
-## Changes
-
-- Disable `edge list join`, not supporting the use of edge list in multiple patterns. [#5268](https://github.com/vesoft-inc/nebula/pull/5268)
-- Remove GLR parser, needs to change `YIELD 1–-1` to `YIELD 1– -1`. [#5290](https://github.com/vesoft-inc/nebula/pull/5290)
+- Fix the bug of meta data inconsistency. [#5517](https://github.com/vesoft-inc/nebula/pull/5517)
+- Fix the bug that RocksDB ingest causes the leader lease to be invalid. [#5534](https://github.com/vesoft-inc/nebula/pull/5534)
+- Fix the error in the statistics logic of storage. [#5547](https://github.com/vesoft-inc/nebula/pull/5547)
+- Fix the bug that causes the web service to crash if a flag is set for an invalid request parameter. [#5566](https://github.com/vesoft-inc/nebula/pull/5566)
+- Fix the bug that too many logs are printed when listing sessions. [#5618](https://github.com/vesoft-inc/nebula/pull/5618)
+- Fix the crash of the Graph service when executing a single big query. [#5619](https://github.com/vesoft-inc/nebula/pull/5619)
+- Fix the crash of the Graph service when executing the `Find All Path` statement. [#5621](https://github.com/vesoft-inc/nebula/pull/5621) [#5640](https://github.com/vesoft-inc/nebula/pull/5640)
+- Fix the bug that some expired data is not recycled at the bottom level. [#5447](https://github.com/vesoft-inc/nebula/pull/5447) [#5622](https://github.com/vesoft-inc/nebula/pull/5622)
+- Fix the bug that adding a path variable in the `MATCH` statement causes the `all()` function push-down optimization to fail. [#5631](https://github.com/vesoft-inc/nebula/pull/5631)
+- Fix the bug in the `MATCH` statement that returns incorrect results when querying the self-loop by the shortest path. [#5636](https://github.com/vesoft-inc/nebula/pull/5636)
+- Fix the bug where deleting edges by pipe causes the Graph service to crash. [#5645](https://github.com/vesoft-inc/nebula/pull/5645)
+- Fix the bug in the `MATCH` statement that returns missing properties of edges when matching multiple hops. [#5646](https://github.com/vesoft-inc/nebula/pull/5646)
 
 ## Legacy versions
 
 [Release notes of legacy versions](https://nebula-graph.io/posts/)
-
-
-
-
