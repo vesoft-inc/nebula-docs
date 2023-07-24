@@ -7288,6 +7288,21 @@ enableBR: true // Set to true to enable the backup and restore function.
 <li>The cluster executing incremental backups and the cluster specified for the last backup must be the same, and the (storage bucket) path for the last backup must be the same.</li>
 <li>Ensure that the time between each incremental backup and the last backup is less than a <code>wal_ttl</code>.</li>
 <li>Specifying the backup data of a specified graph space is not supported.</li>
+<li>
+<p>Before backing up data, you need to create a Secret to restore the credential for pulling the image of the BR-ent tool.</p>
+<div class="highlight"><pre><span></span><code>kubectl - &lt;nebula&gt; create secret docker-registry &lt;br-ent-secret&gt; \
+--docker-server=REGISTRY_SERVER \
+--docker-username=REGISTRY_USERNAME \
+--docker-password=REGISTRY_PASSWORD \
+</code></pre></div>
+<ul>
+<li><code>&lt;nebula&gt;</code>: The namespace where the Secret is located.</li>
+<li><code>&lt;br-ent-secret&gt;</code>: The name of the Secret.</li>
+<li><code>REGISTRY_SERVER</code>: The address of the private image repository server from which the image is pulled, for example, <code>reg.example-inc.com</code>.</li>
+<li><code>REGISTRY_USERNAME</code>: The username for logging in to the private image repository server.</li>
+<li><code>REGISTRY_PASSWORD</code>: The password for logging in to the private image repository server.</li>
+</ul>
+</li>
 </ul>
 <h3 id="full_backup">Full backup<a class="headerlink" href="#full_backup" title="Permanent link">&para;</a></h3>
 <p>When backing up data to a storage service compatible with the S3 protocol, you need to create a backup Job, which will back up the full NebulaGraph data to the specified storage location.</p>
@@ -7301,6 +7316,8 @@ enableBR: true // Set to true to enable the backup and restore function.
 <span class="w">  </span><span class="nt">ttlSecondsAfterFinished</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
 <span class="w">  </span><span class="nt">template</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">br-ent-secret</span><span class="w">  </span><span class="c1"># The name of the Secret for pulling the image of the BR-ent tool.</span>
 <span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OnFailure</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/br-ent:v3.5.0</span>
@@ -7537,7 +7554,7 @@ kubectl get rt <NebulaRestore_name> -w</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 10, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 24, 2023</span>
       
     
   </small>
