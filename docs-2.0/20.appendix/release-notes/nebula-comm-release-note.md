@@ -2,11 +2,11 @@
 
 ## Features
 
-- Enhance full-text index. [#5567](https://github.com/vesoft-inc/nebula/pull/5567) [#5575](https://github.com/vesoft-inc/nebula/pull/5575) [#5577](https://github.com/vesoft-inc/nebula/pull/5577) [#5580](https://github.com/vesoft-inc/nebula/pull/5580) [#5584](https://github.com/vesoft-inc/nebula/pull/5584) [#5587](https://github.com/vesoft-inc/nebula/pull/5587)
+- Enhance the full-text index. [#5567](https://github.com/vesoft-inc/nebula/pull/5567) [#5575](https://github.com/vesoft-inc/nebula/pull/5575) [#5577](https://github.com/vesoft-inc/nebula/pull/5577) [#5580](https://github.com/vesoft-inc/nebula/pull/5580) [#5584](https://github.com/vesoft-inc/nebula/pull/5584) [#5587](https://github.com/vesoft-inc/nebula/pull/5587)
 
 ## Optimizations
 
-- Support variable when seeking vertex id or property index in match clause. [#5486](https://github.com/vesoft-inc/nebula/pull/5486) [#5553](https://github.com/vesoft-inc/nebula/pull/5553)
+- Support variables when querying vertex id or property index in a match clause. [#5486](https://github.com/vesoft-inc/nebula/pull/5486) [#5553](https://github.com/vesoft-inc/nebula/pull/5553)
 - Support parallel startup of RocksDB instances to speed up the startup of the Storage service. [#5521](https://github.com/vesoft-inc/nebula/pull/5521)
 - Optimize the prefix search performance of the RocksDB iterator after the `DeleteRange` operation. [#5525](https://github.com/vesoft-inc/nebula/pull/5525)
 - Optimize the appendLog sending logic to avoid impacting write performance when a follower is down. [#5571](https://github.com/vesoft-inc/nebula/pull/5571)
@@ -24,7 +24,7 @@
 - Fix the bug that some expired data is not recycled at the bottom level. [#5447](https://github.com/vesoft-inc/nebula/pull/5447) [#5622](https://github.com/vesoft-inc/nebula/pull/5622)
 - Fix the bug that adding a path variable in the `MATCH` statement causes the `all()` function push-down optimization to fail. [#5631](https://github.com/vesoft-inc/nebula/pull/5631)
 - Fix the bug in the `MATCH` statement that returns incorrect results when querying the self-loop by the shortest path. [#5636](https://github.com/vesoft-inc/nebula/pull/5636)
-- Fix the bug where deleting edges by pipe causes the Graph service to crash. [#5645](https://github.com/vesoft-inc/nebula/pull/5645)
+- Fix the bug that deleting edges by pipe causes the Graph service to crash. [#5645](https://github.com/vesoft-inc/nebula/pull/5645)
 - Fix the bug in the `MATCH` statement that returns missing properties of edges when matching multiple hops. [#5646](https://github.com/vesoft-inc/nebula/pull/5646)
 
 ## Legacy versions
