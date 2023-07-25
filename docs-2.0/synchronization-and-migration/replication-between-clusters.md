@@ -47,7 +47,7 @@ The synchronization works as follows:
 
 - The machines where the listeners and drainers run must have enough disk space to store the WAL or snapshot files.
 
-- If the target graph space in the secondary cluster has data before the synchronization starts, data conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
+- If the target graph space in the secondary cluster has schema or data before the synchronization starts, conflicts or inconsistencies may happen during the synchronization. It is recommended to keep the target graph space empty.
 
 - It is recommended to use the NebulaGraph `root` user with the God privileges to perform the cluster data synchronization. The required user roles for each synchronization command are different. For details, see the **Role permission requirements** section at the end of this topic.
 
