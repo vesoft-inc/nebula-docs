@@ -7286,7 +7286,7 @@ enableBR: true // Set to true to enable the backup and restore function.
 <li>NebulaGraph Operator supports full and incremental backups.</li>
 <li>During data backup, DDL and DML statements in the specified graph space will be blocked. We recommend performing the operation during off-peak hours, such as from 2:00 am to 5:00 am.</li>
 <li>The cluster executing incremental backups and the cluster specified for the last backup must be the same, and the (storage bucket) path for the last backup must be the same.</li>
-<li>Ensure that the time between each incremental backup and the last backup is less than a <code>wal_ttl</code>.</li>
+<li>Ensure that the time between each incremental backup and the last backup is less than a <a href="../../5.configurations-and-logs/1.configurations/4.storage-config/#raft_configurations"><code>wal_ttl</code></a>.</li>
 <li>Specifying the backup data of a specified graph space is not supported.</li>
 <li>
 <p>Before backing up data, you need to create a Secret to restore the credential for pulling the image of the BR-ent tool.</p>
@@ -7313,26 +7313,26 @@ enableBR: true // Set to true to enable the backup and restore function.
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-full-backup</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">  </span><span class="nt">ttlSecondsAfterFinished</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">  </span><span class="nt">ttlSecondsAfterFinished</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
 <span class="w">  </span><span class="nt">template</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">br-ent-secret</span><span class="w">  </span><span class="c1"># The name of the Secret for pulling the image of the BR-ent tool.</span>
 <span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OnFailure</span>
+<span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">br-ent-secret</span><span class="w">  </span><span class="c1"># The name of the Secret for pulling the image of the BR-ent tool.</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/br-ent:v3.5.0</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/br-ent:v3.5.1</span>
 <span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
 <span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup</span>
 <span class="w">          </span><span class="nt">command</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/sh</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-ecx</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">exec /usr/local/bin/nebula-br backup full</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--meta $META_ADDRESS:9559</span><span class="w">   </span><span class="c1"># Fill in the domain name of the Meta service, for example, nebula-metad-0.nebula-metad-headless.nebula.svc.cluster.local:9559.</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--storage s3://$BUCKET</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.access_key $ACCESS_KEY</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.secret_key $SECRET_KEY</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.region $REGION</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.endpoint https://s3.$REGION.amazonaws.com</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;exec</span><span class="nv"> </span><span class="s">/usr/local/bin/br-ent</span><span class="nv"> </span><span class="s">backup</span><span class="nv"> </span><span class="s">full</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--meta</span><span class="nv"> </span><span class="s">nebula-metad-0.nebula-metad-headless.nebula.svc.cluster.local:9559</span>
+<span class="w">            </span><span class="s">--storage</span><span class="nv"> </span><span class="s">s3://BUCKET</span><span class="nv">                           </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">location</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">backup</span><span class="nv"> </span><span class="s">file.</span>
+<span class="w">            </span><span class="s">--s3.access_key</span><span class="nv"> </span><span class="s">ACCESS_KEY</span><span class="nv">                      </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">AccessKey</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">accessing</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.secret_key</span><span class="nv"> </span><span class="s">SECRET_KEY</span><span class="nv">                      </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">SecretKey</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">accessing</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.region</span><span class="nv"> </span><span class="s">REGION</span><span class="nv">                              </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">region</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.endpoint</span><span class="nv"> </span><span class="s">https://s3.REGION.amazonaws.com&#39;</span><span class="w">  </span><span class="c1"># The endpoint of the S3 protocol-compatible storage service.</span>
 </code></pre></div>
 <h3 id="incremental_backup">Incremental backup<a class="headerlink" href="#incremental_backup" title="Permanent link">&para;</a></h3>
 <p>Except for the name of the Job and the command specified in <code>spec.template.spec.containers[0].command</code>, the YAML file for incremental backup is the same as that for a full backup. Here is an example of the YAML file for incremental backup:</p>
@@ -7346,21 +7346,22 @@ enableBR: true // Set to true to enable the backup and restore function.
 <span class="w">  </span><span class="nt">template</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OnFailure</span>
+<span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">br-ent-secret</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/br-ent:v3.5.0</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/br-ent:v3.5.1</span>
 <span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
 <span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup</span>
 <span class="w">          </span><span class="nt">command</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/sh</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-ecx</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">exec /usr/local/bin/nebula-br backup incr</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--meta $META_ADDRESS:9559</span><span class="w">  </span><span class="c1"># Fill in the domain name of the Meta service, for example, nebula-metad-0.nebula-metad-headless.nebula.svc.cluster.local:9559.</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--base $BACKUP_NAME</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--storage s3://$BUCKET</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.access_key $ACCESS_KEY</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.secret_key $SECRET_KEY</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.region $REGION</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--s3.endpoint https://s3.$REGION.amazonaws.com</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;exec</span><span class="nv"> </span><span class="s">/usr/local/bin/br-ent</span><span class="nv"> </span><span class="s">backup</span><span class="nv"> </span><span class="s">incr</span>
+<span class="w">            </span><span class="s">--meta</span><span class="nv"> </span><span class="s">nebula-metad-0.nebula-metad-headless.nebula.svc.cluster.local:9559</span>
+<span class="w">            </span><span class="s">--storage</span><span class="nv"> </span><span class="s">s3://BUCKET</span><span class="nv">                           </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">location</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">backup</span><span class="nv"> </span><span class="s">file.</span>
+<span class="w">            </span><span class="s">--s3.access_key</span><span class="nv"> </span><span class="s">ACCESS_KEY</span><span class="nv">                      </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">AccessKey</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">accessing</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.secret_key</span><span class="nv"> </span><span class="s">SECRET_KEY</span><span class="nv">                      </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">SecretKey</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">accessing</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.region</span><span class="nv"> </span><span class="s">REGION</span><span class="nv">                              </span><span class="s">#</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">region</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">protocol-compatible</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">service.</span>
+<span class="w">            </span><span class="s">--s3.endpoint</span><span class="nv"> </span><span class="s">https://s3.REGION.amazonaws.com&#39;</span><span class="w">  </span><span class="c1"># The endpoint of the S3 protocol-compatible storage service.</span>
 </code></pre></div>
 <h3 id="parameter_description">Parameter description<a class="headerlink" href="#parameter_description" title="Permanent link">&para;</a></h3>
 <p>The main parameters are described as follows:</p>
@@ -7385,13 +7386,13 @@ enableBR: true // Set to true to enable the backup and restore function.
 </tr>
 <tr>
 <td><code>spec.template.spec.containers[0].image</code></td>
-<td><code>vesoft/br-ent:3.5.0</code></td>
+<td><code>vesoft/br-ent:3.5.1</code></td>
 <td>The image address of the NebulaGraph BR Enterprise Edition tool.</td>
 </tr>
 <tr>
 <td><code>spec.template.spec.containers[0].command</code></td>
 <td>-</td>
-<td>The command for backing up data to the storage service compatible with the S3 protocol.<br/>For descriptions of the options in the command, see <a href="../../backup-and-restore/nebula-br-ent/3.backup-data/#_12">Parametr description</a>.</td>
+<td>The command for backing up data to the storage service compatible with the S3 protocol.<br/>For descriptions of the options in the command, see <a href="../../backup-and-restore/nebula-br-ent/3.backup-data/#_13">Parametr description</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -7546,15 +7547,28 @@ The recovery process is as follows:
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>&lt;restore_file_name&gt;.yaml
 </code></pre></div>
 <p>Run the following command to check the status of the NebulaRestore object.</p>
-<p>```bash
-kubectl get rt <NebulaRestore_name> -w</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>rt<span class="w"> </span>&lt;NebulaRestore_name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+
+<span class="c1"># Output example:</span>
+NAME<span class="w">       </span>STATUS<span class="w">     </span>STARTED<span class="w">   </span>COMPLETED<span class="w">   </span>AGE
+restore1<span class="w">   </span>Complete<span class="w">   </span>67m<span class="w">       </span>59m<span class="w">         </span>67m
+</code></pre></div>
+<p>After the restore job is completed, a new NebulaGraph cluster is created with the name automatically generated by the Operator. To check the status of the new cluster:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nc<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+
+<span class="c1"># Output example:</span>
+
+NAME<span class="w">     </span>GRAPHD-DESIRED<span class="w">   </span>GRAPHD-READY<span class="w">   </span>METAD-DESIRED<span class="w">   </span>METAD-READY<span class="w">   </span>STORAGED-DESIRED<span class="w">   </span>STORAGED-READY<span class="w">   </span>AGE
+nebula<span class="w">   </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">3</span><span class="w">                  </span><span class="m">3</span><span class="w">                </span>2d3h
+ngxvsm<span class="w">   </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">3</span><span class="w">                  </span><span class="m">3</span><span class="w">                </span>92m<span class="w">  </span><span class="c1"># The newly created cluster.</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 26, 2023</span>
       
     
   </small>
