@@ -24,7 +24,7 @@ NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV
 
 Before using NebulaGraph Importer, make sure:
 
-- NebulaGraph service has been deployed. There are currently three deployment modes:
+- NebulaGraph service has been deployed. The deployment method is as follows:
   
   - [Deploy NebulaGraph with Docker Compose](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md)
   
