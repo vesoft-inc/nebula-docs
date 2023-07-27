@@ -7366,8 +7366,6 @@
 </li>
 <li>
 <p>Verify that the values of <code>serverCert</code>, <code>serverKey</code>, <code>clientCert</code>, <code>clientKey</code>, <code>caCert</code> under the <code>sslCerts</code> field in the cluster configuration match the key names of the certificates and private keys stored in the created Secret.</p>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check the key names of the certificate and private key stored in the Secret. For example, check the key name of the CA certificate stored in the Secret.</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>ca-cert<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>
@@ -7390,17 +7388,19 @@ spec:
 </code></pre></div>
 <p>If the key names of the certificates and private keys stored in the Secret are different from the values of <code>serverCert</code>, <code>serverKey</code>, <code>clientCert</code>, <code>clientKey</code>, <code>caCert</code> under the <code>sslCerts</code> field in the cluster configuration, you need to execute <code>kubectl edit nebulacluster &lt;cluster_name&gt;</code> to manually modify the cluster configuration file.</p>
 <p>In the example output, the key name of the CA certificate in the TLS-type Secret is <code>tls.crt</code>, so you need to change the value of caCert from <code>ca.crt</code> to <code>tls.crt</code>.</p>
-<ol>
+</li>
 <li>
 <p>Use NebulaGraph Console to connect to the Graph service and establish a secure TLS connection.</p>
 <p>Example:</p>
-<p><div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v3.5.0 --restart=Never -- nebula-console -addr 10.98.xxx.xx  -port 9669 -u root -p nebula -enable_ssl -ssl_root_ca_path /path/to/cert/root.crt -ssl_cert_path /path/to/cert/client.crt -ssl_private_key_path /path/to/cert/client.key
+<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v3.5.0 --restart=Never -- nebula-console -addr 10.98.xxx.xx  -port 9669 -u root -p nebula -enable_ssl -ssl_root_ca_path /path/to/cert/root.crt -ssl_cert_path /path/to/cert/client.crt -ssl_private_key_path /path/to/cert/client.key
 </code></pre></div>
-- <code>-enable_ssl</code>: Use mTLS when connecting to NebulaGraph.
-- <code>-ssl_root_ca_path</code>: Specify the storage path of the CA root certificate.
-- <code>-ssl_cert_path</code>: Specify the storage path of the TLS public key certificate.
-- <code>-ssl_private_key_path</code>: Specify the storage path of the TLS private key.
-- For details on using NebulaGraph Console to connect to the Graph service, see <a href="../../4.connect-to-nebula-graph-service/">Connect to NebulaGraph</a>.</p>
+<ul>
+<li><code>-enable_ssl</code>: Use mTLS when connecting to NebulaGraph.</li>
+<li><code>-ssl_root_ca_path</code>: Specify the storage path of the CA root certificate.</li>
+<li><code>-ssl_cert_path</code>: Specify the storage path of the TLS public key certificate.</li>
+<li><code>-ssl_private_key_path</code>: Specify the storage path of the TLS private key.</li>
+<li>For details on using NebulaGraph Console to connect to the Graph service, see <a href="../../4.connect-to-nebula-graph-service/">Connect to NebulaGraph</a>.</li>
+</ul>
 </li>
 </ol>
 <p>At this point, you can enable mTLS in NebulaGraph.</p>
@@ -7410,7 +7410,7 @@ spec:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2023</span>
       
     
   </small>
