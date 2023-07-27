@@ -17,7 +17,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 - The tool `wget` is installed.
 
 {{ ent.ent_begin }}
-- For NebulaGraph Enterprise, you must have the [license key](../9.about-license/1.license-overview.md#licensing-process) loaded in [LM](../9.about-license/2.license-management-suite/3.license-manager.md).
+- For NebulaGraph Enterprise, you must have the [license key](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/1.license-overview/#license_key) loaded in [LM](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/2.license-management-suite/3.license-manager/).
 {{ ent.ent_end }}
 
 ## Step 1: Download the package from cloud service
@@ -144,7 +144,7 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
     This step is required only for NebulaGraph Enterprise.
 
-In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the License Manager ([LM](../9.about-license/2.license-management-suite/3.license-manager.md)) is located, e.g. `192.168.8.100:9119`.
+In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the [License Manager (LM)](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/2.license-management-suite/3.license-manager/) is located, e.g. `192.168.8.100:9119`.
 {{ ent.ent_end }}
 
 ## Next to do
