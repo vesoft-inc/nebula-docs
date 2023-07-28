@@ -7822,16 +7822,20 @@
 <p>Prepare the CSV file to be imported and configure the YAML file to use the tool to batch write data into NebulaGraph.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For details about the YAML configuration file, see configuration file description at the end of topic.</p>
+<p>For details about the YAML configuration file, see <a href="#configuration_file_description">Configuration File Description</a> at the end of topic.</p>
 </div>
 <h3 id="download_binary_package_and_run">Download binary package and run<a class="headerlink" href="#download_binary_package_and_run" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Download the executable <a href="https://github.com/vesoft-inc/nebula-importer/releases/tag/v4.0.0">binary package</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The file installation path based on the RPM/DEB package is <code>/usr/bin/nebula-importer</code>. </p>
+</div>
 </li>
 <li>
-<p>Start the service.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./&lt;binary_package_name&gt;<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
+<p>Under the directory where the binary file is located, run the following command to start importing data.</p>
+<div class="highlight"><pre><span></span><code>./&lt;binary_file_name&gt;<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
 </code></pre></div>
 </li>
 </ol>
@@ -7840,7 +7844,7 @@
 <ol>
 <li>
 <p>Clone repository.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-4.0<span class="w"> </span>https://github.com/vesoft-inc/nebula-importer.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-4.0<span class="w"> </span>https://github.com/vesoft-inc/nebula-importer.git
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -7849,41 +7853,50 @@
 </li>
 <li>
 <p>Access the directory <code>nebula-importer</code>.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>nebula-importer
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>nebula-importer
 </code></pre></div>
 </li>
 <li>
 <p>Compile the source code.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>make<span class="w"> </span>build
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>build
 </code></pre></div>
 </li>
 <li>
 <p>Start the service.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./bin/nebula-importer<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
+<div class="highlight"><pre><span></span><code>./bin/nebula-importer<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
 </code></pre></div>
 </li>
 </ol>
 <h3 id="run_in_docker_mode">Run in Docker mode<a class="headerlink" href="#run_in_docker_mode" title="Permanent link">&para;</a></h3>
 <p>Instead of installing the Go locale locally, you can use Docker to pull the <a href="https://hub.docker.com/r/vesoft/nebula-importer">image</a> of the NebulaGraph Importer and mount the local configuration file and CSV data file into the container. The command is as follows:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-importer
-$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-importer:&lt;version&gt;
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>-v<span class="w"> </span>&lt;config_file&gt;:&lt;config_file&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>-v<span class="w"> </span>&lt;data_dir&gt;:&lt;data_dir&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>vesoft/nebula-importer:&lt;version&gt;
+<span class="w">      </span>vesoft/nebula-importer:&lt;version&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--config<span class="w"> </span>&lt;config_file&gt;
 </code></pre></div>
 <ul>
 <li><code>&lt;config_file&gt;</code>: The absolute path to the YAML configuration file.</li>
-<li><code>&lt;csv_data_dir&gt;</code>: The absolute path to the CSV data file. If the file is not local, ignore this parameter.</li>
+<li><code>&lt;data_dir&gt;</code>: The absolute path to the CSV data file. If the file is not local, ignore this parameter.</li>
 <li><code>&lt;version&gt;</code>: NebulaGraph 3.x Please fill in 'v3'.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.</p>
 </div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-importer:v4
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-v<span class="w"> </span>/home/user/config.yaml:/home/user/config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-v<span class="w"> </span>/home/user/data:/home/user/data<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>vesoft/nebula-importer:v4<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--config<span class="w"> </span>/home/user/config.yaml
+</code></pre></div>
 <h2 id="configuration_file_description">Configuration File Description<a class="headerlink" href="#configuration_file_description" title="Permanent link">&para;</a></h2>
-<p>Various example configuration files are available within the <a href="https://github.com/vesoft-inc/nebula-ng-tools/tree/release-4.0/importer/examples">Github</a> of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, {{ no such element: dict object['name'] }} server information, etc. The following section describes the fields within the configuration file in categories.</p>
+<p>Various example configuration files are available within the <a href="https://github.com/vesoft-inc/nebula-importer/tree/release-4.0/examples">Github</a> of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, {{ no such element: dict object['name'] }} server information, etc. The following section describes the fields within the configuration file in categories.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If users download a binary package, create the configuration file manually.</p>
@@ -7977,9 +7990,9 @@ $<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </spa
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = true };</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">statements</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">            </span><span class="no">DROP SPACE IF EXISTS basic_int_examples;</span>
-<span class="w">            </span><span class="no">CREATE SPACE IF NOT EXISTS basic_int_examples(partition_num=5, replica_factor=1, vid_type=int);</span>
-<span class="w">            </span><span class="no">USE basic_int_examples;</span>
+<span class="w">            </span><span class="no">DROP SPACE IF EXISTS basic_string_examples;</span>
+<span class="w">            </span><span class="no">CREATE SPACE IF NOT EXISTS basic_string_examples(partition_num=5, replica_factor=1, vid_type=int);</span>
+<span class="w">            </span><span class="no">USE basic_string_examples;</span>
 <span class="w">        </span><span class="nt">wait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
 <span class="w">    </span><span class="nt">after</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">statements</span><span class="p">:</span>
@@ -8094,12 +8107,12 @@ $<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </spa
 <td align="left"><code>log.files</code></td>
 <td align="left">-</td>
 <td align="left">No</td>
-<td align="left">The log file path.</td>
+<td align="left">The log file path. The log directory must exist.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="source_configuration">Source configuration<a class="headerlink" href="#source_configuration" title="Permanent link">&para;</a></h3>
-<p>The Source configuration requires configuration of data source information, data processing methods, and Schema mapping.</p>
+<p>The Source configuration requires the configuration of data source information, data processing methods, and Schema mapping.</p>
 <p>The example configuration is as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">sources</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./person.csv</span><span class="w">  </span><span class="c1"># Required. Specifies the path where the data files are stored. If a relative path is used, the path and current configuration file directory are spliced. Wildcard filename is also supported, for example: ./follower-*.csv, please make sure that all matching files with the same schema.</span>
@@ -8418,7 +8431,7 @@ $<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </spa
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 28, 2023</span>
       
     
   </small>
