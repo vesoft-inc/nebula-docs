@@ -43,6 +43,8 @@ Native indexes allow querying data based on a given property. Features are as fo
 
 - [MATCH](../7.general-query-statements/2.match.md)
 
+- [Geography index](../3.data-types/10.geography.md)
+
 ## Full-text indexes
 
 Full-text indexes are used to do prefix, wildcard, regexp, and fuzzy search on a string property. Features are as follows.
