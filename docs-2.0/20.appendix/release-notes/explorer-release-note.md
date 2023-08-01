@@ -1,5 +1,13 @@
 # NebulaGraph Explorer release notes
 
+## v3.5.1
+
+- Bugfix
+
+  - Fix wrong links.
+  - Fix wrong text.
+  - Remove deprecated tool components.
+
 ## v3.5.0
 
 - Feature
