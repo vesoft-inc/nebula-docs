@@ -28,9 +28,7 @@ Before using the NebulaGraph Algorithm, users need to confirm the following info
 
 ## Limitations
 
-- For non-integer String data, it is recommended to use the algorithm interface. You can use the `dense_rank` function of SparkSQL to encode the data as the Long type instead of the String type.
-
-- Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
+Graph computing outputs vertex datasets, and the algorithm results are stored in DataFrames as the properties of vertices. You can do further operations such as statistics and filtering according to your business requirements.
 
 !!!
 
@@ -239,6 +237,7 @@ The `lib` repository provides 10 common graph algorithms.
       pagerank: {
           maxIter: 10
           resetProb: 0.15 
+          encodeId:false # Configure true if the VID is of string type.
       }
  
       # Louvain
@@ -246,6 +245,7 @@ The `lib` repository provides 10 common graph algorithms.
           maxIter: 20
           internalIter: 10
           tol: 0.5
+          encodeId:false # Configure true if the VID is of string type.
       }
 
      # ...
