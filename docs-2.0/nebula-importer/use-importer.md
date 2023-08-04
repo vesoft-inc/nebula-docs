@@ -26,7 +26,7 @@ Before using NebulaGraph Importer, make sure:
 
 - NebulaGraph service has been deployed. There are currently three deployment modes:
   
-  - [Deploy NebulaGraph with Docker Compose](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md)
+  - [Deploy NebulaGraph with Docker Compose](../2.quick-start/1.quick-start-workflow.md)
   
   - [Install NebulaGraph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
   

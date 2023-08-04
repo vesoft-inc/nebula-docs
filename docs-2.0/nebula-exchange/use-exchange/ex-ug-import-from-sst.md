@@ -190,10 +190,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   # NebulaGraph configuration
   nebula: {
     address:{
-      graph:["127.0.0.1:9669"]
+      graph:["192.8.168.XXX:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:["127.0.0.1:9559"]
+      meta:["192.8.168.XXX:9559"]
     }
     user: root
     pswd: nebula
@@ -207,7 +207,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         # The path for storing the SST file in the HDFS
         remote:"/sst"
         
-        # The NameNode address of HDFS
+        # The NameNode address of HDFS, for example, "hdfs://<ip/hostname>:<port>"
         hdfs.namenode: "hdfs://*.*.*.*:9000"
     }
 
@@ -250,7 +250,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/vertex_player.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
@@ -298,7 +298,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/vertex_team.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
@@ -352,7 +352,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/edge_follow.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
@@ -407,7 +407,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx.csv".
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/edge_serve.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
