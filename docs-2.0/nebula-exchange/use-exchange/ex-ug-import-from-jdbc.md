@@ -80,6 +80,10 @@ Before importing data, you need to confirm the following information:
 
 - The Hadoop service has been installed and started.
 
+## Precautions
+
+nebula-exchange_spark_2.2 supports only single table queries, not multi-table queries.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -194,11 +198,18 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       driver:"com.mysql.cj.jdbc.Driver"
 
       # Database user name and password
-      user:root
+      user:"root"
       password:"12345"
 
-      table:player
-      sentence:"select playerid, age, name from player order by playerid"
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.player"
+
+      # Use query statement to read data.
+      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence:"select playerid, age, name from player, team order by playerid"
 
       # (optional)Multiple connections read parameters. See https://spark.apache.org/docs/latest/sql-data-sources-jdbc.html
       partitionColumn:playerid    # optional. Must be a numeric, date, or timestamp column from the table in question.
@@ -282,8 +293,17 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       driver:"com.mysql.cj.jdbc.Driver"
       user:root
       password:"12345"
-      table:follow
-      sentence:"select src_player,dst_player,degree from follow order by src_player"
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.follow"
+
+      # Use query statement to read data.
+      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence:"select src_player,dst_player,degree from follow order by src_player"
+
       partitionColumn:src_player    
       lowerBound:1                
       upperBound:5                
