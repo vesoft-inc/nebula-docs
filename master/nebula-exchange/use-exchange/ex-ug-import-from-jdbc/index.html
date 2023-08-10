@@ -6736,6 +6736,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps" class="md-nav__link">
     Steps
   </a>
@@ -7632,6 +7639,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps" class="md-nav__link">
     Steps
   </a>
@@ -7786,6 +7800,8 @@
 <ul>
 <li>The Hadoop service has been installed and started.</li>
 </ul>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<p>nebula-exchange_spark_2.2 supports only single table queries, not multi-table queries.</p>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="step_1_create_the_schema_in_nebulagraph">Step 1: Create the Schema in NebulaGraph<a class="headerlink" href="#step_1_create_the_schema_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Analyze the data to create a Schema in NebulaGraph by following these steps:</p>
@@ -7919,11 +7935,18 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       driver:&quot;com.mysql.cj.jdbc.Driver&quot;
 
       # Database user name and password
-      user:root
+      user:&quot;root&quot;
       password:&quot;12345&quot;
 
-      table:player
-      sentence:&quot;select playerid, age, name from player order by playerid&quot;
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:&quot;basketball.player&quot;
+
+      # Use query statement to read data.
+      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence:&quot;select playerid, age, name from player, team order by playerid&quot;
 
       # (optional)Multiple connections read parameters. See https://spark.apache.org/docs/latest/sql-data-sources-jdbc.html
       partitionColumn:playerid    # optional. Must be a numeric, date, or timestamp column from the table in question.
@@ -7949,6 +7972,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       #            newColName:new-field
       #        }
       }
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -8007,8 +8036,17 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       driver:&quot;com.mysql.cj.jdbc.Driver&quot;
       user:root
       password:&quot;12345&quot;
-      table:follow
-      sentence:&quot;select src_player,dst_player,degree from follow order by src_player&quot;
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:&quot;basketball.follow&quot;
+
+      # Use query statement to read data.
+      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence:&quot;select src_player,dst_player,degree from follow order by src_player&quot;
+
       partitionColumn:src_player    
       lowerBound:1                
       upperBound:5                
@@ -8043,6 +8081,9 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -8110,7 +8151,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2023</span>
       
     
   </small>

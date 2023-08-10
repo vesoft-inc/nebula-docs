@@ -6624,6 +6624,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps" class="md-nav__link">
     Steps
   </a>
@@ -7632,6 +7639,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precautions" class="md-nav__link">
+    Precautions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps" class="md-nav__link">
     Steps
   </a>
@@ -7790,6 +7804,8 @@ data from PostgreSQL into NebulaGraph.</p>
 <ul>
 <li>The Hadoop service has been installed and started.</li>
 </ul>
+<h2 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h2>
+<p>nebula-exchange_spark_2.2 supports only single table queries, not multi-table queries.</p>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="step_1_create_the_schema_in_nebulagraph">Step 1: Create the Schema in NebulaGraph<a class="headerlink" href="#step_1_create_the_schema_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Analyze the data to create a Schema in NebulaGraph by following these steps:</p>
@@ -7918,11 +7934,19 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       host:192.168.*.*
       port:3306
-      database:&quot;basketball&quot;
-      table:&quot;player&quot;
       user:&quot;test&quot;
       password:&quot;123456&quot;
-      sentence:&quot;select playerid, age, name from player order by playerid;&quot;
+      database:&quot;basketball&quot;
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:&quot;basketball.player&quot;
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: &quot;select * from people, player, team&quot;
 
       # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -7939,6 +7963,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       #            newColName:new-field
       #        }
       }
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -7991,11 +8021,19 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       host:192.168.*.*
       port:3306
-      database:&quot;basketball&quot;
-      table:&quot;follow&quot;
       user:&quot;test&quot;
       password:&quot;123456&quot;
-      sentence:&quot;select src_player,dst_player,degree from follow order by src_player;&quot;
+      database:&quot;basketball&quot;
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:&quot;basketball.follow&quot;
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: &quot;select * from follow, serve&quot;
 
       # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -8025,6 +8063,9 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -8087,7 +8128,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2023</span>
       
     
   </small>
