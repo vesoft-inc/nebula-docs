@@ -203,6 +203,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #        }
       }
 
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+      
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
 
       # Number of pieces of data written to NebulaGraph in a single batch.
       batch: 256
@@ -282,6 +287,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256

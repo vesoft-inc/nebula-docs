@@ -190,6 +190,13 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            newColName:new-field
       #        }
       }
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+      
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
+
       partition: 10
       batch: 1000
       check_point_path: /tmp/test
@@ -250,6 +257,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #        }
       }
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+
       partition: 10
       batch: 1000
       check_point_path: /tmp/test

@@ -78,6 +78,12 @@ Before importing data, you need to confirm the following information:
 
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
+- The Hadoop service has been installed and started.
+
+## Precautions
+
+nebula-exchange_spark_2.2 supports only single table queries, not multi-table queries.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -187,11 +193,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       host:192.168.*.*
       port:3306
-      database:"basketball"
-      table:"player"
       user:"test"
       password:"123456"
-      sentence:"select playerid, age, name from player order by playerid;"
+      database:"basketball"
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.player"
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: "select * from people, player, team"
 
       # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -208,6 +222,12 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            newColName:new-field
       #        }
       }
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+      
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -260,11 +280,19 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       host:192.168.*.*
       port:3306
-      database:"basketball"
-      table:"follow"
       user:"test"
       password:"123456"
-      sentence:"select src_player,dst_player,degree from follow order by src_player;"
+      database:"basketball"
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.follow"
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: "select * from follow, serve"
 
       # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -294,6 +322,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256

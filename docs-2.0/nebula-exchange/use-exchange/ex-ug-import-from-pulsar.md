@@ -34,7 +34,9 @@ Before importing data, you need to confirm the following information:
 
 ## Precautions
 
-Only client mode is supported when importing Pulsar data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
+- Only client mode is supported when importing Pulsar data, i.e. the value of parameters `tags.type.sink` and `edges.type.sink` is `client`.
+
+- When importing Pulsar data, do not use Exchange version 3.4.0, which adds caching of imported data and does not support streaming data import. Use Exchange versions 3.0.0, 3.3.0, or 3.5.0.
 
 ## Steps
 
@@ -170,6 +172,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #        }
       }
 
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+      
+      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+      #deleteEdge: false
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 10
@@ -256,6 +263,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
       # (Optional) Specify a column as the source of the rank.
       #ranking: rank
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 10

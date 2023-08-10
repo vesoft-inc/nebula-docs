@@ -98,6 +98,8 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.name`|string|-|Yes|The tag name defined in NebulaGraph.|
 |`tags.type.source`|string|-|Yes|Specify a data source. For example, `csv`.|
 |`tags.type.sink`|string|`client`|Yes|Specify an import method. Optional values are `client` and `SST`.|
+|`tags.writeMode`|string|`INSERT`|No|Types of batch operations on data, including batch inserts, updates, and deletes. Optional values are `INSERT`, `UPDATE`, `DELETE`.|
+|`tags.deleteEdge`|string|`false`|No|Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `tags.writeMode` is `DELETE`.|
 |`tags.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or a column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
 |`tags.nebula.fields`|list\[string\]|-|Yes|Property names defined in NebulaGraph, the order of which must correspond to `tags.fields`. For example, `[_c1, _c2]` corresponds to `[name, age]`, which means that values in the second column are the values of the property `name`, and values in the third column are the values of the property `age`.|
 |`tags.vertex.field`|string|-|Yes|The column of vertex IDs. For example, when a CSV file has no header, users can use `_c0` to indicate values in the first column are vertex IDs.|
@@ -245,6 +247,7 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.name`| string|-|Yes|The edge type name defined in NebulaGraph.|
 |`edges.type.source`|string|-|Yes|The data source of edges. For example, `csv`.|
 |`edges.type.sink`|string|`client`|Yes|The method specified to import data. Optional values are `client` and `SST`.|
+|`edges.writeMode`|string|`INSERT`|No|Types of batch operations on data, including batch inserts, updates, and deletes. Optional values are `INSERT`, `UPDATE`, `DELETE`.|
 |`edges.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
 |`edges.nebula.fields`|list\[string\]|-|Yes|Edge names defined in NebulaGraph, the order of which must correspond to `edges.fields`. For example, `[_c2, _c3]` corresponds to `[start_year, end_year]`, which means that values in the third column are the values of the start year, and values in the fourth column are the values of the end year.|
 |`edges.source.field`|string|-|Yes|The column of source vertices of edges. For example, `_c0` indicates a value in the first column that is used as the source vertex of an edge.|
