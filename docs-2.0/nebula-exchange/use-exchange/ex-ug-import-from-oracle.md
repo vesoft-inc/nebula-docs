@@ -82,6 +82,10 @@ Before importing data, you need to confirm the following information:
 
 - The Hadoop service has been installed and started.
 
+## Precautions
+
+nebula-exchange_spark_2.2 supports only single table queries, not multi-table queries.
+
 ## Steps
 
 ### Step 1: Create the Schema in NebulaGraph
@@ -189,12 +193,20 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         sink: client
       }
 
-      url:"jdbc:oracle:thin:@host:1521:db"
+      url:"jdbc:oracle:thin:@host:1521:basketball"
       driver: "oracle.jdbc.driver.OracleDriver"
       user: "root"
       password: "123456"
-      table: "basketball.player"
-      sentence: "select playerid, name, age from player"
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.player"
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: "select * from people, player, team"
 
       # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -232,7 +244,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         sink: client
       }
 
-      url:"jdbc:oracle:thin:@host:1521:db"
+      url:"jdbc:oracle:thin:@host:1521:basketball"
       driver: "oracle.jdbc.driver.OracleDriver"
       user: "root"
       password: "123456"
@@ -266,12 +278,20 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         sink: client
       }
 
-      url:"jdbc:oracle:thin:@host:1521:db"
+      url:"jdbc:oracle:thin:@host:1521:basketball"
       driver: "oracle.jdbc.driver.OracleDriver"
       user: "root"
       password: "123456"
-      table: "basketball.follow"
-      sentence: "select src_player, dst_player, degree from follow"
+
+      # Scanning a single table to read data.
+      # nebula-exchange_spark_2.2 must configure this parameter. Sentence is not supported.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+      table:"basketball.follow"
+
+      # Use query statement to read data.
+      # This parameter is not supported by nebula-exchange_spark_2.2.
+      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+      # sentence: "select * from follow, serve"
 
       # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
       # The sequence of fields and nebula.fields must correspond to each other.
@@ -320,7 +340,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
         sink: client
       }
 
-      url:"jdbc:oracle:thin:@host:1521:db"
+      url:"jdbc:oracle:thin:@host:1521:basketball"
       driver: "oracle.jdbc.driver.OracleDriver"
       user: "root"
       password: "123456"

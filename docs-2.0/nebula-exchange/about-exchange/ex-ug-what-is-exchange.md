@@ -52,6 +52,8 @@ Exchange has the following advantages:
 
 ## Version compatibility
 
+Exchange supports Spark versions 2.2.x, 2.4.x, and 3.x.x, which are named `nebula-exchange_spark_2.2`, `nebula-exchange_spark_2.4`, and `nebula-exchange_spark_3.0` for different Spark versions.
+
 The correspondence between the NebulaGraph Exchange version (the JAR version), the NebulaGraph core version and the Spark version is as follows.
 
 | Exchange version | NebulaGraph version | Spark version |
