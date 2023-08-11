@@ -7,7 +7,7 @@
   - Support deploying License Manager (LM) through Dashboard. For more detail, see [Activate Dashboard](../../nebula-dashboard-ent/3.connect-dashboard.md).
   - [Back up and restore](../../nebula-dashboard-ent/4.cluster-operator/operator/backup-and-restore.md) support full backup to local.
   - Add [Slow query analyst](../../nebula-dashboard-ent/4.cluster-operator/analysis-diagnosis/slow-query-analyst.md) function.
-  - The [Cluster diagnostics](../../nebula-dashboard-ent/4.cluster-operator/cluster-information/cluster-diagnosis.md) formula supports configuration.
+  - The [Cluster diagnostics](../../nebula-dashboard-ent/4.cluster-operator/analysis-diagnosis/cluster-diagnosis.md) formula supports configuration.
   - [Config Management](../../nebula-dashboard-ent/4.cluster-operator/operator/config-management.md) support **Add Config**, view the **Effective value** of the current configuration, and **View inconsistent configurations**.
   - In the [Notification endpoint](../../nebula-dashboard-ent/system-settings/notification-endpoint.md), the webhook supports configuring the **Webhook request body**.
   - Support [custom monitoring panel](../../nebula-dashboard-ent/4.cluster-operator/2.monitor.md).

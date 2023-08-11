@@ -64,7 +64,7 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hive: 2.3.7, Hive Metastore database is MySQL 8.0.22
 
-- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../2.quick-start/1.quick-start-workflow.md).
 
 ## Prerequisites
 
@@ -82,7 +82,7 @@ Before importing data, you need to confirm the following information:
 
 - Learn about the Schema created in NebulaGraph, including names and properties of Tags and Edge types, and more.
 
-- Hadoop has been installed and started, and the Hive Metastore database (MySQL in this example) has been started.
+- The Hive Metastore database (MySQL in this example) has been started.
 
 ## Steps
 
