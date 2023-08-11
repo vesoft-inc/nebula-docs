@@ -3,7 +3,7 @@ on:
   push:
     branches:
     # Remember to add v before the following version number unless the version is master.
-      - master
+      - v3.6.0
 
 jobs:
   deploy:
@@ -25,12 +25,13 @@ jobs:
       - name: Git Config
         run: git config user.name whitewum && git config user.email min.wu@vesoft.com
           
-      - name: Mike Deploy master
+      - name: Mike Deploy 3.6.0
         run: |
-          # mike delete master -p
+          # mike delete 3.6.0 -p
           git fetch origin gh-pages --depth=1 # fix mike's CI update
           mike list
-          mike deploy master -p --rebase
+          mike deploy 3.6.0 -p --rebase
+          mike set-default 3.6.0 -p --rebase
           mike list
 
       # - name: Deploy
