@@ -31,8 +31,8 @@
 
 Enhance full-text index features with the following changes:
 
-- The original full-text indexing function has been changed from calling ElasticSearch's Term-level queries to Full text queries.
-- In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on ElasticSearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see [official ElasticSearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html).
+- The original full-text indexing function has been changed from calling Elasticsearch's Term-level queries to Full text queries.
+- In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on Elasticsearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see [official Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html).
 
 ## Legacy versions
 
