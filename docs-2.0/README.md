@@ -1,10 +1,8 @@
 # Welcome to NebulaGraph {{ nebula.release }} Documentation
 
-<!--
 !!! caution
 
     Documents of version {{ nebula.release }} are only for NebulaGraph Community Edition {{ nebula.release }} and the corresponding tools. NebulaGraph Enterprise Edition {{ nebula.release }} is not released ([the release cycle for NebulaGraph Enterprise Edition is usually 6 months](20.appendix/6.eco-tool-version.md)). For details, see [Release notes](20.appendix/release-notes/nebula-comm-release-note.md).
--->
 
 !!! note
 
@@ -30,11 +28,11 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 ## Release notes
 
 - [NebulaGraph Community Edition {{ nebula.release }}](20.appendix/release-notes/nebula-comm-release-note.md)
-<!-- - [NebulaGraph Enterprise Edition {{ nebula.release }}](20.appendix/release-notes/nebula-ent-release-note.md)。 -->
+<!-- - [NebulaGraph Enterprise Edition {{ nebula.release }}](20.appendix/release-notes/nebula-ent-release-note.md)。
 - [NebulaGraph Studio](20.appendix/release-notes/studio-release-note.md)
 - [NebulaGraph Explorer](20.appendix/release-notes/explorer-release-note.md)
 - [NebulaGraph Dashboard Community Edition](20.appendix/release-notes/dashboard-comm-release-note.md)
-- [NebulaGraph Dashboard Enterprise Edition](20.appendix/release-notes/dashboard-ent-release-note.md)
+- [NebulaGraph Dashboard Enterprise Edition](20.appendix/release-notes/dashboard-ent-release-note.md) -->
 
 
 ## Other Sources
