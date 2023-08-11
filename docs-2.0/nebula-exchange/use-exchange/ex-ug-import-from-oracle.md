@@ -56,13 +56,7 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Spark: 2.4.7, stand-alone
 
-- Hadoop: 2.9.2, pseudo-distributed deployment
-
-<!--
-- Oracle： 19c
--->
-
-- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../2.quick-start/1.quick-start-workflow.md).
 
 ## Prerequisites
 

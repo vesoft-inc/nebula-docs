@@ -31,7 +31,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
         Please ensure that the number of storage paths set for the `--data_path` parameter in the Meta and Storage service configuration files of the {{nebula.release}} cluster is the same as that for the `--data_path` parameter in the configuration files of the 3.x cluster. Otherwise, the upgraded cluster will not start.
 
-2. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](../../2.quick-start/3.quick-start-on-premise/5.start-stop-service.md).
+1. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/).
   
   Run the `nebula.service status all` command to confirm that all services have been stopped after running the command.
    

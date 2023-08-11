@@ -26,7 +26,7 @@ Before using NebulaGraph Importer, make sure:
 
 - NebulaGraph service has been deployed. The deployment method is as follows:
   
-  - [Deploy NebulaGraph with Docker Compose](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md)
+  - [Deploy NebulaGraph with Docker Compose](../2.quick-start/1.quick-start-workflow.md)
   
   - [Install NebulaGraph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
   
@@ -40,16 +40,20 @@ Prepare the CSV file to be imported and configure the YAML file to use the tool 
 
 !!! note
 
-    For details about the YAML configuration file, see configuration file description at the end of topic.
+    For details about the YAML configuration file, see [Configuration File Description](#configuration_file_description) at the end of topic.
 
 ### Download binary package and run
 
 1. Download the executable [binary package](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}}).
 
-2. Start the service.
+  !!! note
+
+        The file installation path based on the RPM/DEB package is `/usr/bin/nebula-importer`. 
+
+2. Under the directory where the binary file is located, run the following command to start importing data.
 
   ```bash
-  $ ./<binary_package_name> --config <yaml_config_file_path>
+  ./<binary_file_name> --config <yaml_config_file_path>
   ```
 
 ### Source code compile and run
@@ -59,7 +63,7 @@ Compiling the source code requires deploying a Golang environment. For details, 
 1. Clone repository.
 
   ```bash
-  $ git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
+  git clone -b {{importer.branch}} https://github.com/vesoft-inc/nebula-importer.git
   ```
 
   !!! note
@@ -69,19 +73,19 @@ Compiling the source code requires deploying a Golang environment. For details, 
 2. Access the directory `nebula-importer`.
 
   ```bash
-  $ cd nebula-importer
+  cd nebula-importer
   ```
 
 3. Compile the source code.
 
   ```bash
-  $ make build
+  make build
   ```
 
 4. Start the service.
 
   ```bash
-  $ ./bin/nebula-importer --config <yaml_config_file_path>
+  ./bin/nebula-importer --config <yaml_config_file_path>
   ```
 
 ### Run in Docker mode
@@ -89,25 +93,37 @@ Compiling the source code requires deploying a Golang environment. For details, 
 Instead of installing the Go locale locally, you can use Docker to pull the [image](https://hub.docker.com/r/vesoft/nebula-importer) of the NebulaGraph Importer and mount the local configuration file and CSV data file into the container. The command is as follows:
 
 ```bash
-$ docker pull vesoft/nebula-importer
-$ docker run --rm -ti \
+docker pull vesoft/nebula-importer:<version>
+docker run --rm -ti \
       --network=host \
       -v <config_file>:<config_file> \
       -v <data_dir>:<data_dir> \
-      vesoft/nebula-importer:<version>
+      vesoft/nebula-importer:<version> \
       --config <config_file>
 ```
 
 - `<config_file>`: The absolute path to the YAML configuration file.
-- `<csv_data_dir>`: The absolute path to the CSV data file. If the file is not local, ignore this parameter.
+- `<data_dir>`: The absolute path to the CSV data file. If the file is not local, ignore this parameter.
 - `<version>`: NebulaGraph 3.x Please fill in 'v3'.
 
 !!! note
     A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.
 
+Example:
+
+```bash
+docker pull vesoft/nebula-importer:v4
+docker run --rm -ti \
+      --network=host \
+      -v /home/user/config.yaml:/home/user/config.yaml \
+      -v /home/user/data:/home/user/data \
+      vesoft/nebula-importer:v4 \
+      --config /home/user/config.yaml
+```
+
 ## Configuration File Description
 
-Various example configuration files are available within the [Github](https://github.com/vesoft-inc/nebula-ng-tools/tree/{{importer.branch}}/importer/examples) of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, {{nebula.name}} server information, etc. The following section describes the fields within the configuration file in categories.
+Various example configuration files are available within the [Github](https://github.com/vesoft-inc/nebula-importer/tree/{{importer.branch}}/examples) of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, {{nebula.name}} server information, etc. The following section describes the fields within the configuration file in categories.
 
 !!! note
 
@@ -162,9 +178,9 @@ manager:
         - UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = true };
       - statements:
         - |
-            DROP SPACE IF EXISTS basic_int_examples;
-            CREATE SPACE IF NOT EXISTS basic_int_examples(partition_num=5, replica_factor=1, vid_type=int);
-            USE basic_int_examples;
+            DROP SPACE IF EXISTS basic_string_examples;
+            CREATE SPACE IF NOT EXISTS basic_string_examples(partition_num=5, replica_factor=1, vid_type=int);
+            USE basic_string_examples;
         wait: 10s
     after:
       - statements:
@@ -204,11 +220,11 @@ log:
 |:---|:---|:---|:---|
 |`log.level`|`INFO`|No| Specifies the log level. Optional values are `DEBUG`, `INFO`, `WARN`, `ERROR`, `PANIC`, `FATAL`.|
 |`log.console`|`true`|No| Whether to print the logs to console synchronously when storing logs.|
-|`log.files`|-|No|The log file path.|
+|`log.files`|-|No|The log file path. The log directory must exist.|
 
 ### Source configuration
 
-The Source configuration requires configuration of data source information, data processing methods, and Schema mapping.
+The Source configuration requires the configuration of data source information, data processing methods, and Schema mapping.
 
 The example configuration is as follows:
 

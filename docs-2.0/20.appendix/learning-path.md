@@ -49,7 +49,7 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | [Install with a RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) | -                                                            |
   | [Install with a TAR package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/4.install-nebula-graph-from-tar.md) | -                                                            |
-  | [Install with Docker](../4.deployment-and-installation/2.compile-and-install-nebula-graph/3.deploy-nebula-graph-with-docker-compose.md) | [Install NebulaGraph with Docker and Docker Compose](https://www.youtube.com/watch?v=yM5GDpJedEI) |
+  | [Install with Docker](../2.quick-start/1.quick-start-workflow.md) | [Install NebulaGraph with Docker and Docker Compose](https://www.youtube.com/watch?v=yM5GDpJedEI) |
   | [Install from source](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md) | [Install NebulaGraph with Source Code](https://www.youtube.com/watch?v=x-I835eEBz0)                                                             |
   
 
