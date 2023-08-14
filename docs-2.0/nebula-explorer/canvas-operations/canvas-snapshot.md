@@ -16,8 +16,7 @@ Explorer provides a snapshot feature that lets you store the visualized canvas d
 
 !!! note
 
-    - Up to 50 snapshots can be stored in the snapshot list currently.
-    - Snapshot data is stored in the browser, cleaning the browser may cause loss of snapshot data.
+    Up to 50 snapshots can be stored in the snapshot list currently.
 
 In the left navigation bar of the Explorer page, click ![snapshot_history](https://docs-cdn.nebula-graph.com.cn/figures/snapshot-history.png) to enter the Snapshot page. You can switch graph spaces and view the historical snapshots of the corresponding graph space. You can also import snapshots to a canvas, download canvas snapshots to your local drive, and delete snapshots.
 
