@@ -16,6 +16,19 @@ NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV
 
 - Flexible filtering: You can flexibly filter CSV data through configuration files.
 
+## Version compatibility
+
+The version correspondence between NebulaGraph and NebulaGraph Importer is as follows.
+
+|{{nebula.name}} version|NebulaGraph Importer version|
+|:---|:---|
+| 3.x.x      |  3.x.x、4.x.x        | 
+| 2.x.x      |  2.x.x、3.x.x        |
+
+!!! note
+
+    Importer 4.0.0 has redone the Importer for improved performance, but the configuration file is not compatible with older versions. It is recommended to use the new version of Importer.
+
 ## Release note
 
 [Release](https://github.com/vesoft-inc/nebula-importer/releases/tag/{{importer.tag}})
