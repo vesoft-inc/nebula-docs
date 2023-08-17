@@ -220,6 +220,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
@@ -237,41 +241,18 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Tag Team.
 {
-      # Specify the Tag name defined in NebulaGraph.
       name: team
       type: {
-        # Specify the data source file format to JSON.
         source: json
-
-        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
-
-      # Specify the path to the JSON file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/vertex_team.json"
-
-      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
-      # If multiple column names need to be specified, separate them by commas.
       fields: [name]
-
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [name]
-
-      # Specify a column of data in the table as the source of vertex VID in the NebulaGraph.
-      # The value of vertex must be the same as that in the JSON file.
-      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:id
       }
-
-
-      # The number of data written to NebulaGraph in a single batch.
       batch: 256
-
-      # The number of Spark partitions.
       partition: 32
     }
 
@@ -315,6 +296,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
       target: {
         field: dst
@@ -323,6 +308,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
 
@@ -341,46 +330,21 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Edge Type serve.
     {
-      # Specify the Edge type name defined in NebulaGraph.
       name: serve
       type: {
-        # Specify the data source file format to JSON.
         source: json
-
-        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
       }
-
-      # Specify the path to the JSON file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://ip:port/xx/xx".
-      # If the file is stored locally, use double quotation marks to enclose the file path, starting with file://. For example, "file:///tmp/xx.json".
       path: "hdfs://192.168.*.*:9000/data/edge_serve.json"
-
-      # Specify the key name in the JSON file in fields, and its corresponding value will serve as the data source for the properties specified in the NebulaGraph.
-      # If multiple column names need to be specified, separate them by commas.
       fields: [start_year,end_year]
-
-      # Specify the column names in the edge table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [start_year, end_year]
-
-      # Specify a column as the source for the source and destination vertexes.
-      # The value of vertex must be the same as that in the JSON file.
-      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: src
       }
       target: {
         field: dst
       }
-
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: _c5
-
-      # The number of data written to NebulaGraph in a single batch.
       batch: 256
-
-      # The number of Spark partitions.
       partition: 32
     }
 

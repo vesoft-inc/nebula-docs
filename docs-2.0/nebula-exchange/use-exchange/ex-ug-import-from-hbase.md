@@ -201,6 +201,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
@@ -273,6 +277,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
 
@@ -283,6 +291,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # (Optional) Specify a column as the source of the rank.
