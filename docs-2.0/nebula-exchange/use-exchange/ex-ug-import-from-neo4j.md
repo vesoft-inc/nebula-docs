@@ -178,7 +178,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       server: "bolt://192.168.*.*:7687"
       user: neo4j
       password:neo4j
-      database:neo4j
+      # bolt 3 does not support multiple databases, do not configure database names. 4 and above can configure database names.
+      # database:neo4j
       exec: "match (n:player) return n.id as id, n.age as age, n.name as name"
       fields: [age,name]
       nebula.fields: [age,name]
@@ -189,6 +190,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
@@ -236,7 +241,8 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       server: "bolt://192.168.*.*:7687"
       user: neo4j
       password:neo4j
-      database:neo4j
+      # bolt 3 does not support multiple databases, do not configure database names. 4 and above can configure database names.
+      # database:neo4j
       exec: "match (a:player)-[r:follow]->(b:player) return a.id as src, b.id as dst, r.degree as degree  order by id(r)"
       fields: [degree]
       nebula.fields: [degree]
@@ -247,6 +253,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
       target: {
         field: dst
@@ -255,6 +265,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
+      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
       #ranking: rank
 

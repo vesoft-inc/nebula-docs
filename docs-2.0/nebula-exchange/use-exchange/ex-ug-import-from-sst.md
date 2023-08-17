@@ -266,6 +266,10 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
+        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # The delimiter specified. The default value is comma.
@@ -274,6 +278,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, set the header to true.
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
+
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
 
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
@@ -287,54 +294,23 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Tag Team.
     {
-      # Specify the Tag name defined in NebulaGraph.
       name: team
       type: {
-        # Specify the data source file format to CSV.
         source: csv
-
-        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
-
-      # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/vertex_team.csv"
-
-      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has a header, use the actual column name.
       fields: [_c1]
-
-      # Specify the property name defined in NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [name]
-
-      # Specify a column of data in the table as the source of VIDs in NebulaGraph.
-      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       vertex: {
         field:_c0
       }
-
-      # The delimiter specified. The default value is comma.
       separator: ","
-
-      # If the CSV file has a header, set the header to true.
-      # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
-
-      # The number of data written to NebulaGraph in a single batch.
       batch: 256
-
-      # The number of Spark partitions.
       partition: 32
-
-      # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
       repartitionWithNebula: false
     }
-
-
-
     # If more vertices need to be added, refer to the previous configuration to add them.
   ]
   # Processing edges
@@ -368,9 +344,17 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
+        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
       target: {
         field: _c1
+        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+      # prefix:"tag1"
+      # Performs hashing operations on VIDs of type string.
+      # policy:hash
       }
 
       # The delimiter specified. The default value is comma.
@@ -384,6 +368,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
+      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+      #writeMode: INSERT
+
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
@@ -396,55 +383,24 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 
     # Set the information about the Edge Type serve.
     {
-      # Specify the Edge type name defined in NebulaGraph.
       name: serve
       type: {
-        # Specify the data source file format to CSV.
         source: csv
-
-        # Specify how to import the data into NebulaGraph: Client or SST.
         sink: sst
       }
-
-      # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://<ip/hostname>:port/xx/xx.csv".
       path: "hdfs://*.*.*.*:9000/dataset/edge_serve.csv"
-
-      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has a header, use the actual column name.
       fields: [_c2,_c3]
-
-      # Specify the property name defined in NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
       nebula.fields: [start_year, end_year]
-
-      # Specify a column as the source for the source and destination vertices.
-      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, NebulaGraph {{nebula.release}} supports only strings or integers of VID.
       source: {
         field: _c0
       }
       target: {
         field: _c1
       }
-
-      # The delimiter specified. The default value is comma.
       separator: ","
-
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: _c5
-
-      # If the CSV file has a header, set the header to true.
-      # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
-
-      # The number of data written to NebulaGraph in a single batch.
       batch: 256
-
-      # The number of Spark partitions.
       partition: 32
-
-      # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
       repartitionWithNebula: false
     }
 
