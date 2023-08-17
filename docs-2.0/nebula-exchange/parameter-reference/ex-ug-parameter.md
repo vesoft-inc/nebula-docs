@@ -106,6 +106,8 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.vertex.udf.separator`|string|-|No|Support merging multiple columns by custom rules. This parameter specifies the join character.|
 |`tags.vertex.udf.oldColNames`|list|-|No|Support merging multiple columns by custom rules. This parameter specifies the names of the columns to be merged. Multiple columns are separated by commas.|
 |`tags.vertex.udf.newColName`|string|-|No|Support merging multiple columns by custom rules. This parameter specifies the new column name. |
+|`tags.vertex.prefix`|string|-|No|Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.|
+|`tags.vertex.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
 |`tags.partition`|int|`32`|Yes|The number of Spark partitions.|
 
@@ -251,7 +253,11 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.fields`|list\[string\]|-|Yes|The header or column name of the column corresponding to properties. If there is a header or column name, please use that name directly. If a CSV file does not have a header, use the form of `[_c0, _c1, _c2]` to represent the first column, the second column, the third column, and so on.|
 |`edges.nebula.fields`|list\[string\]|-|Yes|Edge names defined in NebulaGraph, the order of which must correspond to `edges.fields`. For example, `[_c2, _c3]` corresponds to `[start_year, end_year]`, which means that values in the third column are the values of the start year, and values in the fourth column are the values of the end year.|
 |`edges.source.field`|string|-|Yes|The column of source vertices of edges. For example, `_c0` indicates a value in the first column that is used as the source vertex of an edge.|
+|`edges.source.prefix`|string|-|No|Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.|
+|`edges.source.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`edges.target.field`|string|-|Yes|The column of destination vertices of edges. For example, `_c0` indicates a value in the first column that is used as the destination vertex of an edge.|
+|`edges.target.prefix`|string|-|No|Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.|
+|`edges.target.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into NebulaGraph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
