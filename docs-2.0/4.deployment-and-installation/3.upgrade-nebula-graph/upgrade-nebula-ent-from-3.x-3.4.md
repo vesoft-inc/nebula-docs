@@ -4,7 +4,8 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
 ## Notes
 
-- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. For upgrading from version 3.4.0 and above to {{nebula.release}}, you can directly replace the binary files for upgrade. For more information, see [Upgrade NebulaGraph to {{nebula.release}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/) .<!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
+- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. For upgrading from version 3.4.0 and above to {{nebula.release}}, you can directly replace the binary files for an upgrade. For more information, see [Upgrade NebulaGraph to {{nebula.release}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/). <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
+
   !!! note
 
         If your version is below 3.0.0, please upgrade to enterprise edition 3.1.0 before upgrading to v{{nebula.release}}. For details, see [Upgrade NebulaGraph Enterprise Edition 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
@@ -25,7 +26,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
    
   !!! note
 
-        The upgrade steps are the same for different installation packages. This article uses the RPM package and the installation directory `/usr/local/nebulagraph-ent-3.4` as an example. See [Install with RPM packages](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) for specific operations.
+        The upgrade steps are the same for different installation packages. This article uses the RPM package and the installation directory `/usr/local/nebulagraph-ent-{{nebula.release}}` as an example. See [Install with RPM packages](../2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) for specific operations.
    
   !!! caution
 
@@ -49,20 +50,20 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
     | :-------------- | :--------------------------- |
     | `--max_concurrent_parts` | Specify the number of partitions to upgrade simultaneously, with the default value being 1.<br/>It is recommended to increase the value appropriately based on disk performance. |
     | `--src_db_path` | Specify the absolute path to the source data directory. The following takes the source data directory `/usr/local/nebula-ent-3.1.0/data/storage` as an example.  |
-    | `--dst_db_path` | Specify the absolute path to the target data directory. The example target data directory is `/usr/local/nebula-ent-3.4/data/storage`.|
+    | `--dst_db_path` | Specify the absolute path to the target data directory. The example target data directory is `/usr/local/nebula-ent-{{nebula.release}}/data/storage`.|
 
     Example:
 
     ```bash
-    sudo ./bin/db_upgrader --max_concurrent_parts=20 --src_db_path=/usr/local/nebula-ent-3.1.0/data/storage --dst_db_path=/usr/local/nebula-ent-3.4/data/storage
+    sudo ./bin/db_upgrader --max_concurrent_parts=20 --src_db_path=/usr/local/nebula-ent-3.1.0/data/storage --dst_db_path=/usr/local/nebula-ent-{{nebula.release}}/data/storage
     ```
 
     If there are multiple source data directories, specify each source data directory and target data directory and run the corresponding command. For example, there are two source data directories `/usr/local/nebula-ent-3.1.0/data/storage` and `/usr/local/nebula-ent-3.1.0/data2/storage`, run the following commands:
 
     ```bash
-    sudo ./bin/db_upgrader --src_db_path=/usr/local/nebula-ent-3.1.0/data/storage --dst_db_path=/usr/local/nebula-ent-3.4/data/storage
+    sudo ./bin/db_upgrader --src_db_path=/usr/local/nebula-ent-3.1.0/data/storage --dst_db_path=/usr/local/nebula-ent-{{nebula.release}}/data/storage
 
-    sudo ./bin/db_upgrader --src_db_path=/usr/local/nebula-ent-3.1.0/data2/storage --dst_db_path=/usr/local/nebula-ent-3.4/data2/storage
+    sudo ./bin/db_upgrader --src_db_path=/usr/local/nebula-ent-3.1.0/data2/storage --dst_db_path=/usr/local/nebula-ent-{{nebula.release}}/data2/storage
     ```
 
   - Upgrade the Meta service:
@@ -76,12 +77,12 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
     | Parameter            | Description                         |
     | :-------------- | :--------------------------- |
     | `--src_meta_path` | Specify the absolute path to the source meta data directory. The following takes the source data directory `/usr/local/nebula-ent-3.1.0/data/meta` as an example. |
-    | `--dst_meta_path` | Specify the absolute path to the target meta data directory. The example target data directory is `/usr/local/nebula-ent-3.4/data/meta`.|
+    | `--dst_meta_path` | Specify the absolute path to the target meta data directory. The example target data directory is `/usr/local/nebula-ent-{{nebula.release}}/data/meta`.|
 
     Example:
 
     ```bash
-    sudo ./bin/meta_upgrader --src_meta_path=/usr/local/nebula-ent-3.1.0/data/meta --dst_meta_path=/usr/local/nebula-ent-3.4/data/meta
+    sudo ./bin/meta_upgrader --src_meta_path=/usr/local/nebula-ent-3.1.0/data/meta --dst_meta_path=/usr/local/nebula-ent-{{nebula.release}}/data/meta
     ```
 
     If there are multiple source meta data directories, specify each source meta data directory and target meta data directory and run the corresponding command.
