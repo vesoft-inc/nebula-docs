@@ -8026,7 +8026,7 @@
 <li>Development tools: Graph query languages, modeling tools, development frameworks, and libraries.</li>
 </ul>
 <ul>
-<li>E-books <sup id="fnref:info"><a class="footnote-ref" href="#fn:info">2</a></sup> and conferences, etc.</li>
+<li>E-books and conferences, etc.</li>
 </ul>
 <!-- TODO from VLDB 2019
 ### 分类法
@@ -8039,7 +8039,7 @@
 <li>Nearest neighbor query (NNS): Query the neighboring edges, neighbors, or K-hops neighbors.</li>
 </ul>
 <ul>
-<li>Find one/all subgraphs that satisfy a given graph pattern. This problem is very close to Subgraph Isomorphism - two seemingly different graphs that are actually identical <sup id="fnref:subiso"><a class="footnote-ref" href="#fn:subiso">3</a></sup> as shown below.</li>
+<li>Find one/all subgraphs that satisfy a given graph pattern. This problem is very close to Subgraph Isomorphism - two seemingly different graphs that are actually identical <sup id="fnref:subiso"><a class="footnote-ref" href="#fn:subiso">2</a></sup> as shown below.</li>
 </ul>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/samegraph.png" /></p>
 <ul>
@@ -8049,17 +8049,17 @@
 <li>Analytic problems: It is related to some convergent operators, such as Average, Count, Max, Vertex Degree. Measures the distance between all two vertices, the degree of interaction between a vertex and other vertices.</li>
 </ul>
 <h3 id="graph_database_and_graph_processing_systems">Graph database and graph processing systems<a class="headerlink" href="#graph_database_and_graph_processing_systems" title="Permanent link">&para;</a></h3>
-<p>A graph system usually includes a complex data pipeline <sup id="fnref:biggraph"><a class="footnote-ref" href="#fn:biggraph">4</a></sup>. From the data source (the left side of the picture below) to the processing output (the right side), multiple data processing steps and systems are used, such as the ETL module, Graph OLTP module, OLAP module, BI, and knowledge graph. </p>
+<p>A graph system usually includes a complex data pipeline <sup id="fnref:biggraph"><a class="footnote-ref" href="#fn:biggraph">3</a></sup>. From the data source (the left side of the picture below) to the processing output (the right side), multiple data processing steps and systems are used, such as the ETL module, Graph OLTP module, OLAP module, BI, and knowledge graph. </p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/graphpipe.png" /></p>
 <p>Graph databases and graph processing systems have different origins and specialties (and weaknesses).</p>
 <ul>
 <li>(Online) The graph database is designed for persistent storage management of graphs and efficient subgraph operations. Hard disks and network are the target operating devices, physical/logical data mapping, data integrity, and (fault) consistency are the main goals. Each request typically involves only a small part of the full graph and can usually be done on a single server. Request latency is usually in milliseconds or seconds, and request concurrency is typically in the thousands or hundreds of thousands. The early Neo4j was one of the origins of the graph database space.</li>
 </ul>
 <ul>
-<li>(Offline) The graph processing system is for high-volume, concurrency, iteration, processing, and analysis of the full graph. Memory and network are the target operating devices. Each request involves all graph vertices and requires all servers to be involved in its completion. The latency of a single request is in the range of minutes to hours (days). The request concurrency is in single digits. Google's Pregel <sup id="fnref:Pregel"><a class="footnote-ref" href="#fn:Pregel">5</a></sup> represents the typical origin of graph processing systems. Its point-centric programming abstraction and BSP's operational model constitute a programming paradigm that is a more graph-friendly API abstraction than the previous Hadoop Map-Reduce.</li>
+<li>(Offline) The graph processing system is for high-volume, concurrency, iteration, processing, and analysis of the full graph. Memory and network are the target operating devices. Each request involves all graph vertices and requires all servers to be involved in its completion. The latency of a single request is in the range of minutes to hours (days). The request concurrency is in single digits. Google's Pregel <sup id="fnref:Pregel"><a class="footnote-ref" href="#fn:Pregel">4</a></sup> represents the typical origin of graph processing systems. Its point-centric programming abstraction and BSP's operational model constitute a programming paradigm that is a more graph-friendly API abstraction than the previous Hadoop Map-Reduce.</li>
 </ul>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/databaseandprocess.png" />
-<sup id="fnref:iga"><a class="footnote-ref" href="#fn:iga">6</a></sup></p>
+<sup id="fnref:iga"><a class="footnote-ref" href="#fn:iga">5</a></sup></p>
 <h3 id="graph_sharding_methods">Graph sharding methods<a class="headerlink" href="#graph_sharding_methods" title="Permanent link">&para;</a></h3>
 <p>For large-scale graph data, it is difficult to store it in the memory of a single server, and even just storing the graph structure itself is not enough. By increasing the capacity of a single server, its cost price usually rises exponentially.</p>
 <p>As the volume of data increases, for example, 100 billion data already exceeds the capacity of all commercially available servers on the market.</p>
@@ -8067,7 +8067,7 @@
 <p>However, the sharding of data structures like graphs is usually less intuitive, because usually, graphs are "fully connected" and each vertex can be connected to any other vertex in usually 6 hops.</p>
 <p>And it has been theoretically proven that the graph sharding problem is NP.</p>
 <p>When distributing the entire graph data across multiple servers, the cross-server network access latency is 10 times higher than the hardware (memory) access time inside the same server. Therefore, for some depth-first traversal scenarios, a large number of cross-network accesses occur, resulting in extremely high overall latency.</p>
-<p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/lessrpc.png" /><sup id="fnref:gpml"><a class="footnote-ref" href="#fn:gpml">7</a></sup></p>
+<p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/lessrpc.png" /><sup id="fnref:gpml"><a class="footnote-ref" href="#fn:gpml">6</a></sup></p>
 <p>Usually, graphs have a clear power-law distribution. A small number of vertices have much denser neighboring edges than the average vertices. Though processing these vertices can usually be within the same server which reduces cross-network access, load will be far more heavier than the average.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/Power_Law_Distribution.png" /></p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/singleserver.png" /></p>
@@ -8083,12 +8083,12 @@
 <li>Adding read-only replicas or views: Add read-only replicas or create a view for some of the graph sharding, and pass the heavier load of read requests through these sharding servers.  </li>
 </ul>
 <ul>
-<li>Performing fine-grained graph sharding: Form multiple small partitions of vertices and edges instead of one large sharding, and then place the more correlated partitions on the same server as much as possible. <sup id="fnref:arr"><a class="footnote-ref" href="#fn:arr">8</a></sup>. </li>
+<li>Performing fine-grained graph sharding: Form multiple small partitions of vertices and edges instead of one large sharding, and then place the more correlated partitions on the same server as much as possible. <sup id="fnref:arr"><a class="footnote-ref" href="#fn:arr">7</a></sup>. </li>
 </ul>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/smartgraph.png" /></p>
 <p>A mixture of these approaches is also used in specific engineering practices. Usually, offline graph processing systems perform some degree of graph preprocessing to improve the locality through an ETL process, while online graph database systems usually choose a periodic data rebalancing process to improve data locality. </p>
 <h3 id="technical_challenges">Technical challenges<a class="headerlink" href="#technical_challenges" title="Permanent link">&para;</a></h3>
-<p>In the literature <sup id="fnref:Ubiquity"><a class="footnote-ref" href="#fn:Ubiquity">9</a></sup>, a thorough investigation of graphs and challenges is done, and the following lists the top ten graph technology challenges.</p>
+<p>In the literature <sup id="fnref:Ubiquity"><a class="footnote-ref" href="#fn:Ubiquity">8</a></sup>, a thorough investigation of graphs and challenges is done, and the following lists the top ten graph technology challenges.</p>
 <ul>
 <li>Scalability: Loading and upgrading big graphs, performing graph computation and graph traversal, use of triggers and supernodes</li>
 <li>Visualization: Customizable layouts, rendering and display big images, and display dynamic and updated display</li>
@@ -8104,26 +8104,26 @@
 <p>There is a common misconception about graph databases that any data access involving graph structure needs to be stored in a graph database. </p>
 <p>When the amount of data is not large, single machine memory is enough to store the data. You can use some single-machine open-source tools to store tens of millions of vertices and edges.</p>
 <ul>
-<li>JGraphT<sup id="fnref:JGraphT"><a class="footnote-ref" href="#fn:JGraphT">10</a></sup>: A well-known open-source Java graph theory library, which implements a considerable number of efficient graph algorithms.</li>
+<li>JGraphT<sup id="fnref:JGraphT"><a class="footnote-ref" href="#fn:JGraphT">9</a></sup>: A well-known open-source Java graph theory library, which implements a considerable number of efficient graph algorithms.</li>
 </ul>
 <ul>
-<li>igraph<sup id="fnref:igraph"><a class="footnote-ref" href="#fn:igraph">11</a></sup>: A lightweight and powerful library, supporting R, Python, and C++.</li>
+<li>igraph<sup id="fnref:igraph"><a class="footnote-ref" href="#fn:igraph">10</a></sup>: A lightweight and powerful library, supporting R, Python, and C++.</li>
 </ul>
 <ul>
-<li>NetworkX<sup id="fnref:NetworkX"><a class="footnote-ref" href="#fn:NetworkX">12</a></sup>: The first choice for data scientists doing graph theory analysis.</li>
+<li>NetworkX<sup id="fnref:NetworkX"><a class="footnote-ref" href="#fn:NetworkX">11</a></sup>: The first choice for data scientists doing graph theory analysis.</li>
 </ul>
 <ul>
-<li>Cytoscape<sup id="fnref:Cytoscape"><a class="footnote-ref" href="#fn:Cytoscape">13</a></sup>: A powerful visual open-source graph analysis tool.</li>
+<li>Cytoscape<sup id="fnref:Cytoscape"><a class="footnote-ref" href="#fn:Cytoscape">12</a></sup>: A powerful visual open-source graph analysis tool.</li>
 </ul>
 <ul>
-<li>Gephi<sup id="fnref:Gephi"><a class="footnote-ref" href="#fn:Gephi">14</a></sup>: A powerful visual open-source graph analysis tool.</li>
+<li>Gephi<sup id="fnref:Gephi"><a class="footnote-ref" href="#fn:Gephi">13</a></sup>: A powerful visual open-source graph analysis tool.</li>
 </ul>
 <ul>
-<li>arrows.app<sup id="fnref:Arrow"><a class="footnote-ref" href="#fn:Arrow">15</a></sup>: A simple brain mapping tool for visually generating Cypher statements.</li>
+<li>arrows.app<sup id="fnref:Arrow"><a class="footnote-ref" href="#fn:Arrow">14</a></sup>: A simple brain mapping tool for visually generating Cypher statements.</li>
 </ul>
 <h3 id="industry_databases_and_benchmarks">Industry databases and benchmarks<a class="headerlink" href="#industry_databases_and_benchmarks" title="Permanent link">&para;</a></h3>
 <h4 id="ldbc">LDBC<a class="headerlink" href="#ldbc" title="Permanent link">&para;</a></h4>
-<p>LDBC<sup id="fnref:LDBC"><a class="footnote-ref" href="#fn:LDBC">16</a></sup> (Linked Data Benchmark Council) is a non-profit organization composed of hardware and software giants such as Oracle, Intel and mainstream graph database vendors such as Neo4j and TigerGraph, which is the benchmark guide developer and test result publisher for graphs and has a high influence in the industry.</p>
+<p>LDBC<sup id="fnref:LDBC"><a class="footnote-ref" href="#fn:LDBC">15</a></sup> (Linked Data Benchmark Council) is a non-profit organization composed of hardware and software giants such as Oracle, Intel and mainstream graph database vendors such as Neo4j and TigerGraph, which is the benchmark guide developer and test result publisher for graphs and has a high influence in the industry.</p>
 <p>SNB (Social Network Benchmark) is one of the benchmarks developed by the Linked Data Benchmark Committee (LDBC) for graph databases and is divided into two scenarios: interactive query (Interactive) and business intelligence (BI). Its role is similar to that of TPC-C, TPC-H, and other tests in SQL-type databases, which can help users compare the functions, performance, and capacity of various graph database products.</p>
 <p>An SNB dataset simulates the relationship between people and posts of a social network, taking into account the distribution properties of the social network, the activity of people, and other social information.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/ldbc.png" /></p>
@@ -8133,12 +8133,12 @@
 <h3 id="graph_technologies_of_different_origins_and_goals_are_learning_from_and_integrating_with_each_other">Graph technologies of different origins and goals are learning from and integrating with each other<a class="headerlink" href="#graph_technologies_of_different_origins_and_goals_are_learning_from_and_integrating_with_each_other" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/convergenceofcapability.png" /></p>
 <h3 id="the_trends_in_cloud_computing_place_higher_demands_on_scalability">The trends in cloud computing place higher demands on scalability.<a class="headerlink" href="#the_trends_in_cloud_computing_place_higher_demands_on_scalability" title="Permanent link">&para;</a></h3>
-<p>According to Gartner's projections, cloud services have been growing at a rapid rate and penetration <sup id="fnref:cl"><a class="footnote-ref" href="#fn:cl">17</a></sup>. A large number of commercial software is gradually moving from a completely local and private model 10 years ago to a cloud services-based business model.
+<p>According to Gartner's projections, cloud services have been growing at a rapid rate and penetration <sup id="fnref:cl"><a class="footnote-ref" href="#fn:cl">16</a></sup>. A large number of commercial software is gradually moving from a completely local and private model 10 years ago to a cloud services-based business model.
 One of the major advantages of cloud services is that they offer near-infinite scalability. It requires that various cloud infrastructure-based software must have a better ability to scale quickly and elastically. </p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/cloudtrends.png" /></p>
 <h3 id="trends_in_hardware_that_ssd_will_be_the_mainstream_persistent_device">Trends in hardware that SSD will be the mainstream persistent device<a class="headerlink" href="#trends_in_hardware_that_ssd_will_be_the_mainstream_persistent_device" title="Permanent link">&para;</a></h3>
 <p>Hardware determines software architecture. From the 1950s, when Moore's Law was discovered, to the 00s, when multi-core was introduced, hardware trends and speeds have profoundly determined software architecture. Database systems are mostly designed around "hard disk + memory", high-performance computing systems are mostly designed around "memory + CPU", and distributed systems are designed completely differently for 1 gigabit, 10 gigabits, and RDMA.</p>
-<p>Graph traversals are featured as random access. Early graph database systems adopted the large memory + HDD architecture. By designing some data structure in memory, random access can be achieved in memory (B+ trees, Hash tables) for the purpose of optimizing graph topology traversal. And then the random access was converted into sequential reads and writes suitable for HDDs. The entire software architecture (including the storage and compute layers) must be based on and built around such IO processes. With the decline in SSD prices <sup id="fnref:ssdhdd"><a class="footnote-ref" href="#fn:ssdhdd">18</a></sup>, SSDs are replacing HDDs as the dominant device. Friendly random access, deep IO queue, fast access are the features of SSD that differ from HDD's highly repetitive sequence, random latency, and easily damaged disk. The redesign for all software architectures becomes a heavy historical technical burden.</p>
+<p>Graph traversals are featured as random access. Early graph database systems adopted the large memory + HDD architecture. By designing some data structure in memory, random access can be achieved in memory (B+ trees, Hash tables) for the purpose of optimizing graph topology traversal. And then the random access was converted into sequential reads and writes suitable for HDDs. The entire software architecture (including the storage and compute layers) must be based on and built around such IO processes. With the decline in SSD prices <sup id="fnref:ssdhdd"><a class="footnote-ref" href="#fn:ssdhdd">17</a></sup>, SSDs are replacing HDDs as the dominant device. Friendly random access, deep IO queue, fast access are the features of SSD that differ from HDD's highly repetitive sequence, random latency, and easily damaged disk. The redesign for all software architectures becomes a heavy historical technical burden.</p>
 <p><img alt="" src="https://docs-cdn.nebula-graph.com.cn/books/images/ssdhdd.png" /></p>
 <div class="footnote">
 <hr />
@@ -8146,56 +8146,53 @@ One of the major advantages of cloud services is that they offer near-infinite s
 <li id="fn:lan">
 <p>https://graphaware.com/graphaware/2020/02/17/graph-technology-landscape-2020.html&#160;<a class="footnote-backref" href="#fnref:lan" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:info">
-<p>Electronic copies are available for learning purposes by contacting <a href="mailto:min.wu@vesoft.com">Author</a>.&#160;<a class="footnote-backref" href="#fnref:info" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
 <li id="fn:subiso">
-<p>https://en.wikipedia.org/wiki/Graph_isomorphism&#160;<a class="footnote-backref" href="#fnref:subiso" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>https://en.wikipedia.org/wiki/Graph_isomorphism&#160;<a class="footnote-backref" href="#fnref:subiso" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:biggraph">
-<p>The Future is Big Graphs! A Community View on Graph Processing Systems. https://arxiv.org/abs/2012.06171&#160;<a class="footnote-backref" href="#fnref:biggraph" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>The Future is Big Graphs! A Community View on Graph Processing Systems. https://arxiv.org/abs/2012.06171&#160;<a class="footnote-backref" href="#fnref:biggraph" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:Pregel">
-<p>G. Malewicz, M. H. Austern, A. J. Bik, J. C. Dehnert, I. Horn, N. Leiser, and G. Czajkowski. Pregel: a system for large-scale graph processing. In Proceedings of the International Conference on Management of data (SIGMOD), pages 135–146, New York, NY, USA, 2010. ACM&#160;<a class="footnote-backref" href="#fnref:Pregel" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>G. Malewicz, M. H. Austern, A. J. Bik, J. C. Dehnert, I. Horn, N. Leiser, and G. Czajkowski. Pregel: a system for large-scale graph processing. In Proceedings of the International Conference on Management of data (SIGMOD), pages 135–146, New York, NY, USA, 2010. ACM&#160;<a class="footnote-backref" href="#fnref:Pregel" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:iga">
-<p>https://neo4j.com/graphacademy/training-iga-40/02-iga-40-overview-of-graph-algorithms/&#160;<a class="footnote-backref" href="#fnref:iga" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+<p>https://neo4j.com/graphacademy/training-iga-40/02-iga-40-overview-of-graph-algorithms/&#160;<a class="footnote-backref" href="#fnref:iga" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 <li id="fn:gpml">
-<p>https://livebook.manning.com/book/graph-powered-machine-learning/welcome/v-8/&#160;<a class="footnote-backref" href="#fnref:gpml" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+<p>https://livebook.manning.com/book/graph-powered-machine-learning/welcome/v-8/&#160;<a class="footnote-backref" href="#fnref:gpml" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 <li id="fn:arr">
-<p>https://www.arangodb.com/learn/graphs/using-smartgraphs-arangodb/&#160;<a class="footnote-backref" href="#fnref:arr" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+<p>https://www.arangodb.com/learn/graphs/using-smartgraphs-arangodb/&#160;<a class="footnote-backref" href="#fnref:arr" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 <li id="fn:Ubiquity">
-<p>https://arxiv.org/abs/1709.03188&#160;<a class="footnote-backref" href="#fnref:Ubiquity" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+<p>https://arxiv.org/abs/1709.03188&#160;<a class="footnote-backref" href="#fnref:Ubiquity" title="Jump back to footnote 8 in the text">&#8617;</a></p>
 </li>
 <li id="fn:JGraphT">
-<p>https://jgrapht.org/&#160;<a class="footnote-backref" href="#fnref:JGraphT" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+<p>https://jgrapht.org/&#160;<a class="footnote-backref" href="#fnref:JGraphT" title="Jump back to footnote 9 in the text">&#8617;</a></p>
 </li>
 <li id="fn:igraph">
-<p>https://igraph.org/&#160;<a class="footnote-backref" href="#fnref:igraph" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+<p>https://igraph.org/&#160;<a class="footnote-backref" href="#fnref:igraph" title="Jump back to footnote 10 in the text">&#8617;</a></p>
 </li>
 <li id="fn:NetworkX">
-<p>https://networkx.org/&#160;<a class="footnote-backref" href="#fnref:NetworkX" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+<p>https://networkx.org/&#160;<a class="footnote-backref" href="#fnref:NetworkX" title="Jump back to footnote 11 in the text">&#8617;</a></p>
 </li>
 <li id="fn:Cytoscape">
-<p>https://cytoscape.org/&#160;<a class="footnote-backref" href="#fnref:Cytoscape" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+<p>https://cytoscape.org/&#160;<a class="footnote-backref" href="#fnref:Cytoscape" title="Jump back to footnote 12 in the text">&#8617;</a></p>
 </li>
 <li id="fn:Gephi">
-<p>https://gephi.org/&#160;<a class="footnote-backref" href="#fnref:Gephi" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+<p>https://gephi.org/&#160;<a class="footnote-backref" href="#fnref:Gephi" title="Jump back to footnote 13 in the text">&#8617;</a></p>
 </li>
 <li id="fn:Arrow">
-<p>https://arrows.app/&#160;<a class="footnote-backref" href="#fnref:Arrow" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+<p>https://arrows.app/&#160;<a class="footnote-backref" href="#fnref:Arrow" title="Jump back to footnote 14 in the text">&#8617;</a></p>
 </li>
 <li id="fn:LDBC">
-<p>https://github.com/ldbc/ldbc_snb_docs&#160;<a class="footnote-backref" href="#fnref:LDBC" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+<p>https://github.com/ldbc/ldbc_snb_docs&#160;<a class="footnote-backref" href="#fnref:LDBC" title="Jump back to footnote 15 in the text">&#8617;</a></p>
 </li>
 <li id="fn:cl">
-<p>https://cloudcomputing-news.net/news/2019/apr/15/public-cloud-soaring-to-331b-by-2022-according-to-gartner/&#160;<a class="footnote-backref" href="#fnref:cl" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+<p>https://cloudcomputing-news.net/news/2019/apr/15/public-cloud-soaring-to-331b-by-2022-according-to-gartner/&#160;<a class="footnote-backref" href="#fnref:cl" title="Jump back to footnote 16 in the text">&#8617;</a></p>
 </li>
 <li id="fn:ssdhdd">
-<p>https://blocksandfiles.com/2021/01/25/wikibon-ssds-vs-hard-drives-wrights-law/&#160;<a class="footnote-backref" href="#fnref:ssdhdd" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+<p>https://blocksandfiles.com/2021/01/25/wikibon-ssds-vs-hard-drives-wrights-law/&#160;<a class="footnote-backref" href="#fnref:ssdhdd" title="Jump back to footnote 17 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -8205,7 +8202,7 @@ One of the major advantages of cloud services is that they offer near-infinite s
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 21, 2023</span>
       
     
   </small>
