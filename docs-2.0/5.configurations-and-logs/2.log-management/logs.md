@@ -74,3 +74,7 @@ If the log level is changed while NebulaGraph is running, it will be restored to
 ## RocksDB runtime logs
 
 RocksDB runtime logs are usually used to debug RocksDB parameters and stored in `/usr/local/nebula/data/storage/nebula/$id/data/LOG`. `$id` is the ID of the example.
+
+## Log recycle
+
+How to recycle logs when the runtime log file is too large, see [FAQs](../../20.appendix/0.FAQ.md).
