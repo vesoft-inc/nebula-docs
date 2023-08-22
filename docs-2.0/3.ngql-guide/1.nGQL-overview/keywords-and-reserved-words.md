@@ -1,8 +1,8 @@
 # Keywords
 
-Keywords have significance in nGQL. It can be classified into reserved keywords and non-reserved keywords. It is not recommend to use keywords in schema.
+Keywords in nGQL are words with particular meanings, such as `CREATE` and `TAG` in the `CREATE TAG` statement. Keywords that require special processing to be used as identifiers are referred to as `reserved keywords`, while the part of keywords that can be used directly as identifiers are called `non-reserved keywords`."
 
-If you must use keywords in schema:
+It is not recommend to use keywords in schema. If you must use keywords in schema:
 
 - Non-reserved keywords can be used as identifiers without quotes if they are all in lowercase. However, if a non-reserved keyword contains any uppercase letters when used as an identifier, it must be enclosed in backticks (\`), for example, \`Comment\`.
 
@@ -136,6 +136,21 @@ WITH
 XOR
 YIELD
 ```
+
+{{ent.ent_begin}}
+The following reserved keywords are only available in {{nebula.release}} enterprise version.
+
+```
+JOIN
+LEFT
+RIGHT
+INNER
+OUTER
+SEMI
+ANTI
+```
+{{ent.ent_end}}
+
 
 ## Non-reserved keywords
 
