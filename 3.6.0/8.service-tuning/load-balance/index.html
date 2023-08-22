@@ -4153,47 +4153,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#balance_partition_distribution" class="md-nav__link">
-    Balance partition distribution
-  </a>
-  
-    <nav class="md-nav" aria-label="Balance partition distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stop_data_balancing" class="md-nav__link">
-    Stop data balancing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restore_a_balance_job" class="md-nav__link">
-    Restore a balance job
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migrate_partition" class="md-nav__link">
-    Migrate partition
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
@@ -7655,47 +7614,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#balance_partition_distribution" class="md-nav__link">
-    Balance partition distribution
-  </a>
-  
-    <nav class="md-nav" aria-label="Balance partition distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stop_data_balancing" class="md-nav__link">
-    Stop data balancing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#restore_a_balance_job" class="md-nav__link">
-    Restore a balance job
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migrate_partition" class="md-nav__link">
-    Migrate partition
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
@@ -7741,23 +7659,26 @@
 <p class="admonition-title">Danger</p>
 <p>The <code>BALANCE</code> commands migrate data and balance the distribution of partitions by creating and executing a set of subtasks. <strong>DO NOT</strong> stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
 </div>
-<!-- -->
-<h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">&para;</a></h2>
-<div class="admonition enterpriseonly">
-<p class="admonition-title">Enterpriseonly</p>
-<p>Only available for the NebulaGraph Enterprise Edition.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the current graph space already has a <code>SUBMIT JOB BALANCE DATA</code> job in the <code>FAILED</code> status, you can restore the <code>FAILED</code> job, but cannot start a new <code>SUBMIT JOB BALANCE DATA</code> job. If the job continues to fail, manually stop it, and then you can start a new one.</p>
-</div>
-<p>The <code>SUBMIT JOB BALANCE DATA</code> commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.</p>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts.</p>
-<ol>
-<li>
-<p>Run <code>SHOW HOSTS</code> to check the partition distribution.</p>
-<div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
+<!--
+## Balance partition distribution
+
+!!! enterpriseonly
+
+    Only available for the NebulaGraph Enterprise Edition.
+
+!!! note
+
+    If the current graph space already has a `SUBMIT JOB BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `SUBMIT JOB BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+
+The `SUBMIT JOB BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
+
+### Examples
+
+After you add new storage hosts into the cluster, no partition is deployed on the new hosts.
+
+1. Run `SHOW HOSTS` to check the partition distribution.
+
+    <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 | Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
@@ -7765,10 +7686,10 @@
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 15           | &quot;basketballplayer:15&quot; | &quot;basketballplayer:15&quot;  | &quot;3.6.0&quot; |
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 </code></pre></div>
-</li>
-<li>
-<p>Enter the graph space <code>basketballplayer</code>, and execute the command <code>SUBMIT JOB BALANCE DATA</code> to balance the distribution of storage partitions.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
+
+2. Enter the graph space `basketballplayer`, and execute the command `SUBMIT JOB BALANCE DATA` to balance the distribution of storage partitions.
+
+    <div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
 nebula&gt; SUBMIT JOB BALANCE DATA;
 +------------+
 | New Job Id |
@@ -7776,10 +7697,10 @@ nebula&gt; SUBMIT JOB BALANCE DATA;
 | 25         |
 +------------+
 </code></pre></div>
-</li>
-<li>
-<p>The job ID is returned after running <code>SUBMIT JOB BALANCE DATA</code>. Run <code>SHOW JOB &lt;job_id&gt;</code> to check the status of the job.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 25;
+
+3. The job ID is returned after running `SUBMIT JOB BALANCE DATA`. Run `SHOW JOB <job_id>` to check the status of the job.
+
+    <div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 25;
 +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
 | Job Id(spaceId:partId) | Command(src-&gt;dst) | Status     | Start Time                 | Stop Time                  | State       |
 +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
@@ -7787,14 +7708,14 @@ nebula&gt; SUBMIT JOB BALANCE DATA;
 | &quot;Total:0&quot;              | &quot;Succeeded:0&quot;     | &quot;Failed:0&quot; | &quot;In Progress:0&quot;            | &quot;Invalid:0&quot;                | &quot;&quot;          |
 +------------------------+-------------------+------------+----------------------------+----------------------------+-------------+
 </code></pre></div>
-</li>
-<li>
-<p>When all the subtasks succeed, the load balancing process finishes. Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>SUBMIT JOB BALANCE DATA</code> does not balance the leader distribution. For more information, see <a href="#balance_leader_distribution">Balance leader distribution</a>.</p>
-</div>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+
+4. When all the subtasks succeed, the load balancing process finishes. Run `SHOW HOSTS` again to make sure the partition distribution is balanced.
+
+  !!! Note
+
+        `SUBMIT JOB BALANCE DATA` does not balance the leader distribution. For more information, see [Balance leader distribution](#balance_leader_distribution).
+
+  <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
 +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
 | Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version              |
 +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
@@ -7802,31 +7723,37 @@ nebula&gt; SUBMIT JOB BALANCE DATA;
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot; | &quot;basketballplayer:8&quot;   | &quot;3.6.0&quot; |
 +-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
 </code></pre></div>
-</li>
-</ol>
-<p>If any subtask fails, run <code>RECOVER JOB &lt;job_id&gt;</code> to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the <a href="https://github.com/vesoft-inc/nebula/discussions">NebulaGraph community</a>.</p>
-<h3 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">&para;</a></h3>
-<p>To stop a balance job, run <code>STOP JOB &lt;job_id&gt;</code>.</p>
-<ul>
-<li>If no balance job is running, an error is returned.</li>
-</ul>
-<ul>
-<li>If a balance job is running, <code>Job stopped</code> is returned.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>STOP JOB &lt;job_id&gt;</code> does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to <code>INVALID</code>. The status of ongoing subtasks is set to <code>SUCCEEDED</code> or <code>FAILED</code> based on the result. You can run the <code>SHOW JOB &lt;job_id&gt;</code> command to check the stopped job status.</p>
-</div>
-<p>Once all the subtasks are finished or stopped, you can run <code>RECOVER JOB &lt;job_id&gt;</code> again to balance the partitions again, the subtasks continue to be executed in the original state.</p>
-<h3 id="restore_a_balance_job">Restore a balance job<a class="headerlink" href="#restore_a_balance_job" title="Permanent link">&para;</a></h3>
-<p>To restore a balance job in the <code>FAILED</code> or <code>STOPPED</code> status, run <code>RECOVER JOB &lt;job_id&gt;</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For a <code>STOPPED</code> <code>SUBMIT JOB BALANCE DATA</code> job, NebulaGraph detects whether the same type of <code>FAILED</code> jobs or <code>FINISHED</code> jobs have been created since the start time of the job. If so, the <code>STOPPED</code> job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.</p>
-</div>
-<h3 id="migrate_partition">Migrate partition<a class="headerlink" href="#migrate_partition" title="Permanent link">&para;</a></h3>
-<p>To migrate specified partitions and scale in the cluster, you can run <code>SUBMIT JOB BALANCE DATA REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code>.</p>
-<p>For example, to migrate the partitions in server <code>192.168.8.100:9779</code>, the command as following:</p>
+
+If any subtask fails, run `RECOVER JOB <job_id>` to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the [NebulaGraph community](https://github.com/vesoft-inc/nebula/discussions).
+
+### Stop data balancing
+
+To stop a balance job, run `STOP JOB <job_id>`.
+
+* If no balance job is running, an error is returned.
+
+* If a balance job is running, `Job stopped` is returned.
+
+!!! note
+
+    `STOP JOB <job_id>` does not stop the running subtasks but cancels all follow-up subtasks. The status of follow-up subtasks is set to `INVALID`. The status of ongoing subtasks is set to `SUCCEEDED` or `FAILED` based on the result. You can run the `SHOW JOB <job_id>` command to check the stopped job status.
+
+Once all the subtasks are finished or stopped, you can run `RECOVER JOB <job_id>` again to balance the partitions again, the subtasks continue to be executed in the original state.
+
+### Restore a balance job
+
+To restore a balance job in the `FAILED` or `STOPPED` status, run `RECOVER JOB <job_id>`.
+
+!!! note
+
+    For a `STOPPED` `SUBMIT JOB BALANCE DATA` job, NebulaGraph detects whether the same type of `FAILED` jobs or `FINISHED` jobs have been created since the start time of the job. If so, the `STOPPED` job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.
+
+### Migrate partition
+
+To migrate specified partitions and scale in the cluster, you can run `SUBMIT JOB BALANCE DATA REMOVE <ip:port> [,<ip>:<port> ...]`.
+
+For example, to migrate the partitions in server `192.168.8.100:9779`, the command as following:
+
 <div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB BALANCE DATA REMOVE 192.168.8.100:9779;
 nebula&gt; SHOW HOSTS;
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
@@ -7836,11 +7763,12 @@ nebula&gt; SHOW HOSTS;
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;  | &quot;No valid partition&quot;   | &quot;3.6.0&quot; |
 +-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see <a href="../../4.deployment-and-installation/manage-storage-host/">Manage Storage hosts</a>.</p>
-</div>
-<!-- -->
+
+!!! note
+
+    This command migrates partitions to other storage hosts but does not delete the current storage host from the cluster. To delete the Storage hosts from cluster, see [Manage Storage hosts](../4.deployment-and-installation/manage-storage-host.md).
+
+-->
 
 <!-- 下面是注释内容
 !!! danger

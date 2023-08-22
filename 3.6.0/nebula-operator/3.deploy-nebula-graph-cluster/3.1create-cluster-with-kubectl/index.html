@@ -6965,26 +6965,6 @@
     Scaling clusters
   </a>
   
-    <nav class="md-nav" aria-label="Scaling clusters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scale_out_clusters" class="md-nav__link">
-    Scale out clusters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scale_in_clusters" class="md-nav__link">
-    Scale in clusters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -7669,26 +7649,6 @@
     Scaling clusters
   </a>
   
-    <nav class="md-nav" aria-label="Scaling clusters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scale_out_clusters" class="md-nav__link">
-    Scale out clusters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scale_in_clusters" class="md-nav__link">
-    Scale in clusters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -7737,12 +7697,11 @@
 <ul>
 <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">You have created StorageClass</a></li>
 </ul>
-<!-- -->
+<!--
 
-<ul>
-<li><a href="../3.0.deploy-lm/">LM has been installed and the License Key has been successfully loaded</a> (Enterprise only)</li>
-</ul>
-<!-- -->
+- [LM has been installed and the License Key has been successfully loaded](3.0.deploy-lm.md) (Enterprise only)
+
+-->
 
 <h2 id="create_clusters">Create clusters<a class="headerlink" href="#create_clusters" title="Permanent link">&para;</a></h2>
 <p>The following example shows how to create a NebulaGraph cluster by creating a cluster named <code>nebula</code>.</p>
@@ -7751,28 +7710,25 @@
 <p>Create a namespace, for example, <code>nebula</code>. If not specified, the <code>default</code> namespace is used.</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>nebula
 </code></pre></div>
-<!-- -->
-</li>
-<li>
-<p>Create a Secret for pulling the NebulaGraph Enterprise image from a private repository.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Skip this step if you are using NebulaGraph Community Edition.</p>
-</div>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;nebula&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
+<!--
+2. Create a Secret for pulling the NebulaGraph Enterprise image from a private repository.
+
+  !!! note
+        Skip this step if you are using NebulaGraph Community Edition.
+
+  <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;nebula&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
 --docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
 --docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
 --docker-password<span class="o">=</span>DOCKER_PASSWORD
 </code></pre></div>
-<ul>
-<li><code>&lt;nebula&gt;</code>: The namespace where this Secret will be stored.</li>
-<li><code>&lt;image-pull-secret&gt;</code>: Specify the name of the Secret.</li>
-<li><code>DOCKER_REGISTRY_SERVER</code>: Specify the server address of the private repository from which the image will be pulled, such as <code>reg.example-inc.com</code>.</li>
-<li><code>DOCKER_USER</code>: The username for the image repository.</li>
-<li><code>DOCKER_PASSWORD</code>: The password for the image repository.
-<!-- -->
-</li>
-</ul>
+
+  - `<nebula>`: The namespace where this Secret will be stored.
+  - `<image-pull-secret>`: Specify the name of the Secret.
+  - `DOCKER_REGISTRY_SERVER`: Specify the server address of the private repository from which the image will be pulled, such as `reg.example-inc.com`.
+  - `DOCKER_USER`: The username for the image repository.
+  - `DOCKER_PASSWORD`: The password for the image repository.
+  -->
+
 </li>
 <li>
 <p>Create a file named <code>apps_v1alpha1_nebulacluster.yaml</code>.</p>
@@ -7914,56 +7870,31 @@
 </table>
 </li>
 </ul>
-<!-- -->
+<!--
 
-<ul>
-<li>
-<p>For a NebulaGraph Enterprise cluster</p>
-<div class="admonition enterpriseonly">
-<p class="admonition-title">Enterpriseonly</p>
-<p>Make sure that you have access to NebulaGraph Enterprise Edition images before pulling the image. </p>
-</div>
-<p>Create a file named <code>apps_v1alpha1_nebulacluster.yaml</code>. Contact our sales team to get a complete NebulaGraph Enterprise Edition cluster YAML example. You must customize and modify the following parameters, and other parameters can be changed as needed.</p>
-<ul>
-<li><code>spec.metad.licenseManagerURL</code></li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.image</code></li>
-<li><code>spec.imagePullSecrets</code></li>
-</ul>
-<p>The parameters only for NebulaGraph Enterprise Edition are described as follows:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Parameter</th>
-<th align="left">Default value</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>spec.metad.licenseManagerURL</code></td>
-<td align="left">-</td>
-<td align="left">Configure the URL that points to the LM, which consists of the access address and port number (default port <code>9119</code>) of the LM. For example, <code>192.168.8.100:9119</code>. <strong>You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.</strong></td>
-</tr>
-<tr>
-<td align="left"><code>spec.storaged.enableAutoBalance</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">Specifies whether to enable automatic data balancing. For more information, see <a href="../../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage/">Balance storage data after scaling out</a>.</td>
-</tr>
-<tr>
-<td align="left"><code>spec.enableBR</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">Specifies whether to enable the BR tool. For more information, see <a href="../../10.backup-restore-using-operator/">Backup and restore</a>.</td>
-</tr>
-<tr>
-<td align="left"><code>spec.imagePullSecrets</code></td>
-<td align="left">-</td>
-<td align="left">Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<!-- -->
+  - For a NebulaGraph Enterprise cluster
+
+    !!! enterpriseonly
+
+        Make sure that you have access to NebulaGraph Enterprise Edition images before pulling the image. 
+
+    Create a file named `apps_v1alpha1_nebulacluster.yaml`. Contact our sales team to get a complete NebulaGraph Enterprise Edition cluster YAML example. You must customize and modify the following parameters, and other parameters can be changed as needed.
+
+    - `spec.metad.licenseManagerURL`
+    - `spec.<graphd|metad|storaged>.image`
+    - `spec.imagePullSecrets`
+
+    The parameters only for NebulaGraph Enterprise Edition are described as follows:
+
+    | Parameter    | Default value  | Description    |
+    | :---- | :--- | :--- |
+    | `spec.metad.licenseManagerURL` | - | Configure the URL that points to the LM, which consists of the access address and port number (default port `9119`) of the LM. For example, `192.168.8.100:9119`. **You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.** |
+    |`spec.storaged.enableAutoBalance`| `false`| Specifies whether to enable automatic data balancing. For more information, see [Balance storage data after scaling out](../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage.md).|
+    |`spec.enableBR`|`false`|Specifies whether to enable the BR tool. For more information, see [Backup and restore](../10.backup-restore-using-operator.md).|
+    |`spec.imagePullSecrets`| - |Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.|
+
+
+  -->
 
 </li>
 <li>
@@ -7988,18 +7919,19 @@ nebula<span class="w">   </span><span class="m">1</span><span class="w">        
 <ul>
 <li>The cluster scaling feature is for NebulaGraph Enterprise Edition only. </li>
 </ul>
-<!-- -->
+<!--
 
-<ul>
-<li>Scaling a NebulaGraph cluster for Enterprise Edition is supported only with NebulaGraph Operator version 1.1.0 or later. </li>
-</ul>
-<p>You can modify the value of <code>replicas</code> in <code>apps_v1alpha1_nebulacluster.yaml</code> to scale a NebulaGraph cluster.</p>
-<h3 id="scale_out_clusters">Scale out clusters<a class="headerlink" href="#scale_out_clusters" title="Permanent link">&para;</a></h3>
-<p>The following shows how to scale out a NebulaGraph cluster by changing the number of Storage services to 5:</p>
-<ol>
-<li>
-<p>Change the value of the <code>storaged.replicas</code> from <code>3</code> to <code>5</code> in <code>apps_v1alpha1_nebulacluster.yaml</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
+- Scaling a NebulaGraph cluster for Enterprise Edition is supported only with NebulaGraph Operator version 1.1.0 or later. 
+
+You can modify the value of `replicas` in `apps_v1alpha1_nebulacluster.yaml` to scale a NebulaGraph cluster.
+
+### Scale out clusters
+
+The following shows how to scale out a NebulaGraph cluster by changing the number of Storage services to 5:
+
+1. Change the value of the `storaged.replicas` from `3` to `5` in `apps_v1alpha1_nebulacluster.yaml`.
+
+  <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
@@ -8029,18 +7961,20 @@ nebula<span class="w">   </span><span class="m">1</span><span class="w">        
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
 </code></pre></div>
-</li>
-<li>
-<p>Run the following command to update the NebulaGraph cluster CR.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
+
+2. Run the following command to update the NebulaGraph cluster CR.
+
+  <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
 </code></pre></div>
-</li>
-<li>
-<p>Check the number of Storage services.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula
+
+3. Check the number of Storage services.
+
+  <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula
 </code></pre></div>
-<p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+
+  Output:
+
+  <div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
 nebula-graphd-0<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m
 nebula-metad-0<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m
 nebula-storaged-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m
@@ -8049,16 +7983,18 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 nebula-storaged-3<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m
 nebula-storaged-4<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m
 </code></pre></div>
-<p>As you can see above, the number of Storage services is scaled up to 5.</p>
-</li>
-</ol>
-<h3 id="scale_in_clusters">Scale in clusters<a class="headerlink" href="#scale_in_clusters" title="Permanent link">&para;</a></h3>
-<p>The principle of scaling in a cluster is the same as scaling out a cluster. You scale in a cluster if the numeric value of the <code>replicas</code> in <code>apps_v1alpha1_nebulacluster.yaml</code> is changed smaller than the current number. For more information, see the <strong>Scale out clusters</strong> section above.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.</p>
-</div>
-<!-- -->
+
+  As you can see above, the number of Storage services is scaled up to 5.
+
+### Scale in clusters
+
+The principle of scaling in a cluster is the same as scaling out a cluster. You scale in a cluster if the numeric value of the `replicas` in `apps_v1alpha1_nebulacluster.yaml` is changed smaller than the current number. For more information, see the **Scale out clusters** section above.
+
+!!! caution
+
+    NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.
+
+-->
 
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Kubectl:</p>
