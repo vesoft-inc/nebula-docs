@@ -109,9 +109,13 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | Document                                                         |
   | ------------------------------------------------------------ |
   | [Local authentication](../7.data-security/1.authentication/1.authentication.md) |
-  | [OpenLDAP](../7.data-security/1.authentication/4.ldap.md) |
   | [User management](../7.data-security/1.authentication/2.management-user.md) |
   | [Roles and privileges](../7.data-security/1.authentication/3.role-list.md) |
+
+  {{ent.ent_begin}}
+  !!! note
+        The [OpenLDAP](../7.data-security/1.authentication/4.ldap.md) feature is only available in NebulaGraph Enterprise Edition.
+  {{ent.ent_end}}
 
 - Balance the distribution of partitions
 
@@ -169,8 +173,12 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data visualization     | [NebulaGraph Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [NebulaGraph Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [NebulaGraph Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [NebulaGraph Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | -|
-  | Data analysis       | [NebulaGraph Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
+  | Data monitoring and O&M | [NebulaGraph Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) | -|
+
+  {{ent.ent_begin}}
+  !!! note
+        The visualization tools [NebulaGraph Dashboard Enterprise](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) and [NebulaGraph Explorer](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) are only available in NebulaGraph Enterprise Edition.
+  {{ent.ent_end}}
 
 
 - Data import and export
@@ -245,10 +253,15 @@ You can check if you have mastered NebulaGraph by completing the following pract
   | Task                                                | Reference                                                         |
   | ------------------------------------------------------- | ------------------------------------------------------------ |
   | Compile the source code of NebulaGraph                                                | [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)                                                             |
-  | Deploy Studio, Dashboard, and Explorer             | [Deploy Studio](../nebula-studio/deploy-connect/st-ug-deploy.md), [Deploy Dashboard](../nebula-dashboard/2.deploy-dashboard.md), and [Deploy Explorer](../nebula-explorer/deploy-connect/ex-ug-deploy.md)                                                            |
+  | Deploy Studio and Dashboard            | [Deploy Studio](../nebula-studio/deploy-connect/st-ug-deploy.md), [Deploy Dashboard](../nebula-dashboard/2.deploy-dashboard.md)                                                            |
   | Load test NebulaGraph with K6                               | [NebulaGraph Bench](../nebula-bench.md) |
   | Query LDBC data (such as queries for vertices, paths, or subgraphs.) | [LDBC](chrome-extension://gfbliohnnapiefjpjlpjnehglfpaknnc/pages/pdf_viewer.html?r=http://ldbcouncil.org/ldbc_snb_docs/ldbc-snb-specification.pdf) and [interactive-short-1.cypher](https://github.com/ldbc/ldbc_snb_interactive/blob/main/cypher/queries/interactive-short-1.cypher) |
 
+  {{ent.ent_begin}}
+!!! note
+
+    [Deploy Explorer](../nebula-explorer/deploy-connect/ex-ug-deploy.md) can be used only in NebulaGraph Enterprise Edition.
+  {{ent.ent_end}}
 
 ## 8. Get NebulaGraph Certifications
 
