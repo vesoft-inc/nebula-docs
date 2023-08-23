@@ -2,6 +2,10 @@
 
 NebulaGraph Analytics is a high-performance graph computing framework tool that performs graph analysis of data in the NebulaGraph database.
 
+!!! enterpriseonly
+
+    This NebulaGraph Analytics tool is available in the NebulaGraph Enterprise Edition only.
+
 ## Prerequisites
 
 - The NebulaGraph Analytics installation package has been obtained. [Contact us](https://www.nebula-graph.io/contact) to apply.

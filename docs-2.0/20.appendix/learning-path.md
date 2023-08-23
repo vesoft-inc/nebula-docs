@@ -109,9 +109,13 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | Document                                                         |
   | ------------------------------------------------------------ |
   | [Local authentication](../7.data-security/1.authentication/1.authentication.md) |
-  | [OpenLDAP](../7.data-security/1.authentication/4.ldap.md) |
   | [User management](../7.data-security/1.authentication/2.management-user.md) |
   | [Roles and privileges](../7.data-security/1.authentication/3.role-list.md) |
+
+  {{ent.ent_begin}}
+  !!! note
+        The [OpenLDAP](../7.data-security/1.authentication/4.ldap.md) feature is only available in NebulaGraph Enterprise Edition.
+  {{ent.ent_end}}
 
 - Balance the distribution of partitions
 
@@ -169,8 +173,12 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | Visualization tools     | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Data visualization     | [NebulaGraph Studio](../nebula-studio/about-studio/st-ug-what-is-graph-studio.md) | [NebulaGraph Studio](https://www.youtube.com/watch?v=6V4salpkIbc&list=PL4ArMmsAnb86R2MfUKFjzTQizCZCrhu2p)|
-  | Data monitoring and O&M | [NebulaGraph Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) [NebulaGraph Dashboard Enterprise Edition](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) | -|
-  | Data analysis       | [NebulaGraph Explorer Enterprise Edition](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) | -                                                            |
+  | Data monitoring and O&M | [NebulaGraph Dashboard Community Edition](../nebula-dashboard/1.what-is-dashboard.md) | -|
+
+  {{ent.ent_begin}}
+  !!! note
+        The visualization tools [NebulaGraph Dashboard Enterprise](../nebula-dashboard-ent/1.what-is-dashboard-ent.md) and [NebulaGraph Explorer](../nebula-explorer/about-explorer/ex-ug-what-is-explorer.md) are only available in NebulaGraph Enterprise Edition.
+  {{ent.ent_end}}
 
 
 - Data import and export
