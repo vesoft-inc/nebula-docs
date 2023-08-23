@@ -1600,6 +1600,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#typeid" class="md-nav__link">
+    typeid()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#src" class="md-nav__link">
     src()
   </a>
@@ -7902,6 +7909,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#typeid" class="md-nav__link">
+    typeid()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#src" class="md-nav__link">
     src()
   </a>
@@ -8201,6 +8215,27 @@
 | &quot;follow&quot; |
 +----------+
 </code></pre></div>
+<h3 id="typeid">typeid()<a class="headerlink" href="#typeid" title="Permanent link">&para;</a></h3>
+<p>typeid() returns the internal ID value of the Edge type of the edge, which can be used to determine the direction by positive or negative.</p>
+<p>Syntax: <code>typeid(&lt;edge&gt;)</code></p>
+<ul>
+<li>Result type: Int</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player)-[e:follow]-(v2) RETURN e,typeid(e), \
+        CASE WHEN typeid(e) &gt; 0 \
+        THEN &quot;Forward&quot; ELSE &quot;Reverse&quot; END AS direction \
+        LIMIT 5;
++----------------------------------------------------+-----------+-----------+
+| e                                                  | typeid(e) | direction |
++----------------------------------------------------+-----------+-----------+
+| [:follow &quot;player127&quot;-&gt;&quot;player114&quot; @0 {degree: 90}] | 5         | &quot;Forward&quot; |
+| [:follow &quot;player127&quot;-&gt;&quot;player148&quot; @0 {degree: 70}] | 5         | &quot;Forward&quot; |
+| [:follow &quot;player148&quot;-&gt;&quot;player127&quot; @0 {degree: 80}] | -5        | &quot;Reverse&quot; |
+| [:follow &quot;player147&quot;-&gt;&quot;player136&quot; @0 {degree: 90}] | 5         | &quot;Forward&quot; |
+| [:follow &quot;player136&quot;-&gt;&quot;player147&quot; @0 {degree: 90}] | -5        | &quot;Reverse&quot; |
++----------------------------------------------------+-----------+-----------+
+</code></pre></div>
 <h3 id="src">src()<a class="headerlink" href="#src" title="Permanent link">&para;</a></h3>
 <p>src() returns the source vertex ID of an edge.</p>
 <p>Syntax: <code>src(&lt;edge&gt;)</code></p>
@@ -8282,7 +8317,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 13, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2023</span>
       
     
   </small>
