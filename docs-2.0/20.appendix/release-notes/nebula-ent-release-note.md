@@ -7,7 +7,7 @@
 
 ## Bug fixes
 
-- Fix the bug that continuous restart of the drainer caused the drainer not to stop properly.
+- Fix the bug that the Drainer failed to stop appropriately as a result of continuous restarting.
 - Fix the bug where a single large query could cause the Graph service to crash.
 - Fix the bug that the `FIND ALL PATH` statement causes out of memory.
 - Fix the bug that adding a path variable to the `MATCH` statement causes the `all()` function's push-down optimization to fail.
