@@ -5694,6 +5694,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#encrypted_backup" class="md-nav__link">
+    Encrypted backup
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5760,8 +5767,8 @@
 <p>This feature is only for the enterprise edition NebulaGraph clusters on Kubernetes.</p>
 </div>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><a href="../../backup-and-restore/nebula-br-ent/1.br-ent-overview/">NebulaGraph BR (Enterprise Edition)</a> is a command line tool for data backup and recovery of NebulaGraph enterprise edition. NebulaGraph Operator is based on the BR tool to achieve data backup and recovery for NebulaGraph clusters on Kubernetes.</p>
-<p>When backing up data, NebulaGraph Operator creates a Job to back up the data in the NebulaGraph cluster to the specified storage service.</p>
+<p><a href="../../backup-and-restore/nebula-br-ent/1.br-ent-overview/">NebulaGraph BR (Enterprise Edition), short for BR-ent</a> is a command line tool for data backup and recovery of NebulaGraph enterprise edition. NebulaGraph Operator utilizes the BR-ent tool to achieve data backup and recovery for NebulaGraph clusters on Kubernetes.</p>
+<p>When backing up data, NebulaGraph Operator creates a job to back up the data in the NebulaGraph cluster to the specified storage service.</p>
 <p>When restoring data, NebulaGraph Operator checks the specified backup NebulaGraph cluster for existence, and whether the access to remote storage is normally based on the information defined in the NebulaRestore resource object. It then creates a new cluster and restores the backup data to the new NebulaGraph cluster. For more information, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/doc/user/br_guide.md#restore-nebulagraph-cluster">restore flowchart</a>.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To backup and restore data using NebulaGraph Operator, the following conditions must be met:</p>
@@ -5810,8 +5817,8 @@ enableBR: true // Set to true to enable the backup and restore function.
 </li>
 </ul>
 <h3 id="full_backup">Full backup<a class="headerlink" href="#full_backup" title="Permanent link">&para;</a></h3>
-<p>When backing up data to a storage service compatible with the S3 protocol, you need to create a backup Job, which will back up the full NebulaGraph data to the specified storage location.</p>
-<p>Here is an example of the YAML file for a full backup Job:</p>
+<p>When backing up data to a storage service compatible with the S3 protocol, you need to create a backup job, which will back up the full NebulaGraph data to the specified storage location.</p>
+<p>Here is an example of the YAML file for a full backup job:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -5840,7 +5847,7 @@ enableBR: true // Set to true to enable the backup and restore function.
 <span class="w">            </span><span class="s">--s3.endpoint</span><span class="nv"> </span><span class="s">https://s3.REGION.amazonaws.com&#39;</span><span class="w">  </span><span class="c1"># The endpoint of the S3 protocol-compatible storage service.</span>
 </code></pre></div>
 <h3 id="incremental_backup">Incremental backup<a class="headerlink" href="#incremental_backup" title="Permanent link">&para;</a></h3>
-<p>Except for the name of the Job and the command specified in <code>spec.template.spec.containers[0].command</code>, the YAML file for incremental backup is the same as that for a full backup. Here is an example of the YAML file for incremental backup:</p>
+<p>Except for the name of the job and the command specified in <code>spec.template.spec.containers[0].command</code>, the YAML file for incremental backup is the same as that for a full backup. Here is an example of the YAML file for incremental backup:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -5901,16 +5908,84 @@ enableBR: true // Set to true to enable the backup and restore function.
 </tr>
 </tbody>
 </table>
-<p>For more settings of the Job, see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">Kubernetes Jobs</a>.</p>
-<p>After the YAML file for the backup Job is set, run the following command to start the backup Job:</p>
+<p>For more settings of the job, see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">Kubernetes Jobs</a>.</p>
+<p>After the YAML file for the backup job is set, run the following command to start the backup job:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>&lt;backup_file_name&gt;.yaml
 </code></pre></div>
 <p>When the data backup succeeds, a backup file is generated in the specified storage location. For example, the backup file name is <code>BACKUP_2023_02_12_10_04_16</code>.</p>
+<h3 id="encrypted_backup">Encrypted backup<a class="headerlink" href="#encrypted_backup" title="Permanent link">&para;</a></h3>
+<p>If you enable mTLS authentication for the NebulaGraph cluster, you need to certify the BR-ent tool to access the NebulaGraph cluster. In the YAML file for the backup job, add volumes to store the client certificate files and the CA certificate files, and mount the certificate files to the container. Then add the <code>--enable_ssl</code> and <code>--insecure_skip_verify</code> options to the command for backing up data. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Create Secrets to store the certificate files before creating the backup job, and make sure the Secrets are in the namespace where the backup job is located. For details, see <a href="../8.custom-cluster-configurations/8.5.enable-ssl/">Enable mTLS in NebulaGraph</a>.</p>
+</div>
+<p>The following provides an example of the YAML file for a full backup job with mTLS authentication enabled:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Job</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-full-backup</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">ttlSecondsAfterFinished</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OnFailure</span>
+<span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-image</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/br-ent:v3.5.1</span>
+<span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup</span>
+<span class="w">          </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/sh</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-ecx</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;exec</span><span class="nv"> </span><span class="s">/usr/local/bin/br-ent</span><span class="nv"> </span><span class="s">backup</span><span class="nv"> </span><span class="s">full</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--meta</span><span class="nv"> </span><span class="s">META_ADDRESS:9559</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--storage</span><span class="nv"> </span><span class="s">s3://BUCKET</span>
+<span class="w">            </span><span class="s">--s3.access_key</span><span class="nv"> </span><span class="s">ACCESS_KEY</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--s3.secret_key</span><span class="nv"> </span><span class="s">SECRET_KEY</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--s3.region</span><span class="nv"> </span><span class="s">REGION</span><span class="w"> </span>
+<span class="w">            </span><span class="s">--s3.endpoint</span><span class="nv"> </span><span class="s">https://s3.REGION.amazonaws.com</span>
+<span class="w">            </span><span class="s">--enable_ssl</span><span class="nv">                                      </span><span class="s">#</span><span class="nv"> </span><span class="s">Enable</span><span class="nv"> </span><span class="s">mTLS</span><span class="nv"> </span><span class="s">authentication.</span>
+<span class="w">            </span><span class="s">--insecure_skip_verify&#39;</span><span class="w">                           </span><span class="c1"># Skip the verification of the server&#39;s certificate chain and hostname.</span>
+<span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">                                       </span><span class="c1"># Mount the certificate files.              </span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/certs/client.crt</span><span class="w">          </span><span class="c1"># The path of the certificate content file. The BR-ent tool reads the file from path /usr/local/certs/&lt;subpath&gt;.</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-crt</span><span class="w">                                </span>
+<span class="w">              </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client.crt</span><span class="w">                             </span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/certs/client.key</span><span class="w">          </span><span class="c1"># The path of the certificate private key file.</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-key</span>
+<span class="w">              </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client.key</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/certs/ca.crt</span><span class="w">              </span><span class="c1"># The path of the CA root certificate file. </span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca-crt</span>
+<span class="w">              </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca.crt</span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">                                                </span><span class="c1"># Create volumes to store the certificate files.</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-crt</span><span class="w">                                    </span><span class="c1"># The name of the volume.</span>
+<span class="w">          </span><span class="nt">secret</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">420</span>
+<span class="w">            </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tls.crt</span><span class="w">                                  </span><span class="c1"># The name of the certificate content in the Secret.</span>
+<span class="w">                </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client.crt</span><span class="w">                              </span><span class="c1"># The name of the certificate content file.</span>
+<span class="w">            </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-cert</span><span class="w">                           </span><span class="c1"># The name of the Secret that stores the certificate file.</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-key</span>
+<span class="w">          </span><span class="nt">secret</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">420</span>
+<span class="w">            </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tls.key</span><span class="w">                                  </span><span class="c1"># The name of the certificate private key in the Secret.</span>
+<span class="w">                </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client.key</span><span class="w">                              </span><span class="c1"># The name of the certificate private key file.</span>
+<span class="w">            </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-cert</span><span class="w">                           </span><span class="c1"># The name of the Secret that stores the certificate file.</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca-crt</span><span class="w">                                        </span><span class="c1"># The name of the volume to store the CA root certificate file.</span>
+<span class="w">          </span><span class="nt">secret</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">420</span>
+<span class="w">            </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root.crt</span><span class="w">                                 </span><span class="c1"># The name of the CA certificate content in the Secret.</span>
+<span class="w">                </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca.crt</span><span class="w">                                  </span><span class="c1"># The name of the CA certificate content file.</span>
+<span class="w">            </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca-cert</span><span class="w">                               </span><span class="c1"># The name of the Secret that stores the CA certificate file.</span>
+</code></pre></div>
 <h2 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h2>
 <h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
-<li>After the data recovery is successful, a new cluster will be created and the old cluster will not be deleted by default. You can decide whether to delete the old cluster themselves. The name of the new cluster is automatically generated by the Operator.</li>
-<li>There will be a period of service unavailability during the data recovery process, so it is recommended to perform the operation during a low period of business activity.</li>
+<li>After the data recovery is successful, a new cluster will be created and the old cluster will not be deleted by default. You can decide whether to delete the old cluster yourself. The name of the new cluster is automatically generated by the Operator.</li>
+<li>There will be a period of service unavailability during the data recovery process, so it is recommended to operate during a low period of business activity.</li>
 </ul>
 <!-- ### Recovery Process
 
@@ -6073,7 +6148,7 @@ ngxvsm<span class="w">   </span><span class="m">1</span><span class="w">        
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 24, 2023</span>
       
     
   </small>
