@@ -10,7 +10,7 @@
 - Fix the bug that the Drainer failed to stop appropriately as a result of continuous restarting.
 - Fix the bug where a single large query could cause the Graph service to crash.
 - Fix the out of memory bug in the `FIND ALL PATH` statement.
-- Fix the bug that adding a path variable to the `MATCH` statement causes the `all()` function's push-down optimization to fail.
+- Fix the bug that adding a path variable to the `MATCH` statement prevented push-down optimization of the `all()` function.
 - Fix the bug of using Boost to generate UUID in the low-version Linux kernel.
 - Fix the bug in the `MATCH...shortestpath()` statement for loop detection.
 - Fix the bug where the Graph service crashes when deleting an edge using a pipe character (`|`).
