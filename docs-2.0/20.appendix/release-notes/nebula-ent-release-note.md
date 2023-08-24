@@ -2,7 +2,7 @@
 
 ## Optimizations
 
-- Full scan is not performed when the `MATCH` statement queries for non-existent properties.
+- A full scan is not performed when the `MATCH` statement queries for non-existent properties.
 - Support for the push down of the `MATCH...STARTS WITH` statement.
 
 ## Bug fixes
