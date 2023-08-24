@@ -18,7 +18,7 @@
 - Fix the bug where the `shortestPath()` function causes the Graph service to crash.
 - Fix the bug that the `FIND ALL PATH` statement does not return the path of the self-loop when looking up the self-loop of a vertex.
 - Fix the bug where repeated execution of a `GO` compound statement returned different results when multiple clauses in the compound statement used the same variable.
-- Fix the bug that the `CREATE SPACE...AS` statement clones a graph space, the new index will overwrite the old index.
+- Fix the bug that cloning a graph space using the `CREATE SPACE...AS` statement resulted in the overwriting of the old index with the new index.
 - Fix the bug where the `GO...UNION ALL` statement reported an error in some scenarios.
 
 ## Legacy versions
