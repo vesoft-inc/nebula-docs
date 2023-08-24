@@ -22,8 +22,8 @@ The version correspondence between NebulaGraph and NebulaGraph Importer is as fo
 
 |{{nebula.name}} version|NebulaGraph Importer version|
 |:---|:---|
-| 3.x.x      |  3.x.x、4.x.x        | 
-| 2.x.x      |  2.x.x、3.x.x        |
+| 3.x.x      |  3.x.x, 4.x.x        | 
+| 2.x.x      |  2.x.x, 3.x.x        |
 
 !!! note
 
