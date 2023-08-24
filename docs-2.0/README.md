@@ -1,9 +1,14 @@
 # Welcome to NebulaGraph {{ nebula.release }} Documentation
 
+!!! caution
+
+    Documents of version {{ nebula.release }} are only for NebulaGraph Enterprise Edition and the corresponding tools. NebulaGraph Community Edition {{ nebula.release }} is not released. For details, see [Release notes](20.appendix/release-notes/nebula-ent-release-note.md).
+
+
 <!--
 !!! caution
 
-    Documents of version {{ nebula.release }} are only for NebulaGraph Community Edition {{ nebula.release }} and the corresponding tools. NebulaGraph Enterprise Edition {{ nebula.release }} is not released ([the release cycle for NebulaGraph Enterprise Edition is usually 6 months](20.appendix/6.eco-tool-version.md)). For details, see [Release notes](20.appendix/release-notes/nebula-comm-release-note.md).
+    Documents of version {{ nebula.release }} are only for NebulaGraph Community Edition and the corresponding tools. NebulaGraph Enterprise Edition {{ nebula.release }} is not released ([the release cycle for NebulaGraph Enterprise Edition is usually 6 months](20.appendix/6.eco-tool-version.md)). For details, see [Release notes](20.appendix/release-notes/nebula-comm-release-note.md).
 -->
 
 !!! note
