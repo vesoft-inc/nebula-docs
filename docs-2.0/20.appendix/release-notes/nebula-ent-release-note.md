@@ -7,18 +7,18 @@
 
 ## Bug fixes
 
-- Fix the bug that continuous restart of the drainer caused the drainer not to stop properly.
+- Fix the bug that the Drainer failed to stop appropriately as a result of continuous restarting.
 - Fix the bug where a single large query could cause the Graph service to crash.
-- Fix the bug that the `FIND ALL PATH` statement causes out of memory.
-- Fix the bug that adding a path variable to the `MATCH` statement causes the `all()` function's push-down optimization to fail.
-- Fix the bug of using Boost to generate UUID in the low-version Linux kernel.
+- Fix the out of memory bug in the `FIND ALL PATH` statement.
+- Fix the bug that adding a path variable to the `MATCH` statement prevented push-down optimization of the `all()` function.
+- Fix the UUID generation using Boost in the low-version Linux kernel.
 - Fix the bug in the `MATCH...shortestpath()` statement for loop detection.
 - Fix the bug where the Graph service crashes when deleting an edge using a pipe character (`|`).
 - Fix the bug that the properties of edge are not displayed when the `MATCH` statement executes a multi-hop query.
 - Fix the bug where the `shortestPath()` function causes the Graph service to crash.
 - Fix the bug that the `FIND ALL PATH` statement does not return the path of the self-loop when looking up the self-loop of a vertex.
 - Fix the bug where repeated execution of a `GO` compound statement returned different results when multiple clauses in the compound statement used the same variable.
-- Fix the bug that the `CREATE SPACE...AS` statement clones a graph space, the new index will overwrite the old index.
+- Fix the bug that cloning a graph space using the `CREATE SPACE...AS` statement resulted in the overwriting of the old index with the new index.
 - Fix the bug where the `GO...UNION ALL` statement reported an error in some scenarios.
 
 ## Legacy versions
