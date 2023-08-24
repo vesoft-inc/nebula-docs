@@ -12,7 +12,7 @@
 - Fix the bug that the `FIND ALL PATH` statement causes out of memory.
 - Fix the bug that adding a path variable to the `MATCH` statement causes the `all()` function's push-down optimization to fail.
 - Fix the bug of using Boost to generate UUID in the low-version Linux kernel.
-- Fix the bug in the `MATCH.... . shortestpath()` statement for loop detection.
+- Fix the bug in the `MATCH....shortestpath()` statement for loop detection.
 - Fix the bug where the Graph service crashes when deleting an edge using a pipe character (`|`).
 - Fix the bug that the properties of edge are not displayed when the `MATCH` statement executes a multi-hop query.
 - Fix the bug where the `shortestPath()` function causes the Graph service to crash.
