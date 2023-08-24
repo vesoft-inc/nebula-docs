@@ -51,7 +51,7 @@ When NebulaGraph enables authentication, users can only sign into Studio with th
 
 | NebulaGraph version | Explorer version |
 | --- | --- |
-| 3.5.0         | 3.5.1、3.5.0、3.4.0   |
+| 3.5.x         | 3.5.1、3.5.0、3.4.0   |
 | 3.4.0 ~ 3.4.1 | 3.5.1、3.5.0、3.4.0、3.2.1、3.2.0   |
 | 3.3.0 | 3.2.1, 3.2.0|
 | 3.1.0 ~ 3.2.x| 3.1.0|

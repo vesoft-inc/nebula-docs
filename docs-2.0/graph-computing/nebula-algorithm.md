@@ -9,7 +9,7 @@ The correspondence between the NebulaGraph Algorithm release and the NebulaGraph
 |NebulaGraph |NebulaGraph Algorithm |
 |:---|:---|
 |  nightly         |  3.0-SNAPSHOT |
-| 3.0.0 ~ 3.4.x      |  3.x.0        |
+| 3.0.0 ~ 3.6.x      |  3.x.0        |
 | 2.6.x            |  2.6.x        | 
 | 2.5.0、2.5.1      |  2.5.0        | 
 | 2.0.0、2.0.1      |  2.1.0        |
