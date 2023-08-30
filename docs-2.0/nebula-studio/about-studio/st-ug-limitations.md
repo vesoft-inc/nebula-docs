@@ -20,6 +20,10 @@ During the public beta of NebulaGraph Cloud Service, Studio on Cloud has these l
 
 Only CSV files without headers can be uploaded, but no limitations are applied to the size and store period for a single file. The maximum data volume depends on the storage capacity of your machine.
 
+## Data backup
+
+For now, only supports exporting query results in CSV format on **Console**, and other data backup methods are not supported.
+
 ## nGQL statements
 
 On the **Console** page of Docker-based and RPM-based Studio v3.x, all the nGQL syntaxes except these are supported:
