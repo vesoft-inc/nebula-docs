@@ -56,7 +56,7 @@ Click **New Data Source** in the upper right corner of the page to set the data 
 
   - **Map Edges**: Same operation as map tags.
 
-  ![导入任务](https://docs-cdn.nebula-graph.com.cn/figures/explorer_import_230830.png)
+  ![import](https://docs-cdn.nebula-graph.com.cn/figures/explorer_import_230830.png)
 
 2. After completing the settings, click **Import**, enter the password for the NebulaGraph account, and confirm.
 
