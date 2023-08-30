@@ -1,70 +1,67 @@
 # Import data
 
-After CSV files of data and a schema are created, you can use the **Import** page to batch import vertex and edge data into NebulaGraph for graph exploration and data analysis.
+Studio supports importing data in CSV format into NebulaGraph through an interface.
 
 ## Prerequisites
 
 To batch import data, do a check of these:
 
-- Studio is connected to NebulaGraph.
+- The schema has been created in NebulaGraph.
 
-- A schema is created.
+- The CSV files meet the demands of the schema.
 
-- CSV files meet the demands of the Schema.
+- The account has GOD, ADMIN, or DBA permissions. For details, see [Built-in Roles](../../7.data-security/1.authentication/3.role-list.md).
 
-- Your account has privilege of GOD, ADMIN, DBA, or USER.
+## Entry
 
-## Procedure
+In the top navigation bar, click ![download](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png).
 
-Before importing data, you need to upload the file first and then create the import task.
-## Upload files
+Importing data is divided into 2 parts, creating a new data source and creating an import task, which will be described in detail next.
 
-To upload files, follow these steps:
+## Create a new data source
 
-1. In the toolbar, click the **Import** tab.
+Click **New Data Source** in the upper right corner of the page to set the data source and its related settings. Currently, 3 types of data sources are supported.
 
-2. On the **Upload Files** page, click the **Upload Files** button and then choose CSV files. In this example, `edge_serve.csv`, `edge_follow.csv`, `vertex_player.csv`, and `vertex_team.csv` are chosen.
+| Type of data source | Description |
+| :--- | :--- |
+| Cloud storage | Add cloud storage as the CSV file source, which only supports cloud services compatible with the Amazon S3 interface. 
+| SFTP | Add SFTP as the CSV file source. |
+| Local file | Upload a local CSV file. The file size can not exceed 200 MB, please put the files exceeding the limit into other types of data sources. |
 
-  !!! note
+!!! Note
 
-        You can choose multiple CSV files at the same time. The CSV file used in this article can be downloaded in the [Design a schema](/docs-2.0/nebula-studio/quick-start/st-ug-plan-schema.md).
+    - When uploading a local CSV file, you can select more than one CSV file at one time.
+    - After adding a data source, you can click **Data Source Management** at the top of the page and switch tabs to view the details of different types of data sources, and you can also edit or delete data sources.
 
-3. After uploading, you can click the ![detail](https://docs-cdn.nebula-graph.com.cn/figures/detail.png) button in the **Operations** column to preview the file content, or click the ![delete](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) button to delete the uploaded file.
-   
-   ![preview](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-010-en.png)
+## Create an import task
 
-## Import Data
-
-To batch import data, follow these steps:
-
-1. In the toolbar, click the **Import** tab.
-
-2. In **Import** tab, click the **Import Data**.
-
-3. On the **Import Data** page, click **+ New Import** button to complete these operations:
+1. Click **New Import** at the top left corner of the page to complete the following settings:
 
   !!! caution
 
-        users can click **Import Template** to download the example configuration file `example.yaml`, and upload the configuration file after configuration. The configuration mode is similar to that of [NebulaGraph Importer](../../nebula-importer/use-importer.md), but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.
+        Users can also click **Import Template** to download the sample configuration file `example.yaml`, configure it and then upload the configuration file. Configure in the same way as [NebulaGraph Importer](../../nebula-importer/use-importer.md).
 
-  - Select a graph space.
-  - Fill in the task name.
-  - (Optional) Fill in the batch size.
-  - In the **Map Vertices** section, click the **+ Bind Datasource** button, select bind source file in the dialog box, and click the **Confirm** button, the `vertex_player.csv` file is chosen.
-    - In the **vertices 1** drop-down list, click **Select CSV Index**, and select the column where vertexID is located in the pop-up dialog box.
-    - Click the **+ Add Tag** button and click the ![down](https://docs-cdn.nebula-graph.com.cn/figures/down.png) icon on the right. In the displayed property list, bind the source data for the tag property. In this example, **player** is used for the `vertex_player.csv` file. For the **player** tag, choose **Column 1** for the age property, and choose **Column 2** for the name property.
-  - In the **Map Edges** section, click the **+ Bind Datasource** button, select bind source file in the dialog box, and click the **Confirm** button, the `edge_follow.csv` file is chosen.
-    - In the **vertices 1** drop-down list, click **Select Edge Type**. In this example, follow is chosen.
-    - Based on the edge type property, select the corresponding data column from the `edge_follow.csv` file. **srcId** and **dstId** are the VIDs of the source vertex and destination vertex of an edge. In this example, **srcId** must be set to the VIDs of the player and **dstId** must be set to the VIDs of another player. **Rank** is optional.
-    
-    ![import](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-011-en.png)
+  - **Space**: The name of the graph space where the data needs to be imported.
+  - **Task Name**: automatically generated by default, can be modified.
+  - (optional)**More configuration**: You can customize the concurrency, batch size, retry times, read concurrency, and import concurrency.
+  - **Map Tags**:
 
-4. After completing the settings, click the **Import** button.
-  
-5. You need to enter the password of your NebulaGraph account before importing data.
-  ![enter password](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-014-en.png)
+    1. Click **Add Tag**, and then select the tag within the added tags below.
+    2. Click **Add source file**, select **Data Source Type** and **File Path** in **Data source file**, find the file you need to import, and then click **Add**.
+    3. In the preview page, set the file separator and whether to carry the table header, and then click **Confirm**.
+    4. Select the corresponding column for VID in **VID Columns**. You can select multiple columns to be merged into a VID, and you can also add a prefix or suffix to the VID.
+    5. Select the corresponding column for the attribute in the properties box. For properties that can be `NULL` or have `DEFAULT` set, you can leave the corresponding column unspecified.
+    6. Repeat steps 2 to 5 to import all the data files of the Tag selected.
+    7. Repeat steps 1 to 6 to import all Tag data.
 
-6. After importing data, you can view logs, download logs, download configuration files, and delete tasks on the **Import Data** tab.
-  ![import completed](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-012-en.png)
+  - **Map Edges**: Same operation as map tags.
 
+  ![导入任务](https://docs-cdn.nebula-graph.com.cn/figures/explorer_import_230830.png)
 
+2. After completing the settings, click **Import**, enter the password for the NebulaGraph account, and confirm.
+
+After the import task is created, you can view the progress of the import task in the **Import Data** tab, which supports operations such as editing the task, viewing logs, downloading logs, reimporting, downloading configuration files, and deleting tasks.
+
+## Next
+
+After completing the data import, users can access the [Console](st-ug-console.md) page.
