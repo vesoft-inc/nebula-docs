@@ -5673,29 +5673,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    Steps
-  </a>
-  
-    <nav class="md-nav" aria-label="Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#upload_files" class="md-nav__link">
-    Upload files
+  <a href="#create_a_new_data_source" class="md-nav__link">
+    Create a new data source
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#import_data_1" class="md-nav__link">
-    Import Data
+      
+        <li class="md-nav__item">
+  <a href="#create_an_import_task" class="md-nav__link">
+    Create an import task
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    Next
+  </a>
   
 </li>
       
@@ -5722,67 +5716,94 @@
 <h1 id="import_data">Import data<a class="headerlink" href="#import_data" title="Permanent link">&para;</a></h1>
 <p>Explorer allows you to import data in CSV format into NebulaGraph using GUI.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>To batch import data, do a check of these:</p>
 <ul>
-<li>CSV files meet the demands of the Schema.</li>
+<li>The schema has been created in NebulaGraph.</li>
 </ul>
 <ul>
-<li>Your account has the privilege of GOD, ADMIN, DBA, or USER. For more information, see <a href="../../../7.data-security/1.authentication/3.role-list/">Roles and privileges</a> .</li>
+<li>The CSV files meet the demands of the schema.</li>
+</ul>
+<ul>
+<li>The account has GOD, ADMIN, or DBA permissions. For details, see <a href="../../../7.data-security/1.authentication/3.role-list/">Built-in Roles</a>.</li>
 </ul>
 <h2 id="entry">Entry<a class="headerlink" href="#entry" title="Permanent link">&para;</a></h2>
-<p>At the top navigation bar, click <img alt="download" src="https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png" />.</p>
-<h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<h3 id="upload_files">Upload files<a class="headerlink" href="#upload_files" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p>In the <strong>Upload Files</strong> tab, click the <strong>Upload Files</strong> button and then choose CSV files.</p>
+<p>In the top navigation bar, click <img alt="download" src="https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png" />.</p>
+<p>Importing data is divided into 2 parts, creating a new data source and creating an import task, which will be described in detail next.</p>
+<h2 id="create_a_new_data_source">Create a new data source<a class="headerlink" href="#create_a_new_data_source" title="Permanent link">&para;</a></h2>
+<p>Click <strong>New Data Source</strong> in the upper right corner of the page to set the data source and its related settings. Currently, 3 types of data sources are supported.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Type of data source</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Cloud storage</td>
+<td align="left">Add cloud storage as the CSV file source, which only supports cloud services compatible with the Amazon S3 interface.</td>
+</tr>
+<tr>
+<td align="left">SFTP</td>
+<td align="left">Add SFTP as the CSV file source.</td>
+</tr>
+<tr>
+<td align="left">Local file</td>
+<td align="left">Upload a local CSV file. The file size can not exceed 200 MB, please put the files exceeding the limit into other types of data sources.</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can choose multiple CSV files at the same time.</p>
+<ul>
+<li>When uploading a local CSV file, you can select more than one CSV file at one time.</li>
+<li>After adding a data source, you can click <strong>Data Source Management</strong> at the top of the page and switch tabs to view the details of different types of data sources, and you can also edit or delete data sources.</li>
+</ul>
 </div>
-</li>
-<li>
-<p>After uploading, you can click the <img alt="detail" src="https://docs-cdn.nebula-graph.com.cn/figures/detail.png" /> button in the <strong>Operations</strong> column to preview the file content.</p>
-</li>
-</ol>
-<h3 id="import_data_1">Import Data<a class="headerlink" href="#import_data_1" title="Permanent link">&para;</a></h3>
+<h2 id="create_an_import_task">Create an import task<a class="headerlink" href="#create_an_import_task" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>In the <strong>Import Data</strong> tab, click <strong>+ New Import</strong> button to complete these operations:</p>
+<p>Click <strong>New Import</strong> at the top left corner of the page to complete the following settings:</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>users can click <strong>Import Template</strong> to download the example configuration file <code>example.yaml</code>, and upload the configuration file after configuration. The configuration mode is similar to that of <a href="../../../nebula-importer/use-importer/">NebulaGraph Importer</a>, but all file paths for configuration files in the template retain the filename only. And make sure all CSV data files are uploaded before importing the YAML file.</p>
+<p>Users can also click <strong>Import Template</strong> to download the sample configuration file <code>example.yaml</code>, configure it and then upload the configuration file. Configure in the same way as <a href="../../../nebula-importer/use-importer/">NebulaGraph Importer</a>.</p>
 </div>
 <ul>
-<li><strong>Space</strong>: The name of the graph space that you want to import data from.</li>
-<li><strong>Task Name</strong>: Automatically generated by default and can be modified.</li>
-<li><strong>Batch Size</strong> (Optional): The number of rows of imported data per batch.</li>
+<li><strong>Space</strong>: The name of the graph space where the data needs to be imported.</li>
+<li><strong>Task Name</strong>: automatically generated by default, can be modified.</li>
+<li>(optional)<strong>More configuration</strong>: You can customize the concurrency, batch size, retry times, read concurrency, and import concurrency.</li>
 <li>
-<p><strong>Map Vertices</strong>: Click the <strong>Bind Datasource</strong> button, then select bind source file in the dialog box, and click the <strong>Confirm</strong> button.</p>
-<ul>
-<li>In the <strong>vertexID</strong> item of the <strong>vertices 1</strong> drop-down list, click <strong>Select CSV Index</strong>, and select the data source for VID in the pop-up dialog box.</li>
-<li>Click the <strong>Add Tag</strong> button, then click <strong>Select Tag</strong> in the newly created tab and select the Tag you want to associate. In the property list, select the data source for the property.</li>
-</ul>
+<p><strong>Map Tags</strong>:</p>
+<ol>
+<li>Click <strong>Add Tag</strong>, and then select the tag within the added tags below.</li>
+<li>Click <strong>Add source file</strong>, select <strong>Data Source Type</strong> and <strong>File Path</strong> in <strong>Data source file</strong>, find the file you need to import, and then click <strong>Add</strong>.</li>
+<li>In the preview page, set the file separator and whether to carry the table header, and then click <strong>Confirm</strong>.</li>
+<li>Select the corresponding column for VID in <strong>VID Columns</strong>. You can select multiple columns to be merged into a VID, and you can also add a prefix or suffix to the VID.</li>
+<li>Select the corresponding column for the attribute in the properties box. For properties that can be <code>NULL</code> or have <code>DEFAULT</code> set, you can leave the corresponding column unspecified.</li>
+<li>Repeat steps 2 to 5 to import all the data files of the Tag selected.</li>
+<li>Repeat steps 1 to 6 to import all Tag data.</li>
+</ol>
 </li>
 </ul>
 <ul>
-<li>
-<p><strong>Map Edges</strong>: Similar to the operation of the <strong>Map Vertices</strong>.</p>
-<p><img alt="Import_data" src="https://docs-cdn.nebula-graph.com.cn/figures/import_task_221111_en.png" /></p>
-</li>
+<li><strong>Map Edges</strong>: Same operation as map tags.</li>
 </ul>
+<p><img alt="import" src="https://docs-cdn.nebula-graph.com.cn/figures/explorer_import_230830.png" /></p>
 </li>
 <li>
-<p>After completing the settings, click the <strong>Import</strong> button and enter the password of your NebulaGraph account.</p>
+<p>After completing the settings, click <strong>Import</strong>, enter the password for the NebulaGraph account, and confirm.</p>
 </li>
 </ol>
-<p>On the <strong>Import Data</strong> tab, you can view logs, download logs, download configuration files, and delete tasks.</p>
+<p>After the import task is created, you can view the progress of the import task in the <strong>Import Data</strong> tab, which supports operations such as editing the task, viewing logs, downloading logs, reimporting, downloading configuration files, and deleting tasks.</p>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>After completing the data import, users can access the <a href="../explorer-console/">Console</a> page.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 30, 2023</span>
       
     
   </small>
