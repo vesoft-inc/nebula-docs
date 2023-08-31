@@ -20,7 +20,7 @@ NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV
 
 The version correspondence between NebulaGraph and NebulaGraph Importer is as follows.
 
-|{{nebula.name}} version|NebulaGraph Importer version|
+|NebulaGraph version|NebulaGraph Importer version|
 |:---|:---|
 | 3.x.x      |  3.x.x, 4.x.x        | 
 | 2.x.x      |  2.x.x, 3.x.x        |
@@ -136,7 +136,7 @@ docker run --rm -ti \
 
 ## Configuration File Description
 
-Various example configuration files are available within the [Github](https://github.com/vesoft-inc/nebula-importer/tree/{{importer.branch}}/examples) of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, {{nebula.name}} server information, etc. The following section describes the fields within the configuration file in categories.
+Various example configuration files are available within the [Github](https://github.com/vesoft-inc/nebula-importer/tree/{{importer.branch}}/examples) of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, NebulaGraph server information, etc. The following section describes the fields within the configuration file in categories.
 
 !!! note
 
@@ -144,7 +144,7 @@ Various example configuration files are available within the [Github](https://gi
 
 ### Client configuration
 
-Client configuration stores the configuration associated with the client's connection to the {{nebula.name}}.
+Client configuration stores the configuration associated with the client's connection to the NebulaGraph.
 
 The example configuration is as follows:
 
