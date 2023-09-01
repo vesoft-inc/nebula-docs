@@ -34,4 +34,23 @@ Dashboard supports sending and receiving alert messages for all clusters via E-m
 
 Dashboard supports configuring Webhook to bring all cluster alert messages into third-party projects.
   
-On the left-side navigation bar of the **System Settings** page, click **Notification Endpoints**->**Webhook** to input the **Webhook URL** and **Webhook request body** (optional) used to receive alert messages. You can turn on or off the Webhook feature at the top right of the page.
+On the left-side navigation bar of the **System Settings** page, click **Notification Endpoints**->**Webhook** to input the **Webhook URL** and **Webhook request body** used to receive alert messages. You can turn on or off the Webhook feature at the top right of the page.
+
+The descriptions of the supported variables are as follows.
+
+| Variable           | Description      |
+| -------------- | --------- |
+|`${cluster.name}` | Cluster name. |
+|`${cluster.id}`  | Cluster ID. | 
+|`${cluster.version}` | Cluster version.|
+|`${cluster.status}` | The current state of the cluster.|
+|`${cluster.owner}` | The name of the account that has the owner role privileges of the cluster.|
+|`${alert.labels.instance}` | IP address and port of the service.  |
+|`${alert.labels.instanceName}` |  Service name. For example `192.168.10.100-graphd-9669`. |
+|`${alert.labels.alertname}` | Alert name.|
+|`${alert.labels.severity}` | Alert severity level.|
+|`${alert.labels.componentType}` |  Alert service type.|
+|`${alert.annotations.summary}` | Alert summary.|
+|`${alert.annotations.description}` |  Alert message description.|
+
+For more information about the alert, see [Notification](../4.cluster-operator/9.notification.md).
