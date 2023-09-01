@@ -379,9 +379,9 @@ The configuration mainly includes the following parts:
 |`sources.edges.dst.id.index`   |-| Yes | The column number in the data file corresponding to the VID at the destination vertex on the edge.         |  
 |`sources.edges.rank.index`   |-| No | The column number in the data file corresponding to the rank on the edge.        |  
 |`sources.edges.ignoreExistedIndex`   |`true`| No | Whether to enable `IGNORE_EXISTED_INDEX`, that is, do not update index after insertion vertex.         |  
-|`sources.edges.props.name`   |-| Yes | The edge type property name, which must match the Tag property in the database.         |  
+|`sources.edges.props.name`   |-| No | The edge type property name, which must match the Tag property in the database.         |  
 |`sources.edges.props.type`   |`STRING`| No | Property data type, supporting `BOOL`, `INT`, `FLOAT`, `DOUBLE`, `STRING`, `TIME`, `TIMESTAMP`, `DATE`, `DATETIME`, `GEOGRAPHY`, `GEOGRAPHY(POINT)`, `GEOGRAPHY(LINESTRING)` and `GEOGRAPHY(POLYGON)`.         |  
-|`sources.edges.props.index`   |-| Yes | The property corresponds to the column number in the data file.    |  
+|`sources.edges.props.index`   |-| No | The property corresponds to the column number in the data file.    |  
 |`sources.edges.props.nullable`   |-| No | Whether this prop property can be `NULL`, optional values is `true` or `false`.        |  
 |`sources.edges.props.nullValue`   |-| No | Ignored when `nullable` is `false`. The value used to determine whether it is a `NULL`. The property is set to `NULL` when the value is equal to `nullValue`.       |  
 |`sources.edges.props.defaultValue`   |-| No | Ignored when `nullable` is `false`. The property default value, when all the values obtained by `index` and `alternativeIndices` are `nullValue`.          |  
