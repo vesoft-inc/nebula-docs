@@ -1,17 +1,22 @@
 # NebulaGraph {{ nebula.release }} release notes
 
+## Optimizations
+
+    -  Optimized the performance of reading tags of destination vertices. 
+
 ## Bugfix
 
-- Fix the bug in the execution of the MATCH statement with incorrect filtering.
-- Fix the crash that occurs when the lookup expression contains undefined parameters.
-- Fix the bug where unary NOT expressions were being pushed down incorrectly.
-- Fix the bug that occurs when combining USE SPACE with MATCH.
-- Fix the bug related to comparisons involving EMPTY.
-- Fix the crash when querying the shortest path.
-- Fix the bug of eval contains filter on storaged.
-- Fix the bug in the MATCH statement related to regular expressions.
-- Fix the crash that occurs when using the GEO data type.
-- Fix the bug that graphd cannot be stopped by signaling when the thrift server fails to start.
+- Fix the bug where drainer failed to stop normally after consecutive restarts.
+- Fix the bug where graphd crashed when a large query was performed.
+- Fix the bug where schema was overwritten during cluster switchover.
+- Fix the bug where graphd crashed when `FIND ALL PATH` was executed repeatedly after `GraphMemoryExceeded` occurred.
+- Fix the bug where graphd crashed when the pipe character (`|`) was used to delete edges.
+- Fix the bug where errors were reported when earlier Linux kernels use Boost to generate UUIDs.
+- Fix the bug where the new index overwrote the old index in a graph space that was cloned by using the `CREATE SPACE...AS` statement.
+- Fix the bug where errors were reported when executing the `GO...UNION ALL` statement in certain scenarios.
+- Fix the bug where self-loop is not returned when executing the `FIND ALL PATH` statement to query the self-loop of a vertex.
+- Fix the bug where graphd crashed when running the `shortestPath` function.
+- Fix the bug where the `GetDstBySrc` operator failed to truncate super vertices.
 
 ## Legacy versions
 
