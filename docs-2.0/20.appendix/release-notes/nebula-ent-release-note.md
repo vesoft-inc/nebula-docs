@@ -2,7 +2,7 @@
 
 ## Optimizations
 
-    -  Optimized the performance of reading tags of destination vertices. 
+-  Optimized the performance of reading tags of destination vertices. 
 
 ## Bugfix
 
