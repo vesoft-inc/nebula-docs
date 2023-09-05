@@ -46,9 +46,11 @@ The descriptions of the supported variables are as follows.
 |`${cluster.status}` | The current state of the cluster.|
 |`${cluster.owner}` | The name of the account that has the owner role privileges of the cluster.|
 |`${alert.labels.instance}` | IP address and port of the service.  |
+|`${alert.labels.endpointIP}` | IP address of the service.  |
 |`${alert.labels.instanceName}` |  Service name. For example `192.168.10.100-graphd-9669`. |
 |`${alert.labels.alertname}` | Alert name.|
-|`${alert.labels.severity}` | Alert severity level.|
+|`${alert.labels.severity}` | Alert severity. The severity includes `emergency`, `critical`, and `warning`.|
+|`${alert.labels.severityLevel}` | Alert severity level. The correspondence with alarm severity is `emergency`=`1`, `critical`=`2`, and `warning`=`3`.|
 |`${alert.labels.componentType}` |  Alert service type.|
 |`${alert.annotations.summary}` | Alert summary.|
 |`${alert.annotations.description}` |  Alert message description.|
