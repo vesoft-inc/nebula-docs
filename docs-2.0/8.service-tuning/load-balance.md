@@ -273,4 +273,6 @@ nebula> SHOW HOSTS;
 
 !!! caution
 
-    In NebulaGraph {{ nebula.release }}, switching leaders will cause a large number of short-term request errors (Storage Error `E_RPC_FAILURE`). For solutions, see [FAQ](../20.appendix/0.FAQ.md).
+    During leader partition replica switching in NebulaGraph, the leader replicas will be temporarily prohibited from being written to until the switch is completed. If there are a large number of write requests during the switching period, it will result in a request error (Storage Error `E_RPC_FAILURE`). See [FAQ](../20.appendix/0.FAQ.md#how_to_resolve_the_error_storage_error_e_rpc_failure) for error handling methods.
+
+    You can set the value of `raft_heartbeat_interval_secs` in the Storage configuration file to control the timeout period for leader replica switching. For more information on the configuration file, see [Storage configuration file](../5.configurations-and-logs/1.configurations/4.storage-config.md).
