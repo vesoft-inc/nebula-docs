@@ -15,7 +15,8 @@ You can use the `SUBMIT JOB BALANCE` statement to balance the distribution of pa
     
 !!! note
 
-    If the current graph space already has a `SUBMIT JOB BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `SUBMIT JOB BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+    - If the current graph space already has a `SUBMIT JOB BALANCE DATA` job in the `FAILED` status, you can restore the `FAILED` job, but cannot start a new `SUBMIT JOB BALANCE DATA` job. If the job continues to fail, manually stop it, and then you can start a new one.
+    - The following example introduces the methods of balanced partition distribution for storage nodes with the Zone feature disabled. When the Zone feature is enabled, balanced partition distribution is performed within the specified Zone. For details, see [Manage Zones](../4.deployment-and-installation/5.zone.md).
 
 The `SUBMIT JOB BALANCE DATA` commands starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.
 
