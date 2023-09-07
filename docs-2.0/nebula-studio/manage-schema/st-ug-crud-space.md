@@ -1,4 +1,4 @@
-# Operate graph spaces
+# Manage graph spaces
 
 When Studio is connected to NebulaGraph, you can create or delete a graph space. You can use the **Console** page or the **Schema** page to do these operations. This article only introduces how to use the **Schema** page to operate graph spaces in NebulaGraph.
 
@@ -17,7 +17,7 @@ To operate a graph space on the **Schema** page of Studio, you must do a check o
 
 2. In the **Graph Space List** page, click **Create Space**, do these settings:
 
-  - **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be distinct in the database.
+  - **Name**: Specify a name to the new graph space. In this example, `basketballplayer` is used. The name must be unique in the database.
 
   - **Vid Type**: The data types of VIDs are restricted to `FIXED_STRING(<N>)` or `INT64`. A graph space can only select one VID type. In this example, `FIXED_STRING(32)` is used. For more information, see [VID](../../1.introduction/3.vid.md).
 

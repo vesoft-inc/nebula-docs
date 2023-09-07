@@ -2,11 +2,6 @@
 
 This topic describes some of the limitations of using Exchange 3.x.
 
-
-JAR packages are available in two ways: [compile them yourself](../ex-ug-compile.md) or download them from the Maven repository.
-
-If you are using NebulaGraph 1.x, use [NebulaGraph Exchange 1.x](https://github.com/vesoft-inc/nebula-java/tree/v1.0/tools "Click to go to GitHub").
-
 ## Environment
 
 Exchange 3.x supports the following operating systems:

@@ -18,7 +18,7 @@ To connect Studio to NebulaGraph, follow these steps:
 
 1. Type `http://<ip_address>:7001` in the address bar of your browser.
 
-  The following login page shows that Studio is successfully connected to NebulaGraph.
+  The following login page shows that Studio starts successfully.
 
   ![NebulaGraph Studio Login page](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
 
@@ -29,7 +29,7 @@ To connect Studio to NebulaGraph, follow these steps:
     !!! note
 
         - When NebulaGraph and Studio are deployed on the same machine, you must enter the IP address of the machine, instead of `127.0.0.1` or `localhost`.
-        - When connecting to a NebulaGraph database on a new tab, a new session will overwrite the sessions of the old TAB. If you need to log in to multiple NebulaGraph databases simultaneously, you can use a different browser or non-trace mode.
+        - When connecting to a NebulaGraph database on a new browser tab, a new session will overwrite the sessions of the old tab. If you need to log in to multiple NebulaGraph databases simultaneously, you can use a different browser or non-trace mode.
 
   - **Port**: The port of the Graph service. The default port is `9669`.
 
@@ -68,6 +68,6 @@ When Studio is successfully connected to NebulaGraph, you can do these operation
 <!--
 On NebulaGraph Cloud Service, users cannot clear the connection.
 -->
-If you want to reset NebulaGraph, you can log out and reconfigure the database.
+If you want to reconnect to NebulaGraph, you can log out and reconfigure the database.
 
 Click the user profile picture in the upper right corner, and choose **Log out**.

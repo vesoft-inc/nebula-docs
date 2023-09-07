@@ -1,4 +1,4 @@
-# Operate edge types
+# Manage edge types
 
 After a graph space is created in NebulaGraph, you can create edge types. With Studio, you can choose to use the **Console** page or the **Schema** page to create, retrieve, update, or delete edge types. This topic introduces how to use the **Schema** page to operate edge types in a graph space only.
 

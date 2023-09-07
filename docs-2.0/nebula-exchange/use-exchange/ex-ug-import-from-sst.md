@@ -481,7 +481,7 @@ Connect to the NebulaGraph database using the client tool and import the SST fil
 
     - If there is a problem with the import and re-importing is required, re-execute `SUBMIT JOB INGEST;`.
 
-### Step 6: (optional) Validate data
+### Step 6: (Optional) Validate data
 
 Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
 
@@ -491,6 +491,6 @@ LOOKUP ON player YIELD id(vertex);
 
 Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
-### Step 7: (optional) Rebuild indexes in NebulaGraph
+### Step 7: (Conditional) Rebuild indexes in NebulaGraph
 
 With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
