@@ -92,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#connect_to_nebulagraph_databases_with_nebular_operator" class="md-skip">
+        <a href="#connect_to_nebulagraph_databases_with_operator" class="md-skip">
           Skip to content
         </a>
       
@@ -4241,7 +4241,7 @@
   
     <li class="md-nav__item">
       <a href="../../nebula-studio/manage-schema/st-ug-crud-space/" class="md-nav__link">
-        Operate graph spaces
+        Manage graph spaces
       </a>
     </li>
   
@@ -4255,7 +4255,7 @@
   
     <li class="md-nav__item">
       <a href="../../nebula-studio/manage-schema/st-ug-crud-tag/" class="md-nav__link">
-        Operate Tags
+        Manage tags
       </a>
     </li>
   
@@ -4269,7 +4269,7 @@
   
     <li class="md-nav__item">
       <a href="../../nebula-studio/manage-schema/st-ug-crud-edge-type/" class="md-nav__link">
-        Operate Edge types
+        Manage edge types
       </a>
     </li>
   
@@ -4283,7 +4283,7 @@
   
     <li class="md-nav__item">
       <a href="../../nebula-studio/manage-schema/st-ug-crud-index/" class="md-nav__link">
-        Operate Indexes
+        Manage indexes
       </a>
     </li>
   
@@ -4297,7 +4297,7 @@
   
     <li class="md-nav__item">
       <a href="../../nebula-studio/manage-schema/st-ug-view-schema/" class="md-nav__link">
-        View Schema
+        View schema
       </a>
     </li>
   
@@ -5186,15 +5186,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" class="md-nav__link">
-    Connect to NebulaGraph databases from outside a NebulaGraph cluster via NodePort
+  <a href="#connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster" class="md-nav__link">
+    Connect to NebulaGraph databases from within a NebulaGraph cluster
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster" class="md-nav__link">
-    Connect to NebulaGraph databases from within a NebulaGraph cluster
+  <a href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" class="md-nav__link">
+    Connect to NebulaGraph databases from outside a NebulaGraph cluster via NodePort
   </a>
   
 </li>
@@ -5730,15 +5730,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" class="md-nav__link">
-    Connect to NebulaGraph databases from outside a NebulaGraph cluster via NodePort
+  <a href="#connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster" class="md-nav__link">
+    Connect to NebulaGraph databases from within a NebulaGraph cluster
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster" class="md-nav__link">
-    Connect to NebulaGraph databases from within a NebulaGraph cluster
+  <a href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" class="md-nav__link">
+    Connect to NebulaGraph databases from outside a NebulaGraph cluster via NodePort
   </a>
   
 </li>
@@ -5770,87 +5770,10 @@
   </a>
 
 
-<h1 id="connect_to_nebulagraph_databases_with_nebular_operator">Connect to NebulaGraph databases with Nebular Operator<a class="headerlink" href="#connect_to_nebulagraph_databases_with_nebular_operator" title="Permanent link">&para;</a></h1>
+<h1 id="connect_to_nebulagraph_databases_with_operator">Connect to NebulaGraph databases with Operator<a class="headerlink" href="#connect_to_nebulagraph_databases_with_operator" title="Permanent link">&para;</a></h1>
 <p>After creating a NebulaGraph cluster with NebulaGraph Operator on Kubernetes, you can connect to NebulaGraph databases from within the cluster and outside the cluster.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Create a NebulaGraph cluster with NebulaGraph Operator on Kubernetes. For more information, see <a href="../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Deploy NebulaGraph clusters with Kubectl</a> or <a href="../3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm/">Deploy NebulaGraph clusters with Helm</a>.</p>
-<h2 id="connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport">Connect to NebulaGraph databases from outside a NebulaGraph cluster via <code>NodePort</code><a class="headerlink" href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" title="Permanent link">&para;</a></h2>
-<p>You can create a <code>NodePort</code> type Service to access internal cluster services from outside the cluster using any node IP and the exposed node port. You can also utilize load balancing services provided by cloud vendors (such as Azure, AWS, etc.) by setting the Service type to <code>LoadBalancer</code>. This allows external access to internal cluster services through the public IP and port of the load balancer provided by the cloud vendor.</p>
-<p>The Service of type <code>NodePort</code> forwards the front-end requests via the label selector <code>spec.selector</code> to Graphd pods with labels <code>app.kubernetes.io/cluster: &lt;cluster-name&gt;</code> and <code>app.kubernetes.io/component: graphd</code>.</p>
-<p>After creating a NebulaGraph cluster based on the <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/config/samples/apps_v1alpha1_nebulacluster.yaml">example template</a>, where <code>spec.graphd.service.type=NodePort</code>, the NebulaGraph Operator will automatically create a NodePort type Service named <code>&lt;cluster-name&gt;-graphd-svc</code> in the same namespace. You can directly connect to the NebulaGraph database through any node IP and the exposed node port (see step 4 below). You can also create a custom Service according to your needs.</p>
-<p>Steps:</p>
-<ol>
-<li>
-<p>Create a YAML file named <code>graphd-nodeport-service.yaml</code>. The file contents are as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graphd</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/managed-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-operator</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graph</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graphd-svc-nodeport</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">externalTrafficPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local</span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thrift</span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9669</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
-<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9669</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19669</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
-<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19669</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graphd</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/managed-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-operator</span>
-<span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graph</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span><span class="w">   </span><span class="c1"># Set the type to NodePort.</span>
-</code></pre></div>
-<ul>
-<li>NebulaGraph uses port <code>9669</code> by default. <code>19669</code> is the HTTP port of the Graph service in a NebulaGraph cluster.</li>
-<li>The value of <code>targetPort</code> is the port mapped to the database Pods, which can be customized.</li>
-</ul>
-</li>
-<li>
-<p>Run the following command to create a NodePort Service.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>graphd-nodeport-service.yaml
-</code></pre></div>
-</li>
-<li>
-<p>Check the port mapped on all of your cluster nodes.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>services<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>&lt;nebula&gt;<span class="w"> </span><span class="c1"># &lt;nebula&gt; is the name of your NebulaGraph cluster.</span>
-</code></pre></div>
-<p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME<span class="w">                           </span>TYPE<span class="w">        </span>CLUSTER-IP<span class="w">     </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">                                          </span>AGE
-nebula-graphd-svc-nodeport<span class="w">     </span>NodePort<span class="w">    </span><span class="m">10</span>.107.153.129<span class="w"> </span>&lt;none&gt;<span class="w">        </span><span class="m">9669</span>:32236/TCP,19669:31674/TCP,19670:31057/TCP<span class="w">   </span>24h
-...
-</code></pre></div>
-<p>As you see, the mapped port of NebulaGraph databases on all cluster nodes is <code>32236</code>.</p>
-</li>
-<li>
-<p>Connect to NebulaGraph databases with your node IP and the node port above.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--image<span class="w"> </span>vesoft/nebula-console:v3.5.0<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>&lt;nebula_console_name&gt;<span class="w"> </span>-addr<span class="w"> </span>&lt;node_ip&gt;<span class="w"> </span>-port<span class="w"> </span>&lt;node_port&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
-</code></pre></div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--image<span class="w"> </span>vesoft/nebula-console:v3.5.0<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.24<span class="w"> </span>-port<span class="w"> </span><span class="m">32236</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>vesoft
-If<span class="w"> </span>you<span class="w"> </span>don<span class="err">&#39;</span>t<span class="w"> </span>see<span class="w"> </span>a<span class="w"> </span><span class="nb">command</span><span class="w"> </span>prompt,<span class="w"> </span>try<span class="w"> </span>pressing<span class="w"> </span>enter.
-
-<span class="o">(</span>root@nebula<span class="o">)</span><span class="w"> </span><span class="o">[(</span>none<span class="o">)]</span>&gt;
-</code></pre></div>
-<ul>
-<li><code>--image</code>: The image for the tool NebulaGraph Console used to connect to NebulaGraph databases.</li>
-<li><code>&lt;nebula-console&gt;</code>: The custom Pod name. The above example uses <code>nebula-console</code>.</li>
-<li><code>-addr</code>: The IP of any node in a NebulaGraph cluster. The above example uses <code>192.168.8.24</code>.</li>
-<li><code>-port</code>: The mapped port of NebulaGraph databases on all cluster nodes. The above example uses <code>32236</code>.</li>
-<li><code>-u</code>: The username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is root.</li>
-<li><code>-p</code>: The password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password.</li>
-</ul>
-</li>
-</ol>
 <h2 id="connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster">Connect to NebulaGraph databases from within a NebulaGraph cluster<a class="headerlink" href="#connect_to_nebulagraph_databases_from_within_a_nebulagraph_cluster" title="Permanent link">&para;</a></h2>
 <p>You can also create a <code>ClusterIP</code> type Service to provide an access point to the NebulaGraph database for other Pods within the cluster. By using the Service's IP and the Graph service's port number (9669), you can connect to the NebulaGraph database. For more information, see <a href="https://kubernetes.io/docs/concepts/services-networking/service/">ClusterIP</a>.</p>
 <ol>
@@ -5929,6 +5852,83 @@ If<span class="w"> </span>you<span class="w"> </span>don<span class="err">&#39;<
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--image<span class="w"> </span>vesoft/nebula-console:v3.5.0<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>&lt;nebula_console_name&gt;<span class="w"> </span>-addr<span class="w"> </span>&lt;cluster_name&gt;-graphd-svc.default.svc.cluster.local<span class="w"> </span>-port<span class="w"> </span>&lt;service_port&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
 </code></pre></div>
 <p><code>service_port</code> is the port to connect to Graphd services, the default port of which is <code>9669</code>.</p>
+<h2 id="connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport">Connect to NebulaGraph databases from outside a NebulaGraph cluster via <code>NodePort</code><a class="headerlink" href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_nodeport" title="Permanent link">&para;</a></h2>
+<p>You can create a <code>NodePort</code> type Service to access internal cluster services from outside the cluster using any node IP and the exposed node port. You can also utilize load balancing services provided by cloud vendors (such as Azure, AWS, etc.) by setting the Service type to <code>LoadBalancer</code>. This allows external access to internal cluster services through the public IP and port of the load balancer provided by the cloud vendor.</p>
+<p>The Service of type <code>NodePort</code> forwards the front-end requests via the label selector <code>spec.selector</code> to Graphd pods with labels <code>app.kubernetes.io/cluster: &lt;cluster-name&gt;</code> and <code>app.kubernetes.io/component: graphd</code>.</p>
+<p>After creating a NebulaGraph cluster based on the <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/config/samples/apps_v1alpha1_nebulacluster.yaml">example template</a>, where <code>spec.graphd.service.type=NodePort</code>, the NebulaGraph Operator will automatically create a NodePort type Service named <code>&lt;cluster-name&gt;-graphd-svc</code> in the same namespace. You can directly connect to the NebulaGraph database through any node IP and the exposed node port (see step 4 below). You can also create a custom Service according to your needs.</p>
+<p>Steps:</p>
+<ol>
+<li>
+<p>Create a YAML file named <code>graphd-nodeport-service.yaml</code>. The file contents are as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graphd</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/managed-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-operator</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graph</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graphd-svc-nodeport</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">externalTrafficPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local</span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thrift</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9669</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9669</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19669</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19669</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graphd</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/managed-by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-operator</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-graph</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span><span class="w">   </span><span class="c1"># Set the type to NodePort.</span>
+</code></pre></div>
+<ul>
+<li>NebulaGraph uses port <code>9669</code> by default. <code>19669</code> is the HTTP port of the Graph service in a NebulaGraph cluster.</li>
+<li>The value of <code>targetPort</code> is the port mapped to the database Pods, which can be customized.</li>
+</ul>
+</li>
+<li>
+<p>Run the following command to create a NodePort Service.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>graphd-nodeport-service.yaml
+</code></pre></div>
+</li>
+<li>
+<p>Check the port mapped on all of your cluster nodes.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>services<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>&lt;nebula&gt;<span class="w"> </span><span class="c1"># &lt;nebula&gt; is the name of your NebulaGraph cluster.</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">                           </span>TYPE<span class="w">        </span>CLUSTER-IP<span class="w">     </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">                                          </span>AGE
+nebula-graphd-svc-nodeport<span class="w">     </span>NodePort<span class="w">    </span><span class="m">10</span>.107.153.129<span class="w"> </span>&lt;none&gt;<span class="w">        </span><span class="m">9669</span>:32236/TCP,19669:31674/TCP,19670:31057/TCP<span class="w">   </span>24h
+...
+</code></pre></div>
+<p>As you see, the mapped port of NebulaGraph databases on all cluster nodes is <code>32236</code>.</p>
+</li>
+<li>
+<p>Connect to NebulaGraph databases with your node IP and the node port above.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--image<span class="w"> </span>vesoft/nebula-console:v3.5.0<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>&lt;nebula_console_name&gt;<span class="w"> </span>-addr<span class="w"> </span>&lt;node_ip&gt;<span class="w"> </span>-port<span class="w"> </span>&lt;node_port&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--image<span class="w"> </span>vesoft/nebula-console:v3.5.0<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.24<span class="w"> </span>-port<span class="w"> </span><span class="m">32236</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>vesoft
+If<span class="w"> </span>you<span class="w"> </span>don<span class="err">&#39;</span>t<span class="w"> </span>see<span class="w"> </span>a<span class="w"> </span><span class="nb">command</span><span class="w"> </span>prompt,<span class="w"> </span>try<span class="w"> </span>pressing<span class="w"> </span>enter.
+
+<span class="o">(</span>root@nebula<span class="o">)</span><span class="w"> </span><span class="o">[(</span>none<span class="o">)]</span>&gt;
+</code></pre></div>
+<ul>
+<li><code>--image</code>: The image for the tool NebulaGraph Console used to connect to NebulaGraph databases.</li>
+<li><code>&lt;nebula-console&gt;</code>: The custom Pod name. The above example uses <code>nebula-console</code>.</li>
+<li><code>-addr</code>: The IP of any node in a NebulaGraph cluster. The above example uses <code>192.168.8.24</code>.</li>
+<li><code>-port</code>: The mapped port of NebulaGraph databases on all cluster nodes. The above example uses <code>32236</code>.</li>
+<li><code>-u</code>: The username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is root.</li>
+<li><code>-p</code>: The password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password.</li>
+</ul>
+</li>
+</ol>
 <h2 id="connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_ingress">Connect to NebulaGraph databases from outside a NebulaGraph cluster via Ingress<a class="headerlink" href="#connect_to_nebulagraph_databases_from_outside_a_nebulagraph_cluster_via_ingress" title="Permanent link">&para;</a></h2>
 <p>When dealing with multiple pods in a cluster, managing services for each pod separately is not a good practice. Ingress is a Kubernetes resource that provides a unified entry point for accessing multiple services. Ingress can be used to expose multiple services under a single IP address.</p>
 <p>Nginx Ingress is an implementation of Kubernetes Ingress. Nginx Ingress watches the Ingress resource of a Kubernetes cluster and generates the Ingress rules into Nginx configurations that enable Nginx to forward 7 layers of traffic.</p>
@@ -6007,7 +6007,7 @@ daemonset.apps/nginx-ingress-controller<span class="w"> </span>created
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2023</span>
       
     
   </small>
