@@ -4,7 +4,7 @@ NebulaGraph Console is a native CLI client for NebulaGraph. It can be used to co
 
 ## Compatibility with NebulaGraph
 
-See [github](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
+See [github](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}#compatibility-matrix).
 
 ## Obtain NebulaGraph Console
 

@@ -2,8 +2,6 @@
 
 This topic provides an example of how to use Exchange to import NebulaGraph data stored in HDFS or local CSV files.
 
-To import a local CSV file to NebulaGraph, see [NebulaGraph Importer](https://github.com/vesoft-inc/nebula-importer "Click to go to GitHub").
-
 ## Data set
 
 This topic takes the [basketballplayer dataset](https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip) as an example.

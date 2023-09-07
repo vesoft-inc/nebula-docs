@@ -46,4 +46,4 @@ For more information about the preceding statements, see [User management](../..
 
 ## Browser
 
-We recommend that you use the latest version of Chrome to get access to Studio.
+We recommend that you use the latest version of Chrome to get access to Studio. Otherwise, some features may not work properly.

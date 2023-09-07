@@ -1,4 +1,4 @@
-# Operate tags
+# Manage tags
 
 After a graph space is created in NebulaGraph, you can create tags. With Studio, you can use the **Console** page or the **Schema** page to create, retrieve, update, or delete tags. This topic introduces how to use the **Schema** page to operate tags in a graph space only.
 
