@@ -2,18 +2,11 @@
 
 ## Enterprise Edition 3.5.1
 
-- Enhancement
-
-  - The storage usage metric in the cluster overview has been changed from disk usage to data directory usage to better match the meaning of the metric.
-  - The download directory no longer uses the hidden `.nebula/download` directory, instead it is inside the installation directory.
-  - The cluster ID is now associated with the Dashboard cluster name.
-
 - Bugfix
 
-  - Fix the bug that processes are not identified correctly when importing clusters in case of mixed deployment of multiple services of the same type.
-  - Fix the bug that node_exporter permissions are inconsistent when deploying a new cluster after deleting a cluster.
-  - Fix the bug where multiple SSH connections are not released.
-  - Fix the bug when NebulaGraph is upgraded from 3.4.x to 3.5.0.
+  - Fix the bug that node_exporter is not deleted when deleting a cluster.
+  - Fix the bug that multiple SSH connections are not released.
+  - Fix the bug that error occurs when importing nodes in batch.
 
 ## Enterprise Edition 3.5.0
 
