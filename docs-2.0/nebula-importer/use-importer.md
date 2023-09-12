@@ -20,7 +20,7 @@ NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV
 
 The version correspondence between NebulaGraph and NebulaGraph Importer is as follows.
 
-|NebulaGraph version|NebulaGraph Importer version|
+|NebulaGraph version|NebulaGraph Importer version| 
 |:---|:---|
 | 3.x.x      |  3.x.x, 4.x.x        | 
 | 2.x.x      |  2.x.x, 3.x.x        |
