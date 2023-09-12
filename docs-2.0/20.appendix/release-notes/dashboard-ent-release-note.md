@@ -1,5 +1,19 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.5.1
+
+- Enhancement
+
+  - Check if the installation directory is empty when installing License Manager.
+
+- Bugfix
+
+  - Fix the bug that node_exporter is not deleted when deleting a cluster.
+  - Fix the bug that multiple SSH connections are not released.
+  - Fix the bug that error occurs when importing nodes in batch.
+  - Fix the compatibility bug when upgrading from version 3.4 to 3.5.
+  - Fix the bug that loads the License Key when License Manager was not deployed by this software.
+
 ## Enterprise Edition 3.5.0
 
 - Feature
