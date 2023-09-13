@@ -37,7 +37,7 @@ The cluster diagnostics feature in Dashboard Enterprise Edition is to locate and
 
 3. Click **Start**.
 
-  ![diagnosepage](https://docs-cdn.nebula-graph.com.cn/figures/cluster_diagnose_230327_en.png)
+  <img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_diagnosis_230913_en.png" width="1000" alt="A screenshot that shows the diagnostics of dashboard">
 
 4. Wait for the diagnostic report to be generated. When the diagnostic status is changed to **success**, the diagnostic report is ready.
 

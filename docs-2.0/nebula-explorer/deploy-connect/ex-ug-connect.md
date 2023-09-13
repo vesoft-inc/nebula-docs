@@ -53,7 +53,7 @@ To connect Explorer to NebulaGraph, follow these steps:
 
   The following login page shows that Explorer is successfully connected to NebulaGraph.
 
-  ![NebulaGraph Explorer Login page](https://docs-cdn.nebula-graph.com.cn/figures/explorer_connect_230116_en.png)
+  <img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_expl_login_230913_en.png" width="1200" alt="A screenshot that shows the login UI of explorer">
 
   !!! note
 

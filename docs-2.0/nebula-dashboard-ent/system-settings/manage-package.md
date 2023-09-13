@@ -17,7 +17,7 @@ NebulaGraph Dashboard Enterprise Edition supports managing NebulaGraph installat
 
 ### View packages
 
-![Package management](https://docs-cdn.nebula-graph.com.cn/figures/package-manage-22-6-7-en.png)
+<img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_package_230913_en.png" width="1000" alt="A screenshot that shows the installation packages of core">
 
 The list of existing installation packages are displayed on the right-side, showing the package name, version, size, and created time.
 

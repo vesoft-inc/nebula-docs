@@ -23,4 +23,4 @@ Ensure the canvas has the vertex and edge data needed for the graph calculation.
    - Click **Auto complete 1-degree edges** to completes the one-degree path relationship between all vertexes in the canvas.
    - Click **Export CSV File** to download the graph computing result file in CSV format.
 
-![subgraph-algorithm](https://docs-cdn.nebula-graph.com.cn/figures/ex-subgraph-algorithm-220621-en.png)
+<img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_expl_algorithm_230913_en.png" width="1200" alt="A screenshot that shows the subgraph algorithm of explorer">

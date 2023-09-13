@@ -26,7 +26,7 @@ There were [aggregated edges](../canvas-operations/visualization-mode.md) on the
 
 Click **+** to add more edge types for property calculation.
 
-![propertycalculation](https://docs-cdn.nebula-graph.com.cn/figures/propertycalculation-220928-en.png)
+<img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_expl_calculation_230913_en.png" width="1200" alt="A screenshot that shows the property calculation of explorer">
 
 ### Method 2
 

@@ -51,11 +51,11 @@ Data is backed up to the cloud storage service by creating a backup file as foll
 
   - For Amazon S3:
 
-    ![amazon_s3](https://docs-cdn.nebula-graph.com.cn/figures/amazon_s3_2022-06-20_14-29-11.png)
+    <img src="https://docs-cdn.nebula-graph.com.cn/figures/amazon_s3_2022-06-20_14-29-11.png" width="800" alt="A screenshot that shows the configuration of Amazon S3">
 
   - For Alibaba Cloud Object Storage Service:
  
-    ![aliyun_oss](https://docs-cdn.nebula-graph.com.cn/figures/br_s3_aliyun_2022-06-20_12-07-37.png)
+    <img src="https://docs-cdn.nebula-graph.com.cn/figures/br_s3_aliyun_2022-06-20_12-07-37.png" width="800" alt="A screenshot that shows the configuration of Alibaba Cloud">
 
   !!! caution
 
@@ -77,8 +77,6 @@ Data is backed up to the cloud storage service by creating a backup file as foll
         You are unable to submit the backup when your cluster works abnormally or the access key to the storage service has expired.
   
 7. View the created backup file in the backup list.
-   
-  ![br_list](https://docs-cdn.nebula-graph.com.cn/figures/brlist_221226_en.png)
 
   !!! note
 

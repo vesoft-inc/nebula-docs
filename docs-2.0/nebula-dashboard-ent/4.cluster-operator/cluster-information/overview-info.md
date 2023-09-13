@@ -12,7 +12,7 @@ On the **Overview Info** page, you can see the information of the NebulaGraph cl
 
     Before viewing the cluster information, you need to select any online Graph service address, enter the account to log in to NebulaGraph (not the Dashboard login account), and the corresponding password.
 
-![coreinfo](https://docs-cdn.nebula-graph.com.cn/figures/clustercore-info_2022-04-11_en.png)
+<img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_info_230913_en.png" width="1200" alt="A screenshot that shows the overview information of dashboard">
 
 ## Storage Leader Distribution
 

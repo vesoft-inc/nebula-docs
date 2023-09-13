@@ -20,7 +20,7 @@ To connect Studio to NebulaGraph, follow these steps:
 
   The following login page shows that Studio starts successfully.
 
-  ![NebulaGraph Studio Login page](https://docs-cdn.nebula-graph.com.cn/figures/studio_login_230130_en.png)
+  <img src="https://docs-cdn.nebula-graph.com.cn/figures/std_login_230912_en.png" width="1200" alt="A screenshot that shows the login UI of studio">
 
 2. On the **Config Server** page of Studio, configure these fields:
 

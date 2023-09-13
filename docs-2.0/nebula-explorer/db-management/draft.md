@@ -24,7 +24,7 @@ The following steps take designing the schema of the `basketballplayer` dataset 
 6. Connect from an anchor point of the tag `player` to another one of its own. Click the generated edge, fill in the name of the edge type as `follow`, and add a property `degree`.
 7. After the design is complete, click ![setup](https://docs-cdn.nebula-graph.com.cn/figures/setup-220916.png) at the top of the page to change the name of the draft, and then click ![save](https://docs-cdn.nebula-graph.com.cn/figures/workflow-saveAs-220623.png) at the top right corner to save the draft.
 
-![createSketch](https://docs-cdn.nebula-graph.com.cn/figures/createSketch_221018_en.png)
+<img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_expl_draft_230913_en.png" width="1000" alt="A screenshot that shows the draft of explorer">
 
 ## Apply schema
 
