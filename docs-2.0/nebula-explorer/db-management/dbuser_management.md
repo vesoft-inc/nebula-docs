@@ -10,8 +10,6 @@ The user who logs in to Explorer must have permissions for related operations. F
 
 At the top navigation bar, click ![db_user_management](https://docs-cdn.nebula-graph.com.cn/figures/db_user_management_221024.png) .
 
-![dbuser_management](https://docs-cdn.nebula-graph.com.cn/figures/explorer_dbuser_management_221024_en.png)
-
 ## Create user
 
 !!! note

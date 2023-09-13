@@ -14,8 +14,6 @@ At the top navigation bar, click ![Template](https://docs-cdn.nebula-graph.com.c
 
 1. Click **+ New Template**, and set the parameters as follows.
 
-  ![new template](https://docs-cdn.nebula-graph.com.cn/figures/ex-template-220916-en.png)
-
   |Parameter|Example|Description|
   |:---|:---|:---|
   |Template name|`test`|The name of the template.|
@@ -24,9 +22,11 @@ At the top navigation bar, click ![Template](https://docs-cdn.nebula-graph.com.c
   |Query template|`MATCH (v:player{name:"${name}"})--(v2:player) RETURN v2.player.name AS Name;`|nGQL template. You can select the text you want to parameterize, click **+ parameterize selected content** on the right, and set the parameter name and description. In the example, `${name}` is parameterized text. In actual use, you can fill in a name such as `Tim Duncan`.<br>You can add comments in a single line using `//`.|
   |Input|-|Displays parameterized text content. You can edit or delete it.|
 
+  <img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_expl_template_230913_en.png" width="600" alt="A screenshot that shows the template of explorer">
+
   !!! note
 
-        Click **+ Save as template** on the upper left corner of the console page to use the entered query statement as a template statement automatically.
+        Click **Save as template** on the upper left corner of the console page to use the entered query statement as a template statement automatically.
 
 2. Click **Save as template**.
 

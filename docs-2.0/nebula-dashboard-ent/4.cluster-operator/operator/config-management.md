@@ -18,7 +18,7 @@ You need to restart the corresponding service in the **Service** page after the 
 2. Locate the configuration to be modified and click **Edit** in the **Operation** column.
 3. In the pop-up dialog box, you can modify the **Value** individually. They can also be modified uniformly at the top, and you need to click **Apply To All Services** after modification.
 
-  ![config](https://docs-cdn.nebula-graph.com.cn/figures/ds_config_230327_en.png)
+  <img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_config_230913_en.png" width="1000" alt="A screenshot that shows the configuration of dashboard">
 
 4. Click **Confirm** after the modification is complete.
 
