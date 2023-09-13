@@ -70,7 +70,18 @@
     
     
     
-  </head>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -5775,18 +5786,18 @@
 <p>Graphs are one of the main areas of research in computer science. Graphs can efficiently solve many of the problems that exist today. This topic will start with graphs and explain the advantages of graph databases and their great potential in modern application development, and then describe the differences between distributed graph databases and several other types of databases.</p>
 <h2 id="what_are_graphs">What are graphs?<a class="headerlink" href="#what_are_graphs" title="Permanent link">&para;</a></h2>
 <p>Graphs are everywhere. When hearing the word graph, many people think of bar charts or line charts, because sometimes we call them graphs, which show the connections between two or more data systems. The simplest example is the following picture, which shows the number of NebulaGraph GitHub repository stars over time.</p>
-<p><img alt="image" src="https://user-images.githubusercontent.com/42762957/91426247-d3861000-e88e-11ea-8e17-e3d7d7069bd1.png" title="This is not the graph talked about in this book" /></p>
+<p><a class="glightbox" href="https://user-images.githubusercontent.com/42762957/91426247-d3861000-e88e-11ea-8e17-e3d7d7069bd1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://user-images.githubusercontent.com/42762957/91426247-d3861000-e88e-11ea-8e17-e3d7d7069bd1.png" title="This is not the graph talked about in this book" /></a></p>
 <p>This type of diagram is often called a line chart. As you can see, the number of starts rises over time. A line chart can show data changes over time (depending on the scale settings). Here we have given only examples of line charts. There are various graphs, such as pie charts, bar charts, etc.</p>
 <p>Another kind of diagram is often used in daily conversation, such as image recognition, retouched photos. This type of diagram is called a picture/photo/image.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/image.png" title="This is not te book talked about in this book" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/image.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/image.png" title="This is not te book talked about in this book" /></a></p>
 <p>The diagram we discuss in this topic is a different concept, the graph in graph theory.</p>
 <p>In graph theory, a branch of mathematics, graphs are used to represent the relationships between entities. A graph consists of several small dots (called vertices or nodes) and lines or curves (called edges) that connect these dots. The term graph was proposed by Sylvester in 1878.</p>
 <p>The following picture is what this topic calls a graph.</p>
-<p><img alt="Image" src="https://docs-cdn.nebula-graph.com.cn/books/images/undirectedgraph.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/undirectedgraph.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image" src="https://docs-cdn.nebula-graph.com.cn/books/images/undirectedgraph.png" /></a></p>
 <p>Simply put, graph theory is the study of graphs. Graph theory began in the early 18th century with the problem of the Seven Bridges of Königsberg. Königsberg was then a Prussian city (now part of Russia, renamed Kaliningrad). The river Preger crossed Königsberg and not only divided Königsberg into two parts, but also formed two small islands in the middle of the river. This divided the city into four areas, each connected by seven bridges. There was a game associated with Königsberg at the time, namely how to cross each bridge only once and navigate the entire four areas of the city. A simplified view of the seven bridges is shown below. Try to find the answer to this game if you are interested <sup id="fnref:171"><a class="footnote-ref" href="#fn:171">1</a></sup>.</p>
-<p><img alt="image" src="https://user-images.githubusercontent.com/42762957/91536940-1526c180-e948-11ea-8fe8-90f40ce28171.png" /></p>
+<p><a class="glightbox" href="https://user-images.githubusercontent.com/42762957/91536940-1526c180-e948-11ea-8fe8-90f40ce28171.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://user-images.githubusercontent.com/42762957/91536940-1526c180-e948-11ea-8fe8-90f40ce28171.png" /></a></p>
 <p>To solve this problem, the great mathematician Euler proved that the problem was unsolvable by abstracting the four regions of the city into points and the seven bridges connecting the city into edges connecting the points. The simplified abstract diagram is as follows <sup id="fnref:063"><a class="footnote-ref" href="#fn:063">2</a></sup>.</p>
-<p><img alt="image" src="https://user-images.githubusercontent.com/42762957/91538126-e578b900-e949-11ea-980c-5704254e8063.png" /></p>
+<p><a class="glightbox" href="https://user-images.githubusercontent.com/42762957/91538126-e578b900-e949-11ea-980c-5704254e8063.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://user-images.githubusercontent.com/42762957/91538126-e578b900-e949-11ea-980c-5704254e8063.png" /></a></p>
 <p>The four dots in the picture represent the four regions of Königsberg, and the lines between the dots represent the seven bridges connecting the four regions. It is easy to see that the area connected by the even-numbered bridges can be easily passed because different routes can be chosen to come and go. The areas connected by the odd-numbered bridges can only be used as starting or endings points because the same route can only be taken once. The number of edges associated with a node is called the node degree. Now it can be shown that the Königsberg problem can only be solved if two nodes have odd degrees and the other nodes have even degrees, i.e., two regions must have an even number of bridges and the remaining regions have an odd number of bridges. However, as we know from the above picture, there is no even number of bridges in any region of Königsberg, so this puzzle is unsolvable.</p>
 <h2 id="property_graphs">Property graphs<a class="headerlink" href="#property_graphs" title="Permanent link">&para;</a></h2>
 <p>From a mathematical point of view, graph theory studies the relationships between modeled objects. However, it is common to extend the underlying graph model. The extended graphs are called the <strong>attribute graph model</strong>. A property graph usually consists of the following components.</p>
@@ -5799,24 +5810,24 @@
 <p>For example, Qichacha or BOSS Zhipin use graphs to model business equity relationships. A vertex usually represents a natural person or a business, and the edge represents the equity relationship between a person and a business. The properties on vertices can be the name, age, ID number, etc. of the natural person. The properties on edges can be the investment amount, investment time, position such as director and supervisor.</p>
 <p>A vertex can be a listed company and an edge can be a correlation between listed companies. The vertex property can be a stock code, abbreviation, market capitalization, sector, etc. The edge property can be the time-series correlation coefficient of the stock price <sup id="fnref:T01"><a class="footnote-ref" href="#fn:T01">3</a></sup>.</p>
 <p>The graph relationship can also be similar to the character relationship in a TV series like Game of Thrones <sup id="fnref:s-01"><a class="footnote-ref" href="#fn:s-01">4</a></sup>. Vertices stand for the characters. Edges represent the interactions between the characters. Vertex properties are the character's names, ages, camps, etc., and edge properties are the number of interactions between two characters. </p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/game-of-thrones-01.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/game-of-thrones-01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/game-of-thrones-01.png" /></a></p>
 <p>Graphs are also used for governance within IT systems. For example, a company like WeBank has a very large data warehouse and corresponding data warehouse management tools. These management tools record the ETL relationships between the Hive tables in the data warehouse through Job implementation <sup id="fnref:ware"><a class="footnote-ref" href="#fn:ware">5</a></sup>. Such ETL relationships can be very easily presented and managed in the form of graphs, and the root cause can be easily traced when problems arise.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/dataware2.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/dataware2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/dataware2.png" /></a></p>
 <p>Graphs can also be used to document the invocation relationships between the intricate microservices within a large IT system <sup id="fnref:tice"><a class="footnote-ref" href="#fn:tice">6</a></sup>, which is used by operations teams for service governance. Here each point represents a microservice and the edge represents the invocation relationship between two microservices; thus, Ops can easily find invocation links with availability below a threshold (99.99%) or discover microservice nodes that would be particularly affected by a failure.</p>
 <p>Graphs are also used to record the invocation relationships between the intricate microservices <sup id="fnref2:tice"><a class="footnote-ref" href="#fn:tice">6</a></sup>. Each vertex represents a microservice and an edge represents the invocation relationship between two microservices. This allows Ops to easily find call links with availability below a threshold (99.99%), or to discover microservice nodes where a failure would have a particularly large impact.</p>
 <p>Graphs can also be used to improve the efficiency of code development. Graphs store function call relationships between codes <sup id="fnref3:tice"><a class="footnote-ref" href="#fn:tice">6</a></sup> to improve the efficiency of reviewing and testing the code. In such a graph, each vertex is a function or variable, each edge is a call relationship between functions or variables. When there is a new code commit, one can more easily see other interfaces that may be affected, which helps testers better assess potential go-live risks.</p>
 <p>In addition, we can discover more scenarios by adding some temporal information as opposed to a static property graph that does not change.</p>
 <p>For example, inside a network of interbank account fund flows <sup id="fnref:1440w"><a class="footnote-ref" href="#fn:1440w">7</a></sup>, a vertex is an account, an edge is the transfer record between accounts. Edge properties record the time, amount, etc. of the transfer. Companies can use graph technology to easily explore the graph to discover obvious misappropriation of funds, paying back a load to with the loan, loan gang scams, and other phenomena.  </p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/bank-transfer.jpg" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/bank-transfer.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/bank-transfer.jpg" /></a></p>
 <p>The same approach can be used to explore the discovery of the flow of cryptocurrencies.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/block-chain.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/block-chain.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/block-chain.png" /></a></p>
 <p>In a network of accounts and devices <sup id="fnref:360"><a class="footnote-ref" href="#fn:360">8</a></sup>, vertices can be accounts, mobile devices, and WIFI networks, edges are the login relationships between these accounts and mobile devices, and the access relationships between mobile devices and WIFI networks.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-1.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-1.png" /></a></p>
 <p>These graph data records the characteristic of the network black production operations. Some big companies such as 360 DigiTech<sup id="fnref2:360"><a class="footnote-ref" href="#fn:360">8</a></sup>, Kuaishou<sup id="fnref:kuaishou"><a class="footnote-ref" href="#fn:kuaishou">9</a></sup>, WeChat<sup id="fnref:weixin"><a class="footnote-ref" href="#fn:weixin">10</a></sup>, Zhihu<sup id="fnref:zhihu"><a class="footnote-ref" href="#fn:zhihu">11</a></sup>, and Ctrip Finance all identified over a million crime groups through technology.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-2.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/360-user-2.png" /></a></p>
 <p>In addition to the dimension of time, you can find more scenarios for property graphs by adding some geographic location information.</p>
 <p>For an example of tracing the source of the Coronavirus Disease (COVID-19) <sup id="fnref:CoV02"><a class="footnote-ref" href="#fn:CoV02">12</a></sup>, vertices are the person and edges are the contact between people. Vertex properties are the information of the person's ID card and onset time, and edge properties are the time and geographical location of the close contact between people, etc. It provides help for health prevention departments to quickly identify high-risk people and their behavioral trajectories.</p>
-<p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nCoV02.png" /></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/nCoV02.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nCoV02.png" /></a></p>
 <p>The combination of geographic location and graph is also used in some O2O scenarios, such as real-time food recommendation based on POI (Point-of-Interest) <sup id="fnref:mt"><a class="footnote-ref" href="#fn:mt">13</a></sup>, which enables local life service platform companies like Meituan to recommend more suitable businesses in real-time when consumers open the APP.</p>
 <p>A graph is also used for knowledge inference. Huawei, Vivo, OPPO, WeChat, Meituan, and other companies use graphs for the representation of the underlying knowledge relationships.</p>
 <h2 id="why_do_we_use_graph_databases">Why do we use graph databases?<a class="headerlink" href="#why_do_we_use_graph_databases" title="Permanent link">&para;</a></h2>
@@ -5827,18 +5838,18 @@
 <ul>
 <li>
 <p>It is easier to show the characteristic of the data in graphs. Such as transfer paths and nearby communities. To analyze the relationships of characters and character importance in Game of Thrones, data displayed with tables is not as intuitive as with graphs.</p>
-<p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/game-of-thrones-01.png" /></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/game-of-thrones-01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/game-of-thrones-01.png" /></a></p>
 <p>Especially when some central vertices are deleted:</p>
-<p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones.png" /></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones.png" /></a></p>
 <p>Adding an edge can completely change the entire topology.</p>
-<p><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones-02.png" /></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones-02.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/tv-game-thrones-02.png" /></a></p>
 <p>We can intuitively sense the importance of minor changes in graphs rather than in tables.</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Graph query language is designed based on graph structures. The following is a query example in LDBC. Requirements: Query the posts posted by a person, and query the corresponding replies (the replies themselves will also be replied multiple times). Since the posting time and reply time both meet certain conditions, you can sort the results according to the number of replies.</p>
-<p><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/efficientquery.png" /></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/books/images/efficientquery.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/books/images/efficientquery.png" /></a></p>
 <p>Write querying statements using PostgreSQL:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">--PostgreSQL</span>
 <span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="n">post_all</span><span class="p">(</span><span class="n">psa_threadid</span>
@@ -6081,5 +6092,5 @@
         <script src="https://www-cdn.nebula-graph.io/nebula-docs/nebula-docs.7e772ed81c779cacbefc.js"></script>
       
     
-  </body>
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
