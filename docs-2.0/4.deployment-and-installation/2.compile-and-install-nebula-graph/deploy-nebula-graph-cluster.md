@@ -265,7 +265,7 @@ Users can refer to the content of the following configurations, which only show 
     ```
 
 {{ent.ent_begin}}
-### (Optional) Configure Zone
+### (Optional) Configure Zones
 
 !!! enterpriseonly
 
