@@ -29,6 +29,12 @@ nebula> ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 
     - Ensure that the storage host to be added is not used by any other cluster, otherwise, the storage adding operation will fail.
 
+{{ent.ent_begin}}
+
+When adding a Storage host to a cluster with the Zone feature enabled, you must specify the `INTO ZONE` option; otherwise, the addition of the Storage node will fail. For more details, see [Managing Zones](5.zone.md).
+
+{{ent.ent_end}}
+
 ## Drop Storage hosts
 
 Delete the Storage hosts from cluster.
