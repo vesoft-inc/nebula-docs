@@ -7101,34 +7101,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../8.custom-cluster-configurations/8.5.enable-ssl/" class="md-nav__link">
-        Enable mTLS
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../11.rolling-update-strategy/" class="md-nav__link">
-        Specify a rolling update strategy
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -7144,6 +7116,20 @@
     <li class="md-nav__item">
       <a href="../../9.upgrade-nebula-cluster/" class="md-nav__link">
         Upgrade NebulaGraph clusters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11.rolling-update-strategy/" class="md-nav__link">
+        Specify a rolling update strategy
       </a>
     </li>
   
@@ -7761,13 +7747,15 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
 <span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.  </span>
 <span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.   </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.5.0<span class="w"> </span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
 <!-- -->
-<div class="admonition enterpriseonly">
-<p class="admonition-title">Enterpriseonly</p>
-<p>For NebulaGraph Enterprise, run the following command to create a NebulaGraph cluster:</p>
+
+<p>To create a NebulaGraph cluster for Enterprise Edition, run the following command:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cluster without Zones</label><label for="__tabbed_1_2">Cluster with Zones</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># Configure the access address and port (default port is &#39;9119&#39;) that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="sb">`</span><span class="m">192</span>.168.8.XXX:9119<span class="sb">`</span><span class="w"> </span><span class="se">\</span>
@@ -7783,14 +7771,43 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
 <span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.</span>
 <span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.     </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.5.0<span class="w"> </span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<p>NebulaGraph Operator supports the <a href="../../../4.deployment-and-installation/5.zone/">Zones</a> feature. For how to use Zones in NebulaGraph Operator, see <a href="../3.1create-cluster-with-kubectl/">Learn more about Zones in NebulaGraph Operator</a></p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Configure the access address and port (default port is &#39;9119&#39;) that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="sb">`</span><span class="m">192</span>.168.8.XXX:9119<span class="sb">`</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Configure the image addresses for each service in the cluster.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.image<span class="o">=</span>&lt;reg.example-inc.com/test/graphd-ent&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.metad.image<span class="o">=</span>&lt;reg.example-inc.com/test/metad-ent&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.image<span class="o">=</span>&lt;reg.example-inc.com/test/storaged-ent&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Configure the Secret for pulling images from a private repository.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.imagePullSecrets<span class="o">=</span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Specify the version of the NebulaGraph cluster. </span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
+<span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.</span>
+<span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.     </span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Configure Zones</span>
+<span class="w">    </span><span class="c1"># Once Zones are configured, the Zone information cannot be modified. </span>
+<span class="w">    </span><span class="c1"># It&#39;s suggested to configure an odd number of Zones.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.metad.config.zone_list<span class="o">=</span>&lt;zone1,zone2,zone3&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.prioritize_intra_zone_reading<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.stick_to_intra_zone_on_failure<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <!-- -->
 
-<p>To view all configuration parameters of the NebulaGraph cluster, run the <code>helm show values nebula-operator/nebula-cluster</code> command or click <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.5/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a>.</p>
-<p>Click <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.5/doc/user/nebula_cluster_helm_guide.md#optional-chart-parameters">Chart parameters</a> to see descriptions and default values of the configurable cluster parameters.</p>
+<p>To view all configuration parameters of the NebulaGraph cluster, run the <code>helm show values nebula-operator/nebula-cluster</code> command or click <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.6/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a>.</p>
+<p>Click <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.6/doc/user/nebula_cluster_helm_guide.md#optional-chart-parameters">Chart parameters</a> to see descriptions and default values of the configurable cluster parameters.</p>
 <p>Use the <code>--set</code> argument to set configuration parameters for the cluster. For example, <code>--set nebula.storaged.replicas=3</code> will set the number of replicas for the Storage service in the cluster to 3.</p>
 </li>
 <li>
@@ -7828,11 +7845,15 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 <span class="w">    </span>--set<span class="w"> </span>nebula.storaged.replicas<span class="o">=</span><span class="m">5</span>
 </code></pre></div>
 <p>Similarly, you can scale in a NebulaGraph cluster by setting the value of the <code>replicas</code> corresponding to the different services in the cluster smaller than the original value.</p>
+<p>In the process of downsizing the cluster, if the operation is not complete successfully and seems to be stuck, you may need to check the status of the job using the <code>nebula-console</code> client specified in the <code>spec.console</code> field. Analyzing the logs and manually intervening can help ensure that the Job runs successfully. For information on how to check jobs, see <a href="../../../3.ngql-guide/4.job-statements/">Job statements</a>.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.</p>
+<ul>
+<li>NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.</li>
+<li>If you scale in a cluster with Zones, make sure that the number of remaining storage pods is not less than the number of Zones specified in the <code>spec.metad.config.zone_list</code> field. Otherwise, the cluster will fail to start.</li>
+</ul>
 </div>
-<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
+<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
 <!-- -->
 
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
@@ -7850,7 +7871,7 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 15, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 19, 2023</span>
       
     
   </small>
