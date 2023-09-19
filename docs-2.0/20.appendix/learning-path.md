@@ -141,13 +141,14 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
   | Document |
   | ------------------------------------------------------------ |
   |[Backup&Restore](../backup-and-restore/nebula-br/1.what-is-br.md)|
-<!--
+
+  {{ent.ent_begin}}
 - Resource isolation
 
   | Document |
   | ------------------------------------------------------------ |
-  |[Group & Zone](../7.data-security/5.zone.md)|
--->
+  |[Zone](../4.deployment-and-installation/5.zone.md)|
+  {{ent.ent_end}}
 
 - SSL encryption
 
