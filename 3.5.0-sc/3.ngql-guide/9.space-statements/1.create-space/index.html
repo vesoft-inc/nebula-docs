@@ -685,46 +685,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../2.quick-start/1.quick-start-workflow/" class="md-nav__link">
-        Deploy NebulaGraph using Docker
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4_2">
-          Deploy NebulaGraph on-premise
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Deploy NebulaGraph on-premise" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_2">
-          <span class="md-nav__icon md-icon"></span>
-          Deploy NebulaGraph on-premise
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../2.quick-start/2.install-nebula-graph/" class="md-nav__link">
         Step 1 Install NebulaGraph
       </a>
@@ -784,13 +744,6 @@
       <a href="../../../2.quick-start/4.nebula-graph-crud/" class="md-nav__link">
         Step 5 Use nGQL (CRUD)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -3327,7 +3280,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/manage-service/" class="md-nav__link">
-        Manage Service
+        Manage services
       </a>
     </li>
   
@@ -3341,7 +3294,7 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/connect-to-nebula-graph/" class="md-nav__link">
-        Connect to Service
+        Connect to services
       </a>
     </li>
   
@@ -3355,7 +3308,21 @@
   
     <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/manage-storage-host/" class="md-nav__link">
-        Manage Storage host
+        Manage Storage hosts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.deployment-and-installation/5.zone/" class="md-nav__link">
+        Manage Zones
       </a>
     </li>
   
@@ -3371,18 +3338,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10" type="checkbox" id="__nav_6_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_11" type="checkbox" id="__nav_6_11" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_6_10">
+        <label class="md-nav__link" for="__nav_6_11">
           Upgrade
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Upgrade" data-md-level="2">
-        <label class="md-nav__title" for="__nav_6_10">
+        <label class="md-nav__title" for="__nav_6_11">
           <span class="md-nav__icon md-icon"></span>
           Upgrade
         </label>
@@ -7777,7 +7744,7 @@
     [replica_factor = &lt;replica_number&gt;,]
     vid_type = {FIXED_STRING(&lt;N&gt;) | INT[64]}
     )
-    [COMMENT = &#39;&lt;comment&gt;&#39;];
+    [COMMENT = &#39;&lt;comment&gt;&#39;]
 </code></pre></div>
 <table>
 <thead>
@@ -7813,10 +7780,6 @@
 </tr>
 </tbody>
 </table>
-<!--
-|`zone_list`|Specifies the zone list to which space belongs. NebulaGraph will create partitions and replicas in these zones. The number of replicas can not exceed the number of zones. If `zone_list` is not specified, it belongs to all zones by default. For more information, see [Manage zone](../../4.deployment-and-installation/5.zone.md).|
--->
-
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <ul>
@@ -7856,6 +7819,14 @@
 <p class="admonition-title">Note</p>
 <p><code>graph_space_name</code>, <code>partition_num</code>, <code>replica_factor</code>, <code>vid_type</code>, and <code>comment</code> cannot be modified once set. To modify them, drop the current working graph space with <a href="../5.drop-space/"><code>DROP SPACE</code></a> and create a new one with <code>CREATE SPACE</code>.</p>
 </div>
+<!-- -->
+
+<p>When creating a graph space, the system will automatically recognize the value of <code>--zone_list</code> in the Meta configuration file, which determines whether the Zone feature is enabled:</p>
+<p>- If the value is empty, it means the Zone feature is not enabled. In this case, the graph space will be created without specifying Zones.
+  - If the value is not empty, and the number of Zones in <code>--zone_list</code> is equal to the number of replicas specified by <code>replica_factor</code>, the replicas of each partition in the graph space will be evenly distributed across the Zones specified in <code>--zone_list</code>. If the specified number of replicas is not equal to the number of Zones, the creation of the graph space will fail.</p>
+<p>For more details on Zones, see <a href="../../../4.deployment-and-installation/5.zone/">Manage Zones</a>.</p>
+<!-- -->
+
 <h3 id="clone_graph_spaces">Clone graph spaces<a class="headerlink" href="#clone_graph_spaces" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;
 </code></pre></div>
@@ -7933,7 +7904,7 @@ nebula&gt; SHOW HOSTS;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 19, 2023</span>
       
     
   </small>
