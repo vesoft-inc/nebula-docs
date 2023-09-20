@@ -19,7 +19,7 @@
     
     
       
-        <title>Backup and restore data using NebulaGraph Operator - NebulaGraph Database Manual</title>
+        <title>Backup and restore - NebulaGraph Database Manual</title>
       
     
     
@@ -137,7 +137,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backup and restore data using NebulaGraph Operator
+              Backup and restore
             
           </span>
         </div>
@@ -4976,12 +4976,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_17" type="checkbox" id="__nav_17" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_17" type="checkbox" id="__nav_17" checked>
       
       
       
@@ -5213,6 +5215,150 @@
       <a href="../11.rolling-update-strategy/" class="md-nav__link">
         Specify a rolling update strategy
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Backup and restore
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Backup and restore
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    Backup
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full_backup" class="md-nav__link">
+    Full backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental_backup" class="md-nav__link">
+    Incremental backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter_description" class="md-nav__link">
+    Parameter description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypted_backup" class="md-nav__link">
+    Encrypted backup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore" class="md-nav__link">
+    Restore
+  </a>
+  
+    <nav class="md-nav" aria-label="Restore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter_description_1" class="md-nav__link">
+    Parameter Description
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -5744,10 +5890,14 @@
 <p class="admonition-title">Enterpriseonly</p>
 <p>This feature is only for the enterprise edition NebulaGraph clusters on Kubernetes.</p>
 </div>
+<div class="admonition compatibility">
+<p class="admonition-title">Compatibility</p>
+<p>Make sure that the <a href="../4.deployment-and-installation/5.zone.md">Zone</a> feature is not enabled in the NebulaGraph cluster before using the backup and restore in Operator, otherwise the backup and restore will fail. For details on Zones, see <a href="../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/#create_clusters">Cluster with Zones</a>.</p>
+</div>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p><a href="../../backup-and-restore/nebula-br-ent/1.br-ent-overview/">NebulaGraph BR (Enterprise Edition), short for BR-ent</a> is a command line tool for data backup and recovery of NebulaGraph enterprise edition. NebulaGraph Operator utilizes the BR-ent tool to achieve data backup and recovery for NebulaGraph clusters on Kubernetes.</p>
 <p>When backing up data, NebulaGraph Operator creates a job to back up the data in the NebulaGraph cluster to the specified storage service.</p>
-<p>When restoring data, NebulaGraph Operator checks the specified backup NebulaGraph cluster for existence, and whether the access to remote storage is normally based on the information defined in the NebulaRestore resource object. It then creates a new cluster and restores the backup data to the new NebulaGraph cluster. For more information, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/doc/user/br_guide.md#restore-nebulagraph-cluster">restore flowchart</a>.</p>
+<p>When restoring data, NebulaGraph Operator checks the specified backup NebulaGraph cluster for existence, and whether the access to remote storage is normally based on the information defined in the NebulaRestore resource object. It then creates a new cluster and restores the backup data to the new NebulaGraph cluster. For more information, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.0/doc/user/br_guide.md#restore-nebulagraph-cluster">restore flowchart</a>.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>To backup and restore data using NebulaGraph Operator, the following conditions must be met:</p>
 <ul>
@@ -6126,7 +6276,7 @@ ngxvsm<span class="w">   </span><span class="m">1</span><span class="w">        
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2023</span>
       
     
   </small>
@@ -6155,6 +6305,42 @@ ngxvsm<span class="w">   </span><span class="m">1</span><span class="w">        
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../11.rolling-update-strategy/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Specify a rolling update strategy" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Specify a rolling update strategy
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../5.operator-failover/" class="md-footer__link md-footer__link--next" aria-label="Next: Self-healing" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Self-healing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
