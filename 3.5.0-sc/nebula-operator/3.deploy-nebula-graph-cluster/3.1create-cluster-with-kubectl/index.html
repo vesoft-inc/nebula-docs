@@ -7727,7 +7727,7 @@
                 
                   
 
-  <a href="https://github.com/vesoft-inc/nebula-docs/edit/v3.5.0-sc/docs-2.0/nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vesoft-inc/nebula/edit/master/docs/nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
@@ -7963,7 +7963,7 @@
 </tr>
 <tr>
 <td align="left"><code>spec.alpineImage</code></td>
-<td align="left"><code>reg.vesoft-inc.com/nebula-alpine:latest</code></td>
+<td align="left">-</td>
 <td align="left">The Alpine Linux image, used to obtain the Zone information where nodes are located.</td>
 </tr>
 <tr>
@@ -7982,9 +7982,9 @@
 <td align="left">Specifies whether to stick to intra-zone routing if unable to find the requested partitions in the same zone. When set to <code>true</code>, if unable to find the partition replica in that Zone, it does not read data from other Zones.</td>
 </tr>
 <tr>
-<td align="left"><code>spec.topologySpreadConstraints[0].topologyKey</code></td>
+<td align="left"><code>spec.topologySpreadConstraints</code></td>
 <td align="left">``</td>
-<td align="left">It is a field in Kubernetes used to control the distribution of storage Pods. Its purpose is to ensure that your storage Pods are evenly spread across Zones. <br/>To use the Zone feature, you must set the value to <code>topology.kubernetes.io/zone</code>. Run <code>kubectl get node --show-labels</code> to check the key. For more information, see <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/#example-multiple-topologyspreadconstraints">TopologySpread</a>.</td>
+<td align="left">It is a field in Kubernetes used to control the distribution of storage Pods. Its purpose is to ensure that your storage Pods are evenly spread across Zones. <br/><strong>To use the Zone feature, you must set the value of <code>topologySpreadConstraints[0].topologyKey</code> to <code>topology.kubernetes.io/zone</code> and the value of <code>topologySpreadConstraints[0].whenUnsatisfiable</code> to <code>DoNotSchedule</code></strong>. Run <code>kubectl get node --show-labels</code> to check the key. For more information, see <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/#example-multiple-topologyspreadconstraints">TopologySpread</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -8005,7 +8005,7 @@
 <p><strong>Prioritizing Intra-Zone Data Access</strong></p>
 <p>By setting <code>spec.graphd.config.prioritize_intra_zone_reading</code> to <code>true</code> in the cluster configuration file, you enable the Graph service to prioritize sending queries to Storage services within the same Zone. In the event of a read failure within that Zone, the behavior depends on the value of <code>spec.graphd.config.stick_to_intra_zone_on_failure</code>. If set to <code>true</code>, the Graph service avoids reading data from other Zones and returns an error. Otherwise, it reads data from leader partition replicas in other Zones.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/nebula-alpine:latest</span>
+<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx:latest</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">prioritize_intra_zone_reading</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
