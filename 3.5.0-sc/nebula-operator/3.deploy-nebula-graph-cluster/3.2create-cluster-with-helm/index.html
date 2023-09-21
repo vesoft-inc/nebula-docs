@@ -7101,6 +7101,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8.custom-cluster-configurations/8.5.enable-ssl/" class="md-nav__link">
+        Enable mTLS
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -7747,7 +7761,7 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
 <span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.  </span>
 <span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.   </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.2<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
 <!-- -->
@@ -7771,7 +7785,7 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
 <span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.</span>
 <span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.     </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.2<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
 </div>
@@ -7792,15 +7806,22 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.0<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
 <span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.</span>
 <span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.     </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.2<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># Configure Zones</span>
 <span class="w">    </span><span class="c1"># Once Zones are configured, the Zone information cannot be modified. </span>
 <span class="w">    </span><span class="c1"># It&#39;s suggested to configure an odd number of Zones.</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.metad.config.zone_list<span class="o">=</span>&lt;zone1,zone2,zone3&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.prioritize_intra_zone_reading<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.stick_to_intra_zone_on_failure<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Evenly distribute the Pods of the Storage service across Zones.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.topologySpreadConstraints<span class="o">[</span><span class="m">0</span><span class="o">]</span>.topologyKey<span class="o">=</span>topology.kubernetes.io/zone<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.topologySpreadConstraints<span class="o">[</span><span class="m">0</span><span class="o">]</span>.whenUnsatisfiable<span class="o">=</span>DoNotSchedule<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Make sure storage Pods are evenly distributed across zones before ingesting data by running <code>SHOW ZONES</code> in nebula-console. For zone-related commands, see <a href="../../../4.deployment-and-installation/5.zone/">Zones</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -7853,7 +7874,7 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 <li>If you scale in a cluster with Zones, make sure that the number of remaining storage pods is not less than the number of Zones specified in the <code>spec.metad.config.zone_list</code> field. Otherwise, the cluster will fail to start.</li>
 </ul>
 </div>
-<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.0/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
+<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
 <!-- -->
 
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
@@ -7871,7 +7892,7 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 19, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2023</span>
       
     
   </small>
