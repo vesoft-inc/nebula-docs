@@ -44,18 +44,20 @@ In addition, if you need to use **Workflow** for complex graph computing, you ne
 
 2. Use `sudo rpm -i <rpm>` to install RPM package.
 
-   For example, use the following command to install Explorer. The default installation path is `/usr/local/nebula-explorer`.
+    For example, use the following command to install Explorer. The default installation path is `/usr/local/nebula-explorer`.
 
-   ```bash
-   sudo rpm -i nebula-explorer-<version>.x86_64.rpm
-   ```
+    ```bash
+    sudo rpm -i nebula-explorer-<version>.x86_64.rpm
+    ```
 
-   You can also install it to the specified path using the following command:
-   ```bash
-   sudo rpm -i nebula-explorer-<version>.x86_64.rpm --prefix=<path>
-   ```
+    You can also install it to the specified path using the following command:
+    ```bash
+    sudo rpm -i nebula-explorer-<version>.x86_64.rpm --prefix=<path>
+    ```
 
 3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
+
+    For more configuration descriptions, see the **Configuration file description** section at the end of the topic.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
@@ -117,6 +119,8 @@ sudo rpm -e nebula-graph-explorer-<version>.x86_64
 
 3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
 
+    For more configuration descriptions, see the **Configuration file description** section at the end of the topic.
+
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
 5. Enter the folder `nebula-explorer`, and start the service using the following command.
@@ -163,6 +167,8 @@ sudo dpkg -r nebula-explorer
    ```
 
 3. Enter the extracted folder, and modify the `app-config.yaml` file in the `config` directory, set the value of `LicenseManagerURL` to the host IP of LM and the port number `9119`, for example, `192.168.8.100:9119`.
+
+    For more configuration descriptions, see the **Configuration file description** section at the end of the topic.
 
 4. (Optional) Configure the Dag Controller. See the **Configure Dag Controller** section below.
 
@@ -270,6 +276,79 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   ```bash
   exec_file: /home/xxx/nebula-analytics/scripts/run_algo.sh
   ```
+
+## Configuration file description
+
+```yaml
+Name: explorer
+Version: {{explorer.release}}
+Database: yueshu
+Host: 0.0.0.0  # Specifies the address where explorer can be accessed.
+Port: 7002  # The default access port for explorer.
+
+# The following parameters need to be configured when using SSL encrypted access or inline frames. Currently only self-signed certificates are supported, see the iframework section for how to do this.
+# CertFile: "./config/Explorer.crt"  # The path to the SSL public key certificate.
+# KeyFile: "./config/Explorer.key" # The path to the SSL key.
+
+MaxBytes: 1073741824 # The maximum ContentLength that HTTP can accept, default is 1048576. range: 0 ~ 8388608.
+Timeout: 30000 # Access timeout time.
+
+# The deployment mode of explorer, supports single and multiple instances.The optional values are single and multi.
+# In multi-instance mode, local storage service (data import) will be disabled to ensure data consistency between instances.
+# AppInstance: "multi" 
+Log:  # explorer run log settings. See https://go-zero.dev/en/docs/tutorials/go-zero/configuration/log/
+  Mode: file  # Log saving method. The optional values are: console and file. console means the service log will be recorded in webserver.log; file means the service log will be recorded in access.log, error.log, sever.log, slow.log, and stat.log respectively.
+  Level: error # Log output level. The optional values are: debug, info, error, and severe.
+  KeepDays: 7  # The number of days the log is retained.
+Env: "local"
+Debug:  
+  Enable: false # Whether to enable Debug mode.
+Auth:
+  TokenName: "explorer_token" # The name of the token after login.
+  AccessSecret: "login_secret" # The secret of the token after login.
+  AccessExpire: 259200 # The validity of the token after login, in seconds.
+File:
+  UploadDir: "./data/upload/"  # The path where the uploaded files are stored when importing data.
+  TasksDir: "./data/tasks"  # Task file storage path. Includes imported tasks, workflow tasks, etc.
+  TaskIdPath: "./data/taskId.data" # The task ID storage path.
+DB:
+  Enable: true
+  LogLevel: 4  # Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.
+  IgnoreRecordNotFoundError: false  
+  AutoMigrate: true  # Whether or not to automatically create database tables. The default is true.
+  Type: "sqlite3"  # The type of database used in the backend. Supports mysql and sqlite3.
+  Host: "127.0.0.1:3306"  # The IP and port of the database.
+  Name: "nebula"  # Database name.
+  User: "root"  # Database username.
+  Password: "123456"  # Database password.
+  SqliteDbFilePath: "./data/tasks.db"   # This parameter is required for sqlite3 only. The address of the database file.
+  MaxOpenConns: 30  # Maximum number of active connections in the connection pool.
+  MaxIdleConns: 10  # Maximum number of free connections in the connection pool.
+Analytics:
+  Host: "http://127.0.0.1:9002"  # The address of the DAG service for the workflow.
+  # RPC_HDFS_PASSWORD: "passward" # The password for the HDFS RPC service.
+OAuth:
+  Enable: false 
+  ClientID: "10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
+  ClientSecret: "GOCSPX-8Enxxxxx" # The client key for the OAuth service.
+  AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
+  TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
+  Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
+
+  UserInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo" # The URL to get the user information.
+  UsernameKey: "email" # Username field.
+  Organization: "vesoft"  # OAuth Vendor name.
+  TokenName: "oauth_token" # The name of the token in the cookie.
+  RedirectURL: "http://127.0.0.1:7002/login" # The redirect URL for the OAuth service.
+  AvatarKey: "picture" # The key for the avatar in the user information.
+IframeMode:
+  Enable: false  # Whether to enable iframe mode.
+Any source is allowed by default.
+  # Origins:     # The source whitelist of iframe. Any source is allowed by default.
+  #   - "http://192.168.8.8"
+LicenseManagerURL: http://192.168.8.100:9119 # license manager url.
+CorsOrigins: [] # The list of domains that are allowed to initiate cross-domain requests.
+```
 
 ## Next to do
 
