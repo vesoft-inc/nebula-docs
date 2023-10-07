@@ -19,7 +19,7 @@
     
     
       
-        <title>Authority management - NebulaGraph Database Manual</title>
+        <title>Platform member management - NebulaGraph Database Manual</title>
       
     
     
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#authority_management" class="md-skip">
+        <a href="#platform_member_management" class="md-skip">
           Skip to content
         </a>
       
@@ -137,7 +137,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Authority management
+              Platform member management
             
           </span>
         </div>
@@ -5645,22 +5645,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ldap_accounts" class="md-nav__link">
-    LDAP accounts
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oauth20_accounts" class="md-nav__link">
-    OAuth2.0 accounts
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#general_accounts" class="md-nav__link">
     General accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sso_accounts" class="md-nav__link">
+    SSO accounts
   </a>
   
 </li>
@@ -5718,87 +5711,73 @@
   </a>
 
 
-<h1 id="authority_management">Authority management<a class="headerlink" href="#authority_management" title="Permanent link">&para;</a></h1>
+<h1 id="platform_member_management">Platform member management<a class="headerlink" href="#platform_member_management" title="Permanent link">&para;</a></h1>
 <p>You can log into NebulaGraph Dashboard Enterprise Edition with different types of accounts. Different accounts have different permissions. This article introduces account types, roles, and permissions.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You need to configure the related protocols before using LDAP accounts or OAuth2.0 accounts. For details, see <a href="../system-settings/single-sign-on/">Single sign-on</a>.</p>
+<p>For managing account privileges on databases within a cluster, see <a href="../4.cluster-operator/10.database-user/">Database member</a>.</p>
 </div>
 <h2 id="account_types">Account types<a class="headerlink" href="#account_types" title="Permanent link">&para;</a></h2>
-<p>Once you log into Dashboard Enterprise Edition using the initialized account name <code>nebula</code> and password <code>nebula</code>, you can create different types of accounts: LDAP accounts, OAuth2.0 accounts and general accounts.</p>
-<h3 id="ldap_accounts">LDAP accounts<a class="headerlink" href="#ldap_accounts" title="Permanent link">&para;</a></h3>
+<p>Once you log into Dashboard Enterprise Edition using the initialized account name <code>nebula</code> and password <code>nebula</code>, you can create different types of accounts: general accounts and SSO accounts.</p>
+<h3 id="general_accounts">General accounts<a class="headerlink" href="#general_accounts" title="Permanent link">&para;</a></h3>
+<p>Dashboard Enterprise Edition enables you to create local accounts.</p>
+<h3 id="sso_accounts">SSO accounts<a class="headerlink" href="#sso_accounts" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SSO (Single Sign On) supports LDAP, OAuth2.0 and CAS. You need to configure the related protocols before using it. For details, see <a href="../system-settings/single-sign-on/">Single sign-on</a>.</p>
+</div>
+<ul>
+<li>
+<p>LDAP accounts</p>
 <p>Dashboard Enterprise Edition enables you to log into it with your enterprise account by accessing <a href="https://ldap.com/">LDAP (Lightweight Directory Access Protocol)</a>.</p>
-<h3 id="oauth20_accounts">OAuth2.0 accounts<a class="headerlink" href="#oauth20_accounts" title="Permanent link">&para;</a></h3>
+</li>
+</ul>
+<ul>
+<li>
+<p>OAuth2.0 accounts</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>The feature is still in beta. It will continue to be optimized.</p>
 </div>
 <p>Dashboard Enterprise Edition enables you to use access_token to authorize the third-party applications to access the protected information based on <a href="https://oauth.net/2/">OAuth2.0</a>.</p>
-<h3 id="general_accounts">General accounts<a class="headerlink" href="#general_accounts" title="Permanent link">&para;</a></h3>
-<p>Dashboard Enterprise Edition enables you to create local accounts.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>accounts</p>
+<p>Dashboard Enterprise Edition enables you to verify your identity based on <a href="https://apereo.github.io/cas">CAS (Central Authentication Service)</a> 2.0 protocol.</p>
+</li>
+</ul>
 <h2 id="account_roles">Account roles<a class="headerlink" href="#account_roles" title="Permanent link">&para;</a></h2>
-<p>You can set different roles for your accounts. Roles are different in permissions. There are two types of account roles in Dashboard Enterprise Edition: system roles (<code>admin</code> and <code>user</code>) and cluster roles (<code>owner</code> and <code>operator</code>).</p>
-<p>The relationship between system roles and cluster roles and their descriptions are as follows.</p>
-<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/ds_roles_en.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="roles" src="https://docs-cdn.nebula-graph.com.cn/figures/ds_roles_en.png" /></a></p>
-<p><strong>System roles</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Roles</th>
-<th>Permission</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>admin</td>
-<td>1. Create accounts.<br>2. Modify the role of an existing account.<br>3. Perform platform settings, system-level alert settings.<br>4. Delete accounts.</td>
-<td>1. There can be multiple <code>admin</code> roles, i.e. system administrators.<br/> 2. An <code>admin</code> is the <code>operator</code> of all clusters by default, i.e. an <code>admin</code> can manage all clusters. <br/>3. An <code>admin</code> can assign a <code>user</code> to be the <code>operator</code> of a cluster.<br/>4. Displayed in the cluster member list by default. An <code>owner</code> cannot remove an <code>admin</code> unless the <code>admin</code> is converted to <code>user</code>, and the system will automatically remove the <code>admin</code> from the cluster member list.</td>
-</tr>
-<tr>
-<td>user</td>
-<td>1. Has read-only permissions for the system dimension. <br/>2. After an <code>admin</code> creates a new account with the <code>user</code> role, the <code>user</code> account cannot view any clusters if the corresponding cluster is not assigned to the account.  <br/>3. Can create clusters and become the <code>owner</code> of the clusters.</td>
-<td>1. General role. <br/>2. There can be multiple <code>user</code> roles.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Cluster roles</strong>: </p>
-<table>
-<thead>
-<tr>
-<th>Roles</th>
-<th>Permission</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>operator</code></td>
-<td>1. Scale clusters. <br/>2. Set cluster alerts. <br/>3. Manage cluster nodes.<br/>4. Manage cluster services.</td>
-<td>1. The cluster operator.<br/> 2. There can be multiple <code>operator</code> roles in a cluster.</td>
-</tr>
-<tr>
-<td><code>owner</code></td>
-<td>1. Have all the permissions of <code>operator</code>. <br/>2. Unbind and delete clusters.<br/>3. Add and remove accounts with <code>operator</code> roles. <br/>4. Transfer the <code>owner</code> role.</td>
-<td>1. The cluster owner. <br/>2. There can only be one <code>owner</code> in a cluster.</td>
-</tr>
-</tbody>
-</table>
+<p>You can set different roles for your accounts. Roles have different permissions. There are two types of account roles in Dashboard Enterprise Edition.</p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_role_231007_en.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="roles" src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_role_231007_en.png" /></a></p>
+<ul>
+<li>Platform roles: <code>admin</code> and <code>user</code>.<ul>
+<li>The <code>admin</code> role is equivalent to the administrator of the platform, who can manage the platform roles of all accounts, and can perform daily operation and maintenance operations on all clusters.</li>
+<li>The <code>user</code> role is equivalent to a general user of the platform, who can only manage the clusters that the user has created or been authorized to manage.</li>
+</ul>
+</li>
+<li>Cluster roles: <code>owner</code> and <code>operator</code>.<ul>
+<li>The <code>owner</code> role represents the owner of a cluster, you can authorize other accounts to manage your clusters. You set yourself up as the <code>owner</code> when you create a cluster, and you can transfer the <code>owner</code> role to other accounts.</li>
+<li>The <code>operator</code> role means that you can perform daily operations on the cluster, but you cannot transfer the <code>owner</code> role, change the cluster database password, unbind the cluster, and delete the cluster.</li>
+</ul>
+</li>
+</ul>
 <h2 id="create_accounts">Create accounts<a class="headerlink" href="#create_accounts" title="Permanent link">&para;</a></h2>
 <p>Accounts with <code>admin</code> roles can create other accounts. The steps are as follows:</p>
 <ol>
-<li>At the top navigation bar of the Dashboard Enterprise Edition page, click <strong>Authority</strong>, and click <strong>Create</strong>.</li>
+<li>At the top navigation bar of the Dashboard Enterprise Edition page, click <strong>Members</strong>, and click <strong>Add</strong>.</li>
 <li>
 <p>Select one method and input information to create an account, and click <strong>OK</strong>.</p>
 <ul>
-<li>Invite (LDAP or OAuth2.0 accounts): Set the invitee's account type, enterprise email and role. After the invitee clicks the <strong>Accept</strong> button in the email to activate the account, the invitee needs to click <strong>Login</strong> to automatically jump to the Dashboard Enterprise Edition login page. The invitee can log into Dashboard with his/her enterprise email account and password.</li>
+<li>Invite (LDAP or OAuth2.0 accounts): Set the invitee's account type, enterprise email, role and authorize cluster. After the invitee clicks the <strong>Accept</strong> button in the email to activate the account, the invitee needs to click <strong>Login</strong> to automatically jump to the Dashboard Enterprise Edition login page. The invitee can log into Dashboard with his/her enterprise email account and password.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Automatic registration is also supported after LDAP is enabled. When you enter an unregistered account in LDAP mode on the login page, the Dashboard automatically registers the account, but the role permission is <code>user</code>.</p>
 </div>
 <ul>
-<li>Create Account (general accounts): Set the login name, password, and role for the new account. For information about roles, see the above content.</li>
+<li>Create Account (general accounts): Set the login name, password, role and authorize cluster for the new account. For information about roles, see the <strong>Account roles</strong> section above.</li>
 </ul>
 </li>
 </ol>
@@ -5808,8 +5787,8 @@
 <li>
 <p>You can view the username, account type, role, associated cluster, and create time of accounts.</p>
 <ul>
-<li><strong>Account Type</strong>: Includes <strong>ldap</strong>, <strong>oauth2.0</strong> and <strong>platform</strong>. <strong>platform</strong> is a general account.</li>
-<li><strong>Role</strong>: Displays the role of an account, including <strong>admin</strong> and <strong>user</strong>. For more information about roles, see the above content.</li>
+<li><strong>Account Type</strong>: Includes <strong>ldap</strong>, <strong>oauth2.0</strong>, <strong>cas</strong> and <strong>platform</strong>. <strong>platform</strong> is a general account.</li>
+<li><strong>Role</strong>: Displays the role of an account, including <strong>admin</strong> and <strong>user</strong>. For more information about roles, see the <strong>Account roles</strong> section above.</li>
 <li><strong>Associated Clusters</strong>: Displays all the clusters that can be operated by an account. If the cluster was created by the account, the associated cluster has the <code>owner</code> tag.</li>
 </ul>
 </li>
@@ -5818,11 +5797,18 @@
 <li>You can search for accounts in the search box, and filter accounts by selecting an associated cluster.</li>
 </ul>
 <h2 id="other_operations">Other operations<a class="headerlink" href="#other_operations" title="Permanent link">&para;</a></h2>
+<p>Performing the following operations requires the account to have the associated role permissions. For details on roles, see the <strong>Account Roles</strong> section above.</p>
 <ul>
-<li>In the <strong>Action</strong> column on the <strong>Authority</strong> page, click <a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/alert_edit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="alert-edit" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_edit.png" /></a> to edit account information.</li>
+<li>
+<p>Edit account</p>
+<p>In the <strong>Action</strong> column, click <a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/alert_edit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="alert-edit" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_edit.png" /></a> to edit account information. This includes modifying the account platform role, or authorizing the <code>operator</code> role to the account for clusters where you have the <code>owner</code> role.</p>
+</li>
 </ul>
 <ul>
-<li>In the <strong>Action</strong> column on the <strong>Authority</strong> page, click <a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="alert-delete" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" /></a> to delete an account.</li>
+<li>
+<p>Delete account</p>
+<p>In the <strong>Action</strong> column, click <a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="alert-delete" src="https://docs-cdn.nebula-graph.com.cn/figures/alert_delete.png" /></a> to delete an account. Accounts without the <code>owner</code> role can be deleted.</p>
+</li>
 </ul>
 
   <hr>
@@ -5830,7 +5816,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2023</span>
       
     
   </small>
