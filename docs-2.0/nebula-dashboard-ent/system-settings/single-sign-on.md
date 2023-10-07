@@ -1,11 +1,11 @@
 # Single sign-on
 
-NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP accounts, and OAuth2.0 accounts. This article introduces how to configure the protocols of LDAP and OAuth2.0.
+NebulaGraph Dashboard Enterprise Edition supports general accounts, LDAP accounts, OAuth2.0 accounts, and CAS accounts. This article introduces how to configure the protocols of LDAP, OAuth2.0 and CAS.
 
 !!! note
 
     - After the configuration is complete, you can create the account and activate the invitation. For details，see [Authority management](../5.account-management.md).
-    - You can quickly switch on or off LDAP or OAuth2.0 in the left navigation bar.
+    - You can quickly switch on or off a login method in the left navigation bar.
 
 ## LDAP configuration
 
@@ -61,3 +61,24 @@ After LDAP is enabled, you can register an LDAP account in two ways:
 ### Instruction
 
 After OAuth2.0 is enabled, you can invite others to register by [email](../5.account-management.md).
+
+## CAS configuration
+
+### Entry
+
+1. At the top navigation bar of the Dashboard Enterprise Edition page, click **System Settings**.
+2. On the left-side navigation bar of the page, click **Single Sign-on**->**CAS**.
+
+### Configuration description
+
+|Parameter|Example|Description|
+|:--|:--|:--|
+|`CAS server address` | `https://192.168.8.100:8080/cas`| CAS server address.  |
+|`Organization` | `yueshu` | The name of the organization displayed on the login page. |
+
+### Instruction
+
+After enabling CAS, select SSO login on the login page.
+
+- If the login ticket is already saved in the browser cache, you can login NebulaGraph Dashboard Enterprise Edition directly.
+- If there is no login ticket in the browser cache, it will jump to the central server for login verification.
