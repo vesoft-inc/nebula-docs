@@ -5721,23 +5721,76 @@ IframeMode:
 <p>Embed the Explorer page by using iframe on a third-party page. The work needs to be developed by yourself.</p>
 </li>
 <li>
-<p>On the parent page, pass the login message through the postMessage method in the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;NebulaGraphExploreLogi</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="err">da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="err">au</span><span class="kc">t</span><span class="err">horiza</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;WyJyb</span><span class="mi">290</span><span class="err">IiwibmVidWxhIl</span><span class="mi">0</span><span class="err">=&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="err">hos</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">192.168.8.240</span><span class="p">:</span><span class="mi">9669</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="err">space</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;baske</span><span class="kc">t</span><span class="err">ballplayer&#39;</span><span class="w"> </span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<p>On the parent page, pass the request through the postMessage method as shown in the following example:</p>
+<div class="highlight"><pre><span></span><code><span class="err">co</span><span class="kc">nst</span><span class="w"> </span><span class="err">li</span><span class="kc">n</span><span class="err">ks</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">source</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">150</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">tar</span><span class="err">ge</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">143</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ollow</span><span class="w"> </span><span class="err">player</span><span class="mi">150-</span><span class="err">&gt;player</span><span class="mi">143</span><span class="w"> </span><span class="err">@</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">ra</span><span class="kc">n</span><span class="err">k</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="err">edgeType</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ollow&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">proper</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">degree</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="err">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;#d</span><span class="mf">40e0e</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">source</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">143</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">tar</span><span class="err">ge</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">150</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ollow</span><span class="w"> </span><span class="err">player</span><span class="mi">143-</span><span class="err">&gt;player</span><span class="mi">150</span><span class="w"> </span><span class="err">@</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">ra</span><span class="kc">n</span><span class="err">k</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="err">edgeType</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ollow&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">proper</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">degree</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">]</span><span class="err">;</span>
+
+<span class="err">co</span><span class="kc">nst</span><span class="w"> </span><span class="kc">n</span><span class="err">odes</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">150</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">ta</span><span class="err">gs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;player&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="err">proper</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">player</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="err">age</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Luka</span><span class="w"> </span><span class="err">Do</span><span class="kc">n</span><span class="err">cic&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="err">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;#</span><span class="mf">20e</span><span class="err">b</span><span class="mi">14</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;player</span><span class="mi">143</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">ta</span><span class="err">gs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;player&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="err">proper</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">player</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="err">age</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span>
+<span class="w">        </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Kris</span><span class="kc">ta</span><span class="err">ps</span><span class="w"> </span><span class="err">Porzi</span><span class="kc">n</span><span class="err">gis&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="err">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;#</span><span class="mf">3713e</span><span class="err">d&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">]</span><span class="err">;</span>
+
+<span class="c1">// login</span>
+<span class="err">i</span><span class="kc">fra</span><span class="err">meEle.co</span><span class="kc">ntent</span><span class="err">Wi</span><span class="kc">n</span><span class="err">dow.pos</span><span class="kc">t</span><span class="err">Message(</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// `NebulaGraphExploreLogin` type has been deprecated</span>
+<span class="w">    </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;ExplorerLogi</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="err">au</span><span class="kc">t</span><span class="err">horiza</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;WyJyb</span><span class="mi">290</span><span class="err">IiwibmVidWxhIl</span><span class="mi">0</span><span class="err">=&#39;</span><span class="p">,</span><span class="w">  </span><span class="c1">// NebulaGraph accounts and passwords were formed into an array and serialized, then Base64 encoded. The array format is `[&#39;account&#39;, &#39;password&#39;]`. The example is[&#39;root&#39;, &#39;nebula&#39;]. The encoded result is `WyJyb290IiwibmVidWxhIl0=`.</span>
+<span class="w">      </span><span class="err">hos</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">192.168.8.240</span><span class="p">:</span><span class="mi">9669</span><span class="err">&#39;</span><span class="p">,</span><span class="w">  </span><span class="c1">// The graph service address of NebulaGraph.</span>
+<span class="w">      </span><span class="err">space</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;demo_baske</span><span class="kc">t</span><span class="err">ball&#39;</span><span class="p">,</span><span class="w">  </span><span class="c1">// The name of the target graph space.</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="err">&#39;*&#39;</span>
+<span class="err">);</span>
+
+<span class="c1">// add vertexes or edges</span>
+<span class="err">i</span><span class="kc">fra</span><span class="err">meEle.co</span><span class="kc">ntent</span><span class="err">Wi</span><span class="kc">n</span><span class="err">dow.pos</span><span class="kc">t</span><span class="err">Message(</span><span class="p">{</span><span class="w"> </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;ExplorerAddCa</span><span class="kc">n</span><span class="err">vasEleme</span><span class="kc">nts</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kc">n</span><span class="err">odes</span><span class="p">,</span><span class="w"> </span><span class="err">li</span><span class="kc">n</span><span class="err">ks</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="err">&#39;*&#39;)</span>
+
+<span class="c1">// Clear canvas</span>
+<span class="err">i</span><span class="kc">fra</span><span class="err">meEle.co</span><span class="kc">ntent</span><span class="err">Wi</span><span class="kc">n</span><span class="err">dow.pos</span><span class="kc">t</span><span class="err">Message(</span><span class="p">{</span><span class="w"> </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;ExplorerClearCa</span><span class="kc">n</span><span class="err">vas&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="err">&#39;*&#39;)</span>
 </code></pre></div>
-<ul>
-<li>type: The method type must be <code>NebulaGraphExploreLogin</code>.</li>
-<li>data：<ul>
-<li><code>authorization</code>: NebulaGraph accounts and passwords were formed into an array and serialized, then Base64 encoded. The array format is <code>['account', 'password']</code>. The example is['root', 'nebula']. The encoded result is <code>WyJyb290IiwibmVidWxhIl0=</code>.</li>
-<li><code>host</code>: The graph service address of NebulaGraph.</li>
-<li><code>space</code>: The name of the target graph space.</li>
-</ul>
-</li>
-</ul>
 </li>
 <li>
 <p>Start the Explorer service.</p>
@@ -5759,7 +5812,7 @@ IframeMode:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2023</span>
       
     
   </small>
