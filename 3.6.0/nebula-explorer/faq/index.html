@@ -5720,6 +5720,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how_to_implement_a_highly_available_architecture" class="md-nav__link">
+    How to implement a highly available architecture
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5807,13 +5814,39 @@
 </ul>
 <h2 id="how_to_resolve_the_error_broadcasthpp193_check_failed_size_trecv_bytes_sizeofchunk_tail_t_recv_message_too_small_0">How to resolve the error <code>broadcast.hpp:193] Check failed: (size_t)recv_bytes &gt;= sizeof(chunk_tail_t) recv message too small: 0</code>?<a class="headerlink" href="#how_to_resolve_the_error_broadcasthpp193_check_failed_size_trecv_bytes_sizeofchunk_tail_t_recv_message_too_small_0" title="Permanent link">&para;</a></h2>
 <p>The amount of data to be processed is too small, but the number of compute nodes and processes is too large. Smaller <code>clusterSize</code> and <code>processes</code> need to be set when submitting jobs.</p>
+<h2 id="how_to_implement_a_highly_available_architecture">How to implement a highly available architecture<a class="headerlink" href="#how_to_implement_a_highly_available_architecture" title="Permanent link">&para;</a></h2>
+<p>Users can use third-party high-availability software (e.g. <a href="https://www.haproxy.org/">HAProxy</a>) to implement the high-availability architecture for Explorer and the high-availability architecture for LM.</p>
+<p>For example, you can deploy Explorer service and database service on multiple machines. Then use HAProxy to implement their respective load balancing.</p>
+<p>Then fill in the external interfaces of database service into the configuration of the Explorer, as shown in the example below:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># The deployment mode of explorer, supports single and multiple instances.The optional values are single and multi.</span>
+<span class="c1"># In multi-instance mode, local storage service (data import) will be disabled to ensure data consistency between instances.</span>
+<span class="nt">AppInstance</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;multi&quot;</span><span class="w"> </span>
+
+<span class="c1"># Database configuration</span>
+<span class="nt">DB</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">  </span><span class="c1"># Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.</span>
+<span class="w">  </span><span class="nt">IgnoreRecordNotFoundError</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">AutoMigrate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Whether or not to automatically create database tables. The default is true.</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mysql&quot;</span><span class="w">  </span><span class="c1"># The type of database used in the backend. Supports mysql and sqlite3. PolarDB is fully compatible with MySQL, if it is PolarDB, just fill in mysql.</span>
+<span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.8.200:3306&quot;</span><span class="w">  </span><span class="c1"># The external IP and port for the high availability database service.</span>
+<span class="w">  </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nebula&quot;</span><span class="w">  </span><span class="c1"># Database name.</span>
+<span class="w">  </span><span class="nt">User</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;root&quot;</span><span class="w">  </span><span class="c1"># Database username.</span>
+<span class="w">  </span><span class="nt">Password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456&quot;</span><span class="w">  </span><span class="c1"># Database password.</span>
+<span class="w">  </span><span class="c1"># SqliteDbFilePath: &quot;./data/tasks.db&quot;   # This parameter is required for sqlite3 only. The address of the database file.</span>
+<span class="w">  </span><span class="nt">MaxOpenConns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">  </span><span class="c1"># Maximum number of active connections in the connection pool.</span>
+<span class="w">  </span><span class="nt">MaxIdleConns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">  </span><span class="c1"># Maximum number of free connections in the connection pool.</span>
+<span class="nt">LicenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://192.168.8.100:9119</span><span class="w"> </span><span class="c1"># License manager url.</span>
+</code></pre></div>
+<p>Finally, just access the external interface of Explorer provided by HAProxy.</p>
+<p>For detailed solutions, you can contact the after-sales staff for consultation.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2023</span>
       
     
   </small>

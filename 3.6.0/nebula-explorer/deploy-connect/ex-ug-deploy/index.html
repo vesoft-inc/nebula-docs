@@ -5773,6 +5773,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#directory_structure" class="md-nav__link">
+    Directory structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view_logs" class="md-nav__link">
+    View logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration_file_description" class="md-nav__link">
     Configuration file description
   </a>
@@ -6059,10 +6073,60 @@ RsaPubKey: |
 </code></pre></div>
 </li>
 </ol>
+<h2 id="directory_structure">Directory structure<a class="headerlink" href="#directory_structure" title="Permanent link">&para;</a></h2>
+<p>The structure of the Explorer Enterprise Edition is as follows:</p>
+<div class="highlight"><pre><span></span><code>├──<span class="w"> </span>CMakeLists.txt<span class="w"> </span><span class="c1"># CMake configuration files</span>
+<span class="p">|</span>
+├──<span class="w"> </span>config<span class="w"> </span><span class="c1"># Configuration files</span>
+│<span class="w">   </span>
+├──<span class="w"> </span>dag-ctrl<span class="w"> </span><span class="c1"># Dag Controller installation directory</span>
+│<span class="w">   </span>
+├──<span class="w"> </span>scripts<span class="w"> </span><span class="c1"># Scripts for managing services</span>
+│<span class="w">   </span>
+├──<span class="w"> </span>tmp<span class="w"> </span><span class="c1"># Temporary files</span>
+<span class="p">|</span>
+└──<span class="w"> </span>nebula-explorer-server<span class="w"> </span><span class="c1"># Explorer service application</span>
+</code></pre></div>
+<h2 id="view_logs">View logs<a class="headerlink" href="#view_logs" title="Permanent link">&para;</a></h2>
+<p>Users can view the Explorer Enterprise Edition logs in the <code>logs</code> directory.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>cat logs/access.log
+</code></pre></div>
+<p>The descriptions of the log files are as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Log file</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>access.log</code></td>
+<td align="left">Access log. Records all request messages for accessing the services, including request time, source address, requested URL, HTTP method, returned HTTP status code, etc.</br>It takes effect only when the <code>Log.Mode</code> in the Explorer configuration is <code>file</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>error.log</code></td>
+<td align="left">Error log. Records error messages that occur during service running. This may include runtime errors, system errors, service logic errors, etc.</br>It takes effect only when the <code>Log.Mode</code> in the Explorer configuration is <code>file</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>severe.log</code></td>
+<td align="left">Severe log. Records error messages that could cause the system to crash, or seriously affect the correct functioning of the system. This may include runtime errors, system errors, serious service logic errors, etc.</br>It takes effect only when the <code>Log.Mode</code> in the Explorer configuration is <code>file</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>slow.log</code></td>
+<td align="left">Slow log. Records requests or operations whose execution time exceeds a preset threshold, helping users identify performance bottlenecks.</br>It takes effect only when the <code>Log.Mode</code> in the Explorer configuration is <code>file</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>stat.log</code></td>
+<td align="left">Statistic log. Records statistical information about the service, the content of which depends on the needs of the application and may include a variety of performance metrics, usage statistics, etc.</br>It takes effect only when the <code>Log.Mode</code> in the Explorer configuration is <code>file</code>.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="configuration_file_description">Configuration file description<a class="headerlink" href="#configuration_file_description" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explorer</span>
 <span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.5.1</span>
-<span class="nt">Database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yueshu</span>
+<span class="nt">Database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
 <span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span><span class="w">  </span><span class="c1"># Specifies the address where explorer can be accessed.</span>
 <span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7002</span><span class="w">  </span><span class="c1"># The default access port for explorer.</span>
 
@@ -6126,7 +6190,7 @@ RsaPubKey: |
 <span class="l l-Scalar l-Scalar-Plain">Any source is allowed by default.</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain"># Origins</span><span class="p p-Indicator">:</span><span class="w">     </span><span class="c1"># The source whitelist of iframe. Any source is allowed by default.</span>
 <span class="w">  </span><span class="c1">#   - &quot;http://192.168.8.8&quot;</span>
-<span class="nt">LicenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://192.168.8.100:9119</span><span class="w"> </span><span class="c1"># license manager url.</span>
+<span class="nt">LicenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://192.168.8.100:9119</span><span class="w"> </span><span class="c1"># License manager url.</span>
 <span class="nt">CorsOrigins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span><span class="c1"># The list of domains that are allowed to initiate cross-domain requests.</span>
 </code></pre></div>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">&para;</a></h2>
@@ -6137,7 +6201,7 @@ RsaPubKey: |
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2023</span>
       
     
   </small>
