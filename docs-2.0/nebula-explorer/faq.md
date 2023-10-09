@@ -87,7 +87,7 @@ The amount of data to be processed is too small, but the number of compute nodes
 
 ## How to implement a highly available architecture
 
-Users can use third-party high-availability software (e.g. HAProxy) to implement the high-availability architecture for Explorer and the high-availability architecture for LM.
+Users can use third-party high-availability software (e.g. [HAProxy](https://www.haproxy.org/)) to implement the high-availability architecture for Explorer and the high-availability architecture for LM.
 
 For example, you can deploy Explorer service and database service on multiple machines. Then use HAProxy to implement their respective load balancing.
 
