@@ -45,22 +45,78 @@ The Explorer has been installed.
 
 3. Embed the Explorer page by using iframe on a third-party page. The work needs to be developed by yourself.
 
-4. On the parent page, pass the login message through the postMessage method in the following format:
+4. On the parent page, pass the request through the postMessage method as shown in the following example:
 
   ```json
-  { type: 'NebulaGraphExploreLogin', 
-    data: { 
-      authorization: 'WyJyb290IiwibmVidWxhIl0=', 
-      host: '192.168.8.240:9669', 
-      space: 'basketballplayer' 
-      } }
-  ```
+  const links = [
+    {
+      source: 'player150',
+      target: 'player143',
+      id: 'follow player150->player143 @0',
+      rank: 0,
+      edgeType: 'follow',
+      properties: {
+        degree: 90,
+      },
+      color: '#d40e0e',
+    },
+    {
+      source: 'player143',
+      target: 'player150',
+      id: 'follow player143->player150 @0',
+      rank: 0,
+      edgeType: 'follow',
+      properties: {
+        degree: 90,
+      },
+    },
+  ];
 
-  - type: The method type must be `NebulaGraphExploreLogin`.
-  - data：
-    - `authorization`: NebulaGraph accounts and passwords were formed into an array and serialized, then Base64 encoded. The array format is `['account', 'password']`. The example is['root', 'nebula']. The encoded result is `WyJyb290IiwibmVidWxhIl0=`.
-    - `host`: The graph service address of NebulaGraph.
-    - `space`: The name of the target graph space.
+  const nodes = [
+    {
+      id: 'player150',
+      tags: ['player'],
+      properties: {
+        player: {
+          age: 20,
+          name: 'Luka Doncic',
+        },
+      },
+      color: '#20eb14',
+    },
+    {
+      id: 'player143',
+      tags: ['player'],
+      properties: {
+        player: {
+          age: 23,
+          name: 'Kristaps Porzingis',
+        },
+      },
+      color: '#3713ed',
+    },
+  ];
+
+  // login
+  iframeEle.contentWindow.postMessage(
+    {
+      // `NebulaGraphExploreLogin` type has been deprecated
+      type: 'ExplorerLogin',
+      data: {
+        authorization: 'WyJyb290IiwibmVidWxhIl0=',  // NebulaGraph accounts and passwords were formed into an array and serialized, then Base64 encoded. The array format is `['account', 'password']`. The example is['root', 'nebula']. The encoded result is `WyJyb290IiwibmVidWxhIl0=`.
+        host: '192.168.8.240:9669',  // The graph service address of NebulaGraph.
+        space: 'demo_basketball',  // The name of the target graph space.
+      },
+    },
+    '*'
+  );
+
+  // add vertexes or edges
+  iframeEle.contentWindow.postMessage({ type: 'ExplorerAddCanvasElements', data: { nodes, links } }, '*')
+
+  // Clear canvas
+  iframeEle.contentWindow.postMessage({ type: 'ExplorerClearCanvas' }, '*')
+  ```
 
 5. Start the Explorer service.
 
