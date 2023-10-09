@@ -277,6 +277,44 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
   exec_file: /home/xxx/nebula-analytics/scripts/run_algo.sh
   ```
 
+## Directory structure
+
+The structure of the Explorer Enterprise Edition is as follows:
+
+```bash
+├── CMakeLists.txt # CMake configuration files
+|
+├── config # Configuration files
+│   
+├── dag-ctrl # Dag Controller installation directory
+│   
+├── scripts # Scripts for managing services
+│   
+├── tmp # Temporary files
+|
+└── yueshu-explorer-server # Explorer service application
+```
+
+## View logs
+
+Users can view the Explorer Enterprise Edition logs in the `logs` directory.
+
+For example:
+
+```
+cat logs/access.log
+```
+
+The descriptions of the log files are as follows.
+
+|Log file| Description |
+|:--|:--|
+|`access.log`| Access log. Records all request messages for accessing the services, including request time, source address, requested URL, HTTP method, returned HTTP status code, etc.</br>It takes effect only when the `Log.Mode` in the Explorer configuration is `file`.   |
+|`error.log`|  Error log. Records error messages that occur during service running. This may include runtime errors, system errors, service logic errors, etc.</br>It takes effect only when the `Log.Mode` in the Explorer configuration is `file`. |
+|`severe.log`| Severe log. Records error messages that could cause the system to crash, or seriously affect the correct functioning of the system. This may include runtime errors, system errors, serious service logic errors, etc.</br>It takes effect only when the `Log.Mode` in the Explorer configuration is `file`.   |
+|`slow.log`|  Slow log. Records requests or operations whose execution time exceeds a preset threshold, helping users identify performance bottlenecks.</br>It takes effect only when the `Log.Mode` in the Explorer configuration is `file`.  |
+|`stat.log`|  Statistic log. Records statistical information about the service, the content of which depends on the needs of the application and may include a variety of performance metrics, usage statistics, etc.</br>It takes effect only when the `Log.Mode` in the Explorer configuration is `file`.  |
+
 ## Configuration file description
 
 ```yaml
@@ -346,7 +384,7 @@ IframeMode:
 Any source is allowed by default.
   # Origins:     # The source whitelist of iframe. Any source is allowed by default.
   #   - "http://192.168.8.8"
-LicenseManagerURL: http://192.168.8.100:9119 # license manager url.
+LicenseManagerURL: http://192.168.8.100:9119 # License manager url.
 CorsOrigins: [] # The list of domains that are allowed to initiate cross-domain requests.
 ```
 
