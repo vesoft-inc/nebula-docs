@@ -292,7 +292,7 @@ The structure of the Explorer Enterprise Edition is as follows:
 │   
 ├── tmp # Temporary files
 |
-└── yueshu-explorer-server # Explorer service application
+└── nebula-explorer-server # Explorer service application
 ```
 
 ## View logs
@@ -320,7 +320,7 @@ The descriptions of the log files are as follows.
 ```yaml
 Name: explorer
 Version: {{explorer.release}}
-Database: yueshu
+Database: nebula
 Host: 0.0.0.0  # Specifies the address where explorer can be accessed.
 Port: 7002  # The default access port for explorer.
 
