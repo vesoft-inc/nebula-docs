@@ -2,10 +2,6 @@
 
 On **Config Management** page, you can view and update the service configuration files.
 
-## Precautions
-
-You need to restart the corresponding service in the **Service** page after the configuration modification. For details, see [Service](service.md).
-
 ## Entry
 
 1. At the top navigation bar of the Dashboard Enterprise Edition page, click **Cluster Management**.
@@ -18,9 +14,13 @@ You need to restart the corresponding service in the **Service** page after the 
 2. Locate the configuration to be modified and click **Edit** in the **Operation** column.
 3. In the pop-up dialog box, you can modify the **Value** individually. They can also be modified uniformly at the top, and you need to click **Apply To All Services** after modification.
 
+  !!! note
+
+        The top of the dialog box displays whether the modification of the parameter requires a restart to take effect. Please restart the corresponding service on the **Services** page. For details, see [Service](service.md).
+
   <img src="https://docs-cdn.nebula-graph.com.cn/figures/eo_dash_config_230913_en.png" width="1000" alt="A screenshot that shows the configuration of dashboard">
 
-4. Click **Confirm** after the modification is complete.
+4. Click **Confirm** or **Save and Apply** after the modification is complete.
 
 ## Add configuration
 

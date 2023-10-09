@@ -84,3 +84,37 @@ If the port is not opened, an error similar to the following may be reported:
 ## How to resolve the error `broadcast.hpp:193] Check failed: (size_t)recv_bytes >= sizeof(chunk_tail_t) recv message too small: 0`?
 
 The amount of data to be processed is too small, but the number of compute nodes and processes is too large. Smaller `clusterSize` and `processes` need to be set when submitting jobs.
+
+## How to implement a highly available architecture
+
+Users can use third-party high-availability software (e.g. [HAProxy](https://www.haproxy.org/)) to implement the high-availability architecture for Explorer and the high-availability architecture for LM.
+
+For example, you can deploy Explorer service and database service on multiple machines. Then use HAProxy to implement their respective load balancing.
+
+Then fill in the external interfaces of database service into the configuration of the Explorer, as shown in the example below:
+
+```yaml
+# The deployment mode of explorer, supports single and multiple instances.The optional values are single and multi.
+# In multi-instance mode, local storage service (data import) will be disabled to ensure data consistency between instances.
+AppInstance: "multi" 
+
+# Database configuration
+DB:
+  Enable: true
+  LogLevel: 4  # Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.
+  IgnoreRecordNotFoundError: false  
+  AutoMigrate: true  # Whether or not to automatically create database tables. The default is true.
+  Type: "mysql"  # The type of database used in the backend. Supports mysql and sqlite3. PolarDB is fully compatible with MySQL, if it is PolarDB, just fill in mysql.
+  Host: "192.168.8.200:3306"  # The external IP and port for the high availability database service.
+  Name: "nebula"  # Database name.
+  User: "root"  # Database username.
+  Password: "123456"  # Database password.
+  # SqliteDbFilePath: "./data/tasks.db"   # This parameter is required for sqlite3 only. The address of the database file.
+  MaxOpenConns: 30  # Maximum number of active connections in the connection pool.
+  MaxIdleConns: 10  # Maximum number of free connections in the connection pool.
+LicenseManagerURL: http://192.168.8.100:9119 # License manager url.
+```
+
+Finally, just access the external interface of Explorer provided by HAProxy.
+
+For detailed solutions, you can contact the after-sales staff for consultation.
