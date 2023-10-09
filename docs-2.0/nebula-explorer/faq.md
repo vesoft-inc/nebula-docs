@@ -98,7 +98,7 @@ Then fill in the external interfaces of database service into the configuration 
 # In multi-instance mode, local storage service (data import) will be disabled to ensure data consistency between instances.
 AppInstance: "multi" 
 
-# 数据库配置
+# Database configuration
 DB:
   Enable: true
   LogLevel: 4  # Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.
