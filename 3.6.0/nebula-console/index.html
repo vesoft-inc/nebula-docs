@@ -5863,7 +5863,25 @@
 <p>To connect to NebulaGraph with the <code>nebula-console</code> file, use the following syntax:</p>
 <div class="highlight"><pre><span></span><code>&lt;path_of_console&gt;<span class="w"> </span>-addr<span class="w"> </span>&lt;ip&gt;<span class="w"> </span>-port<span class="w"> </span>&lt;port&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
 </code></pre></div>
-<p><code>path_of_console</code> indicates the storage path of the NebulaGraph Console binary file.</p>
+<ul>
+<li><code>path_of_console</code> indicates the storage path of the NebulaGraph Console binary file.</li>
+<li>When two-way authentication is required after SSL encryption is enabled, you need to specify SSL-related parameters when connecting.</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>
+<p>Direct link to NebulaGraph</p>
+<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.100<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>nebula
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Enable SSL encryption and require two-way authentication</p>
+<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.100<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w">  </span>-p<span class="w"> </span>nebula<span class="w"> </span>-enable_ssl<span class="w"> </span>-ssl_root_ca_path<span class="w"> </span>/home/xxx/cert/root.crt<span class="w"> </span>-ssl_cert_path<span class="w"> </span>/home/xxx/cert/client.crt<span class="w"> </span>-ssl_private_key_path<span class="w"> </span>/home/xxx/cert/client.key
+</code></pre></div>
+</li>
+</ul>
 <p>Parameter descriptions are as follows:</p>
 <table>
 <thead>
@@ -5921,12 +5939,13 @@
 <td><code>-ssl_private_key_path</code></td>
 <td>Sets the storage path of the private key file.</td>
 </tr>
+<tr>
+<td><code>-ssl_insecure_skip_verify</code></td>
+<td>Controls whether a client verifies the server's certificate chain and hostname. The default is <code>false</code>. If set to <code>true</code>, any certificate chain and hostname provided by the server is accepted.</td>
+</tr>
 </tbody>
 </table>
 <p>For information on more parameters, see the <a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.5">project repository</a>.</p>
-<p>For example, to connect to the Graph Service deployed on 192.168.10.8, run the following command:</p>
-<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.10.8<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>thisisapassword
-</code></pre></div>
 <h3 id="manage_parameters">Manage parameters<a class="headerlink" href="#manage_parameters" title="Permanent link">&para;</a></h3>
 <p>You can save parameters for parameterized queries.</p>
 <div class="admonition note">
@@ -6101,7 +6120,7 @@ Bye root!
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 10, 2023</span>
       
     
   </small>
