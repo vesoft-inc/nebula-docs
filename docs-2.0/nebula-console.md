@@ -59,7 +59,7 @@ Parameter descriptions are as follows:
 | `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
 | `-ssl_cert_path` | Sets the storage path of the certificate file. |
 | `-ssl_private_key_path` | Sets the storage path of the private key file. |
-|`-ssl_insecure_skip_verify`| Controls whether a client verifies the server's certificate chain and hostname. The default is `false`. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
+|`-ssl_insecure_skip_verify`| Specifies whether the client skips verifying the server's certificate chain and hostname. The default is `false`. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 
 For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
 
