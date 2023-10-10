@@ -9,6 +9,7 @@ NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV
 - Support connecting to multiple Graph services simultaneously for importing and dynamic load balancing.
 - Support reconnect or retry after failure.
 - Support displaying statistics in multiple dimensions, including import time, import percentage, etc. Support for printing statistics in Console or logs.
+- Support SSL.
 
 ## Advantage
 
