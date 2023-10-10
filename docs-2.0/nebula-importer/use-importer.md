@@ -154,6 +154,12 @@ client:
   address: "192.168.1.100:9669,192.168.1.101:9669"
   user: root
   password: nebula
+  ssl:
+    enable: true
+    certPath: "/home/xxx/cert/importer.crt"
+    keyPath: "/home/xxx/cert/importer.key"
+    caPath: "/home/xxx/cert/root.crt"
+    insecureSkipVerify: false
   concurrencyPerAddress: 10
   reconnectInitialInterval: 1s
   retry: 3
@@ -166,6 +172,11 @@ client:
 |`client.address`|`"127.0.0.1:9669"`|Yes| Specifies the address of the NebulaGraph. Multiple addresses are separated by commas.|
 |`client.user`|`root`|No| NebulaGraph user name.|
 |`client.password`|`nebula`|No| The password for the NebulaGraph user name.|
+|`client.ssl.enable`|`false`|No| Specifies whether to enable SSL authentication.|
+|`client.ssl.certPath`|-|No| Specifies the storage path for the SSL public key certificate.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.keyPath`|-|No|S pecifies the storage path for the SSL key.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.caPath`|-|No| Specifies the storage path for the CA root certificate.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.insecureSkipVerify`|`false`|No|Specifies whether the client skips verifying the server's certificate chain and hostname. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 |`client.concurrencyPerAddress`|`10`|No| The number of concurrent client connections for a single graph service.|
 |`client.retryInitialInterval`|`1s`|No| Reconnect interval time.|
 |`client.retry`|`3`|No| The number of retries for failed execution of the nGQL statement.|
