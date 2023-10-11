@@ -31,22 +31,21 @@ jobs:
           git fetch origin gh-pages --depth=1 # fix mike's CI update
           mike deploy 3.5.0-sc -p --rebase
           mike list
-#      - name: show git branch
-#        run: | 
-#          git branch
-#          git checkout .
-#          git checkout gh-pages
-#      - name: Modify versions.json
-#        run: | 
-#          import yaml, json
-#          new_content = {"version": "3.5.0-sc", "title": "3.5.0-sc", "aliases": []}
-#          with open('./versions.json', 'r') as f:
-#              data = json.load(f)
-#          if new_content in data:
-#              data.remove(new_content)
-#          with open('./versions.json', 'w') as outfile:
-#              json.dump(data, outfile, indent=2)
-#        shell: python
+      - name: show git branch
+        run: | 
+          git branch
+          git checkout .
+          git checkout gh-pages
+      - name: Modify versions.json
+        run: | 
+          import yaml, json
+          new_content = {"version": "3.5.0-sc", "title": "3.5.0-sc", "aliases": []}
+          with open('./versions.json', 'r') as infile:
+              data = json.load(infile)
+          data = [item for item in data if item['version'] != new_content['version']]
+          with open('./versions.json', 'w') as outfile:
+              json.dump(data, outfile, indent=2)
+        shell: python
           
           # not public this branch; but push to web service
       # - name: Deploy
