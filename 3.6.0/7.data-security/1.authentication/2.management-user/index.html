@@ -5987,16 +5987,32 @@ DESC USER &lt;user_name&gt;;
 <!--
 - Syntax with enterprise edition
 
-  <div class="highlight"><pre><span></span><code>  ALTER USER &lt;user_name&gt; WITH PASSWORD &#39;&lt;password&gt;&#39; [WITH IP WHITELIST &lt;ip_list&gt;];
+  <div class="highlight"><pre><span></span><code>  ALTER USER &lt;user_name&gt; [WITH PASSWORD &#39;&lt;password&gt;&#39;] [WITH IP WHITELIST &lt;ip_list&gt;];
 </code></pre></div>
 
 - Example with enterprise edition
 
   !!! enterpriseonly
 
-        When `WITH IP WHITELIST` is not used, the IP address whitelist is removed and the user can connect to the NebulaGraph by any IP address.
+        Using `WITH IP WHITELIST` without any IP after it means whitelisting is canceled and users can connect to NebulaGraph using any IP.
 
-  <div class="highlight"><pre><span></span><code>nebula&gt; ALTER USER user2 WITH PASSWORD &#39;nebula&#39; WITH IP WHITELIST 192.168.10.10;
+  <div class="highlight"><pre><span></span><code>nebula&gt; ALTER USER user2 WITH PASSWORD &#39;change_password&#39;;
+nebula&gt; ALTER USER user2 WITH PASSWORD &#39;nebula&#39; WITH IP WHITELIST 192.168.10.10;
+nebula&gt; SHOW USERS;
++---------+-----------------+
+| Account | IP Whitelist    |
++---------+-----------------+
+| &quot;root&quot;  | &quot;&quot;              |
+| &quot;user2&quot; | &quot;192.168.10.10&quot; |
++---------+-----------------+
+nebula&gt; ALTER USER user2 WITH IP WHITELIST;
+nebula&gt; SHOW USERS;
++---------+--------------+
+| Account | IP Whitelist |
++---------+--------------+
+| &quot;root&quot;  | &quot;&quot;           |
+| &quot;user2&quot; | &quot;&quot;           |
++---------+--------------+
 </code></pre></div>
 
 -->
@@ -6050,7 +6066,7 @@ DESC USER &lt;user_name&gt;;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2023</span>
       
     
   </small>
