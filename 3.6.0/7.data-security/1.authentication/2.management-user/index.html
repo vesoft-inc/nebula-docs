@@ -5987,14 +5987,13 @@ DESC USER &lt;user_name&gt;;
 <!--
 - Syntax with enterprise edition
 
-  <div class="highlight"><pre><span></span><code>  ALTER USER &lt;user_name&gt; [WITH PASSWORD &#39;&lt;password&gt;&#39;] [WITH IP WHITELIST &lt;ip_list&gt;];
+  <div class="highlight"><pre><span></span><code>  ALTER USER &lt;user_name&gt; [WITH PASSWORD &#39;&lt;password&gt;&#39;] [WITH IP WHITELIST { &lt;ip_list&gt; | % }];
 </code></pre></div>
 
+  - `ip_list`: Sets the IP address whitelist. Any IP can connect to the database without this option. When this option is used, only IPs in the list can connect to the database. Use commas to separate multiple IP addresses.
+  - `%`: Cancel the whitelist. Users can connect to the database using any IP.  
+
 - Example with enterprise edition
-
-  !!! enterpriseonly
-
-        Using `WITH IP WHITELIST` without any IP after it means whitelisting is canceled and users can connect to NebulaGraph using any IP.
 
   <div class="highlight"><pre><span></span><code>nebula&gt; ALTER USER user2 WITH PASSWORD &#39;change_password&#39;;
 nebula&gt; ALTER USER user2 WITH PASSWORD &#39;nebula&#39; WITH IP WHITELIST 192.168.10.10;
@@ -6005,7 +6004,7 @@ nebula&gt; SHOW USERS;
 | &quot;root&quot;  | &quot;&quot;              |
 | &quot;user2&quot; | &quot;192.168.10.10&quot; |
 +---------+-----------------+
-nebula&gt; ALTER USER user2 WITH IP WHITELIST;
+nebula&gt; ALTER USER user2 WITH IP WHITELIST %;
 nebula&gt; SHOW USERS;
 +---------+--------------+
 | Account | IP Whitelist |
@@ -6066,7 +6065,7 @@ nebula&gt; SHOW USERS;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 12, 2023</span>
       
     
   </small>
