@@ -100,3 +100,115 @@ The fields of audit logs are the same for different handlers and formats. For ex
 |`QUERY`| The query statement.|
 |`QUERY_STATUS`| The status of the query. `0` indicates success, and other numbers indicate different error messages.|
 |`QUERY_MESSAGE`| An error message is displayed when the query fails.|
+
+
+## Rotate audit logs using logrotate
+
+You can use the [logrotate](https://github.com/logrotate/logrotate) tool available in Linux systems to rotate audit logs, ensuring regular archiving and removal of old audit logs to prevent excessively large log files.
+
+Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
+
+!!! note
+
+    You need to use a root user or a user with sudo privileges to install or run logrotate.
+
+1. Install logrotate.
+   
+  - Debian/Ubuntu:
+
+    ```bash
+    sudo apt-get install logrotate
+    ```
+
+  - CentOS/RHEL:
+
+    ```bash
+    sudo yum install logrotate
+    ```
+
+2. Create a logrotate configuration file.
+
+  In the `/etc/logrotate.d` directory, create a new logrotate configuration file for audit logs. For example, create a file named `audit`.
+
+  ```bash
+  # Create the audit file
+  sudo vim /etc/logrotate.d/audit
+  ```
+ 
+  And add the following content to the file:
+
+  ```bash
+  # Add configurations to the audit file to set log rotation rules
+  /usr/local/nebula/logs/audit/audit.log {
+      daily
+      rotate 5
+      copytruncate
+      nocompress
+      missingok
+      notifempty
+      create 644 root root
+      dateext
+      dateformat .%Y-%m-%d-%s
+      maxsize 1k
+  }
+  ```
+  
+  In this example, `/usr/local/nebula/logs/audit/audit.log` is the path to the default audit log file (`audit.log`) for NebulaGraph. If your log path is different, modify the path in the configuration file accordingly. Here's an explanation of the parameters in the sample configuration file:
+
+  | Parameter       | Description                                                  |
+  | --------------- | ------------------------------------------------------------ |
+  | `daily`         | Rotate the log daily. Other available time units include `hourly`, `daily`, `weekly`, `monthly`, and `yearly`. |
+  | `rotate 5`      | Keep the most recent 5 log files before deleting the older one. |
+  | `copytruncate`  | Copy the current log file and then truncate it, ensuring no disruption to the logging process. |
+  | `nocompress`    | Do not compress the old log files.                           |
+  | `missingok`     | Do not report errors if the log file is missing.             |
+  | `notifempty`    | Do not rotate the log file if it's empty.                    |
+  | `create 644 root root` | Create a new log file with the specified permissions and ownership. |
+  | `dateext`       | Add a date extension to the log file name. <br/>The default is the current date in the format `-%Y%m%d`. <br/>You can extend this using the `dateformat` option. |
+  | `dateformat .%Y-%m-%d-%s` | This must follow immediately after `dateext` and defines the file name after log rotation. <br/>Before V3.9.0, only `%Y`, `%m`, `%d`, and `%s` parameters were supported. <br/>Starting from V3.9.0, the `%H` parameter is also supported.|
+  | `maxsize 1k`   | Rotate the log when it exceeds 1 kilobyte (`1024` bytes) in size or when the specified time unit (e.g., `daily`) has passed. <br/>You can use size units like `k` and `M`, with the default unit being bytes. |
+
+  Users can modify the parameters in the configuration file to suit their specific requirements. For details on more parameters and their meanings, refer to the [logrotate documentation](https://man7.org/linux/man-pages/man8/logrotate.8.html).
+
+3. Test the logrotate configuration.
+
+  To verify that the logrotate configuration is correct, you can use the following command for testing:
+
+  ```bash
+  sudo logrotate --debug /etc/logrotate.d/audit
+  ```
+
+4. Run logrotate.
+
+  Although `logrotate` is typically executed automatically by cron jobs, you can manually run the following command to immediately rotate the logs:
+
+  ```bash
+  sudo logrotate -fv /etc/logrotate.d/audit
+  ```
+
+  `-fv`: `f` stands for force execution, and `v` stands for verbose mode.
+
+5. Check the log rotation results.
+
+  After log rotation, you will see new log files in the `/usr/local/nebula/logs/audit` directory, such as `audit.log.2022-04-07-1649298693`. The original log content will be cleared, but the file will be retained for new log entries. When the number of new log files exceeds the `rotate` value, the oldest log file will be deleted.
+
+  For example, if you have `rotate 5`, it means that the five most recent log files will be retained, and when the number of new log files exceeds 5, the oldest log file will be deleted.
+
+  Here's an example directory listing after log rotation:
+
+  ```bash
+  [test@test audit]$ ll
+  -rw-r--r-- 1 root root    0 10OCT 12 11:15 audit.log
+  -rw-r--r-- 1 root root 1436 10OCT 11 19:38 audit.log-202310111697024305 # The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.
+  -rw-r--r-- 1 root root  286 10OCT 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root  571 10OCT 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root  571 10OCT 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root  571 10OCT 12 11:15 audit.log-202310121697080536
+  [test@test audit]$ ll
+  -rw-r--r-- 1 root root 571 10OCT 12 11:18 audit.log
+  -rw-r--r-- 1 root root 286 10OCT 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root 571 10OCT 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root 571 10OCT 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root 571 10OCT 12 11:15 audit.log-202310121697080536
+  -rw-r--r-- 1 root root 571 10OCT 12 11:17 audit.log-202310121697080677 # Newly generated log file.
+  ```
