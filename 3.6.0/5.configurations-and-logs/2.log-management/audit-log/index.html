@@ -5657,6 +5657,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rotate_audit_logs_using_logrotate" class="md-nav__link">
+    Rotate audit logs using logrotate
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5912,13 +5919,147 @@
 </tr>
 </tbody>
 </table>
+<h2 id="rotate_audit_logs_using_logrotate">Rotate audit logs using logrotate<a class="headerlink" href="#rotate_audit_logs_using_logrotate" title="Permanent link">&para;</a></h2>
+<p>You can use the <a href="https://github.com/logrotate/logrotate">logrotate</a> tool available in Linux systems to rotate audit logs, ensuring regular archiving and removal of old audit logs to prevent excessively large log files.</p>
+<p>Here are the steps to regularly clean NebulaGraph audit logs using <code>logrotate</code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to use a root user or a user with sudo privileges to install or run logrotate.</p>
+</div>
+<ol>
+<li>
+<p>Install logrotate.</p>
+<ul>
+<li>
+<p>Debian/Ubuntu:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>CentOS/RHEL:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Create a logrotate configuration file.</p>
+<p>In the <code>/etc/logrotate.d</code> directory, create a new logrotate configuration file for audit logs. For example, create a file named <code>audit</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the audit file</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/logrotate.d/audit
+</code></pre></div>
+<p>And add the following content to the file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add configurations to the audit file to set log rotation rules</span>
+/usr/local/nebula/logs/audit/audit.log<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>daily
+<span class="w">    </span>rotate<span class="w"> </span><span class="m">5</span>
+<span class="w">    </span>copytruncate
+<span class="w">    </span>nocompress
+<span class="w">    </span>missingok
+<span class="w">    </span>notifempty
+<span class="w">    </span>create<span class="w"> </span><span class="m">644</span><span class="w"> </span>root<span class="w"> </span>root
+<span class="w">    </span>dateext
+<span class="w">    </span>dateformat<span class="w"> </span>.%Y-%m-%d-%s
+<span class="w">    </span>maxsize<span class="w"> </span>1k
+<span class="o">}</span>
+</code></pre></div>
+<p>In this example, <code>/usr/local/nebula/logs/audit/audit.log</code> is the path to the default audit log file (<code>audit.log</code>) for NebulaGraph. If your log path is different, modify the path in the configuration file accordingly. Here's an explanation of the parameters in the sample configuration file:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>daily</code></td>
+<td>Rotate the log daily. Other available time units include <code>hourly</code>, <code>daily</code>, <code>weekly</code>, <code>monthly</code>, and <code>yearly</code>.</td>
+</tr>
+<tr>
+<td><code>rotate 5</code></td>
+<td>Keep the most recent 5 log files before deleting the older one.</td>
+</tr>
+<tr>
+<td><code>copytruncate</code></td>
+<td>Copy the current log file and then truncate it, ensuring no disruption to the logging process.</td>
+</tr>
+<tr>
+<td><code>nocompress</code></td>
+<td>Do not compress the old log files.</td>
+</tr>
+<tr>
+<td><code>missingok</code></td>
+<td>Do not report errors if the log file is missing.</td>
+</tr>
+<tr>
+<td><code>notifempty</code></td>
+<td>Do not rotate the log file if it's empty.</td>
+</tr>
+<tr>
+<td><code>create 644 root root</code></td>
+<td>Create a new log file with the specified permissions and ownership.</td>
+</tr>
+<tr>
+<td><code>dateext</code></td>
+<td>Add a date extension to the log file name. <br/>The default is the current date in the format <code>-%Y%m%d</code>. <br/>You can extend this using the <code>dateformat</code> option.</td>
+</tr>
+<tr>
+<td><code>dateformat .%Y-%m-%d-%s</code></td>
+<td>This must follow immediately after <code>dateext</code> and defines the file name after log rotation. <br/>Before V3.9.0, only <code>%Y</code>, <code>%m</code>, <code>%d</code>, and <code>%s</code> parameters were supported. <br/>Starting from V3.9.0, the <code>%H</code> parameter is also supported.</td>
+</tr>
+<tr>
+<td><code>maxsize 1k</code></td>
+<td>Rotate the log when it exceeds 1 kilobyte (<code>1024</code> bytes) in size or when the specified time unit (e.g., <code>daily</code>) has passed. <br/>You can use size units like <code>k</code> and <code>M</code>, with the default unit being bytes.</td>
+</tr>
+</tbody>
+</table>
+<p>Users can modify the parameters in the configuration file to suit their specific requirements. For details on more parameters and their meanings, refer to the <a href="https://man7.org/linux/man-pages/man8/logrotate.8.html">logrotate documentation</a>.</p>
+</li>
+<li>
+<p>Test the logrotate configuration.</p>
+<p>To verify that the logrotate configuration is correct, you can use the following command for testing:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>--debug<span class="w"> </span>/etc/logrotate.d/audit
+</code></pre></div>
+</li>
+<li>
+<p>Run logrotate.</p>
+<p>Although <code>logrotate</code> is typically executed automatically by cron jobs, you can manually run the following command to immediately rotate the logs:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>-fv<span class="w"> </span>/etc/logrotate.d/audit
+</code></pre></div>
+<p><code>-fv</code>: <code>f</code> stands for force execution, and <code>v</code> stands for verbose mode.</p>
+</li>
+<li>
+<p>Check the log rotation results.</p>
+<p>After log rotation, you will see new log files in the <code>/usr/local/nebula/logs/audit</code> directory, such as <code>audit.log.2022-04-07-1649298693</code>. The original log content will be cleared, but the file will be retained for new log entries. When the number of new log files exceeds the <code>rotate</code> value, the oldest log file will be deleted.</p>
+<p>For example, if you have <code>rotate 5</code>, it means that the five most recent log files will be retained, and when the number of new log files exceeds 5, the oldest log file will be deleted.</p>
+<p>Here's an example directory listing after log rotation:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>test@test<span class="w"> </span>audit<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">    </span><span class="m">0</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:15<span class="w"> </span>audit.log
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">1436</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">19</span>:38<span class="w"> </span>audit.log-202310111697024305<span class="w"> </span><span class="c1"># The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">286</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:05<span class="w"> </span>audit.log-202310121697079901
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:05<span class="w"> </span>audit.log-202310121697079940
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:14<span class="w"> </span>audit.log-202310121697080478
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:15<span class="w"> </span>audit.log-202310121697080536
+<span class="o">[</span>test@test<span class="w"> </span>audit<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>audit.log
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">286</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:05<span class="w"> </span>audit.log-202310121697079901
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:05<span class="w"> </span>audit.log-202310121697079940
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:14<span class="w"> </span>audit.log-202310121697080478
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:15<span class="w"> </span>audit.log-202310121697080536
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">571</span><span class="w"> </span>10OCT<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>audit.log-202310121697080677<span class="w"> </span><span class="c1"># Newly generated log file.</span>
+</code></pre></div>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 13, 2023</span>
       
     
   </small>
