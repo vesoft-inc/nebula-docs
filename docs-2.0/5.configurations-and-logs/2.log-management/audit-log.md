@@ -128,12 +128,14 @@ Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
 
 2. Create a logrotate configuration file.
 
-  In the `/etc/logrotate.d` directory, create a new logrotate configuration file for audit logs. For example, create a file named `audit` and add the following content:
+  In the `/etc/logrotate.d` directory, create a new logrotate configuration file for audit logs. For example, create a file named `audit`.
 
   ```bash
   # Create the audit file
   sudo vim /etc/logrotate.d/audit
   ```
+ 
+  And add the following content to the file:
 
   ```bash
   # Add configurations to the audit file to set log rotation rules
@@ -168,7 +170,7 @@ Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
 
   Users can modify the parameters in the configuration file to suit their specific requirements. For details on more parameters and their meanings, refer to the [logrotate documentation](https://man7.org/linux/man-pages/man8/logrotate.8.html).
 
-1. Test the logrotate configuration.
+3. Test the logrotate configuration.
 
   To verify that the logrotate configuration is correct, you can use the following command for testing:
 
@@ -196,17 +198,17 @@ Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
 
   ```bash
   [test@test audit]$ ll
-  -rw-r--r-- 1 root root    0 10月 12 11:15 audit.log
-  -rw-r--r-- 1 root root 1436 10月 11 19:38 audit.log-202310111697024305 # The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.
-  -rw-r--r-- 1 root root  286 10月 12 11:05 audit.log-202310121697079901
-  -rw-r--r-- 1 root root  571 10月 12 11:05 audit.log-202310121697079940
-  -rw-r--r-- 1 root root  571 10月 12 11:14 audit.log-202310121697080478
-  -rw-r--r-- 1 root root  571 10月 12 11:15 audit.log-202310121697080536
+  -rw-r--r-- 1 root root    0 10OTC 12 11:15 audit.log
+  -rw-r--r-- 1 root root 1436 10OTC 11 19:38 audit.log-202310111697024305 # The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.
+  -rw-r--r-- 1 root root  286 10OTC 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root  571 10OTC 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root  571 10OTC 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root  571 10OTC 12 11:15 audit.log-202310121697080536
   [test@test audit]$ ll
-  -rw-r--r-- 1 root root 571 10月 12 11:18 audit.log
-  -rw-r--r-- 1 root root 286 10月 12 11:05 audit.log-202310121697079901
-  -rw-r--r-- 1 root root 571 10月 12 11:05 audit.log-202310121697079940
-  -rw-r--r-- 1 root root 571 10月 12 11:14 audit.log-202310121697080478
-  -rw-r--r-- 1 root root 571 10月 12 11:15 audit.log-202310121697080536
-  -rw-r--r-- 1 root root 571 10月 12 11:17 audit.log-202310121697080677 # Newly generated log file.
+  -rw-r--r-- 1 root root 571 10OTC 12 11:18 audit.log
+  -rw-r--r-- 1 root root 286 10OTC 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root 571 10OTC 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root 571 10OTC 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root 571 10OTC 12 11:15 audit.log-202310121697080536
+  -rw-r--r-- 1 root root 571 10OTC 12 11:17 audit.log-202310121697080677 # Newly generated log file.
   ```
