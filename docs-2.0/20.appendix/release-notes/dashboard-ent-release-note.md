@@ -1,5 +1,11 @@
 # NebulaGraph Dashboard Enterprise Edition release notes
 
+## Enterprise Edition 3.5.2
+
+- Bugfix
+
+  - Fix the error that occurs when adding machines with large disk size because previously large disk size was displayed in scientific notation, which cannot be resolved.
+
 ## Enterprise Edition 3.5.1
 
 - Enhancement
