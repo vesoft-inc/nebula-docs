@@ -198,17 +198,17 @@ Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
 
   ```bash
   [test@test audit]$ ll
-  -rw-r--r-- 1 root root    0 10OTC 12 11:15 audit.log
-  -rw-r--r-- 1 root root 1436 10OTC 11 19:38 audit.log-202310111697024305 # The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.
-  -rw-r--r-- 1 root root  286 10OTC 12 11:05 audit.log-202310121697079901
-  -rw-r--r-- 1 root root  571 10OTC 12 11:05 audit.log-202310121697079940
-  -rw-r--r-- 1 root root  571 10OTC 12 11:14 audit.log-202310121697080478
-  -rw-r--r-- 1 root root  571 10OTC 12 11:15 audit.log-202310121697080536
+  -rw-r--r-- 1 root root    0 10OCT 12 11:15 audit.log
+  -rw-r--r-- 1 root root 1436 10OCT 11 19:38 audit.log-202310111697024305 # The oldest log file among the retained ones. When the number of log files exceeds the configured value of 5, this file will be deleted.
+  -rw-r--r-- 1 root root  286 10OCT 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root  571 10OCT 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root  571 10OCT 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root  571 10OCT 12 11:15 audit.log-202310121697080536
   [test@test audit]$ ll
-  -rw-r--r-- 1 root root 571 10OTC 12 11:18 audit.log
-  -rw-r--r-- 1 root root 286 10OTC 12 11:05 audit.log-202310121697079901
-  -rw-r--r-- 1 root root 571 10OTC 12 11:05 audit.log-202310121697079940
-  -rw-r--r-- 1 root root 571 10OTC 12 11:14 audit.log-202310121697080478
-  -rw-r--r-- 1 root root 571 10OTC 12 11:15 audit.log-202310121697080536
-  -rw-r--r-- 1 root root 571 10OTC 12 11:17 audit.log-202310121697080677 # Newly generated log file.
+  -rw-r--r-- 1 root root 571 10OCT 12 11:18 audit.log
+  -rw-r--r-- 1 root root 286 10OCT 12 11:05 audit.log-202310121697079901
+  -rw-r--r-- 1 root root 571 10OCT 12 11:05 audit.log-202310121697079940
+  -rw-r--r-- 1 root root 571 10OCT 12 11:14 audit.log-202310121697080478
+  -rw-r--r-- 1 root root 571 10OCT 12 11:15 audit.log-202310121697080536
+  -rw-r--r-- 1 root root 571 10OCT 12 11:17 audit.log-202310121697080677 # Newly generated log file.
   ```
