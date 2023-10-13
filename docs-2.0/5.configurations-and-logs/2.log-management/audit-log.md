@@ -162,9 +162,9 @@ Here are the steps to regularly clean NebulaGraph audit logs using `logrotate`:
   | `missingok`     | Do not report errors if the log file is missing.             |
   | `notifempty`    | Do not rotate the log file if it's empty.                    |
   | `create 644 root root` | Create a new log file with the specified permissions and ownership. |
-  | `dateext`       | Add a date extension to the log file name. The default is the current date in the format `-%Y%m%d`. You can extend this using the `dateformat` option. |
-  | `dateformat .%Y-%m-%d-%s` | This must follow immediately after `dateext` and defines the file name after log rotation. Before V3.9.0, only `%Y`, `%m`, `%d`, and `%s` parameters were supported. Starting from V3.9.0, the `%H` parameter is also supported. **Note:** The file name should not contain a semicolon (`:`). |
-  | `maxsize 1k`   | Rotate the log when it exceeds 1 kilobyte (`1024` bytes) in size or when the specified time unit (e.g., `daily`) has passed. You can use size units like `k` and `M`, with the default unit being bytes. |
+  | `dateext`       | Add a date extension to the log file name. <br/>The default is the current date in the format `-%Y%m%d`. <br/>You can extend this using the `dateformat` option. |
+  | `dateformat .%Y-%m-%d-%s` | This must follow immediately after `dateext` and defines the file name after log rotation. <br/>Before V3.9.0, only `%Y`, `%m`, `%d`, and `%s` parameters were supported. <br/>Starting from V3.9.0, the `%H` parameter is also supported. <br/>**Note:** The file name should not contain a semicolon (`:`). |
+  | `maxsize 1k`   | Rotate the log when it exceeds 1 kilobyte (`1024` bytes) in size or when the specified time unit (e.g., `daily`) has passed. <br/>You can use size units like `k` and `M`, with the default unit being bytes. |
 
   Users can modify the parameters in the configuration file to suit their specific requirements. For details on more parameters and their meanings, refer to the [logrotate documentation](https://man7.org/linux/man-pages/man8/logrotate.8.html).
 
