@@ -100,7 +100,7 @@ The Explorer has been installed.
   // login
   iframeEle.contentWindow.postMessage(
     {
-      // `NebulaGraphExploreLogin` type has been deprecated
+      // `NebulaGraphExploreLogin` type has been deprecated and `ExplorerLogin` is used instead, but continues to be compatible with version 3.x.
       type: 'ExplorerLogin',
       data: {
         authorization: 'WyJyb290IiwibmVidWxhIl0=',  // NebulaGraph accounts and passwords were formed into an array and serialized, then Base64 encoded. The array format is `['account', 'password']`. The example is['root', 'nebula']. The encoded result is `WyJyb290IiwibmVidWxhIl0=`.

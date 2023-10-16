@@ -14,7 +14,8 @@ At the top navigation bar, click ![db_user_management](https://docs-cdn.nebula-g
 
 !!! note
 
-    Only the `root` user can create users.
+    - Only the `root` user can create users.
+    - Since there is a compatibility issue with the nGQL syntax, the IP whitelist modification function is disabled when connecting to the graph database of version 3.5.x and below. You can modify the IP whitelist by executing the nGQL statement for the corresponding database version.
 
 1. In the tab **User list**, click **Create User** and set the following parameters.
 
@@ -50,7 +51,7 @@ At the top navigation bar, click ![db_user_management](https://docs-cdn.nebula-g
     Only the `root` user can view the **User List**.
 
 - View: View the user permissions in each space.
-- Edit: Change the password and IP whitelist of the user. You do not need to provide the old password when changing the password. If the user is not `root`, you can change the password in ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) on the upper right corner of the page.
+- Edit: Change the password or IP whitelist of the user. You do not need to provide the old password when changing the password. If the user is not `root`, you can change the password in ![clear_connection](https://docs-cdn.nebula-graph.com.cn/figures/session_221024.png) on the upper right corner of the page.
 - Delete User: Only the `root` user can delete other users.
 - Search user: Search for the account by keyword.
 
