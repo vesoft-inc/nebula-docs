@@ -349,7 +349,7 @@ File:
   UploadDir: "./data/upload/"  # The path where the uploaded files are stored when importing data.
   TasksDir: "./data/tasks"  # Task file storage path. Includes imported tasks, workflow tasks, etc.
 #  SqliteDbFilePath # Deprecated.
-#  TaskIdPath: "./data/taskId.data" # Deprecated. Please use DB.SqliteDbFilePath.
+#  TaskIdPath: "./data/taskId.data" # Deprecated. Please use DB.SqliteDbFilePath instead.
 DB:
   Enable: true
   LogLevel: 4  # Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.
@@ -366,7 +366,7 @@ DB:
 Analytics:
   Host: "http://127.0.0.1:9002"  # The address of the DAG service for the workflow.
   # RPC_HDFS_PASSWORD: "passward" # The password for the HDFS RPC service.
-# OAuth: # Deprecated. Continues to be compatible with version 3.x. Please use SSO.
+# OAuth: # Deprecated. Continues to be compatible with version 3.x. Please use SSO instead.
 #  Enable: false 
 #  ClientID: "10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
 #  ClientSecret: "GOCSPX-8Enxxxxx" # The client key for the OAuth service.
