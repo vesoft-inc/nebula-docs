@@ -381,7 +381,7 @@ Analytics:
 #  AvatarKey: "picture" # The key for the avatar in the user information.
 SSO:
   Enable: false # Whether to enable single sign-on.
-  Type: "CAS" # Single sign-on service type. The available values are OAuth2 and CAS.
+  Type: "CAS" # Single sign-on service type. The available values are OAuth2 and CAS. Configure this parameter and then configure the corresponding OAuthConfig or CASConfig below.
   OAuthConfig:
     ClientID: "1039194xxxxx-taufdxxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
     ClientSecret: "GOCSPX-F_xBzfitifMU7acySxxxxx" # The client key for the OAuth service.
