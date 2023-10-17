@@ -369,7 +369,7 @@ Analytics:
 # OAuth: # Deprecated. Continues to be compatible with version 3.x. Please use SSO instead.
 #  Enable: false 
 #  ClientID: "10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
-#  ClientSecret: "GOCSPX-8Enxxxxx" # The client key for the OAuth service.
+#  ClientSecret: "GOCSPX-8Enxxxxx" # The client secret for the OAuth service.
 #  AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
 #  TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
 #  Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
@@ -384,7 +384,7 @@ SSO:
   Type: "CAS" # Single sign-on service type. The available values are OAuth2 and CAS. Configure this parameter and then configure the corresponding OAuthConfig or CASConfig below.
   OAuthConfig:
     ClientID: "1039194xxxxx-taufdxxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
-    ClientSecret: "GOCSPX-F_xBzfitifMU7acySxxxxx" # The client key for the OAuth service.
+    ClientSecret: "GOCSPX-F_xBzfitifMU7acySxxxxx" # The client secret for the OAuth service.
     AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
     TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
     Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
