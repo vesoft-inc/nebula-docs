@@ -6154,7 +6154,8 @@ RsaPubKey: |
 <span class="nt">File</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">UploadDir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./data/upload/&quot;</span><span class="w">  </span><span class="c1"># The path where the uploaded files are stored when importing data.</span>
 <span class="w">  </span><span class="nt">TasksDir</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./data/tasks&quot;</span><span class="w">  </span><span class="c1"># Task file storage path. Includes imported tasks, workflow tasks, etc.</span>
-<span class="w">  </span><span class="nt">TaskIdPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./data/taskId.data&quot;</span><span class="w"> </span><span class="c1"># The task ID storage path.</span>
+<span class="c1">#  SqliteDbFilePath # Deprecated.</span>
+<span class="c1">#  TaskIdPath: &quot;./data/taskId.data&quot; # Deprecated. Please use DB.SqliteDbFilePath instead.</span>
 <span class="nt">DB</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">  </span><span class="c1"># Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.</span>
@@ -6171,20 +6172,39 @@ RsaPubKey: |
 <span class="nt">Analytics</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:9002&quot;</span><span class="w">  </span><span class="c1"># The address of the DAG service for the workflow.</span>
 <span class="w">  </span><span class="c1"># RPC_HDFS_PASSWORD: &quot;passward&quot; # The password for the HDFS RPC service.</span>
-<span class="nt">OAuth</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">ClientID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com&quot;</span><span class="w"> </span><span class="c1"># The client ID of the OAuth service.</span>
-<span class="w">  </span><span class="nt">ClientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GOCSPX-8Enxxxxx&quot;</span><span class="w"> </span><span class="c1"># The client key for the OAuth service.</span>
-<span class="w">  </span><span class="nt">AuthURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/v2/auth&quot;</span><span class="w"> </span><span class="c1"># The URL of the OAuth service.</span>
-<span class="w">  </span><span class="nt">TokenURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;</span><span class="w"> </span><span class="c1"># The URL to get the access token.</span>
-<span class="w">  </span><span class="nt">Scopes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://www.googleapis.com/auth/userinfo.email&quot;</span><span class="w"> </span><span class="c1"># The scope of the OAuth service.</span>
-
-<span class="w">  </span><span class="nt">UserInfoURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/userinfo&quot;</span><span class="w"> </span><span class="c1"># The URL to get the user information.</span>
-<span class="w">  </span><span class="nt">UsernameKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;email&quot;</span><span class="w"> </span><span class="c1"># Username field.</span>
-<span class="w">  </span><span class="nt">Organization</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vesoft&quot;</span><span class="w">  </span><span class="c1"># OAuth Vendor name.</span>
-<span class="w">  </span><span class="nt">TokenName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;oauth_token&quot;</span><span class="w"> </span><span class="c1"># The name of the token in the cookie.</span>
-<span class="w">  </span><span class="nt">RedirectURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:7002/login&quot;</span><span class="w"> </span><span class="c1"># The redirect URL for the OAuth service.</span>
-<span class="w">  </span><span class="nt">AvatarKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;picture&quot;</span><span class="w"> </span><span class="c1"># The key for the avatar in the user information.</span>
+<span class="c1"># OAuth: # Deprecated. Continues to be compatible with version 3.x. Please use SSO instead.</span>
+<span class="c1">#  Enable: false </span>
+<span class="c1">#  ClientID: &quot;10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com&quot; # The client ID of the OAuth service.</span>
+<span class="c1">#  ClientSecret: &quot;GOCSPX-8Enxxxxx&quot; # The client secret for the OAuth service.</span>
+<span class="c1">#  AuthURL: &quot;https://accounts.google.com/o/oauth2/v2/auth&quot; # The URL of the OAuth service.</span>
+<span class="c1">#  TokenURL: &quot;https://oauth2.googleapis.com/token&quot; # The URL to get the access token.</span>
+<span class="c1">#  Scopes: &quot;https://www.googleapis.com/auth/userinfo.email&quot; # The scope of the OAuth service.</span>
+<span class="c1">#  UserInfoURL: &quot;https://www.googleapis.com/oauth2/v1/userinfo&quot; # The URL to get the user information.</span>
+<span class="c1">#  UsernameKey: &quot;email&quot; # Username field.</span>
+<span class="c1">#  Organization: &quot;vesoft&quot;  # OAuth vendor name.</span>
+<span class="c1">#  TokenName: &quot;oauth_token&quot; # The name of the token in the cookie.</span>
+<span class="c1">#  RedirectURL: &quot;http://127.0.0.1:7002/login&quot; # The redirect URL for the OAuth service.</span>
+<span class="c1">#  AvatarKey: &quot;picture&quot; # The key for the avatar in the user information.</span>
+<span class="nt">SSO</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Whether to enable single sign-on.</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CAS&quot;</span><span class="w"> </span><span class="c1"># Single sign-on service type. The available values are OAuth2 and CAS. Configure this parameter and then configure the corresponding OAuthConfig or CASConfig below.</span>
+<span class="w">  </span><span class="nt">OAuthConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ClientID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1039194xxxxx-taufdxxxxx.apps.googleusercontent.com&quot;</span><span class="w"> </span><span class="c1"># The client ID of the OAuth service.</span>
+<span class="w">    </span><span class="nt">ClientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GOCSPX-F_xBzfitifMU7acySxxxxx&quot;</span><span class="w"> </span><span class="c1"># The client secret for the OAuth service.</span>
+<span class="w">    </span><span class="nt">AuthURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://accounts.google.com/o/oauth2/v2/auth&quot;</span><span class="w"> </span><span class="c1"># The URL of the OAuth service.</span>
+<span class="w">    </span><span class="nt">TokenURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://oauth2.googleapis.com/token&quot;</span><span class="w"> </span><span class="c1"># The URL to get the access token.</span>
+<span class="w">    </span><span class="nt">Scopes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://www.googleapis.com/auth/userinfo.email&quot;</span><span class="w"> </span><span class="c1"># The scope of the OAuth service.</span>
+<span class="w">    </span><span class="nt">UserInfoURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://www.googleapis.com/oauth2/v1/userinfo&quot;</span><span class="w"> </span><span class="c1"># The URL to get the user information.</span>
+<span class="w">    </span><span class="nt">UsernameKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;email&quot;</span><span class="w"> </span><span class="c1"># Username field.</span>
+<span class="w">    </span><span class="nt">Organization</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vesoft&quot;</span><span class="w">  </span><span class="c1"># OAuth vendor name. It will be displayed on the login page.</span>
+<span class="w">    </span><span class="nt">TokenName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;oauth_token&quot;</span><span class="w"> </span><span class="c1"># The name of the token in the cookie.</span>
+<span class="w">    </span><span class="nt">RedirectURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:7002/login&quot;</span><span class="w"> </span><span class="c1"># The redirect URL for the OAuth service.</span>
+<span class="w">    </span><span class="nt">AvatarKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;picture&quot;</span><span class="w"> </span><span class="c1"># The key for the avatar in the user information.</span>
+<span class="w">  </span><span class="nt">CASConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1"># The address of the CAS service.</span>
+<span class="w">    </span><span class="nt">Organization</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;vesoft&quot;</span><span class="w">  </span><span class="c1"># CAS vendor name. It will be displayed on the login page.</span>
+<span class="w">    </span><span class="nt">AvatarKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;avatar&quot;</span><span class="w"> </span><span class="c1"># The key for the avatar in the user information.</span>
+<span class="w">    </span><span class="nt">TokenName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cas_token&quot;</span><span class="w"> </span><span class="c1"># The name of the token in the cookie.</span>
 <span class="nt">IframeMode</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">Enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Whether to enable iframe mode.</span>
 <span class="l l-Scalar l-Scalar-Plain">Any source is allowed by default.</span>
@@ -6201,7 +6221,7 @@ RsaPubKey: |
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 17, 2023</span>
       
     
   </small>
