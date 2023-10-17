@@ -93,7 +93,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   !!! note
 
-        In the enterprise edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
+        For the enterprise edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
 
 5. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
    
