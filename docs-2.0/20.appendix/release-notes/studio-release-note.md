@@ -27,7 +27,7 @@
 - Enhancements
 
   - Supported to import SFTP, Amazon S3 data files.
-  - Supported to configure more import parameters.
+  - The import page supported to configure more import parameters, such as concurrency, retries, etc.
   - Supported to re-running tasks.
   - Supported to save tasks as drafts.
   - Supported ARM architecture.
