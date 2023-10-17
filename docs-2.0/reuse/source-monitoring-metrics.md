@@ -26,6 +26,7 @@
 | `query_latency_us`                               | The latency of queries.                                           |
 | `slow_query_latency_us`                          | The latency of slow queries.                                         |
 | `num_queries_hit_memory_watermark` | The number of queries reached the memory watermark. |
+| `resp_part_completeness` | The completeness of the partial success. You need to set `accept_partial_success` to `true` in the graph configuration first.|
 
 ### Meta
 
