@@ -20,10 +20,10 @@
     - Supported recording the duration of the last successful access to LM, so that you can easily check the time when LM is down.
     - When the hard disk of a node fails to write, it triggers a re-election to ensure that the cluster can provide services normally.
   - Usability
-    - When modifying users, you can change the password or whitelist list individually.
+    - When modifying users, you can change the password or whitelist individually.
 
 - Bug fixes
-  - Fixed the bug of Meta data consistency.
+  - Fixed the bug of meta data consistency.
   - Fixed the bug where some expired data would not be recycled at the bottom level.
   - Fixed the bug where incorrect results were returned when querying all paths from a self-loop vertex.
-  - Fixed the bug with incorrect logging of requests sent to the follower of a meta service.
+  - Fixed the logging error of requests sent to the follower of a meta service.
