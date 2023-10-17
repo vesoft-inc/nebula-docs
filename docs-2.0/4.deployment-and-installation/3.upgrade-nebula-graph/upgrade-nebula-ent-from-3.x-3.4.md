@@ -140,11 +140,29 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
         Please ensure that the number of storage paths set for the `--data_path` parameter in the Meta and Storage service configuration files of the {{nebula.release}} cluster is the same as that for the `--data_path` parameter in the configuration files of the 3.x cluster. Otherwise, the upgraded cluster will not start.
 
-2. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/).
+2. Back up the data and the binary files in the subdirectory `bin` of the 3.x cluster.
+
+  !!! note
+
+        The backup is used for rollback in case of upgrade failure. The backup files are not used in the upgrade process.
+
+3. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/).
   
   Run the `nebula.service status all` command to confirm that all services have been stopped after running the command.
    
-3. In the installation directory of the Enterprise Edition NebulaGraph v{{nebula.release}}, run the following commands to upgrade the Storage and Meta services. 
+
+4. In the subdirectory `etc` of the {{nebula.name}} v{{nebula.release}} installation directory, update the configuration files (if there have been any configuration updates previously).
+
+  !!! note
+
+        If there were no configuration updates previously, you can skip this step. 
+
+1. In the `nebula-metad.conf` file of {{nebula.name}} v{{nebula.release}}, set `license_manager_url` to the URL of [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
+   
+  !!! note
+        For the Enterprise Edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
+
+6. In the installation directory of the Enterprise Edition NebulaGraph v{{nebula.release}}, run the following commands to upgrade the Storage and Meta services. 
 
   - Upgrade the Storage service:
 
@@ -197,12 +215,8 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   After the upgrade, a `data` directory will be generated in the v{{nebula.release}} installation directory, containing the upgraded data files.
 
-4. In the `/usr/local/nebula-ent-{{nebula.release}}/etc/nebula-metad.conf` file, set `license_manager_url` to the URL of [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
-   
-  !!! note
-        For the Enterprise Edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
 
-5. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
+7. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
    
   ```
   nebula> SHOW HOSTS;
