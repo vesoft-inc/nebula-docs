@@ -19,7 +19,7 @@
     
     
       
-        <title>NebulaGraph 3.6.0 release notes - NebulaGraph Database Manual</title>
+        <title>NebulaGraph release notes - NebulaGraph Database Manual</title>
       
     
     
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nebulagraph_360_release_notes" class="md-skip">
+        <a href="#nebulagraph_release_notes" class="md-skip">
           Skip to content
         </a>
       
@@ -137,7 +137,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NebulaGraph 3.6.0 release notes
+              NebulaGraph release notes
             
           </span>
         </div>
@@ -5637,36 +5637,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optimizations" class="md-nav__link">
-    Optimizations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bug_fixes" class="md-nav__link">
-    Bug fixes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changes" class="md-nav__link">
-    Changes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#legacy_versions" class="md-nav__link">
-    Legacy versions
+  <a href="#v360" class="md-nav__link">
+    v3.6.0
   </a>
   
 </li>
@@ -5691,72 +5663,56 @@
   </a>
 
 
-<h1 id="nebulagraph_360_release_notes">NebulaGraph 3.6.0 release notes<a class="headerlink" href="#nebulagraph_360_release_notes" title="Permanent link">&para;</a></h1>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<h1 id="nebulagraph_release_notes">NebulaGraph release notes<a class="headerlink" href="#nebulagraph_release_notes" title="Permanent link">&para;</a></h1>
+<h2 id="v360">v3.6.0<a class="headerlink" href="#v360" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Support managing licenses through License Center and License Manager.</li>
-<li>Support full table scan without index.</li>
-<li>Support expressions like <code>v.tag</code> in return statements.</li>
-<li>Support <code>json_extract</code> function in UPDATE statements.</li>
-<li>Support TCK format in EXPLAIN output.</li>
-<li>DML supports parameters.</li>
-<li>Enhance full-text index.</li>
+<li>Features<ul>
+<li>Added support for <a href="../../4.deployment-and-installation/5.zone.md">zone</a>. The zone is a logical rack of storage nodes in NebulaGraph that separates multiple Storage nodes into manageable logical zones for resource isolation.</li>
+<li>Supported <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">HTTP2</a> protocol.</li>
+<li>Supported SSL two-way authentication (<a href="../../../7.data-security/4.ssl/">mTLS</a>).</li>
+<li>Supported <a href="../../../7.data-security/4.ssl/">automatic monitoring</a> of SSL certificate updates.</li>
+<li>Supported join queries using <a href="../../../3.ngql-guide/8.clauses-and-options/joins/">INNER JOIN</a>.</li>
+<li>Supported single shortest path using <a href="../../../3.ngql-guide/16.subgraph-and-path/2.find-path/">FIND SINGLE SHORTEST PATH</a>.</li>
+<li>Supported logging slow queries (excluding DML) using the <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">enable_record_slow_query</a> parameter.</li>
 </ul>
-<h2 id="optimizations">Optimizations<a class="headerlink" href="#optimizations" title="Permanent link">&para;</a></h2>
+</li>
+</ul>
 <ul>
-<li>Support TTL in milliseconds.</li>
-<li>Enhance attribute trimming in aggregation functions.</li>
-<li>Improve the performance of traversal executor.</li>
-<li>Optimize FIND ALL PATH performance.</li>
-<li>Removes some Raft locks to improve performance.</li>
-<li>Optimize predicate function filtering for variable-length edges.</li>
-<li>Parallel traversal executor.</li>
-<li>MATCH supports ID collection.</li>
-<li>Refactor the GO planner.</li>
-<li>Add some Graph performance options in the configuration file.</li>
-<li>Add maximum connection number flag.</li>
-<li>Support variable when seeking vertex id or property index in match clause.</li>
+<li>Enhancements<ul>
+<li>Performance<ul>
+<li>Optimized performance for deep queries.</li>
+<li>Optimized performance of the Aggregate operator.</li>
 </ul>
-<h2 id="bug_fixes">Bug fixes<a class="headerlink" href="#bug_fixes" title="Permanent link">&para;</a></h2>
+</li>
+<li>High availability<ul>
+<li>Added monitoring metric <code>resp_part_completeness</code> to partial success.</li>
+<li>Supported recording the duration of the last successful access to LM, so that you can easily check the time when LM is down.</li>
+<li>When the hard disk of a node fails to write, it triggers a re-election to ensure that the cluster can provide services normally.</li>
+</ul>
+</li>
+<li>Usability<ul>
+<li>When modifying users, you can change the password or whitelist individually.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <ul>
-<li>Fix the defect where RocksDB data import invalidates the leader lease.</li>
-<li>Fix the error message when <code>DESC USER</code> does not exist.</li>
-<li>Fix the defect where <code>CREATE IF NOT EXIST</code> fails when SPACE exists.</li>
-<li>Fix the incorrect edge direction in GetNeighbors plan.</li>
-<li>Fix the client IP format in the <code>SHOW SESSIONS</code> command.</li>
-<li>Fix the defect where attributes are pruned in USE and MATCH.</li>
-<li>Fix the defect where the filter is not pushed down in some cases.</li>
-<li>Fix the defect where the filter is incorrectly filtered in some cases.</li>
-<li>Fix the incorrect handling of internal variables in pattern expressions.</li>
-<li>Fix defects involving EMPTY comparisons.</li>
-<li>Fix the defect where duplicate columns are returned when all columns are requested in MATCH.</li>
-<li>Fix the error in comparing paths involving reflexive edges.</li>
-<li>Fix the defect of redefining aliases in a MATCH path.</li>
-<li>Fix the type check defect when inserting geographical location values.</li>
-<li>Fix the crash in a shortest path.</li>
-<li>Fix the crash in GEO.</li>
-<li>Fix the bug that caused storage crash during logical expression evaluation.</li>
-<li>Fix the error in <code>MATCH...contains</code>.</li>
-<li>Fix the bug of incorrect session count in concurrency.</li>
-<li>Fix the defect of SUBGRAPH and PATH parameters.</li>
-<li>Fix the defect in regular expressions.</li>
-<li>Fix the issue with non-expression pushing down.</li>
-<li>Fixed the bug of slaving cluster.</li>
+<li>Bug fixes<ul>
+<li>Fixed the bug of meta data consistency.</li>
+<li>Fixed the bug where some expired data would not be recycled at the bottom level.</li>
+<li>Fixed the bug where incorrect results were returned when querying all paths from a self-loop vertex.</li>
+<li>Fixed the logging error of requests sent to the follower of a meta service.</li>
 </ul>
-<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Disable <code>edge list join</code>, not supporting the use of edge list in multiple patterns.</li>
-<li>Remove GLR parser, needs to change <code>YIELD 1–-1</code> to <code>YIELD 1– -1</code>.</li>
+</li>
 </ul>
-<h2 id="legacy_versions">Legacy versions<a class="headerlink" href="#legacy_versions" title="Permanent link">&para;</a></h2>
-<p><a href="https://www.nebula-graph.io/tags/release-notes">Release notes of legacy versions</a></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 17, 2023</span>
       
     
   </small>
