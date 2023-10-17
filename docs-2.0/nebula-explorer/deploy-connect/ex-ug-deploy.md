@@ -348,7 +348,8 @@ Auth:
 File:
   UploadDir: "./data/upload/"  # The path where the uploaded files are stored when importing data.
   TasksDir: "./data/tasks"  # Task file storage path. Includes imported tasks, workflow tasks, etc.
-  TaskIdPath: "./data/taskId.data" # The task ID storage path.
+#  SqliteDbFilePath # Deprecated.
+#  TaskIdPath: "./data/taskId.data" # Deprecated. Please use DB.SqliteDbFilePath instead.
 DB:
   Enable: true
   LogLevel: 4  # Database runtime log levels. 1, 2, 3, and 4 correspond to Silent, ERROR, Warn, and INFO, respectively.
@@ -365,20 +366,39 @@ DB:
 Analytics:
   Host: "http://127.0.0.1:9002"  # The address of the DAG service for the workflow.
   # RPC_HDFS_PASSWORD: "passward" # The password for the HDFS RPC service.
-OAuth:
-  Enable: false 
-  ClientID: "10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
-  ClientSecret: "GOCSPX-8Enxxxxx" # The client key for the OAuth service.
-  AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
-  TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
-  Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
-
-  UserInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo" # The URL to get the user information.
-  UsernameKey: "email" # Username field.
-  Organization: "vesoft"  # OAuth Vendor name.
-  TokenName: "oauth_token" # The name of the token in the cookie.
-  RedirectURL: "http://127.0.0.1:7002/login" # The redirect URL for the OAuth service.
-  AvatarKey: "picture" # The key for the avatar in the user information.
+# OAuth: # Deprecated. Continues to be compatible with version 3.x. Please use SSO instead.
+#  Enable: false 
+#  ClientID: "10274xxxx-v2kn8oe6xxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
+#  ClientSecret: "GOCSPX-8Enxxxxx" # The client secret for the OAuth service.
+#  AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
+#  TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
+#  Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
+#  UserInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo" # The URL to get the user information.
+#  UsernameKey: "email" # Username field.
+#  Organization: "vesoft"  # OAuth vendor name.
+#  TokenName: "oauth_token" # The name of the token in the cookie.
+#  RedirectURL: "http://127.0.0.1:7002/login" # The redirect URL for the OAuth service.
+#  AvatarKey: "picture" # The key for the avatar in the user information.
+SSO:
+  Enable: false # Whether to enable single sign-on.
+  Type: "CAS" # Single sign-on service type. The available values are OAuth2 and CAS. Configure this parameter and then configure the corresponding OAuthConfig or CASConfig below.
+  OAuthConfig:
+    ClientID: "1039194xxxxx-taufdxxxxx.apps.googleusercontent.com" # The client ID of the OAuth service.
+    ClientSecret: "GOCSPX-F_xBzfitifMU7acySxxxxx" # The client secret for the OAuth service.
+    AuthURL: "https://accounts.google.com/o/oauth2/v2/auth" # The URL of the OAuth service.
+    TokenURL: "https://oauth2.googleapis.com/token" # The URL to get the access token.
+    Scopes: "https://www.googleapis.com/auth/userinfo.email" # The scope of the OAuth service.
+    UserInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo" # The URL to get the user information.
+    UsernameKey: "email" # Username field.
+    Organization: "vesoft"  # OAuth vendor name. It will be displayed on the login page.
+    TokenName: "oauth_token" # The name of the token in the cookie.
+    RedirectURL: "http://127.0.0.1:7002/login" # The redirect URL for the OAuth service.
+    AvatarKey: "picture" # The key for the avatar in the user information.
+  CASConfig:
+    Address: "" # The address of the CAS service.
+    Organization: "vesoft"  # CAS vendor name. It will be displayed on the login page.
+    AvatarKey: "avatar" # The key for the avatar in the user information.
+    TokenName: "cas_token" # The name of the token in the cookie.
 IframeMode:
   Enable: false  # Whether to enable iframe mode.
 Any source is allowed by default.
