@@ -2,12 +2,12 @@
 
 ## v3.6.0
 
-- Feature
+- Features
 - Enhancements
   - Compatibility
     Since the database table structure has changed, you need to set `DB.AutoMigrate` to `true` in the configuration file, and the system will automatically upgrade and adapt the existing historical data.
 
-    If the tables were created manually by consulting the after-sales staff, please modify these tables manually: `task_infos`, `task_effects`, `sketches`, `schema_snapshots`, `favorites`, `files`, `datasources`, `snapshots`, `templates`, `icon_groups`, and `icon_items`.
+    If the tables were created manually after you consulted our after-sales staff, please modify these tables manually: `task_infos`, `task_effects`, `sketches`, `schema_snapshots`, `favorites`, `files`, `datasources`, `snapshots`, `templates`, `icon_groups`, and `icon_items`.
 
     For example:
 
