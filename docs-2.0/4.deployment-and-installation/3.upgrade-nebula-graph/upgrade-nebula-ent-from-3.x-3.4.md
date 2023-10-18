@@ -4,7 +4,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
 ## Notes
 
-- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. For upgrading from version 3.4.0 and above to {{nebula.release}}, you can directly replace the binary files for an upgrade. For more information, see [Upgrade NebulaGraph to {{nebula.release}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/). <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
+- This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x < 4) to v{{nebula.release}}. For upgrading from version 3.4.0 and above to {{nebula.release}}, you can directly replace the binary files for an upgrade. For more information, see [Upgrade NebulaGraph to {{nebula.release}}](https://docs.nebula-graph.io/{{nebula.release}}/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/). <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> 
 
   !!! note
 
@@ -32,7 +32,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
         Please ensure that the number of storage paths set for the `--data_path` parameter in the Meta and Storage service configuration files of the {{nebula.release}} cluster is the same as that for the `--data_path` parameter in the configuration files of the 3.x cluster. Otherwise, the upgraded cluster will not start.
 
-1. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/).
+2. Stop the enterprise edition of v3.x services. For details see [Manage NebulaGraph services](https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/).
   
   Run the `nebula.service status all` command to confirm that all services have been stopped after running the command.
    
@@ -89,7 +89,13 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   After the upgrade, a `data` directory will be generated in the v{{nebula.release}} installation directory, containing the upgraded data files.
 
-4. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
+4. In the `/usr/local/nebula-ent-{{nebula.release}}/etc/nebula-metad.conf` file, set `license_manager_url` to the URL of [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
+
+  !!! note
+
+        For the enterprise edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
+
+5. Start and connect to the NebulaGraph v{{nebula.release}} enterprise edition service and verify that the data is correct. The following commands can be used as reference:
    
   ```
   nebula> SHOW HOSTS;
