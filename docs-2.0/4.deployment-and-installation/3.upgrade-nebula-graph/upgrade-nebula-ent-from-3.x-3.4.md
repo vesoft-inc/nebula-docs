@@ -12,8 +12,6 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 - You must have the sudo privileges to complete the steps in this topic.
   
 - The remaining disk space on the machine must be at least 1.5 times the size of the original data directory.
-  
-- Known issues that could cause data loss are listed on [GitHub known issues](https://github.com/vesoft-inc/nebula-graph/issues/857). The issues are all related to altering schema or default values.
 
 ## Upgrade influences
 
@@ -49,6 +47,9 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the `SIGN IN` command to log into ES and recreate the indexes after the upgrade is complete. To manually delete the full-text indexes in Elasticsearch, you can use the curl command `curl -XDELETE -u <es_username>:<es_password> '<es_access_ip>:<port>/<fullindex_name>'`, for example, `curl -XDELETE -u elastic:elastic 'http://192.168.8.xxx:9200/nebula_index_2534'`. If no username and password are set for Elasticsearch, you can omit the `-u <es_username>:<es_password>` part.
 
+  !!! note
+
+        For upgrades from version 3.5.0 and later to {{nebula.release}}, there's no need to manually delete the full-text indexes.
 
 ## Upgrading to {{nebula.release}} from version 3.4.0 and above
 <!-- Enterprise Edition {{nebula.name}} 3.4 introduces a change where each shard corresponds to a RocksDB instance, unlike versions before 3.4 where each graph space corresponds to a RocksDB instance. Therefore, data formats between Enterprise Edition 3.4.0 and earlier versions are not compatible, but they are compatible with versions after 3.4. -->
@@ -157,7 +158,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
         If there were no configuration updates previously, you can skip this step. 
 
-1. In the `nebula-metad.conf` file of {{nebula.name}} v{{nebula.release}}, set `license_manager_url` to the URL of [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
+5. In the `nebula-metad.conf` file of {{nebula.name}} v{{nebula.release}}, set `license_manager_url` to the URL of [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
    
   !!! note
         For the Enterprise Edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.
@@ -230,19 +231,14 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
   ```
 
 
-## Upgrading from previous versions to {{nebula.release}}
+<!-- ## Upgrading from previous versions to {{nebula.release}}
 
 If the your NebulaGraph database version is lower than 3.0.0, please upgrade to 3.1.0 first and then upgrade to {{nebula.release}}. For detailed steps, see [Upgrading {{nebula.name}} from 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
 
 !!! note
 
-    Before completing the upgrade and restarting the services, ensure that [LM](../../9.about-license/2.license-management-suite/3.license-manager.md) has been configured.
+    Before completing the upgrade and restarting the services, ensure that [LM](../../9.about-license/2.license-management-suite/3.license-manager.md) has been configured. -->
 
-## Docker Compose deployment upgrade
-
-!!! caution
-    
-    For NebulaGraph deployed using Docker Compose, it is recommended to redeploy the new version and import data.
 
 
 
