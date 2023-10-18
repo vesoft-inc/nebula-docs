@@ -231,13 +231,10 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
   ```
 
 
-<!-- ## Upgrading from previous versions to {{nebula.release}}
+## Upgrading from previous versions to {{nebula.release}}
 
-If the your NebulaGraph database version is lower than 3.0.0, please upgrade to 3.1.0 first and then upgrade to {{nebula.release}}. For detailed steps, see [Upgrading {{nebula.name}} from 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
+If the your NebulaGraph database version is lower than 3.0.0, to upgrade to {{nebula.release}}, see the above section **Upgrade 3.x（x < 4）to {{nebula.release}}**.
 
-!!! note
-
-    Before completing the upgrade and restarting the services, ensure that [LM](../../9.about-license/2.license-management-suite/3.license-manager.md) has been configured. -->
 
 
 
