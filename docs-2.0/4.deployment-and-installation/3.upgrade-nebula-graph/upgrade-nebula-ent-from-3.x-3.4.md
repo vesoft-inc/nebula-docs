@@ -87,7 +87,7 @@ This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and 
 
   The default values of these parameters in version 2.x are not within the value range of the new version. Failure to modify them will result in a failed upgrade. For detailed parameter descriptions, refer to [Graph Service Configuration](../../5.configurations-and-logs/1.configurations/3.graph-config.md). -->
 
-4. In the `<install_path_{{nebula.release}}>/etc/nebula-metad.conf` configuration file of {{nebula.release}}, configure the `license_manager_url` parameter to specify the LM's path.
+4. In the `nebula-metad.conf` configuration file of NebulaGraph, add the `license_manager_url` parameter and set it to the LM's path.
 
   The LM is used to verify {{nebula.name}}'s licensing information. For details, see [LM Configuration](../../9.about-license/2.license-management-suite/3.license-manager.md).
 
