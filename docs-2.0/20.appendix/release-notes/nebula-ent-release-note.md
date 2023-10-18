@@ -28,4 +28,4 @@
   - Fixed the bug where incorrect results were returned when querying all paths from a self-loop vertex.
   - Fixed the logging error of requests sent to the follower of a meta service.
   - Fixed the bug of the OOM when explaining statements with multiple variables.
-  - Fixed the bug that caused the graph service to crash when executing multiple MATCH statements with empty filters.
+  - Fixed the bug that caused the graph service to crash when executing multiple MATCH statements with an empty filter.
