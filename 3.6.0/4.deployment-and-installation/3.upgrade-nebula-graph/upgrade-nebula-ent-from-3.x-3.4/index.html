@@ -5644,15 +5644,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    Steps
+  <a href="#upgrade_influences" class="md-nav__link">
+    Upgrade influences
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker_compose_deployment" class="md-nav__link">
-    Docker Compose Deployment
+  <a href="#upgrading_to_360_from_version_340_and_above" class="md-nav__link">
+    Upgrading to 3.6.0 from version 3.4.0 and above
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade_3xx_4to_360" class="md-nav__link">
+    Upgrade 3.x（x &lt; 4）to 3.6.0
   </a>
   
 </li>
@@ -5681,30 +5688,146 @@
 <p>This topic takes the enterprise edition of NebulaGraph v3.1.0 as an example and describes how to upgrade to v3.6.0.</p>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p>This upgrade is only applicable for upgrading the enterprise edition of NebulaGraph v3.x (x &lt; 4) to v3.6.0. For upgrading from version 3.4.0 and above to 3.6.0, you can directly replace the binary files for an upgrade. For more information, see <a href="https://docs.nebula-graph.com.cn/3.6.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/">Upgrade NebulaGraph to 3.6.0</a>. <!--Because in the Enterprise Edition of NebulaGraph 3.4, one partition corresponds to one RocksDB instance, which is different from one graph space corresponding to one RocksDB instance in versions before 3.4.--> </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If your version is below 3.0.0, please upgrade to enterprise edition 3.1.0 before upgrading to v3.6.0. For details, see <a href="https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/">Upgrade NebulaGraph Enterprise Edition 2.x to 3.1.0</a>.</p>
-</div>
-</li>
+<li>Rolling Upgrade is not supported. You must stop all the NebulaGraph services before the upgrade.</li>
+</ul>
+<ul>
+<li>There is no upgrade script. You have to manually upgrade each server in the cluster.</li>
 </ul>
 <ul>
 <li>The IP address of the machine performing the upgrade operation must be the same as the original machine.</li>
+<li>You must have the sudo privileges to complete the steps in this topic.</li>
 </ul>
 <ul>
 <li>The remaining disk space on the machine must be at least 1.5 times the size of the original data directory.</li>
 </ul>
+<h2 id="upgrade_influences">Upgrade influences<a class="headerlink" href="#upgrade_influences" title="Permanent link">&para;</a></h2>
+<!-- - Data swelling
+
+  The NebulaGraph 3.x version expands the original data format with one more key per vertex, so the data takes up more space after the upgrade.
+
+  The format of the new key is:
+
+  Type (1 byte) + Partition ID (3 bytes) + VID (size depends on the data type).
+
+  The value of the new key is empty. The extra space taken can be calculated based on the number of vertices and the data type of the VID. For example, if there are 100 million vertices in the dataset and the VIDs are INT64, the new key will take 100 million x (1 + 3 + 8) = 1.2 billion bytes, i.e., about 1.2 GB. -->
+
 <ul>
 <li>
-<p>Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the <code>SIGN IN</code> command to log into ES and recreate the indexes after the upgrade is complete.</p>
+<p>Client compatibility</p>
+<p>After the upgrade, you will not be able to connect to NebulaGraph from old clients. You will need to upgrade all clients to a version compatible with NebulaGraph 3.6.0.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Configuration changes</p>
+<p>A few configuration parameters have been changed. For more information, see the release notes and configuration docs.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>nGQL compatibility</p>
+<p>The nGQL syntax is partially incompatible:</p>
+<ul>
+<li>Disable the <code>YIELD</code> clause to return custom variables.</li>
+</ul>
+<ul>
+<li>The <code>YIELD</code> clause is required in the <code>FETCH</code>, <code>GO</code>, <code>LOOKUP</code>, <code>FIND PATH</code> and <code>GET SUBGRAPH</code> statements.</li>
+</ul>
+<ul>
+<li>It is required to specify a tag to query properties of a vertex in a <code>MATCH</code> statement. For example, from <code>return v.name</code> to <code>return v.player.name</code>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Full-text indexes</p>
+<p>Before upgrading a NebulaGraph cluster with full-text indexes deployed, you must manually delete the full-text indexes in Elasticsearch, and then run the <code>SIGN IN</code> command to log into ES and recreate the indexes after the upgrade is complete. To manually delete the full-text indexes in Elasticsearch, you can use the curl command <code>curl -XDELETE -u &lt;es_username&gt;:&lt;es_password&gt; '&lt;es_access_ip&gt;:&lt;port&gt;/&lt;fullindex_name&gt;'</code>, for example, <code>curl -XDELETE -u elastic:elastic 'http://192.168.8.xxx:9200/nebula_index_2534'</code>. If no username and password are set for Elasticsearch, you can omit the <code>-u &lt;es_username&gt;:&lt;es_password&gt;</code> part.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To manually delete the full-text indexes in Elasticsearch, you can use the curl command <code>curl -XDELETE -u &lt;es_username&gt;:&lt;es_password&gt; '&lt;es_access_ip&gt;:&lt;port&gt;/&lt;fullindex_name&gt;'</code>, for example, <code>curl -XDELETE -u elastic:elastic 'http://192.168.8.223:9200/nebula_index_2534'</code>. If no username and password are set for Elasticsearch, you can omit the <code>-u &lt;es_username&gt;:&lt;es_password&gt;</code> part.</p>
+<p>For upgrades from version 3.5.0 and later to 3.6.0, there's no need to manually delete the full-text indexes.</p>
 </div>
 </li>
 </ul>
-<h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
+<h2 id="upgrading_to_360_from_version_340_and_above">Upgrading to 3.6.0 from version 3.4.0 and above<a class="headerlink" href="#upgrading_to_360_from_version_340_and_above" title="Permanent link">&para;</a></h2>
+<!-- Enterprise Edition {{ no such element: dict object['name'] }} 3.4 introduces a change where each shard corresponds to a RocksDB instance, unlike versions before 3.4 where each graph space corresponds to a RocksDB instance. Therefore, data formats between Enterprise Edition 3.4.0 and earlier versions are not compatible, but they are compatible with versions after 3.4. -->
+
+<ol>
+<li>
+<p>Stop all {{ no such element: dict object['name'] }} services.</p>
+<div class="highlight"><pre><span></span><code>&lt;install_path&gt;/scripts/nebula.service stop all
+</code></pre></div>
+<p>Replace <code>install_path</code> with the installation directory of the {{ no such element: dict object['name'] }} instance you want to upgrade.</p>
+<p>Allow approximately 1 minute for the <code>storaged</code> process to flush data. You can continue by running the <code>nebula.service status all</code> command to confirm that all services have stopped. For detailed instructions on starting and stopping services, refer to <a href="../../manage-service/">Managing Services</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If services cannot be stopped within 20 minutes, abandon the upgrade, and contact customer support.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Starting from version 3.0.0, {{ no such element: dict object['name'] }} supports inserting points without tags. To retain points without tags, add the <code>--graph_use_vertex_key=true</code> flag to the configuration file (<code>nebula-graphd.conf</code>) of all Graph services within the cluster and add the <code>--use_vertex_key=true</code> flag to the configuration file (<code>nebula-storaged.conf</code>) of all Storage services.</p>
+</div>
+</li>
+<li>
+<p>Prepare the installation package for {{ no such element: dict object['name'] }} 3.6.0 and extract it. You can specify any installation directory.</p>
+</li>
+<li>
+<p>In the directory of 3.6.0, use the new binary files from its <code>bin</code> directory to replace the old binary files in the <code>bin</code> directory of the {{ no such element: dict object['name'] }} installation path.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the binary files for each machine where {{ no such element: dict object['name'] }} services are deployed.</p>
+</div>
+</li>
+</ol>
+<!-- This step can be ignored after version 3.0.0 as the default value for this field was changed in the configuration file after that.
+3. Edit the configuration files for all Graph services, changing the following parameters to match the new version's value range. If the parameter value is already within the specified range, you can skip this step.
+
+  - Set a value for the `session_idle_timeout_secs` parameter within the range of [1, 604800]. The recommended value is 28800.
+  - Set a value for the `client_idle_timeout_secs` parameter within the range of [1, 604800]. The recommended value is 28800.
+
+  The default values of these parameters in version 2.x are not within the value range of the new version. Failure to modify them will result in a failed upgrade. For detailed parameter descriptions, refer to [Graph Service Configuration](../../5.configurations-and-logs/1.configurations/3.graph-config.md). -->
+
+<ol>
+<li>
+<p>In the <code>nebula-metad.conf</code> configuration file of NebulaGraph, add the <code>license_manager_url</code> parameter and set it to the LM's path.</p>
+<p>The LM is used to verify {{ no such element: dict object['name'] }}'s licensing information. For details, see <a href="../../../9.about-license/2.license-management-suite/3.license-manager/">LM Configuration</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting from version 3.5.0, {{ no such element: dict object['name'] }} enables license validation, so it's necessary to install and configure LM.</p>
+</div>
+</li>
+<li>
+<p>Start all Meta services.</p>
+<div class="highlight"><pre><span></span><code>&lt;nebula_install_path&gt;/scripts/nebula-metad.service start
+</code></pre></div>
+<p>After starting, the Meta services will elect a leader. This process takes a few seconds.</p>
+<p>Once started, you can start any Graph service node and connect to it using {{ no such element: dict object['name'] }}. Run <a href="../../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/"><code>SHOW HOSTS meta</code></a> and <a href="../../../3.ngql-guide/7.general-query-statements/6.show/19.show-meta-leader/"><code>SHOW META LEADER</code></a>. If they return the status of the Meta node correctly, the Meta service has started successfully.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are any exceptions during startup, abandon the upgrade, and contact customer support.</p>
+</div>
+</li>
+<li>
+<p>Start all Graph and Storage services.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are any exceptions during startup, abandon the upgrade, and contact customer support.</p>
+</div>
+</li>
+<li>
+<p>Connect to the new version of {{ no such element: dict object['name'] }} and verify that the service is operational and that the data is intact. For information on connecting to the service, refer to <a href="../../connect-to-nebula-graph/">Connecting to Nebula Graph</a>.</p>
+<p>Some reference commands to test the upgrade are as follows:</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+nebula&gt; SHOW HOSTS storage;
+nebula&gt; SHOW SPACES;
+nebula&gt; USE &lt;space_name&gt;
+nebula&gt; SHOW PARTS;
+nebula&gt; SUBMIT JOB STATS;
+nebula&gt; SHOW STATS;
+nebula&gt; MATCH (v) RETURN v LIMIT 5;
+</code></pre></div>
+</li>
+</ol>
+<h2 id="upgrade_3xx_4to_360">Upgrade 3.x（x &lt; 4）to 3.6.0<a class="headerlink" href="#upgrade_3xx_4to_360" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p><a href="https://www.nebula-graph.io/contact">Contact us</a> to obtain the installation package of the enterprise edition of NebulaGraph v3.6.0 and install it.</p>
@@ -5718,8 +5841,29 @@
 </div>
 </li>
 <li>
+<p>Back up the data and the binary files in the subdirectory <code>bin</code> of the 3.x cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The backup is used for rollback in case of upgrade failure. The backup files are not used in the upgrade process.</p>
+</div>
+</li>
+<li>
 <p>Stop the enterprise edition of v3.x services. For details see <a href="https://docs.nebula-graph.io/3.5.0-sc/4.deployment-and-installation/manage-service/">Manage NebulaGraph services</a>.</p>
 <p>Run the <code>nebula.service status all</code> command to confirm that all services have been stopped after running the command.</p>
+</li>
+<li>
+<p>In the subdirectory <code>etc</code> of the {{ no such element: dict object['name'] }} v3.6.0 installation directory, update the configuration files (if there have been any configuration updates previously).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there were no configuration updates previously, you can skip this step. </p>
+</div>
+</li>
+<li>
+<p>In the <code>nebula-metad.conf</code> file of {{ no such element: dict object['name'] }} v3.6.0, set <code>license_manager_url</code> to the URL of <a href="../../../9.about-license/2.license-management-suite/3.license-manager/">LM</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the Enterprise Edition of NebulaGraph v3.5.0 or later, you need to install and configure LM to verify the license used to start NebulaGraph.</p>
+</div>
 </li>
 <li>
 <p>In the installation directory of the Enterprise Edition NebulaGraph v3.6.0, run the following commands to upgrade the Storage and Meta services. </p>
@@ -5806,18 +5950,20 @@ nebula&gt; MATCH (v) RETURN v LIMIT 5;
 </code></pre></div>
 </li>
 </ol>
-<h2 id="docker_compose_deployment">Docker Compose Deployment<a class="headerlink" href="#docker_compose_deployment" title="Permanent link">&para;</a></h2>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>For NebulaGraph deployed using Docker Compose, it is recommended to redeploy the new version and import data.</p>
-</div>
+<!-- ## Upgrading from previous versions to 3.6.0
+
+If the your NebulaGraph database version is lower than 3.0.0, please upgrade to 3.1.0 first and then upgrade to 3.6.0. For detailed steps, see [Upgrading {{ no such element: dict object['name'] }} from 2.x to 3.1.0](https://docs.nebula-graph.io/3.1.0/4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest/).
+
+!!! note
+
+    Before completing the upgrade and restarting the services, ensure that [LM](../../9.about-license/2.license-management-suite/3.license-manager.md) has been configured. -->
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2023</span>
       
     
   </small>
