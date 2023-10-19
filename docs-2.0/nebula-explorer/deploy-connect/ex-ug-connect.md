@@ -1,6 +1,10 @@
 # Connect to NebulaGraph
 
-After successfully launching Explorer, you need to configure to connect to NebulaGraph. You can connect directly to NebulaGraph by default. To ensure data security, OAuth2.0 authentication is also supported. You can connect to NebulaGraph only after the authentication is passed.
+After successfully launching Explorer, you can enter database credentials to connect to the database. You can connect directly to NebulaGraph by default. 
+
+!!! note
+
+    To ensure data security, OAuth2.0 and CAS authentication are also supported. You can connect to NebulaGraph only after the authentication is passed. For detailed configuration, see [Deploy Explorer](ex-ug-deploy.md).
 
 ## Prerequisites
 
@@ -13,37 +17,6 @@ Before connecting to the NebulaGraph database, you need to confirm the following
 - You have a NebulaGraph account and its password.
 
 - We recommend you to use the Chrome browser of the version above 89. Otherwise, there may be compatibility issues.
-
-## OAuth2.0 Configuration
-
-!!! caution
-
-    The feature is still in beta. It will continue to be optimized.
-
-!!! note
-
-    If you want to connect directly to NebulaGraph, see **Procedure** below.
-
-To enable OAuth2.0 authentication, modify the configuration file in the Explorer installation directory. The path is `config/app-config.yaml`.
-
-The descriptions of the OAuth configuration are as follows.
-
-|Parameter|Example|Description|
-|:--|:--|:--|
-|`Enable`|`false`| Enable or disable OAuth2.0 authentication. |
-|`ClientID` | `4953xxx-mmnoge13xx.apps.googleusercontent.com`| The application's ClientId. |
-|`ClientSecret` | `GOCxxx-xaytomFexxx` | The application's ClientSecret. |
-|`RedirectURL` | `http://dashboard.vesoft-inc.com/login` |The URL that redirects to Dashboard.   |
-|`AuthURL` | `https://accounts.google.com/o/oauth2/auth` | The URL used for authentication.  |
-|`TokenURL` | `https://oauth2.googleapis.com/token`| The URL used to get the access_token. |
-|`UserInfoURL` | `https://www.googleapis.com/oauth2/v1/userinfo`| The URL used to get the user information. |
-|`UsernameKey` | `email`| The key of the user name. |
-|`Organization` |  `vesoft company`       |  The organization name.             |
-|`TokenName`|`oauth_token`| The name of the token in the cookie.|
-|`Scope`| `email`| Scope of OAuth permissions. The scope of permissions needs to be a subset of the scope configured by the vendor's OAuth2.0 platform, otherwise, the request will fail. Make sure the `UsernameKey` is accessible within the requested scope. |
-|`AvatarKey`|`picture`| The key of the avatar in the user information.|
-
-After the configuration is complete, restart the Explorer service. The OAuth authentication is displayed on the login page. You can continue to connect to NebulaGraph only after the authentication is passed.
 
 ## Procedure
 
