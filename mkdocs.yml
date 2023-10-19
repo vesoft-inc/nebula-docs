@@ -3,7 +3,7 @@ site_description: Documentation for NebulaGraph Database
 site_author: NebulaGraph
 # en.begin
 site_name: NebulaGraph Database Manual
-site_url: https://docs.nebula-graph.io/en
+site_url: https://docs.nebula-graph.io/
 docs_dir: docs-2.0-en
 copyright: Copyright &copy; 2023 NebulaGraph
 # Modify this line in each version upgrade release
@@ -12,10 +12,10 @@ edit_uri: 'https://github.com/vesoft-inc/nebula-docs/edit/v3.6.0/docs-2.0-en/'
 
 # zh.begin
 site_name: NebulaGraph Database 手册 
-site_url: https://docs.nebula-graph.com.cn/zh_cn  
+site_url: https://docs.nebula-graph.com.cn/  
 docs_dir: docs-2.0-zh
 # Modify this line in each version upgrade release
-edit_uri: 'https://github.com/vesoft-inc/nebula-docs-cn/edit/v3.6.0/docs-2.0-zh/'
+edit_uri: 'https://github.com/vesoft-inc/nebula-docs/edit/v3.6.0/docs-2.0-zh/'
 copyright: Copyright &copy; 2023 NebulaGraph - 浙ICP备20010487号
 # zh.end
 
@@ -43,7 +43,12 @@ theme:
       - navigation.top
       - header.autohide  
       - content.tabs.link
+# zh.begin
+    language: 'zh'
+# zh.end
+# en.begin    
     language: 'en'
+# en.end    
 
 extra_css:
   - stylesheets/logo.css
@@ -83,9 +88,14 @@ plugins:
   # image lightbox plugin（https://github.com/blueswen/mkdocs-glightbox#usage）
   - glightbox:  
       zoomable: true
-  - search # This is the original mkdocs search plugin. To use algolia search, comment out this plugin.
+#  - search # This is the original mkdocs search plugin. To use algolia search, comment out this plugin.
   - macros:
+# zh.begin  
+      include_dir: docs-2.0-zh/reuse/
+# zh.end 
+# en.begin  
       include_dir: docs-2.0-en/reuse/
+# en.end      
   - git-revision-date-localized
 
   - exclude:
@@ -125,24 +135,20 @@ plugins:
         - 20.appendix/release-notes/explorer-release-note.md
         # ent.end
 
-  # 为了加速编译，先注释掉PDF generation的内容。
-  # - with-pdf:
-      #copyright: 2023 Vesoft Inc.
-      #cover_subtitle: v3.6.0
-      #cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'            
-      #cover: true
-      #back_cover: true
-
+  - with-pdf:
+      copyright: 2023 Vesoft Inc.
+      cover_subtitle: v3.6.0
+      cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'            
+      cover: true
+      back_cover: true
+#      pdf_stylesheets: 
+#        - stylesheets/pdf.css
 # en.begin      
-      #author: Cooper Liang, Abby Huang
-      #output_path: pdf/NebulaGraph-EN.pdf
+      output_path: pdf/NebulaGraph-EN.pdf
 # en.end
-
 # zh.begin
-      #author: 梁振亚，黄凤仙
-      #output_path: pdf/NebulaGraph-CN.pdf
-      pdf_stylesheets: #目前只有中文有PDF stylesheet?这是为啥？
-        - stylesheets/pdf.css
+      output_path: pdf/NebulaGraph-CN.pdf
+      
 # zh.end
 
 extra_javascript:
@@ -160,19 +166,19 @@ extra:
   alternate:
 # en.begin
    - name: 中文
-     link: https://docs.nebula-graph.com.cn/zh_cn
+     link: https://docs.nebula-graph.com.cn/
      lang: zh
 # en.end
 # zh.begin
    - name: English
-     link: https://docs.nebula-graph.io/en
+     link: https://docs.nebula-graph.io/
      lang: en 
 # zh.end
 
   analytics:
     provider: google
 # en.begin  
-    property: UA-60523578-5
+    property: 377962831
 # en.end
 # zh.begin
     property: 385096931
@@ -203,10 +209,6 @@ extra:
     branch: release-3.5
     tag: v3.5.1
     name: NebulaGraph Explorer
-  exchange_ent:
-    release: 3.6.0
-    branch: release-3.6
-    tag: v3.6.0
   exchange:
     release: 3.6.0
     branch: release-3.6
@@ -241,11 +243,6 @@ extra:
     tag: v3.4.0
     base100: 1.0.0
     branch: release-3.4
-  dashboard_ent:
-    release: 3.5.0
-    tag: v3.5.0
-    branch: release-3.5
-    name: NebulaGraph Dashboard
   console:
     release: 3.5.0
     branch: release-3.5
@@ -254,10 +251,6 @@ extra:
     release: 3.5.0
     branch: release-3.5
     tag: v3.5.0
-  br_ent:
-    release: 3.5.1
-    tag: v3.5.1
-    name: Backup&Restore
   agent:
     release: 3.4.0
     tag: v3.4.0
@@ -305,9 +298,6 @@ extra:
     aliyunRelease: 3.1.1 # The latest core version that Alibaba Cloud is compatible with
     azureLatestRelease: 3.1.0 # The latest doc version that supports Azure Cloud
     aliyunLatestRelease: 3.1.0 # The latest doc version that supports Alibaba Cloud
-  #ent:
-    #ent_begin: <!--         # change to "<!-- -->" when releasing core-ent
-    #ent_end:  -->             # change to "<!-- -->" when releasing core-ent
 
 nav:
 # en.begin
@@ -522,10 +512,7 @@ nav:
   - Monitor:
       - Query NebulaGraph metrics: 6.monitor-and-metrics/1.query-performance-metrics.md
       - RocksDB Statistics: 6.monitor-and-metrics/2.rocksdb-statistics.md
-#ent      - Black-box monitoring:
-#ent        - What is black-box monitoring: 6.monitor-and-metrics/3.bbox/3.1.bbox.md
-#ent        - Black-box monitoring tool: 6.monitor-and-metrics/3.bbox/3.2.bbox-reviewer.md
- 
+
   - Data security:
       - Authentication and authorization:
           - Authentication: 7.data-security/1.authentication/1.authentication.md
@@ -540,11 +527,6 @@ nav:
         - Install BR: backup-and-restore/nebula-br/2.compile-br.md
         - Use BR to back up data: backup-and-restore/nebula-br/3.br-backup-data.md
         - Use BR to restore data: backup-and-restore/nebula-br/4.br-restore-data.md
-#ent      - NebulaGraph BR Enterprise:
-#ent        - What is BR Enterprise: backup-and-restore/nebula-br-ent/1.br-ent-overview.md
-#ent        - Install BR: backup-and-restore/nebula-br-ent/2.install-tools.md
-#ent        - Back up data with BR: backup-and-restore/nebula-br-ent/3.backup-data.md
-#ent        - Restore data with BR: backup-and-restore/nebula-br-ent/4.restore-data.md
       - Manage snapshots: backup-and-restore/3.manage-snapshot.md
 
   - Synchronize and migrate:
@@ -685,7 +667,7 @@ nav:
       - History timeline: 20.appendix/history.md
       - Error code: 20.appendix/error-code.md
 
-#  - PDF: ./pdf/NebulaGraph-EN.pdf
+  - PDF: ./pdf/NebulaGraph-EN.pdf
 # en.end
 
 # zh.begin
@@ -1033,6 +1015,5 @@ nav:
       - 思维导图: 20.appendix/mind-map.md
       - 错误码: 20.appendix/error-code.md
 
-#  - PDF: ./pdf/NebulaGraph-CN.pdf
-
+  - PDF: ./pdf/NebulaGraph-CN.pdf
 # zh.end
