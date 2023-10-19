@@ -1,0 +1,25 @@
+name: deploy-all
+
+on:
+  push:
+    paths-ignore:
+      - 'docs-2.0-zh/**'
+      - 'docs-2.0-en/**'
+    branches:
+    # Remember to add v before the following version number unless the version is master.
+      - master
+
+jobs:
+  deploy-zh:
+    uses: ./.github/workflows/deploy-zh.yml
+    secrets:
+      ZHSITE_PASSWORD: ${{ secrets.ZHSITE_PASSWORD }}
+      OSS_ID: ${{ secrets.OSS_ID }}
+      OSS_SECRET: ${{ secrets.OSS_SECRET }}
+      OSS_ENDPOINT: ${{ secrets.OSS_ENDPOINT }}
+      
+  deploy-en:
+    uses: ./.github/workflows/deploy-en.yml
+    secrets:
+      ENSITE_PASSWORD: ${{ secrets.ENSITE_PASSWORD }}
+

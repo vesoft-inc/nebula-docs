@@ -1,37 +1,45 @@
-name: Publish docs via GitHub Pages
+name: Publish English docs via GitHub Pages
+env:
+  ACTIONTEST: master # no need to add v before the version number
 on:
+  workflow_call:
+    secrets:
+      ENSITE_PASSWORD:
+        required: true
   push:
     branches:
     # Remember to add v before the following version number unless the version is master.
-      - v3.6.0
+      - master
+    paths:
+      - 'docs-2.0-en/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # fetch all commits/branches for gitversion
 
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
-          architecture: 'x64'
 
       - name : prepare
-        run: sh ./prepare.sh 
+        run: sh ./prepare.sh
 
       - name: Git Config
-        run: git config user.name whitewum && git config user.email min.wu@vesoft.com
+        run: git config user.name ChrisChen2023 && git config user.email chris.chen@vesoft.com
           
-      - name: Mike Deploy 3.6.0
+      - name: Mike Deploy
         run: |
-          # mike delete 3.6.0 -p
+          python ./scripts/render_english_only.py
+          python ./scripts/conditional_pdf.py
           git fetch origin gh-pages --depth=1 # fix mike's CI update
           mike list
-          mike deploy 3.6.0 -p --rebase
-          mike set-default 3.6.0 -p --rebase
+          mike deploy ${{ env.ACTIONTEST }}  -p --rebase
+          mike set-default ${{ env.ACTIONTEST }} -p --rebase
           mike list
 
       # - name: Deploy
