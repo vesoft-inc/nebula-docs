@@ -5913,14 +5913,17 @@
 
 
 <h1 id="nebulagraph_importer">NebulaGraph Importer<a class="headerlink" href="#nebulagraph_importer" title="Permanent link">&para;</a></h1>
-<p>NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV files into NebulaGraph. Importer can read and import CSV file data from multiple data sources.</p>
+<p>NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV files into NebulaGraph. Importer can read and batch import CSV file data from multiple data sources, and also supports batch update and delete operations.</p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Support multiple data sources, including local, S3, OSS, HDFS, FTP, and SFTP.</li>
+<li>Support multiple data sources, including local, S3, OSS, HDFS, FTP, SFTP, and GCS.</li>
 <li>Support importing data from CSV format files. A single file can contain multiple tags, multiple edge types or a mix of both.</li>
+<li>Support filtering the data from source.</li>
+<li>Support batch operation, including insert, update, delete.</li>
 <li>Support connecting to multiple Graph services simultaneously for importing and dynamic load balancing.</li>
 <li>Support reconnect or retry after failure.</li>
 <li>Support displaying statistics in multiple dimensions, including import time, import percentage, etc. Support for printing statistics in Console or logs.</li>
+<li>Support SSL.</li>
 </ul>
 <h2 id="advantage">Advantage<a class="headerlink" href="#advantage" title="Permanent link">&para;</a></h2>
 <ul>
@@ -5954,7 +5957,7 @@
 <p>Importer 4.0.0 has redone the Importer for improved performance, but the configuration file is not compatible with older versions. It is recommended to use the new version of Importer.</p>
 </div>
 <h2 id="release_note">Release note<a class="headerlink" href="#release_note" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/vesoft-inc/nebula-importer/releases/tag/v4.0.0">Release</a></p>
+<p><a href="https://github.com/vesoft-inc/nebula-importer/releases/tag/v4.1.0">Release</a></p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before using NebulaGraph Importer, make sure:</p>
 <ul>
@@ -5983,7 +5986,7 @@
 <h3 id="download_binary_package_and_run">Download binary package and run<a class="headerlink" href="#download_binary_package_and_run" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>Download the executable <a href="https://github.com/vesoft-inc/nebula-importer/releases/tag/v4.0.0">binary package</a>.</p>
+<p>Download the executable <a href="https://github.com/vesoft-inc/nebula-importer/releases/tag/v4.1.0">binary package</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The file installation path based on the RPM/DEB package is <code>/usr/bin/nebula-importer</code>. </p>
@@ -5996,11 +5999,11 @@
 </li>
 </ol>
 <h3 id="source_code_compile_and_run">Source code compile and run<a class="headerlink" href="#source_code_compile_and_run" title="Permanent link">&para;</a></h3>
-<p>Compiling the source code requires deploying a Golang environment. For details, see <a href="https://github.com/vesoft-inc/nebula-importer/blob/release-4.0/docs/golang-install-en.md">Build Go environment</a>.</p>
+<p>Compiling the source code requires deploying a Golang environment. For details, see <a href="https://github.com/vesoft-inc/nebula-importer/blob/release-4.1/docs/golang-install-en.md">Build Go environment</a>.</p>
 <ol>
 <li>
 <p>Clone repository.</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-4.0<span class="w"> </span>https://github.com/vesoft-inc/nebula-importer.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-4.1<span class="w"> </span>https://github.com/vesoft-inc/nebula-importer.git
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6052,7 +6055,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="w">      </span>--config<span class="w"> </span>/home/user/config.yaml
 </code></pre></div>
 <h2 id="configuration_file_description">Configuration File Description<a class="headerlink" href="#configuration_file_description" title="Permanent link">&para;</a></h2>
-<p>Various example configuration files are available within the <a href="https://github.com/vesoft-inc/nebula-importer/tree/release-4.0/examples">Github</a> of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, NebulaGraph server information, etc. The following section describes the fields within the configuration file in categories.</p>
+<p>Various example configuration files are available within the <a href="https://github.com/vesoft-inc/nebula-importer/tree/release-4.1/examples">Github</a> of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, NebulaGraph server information, etc. The following section describes the fields within the configuration file in categories.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If users download a binary package, create the configuration file manually.</p>
@@ -6065,6 +6068,12 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.100:9669,192.168.1.101:9669&quot;</span>
 <span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
 <span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">  </span><span class="nt">ssl</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">certPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home/xxx/cert/importer.crt&quot;</span>
+<span class="w">    </span><span class="nt">keyPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home/xxx/cert/importer.key&quot;</span>
+<span class="w">    </span><span class="nt">caPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home/xxx/cert/root.crt&quot;</span>
+<span class="w">    </span><span class="nt">insecureSkipVerify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">  </span><span class="nt">concurrencyPerAddress</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">  </span><span class="nt">reconnectInitialInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
 <span class="w">  </span><span class="nt">retry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
@@ -6103,6 +6112,36 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <td align="left"><code>nebula</code></td>
 <td align="left">No</td>
 <td align="left">The password for the NebulaGraph user name.</td>
+</tr>
+<tr>
+<td align="left"><code>client.ssl.enable</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">Specifies whether to enable SSL authentication.</td>
+</tr>
+<tr>
+<td align="left"><code>client.ssl.certPath</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Specifies the storage path for the SSL public key certificate.</br>This parameter is required when SSL authentication is enabled.</td>
+</tr>
+<tr>
+<td align="left"><code>client.ssl.keyPath</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">S pecifies the storage path for the SSL key.</br>This parameter is required when SSL authentication is enabled.</td>
+</tr>
+<tr>
+<td align="left"><code>client.ssl.caPath</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Specifies the storage path for the CA root certificate.</br>This parameter is required when SSL authentication is enabled.</td>
+</tr>
+<tr>
+<td align="left"><code>client.ssl.insecureSkipVerify</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">Specifies whether the client skips verifying the server's certificate chain and hostname. If set to <code>true</code>, any certificate chain and hostname provided by the server is accepted.</td>
 </tr>
 <tr>
 <td align="left"><code>client.concurrencyPerAddress</code></td>
@@ -6235,7 +6274,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
 <span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">files</span><span class="p">:</span>
-<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logs/nebula-importer.log</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logs/nebula-importer.log</span>
 </code></pre></div>
 <table>
 <thead>
@@ -6303,7 +6342,33 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="c1">#  - hdfs:</span>
 <span class="c1">#      address: &quot;127.0.0.1:8020&quot;    # Required. The address of HDFS service.</span>
 <span class="c1">#      user: &quot;hdfs&quot;    # Optional. The user of HDFS service.</span>
-<span class="c1">#      path: &quot;/events/20190918.export.csv&quot;    # Required. The path of file in the HDFS service.</span>
+<span class="c1">#      servicePrincipalName: &lt;Kerberos Service Principal Name&gt;  # Optional. The name of the Kerberos service instance for the HDFS service when Kerberos authentication is enabled.</span>
+<span class="c1">#      krb5ConfigFile: &lt;Kerberos config file&gt;  # Optional. The path to the Kerberos configuration file for the HDFS service when Kerberos authentication is enabled. Defaults to `/etc/krb5.conf`.</span>
+<span class="c1">#      ccacheFile: &lt;Kerberos ccache file&gt;  # Optional. The path to the Kerberos ccache file for the HDFS service when Kerberos authentication is enabled.</span>
+<span class="c1">#      keyTabFile: &lt;Kerberos keytab file&gt;  # Optional. The path to the Kerberos keytab file for the HDFS service when Kerberos authentication is enabled.</span>
+<span class="c1">#      password: &lt;Kerberos password&gt;  # Optional. The Kerberos password for the HDFS service when Kerberos authentication is enabled.</span>
+<span class="c1">#      dataTransferProtection: &lt;Kerberos Data Transfer Protection&gt;  # Optional. The type of transport encryption when Kerberos authentication is enabled. Optional values are `authentication`, `integrity`, `privacy`.</span>
+<span class="c1">#      disablePAFXFAST: false  # Optional. Whether to disable the use of PA_FX_FAST for clients.</span>
+<span class="c1">#      path: &quot;/events/20190918.export.csv&quot;    # Required. The path to the file in the HDFS service. Wildcard filenames are also supported, e.g. `/events/*.export.csv`, make sure all matching files have the same schema.</span>
+<span class="c1">#  - gcs: # Google Cloud Storage</span>
+<span class="c1">#      bucket: chicago-crime-sample  # Required. The name of the bucket in the GCS service.</span>
+<span class="c1">#      key: stats/000000000000.csv  # Required. The path to the file in the GCS service.</span>
+<span class="c1">#      withoutAuthentication: false  # Optional. Whether to anonymize access. Defaults to false, which means access with credentials.</span>
+<span class="c1">#      # When using credentials access, one of the credentialsFile and credentialsJSON parameters is sufficient.</span>
+<span class="c1">#      credentialsFile: &quot;/path/to/your/credentials/file&quot;  # Optional. The path to the credentials file for the GCS service.</span>
+<span class="c1">#      credentialsJSON: &#39;{  # Optional. The JSON content of the credentials for the GCS service.</span>
+<span class="c1">#        &quot;type&quot;: &quot;service_account&quot;,</span>
+<span class="c1">#        &quot;project_id&quot;: &quot;your-project-id&quot;,</span>
+<span class="c1">#        &quot;private_key_id&quot;: &quot;key-id&quot;,</span>
+<span class="c1">#        &quot;private_key&quot;: &quot;-----BEGIN PRIVATE KEY-----\nxxxxx\n-----END PRIVATE KEY-----\n&quot;,</span>
+<span class="c1">#        &quot;client_email&quot;: &quot;your-client@your-project-id.iam.gserviceaccount.com&quot;,</span>
+<span class="c1">#        &quot;client_id&quot;: &quot;client-id&quot;,</span>
+<span class="c1">#        &quot;auth_uri&quot;: &quot;https://accounts.google.com/o/oauth2/auth&quot;,</span>
+<span class="c1">#        &quot;token_uri&quot;: &quot;https://oauth2.googleapis.com/token&quot;,</span>
+<span class="c1">#        &quot;auth_provider_x509_cert_url&quot;: &quot;https://www.googleapis.com/oauth2/v1/certs&quot;,</span>
+<span class="c1">#        &quot;client_x509_cert_url&quot;: &quot;https://www.googleapis.com/robot/v1/metadata/x509/your-client%40your-project-id.iam.gserviceaccount.com&quot;,</span>
+<span class="c1">#        &quot;universe_domain&quot;: &quot;googleapis.com&quot;</span>
+<span class="c1">#      }&#39;</span>
 <span class="w">    </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <span class="w">    </span><span class="nt">csv</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;|&quot;</span>
@@ -6311,6 +6376,9 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="w">      </span><span class="nt">lazyQuotes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Person</span>
+<span class="c1">#      mode: INSERT</span>
+<span class="c1">#      filter:  </span>
+<span class="c1">#        expr: Record[1] == &quot;XXX&quot;    </span>
 <span class="w">      </span><span class="nt">id</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
 <span class="w">        </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hash&quot;</span>
@@ -6349,6 +6417,9 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <span class="w">    </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <span class="w">    </span><span class="nt">edges</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KNOWS</span><span class="w"> </span><span class="c1"># person_knows_person</span>
+<span class="c1">#      mode: INSERT</span>
+<span class="c1">#      filter:  </span>
+<span class="c1">#        expr: Record[1] == &quot;XXX&quot;</span>
 <span class="w">      </span><span class="nt">src</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">id</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
@@ -6424,6 +6495,18 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <td align="left">-</td>
 <td align="left">Yes</td>
 <td align="left">The tag name.</td>
+</tr>
+<tr>
+<td align="left"><code>sources.tags.mode</code></td>
+<td align="left"><code>INSERT</code></td>
+<td align="left">No</td>
+<td align="left">Batch operation types, including insert, update and delete. Optional values are <code>INSERT</code>, <code>UPDATE</code> and <code>DELETE</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>sources.tags.filter.expr</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are <code>==</code>, <code>! =</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> and <code>&gt;=</code>. </br>Logical operators supported are <code>not</code> (!) , <code>and</code> (&amp;&amp;) and <code>or</code> (||). </br>For example <code>(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"</code>.</td>
 </tr>
 <tr>
 <td align="left"><code>sources.tags.id.type</code></td>
@@ -6502,6 +6585,18 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <td align="left">-</td>
 <td align="left">Yes</td>
 <td align="left">The edge type name.</td>
+</tr>
+<tr>
+<td align="left"><code>sources.edges.mode</code></td>
+<td align="left"><code>INSERT</code></td>
+<td align="left">No</td>
+<td align="left">Batch operation types, including insert, update and delete. Optional values are <code>INSERT</code>, <code>UPDATE</code> and <code>DELETE</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>sources.edges.filter.expr</code></td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are <code>==</code>, <code>! =</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> and <code>&gt;=</code>. </br>Logical operators supported are <code>not</code> (!) , <code>and</code> (&amp;&amp;) and <code>or</code> (||). </br>For example <code>(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"</code>.</td>
 </tr>
 <tr>
 <td align="left"><code>sources.edges.src.id.type</code></td>
@@ -6587,7 +6682,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2023</span>
       
     
   </small>
