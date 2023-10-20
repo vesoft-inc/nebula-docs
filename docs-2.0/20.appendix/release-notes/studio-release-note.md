@@ -2,7 +2,7 @@
 
 ## v3.8.0
 
-- Featues
+- Features
   - Supported the use of MySQL databases as backend storage.
 
 - Enhancements
