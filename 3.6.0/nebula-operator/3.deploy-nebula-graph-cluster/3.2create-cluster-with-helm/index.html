@@ -5297,20 +5297,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.backup-restore-using-operator/" class="md-nav__link">
-        Backup and restore
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -5886,8 +5872,17 @@
 <span class="w">    </span>--set<span class="w"> </span>nebula.metad.config.zone_list<span class="o">=</span>&lt;zone1,zone2,zone3&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.prioritize_intra_zone_reading<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.graphd.config.stick_to_intra_zone_on_failure<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Evenly distribute the Pods of the Storage service across Zones.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.topologySpreadConstraints<span class="o">[</span><span class="m">0</span><span class="o">]</span>.topologyKey<span class="o">=</span>topology.kubernetes.io/zone<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.topologySpreadConstraints<span class="o">[</span><span class="m">0</span><span class="o">]</span>.whenUnsatisfiable<span class="o">=</span>DoNotSchedule<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Used to schedule restarted Graph or Storage Pods to the specified Zone.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.schedulerName<span class="o">=</span>nebula-scheduler<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
+
+      !!! caution
+
+          Make sure storage Pods are evenly distributed across zones before ingesting data by running `SHOW ZONES` in nebula-console. For zone-related commands, see [Zones](../../4.deployment-and-installation/5.zone.md).
 
   -->
 
@@ -5933,16 +5928,17 @@ For example, run the following command to scale out a NebulaGraph cluster by cha
 
 Similarly, you can scale in a NebulaGraph cluster by setting the value of the `replicas` corresponding to the different services in the cluster smaller than the original value.
 
-In the process of downsizing the cluster, if the operation is not complete successfully and seems to be stuck, you may need to check the status of the job using the `nebula-console` client specified in the `spec.console` field. Analyzing the logs and manually intervening can help ensure that the Job runs successfully. For information on how to check jobs, see [Job statements](../../3.ngql-guide/4.job-statements.md).
+In the process of downsizing the cluster, if the operation is not complete successfully and seems to be stuck, you may need to check the status of the job using the `nebula-console` client specified in the `nebula.console` field. Analyzing the logs and manually intervening can help ensure that the Job runs successfully. For information on how to check jobs, see [Job statements](../../3.ngql-guide/4.job-statements.md).
 
 !!! caution
 
-    - NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.
-    <!--
-    - If you scale in a cluster with Zones, make sure that the number of remaining storage pods is not less than the number of Zones specified in the `spec.metad.config.zone_list` field. Otherwise, the cluster will fail to start.
-    -->
-<p>You can click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see <strong>Configuration parameters of the nebula-cluster Helm chart</strong> below.</p>
-<p>--&gt;</p>
+    - NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scaling Meta services.
+    - If you scale in a cluster with Zones, make sure that the number of remaining storage pods is not less than the number of Zones specified in the `nebula.metad.config.zone_list` field. Otherwise, the cluster will fail to start.
+
+You can click on [nebula-cluster/values.yaml](https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/charts/nebula-cluster/values.yaml) to see more configurable parameters of the nebula-cluster chart. For more information about the descriptions of configurable parameters, see **Configuration parameters of the nebula-cluster Helm chart** below.
+
+-->
+
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Helm:</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -5958,7 +5954,7 @@ In the process of downsizing the cluster, if the operation is not complete succe
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2023</span>
       
     
   </small>

@@ -5297,20 +5297,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.backup-restore-using-operator/" class="md-nav__link">
-        Backup and restore
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../5.operator-failover/" class="md-nav__link">
         Self-healing
       </a>
@@ -5806,17 +5792,219 @@
   - `DOCKER_REGISTRY_SERVER`: Specify the server address of the private repository from which the image will be pulled, such as `reg.example-inc.com`.
   - `DOCKER_USER`: The username for the image repository.
   - `DOCKER_PASSWORD`: The password for the image repository.
+
   -->
 
 </li>
 <li>
 <p>Create a file named <code>apps_v1alpha1_nebulacluster.yaml</code>.</p>
+<!--
+
+  - To create a NebulaGraph Enterprise cluster
+
+    === "Cluster without Zones"
+
+        You must set the following parameters in the configuration file for the enterprise edition. Other parameters can be changed as needed. For information on other parameters, see the [sample configuration](https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/config/samples/apps_v1alpha1_nebulacluster.yaml). 
+
+
+        | Parameter    | Default value  | Description    |
+        | :---- | :--- | :--- |
+        | `spec.metad.licenseManagerURL` | - | Configure the URL that points to the LM, which consists of the access address and port number (default port `9119`) of the LM. For example, `192.168.8.xxx:9119`. **You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.** |
+        |`spec.<graphd|metad|storaged>.image`|-|The container image of the Graph, Meta, or Storage service of the enterprise edition.|
+        |`spec.imagePullSecrets`| - |Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.|
+
+
+    === "Cluster with Zones"
+
+        NebulaGraph Operator supports creating a cluster with [Zones](../../4.deployment-and-installation/5.zone.md). 
+
+        ??? info "Expand to view sample configurations of a cluster with Zones"
+
+            <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Used to obtain the Zone information where nodes are located.</span>
+<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reg.vesoft-inc.com/xxx/xxx:latest&quot;</span>
+<span class="w">  </span><span class="c1"># Used for backup and recovery as well as log cleanup functions. </span>
+<span class="w">  </span><span class="c1"># If you do not customize this configuration,</span>
+<span class="w">  </span><span class="c1"># the default configuration will be used.</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0-sc</span>
+<span class="w">  </span><span class="nt">exporter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-stats-exporter</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">maxRequests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">  </span><span class="c1"># Used to create a console container,</span>
+<span class="w">  </span><span class="c1"># which is used to connect to the NebulaGraph cluster.</span>
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nightly&quot;</span>
+<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># The following parameters are required for creating a cluster with Zones.</span>
+<span class="w">      </span><span class="nt">accept_partial_success</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">prioritize_intra_zone_reading</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">sync_meta_when_use_space</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">stick_to_intra_zone_on_failure</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">session_reclaim_interval_secs</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300&quot;</span>
+<span class="w">      </span><span class="c1"># The following parameters are required for collecting logs.</span>
+<span class="w">      </span><span class="nt">logtostderr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
+<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+<span class="w">      </span><span class="nt">logtostder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="c1"># Zone names CANNOT be modified once set.</span>
+<span class="w">      </span><span class="c1"># It&#39;s suggested to set an odd number of Zones.</span>
+<span class="w">      </span><span class="nt">zone_list</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">az1,az2,az3</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">validate_session_timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">    </span><span class="c1"># LM access address and port number.</span>
+<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.8.xxx:9119&quot;</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
+<span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+<span class="w">      </span><span class="nt">logtostder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
+<span class="w">    </span><span class="nt">dataVolumeClaims</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">    </span><span class="c1"># Automatically balance storage data after scaling out.</span>
+<span class="w">    </span><span class="nt">enableAutoBalance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-scheduler</span>
+<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">nebula</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud</span>
+<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-image</span>
+<span class="w">  </span><span class="c1"># Evenly distribute storage Pods across Zones. </span>
+<span class="w">  </span><span class="c1"># Must be set when using Zones.</span>
+<span class="w">  </span><span class="nt">topologySpreadConstraints</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;topology.kubernetes.io/zone&quot;</span>
+<span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DoNotSchedule&quot;</span>
+</code></pre></div>
+
+        !!! caution
+
+            Make sure storage Pods are evenly distributed across zones before ingesting data by running `SHOW ZONES` in nebula-console. For zone-related commands, see [Zones](../../4.deployment-and-installation/5.zone.md).
+
+        You must set the following parameters for creating a cluster with Zones. Other parameters can be changed as needed.       
+
+        | Parameter    | Default value  | Description    |
+        | :---- | :--- | :--- |
+        | `spec.metad.licenseManagerURL` | - | Configure the URL that points to the LM, which consists of the access address and port number (default port `9119`) of the LM. For example, `192.168.8.xxx:9119`. **You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.** |
+        |`spec.<graphd|metad|storaged>.image`|-|The container image of the Graph, Meta, or Storage service of the enterprise edition.|
+        |`spec.imagePullSecrets`| - |Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.|
+        |`spec.alpineImage`|-|The Alpine Linux image, used to obtain the Zone information where nodes are located.| 
+        |`spec.metad.config.zone_list`|-|A list of zone names, split by comma. For example: zone1,zone2,zone3. <br/>**Zone names CANNOT be modified once be set.**|
+        |`spec.graphd.config.prioritize_intra_zone_reading`|`false`|Specifies whether to prioritize sending queries to the storage pods in the same zone.<br/>When set to `true`, the query is sent to the storage pods in the same zone. If reading fails in that Zone, it will decide based on `stick_to_intra_zone_on_failure` whether to read the leader partition replica data from other Zones. |
+        |`spec.graphd.config.stick_to_intra_zone_on_failure`|`false`|Specifies whether to stick to intra-zone routing if unable to find the requested partitions in the same zone. When set to `true`, if unable to find the partition replica in that Zone, it does not read data from other Zones.|
+        |`spec.schedulerName`|`kube-scheduler`|Schedules the restarted Graph and Storage pods to the same Zone. The value must be set to `nebula-scheduler`.|
+        |`spec.topologySpreadConstraints`|-| It is a field in Kubernetes used to control the distribution of storage Pods. Its purpose is to ensure that your storage Pods are evenly spread across Zones. <br/>**To use the Zone feature, you must set the value of `topologySpreadConstraints[0].topologyKey` to `topology.kubernetes.io/zone` and the value of `topologySpreadConstraints[0].whenUnsatisfiable` to `DoNotSchedule`**. Run `kubectl get node --show-labels` to check the key. For more information, see [TopologySpread](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/#example-multiple-topologyspreadconstraints).|
+
+        ???+ note "Learn more about Zones in NebulaGraph Operator"
+
+            **Understanding NebulaGraph's Zone Feature**
+
+            NebulaGraph utilizes a feature called Zones to efficiently manage its distributed architecture. Each Zone represents a logical grouping of Storage pods and Graph pods, responsible for storing the complete graph space data. The data within NebulaGraph's spaces is partitioned, and replicas of these partitions are evenly distributed across all available Zones. The utilization of Zones can significantly reduce inter-Zone network traffic costs and boost data transfer speeds. Moreover, intra-zone-reading allows for increased availability, because replicas of a partition spread out among different zones.
+
+            **Configuring NebulaGraph Zones**
+
+            To make the most of the Zone feature, you first need to determine the actual Zone where your cluster nodes are located. Typically, nodes deployed on cloud platforms are labeled with their respective Zones. Once you have this information, you can configure it in your cluster's configuration file by setting the `spec.metad.config.zone_list` parameter. This parameter should be a list of Zone names, separated by commas, and should match the actual Zone names where your nodes are located. For example, if your nodes are in Zones `az1`, `az2`, and `az3`, your configuration would look like this:
+
+            <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">zone_list</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">az1,az2,az3</span>
+</code></pre></div>
+
+            **Operator's Use of Zone Information**
+
+            NebulaGraph Operator leverages Kubernetes' [TopoloySpread](https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/) feature to manage the scheduling of Storage and Graph pods. Once the `zone_list` is configured, Storage services are automatically assigned to their respective Zones based on the `topology.kubernetes.io/zone` label.
+
+            For intra-zone data access, the Graph service dynamically assigns itself to a Zone using the `--assigned_zone=$NODE_ZONE` parameter. It identifies the Zone name of the node where the Graph service resides by utilizing an init-container to fetch this information. The Alpine Linux image specified in `spec.alpineImage` (default: `reg.vesoft-inc.com/nebula-alpine:latest`) plays a role in obtaining Zone information.
+
+            **Prioritizing Intra-Zone Data Access**
+
+            By setting `spec.graphd.config.prioritize_intra_zone_reading` to `true` in the cluster configuration file, you enable the Graph service to prioritize sending queries to Storage services within the same Zone. In the event of a read failure within that Zone, the behavior depends on the value of `spec.graphd.config.stick_to_intra_zone_on_failure`. If set to `true`, the Graph service avoids reading data from other Zones and returns an error. Otherwise, it reads data from leader partition replicas in other Zones.
+
+            <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/xxx/xxx:latest</span>
+<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">prioritize_intra_zone_reading</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">stick_to_intra_zone_on_failure</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
+</code></pre></div>
+
+            **Zone Mapping for Resilience**
+
+            Once Storage and Graph services are assigned to Zones, the mapping between the pod and its corresponding Zone is stored in a configmap named `<cluster_name>-graphd|storaged-zone`. This mapping facilitates pod scheduling during rolling updates and pod restarts, ensuring that services return to their original Zones as needed.    
+
+            !!! caution
+
+                DO NOT manually modify the configmaps created by NebulaGraph Operator. Doing so may cause unexpected behavior.  
+
+
+        Other optional parameters for the enterprise edition are as follows:
+
+        | Parameter    | Default value  | Description    |
+        | :---- | :--- | :--- |
+        |`spec.storaged.enableAutoBalance`| `false`| Specifies whether to enable automatic data balancing. For more information, see [Balance storage data after scaling out](../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage.md).|
+        |`spec.enableBR`|`false`|Specifies whether to enable the BR tool. For more information, see [Backup and restore](../10.backup-restore-using-operator.md).|
+        |`spec.graphd.enable_graph_ssl`|`false`| Specifies whether to enable SSL for the Graph service. For more details, see [Enable mTLS](../8.custom-cluster-configurations/8.5.enable-ssl.md). |
+
+  -->
+
 <ul>
 <li>
-<p>For a NebulaGraph Community cluster</p>
-<p>For the file content, see the <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/config/samples/apps_v1alpha1_nebulacluster.yaml">sample configuration</a>.</p>
+<p>To create a NebulaGraph Community cluster</p>
+<p>See <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/config/samples/apps_v1alpha1_nebulacluster.yaml">community cluster configurations</a>.</p>
 <details class="info">
-<summary>Expand to show sample parameter descriptions</summary>
+<summary>Expand to show parameter descriptions of community clusters</summary>
 <table>
 <thead>
 <tr>
@@ -5922,6 +6110,11 @@
 <td align="left">Whether to balance data automatically.</td>
 </tr>
 <tr>
+<td align="left"><code>spec.&lt;metad|storaged|graphd&gt;.securityContext</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Defines privilege and access control settings for NebulaGraph service containers. For details, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.6/doc/user/security_context.md">SecurityContext</a>.</td>
+</tr>
+<tr>
 <td align="left"><code>spec.agent</code></td>
 <td align="left"><code>{}</code></td>
 <td align="left">Configuration of the Agent service. This is used for backup and recovery as well as log cleanup functions. If you do not customize this configuration, the default configuration will be used.</td>
@@ -5956,259 +6149,6 @@
 </details>
 </li>
 </ul>
-<!--
-
-  - For a NebulaGraph Enterprise cluster
-
-    Contact our sales team to get a complete NebulaGraph Enterprise Edition cluster YAML example.
-
-    !!! enterpriseonly
-
-        Make sure that you have access to NebulaGraph Enterprise Edition images before pulling the image. 
-
-    === "Cluster without Zones"
-
-        You must set the following parameters in the configuration file for the enterprise edition. Other parameters can be changed as needed. For information on other parameters, see the [sample configuration](https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/config/samples/apps_v1alpha1_nebulacluster.yaml). 
-
-
-        | Parameter    | Default value  | Description    |
-        | :---- | :--- | :--- |
-        | `spec.metad.licenseManagerURL` | - | Configure the URL that points to the LM, which consists of the access address and port number (default port `9119`) of the LM. For example, `192.168.8.100:9119`. **You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.** |
-        |`spec.<graphd|metad|storaged>.image`|-|The container image of the Graph, Meta, or Storage service of the enterprise edition.|
-        |`spec.imagePullSecrets`| - |Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.|
-
-
-    === "Cluster with Zones"
-
-        NebulaGraph Operator supports creating a cluster with [Zones](../../4.deployment-and-installation/5.zone.md). 
-
-        You must set the following parameters for creating a cluster with Zones. Other parameters can be changed as needed. For more information on other parameters, see the [sample configuration](https://github.com/vesoft-inc/nebula-operator/blob/v1.6.2/config/samples/apps_v1alpha1_nebulacluster.yaml). 
-
-        | Parameter    | Default value  | Description    |
-        | :---- | :--- | :--- |
-        | `spec.metad.licenseManagerURL` | - | Configure the URL that points to the LM, which consists of the access address and port number (default port `9119`) of the LM. For example, `192.168.8.100:9119`. **You must configure this parameter in order to obtain the license information; otherwise, the enterprise edition cluster cannot be used.** |
-        |`spec.<graphd|metad|storaged>.image`|-|The container image of the Graph, Meta, or Storage service of the enterprise edition.|
-        |`spec.imagePullSecrets`| - |Specifies the Secret for pulling the NebulaGraph Enterprise service images from a private repository.|
-        |`spec.alpineImage`|`reg.vesoft-inc.com/nebula-alpine:latest`|The Alpine Linux image, used to obtain the Zone information where nodes are located.| 
-        |`spec.metad.config.zone_list`|-|A list of zone names, split by comma. For example: zone1,zone2,zone3. <br/>**Zone names CANNOT be modified once be set.**|
-        |`spec.graphd.config.prioritize_intra_zone_reading`|`false`|Specifies whether to prioritize sending queries to the storage nodes in the same zone.<br/>When set to `true`, the query is sent to the storage nodes in the same zone. If reading fails in that Zone, it will decide based on `stick_to_intra_zone_on_failure` whether to read the leader partition replica data from other Zones. |
-        |`spec.graphd.config.stick_to_intra_zone_on_failure`|`false`|Specifies whether to stick to intra-zone routing if unable to find the requested partitions in the same zone. When set to `true`, if unable to find the partition replica in that Zone, it does not read data from other Zones.|
-
-        ???+ note "Learn more about Zones in NebulaGraph Operator"
-
-            **Understanding NebulaGraph's Zone Feature**
-
-            NebulaGraph utilizes a feature called Zones to efficiently manage its distributed architecture. Each Zone represents a logical grouping of Storage pods and Graph pods, responsible for storing the complete graph space data. The data within NebulaGraph's spaces is partitioned, and replicas of these partitions are evenly distributed across all available Zones. The utilization of Zones can significantly reduce inter-Zone network traffic costs and boost data transfer speeds. Moreover, intra-zone-reading allows for increased availability, because replicas of a partition spread out among different zones.
-
-            **Configuring NebulaGraph Zones**
-
-            To make the most of the Zone feature, you first need to determine the actual Zone where your cluster nodes are located. Typically, nodes deployed on cloud platforms are labeled with their respective Zones. Once you have this information, you can configure it in your cluster's configuration file by setting the `spec.metad.config.zone_list` parameter. This parameter should be a list of Zone names, separated by commas, and should match the actual Zone names where your nodes are located. For example, if your nodes are in Zones `az1`, `az2`, and `az3`, your configuration would look like this:
-
-            <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">zone_list</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">az1,az2,az3</span>
-</code></pre></div>
-
-            **Operator's Use of Zone Information**
-
-            NebulaGraph Operator leverages Kubernetes' [TopoloySpread](https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/) feature to manage the scheduling of Storage and Graph pods. Once the `zone_list` is configured, Storage services are automatically assigned to their respective Zones based on the `topology.kubernetes.io/zone` label.
-
-            For intra-zone data access, the Graph service dynamically assigns itself to a Zone using the `--assigned_zone=$NODE_ZONE` parameter. It identifies the Zone name of the node where the Graph service resides by utilizing an init-container to fetch this information. The Alpine Linux image specified in `spec.alpineImage` (default: `reg.vesoft-inc.com/nebula-alpine:latest`) plays a role in obtaining Zone information.
-
-            **Prioritizing Intra-Zone Data Access**
-
-            By setting `spec.graphd.config.prioritize_intra_zone_reading` to `true` in the cluster configuration file, you enable the Graph service to prioritize sending queries to Storage services within the same Zone. In the event of a read failure within that Zone, the behavior depends on the value of `spec.graphd.config.stick_to_intra_zone_on_failure`. If set to `true`, the Graph service avoids reading data from other Zones and returns an error. Otherwise, it reads data from leader partition replicas in other Zones.
-
-            <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/nebula-alpine:latest</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">prioritize_intra_zone_reading</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="nt">stick_to_intra_zone_on_failure</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
-</code></pre></div>
-
-            **Zone Mapping for Resilience**
-
-            Once Storage and Graph services are assigned to Zones, the mapping between the pod and its corresponding Zone is stored in a configmap named `<cluster_name>-graphd|storaged-zone`. This mapping facilitates pod scheduling during rolling updates and pod restarts, ensuring that services return to their original Zones as needed.    
-
-            !!! caution
-
-                DO NOT manually modify the configmaps created by NebulaGraph Operator. Doing so may cause unexpected behavior.  
-
-
-        Other optional parameters for the enterprise edition are as follows:
-
-        | Parameter    | Default value  | Description    |
-        | :---- | :--- | :--- |
-        |`spec.storaged.enableAutoBalance`| `false`| Specifies whether to enable automatic data balancing. For more information, see [Balance storage data after scaling out](../8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage.md).|
-        |`spec.enableBR`|`false`|Specifies whether to enable the BR tool. For more information, see [Backup and restore](../10.backup-restore-using-operator.md).|
-        |`spec.graphd.enable_graph_ssl`|`false`| Specifies whether to enable SSL for the Graph service. For more details, see [Enable mTLS](../8.custom-cluster-configurations/8.5.enable-ssl.md). |
-
-
-        ??? info "Expand to view sample cluster configurations"
-
-            <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;reg.vesoft-inc.com/cloud-dev/nebula-alpine:latest&quot;</span>
-<span class="w">  </span><span class="nt">agent</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/cloud-dev/nebula-agent</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0-sc</span>
-<span class="w">  </span><span class="nt">exporter</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-stats-exporter</span>
-<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">    </span><span class="nt">maxRequests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
-<span class="w">  </span><span class="nt">console</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nightly&quot;</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">accept_partial_success</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="nt">ca_client_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/root.crt</span>
-<span class="w">      </span><span class="nt">ca_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/root.crt</span>
-<span class="w">      </span><span class="nt">cert_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/server.crt</span>
-<span class="w">      </span><span class="nt">key_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/server.key</span>
-<span class="w">      </span><span class="nt">enable_graph_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="nt">prioritize_intra_zone_reading</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="nt">stick_to_intra_zone_on_failure</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span>
-<span class="w">      </span><span class="nt">logtostderr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
-<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
-<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">init-auth-sidecar</span>
-<span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">496756745489.dkr.ecr.us-east-1.amazonaws.com/auth-sidecar:v1.60.0</span>
-<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AUTH_SIDECAR_CONFIG_FILENAME</span>
-<span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sidecar-init</span>
-<span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/credentials</span><span class="w"> </span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-sidecar-config</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/config</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">sidecarContainers</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-sidecar</span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">496756745489.dkr.ecr.us-east-1.amazonaws.com/auth-sidecar:v1.60.0</span>
-<span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-<span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
-<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LOCAL_POD_IP</span>
-<span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status.podIP</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LOCAL_POD_NAME</span>
-<span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata.name</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LOCAL_POD_NAMESPACE</span>
-<span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata.namespace</span>
-<span class="w">        </span><span class="nt">readinessProbe</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/ready</span>
-<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8086</span>
-<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-<span class="w">          </span><span class="nt">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">          </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">        </span><span class="nt">livenessProbe</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/live</span>
-<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8086</span>
-<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-<span class="w">          </span><span class="nt">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">          </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/credentials</span><span class="w"> </span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-sidecar-config</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/config</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials</span>
-<span class="w">        </span><span class="nt">emptyDir</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">medium</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Memory</span>
-<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials</span>
-<span class="w">        </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/nebula/certs</span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
-<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
-<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/rc/nebula-graphd-ent</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
-<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
-<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
-<span class="w">      </span><span class="nt">logtostder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="c1"># Zone names CANNOT be modified once set.</span>
-<span class="w">      </span><span class="c1"># It&#39;s suggested to set an odd number of Zones.</span>
-<span class="w">      </span><span class="nt">zone_list</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">az1,az2,az3</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.8.xxx:9119&quot;</span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
-<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
-<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/rc/nebula-metad-ent</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
-<span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
-<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">redirect_stdout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
-<span class="w">      </span><span class="nt">stderrthreshold</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
-<span class="w">      </span><span class="nt">logtostder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
-<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
-<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.vesoft-inc.com/rc/nebula-storaged-ent</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.0-sc</span>
-<span class="w">    </span><span class="nt">dataVolumeClaims</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
-<span class="w">    </span><span class="nt">enableAutoBalance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-scheduler</span>
-<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">nebula</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud</span>
-<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-image</span>
-<span class="w">  </span><span class="nt">topologySpreadConstraints</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;topology.kubernetes.io/zone&quot;</span>
-<span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DoNotSchedule&quot;</span>
-</code></pre></div>
-
-  -->
-
 </li>
 <li>
 <p>Create a NebulaGraph cluster.</p>
@@ -6307,12 +6247,12 @@ In the process of downsizing the cluster, if the operation is not complete succe
 
 !!! caution
 
-    - NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scale Meta services.
-    <!--
+    - NebulaGraph Operator currently only supports scaling Graph and Storage services and does not support scaling Meta services.
     - If you scale in a cluster with Zones, make sure that the number of remaining storage pods is not less than the number of Zones specified in the `spec.metad.config.zone_list` field. Otherwise, the cluster will fail to start.
-    -->
 
-<p>--&gt;</p>
+
+-->
+
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Kubectl:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
@@ -6325,7 +6265,7 @@ In the process of downsizing the cluster, if the operation is not complete succe
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2023</span>
       
     
   </small>
