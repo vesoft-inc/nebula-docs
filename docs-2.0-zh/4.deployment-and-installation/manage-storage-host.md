@@ -31,6 +31,8 @@ nebula> ADD HOSTS "<hostname>":<port> [,"<hostname>":<port> ...];
 
     - 确保新增的 Storage 主机没有被其他集群使用过，否则会导致添加 Storage 节点失败。
 
+
+
 ## 删除 Storage 主机
 
 从集群中删除 Storage 主机。

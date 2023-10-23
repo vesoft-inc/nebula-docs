@@ -8,18 +8,12 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
 ## 前提条件
 
 - 安装`wget`工具。
-{{ ent.ent_begin }}
-- 已[在 LM 中加载 License Key](https://ent-docs.nebula-graph.com.cn/{{nebula.release}}/9.about-license/2.license-management-suite/3.license-manager/)。
-{{ ent.ent_end }}
+
 
 ## 下载安装包
 
 
-{{ ent.ent_begin }}
 
-[联系我们](https://yueshu.com.cn/contact)获取{{nebula.name}}安装包。
-
-{{ ent.ent_end }}
 
 !!! note
 
@@ -28,7 +22,7 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
     - 如果用户使用的是国产化的 Linux 操作系统，请[安装企业版{{nebula.name}}](https://yueshu.com.cn/contact)。  
 
 
-{{ comm.comm_begin }}
+
 
 ### 阿里云 OSS 下载
 
@@ -105,7 +99,7 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
     wget https://oss-cdn.nebula-graph.com.cn/package/nightly/2021.11.24/nebula-graph-2021.11.24-nightly.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
-{{ comm.comm_end }}
+
 
 ## 安装{{nebula.name}}
 
@@ -119,17 +113,13 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
 
   例如，要在默认路径下安装{{nebula.release}}版本的 RPM 包，运行如下命令：
 
-  {{ comm.comm_begin }}
+  
   ```bash
   sudo rpm -ivh nebula-graph-{{nebula.release}}.el7.x86_64.rpm
   ``` 
-  {{ comm.comm_end }}
+  
 
-  {{ ent.ent_begin }}
-  ```bash
-  sudo rpm -ivh yueshu-graph-{{nebula.release}}.el7.x86_64.rpm
-  ```  
-  {{ ent.ent_end }}
+  
 
 - 安装 DEB 包
 
@@ -142,26 +132,16 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
 
   例如安装{{nebula.release}}版本的 DEB 包：
 
-  {{ comm.comm_begin }}
+  
   ```bash
   sudo dpkg -i nebula-graph-{{nebula.release}}.ubuntu1804.amd64.deb
   ```
-  {{ comm.comm_end }}
+  
 
-  {{ ent.ent_begin }}
-  ```bash
-  sudo dpkg -i yueshu-graph-{{nebula.release}}.ubuntu1804.amd64.deb
-  ```
-  {{ ent.ent_end }}
+  
 
 
-{{ ent.ent_begin }}
-## 配置 License 管理工具（LM）地址
 
-1. 在{{nebula.name}}的 Meta 服务配置文件（`nebula-metad.conf`）中，设置`license_manager_url`的值为许可证管理工具所在的主机 IP 和端口号`9119`，例如`192.168.8.100:9119`。
-2. 将 Meta、Storage 和 Graph 服务的配置文件（`nebula-metad.conf`、`nebula-graphd.conf`、`nebula-storaged.conf`）中的所有`local_ip`（默认`127.0.0.1`）替换为各服务所在主机的真实 IP，以及将`meta_server_addrs`地址替换为 Meta 服务所在主机 IP 地址和端口号`9559`。
-
-{{ ent.ent_end }}
 
 ## 后续操作
 

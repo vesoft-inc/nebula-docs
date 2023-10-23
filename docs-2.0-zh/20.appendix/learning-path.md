@@ -2,13 +2,13 @@
 
 本文介绍{{nebula.name}}学习路径，用户可以通过路径中的文档及视频由浅入深地学习{{nebula.name}}。
 
-{{comm.comm_begin}}
+
  ![learning path](https://docs-cdn.nebula-graph.com.cn/figures/learning-path.png)
 
 完成{{nebula.name}}学习后，参加[技能认证](https://www.bilibili.com/video/BV1Ga411x7RE)考试还可以获取认证证书。详情参见下文**通过 CI/CP 考试**。
 
 <iframe src="//player.bilibili.com/player.html?aid=215181639&bvid=BV1Ga411x7RE&cid=752738115&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="720px" height="480px"> </iframe>
-{{comm.comm_end}}
+
 
 
 ## 1. 关于{{nebula.name}}
@@ -144,13 +144,7 @@
   | ------------------------------------------------------------ |
   |[创建快照](https://docs.nebula-graph.com.cn/{{nebula.release}}/backup-and-restore/3.manage-snapshot/#_5)|
 
-<!--
-- 资源隔离
-
-  | 文档 |
-  | ------------------------------------------------------------ |
-  |[Group & Zone](https://docs.nebula-graph.com.cn/{{nebula.release}}/7.data-security/5.zone/)|
--->
+ 
 
 - SSL 加密
 
@@ -194,22 +188,17 @@
   | 数据导入       | [Nebula Spark Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-spark-connector/) | -                                                            |
   | 数据导入       | [Nebula Flink Connector](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-flink-connector/) | -                                                            |
   | 数据导入       | [Nebula Exchange 社区版](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-exchange/about-exchange/ex-ug-what-is-exchange/) | [{{nebula.name}}数据导入工具——Exchange](https://www.bilibili.com/video/BV1Pq4y177D9)、[Exchange 导入 SST 数据](https://www.bilibili.com/video/BV1y34y1o7Di?)  |
-  | 数据导出       | [Nebula Exchange 企业版](https://docs.nebula-graph.com.cn/{{nebula.release}}/nebula-exchange/about-exchange/ex-ug-what-is-exchange/) | -                                                            |
 
 
 - 备份与恢复
 
-  {{ comm.comm_begin }}
+  
   | 文档                    |     视频                               |
   | ------------------------|------------------------------------ |
   |[Nebula BR](https://docs.nebula-graph.com.cn/{{nebula.release}}/backup-and-restore/nebula-br/1.what-is-br/)|[{{nebula.name}}容灾备份工具 nebula-br](https://www.bilibili.com/video/BV11L4y1g7rD)|
-  {{ comm.comm_end }}
+  
 
-  {{ ent.ent_begin }}
-  | 文档                    |     视频                               |
-  | ------------------------|------------------------------------ |
-  |[Nebula BR](https://docs.nebula-graph.com.cn/{{nebula.release}}/backup-and-restore/nebula-br-ent/1.br-ent-overview/)|-|
-  {{ ent.ent_end }}
+  
 
 - 性能测试
 
@@ -267,7 +256,7 @@
   | ------------------------------------------------------------ |
   | [常见问题 FAQ](https://docs.nebula-graph.com.cn/{{nebula.release}}/20.appendix/0.FAQ/#faq) |
 
-{{comm.comm_begin}}
+
 ## 7. 实操作业
 
  用户可以通过完成以下实操作业来检测是否玩转{{nebula.name}}。
@@ -302,4 +291,4 @@
 
 - 有关{{nebula.name}}语言的概述，参见[分布式图数库论文](https://arxiv.org/pdf/2206.07278.pdf)中的 2.8 节。
 
-{{comm.comm_end}}
+
