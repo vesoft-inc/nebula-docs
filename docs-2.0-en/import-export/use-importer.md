@@ -42,11 +42,11 @@ Before using NebulaGraph Importer, make sure:
 
 - NebulaGraph service has been deployed. The deployment method is as follows:
   
-  - [Deploy NebulaGraph with Docker Compose](../../2.quick-start/1.quick-start-workflow.md)
+  - [Deploy NebulaGraph with Docker Compose](../2.quick-start/1.quick-start-workflow.md)
   
-  - [Install NebulaGraph with RPM or DEB package](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
+  - [Install NebulaGraph with RPM or DEB package](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
   
-  - [Install NebulaGraph by compiling the source code](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
+  - [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
 
 - Schema is created in NebulaGraph, including space, Tag and Edge type, or set by parameter `manager.hooks.before.statements`.
 

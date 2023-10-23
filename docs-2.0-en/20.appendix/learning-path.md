@@ -83,7 +83,7 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
 
   | Document                                                         |
   | ------------------------------------------------------------ |
-  | [Upgrade NebulaGraph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-graph-to-latest.md) |
+  | [Upgrade NebulaGraph to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-comm.md) |
   
   <!-- | [Upgrade NebulaGraph from v2.0.x to {{nebula.branch}}](../4.deployment-and-installation/3.upgrade-nebula-graph/upgrade-nebula-from-200-to-latest.md) | -->
 
@@ -168,10 +168,10 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
 
   | Import and export | Document                                                         | Video                                                         |
   | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Data import       | [NebulaGraph Importer](../nebula-importer/use-importer.md) | [NebulaGraph Importer](https://www.bilibili.com/video/BV1ny4y1u7i4) |
-  | Data import       | [NebulaGraph Spark Connector](../nebula-spark-connector.md) | -                                                            |
-  | Data import       | [NebulaGraph Flink Connector](../nebula-flink-connector.md) | -                                                            |
-  | Data import       | [NebulaGraph Exchange Community Edition](../nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
+  | Data import       | [NebulaGraph Importer](../import-export/use-importer.md) | [NebulaGraph Importer](https://www.bilibili.com/video/BV1ny4y1u7i4) |
+  | Data import       | [NebulaGraph Spark Connector](../import-export/nebula-spark-connector.md) | -                                                            |
+  | Data import       | [NebulaGraph Flink Connector](../import-export/nebula-flink-connector.md) | -                                                            |
+  | Data import       | [NebulaGraph Exchange Community Edition](../import-export/nebula-exchange/about-exchange/ex-ug-what-is-exchange.md) | - |
   
 - Performance test
 
