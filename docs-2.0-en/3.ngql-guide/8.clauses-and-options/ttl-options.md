@@ -1,6 +1,6 @@
 # TTL
 
-TTL (Time To Live) specifies a timeout for a property. Once timed out, the property expires.
+TTL (Time To Live) is a mechanism in NebulaGraph that defines the lifespan of data. Once the data reaches its predefined lifespan, it is automatically deleted from the database. This feature is particularly suitable for data that only needs temporary storage, such as temporary sessions or cached data.
 
 ## OpenCypher Compatibility
 
@@ -22,7 +22,7 @@ The native nGQL TTL feature has the following options.
 
 |Option|Description|
 |:---|:---|
-|`ttl_col`|Specifies the property to set a timeout on. The data type of the property must be `int` or `timestamp`.|
+|`ttl_col`|Specifies an existing property to set a lifespan on. The data type of the property must be `int` or `timestamp`.|
 |`ttl_duration`|Specifies the timeout adds-on value in seconds. The value must be a non-negative int64 number. A property expires if the sum of its value and the `ttl_duration` value is smaller than the current timestamp. If the `ttl_duration` value is `0`, the property never expires.<br/>You can set `ttl_use_ms` to `true` in the configuration file `nebula-storaged.conf` (default path: `/usr/local/nightly/etc/`) to set the default unit to milliseconds.|
 
 !!! caution
@@ -31,7 +31,40 @@ The native nGQL TTL feature has the following options.
  
     - After setting `ttl_use_ms` to `true`, which sets the default TTL unit to milliseconds, the data type of the property specified by `ttl_col` must be `int`, and the property value needs to be manually converted to milliseconds. For example, when setting `ttl_col` to `a`, you need to convert the value of `a` to milliseconds, such as when the value of `a` is `now()`, you need to set the value of `a` to `now() * 1000`.
 
+## Use TTL options
 
+You must use the TTL options together to set a lifespan on a property.
+
+Before using the TTL feature, you must first create a timestamp or integer property and specify it in the TTL options. NebulaGraph will not automatically create or manage this timestamp property for you.
+
+When inserting the value of the timestamp or integer property, it is recommended to use the `now()` function or the current timestamp to represent the present time.
+
+### Set a timeout if a tag or an edge type exists
+
+If a tag or an edge type is already created, to set a timeout on a property bound to the tag or edge type, use `ALTER` to update the tag or edge type.
+
+```ngql
+# Create a tag.
+nebula> CREATE TAG IF NOT EXISTS t1 (a timestamp);
+
+# Use ALTER to update the tag and set the TTL options.
+nebula> ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;
+
+# Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
+nebula> INSERT VERTEX t1(a) VALUES "101":(now());
+```
+
+### Set a timeout when creating a tag or an edge type
+
+Use TTL options in the `CREATE` statement to set a timeout when creating a tag or an edge type. For more information, see [CREATE TAG](../10.tag-statements/1.create-tag.md) and [CREATE EDGE](../11.edge-type-statements/1.create-edge.md).
+
+```ngql
+# Create a tag and set the TTL options.
+nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) TTL_DURATION= 100, TTL_COL = "a";
+
+# Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
+nebula> INSERT VERTEX t2(a, b, c) VALUES "102":(1648197138, 30, "Hello");
+```
 ## Data expiration and deletion
 
 !!! caution
@@ -60,37 +93,6 @@ NebulaGraph automatically deletes the expired data and reclaims the disk space d
 !!! note
 
     If TTL is [disabled](#remove_a_timeout), the corresponding data deleted after the last compaction can be queried again.
-
-## Use TTL options
-
-You must use the TTL options together to set a valid timeout on a property.
-
-### Set a timeout if a tag or an edge type exists
-
-If a tag or an edge type is already created, to set a timeout on a property bound to the tag or edge type, use `ALTER` to update the tag or edge type.
-
-```ngql
-# Create a tag.
-nebula> CREATE TAG IF NOT EXISTS t1 (a timestamp);
-
-# Use ALTER to update the tag and set the TTL options.
-nebula> ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;
-
-# Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
-nebula> INSERT VERTEX t1(a) VALUES "101":(now());
-```
-
-### Set a timeout when creating a tag or an edge type
-
-Use TTL options in the `CREATE` statement to set a timeout when creating a tag or an edge type. For more information, see [CREATE TAG](../10.tag-statements/1.create-tag.md) and [CREATE EDGE](../11.edge-type-statements/1.create-edge.md).
-
-```ngql
-# Create a tag and set the TTL options.
-nebula> CREATE TAG IF NOT EXISTS t2(a int, b int, c string) TTL_DURATION= 100, TTL_COL = "a";
-
-# Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
-nebula> INSERT VERTEX t2(a, b, c) VALUES "102":(1648197138, 30, "Hello");
-```
 
 ## Remove a timeout
 

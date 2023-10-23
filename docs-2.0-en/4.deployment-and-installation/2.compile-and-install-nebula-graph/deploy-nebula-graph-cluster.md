@@ -16,9 +16,6 @@ For now, NebulaGraph does not provide an official deployment tool. Users can dep
 
 - Prepare 5 machines for deploying the cluster.
 - Use the NTP service to synchronize time in the cluster.
-{{ ent.ent_begin }}
-- For NebulaGraph Enterprise, you must have the [license key](../../9.about-license/1.license-overview.md#licensing-process) loaded in [LM](../../9.about-license/2.license-management-suite/3.license-manager.md).
-{{ ent.ent_end }}
 
 ## Manual deployment process
 
@@ -55,12 +52,6 @@ Users can refer to the content of the following configurations, which only show 
     - [Graph Service configurations](../../5.configurations-and-logs/1.configurations/3.graph-config.md)
 
     - [Storage Service configurations](../../5.configurations-and-logs/1.configurations/4.storage-config.md)
-
-{{ ent.ent_begin }}
-!!! enterpriseonly
-
-    For Enterprise Edition, set the value of `license_manager_url` to the host IP and port number `9119` where the license management tool is located in the Meta service configuration files of NebulaGraph (`nebula-metad.conf`), e.g. `192.168.8.100:9119`.
-{{ ent.ent_end }}
 
 - Deploy machine A
 

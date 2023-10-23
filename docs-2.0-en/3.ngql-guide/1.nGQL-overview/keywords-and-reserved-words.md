@@ -137,21 +137,6 @@ XOR
 YIELD
 ```
 
-{{ent.ent_begin}}
-The following reserved keywords are only available in {{nebula.release}} enterprise version.
-
-```
-JOIN
-LEFT
-RIGHT
-INNER
-OUTER
-SEMI
-ANTI
-```
-{{ent.ent_end}}
-
-
 ## Non-reserved keywords
 
 ```ngql

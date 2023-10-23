@@ -221,20 +221,6 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 |`tags.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
-{{ ent.ent_begin }}
-### Specific parameters of NebulaGraph
-
-!!! enterpriseonly
-
-    Specific parameters of NebulaGraph are used for exporting NebulaGraph data, which is supported by Exchange Enterprise Edition only.
-
-|Parameter|Data type|Default value|Required|Description|
-|:---|:---|:---|:---|:---|
-|`tags.path`|string|`"hdfs://namenode:9000/path/vertex"`|Yes|Specifies the storage path of the CSV file. You need to set a new path and Exchange will automatically create the path you set. If you store the data to the HDFS server, the path format is the same as the default value, such as `"hdfs://192.168.8.177:9000/vertex/player"`. If you store the data to the local, the path format is `"file:///path/vertex"`, such as `"file:///home/nebula/vertex/player"`. If there are multiple Tags, different directories must be set for each Tag.|
-|`tags.noField`|bool|`false`|Yes|If the value is `true`, only VIDs will be exported, not the property data. If the value is `false`, VIDs and the property data will be exported.|
-|`tags.return.fields`|list|`[]`|Yes|Specifies the properties to be exported. For example, to export the `name` and `age`, you need to set the parameter value to `["name","age"]`. This parameter only takes effect when the value of `tags.noField` is `false`.|
-
-{{ ent.ent_end }}
 
 ## Edge configurations
 

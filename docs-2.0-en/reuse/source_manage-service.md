@@ -1,15 +1,5 @@
 NebulaGraph supports managing services with scripts. 
 
-{{ ent.ent_begin }}
-!!! enterpriseonly
-
-    You can also manage NebulaGraph with systemd in the NebulaGraph Enterprise Edition.
-
-!!! danger
-
-    The two methods are incompatible. It is recommended to use only one method in a cluster.
-{{ ent.ent_end }}
-
 ## Manage services with script
 
 You can use the `nebula.service` script to start, stop, restart, terminate, and check the NebulaGraph services.
@@ -41,39 +31,6 @@ $ sudo /usr/local/nebula/scripts/nebula.service
 |`storaged`|Set the Storage Service as the target service.|
 |`all`|Set all the NebulaGraph services as the target services.|
 
-{{ ent.ent_begin }}
-
-## Manage services with systemd
-
-For easy maintenance, NebulaGraph Enterprise Edition supports managing services with systemd. You can start, stop, restart, and check services with `systemctl` commands.
-
-!!! note
-
-    - After installing NebulaGraph Enterprise Edition, the `.service` files required by systemd are located in the `etc/unit` path in the installation directory. NebulaGraph installed with the RPM/DEB package automatically places the `.service` files into the path `/usr/lib/systemd/system` and the parameter `ExecStart` is generated based on the specified NebulaGraph installation path, so you can use `systemctl` commands directly.
-  
-    - The `systemctl` commands cannot be used to manage the Enterprise Edition cluster that is created with Dashboard of the Enterprise Edition.
-
-    - Otherwise, users need to move the `.service` files manually into the directory `/usr/lib/systemd/system`, and modify the file path of the parameter `ExecStart` in the `.service` files.
-
-### Syntax
-
-```bash
-$ systemctl <start | stop | restart | status > <nebula | nebula-metad | nebula-graphd | nebula-storaged>
-```
-
-|Parameter|Description|
-|-|-|
-|`start`|Start the target services.|
-|`stop`|Stop the target services.|
-|`restart`|Restart the target services.|
-|`status`|Check the status of the target services.|
-|`nebula`|Set all the NebulaGraph services as the target services.|
-|`nebula-metad`|Set the Meta Service as the target service.|
-|`nebula-graphd`|Set the Graph Service as the target service.|
-|`nebula-storaged`|Set the Storage Service as the target service.|
-
-{{ ent.ent_end }}
-
 ## Start NebulaGraph
 
 Run the following command to start NebulaGraph.
@@ -87,20 +44,6 @@ $ sudo /usr/local/nebula/scripts/nebula.service start all
 [INFO] Starting nebula-storaged...
 [INFO] Done
 ```
-
-{{ ent.ent_begin }}
-Users can also run the following command:
-
-```bash
-$ systemctl start nebula
-```
-
-If users want to automatically start NebulaGraph when the machine starts, run the following command:
-
-```bash
-$ systemctl enable nebula
-```
-{{ ent.ent_begin }}
 
 ## Stop NebulaGraph
 
@@ -120,13 +63,6 @@ $ sudo /usr/local/nebula/scripts/nebula.service stop all
 [INFO] Done
 ```
 
-{{ ent.ent_begin }}
-Users can also run the following command:
-
-```bash
-$ systemctl stop nebula
-```
-{{ ent.ent_end }}
 
 ## Check the service status
 
@@ -157,27 +93,6 @@ $ sudo /usr/local/nebula/scripts/nebula.service status all
     [INFO] nebula-graphd: Exited
     [INFO] nebula-storaged: Running as 25646, Listening on 9779
     ```
-
-{{ ent.ent_begin }}
-Users can also run the following command:
-
-```bash
-$ systemctl status nebula
-● nebula.service
-   Loaded: loaded (/usr/lib/systemd/system/nebula.service; disabled; vendor preset: disabled)
-   Active: active (exited) since 一 2022-03-28 04:13:24 UTC; 1h 47min ago
-  Process: 21772 ExecStart=/usr/local/ent-nightly/scripts/nebula.service start all (code=exited, status=0/SUCCESS)
- Main PID: 21772 (code=exited, status=0/SUCCESS)
-    Tasks: 325
-   Memory: 424.5M
-   CGroup: /system.slice/nebula.service
-           ├─21789 /usr/local/ent-nightly/bin/nebula-metad --flagfile /usr/local/ent-nightly/etc/nebula-metad.conf
-           ├─21827 /usr/local/ent-nightly/bin/nebula-graphd --flagfile /usr/local/ent-nightly/etc/nebula-graphd.conf
-           └─21900 /usr/local/ent-nightly/bin/nebula-storaged --flagfile /usr/local/ent-nightly/etc/nebula-storaged.conf
-3月 28 04:13:24 xxxxxx systemd[1]: Started nebula.service.
-...
-```
-{{ ent.ent_end }}
 
 The NebulaGraph services consist of the Meta Service, Graph Service, and Storage Service. The configuration files for all three services are stored in the `/usr/local/nebula/etc/` directory by default. You can check the configuration files according to the returned result to troubleshoot problems.
 

@@ -1,14 +1,17 @@
 # NebulaGraph Importer
 
-NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV files into NebulaGraph. Importer can read and import CSV file data from multiple data sources.
+NebulaGraph Importer (Importer) is a standalone tool for importing data from CSV files into NebulaGraph. Importer can read and batch import CSV file data from multiple data sources, and also supports batch update and delete operations.
 
 ## Features
 
-- Support multiple data sources, including local, S3, OSS, HDFS, FTP, and SFTP.
+- Support multiple data sources, including local, S3, OSS, HDFS, FTP, SFTP, and GCS.
 - Support importing data from CSV format files. A single file can contain multiple tags, multiple edge types or a mix of both.
+- Support filtering the data from source.
+- Support batch operation, including insert, update, delete.
 - Support connecting to multiple Graph services simultaneously for importing and dynamic load balancing.
 - Support reconnect or retry after failure.
 - Support displaying statistics in multiple dimensions, including import time, import percentage, etc. Support for printing statistics in Console or logs.
+- Support SSL.
 
 ## Advantage
 
@@ -154,6 +157,12 @@ client:
   address: "192.168.1.100:9669,192.168.1.101:9669"
   user: root
   password: nebula
+  ssl:
+    enable: true
+    certPath: "/home/xxx/cert/importer.crt"
+    keyPath: "/home/xxx/cert/importer.key"
+    caPath: "/home/xxx/cert/root.crt"
+    insecureSkipVerify: false
   concurrencyPerAddress: 10
   reconnectInitialInterval: 1s
   retry: 3
@@ -166,6 +175,11 @@ client:
 |`client.address`|`"127.0.0.1:9669"`|Yes| Specifies the address of the NebulaGraph. Multiple addresses are separated by commas.|
 |`client.user`|`root`|No| NebulaGraph user name.|
 |`client.password`|`nebula`|No| The password for the NebulaGraph user name.|
+|`client.ssl.enable`|`false`|No| Specifies whether to enable SSL authentication.|
+|`client.ssl.certPath`|-|No| Specifies the storage path for the SSL public key certificate.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.keyPath`|-|No|S pecifies the storage path for the SSL key.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.caPath`|-|No| Specifies the storage path for the CA root certificate.</br>This parameter is required when SSL authentication is enabled.|
+|`client.ssl.insecureSkipVerify`|`false`|No|Specifies whether the client skips verifying the server's certificate chain and hostname. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 |`client.concurrencyPerAddress`|`10`|No| The number of concurrent client connections for a single graph service.|
 |`client.retryInitialInterval`|`1s`|No| Reconnect interval time.|
 |`client.retry`|`3`|No| The number of retries for failed execution of the nGQL statement.|
@@ -226,7 +240,7 @@ log:
   level: INFO
   console: true
   files:
-   - logs/nebula-importer.log
+    - logs/nebula-importer.log
 ```
 
 |Parameter|Default value|Required|Description|
@@ -275,7 +289,33 @@ sources:
 #  - hdfs:
 #      address: "127.0.0.1:8020"    # Required. The address of HDFS service.
 #      user: "hdfs"    # Optional. The user of HDFS service.
-#      path: "/events/20190918.export.csv"    # Required. The path of file in the HDFS service.
+#      servicePrincipalName: <Kerberos Service Principal Name>  # Optional. The name of the Kerberos service instance for the HDFS service when Kerberos authentication is enabled.
+#      krb5ConfigFile: <Kerberos config file>  # Optional. The path to the Kerberos configuration file for the HDFS service when Kerberos authentication is enabled. Defaults to `/etc/krb5.conf`.
+#      ccacheFile: <Kerberos ccache file>  # Optional. The path to the Kerberos ccache file for the HDFS service when Kerberos authentication is enabled.
+#      keyTabFile: <Kerberos keytab file>  # Optional. The path to the Kerberos keytab file for the HDFS service when Kerberos authentication is enabled.
+#      password: <Kerberos password>  # Optional. The Kerberos password for the HDFS service when Kerberos authentication is enabled.
+#      dataTransferProtection: <Kerberos Data Transfer Protection>  # Optional. The type of transport encryption when Kerberos authentication is enabled. Optional values are `authentication`, `integrity`, `privacy`.
+#      disablePAFXFAST: false  # Optional. Whether to disable the use of PA_FX_FAST for clients.
+#      path: "/events/20190918.export.csv"    # Required. The path to the file in the HDFS service. Wildcard filenames are also supported, e.g. `/events/*.export.csv`, make sure all matching files have the same schema.
+#  - gcs: # Google Cloud Storage
+#      bucket: chicago-crime-sample  # Required. The name of the bucket in the GCS service.
+#      key: stats/000000000000.csv  # Required. The path to the file in the GCS service.
+#      withoutAuthentication: false  # Optional. Whether to anonymize access. Defaults to false, which means access with credentials.
+#      # When using credentials access, one of the credentialsFile and credentialsJSON parameters is sufficient.
+#      credentialsFile: "/path/to/your/credentials/file"  # Optional. The path to the credentials file for the GCS service.
+#      credentialsJSON: '{  # Optional. The JSON content of the credentials for the GCS service.
+#        "type": "service_account",
+#        "project_id": "your-project-id",
+#        "private_key_id": "key-id",
+#        "private_key": "-----BEGIN PRIVATE KEY-----\nxxxxx\n-----END PRIVATE KEY-----\n",
+#        "client_email": "your-client@your-project-id.iam.gserviceaccount.com",
+#        "client_id": "client-id",
+#        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+#        "token_uri": "https://oauth2.googleapis.com/token",
+#        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+#        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/your-client%40your-project-id.iam.gserviceaccount.com",
+#        "universe_domain": "googleapis.com"
+#      }'
     batch: 256
     csv:
       delimiter: "|"
@@ -283,6 +323,9 @@ sources:
       lazyQuotes: false
     tags:
     - name: Person
+#      mode: INSERT
+#      filter:  
+#        expr: Record[1] == "XXX"    
       id:
         type: "STRING"
         function: "hash"
@@ -321,6 +364,9 @@ sources:
     batch: 256
     edges:
     - name: KNOWS # person_knows_person
+#      mode: INSERT
+#      filter:  
+#        expr: Record[1] == "XXX"
       src:
         id:
           type: "STRING"
@@ -356,10 +402,12 @@ The configuration mainly includes the following parts:
 |:---|:---|:---|:---|
 |`sources.path`</br>`sources.s3`</br>`sources.oss`</br>`sources.ftp`</br>`sources.sftp`</br>`sources.hdfs`   |-| No | Specify data source information, such as local file, HDFS, and S3. Only one source can be configured for the `source`. Configure multiple sources in multiple `source`.</br>See the comments in the example for configuration items for different data sources.       |  
 |`sources.batch`   |`256`| No | The batch size for executing statements when importing this data source. The priority is higher than `manager.batch`. |  
-|`sources.csv.delimiter`   |`,`| No |  Specifies the delimiter for the CSV file. Only 1-character string separators are supported. When using special characters as separators, they need to be escaped. For example, when the delimiter is `0x03` in hexadecimal, i.e. `Ctrl+C`, the escape is written as `"\x03"` or `"\u0003"`. For details on escaping special characters in yaml format, see [Escaped Characters](https://yaml.org/spec/1.2.2/#escaped-characters).|         |  
+|`sources.csv.delimiter`   |`,`| No |  Specifies the delimiter for the CSV file. Only 1-character string separators are supported. Special characters like tabs (`\t`) and hexadecimal values (e.g., `0x03` or `Ctrl+C`) must be properly escaped and enclosed in double quotes, such as `"\t"` for tabs and `"\x03"` or `"\u0003"` for hexadecimal values, instead of using single quotes. For details on escaping special characters in yaml format, see [Escaped Characters](https://yaml.org/spec/1.2.2/#escaped-characters).|         |  
 |`sources.csv.withHeader`   |`false`| No | Whether to ignore the first record in the CSV file.          |  
 |`sources.csv.lazyQuotes`   |`false`| No | Whether to allow lazy quotes. If `lazyQuotes` is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.    |  
 |`sources.tags.name`   |-| Yes | The tag name.         |  
+|`sources.tags.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE`.         |  
+|`sources.tags.filter.expr`   |-| No | Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are `==`, `! =`, `<`, `>`, `<=` and `>=`. </br>Logical operators supported are `not` (!) , `and` (&&) and `or` (\|\|). </br>For example `(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"`.         |  
 |`sources.tags.id.type`   |`STRING`| No |  The type of the VID.       |  
 |`sources.tags.id.function`   |-| No | Functions to generate the VID. Currently, only function `hash` are supported.         |  
 |`sources.tags.id.index`   |-| No | The column number corresponding to the VID in the data file. If `sources.tags.id.concatItems` is not configured, this parameter must be configured.   |  
@@ -373,6 +421,8 @@ The configuration mainly includes the following parts:
 |`sources.tags.props.alternativeIndices`   |-| No | Ignored when `nullable` is `false`. The property is fetched from records according to the indices in order until not equal to `nullValue`.         |  
 |`sources.tags.props.defaultValue`   |-| No | Ignored when `nullable` is `false`. The property default value, when all the values obtained by `index` and `alternativeIndices` are `nullValue`.         |  
 |`sources.edges.name`   |-| Yes | The edge type name.          |  
+|`sources.edges.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE`.       |  
+|`sources.edges.filter.expr`   |-| No | Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are `==`, `! =`, `<`, `>`, `<=` and `>=`. </br>Logical operators supported are `not` (!) , `and` (&&) and `or` (\|\|). </br>For example `(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"`.          |  
 |`sources.edges.src.id.type`   |`STRING`| No |  The data type of the VID at the starting vertex on the edge.       |  
 |`sources.edges.src.id.index`   |-| Yes | The column number in the data file corresponding to the VID at the starting vertex on the edge.         |  
 |`sources.edges.dst.id.type`   |`STRING`| No | The data type of the VID at the destination vertex on the edge.         |  

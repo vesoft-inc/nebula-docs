@@ -26,7 +26,22 @@ To connect to NebulaGraph with the `nebula-console` file, use the following synt
 <path_of_console> -addr <ip> -port <port> -u <username> -p <password>
 ```
 
-`path_of_console` indicates the storage path of the NebulaGraph Console binary file.
+- `path_of_console` indicates the storage path of the NebulaGraph Console binary file.
+- When two-way authentication is required after SSL encryption is enabled, you need to specify SSL-related parameters when connecting.
+
+For example:
+
+- Direct link to NebulaGraph
+
+  ```bash
+  ./nebula-console -addr 192.168.8.100 -port 9669 -u root -p nebula
+  ```
+
+- Enable SSL encryption and require two-way authentication
+
+  ```bash
+  ./nebula-console -addr 192.168.8.100 -port 9669 -u root  -p nebula -enable_ssl -ssl_root_ca_path /home/xxx/cert/root.crt -ssl_cert_path /home/xxx/cert/client.crt -ssl_private_key_path /home/xxx/cert/client.key
+  ```
 
 Parameter descriptions are as follows:
 
@@ -44,14 +59,9 @@ Parameter descriptions are as follows:
 | `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
 | `-ssl_cert_path` | Sets the storage path of the certificate file. |
 | `-ssl_private_key_path` | Sets the storage path of the private key file. |
+|`-ssl_insecure_skip_verify`| Specifies whether the client skips verifying the server's certificate chain and hostname. The default is `false`. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 
 For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
-
-For example, to connect to the Graph Service deployed on 192.168.10.8, run the following command:
-
-```bash
-./nebula-console -addr 192.168.10.8 -port 9669 -u root -p thisisapassword
-```
 
 ### Manage parameters
 

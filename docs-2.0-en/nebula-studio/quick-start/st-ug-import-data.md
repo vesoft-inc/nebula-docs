@@ -60,7 +60,7 @@ Click **New Data Source** in the upper right corner of the page to set the data 
 
 2. After completing the settings, click **Import**, enter the password for the NebulaGraph account, and confirm.
 
-After the import task is created, you can view the progress of the import task in the **Import Data** tab, which supports operations such as editing the task, viewing logs, downloading logs, reimporting, downloading configuration files, and deleting tasks.
+After the import task is created, you can view the progress of the import task in the **Import Data** tab, which supports operations such as filtering tasks based on graph space, editing the task, viewing logs, downloading logs, reimporting, downloading configuration files, and deleting tasks.
 
 ## Next
 

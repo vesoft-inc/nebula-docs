@@ -4,21 +4,9 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
     The console is not complied or packaged with NebulaGraph server binaries. You can install [nebula-console](https://github.com/vesoft-inc/nebula-console) by yourself.
 
-{{ ent.ent_begin }}
-
-!!! enterpriseonly
- 
-    For NebulaGraph Enterprise, please [contact us](https://www.nebula-graph.io/contact).
-
-{{ ent.ent_end }}
-
 ## Prerequisites
 
 - The tool `wget` is installed.
-
-{{ ent.ent_begin }}
-- For NebulaGraph Enterprise, you must have the [license key](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/1.license-overview/#license_key) loaded in [LM](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/2.license-management-suite/3.license-manager/).
-{{ ent.ent_end }}
 
 ## Step 1: Download the package from cloud service
 
@@ -135,17 +123,6 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
   !!! note
 
         The default installation path is `/usr/local/nebula/`.
-
-{{ ent.ent_begin }}
-
-## Step 3: Configure the address of the License Manager
-
-!!! enterpriseonly
-
-    This step is required only for NebulaGraph Enterprise.
-
-In the Meta service configuration file (`nebula-metad.conf`) of NebulaGraph, set the value of `license_manager_url` to the host IP and port number `9119` where the [License Manager (LM)](https://docs.nebula-graph.io/3.5.0-sc/9.about-license/2.license-management-suite/3.license-manager/) is located, e.g. `192.168.8.100:9119`.
-{{ ent.ent_end }}
 
 ## Next to do
 
