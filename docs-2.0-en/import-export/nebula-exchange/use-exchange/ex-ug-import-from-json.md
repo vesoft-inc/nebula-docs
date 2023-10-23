@@ -385,4 +385,4 @@ Users can also run the [`SHOW STATS`](../../../3.ngql-guide/7.general-query-stat
 
 ### Step 6: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../../3.ngql-guide/14.native-index-statements/README.md).
