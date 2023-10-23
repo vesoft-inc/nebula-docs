@@ -36,7 +36,7 @@ The SST file is an internal file containing an arbitrarily long set of ordered k
 
 1. Reader reads data from the data source.
 
-2. sstProcessor generates the SST file from the NebulaGraph's Schema information and uploads it to the HDFS. For details about the format of the SST file, see [Data Storage Format](../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
+2. sstProcessor generates the SST file from the NebulaGraph's Schema information and uploads it to the HDFS. For details about the format of the SST file, see [Data Storage Format](../../../1.introduction/3.nebula-graph-architecture/4.storage-service.md).
 
 3. sstWriter opens a file and inserts data. When generating SST files, keys must be written in sequence.
 
@@ -77,7 +77,7 @@ This example is done on MacOS. Here is the environment configuration information
 
 Before importing data, you need to confirm the following information:
 
-- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
@@ -145,7 +145,7 @@ Analyze the data to create a Schema in NebulaGraph by following these steps:
     nebula> CREATE EDGE serve(start_year int, end_year int);
     ```
 
-For more information, see [Quick start workflow](../../2.quick-start/1.quick-start-workflow.md).
+For more information, see [Quick start workflow](../../../2.quick-start/1.quick-start-workflow.md).
 
 ### Step 2: Process CSV files
 
@@ -489,8 +489,8 @@ Users can verify that data has been imported by executing a query in the NebulaG
 LOOKUP ON player YIELD id(vertex);
 ```
 
-Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
+Users can also run the [`SHOW STATS`](../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
 ### Step 7: (Conditional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../../3.ngql-guide/14.native-index-statements/README.md).

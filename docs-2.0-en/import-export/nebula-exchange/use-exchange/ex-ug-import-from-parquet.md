@@ -18,13 +18,13 @@ This example is done on MacOS. Here is the environment configuration information
 
 - Hadoop: 2.9.2, pseudo-distributed deployment
 
-- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../2.quick-start/1.quick-start-workflow.md).
+- NebulaGraph: {{nebula.release}}. [Deploy NebulaGraph with Docker Compose](../../../2.quick-start/1.quick-start-workflow.md).
 
 ## Prerequisites
 
 Before importing data, you need to confirm the following information:
 
-- NebulaGraph has been [installed](../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
+- NebulaGraph has been [installed](../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) and deployed with the following information:
 
   - IP addresses and ports of Graph and Meta services.
 
@@ -80,7 +80,7 @@ Analyze the data to create a Schema in NebulaGraph by following these steps:
     nebula> CREATE EDGE serve(start_year int, end_year int);
     ```
 
-For more information, see [Quick start workflow](../../2.quick-start/1.quick-start-workflow.md).
+For more information, see [Quick start workflow](../../../2.quick-start/1.quick-start-workflow.md).
 
 ### Step 2: Process Parquet files
 
@@ -346,8 +346,8 @@ Users can verify that data has been imported by executing a query in the NebulaG
 LOOKUP ON player YIELD id(vertex);
 ```
 
-Users can also run the [`SHOW STATS`](../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
+Users can also run the [`SHOW STATS`](../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) command to view statistics.
 
 ### Step 6: (optional) Rebuild indexes in NebulaGraph
 
-With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../3.ngql-guide/14.native-index-statements/README.md).
+With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see [Index overview](../../../3.ngql-guide/14.native-index-statements/README.md).

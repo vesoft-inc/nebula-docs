@@ -105,7 +105,7 @@ Check that the NebulaGraph service port is configured correctly.
 
 ### Q: Error: `Exception in thread "main" com.facebook.thrift.protocol.TProtocolException: The field 'code' has been assigned the invalid value -4`
 
-Check whether the version of Exchange is the same as that of NebulaGraph. For more information, see [Limitations](../nebula-exchange/about-exchange/ex-ug-limitations.md).
+Check whether the version of Exchange is the same as that of NebulaGraph. For more information, see [Limitations](about-exchange/ex-ug-limitations.md).
 
 ### Q: How to correct the messy code when importing Hive data into NebulaGraph?
 
