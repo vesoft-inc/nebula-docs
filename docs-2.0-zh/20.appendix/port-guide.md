@@ -22,11 +22,4 @@
 | 16  | {{nebula.name}}            | TCP  | 9569、9570、9568| 集群间数据同步功能中 Meta Listener 的端口，用于同步主集群的 Meta 数据。端口 9570、9568 由端口 9569 加一减一后自动生成。 |
 | 17   | {{nebula.name}}            | TCP  | 9889、9890、9888 | 集群间数据同步功能中 Drainer 服务端口。用于同步 Storage、Meta 数据给从集群。端口 9890、9888 由端口 9889 加一减一后自动生成。|
 | 18   | NebulaGraph Studio     | TCP  | 7001                          | Studio 提供 Web 服务占用端口。                               |
-| 19   | {{dashboard_ent.name}} | TCP  | 8090                          | Nebula HTTP Gateway 依赖服务端口。为集群服务提供 HTTP 接口，执行 nGQL 语句与{{nebula.name}}数据库进行交互。 |
-| 20   | {{dashboard_ent.name}} | TCP  | 9200                          | Nebula Stats Exporter 依赖服务端口。收集集群的性能指标，包括服务 IP 地址、版本和监控指标（例如查询数量、查询延迟、心跳延迟 等）。 |
-| 21   | {{dashboard_ent.name}} | TCP  | 9100                          | Node Exporter 依赖服务端口。收集集群中机器的资源信息，包括 CPU、内存、负载、磁盘和流量。 |
-| 22   | {{dashboard_ent.name}} | TCP  | 9091                          | Prometheus 服务的端口。存储监控数据的时间序列数据库。        |
-| 23   | NebulaGraph Dashboard | TCP  | 7003                          | Dashboard 社区版 提供 Web 服务占用端口。                     |
-| 24   | {{dashboard_ent.name}} | TCP  | 7005                          | {{dashboard_ent.name}}提供 Web 服务占用端口。                     |
-| 25   | {{dashboard_ent.name}} | TCP  | 9093                          | Alertmanager 服务的端口。接收 Prometheus 告警，发送告警通知给{{dashboard_ent.name}}。 |
-| 26   | {{explorer.name}}  | TCP  | 7002                          | {{explorer.name}}提供的 Web 服务占用端口。                           |
+| 19   | NebulaGraph Dashboard | TCP  | 7003                          | Dashboard 社区版 提供 Web 服务占用端口。                     |
