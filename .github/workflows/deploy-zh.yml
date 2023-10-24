@@ -1,0 +1,99 @@
+name: Publish Chinese docs via GitHub Pages and upload to server
+env:
+# Remember to add v before the following version number unless the version is master.
+  ACTIONTEST: master
+on:
+  workflow_call:
+    secrets:
+      ZHSITE_PASSWORD:
+        required: true
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs-2.0-zh/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1 # fetch all commits/branches for gitversion
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name : prepare
+        run: sh ./prepare.sh 
+
+      - name: Git Config
+        run: git config user.name ChrisChen2023 && git config user.email chris.chen@vesoft.com
+
+      - name: save tmp file
+        run: |
+          cp -f *versions.json /tmp/ 
+          ls /tmp/ -ltr  
+          
+      - name: Mike Deploy
+        run: |
+          python ./scripts/render_chinese_only.py
+          git fetch origin gh-pages-zh --depth=1 # fix mike's CI update
+          mike list
+          mike deploy ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
+          mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
+          mike list
+    
+      - name: show Chinese git branches
+        run: |
+          git branch
+          git checkout .
+          git checkout gh-pages-zh
+
+      - name: add existing version
+        run: |
+          import yaml, json
+          new_content = {"version": "${{ env.ACTIONTEST }}", "title": "${{ env.ACTIONTEST }}", "aliases": []}
+          filename = "/tmp/community_versions.json"   
+          with open(filename, 'r') as infile:
+              json_data = json.load(infile)
+          found = False
+          for item in json_data:
+            if item['version'] == new_content['version']: # in case duplicate master branch
+                found = True
+                break
+          if not found:
+              json_data.append(new_content)
+          json_data = sorted(json_data, key=lambda x: x['version'], reverse=True)
+          with open('./versions.json', 'w') as outfile:
+              json.dump(json_data, outfile, indent=2)
+        shell: python                 
+
+      - name: Compress
+        run: |
+          tar -vczf nebula-docs.tar.gz ${{ env.ACTIONTEST }} versions.json *.html
+
+      - name: Transfer
+        uses: appleboy/scp-action@master
+        with:
+          host: 47.99.143.59
+          username: root
+          password: ${{ secrets.ZHSITE_PASSWORD }}
+          port: 404
+          source: nebula-docs.tar.gz
+          target: /usr/web/
+
+      - name: UnCompress
+        uses: appleboy/ssh-action@master
+        with:
+          host: 47.99.143.59
+          username: root
+          password: ${{ secrets.ZHSITE_PASSWORD }}
+          port: 404
+          script: |
+            mkdir -p /usr/web/nebula-docs/
+            tar -xzf /usr/web/nebula-docs.tar.gz -C /usr/web/nebula-docs/
+#            mkdir -p /usr/web/nebula-docs/site/pdf/
+#            cp -f /var/www/ent-docs/${{ env.ACTIONTEST }}/pdf/NebulaGraph-CN.pdf /var/www/ent-docs/site/pdf/NebulaGraph-CN.pdf
