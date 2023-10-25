@@ -1,0 +1,45 @@
+name: Publish English docs via GitHub Pages
+env:
+  ACTIONTEST: 3.6.0 # no need to add v before the version number
+on:
+  workflow_call:
+  push:
+    branches:
+    # Remember to add v before the following version number unless the version is master.
+      - v3.6.0
+    paths:
+      - 'docs-2.0-en/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # fetch all commits/branches for gitversion
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name : prepare
+        run: sh ./prepare.sh
+
+      - name: Git Config
+        run: git config user.name ChrisChen2023 && git config user.email chris.chen@vesoft.com
+          
+      - name: Mike Deploy
+        run: |
+          python ./scripts/render_english_only.py
+          git fetch origin gh-pages --depth=1 # fix mike's CI update
+          mike list
+          mike deploy ${{ env.ACTIONTEST }}  -p --rebase
+          mike set-default ${{ env.ACTIONTEST }} -p --rebase
+          mike list
+
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.DEPLOY_TOKEN }}
+      #     publish_dir: ./site
