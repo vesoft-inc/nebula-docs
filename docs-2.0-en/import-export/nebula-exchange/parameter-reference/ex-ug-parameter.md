@@ -1,6 +1,22 @@
 # Parameters in the configuration file
 
-This topic describes how to configure the file [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf) when users use NebulaGraph Exchange.
+This topic describes how to automatically generate a template configuration file when users use NebulaGraph Exchange, and introduces the configuration file [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf).
+
+## Generate template configuration file automatically
+
+Specify the data source to be imported with the following command to get the template configuration file corresponding to the data source.
+
+```agsl
+java -cp <exchange_jar_package> com.vesoft.exchange.common.GenerateConfigTemplate -s <source_type> -p <config_file_save_path>
+```
+
+Example:
+
+```agsl
+java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
+```
+
+## Configuration instructions
 
 Before configuring the `application.conf` file, it is recommended to copy the file name `application.conf` and then edit the file name according to the file type of a data source. For example, change the file name to `csv_application.conf` if the file type of the data source is CSV.
 
@@ -16,7 +32,7 @@ The `application.conf` file contains the following content types:
 
 - Edge configurations
 
-## Spark configurations
+### Spark configurations
 
 This topic lists only some Spark parameters. For more information, see [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html#application-properties).
 
@@ -28,7 +44,7 @@ This topic lists only some Spark parameters. For more information, see [Spark Co
 |`spark.executor.memory`|string|`1G`|No|The amount of memory used by a Spark driver which can be specified in units, such as 512M or 1G.|
 |`spark.cores.max`|int|`16`|No|The maximum number of CPU cores of applications requested across clusters (rather than from each node) when a driver runs in a coarse-grained sharing mode on a standalone cluster or a Mesos cluster. The default value is `spark.deploy.defaultCores` on a Spark standalone cluster manager or the value of the `infinite` parameter (all available cores) on Mesos.|
 
-## Hive configurations (optional)
+### Hive configurations (optional)
 
 Users only need to configure parameters for connecting to Hive if Spark and Hive are deployed in different clusters. Otherwise, please ignore the following configurations.
 
@@ -40,7 +56,7 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`hive.connectionUserName`|list\[string\]|-|Yes|The username for connections.|
 |`hive.connectionPassword`|list\[string\]|-|Yes|The account password.|
 
-## NebulaGraph configurations
+### NebulaGraph configurations
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -87,11 +103,11 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
      }
     ```
 
-## Vertex configurations
+### Vertex configurations
 
 For different data sources, the vertex configurations are different. There are many general parameters and some specific parameters. General parameters and specific parameters of different data sources need to be configured when users configure vertices.
 
-### General parameters
+#### General parameters
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -111,13 +127,13 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
 |`tags.partition`|int|`32`|Yes|The number of Spark partitions.|
 
-### Specific parameters of Parquet/JSON/ORC data sources
+#### Specific parameters of Parquet/JSON/ORC data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of vertex data files in HDFS. Enclose the path in double quotes and start with `hdfs://`.|
 
-### Specific parameters of CSV data sources
+#### Specific parameters of CSV data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -125,13 +141,13 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.separator`|string|`,`|Yes|The separator. The default value is a comma (,). For special characters, such as the control character `^A`, you can use ASCII octal `\001` or UNICODE encoded hexadecimal `\u0001`, for the control character `^B`, use ASCII octal `\002` or UNICODE encoded hexadecimal `\u0002`, for the control character `^C`, use ASCII octal `\003` or UNICODE encoded hexadecimal `\u0003`.|
 |`tags.header`|bool|`true`|Yes|Whether the file has a header.|
 
-### Specific parameters of Hive data sources
+#### Specific parameters of Hive data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.exec`|string|-|Yes|The statement to query data sources. For example, `select name,age from mooc.users`.|
 
-### Specific parameters of MaxCompute data sources
+#### Specific parameters of MaxCompute data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -144,7 +160,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.partitionSpec`|string|-|No|Partition descriptions of MaxCompute tables.|
 |`tags.sentence`|string|-|No|Statements to query data sources. The table name in the SQL statement is the same as the value of the table above.|
 
-### Specific parameters of Neo4j data sources
+#### Specific parameters of Neo4j data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -155,7 +171,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.database`|string|-|Yes|The name of the database where source data is saved in Neo4j.|
 |`tags.check_point_path`|string|`/tmp/test`|No|The directory set to import progress information, which is used for resuming transfers. If not set, the resuming transfer is disabled.|
 
-### Specific parameters of MySQL/PostgreSQL data sources
+#### Specific parameters of MySQL/PostgreSQL data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -167,7 +183,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.password`|string|-|Yes|The account password.
 |`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select teamid, name from team order by teamid"`.|
 
-### Specific parameters of Oracle data sources
+#### Specific parameters of Oracle data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -178,7 +194,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.table`|string|-|Yes|The name of a table used as a data source.|
 |`tags.sentence`|string|-|Yes|Statements to query data sources. For example: `"select playerid, name, age from player"`.|
 
-### Specific parameters of ClickHouse data sources
+#### Specific parameters of ClickHouse data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -188,7 +204,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.numPartition`|string|-|Yes|The number of ClickHouse partitions.
 |`tags.sentence`|string|-|Yes|Statements to query data sources.|
 
-### Specific parameters of Hbase data sources
+#### Specific parameters of Hbase data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -197,7 +213,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.table`|string|-|Yes|The name of a table used as a data source.|
 |`tags.columnFamily`|string|-|Yes|The column family to which a table belongs.|
 
-### Specific parameters of Pulsar data sources
+#### Specific parameters of Pulsar data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -206,7 +222,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.options.<topic\|topics\| topicsPattern>`|string|-|Yes|Options offered by Pulsar, which can be configured by choosing one from `topic`, `topics`, and `topicsPattern`.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
 
-### Specific parameters of Kafka data sources
+#### Specific parameters of Kafka data sources
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -214,21 +230,20 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.topic`|string|-|Yes|The message type.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
 
-### Specific parameters for generating SST files
+#### Specific parameters for generating SST files
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 |`tags.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
-
-## Edge configurations
+### Edge configurations
 
 For different data sources, configurations of edges are also different. There are general parameters and some specific parameters. General parameters and specific parameters of different data sources need to be configured when users configure edges.
 
 For the specific parameters of different data sources for edge configurations, please refer to the introduction of specific parameters of different data sources above, and pay attention to distinguishing tags and edges.
 
-### General parameters
+#### General parameters
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
@@ -248,14 +263,14 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into NebulaGraph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
 
-### Specific parameters for generating SST files
+#### Specific parameters for generating SST files
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
 |`edges.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 |`edges.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
-### Specific parameters of NebulaGraph
+#### Specific parameters of NebulaGraph
 
 |Parameter|Type|Default value|Required|Description|
 |:---|:---|:---|:---|:---|
