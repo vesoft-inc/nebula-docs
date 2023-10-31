@@ -1,7 +1,9 @@
 name: Publish Chinese docs via GitHub Pages and upload to server
 env:
 # Remember to add v before the following version number unless the version is master.
-  ACTIONTEST: 3.6.0
+
+  ACTIONTEST: master
+
 on:
   workflow_call:
     secrets:
@@ -9,7 +11,9 @@ on:
         required: true
   push:
     branches:
-      - v3.6.0
+
+      - master
+
     paths:
       - 'docs-2.0-zh/**'
 
@@ -43,8 +47,11 @@ jobs:
           git fetch origin gh-pages-zh --depth=1 # fix mike's CI update
           mike list
           mike deploy ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
-          mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
-          mike list
+
+      # The set-default command is only applicable to the latest version and must be commented in older versions.
+      #   mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
+      #   mike list
+
     
       - name: show Chinese git branches
         run: |

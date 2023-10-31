@@ -1,12 +1,16 @@
 name: Publish English docs via GitHub Pages
 env:
-  ACTIONTEST: 3.6.0 # no need to add v before the version number
+
+  ACTIONTEST: master # no need to add v before the version number
+
 on:
   workflow_call:
   push:
     branches:
     # Remember to add v before the following version number unless the version is master.
-      - v3.6.0
+
+      - master
+
     paths:
       - 'docs-2.0-en/**'
 
@@ -35,8 +39,10 @@ jobs:
           git fetch origin gh-pages --depth=1 # fix mike's CI update
           mike list
           mike deploy ${{ env.ACTIONTEST }}  -p --rebase
-          mike set-default ${{ env.ACTIONTEST }} -p --rebase
-          mike list
+
+      #   The set-default command is only applicable to the latest version and must be commented in older versions.
+      #    mike set-default ${{ env.ACTIONTEST }} -p --rebase
+      #    mike list
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
