@@ -5247,7 +5247,47 @@
   
     <li class="md-nav__item">
       <a href="../../8.custom-cluster-configurations/8.1.custom-conf-parameter/" class="md-nav__link">
-        Custom configuration parameters for a NebulaGraph cluster
+        Customize parameters for a NebulaGraph cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16_6_2" type="checkbox" id="__nav_16_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_16_6_2">
+          Storage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storage" data-md-level="3">
+        <label class="md-nav__title" for="__nav_16_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Storage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8.custom-cluster-configurations/storage/8.6.dynamic-expand-pv/" class="md-nav__link">
+        Dynamically expand persistent volumes
       </a>
     </li>
   
@@ -5260,9 +5300,16 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.custom-cluster-configurations/8.2.pv-reclaim/" class="md-nav__link">
+      <a href="../../8.custom-cluster-configurations/storage/8.2.pv-reclaim/" class="md-nav__link">
         Reclaim PVs
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -5276,6 +5323,20 @@
     <li class="md-nav__item">
       <a href="../../8.custom-cluster-configurations/8.4.manage-running-logs/" class="md-nav__link">
         Manage cluster logs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8.custom-cluster-configurations/8.6.admission-control/" class="md-nav__link">
+        Enable admission control
       </a>
     </li>
   
@@ -5726,43 +5787,154 @@
 </li>
 <li>
 <p>Create a file named <code>apps_v1alpha1_nebulacluster.yaml</code>.</p>
-<ul>
-<li>
-<p>To create a NebulaGraph Community cluster</p>
-<p>See <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/config/samples/apps_v1alpha1_nebulacluster.yaml">community cluster configurations</a>.</p>
-<p>??? Info "Expand to show parameter descriptions of community clusters"</p>
-<div class="codehilite"><pre><span></span><code>| Parameter    | Default value  | Description    |
-| :---- | :--- | :--- |
-| `metadata.name`              | -                                                            | The name of the created NebulaGraph cluster. |
-|`spec.console`|-| Configuration of the Console service. For details, see [nebula-console](https://github.com/vesoft-inc/nebula-operator/blob/v1.5.0/doc/user/nebula_console.md#nebula-console).|
-| `spec.graphd.replicas`       | `1`                                                          | The numeric value of replicas of the Graphd service.         |
-| `spec.graphd.image`         | `vesoft/nebula-graphd`                                       | The container image of the Graphd service.      |
-| `spec.graphd.version`        | `v3.6.0`                                          | The version of the Graphd service.         |
-| `spec.graphd.service`        | -                                                            | The Service configurations for the Graphd service.      |
-| `spec.graphd.logVolumeClaim.storageClassName`   | -                                         | The log disk storage configurations for the Graphd service.         |
-| `spec.metad.replicas`        | `1`                                                          | The numeric value of replicas of the Metad service.          |
-| `spec.metad.image`          | `vesoft/nebula-metad`                                        | The container image of the Metad service.        |
-| `spec.metad.version`         | `v3.6.0`                                          | The version of the Metad service.          |
-| `spec.metad.dataVolumeClaim.storageClassName`    | -                                        | The data disk storage configurations for the Metad service.          |
-| `spec.metad.logVolumeClaim.storageClassName`|-                                              | The log disk storage configurations for the Metad service.|
-| `spec.storaged.replicas`     | `3`                                                          | The numeric value of replicas of the Storaged service.       |
-| `spec.storaged.image`       | `vesoft/nebula-storaged`                                     | The container image of the Storaged service.     |
-| `spec.storaged.version`      | `v3.6.0`                                          | The version of the Storaged service.       |
-| `spec.storaged.dataVolumeClaims.resources.requests.storage` | - | Data disk storage size for the Storaged service. You can specify multiple data disks to store data. When multiple disks are specified, the storage path is `/usr/local/nebula/data1`, `/usr/local/nebula/data2`, etc.|
-| `spec.storaged.dataVolumeClaims.resources.storageClassName` | - | The data disk storage configurations for Storaged. If not specified, the global storage parameter is applied. |
-| `spec.storaged.logVolumeClaim.storageClassName`|-                                           | The log disk storage configurations for the Storaged service.|
-| `spec.storaged.enableAutoBalance` | `true` |Whether to balance data automatically. |
-|`spec.&lt;metad|storaged|graphd&gt;.securityContext`|`{}`|Defines privilege and access control settings for NebulaGraph service containers. For details, see [SecurityContext](https://github.com/vesoft-inc/nebula-operator/blob/release-1.5/doc/user/security_context.md). |
-|`spec.agent`|`{}`| Configuration of the Agent service. This is used for backup and recovery as well as log cleanup functions. If you do not customize this configuration, the default configuration will be used.|
-| `spec.reference.name`        | -                                                            | The name of the dependent controller.           |
-| `spec.schedulerName`         | -                                                            | The scheduler name.                 |
-| `spec.imagePullPolicy`       | The image policy to pull the NebulaGraph image. For details, see [Image pull policy](https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy). | The image pull policy in Kubernetes.               |
-|`spec.logRotate`| - |Log rotation configuration. For more information, see [Manage cluster logs](../8.custom-cluster-configurations/8.4.manage-running-logs.md).|
-|`spec.enablePVReclaim`|`false`|Define whether to automatically delete PVCs and release data after deleting the cluster. For more information, see [Reclaim PVs](../8.custom-cluster-configurations/8.2.pv-reclaim.md).|
-</code></pre></div>
-
-</li>
-</ul>
+<p>See <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.7.1/config/samples/nebulacluster.yaml">community cluster configurations</a>.</p>
+<p>The following table describes the parameters in the sample configuration file.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Default value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>metadata.name</code></td>
+<td align="left">-</td>
+<td align="left">The name of the created NebulaGraph cluster.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.console</code></td>
+<td align="left">-</td>
+<td align="left">Configuration of the Console service. For details, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.7.1/doc/user/nebula_console.md#nebula-console">nebula-console</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.graphd.replicas</code></td>
+<td align="left"><code>1</code></td>
+<td align="left">The numeric value of replicas of the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.graphd.image</code></td>
+<td align="left"><code>vesoft/nebula-graphd</code></td>
+<td align="left">The container image of the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.graphd.version</code></td>
+<td align="left"><code>v3.6.0</code></td>
+<td align="left">The version of the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.graphd.service</code></td>
+<td align="left">-</td>
+<td align="left">The Service configurations for the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.graphd.logVolumeClaim.storageClassName</code></td>
+<td align="left">-</td>
+<td align="left">The log disk storage configurations for the Graphd service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.metad.replicas</code></td>
+<td align="left"><code>1</code></td>
+<td align="left">The numeric value of replicas of the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.metad.image</code></td>
+<td align="left"><code>vesoft/nebula-metad</code></td>
+<td align="left">The container image of the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.metad.version</code></td>
+<td align="left"><code>v3.6.0</code></td>
+<td align="left">The version of the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.metad.dataVolumeClaim.storageClassName</code></td>
+<td align="left">-</td>
+<td align="left">The data disk storage configurations for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.metad.logVolumeClaim.storageClassName</code></td>
+<td align="left">-</td>
+<td align="left">The log disk storage configurations for the Metad service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.replicas</code></td>
+<td align="left"><code>3</code></td>
+<td align="left">The numeric value of replicas of the Storaged service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.image</code></td>
+<td align="left"><code>vesoft/nebula-storaged</code></td>
+<td align="left">The container image of the Storaged service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.version</code></td>
+<td align="left"><code>v3.6.0</code></td>
+<td align="left">The version of the Storaged service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.dataVolumeClaims.resources.requests.storage</code></td>
+<td align="left">-</td>
+<td align="left">Data disk storage size for the Storaged service. You can specify multiple data disks to store data. When multiple disks are specified, the storage path is <code>/usr/local/nebula/data1</code>, <code>/usr/local/nebula/data2</code>, etc.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.dataVolumeClaims.resources.storageClassName</code></td>
+<td align="left">-</td>
+<td align="left">The data disk storage configurations for Storaged. If not specified, the global storage parameter is applied.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.logVolumeClaim.storageClassName</code></td>
+<td align="left">-</td>
+<td align="left">The log disk storage configurations for the Storaged service.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.enableAutoBalance</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Whether to balance data automatically.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.&lt;metad|storaged|graphd&gt;.securityContext</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Defines privilege and access control settings for NebulaGraph service containers. For details, see <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.5/doc/user/security_context.md">SecurityContext</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.agent</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Configuration of the Agent service. This is used for backup and recovery as well as log cleanup functions. If you do not customize this configuration, the default configuration will be used.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.reference.name</code></td>
+<td align="left">-</td>
+<td align="left">The name of the dependent controller.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.schedulerName</code></td>
+<td align="left">-</td>
+<td align="left">The scheduler name.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.imagePullPolicy</code></td>
+<td align="left">The image policy to pull the NebulaGraph image. For details, see <a href="https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy">Image pull policy</a>.</td>
+<td align="left">The image pull policy in Kubernetes.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.logRotate</code></td>
+<td align="left">-</td>
+<td align="left">Log rotation configuration. For more information, see <a href="../../8.custom-cluster-configurations/8.4.manage-running-logs/">Manage cluster logs</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.enablePVReclaim</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Define whether to automatically delete PVCs and release data after deleting the cluster. For more information, see <a href="../../8.custom-cluster-configurations/8.2.pv-reclaim/">Reclaim PVs</a>.</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
 <p>Create a NebulaGraph cluster.</p>
@@ -5783,9 +5955,7 @@ nebula<span class="w">   </span><span class="m">1</span><span class="w">        
 </li>
 </ol>
 <h2 id="scaling_clusters">Scaling clusters<a class="headerlink" href="#scaling_clusters" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The cluster scaling feature is for NebulaGraph Enterprise Edition only. </li>
-</ul>
+<p>The cluster scaling feature is for NebulaGraph Enterprise Edition only. </p>
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Kubectl:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
@@ -5798,7 +5968,7 @@ nebula<span class="w">   </span><span class="m">1</span><span class="w">        
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2023</span>
       
     
   </small>
