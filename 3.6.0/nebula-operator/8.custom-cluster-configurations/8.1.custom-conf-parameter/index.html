@@ -19,7 +19,7 @@
     
     
       
-        <title>Custom configuration parameters for a NebulaGraph cluster - NebulaGraph Database Manual</title>
+        <title>Customize parameters for a NebulaGraph cluster - NebulaGraph Database Manual</title>
       
     
     
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#customize_configuration_parameters_for_a_nebulagraph_cluster" class="md-skip">
+        <a href="#customize_parameters_for_a_nebulagraph_cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -137,7 +137,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Custom configuration parameters for a NebulaGraph cluster
+              Customize parameters for a NebulaGraph cluster
             
           </span>
         </div>
@@ -5160,12 +5160,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Custom configuration parameters for a NebulaGraph cluster
+          Customize parameters for a NebulaGraph cluster
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Custom configuration parameters for a NebulaGraph cluster
+        Customize parameters for a NebulaGraph cluster
       </a>
       
         
@@ -5198,8 +5198,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modify_cluster_configurations_online" class="md-nav__link">
-    Modify cluster configurations online
+  <a href="#customize_port_configurations" class="md-nav__link">
+    Customize port configurations
   </a>
   
 </li>
@@ -5684,8 +5684,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modify_cluster_configurations_online" class="md-nav__link">
-    Modify cluster configurations online
+  <a href="#customize_port_configurations" class="md-nav__link">
+    Customize port configurations
   </a>
   
 </li>
@@ -5710,8 +5710,8 @@
   </a>
 
 
-<h1 id="customize_configuration_parameters_for_a_nebulagraph_cluster">Customize configuration parameters for a NebulaGraph cluster<a class="headerlink" href="#customize_configuration_parameters_for_a_nebulagraph_cluster" title="Permanent link">&para;</a></h1>
-<p>Meta, Storage, and Graph services in a NebulaGraph Cluster have their own configuration settings, which are defined in the YAML file of the NebulaGraph cluster instance as <code>config</code>. These settings are mapped and loaded into the corresponding service's ConfigMap in Kubernetes. At the time of startup, the configuration present in the ConfigMap is mounted onto the directory <code>/usr/local/nebula/etc/</code> for every service.</p>
+<h1 id="customize_parameters_for_a_nebulagraph_cluster">Customize parameters for a NebulaGraph cluster<a class="headerlink" href="#customize_parameters_for_a_nebulagraph_cluster" title="Permanent link">&para;</a></h1>
+<p>Meta, Storage, and Graph services in a NebulaGraph cluster have their own configuration settings, which are defined in the YAML file of the NebulaGraph cluster instance as <code>config</code>. These settings are mapped and loaded into the corresponding service's ConfigMap in Kubernetes. At the time of startup, the configuration present in the ConfigMap is mounted onto the directory <code>/usr/local/nebula/etc/</code> for every service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is not available to customize configuration parameters for NebulaGraph Clusters deployed with Helm.</p>
@@ -5730,7 +5730,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>Add <code>enable_authorize</code> and <code>auth_type</code> under <code>spec.graphd.config</code>.</p>
+<p>Customize parameters under the <code>spec.graphd.config</code> field. In the following sample, the <code>enable_authorize</code> and <code>auth_type</code> parameters are used for demonstration purposes.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -5758,24 +5758,126 @@
 <span class="w">      </span><span class="s">&quot;auth_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
 <span class="nn">...</span>
 </code></pre></div>
+<p>The parameters that can be added under the <code>config</code> field are listed in detail in the <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration parameters</a>, <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration parameters</a>, and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration parameters</a> topics.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>To update cluster configurations without incurring pod restart, ensure that all parameters added under the <code>config</code> field support runtime dynamic modification. Check the <strong>Whether supports runtime dynamic modifications</strong> column of the parameter tables on the aforementioned parameter details pages to see if a parameter supports runtime dynamic modification.</li>
+<li>If one or more parameters that do not support runtime dynamic modification are added under the <code>config</code> field, pod restart is required for the parameters to take effect.</li>
+</ul>
+</div>
 <p>To add the <code>config</code> for the Meta and Storage services, add <code>spec.metad.config</code> and <code>spec.storaged.config</code> respectively.</p>
 </li>
 <li>
 <p>Run <code>kubectl apply -f nebula_cluster.yaml</code> to push your configuration changes to the cluster.</p>
-<p>After customizing the parameters <code>enable_authorize</code> and <code>auth_type</code>, the configurations in the corresponding ConfigMap (<code>nebula-graphd</code>) of the Graph service will be overwritten.</p>
+<p>After customizing the parameters, the configurations in the corresponding ConfigMap (<code>nebula-graphd</code>) of the Graph service will be overwritten.</p>
 </li>
 </ol>
-<h2 id="modify_cluster_configurations_online">Modify cluster configurations online<a class="headerlink" href="#modify_cluster_configurations_online" title="Permanent link">&para;</a></h2>
-<p>Cluster configurations are modified online by calling the HTTP interface, without the need to restart the cluster Pod.</p>
-<p>It should be noted that only when all configuration items in <code>config</code> are the parameters that can be dynamically modified at runtime, can the operation of online modifications be triggered. If the configuration items in <code>config</code> contain parameters that cannot be dynamically modified, then the cluster configuration will be updated by restarting the Pod.</p>
-<p>For information about the parameters that can be dynamically modified for each service, see the parameter table column of <strong>Whether supports runtime dynamic modifications</strong> in <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration parameters</a>, <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration parameters</a>, and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration parameters</a>, respectively.</p>
+<h2 id="customize_port_configurations">Customize port configurations<a class="headerlink" href="#customize_port_configurations" title="Permanent link">&para;</a></h2>
+<p>You can add the <code>port</code> and <code>ws_http_port</code> parameters under the <code>config</code> field to customize port configurations. For details about these two parameters, see the Networking configurations section in <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta service configuration parameters</a>, <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage service configuration parameters</a>, and <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph service configuration parameters</a>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Pod restart is required for the <code>port</code> and <code>ws_http_port</code> parameters to take effect. </li>
+<li>It is NOT recommnended to modify the <code>port</code> parameter after the cluster is started.</li>
+</ul>
+</div>
+<ol>
+<li>
+<p>Modifiy the cluster configuration file.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3669&quot;</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8080&quot;</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8082</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">    </span><span class="nt">dataVolumeClaims</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">    </span><span class="nt">enableAutoBalance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
+<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-image</span>
+<span class="w">  </span><span class="nt">enablePVReclaim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">topologySpreadConstraints</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/hostname</span>
+<span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScheduleAnyway&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run the <code>kubectl apply -f nebula_cluster.yaml</code> to push your configuration changes to the cluster.</p>
+</li>
+<li>
+<p>Verify that the configuration takes effect.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc
+</code></pre></div>
+<p>Sample response:</p>
+<div class="highlight"><pre><span></span><code>NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+nebula-graphd-headless      ClusterIP   None             &lt;none&gt;        3669/TCP,8080/TCP            10m
+nebula-graphd-svc           ClusterIP   10.102.13.115    &lt;none&gt;        3669/TCP,8080/TCP            10m
+nebula-metad-headless       ClusterIP   None             &lt;none&gt;        9559/TCP,8081/TCP            11m
+nebula-storaged-headless    ClusterIP   None             &lt;none&gt;        9779/TCP,8082/TCP,9778/TCP   11m
+</code></pre></div>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2023</span>
       
     
   </small>
