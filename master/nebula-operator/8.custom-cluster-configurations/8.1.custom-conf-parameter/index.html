@@ -5236,12 +5236,18 @@
     操作步骤
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="操作步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    在线修改集群配置
+    配置自定义端口
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5259,10 +5265,57 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16_6_2" type="checkbox" id="__nav_16_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_16_6_2">
+          存储
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="存储" data-md-level="3">
+        <label class="md-nav__title" for="__nav_16_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          存储
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../8.2.pv-reclaim/" class="md-nav__link">
+      <a href="../storage/8.6.dynamic-expand-pv/" class="md-nav__link">
+        动态在线扩容存储卷
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/8.2.pv-reclaim/" class="md-nav__link">
         回收 PV
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -5288,8 +5341,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../11.rolling-update-strategy/" class="md-nav__link">
-        配置滚动更新策略
+      <a href="../8.6.admission-control/" class="md-nav__link">
+        开启准入控制
       </a>
     </li>
   
@@ -5311,6 +5364,20 @@
     <li class="md-nav__item">
       <a href="../../9.upgrade-nebula-cluster/" class="md-nav__link">
         升级 NebulaGraph
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11.rolling-update-strategy/" class="md-nav__link">
+        配置滚动更新策略
       </a>
     </li>
   
@@ -5675,12 +5742,18 @@
     操作步骤
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="操作步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    在线修改集群配置
+    配置自定义端口
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5724,7 +5797,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>在 YAML 文件的<code>spec.graphd.config</code>配置项中，添加<code>enable_authorize</code>和<code>auth_type</code>。</p>
+<p>在 YAML 文件的<code>spec.graphd.config</code>配置项中，添加需要修改的参数。下文以 <code>enable_authorize</code>和<code>auth_type</code>为例。</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -5752,24 +5825,126 @@
 <span class="w">      </span><span class="s">&quot;auth_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
 <span class="nn">...</span>
 </code></pre></div>
+<p>在<code>config</code>字段下可配置的参数详情，请分别参见 <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph 服务配置参数</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>若要在集群运行时动态修改参数配置且不触发 Pod 重启，请确保当前修改的参数全部支持运行时动态修改。参数是否支持运行时动态修改，请查看上述参数详情页各个表格中<strong>是否支持运行时动态修改</strong>一列。</li>
+<li>若本次修改的参数包含一个或多个不支持运行时动态修改的参数，则会触发 Pod 重启。</li>
+</ul>
+</div>
 <p>如果需要为 Meta 服务和 Storage 服务配置<code>config</code>，则在<code>spec.metad.config</code>和<code>spec.storaged.config</code>中添加对应的配置项。</p>
 </li>
 <li>
 <p>执行<code>kubectl apply -f nebula_cluster.yaml</code>使上述更新生效。</p>
-<p>在自定义参数<code>enable_authorize</code>和<code>auth_type</code>后，Graph 服务对应的 ConfigMap（<code>nebula-graphd</code>）中的配置将被覆盖。</p>
+<p>在修改参数值后，Graph 服务对应的 ConfigMap（<code>nebula-graphd</code>）中的配置将被覆盖。</p>
 </li>
 </ol>
-<h2 id="_3">在线修改集群配置<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>在线修改集群配置主要通过调用<code>HTTP</code>接口对集群的配置参数进行修改，而无需重启集群 Pod。</p>
-<p>需要注意的是，只有当<code>config</code>中的配置项均为可在运行时动态修改的参数时，才能触发在线修改集群配置操作。如果<code>config</code>中的配置项包含不可动态修改的参数，那么集群配置将通过重启 Pod 的方式进行更新。</p>
-<p>关于各个服务可动态修改的参数，分别参见 <a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph 服务配置参数</a>的配置参数表格中<strong>是否支持运行时动态修改</strong>一列。</p>
+<h3 id="_3">配置自定义端口<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>您可以在<code>config</code>字段中添加<code>port</code>和<code>ws_http_port</code>参数，从而配置自定义的端口。这两个参数的详细信息，请参见<a href="../../../5.configurations-and-logs/1.configurations/2.meta-config/">Meta 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/">Storage 服务配置参数</a>、<a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph 服务配置参数</a>的 networking 配置一节。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>自定义<code>port</code>和<code>ws_http_port</code>参数配置后，会触发 Pod 重启，并在重启后生效。 </li>
+<li>在集群启动后，不建议修改<code>port</code>参数。</li>
+</ul>
+</div>
+<ol>
+<li>
+<p>修改集群配置文件。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3669&quot;</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8080&quot;</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">    </span><span class="nt">dataVolumeClaim</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ws_http_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8082</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;300m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
+<span class="w">    </span><span class="nt">dataVolumeClaims</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-path</span>
+<span class="w">    </span><span class="nt">enableAutoBalance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
+<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-image</span>
+<span class="w">  </span><span class="nt">enablePVReclaim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">topologySpreadConstraints</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/hostname</span>
+<span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScheduleAnyway&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>执行<code>kubectl apply -f nebula_cluster.yaml</code>使上述更新生效。</p>
+</li>
+<li>
+<p>验证配置已经生效。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc
+</code></pre></div>
+<p>返回示例：</p>
+<div class="highlight"><pre><span></span><code>NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+nebula-graphd-headless      ClusterIP   None             &lt;none&gt;        3669/TCP,8080/TCP            10m
+nebula-graphd-svc           ClusterIP   10.102.13.115    &lt;none&gt;        3669/TCP,8080/TCP            10m
+nebula-metad-headless       ClusterIP   None             &lt;none&gt;        9559/TCP,8081/TCP            11m
+nebula-storaged-headless    ClusterIP   None             &lt;none&gt;        9779/TCP,8082/TCP,9778/TCP   11m
+</code></pre></div>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2023</span>
       
     
   </small>
@@ -5819,13 +5994,13 @@
       
       
         
-        <a href="../8.2.pv-reclaim/" class="md-footer__link md-footer__link--next" aria-label="下一页: 回收 PV" rel="next">
+        <a href="../storage/8.6.dynamic-expand-pv/" class="md-footer__link md-footer__link--next" aria-label="下一页: 动态在线扩容存储卷" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              回收 PV
+              动态在线扩容存储卷
             </div>
           </div>
           <div class="md-footer__button md-icon">
