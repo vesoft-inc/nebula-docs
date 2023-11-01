@@ -1,6 +1,6 @@
 # Keywords
 
-Keywords in nGQL are words with particular meanings, such as `CREATE` and `TAG` in the `CREATE TAG` statement. Keywords that require special processing to be used as identifiers are referred to as `reserved keywords`, while the part of keywords that can be used directly as identifiers are called `non-reserved keywords`."
+Keywords in nGQL are words with particular meanings, such as `CREATE` and `TAG` in the `CREATE TAG` statement. Keywords that require special processing to be used as identifiers are referred to as `reserved keywords`, while the part of keywords that can be used directly as identifiers are called `non-reserved keywords`.
 
 It is not recommended to use keywords to identify schemas. If you must use keywords as identifiers, pay attention to the following restrictions:
 
@@ -8,8 +8,8 @@ It is not recommended to use keywords to identify schemas. If you must use keywo
 
 - To use non-reserved keywords as identifiers:
 
-    - If the identifier contains any uppercase letter, you must enclose them with backticks (\`), such as \`Comment\`. Otherwise, the execution succeeds but the system automatically converts the identifier to all lowercase.
-    - If the identifier contains all lowercase letters, you do not need to enclose them with backticks (\`).
+  - If the identifier contains any uppercase letter, you must enclose them with backticks (\`), such as \`Comment\`. Otherwise, the execution succeeds but the system automatically converts the identifier to all lowercase.
+  - If the identifier contains all lowercase letters, you do not need to enclose them with backticks (\`).
 
 !!! Note
 
