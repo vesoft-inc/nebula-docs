@@ -31,7 +31,7 @@
     nebula-web-docker_web_1        docker-entrypoint.sh npm r ...   Up      0.0.0.0:32784->7001/tcp
     ```
 
-  !!! Note
+  !!! note
 
         如果之前使用 `docker-compose up -d` 启动 Studio，必须运行 `docker-compose down` 命令停止 Studio。
 

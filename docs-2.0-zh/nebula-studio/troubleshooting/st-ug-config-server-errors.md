@@ -27,7 +27,7 @@
   
 如果{{nebula.name}}服务正常，进入第 4 步继续排查问题。否则，请重启{{nebula.name}}服务。
 
-!!! Note
+!!! note
 
     如果之前使用 `docker-compose up -d` 启动{{nebula.name}}，必须运行 `docker-compose down` 命令停止{{nebula.name}}。
 

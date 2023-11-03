@@ -12,7 +12,7 @@ Therefore, `directed traversals from this vertex` and `directed traversals endin
 
 As a rule of thumb, a vertex is considered dense when the number of its edges exceeds 10,000. Some special cases require additional consideration.
 
-!!! Note
+!!! note
 
     In NebulaGraph {{ nebula.release }}, there is not any data structure to store the out/in degree for each vertex. Therefore, there is no direct method to know whether it is a super vertex or not. You can try to use Spark to count the degrees periodically. 
 
