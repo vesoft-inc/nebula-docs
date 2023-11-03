@@ -7338,7 +7338,7 @@ YIELD &lt;output&gt;;
 <td>退出所有文本搜索客户端。</td>
 </tr>
 <tr>
-<td><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; |  &lt;edge_name&gt;} ([&lt;prop_name_list&gt;])</code></td>
+<td><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (&lt;prop_name&gt; [,&lt;prop_name&gt;]...) [ANALYZER="&lt;analyzer_name&gt;"]</code></td>
 <td><code>CREATE FULLTEXT TAG INDEX nebula_index_1 ON player(name)</code></td>
 <td>创建全文索引。</td>
 </tr>
@@ -7358,8 +7358,8 @@ YIELD &lt;output&gt;;
 <td>删除全文索引。</td>
 </tr>
 <tr>
-<td><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE &lt;expression&gt; [YIELD &lt;return_list&gt;]</code></td>
-<td><code>LOOKUP ON player WHERE FUZZY(player.name, "Tim Dunncan", AUTO, OR) YIELD player.name</code></td>
+<td><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE ES_QUERY(&lt;index_name&gt;, "&lt;text&gt;") YIELD &lt;return_list&gt; [| LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;]</code></td>
+<td><code>LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"Chris") YIELD id(vertex)</code></td>
 <td>使用查询选项。</td>
 </tr>
 </tbody>
@@ -7506,7 +7506,7 @@ YIELD &lt;output&gt;;
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2023</span>
       
     
   </small>
