@@ -6,7 +6,7 @@
 
 `Compaction`操作会读取硬盘上的数据，然后重组数据结构和索引，然后再写回硬盘，可以成倍提升读取性能。将大量数据写入{{nebula.name}}后，为了提高读取性能，需要手动触发`Compaction`操作（全量`Compaction`）。
 
-!!! Note
+!!! note
 
     `Compaction`操作会长时间占用硬盘的 IO，建议在业务低峰期（例如凌晨）执行该操作。
 
@@ -57,7 +57,7 @@ nebula> SHOW CONFIGS STORAGE;
 
 全量`Compaction`可以对图空间进行大规模后台操作，例如合并文件、删除 TTL 过期数据等，该操作需要手动发起。使用如下语句执行全量`Compaction`操作：
 
-!!! Note
+!!! note
 
     建议在业务低峰期（例如凌晨）执行该操作，避免大量占用硬盘 IO 影响业务。
 

@@ -16,7 +16,7 @@
 
 - 在 openCypher 中，`YIELD`用于在`CALL[…YIELD]`子句中指定过程调用的输出。
 
-  !!! Note
+  !!! note
 
         nGQL 不支持`CALL[…YIELD]`。
 

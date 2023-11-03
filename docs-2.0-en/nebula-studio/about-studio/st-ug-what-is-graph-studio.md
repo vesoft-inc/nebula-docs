@@ -2,7 +2,7 @@
 
 NebulaGraph Studio (Studio in short) is a browser-based visualization tool to manage NebulaGraph. It provides you with a graphical user interface to manipulate graph schemas, import data, and run nGQL statements to retrieve data. With Studio, you can quickly become a graph exploration expert from scratch. You can view the latest source code in the NebulaGraph GitHub repository, see [nebula-studio](https://github.com/vesoft-inc/nebula-studio) for details.
 
-!!! Note
+!!! note
 
     You can also try some functions [online](https://playground.nebula-graph.io/explorer) in Studio.
 
@@ -47,7 +47,7 @@ When NebulaGraph enables authentication, users can only sign into Studio with th
 
 ## Version compatibility
 
-!!! Note
+!!! note
 
     The Studio version is released independently of the NebulaGraph core. The correspondence between the versions of Studio and the NebulaGraph core, as shown in the table below.
 

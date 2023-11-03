@@ -262,7 +262,7 @@ $ kill $(lsof -t -i :7001) # stop nebula-graph-studio
 
 6. 启动成功后，在浏览器地址栏输入 `http://<ip address>:7001`。
 
-  !!! Note
+  !!! note
 
         在运行 Docker 版 Studio 的机器上，用户可以运行 `ifconfig` 或者 `ipconfig` 获取本机 IP 地址。如果使用这台机器访问 Studio，可以在浏览器地址栏里输入 `http://localhost:7001`。
 

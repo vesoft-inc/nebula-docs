@@ -18,11 +18,9 @@ After editing the configuration file, run the following commands to import speci
 
 !!! note
 
-    The version number of a JAR file is subject to the name of the JAR file that is actually compiled.
+    - The version number of a JAR file is subject to the name of the JAR file that is actually compiled.
 
-!!! faq
-
-    If users use the [yarn-cluster mode](https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html) to submit a job, see the following command, **especially the two '--conf' commands in the example**.
+    - If users use the [yarn-cluster mode](https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html) to submit a job, see the following command, **especially the two '--conf' commands in the example**.
 
     ```bash
     $SPARK_HOME/bin/spark-submit     --master yarn-cluster \

@@ -133,7 +133,7 @@ The NebulaGraph project has many [repositories](https://github.com/vesoft-inc). 
 
   For more information, see [Install NebulaGraph by compiling the source code](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md).
 
-  !!! Note
+  !!! note
 
         Make sure you have enabled the building of unit tests by setting `-DENABLE_TESTING=ON`.
 

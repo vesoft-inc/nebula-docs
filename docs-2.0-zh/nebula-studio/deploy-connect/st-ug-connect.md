@@ -26,7 +26,7 @@
 
   - **Graphd IP 地址**：填写{{nebula.name}}的 Graph 服务本机 IP 地址。例如`192.168.10.100`。
 
-    !!! Note
+    !!! note
 
         - 即使{{nebula.name}}与 Studio 部署在同一台机器上，用户也必须填写这台机器的本机 IP 地址，而不是 `127.0.0.1` 或者 `localhost`。
         - 在新的标签页连接另一个{{nebula.name}}时，会覆盖旧标签页的会话。如果需要同时登录多个{{nebula.name}}，可以用不同的浏览器或者无痕模式。

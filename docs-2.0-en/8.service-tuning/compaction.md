@@ -6,7 +6,7 @@ In NebulaGraph, `Compaction` is the most important background process and has an
 
 `Compaction` reads the data that is written on the hard disk, then re-organizes the data structure and the indexes, and then writes back to the hard disk. The read performance can increase by times after compaction. Thus, to get high read performance, trigger `compaction` (full `compaction`) manually when writing a large amount of data into Nebula Graph.
 
-!!! Note
+!!! note
 
     Note that `compaction` leads to long-time hard disk IO. We suggest that users do compaction during off-peak hours (for example, early morning).
 

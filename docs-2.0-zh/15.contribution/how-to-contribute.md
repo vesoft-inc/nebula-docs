@@ -108,7 +108,7 @@
   git checkout -b myfeature
   ```
 
-  !!! Note
+  !!! note
 
         由于一个 PR 通常包含多个 commits，最终合入 upstream/master 分支时，我们会将这些 commits 挤压（squash）成一个 commit 进行合并。因此强烈建议创建一个独立的分支进行更改，这样在合入时才容易被挤压。合并后，这个分支可以被丢弃。如果未创建单独的分支，而是直接将 commits 提交至 origin/master，在合入时，可能会出现问题。
         若未创建单独的分支（或是 origin/master 合并了其他的分支等），导致 origin/master 和 upstream/master 不一致时，用户可以使用 hard reset 强制两者进行一致。例如：
@@ -134,7 +134,7 @@
 
   详情请参见[使用源码安装{{nebula.name}}](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)。
 
-  !!! Note
+  !!! note
 
         请确保已设置`-DENABLE_TESTING = ON`启用构建单元测试。
 
