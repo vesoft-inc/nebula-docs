@@ -231,7 +231,7 @@ nebula-exchange_spark_2.2 仅支持单表查询，不支持多表查询。
       # 单批次写入{{nebula.name}}的数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
     # 设置 Tag team 相关信息。
@@ -334,7 +334,7 @@ nebula-exchange_spark_2.2 仅支持单表查询，不支持多表查询。
       # 单批次写入{{nebula.name}}的数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
 

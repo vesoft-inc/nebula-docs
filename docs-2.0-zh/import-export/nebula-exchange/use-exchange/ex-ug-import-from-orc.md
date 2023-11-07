@@ -201,7 +201,7 @@
       # 指定单批次写入{{nebula.name}}的最大点数量。
       batch: 256
 
-      # 指定 Spark 分片数量。
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
 
@@ -288,7 +288,7 @@
       # 指定单批次写入{{nebula.name}}的最大边数量。
       batch: 256
 
-      # 指定 Spark 分片数量。
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
 
