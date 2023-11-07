@@ -5,7 +5,13 @@
 - 首次导入
 
   ```bash
-  <spark_install_path>/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-2.x.y.jar_path> -c <application.conf_path> 
+  <spark_install_path>/bin/spark-submit --master "spark://ip:port" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-2.x.y.jar_path> -c <application.conf_path> 
+  ```
+  --master 参数示例是 standalone 模式：
+  ```
+  在测试环境下进行小数据量导入时可以采用local模式：--master "local"
+  
+  在线上环境进行大数据量导入还可以采用yarn模式：--master yarn
   ```
 
 - 导入 reload 文件
