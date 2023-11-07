@@ -179,7 +179,7 @@ Spark 日志提示 `Hive Schema version 1.2.0 does not match metastore's schema 
 
 - batch：每次发送给{{nebula.name}}服务的 nGQL 语句中包含的数据条数。
 
-- partition：Spark 数据的分区数，表示数据导入的并发数。
+- partition：数据写入{{nebula.name}}时需要创建的分区数，表示数据导入的并发数。
 
 - nebula.rate：向{{nebula.name}}发送请求前先去令牌桶获取令牌。
 
