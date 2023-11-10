@@ -1,3 +1,6 @@
+<!-- Overwrites main.html base mkdocs theme, taken from 
+https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
+
 
 <!doctype html>
 <html lang="zh" class="no-js">
@@ -47,8 +50,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans Simplified Chinese";--md-code-font:"Source Code Pro"}</style>
       
     
     
@@ -58,7 +61,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../css/version-select.css">
+      <link rel="stylesheet" href="../../stylesheets/pdf.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -121,7 +124,7 @@
           <div class="md-banner__inner md-grid md-typeset">
             
             
-从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
+  从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
 
           </div>
           
@@ -8051,7 +8054,7 @@
 <h3 id="_5">区分“经常改变的部分”和“不经常改变的部分”<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>改变指的是业务模型和数据模型上的改变（元信息），不是数据自身的改变。</p>
 <p>一些图数据库产品是 schema-free 的设计，所以在数据模型上，不论是图拓扑结构还是属性，都可以非常自由。属性可以建模转变为图拓扑，反之亦然。这类系统通常对于图拓扑的访问有特别的优化。</p>
-<p>而NebulaGraph 3.6.0 是强 Schema 的（行存型）系统，这意味着业务数据模型中的部分是“不应该经常改变的”，例如属性 Schema 应该避免改变。类似于 MySQL 中 ALTER TABLE 是应该尽量避免的操作。</p>
+<p>而NebulaGraph master 是强 Schema 的（行存型）系统，这意味着业务数据模型中的部分是“不应该经常改变的”，例如属性 Schema 应该避免改变。类似于 MySQL 中 ALTER TABLE 是应该尽量避免的操作。</p>
 <p>而点及邻边可以非常低成本的增删，因此可以将业务模型中“经常改变的部分”建模成点或边（关系），而不是属性 Schema。</p>
 <p>例如，在一个业务模型中，人的属性是相对固定的，例如“年龄”，“性别”，“姓名”。而“通信好友”，“出入场所”，“交易账号”，“登录设备”等是相对容易改变的。前者适合建模为属性，后者适合建模为点或边。</p>
 <h3 id="_6">自环<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
@@ -8091,10 +8094,10 @@ nebula&gt; MATCH (v1:player)-[e:temp]-&gt;() return collect(e.tmp);
 
 <h3 id="_7">悬挂边<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>悬挂边 (Dangling edge) 是指一条起点或者终点不存在于数据库中的边。</p>
-<p>在NebulaGraph 3.6.0中，有两种情况可能会出现悬挂边。</p>
+<p>在NebulaGraph master中，有两种情况可能会出现悬挂边。</p>
 <p>第一种情况：在起点和终点插入之前，用 <a href="../../3.ngql-guide/13.edge-statements/1.insert-edge/">INSERT EDGE</a> 语句插入一条边。</p>
 <p>第二种情况：使用 <a href="../../3.ngql-guide/12.vertex-statements/4.delete-vertex/">DELETE VERTEX</a> 语句删除点的时候，没有使用<code>WITH EDGE</code>选项。此时系统默认不删除该点关联的出边和入边，这些边将变成悬挂边。</p>
-<p>NebulaGraph 3.6.0 的数据模型中，由于设计允许图中存在“悬挂边”；没有 openCypher 中的 MERGE 语句。对于悬挂边的保证完全依赖应用层面。用户可以使用 <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> 和 <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> 语句查询到悬挂边，但无法使用 <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> 语句查询到悬挂边。</p>
+<p>NebulaGraph master 的数据模型中，由于设计允许图中存在“悬挂边”；没有 openCypher 中的 MERGE 语句。对于悬挂边的保证完全依赖应用层面。用户可以使用 <a href="../../3.ngql-guide/7.general-query-statements/3.go/">GO</a> 和 <a href="../../3.ngql-guide/7.general-query-statements/5.lookup/">LOOKUP</a> 语句查询到悬挂边，但无法使用 <a href="../../3.ngql-guide/7.general-query-statements/2.match/">MATCH</a> 语句查询到悬挂边。</p>
 <p>示例：
 <div class="highlight"><pre><span></span><code>//<span class="w"> </span>插入起点为“11”，终点为“13”并且都不存在于数据库中的悬挂边
 nebula&gt;<span class="w"> </span>CREATE<span class="w"> </span>EDGE<span class="w"> </span>IF<span class="w"> </span>NOT<span class="w"> </span>EXISTS<span class="w"> </span>e1<span class="w"> </span><span class="o">(</span>name<span class="w"> </span>string,<span class="w"> </span>age<span class="w"> </span>int<span class="o">)</span><span class="p">;</span>
@@ -8134,7 +8137,7 @@ Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
 <li>NebulaGraph基于图拓扑结构进行深度图遍历的性能较低，广度优先遍历以及获取属性的性能较好。例如，模型 a 包括姓名、年龄、眼睛颜色三种属性，建议创建一个 Tag<code>person</code>，然后为它添加姓名、年龄、眼睛颜色的属性。如果创建一个包含眼睛颜色的 Tag 和一个 Edge type<code>has</code>，然后创建一个边用来表示人拥有的眼睛颜色，这种建模方法会降低遍历性能。</li>
 </ul>
 <ul>
-<li>“通过边属性获取边”的性能与“通过点属性获取点”的性能是接近的。在一些数据库中，会建议将边上的属性重新建模为中间节点的属性：例如 <code>(src)-[edge {P1, P2}]-&gt;(dst)</code>，<code>edge</code> 上有属性 <code>P1, P2</code>，会建议建模为 <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>。在NebulaGraph 3.6.0 中可以直接使用 <code>(src)-[edge {P1, P2}]-&gt;(dst)</code>，减少遍历深度有助于性能。</li>
+<li>“通过边属性获取边”的性能与“通过点属性获取点”的性能是接近的。在一些数据库中，会建议将边上的属性重新建模为中间节点的属性：例如 <code>(src)-[edge {P1, P2}]-&gt;(dst)</code>，<code>edge</code> 上有属性 <code>P1, P2</code>，会建议建模为 <code>(src)-[edge1]-&gt;(i_node {P1, P2})-[edge2]-&gt;(dst)</code>。在NebulaGraph master 中可以直接使用 <code>(src)-[edge {P1, P2}]-&gt;(dst)</code>，减少遍历深度有助于性能。</li>
 </ul>
 <h3 id="_9">边的方向<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>查询时，如果需要使用边的逆向查询，可以用如下语法：</p>
@@ -8152,7 +8155,7 @@ Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
 <p>为边创建属性时请勿使用长文本：这些属性会被<a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">存储 2 份</a>，导致写入放大问题（write amplification）。此时建议将长文本放在 HBase/ES 中，将其地址存放在NebulaGraph中。</p>
 <h2 id="_12">关于支持动态图（时序图）<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>在某些场景下，图需要同时带有时序信息，以描述整个图的结构随着时间变化的情况 <sup id="fnref:twitter"><a class="footnote-ref" href="#fn:twitter">1</a></sup>。</p>
-<p>NebulaGraph 3.6.0 的边可以使用 Rank 字段存放时间信息 (int64)，但是点上没有字段可以存放时间信息（存放在属性会被新写入覆盖）。一个折中的办法是在点上设计自己指向自己的自环，并将时间信息放置在自环的 Rank 上。</p>
+<p>NebulaGraph master 的边可以使用 Rank 字段存放时间信息 (int64)，但是点上没有字段可以存放时间信息（存放在属性会被新写入覆盖）。一个折中的办法是在点上设计自己指向自己的自环，并将时间信息放置在自环的 Rank 上。</p>
 <p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/sequence.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/figures/sequence.png" /></a></p>
 <h2 id="_13">一些免费的建模工具<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <p><a href="https://arrows.app/">arrows.app</a></p>
@@ -8170,7 +8173,7 @@ Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
       
     
   </small>
@@ -8242,7 +8245,7 @@ Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
@@ -8252,8 +8255,6 @@ Empty<span class="w"> </span><span class="nb">set</span><span class="w"> </span>
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

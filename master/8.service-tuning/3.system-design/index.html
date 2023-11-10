@@ -1,3 +1,6 @@
+<!-- Overwrites main.html base mkdocs theme, taken from 
+https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
+
 
 <!doctype html>
 <html lang="zh" class="no-js">
@@ -47,8 +50,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans Simplified Chinese";--md-code-font:"Source Code Pro"}</style>
       
     
     
@@ -58,7 +61,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../css/version-select.css">
+      <link rel="stylesheet" href="../../stylesheets/pdf.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -121,7 +124,7 @@
           <div class="md-banner__inner md-grid md-typeset">
             
             
-从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
+  从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
 
           </div>
           
@@ -7841,7 +7844,7 @@
 <h1 id="_1">系统设计建议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="qps">选择 QPS 优先或时延优先<a class="headerlink" href="#qps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>NebulaGraph 3.6.0 更擅长处理（互联网式的）有大量并发的小请求。也即：虽然全图很大（万亿点边），但是每个请求要访问到的子图本身并不大（几百万个点边）——单个请求时延不大；但这类请求的并发数量特别多——QPS 大。</li>
+<li>NebulaGraph master 更擅长处理（互联网式的）有大量并发的小请求。也即：虽然全图很大（万亿点边），但是每个请求要访问到的子图本身并不大（几百万个点边）——单个请求时延不大；但这类请求的并发数量特别多——QPS 大。</li>
 </ul>
 <ul>
 <li>但对于一些交互分析型的场景，并发请求的数量不多，而每个请求要访问的子图本身特别大（亿以上）。为降低时延，可以在应用程序中将一个大的请求，拆分为多个小请求，并发发送给多个 graphd。这样可以降低单个大请求的时延，降低单个 graphd 的内存占用。另外，也可以使用<a href="../../graph-computing/nebula-algorithm/">图计算功能 NebulaGraph Algorithm</a>。</li>
@@ -7849,11 +7852,11 @@
 <!--
 ## 水平扩展或垂直扩展
 
-NebulaGraph 3.6.0 支持水平扩展：
+NebulaGraph master 支持水平扩展：
 
 + Storaged 的水平扩展：
 
-    - NebulaGraph 3.6.0 不支持水平扩展。
+    - NebulaGraph master 不支持水平扩展。
 
 
     - 增加 storaged 的机器数量，可以大体线性增加集群的整体能力，包括增加整体 QPS 和降低时延。
@@ -7868,14 +7871,14 @@ NebulaGraph 3.6.0 支持水平扩展：
 
 + Metad 不支持水平扩展。
 
-垂直扩展通常硬件成本更高，但运维操作相对简单。<!-- NebulaGraph 3.6.0 也可以垂直扩展。 
+垂直扩展通常硬件成本更高，但运维操作相对简单。<!-- NebulaGraph master 也可以垂直扩展。 
 -->
 <h2 id="_2">数据传输与优化<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
 <li>读写平衡。NebulaGraph适合读写平衡性的在线场景，也即 OLTP 型的的“并发的发生写入与读取”；而非数仓 OLAP 型的“一次写入多次读取”。</li>
 <li>选择不同的写入方式。大批量的数据写入可以使用 sst 加载的方式；小批量的写入使用<code>INSERT</code>语句。</li>
 <li>选择合适的时间运行 COMPACTION 和 BALANCE，来分别优化数据格式和存储分布。</li>
-<li>NebulaGraph 3.6.0 不支持关系型数据库意义上的事务和隔离性，更接近 NoSQL。</li>
+<li>NebulaGraph master 不支持关系型数据库意义上的事务和隔离性，更接近 NoSQL。</li>
 </ul>
 <h2 id="_3">查询预热与数据预热<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>应用端进行预热：</p>
@@ -7890,7 +7893,7 @@ NebulaGraph 3.6.0 支持水平扩展：
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
       
     
   </small>
@@ -7962,7 +7965,7 @@ NebulaGraph 3.6.0 支持水平扩展：
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
@@ -7972,8 +7975,6 @@ NebulaGraph 3.6.0 支持水平扩展：
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

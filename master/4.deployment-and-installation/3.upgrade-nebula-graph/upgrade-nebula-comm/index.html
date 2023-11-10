@@ -1,3 +1,6 @@
+<!-- Overwrites main.html base mkdocs theme, taken from 
+https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
+
 
 <!doctype html>
 <html lang="zh" class="no-js">
@@ -47,8 +50,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Simplified+Chinese:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans Simplified Chinese";--md-code-font:"Source Code Pro"}</style>
       
     
     
@@ -58,7 +61,7 @@
     
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../css/version-select.css">
+      <link rel="stylesheet" href="../../../stylesheets/pdf.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -110,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nebulagraph_360" class="md-skip">
+        <a href="#nebulagraph_master" class="md-skip">
           跳转至
         </a>
       
@@ -121,7 +124,7 @@
           <div class="md-banner__inner md-grid md-typeset">
             
             
-从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
+  从3.5.0版本开始的文档仅包含社区版功能。如需查看企业版文档，欢迎<a href="https://www.nebula-graph.com.cn/contact">联系我们</a>。
 
           </div>
           
@@ -8004,21 +8007,21 @@
   
 
 
-<h1 id="nebulagraph_360">升级NebulaGraph 至 3.6.0 版本<a class="headerlink" href="#nebulagraph_360" title="Permanent link">&para;</a></h1>
-<p>本文以NebulaGraph 2.6.1 版本升级到 3.6.0 版本为例，介绍NebulaGraph2.x、3.x 版本升级到 3.6.0 版本的方法。</p>
+<h1 id="nebulagraph_master">升级NebulaGraph 至 master 版本<a class="headerlink" href="#nebulagraph_master" title="Permanent link">&para;</a></h1>
+<p>本文以NebulaGraph 2.6.1 版本升级到 master 版本为例，介绍NebulaGraph2.x、3.x 版本升级到 master 版本的方法。</p>
 <!-- 
 - 3.0.0版本默认开启无tag点，升级2.x至3.0.0需要升级工具。
 - 针对版本间的升级3.0.0到3.2.x，不需要升级工具，此时需要单独的版本间的升级文档。
 - 在3.3.0版本默认关闭无tag点，数据结构无变化，此时升级2.x至3.x不要升级工具，也不需要单独的版本间的升级文档。-->
 
 <h2 id="_1">适用版本<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本文适用于将NebulaGraph 从 2.5.0 及之后的 2.x、3.x 版本升级到 3.6.0 版本。不适用于 2.5.0 之前的历史版本（含 1.x 版本）。如需升级历史版本，将其根据最新的 2.x 版本文档升级到 2.5 版本，然后根据本文的说明升级到 3.6.0 版本。</p>
+<p>本文适用于将NebulaGraph 从 2.5.0 及之后的 2.x、3.x 版本升级到 master 版本。不适用于 2.5.0 之前的历史版本（含 1.x 版本）。如需升级历史版本，将其根据最新的 2.x 版本文档升级到 2.5 版本，然后根据本文的说明升级到 master 版本。</p>
 <!-- 结论：社区版 2.5之前的版本 不支持升级到3.4及以上 ，原因：2.x（x<5）之前的版本和3.x都没记录meta版本号，升级到3.4（记录版本号）时，无法识别是哪种，所以就在手册写禁止2.5之前的升级，而允许3.x的升级，因为2.5和2.6是有记录meta版本号的，所以可以升级至3.x；
 ps：如果2.x（x<5）来做到3.4的升级，升级过程不会报错，因为是按照3.x来做的处理，某些情况下数据可能不正确（这里的某些比较复杂），所以就禁止了 -->
 
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>如需从 2.0.0 之前的版本（含 1.x 版本）升级到 3.6.0，还需找到 3.6.0 版本文件中<code>share/resources</code>目录下的<code>date_time_zonespec.csv</code>文件，将其复制到NebulaGraph安装路径下的相同目录内。也可从 <a href="https://github.com/vesoft-inc/nebula/blob/master/resources/date_time_zonespec.csv">GitHub</a> 下载该文件。</p>
+<p>如需从 2.0.0 之前的版本（含 1.x 版本）升级到 master，还需找到 master 版本文件中<code>share/resources</code>目录下的<code>date_time_zonespec.csv</code>文件，将其复制到NebulaGraph安装路径下的相同目录内。也可从 <a href="https://github.com/vesoft-inc/nebula/blob/master/resources/date_time_zonespec.csv">GitHub</a> 下载该文件。</p>
 </div>
 <ul>
 <li>不支持轮转热升级，需完全停止整个集群服务。</li>
@@ -8053,7 +8056,7 @@ ps：如果2.x（x<5）来做到3.4的升级，升级过程不会报错，因为
 <ul>
 <li>
 <p>客户端兼容</p>
-<p>升级后旧版本客户端将无法连接NebulaGraph，需将所有客户端都升级到兼容NebulaGraph 3.6.0 的版本。</p>
+<p>升级后旧版本客户端将无法连接NebulaGraph，需将所有客户端都升级到兼容NebulaGraph master 的版本。</p>
 </li>
 </ul>
 <ul>
@@ -8090,7 +8093,7 @@ ps：如果2.x（x<5）来做到3.4的升级，升级过程不会报错，因为
 <h2 id="_3">升级准备<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>根据操作系统和架构下载NebulaGraph 3.6.0 版本的包文件并解压，升级过程中需要其中的二进制文件。下载地址参见 <a href="https://nebula-graph.io/download/">Download 页面</a>。</p>
+<p>根据操作系统和架构下载NebulaGraph master 版本的包文件并解压，升级过程中需要其中的二进制文件。下载地址参见 <a href="https://nebula-graph.io/download/">Download 页面</a>。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>编译源码或者下载 RPM/DEB、TAR 包都可以获取新版二进制文件。</p>
@@ -8182,7 +8185,7 @@ nebula&gt; SUBMIT JOB STATS;
 nebula&gt; SHOW STATS;
 nebula&gt; MATCH (v) RETURN v LIMIT 5;
 </code></pre></div>
-<p>也可根据 3.6.0 版本的新功能测试，新功能列表参见<a href="../../../20.appendix/release-notes/nebula-comm-release-note/">发布说明</a>。</p>
+<p>也可根据 master 版本的新功能测试，新功能列表参见<a href="../../../20.appendix/release-notes/nebula-comm-release-note/">发布说明</a>。</p>
 </li>
 </ol>
 <h2 id="_5">升级失败回滚<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
@@ -8224,7 +8227,7 @@ A: 有部分 glags 改变了，详情参见版本发布说明和配置说明文�
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
       
     
   </small>
@@ -8296,7 +8299,7 @@ A: 有部分 glags 改变了，详情参见版本发布说明和配置说明文�
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
@@ -8306,8 +8309,6 @@ A: 有部分 glags 改变了，详情参见版本发布说明和配置说明文�
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
