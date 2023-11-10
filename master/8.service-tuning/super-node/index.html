@@ -1,3 +1,5 @@
+<!-- Overwrites main.html base mkdocs theme, taken from 
+https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -47,8 +49,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Source Code Pro"}</style>
       
     
     
@@ -58,7 +60,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../css/version-select.css">
+      <link rel="stylesheet" href="../../stylesheets/pdf.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7854,16 +7856,16 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <h2 id="principle_introduction">Principle introduction<a class="headerlink" href="#principle_introduction" title="Permanent link">&para;</a></h2>
 <p>In graph theory, a super vertex, also known as a dense vertex, is a vertex with an extremely high number of adjacent edges. The edges can be outgoing or incoming.</p>
 <p>Super vertices are very common because of the power-law distribution. For example, popular leaders in social networks (Internet celebrities), top stocks in the stock market, Big Four in the banking system, hubs in transportation networks, websites with high clicking rates on the Internet, and best sellers in E-commerce.</p>
-<p>In NebulaGraph 3.6.0, a <code>vertex</code> and its <code>properties</code> form a <code>key-value pair</code>, with its <code>VID</code> and other meta information as the <code>key</code>. Its <code>Out-Edge Key-Value</code> and <code>In-Edge Key-Value</code> are stored in <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">the same partition</a> in the form of LSM-trees in hard disks and caches.</p>
+<p>In NebulaGraph master, a <code>vertex</code> and its <code>properties</code> form a <code>key-value pair</code>, with its <code>VID</code> and other meta information as the <code>key</code>. Its <code>Out-Edge Key-Value</code> and <code>In-Edge Key-Value</code> are stored in <a href="../../1.introduction/3.nebula-graph-architecture/4.storage-service/">the same partition</a> in the form of LSM-trees in hard disks and caches.</p>
 <p>Therefore, <code>directed traversals from this vertex</code> and <code>directed traversals ending at this vertex</code> both involve either <code>a large number of sequential IO scans</code> (ideally, after <a href="../compaction/">Compaction</a> or a large number of <code>random IO</code> (frequent writes to <code>the vertex</code> and its <code>ingoing and outgoing edges</code>).</p>
 <p>As a rule of thumb, a vertex is considered dense when the number of its edges exceeds 10,000. Some special cases require additional consideration.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In NebulaGraph 3.6.0, there is not any data structure to store the out/in degree for each vertex. Therefore, there is no direct method to know whether it is a super vertex or not. You can try to use Spark to count the degrees periodically. </p>
+<p>In NebulaGraph master, there is not any data structure to store the out/in degree for each vertex. Therefore, there is no direct method to know whether it is a super vertex or not. You can try to use Spark to count the degrees periodically. </p>
 </div>
 <h3 id="indexes_for_duplicate_properties">Indexes for duplicate properties<a class="headerlink" href="#indexes_for_duplicate_properties" title="Permanent link">&para;</a></h3>
 <p>In a property graph, there is another class of cases similar to super vertices: <strong>a property has a very high duplication rate</strong>, i.e., many vertices with the same <code>tag</code> but different <code>VIDs</code> have identical property and property values.</p>
-<p>Property indexes in NebulaGraph 3.6.0 are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as <code>keys with the same prefix</code>. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.</p>
+<p>Property indexes in NebulaGraph master are designed to reuse the functionality of RocksDB in the Storage Service, in which case indexes are modeled as <code>keys with the same prefix</code>. If the lookup of a property fails to hit the cache, it is processed as a random seek and a sequential prefix scan on the hard disk to find the corresponding VID. After that, the graph is usually traversed from this vertex, so that another random read and sequential scan for the corresponding key-value of this vertex will be triggered. The higher the duplication rate, the larger the scan range.</p>
 <p>For more information about property indexes, see <a href="https://nebula-graph.io/posts/how-indexing-works-in-nebula-graph/">How indexing works in NebulaGraph</a>.</p>
 <p>Usually, special design and processing are required when the number of duplicate property values exceeds 10,000.</p>
 <h3 id="suggested_solutions">Suggested solutions<a class="headerlink" href="#suggested_solutions" title="Permanent link">&para;</a></h3>
@@ -7905,7 +7907,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
       
     
   </small>
@@ -7977,7 +7979,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"method": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "header.autohide", "content.tabs.link", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
@@ -7987,8 +7989,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
