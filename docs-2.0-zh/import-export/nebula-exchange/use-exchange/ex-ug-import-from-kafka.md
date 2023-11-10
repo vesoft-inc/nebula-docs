@@ -191,7 +191,7 @@
       # 单批次写入 {{nebula.name}} 的数据条数。
       batch: 10
 
-      # Spark 分区数量
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 10
       # 读取消息的间隔。单位：秒。
       interval.seconds: 10
@@ -264,7 +264,7 @@
   #    # 单批次写入 {{nebula.name}} 的数据条数。
   #    batch: 10
 
-  #    # Spark 分区数量
+  #    # 数据写入{{nebula.name}}时需要创建的分区数。
   #    partition: 10
 
   #    # 读取消息的间隔。单位：秒。

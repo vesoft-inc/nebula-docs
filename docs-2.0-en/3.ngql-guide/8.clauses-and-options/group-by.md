@@ -78,7 +78,7 @@ For more information about the `sum()` function, see [Built-in math functions](.
 
 ## Implicit GROUP BY
 
-The usage of `GROUP BY` in the above nGQL statements that explicitly write `GROUP BY` and act as grouping fields is called explicit `GROUP BY`, while in openCypher, the `GROUP BY` is implicit, i.e., `GROUP BY` groups fields without explicitly writing `GROUP BY`. The explicit `GROUP BY` in nGQL is the same as the implicit `GROUP BY` in openCypher, and nGQL also supports the implicit `GROUP BY`. For the implicit usage of `GROUP BY`, see [how-to-make-group-by-in-a-cypher-query](https://stackoverflow.com/questions/52722671/how-to-make-group-by-in-a-cypher-query).
+The usage of `GROUP BY` in the above nGQL statements that explicitly write `GROUP BY` and act as grouping fields is called explicit `GROUP BY`, while in openCypher, the `GROUP BY` is implicit, i.e., `GROUP BY` groups fields without explicitly writing `GROUP BY`. The explicit `GROUP BY` in nGQL is the same as the implicit `GROUP BY` in openCypher, and nGQL also supports the implicit `GROUP BY`. For the implicit usage of `GROUP BY`, see [Stack Overflow](https://stackoverflow.com/questions/52722671/how-to-make-group-by-in-a-cypher-query).
 
 
 For example, to look up the players over 34 years old with the same length of service, you can use the following statement:
