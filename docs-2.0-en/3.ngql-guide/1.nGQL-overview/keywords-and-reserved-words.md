@@ -1,14 +1,17 @@
 # Keywords
 
-Keywords in nGQL are words with particular meanings, such as `CREATE` and `TAG` in the `CREATE TAG` statement. Keywords that require special processing to be used as identifiers are referred to as `reserved keywords`, while the part of keywords that can be used directly as identifiers are called `non-reserved keywords`."
+Keywords in nGQL are words with particular meanings, such as `CREATE` and `TAG` in the `CREATE TAG` statement. Keywords that require special processing to be used as identifiers are referred to as `reserved keywords`, while the part of keywords that can be used directly as identifiers are called `non-reserved keywords`.
 
-It is not recommend to use keywords in schema. If you must use keywords in schema:
+It is not recommended to use keywords to identify schemas. If you must use keywords as identifiers, pay attention to the following restrictions:
 
-- Non-reserved keywords can be used as identifiers without quotes if they are all in lowercase. However, if a non-reserved keyword contains any uppercase letters when used as an identifier, it must be enclosed in backticks (\`), for example, \`Comment\`.
+- To use reserved keywords or special characters as identifiers, you must enclose them with backticks (\`), such as \`AND\`. Otherwise, a syntax error is thrown.
 
-- To use special characters or reserved keywords as identifiers, quote them with backticks such as `AND`.
+- To use non-reserved keywords as identifiers:
 
-!!! Note
+  - If the identifier contains any uppercase letter, you must enclose them with backticks (\`), such as \`Comment\`. Otherwise, the execution succeeds but the system automatically converts the identifier to all lowercase.
+  - If the identifier contains all lowercase letters, you do not need to enclose them with backticks (\`).
+
+!!! note
 
     Keywords are case-insensitive.
 
@@ -61,13 +64,14 @@ EDGE
 EDGES
 EXISTS
 EXPLAIN
+FALSE
 FETCH
 FIND
 FIXED_STRING
 FLOAT
 FLUSH
-FORMAT
 FROM
+GEOGRAPHY
 GET
 GO
 GRANT
@@ -85,7 +89,8 @@ INT64
 INT8
 INTERSECT
 IS
-LIMIT
+JOIN
+LEFT
 LIST
 LOOKUP
 MAP
@@ -93,16 +98,14 @@ MATCH
 MINUS
 NO
 NOT
-NOT_IN
 NULL
 OF
-OFFSET
 ON
 OR
 ORDER
 OVER
 OVERWRITE
-PROFILE
+PATH
 PROP
 REBUILD
 RECOVER
@@ -123,7 +126,9 @@ TAGS
 TIME
 TIMESTAMP
 TO
+TRUE
 UNION
+UNWIND
 UPDATE
 UPSERT
 UPTO
@@ -142,13 +147,18 @@ YIELD
 ```ngql
 ACCOUNT
 ADMIN
+AGENT
 ALL
+ALLSHORTESTPATHS
+ANALYZER
 ANY
 ATOMIC_EDGE
 AUTO
+BASIC
 BIDIRECT
 BOTH
 CHARSET
+CLEAR
 CLIENTS
 COLLATE
 COLLATION
@@ -158,16 +168,19 @@ CONTAINS
 DATA
 DBA
 DEFAULT
+DIVIDE
+DRAINER
+DRAINERS
 ELASTICSEARCH
 ELSE
 END
 ENDS
-ENDS_WITH
-FALSE
+ES_QUERY
 FORCE
+FORMAT
 FULLTEXT
-FUZZY
 GOD
+GRANTS
 GRAPH
 GROUP
 GROUPS
@@ -175,45 +188,52 @@ GUEST
 HDFS
 HOST
 HOSTS
+HTTP
+HTTPS
 INTO
-IS_EMPTY
-IS_NOT_EMPTY
-IS_NOT_NULL
-IS_NULL
+IP
 JOB
 JOBS
 KILL
 LEADER
+LIMIT
+LINESTRING
 LISTENER
+LOCAL
+MERGE
 META
+NEW
 NOLOOP
 NONE
-NOT_CONTAINS
-NOT_ENDS_WITH
-NOT_STARTS_WITH
+OFFSET
 OPTIONAL
 OUT
 PART
 PARTITION_NUM
 PARTS
 PASSWORD
-PATH
 PLAN
-PREFIX
+POINT
+POLYGON
+PROFILE
 QUERIES
 QUERY
+READ
 REDUCE
-REGEXP
+RENAME
 REPLICA_FACTOR
 RESET
 ROLE
 ROLES
+S2_MAX_CELLS
+S2_MAX_LEVEL
 SAMPLE
 SEARCH
 SERVICE
 SESSION
 SESSIONS
 SHORTEST
+SHORTESTPATH
 SIGN
 SINGLE
 SKIP
@@ -222,26 +242,26 @@ SNAPSHOTS
 SPACE
 SPACES
 STARTS
-STARTS_WITH
 STATS
 STATUS
 STORAGE
 SUBGRAPH
+SYNC
 TEXT
 TEXT_SEARCH
 THEN
 TOP
-TRUE
 TTL_COL
 TTL_DURATION
-UNWIND
 USER
 USERS
 UUID
 VALUE
 VALUES
+VARIABLES
 VID_TYPE
-WILDCARD
+WHITELIST
+WRITE
 ZONE
 ZONES
 ```

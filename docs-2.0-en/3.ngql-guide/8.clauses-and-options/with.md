@@ -6,7 +6,7 @@ The `WITH` clause can retrieve the output from a query part, process it, and pas
 
 This topic applies to openCypher syntax only.
 
-!!! Note
+!!! note
 
     `WITH` has a similar function with the [Pipe](../5.operators/4.pipe.md) symbol in native nGQL, but they work in different ways. DO NOT use pipe symbols in the openCypher syntax or use `WITH` in native nGQL statements.
 

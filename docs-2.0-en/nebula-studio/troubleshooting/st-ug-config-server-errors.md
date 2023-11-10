@@ -28,7 +28,7 @@ Check NebulaGraph service status. Regarding the operation of viewing services:
 
 If the NebulaGraph service is normal, proceed to Step 4 to continue troubleshooting. Otherwise, please restart NebulaGraph service.
 
-!!! Note
+!!! note
 
     If you used `docker-compose up -d` to satrt NebulaGraph before, you must run the `docker-compose down` to stop NebulaGraph.
 

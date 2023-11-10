@@ -254,7 +254,7 @@ scala> sql("select playerid, teamid, start_year, end_year from basketball.serve"
       # 单批次写入 {{nebula.name}} 的最大数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
     # 设置 Tag team 相关信息。
@@ -338,7 +338,7 @@ scala> sql("select playerid, teamid, start_year, end_year from basketball.serve"
       # 单批次写入 {{nebula.name}} 的最大数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入{{nebula.name}}时需要创建的分区数。
       partition: 32
     }
 

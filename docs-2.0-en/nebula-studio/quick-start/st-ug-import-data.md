@@ -28,7 +28,7 @@ Click **New Data Source** in the upper right corner of the page to set the data 
 | SFTP | Add SFTP as the CSV file source. |
 | Local file | Upload a local CSV file. The file size can not exceed 200 MB, please put the files exceeding the limit into other types of data sources. |
 
-!!! Note
+!!! note
 
     - When uploading a local CSV file, you can select more than one CSV file at one time.
     - After adding a data source, you can click **Data Source Management** at the top of the page and switch tabs to view the details of different types of data sources, and you can also edit or delete data sources.

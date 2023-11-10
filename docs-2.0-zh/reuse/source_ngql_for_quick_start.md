@@ -35,7 +35,7 @@
 - `CREATE TAG INDEX`
 - `CREATE EDGE INDEX`
 
-!!! Note
+!!! note
 
     默认心跳周期是 10 秒。修改心跳周期参数`heartbeat_interval_secs`，请参见[配置简介](https://docs.nebula-graph.com.cn/{{nebula.release}}/5.configurations-and-logs/1.configurations/1.configurations/)。
 
@@ -336,7 +336,7 @@ nebula> CREATE EDGE serve(start_year int, end_year int);
 
   - 使用临时变量
 
-    !!! Note
+    !!! note
 
         当复合语句作为一个整体提交给服务器时，其中的临时变量会在语句结束时被释放。
 
@@ -364,7 +364,7 @@ nebula> FETCH PROP ON player "player100" YIELD properties(vertex);
 +-------------------------------+
 ```
 
-!!! Note
+!!! note
 
     `LOOKUP`和`MATCH`的示例在下文的[索引](#_12) 部分查看。
 
@@ -376,7 +376,7 @@ nebula> FETCH PROP ON player "player100" YIELD properties(vertex);
 
 `UPSERT`是`UPDATE`和`INSERT`的结合体。当使用`UPSERT`更新一个点或边，如果它不存在，数据库会自动插入一个新的点或边。
 
-!!! Note
+!!! note
 
     每个 partition 内部，`UPSERT` 操作是一个串行操作，所以执行速度比执行 `INSERT` 或 `UPDATE` 慢很多。其仅在多个 partition 之间有并发。
 
@@ -481,7 +481,7 @@ nebula> FETCH PROP ON player "player100" YIELD properties(vertex);
 
 用户可以通过 [CREATE INDEX](https://docs.nebula-graph.com.cn/{{nebula.release}}/3.ngql-guide/14.native-index-statements/1.create-native-index/) 语句为 Tag 和 Edge type 增加索引。
 
-!!! caution "使用索引必读"
+!!! caution
 
     `MATCH`和`LOOKUP`语句的执行都依赖索引，但是索引会导致写性能大幅降低<!--（降低 90% 甚至更多）-->。请**不要随意**在生产环境中使用索引，除非很清楚使用索引对业务的影响。
 
@@ -502,7 +502,7 @@ nebula> FETCH PROP ON player "player100" YIELD properties(vertex);
     REBUILD {TAG | EDGE} INDEX <index_name>;
     ```
 
-!!! Note
+!!! note
 
     为没有指定长度的变量属性创建索引时，需要指定索引长度。在 utf-8 编码中，一个中文字符占 3 字节，请根据变量属性长度设置合适的索引长度。例如 10 个中文字符，索引长度需要为 30。详情请参见[创建索引](https://docs.nebula-graph.com.cn/{{nebula.release}}/3.ngql-guide/14.native-index-statements/1.create-native-index/)。
 
