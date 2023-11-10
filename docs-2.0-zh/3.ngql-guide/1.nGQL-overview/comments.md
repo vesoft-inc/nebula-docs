@@ -5,7 +5,7 @@
 ## Examples
 
 ```ngql
-nebula> # 这行什么都不做。
+nebula> # 这行什么都不做并返回报错`StatementEmpty`。
 nebula> RETURN 1+1;     # 这条注释延续到行尾。
 nebula> RETURN 1+1;     // 这条注释延续到行尾。
 nebula> RETURN 1 /* 这是一条行内注释 */ + 1 == 2;
