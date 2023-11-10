@@ -7807,7 +7807,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">9669</td>
-<td align="left">Graph 服务的 RPC 守护进程监听端口（通常用于客户端连接Graph服务）。</td>
+<td align="left">Graph 服务的 RPC 守护进程监听端口。通常用于客户端连接Graph服务。</td>
 </tr>
 <tr>
 <td align="left">2</td>
@@ -7827,137 +7827,116 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <td align="left">4</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
-<td align="left">9559</td>
-<td align="left">Meta 服务的 RPC 守护进程监听端口。（通常由 Graph 服务和 Storage 服务发起请求，用于获取和更新图数据库的元数据信息。</td>
+<td align="left">9559、9560</td>
+<td align="left"><code>9559</code>是 Meta 服务的 RPC 守护进程监听端口。通常由 Graph 服务和 Storage 服务发起请求，用于获取和更新图数据库的元数据信息。<br/>同时还会使用相邻的<code>+1</code>（<code>9560</code>）端口用于 Meta 服务之间的 Raft 通信。</td>
 </tr>
 <tr>
 <td align="left">5</td>
-<td align="left">NebulaGraph</td>
-<td align="left">TCP</td>
-<td align="left">9560</td>
-<td align="left">Meta 服务之间的 Raft 通信端口。</td>
-</tr>
-<tr>
-<td align="left">6</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">19559</td>
 <td align="left">Meta 服务的 HTTP 端口。</td>
 </tr>
 <tr>
-<td align="left">7</td>
+<td align="left">6</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">19560</td>
 <td align="left">Meta 服务的 HTTP/2 端口。（3.x 后已弃用该端口）</td>
 </tr>
 <tr>
+<td align="left">7</td>
+<td align="left">NebulaGraph</td>
+<td align="left">TCP</td>
+<td align="left">9779、9778、9780</td>
+<td align="left"><code>9779</code>是 Storage 服务的 RPC 守护进程监听端口。通常由 Graph 服务发起请求，用于执行数据存储相关的操作，例如读取、写入或删除数据。<br/>同时还会使用相邻的<code>-1</code>（<code>9778</code>）和<code>+1</code>（<code>9780</code>）端口。<br/><code>9778</code>：Admin 服务（Storage 接收 Meta 命令的服务）占用的端口。<br/><code>9780</code>：Storage 服务之间的 Raft 通信端口。</td>
+</tr>
+<tr>
 <td align="left">8</td>
-<td align="left">NebulaGraph</td>
-<td align="left">TCP</td>
-<td align="left">9778</td>
-<td align="left">Storage 服务中，Admin 服务占用端口。</td>
-</tr>
-<tr>
-<td align="left">9</td>
-<td align="left">NebulaGraph</td>
-<td align="left">TCP</td>
-<td align="left">9779</td>
-<td align="left">Storage 服务的 RPC 守护进程监听端口。（通常由 Graph 服务发起请求，用于执行数据存储相关的操作，例如读取、写入或删除数据。）</td>
-</tr>
-<tr>
-<td align="left">10</td>
-<td align="left">NebulaGraph</td>
-<td align="left">TCP</td>
-<td align="left">9780</td>
-<td align="left">Storage 服务之间的 Raft 通信端口。</td>
-</tr>
-<tr>
-<td align="left">11</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">19779</td>
 <td align="left">Storage 服务的 HTTP 端口。</td>
 </tr>
 <tr>
-<td align="left">12</td>
+<td align="left">9</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">19780</td>
 <td align="left">Storage 服务的 HTTP/2 端口。（3.x 后已弃用该端口）</td>
 </tr>
 <tr>
-<td align="left">13</td>
+<td align="left">10</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">8888</td>
 <td align="left">备份和恢复功能的 Agent 服务端口。Agent 是集群中每台机器的一个守护进程，用于启停NebulaGraph服务和上传、下载备份文件。</td>
 </tr>
 <tr>
-<td align="left">14</td>
+<td align="left">11</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
-<td align="left">9789、9790、9788</td>
-<td align="left">全文索引中 Raft Listener 的端口，从 Storage 服务读取数据，然后将它们写入 Elasticsearch 集群。<br/>也是集群间数据同步中 Storage Listener 的端口。用于同步主集群的 Storage 数据。端口 9790、9788 由端口 9789 加一减一后自动生成。</td>
+<td align="left">9789、9788、9790</td>
+<td align="left"><code>9789</code>是全文索引中 Raft Listener 的端口，从 Storage 服务读取数据，然后将它们写入 Elasticsearch 集群。<br/>也是集群间数据同步中 Storage Listener 的端口。用于同步主集群的 Storage 数据。<br/>同时还会使用相邻的<code>-1</code>（<code>9788</code>）和<code>+1</code>（<code>9790</code>）端口。<br/><code>9788</code>：内部端口。<br/><code>9790</code>：Raft 通信端口。</td>
 </tr>
 <tr>
-<td align="left">15</td>
+<td align="left">12</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
 <td align="left">9200</td>
 <td align="left">NebulaGraph使用该端口与 Elasticsearch 进行 HTTP 通信，以执行全文搜索查询和管理全文索引。</td>
 </tr>
 <tr>
-<td align="left">16</td>
+<td align="left">13</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
-<td align="left">9569、9570、9568</td>
-<td align="left">集群间数据同步功能中 Meta Listener 的端口，用于同步主集群的 Meta 数据。端口 9570、9568 由端口 9569 加一减一后自动生成。</td>
+<td align="left">9569、9568、9570</td>
+<td align="left"><code>9569</code>是集群间数据同步功能中 Meta Listener 的端口，用于同步主集群的 Meta 数据。<br/>同时还会使用相邻的<code>-1</code>（<code>9568</code>）和<code>+1</code>（<code>9570</code>）端口。<br/><code>9568</code>：内部端口。<br/><code>9570</code>：Raft 通信端口。</td>
 </tr>
 <tr>
-<td align="left">17</td>
+<td align="left">14</td>
 <td align="left">NebulaGraph</td>
 <td align="left">TCP</td>
-<td align="left">9889、9890、9888</td>
-<td align="left">集群间数据同步功能中 Drainer 服务端口。用于同步 Storage、Meta 数据给从集群。端口 9890、9888 由端口 9889 加一减一后自动生成。</td>
+<td align="left">9889、9888、9890</td>
+<td align="left"><code>9889</code>是集群间数据同步功能中 Drainer 服务端口。用于同步 Storage、Meta 数据给从集群。<br/>同时还会使用相邻的<code>-1</code>（<code>9888</code>）和<code>+1</code>（<code>9890</code>）端口。<br/><code>9888</code>：内部端口。<br/><code>9890</code>：Raft 通信端口。</td>
 </tr>
 <tr>
-<td align="left">18</td>
+<td align="left">15</td>
 <td align="left">NebulaGraph Studio</td>
 <td align="left">TCP</td>
 <td align="left">7001</td>
 <td align="left">Studio 提供 Web 服务占用端口。</td>
 </tr>
 <tr>
-<td align="left">19</td>
+<td align="left">16</td>
 <td align="left">NebulaGraph Dashboard</td>
 <td align="left">TCP</td>
 <td align="left">8090</td>
 <td align="left">Nebula HTTP Gateway 依赖服务端口。为集群服务提供 HTTP 接口，执行 nGQL 语句与NebulaGraph数据库进行交互。</td>
 </tr>
 <tr>
-<td align="left">20</td>
+<td align="left">17</td>
 <td align="left">NebulaGraph Dashboard</td>
 <td align="left">TCP</td>
 <td align="left">9200</td>
 <td align="left">Nebula Stats Exporter 依赖服务端口。收集集群的性能指标，包括服务 IP 地址、版本和监控指标（例如查询数量、查询延迟、心跳延迟 等）。</td>
 </tr>
 <tr>
-<td align="left">21</td>
+<td align="left">18</td>
 <td align="left">NebulaGraph Dashboard</td>
 <td align="left">TCP</td>
 <td align="left">9100</td>
 <td align="left">Node Exporter 依赖服务端口。收集集群中机器的资源信息，包括 CPU、内存、负载、磁盘和流量。</td>
 </tr>
 <tr>
-<td align="left">22</td>
+<td align="left">19</td>
 <td align="left">NebulaGraph Dashboard</td>
 <td align="left">TCP</td>
 <td align="left">9090</td>
 <td align="left">Prometheus 服务的端口。存储监控数据的时间序列数据库。</td>
 </tr>
 <tr>
-<td align="left">23</td>
+<td align="left">20</td>
 <td align="left">NebulaGraph Dashboard</td>
 <td align="left">TCP</td>
 <td align="left">7003</td>
