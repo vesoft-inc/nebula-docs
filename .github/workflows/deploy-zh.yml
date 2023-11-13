@@ -36,10 +36,6 @@ jobs:
       - name: Git Config
         run: git config user.name ChrisChen2023 && git config user.email chris.chen@vesoft.com
 
-      - name: save tmp file
-        run: |
-          cp -f *versions.json /tmp/ 
-          ls /tmp/ -ltr  
           
       - name: Mike Deploy
         run: |
@@ -47,36 +43,14 @@ jobs:
           git fetch origin gh-pages-zh --depth=1 # fix mike's CI update
           mike list
           mike deploy ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
-
       # The set-default command is only applicable to the latest version and must be commented in older versions.
       #   mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
-      #   mike list
-
     
       - name: show Chinese git branches
         run: |
           git branch
           git checkout .
-          git checkout gh-pages-zh
-
-      - name: add existing version
-        run: |
-          import yaml, json
-          new_content = {"version": "${{ env.ACTIONTEST }}", "title": "${{ env.ACTIONTEST }}", "aliases": []}
-          filename = "/tmp/community_versions.json"   
-          with open(filename, 'r') as infile:
-              json_data = json.load(infile)
-          found = False
-          for item in json_data:
-            if item['version'] == new_content['version']: # in case duplicate master branch
-                found = True
-                break
-          if not found:
-              json_data.append(new_content)
-          json_data = sorted(json_data, key=lambda x: x['version'], reverse=True)
-          with open('./versions.json', 'w') as outfile:
-              json.dump(json_data, outfile, indent=2)
-        shell: python                 
+          git checkout gh-pages-zh              
 
       - name: Compress
         run: |
