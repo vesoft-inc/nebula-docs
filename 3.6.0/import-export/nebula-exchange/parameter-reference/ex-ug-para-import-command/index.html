@@ -5288,6 +5288,17 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    导入命令参数
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -5297,6 +5308,39 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    导入数据
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    导入 reload 文件
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7744,6 +7788,28 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    导入数据
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reload" class="md-nav__link">
+    导入 reload 文件
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -7767,39 +7833,10 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 
 <h1 id="_1">导入命令参数<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>完成配置文件修改后，可以运行以下命令将指定来源的数据导入NebulaGraph数据库。</p>
-<ul>
-<li>
-<p>首次导入</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>
+<h2 id="_2">导入数据<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://HOST:PORT&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
-<p>导入 reload 文件</p>
-<p>如果首次导入时有一些数据导入失败，会将导入失败的数据存入 reload 文件，可以用参数<code>-r</code>尝试导入 reload 文件。</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;&lt;reload_file_path&gt;&quot;</span><span class="w"> </span>
-</code></pre></div>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>JAR 文件版本号以实际编译得到的 JAR 文件名称为准。</li>
-</ul>
-<ul>
-<li>如果使用 <a href="https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html">yarn-cluster 模式</a>提交任务，请参考如下示例，<strong>尤其是示例中的两个</strong><code>--conf</code>。</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit<span class="w">     </span>--master<span class="w"> </span>yarn-cluster<span class="w"> </span><span class="se">\</span>
---class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
---files<span class="w"> </span>application.conf<span class="w"> </span><span class="se">\</span>
---conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
---conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
-nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
--c<span class="w"> </span>application.conf
-</code></pre></div>
-</div>
-<p>下表列出了命令的相关参数。</p>
+<p>参数说明如下。</p>
 <table>
 <thead>
 <tr>
@@ -7820,28 +7857,28 @@ nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
 <td align="left"><code>--master</code> </td>
 <td align="left">是</td>
 <td align="left">无</td>
-<td align="left">指定 Spark 集群中 master 进程的 URL。详情请参见 <a href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls" title="点击前往 Apache Spark 文档">master-urls</a>。</td>
+<td align="left">指定 Spark 集群的 master URL。详情请参见 <a href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls">master-urls</a>。可选值为：</br><code>local</code>：本地模式，使用单个线程运行 Spark 应用程序。适合在测试环境进行小数据量导入。</br><code>yarn</code>：在 YARN 集群上运行 Spark 应用程序。适合在线上环境进行大数据量导入。</br><code>spark://HOST:PORT</code>：连接到指定的 Spark standalone 集群。</br><code>mesos://HOST:PORT</code>：连接到指定的 Mesos 集群。</br><code>k8s://HOST:PORT</code>：连接到指定的 Kubernetes 集群。</br></td>
 </tr>
 <tr>
-<td align="left"><code>-c</code>  / <code>--config</code> </td>
+<td align="left"><code>-c</code>/<code>--config</code> </td>
 <td align="left">是</td>
 <td align="left">无</td>
 <td align="left">指定配置文件的路径。</td>
 </tr>
 <tr>
-<td align="left"><code>-h</code>  / <code>--hive</code> </td>
+<td align="left"><code>-h</code>/<code>--hive</code> </td>
 <td align="left">否</td>
 <td align="left"><code>false</code></td>
 <td align="left">添加这个参数表示支持从 Hive 中导入数据。</td>
 </tr>
 <tr>
-<td align="left"><code>-D</code>  / <code>--dry</code> </td>
+<td align="left"><code>-D</code>/<code>--dry</code> </td>
 <td align="left">否</td>
 <td align="left"><code>false</code></td>
-<td align="left">添加这个参数表示检查配置文件的格式是否符合要求，但不会校验<code>tags</code>和<code>edges</code>的配置项是否正确。正式导入数据时不能添加这个参数。</td>
+<td align="left">指定是否检查配置文件的格式。该参数仅用于检查配置文件的格式，不检查<code>tags</code>和<code>edges</code>配置项的有效性，也不会导入数据。需要导入数据时不要添加这个参数。</td>
 </tr>
 <tr>
-<td align="left">-r / --reload</td>
+<td align="left"><code>-r</code>/<code>--reload</code></td>
 <td align="left">否</td>
 <td align="left">无</td>
 <td align="left">指定需要重新加载的 reload 文件路径。</td>
@@ -7849,13 +7886,35 @@ nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
 </tbody>
 </table>
 <p>更多 Spark 的参数配置说明请参见 <a href="https://spark.apache.org/docs/latest/configuration.html#runtime-environment">Spark Configuration</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>JAR 文件版本号以实际编译得到的 JAR 文件名称为准。</li>
+</ul>
+<ul>
+<li>如果使用 <a href="https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html">yarn 模式</a>提交任务，请参考如下示例，<strong>尤其是示例中的两个</strong><code>--conf</code>。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit<span class="w">     </span>--master<span class="w"> </span>yarn<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>application.conf<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>application.conf
+</code></pre></div>
+</div>
+<h2 id="reload">导入 reload 文件<a class="headerlink" href="#reload" title="Permanent link">&para;</a></h2>
+<p>如果导入数据时有一些数据导入失败，会将导入失败的数据存入 reload 文件，可以用参数<code>-r</code>尝试导入 reload 文件中的数据。</p>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://HOST:PORT&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;&lt;reload_file_path&gt;&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>如果仍然导入失败，请到<a href="https://discuss.nebula-graph.com.cn/">论坛</a>寻求帮助。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2023</span>
       
     
   </small>
