@@ -4972,13 +4972,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot_form_and_path" class="md-nav__link">
-    Snapshot form and path
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#create_snapshots" class="md-nav__link">
     Create snapshots
   </a>
@@ -4989,6 +4982,19 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <a href="#view_snapshots" class="md-nav__link">
     View snapshots
   </a>
+  
+    <nav class="md-nav" aria-label="View snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot_path" class="md-nav__link">
+    Snapshot path
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7799,13 +7805,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot_form_and_path" class="md-nav__link">
-    Snapshot form and path
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#create_snapshots" class="md-nav__link">
     Create snapshots
   </a>
@@ -7816,6 +7815,19 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <a href="#view_snapshots" class="md-nav__link">
     View snapshots
   </a>
+  
+    <nav class="md-nav" aria-label="View snapshots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot_path" class="md-nav__link">
+    Snapshot path
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7869,23 +7881,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>NebulaGraph cannot automatically delete the invalid files created by a failed snapshot task. You have to manually delete them by using <a href="#delete_snapshots"><code>DROP SNAPSHOT</code></a>.</li>
 </ul>
 <ul>
-<li>Customizing the storage path for snapshots is not supported for now. The default path is <code>/usr/local/nebula/data</code>.</li>
+<li>Customizing the storage path for snapshots is not supported for now.</li>
 </ul>
-<h2 id="snapshot_form_and_path">Snapshot form and path<a class="headerlink" href="#snapshot_form_and_path" title="Permanent link">&para;</a></h2>
-<p>NebulaGraph snapshots are stored in the form of directories with names like <code>SNAPSHOT_2021_03_09_08_43_12</code>. The suffix <code>2021_03_09_08_43_12</code> is generated automatically based on the creation time (UTC).</p>
-<p>When a snapshot is created, snapshot directories will be automatically created in the <code>checkpoints</code> directory on the leader Meta server and each Storage server.</p>
-<p>To fast locate the path where the snapshots are stored, you can use the Linux command <code>find</code>. For example:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>find<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span><span class="s1">&#39;SNAPSHOT_2021_03_09_08_43_12&#39;</span>
-./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12
-./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12/data
-./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12/data/000081.sst
-...
-</code></pre></div>
 <h2 id="create_snapshots">Create snapshots<a class="headerlink" href="#create_snapshots" title="Permanent link">&para;</a></h2>
 <p>Run <code>CREATE SNAPSHOT</code> to create a snapshot for all the graph spaces based on the current time for NebulaGraph. Creating a snapshot for a specific graph space is not supported yet.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the creation fails, <a href="#delete_snapshots">delete the snapshot</a> and try again.</p>
+<p>If the creation fails, refer to the later section to delete the corrupted snapshot and then recreate the snapshot.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; CREATE SNAPSHOT;
 </code></pre></div>
@@ -7922,6 +7924,16 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </tr>
 </tbody>
 </table>
+<h3 id="snapshot_path">Snapshot path<a class="headerlink" href="#snapshot_path" title="Permanent link">&para;</a></h3>
+<p>Snapshots are stored in the path specified by the <code>data_path</code> parameter in the Meta and Storage configuration files. When a snapshot is created, the <code>checkpoints</code> directory is checked in the datastore path of the leader Meta service and all Storage services for the existence, and if it is not there, it is automatically created. The newly created snapshot is stored as a subdirectory within the <code>checkpoints</code> directory. For example, <code>SNAPSHOT_2021_03_09_08_43_12</code>. The suffix <code>2021_03_09_08_43_12</code> is generated automatically based on the creation time (UTC).</p>
+<p>To fast locate the path where the snapshots are stored, you can use the Linux command <code>find</code> in the datastore path. For example:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/usr/local/nebula-graph-ent-3.6.0/data
+$<span class="w"> </span>find<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span><span class="s1">&#39;SNAPSHOT_2021_03_09_08_43_12&#39;</span>
+./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12
+./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12/data
+./data/meta2/nebula/0/checkpoints/SNAPSHOT_2021_03_09_08_43_12/data/000081.sst
+...
+</code></pre></div>
 <h2 id="delete_snapshots">Delete snapshots<a class="headerlink" href="#delete_snapshots" title="Permanent link">&para;</a></h2>
 <p>To delete a snapshot with the given name, run <code>DROP SNAPSHOT</code>.</p>
 <div class="highlight"><pre><span></span><code>DROP SNAPSHOT &lt;snapshot_name&gt;;
@@ -7935,6 +7947,10 @@ nebula&gt; SHOW SNAPSHOTS;
 | &quot;SNAPSHOT_2021_03_09_09_10_52&quot; | &quot;VALID&quot; | &quot;127.0.0.1:9779&quot; |
 +--------------------------------+---------+------------------+
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deleting the only snapshot within the <code>checkpoints</code> directory also deletes the <code>checkpoints</code> directory. </p>
+</div>
 <h2 id="restore_data_with_snapshots">Restore data with snapshots<a class="headerlink" href="#restore_data_with_snapshots" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -7943,7 +7959,7 @@ nebula&gt; SHOW SNAPSHOTS;
 <p>Currently, there is no command to restore data with snapshots. You need to manually copy the snapshot file to the corresponding folder, or you can make it by using a shell script. The logic implements as follows:</p>
 <ol>
 <li>
-<p>After the snapshot is created, the <code>checkpoints</code> directory is generated in the installation directory of the leader Meta server and all Storage servers, and saves the created snapshot. Taking this topic as an example, when there are two graph spaces, the snapshots created are saved in <code>/usr/local/nebula/data/meta/nebula/0/checkpoints</code>, <code>/usr/local/nebula/data/storage/ nebula/3/checkpoints</code> and <code>/usr/local/nebula/data/storage/nebula/4/checkpoints</code>.</p>
+<p>After the snapshot is created, the <code>checkpoints</code> directory is generated in the installation directory of the leader Meta service and all Storage services, and saves the created snapshot. Taking this topic as an example, when there are two graph spaces, the snapshots created are saved in <code>/usr/local/nebula/data/meta/nebula/0/checkpoints</code>, <code>/usr/local/nebula/data/storage/ nebula/3/checkpoints</code> and <code>/usr/local/nebula/data/storage/nebula/4/checkpoints</code>.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>/usr/local/nebula/data/meta/nebula/0/checkpoints/
 SNAPSHOT_2021_03_09_09_10_52
 $<span class="w"> </span>ls<span class="w"> </span>/usr/local/nebula/data/storage/nebula/3/checkpoints/
@@ -7956,7 +7972,7 @@ SNAPSHOT_2021_03_09_09_10_52
 <p>To restore the lost data through snapshots, you can take a snapshot at an appropriate time, copy the folders <code>data</code> and <code>wal</code> in the corresponding snapshot directory to its parent directory (at the same level with <code>checkpoints</code>) to overwrite the previous <code>data</code> and <code>wal</code>, and then restart the cluster.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The data and wal directories of all Meta servers should be overwritten at the same time. Otherwise, the new leader Meta server will use the latest Meta data after a cluster is restarted. </p>
+<p>The data and wal directories of all Meta services should be overwritten at the same time. Otherwise, the new leader Meta service will use the latest Meta data after a cluster is restarted. </p>
 </div>
 </li>
 </ol>
@@ -7972,7 +7988,7 @@ Besides snapshots, users can also use Backup&Restore (BR) to backup or restore N
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2023</span>
       
     
   </small>
