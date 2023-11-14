@@ -21,7 +21,7 @@ Use a backslash as a line break.   \
 
 !!! note
 
-    - In nGQL statement, the backslash `\` in a line indicates a line break.
+    - In nGQL statements, the backslash `\` in a line indicates a line break.
     - If a statement starts with `#` or `//`, the statement is not executed and the error `StatementEmpty` is returned.
 
 ## OpenCypher compatibility
