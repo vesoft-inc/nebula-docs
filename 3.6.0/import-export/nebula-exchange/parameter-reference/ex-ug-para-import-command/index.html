@@ -5267,6 +5267,17 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Options for import
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -5276,6 +5287,39 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import_data" class="md-nav__link">
+    Import data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import_the_reload_file" class="md-nav__link">
+    Import the reload file
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7703,6 +7747,28 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import_data" class="md-nav__link">
+    Import data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import_the_reload_file" class="md-nav__link">
+    Import the reload file
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -7726,38 +7792,9 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 
 <h1 id="options_for_import">Options for import<a class="headerlink" href="#options_for_import" title="Permanent link">&para;</a></h1>
 <p>After editing the configuration file, run the following commands to import specified source data into the NebulaGraph database.</p>
-<ul>
-<li>
-<p>First import</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>
+<h2 id="import_data">Import data<a class="headerlink" href="#import_data" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://HOST:PORT&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>
 </code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
-<p>Import the reload file</p>
-<p>If some data fails to be imported during the first import, the failed data will be stored in the reload file. Use the parameter <code>-r</code> to import the reload file.</p>
-<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;&lt;reload_file_path&gt;&quot;</span><span class="w"> </span>
-</code></pre></div>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>The version number of a JAR file is subject to the name of the JAR file that is actually compiled.</li>
-</ul>
-<ul>
-<li>If users use the <a href="https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html">yarn-cluster mode</a> to submit a job, see the following command, <strong>especially the two '--conf' commands in the example</strong>.</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit<span class="w">     </span>--master<span class="w"> </span>yarn-cluster<span class="w"> </span><span class="se">\</span>
---class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
---files<span class="w"> </span>application.conf<span class="w"> </span><span class="se">\</span>
---conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
---conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
-nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
--c<span class="w"> </span>application.conf
-</code></pre></div>
-</div>
 <p>The following table lists command parameters.</p>
 <table>
 <thead>
@@ -7779,28 +7816,28 @@ nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
 <td align="left"><code>--master</code> </td>
 <td align="left">Yes</td>
 <td align="left">-</td>
-<td align="left">Specify the URL of the master process in a Spark cluster. For more information, see <a href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls" title="click to open Apache Spark documents">master-urls</a>.</td>
+<td align="left">Specify the URL of the master process in a Spark cluster. For more information, see <a href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls">master-urls</a>. Optional values are:</br><code>local</code>: Local Mode. Run Spark applications on a single thread. Suitable for importing small data sets in a test environment.</br><code>yarn</code>: Run Spark applications on a YARN cluster. Suitable for importing large data sets in a production environment.</br><code>spark://HOST:PORT</code>: Connect to the specified Spark standalone cluster.</br><code>mesos://HOST:PORT</code>: Connect to the specified Mesos cluster.</br><code>k8s://HOST:PORT</code>: Connect to the specified Kubernetes cluster.</br></td>
 </tr>
 <tr>
-<td align="left"><code>-c</code>  / <code>--config</code> </td>
+<td align="left"><code>-c</code>/<code>--config</code> </td>
 <td align="left">Yes</td>
 <td align="left">-</td>
 <td align="left">Specify the path of the configuration file.</td>
 </tr>
 <tr>
-<td align="left"><code>-h</code>  / <code>--hive</code> </td>
+<td align="left"><code>-h</code>/<code>--hive</code> </td>
 <td align="left">No</td>
 <td align="left"><code>false</code></td>
-<td align="left">Indicate support for importing Hive data.</td>
+<td align="left">Specify whether importing Hive data is supported.</td>
 </tr>
 <tr>
-<td align="left"><code>-D</code>  / <code>--dry</code> </td>
+<td align="left"><code>-D</code>/<code>--dry</code> </td>
 <td align="left">No</td>
 <td align="left"><code>false</code></td>
-<td align="left">Check whether the format of the configuration file meets the requirements, but it does not check whether the configuration items of <code>tags</code> and <code>edges</code> are correct. This parameter cannot be added when users import data.</td>
+<td align="left">Specify whether to check the format of the configuration file. This parameter is used to check the format of the configuration file only, it does not check the validity of <code>tags</code> and <code>edges</code> configurations and does not import data. Don't add this parameter if you need to import data.</td>
 </tr>
 <tr>
-<td align="left"><code>-r</code> / <code>--reload</code></td>
+<td align="left"><code>-r</code>/<code>--reload</code></td>
 <td align="left">No</td>
 <td align="left">-</td>
 <td align="left">Specify the path of the reload file that needs to be reloaded.</td>
@@ -7808,13 +7845,35 @@ nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
 </tbody>
 </table>
 <p>For more Spark parameter configurations, see <a href="https://spark.apache.org/docs/latest/configuration.html#runtime-environment">Spark Configuration</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The version number of a JAR file is subject to the name of the JAR file that is actually compiled.</li>
+</ul>
+<ul>
+<li>If users use the <a href="https://spark-reference-doc-cn.readthedocs.io/zh_CN/latest/deploy-guide/running-on-yarn.html">yarn mode</a> to submit a job, see the following command, <strong>especially the two '--conf' commands in the example</strong>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">$SPARK_HOME</span>/bin/spark-submit<span class="w">     </span>--master<span class="w"> </span>yarn<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>application.conf<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.driver.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span>spark.executor.extraClassPath<span class="o">=</span>./<span class="w"> </span><span class="se">\</span>
+nebula-exchange-3.6.0.jar<span class="w"> </span><span class="se">\</span>
+-c<span class="w"> </span>application.conf
+</code></pre></div>
+</div>
+<h2 id="import_the_reload_file">Import the reload file<a class="headerlink" href="#import_the_reload_file" title="Permanent link">&para;</a></h2>
+<p>If some data fails to be imported during the import, the failed data will be stored in the reload file. Use the parameter <code>-r</code> to import the data in reload file.</p>
+<div class="highlight"><pre><span></span><code>&lt;spark_install_path&gt;/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;spark://HOST:PORT&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-2.x.y.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;application.conf_path&gt;<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;&lt;reload_file_path&gt;&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>If the import still fails, go to <a href="https://github.com/vesoft-inc/nebula/discussions">Official Forum</a> for consultation.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2023</span>
       
     
   </small>
