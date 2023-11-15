@@ -7536,8 +7536,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimizations" class="md-nav__link">
-    Optimizations
+  <a href="#enhancements" class="md-nav__link">
+    Enhancements
   </a>
   
 </li>
@@ -7545,20 +7545,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <li class="md-nav__item">
   <a href="#bug_fixes" class="md-nav__link">
     Bug fixes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changes" class="md-nav__link">
-    Changes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#legacy_versions" class="md-nav__link">
-    Legacy versions
   </a>
   
 </li>
@@ -7780,8 +7766,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimizations" class="md-nav__link">
-    Optimizations
+  <a href="#enhancements" class="md-nav__link">
+    Enhancements
   </a>
   
 </li>
@@ -7789,20 +7775,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <li class="md-nav__item">
   <a href="#bug_fixes" class="md-nav__link">
     Bug fixes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changes" class="md-nav__link">
-    Changes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#legacy_versions" class="md-nav__link">
-    Legacy versions
   </a>
   
 </li>
@@ -7833,23 +7805,25 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <h1 id="nebulagraph_360_release_notes">NebulaGraph 3.6.0 release notes<a class="headerlink" href="#nebulagraph_360_release_notes" title="Permanent link">&para;</a></h1>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Enhance the full-text index. <a href="https://github.com/vesoft-inc/nebula/pull/5567">#5567</a> <a href="https://github.com/vesoft-inc/nebula/pull/5575">#5575</a> <a href="https://github.com/vesoft-inc/nebula/pull/5577">#5577</a> <a href="https://github.com/vesoft-inc/nebula/pull/5580">#5580</a> <a href="https://github.com/vesoft-inc/nebula/pull/5584">#5584</a> <a href="https://github.com/vesoft-inc/nebula/pull/5587">#5587</a></li>
+<li>Enhance the full-text index. <a href="https://github.com/vesoft-inc/nebula/pull/5567">#5567</a> <a href="https://github.com/vesoft-inc/nebula/pull/5575">#5575</a> <a href="https://github.com/vesoft-inc/nebula/pull/5577">#5577</a> <a href="https://github.com/vesoft-inc/nebula/pull/5580">#5580</a> <a href="https://github.com/vesoft-inc/nebula/pull/5584">#5584</a> <a href="https://github.com/vesoft-inc/nebula/pull/5587">#5587</a><p>The changes involved are listed below:</p>
+<p>- The original full-text indexing function has been changed from calling Elasticsearch's Term-level queries to Full text queries.
+  - In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on Elasticsearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">official Elasticsearch documentation</a>.</p>
+</li>
 </ul>
-<h2 id="optimizations">Optimizations<a class="headerlink" href="#optimizations" title="Permanent link">&para;</a></h2>
+<h2 id="enhancements">Enhancements<a class="headerlink" href="#enhancements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Support variables when querying vertex id or property index in a match clause. <a href="https://github.com/vesoft-inc/nebula/pull/5486">#5486</a> <a href="https://github.com/vesoft-inc/nebula/pull/5553">#5553</a></li>
+<li>Performance<ul>
 <li>Support parallel startup of RocksDB instances to speed up the startup of the Storage service. <a href="https://github.com/vesoft-inc/nebula/pull/5521">#5521</a></li>
 <li>Optimize the prefix search performance of the RocksDB iterator after the <code>DeleteRange</code> operation. <a href="https://github.com/vesoft-inc/nebula/pull/5525">#5525</a></li>
 <li>Optimize the appendLog sending logic to avoid impacting write performance when a follower is down. <a href="https://github.com/vesoft-inc/nebula/pull/5571">#5571</a></li>
 <li>Optimize the performance of the <code>MATCH</code> statement when querying for non-existent properties. <a href="https://github.com/vesoft-inc/nebula/pull/5634">#5634</a></li>
 </ul>
+</li>
+</ul>
 <h2 id="bug_fixes">Bug fixes<a class="headerlink" href="#bug_fixes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Fix the bug of meta data inconsistency. <a href="https://github.com/vesoft-inc/nebula/pull/5517">#5517</a></li>
-<li>Fix the bug that RocksDB ingest causes the leader lease to be invalid. <a href="https://github.com/vesoft-inc/nebula/pull/5534">#5534</a></li>
-<li>Fix the error in the statistics logic of storage. <a href="https://github.com/vesoft-inc/nebula/pull/5547">#5547</a></li>
-<li>Fix the bug that causes the web service to crash if a flag is set for an invalid request parameter. <a href="https://github.com/vesoft-inc/nebula/pull/5566">#5566</a></li>
-<li>Fix the bug that too many logs are printed when listing sessions. <a href="https://github.com/vesoft-inc/nebula/pull/5618">#5618</a></li>
+<li>DQL<ul>
 <li>Fix the crash of the Graph service when executing a single big query. <a href="https://github.com/vesoft-inc/nebula/pull/5619">#5619</a></li>
 <li>Fix the crash of the Graph service when executing the <code>Find All Path</code> statement. <a href="https://github.com/vesoft-inc/nebula/pull/5621">#5621</a> <a href="https://github.com/vesoft-inc/nebula/pull/5640">#5640</a></li>
 <li>Fix the bug that some expired data is not recycled at the bottom level. <a href="https://github.com/vesoft-inc/nebula/pull/5447">#5447</a> <a href="https://github.com/vesoft-inc/nebula/pull/5622">#5622</a></li>
@@ -7858,21 +7832,23 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>Fix the bug that deleting edges by pipe causes the Graph service to crash. <a href="https://github.com/vesoft-inc/nebula/pull/5645">#5645</a></li>
 <li>Fix the bug in the <code>MATCH</code> statement that returns missing properties of edges when matching multiple hops. <a href="https://github.com/vesoft-inc/nebula/pull/5646">#5646</a></li>
 </ul>
-<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h2>
-<p>Enhance full-text index features with the following changes:</p>
-<ul>
-<li>The original full-text indexing function has been changed from calling Elasticsearch's Term-level queries to Full text queries.</li>
-<li>In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on Elasticsearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">official Elasticsearch documentation</a>.</li>
+</li>
+<li>Others<ul>
+<li>Fix the bug of meta data inconsistency. <a href="https://github.com/vesoft-inc/nebula/pull/5517">#5517</a></li>
+<li>Fix the bug that RocksDB ingest causes the leader lease to be invalid. <a href="https://github.com/vesoft-inc/nebula/pull/5534">#5534</a></li>
+<li>Fix the error in the statistics logic of storage. <a href="https://github.com/vesoft-inc/nebula/pull/5547">#5547</a></li>
+<li>Fix the bug that causes the web service to crash if a flag is set for an invalid request parameter. <a href="https://github.com/vesoft-inc/nebula/pull/5566">#5566</a></li>
+<li>Fix the bug that too many logs are printed when listing sessions. <a href="https://github.com/vesoft-inc/nebula/pull/5618">#5618</a></li>
 </ul>
-<h2 id="legacy_versions">Legacy versions<a class="headerlink" href="#legacy_versions" title="Permanent link">&para;</a></h2>
-<p><a href="https://nebula-graph.io/posts/">Release notes of legacy versions</a></p>
+</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2023</span>
       
     
   </small>
