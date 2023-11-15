@@ -8125,7 +8125,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../2.1.install-operator/">NebulaGraph Operator is installed.</a></li>
-<li><a href="2.2.deploy-lm.md">LM is installed and the License Key is loaded.</a></li>
+</ul>
+<ul>
 <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">A StorageClass is created.</a></li>
 </ul>
 <h2 id="create_a_nebulagraph_cluster_with_helm">Create a NebulaGraph cluster with Helm<a class="headerlink" href="#create_a_nebulagraph_cluster_with_helm" title="Permanent link">&para;</a></h2>
@@ -8157,30 +8158,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </code></pre></div>
 </li>
 <li>
-<p>Create a Secret for pulling the NebulaGraph cluster image from a private repository.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;image-pull-secret&gt;</code>: Specify the name of the Secret.</li>
-<li><code>DOCKER_REGISTRY_SERVER</code>: Specify the server address of the private repository from which the image will be pulled, such as <code>reg.example-inc.com</code>.</li>
-<li><code>DOCKER_USER</code>: The username for the image repository.</li>
-<li><code>DOCKER_PASSWORD</code>: The password for the image repository.</li>
-</ul>
-</li>
-<li>
 <p>Apply the variables to the Helm chart to create a NebulaGraph cluster.</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the access address and port (default port is &#39;9119&#39;) that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="s2">&quot;192.168.8.XXX:9119&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the image addresses for each service in the cluster.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/graphd-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/metad-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/storaged-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the Secret for pulling images from a private repository.</span>
-<span class="w">    </span>--set<span class="w"> </span>imagePullSecrets<span class="o">[</span><span class="m">0</span><span class="o">]</span>.name<span class="o">=</span><span class="s2">&quot;{&lt;image-pull-secret&gt;}&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># Specify the version of the NebulaGraph cluster. </span>
@@ -8190,7 +8169,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.7.2<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 </code></pre></div>
-<p>NebulaGraph Operator supports creating clusters with zones. For more information, see <a href="../../4.cluster-administration/4.1.installation/4.1.1.cluster-install/">Install NebulaGraph clusters</a>.</p>
 </li>
 </ol>
 <h2 id="create_a_nebulagraph_cluster_with_kubectl">Create a NebulaGraph cluster with Kubectl<a class="headerlink" href="#create_a_nebulagraph_cluster_with_kubectl" title="Permanent link">&para;</a></h2>
@@ -8206,22 +8184,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </code></pre></div>
 </li>
 <li>
-<p>Create a Secret for pulling the NebulaGraph Enterprise image from a private repository.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;nebula&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;nebula&gt;</code>: The namespace where this Secret will be stored.</li>
-<li><code>&lt;image-pull-secret&gt;</code>: Specify the name of the Secret.</li>
-<li><code>DOCKER_REGISTRY_SERVER</code>: Specify the server address of the private repository from which the image will be pulled, such as <code>reg.example-inc.com</code>.</li>
-<li><code>DOCKER_USER</code>: The username for the image repository.</li>
-<li><code>DOCKER_PASSWORD</code>: The password for the image repository.</li>
-</ul>
-</li>
-<li>
-<p>Define the cluster configuration file.</p>
+<p>Define the cluster configuration file <code>nebulacluster.yaml</code>.</p>
 <details class="info">
 <summary>Expand to see an example configuration for the cluster</summary>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
@@ -8235,7 +8198,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScheduleAnyway&quot;</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># Container image for the Graph service.</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8252,14 +8215,9 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
 <span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-<span class="w">  </span><span class="c1"># Secret for pulling images from a private repository.</span>
-<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret-name</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># LM access address and port number for obtaining License information.</span>
-<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.x.xxx:9119</span>
 <span class="w">    </span><span class="c1"># Container image for the Meta service.</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8285,7 +8243,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># Container image for the Storage service.</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8307,20 +8265,11 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
 </code></pre></div>
 </details>
-<p>The following parameters must be customized:</p>
-<ul>
-<li><code>spec.metad.licenseManagerURL</code>: Configure the URL that points to the LM, which consists of the access address and port number (default port <code>9119</code>) of the LM.</li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.image</code>: Specify the container image of the Graph, Meta, and Storage service respectively. </li>
-<li><code>spec.imagePullSecrets</code>: Specify the Secret for pulling the NebulaGraph Enterprise service images from a private repository.</li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.logVolumeClaim.storageClassName</code>: Specify the log disk storage configurations for the Graph, Meta, and Storage service respectively.</li>
-<li><code>spec.metad.dataVolumeClaim.storageClassName</code>: Specify the data disk storage configurations for the Meta service.</li>
-<li><code>spec.storaged.dataVolumeClaims.storageClassName</code>: Specify the data disk storage configurations for the Storage service.</li>
-</ul>
 <p>For more information about the other parameters, see <a href="../../4.cluster-administration/4.1.installation/4.1.1.cluster-install/">Install NebulaGraph clusters</a>.</p>
 </li>
 <li>
 <p>Create a NebulaGraph cluster.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>nebulacluster.yaml
 </code></pre></div>
 <p>Output:</p>
 <div class="highlight"><pre><span></span><code>nebulacluster.apps.nebula-graph.io/nebula<span class="w"> </span>created
