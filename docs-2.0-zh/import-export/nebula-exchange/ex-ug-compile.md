@@ -14,7 +14,7 @@
 
 !!! enterpriseonly
 
-    企业版 Exchange 仅能在{{nebula.name}}企业版套餐中获取。
+    企业版 Exchange 仅能在 {{nebula.name}} 企业版套餐中获取。
 
 ### 前提条件
 

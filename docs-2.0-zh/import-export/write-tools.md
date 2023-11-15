@@ -6,7 +6,7 @@
 
 
 
-有多种方式可以将数据写入{{nebula.name}} {{ nebula.release }}：
+有多种方式可以将数据写入 {{nebula.name}} {{ nebula.release }}：
 
 - 使用[命令行 -f 的方式](../2.quick-start/3.quick-start-on-premise/3.connect-to-nebula-graph.md)导入：可以导入少量准备好的 nGQL 文件，适合少量手工测试数据准备；
   
