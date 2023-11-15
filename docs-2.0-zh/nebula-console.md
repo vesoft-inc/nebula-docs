@@ -1,6 +1,6 @@
 # NebulaGraph Console
 
-NebulaGraph Console 是{{nebula.name}}的原生命令行客户端，用于连接{{nebula.name}}集群并执行查询，同时支持管理参数、导出命令的执行结果、导入测试数据集等功能。
+NebulaGraph Console 是 {{nebula.name}} 的原生命令行客户端，用于连接 {{nebula.name}} 集群并执行查询，同时支持管理参数、导出命令的执行结果、导入测试数据集等功能。
 
 ## 版本对照表
 
@@ -10,7 +10,7 @@ NebulaGraph Console 是{{nebula.name}}的原生命令行客户端，用于连接
 
 NebulaGraph Console 的获取方式如下：
 
-<!-- - 直接从{{nebula.name}}安装路径的 `bin` 目录中获取二进制文件 `nebula-console`。-->
+<!-- - 直接从 {{nebula.name}} 安装路径的 `bin` 目录中获取二进制文件 `nebula-console`。-->
 
 - 从 [GitHub 发布页](https://github.com/vesoft-inc/nebula-console/releases "the nebula-console Releases page")下载二进制文件。
 
@@ -18,9 +18,9 @@ NebulaGraph Console 的获取方式如下：
 
 ## 功能说明
 
-### 连接{{nebula.name}}
+### 连接 {{nebula.name}} 
 
-运行二进制文件 `nebula-console` 连接{{nebula.name}}的命令语法如下：
+运行二进制文件 `nebula-console` 连接 {{nebula.name}} 的命令语法如下：
 
 ```bash
 <path_of_console> -addr <ip> -port <port> -u <username> -p <password>
@@ -31,7 +31,7 @@ NebulaGraph Console 的获取方式如下：
 
 示例如下：
 
-- 直接连接{{nebula.name}}
+- 直接连接 {{nebula.name}} 
 
   ```bash
   ./nebula-console -addr 192.168.8.100 -port 9669 -u root -p nebula
@@ -50,12 +50,12 @@ NebulaGraph Console 的获取方式如下：
 | `-h/-help` | 显示帮助菜单。 |
 | `-addr/-address` | 设置要连接的 Graph 服务的 IP 地址。默认地址为 127.0.0.1。<!--如果 {{nebula.name}} 部署在 [Nebula Cloud](https://docs.nebula-graph.com.cn/{{cloud.azureLatestRelease}}/nebula-cloud/1.what-is-cloud/) 上，需要创建 [Private Link](https://docs.nebula-graph.com.cn/{{cloud.azureLatestRelease}}/nebula-cloud/nebula-cloud-on-azure/5.solution/5.2.connection-configuration-and-use)，并设置该参数的值为专用终结点的 IP 地址。--> |
 | `-P/-port` | 设置要连接的 Graph 服务的端口。默认端口为 9669。|
-| `-u/-user` | 设置{{nebula.name}}账号的用户名。未启用身份认证时，可以使用任意已存在的用户名（默认为`root`）。 |
+| `-u/-user` | 设置 {{nebula.name}} 账号的用户名。未启用身份认证时，可以使用任意已存在的用户名（默认为`root`）。 |
 | `-p/-password` | 设置用户名对应的密码。未启用身份认证时，密码可以填写任意字符。 |
 | `-t/-timeout`  | 设置整数类型的连接超时时间。单位为毫秒，默认值为 120。 |
 | `-e/-eval` | 设置字符串类型的 nGQL 语句。连接成功后会执行一次该语句并返回结果，然后自动断开连接。 |
 | `-f/-file` | 设置存储 nGQL 语句的文件的路径。连接成功后会执行该文件内的 nGQL 语句并返回结果，执行完毕后自动断开连接。 |
-| `-enable_ssl` | 连接{{nebula.name}}时使用 SSL 加密双向认证。 |
+| `-enable_ssl` | 连接 {{nebula.name}} 时使用 SSL 加密双向认证。 |
 | `-ssl_root_ca_path` | 指定 CA 根证书的存储路径。 |
 | `-ssl_cert_path` | 指定 SSL 公钥证书的存储路径。 |
 | `-ssl_private_key_path` | 指定 SSL 密钥的存储路径。 |
@@ -243,7 +243,7 @@ nebula> :sleep N;
 
 ### 断开连接
 
-用户可以使用`:EXIT`或者`:QUIT`从{{nebula.name}}断开连接。为方便使用，NebulaGraph Console 支持使用不带冒号（:）的小写命令，例如`quit`。
+用户可以使用`:EXIT`或者`:QUIT`从 {{nebula.name}} 断开连接。为方便使用，NebulaGraph Console 支持使用不带冒号（:）的小写命令，例如`quit`。
 
 示例：
 
