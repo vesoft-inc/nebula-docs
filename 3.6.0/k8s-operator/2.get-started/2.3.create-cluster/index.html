@@ -8166,7 +8166,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <h2 id="_2">前提条件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../2.1.install-operator/">安装 NebulaGraph Operator</a></li>
-<li><a href="2.2.deploy-lm.md">已安装 LM 并加载 License Key</a></li>
+</ul>
+<ul>
 <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">已创建 StorageClass</a></li>
 </ul>
 <h2 id="helm_nebulagraph">使用 Helm 创建NebulaGraph集群<a class="headerlink" href="#helm_nebulagraph" title="Permanent link">&para;</a></h2>
@@ -8198,31 +8199,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </code></pre></div>
 </li>
 <li>
-<p>创建 Secret，用于拉取私有仓库中NebulaGraph镜像。</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;image-pull-secret&gt;</code>：指定 Secret 的名称。</li>
-<li><code>DOCKER_REGISTRY_SERVE</code>：指定拉取镜像的私有仓库服务器地址，例如<code>reg.example-inc.com</code>。</li>
-<li><code>DOCKER_USE</code>：镜像仓库用户名。</li>
-<li><code>DOCKER_PASSWORD</code>：镜像仓库密码。</li>
-</ul>
-</li>
-<li>
 <p>创建NebulaGraph集群。</p>
 <div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-
-<span class="w">    </span><span class="c1"># 配置指向 LM 访问地址和端口，默认端口为`9119`。必须配置此参数以获取 License 信息。</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="s2">&quot;192.168.8.XXX:9119&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># 配置集群中各服务的镜像地址。</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/graphd-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/metad-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/storaged-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># 配置拉取私有仓库中镜像的 Secret。</span>
-<span class="w">    </span>--set<span class="w"> </span>imagePullSecrets<span class="o">[</span><span class="m">0</span><span class="o">]</span>.name<span class="o">=</span><span class="s2">&quot;{&lt;image-pull-secret&gt;}&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># 指定NebulaGraph集群的版本。</span>
@@ -8234,7 +8212,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </code></pre></div>
 </li>
 </ol>
-<p>NebulaGraph Operator 支持通过 Helm 创建带 Zone 的集群，详情请参见<a href="../../4.cluster-administration/4.1.installation/4.1.1.cluster-install/">创建NebulaGraph集群</a>。</p>
 <h2 id="kubectl_nebulagraph">使用 Kubectl 创建NebulaGraph集群<a class="headerlink" href="#kubectl_nebulagraph" title="Permanent link">&para;</a></h2>
 <div class="admonition compatibility">
 <p class="admonition-title">历史版本兼容性</p>
@@ -8248,22 +8225,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </code></pre></div>
 </li>
 <li>
-<p>创建 Secret，用于拉取私有仓库中NebulaGraph镜像。</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;nebula&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;nebula&gt;</code>：存放该 Secret 的命名空间。</li>
-<li><code>&lt;image-pull-secret&gt;</code>：指定 Secret 的名称。</li>
-<li><code>DOCKER_REGISTRY_SERVE</code>：指定拉取镜像的私有仓库服务器地址，例如<code>reg.example-inc.com</code>。</li>
-<li><code>DOCKER_USE</code>：镜像仓库用户名。</li>
-<li><code>DOCKER_PASSWORD</code>：镜像仓库密码。</li>
-</ul>
-</li>
-<li>
-<p>创建集群配置文件。</p>
+<p>创建集群配置文件，例如<code>nebulacluster.yaml</code>。</p>
 <details class="info">
 <summary>展开查看集群的示例配置</summary>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
@@ -8277,7 +8239,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScheduleAnyway&quot;</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># Graph 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8294,14 +8256,9 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
 <span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-<span class="w">  </span><span class="c1"># 用于从私有仓库拉取镜像的 Secret。</span>
-<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret-name</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># LM 访问地址和端口号，用于获取 License 信息。</span>
-<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.x.xxx:9119</span>
 <span class="w">    </span><span class="c1"># Meta 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8327,7 +8284,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># Storage 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8349,25 +8306,15 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.6.0</span>
 </code></pre></div>
 </details>
-<p>您必须自定义以下参数：</p>
-<ul>
-<li><code>spec.metad.licenseManagerURL</code>：指定 <a href="../../9.about-license/2.license-management-suite/3.license-manager.md">LM</a> 的 URL，由 LM 的访问地址和端口（默认端口<code>9119</code>）组成。例如，<code>192.168.8.100:9119</code>。</li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.image</code>：分别指定 Graph，Meta，以及 Storage 服务的容器镜像。 </li>
-<li><code>spec.imagePullSecrets</code>：指定拉取私有仓库中镜像所需的 Secret。</li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.logVolumeClaim.storageClassName</code>: 分别指定 Graph、Meta 以及 Storage 服务的日志盘存储卷的存储类名称。</li>
-<li><code>spec.metad.dataVolumeClaim.storageClassName</code>：指定 Meta 服务的数据盘存储配置。</li>
-<li><code>spec.storaged.dataVolumeClaims.storageClassName</code>：指定 Storage 服务的数据盘存储配置。</li>
-</ul>
 <p>关于其它参数的详情，请参考<a href="../../4.cluster-administration/4.1.installation/4.1.1.cluster-install/">创建NebulaGraph集群</a>。</p>
 </li>
 <li>
 <p>创建NebulaGraph集群。</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>apps_v1alpha1_nebulacluster.yaml
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>nebulacluster.yaml
 </code></pre></div>
 <p>返回：</p>
 <div class="highlight"><pre><span></span><code>nebulacluster.apps.nebula-graph.io/nebula<span class="w"> </span>created
 </code></pre></div>
-<p>NebulaGraph Operator 支持通过 Kubectl 创建带 Zone 的集群，详情请参见<a href="../../4.cluster-administration/4.1.installation/4.1.1.cluster-install/">创建集群</a>。</p>
 </li>
 <li>
 <p>查看NebulaGraph集群状态。</p>

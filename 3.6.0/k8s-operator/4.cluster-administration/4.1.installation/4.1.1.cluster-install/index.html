@@ -7287,13 +7287,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    相关链接
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -8143,13 +8136,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    相关链接
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -8183,7 +8169,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <ul>
 <li><a href="../../../2.get-started/2.1.install-operator/">安装 NebulaGraph Operator</a></li>
 <li><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">已创建 StorageClass</a></li>
-<li><a href="../../2.get-started/2.2.deploy-lm.md">已安装 LM 并加载 License Key</a></li>
 </ul>
 <h2 id="kubectl_apply">使用<code>kubectl apply</code><a class="headerlink" href="#kubectl_apply" title="Permanent link">&para;</a></h2>
 <ol>
@@ -8193,22 +8178,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </code></pre></div>
 </li>
 <li>
-<p>创建 Secret，用于拉取私有仓库中NebulaGraph镜像。</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>&lt;nebula&gt;<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;nebula&gt;</code>：存放该 Secret 的命名空间。</li>
-<li><code>&lt;image-pull-secret&gt;</code>：指定 Secret 的名称。</li>
-<li><code>DOCKER_REGISTRY_SERVE</code>：指定拉取镜像的私有仓库服务器地址，例如<code>reg.example-inc.com</code>。</li>
-<li><code>DOCKER_USE</code>：镜像仓库用户名。</li>
-<li><code>DOCKER_PASSWORD</code>：镜像仓库密码。</li>
-</ul>
-</li>
-<li>
-<p>创建集群的 YAML 配置文件。例如，创建名为<code>nebula</code>的集群。</p>
+<p>创建集群的 YAML 配置文件<code>nebulacluster.yaml</code>。例如，创建名为<code>nebula</code>的集群。</p>
 <details class="info">
 <summary>展开查看<code>nebula</code>集群的示例配置</summary>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
@@ -8224,8 +8194,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="c1"># 是否回收 PV。</span>
 <span class="w">  </span><span class="nt">enablePVReclaim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">  </span><span class="c1"># 是否启用备份和恢复功能。</span>
-<span class="w">  </span><span class="nt">enableBR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="c1"># 是否启用监控功能。</span>
 <span class="w">  </span><span class="nt">exporter</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-stats-exporter</span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0</span>
@@ -8242,9 +8210,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
 <span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;256Mi&quot;</span><span class="w">  </span>
-<span class="w">  </span><span class="c1"># 从私有仓库拉取镜像的 Secret。</span>
-<span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret-name</span><span class="w"> </span>
 <span class="w">  </span><span class="c1"># 配置镜像拉取策略。</span>
 <span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
 <span class="w">  </span><span class="c1"># 选择 Pod 被调度的节点。</span>
@@ -8276,7 +8241,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="c1">#    successThreshold: 1</span>
 <span class="w">  </span><span class="c1">#    timeoutSeconds: 10</span>
 <span class="w">    </span><span class="c1"># Graph 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8299,8 +8264,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 <span class="w">  </span><span class="c1"># Meta 服务的相关配置。</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># LM 访问地址和端口号，用于获取 License 信息。</span>
-<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.x.xxx:9119</span>
 <span class="w">  </span><span class="c1">#  readinessProbe:</span>
 <span class="w">  </span><span class="c1">#    failureThreshold: 3</span>
 <span class="w">  </span><span class="c1">#    httpGet:</span>
@@ -8312,7 +8275,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="c1">#    successThreshold: 1</span>
 <span class="w">  </span><span class="c1">#   timeoutSeconds: 5</span>
 <span class="w">    </span><span class="c1"># Meta 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8347,7 +8310,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="c1">#    successThreshold: 1</span>
 <span class="w">  </span><span class="c1">#    timeoutSeconds: 5</span>
 <span class="w">    </span><span class="c1"># Storage 服务的容器镜像。</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reg.example-inc.com/xxx/xxx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
 <span class="w">    </span><span class="nt">logVolumeClaim</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
@@ -8371,13 +8334,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span>
 </code></pre></div>
 </details>
-<p>创建集群的 YAML 配置文件时，必须自定义配置以下参数，其他参数可按需配置。有关参数的详细说明，请参见下文的<strong>集群配置参数</strong>。</p>
-<ul>
-<li><code>spec.metad.licenseManagerURL</code></li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.image</code></li>
-<li><code>spec.imagePullSecrets</code> </li>
-<li><code>spec.&lt;graphd|metad|storaged&gt;.&lt;logVolumeClaim|dataVolumeClaim&gt;.storageClassName</code></li>
-</ul>
+<p>有关参数的详细说明，请参见下文的<strong>集群配置参数</strong>。</p>
 </li>
 <li>
 <p>创建NebulaGraph集群。</p>
@@ -8394,7 +8351,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </code></pre></div>
 <p>返回：</p>
 <div class="highlight"><pre><span></span><code>NAME<span class="w">      </span>READY<span class="w">   </span>GRAPHD-DESIRED<span class="w">   </span>GRAPHD-READY<span class="w">   </span>METAD-DESIRED<span class="w">   </span>METAD-READY<span class="w">   </span>STORAGED-DESIRED<span class="w">   </span>STORAGED-READY<span class="w">   </span>AGE
-nebula2<span class="w">   </span>True<span class="w">    </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">1</span><span class="w">                  </span><span class="m">1</span><span class="w">                </span>86s
+nebula<span class="w">    </span>True<span class="w">    </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">1</span><span class="w">                  </span><span class="m">1</span><span class="w">                </span>86s
 </code></pre></div>
 </li>
 </ol>
@@ -8423,20 +8380,6 @@ nebula2<span class="w">   </span>True<span class="w">    </span><span class="m">
 </code></pre></div>
 </li>
 <li>
-<p>创建 Secret，用于拉取私有仓库中NebulaGraph镜像。</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
-<ul>
-<li><code>&lt;image-pull-secret&gt;</code>：指定 Secret 的名称。</li>
-<li><code>DOCKER_REGISTRY_SERVE</code>：指定拉取镜像的私有仓库服务器地址，例如<code>reg.example-inc.com</code>。</li>
-<li><code>DOCKER_USE</code>：镜像仓库用户名。</li>
-<li><code>DOCKER_PASSWORD</code>：镜像仓库密码。</li>
-</ul>
-</li>
-<li>
 <p>查看创建集群时，<code>nebula-operator</code>的<code>nebula-cluster</code> chart 的可自定义的配置项。</p>
 <ul>
 <li>
@@ -8460,16 +8403,8 @@ nebula2<span class="w">   </span>True<span class="w">    </span><span class="m">
 <span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.7.2<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># 指定NebulaGraph集群所处的命名空间。</span>
 <span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># 配置拉取私有仓库中镜像的 Secret。</span>
-<span class="w">    </span>--set<span class="w"> </span>imagePullSecrets<span class="o">[</span><span class="m">0</span><span class="o">]</span>.name<span class="o">=</span><span class="s2">&quot;{&lt;image-pull-secret&gt;}&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># 自定义 chart 发布名称。</span>
 <span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># 配置指向 LM 访问地址和端口，默认端口为`9119`。必须配置此参数以获取 License 信息。</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="s2">&quot;192.168.8.XXX:9119&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># 配置集群中各服务的镜像地址。</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/graphd-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/metad-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.image<span class="o">=</span><span class="s2">&quot;&lt;reg.example-inc.com/test/storaged-ent&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="c1"># 指定NebulaGraph集群的版本。</span>
 <span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.6.0<span class="w"> </span>
@@ -8634,30 +8569,8 @@ nebula-storaged-2<span class="w">                  </span><span class="m">1</spa
 <td align="left"><code>false</code></td>
 <td align="left">定义是否在删除集群后自动删除 PVC 以释放数据。详情参见<a href="../../4.4.storage-management/4.4.3.configure-pv-reclaim/">回收 PV</a>。</td>
 </tr>
-<tr>
-<td align="left"><code>spec.metad.licenseManagerURL</code></td>
-<td align="left">-</td>
-<td align="left">配置指向 <a href="../../2.get-started/2.2.deploy-lm.md">LM</a> 的 URL，由 LM 的访问地址和端口（默认端口<code>9119</code>）组成。例如，<code>192.168.8.xxx:9119</code>。<strong>必须配置此参数以获取 License 信息，否则无法使用NebulaGraph集群。</strong></td>
-</tr>
-<tr>
-<td align="left"><code>spec.storaged.enableAutoBalance</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">是否启用自动均衡。详情参见<a href="../4.8.ha-and-balancing/4.8.3.balance-data-after-scale-out.md">均衡扩容后的 Storage 数据</a>。</td>
-</tr>
-<tr>
-<td align="left"><code>spec.enableBR</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">定义是否启用 BR 工具。详情参见<a href="../4.6.backup-and-restore.md">备份与恢复</a>。</td>
-</tr>
-<tr>
-<td align="left"><code>spec.imagePullSecrets</code></td>
-<td align="left"><code>[]</code></td>
-<td align="left">定义拉取私有仓库中镜像所需的 Secret。</td>
-</tr>
 </tbody>
 </table>
-<h2 id="_3">相关链接<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p><a href="../4.8.ha-and-balancing/4.8.2.enable-zone.md">集群中开启 Zone</a></p>
 
   <hr>
 <div class="md-source-file">
