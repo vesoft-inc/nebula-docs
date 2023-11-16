@@ -4476,33 +4476,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     资源控制
   </a>
   
-    <nav class="md-nav" aria-label="资源控制">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ulimit" class="md-nav__link">
-    ulimit 注意事项
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-c" class="md-nav__link">
-    ulimit -c
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-n" class="md-nav__link">
-    ulimit -n
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8274,33 +8247,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     资源控制
   </a>
   
-    <nav class="md-nav" aria-label="资源控制">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ulimit" class="md-nav__link">
-    ulimit 注意事项
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-c" class="md-nav__link">
-    ulimit -c
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-n" class="md-nav__link">
-    ulimit -n
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8486,28 +8432,45 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <h1 id="linux">Linux 内核配置<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
 <p>本文介绍与 NebulaGraph 相关的 Linux 内核配置，并介绍如何修改配置。</p>
 <h2 id="_1">资源控制<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h3 id="ulimit">ulimit 注意事项<a class="headerlink" href="#ulimit" title="Permanent link">&para;</a></h3>
-<p>命令<code>ulimit</code>用于为当前 shell 会话设置资源阈值，注意事项如下：</p>
-<ul>
-<li><code>ulimit</code>所做的更改仅对当前会话或子进程生效。</li>
-</ul>
-<ul>
-<li>资源的阈值（软阈值）不能超过硬阈值。</li>
-</ul>
-<ul>
-<li>普通用户不能使用命令调整硬阈值，即使使用<code>sudo</code>也不能调整。</li>
-</ul>
-<ul>
-<li>修改系统级别或调整硬性阈值，请编辑文件<code>/etc/security/limits.conf</code>。这种方式需要重新登录才生效。</li>
-</ul>
-<h3 id="ulimit_-c">ulimit -c<a class="headerlink" href="#ulimit_-c" title="Permanent link">&para;</a></h3>
-<p><code>ulimit -c</code>用于限制 core 文件的大小，建议设置为<code>unlimited</code>，命令如下：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">ulimit</span><span class="w"> </span>-c<span class="w"> </span>unlimited
+<p>虽然可以用<code>ulimit</code>进行资源控制，但是所做的更改仅对当前会话或子进程生效。如果需要永久生效，请编辑文件<code>/etc/security/limits.conf</code>。配置如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># &lt;domain&gt;     &lt;type&gt;      &lt;item&gt;          &lt;value&gt;</span>
+*<span class="w">              </span>soft<span class="w">         </span>core<span class="w">           </span>unlimited<span class="w">    </span>
+*<span class="w">              </span>hard<span class="w">         </span>core<span class="w">           </span>unlimited<span class="w">   </span>
+*<span class="w">              </span>soft<span class="w">         </span>nofile<span class="w">          </span><span class="m">130000</span><span class="w">   </span>
+*<span class="w">              </span>hard<span class="w">         </span>nofile<span class="w">          </span><span class="m">130000</span>
 </code></pre></div>
-<h3 id="ulimit_-n">ulimit -n<a class="headerlink" href="#ulimit_-n" title="Permanent link">&para;</a></h3>
-<p><code>ulimit -n</code>用于限制打开文件的数量，建议设置为超过 10 万，例如：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">ulimit</span><span class="w"> </span>-n<span class="w"> </span><span class="m">130000</span>
-</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>配置修改后会对新的会话生效。</p>
+</div>
+<p>参数说明如下。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>domain</code></td>
+<td align="left">控制域。可以是用户名称、用户组名称（以<code>@</code>开头），或者用<code>*</code>表示所有用户。</td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left">控制类型。可以是<code>soft</code>或<code>hard</code>。<code>soft</code>表示资源的软阈值（默认阈值），<code>hard</code>表示用户可以设置的最大值。可以使用<code>ulimit</code>命令提高<code>soft</code>，但不能超过<code>hard</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>item</code></td>
+<td align="left">资源类型。例如<code>core</code>限制核心转储文件的大小，<code>nofile</code>限制一个进程可以打开的最大文件描述符数量。</td>
+</tr>
+<tr>
+<td align="left"><code>value</code></td>
+<td align="left">资源限制值。可以是一个数字，或者 unlimited 表示没有限制。</td>
+</tr>
+</tbody>
+</table>
+<p>可以执行<code>man limits.conf</code>查看更多帮助信息。</p>
 <h2 id="_2">内存<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="vmswappiness">vm.swappiness<a class="headerlink" href="#vmswappiness" title="Permanent link">&para;</a></h3>
 <p><code>vm.swappiness</code>是触发虚拟内存（swap）的空闲内存百分比。值越大，使用 swap 的可能性就越大，建议设置为 0，表示首先删除页缓存。需要注意的是，0 表示<strong>尽量</strong>不使用 swap。</p>
