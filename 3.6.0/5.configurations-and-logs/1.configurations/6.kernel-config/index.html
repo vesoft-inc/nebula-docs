@@ -4455,33 +4455,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     Resource control
   </a>
   
-    <nav class="md-nav" aria-label="Resource control">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_precautions" class="md-nav__link">
-    ulimit precautions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-c" class="md-nav__link">
-    ulimit -c
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-n" class="md-nav__link">
-    ulimit -n
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8233,33 +8206,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     Resource control
   </a>
   
-    <nav class="md-nav" aria-label="Resource control">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_precautions" class="md-nav__link">
-    ulimit precautions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-c" class="md-nav__link">
-    ulimit -c
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ulimit_-n" class="md-nav__link">
-    ulimit -n
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8445,28 +8391,45 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <h1 id="kernel_configurations">Kernel configurations<a class="headerlink" href="#kernel_configurations" title="Permanent link">&para;</a></h1>
 <p>This topic introduces the Kernel configurations in Nebula Graph.</p>
 <h2 id="resource_control">Resource control<a class="headerlink" href="#resource_control" title="Permanent link">&para;</a></h2>
-<h3 id="ulimit_precautions">ulimit precautions<a class="headerlink" href="#ulimit_precautions" title="Permanent link">&para;</a></h3>
-<p>The <code>ulimit</code> command specifies the resource threshold for the current shell session. The precautions are as follows:</p>
-<ul>
-<li>The changes made by <code>ulimit</code> only take effect for the current session or child process.</li>
-</ul>
-<ul>
-<li>The resource threshold (soft threshold) cannot exceed the hard threshold.</li>
-</ul>
-<ul>
-<li>Common users cannot use commands to adjust the hard threshold, even with <code>sudo</code>.</li>
-</ul>
-<ul>
-<li>To modify the system level or adjust the hard threshold, edit the file <code>/etc/security/limits.conf</code>. This method requires re-login to take effect.</li>
-</ul>
-<h3 id="ulimit_-c">ulimit -c<a class="headerlink" href="#ulimit_-c" title="Permanent link">&para;</a></h3>
-<p><code>ulimit -c</code> limits the size of the core dumps. We recommend that you set it to <code>unlimited</code>. The command is:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">ulimit</span><span class="w"> </span>-c<span class="w"> </span>unlimited
+<p>You may run the <code>ulimit</code> command to control the resource threshold. However, the changes made only take effect for the current session or sub-process. To make permanent changes, edit file <code>/etc/security/limits.conf</code>. The configuration is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># &lt;domain&gt;     &lt;type&gt;      &lt;item&gt;          &lt;value&gt;</span>
+*<span class="w">              </span>soft<span class="w">         </span>core<span class="w">           </span>unlimited<span class="w">    </span>
+*<span class="w">              </span>hard<span class="w">         </span>core<span class="w">           </span>unlimited<span class="w">   </span>
+*<span class="w">              </span>soft<span class="w">         </span>nofile<span class="w">          </span><span class="m">130000</span><span class="w">   </span>
+*<span class="w">              </span>hard<span class="w">         </span>nofile<span class="w">          </span><span class="m">130000</span>
 </code></pre></div>
-<h3 id="ulimit_-n">ulimit -n<a class="headerlink" href="#ulimit_-n" title="Permanent link">&para;</a></h3>
-<p><code>ulimit -n</code> limits the number of open files. We recommend that you set it to more than 100,000. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">ulimit</span><span class="w"> </span>-n<span class="w"> </span><span class="m">130000</span>
-</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The configuration modification takes effect for new sessions.</p>
+</div>
+<p>The parameter descriptions are as follows.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>domain</code></td>
+<td align="left">Control Domain. This parameter can be a user name, a user group name (starting with <code>@</code>), or <code>*</code> to indicate all users.</td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left">Control type. This parameter can be <code>soft</code> or <code>hard</code>. <code>soft</code> indicates a soft threshold (the default threshold) for the resource and <code>hard</code> indicates a maximum value that can be set by the user. The <code>ulimit</code> command can be used to increase <code>soft</code>, but not to exceed <code>hard</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>item</code></td>
+<td align="left">Resource types. For example, <code>core</code> limits the size of the core dump file, and <code>nofile</code> limits the maximum number of file descriptors a process can open.</td>
+</tr>
+<tr>
+<td align="left"><code>value</code></td>
+<td align="left">Resource limit value. This parameter can be a number, or <code>unlimited</code> to indicate that there is no limit.</td>
+</tr>
+</tbody>
+</table>
+<p>You can run <code>man limits.conf</code> for more helpful information.</p>
 <h2 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
 <h3 id="vmswappiness">vm.swappiness<a class="headerlink" href="#vmswappiness" title="Permanent link">&para;</a></h3>
 <p><code>vm.swappiness</code> specifies the percentage of the available memory before starting swap. The greater the value, the more likely the swap occurs. We recommend that you set it to 0. When set to 0, the page cache is removed first. Note that when <code>vm.swappiness</code> is 0, it does not mean that there is no swap.</p>
@@ -8529,7 +8492,7 @@ root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> <
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2023</span>
       
     
   </small>
