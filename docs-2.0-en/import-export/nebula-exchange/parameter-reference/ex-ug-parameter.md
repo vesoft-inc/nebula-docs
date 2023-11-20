@@ -203,7 +203,7 @@ For different data sources, the vertex configurations are different. There are m
 |:---|:---|:---|:---|:---|
 |`tags.service`|string|`"pulsar://localhost:6650"`|Yes|The Pulsar server address.
 |`tags.admin`|string|`"http://localhost:8081"`|Yes|The admin URL used to connect pulsar.|
-|`tags.options.<topic\|topics\| topicsPattern>`|string|-|Yes|Options offered by Pulsar, which can be configured by choosing one from `topic`, `topics`, and `topicsPattern`.|
+|`tags.options.<topic|topics| topicsPattern>`|string|-|Yes|Options offered by Pulsar, which can be configured by choosing one from `topic`, `topics`, and `topicsPattern`.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
 
 ### Specific parameters of Kafka data sources
