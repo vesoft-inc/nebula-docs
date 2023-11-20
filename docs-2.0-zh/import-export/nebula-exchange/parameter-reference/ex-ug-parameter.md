@@ -205,7 +205,7 @@
 |:---|:---|:---|:---|:---|
 |`tags.service`|string|`"pulsar://localhost:6650"`|是|Pulsar 服务器地址。|
 |`tags.admin`|string|`"http://localhost:8081"`|是|连接 pulsar 的 admin.url。|
-|`tags.options.<topic\|topics\| topicsPattern>`|string|-|是|Pulsar 的选项，可以从`topic`、`topics`和`topicsPattern`选择一个进行配置。|
+|`tags.options.<topic|topics|topicsPattern>`|string|-|是|Pulsar 的选项，可以从`topic`、`topics`和`topicsPattern`选择一个进行配置。|
 |`tags.interval.seconds`|int|`10`|是|读取消息的间隔。单位：秒。|
 
 ### Kafka 源特有参数
