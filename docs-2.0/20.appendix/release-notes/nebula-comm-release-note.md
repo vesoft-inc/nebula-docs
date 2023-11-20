@@ -2,7 +2,6 @@
 
 ## Features
 
-- Support full table scan without index. [#5416](https://github.com/vesoft-inc/nebula/pull/5416)
 - Support UDF. [#4804](https://github.com/vesoft-inc/nebula/pull/4804) [#5391](https://github.com/vesoft-inc/nebula/pull/5391)
 - Support expressions like `v.tag` in return statements. [#5440](https://github.com/vesoft-inc/nebula/pull/5440)
 - Support `json_extract` function in UPDATE statements. [#5457](https://github.com/vesoft-inc/nebula/pull/5457)
