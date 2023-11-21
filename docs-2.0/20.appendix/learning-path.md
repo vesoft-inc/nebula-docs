@@ -194,7 +194,7 @@ After completing the NebulaGraph learning path, taking [NebulaGraph Certificatio
 
   | Document  |
   | -------- |
-  | [NebulaGraph Operator](../nebula-operator/1.introduction-to-nebula-operator.md) |
+  | [NebulaGraph Operator](../k8s-operator/1.introduction-to-nebula-operator.md) |
 
 - Graph algorithm
 
