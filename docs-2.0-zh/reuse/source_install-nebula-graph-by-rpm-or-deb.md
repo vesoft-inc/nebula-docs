@@ -136,11 +136,6 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
   ```bash
   sudo dpkg -i nebula-graph-{{nebula.release}}.ubuntu1804.amd64.deb
   ```
-  
-
-  
-
-
 
 
 ## 后续操作
