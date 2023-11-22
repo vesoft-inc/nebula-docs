@@ -48,7 +48,7 @@ Parameter descriptions are as follows:
 | Parameter | Description |
 | - | - |
 | `-h/-help` | Shows the help menu. |
-| `-addr/-address` | Sets the IP address of the Graph service. The default address is 127.0.0.1. <!--If NebulaGraph is deployed on [NebulaGraph Cloud](https://docs.nebula-graph.io/3.1.0/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP address of the Private Endpoint as the parameter value.--> |
+| `-addr/-address` | Sets the IP or hostname of the Graph service. The default address is 127.0.0.1. <!--If NebulaGraph is deployed on [NebulaGraph Cloud](https://docs.nebula-graph.io/3.1.0/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP or hostname of the Private Endpoint as the parameter value.--> |
 | `-P/-port` | Sets the port number of the graphd service. The default port number is 9669. |
 | `-u/-user` | Sets the username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
 | `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. |
