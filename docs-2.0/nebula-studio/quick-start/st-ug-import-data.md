@@ -27,11 +27,11 @@ To upload files, follow these steps:
 
   !!! note
 
-        You can choose multiple CSV files at the same time. The CSV file used in this article can be downloaded in the [Design a schema](/docs-2.0/nebula-studio/quick-start/st-ug-plan-schema.md).
+        You can choose multiple CSV files at the same time. The CSV file used in this article can be downloaded in the [Design a schema](../../nebula-studio/quick-start/st-ug-create-schema.md).
 
-3. After uploading, you can click the ![detail](https://docs-cdn.nebula-graph.com.cn/figures/detail.png) button in the **Operations** column to preview the file content, or click the ![delete](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) button to delete the uploaded file.
+1. After uploading, you can click the ![detail](https://docs-cdn.nebula-graph.com.cn/figures/detail.png) button in the **Operations** column to preview the file content, or click the ![delete](https://docs-cdn.nebula-graph.com.cn/figures/alert-delete.png) button to delete the uploaded file.
    
-   ![preview](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-010-en.png)
+  ![preview](https://docs-cdn.nebula-graph.com.cn/figures/st-ug-010-en.png)
 
 ## Import Data
 
