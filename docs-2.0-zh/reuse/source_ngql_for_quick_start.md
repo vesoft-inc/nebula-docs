@@ -68,7 +68,7 @@
     nebula> SHOW SPACES;
     ```
 
-- 选择数据库
+- 选择已创建的图空间
 
     ```ngql
     USE <graph_space_name>;
