@@ -126,4 +126,4 @@ Exchange {{exchange.release}} 支持将以下格式或来源的数据转换为 {
 ## 视频
 
 * [{{nebula.name}} 数据导入工具——Exchange](https://www.bilibili.com/video/BV1Pq4y177D9)（3 分 08 秒）
-<iframe src="//player.bilibili.com/player.html?aid=546003709&bvid=BV1Pq4y177D9&cid=352387808&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="720px" height="480px"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=546003709&bvid=BV1Pq4y177D9&cid=352387808&autoplay=0&page=1&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="720px" height="480px"> </iframe>
