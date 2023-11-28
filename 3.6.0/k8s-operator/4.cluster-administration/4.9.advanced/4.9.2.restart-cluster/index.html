@@ -24,7 +24,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     
     
       
-        <title>4.9.2.restart cluster - NebulaGraph Database Manual</title>
+        <title>Restart service Pods in a NebulaGraph cluster on K8s - NebulaGraph Database Manual</title>
       
     
     
@@ -107,6 +107,11 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#restart_service_pods_in_a_nebulagraph_cluster_on_k8s" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -147,7 +152,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.9.2.restart cluster
+              Restart service Pods in a NebulaGraph cluster on K8s
             
           </span>
         </div>
@@ -7951,6 +7956,37 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart_all_pods_of_a_certain_service_type" class="md-nav__link">
+    Restart all Pods of a certain service type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart_a_single_storage_service_pod" class="md-nav__link">
+    Restart a single Storage service Pod
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -7973,16 +8009,158 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 
 
-  <h1>4.9.2.restart cluster</h1>
-
-
+<h1 id="restart_service_pods_in_a_nebulagraph_cluster_on_k8s">Restart service Pods in a NebulaGraph cluster on K8s<a class="headerlink" href="#restart_service_pods_in_a_nebulagraph_cluster_on_k8s" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Restarting NebulaGraph cluster service Pods is a feature in the Alpha version.</p>
+</div>
+<p>During routine maintenance, it might be necessary to restart a specific service Pod in the NebulaGraph cluster, for instance, when the Pod's status is abnormal or to enforce a restart. Restarting a Pod essentially means restarting the service process. To ensure high availability, NebulaGraph Operator supports gracefully restarting all Pods of the Graph, Meta, or Storage service respectively and gracefully restarting an individual Pod of the Storage service.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>A NebulaGraph cluster is created in a K8s environment. For details, see <a href="../../4.1.installation/4.1.1.cluster-install/">Create a NebulaGraph cluster</a>.</p>
+<h2 id="restart_all_pods_of_a_certain_service_type">Restart all Pods of a certain service type<a class="headerlink" href="#restart_all_pods_of_a_certain_service_type" title="Permanent link">&para;</a></h2>
+<p>To gracefully roll restart all Pods of a certain service type in the cluster, you can add an annotation (<code>nebula-graph.io/restart-timestamp</code>) with the current time to the configuration of the StatefulSet controller of the corresponding service.</p>
+<p>When NebulaGraph Operator detects that the StatefulSet controller of the corresponding service has the annotation <code>nebula-graph.io/restart-timestamp</code> and its value is changed, it triggers the graceful rolling restart operation for all Pods of that service type in the cluster.</p>
+<p>In the following example, the annotation is added for all Graph services so that all Pods of these Graph services are restarted one by one.</p>
+<p>Assume that the cluster name is <code>nebula</code> and the cluster resources are in the <code>default</code> namespace. Run the following command:</p>
+<ol>
+<li>
+<p>Check the name of the StatefulSet controller.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>
+</code></pre></div>
+<p>Sample output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>AGE
+nebula-graphd<span class="w">     </span><span class="m">2</span>/2<span class="w">     </span>33s
+nebula-metad<span class="w">      </span><span class="m">3</span>/3<span class="w">     </span>69s
+nebula-storaged<span class="w">   </span><span class="m">3</span>/3<span class="w">     </span>69s
+</code></pre></div>
+</li>
+<li>
+<p>Get the current timestamp.</p>
+<div class="highlight"><pre><span></span><code>date<span class="w"> </span>-u<span class="w"> </span>+%s
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code><span class="m">1700547115</span>
+</code></pre></div>
+</li>
+<li>
+<p>Overwrite the timestamp annotation of the StatefulSet controller to trigger the graceful rolling restart operation.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>annotate<span class="w"> </span>statefulset<span class="w"> </span>nebula-graphd<span class="w"> </span>nebula-graph.io/restart-timestamp<span class="o">=</span><span class="s2">&quot;1700547115&quot;</span><span class="w"> </span>--overwrite
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code>statefulset.apps/nebula-graphd<span class="w"> </span>annotate
+</code></pre></div>
+</li>
+<li>
+<p>Observe the restart process.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>graphd<span class="w"> </span>-w
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-graphd-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m37s
+nebula-graphd-1<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>17s
+nebula-graphd-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>20s
+nebula-graphd-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m40s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m41s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Pending<span class="w">       </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Pending<span class="w">       </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Running<span class="w">             </span><span class="m">0</span><span class="w">          </span>2s
+</code></pre></div>
+<p>This above output shows the status of Graph service Pods during the restart process.</p>
+</li>
+<li>
+<p>Verify that the StatefulSet controller annotation is updated.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>nebula-graphd<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;nebula-graph.io/restart-timestamp&quot;</span>
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nebula-graph.io/last-applied-configuration</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{&quot;persistentVolumeClaimRetentionPolicy&quot;:{&quot;whenDeleted&quot;:&quot;Retain&quot;,&quot;whenScaled&quot;:&quot;Retain&quot;},&quot;podManagementPolicy&quot;:&quot;Parallel&quot;,&quot;replicas&quot;:2,&quot;revisionHistoryLimit&quot;:10,&quot;selector&quot;:{&quot;matchLabels&quot;:{&quot;app.kubernetes.io/cluster&quot;:&quot;nebula&quot;,&quot;app.kubernetes.io/component&quot;:&quot;graphd&quot;,&quot;app.kubernetes.io/managed-by&quot;:&quot;nebula-operator&quot;,&quot;app.kubernetes.io/name&quot;:&quot;nebula-graph&quot;}},&quot;serviceName&quot;:&quot;nebula-graphd-headless&quot;,&quot;template&quot;:{&quot;metadata&quot;:{&quot;annotations&quot;:{&quot;nebula-graph.io/cm-hash&quot;:&quot;7c55c0e5ac74e85f&quot;,&quot;nebula-graph.io/restart-timestamp&quot;:&quot;1700547815&quot;},&quot;creationTimestamp&quot;:null,&quot;labels&quot;:{&quot;app.kubernetes.io/cluster&quot;:&quot;nebula&quot;,&quot;app.kubernetes.io/component&quot;:&quot;graphd&quot;,&quot;app.kubernetes.io/managed-by&quot;:&quot;nebula-operator&quot;,&quot;app.kubernetes.io/name&quot;:&quot;nebula-graph&quot;}},&quot;spec&quot;:{&quot;containers&quot;:[{&quot;command&quot;:[&quot;/bin/sh&quot;,&quot;-ecx&quot;,&quot;exec</span>
+<span class="s">nebula-graph.io/restart-timestamp:</span><span class="nv"> </span><span class="s">&quot;1700547115&quot;</span>
+<span class="w">    </span><span class="s">nebula-graph.io/restart-timestamp:</span><span class="nv"> </span><span class="s">&quot;1700547815&quot;</span><span class="w"> </span>
+</code></pre></div>
+</li>
+</ol>
+<p>The above output indicates that the annotation of the StatefulSet controller has been updated, and all graph service Pods has been restarted.</p>
+<h2 id="restart_a_single_storage_service_pod">Restart a single Storage service Pod<a class="headerlink" href="#restart_a_single_storage_service_pod" title="Permanent link">&para;</a></h2>
+<p>To gracefully roll restart a single Storage service Pod, you can add an annotation (<code>nebula-graph.io/restart-ordinal</code>) with the value set to the ordinal number of the Storage service Pod you want to restart. This triggers a graceful restart or state transition for that specific Storage service Pod. The added annotation will be automatically removed after the Storage service Pod is restarted.</p>
+<p>In the following example, the annotation is added for the Pod with ordinal number <code>1</code>, indicating a graceful restart for the <code>nebula-storaged-1</code> Storage service Pod.</p>
+<p>Assume that the cluster name is <code>nebula</code>, and the cluster resources are in the <code>default</code> namespace. Run the following commands:</p>
+<ol>
+<li>
+<p>Check the name of the StatefulSet controller.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>AGE
+nebula-graphd<span class="w">     </span><span class="m">2</span>/2<span class="w">     </span>33s
+nebula-metad<span class="w">      </span><span class="m">3</span>/3<span class="w">     </span>69s
+nebula-storaged<span class="w">   </span><span class="m">3</span>/3<span class="w">     </span>69s
+</code></pre></div>
+</li>
+<li>
+<p>Get the ordinal number of the Storage service Pod.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>storaged
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-storaged-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-3<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-4<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-5<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-6<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-7<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-8<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+</code></pre></div>
+</li>
+<li>
+<p>Add the annotation for the <code>nebula-storaged-1</code> pod to trigger a graceful restart for that specific pod.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>annotate<span class="w"> </span>statefulset<span class="w"> </span>nebula-storaged<span class="w"> </span>nebula-graph.io/restart-ordinal<span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code>statefulset.apps/nebula-storaged<span class="w"> </span>annotate
+</code></pre></div>
+</li>
+<li>
+<p>Observe the restart process.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>storaged<span class="w"> </span>-w
+</code></pre></div>
+<p>Example output:</p>
+<p>```bash
+NAME                READY   STATUS    RESTARTS   AGE
+nebula-storaged-0   1/1     Running   0          13h
+nebula-storaged-1   1/1     Running   0          13h
+nebula-storaged-2   1/1     Running   0          13h
+nebula-storaged-3   1/1     Running   0          13h
+nebula-storaged-4   1/1     Running   0          13h
+nebula-storaged-5   1/1     Running   0          12h
+nebula-storaged-6   1/1     Running   0          12h
+nebula-storaged-7   1/1     Running   0          12h
+nebula-storaged-8   1/1     Running   0          12h</p>
+<p>nebula-storaged-1   1/1     Running   0          13h
+nebula-storaged-1   1/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Pending       0          0s
+nebula-storaged-1   0/1     Pending       0          0s
+nebula-storaged-1   0/1     ContainerCreating   0          0s
+nebula-storaged-1   0/1     Running             0          1s
+nebula-storaged-1   1/1     Running             0          10s  </p>
+</li>
+</ol>
+<p>The above output indicates that the <code>nebula-storaged-1</code> Storage service Pod has been successfully restarted.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 28, 2023</span>
       
     
   </small>
