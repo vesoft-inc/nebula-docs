@@ -25,7 +25,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     
     
       
-        <title>4.4.1.use local pv - NebulaGraph Database 手册</title>
+        <title>NebulaGraph集群中使用本地持久化存储卷 - NebulaGraph Database 手册</title>
       
     
     
@@ -108,6 +108,11 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#nebulagraph" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -148,7 +153,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.4.1.use local pv
+              NebulaGraph集群中使用本地持久化存储卷
             
           </span>
         </div>
@@ -7992,6 +7997,44 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    背景信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local_pv" class="md-nav__link">
+    使用 Local PV
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local_pv_1" class="md-nav__link">
+    Local PV 的故障转移
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -8014,9 +8057,88 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
 
 
-  <h1>4.4.1.use local pv</h1>
+<h1 id="nebulagraph">NebulaGraph集群中使用本地持久化存储卷<a class="headerlink" href="#nebulagraph" title="Permanent link">&para;</a></h1>
+<p>本地持久化存储卷（Local Persistent Volumes，Local PV）在 K8s 中，直接使用节点的本地磁盘目录存储容器数据。相比网络存储，Local PV 提供更高的 IOPS 和更低的读写延迟，适合数据密集型应用。本文介绍如何在NebulaGraph集群中使用 Local PV 以及在使用 Local PV 过程中节点发生故障的处理方法。</p>
+<p>虽然使用 Local PV 能提升性能，但是不同于网络存储，本地存储数据不会自动备份。如果节点因任何原因停止，本地存储上的所有数据可能会丢失。因此，使用 Local PV 时，需要在服务可用性、数据持久性和灵活性方面做出一定权衡取舍。</p>
+<h2 id="_1">背景信息<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>K8s中，数据的持久化主要依赖于<a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">持久存储卷（Persistent Volume，PV）</a>。K8s 提供的 PV 类型主要分为大致可以分为本地存储和网络存储两类。详情参见<a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes">持久化存储卷类型</a>。</p>
+<h2 id="_2">前提条件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>已安装 NebulaGraph Operator。详情参见<a href="../../../2.get-started/2.1.install-operator/">安装 NebulaGraph Operator</a>。</p>
+<h2 id="local_pv">使用 Local PV<a class="headerlink" href="#local_pv" title="Permanent link">&para;</a></h2>
+<p>使用 Local PV 涉及到配置本地存储、创建 Local PV 等步骤。静态配置 PV 工具 <a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner#overview">Local Persistence Volume Static Provisioner</a> 可以自动化管理 Local PV。 Local PV 需要在每个节点上手动配置存储卷，放在特定目录下后，Local Persistence Volume Static Provisioner 就会自动为它们创建相应的 PV，并在不需要时清理这些 PV。</p>
+<ol>
+<li>
+<p>准备和配置本地存储盘。</p>
+<p>针对不同磁盘挂载方式，需要在每个节点上做不同的准备和配置工作。详情参见 <a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/operations.md#prepare-and-set-up-local-volumes-in-discovery-directory">Prepare and set up local volumes in discovery directory</a>。</p>
+</li>
+<li>
+<p>创建示例文件名为<code>default_example_storageclass.yaml</code>的 StorageClass。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>deployment/kubernetes/example/default_example_storageclass.yaml
+</code></pre></div>
+<p>该 StorageClass 的配置文件内容如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Only create this for K8s 1.9+</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-storage</span>
+<span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/no-provisioner</span>
+<span class="nt">volumeBindingMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WaitForFirstConsumer</span>
+<span class="c1"># Supported policies: Delete, Retain</span>
+<span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Local PV 的<code>volumeBindingMode</code>必须设置为<code>WaitForFirstConsumer</code>。详情参见 <a href="https://kubernetes.io/blog/2019/04/04/kubernetes-1.14-local-persistent-volumes-ga/#how-to-use-a-local-persistent-volume">How to Use a Local Persistent Volume</a>。</p>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/getting-started.md#step-3-creating-local-persistent-volumes">部署 Local Persistence Volume Static Provisioner</a>。</p>
+</li>
+<li>
+<p>查看自动创建的 Local PV。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pv
+NAME<span class="w">                </span>CAPACITY<span class="w">    </span>ACCESSMODES<span class="w">   </span>RECLAIMPOLICY<span class="w">   </span>STATUS<span class="w">      </span>CLAIM<span class="w">     </span>STORAGECLASS<span class="w">    </span>REASON<span class="w">    </span>AGE
+local-pv-ce05be60<span class="w">   </span>1024220Ki<span class="w">   </span>RWO<span class="w">           </span>Delete<span class="w">          </span>Available<span class="w">             </span>local-storage<span class="w">             </span>26s
 
-
+$<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pv<span class="w"> </span>local-pv-ce05be60
+Name:<span class="w">     </span>local-pv-ce05be60
+Labels:<span class="w">       </span>&lt;none&gt;
+Annotations:<span class="w">  </span>pv.kubernetes.io/provisioned-by<span class="o">=</span>local-volume-provisioner-minikube-18f57fb2-a186-11e7-b543-080027d51893
+StorageClass:<span class="w"> </span>local-storage
+Status:<span class="w">       </span>Available
+Claim:
+Reclaim<span class="w"> </span>Policy:<span class="w">   </span>Delete
+Access<span class="w"> </span>Modes:<span class="w"> </span>RWO
+Capacity:<span class="w"> </span>1024220Ki
+NodeAffinity:
+<span class="w">  </span>Required<span class="w"> </span>Terms:
+<span class="w">      </span>Term<span class="w"> </span><span class="m">0</span>:<span class="w">  </span>kubernetes.io/hostname<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">[</span>my-node<span class="o">]</span>
+Message:
+Source:
+<span class="w">    </span>Type:<span class="w"> </span>LocalVolume<span class="w"> </span><span class="o">(</span>a<span class="w"> </span>persistent<span class="w"> </span>volume<span class="w"> </span>backed<span class="w"> </span>by<span class="w"> </span><span class="nb">local</span><span class="w"> </span>storage<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>node<span class="o">)</span>
+<span class="w">    </span>Path:<span class="w"> </span>/mnt/disks/vol1
+Events:<span class="w">       </span>&lt;none&gt;
+</code></pre></div>
+</li>
+<li>
+<p>在集群配置文件中，通过<code>spec.storaged.dataVolumeClaims</code>或<code>spec.metad.dataVolumeClaim</code>定义的 PVC 和 StorageClass 来绑定 Local PV。具体操作步骤，参见<a href="../../4.1.installation/4.1.1.cluster-install/">创建NebulaGraph集群</a>。</p>
+</li>
+</ol>
+<h2 id="local_pv_1">Local PV 的故障转移<a class="headerlink" href="#local_pv_1" title="Permanent link">&para;</a></h2>
+<p>使用网络存储（如 AWS EBS、Google Cloud Persistent Disk、Azure Disk Storage、Ceph、NFS 等）作为 PV，存储资源不依赖于任何特定节点，因此无论 Pod 被调度到哪个节点，都能挂载并使用此存储资源。然而，使用本地存储盘作为 PV 时，由于<a href="https://kubernetes.io/blog/2018/04/13/local-persistent-volumes-beta/#creating-a-local-persistent-volume">节点亲和性（NodeAffinity）</a>，存储资源只能被特定节点上的 Pod 使用。</p>
+<p>NebulaGraph的 Storage 服务具备数据冗余能力，可以设置多个奇数分片副本。节点故障时，关联分片会自动迁移到健康节点。但是，使用 Local PV 的 Storage Pod 由于节点亲和性，不能在其他节点运行，必须等待节点恢复。若要在其他节点运行，需要解除 Pod 与 Local PV 的绑定。</p>
+<p>针对使用 Local PV 过程中发生节点故障的情况，NebulaGraph Operator 支持进行自动故障转移操作。通过在集群的配置文件中设置<code>spec.enableAutoFailover</code>为<code>true</code>，自动解除 Pod 与 Local PV 的绑定，从而使 Pod 能在其他节点上运行。</p>
+<p>示例如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># 开启自动故障转移</span>
+<span class="w">  </span><span class="nt">enableAutoFailover</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="c1"># Storage 服务为`OFFLINE`状态后等待自动故障转移的时间。</span>
+<span class="w">  </span><span class="c1"># 默认值 5 分钟。</span>
+<span class="w">  </span><span class="c1"># 如果 Storage 服务在此期间内恢复正常状态，不会触发故障转移。</span>
+<span class="w">  </span><span class="nt">failoverPeriod</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2m&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
