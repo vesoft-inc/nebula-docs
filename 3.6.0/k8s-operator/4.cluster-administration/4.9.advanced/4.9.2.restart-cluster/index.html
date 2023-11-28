@@ -25,7 +25,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     
     
       
-        <title>4.9.2.restart cluster - NebulaGraph Database 手册</title>
+        <title>重启 K8s 上的NebulaGraph集群服务 - NebulaGraph Database 手册</title>
       
     
     
@@ -108,6 +108,11 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#k8s_nebulagraph" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -148,7 +153,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.9.2.restart cluster
+              重启 K8s 上的NebulaGraph集群服务
             
           </span>
         </div>
@@ -7992,6 +7997,37 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pod" class="md-nav__link">
+    优雅滚动重启集群内某类服务的所有 Pod
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage_pod" class="md-nav__link">
+    优雅滚动重启单个 Storage 服务 Pod
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -8014,9 +8050,150 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
 
 
-  <h1>4.9.2.restart cluster</h1>
-
-
+<h1 id="k8s_nebulagraph">重启 K8s 上的NebulaGraph集群服务<a class="headerlink" href="#k8s_nebulagraph" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>重启集群服务 Pod 功能为 Alpha 版本功能。</p>
+</div>
+<p>在日常维护时，出于各种原因需要重启NebulaGraph集群的某个服务 Pod，例如 Pod 状态异常或是执行强行重启逻辑。Pod 重启的本质是重启服务进程，为了确保服务的高可用性，NebulaGraph Operator 支持优雅滚动重启集群内所有 Graph，Meta，或 Storage 服务 Pod，也支持优雅重启单个 Storage 服务 Pod。</p>
+<h2 id="_1">前提条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>已经在 K8s 环境中创建了一个NebulaGraph集群。具体步骤，参见<a href="../../4.1.installation/4.1.1.cluster-install/">创建NebulaGraph集群</a>。</p>
+<h2 id="pod">优雅滚动重启集群内某类服务的所有 Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h2>
+<p>通过在不同服务 StatefulSet 控制器的配置中添加注解（annotation）<code>nebula-graph.io/restart-timestamp</code>并将值设置为当前时间来实现优雅滚动重启集群同类服务 Pod。当 NebulaGraph Operator 检测到相应服务的 StatefulSet 控制器存在注解<code>nebula-graph.io/restart-timestamp</code>并且其值发生了变更，即会触发优雅滚动重启集群内某类服务的所有 Pod 的操作。</p>
+<p>以下示例中，为所有 Graph 服务都设置注解，表示将逐个重启所有 Graph 服务 Pod。</p>
+<p>假设所有集群名为<code>nebula</code>，集群资源都放在<code>default</code>命名空间下，执行以下命令：</p>
+<ol>
+<li>
+<p>查看 StatefulSet 控制器的名称。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>AGE
+nebula-graphd<span class="w">     </span><span class="m">2</span>/2<span class="w">     </span>33s
+nebula-metad<span class="w">      </span><span class="m">3</span>/3<span class="w">     </span>69s
+nebula-storaged<span class="w">   </span><span class="m">3</span>/3<span class="w">     </span>69s
+</code></pre></div>
+</li>
+<li>
+<p>获取当前时间戳。</p>
+<p><div class="highlight"><pre><span></span><code>date<span class="w"> </span>-u<span class="w"> </span>+%s
+</code></pre></div>
+示例输出：</p>
+<div class="highlight"><pre><span></span><code><span class="m">1700547115</span>
+</code></pre></div>
+</li>
+<li>
+<p>覆盖 StatefulSet 控制器时间戳注解以触发优雅滚动重启操作。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>annotate<span class="w"> </span>statefulset<span class="w"> </span>nebula-graphd<span class="w"> </span>nebula-graph.io/restart-timestamp<span class="o">=</span><span class="s2">&quot;1700547115&quot;</span><span class="w"> </span>--overwrite
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>statefulset.apps/nebula-graphd<span class="w"> </span>annotate
+</code></pre></div>
+</li>
+<li>
+<p>观察重启过程。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>graphd<span class="w"> </span>-w
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-graphd-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m37s
+nebula-graphd-1<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>17s
+nebula-graphd-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>20s
+nebula-graphd-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m40s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m41s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Terminating<span class="w">   </span><span class="m">0</span><span class="w">          </span>9m42s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Pending<span class="w">       </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Pending<span class="w">       </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>0s
+nebula-graphd-0<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>Running<span class="w">             </span><span class="m">0</span><span class="w">          </span>2s
+</code></pre></div>
+<p>上述输出显示所有 Graph 服务 Pod 重启过程。</p>
+</li>
+<li>
+<p>确认 StatefulSet 控制器注解更新。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>nebula-graphd<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;nebula-graph.io/restart-timestamp&quot;</span>
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nebula-graph.io/last-applied-configuration</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{&quot;persistentVolumeClaimRetentionPolicy&quot;:{&quot;whenDeleted&quot;:&quot;Retain&quot;,&quot;whenScaled&quot;:&quot;Retain&quot;},&quot;podManagementPolicy&quot;:&quot;Parallel&quot;,&quot;replicas&quot;:2,&quot;revisionHistoryLimit&quot;:10,&quot;selector&quot;:{&quot;matchLabels&quot;:{&quot;app.kubernetes.io/cluster&quot;:&quot;nebula&quot;,&quot;app.kubernetes.io/component&quot;:&quot;graphd&quot;,&quot;app.kubernetes.io/managed-by&quot;:&quot;nebula-operator&quot;,&quot;app.kubernetes.io/name&quot;:&quot;nebula-graph&quot;}},&quot;serviceName&quot;:&quot;nebula-graphd-headless&quot;,&quot;template&quot;:{&quot;metadata&quot;:{&quot;annotations&quot;:{&quot;nebula-graph.io/cm-hash&quot;:&quot;7c55c0e5ac74e85f&quot;,&quot;nebula-graph.io/restart-timestamp&quot;:&quot;1700547815&quot;},&quot;creationTimestamp&quot;:null,&quot;labels&quot;:{&quot;app.kubernetes.io/cluster&quot;:&quot;nebula&quot;,&quot;app.kubernetes.io/component&quot;:&quot;graphd&quot;,&quot;app.kubernetes.io/managed-by&quot;:&quot;nebula-operator&quot;,&quot;app.kubernetes.io/name&quot;:&quot;nebula-graph&quot;}},&quot;spec&quot;:{&quot;containers&quot;:[{&quot;command&quot;:[&quot;/bin/sh&quot;,&quot;-ecx&quot;,&quot;exec</span>
+<span class="s">nebula-graph.io/restart-timestamp:</span><span class="nv"> </span><span class="s">&quot;1700547115&quot;</span>
+<span class="w">    </span><span class="s">nebula-graph.io/restart-timestamp:</span><span class="nv"> </span><span class="s">&quot;1700547815&quot;</span><span class="w"> </span>
+</code></pre></div>
+</li>
+</ol>
+<p>由上述输出可知，StatefulSet 控制器的注解已经更新并且 Graph 服务的所有 Pod 已经重启。</p>
+<h2 id="storage_pod">优雅滚动重启单个 Storage 服务 Pod<a class="headerlink" href="#storage_pod" title="Permanent link">&para;</a></h2>
+<p>通过在 Storage 服务的 StatefulSet 控制器的配置中添加注解（annotation）<code>nebula-graph.io/restart-ordinal</code>并将值设置为 Storage 服务 Pod 的序号来实现优雅滚动重启单个 Storage 服务 Pod，即执行状态转移操作。在 Storage 服务 Pod 重启后，添加的注解会被删除。</p>
+<p>以下示例为序号为<code>1</code>的 Storage Pod 添加注解，表示将优雅重启名为<code>nebula-storaged-1</code>的 Storage 服务 Pod。</p>
+<p>假设所有集群名为<code>nebula</code>，集群资源都放在<code>default</code>命名空间下，执行以下命令：</p>
+<ol>
+<li>
+<p>查看 StatefulSet 控制器名称。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">              </span>READY<span class="w">   </span>AGE
+nebula-graphd<span class="w">     </span><span class="m">2</span>/2<span class="w">     </span>33s
+nebula-metad<span class="w">      </span><span class="m">3</span>/3<span class="w">     </span>69s
+nebula-storaged<span class="w">   </span><span class="m">3</span>/3<span class="w">     </span>69s
+</code></pre></div>
+</li>
+<li>
+<p>获取 Storage 服务 Pod 的序号。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>storaged
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-storaged-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-3<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-4<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-5<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-6<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-7<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+nebula-storaged-8<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>13h
+</code></pre></div>
+</li>
+<li>
+<p>为<code>nebula-storaged-1</code> Pod 添加注解以触发优雅滚动重启该 Pod 操作。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>annotate<span class="w"> </span>statefulset<span class="w"> </span>nebula-storaged<span class="w"> </span>nebula-graph.io/restart-ordinal<span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>示例输出：</p>
+<div class="highlight"><pre><span></span><code>statefulset.apps/nebula-storaged<span class="w"> </span>annotate
+</code></pre></div>
+</li>
+<li>
+<p>观察重启过程。</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>nebula,app.kubernetes.io/component<span class="o">=</span>storaged<span class="w"> </span>-w
+</code></pre></div>
+<p>示例输出：</p>
+<p>```bash
+NAME                READY   STATUS    RESTARTS   AGE
+nebula-storaged-0   1/1     Running   0          13h
+nebula-storaged-1   1/1     Running   0          13h
+nebula-storaged-2   1/1     Running   0          13h
+nebula-storaged-3   1/1     Running   0          13h
+nebula-storaged-4   1/1     Running   0          13h
+nebula-storaged-5   1/1     Running   0          12h
+nebula-storaged-6   1/1     Running   0          12h
+nebula-storaged-7   1/1     Running   0          12h
+nebula-storaged-8   1/1     Running   0          12h</p>
+<p>nebula-storaged-1   1/1     Running   0          13h
+nebula-storaged-1   1/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Terminating   0          13h
+nebula-storaged-1   0/1     Pending       0          0s
+nebula-storaged-1   0/1     Pending       0          0s
+nebula-storaged-1   0/1     ContainerCreating   0          0s
+nebula-storaged-1   0/1     Running             0          1s
+nebula-storaged-1   1/1     Running             0          10s</p>
+</li>
+</ol>
+<p>由上述输出可知，<code>nebula-storaged-1</code> Storage 服务 Pod 已经重启。</p>
 
   <hr>
 <div class="md-source-file">
