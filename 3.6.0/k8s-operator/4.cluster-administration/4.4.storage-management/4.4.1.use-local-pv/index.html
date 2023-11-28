@@ -24,7 +24,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     
     
       
-        <title>4.4.1.use local pv - NebulaGraph Database Manual</title>
+        <title>Use Local Persistent Volumes in a NebulaGraph cluster - NebulaGraph Database Manual</title>
       
     
     
@@ -107,6 +107,11 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#use_local_persistent_volumes_in_a_nebulagraph_cluster" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -147,7 +152,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.4.1.use local pv
+              Use Local Persistent Volumes in a NebulaGraph cluster
             
           </span>
         </div>
@@ -7951,6 +7956,44 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    Background
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use_a_local_persistent_volume" class="md-nav__link">
+    Use a Local Persistent Volume
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failover_for_local_persistent_volumes" class="md-nav__link">
+    Failover for Local Persistent Volumes
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -7973,16 +8016,97 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 
 
-  <h1>4.4.1.use local pv</h1>
+<h1 id="use_local_persistent_volumes_in_a_nebulagraph_cluster">Use Local Persistent Volumes in a NebulaGraph cluster<a class="headerlink" href="#use_local_persistent_volumes_in_a_nebulagraph_cluster" title="Permanent link">&para;</a></h1>
+<p>Local Persistent Volumes in K8s store container data directly using the node's local disk directory. Compared with network storage, Local Persistent Volumes provide higher IOPS and lower read and write latency, which is suitable for data-intensive applications. This topic describes how to use Local Persistent Volumes in NebulaGraph clusters and how to handle node failures while using Local Persistent Volumes.</p>
+<p>While using Local Persistent Volumes can enhance performance, it's essential to note that, unlike network storage, local storage does not support automatic backup. In the event of a node failure, all data in local storage may be lost. Therefore, the utilization of Local Persistent Volumes involves a trade-off among service availability, data persistence, and flexibility.</p>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>In K8s, data persistence mainly relies on <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volume (PV)</a>. PVs provided by K8s can be broadly categorized into two types: local storage and network storage. See <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes">Types of Persistent Volumes</a> for details.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>NebulaGraph Operator is installed. For details, see <a href="../../../2.get-started/2.1.install-operator/">Install NebulaGraph Operator</a>.</p>
+<h2 id="use_a_local_persistent_volume">Use a Local Persistent Volume<a class="headerlink" href="#use_a_local_persistent_volume" title="Permanent link">&para;</a></h2>
+<p>Using a Local Persistent Volume involves configuring local storage, creating a Local Persistent Volume, and other steps. The <a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner#overview">Local Persistence Volume Static Provisioner</a> tool automates the management of Local Persistent Volumes. To use Local Persistent Volumes, storage disks need to be configured manually on each node. After the storage disks are placed in a specific directory, Local Persistence Volume Static Provisioner automatically creates the appropriate PVs for them. When the disk is no longer needed, the PVC can be deleted. The external static provisioner will clean up the disk and make the PV available for use again.</p>
+<ol>
+<li>Prepare and configure local storage disks.</li>
+</ol>
+<p>The preparation and configuration differ depending on how disks are mounted to nodes. For details, see <a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/operations.md#prepare-and-set-up-local-volumes-in-discovery-directory">Prepare and set up local volumes in discovery directory</a>.</p>
+<ol>
+<li>
+<p>Create a StorageClass with the example file <code>default_example_storageclass.yaml</code>.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>deployment/kubernetes/example/default_example_storageclass.yaml
+</code></pre></div>
+<p>The configuration of the StorageClass is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Only create this for K8s 1.9+</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-storage</span>
+<span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/no-provisioner</span>
+<span class="nt">volumeBindingMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WaitForFirstConsumer</span>
+<span class="c1"># Supported policies: Delete, Retain</span>
+<span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use a Local Persistent Volume, the <code>volumeBindingMode</code> must be set to <code>WaitForFirstConsumer</code> in the StorageClass configuration. For details, see <a href="https://kubernetes.io/blog/2019/04/04/kubernetes-1.14-local-persistent-volumes-ga/#how-to-use-a-local-persistent-volume">Creating a StorageClass</a>。</p>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/getting-started.md#step-3-creating-local-persistent-volumes">Deploy Local Persistence Volume Static Provisioner</a>.</p>
+</li>
+<li>
+<p>Verify that the Local Persistent Volume is automatically created.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pv
+NAME<span class="w">                </span>CAPACITY<span class="w">    </span>ACCESSMODES<span class="w">   </span>RECLAIMPOLICY<span class="w">   </span>STATUS<span class="w">      </span>CLAIM<span class="w">     </span>STORAGECLASS<span class="w">    </span>REASON<span class="w">    </span>AGE
+local-pv-ce05be60<span class="w">   </span>1024220Ki<span class="w">   </span>RWO<span class="w">           </span>Delete<span class="w">          </span>Available<span class="w">             </span>local-storage<span class="w">             </span>26s
 
-
+$<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pv<span class="w"> </span>local-pv-ce05be60
+Name:<span class="w">     </span>local-pv-ce05be60
+Labels:<span class="w">       </span>&lt;none&gt;
+Annotations:<span class="w">  </span>pv.kubernetes.io/provisioned-by<span class="o">=</span>local-volume-provisioner-minikube-18f57fb2-a186-11e7-b543-080027d51893
+StorageClass:<span class="w"> </span>local-storage
+Status:<span class="w">       </span>Available
+Claim:
+Reclaim<span class="w"> </span>Policy:<span class="w">   </span>Delete
+Access<span class="w"> </span>Modes:<span class="w"> </span>RWO
+Capacity:<span class="w"> </span>1024220Ki
+NodeAffinity:
+<span class="w">  </span>Required<span class="w"> </span>Terms:
+<span class="w">      </span>Term<span class="w"> </span><span class="m">0</span>:<span class="w">  </span>kubernetes.io/hostname<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">[</span>my-node<span class="o">]</span>
+Message:
+Source:
+<span class="w">    </span>Type:<span class="w"> </span>LocalVolume<span class="w"> </span><span class="o">(</span>a<span class="w"> </span>persistent<span class="w"> </span>volume<span class="w"> </span>backed<span class="w"> </span>by<span class="w"> </span><span class="nb">local</span><span class="w"> </span>storage<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>node<span class="o">)</span>
+<span class="w">    </span>Path:<span class="w"> </span>/mnt/disks/vol1
+Events:<span class="w">       </span>&lt;none&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Bind the PVC and StorageClass defined by <code>spec.storaged.dataVolumeClaims</code> or <code>spec.metad.dataVolumeClaim</code> in the cluster configuration file to the created Local Persistent Volume. For specific steps, see <a href="../../4.1.installation/4.1.1.cluster-install/">Create a NebulaGraph cluster</a>.</p>
+</li>
+</ol>
+<h2 id="failover_for_local_persistent_volumes">Failover for Local Persistent Volumes<a class="headerlink" href="#failover_for_local_persistent_volumes" title="Permanent link">&para;</a></h2>
+<p>When using network storage (e.g., AWS EBS, Google Cloud Persistent Disk, Azure Disk Storage, Ceph, NFS, etc.) as a PV, the storage resource is independent of any particular node. Therefore, the storage resource can be mounted and used by Pods regardless of the node to which the Pods are scheduled. However, when using a local storage disk as a PV, the storage resource can only be used by Pods on a specific node due to <a href="https://kubernetes.io/blog/2018/04/13/local-persistent-volumes-beta/#creating-a-local-persistent-volume">nodeAffinity</a>.</p>
+<p>The Storage service of NebulaGraph supports data redundancy, which allows you to set multiple odd-numbered partition replicas. When a node fails, the associated partition is automatically transferred to a healthy node. However, Storage Pods using Local Persistent Volumes cannot run on other nodes due to the node affinity setting and must wait for the node to recover. To run on another node, the Pods must be unbound from the associated Local Persistent Volume.</p>
+<p>NebulaGraph Operator supports automatic failover in the event of a node failure while using Local Persistent Volumes. By setting <code>spec.enableAutoFailover</code> to <code>true</code> in the cluster configuration file, Pods are automatically unbound from the Local Persistent Volume, allowing the Pods to run on another node.</p>
+<p>Example configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Enable automatic failover for Local PV.</span>
+<span class="w">  </span><span class="nt">enableAutoFailover</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="c1"># The time to wait for the Storage service to be in the `OFFLINE` status</span>
+<span class="w">  </span><span class="c1"># before automatic failover. </span>
+<span class="w">  </span><span class="c1"># The default value is 5 minutes.</span>
+<span class="w">  </span><span class="c1"># If the Storage service recovers to the `ONLINE` status during this period,</span>
+<span class="w">  </span><span class="c1"># failover will not be triggered.</span>
+<span class="w">  </span><span class="nt">failoverPeriod</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2m&quot;</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 28, 2023</span>
       
     
   </small>
