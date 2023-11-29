@@ -2020,6 +2020,13 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    查询所有边
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#edge_type" class="md-nav__link">
     查询多个 Edge type
   </a>
@@ -2027,14 +2034,14 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     查询入边方向的点
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     子查询作为起始点
   </a>
   
@@ -2055,7 +2062,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     其他用法
   </a>
   
@@ -8202,6 +8209,13 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    查询所有边
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#edge_type" class="md-nav__link">
     查询多个 Edge type
   </a>
@@ -8209,14 +8223,14 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     查询入边方向的点
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     子查询作为起始点
   </a>
   
@@ -8237,7 +8251,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     其他用法
   </a>
   
@@ -8414,6 +8428,22 @@ nebula&gt; GO FROM &quot;player100&quot;, &quot;player102&quot; OVER serve \
 | &quot;Spurs&quot;         | 2015       | &quot;LaMarcus Aldridge&quot; |
 +-----------------+------------+---------------------+
 </code></pre></div>
+<h3 id="_7">查询所有边<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>场景：查询起始点关联的所有边。</p>
+<div class="highlight"><pre><span></span><code># 返回 player102 关联的所有边。
+nebula&gt; GO FROM &quot;player102&quot; OVER * BIDIRECT YIELD edge AS e;
++-----------------------------------------------------------------------+
+| e                                                                     |
++-----------------------------------------------------------------------+
+| [:follow &quot;player101&quot;-&gt;&quot;player102&quot; @0 {degree: 90}]                    |
+| [:follow &quot;player103&quot;-&gt;&quot;player102&quot; @0 {degree: 70}]                    |
+| [:follow &quot;player135&quot;-&gt;&quot;player102&quot; @0 {degree: 80}]                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}]                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player101&quot; @0 {degree: 75}]                    |
+| [:serve &quot;player102&quot;-&gt;&quot;team203&quot; @0 {end_year: 2015, start_year: 2006}] |
+| [:serve &quot;player102&quot;-&gt;&quot;team204&quot; @0 {end_year: 2019, start_year: 2015}] |
++-----------------------------------------------------------------------+
+</code></pre></div>
 <h3 id="edge_type">查询多个 Edge type<a class="headerlink" href="#edge_type" title="Permanent link">&para;</a></h3>
 <p>场景：查询起始点关联的多个边类型可以通过设置多个Edge Type实现，也可以通过设置<code>*</code>关联所有的边类型。</p>
 <div class="highlight"><pre><span></span><code># 遍历多个 Edge type。
@@ -8427,7 +8457,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow, serve \
 | __NULL__                | 1997                        |
 +-------------------------+-----------------------------+
 </code></pre></div>
-<h3 id="_7">查询入边方向的点<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h3 id="_8">查询入边方向的点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># 返回关注 player100 的邻居点。
 nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
         YIELD src(edge) AS destination;
@@ -8448,7 +8478,7 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == &#39;player100&#39; \
 | &quot;player102&quot; |
 ...
 </code></pre></div>
-<h3 id="_8">子查询作为起始点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h3 id="_9">子查询作为起始点<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>场景：使用子查询的结果作为图遍历的起始点。</p>
 <div class="highlight"><pre><span></span><code># 查询 player100 的朋友和朋友所属队伍。
 nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
@@ -8504,7 +8534,7 @@ nebula&gt; $a = GO FROM &quot;player100&quot; OVER follow YIELD src(edge) AS src
 | &quot;player100&quot; | &quot;player125&quot; | &quot;player100&quot; | &quot;player125&quot; |
 +-------------+-------------+-------------+-------------+
 </code></pre></div>
-<h3 id="_9">其他用法<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h3 id="_10">其他用法<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># 在多个边上通过 IS NOT EMPTY 进行判断。
 nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
 +-------------+

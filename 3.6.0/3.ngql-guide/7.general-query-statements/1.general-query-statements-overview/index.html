@@ -8266,7 +8266,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <!-- no toc -->
 <ul>
 <li><a href="#fetch_prop_on">FETCH PROP ON</a></li>
-<li><a href="#lookup_on_id">LOOKUP ON</a></li>
+<li><a href="#lookup_on">LOOKUP ON</a></li>
 <li><a href="#go">GO</a></li>
 <li><a href="#match">MATCH</a></li>
 <li><a href="#find_path">FIND PATH</a></li>
@@ -8286,16 +8286,16 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </ul>
 <p><strong>示例</strong>：</p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON player &quot;player100&quot; YIELD properties(vertex);
-              ──┬───  ────┬─────       ─────────┬──────── 
-                │         │         ┌───────────┘         
-                │         │         │                     
-                │         │         └─────── 返回点的 player TAG 下所有属性
-                │         │                               
-                │         └───────────────── 从 &quot;player100&quot; 这个点获取
-                │                                         
-                └─────────────────────────── 获取 player 这个 TAG 下的属性
+              --+---  ----+-----       -------+----------
+                |         |                   |
+                |         |                   |
+                |         |                   +--------- 返回点的 player TAG 下所有属性
+                |         |
+                |         +----------------- 从 &quot;player100&quot; 这个点获取
+                |
+                +--------------------------- 获取 player 这个 TAG 下的属性
 </code></pre></div>
-<p>更多信息，请参见<a href="../4.fetch/">FETCH PROP ON</a>。</p>
+<p>更多信息，请参见 <a href="../4.fetch/">FETCH PROP ON</a>。</p>
 <h3 id="lookup_on">LOOKUP ON<a class="headerlink" href="#lookup_on" title="Permanent link">&para;</a></h3>
 <p><strong>用法</strong>：用于基于索引查询点或边 ID。</p>
 <p><strong>场景</strong>：根据属性值查找点或边的 ID。</p>
@@ -8307,16 +8307,16 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </ul>
 <p><strong>示例</strong>：</p>
 <div class="highlight"><pre><span></span><code>LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; YIELD id(vertex);
-          ──┬───  ──────┬──────────────────────────  ──┬──────       
-            │           │          ┌───────────────────┘             
-            │           │          │                                 
-            │           │          └──────────── 返回查到点的 VID
-            │           │                                            
-            │           └─────────────────────── 过滤条件是属性 name 的值
-            │                                                        
-            └─────────────────────────────────── 根据点的 TAG player 查询
+          --+--- ------------------+---------------       ---+------
+            |                      |                         |
+            |                      |                         |
+            |                      |                         +---- 返回查到点的 VID
+            |                      |
+            |                      +------------ 过滤条件是属性 name 的值
+            |
+            +----------------------------------- 根据点的 TAG player 查询
 </code></pre></div>
-<p>更多信息，请参见<a href="../5.lookup/">LOOKUP ON</a>。</p>
+<p>更多信息，请参见 <a href="../5.lookup/">LOOKUP ON</a>。</p>
 <h3 id="go">GO<a class="headerlink" href="#go" title="Permanent link">&para;</a></h3>
 <p><strong>用法</strong>：用于基于给定的点进行图遍历，按需返回起始点、边或目标点的信息。可以指定遍历的深度、边的类型、方向等。</p>
 <p><strong>场景</strong>：复杂的图遍历，比如找到某个点的朋友、朋友的朋友等。</p>
@@ -8328,18 +8328,18 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </ul>
 <p><strong>示例</strong>：</p>
 <div class="highlight"><pre><span></span><code>GO 3 STEPS FROM &quot;player102&quot; OVER follow YIELD dst(edge);
-   ───┬───      ───┬───────      ─┬────       ──┬────── 
-      │            │              │   ┌─────────┘       
-      │            │              │   │                 
-      │            │              │   └── 返回最后一跳边的终点
-      │            │              │                     
-      │            │              └────── 从 follow 这个边[出方向]探索
-      │            │                                    
-      │            └───────────────────── 起点是 &quot;player102&quot;
-      │                                                 
-      └────────────────────────────────── 探索 3 步
+-----+---       --+-------       -+----       ---+-----
+     |            |               |              |
+     |            |               |              |
+     |            |               |              +--------- 返回最后一跳边的终点
+     |            |               |
+     |            |               +------ 从 follow 这个边的出方向探索
+     |            |
+     |            +--------------------- 起点是 &quot;player102&quot;
+     |
+     +---------------------------------- 探索 3 步
 </code></pre></div>
-<p>更多信息，请参见<a href="../3.go/">GO</a>。</p>
+<p>更多信息，请参见 <a href="../3.go/">GO</a>。</p>
 <h3 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">&para;</a></h3>
 <p><strong>用法</strong>：用于执行复杂的<a href="../../1.nGQL-overview/3.graph-patterns/">图模式</a>匹配查询。</p>
 <p><strong>场景</strong>：复杂的图模式匹配时使用，比如寻找满足特定模式的点和边的组合。</p>
@@ -8361,40 +8361,40 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <div class="highlight"><pre><span></span><code>MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2:player) \
         RETURN v2.player.name AS Name;
 </code></pre></div>
-<p>更多信息，请参见<a href="../2.match/">MATCH</a>。</p>
+<p>更多信息，请参见 <a href="../2.match/">MATCH</a>。</p>
 <h3 id="find_path">FIND PATH<a class="headerlink" href="#find_path" title="Permanent link">&para;</a></h3>
 <p><strong>用法</strong>：用于查询给定的起始点和目标点之间的所有路径；或者查询路径中的点和边的属性时使用。</p>
 <p><strong>场景</strong>：查询两个点之间的所有路径。</p>
 <p><strong>说明</strong>：必须使用<code>YIELD</code>子句指定返回信息。</p>
 <p><strong>示例</strong>：</p>
 <div class="highlight"><pre><span></span><code>FIND SHORTEST PATH FROM &quot;player102&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
-     ──┬─────            ───────────┬─────────── ───┬───      ────┬────
-       │           ┌────────────────┘               │             │ 
-       │           │     ┌──────────────────────────┘             │
-       │           │     │                                        │
-       │           │     └───────── 经由所有类型的边出向探索        　 └────　返回路径为 p 列
-       │           │                                              
-       │           └─────────────── 从给定的起点、终点 VID           
-       │                                                   
-       │    
-       │                                                    
-       └─────────────────────────── 查找最短路径
+-------+-----           -------+---------------- ---+--       ----+----
+       |                       |                    |             |
+       |                       |                    |             |
+       |                       |                    |             +---------- 返回路径为 p 列
+       |                       |                    |
+       |                       |                    +----------- 经由所有类型的边的出方向探索
+       |                       |    
+       |                       |
+       |                       +------------------ 从给定的起点、终点 VID
+       |
+       +--------------------------- 查找最短路径
 </code></pre></div>
-<p>更多信息，请参见<a href="../6.find-path/">FIND PATH</a>。</p>
+<p>更多信息，请参见 <a href="../6.find-path/">FIND PATH</a>。</p>
 <h3 id="get_subgraph">GET SUBGRAPH<a class="headerlink" href="#get_subgraph" title="Permanent link">&para;</a></h3>
 <p><strong>用法</strong>：提取满足特定条件的图的一部分；查询子图中的点和边的属性。</p>
 <p><strong>场景</strong>：分析图的局部结构或特定区域时非常有用，比如提取某个人的社交网络子图，或者提取某个区域的交通网络。</p>
 <p><strong>说明</strong>：必须使用<code>YIELD</code>子句指定返回信息。</p>
 <p><strong>示例</strong>：</p>
-<div class="highlight"><pre><span></span><code>GET SUBGRAPH 5 STEPS FROM &quot;player101&quot; YIELD VERTICES AS nodes, EDGES AS relationships;           
-             ───┬─── ─────┬──────────       ──────────────────────────┬──────────────── 
-                │         │                                           │
-                │         │                                           │
-                │         └─────── 从 &quot;player101&quot; 开始出发              └──── 返回所有的点、边
-                │                                 
-                └───────────────── 获取 5 步的探索
+<div class="highlight"><pre><span></span><code>GET SUBGRAPH 5 STEPS FROM &quot;player101&quot; YIELD VERTICES AS nodes, EDGES AS relationships;
+             -----+- -----+--------         ------------------------+----------------
+                  |       |                                         |
+                  |       |                                         |
+                  |       +------- 从 &quot;player101&quot; 开始出发            +------------ 返回所有的点、边
+                  |
+                  +----------------- 获取 5 步的探索                                              
 </code></pre></div>
-<p>更多信息，请参见<a href="../7.get-subgraph/">GET SUBGRAPH</a>。</p>
+<p>更多信息，请参见 <a href="../7.get-subgraph/">GET SUBGRAPH</a>。</p>
 <h3 id="show">SHOW<a class="headerlink" href="#show" title="Permanent link">&para;</a></h3>
 <p>SHOW 语句主要用于获取数据库的元数据信息，而不是用于获取存储在数据库中的实际数据内容。这类语句通常用于查询数据库的结构和配置，如查看现有的图空间、标签、边类型、索引等。</p>
 <table>
