@@ -21,6 +21,7 @@ NebulaGraph 是一款开源的、分布式的、易扩展的原生图数据库�
 * [FAQ](20.appendix/0.FAQ.md)
 * [生态工具](20.appendix/6.eco-tool-version.md)
 * [Academy 课程](https://academic.nebula-graph.io/intro/)
+* [在线体验](https://www.nebula-graph.com.cn/demo)
 
 ## 最新发布
 
