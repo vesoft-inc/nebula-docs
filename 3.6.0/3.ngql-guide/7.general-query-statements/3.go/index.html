@@ -1999,6 +1999,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
+  <a href="#to_query_all_edges" class="md-nav__link">
+    To query all edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#to_query_multiple_edge_types" class="md-nav__link">
     To query multiple edge types
   </a>
@@ -8161,6 +8168,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
+  <a href="#to_query_all_edges" class="md-nav__link">
+    To query all edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#to_query_multiple_edge_types" class="md-nav__link">
     To query multiple edge types
   </a>
@@ -8382,6 +8396,22 @@ nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
 | &quot;Spurs&quot;         | 2015       | &quot;LaMarcus Aldridge&quot; |
 +-----------------+------------+---------------------+
 </code></pre></div>
+<h3 id="to_query_all_edges">To query all edges<a class="headerlink" href="#to_query_all_edges" title="Permanent link">&para;</a></h3>
+<p>Case: To query all edges that are connected to the starting vertex.</p>
+<div class="highlight"><pre><span></span><code># Return all edges that are connected to the player102 vertex.
+nebula&gt; GO FROM &quot;player102&quot; OVER * BIDIRECT YIELD edge AS e;
++-----------------------------------------------------------------------+
+| e                                                                     |
++-----------------------------------------------------------------------+
+| [:follow &quot;player101&quot;-&gt;&quot;player102&quot; @0 {degree: 90}]                    |
+| [:follow &quot;player103&quot;-&gt;&quot;player102&quot; @0 {degree: 70}]                    |
+| [:follow &quot;player135&quot;-&gt;&quot;player102&quot; @0 {degree: 80}]                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player100&quot; @0 {degree: 75}]                    |
+| [:follow &quot;player102&quot;-&gt;&quot;player101&quot; @0 {degree: 75}]                    |
+| [:serve &quot;player102&quot;-&gt;&quot;team203&quot; @0 {end_year: 2015, start_year: 2006}] |
+| [:serve &quot;player102&quot;-&gt;&quot;team204&quot; @0 {end_year: 2019, start_year: 2015}] |
++-----------------------------------------------------------------------+
+</code></pre></div>
 <h3 id="to_query_multiple_edge_types">To query multiple edge types<a class="headerlink" href="#to_query_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>Case: To query multiple edge types that are connected to the starting vertex. You can specify multiple edge types or the <code>*</code> symbol to query multiple edge types.</p>
 <p>For example, to query the <code>follow</code> and <code>serve</code> edges that are connected to the starting vertex.</p>
@@ -8487,7 +8517,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name I
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2023</span>
       
     
   </small>

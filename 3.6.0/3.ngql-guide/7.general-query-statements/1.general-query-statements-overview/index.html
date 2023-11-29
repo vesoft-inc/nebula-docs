@@ -8225,7 +8225,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <!-- no toc -->
 <ul>
 <li><a href="#fetch_prop_on">FETCH PROP ON</a></li>
-<li><a href="#lookup_on_id">LOOKUP ON</a></li>
+<li><a href="#lookup_on">LOOKUP ON</a></li>
 <li><a href="#go">GO</a></li>
 <li><a href="#match">MATCH</a></li>
 <li><a href="#find_path">FIND PATH</a></li>
@@ -8245,14 +8245,14 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre><span></span><code>FETCH PROP ON player &quot;player100&quot; YIELD properties(vertex);
-              ──┬───  ────┬─────       ─────────┬──────── 
-                │         │         ┌───────────┘         
-                │         │         │                     
-                │         │         └─────── Returns all properties under the player tag of the vertex.
-                │         │                               
-                │         └───────────────── Retrieves from the vertex &quot;player100&quot;.
-                │                                         
-                └─────────────────────────── Retrieves properties under the player tag.
+              --+---  ----+-----       -------+----------
+                |         |                   |
+                |         |                   |
+                |         |                   +--------- Returns all properties under the player tag of the vertex.
+                |         |
+                |         +----------------- Retrieves from the vertex &quot;player100&quot;.
+                |
+                +--------------------------- Retrieves properties under the player tag.
 </code></pre></div>
 <p>For more information, see <a href="../4.fetch/">FETCH PROP ON</a>.</p>
 <h3 id="lookup_on">LOOKUP ON<a class="headerlink" href="#lookup_on" title="Permanent link">&para;</a></h3>
@@ -8264,14 +8264,14 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 - Must use the <code>YIELD</code> clause to specify the returned IDs.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre><span></span><code>LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; YIELD id(vertex);
-          ──┬───  ──────┬──────────────────────────  ──┬──────       
-            │           │          ┌───────────────────┘             
-            │           │          │                                 
-            │           │          └──────────── Returns the VID of the found vertex.
-            │           │                                            
-            │           └─────────────────────── Filtering is based on the value of the property name.
-            │                                                        
-            └─────────────────────────────────── Queries based on the player tag.
+          --+--- ------------------+---------------       ---+------
+            |                      |                         |
+            |                      |                         |
+            |                      |                         +---- Returns the VID of the retrieved vertex.
+            |                      |
+            |                      +------------ Filtering is based on the value of the property name.
+            |
+            +----------------------------------- Queries based on the player tag.
 </code></pre></div>
 <p>For more information, see <a href="../5.lookup/">LOOKUP ON</a>.</p>
 <h3 id="go">GO<a class="headerlink" href="#go" title="Permanent link">&para;</a></h3>
@@ -8280,19 +8280,19 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p><strong>Note:</strong>
 - Use <a href="../../5.operators/5.property-reference/">property reference symbols</a> (<code>$^</code> and <code>$$</code>) to return properties of the starting or target vertices, e.g., <code>YIELD $^.player.name</code>.
 - Use the functions <code>properties($^)</code> and <code>properties($$)</code> to return all properties of the starting or target vertices. Specify property names in the function to return specific properties, e.g., <code>YIELD properties($^).name</code>.
-- Use the functions <code>src(edge)</code> and <code>dst(edge)</code> to return the starting or target vertex ID of an edge, e.g., <code>YIELD src(edge)</code>.</p>
+- Use the functions <code>src(edge)</code> and <code>dst(edge)</code> to return the starting or destination vertex ID of an edge, e.g., <code>YIELD src(edge)</code>.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre><span></span><code>GO 3 STEPS FROM &quot;player102&quot; OVER follow YIELD dst(edge);
-   ───┬───      ───┬───────      ─┬────       ──┬────── 
-      │            │              │   ┌─────────┘       
-      │            │              │   │                 
-      │            │              │   └── Returns the target vertex of the last edge
-      │            │              │                     
-      │            │              └────── Traverses out via the edge follow
-      │            │                                    
-      │            └───────────────────── Starts from &quot;player102&quot;
-      │                                                 
-      └────────────────────────────────── Traverses 3 steps
+-----+---       --+-------       -+----       ---+-----
+     |            |               |              |
+     |            |               |              |
+     |            |               |              +--------- Returns the destination vertex of the last hop.
+     |            |               |
+     |            |               +------ Traverses out via the edge follow.
+     |            |
+     |            +--------------------- Starts from &quot;player102&quot;.
+     |
+     +---------------------------------- Traverses 3 steps.
 </code></pre></div>
 <p>For more information, see <a href="../3.go/">GO</a>.</p>
 <h3 id="match">MATCH<a class="headerlink" href="#match" title="Permanent link">&para;</a></h3>
@@ -8317,17 +8317,17 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p><strong>Note:</strong> Must use the <code>YIELD</code> clause to specify returned information.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre><span></span><code>FIND SHORTEST PATH FROM &quot;player102&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
-     ──┬─────            ───────────┬─────────── ───┬───      ────┬────
-       │           ┌────────────────┘               │             │ 
-       │           │     ┌──────────────────────────┘             │
-       │           │     │                                        │
-       │           │     └Travels outwards via all types of edges └────　Returns the path as &#39;p&#39;
-       │           │                                              
-       │           └──────From the given starting and target VIDs            
-       │                                                   
-       │    
-       │                                                    
-       └──────────────────Retrieves the shortest path
+-------+-----           -------+---------------- ---+--       ----+----
+       |                       |                    |             |
+       |                       |                    |             |
+       |                       |                    |             +---------- Returns the path as &#39;p&#39;.
+       |                       |                    |
+       |                       |                    +----------- Travels outwards via all types of edges.
+       |                       |    
+       |                       |
+       |                       +------------------ From the given starting and target VIDs.  
+       |
+       +--------------------------- Retrieves the shortest path.
 </code></pre></div>
 <p>For more information, see <a href="../6.find-path/">FIND PATH</a>.</p>
 <h3 id="get_subgraph">GET SUBGRAPH<a class="headerlink" href="#get_subgraph" title="Permanent link">&para;</a></h3>
@@ -8335,13 +8335,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p><strong>Use case:</strong> Analyzing structures of the graph or specific regions, such as extracting the social network subgraph of a person or the transportation network subgraph of an area.</p>
 <p><strong>Note:</strong> Must use the <code>YIELD</code> clause to specify returned information.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><pre><span></span><code>GET SUBGRAPH 5 STEPS FROM &quot;player101&quot; YIELD VERTICES AS nodes, EDGES AS relationships;           
-             ───┬─── ─────┬──────────       ──────────────────────────┬──────────────── 
-                │         │                                           │
-                │         │                                           │
-                │         └─────── Starts from &quot;player101&quot;            └ Returns all vertices and edges
-                │                                 
-                └───────────────── Gets exploration of 5 steps
+<div class="highlight"><pre><span></span><code>GET SUBGRAPH 5 STEPS FROM &quot;player101&quot; YIELD VERTICES AS nodes, EDGES AS relationships;
+             -----+- -----+--------         ------------------------+----------------
+                  |       |                                         |
+                  |       |                                         |
+                  |       +------- Starts from &quot;player101&quot;.         +------------ Returns all vertices and edges.
+                  |
+                  +----------------- Gets exploration of 5 steps     
 </code></pre></div>
 <p>For more information, see <a href="../7.get-subgraph/">GET SUBGRAPH</a>.</p>
 <h3 id="show">SHOW<a class="headerlink" href="#show" title="Permanent link">&para;</a></h3>
@@ -8505,7 +8505,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 29, 2023</span>
       
     
   </small>
