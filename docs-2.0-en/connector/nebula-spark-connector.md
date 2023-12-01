@@ -41,13 +41,10 @@ The correspondence between the NebulaGraph Spark Connector version, the NebulaGr
 
 NebulaGraph Spark Connector applies to the following scenarios:
 
-* Migrate data between different NebulaGraph clusters.
-
-* Migrate data between different graph spaces in the same NebulaGraph cluster.
-
-* Migrate data between NebulaGraph and other data sources.
-
-* Graph computing with [NebulaGraph Algorithm](../graph-computing/nebula-algorithm.md).
+- Read data from {{nebula.name}} for analysis and computation.
+- Write data back to {{nebula.name}} after analysis and computation.
+- Migrate the data of {{nebula.name}}.
+- Graph computing with [NebulaGraph Algorithm](graph-computing/nebula-algorithm.md).
 
 ## Benefits
 

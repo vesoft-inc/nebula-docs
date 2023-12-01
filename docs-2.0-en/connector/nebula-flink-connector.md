@@ -9,11 +9,9 @@ For more information, see [NebulaGraph Flink Connector](https://github.com/vesof
 
 NebulaGraph Flink Connector applies to the following scenarios:
 
-* Migrate data between different NebulaGraph clusters.
-
-* Migrate data between different graph spaces in the same NebulaGraph cluster.
-
-* Migrate data between NebulaGraph and other data sources.
+- Read data from {{nebula.name}} for analysis and computation.
+- Write data back to {{nebula.name}} after analysis and computation.
+- Migrate the data of {{nebula.name}}.
 
 ## Release note
 
