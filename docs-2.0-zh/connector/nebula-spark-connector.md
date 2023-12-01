@@ -41,12 +41,9 @@ NebulaGraph Spark Connector、 {{nebula.name}} 内核版本和 Spark 版本对�
 
 NebulaGraph Spark Connector 适用于以下场景：
 
-- 在不同的 {{nebula.name}} 集群之间迁移数据。
-
-- 在同一个 {{nebula.name}} 集群内不同图空间之间迁移数据。
-
--  {{nebula.name}} 与其他数据源之间迁移数据。
-
+- 读取{{nebula.name}}数据进行分析计算。
+- 分析计算完的数据写入{{nebula.name}}。
+- 迁移{{nebula.name}}数据。
 - 结合 [NebulaGraph Algorithm](../graph-computing/nebula-algorithm.md) 进行图计算。
 
 ## 特性

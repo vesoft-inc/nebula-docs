@@ -8,11 +8,9 @@ NebulaGraph Flink Connector 是一款帮助 Flink 用户快速访问 {{nebula.na
 
 NebulaGraph Flink Connector 适用于以下场景：
 
-- 在不同的 {{nebula.name}} 集群之间迁移数据。
-
-- 在同一个 {{nebula.name}} 集群内不同图空间之间迁移数据。
-
--  {{nebula.name}} 与其他数据源之间迁移数据。
+- 读取{{nebula.name}}数据进行分析计算。
+- 分析计算完的数据写入{{nebula.name}}。
+- 迁移数据。
 
 ## 更新说明
 
