@@ -36,5 +36,4 @@
   - The import page is supported to configure more import parameters, such as concurrency, retries, etc.
   - Supported re-running tasks.
   - Supported saving tasks as drafts.
-  - Supported ARM architecture.
-
+  - Supported running the Studio in a docker container on the ARM architecture.
