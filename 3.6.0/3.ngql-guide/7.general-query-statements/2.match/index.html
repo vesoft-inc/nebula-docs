@@ -8769,16 +8769,30 @@ nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot
 </code></pre></div>
 </div>
 <h3 id="match_variable-length_paths">Match variable-length paths<a class="headerlink" href="#match_variable-length_paths" title="Permanent link">&para;</a></h3>
-<p>You can use the <code>:&lt;edge_type&gt;*[minHop..maxHop]</code> pattern to match variable-length paths.<code>minHop</code> and <code>maxHop</code> are optional and default to 1
-and infinity respectively.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When setting bounds, at least one of <code>minHop</code> and <code>maxHop</code> exists.</p>
-</div>
+<p>You can use the <code>:&lt;edge_type&gt;*[minHop..maxHop]</code> pattern to match variable-length paths.<code>minHop</code> and <code>maxHop</code> are optional and default to 1 and infinity respectively.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>If <code>maxHop</code> is not set, it may cause the Graph service to OOM, execute this command with caution.</p>
+<p>If <code>maxHop</code> is not set, it may cause the Graph service to OOM. Execute this command with caution.</p>
 </div>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>minHop</code></td>
+<td align="left">Optional. <code>minHop</code> indicates the minimum length of the path, which must be a non-negative integer. The default value is 1.</td>
+</tr>
+<tr>
+<td align="left"><code>maxHop</code></td>
+<td align="left">Optional. <code>maxHop</code> indicates the maximum length of the path, which must be a non-negative integer. The default value is infinity.</td>
+</tr>
+</tbody>
+</table>
+<p>If neither <code>minHop</code> nor <code>maxHop</code> is specified, and only <code>:&lt;edge_type&gt;*</code> is set, the default values are applied to both, i.e., <code>minHop</code> is 1 and <code>maxHop</code> is infinity.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})-[e:follow*]-&gt;(v2) \
         RETURN v2 AS Friends;
 +-----------------------------------------------------------+
@@ -8910,7 +8924,7 @@ nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;S
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 5, 2023</span>
       
     
   </small>
