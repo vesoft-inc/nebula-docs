@@ -8315,8 +8315,10 @@ YIELD [DISTINCT] &lt;return_list&gt; [AS &lt;alias&gt;]
 </ul>
 <h2 id="_4">检索点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>返回 Tag 为<code>player</code>且<code>name</code>为<code>Tony Parker</code>的点。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS index_player ON player(name(30), age);
+<div class="highlight"><pre><span></span><code># 创建 Tag 为 player 的复合属性索引 index_player。
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS index_player ON player(name(30), age);
 
+# 重建复合属性索引 index_player，返回任务 id。
 nebula&gt; REBUILD TAG INDEX index_player;
 +------------+
 | New Job Id |
@@ -8324,6 +8326,7 @@ nebula&gt; REBUILD TAG INDEX index_player;
 | 15         |
 +------------+
 
+# 返回所有 name 等于 Tony Parker 的点数据的 ID。
 nebula&gt; LOOKUP ON player \
         WHERE player.name == &quot;Tony Parker&quot; \
         YIELD id(vertex);
@@ -8333,6 +8336,7 @@ nebula&gt; LOOKUP ON player \
 | &quot;player101&quot;   |
 +---------------+
 
+# 查询所有 name 等于 Tony Parker 的点数据，返回 name 和 age 属性值。
 nebula&gt; LOOKUP ON player \
         WHERE player.name == &quot;Tony Parker&quot; \
         YIELD properties(vertex).name AS name, properties(vertex).age AS age;
@@ -8342,6 +8346,7 @@ nebula&gt; LOOKUP ON player \
 | &quot;Tony Parker&quot; | 36  |
 +---------------+-----+
 
+# 查询所有 age 大于 45 的点数据，并返回点数据的 ID。
 nebula&gt; LOOKUP ON player \
         WHERE player.age  &gt; 45 \
         YIELD id(vertex);
@@ -8352,6 +8357,7 @@ nebula&gt; LOOKUP ON player \
 | &quot;player140&quot; |
 +-------------+
 
+# 查询所有 name 以 B 开头，且 age 在 22 和 30 之间的点数据，并返回 name 和 age 属性值。
 nebula&gt; LOOKUP ON player \
         WHERE player.name STARTS WITH &quot;B&quot; \
         AND player.age IN [22,30] \
@@ -8363,6 +8369,7 @@ nebula&gt; LOOKUP ON player \
 | &quot;Blake Griffin&quot;         | 30                     |
 +-------------------------+------------------------+
 
+# 查询所有 name 等于 Kobe Bryant 的点数据，返回点的 ID 和 name 属性值，并以此为起始点进行遍历，返回遍历结果。
 nebula&gt; LOOKUP ON player \
         WHERE player.name == &quot;Kobe Bryant&quot;\
         YIELD id(vertex) AS VertexID, properties(vertex).name AS name |\
@@ -8376,8 +8383,10 @@ nebula&gt; LOOKUP ON player \
 </code></pre></div>
 <h2 id="_5">检索边<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>返回 Edge type 为<code>follow</code>且<code>degree</code>为<code>90</code>的边。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE INDEX IF NOT EXISTS index_follow ON follow(degree);
+<div class="highlight"><pre><span></span><code># 创建 Edge type 为 follow，属性 degree 的索引 index_follow。
+nebula&gt; CREATE EDGE INDEX IF NOT EXISTS index_follow ON follow(degree);
 
+# 重建属性索引 index_follow，返回任务 id。
 nebula&gt; REBUILD EDGE INDEX index_follow;
 +------------+
 | New Job Id |
@@ -8385,6 +8394,7 @@ nebula&gt; REBUILD EDGE INDEX index_follow;
 | 62         |
 +------------+
 
+# 查询并返回所有 degree 等于 90 的边。
 nebula&gt; LOOKUP ON follow \
         WHERE follow.degree == 90 YIELD edge AS e;
 +----------------------------------------------------+
@@ -8395,6 +8405,7 @@ nebula&gt; LOOKUP ON follow \
 | [:follow &quot;player118&quot;-&gt;&quot;player131&quot; @0 {degree: 90}] |
 ...
 
+# 查询所有 degree 等于 90 的边，并返回 degree 属性值。
 nebula&gt; LOOKUP ON follow \
         WHERE follow.degree == 90 \
         YIELD properties(edge).degree;
@@ -8405,6 +8416,7 @@ nebula&gt; LOOKUP ON follow \
 | 90                      |
 ...
 
+# 根据 degree 属性值升序排列，并返回前 10 条 degree 属性值。
 nebula&gt; LOOKUP ON follow \
         YIELD properties(edge).degree as degree \
         | ORDER BY $-.degree \
@@ -8424,6 +8436,7 @@ nebula&gt; LOOKUP ON follow \
 | 70     |
 +--------+
 
+# 查询所有 degree 等于 60 的边，返回边的目的点 ID 和边的 degree 属性值，并为此起始点进行遍历，返回遍历结果。
 nebula&gt; LOOKUP ON follow \
         WHERE follow.degree == 60 \
         YIELD dst(edge) AS DstVID, properties(edge).degree AS Degree |\
@@ -8441,10 +8454,13 @@ nebula&gt; LOOKUP ON follow \
 <p>如果需要通过 Tag 列出所有的点，或通过 Edge type 列出边，则 Tag、Edge type 或属性上必须有至少一个索引。</p>
 <p>例如一个 Tag <code>player</code>有属性<code>name</code>和<code>age</code>，为了遍历所有包含 Tag <code>player</code>的点 ID，Tag <code>player</code>、属性<code>name</code>或属性<code>age</code>中必须有一个已经创建索引。</p>
 <ul>
-<li>查找所有 Tag 为<code>player</code>的点 VID。<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS player(name string,age int);
+<li>查找所有 Tag 为<code>player</code>的点 VID。<div class="highlight"><pre><span></span><code># 创建名为 player 的 Tag。
+nebula&gt; CREATE TAG IF NOT EXISTS player(name string,age int);
 
+# 创建 Tag 为 player 的索引 player_index。
 nebula&gt; CREATE TAG INDEX IF NOT EXISTS player_index on player();
 
+# 重建索引 player_index，返回任务 id。
 nebula&gt; REBUILD TAG INDEX player_index;
 +------------+
 | New Job Id |
@@ -8452,11 +8468,11 @@ nebula&gt; REBUILD TAG INDEX player_index;
 | 66         |
 +------------+
 
+# 插入两个点数据。
 nebula&gt; INSERT VERTEX player(name,age) \
         VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42), &quot;player101&quot;:(&quot;Tony Parker&quot;, 36);
 
 # 列出所有的 player。类似于 MATCH (n:player) RETURN id(n) /*, n */。
-
 nebula&gt; LOOKUP ON player YIELD id(vertex);
 +-------------+
 | id(VERTEX)  |
@@ -8479,10 +8495,13 @@ nebula&gt; LOOKUP ON player YIELD id(vertex) | LIMIT 4;
 </li>
 </ul>
 <ul>
-<li>查找 Edge type 为<code>follow</code>的所有边的信息。<div class="highlight"><pre><span></span><code>nebula&gt; CREATE EDGE IF NOT EXISTS follow(degree int);
+<li>查找 Edge type 为<code>follow</code>的所有边的信息。<div class="highlight"><pre><span></span><code># 创建名为 follow 的 Edge type。
+nebula&gt; CREATE EDGE IF NOT EXISTS follow(degree int);
 
+# 创建 Edge type 为 follow 的索引 follow_index。
 nebula&gt; CREATE EDGE INDEX IF NOT EXISTS follow_index on follow();
 
+# 重建索引 follow_index。
 nebula&gt; REBUILD EDGE INDEX follow_index;
 +------------+
 | New Job Id |
@@ -8490,11 +8509,11 @@ nebula&gt; REBUILD EDGE INDEX follow_index;
 | 88         |
 +------------+
 
+# 插入边数据。
 nebula&gt; INSERT EDGE follow(degree) \
         VALUES &quot;player100&quot;-&gt;&quot;player101&quot;:(95);
 
 # 列出所有的 follow 边。类似于 MATCH (s)-[e:follow]-&gt;(d) RETURN id(s), rank(e), id(d) /*, type(e) */。
-
 nebula)&gt; LOOKUP ON follow YIELD edge AS e;
 +-----------------------------------------------------+
 | e                                                   |
@@ -8508,7 +8527,8 @@ nebula)&gt; LOOKUP ON follow YIELD edge AS e;
 </ul>
 <h2 id="_6">统计点或边<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>统计 Tag 为<code>player</code>的点和 Edge type 为<code>follow</code>的边。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player YIELD id(vertex)|\
+<div class="highlight"><pre><span></span><code># 统计 Tag 为 player 的点总数。
+nebula&gt; LOOKUP ON player YIELD id(vertex)|\
         YIELD COUNT(*) AS Player_Number;
 +---------------+
 | Player_Number |
@@ -8516,6 +8536,7 @@ nebula)&gt; LOOKUP ON follow YIELD edge AS e;
 | 51            |
 +---------------+
 
+# 统计 Edge type 为 follow 的边总数。
 nebula&gt; LOOKUP ON follow YIELD edge AS e| \
         YIELD COUNT(*) AS Follow_Number;
 +---------------+
@@ -8534,7 +8555,7 @@ nebula&gt; LOOKUP ON follow YIELD edge AS e| \
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 6, 2023</span>
       
     
   </small>
