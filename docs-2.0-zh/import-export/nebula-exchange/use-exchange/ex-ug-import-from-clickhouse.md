@@ -1,6 +1,6 @@
 # 导入 ClickHouse 数据
 
-本文以一个示例说明如何使用 Exchange 将存储在 ClickHouse 上的数据导入{{nebula.name}}。
+本文以一个示例说明如何使用 Exchange 将存储在 ClickHouse 上的数据导入 {{nebula.name}} 。
 
 ## 数据集
 
@@ -18,31 +18,31 @@
 
 - ClickHouse：docker 部署 yandex/clickhouse-server tag: latest(2021.07.01)
 
-- {{nebula.name}}：{{nebula.release}}。
+-  {{nebula.name}} ：{{nebula.release}}。
 
 ## 前提条件
 
 开始导入数据之前，用户需要确认以下信息：
 
-- 已经[安装部署{{nebula.name}}](../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) 并获取如下信息：
+- 已经[安装部署 {{nebula.name}} ](../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md) 并获取如下信息：
 
   - Graph 服务和 Meta 服务的的 IP 地址和端口。
 
-  - 拥有{{nebula.name}}写权限的用户名和密码。
+  - 拥有 {{nebula.name}} 写权限的用户名和密码。
 
 - 已经编译 Exchange。详情请参见[编译 Exchange](../ex-ug-compile.md)。本示例中使用 Exchange {{exchange.release}}。
 
 - 已经安装 Spark。
 
-- 了解{{nebula.name}}中创建 Schema 的信息，包括 Tag 和 Edge type 的名称、属性等。
+- 了解 {{nebula.name}} 中创建 Schema 的信息，包括 Tag 和 Edge type 的名称、属性等。
 
 ## 操作步骤
 
-### 步骤 1：在{{nebula.name}}中创建 Schema
+### 步骤 1：在 {{nebula.name}} 中创建 Schema
 
-分析数据，按以下步骤在{{nebula.name}}中创建 Schema：
+分析数据，按以下步骤在 {{nebula.name}} 中创建 Schema：
 
-1. 确认 Schema 要素。{{nebula.name}}中的 Schema 要素如下表所示。
+1. 确认 Schema 要素。 {{nebula.name}} 中的 Schema 要素如下表所示。
 
     | 要素  | 名称 | 属性 |
     | :--- | :--- | :--- |
@@ -51,7 +51,7 @@
     | Edge Type | `follow` | `degree int` |
     | Edge Type | `serve` | `start_year int, end_year int` |
 
-2. 在{{nebula.name}}中创建一个图空间** basketballplayer**，并创建一个 Schema，如下所示。
+2. 在 {{nebula.name}} 中创建一个图空间** basketballplayer**，并创建一个 Schema，如下所示。
 
     ```ngql
     ## 创建图空间
@@ -98,7 +98,7 @@
     }
   }
 
-# {{nebula.name}}相关配置
+#  {{nebula.name}} 相关配置
   nebula: {
     address:{
       # 以下为 {{nebula.name}} 的 Graph 服务和 Meta 服务所在机器的 IP 地址及端口。
@@ -139,7 +139,7 @@
       type: {
         # 指定数据源文件格式，设置为 ClickHouse。
         source: clickhouse
-        # 指定如何将点数据导入{{nebula.name}}：Client 或 SST。
+        # 指定如何将点数据导入 {{nebula.name}} ：Client 或 SST。
         sink: client
       }
 
@@ -155,13 +155,13 @@
       table:"player"
       sentence:"select * from player"
 
-      # 在 fields 里指定 player 表中的列名称，其对应的 value 会作为{{nebula.name}}中指定属性。
+      # 在 fields 里指定 player 表中的列名称，其对应的 value 会作为 {{nebula.name}} 中指定属性。
       # fields 和 nebula.fields 里的配置必须一一对应。
       # 如果需要指定多个列名称，用英文逗号（,）隔开。
       fields: [name,age]
       nebula.fields: [name,age]
 
-      # 指定表中某一列数据为{{nebula.name}}中点 VID 的来源。
+      # 指定表中某一列数据为 {{nebula.name}} 中点 VID 的来源。
       vertex: {
         field:playerid
       # udf:{
@@ -181,10 +181,10 @@
       # 批量删除时是否删除该点关联的出边和入边。`writeMode`为`DELETE`时该参数生效。
       #deleteEdge: false
 
-      # 单批次写入{{nebula.name}}的数据条数。
+      # 单批次写入 {{nebula.name}} 的数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入 {{nebula.name}} 时需要创建的分区数。
       partition: 32
     }
 
@@ -216,15 +216,15 @@
   edges: [
     # 设置 Edge type follow 相关信息
     {
-      # {{nebula.name}}中对应的 Edge type 名称。
+      #  {{nebula.name}} 中对应的 Edge type 名称。
       name: follow
 
       type: {
         # 指定数据源文件格式，设置为 ClickHouse。
         source: clickhouse
 
-        # 指定边数据导入{{nebula.name}}的方式，
-        # 指定如何将点数据导入{{nebula.name}}：Client 或 SST。
+        # 指定边数据导入 {{nebula.name}} 的方式，
+        # 指定如何将点数据导入 {{nebula.name}} ：Client 或 SST。
         sink: client
       }
       
@@ -240,7 +240,7 @@
       table:"follow"
       sentence:"select * from follow"
 
-      # 在 fields 里指定 follow 表中的列名称，其对应的 value 会作为{{nebula.name}}中指定属性。
+      # 在 fields 里指定 follow 表中的列名称，其对应的 value 会作为 {{nebula.name}} 中指定属性。
       # fields 和 nebula.fields 里的配置必须一一对应。
       # 如果需要指定多个列名称，用英文逗号（,）隔开。
       fields: [degree]
@@ -280,10 +280,10 @@
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
 
-      # 单批次写入{{nebula.name}}的数据条数。
+      # 单批次写入 {{nebula.name}} 的数据条数。
       batch: 256
 
-      # Spark 分区数量
+      # 数据写入 {{nebula.name}} 时需要创建的分区数。
       partition: 32
     }
     
@@ -318,9 +318,9 @@
 }
 ```
 
-### 步骤 3：向{{nebula.name}}导入数据
+### 步骤 3：向 {{nebula.name}} 导入数据
 
-运行如下命令将 ClickHouse 数据导入到{{nebula.name}}中。关于参数的说明，请参见[导入命令参数](../parameter-reference/ex-ug-para-import-command.md)。
+运行如下命令将 ClickHouse 数据导入到 {{nebula.name}} 中。关于参数的说明，请参见[导入命令参数](../parameter-reference/ex-ug-para-import-command.md)。
 
 ```bash
 ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <clickhouse_application.conf_path>
@@ -340,7 +340,7 @@ ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.excha
 
 ### 步骤 4：（可选）验证数据
 
-用户可以在{{nebula.name}}客户端（例如 NebulaGraph Studio）中执行查询语句，确认数据是否已导入。例如：
+用户可以在 {{nebula.name}} 客户端（例如 NebulaGraph Studio）中执行查询语句，确认数据是否已导入。例如：
 
 ```ngql
 LOOKUP ON player YIELD id(vertex);
@@ -348,6 +348,6 @@ LOOKUP ON player YIELD id(vertex);
 
 用户也可以使用命令 [`SHOW STATS`](../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats.md) 查看统计数据。
 
-### 步骤 5：（如有）在{{nebula.name}}中重建索引
+### 步骤 5：（如有）在 {{nebula.name}} 中重建索引
 
-导入数据后，用户可以在{{nebula.name}}中重新创建并重建索引。详情请参见[索引介绍](../../../3.ngql-guide/14.native-index-statements/README.md)。
+导入数据后，用户可以在 {{nebula.name}} 中重新创建并重建索引。详情请参见[索引介绍](../../../3.ngql-guide/14.native-index-statements/README.md)。

@@ -154,7 +154,7 @@ Solution:
 
 - batch: The number of data contained in each nGQL statement sent to the NebulaGraph service.
 
-- partition: The number of Spark data partitions, indicating the number of concurrent data imports.
+- partition: The number of partitions to be created when the data is written to {{nebula.name}}, indicating the number of concurrent data imports.
 
 - nebula.rate: Get a token from the token bucket before sending a request to NebulaGraph.
 

@@ -200,7 +200,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
-      # The number of Spark partitions.
+      # The number of partitions to be created when the data is written to {{nebula.name}}.
       partition: 32
     }
 
@@ -289,7 +289,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # The number of data written to NebulaGraph in a single batch.
       batch: 256
 
-      # The number of Spark partitions.
+      # The number of partitions to be created when the data is written to {{nebula.name}}.
       partition: 32
     }
 

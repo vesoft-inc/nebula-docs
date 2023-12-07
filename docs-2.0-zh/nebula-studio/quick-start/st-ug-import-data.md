@@ -1,16 +1,16 @@
 # 导入数据
 
-Studio 支持界面化地将 CSV 格式数据导入至{{nebula.name}}中。
+Studio 支持界面化地将 CSV 格式数据导入至 {{nebula.name}} 中。
 
 ## 前提条件
 
 导入数据之前，需要确认以下信息：
 
-- {{nebula.name}}里已经创建 Schema。
+-  {{nebula.name}} 里已经创建 Schema。
 
 - CSV 文件符合 Schema 要求。
 
-- 账号拥有 GOD、ADMIN 或 DBA 权限。详情参见 [{{nebula.name}}内置角色](../../7.data-security/1.authentication/3.role-list.md)。
+- 账号拥有 GOD、ADMIN 或 DBA 权限。详情参见 [{{nebula.name}} 内置角色](../../7.data-security/1.authentication/3.role-list.md)。
 
 ## 入口
 
@@ -28,7 +28,7 @@ Studio 支持界面化地将 CSV 格式数据导入至{{nebula.name}}中。
 | SFTP | 添加 SFTP 作为 CSV 文件来源。 |
 | 本地文件 | 上传本地 CSV 文件。文件大小不能超过 200 MB，超过限制的文件请放入其他方式的数据源中。 |
 
-!!! Note
+!!! note
 
     - 上传本地 CSV 文件时，一次可以选择多个 CSV 文件。
     - 数据源添加后，可以在页面上方单击**数据源管理**，切换页签即可查看不同类型的数据源详情，也可以编辑或删除数据源。
@@ -58,7 +58,7 @@ Studio 支持界面化地将 CSV 格式数据导入至{{nebula.name}}中。
 
   <img src="https://docs-cdn.nebula-graph.com.cn/figures/std_import_230912_cn.png" width="1200" alt="Studio 导入数据截屏">
 
-2. 完成设置后，单击**导入**,输入{{nebula.name}}账号的密码并确认。
+2. 完成设置后，单击**导入**,输入 {{nebula.name}} 账号的密码并确认。
 
 导入任务创建后，可以在**导入数据**页签内查看导入任务的进度，支持根据图空间筛选任务、编辑任务、查看日志、下载日志、重新导入、下载配置文件、删除任务等操作。
 

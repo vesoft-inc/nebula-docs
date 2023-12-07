@@ -2,15 +2,15 @@
 
 用户可以为 Tag 和 Edge type 创建索引，使得图查询时可以从拥有共同属性的同一类型的点或边开始遍历，使大型图的查询更为高效。用户可以选择使用 **控制台** 或者 **Schema** 操作索引。本文仅说明如何使用 **Schema** 操作索引。
 
-!!! Note
+!!! note
 
-    一般在创建了 Tag 或者 Edge type 之后即可创建索引，但是，索引会影响写性能，所以，建议先导入数据，再批量重建索引。关于索引的详细信息，参考 [索引介绍](../../3.ngql-guide/14.native-index-statements/README.md "点击前往{{nebula.name}}网站")。
+    一般在创建了 Tag 或者 Edge type 之后即可创建索引，但是，索引会影响写性能，所以，建议先导入数据，再批量重建索引。关于索引的详细信息，参考 [索引介绍](../../3.ngql-guide/14.native-index-statements/README.md "点击前往 {{nebula.name}} 网站")。
 
 ## 前提条件
 
 在 Studio 上操作索引之前，用户必须确认以下信息：
 
-- Studio 已经连接到{{nebula.name}}。
+- Studio 已经连接到 {{nebula.name}} 。
 - 图空间、Tag 和 Edge type 已经创建。
 - 当前登录的账号拥有 GOD、ADMIN 或者 DBA 的权限。
 
@@ -32,9 +32,9 @@
   4. **描述**（可选）：输入索引的备注。
   5. **索引属性**（可选）：点击 **+ 添加属性**，在弹出的对话框列表里选择需要关联的属性，点击 **确认**。如果需要关联多个属性，重复这一步骤。用户可以按界面提示重排索引属性的顺序。本示例中选择 `degree`。
 
-    !!! Note
+    !!! note
 
-        索引属性的顺序会影响 `LOOKUP` 语句的查询结果。详细信息，参考 [LOOKUP](../../3.ngql-guide/7.general-query-statements/5.lookup.md "点击前往{{nebula.name}}网站")。
+        索引属性的顺序会影响 `LOOKUP` 语句的查询结果。详细信息，参考 [LOOKUP](../../3.ngql-guide/7.general-query-statements/5.lookup.md "点击前往 {{nebula.name}} 网站")。
 
 6. 完成设置后，在 **对应的 nGQL** 面板，用户能看到与上述配置等价的 nGQL 语句。  
 

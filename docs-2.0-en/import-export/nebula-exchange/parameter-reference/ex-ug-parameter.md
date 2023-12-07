@@ -125,7 +125,7 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.vertex.prefix`|string|-|No|Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.|
 |`tags.vertex.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
-|`tags.partition`|int|`32`|Yes|The number of Spark partitions.|
+|`tags.partition`|int|`32`|Yes|The number of partitions to be created when the data is written to {{nebula.name}}. If `tags.partition ≤ 1`, the number of partitions to be created in {{nebula.name}} is the same as that in the data source.|
 
 #### Specific parameters of Parquet/JSON/ORC data sources
 
@@ -219,7 +219,7 @@ For different data sources, the vertex configurations are different. There are m
 |:---|:---|:---|:---|:---|
 |`tags.service`|string|`"pulsar://localhost:6650"`|Yes|The Pulsar server address.
 |`tags.admin`|string|`"http://localhost:8081"`|Yes|The admin URL used to connect pulsar.|
-|`tags.options.<topic\|topics\| topicsPattern>`|string|-|Yes|Options offered by Pulsar, which can be configured by choosing one from `topic`, `topics`, and `topicsPattern`.|
+|`tags.options.<topic|topics| topicsPattern>`|string|-|Yes|Options offered by Pulsar, which can be configured by choosing one from `topic`, `topics`, and `topicsPattern`.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
 
 #### Specific parameters of Kafka data sources
@@ -261,7 +261,7 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.target.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into NebulaGraph in a single batch.|
-|`edges.partition`|int|`32`|Yes|The number of Spark partitions.|
+|`edges.partition`|int|`32`|Yes|The number of partitions to be created when the data is written to {{nebula.name}}. If `edges.partition ≤ 1`, the number of partitions to be created in {{nebula.name}} is the same as that in the data source.|
 
 #### Specific parameters for generating SST files
 

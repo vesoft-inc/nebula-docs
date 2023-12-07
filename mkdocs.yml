@@ -23,38 +23,59 @@ repo_name: 'vesoft-inc/nebula'
 repo_url: 'https://github.com/vesoft-inc/nebula'
 
 theme:
-    name: material
-    custom_dir: overrides
+  name: material
+# zh.begin  
+  custom_dir: docs-2.0-zh/overrides
+# zh.end
+# en.begin  
+  custom_dir: docs-2.0-en/overrides
+# en.end
+
+  font:
+    code: Source Code Pro
+# zh.begin  
+    text: Noto Sans Simplified Chinese
+# zh.end 
+# en.begin
+    text: Noto Sans
+# en.end 
+
 # git repo icon
-    icon:
-      repo: fontawesome/brands/github
-    logo: 'https://docs-cdn.nebula-graph.com.cn/figures/vesoft-nebula-logo-white22-12-21.png'
-    favicon: 'https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico'
-    palette:
-      - scheme: nebula
-        toggle:
-          icon: material/toggle-switch-off-outline
-          name: Switch to dark mode
-      - scheme: slate
-        toggle:
-          icon: material/toggle-switch
-          name: Switch to light mode
-    features:
-      - navigation.top
-      - header.autohide  
-      - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+    # icon of the edit button
+    edit: material/pencil
+  logo: 'https://docs-cdn.nebula-graph.com.cn/figures/vesoft-nebula-logo-white22-12-21.png'
+  favicon: 'https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico'
+  palette:
+    - scheme: nebula
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - header.autohide  
+    - content.tabs.link
+    # enable code actions
+    - content.action.edit
+    - content.code.copy
 # zh.begin
-    language: 'zh'
+  language: 'zh'
 # zh.end
 # en.begin    
-    language: 'en'
+  language: 'en'
 # en.end    
 
 extra_css:
   - stylesheets/logo.css
   - stylesheets/note.css
   - stylesheets/extra.css
-  - css/version-select.css 
+#  - css/version-select.css 
+  - stylesheets/pdf.css
 
 # Extensions
 markdown_extensions:
@@ -82,6 +103,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  # collapse content
+  - pymdownx.details
 
 # Plugins
 plugins:
@@ -120,8 +143,6 @@ plugins:
       cover_logo: 'https://cloud-cdn.nebula-graph.com.cn/nebula-for-pdf.png'            
       cover: true
       back_cover: true
-#      pdf_stylesheets: 
-#        - stylesheets/pdf.css
 # en.begin      
       output_path: pdf/NebulaGraph-EN.pdf
 # en.end
@@ -134,7 +155,7 @@ extra_javascript:
   - js/jquery.js
   - js/search.js
   - js/config.js
-  - js/version-select.js  
+#  - js/version-select.js  
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - js/hotjar.js
@@ -164,7 +185,7 @@ extra:
 # zh.end    
   # branch represents code names (git clone). release represents version number used in texts.
   version:
-    method: mike
+    provider: mike
   social:
     - icon: 'fontawesome/brands/github'
       link: 'https://github.com/vesoft-inc/nebula-docs'
@@ -244,9 +265,9 @@ extra:
     branch: release-1.2
     tag: v1.2.0
   operator:
-    release: 1.5.0
-    tag: v1.5.0
-    branch: release-1.5
+    release: 1.7.3
+    tag: v1.7.3
+    branch: release-1.7
     upgrade_from: 3.5.0
     upgrade_to: 3.6.0
   exporter:
@@ -338,6 +359,7 @@ nav:
 #          - User-defined functions: 3.ngql-guide/6.functions-and-expressions/9.user-defined-functions.md
 
       - General queries statements:
+          - Overview: 3.ngql-guide/7.general-query-statements/1.general-query-statements-overview.md
           - MATCH: 3.ngql-guide/7.general-query-statements/2.match.md
           - OPTIONAL MATCH: 3.ngql-guide/7.general-query-statements/optional-match.md
           - LOOKUP: 3.ngql-guide/7.general-query-statements/5.lookup.md
@@ -362,6 +384,9 @@ nav:
             - SHOW SESSIONS: 3.ngql-guide/7.general-query-statements/6.show/17.show-sessions.md
             - SHOW QUERIES: 3.ngql-guide/7.general-query-statements/6.show/18.show-queries.md
             - SHOW META LEADER: 3.ngql-guide/7.general-query-statements/6.show/19.show-meta-leader.md
+          - FIND PATH: 3.ngql-guide/7.general-query-statements/6.find-path.md
+          - GET SUBGRAPH: 3.ngql-guide/7.general-query-statements/7.get-subgraph.md
+
 
       - Clauses and options:
           - GROUP BY: 3.ngql-guide/8.clauses-and-options/group-by.md
@@ -429,9 +454,6 @@ nav:
         - Deploy Raft Listener cluster: 4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener.md
         - Search with full-text index: 3.ngql-guide/15.full-text-index-statements/1.search-with-text-based-index.md
 
-      - Subgraph and path:
-          - GET SUBGRAPH: 3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md
-          - FIND PATH: 3.ngql-guide/16.subgraph-and-path/2.find-path.md
 
       - Query tuning and terminating statements:
           - EXPLAIN and PROFILE: 3.ngql-guide/17.query-tuning-statements/1.explain-and-profile.md
@@ -518,8 +540,10 @@ nav:
           - Import data from JDBC: import-export/nebula-exchange/use-exchange/ex-ug-import-from-jdbc.md
           - Import data from SST files: import-export/nebula-exchange/use-exchange/ex-ug-import-from-sst.md
         - Exchange FAQ: import-export/nebula-exchange/ex-ug-FAQ.md
-      - Spark Connector: import-export/nebula-spark-connector.md
-      - Flink Connector: import-export/nebula-flink-connector.md
+
+  - Connectors:        
+      - NebulaGraph Spark Connector: connector/nebula-spark-connector.md
+      - NebulaGraph Flink Connector: connector/nebula-flink-connector.md
 
   - Best practices:
     - Compaction: 8.service-tuning/compaction.md
@@ -572,24 +596,35 @@ nav:
       - Monitoring metrics: nebula-dashboard/6.monitor-parameter.md
 
   - NebulaGraph Operator:
-      - What is NebulaGraph Operator: nebula-operator/1.introduction-to-nebula-operator.md
-      - Overview of using NebulaGraph Operator: nebula-operator/6.get-started-with-operator.md
-      - Deploy NebulaGraph Operator: nebula-operator/2.deploy-nebula-operator.md
-      - Deploy clusters:  
-#ent        - Deploy LM: nebula-operator/3.deploy-nebula-graph-cluster/3.0.deploy-lm.md     
-        - Deploy clusters with Kubectl: nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md
-        - Deploy clusters with Helm: nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm.md
-      - Connect to NebulaGraph databases: nebula-operator/4.connect-to-nebula-graph-service.md
-      - Configure clusters:
-        - Custom configuration parameters for a NebulaGraph cluster: nebula-operator/8.custom-cluster-configurations/8.1.custom-conf-parameter.md
-        - Reclaim PVs: nebula-operator/8.custom-cluster-configurations/8.2.pv-reclaim.md 
-#ent        - Balance storage data after scaling out: nebula-operator/8.custom-cluster-configurations/8.3.balance-data-when-scaling-storage.md
-        - Manage cluster logs: nebula-operator/8.custom-cluster-configurations/8.4.manage-running-logs.md
-      - Upgrade NebulaGraph clusters: nebula-operator/9.upgrade-nebula-cluster.md
-      - Specify a rolling update strategy: nebula-operator/11.rolling-update-strategy.md
-#ent      - Backup and restore: nebula-operator/10.backup-restore-using-operator.md
-      - Self-healing: nebula-operator/5.operator-failover.md
-      - FAQ: nebula-operator/7.operator-faq.md
+      - What is NebulaGraph Operator: k8s-operator/1.introduction-to-nebula-operator.md
+      - Getting started:
+        - Install NebulaGraph Operator: k8s-operator/2.get-started/2.1.install-operator.md
+        - Create a NebulaGraph cluster: k8s-operator/2.get-started/2.3.create-cluster.md
+        - Connect to a NebulaGraph cluster: k8s-operator/2.get-started/2.4.connect-to-cluster.md
+      - NebulaGraph Operator management: 
+        - Customize installation defaults: k8s-operator/3.operator-management/3.1.customize-installation.md
+        - Update NebulaGraph Operator: k8s-operator/3.operator-management/3.2.update-operator.md
+        - Upgrade NebulaGraph Operator: k8s-operator/3.operator-management/3.3.upgrade-operator.md
+        - Uninstall NebulaGraph Operator: k8s-operator/3.operator-management/3.4.unistall-operator.md
+      - Cluster administration:
+        - Deployment:
+          - Install clusters: k8s-operator/4.cluster-administration/4.1.installation/4.1.1.cluster-install.md
+          - Upgrade clusters: k8s-operator/4.cluster-administration/4.1.installation/4.1.2.cluster-upgrade.md
+          - Uninstall clusters: k8s-operator/4.cluster-administration/4.1.installation/4.1.3.cluster-uninstall.md
+        - Customize cluster configurations: k8s-operator/4.cluster-administration/4.2.configuration.md
+        - Storage management:
+#          - Use local PV: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.1.use-local-pv.md
+          - Dynamically expand persistent volumes: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.2.pv-expansion.md
+          - Configure PV reclaim: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.3.configure-pv-reclaim.md
+        - Log management: k8s-operator/4.cluster-administration/4.5.logging.md
+        - Security:
+          - Enable admission control: k8s-operator/4.cluster-administration/4.7.security/4.7.2.enable-admission-control.md
+        - HA and balancing:
+          - Self-healing overview: k8s-operator/4.cluster-administration/4.8.ha-and-balancing/4.8.1.self-healing.md
+        - Advanced:
+          - Optimize leader transfer in rolling updates: k8s-operator/4.cluster-administration/4.9.advanced/4.9.1.rolling-update-strategy.md
+#          - Restart clusters: k8s-operator/4.cluster-administration/4.9.advanced/4.9.2.restart-cluster.md
+      - FAQ: k8s-operator/5.FAQ.md
 
   - Graph computing:
     - NebulaGraph Algorithm: graph-computing/nebula-algorithm.md
@@ -685,6 +720,7 @@ nav:
           - geo 函数: 3.ngql-guide/6.functions-and-expressions/14.geo.md
         #  - 自定义函数: 3.ngql-guide/6.functions-and-expressions/9.user-defined-functions.md
       - 通用查询语句:
+          - 查询语句概述: 3.ngql-guide/7.general-query-statements/1.general-query-statements-overview.md
           - MATCH: 3.ngql-guide/7.general-query-statements/2.match.md
           - OPTIONAL MATCH: 3.ngql-guide/7.general-query-statements/optional-match.md
           - LOOKUP: 3.ngql-guide/7.general-query-statements/5.lookup.md
@@ -708,6 +744,8 @@ nav:
             - SHOW SESSIONS: 3.ngql-guide/7.general-query-statements/6.show/17.show-sessions.md
             - SHOW QUERIES: 3.ngql-guide/7.general-query-statements/6.show/18.show-queries.md
             - SHOW META LEADER: 3.ngql-guide/7.general-query-statements/6.show/19.show-meta-leader.md
+          - FIND PATH: 3.ngql-guide/7.general-query-statements/6.find-path.md
+          - GET SUBGRAPH: 3.ngql-guide/7.general-query-statements/7.get-subgraph.md
 
       - 子句和选项:
           - GROUP BY: 3.ngql-guide/8.clauses-and-options/group-by.md
@@ -773,10 +811,6 @@ nav:
         - 部署全文索引: 4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es.md
         - 部署 Raft listener: 4.deployment-and-installation/6.deploy-text-based-index/3.deploy-listener.md
         - 全文搜索: 3.ngql-guide/15.full-text-index-statements/1.search-with-text-based-index.md
-
-      - 子图和路径:
-          - GET SUBGRAPH: 3.ngql-guide/16.subgraph-and-path/1.get-subgraph.md
-          - FIND PATH: 3.ngql-guide/16.subgraph-and-path/2.find-path.md
 
       - 查询调优与终止:
           - EXPLAIN和PROFILE: 3.ngql-guide/17.query-tuning-statements/1.explain-and-profile.md
@@ -863,9 +897,11 @@ nav:
           - 导入 SST 文件数据: import-export/nebula-exchange/use-exchange/ex-ug-import-from-sst.md
         - Exchange 常见问题: import-export/nebula-exchange/ex-ug-FAQ.md
 
-      - NebulaGraph Spark Connector: import-export/nebula-spark-connector.md
-          
-      - NebulaGraph Flink Connector: import-export/nebula-flink-connector.md
+  - 连接器:
+
+      - NebulaGraph Spark Connector: connector/nebula-spark-connector.md
+
+      - NebulaGraph Flink Connector: connector/nebula-flink-connector.md
 
   - 最佳实践:
       - Compaction: 8.service-tuning/compaction.md
@@ -918,21 +954,35 @@ nav:
       - 监控指标说明: nebula-dashboard/6.monitor-parameter.md
 
   - NebulaGraph Operator:
-      - 什么是 NebulaGraph Operator: nebula-operator/1.introduction-to-nebula-operator.md
-      - 使用流程: nebula-operator/6.get-started-with-operator.md
-      - 部署 NebulaGraph Operator: nebula-operator/2.deploy-nebula-operator.md
-      - 部署 NebulaGraph: 
-        - 使用 Kubectl 部署 NebulaGraph 集群: nebula-operator/3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl.md
-        - 使用 Helm 部署 NebulaGraph 集群: nebula-operator/3.deploy-nebula-graph-cluster/3.2create-cluster-with-helm.md
-      - 连接 NebulaGraph: nebula-operator/4.connect-to-nebula-graph-service.md
-      - 配置 NebulaGraph:
-        - 自定义 NebulaGraph 集群的配置参数: nebula-operator/8.custom-cluster-configurations/8.1.custom-conf-parameter.md
-        - 回收 PV: nebula-operator/8.custom-cluster-configurations/8.2.pv-reclaim.md 
-        - 管理集群日志: nebula-operator/8.custom-cluster-configurations/8.4.manage-running-logs.md 
-        - 配置滚动更新策略: nebula-operator/11.rolling-update-strategy.md
-      - 升级 NebulaGraph: nebula-operator/9.upgrade-nebula-cluster.md
-      - 故障自愈: nebula-operator/5.operator-failover.md
-      - 常见问题: nebula-operator/7.operator-faq.md
+      - 什么是 NebulaGraph Operator: k8s-operator/1.introduction-to-nebula-operator.md
+      - 快速入门:
+        - 安装 NebulaGraph Operator: k8s-operator/2.get-started/2.1.install-operator.md
+        - 快速创建集群: k8s-operator/2.get-started/2.3.create-cluster.md
+        - 连接集群: k8s-operator/2.get-started/2.4.connect-to-cluster.md
+      - 管理 NebulaGraph Operator: 
+        - 自定义安装配置: k8s-operator/3.operator-management/3.1.customize-installation.md
+        - 更新配置: k8s-operator/3.operator-management/3.2.update-operator.md
+        - 升级版本: k8s-operator/3.operator-management/3.3.upgrade-operator.md
+        - 卸载: k8s-operator/3.operator-management/3.4.unistall-operator.md
+      - 管理集群:
+        - 部署:
+          - 创建集群: k8s-operator/4.cluster-administration/4.1.installation/4.1.1.cluster-install.md
+          - 升级集群版本: k8s-operator/4.cluster-administration/4.1.installation/4.1.2.cluster-upgrade.md
+          - 删除集群: k8s-operator/4.cluster-administration/4.1.installation/4.1.3.cluster-uninstall.md
+        - 更新配置: k8s-operator/4.cluster-administration/4.2.configuration.md
+        - 存储管理:
+#          - 使用本地持久化存储: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.1.use-local-pv.md
+          - 动态在线扩容存储卷: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.2.pv-expansion.md
+          - 回收 PV: k8s-operator/4.cluster-administration/4.4.storage-management/4.4.3.configure-pv-reclaim.md
+        - 日志管理: k8s-operator/4.cluster-administration/4.5.logging.md
+        - 安全:
+          - 开启准入控制: k8s-operator/4.cluster-administration/4.7.security/4.7.2.enable-admission-control.md
+        - 高可用和负载均衡:
+          - 故障自愈: k8s-operator/4.cluster-administration/4.8.ha-and-balancing/4.8.1.self-healing.md
+        - 高阶功能:
+          - 优化滚动更新中的 Leader 分布: k8s-operator/4.cluster-administration/4.9.advanced/4.9.1.rolling-update-strategy.md
+#          - 重启集群: k8s-operator/4.cluster-administration/4.9.advanced/4.9.2.restart-cluster.md
+      - 常见问题: k8s-operator/5.FAQ.md
 
   - 图计算:
     - NebulaGraph Algorithm: graph-computing/nebula-algorithm.md  
@@ -942,7 +992,7 @@ nav:
   - 常见问题: 20.appendix/0.FAQ.md
 
   - 附录:
-      - Release Note:
+      - 更新说明:
         - NebulaGraph 社区版: 20.appendix/release-notes/nebula-comm-release-note.md
         - NebulaGraph Studio: 20.appendix/release-notes/studio-release-note.md
         - NebulaGraph Dashboard 社区版: 20.appendix/release-notes/dashboard-comm-release-note.md

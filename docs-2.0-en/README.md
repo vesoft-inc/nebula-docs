@@ -13,7 +13,7 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 * [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
-  
+* [Live Demo](https://www.nebula-graph.io/demo)
 
 ## Release notes
 
@@ -45,19 +45,15 @@ This manual has over 80 compatibilities and corresponding tips.
 
 !!! caution
 
-    Cautions that need strict observation. If not, systematic breakdown, data loss, and security issues may happen.
+    May have adverse effects, such as causing performance degradation or triggering known minor problems.
+
+!!! warning
+
+    May lead to serious issues, such as data loss or system crash.
 
 !!! danger
 
-    Operations that may cause danger. If not observed, systematic breakdown, data loss, and security issues will happen.
-
-!!! performance
-
-    Operations that merit attention as for performance enhancement.
-
-!!! faq
-
-    Frequently asked questions.
+    May lead to extremely serious issues, such as system damage or information leakage.
 
 !!! compatibility
 

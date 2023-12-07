@@ -6,7 +6,7 @@
 
 - 在 openCypher 兼容语句中，不允许在`LIMIT`子句前使用管道符，可以使用`SKIP`指明偏移量。
 
-  !!! Note
+  !!! note
 
         在原生 nGQL 或 openCypher 方式中使用`LIMIT`时，使用`ORDER BY`子句限制输出顺序非常重要，否则会输出一个不可预知的子集。
 
@@ -114,7 +114,7 @@ nebula> GO 3 STEPS FROM "player102" OVER * BIDIRECT\
 
 `offset`和`number_rows`可以使用表达式，但是表达式的结果必须是非负整数。
 
-!!! Note
+!!! note
 
     两个整数组成的分数表达式会自动向下取整。例如`8/6`向下取整为 1。
 
@@ -179,5 +179,5 @@ nebula> MATCH (v:player{name:"Tim Duncan"}) --> (v2) \
 <!--
 ## 性能提示
 
-{{nebula.name}} {{ nebula.release }} 未实现 `LIMIT` 语句的存储层下推优化，类似 `MATCH (n:T) RETURN n LIMIT 10` 语句或者 `LOOKUP on i_T | LIMIT 10` 语句会发生 graphd 资源占用过大的问题：一个 graphd 会从所有的 storaged 获取全部 T 类型的点，然后返回 10 个。如果全部数据量很大，graphd 此时通常会消耗大量内存，甚至 OOM。
+ {{nebula.name}} {{ nebula.release }} 未实现 `LIMIT` 语句的存储层下推优化，类似 `MATCH (n:T) RETURN n LIMIT 10` 语句或者 `LOOKUP on i_T | LIMIT 10` 语句会发生 graphd 资源占用过大的问题：一个 graphd 会从所有的 storaged 获取全部 T 类型的点，然后返回 10 个。如果全部数据量很大，graphd 此时通常会消耗大量内存，甚至 OOM。
 -->
