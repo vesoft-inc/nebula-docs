@@ -270,10 +270,3 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.path`|string|-|Yes|The path of the source file specified to generate SST files.|
 |`edges.repartitionWithNebula`|bool|`true`|No|Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file. Enabling this function can reduce the time required to DOWNLOAD and INGEST SST files.|
 
-#### Specific parameters of NebulaGraph
-
-|Parameter|Type|Default value|Required|Description|
-|:---|:---|:---|:---|:---|
-|`edges.path`|string|`"hdfs://namenode:9000/path/edge"`|Yes|Specifies the storage path of the CSV file. You need to set a new path and Exchange will automatically create the path you set. If you store the data to the HDFS server, the path format is the same as the default value, such as `"hdfs://192.168.8.177:9000/edge/follow"`. If you store the data to the local, the path format is `"file:///path/edge"`, such as `"file:///home/nebula/edge/follow"`. If there are multiple Edges, different directories must be set for each Edge.|
-|`edges.noField`|bool|`false`|Yes|If the value is `true`, source vertex IDs, destination vertex IDs, and ranks will be exported, not the property data. If the vaue is `false`, ranks, source vertex IDs, destination vertex IDs, ranks, and the property data will be exported.|
-|`edges.return.fields`|list|`[]`|Yes|Specifies the properties to be exported. For example, to export `start_year` and `end_year`, you need to set the parameter value to `["start_year","end_year"]`. This parameter only takes effect when the value of `edges.noField` is `false`.|
