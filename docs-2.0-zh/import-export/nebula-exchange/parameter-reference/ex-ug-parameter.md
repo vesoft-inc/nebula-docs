@@ -1,6 +1,23 @@
 # 配置说明
 
-本文介绍使用 NebulaGraph Exchange 时如何修改配置文件 [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf)。
+本文介绍使用 NebulaGraph Exchange 时如何自动生成示例配置文件，以及介绍配置文件 [`application.conf`](https://github.com/vesoft-inc/nebula-exchange/blob/master/nebula-exchange_spark_2.4/src/main/resources/application.conf)。
+
+## 自动生成示例配置文件
+
+通过如下命令，指定要导入的数据源，即可获得该数据源所对应的配置文件示例。
+
+```agsl
+java -cp <exchange_jar_package> com.vesoft.exchange.common.GenerateConfigTemplate -s <source_type> -p
+<config_file_save_path>
+```
+
+例如：
+
+```agsl
+java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
+```
+
+## 配置说明
 
 修改配置文件之前，建议根据数据源复制并修改文件名称，便于区分。例如数据源为 CSV 文件，可以复制为`csv_application.conf`。
 
@@ -16,7 +33,7 @@
 
 - 边配置
 
-## Spark 相关配置
+### Spark 相关配置
 
 本文只列出部分 Spark 参数，更多参数请参见[官方文档](https://spark.apache.org/docs/latest/configuration.html#application-properties)。
 
@@ -28,7 +45,7 @@
 |`spark.executor.memory`|string|`1G`|否|Spark 驱动程序使用的内存量，可以指定单位，例如 512M、1G。|
 |`spark.cores.max`|int|`16`|否|当驱动程序以“粗粒度”共享模式在独立部署集群或 Mesos 集群上运行时，跨集群（而非从每台计算机）请求应用程序的最大 CPU 核数。如果未设置，则值为 Spark 的独立集群管理器上的`spark.deploy.defaultCores`或 Mesos 上的 infinite（所有可用的内核）。|
 
-## Hive 配置（可选）
+### Hive 配置（可选）
 
 如果 Spark 和 Hive 部署在不同集群，才需要配置连接 Hive 的参数，否则请忽略这些配置。
 
@@ -40,7 +57,7 @@
 |`hive.connectionUserName`|list\[string\]|-|是|连接的用户名。|
 |`hive.connectionPassword`|list\[string\]|-|是|用户名对应的密码。|
 
-##  {{nebula.name}} 相关配置
+### {{nebula.name}}相关配置
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -88,11 +105,11 @@
      }
     ```
 
-## 点配置
+### 点配置
 
 对于不同的数据源，点的配置也有所不同，有很多通用参数，也有部分特有参数，配置时需要配置通用参数和不同数据源的特有参数。
 
-### 通用参数
+#### 通用参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -112,13 +129,13 @@
 |`tags.batch`|int|`256`|是|单批次写入 {{nebula.name}} 的最大点数量。|
 |`tags.partition`|int|`32`|是|数据写入 {{nebula.name}} 时需要创建的分区数。如果`tags.partition ≤ 1`，在 {{nebula.name}} 中创建的分区数和数据源的分区数相同。|
 
-### Parquet/JSON/ORC 源特有参数
+#### Parquet/JSON/ORC 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|是|HDFS 中点数据文件的路径。用双引号括起路径，以`hdfs://`开头。|
 
-### CSV 源特有参数
+#### CSV 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -126,13 +143,13 @@
 |`tags.separator`|string|`,`|是|分隔符。默认值为英文逗号（,）。对于特殊字符，如控制符`^A`,可以用 ASCII 八进制`\001`或 UNICODE 编码十六进制`\u0001`表示，控制符`^B`，用 ASCII 八进制`\002`或 UNICODE 编码十六进制`\u0002`表示，控制符`^C`，用 ASCII 八进制`\003`或 UNICODE 编码十六进制`\u0003`表示。|
 |`tags.header`|bool|`true`|是|文件是否有表头。|
 
-### Hive 源特有参数
+#### Hive 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
 |`tags.exec`|string|-|是|查询数据源的语句。例如`select name,age from mooc.users`。|
 
-### MaxCompute 源特有参数
+#### MaxCompute 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -146,7 +163,7 @@
 |`tags.numPartitions`|int|`1`|否|MaxCompute 的 Spark 连接器在读取 MaxCompute 数据时使用的分区数。|
 |`tags.sentence`|string|-|否|查询数据源的语句。SQL 语句中的表名和上方 table 的值相同。|
 
-### Neo4j 源特有参数
+#### Neo4j 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -157,7 +174,7 @@
 |`tags.database`|string|-|是|Neo4j 中保存源数据的数据库名。|
 |`tags.check_point_path`|string|`/tmp/test`|否|设置保存导入进度信息的目录，用于断点续传。如果未设置，表示不启用断点续传。|
 
-### MySQL/PostgreSQL 源特有参数
+#### MySQL/PostgreSQL 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -169,7 +186,7 @@
 |`tags.password`|string|-|是|用户名对应密码。|
 |`tags.sentence`|string|-|是|查询数据源的语句。例如`"select teamid, name from team order by teamid"`。|
 
-### Oracle 源特有参数
+#### Oracle 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -180,7 +197,7 @@
 |`tags.table`|string|-|是|需要作为数据源的表名称。|
 |`tags.sentence`|string|-|是|查询数据源的语句。例如`"select playerid, name, age from player"`。|
 
-### ClickHouse 源特有参数
+#### ClickHouse 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -190,7 +207,7 @@
 |`tags.numPartition`|string|-|是|ClickHouse 分区数。|
 |`tags.sentence`|string|-|是|查询数据源的语句。|
 
-### Hbase 源特有参数
+#### Hbase 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -199,7 +216,7 @@
 |`tags.table`|string|-|是|需要作为数据源的表名称。|
 |`tags.columnFamily`|string|-|是|表所属的列族（column family）。|
 
-### Pulsar 源特有参数
+#### Pulsar 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -208,7 +225,7 @@
 |`tags.options.<topic|topics|topicsPattern>`|string|-|是|Pulsar 的选项，可以从`topic`、`topics`和`topicsPattern`选择一个进行配置。|
 |`tags.interval.seconds`|int|`10`|是|读取消息的间隔。单位：秒。|
 
-### Kafka 源特有参数
+#### Kafka 源特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -216,22 +233,20 @@
 |`tags.topic`|string|-|是|消息类别。|
 |`tags.interval.seconds`|int|`10`|是|读取消息的间隔。单位：秒。|
 
-### 生成 SST 时的特有参数
+#### 生成 SST 时的特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
 |`tags.path`|string|-|是|指定需要生成 SST 文件的源文件的路径。|
 |`tags.repartitionWithNebula`|bool|`true`|否|生成 SST 文件时是否要基于 {{nebula.name}} 中图空间的 partition 进行数据重分区。开启该功能可减少 DOWNLOAD 和 INGEST SST 文件需要的时间。|
 
-
-
-## 边配置
+### 边配置
 
 对于不同的数据源，边的配置也有所不同，有很多通用参数，也有部分特有参数，配置时需要配置通用参数和不同数据源的特有参数。
 
 边配置的不同数据源特有参数请参见上方点配置内的特有参数介绍，注意区分 tags 和 edges 即可。
 
-### 通用参数
+#### 通用参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
@@ -251,17 +266,9 @@
 |`edges.batch`|int|`256`|是|单批次写入 {{nebula.name}} 的最大边数量。|
 |`edges.partition`|int|`32`|是|数据写入 {{nebula.name}} 时需要创建的分区数。如果`edges.partition ≤ 1`，在 {{nebula.name}} 中创建的分区数和数据源的分区数相同。|
 
-### 生成 SST 时的特有参数
+#### 生成 SST 时的特有参数
 
 |参数|数据类型|默认值|是否必须|说明|
 |:---|:---|:---|:---|:---|
 |`edges.path`|string|-|是|指定需要生成 SST 文件的源文件的路径。|
 |`edges.repartitionWithNebula`|bool|`true`|否|生成 SST 文件时是否要基于 {{nebula.name}} 中图空间的 partition 进行数据重分区。开启该功能可减少 DOWNLOAD 和 INGEST SST 文件需要的时间。|
-
-###  {{nebula.name}} 源特有参数
-
-|参数|数据类型|默认值|是否必须|说明|
-|:---|:---|:---|:---|:---|
-|`edges.path`|string|`"hdfs://namenode:9000/path/edge"`|是|指定 CSV 文件的存储路径。设置的路径必须不存在，Exchange 会自动创建该路径。存储到 HDFS 服务器时路径格式同默认值，例如`"hdfs://192.168.8.177:9000/edge/follow"`。存储到本地时路径格式为`"file:///path/edge"`，例如`"file:///home/nebula/edge/follow"`。有多个 Edge 时必须为每个 Edge 设置不同的目录。|
-|`edges.noField`|bool|`false`|是|当值为`true`时，仅导出起始点 VID、目的点 VID 和 Rank，而不导出属性数据；当值为`false`时导出起始点 VID、目的点 VID、Rank 和属性数据。|
-|`edges.return.fields`|list|`[]`|是|指定要导出的属性。例如，要导出`start_year`和`end_year`属性，需将参数值设置为`["start_year","end_year"]`。该参数仅在`edges.noField`的值为`false`时生效。|
