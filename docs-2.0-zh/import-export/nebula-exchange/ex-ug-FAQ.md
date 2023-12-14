@@ -107,9 +107,9 @@ nebula-exchange-3.0.0.jar \
 
 检查 Exchange 版本与 {{nebula.name}} 版本是否匹配，详细信息可参考[使用限制](about-exchange/ex-ug-limitations.md)。
 
-### Q：将 Hive 中的数据导入 {{nebula.name}} 时出现乱码如何解决？
+### Q：Spark 环境中导入数据时出现乱码如何解决？
 
-如果 Hive 中数据的属性值包含中文字符，可能出现该情况。解决方案是在导入命令中的 JAR 包路径前加上以下选项：
+如果数据的属性值包含中文字符，可能出现乱码。解决方案是在导入命令中的 JAR 包路径前加上以下选项：
 
 ```bash
 --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8

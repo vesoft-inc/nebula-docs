@@ -106,6 +106,15 @@ NebulaGraph Algorithm 实现图计算的流程如下：
 
 ## 使用方法
 
+!!! note
+
+    如果数据的属性值包含中文字符，可能出现乱码。请在提交 Spark 任务时加上以下选项：
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 ### 调用算法接口（推荐）
 
 `lib`库中提供了 10 种常用图计算算法，用户可以通过编程调用的形式调用算法。
