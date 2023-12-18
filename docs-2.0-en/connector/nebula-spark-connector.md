@@ -125,6 +125,15 @@ dataframe.write.nebula().writeEdges()
 
 `nebula()` receives two configuration parameters, including connection configuration and read-write configuration.
 
+!!! note
+
+    If the value of the properties contains Chinese characters, the encoding error may appear. Please add the following options when submitting the Spark task:
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 ### Reading data from NebulaGraph
 
 ```scala

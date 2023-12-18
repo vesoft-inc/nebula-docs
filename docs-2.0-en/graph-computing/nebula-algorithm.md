@@ -105,6 +105,15 @@ After the compilation, a similar file `nebula-algorithm-3.x.x.jar` is generated 
 
 ## How to use
 
+!!! note
+
+    If the value of the properties contains Chinese characters, the encoding error may appear. Please add the following options when submitting the Spark task:
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 ### Use algorithm interface (recommended)
 
 The `lib` repository provides 10 common graph algorithms.

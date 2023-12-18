@@ -8,6 +8,15 @@ After editing the configuration file, run the following commands to import speci
 <spark_install_path>/bin/spark-submit --master "spark://HOST:PORT" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-2.x.y.jar_path> -c <application.conf_path> 
 ```
 
+!!! note
+
+    If the value of the properties contains Chinese characters, the encoding error may appear. Please add the following options when submitting the Spark task:
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 The following table lists command parameters.
 
 | Parameter | Required | Default value | Description |

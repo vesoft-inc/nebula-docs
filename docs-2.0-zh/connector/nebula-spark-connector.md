@@ -126,6 +126,15 @@ dataframe.write.nebula().writeEdges()
 
 `nebula()`接收两个配置参数，包括连接配置和读写配置。
 
+!!! note
+
+    如果数据的属性值包含中文字符，可能出现乱码。请在提交 Spark 任务时加上以下选项：
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 ### 从 {{nebula.name}} 读取数据
 
 ```scala

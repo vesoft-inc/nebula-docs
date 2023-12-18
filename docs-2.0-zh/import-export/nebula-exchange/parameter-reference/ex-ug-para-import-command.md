@@ -8,6 +8,15 @@
 <spark_install_path>/bin/spark-submit --master "spark://HOST:PORT" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-2.x.y.jar_path> -c <application.conf_path> 
 ```
 
+!!! note
+
+    如果数据的属性值包含中文字符，可能出现乱码。请在提交 Spark 任务时加上以下选项：
+
+    ```
+    --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8
+    --conf spark.executor.extraJavaOptions=-Dfile.encoding=utf-8
+    ```
+
 参数说明如下。
 
 | 参数 | 是否必需 | 默认值 | 说明 |
