@@ -19,6 +19,7 @@
 `MATCH`语句中使用`OPTIONAL MATCH`的示例如下：
 
 ```ngql
+# 找出特定节点 m（ID为 "player100" 的节点）直接连接的节点，以及这些节点 n 直连的下一层节点 l (OPTIONAL MATCH (n)-[]->(l))， 如果没有找到这样的节点 l，查询也会继续， l 的返回值是 null。
 nebula> MATCH (m)-[]->(n) WHERE id(m)=="player100" \
         OPTIONAL MATCH (n)-[]->(l) \
         RETURN id(m),id(n),id(l);
@@ -39,6 +40,7 @@ nebula> MATCH (m)-[]->(n) WHERE id(m)=="player100" \
 而使用多`MATCH`，不使用`OPTIONAL MATCH`时，会返回模式完全匹配的行。示例如下：
 
 ```ngql
+# 找出特定节点 m（ID为 "player100" 的节点）直接连接的节点，以及这些节点 n 直连的下一层节点 l, 节点 l 必须存在。
 nebula> MATCH (m)-[]->(n) WHERE id(m)=="player100" \
         MATCH (n)-[]->(l) \
         RETURN id(m),id(n),id(l);
