@@ -8174,7 +8174,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <p><code>OPTIONAL MATCH</code>子句中暂不支持使用<code>WHERE</code>子句。</p>
 <h2 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p><code>MATCH</code>语句中使用<code>OPTIONAL MATCH</code>的示例如下：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
+<div class="highlight"><pre><span></span><code># 找出特定节点 m（ID为 &quot;player100&quot; 的节点）直接连接的节点，以及这些节点 n 直连的下一层节点 l (OPTIONAL MATCH (n)-[]-&gt;(l))， 如果没有找到这样的节点 l，查询也会继续， l 的返回值是 null。
+nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
         OPTIONAL MATCH (n)-[]-&gt;(l) \
         RETURN id(m),id(n),id(l);
 +-------------+-------------+-------------+
@@ -8191,7 +8192,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 +-------------+-------------+-------------+
 </code></pre></div>
 <p>而使用多<code>MATCH</code>，不使用<code>OPTIONAL MATCH</code>时，会返回模式完全匹配的行。示例如下：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
+<div class="highlight"><pre><span></span><code># 找出特定节点 m（ID为 &quot;player100&quot; 的节点）直接连接的节点，以及这些节点 n 直连的下一层节点 l, 节点 l 必须存在。
+nebula&gt; MATCH (m)-[]-&gt;(n) WHERE id(m)==&quot;player100&quot; \
         MATCH (n)-[]-&gt;(l) \
         RETURN id(m),id(n),id(l);
 +-------------+-------------+-------------+
@@ -8212,7 +8214,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2023</span>
       
     
   </small>
