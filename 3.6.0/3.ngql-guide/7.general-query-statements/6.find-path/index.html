@@ -8270,21 +8270,24 @@ YIELD path as &lt;alias&gt;
 </ul>
 <h2 id="_3">示例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>返回的路径格式类似于<code>(&lt;vertex_id&gt;)-[:&lt;edge_type_name&gt;@&lt;rank&gt;]-&gt;(&lt;vertex_id)</code>。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FIND SHORTEST PATH FROM &quot;player102&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
+<div class="highlight"><pre><span></span><code># 查找并返回 player102 到 team204 的最短路径。
+nebula&gt; FIND SHORTEST PATH FROM &quot;player102&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
 +--------------------------------------------+
 | p                                          |
 +--------------------------------------------+
 | &lt;(&quot;player102&quot;)-[:serve@0 {}]-&gt;(&quot;team204&quot;)&gt; |
 +--------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; FIND SHORTEST PATH WITH PROP FROM &quot;team204&quot; TO &quot;player100&quot; OVER * REVERSELY YIELD path AS p;
+<div class="highlight"><pre><span></span><code># 查找并返回带属性值的 team204 到 player100 的最短反向路径。
+nebula&gt; FIND SHORTEST PATH WITH PROP FROM &quot;team204&quot; TO &quot;player100&quot; OVER * REVERSELY YIELD path AS p;
 +--------------------------------------------------------------------------------------------------------------------------------------+
 | p                                                                                                                                    |
 +--------------------------------------------------------------------------------------------------------------------------------------+
 | &lt;(&quot;team204&quot; :team{name: &quot;Spurs&quot;})&lt;-[:serve@0 {end_year: 2016, start_year: 1997}]-(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;})&gt; |
 +--------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; FIND SHORTEST PATH FROM &quot;player100&quot;, &quot;player130&quot; TO &quot;player132&quot;, &quot;player133&quot; OVER * BIDIRECT UPTO 18 STEPS YIELD path as p;
+<div class="highlight"><pre><span></span><code># 查找并返回起点为 player100,player130 而终点为 player132,player133 的 18 跳之内双向最短路径。
+nebula&gt; FIND SHORTEST PATH FROM &quot;player100&quot;, &quot;player130&quot; TO &quot;player132&quot;, &quot;player133&quot; OVER * BIDIRECT UPTO 18 STEPS YIELD path as p;
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | p                                                                                                                                                                                              |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -8299,7 +8302,8 @@ YIELD path as &lt;alias&gt;
 | ...                                                                                                                                                                                            |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; FIND ALL PATH FROM &quot;player100&quot; TO &quot;team204&quot; OVER * WHERE follow.degree is EMPTY or follow.degree &gt;=0 YIELD path AS p;
+<div class="highlight"><pre><span></span><code># 查找所有从 player100 到 team204,并且 degree 为空或者大于等于 0 的路径。
+nebula&gt; FIND ALL PATH FROM &quot;player100&quot; TO &quot;team204&quot; OVER * WHERE follow.degree is EMPTY or follow.degree &gt;=0 YIELD path AS p;
 +------------------------------------------------------------------------------+
 | p                                                                            |
 +------------------------------------------------------------------------------+
@@ -8309,7 +8313,8 @@ YIELD path as &lt;alias&gt;
 | ...                                                                          |
 +------------------------------------------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>nebula&gt; FIND NOLOOP PATH FROM &quot;player100&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
+<div class="highlight"><pre><span></span><code># 查找所有从 player100 到 team204 无环路径。
+nebula&gt; FIND NOLOOP PATH FROM &quot;player100&quot; TO &quot;team204&quot; OVER * YIELD path AS p;
 +--------------------------------------------------------------------------------------------------------+
 | p                                                                                                      |
 +--------------------------------------------------------------------------------------------------------+
@@ -8331,7 +8336,7 @@ YIELD path as &lt;alias&gt;
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 26, 2023</span>
       
     
   </small>
