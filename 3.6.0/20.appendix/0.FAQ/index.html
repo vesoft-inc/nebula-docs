@@ -7816,6 +7816,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
+  <a href="#how_to_resolve_used_memory_hits_the_high_watermark0800000_of_total_system_memory" class="md-nav__link">
+    "How to resolve Used memory hits the high watermark(0.800000) of total system memory.?"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how_to_resolve_the_error_storage_error_e_rpc_failure" class="md-nav__link">
     "How to resolve the error Storage Error E_RPC_FAILURE?"
   </a>
@@ -7825,6 +7832,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
           <li class="md-nav__item">
   <a href="#how_to_resolve_the_error_the_leader_has_changed_try_again_later" class="md-nav__link">
     "How to resolve the error The leader has changed. Try again later?"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how_to_resolve_schema_not_exist_xxx" class="md-nav__link">
+    "How to resolve Schema not exist: xxx?"
   </a>
   
 </li>
@@ -8467,6 +8481,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
+  <a href="#how_to_resolve_used_memory_hits_the_high_watermark0800000_of_total_system_memory" class="md-nav__link">
+    "How to resolve Used memory hits the high watermark(0.800000) of total system memory.?"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how_to_resolve_the_error_storage_error_e_rpc_failure" class="md-nav__link">
     "How to resolve the error Storage Error E_RPC_FAILURE?"
   </a>
@@ -8476,6 +8497,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
           <li class="md-nav__item">
   <a href="#how_to_resolve_the_error_the_leader_has_changed_try_again_later" class="md-nav__link">
     "How to resolve the error The leader has changed. Try again later?"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how_to_resolve_schema_not_exist_xxx" class="md-nav__link">
+    "How to resolve Schema not exist: xxx?"
   </a>
   
 </li>
@@ -8825,18 +8853,14 @@ Users must upgrade <a href="../6.eco-tool-version/">all clients</a>.</p>
 <p>From NebulaGraph version 3.0.0, the Storage services added in the configuration files <strong>CANNOT</strong> be read or written directly. The configuration files only register the Storage services into the Meta services. You must run the <code>ADD HOSTS</code> command to read and write data on Storage servers. For more information, see <a href="../../4.deployment-and-installation/manage-storage-host/">Manage Storage hosts</a>.</p>
 <h3 id="how_to_resolve_the_error_to_get_the_property_of_the_vertex_in_vage_should_use_the_format_vartagprop">"How to resolve the error <code>To get the property of the vertex in 'v.age', should use the format 'var.tag.prop'</code>?"<a class="headerlink" href="#how_to_resolve_the_error_to_get_the_property_of_the_vertex_in_vage_should_use_the_format_vartagprop" title="Permanent link">&para;</a></h3>
 <p>From NebulaGraph version 3.0.0, patterns support matching multiple tags at the same time, so you need to specify a tag name when querying properties. The original statement <code>RETURN variable_name.property_name</code> is changed to <code>RETURN variable_name.&lt;tag_name&gt;.property_name</code>.</p>
-<!--
-### "How to resolve `[ERROR (-1005)]: Used memory hits the high watermark(0.800000) of total system memory.`?"
-
-The reason for this error may be that `system_memory_high_watermark_ratio` specifies the trigger threshold of the memory high watermark alarm mechanism. The default value is `0.8`. If the system memory usage is higher than this value, an alarm mechanism will be triggered, and NebulaGraph will stop querying.
-
-Possible solutions are as follows:
-
-* Clean the system memory to make it below the threshold.
-* [Modify the Graph configuration](../5.configurations-and-logs/1.configurations/1.configurations.md). Add the `system_memory_high_watermark_ratio` parameter to the configuration files of all Graph servers, and set it greater than `0.8`, such as `0.9`.
-
--->
-
+<h3 id="how_to_resolve_used_memory_hits_the_high_watermark0800000_of_total_system_memory">"How to resolve <code>Used memory hits the high watermark(0.800000) of total system memory.</code>?"<a class="headerlink" href="#how_to_resolve_used_memory_hits_the_high_watermark0800000_of_total_system_memory" title="Permanent link">&para;</a></h3>
+<p>The error may be caused if the system memory usage is higher than the threshold specified by<code>system_memory_high_watermark_ratio</code>, which defaults to <code>0.8</code>. When the threshold is exceeded, an alarm is triggered and NebulaGraph stops processing queries.</p>
+<p>Possible solutions are as follows:</p>
+<ul>
+<li>Clean the system memory to make it below the threshold.</li>
+<li><a href="../../5.configurations-and-logs/1.configurations/1.configurations/">Modify the Graph configuration</a>. Add the <code>system_memory_high_watermark_ratio</code> parameter to the configuration files of all Graph servers, and set it greater than <code>0.8</code>, such as <code>0.9</code>.</li>
+</ul>
+<p>However, the <code>system_memory_high_watermark_ratio</code> parameter is deprecated. It is recommended that you use the Memory Tracker feature instead to limit the memory usage of Graph and Storage services. For more information, see <a href="../../5.configurations-and-logs/1.configurations/3.graph-config/#memory-tracker-configurations">Memory Tracker for Graph service</a> and <a href="../../5.configurations-and-logs/1.configurations/4.storage-config/#memory-tracker-configurations">Memory Tracker for Storage service</a>.</p>
 <h3 id="how_to_resolve_the_error_storage_error_e_rpc_failure">"How to resolve the error <code>Storage Error E_RPC_FAILURE</code>?"<a class="headerlink" href="#how_to_resolve_the_error_storage_error_e_rpc_failure" title="Permanent link">&para;</a></h3>
 <p>The reason for this error is usually that the storaged process returns too many data back to the graphd process. Possible solutions are as follows:</p>
 <ul>
@@ -8849,17 +8873,14 @@ Possible solutions are as follows:
 <h3 id="how_to_resolve_the_error_the_leader_has_changed_try_again_later">"How to resolve the error <code>The leader has changed. Try again later</code>?"<a class="headerlink" href="#how_to_resolve_the_error_the_leader_has_changed_try_again_later" title="Permanent link">&para;</a></h3>
 <p>It is a known issue. Just retry 1 to N times, where N is the partition number. The reason is that the meta client needs some heartbeats to update or errors to trigger the new leader information.</p>
 <p>If this error occurs when logging in to NebulaGraph, you can consider using <code>df -h</code> to view the disk space and check whether the local disk is full.</p>
-<!--
-### "How to resolve `[ERROR (-1005)]: Schema not exist: xxx`?"
-
-If the system returns `Schema not exist` when querying, make sure that:
-
-- Whether there is a tag or an edge type in the Schema.
-
-- Whether the name of the tag or the edge type is a keyword. If it is a keyword, enclose them with backquotes (\`). For more information, see [Keywords](../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words.md).
-
--->
-
+<h3 id="how_to_resolve_schema_not_exist_xxx">"How to resolve <code>Schema not exist: xxx</code>?"<a class="headerlink" href="#how_to_resolve_schema_not_exist_xxx" title="Permanent link">&para;</a></h3>
+<p>If the system returns <code>Schema not exist</code> when querying, make sure that:</p>
+<ul>
+<li>Whether there is a tag or an edge type in the Schema.</li>
+</ul>
+<ul>
+<li>Whether the name of the tag or the edge type is a keyword. If it is a keyword, enclose them with backquotes (`). For more information, see <a href="../../3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/">Keywords</a>.</li>
+</ul>
 <h3 id="unable_to_download_snapshot_packages_when_compiling_exchange_connectors_or_algorithm">Unable to download SNAPSHOT packages when compiling Exchange, Connectors, or Algorithm<a class="headerlink" href="#unable_to_download_snapshot_packages_when_compiling_exchange_connectors_or_algorithm" title="Permanent link">&para;</a></h3>
 <p>Problem description: The system reports <code>Could not find artifact com.vesoft:client:jar:xxx-SNAPSHOT</code> when compiling.</p>
 <p>Cause: There is no local Maven repository for storing or downloading SNAPSHOT packages. The default central repository in Maven only stores official releases, not development versions (SNAPSHOTs).</p>
@@ -9292,7 +9313,7 @@ telnet:<span class="w"> </span>connect<span class="w"> </span>to<span class="w">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 15, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 26, 2023</span>
       
     
   </small>
