@@ -8291,7 +8291,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </div>
 <h2 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="_3"><code>+</code><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;a&#39; + &#39;b&#39;;
+<div class="highlight"><pre><span></span><code># 返回连接后的字符串。
+nebula&gt; RETURN &#39;a&#39; + &#39;b&#39;;
 +-----------+
 | (&quot;a&quot;+&quot;b&quot;) |
 +-----------+
@@ -8306,7 +8307,8 @@ nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
 </code></pre></div>
 <h3 id="contains"><code>CONTAINS</code><a class="headerlink" href="#contains" title="Permanent link">&para;</a></h3>
 <p><code>CONTAINS</code>要求待运算的左右两边都是字符串类型。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
+<div class="highlight"><pre><span></span><code># 查询返回 id 值为 player101，且目标点属性 name 中含有&quot;ets&quot;的数据。
+nebula&gt; MATCH (s:player)-[e:serve]-&gt;(t:team) WHERE id(s) == &quot;player101&quot; \
         AND t.team.name CONTAINS &quot;ets&quot; RETURN s.player.name, e.start_year, e.end_year, t.team.name;
 +---------------+--------------+------------+-------------+
 | s.player.name | e.start_year | e.end_year | t.team.name |
@@ -8314,6 +8316,7 @@ nebula&gt; UNWIND &#39;a&#39; AS a UNWIND &#39;b&#39; AS b RETURN a + b;
 | &quot;Tony Parker&quot; | 2018         | 2019       | &quot;Hornets&quot;   |
 +---------------+--------------+------------+-------------+
 
+# 查询返回 player101 的边属性 start_year 转为字符串后含有&quot;19&quot;，且点属性 name 中含有&quot;ny&quot;的数据。
 nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE (STRING)properties(edge).start_year CONTAINS &quot;19&quot; AND \
         properties($^).name CONTAINS &quot;ny&quot; \
         YIELD properties($^).name, properties(edge).start_year, properties(edge).end_year, properties($$).name;
@@ -8323,6 +8326,7 @@ nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE (STRING)properties(edg
 | &quot;Tony Parker&quot;       | 1999                        | 2018                      | &quot;Spurs&quot;             |
 +---------------------+-----------------------------+---------------------------+---------------------+
 
+# 查询返回 palyer101 指向的目标点属性 name 中不含有&quot;ets&quot;的数据。
 nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !(properties($$).name CONTAINS &quot;ets&quot;) \
         YIELD properties($^).name, properties(edge).start_year, properties(edge).end_year, properties($$).name;
 +---------------------+-----------------------------+---------------------------+---------------------+
@@ -8332,7 +8336,8 @@ nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !(properties($$).name 
 +---------------------+-----------------------------+---------------------------+---------------------+
 </code></pre></div>
 <h3 id="not_in"><code>(NOT) IN</code><a class="headerlink" href="#not_in" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN  1 IN [1,2,3], &quot;Yao&quot; NOT IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;], NULL IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;];
+<div class="highlight"><pre><span></span><code># 返回列表中是否含有某个值。
+nebula&gt; RETURN  1 IN [1,2,3], &quot;Yao&quot; NOT IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;], NULL IN [&quot;Yi&quot;, &quot;Tim&quot;, &quot;Kobe&quot;];
 +----------------+------------------------------------+-------------------------------+
 | (1 IN [1,2,3]) | (&quot;Yao&quot; NOT IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) | (NULL IN [&quot;Yi&quot;,&quot;Tim&quot;,&quot;Kobe&quot;]) |
 +----------------+------------------------------------+-------------------------------+
@@ -8340,7 +8345,8 @@ nebula&gt; GO FROM &quot;player101&quot; OVER serve WHERE !(properties($$).name 
 +----------------+------------------------------------+-------------------------------+
 </code></pre></div>
 <h3 id="not_starts_with"><code>(NOT) STARTS WITH</code><a class="headerlink" href="#not_starts_with" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;app&#39;, &#39;apple&#39; STARTS WITH &#39;a&#39;, &#39;apple&#39; STARTS WITH toUpper(&#39;a&#39;);
+<div class="highlight"><pre><span></span><code># 返回是否以某个字符串开头。
+nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;app&#39;, &#39;apple&#39; STARTS WITH &#39;a&#39;, &#39;apple&#39; STARTS WITH toUpper(&#39;a&#39;);
 +-----------------------------+---------------------------+------------------------------------+
 | (&quot;apple&quot; STARTS WITH &quot;app&quot;) | (&quot;apple&quot; STARTS WITH &quot;a&quot;) | (&quot;apple&quot; STARTS WITH toUpper(&quot;a&quot;)) |
 +-----------------------------+---------------------------+------------------------------------+
@@ -8355,7 +8361,8 @@ nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;b&#39;,&#39;apple&#39; NOT ST
 +---------------------------+---------------------------------+
 </code></pre></div>
 <h3 id="not_ends_with"><code>(NOT) ENDS WITH</code><a class="headerlink" href="#not_ends_with" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &#39;apple&#39; ENDS WITH &#39;app&#39;, &#39;apple&#39; ENDS WITH &#39;e&#39;, &#39;apple&#39; ENDS WITH &#39;E&#39;, &#39;apple&#39; ENDS WITH &#39;b&#39;;
+<div class="highlight"><pre><span></span><code># 返回是否以某个字符串结尾。
+nebula&gt; RETURN &#39;apple&#39; ENDS WITH &#39;app&#39;, &#39;apple&#39; ENDS WITH &#39;e&#39;, &#39;apple&#39; ENDS WITH &#39;E&#39;, &#39;apple&#39; ENDS WITH &#39;b&#39;;
 +---------------------------+-------------------------+-------------------------+-------------------------+
 | (&quot;apple&quot; ENDS WITH &quot;app&quot;) | (&quot;apple&quot; ENDS WITH &quot;e&quot;) | (&quot;apple&quot; ENDS WITH &quot;E&quot;) | (&quot;apple&quot; ENDS WITH &quot;b&quot;) |
 +---------------------------+-------------------------+-------------------------+-------------------------+
@@ -8368,13 +8375,15 @@ nebula&gt; RETURN &#39;apple&#39; STARTS WITH &#39;b&#39;,&#39;apple&#39; NOT ST
 <p>当前仅 opencypher 兼容语句（<code>MATCH</code>、<code>WITH</code>等）支持正则表达式，原生 nGQL 语句（<code>FETCH</code>、<code>GO</code>、<code>LOOKUP</code>等）不支持正则表达式。</p>
 </div>
 <p>NebulaGraph 支持使用正则表达式进行过滤，正则表达式的语法是继承自<code>std::regex</code>，用户可以使用语法<code>=~ '&lt;regexp&gt;'</code>进行正则表达式匹配。例如：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
+<div class="highlight"><pre><span></span><code># 返回是否匹配正则表达式。
+nebula&gt; RETURN &quot;384748.39&quot; =~ &quot;\\d+(\\.\\d{2})?&quot;;
 +--------------------------------+
 | (&quot;384748.39&quot;=~&quot;\d+(\.\d{2})?&quot;) |
 +--------------------------------+
 | true                           |
 +--------------------------------+
 
+# 查询返回符合正则表达式的点数据。
 nebula&gt; MATCH (v:player) WHERE v.player.name =~ &#39;Tony.*&#39; RETURN v.player.name;
 +---------------+
 | v.player.name |
