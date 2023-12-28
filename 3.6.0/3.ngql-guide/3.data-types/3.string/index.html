@@ -8228,13 +8228,24 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <li>当该定长字符串为 VID 时，写入会失败，NebulaGraph 将报错。</li>
 </ul>
 <h2 id="_4">转义字符<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>字符串中不支持直接换行，可以使用转义字符实现，例如：</p>
-<ul>
-<li><code>"\n\t\r\b\f"</code></li>
-</ul>
-<ul>
-<li><code>"\110ello world"</code></li>
-</ul>
+<p>反斜杠（<code>\</code>）在字符串中为转义字符，用于表示特殊字符。</p>
+<p>例如，如果想在一个字符串中包含一个双引号(<code>"</code>), 不能直接写<code>"Hello "world""</code>，因为这会引起语法错误。相反，需要使用反斜杠（<code>\</code>）来转义双引号，如<code>"Hello \"world\""</code>。</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;Hello \&quot;world\&quot;&quot;
++-----------------+
+| &quot;Hello &quot;world&quot;&quot; |
++-----------------+
+| &quot;Hello &quot;world&quot;&quot; |
++-----------------+
+</code></pre></div>
+<p>同样，反斜杠本身也需要转义，因为它是一个特殊字符。例如，要在字符串中包含一个反斜杠，需要写成<code>"Hello \\ world"</code>。</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;Hello \\ world&quot;
++-----------------+
+| &quot;Hello \ world&quot; |
++-----------------+
+| &quot;Hello \ world&quot; |
++-----------------+
+</code></pre></div>
+<p>更多转义字符的示例，请参见 <a href="https://en.wikipedia.org/wiki/Escape_character#Examples">Escape character examples</a>。</p>
 <h2 id="opencypher">OpenCypher 兼容性<a class="headerlink" href="#opencypher" title="Permanent link">&para;</a></h2>
 <p>openCypher、Cypher 和 nGQL 之间有一些细微区别，例如下面 openCypher 的示例，不能将单引号替换为双引号。</p>
 <div class="highlight"><pre><span></span><code># File: Literals.feature
