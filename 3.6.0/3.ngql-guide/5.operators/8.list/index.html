@@ -8178,13 +8178,15 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tbody>
 </table>
 <h2 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD [1,2,3,4,5]+[6,7] AS myList;
+<div class="highlight"><pre><span></span><code># 返回连接后的列表。
+nebula&gt; YIELD [1,2,3,4,5]+[6,7] AS myList;
 +-----------------------+
 | myList                |
 +-----------------------+
 | [1, 2, 3, 4, 5, 6, 7] |
 +-----------------------+
 
+# 返回列表中的元素数量。
 nebula&gt; RETURN size([NULL, 1, 2]);
 +------------------+
 | size([NULL,1,2]) |
@@ -8192,6 +8194,7 @@ nebula&gt; RETURN size([NULL, 1, 2]);
 | 3                |
 +------------------+
 
+# 返回 NULL 是否存在列表中。
 nebula&gt; RETURN NULL IN [NULL, 1];
 +--------------------+
 | (NULL IN [NULL,1]) |
@@ -8199,6 +8202,7 @@ nebula&gt; RETURN NULL IN [NULL, 1];
 | __NULL__           |
 +--------------------+
 
+# 返回在列表[2, 3, 4, 5]中存在，且也在列表[2, 3, 8]中存在的元素，并拆分显示。
 nebula&gt; WITH [2, 3, 4, 5] AS numberlist \
     UNWIND numberlist AS number \
     WITH number \
@@ -8211,6 +8215,7 @@ nebula&gt; WITH [2, 3, 4, 5] AS numberlist \
 | 3      |
 +--------+
 
+# 返回列表中下标为 1 的元素。
 nebula&gt; WITH [&#39;Anne&#39;, &#39;John&#39;, &#39;Bill&#39;, &#39;Diane&#39;, &#39;Eve&#39;] AS names RETURN names[1] AS result;
 +--------+
 | result |
@@ -8224,7 +8229,7 @@ nebula&gt; WITH [&#39;Anne&#39;, &#39;John&#39;, &#39;Bill&#39;, &#39;Diane&#39;
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2023</span>
       
     
   </small>

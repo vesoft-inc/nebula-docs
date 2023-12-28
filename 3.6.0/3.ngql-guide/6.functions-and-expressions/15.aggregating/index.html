@@ -8260,7 +8260,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <li>返回类型：double。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN avg(v.player.age);
+<div class="highlight"><pre><span></span><code># 返回 Tag player 的 age 属性的平均值。
+nebula&gt; MATCH (v:player) RETURN avg(v.player.age);
 +--------------------+
 | avg(v.player.age)  |
 +--------------------+
@@ -8283,7 +8284,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <li>返回类型：int。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b \
+<div class="highlight"><pre><span></span><code># 将列表拆分，并返回拆分后行的数量，列表元素的数量，拆分后将行去重后的数量。
+nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b \
         RETURN count(b), count(*), count(DISTINCT b);
 +----------+----------+-------------------+
 | count(b) | count(*) | count(distinct b) |
@@ -8388,7 +8390,8 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>返回类型：与原参数相同。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN max(v.player.age);
+<div class="highlight"><pre><span></span><code># 返回 Tag player 的 age 属性的最大值。
+nebula&gt; MATCH (v:player) RETURN max(v.player.age);
 +-------------------+
 | max(v.player.age) |
 +-------------------+
@@ -8402,7 +8405,8 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>返回类型：与原参数相同。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN min(v.player.age);
+<div class="highlight"><pre><span></span><code># 返回 Tag player 的 age 属性的最小值。
+nebula&gt; MATCH (v:player) RETURN min(v.player.age);
 +-------------------+
 | min(v.player.age) |
 +-------------------+
@@ -8416,7 +8420,8 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>返回类型：list。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a \
+<div class="highlight"><pre><span></span><code># 将列表拆分为单独的行。
+nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN a;
 +---+
 | a |
@@ -8426,6 +8431,7 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 | 1 |
 +---+
 
+# 将列表拆分为单独的行记录后再合并为一个列表返回。
 nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN collect(a);
 +------------+
@@ -8434,6 +8440,7 @@ nebula&gt; UNWIND [1, 2, 1] AS a \
 | [1, 2, 1]  |
 +------------+
 
+# 统计并返回列表中相同元素的数量。
 nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN a, collect(a), size(collect(a));
 +---+------------+------------------+
@@ -8454,6 +8461,7 @@ nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] 
 | [&quot;d&quot;, &quot;c&quot;, &quot;b&quot;] |
 +-----------------+
 
+# 将列表拆分后去重，再合并为新的列表返回。
 nebula&gt; WITH [1, 1, 2, 2] AS coll \
         UNWIND coll AS x \
         WITH DISTINCT x \
@@ -8464,6 +8472,7 @@ nebula&gt; WITH [1, 1, 2, 2] AS coll \
 | [1, 2] |
 +--------+
 
+# 将 Tag player 的 age 属性值合并为列表返回。
 nebula&gt; MATCH (n:player) \
         RETURN collect(n.player.age);
 +---------------------------------------------------------------+
@@ -8484,6 +8493,7 @@ nebula&gt; MATCH (n:player) \
 +-----+--------------------------------------------------------------------------+
 ...
 
+# 将 player100 的目的点 name 属性值聚合，结果合并为列表返回。
 nebula&gt; GO FROM &quot;player100&quot; OVER serve \
         YIELD properties($$).name AS name \
         | GROUP BY $-.name \
@@ -8494,6 +8504,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER serve \
 | [&quot;Spurs&quot;] |
 +-----------+
 
+# 将 Tag player 的 age 属性值聚合，结果合并为列表返回。
 nebula&gt; LOOKUP ON player \
         YIELD player.age As playerage \
         | GROUP BY $-.playerage \
@@ -8515,7 +8526,8 @@ nebula&gt; LOOKUP ON player \
 <li>返回类型：double。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN std(v.player.age);
+<div class="highlight"><pre><span></span><code># 返回 Tag player 的 age 属性值的标准差。
+nebula&gt; MATCH (v:player) RETURN std(v.player.age);
 +-------------------+
 | std(v.player.age) |
 +-------------------+
@@ -8529,7 +8541,8 @@ nebula&gt; LOOKUP ON player \
 <li>返回类型：与原参数相同。</li>
 </ul>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN sum(v.player.age);
+<div class="highlight"><pre><span></span><code># 返回 Tag player 的 age 属性值的总和。
+nebula&gt; MATCH (v:player) RETURN sum(v.player.age);
 +-------------------+
 | sum(v.player.age) |
 +-------------------+
@@ -8555,7 +8568,7 @@ nebula&gt; LOOKUP ON player \
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2023</span>
       
     
   </small>
