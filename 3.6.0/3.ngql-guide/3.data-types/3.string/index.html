@@ -1107,7 +1107,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
       
         <li class="md-nav__item">
   <a href="#escape_characters" class="md-nav__link">
-    Escape characters
+    Escape Characters
   </a>
   
 </li>
@@ -8099,7 +8099,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
       
         <li class="md-nav__item">
   <a href="#escape_characters" class="md-nav__link">
-    Escape characters
+    Escape Characters
   </a>
   
 </li>
@@ -8166,14 +8166,25 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>If the fixed-length string is a property, the writing will succeed, and NebulaGraph will truncate the string and only store the part that meets the length limit.</li>
 <li>If the fixed-length string is a VID, the writing will fail and NebulaGraph will return an error.</li>
 </ul>
-<h2 id="escape_characters">Escape characters<a class="headerlink" href="#escape_characters" title="Permanent link">&para;</a></h2>
-<p>Line breaks are not allowed in a string. Escape characters are supported within strings, for example:</p>
-<ul>
-<li><code>"\n\t\r\b\f"</code></li>
-</ul>
-<ul>
-<li><code>"\110ello world"</code></li>
-</ul>
+<h2 id="escape_characters">Escape Characters<a class="headerlink" href="#escape_characters" title="Permanent link">&para;</a></h2>
+<p>In strings, the backslash (<code>\</code>) serves as an escape character used to denote special characters.</p>
+<p>For example, to include a double quote (<code>"</code>) within a string, you cannot directly write <code>"Hello "world""</code> as it leads to a syntax error. Instead, use the backslash (<code>\</code>) to escape the double quote, such as <code>"Hello \"world\""</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;Hello \&quot;world\&quot;&quot;
++-----------------+
+| &quot;Hello &quot;world&quot;&quot; |
++-----------------+
+| &quot;Hello &quot;world&quot;&quot; |
++-----------------+
+</code></pre></div>
+<p>The backslash itself needs to be escaped as it's a special character. For example, to include a backslash in a string, you need to write <code>"Hello \\ world"</code>.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN &quot;Hello \\ world&quot;
++-----------------+
+| &quot;Hello \ world&quot; |
++-----------------+
+| &quot;Hello \ world&quot; |
++-----------------+
+</code></pre></div>
+<p>For more examples of escape characters, see <a href="https://en.wikipedia.org/wiki/Escape_character#Examples">Escape character examples</a>.</p>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>There are some tiny differences between openCypher and Cypher, as well as nGQL. The following is what openCypher requires. Single quotes cannot be converted to double quotes.</p>
 <div class="highlight"><pre><span></span><code># File: Literals.feature
@@ -8205,7 +8216,7 @@ Background:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 28, 2023</span>
       
     
   </small>
