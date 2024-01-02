@@ -6,15 +6,13 @@
 
 欢迎为项目贡献任何代码或文档，但是建议先在 [GitHub](https://github.com/vesoft-inc/nebula) 或[社区](https://discuss.nebula-graph.io/)上提交一个问题，和大家共同讨论。
 
-### 签署贡献者许可协议（CLA）
+### 签署贡献者许可协议 [CLA](https://www.apache.org/licenses/contributor-agreements.html)
 
-什么是 [CLA](https://www.apache.org/licenses/contributor-agreements.html)？
+1. 打开 [CLA 服务登录页面](https://cla-assistant.io/)。
+2. 单击 **Sign in with GitHub**。
+3. 阅读并同意协议 [vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/)。
 
-签署协议链接：[vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/)
-
-单击按钮 **Sign in with GitHub to agree** 签署协议。
-
-如果有任何问题，请发送邮件至`info@vesoft.com`。
+如果有任何问题，请提交 [issue](https://github.com/vesoft-inc/nebula/issues)。
 
 ## 修改单篇文档
 
