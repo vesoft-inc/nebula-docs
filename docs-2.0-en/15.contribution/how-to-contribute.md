@@ -22,7 +22,7 @@ This method applies to modifying a single document only.
 
 ## Batch modify or add files
 
-This method applies to contributing codes, modifying multiple documents in batches, or adding new documents.
+This method applies to contributing code, modifying multiple documents in batches, or adding new documents.
 
 ## Step 1: Fork in the github.com
 
