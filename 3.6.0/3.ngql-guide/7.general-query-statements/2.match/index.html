@@ -8537,7 +8537,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) \
 +----------------------------------------------------+
 </code></pre></div>
 <p>使用<code>WHERE</code>子句也可以实现相同的操作：</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) \
+<div class="highlight"><pre><span></span><code># 查找类型为 player，名字为 Tim Duncan 的点。
+nebula&gt; MATCH (v:player) \
         WHERE v.player.name == &quot;Tim Duncan&quot; \
         RETURN v;
 +----------------------------------------------------+
@@ -8576,7 +8577,8 @@ nebula&gt; WITH [&#39;Tim Duncan&#39;, &#39;Yao Ming&#39;] AS names \
 </code></pre></div>
 <h3 id="id">匹配点 ID<a class="headerlink" href="#id" title="Permanent link">&para;</a></h3>
 <p>用户可以使用点 ID 去匹配点。<code>id()</code>函数可以检索点的 ID。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
+<div class="highlight"><pre><span></span><code># 查找 ID 为 “player101” 的点。（注：ID 全局唯一）。
+nebula&gt; MATCH (v) \
         WHERE id(v) == &#39;player101&#39; \
         RETURN v;
 +-----------------------------------------------------+
@@ -8586,7 +8588,8 @@ nebula&gt; WITH [&#39;Tim Duncan&#39;, &#39;Yao Ming&#39;] AS names \
 +-----------------------------------------------------+
 </code></pre></div>
 <p>要匹配多个点的 ID，可以用<code>WHERE id(v) IN [vid_list]</code>或者<code>WHERE id(v) IN {vid_list}</code>。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
+<div class="highlight"><pre><span></span><code># 查找与 `Tim Duncan` 直接相连的点，并且这些点的 ID 必须是 `player101` 或 `player102`。
+nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
         WHERE id(v2) IN [&quot;player101&quot;, &quot;player102&quot;] \
         RETURN v2;
 +-----------------------------------------------------------+
@@ -8623,7 +8626,7 @@ nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot
 ...
 </code></pre></div>
 <p>用户可以在<code>--</code>符号上增加<code>&lt;</code>或<code>&gt;</code>符号指定边的方向。</p>
-<div class="highlight"><pre><span></span><code># --&gt;表示边从 v 开始，指向 v2。对于点 v 来说是出边，对于点 v2 来说是入边。
+<div class="highlight"><pre><span></span><code># `--&gt;` 表示边从 v 开始，指向 v2。对于点 v 来说是出边，对于点 v2 来说是入边。
 nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
         RETURN v2.player.name AS Name;
 +-----------------+
@@ -8962,7 +8965,7 @@ nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;S
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 29, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 2, 2024</span>
       
     
   </small>
