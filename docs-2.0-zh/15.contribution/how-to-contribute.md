@@ -8,7 +8,7 @@
 
 ### 签署贡献者许可协议 [CLA](https://www.apache.org/licenses/contributor-agreements.html)
 
-1. 打开 [CLA 服务登录页面](https://cla-assistant.io/)。
+1. 打开 [CLA 服务登录](https://cla-assistant.io/)页面。
 2. 单击 **Sign in with GitHub**。
 3. 阅读并同意协议 [vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/)。
 
