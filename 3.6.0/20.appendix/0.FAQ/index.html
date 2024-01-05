@@ -9134,12 +9134,7 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>可以使用 <a href="../../graph-computing/nebula-algorithm/">NebulaGraph Algorithm</a>。</p>
 <h2 id="_10">关于运维<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <h3 id="_11">运行日志文件过大时如何回收日志？<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<p>NebulaGraph 的运行日志默认在 <code>/usr/local/nebula/logs/</code> 下，正常 INFO 级别日志文件为 <code>nebula-graphd.INFO, nebula-storaged.INFO, nebula-metad.INFO</code>，报警和错误级别后缀为 <code>.WARNING</code> 和 <code>.ERROR</code>。</p>
-<p>NebulaGraph 使用 <a href="https://github.com/google/glog">glog</a> 打印日志。glog 没有日志回收的功能，用户可以：</p>
-<ul>
-<li>在三种服务的配置文件内添加参数<code>timestamp_in_logfile_name=true</code>（日志文件添加时间戳）和<code>max_log_size=500</code>（日志大小限制，单位 MB），然后使用 crontab 设置定期任务回收日志文件。详情请参见 <a href="https://github.com/google/glog/issues/423">Glog should delete old log files automatically</a>。</li>
-<li>使用 <a href="https://github.com/logrotate/logrotate">logrotate</a> 实现<a href="https://discuss.nebula-graph.com.cn/t/topic/7803">日志轮询</a>。使用 logrotate 管理日志前需修改相应 NebulaGraph 服务的配置，将<code>timestamp_in_logfile_name</code>参数的值改成<code>false</code>。</li>
-</ul>
+<p>NebulaGraph使用 <a href="https://github.com/google/glog">glog</a> 打印日志，glog 没有日志回收的功能。用户可以通过定时任务或日志管理工具 <a href="https://man7.org/linux/man-pages/man8/logrotate.8.html">logrotate</a> 来管理运行日志。操作详情，参见<a href="../../5.configurations-and-logs/2.log-management/logs/">回收日志</a>。</p>
 <h3 id="nebulagraph_1">如何查看 NebulaGraph 版本<a class="headerlink" href="#nebulagraph_1" title="Permanent link">&para;</a></h3>
 <p>服务运行时：<code>nebula-console</code> 中执行命令 <code>SHOW HOSTS META</code>，详见 <a href="../../3.ngql-guide/7.general-query-statements/6.show/6.show-hosts/">SHOW HOSTS</a></p>
 <p>服务未运行时：在安装路径的<code>bin</code>目录内，执行<code>./&lt;binary_name&gt; --version</code>命令，可以查看到 version 和 GitHub 上的 commit ID，例如：</p>

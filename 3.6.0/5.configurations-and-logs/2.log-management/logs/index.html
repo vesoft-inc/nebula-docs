@@ -4570,6 +4570,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     回收日志
   </a>
   
+    <nav class="md-nav" aria-label="回收日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    使用定时任务回收日志
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logrotate" class="md-nav__link">
+    使用 logrotate 回收日志
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -8198,6 +8218,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     回收日志
   </a>
   
+    <nav class="md-nav" aria-label="回收日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    使用定时任务回收日志
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logrotate" class="md-nav__link">
+    使用 logrotate 回收日志
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -8305,11 +8345,184 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 $<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;minloglevel&quot;:0,&quot;v&quot;:3}&#39;</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:19669/flags&quot;</span><span class="w"> </span><span class="c1"># graphd</span>
 $<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;minloglevel&quot;:0,&quot;v&quot;:3}&#39;</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:19559/flags&quot;</span><span class="w"> </span><span class="c1"># metad</span>
 </code></pre></div>
-<p>如果在 NebulaGraph 运行时修改了运行日志级别，重启服务后会恢复为配置文件中设置的级别，如果需要永久修改，请修改<a href="../../1.configurations/1.configurations/">配置文件</a>。</p>
+<p>如果在NebulaGraph运行时修改了运行日志级别，重启服务后会恢复为配置文件中设置的级别，如果需要永久修改，请修改<a href="../../1.configurations/1.configurations/">配置文件</a>并重启服务。</p>
 <h2 id="rocksdb">RocksDB 运行日志<a class="headerlink" href="#rocksdb" title="Permanent link">&para;</a></h2>
 <p>RocksDB 的运行日志通常在 <code>/usr/local/nebula/data/storage/nebula/$id/data/LOG</code>, 其中 <code>$id</code> 为实例号。该日志通常用于调试 RocksDB 参数。</p>
 <h2 id="_6">回收日志<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>运行日志文件过大时如何回收日志，请参见<a href="../../../20.appendix/0.FAQ/">常见问题</a>。</p>
+<p>glog 本身不支持回收日志，如果需要回收日志，可以使用 Linux 系统中<a href="https://man7.org/linux/man-pages/man1/crontab.1.html">定时任务（Cron Jobs）</a>来定期删除旧的日志文件。或者，使用日志管理工具 <a href="https://github.com/logrotate/logrotate">logrotate</a> 来轮转日志以定期归档和删除日志。</p>
+<h3 id="_7">使用定时任务回收日志<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>本文以回收 Graph 服务的运行日志为例，说明如何使用定时任务来定期删除旧的日志文件。操作步骤如下：</p>
+<ol>
+<li>
+<p>在 <a href="../../1.configurations/3.graph-config/">Graph 服务配置文件</a>中，进行如下配置，然后重启服务。</p>
+<div class="highlight"><pre><span></span><code><span class="nv">timestamp_in_logfile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="nv">max_log_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span>
+</code></pre></div>
+<ul>
+<li>设置<code>timestamp_in_logfile_name</code>为<code>true</code>，这样日志文件名中会包含时间戳，以定期删除旧的日志文件。</li>
+<li>添加<code>max_log_size</code>参数，设置单个日志文件的最大大小，例如<code>500</code>。超过这个大小后，会自动创建新的日志文件，单位 MB，默认值为<code>1800</code>。</li>
+</ul>
+</li>
+<li>
+<p>在 Linux 系统中，使用如下命令编辑定时任务：</p>
+<div class="highlight"><pre><span></span><code>crontab<span class="w"> </span>-e
+</code></pre></div>
+</li>
+<li>
+<p>在定时任务中添加命令，以定期删除旧的日志文件。</p>
+<div class="highlight"><pre><span></span><code>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>find<span class="w"> </span>&lt;log_path&gt;<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;&lt;YourProjectName&gt;&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+</code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>以上命令中的<code>find</code>命令需要使用 root 用户或者具有 sudo 权限的用户来执行。</p>
+</div>
+<ul>
+<li><code>* * * * *</code>：定时任务的时间字段，五个星号表示这个任务每分钟都会执行。其他设置，参见<a href="https://crontab.cronhub.io/">Cron Expression</a>。</li>
+<li><code>&lt;log_path&gt;</code>：服务运行日志文件的路径，例如<code>/usr/local/nebula/logs</code>。</li>
+<li><code>&lt;YourProjectName&gt;</code>：日志文件名，例如<code>nebula-graphd.*</code>。</li>
+<li><code>-mtime +7</code>：表示删除更新时间超过 7 天的日志文件。也可以使用<code>-mmin +n</code>，表示删除更新时间超过 n 分钟的日志文件。详情参见 <a href="https://man7.org/linux/man-pages/man1/find.1.html">find 命令</a>。</li>
+<li><code>-delete</code>：表示删除满足条件的日志文件。</li>
+</ul>
+<p>例如，每天凌晨 3 点自动删除更新时间超过 7 天的 Graph 服务运行日志文件的命令：</p>
+<div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>find<span class="w"> </span>/usr/local/nebula/logs<span class="w"> </span>-name<span class="w"> </span>nebula-graphd.*<span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+</code></pre></div>
+</li>
+<li>
+<p>保存定时任务。</p>
+</li>
+</ol>
+<h3 id="logrotate">使用 logrotate 回收日志<a class="headerlink" href="#logrotate" title="Permanent link">&para;</a></h3>
+<p>用户可以使用 logrotate 工具对指定的日志文件进行轮转，以达到归档和回收日志的目的。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>需要使用 root 用户或者具有 sudo 权限的用户来安装 logrotate 或者运行 logrotate。</p>
+</div>
+<p>本文以回收 Graph 服务<code>INFO</code>级别的日志文件（<code>/usr/local/nebula/logs/nebula-graphd.INFO.impl</code>）为例说明如何使用 logrotate 工具。操作步骤如下：</p>
+<ol>
+<li>
+<p>在 <a href="../../1.configurations/3.graph-config/">Graph 服务配置文件</a>中，将<code>timestamp_in_logfile_name</code>设置为<code>false</code>，以便 logrotate 工具可以识别日志文件名。然后重启服务。</p>
+<div class="highlight"><pre><span></span><code><span class="nv">timestamp_in_logfile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+</code></pre></div>
+</li>
+<li>
+<p>安装 logrotate。</p>
+<ul>
+<li>
+<p>Debian/Ubuntu：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>CentOS/RHEL：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>创建 logrotate 配置文件，添加日志轮转规则，然后保存配置文件。</p>
+<p>在<code>/etc/logrotate.d</code>目录下，创建一个新的 logrotate 配置文件<code>nebula-graphd.INFO</code></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+<p>添加以下内容：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 需配置日志文件的绝对路径</span>
+<span class="c1"># 并且文件名不能为软链接文件，如不能为`nebula-graph.INFO`</span>
+/usr/local/nebula/logs/nebula-graphd.INFO.impl<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>daily
+<span class="w">    </span>rotate<span class="w"> </span><span class="m">2</span>
+<span class="w">    </span>copytruncate
+<span class="w">    </span>nocompress
+<span class="w">    </span>missingok
+<span class="w">    </span>notifempty
+<span class="w">    </span>create<span class="w"> </span><span class="m">644</span><span class="w"> </span>root<span class="w"> </span>root
+<span class="w">    </span>dateext
+<span class="w">    </span>dateformat<span class="w"> </span>.%Y-%m-%d-%s
+<span class="w">    </span>maxsize<span class="w"> </span>1k
+<span class="o">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>daily</code></td>
+<td align="left">每天轮转日志。可用的时间单位有：<code>hourly</code>、<code>daily</code>、<code>weekly</code>、<code>monthly</code>、<code>yearly</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>rotate 2</code></td>
+<td align="left">在删除前日志文件前，其被轮转的次数。即保留最近生成的 2 个日志文件。</td>
+</tr>
+<tr>
+<td align="left"><code>copytruncate</code></td>
+<td align="left">将当前日志文件复制一份，然后清空当前日志文件。</td>
+</tr>
+<tr>
+<td align="left"><code>nocompress</code></td>
+<td align="left">不压缩旧的日志文件。</td>
+</tr>
+<tr>
+<td align="left"><code>missingok</code></td>
+<td align="left">如果日志文件丢失，不报告错误。</td>
+</tr>
+<tr>
+<td align="left"><code>notifempty</code></td>
+<td align="left">如果日志文件为空，不进行轮转。</td>
+</tr>
+<tr>
+<td align="left"><code>create 644 root root</code></td>
+<td align="left">创建新的日志文件，并设置适当的权限和所有者。</td>
+</tr>
+<tr>
+<td align="left"><code>dateext</code></td>
+<td align="left">在日志文件名中添加日期后缀。<br/>默认是当前日期。默认是<code>-%Y%m%d</code>的后缀。可用<code>dateformat</code>选项扩展配置。</td>
+</tr>
+<tr>
+<td align="left"><code>dateformat .%Y-%m-%d-%s</code></td>
+<td align="left">必须配合<code>dateext</code>使用，紧跟在下一行出现，定义文件切割后的文件名。<br/>在V3.9.0 之前，只支持<code>%Y</code>、<code>%m</code>、<code>%d</code>、<code>%s</code>参数。在 V3.9.0 及之后，支持 %H 参数。</td>
+</tr>
+<tr>
+<td align="left"><code>maxsize 1k</code></td>
+<td align="left">当日志文件大小超过<code>1</code>千字节（<code>1024</code>字节）或者超过设定的周期（如<code>daily</code>）时，进行日志轮转。可用的大小单位有：<code>k</code>、<code>M</code>，默认单位为字节。</td>
+</tr>
+</tbody>
+</table>
+<p>用户可以根据实际需求修改配置文件中的参数。更多关于参数的配置及解释，参见 <a href="https://man7.org/linux/man-pages/man8/logrotate.8.html">logrotate</a>。</p>
+</li>
+<li>
+<p>测试 logrotate 配置。</p>
+<p>为了验证 logrotate 的配置是否正确，可以使用以下命令来进行测试：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>--debug<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+</li>
+<li>
+<p>运行 logrotate。</p>
+<p>尽管<code>logrotate</code>通常由定时作业自动执行，但也可以手动执行以下命令，以立即进行日志轮转：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>-fv<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+<p><code>-fv</code>：<code>f</code>表示强制执行，<code>v</code>表示打印详细信息。</p>
+</li>
+<li>
+<p>查看日志轮转结果。</p>
+<p>日志轮转后，会在<code>/usr/local/nebula/logs</code>目录下看到新的日志文件，例如<code>nebula-graphd.INFO.impl.2024-01-04-1704338204</code>。原始日志内容会被清空，但文件会被保留，新日志继续写入。当日志文件数量超过<code>rotate</code>设置的值时，会删除最旧的日志文件。</p>
+<p>例如，<code>rotate 2</code>表示保留最近生成的 2 个日志文件，当日志文件数量超过 2 个时，会删除最旧的日志文件。</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>test@test<span class="w"> </span>logs<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">        </span><span class="m">0</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl<span class="w"> </span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">6894</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:16<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338204<span class="w"> </span><span class="c1"># 当新的日志文件生成时，此文件被删除</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338287
+<span class="o">[</span>test@test<span class="w"> </span>logs<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">        </span><span class="m">0</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338287
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338339<span class="w"> </span><span class="c1"># 新生成的日志文件</span>
+</code></pre></div>
+</li>
+</ol>
+<p>如果用户需要对多个日志文件进行轮转，可以在<code>/etc/logrotate.d</code>目录下创建多个配置文件，每个配置文件对应一个日志文件。例如，用户需要对 Meta 服务的<code>INFO</code>级别日志文件和<code>WARNING</code>级别日志文件进行轮转，可以创建两个配置文件<code>nebula-metad.INFO</code>和<code>nebula-metad.WARNING</code>，并在其中分别添加日志轮转规则。</p>
 
   <hr>
 <div class="md-source-file">
