@@ -4525,9 +4525,29 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#log_recycle" class="md-nav__link">
-    Log recycle
+  <a href="#log_recycling" class="md-nav__link">
+    Log recycling
   </a>
+  
+    <nav class="md-nav" aria-label="Log recycling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log_recycling_using_cron_jobs" class="md-nav__link">
+    Log recycling using cron jobs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log_recycling_using_logrotate" class="md-nav__link">
+    Log recycling using logrotate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8133,9 +8153,29 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#log_recycle" class="md-nav__link">
-    Log recycle
+  <a href="#log_recycling" class="md-nav__link">
+    Log recycling
   </a>
+  
+    <nav class="md-nav" aria-label="Log recycling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log_recycling_using_cron_jobs" class="md-nav__link">
+    Log recycling using cron jobs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log_recycling_using_logrotate" class="md-nav__link">
+    Log recycling using logrotate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8247,15 +8287,188 @@ $<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>P
 <p>If the log level is changed while NebulaGraph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see <a href="../../1.configurations/1.configurations/">Configuration files</a>.</p>
 <h2 id="rocksdb_runtime_logs">RocksDB runtime logs<a class="headerlink" href="#rocksdb_runtime_logs" title="Permanent link">&para;</a></h2>
 <p>RocksDB runtime logs are usually used to debug RocksDB parameters and stored in <code>/usr/local/nebula/data/storage/nebula/$id/data/LOG</code>. <code>$id</code> is the ID of the example.</p>
-<h2 id="log_recycle">Log recycle<a class="headerlink" href="#log_recycle" title="Permanent link">&para;</a></h2>
-<p>How to recycle logs when the runtime log file is too large, see <a href="../../../20.appendix/0.FAQ/">FAQs</a>.</p>
+<h2 id="log_recycling">Log recycling<a class="headerlink" href="#log_recycling" title="Permanent link">&para;</a></h2>
+<p>Glog does not inherently support log recycling. To implement this feature, you can either use <a href="https://man7.org/linux/man-pages/man1/crontab.1.html">cron jobs</a> in Linux to regularly remove old log files or use the log management tool, <a href="https://github.com/logrotate/logrotate">logrotate</a>, to rotate logs for regular archiving and deletion.</p>
+<h3 id="log_recycling_using_cron_jobs">Log recycling using cron jobs<a class="headerlink" href="#log_recycling_using_cron_jobs" title="Permanent link">&para;</a></h3>
+<p>This section provides an example of how to use cron jobs to regularly delete old log files from the Graph service's runtime logs.</p>
+<ol>
+<li>
+<p>In the Graph service configuration file, apply the following settings and restart the service:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">timestamp_in_logfile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+<span class="nv">max_log_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span>
+</code></pre></div>
+<ul>
+<li>By setting <code>timestamp_in_logfile_name</code> to <code>true</code>, the log file name includes a timestamp, allowing regular deletion of old log files.</li>
+<li>The <code>max_log_size</code> parameter sets the maximum size of a single log file in MB, such as <code>500</code>. Once this size is exceeded, a new log file is automatically created. The default value is <code>1800</code>.</li>
+</ul>
+</li>
+<li>
+<p>Use the following command to open the cron job editor.</p>
+<div class="highlight"><pre><span></span><code>crontab<span class="w"> </span>-e
+</code></pre></div>
+</li>
+<li>
+<p>Add a cron job command to the editor to regularly delete old log files.</p>
+<div class="highlight"><pre><span></span><code>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>find<span class="w"> </span>&lt;log_path&gt;<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;&lt;YourProjectName&gt;&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+</code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <code>find</code> command in the above command should be executed by the root user or a user with sudo privileges.</p>
+</div>
+<ul>
+<li><code>* * * * *</code>: This cron job time field signifies that the task is executed every minute. For other settings, see <a href="https://crontab.cronhub.io/">Cron Expression</a>.</li>
+<li><code>&lt;log_path&gt;</code>: The path of the service runtime log file, such as <code>/usr/local/nebula/logs</code>.</li>
+<li><code>&lt;YourProjectName&gt;</code>: The log file name, such as <code>nebula-graphd.*</code>.</li>
+<li><code>-mtime +7</code>: This deletes log files that are older than 7 days. Alternatively, use <code>-mmin +n</code> to delete log files older than <code>n</code> minutes. For details, see the find command.</li>
+<li><code>-delete</code>: This deletes log files that meet the conditions.</li>
+</ul>
+<p>For example, to automatically delete the Graph service runtime log files older than 7 days at 3 o'clock every morning, use:</p>
+<div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>find<span class="w"> </span>/usr/local/nebula/logs<span class="w"> </span>-name<span class="w"> </span>nebula-graphd.*<span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+</code></pre></div>
+</li>
+<li>
+<p>Save the cron job and exit the editor.</p>
+</li>
+</ol>
+<h3 id="log_recycling_using_logrotate">Log recycling using logrotate<a class="headerlink" href="#log_recycling_using_logrotate" title="Permanent link">&para;</a></h3>
+<p>Logrotate is a tool that can rotate specified log files for archiving and recycling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must be the root user or a user with sudo privileges to install or run logrotate.</p>
+</div>
+<p>This section provides an example of how to use logrotate to manage the Graph service's <code>INFO</code> level log file (<code>/usr/local/nebula/logs/nebula-graphd.INFO.impl</code>). </p>
+<ol>
+<li>
+<p>In the Graph service configuration file, set <code>timestamp_in_logfile_name</code> to <code>false</code> so that the logrotate tool can recognize the log file name. Then, restart the service.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">timestamp_in_logfile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+</code></pre></div>
+</li>
+<li>
+<p>Install logrotate.</p>
+<ul>
+<li>
+<p>For Debian/Ubuntu:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>For CentOS/RHEL:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>logrotate
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Create a logrotate configuration file, add log rotation rules, and save the configuration file.</p>
+<p>In the <code>/etc/logrotate.d</code> directory, create a new logrotate configuration file <code>nebula-graphd.INFO</code>.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+<p>Then, add the following content:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># The absolute path of the log file needs to be configured</span>
+<span class="c1"># And the file name cannot be a symbolic link file, such as `nebula-graph.INFO`</span>
+/usr/local/nebula/logs/nebula-graphd.INFO.impl<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>daily
+<span class="w">    </span>rotate<span class="w"> </span><span class="m">2</span>
+<span class="w">    </span>copytruncate
+<span class="w">    </span>nocompress
+<span class="w">    </span>missingok
+<span class="w">    </span>notifempty
+<span class="w">    </span>create<span class="w"> </span><span class="m">644</span><span class="w"> </span>root<span class="w"> </span>root
+<span class="w">    </span>dateext
+<span class="w">    </span>dateformat<span class="w"> </span>.%Y-%m-%d-%s
+<span class="w">    </span>maxsize<span class="w"> </span>1k
+<span class="o">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>daily</code></td>
+<td>Rotate the log daily. Other available time units include <code>hourly</code>, <code>daily</code>, <code>weekly</code>, <code>monthly</code>, and <code>yearly</code>.</td>
+</tr>
+<tr>
+<td><code>rotate 2</code></td>
+<td>Keep the most recent 2 log files before deleting the older one.</td>
+</tr>
+<tr>
+<td><code>copytruncate</code></td>
+<td>Copy the current log file and then truncate it, ensuring no disruption to the logging process.</td>
+</tr>
+<tr>
+<td><code>nocompress</code></td>
+<td>Do not compress the old log files.</td>
+</tr>
+<tr>
+<td><code>missingok</code></td>
+<td>Do not report errors if the log file is missing.</td>
+</tr>
+<tr>
+<td><code>notifempty</code></td>
+<td>Do not rotate the log file if it's empty.</td>
+</tr>
+<tr>
+<td><code>create 644 root root</code></td>
+<td>Create a new log file with the specified permissions and ownership.</td>
+</tr>
+<tr>
+<td><code>dateext</code></td>
+<td>Add a date extension to the log file name. <br/>The default is the current date in the format <code>-%Y%m%d</code>. <br/>You can extend this using the <code>dateformat</code> option.</td>
+</tr>
+<tr>
+<td><code>dateformat .%Y-%m-%d-%s</code></td>
+<td>This must follow immediately after <code>dateext</code> and defines the file name after log rotation. <br/>Before V3.9.0, only <code>%Y</code>, <code>%m</code>, <code>%d</code>, and <code>%s</code> parameters were supported. <br/>Starting from V3.9.0, the <code>%H</code> parameter is also supported.</td>
+</tr>
+<tr>
+<td><code>maxsize 1k</code></td>
+<td>Rotate the log when it exceeds 1 kilobyte (<code>1024</code> bytes) in size or when the specified time unit (e.g., <code>daily</code>) passes. <br/>You can use size units like <code>k</code> and <code>M</code>, with the default unit being bytes.</td>
+</tr>
+</tbody>
+</table>
+<p>Modify the parameters in the configuration file according to actual needs. For more information about parameter configuration, see <a href="https://github.com/logrotate/logrotate">logrotate</a>.</p>
+</li>
+<li>
+<p>Test the logrotate configuration.</p>
+<p>To verify whether the logrotate configuration is correct, use the following command for testing.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>--debug<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+</li>
+<li>
+<p>Execute logrotate.</p>
+<p>Although <code>logrotate</code> is typically executed automatically by cron jobs, you can manually execute the following command to perform log rotation immediately.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>logrotate<span class="w"> </span>-fv<span class="w"> </span>/etc/logrotate.d/nebula-graphd.INFO
+</code></pre></div>
+<p><code>-fv</code>: <code>f</code> stands for forced execution, <code>v</code> stands for verbose output.</p>
+</li>
+<li>
+<p>Verify the log rotation results.</p>
+<p>After log rotation, new log files are found in the <code>/usr/local/nebula/logs</code> directory, such as <code>nebula-graphd.INFO.impl.2024-01-04-1704338204</code>. The original log content is cleared, but the file is retained for new log entries. When the number of log files exceeds the value set by <code>rotate</code>, the oldest log file is deleted. </p>
+<p>For example, <code>rotate</code>2` means keeping the 2 most recently generated log files. When the number of log files exceeds 2, the oldest log file is deleted.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>test@test<span class="w"> </span>logs<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">        </span><span class="m">0</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl<span class="w"> </span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">     </span><span class="m">6894</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:16<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338204<span class="w"> </span><span class="c1"># This file is deleted when a new log file is generated</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338287
+<span class="o">[</span>test@test<span class="w"> </span>logs<span class="o">]</span>$<span class="w"> </span>ll
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">        </span><span class="m">0</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338287
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">      </span><span class="m">222</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="m">11</span>:18<span class="w"> </span>nebula-graphd.INFO.impl.2024-01-04-1704338339<span class="w"> </span><span class="c1"># The new log file is generated</span>
+</code></pre></div>
+</li>
+</ol>
+<p>If you need to rotate multiple log files, create multiple configuration files in the <code>/etc/logrotate.d</code> directory, with each configuration file corresponding to a log file. For example, to rotate the <code>INFO</code> level log file and the <code>WARNING</code> level log file of the Meta service, create two configuration files <code>nebula-metad.INFO</code> and <code>nebula-metad.WARNING</code>, and add log rotation rules in them respectively.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
       
     
   </small>
