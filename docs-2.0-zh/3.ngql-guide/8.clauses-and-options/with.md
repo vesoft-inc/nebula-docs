@@ -22,6 +22,7 @@
 4. 去重后返回点的信息。
 
 ```ngql
+# 查询 Tag 为 player，name 属性为 Tim Duncan 的点的路径，并返回去重后路径中的所有的点信息列表。
 nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
         WITH nodes(p) AS n \
         UNWIND n AS n1 \
@@ -52,6 +53,7 @@ nebula> MATCH p=(v:player{name:"Tim Duncan"})--() \
 4. 返回结果。
 
 ```ngql
+# 查询 id 为 player100 的点，并返回点的所有 Tag。
 nebula> MATCH (v) \
         WHERE id(v)=="player100" \
         WITH labels(v) AS tags_unf \
@@ -69,6 +71,7 @@ nebula> MATCH (v) \
 `WITH`可以在聚合查询中作为过滤器使用。
 
 ```ngql
+# 查询所有 Tag 为 player 的路径，对所有目的点去重后根据 age 属性升序排列，返回 age 属性值小于 25 的目的点数据。
 nebula> MATCH (v:player)-->(v2:player) \
         WITH DISTINCT v2 AS v2, v2.player.age AS Age \
         ORDER BY Age \
@@ -88,6 +91,7 @@ nebula> MATCH (v:player)-->(v2:player) \
 在`collect()`函数将输出结果转换为列表之前，可以使用`WITH`子句排序和限制输出结果。
 
 ```ngql
+# 查询所有 Tag 为 player 的点数据，并根据 name 属性倒序排列，将前 3 条结果转换为列表返回。
 nebula> MATCH (v:player) \
         WITH v.player.name AS Name \
         ORDER BY Name DESC \
@@ -105,6 +109,7 @@ nebula> MATCH (v:player) \
 在`WITH`子句中设置别名，并通过`RETURN`子句输出结果。
 
 ```ngql
+# 判断 3 是否存在于 list 数组中。
 nebula> WITH [1, 2, 3] AS `list` RETURN 3 IN `list` AS r;
 +------+
 | r    |
@@ -112,6 +117,7 @@ nebula> WITH [1, 2, 3] AS `list` RETURN 3 IN `list` AS r;
 | true |
 +------+
 
+# 返回 3 和 4 的比较结果。
 nebula> WITH 4 AS one, 3 AS two RETURN one > two AS result;
 +--------+
 | result |
