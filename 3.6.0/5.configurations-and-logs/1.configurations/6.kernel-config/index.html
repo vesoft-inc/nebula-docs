@@ -4469,8 +4469,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
-  <a href="#transparent_huge_page" class="md-nav__link">
-    Transparent huge page
+  <a href="#transparent_huge_pages" class="md-nav__link">
+    Transparent Huge Pages
   </a>
   
 </li>
@@ -8263,8 +8263,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
         
           <li class="md-nav__item">
-  <a href="#transparent_huge_page" class="md-nav__link">
-    Transparent huge page
+  <a href="#transparent_huge_pages" class="md-nav__link">
+    Transparent Huge Pages
   </a>
   
 </li>
@@ -8457,13 +8457,47 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p><code>vm.max_map_count</code> limits the maximum number of vma (virtual memory area) for a process. The default value is <code>65530</code>. It is enough for most applications. If your memory application fails because the memory consumption is large, increase the <code>vm.max_map_count</code> value.</p>
 <h3 id="vmdirty_">vm.dirty_*<a class="headerlink" href="#vmdirty_" title="Permanent link">&para;</a></h3>
 <p>These values control the dirty data cache for the system. For write-intensive scenarios, you can make adjustments based on your needs (throughput priority or delay priority). We recommend that you use the system default value.</p>
-<h3 id="transparent_huge_page">Transparent huge page<a class="headerlink" href="#transparent_huge_page" title="Permanent link">&para;</a></h3>
-<p>For better delay performance, you must run the following commands to disable the transparent huge pages (THP).</p>
-<div class="highlight"><pre><span></span><code>root#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
-root#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/defrag
-root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>swapon<span class="w"> </span>-a
+<h3 id="transparent_huge_pages">Transparent Huge Pages<a class="headerlink" href="#transparent_huge_pages" title="Permanent link">&para;</a></h3>
+<p>Transparent Huge Pages (THP) is a memory management feature of the Linux kernel, which enhances the system's ability to use large pages. In most database systems, Transparent Huge Pages can degrade performance, so it is recommended to disable it.</p>
+<p>Perform the following steps:</p>
+<ol>
+<li>
+<p>Edit the GRUB configuration file <code>/etc/default/grub</code>.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>/etc/default/grub
 </code></pre></div>
-<p>To prevent THP from being enabled again after the system restarts, you can modify the GRUB configuration file or <code>/etc/rc.local</code> to disable THP automatically upon system startup.</p>
+</li>
+<li>
+<p>Add <code>transparent_hugepage=never</code> to the <code>GRUB_CMDLINE_LINUX</code> option, and then save and exit.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;... transparent_hugepage=never&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Update the GRUB configuration.</p>
+<ul>
+<li>
+<p>For CentOS:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>For Ubuntu:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>update-grub
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Reboot the computer.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>reboot
+</code></pre></div>
+<p>If you don't want to reboot, you can run the following commands to temporarily disable THP until the next reboot.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;never&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;never&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/defrag
+</code></pre></div>
+</li>
+</ol>
 <h2 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h2>
 <h3 id="netipv4tcp_slow_start_after_idle">net.ipv4.tcp_slow_start_after_idle<a class="headerlink" href="#netipv4tcp_slow_start_after_idle" title="Permanent link">&para;</a></h3>
 <p>The default value of <code>net.ipv4.tcp_slow_start_after_idle</code> is <code>1</code>. If set, the congestion window is timed out after an idle period. We recommend that you set it to <code>0</code>, especially for long fat scenarios (high latency and large bandwidth).</p>
@@ -8510,7 +8544,7 @@ root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> <
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2024</span>
       
     
   </small>
