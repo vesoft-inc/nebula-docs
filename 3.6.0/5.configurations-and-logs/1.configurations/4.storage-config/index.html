@@ -4455,15 +4455,15 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#misc_configurations" class="md-nav__link">
-    Misc configurations
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rocksdb_options" class="md-nav__link">
-    RocksDB options
+  <a href="#misc_configurations" class="md-nav__link">
+    Misc configurations
   </a>
   
 </li>
@@ -8189,15 +8189,15 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
-  <a href="#misc_configurations" class="md-nav__link">
-    Misc configurations
+  <a href="#rocksdb_options" class="md-nav__link">
+    RocksDB options
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rocksdb_options" class="md-nav__link">
-    RocksDB options
+  <a href="#misc_configurations" class="md-nav__link">
+    Misc configurations
   </a>
   
 </li>
@@ -8570,6 +8570,77 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 | `rocksdb_blob_compression`  | `lz4`    | Compression algorithm for BlobDB. Optional values are  `no`, `snappy`, `lz4`, `lz4hc`, `zlib`, `bzip2`, and `zstd`.     |
 | `rocksdb_enable_blob_garbage_collection`  | `true`    | Whether to perform BlobDB garbage collection during compaction.     | -->
 
+<h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Predefined value</th>
+<th align="left">Description</th>
+<th align="left">Whether supports runtime dynamic modifications</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>rocksdb_db_options</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Specifies the RocksDB database options.</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left"><code>rocksdb_column_family_options</code></td>
+<td align="left"><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
+<td align="left">Specifies the RocksDB column family options.</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left"><code>rocksdb_block_based_table_options</code></td>
+<td align="left"><code>{"block_size":"8192"}</code></td>
+<td align="left">Specifies the RocksDB block based table options.</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<p>The format of the RocksDB option is <code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>. Multiple options are separated with commas.</p>
+<p>Supported options of <code>rocksdb_db_options</code> and <code>rocksdb_column_family_options</code> are listed as follows.</p>
+<ul>
+<li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
+delete_obsolete_files_period_micros
+max_background_jobs
+stats_dump_period_sec
+compaction_readahead_size
+writable_file_max_buffer_size
+bytes_per_sync
+wal_bytes_per_sync
+delayed_write_rate
+avoid_flush_during_shutdown
+max_open_files
+stats_persist_period_sec
+stats_history_buffer_size
+strict_bytes_per_sync
+enable_rocksdb_prefix_filtering
+enable_rocksdb_whole_key_filtering
+rocksdb_filtering_prefix_length
+num_compaction_threads
+rate_limit
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li><code>rocksdb_column_family_options</code><div class="highlight"><pre><span></span><code>write_buffer_size
+max_write_buffer_number
+level0_file_num_compaction_trigger
+level0_slowdown_writes_trigger
+level0_stop_writes_trigger
+target_file_size_base
+target_file_size_multiplier
+max_bytes_for_level_base
+max_bytes_for_level_multiplier
+disable_auto_compactions 
+</code></pre></div>
+</li>
+</ul>
+<p>For more information, see <a href="https://rocksdb.org/">RocksDB official documentation</a>.</p>
 <h2 id="misc_configurations">Misc configurations<a class="headerlink" href="#misc_configurations" title="Permanent link">&para;</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -8647,77 +8718,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </tr>
 </tbody>
 </table>
-<h2 id="rocksdb_options">RocksDB options<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th align="left">Name</th>
-<th align="left">Predefined value</th>
-<th align="left">Description</th>
-<th align="left">Whether supports runtime dynamic modifications</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>rocksdb_db_options</code></td>
-<td align="left"><code>{}</code></td>
-<td align="left">Specifies the RocksDB database options.</td>
-<td align="left">No</td>
-</tr>
-<tr>
-<td align="left"><code>rocksdb_column_family_options</code></td>
-<td align="left"><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
-<td align="left">Specifies the RocksDB column family options.</td>
-<td align="left">No</td>
-</tr>
-<tr>
-<td align="left"><code>rocksdb_block_based_table_options</code></td>
-<td align="left"><code>{"block_size":"8192"}</code></td>
-<td align="left">Specifies the RocksDB block based table options.</td>
-<td align="left">No</td>
-</tr>
-</tbody>
-</table>
-<p>The format of the RocksDB option is <code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>. Multiple options are separated with commas.</p>
-<p>Supported options of <code>rocksdb_db_options</code> and <code>rocksdb_column_family_options</code> are listed as follows.</p>
-<ul>
-<li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
-delete_obsolete_files_period_micros
-max_background_jobs
-stats_dump_period_sec
-compaction_readahead_size
-writable_file_max_buffer_size
-bytes_per_sync
-wal_bytes_per_sync
-delayed_write_rate
-avoid_flush_during_shutdown
-max_open_files
-stats_persist_period_sec
-stats_history_buffer_size
-strict_bytes_per_sync
-enable_rocksdb_prefix_filtering
-enable_rocksdb_whole_key_filtering
-rocksdb_filtering_prefix_length
-num_compaction_threads
-rate_limit
-</code></pre></div>
-</li>
-</ul>
-<ul>
-<li><code>rocksdb_column_family_options</code><div class="highlight"><pre><span></span><code>write_buffer_size
-max_write_buffer_number
-level0_file_num_compaction_trigger
-level0_slowdown_writes_trigger
-level0_stop_writes_trigger
-target_file_size_base
-target_file_size_multiplier
-max_bytes_for_level_base
-max_bytes_for_level_multiplier
-disable_auto_compactions 
-</code></pre></div>
-</li>
-</ul>
-<p>For more information, see <a href="https://rocksdb.org/">RocksDB official documentation</a>.</p>
 <h2 id="memory_tracker_configurations">Memory Tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
 <p>For details about Memory Tracker, see <a href="https://www.nebula-graph.io/posts/memory-tracker-practices">Memory Tracker: Memory Management Practice in NebulaGraph Database</a></p>
 <table>
@@ -8800,7 +8800,7 @@ disable_auto_compactions
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2024</span>
       
     
   </small>
