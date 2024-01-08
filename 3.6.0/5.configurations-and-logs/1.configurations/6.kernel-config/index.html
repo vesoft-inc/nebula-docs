@@ -4510,8 +4510,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#transparent_huge_page" class="md-nav__link">
-    Transparent huge page
+  <a href="#_3" class="md-nav__link">
+    透明大页
   </a>
   
 </li>
@@ -4522,7 +4522,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     网络
   </a>
   
@@ -4584,7 +4584,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     其他参数
   </a>
   
@@ -4604,7 +4604,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     修改参数
   </a>
   
@@ -8324,8 +8324,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#transparent_huge_page" class="md-nav__link">
-    Transparent huge page
+  <a href="#_3" class="md-nav__link">
+    透明大页
   </a>
   
 </li>
@@ -8336,7 +8336,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     网络
   </a>
   
@@ -8398,7 +8398,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     其他参数
   </a>
   
@@ -8418,7 +8418,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     修改参数
   </a>
   
@@ -8518,14 +8518,48 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <p><code>vm.max_map_count</code>用于限制单个进程的 VMA（虚拟内存区域）数量。默认值为<code>65530</code>，对于绝大多数应用程序来说已经足够。如果应用程序因为内存消耗过大而报错，请增大本参数的值。</p>
 <h3 id="vmdirty_">vm.dirty_*<a class="headerlink" href="#vmdirty_" title="Permanent link">&para;</a></h3>
 <p><code>vm.dirty_*</code>是一系列控制系统脏数据缓存的参数。对于写密集型场景，用户可以根据需要进行调整（吞吐量优先或延迟优先），建议使用系统默认值。</p>
-<h3 id="transparent_huge_page">Transparent huge page<a class="headerlink" href="#transparent_huge_page" title="Permanent link">&para;</a></h3>
-<p>为了降低延迟，用户必须关闭 THP（transparent huge page）。命令如下：</p>
-<p><div class="highlight"><pre><span></span><code>root#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
-root#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>never<span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/defrag
-root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>swapon<span class="w"> </span>-a
+<h3 id="_3">透明大页<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>透明大页（Transparent Huge Pages, THP）是一种 Linux 内核的内存管理特性，可以提高系统使用大页的能力。在多数数据库系统中，透明大页会降低性能，建议关闭。</p>
+<p>操作如下：</p>
+<ol>
+<li>
+<p>编辑 GRUB 配置文件<code>/etc/default/grub</code>。</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>/etc/default/grub
 </code></pre></div>
-为了防止系统重启后该配置失效，可以在GRUB配置文件或<code>/etc/rc.local</code>中添加相关配置，使系统启动时自动关闭 THP。</p>
-<h2 id="_3">网络<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+</li>
+<li>
+<p>在<code>GRUB_CMDLINE_LINUX</code>选项中添加<code>transparent_hugepage=never</code>，然后保存并退出。</p>
+<div class="highlight"><pre><span></span><code><span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;... transparent_hugepage=never&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>更新 GRUB 配置。</p>
+<ul>
+<li>
+<p>CentOS</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Ubuntu</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>update-grub
+</code></pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>重启操作系统。</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>reboot
+</code></pre></div>
+<p>如果不重启可临时关闭透明大页，直到下次重启。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;never&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/enabled
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;never&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/transparent_hugepage/defrag
+</code></pre></div>
+</li>
+</ol>
+<h2 id="_4">网络<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="netipv4tcp_slow_start_after_idle">net.ipv4.tcp_slow_start_after_idle<a class="headerlink" href="#netipv4tcp_slow_start_after_idle" title="Permanent link">&para;</a></h3>
 <p><code>net.ipv4.tcp_slow_start_after_idle</code>默认值为 1，会导致闲置一段时间后拥塞窗口超时，建议设置为<code>0</code>，尤其适合大带宽高延迟场景。</p>
 <h3 id="netcoresomaxconn">net.core.somaxconn<a class="headerlink" href="#netcoresomaxconn" title="Permanent link">&para;</a></h3>
@@ -8540,10 +8574,10 @@ root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> <
 <p>TCP 套接字发送/接收缓冲池的最小、最大、默认空间。对于大连接，建议设置为<code>带宽 (GB) *往返时延 (ms)</code>。</p>
 <h3 id="scheduler">scheduler<a class="headerlink" href="#scheduler" title="Permanent link">&para;</a></h3>
 <p>对于 SSD 设备，建议将<code>scheduler</code>设置为<code>noop</code>或者<code>none</code>，路径为<code>/sys/block/DEV_NAME/queue/scheduler</code>。</p>
-<h2 id="_4">其他参数<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_5">其他参数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="kernelcore_pattern">kernel.core_pattern<a class="headerlink" href="#kernelcore_pattern" title="Permanent link">&para;</a></h3>
 <p>建议设置为<code>core</code>，并且将<code>kernel.core_uses_pid</code>设置为<code>1</code>。</p>
-<h2 id="_5">修改参数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">修改参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="sysctl">sysctl 命令<a class="headerlink" href="#sysctl" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
@@ -8571,7 +8605,7 @@ root#<span class="w"> </span>swapoff<span class="w"> </span>-a<span class="w"> <
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 8, 2024</span>
       
     
   </small>
