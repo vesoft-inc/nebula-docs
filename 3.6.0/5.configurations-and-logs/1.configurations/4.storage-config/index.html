@@ -4496,15 +4496,15 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#misc" class="md-nav__link">
-    misc 配置
+  <a href="#rocksdb_options" class="md-nav__link">
+    rocksdb options 配置
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rocksdb_options" class="md-nav__link">
-    rocksdb options 配置
+  <a href="#misc" class="md-nav__link">
+    misc 配置
   </a>
   
 </li>
@@ -8250,15 +8250,15 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
       
         <li class="md-nav__item">
-  <a href="#misc" class="md-nav__link">
-    misc 配置
+  <a href="#rocksdb_options" class="md-nav__link">
+    rocksdb options 配置
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rocksdb_options" class="md-nav__link">
-    rocksdb options 配置
+  <a href="#misc" class="md-nav__link">
+    misc 配置
   </a>
   
 </li>
@@ -8631,6 +8631,77 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 | `rocksdb_blob_compression`  | `lz4`    | BlobDB 的压缩算法，可选值：`no`、`snappy`、`lz4`、`lz4hc`、`zlib`、`bzip2`、`zstd`。     |
 | `rocksdb_enable_blob_garbage_collection`  | `true`    | 在 compaction 过程中是否对 BlobDB 进行垃圾收集。     | -->
 
+<h2 id="rocksdb_options">rocksdb options 配置<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">预设值</th>
+<th align="left">说明</th>
+<th align="left">是否支持运行时动态修改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>rocksdb_db_options</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">RocksDB database 选项。</td>
+<td align="left">不支持</td>
+</tr>
+<tr>
+<td align="left"><code>rocksdb_column_family_options</code></td>
+<td align="left"><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
+<td align="left">RocksDB column family 选项。</td>
+<td align="left">不支持</td>
+</tr>
+<tr>
+<td align="left"><code>rocksdb_block_based_table_options</code></td>
+<td align="left"><code>{"block_size":"8192"}</code></td>
+<td align="left">RocksDB block based table 选项。</td>
+<td align="left">不支持</td>
+</tr>
+</tbody>
+</table>
+<p>rocksdb options 配置的格式为<code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>，多个选项用英文逗号（,）隔开。</p>
+<p><code>rocksdb_db_options</code>和<code>rocksdb_column_family_options</code>支持的选项如下：</p>
+<ul>
+<li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
+delete_obsolete_files_period_micros
+max_background_jobs
+stats_dump_period_sec
+compaction_readahead_size
+writable_file_max_buffer_size
+bytes_per_sync
+wal_bytes_per_sync
+delayed_write_rate
+avoid_flush_during_shutdown
+max_open_files
+stats_persist_period_sec
+stats_history_buffer_size
+strict_bytes_per_sync
+enable_rocksdb_prefix_filtering
+enable_rocksdb_whole_key_filtering
+rocksdb_filtering_prefix_length
+num_compaction_threads
+rate_limit
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li><code>rocksdb_column_family_options</code><div class="highlight"><pre><span></span><code>write_buffer_size
+max_write_buffer_number
+level0_file_num_compaction_trigger
+level0_slowdown_writes_trigger
+level0_stop_writes_trigger
+target_file_size_base
+target_file_size_multiplier
+max_bytes_for_level_base
+max_bytes_for_level_multiplier
+disable_auto_compactions 
+</code></pre></div>
+</li>
+</ul>
+<p>参数的详细说明请参见 <a href="https://rocksdb.org/">RocksDB 官方文档</a>。</p>
 <h2 id="misc">misc 配置<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -8708,77 +8779,6 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tr>
 </tbody>
 </table>
-<h2 id="rocksdb_options">rocksdb options 配置<a class="headerlink" href="#rocksdb_options" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th align="left">名称</th>
-<th align="left">预设值</th>
-<th align="left">说明</th>
-<th align="left">是否支持运行时动态修改</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>rocksdb_db_options</code></td>
-<td align="left"><code>{}</code></td>
-<td align="left">RocksDB database 选项。</td>
-<td align="left">不支持</td>
-</tr>
-<tr>
-<td align="left"><code>rocksdb_column_family_options</code></td>
-<td align="left"><code>{"write_buffer_size":"67108864",</code><br><code>"max_write_buffer_number":"4",</code><br><code>"max_bytes_for_level_base":"268435456"}</code></td>
-<td align="left">RocksDB column family 选项。</td>
-<td align="left">不支持</td>
-</tr>
-<tr>
-<td align="left"><code>rocksdb_block_based_table_options</code></td>
-<td align="left"><code>{"block_size":"8192"}</code></td>
-<td align="left">RocksDB block based table 选项。</td>
-<td align="left">不支持</td>
-</tr>
-</tbody>
-</table>
-<p>rocksdb options 配置的格式为<code>{"&lt;option_name&gt;":"&lt;option_value&gt;"}</code>，多个选项用英文逗号（,）隔开。</p>
-<p><code>rocksdb_db_options</code>和<code>rocksdb_column_family_options</code>支持的选项如下：</p>
-<ul>
-<li><code>rocksdb_db_options</code><div class="highlight"><pre><span></span><code>max_total_wal_size
-delete_obsolete_files_period_micros
-max_background_jobs
-stats_dump_period_sec
-compaction_readahead_size
-writable_file_max_buffer_size
-bytes_per_sync
-wal_bytes_per_sync
-delayed_write_rate
-avoid_flush_during_shutdown
-max_open_files
-stats_persist_period_sec
-stats_history_buffer_size
-strict_bytes_per_sync
-enable_rocksdb_prefix_filtering
-enable_rocksdb_whole_key_filtering
-rocksdb_filtering_prefix_length
-num_compaction_threads
-rate_limit
-</code></pre></div>
-</li>
-</ul>
-<ul>
-<li><code>rocksdb_column_family_options</code><div class="highlight"><pre><span></span><code>write_buffer_size
-max_write_buffer_number
-level0_file_num_compaction_trigger
-level0_slowdown_writes_trigger
-level0_stop_writes_trigger
-target_file_size_base
-target_file_size_multiplier
-max_bytes_for_level_base
-max_bytes_for_level_multiplier
-disable_auto_compactions 
-</code></pre></div>
-</li>
-</ul>
-<p>参数的详细说明请参见 <a href="https://rocksdb.org/">RocksDB 官方文档</a>。</p>
 <h2 id="memory_tracker">memory tracker 配置<a class="headerlink" href="#memory_tracker" title="Permanent link">&para;</a></h2>
 <p>有关 Memory Tracker 的详细信息，请参见<a href="https://discuss.nebula-graph.com.cn/t/topic/13128">图数据库 NebulaGraph 的内存管理实践之 Memory Tracker</a>。</p>
 <table>
