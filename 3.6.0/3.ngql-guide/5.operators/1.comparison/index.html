@@ -8425,13 +8425,15 @@ nebula&gt; WITH 4 AS one, 3 AS two \
 +----------+
 </code></pre></div>
 <h3 id="is_not_null"><code>IS [NOT] NULL</code><a class="headerlink" href="#is_not_null" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN null IS NULL AS value1, null == null AS value2, null != null AS value3;
+<div class="highlight"><pre><span></span><code># 返回关于 null 的一些判断结果。
+nebula&gt; RETURN null IS NULL AS value1, null == null AS value2, null != null AS value3;
 +--------+----------+----------+
 | value1 | value2   | value3   |
 +--------+----------+----------+
 | true   | __NULL__ | __NULL__ |
 +--------+----------+----------+
 
+# 返回关于 NULL 的一些属性信息。
 nebula&gt; RETURN length(NULL), size(NULL), count(NULL), NULL IS NULL, NULL IS NOT NULL, sin(NULL), NULL + NULL, [1, NULL] IS NULL;
 +--------------+------------+-------------+--------------+------------------+-----------+-------------+------------------+
 | length(NULL) | size(NULL) | count(NULL) | NULL IS NULL | NULL IS NOT NULL | sin(NULL) | (NULL+NULL) | [1,NULL] IS NULL |
@@ -8439,6 +8441,7 @@ nebula&gt; RETURN length(NULL), size(NULL), count(NULL), NULL IS NULL, NULL IS N
 | __NULL__     | __NULL__   | 0           | true         | false            | __NULL__  | __NULL__    | false            |
 +--------------+------------+-------------+--------------+------------------+-----------+-------------+------------------+
 
+# 创建 map 数据，判断 map 的 name 属性是否不为 NULL。
 nebula&gt; WITH {name: null} AS `map` \
         RETURN `map`.name IS NOT NULL;
 +----------------------+
@@ -8447,6 +8450,7 @@ nebula&gt; WITH {name: null} AS `map` \
 | false                |
 +----------------------+
 
+# 创建 map1、map2、map3 的数据，并判断返回其 name 属性是否为 NULL。
 nebula&gt; WITH {name: &#39;Mats&#39;, name2: &#39;Pontus&#39;} AS map1, \
         {name: null} AS map2, {notName: 0, notName2: null } AS map3 \
         RETURN map1.name IS NULL, map2.name IS NOT NULL, map3.name IS NULL;
@@ -8456,6 +8460,7 @@ nebula&gt; WITH {name: &#39;Mats&#39;, name2: &#39;Pontus&#39;} AS map1, \
 | false             | false                 | true              |
 +-------------------+-----------------------+-------------------+
 
+# 查询所有 Tag 为 player 的点数据，判断并返回点的 age 属性是否为 NULL、name 属性是否不为 NULL、empty 属性是否为 NULL。
 nebula&gt; MATCH (n:player) \
         RETURN n.player.age IS NULL, n.player.name IS NOT NULL, n.player.empty IS NULL;
 +----------------------+---------------------------+------------------------+
@@ -8466,13 +8471,15 @@ nebula&gt; MATCH (n:player) \
 ...
 </code></pre></div>
 <h3 id="is_not_empty"><code>IS [NOT] EMPTY</code><a class="headerlink" href="#is_not_empty" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN null IS EMPTY;
+<div class="highlight"><pre><span></span><code># 判断 null 是否不存在。
+nebula&gt; RETURN null IS EMPTY;
 +---------------+
 | NULL IS EMPTY |
 +---------------+
 | false         |
 +---------------+
 
+# 判断 a 字符串是否存在。
 nebula&gt; RETURN &quot;a&quot; IS NOT EMPTY;
 +------------------+
 | &quot;a&quot; IS NOT EMPTY |
@@ -8480,6 +8487,7 @@ nebula&gt; RETURN &quot;a&quot; IS NOT EMPTY;
 | true             |
 +------------------+
 
+# 遍历所有 player100 指向的目的点，并返回目的点数据 name 属性存在的点 id。
 nebula&gt; GO FROM &quot;player100&quot; OVER * WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
@@ -8495,7 +8503,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER * WHERE properties($$).name IS NOT
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 9, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2024</span>
       
     
   </small>
