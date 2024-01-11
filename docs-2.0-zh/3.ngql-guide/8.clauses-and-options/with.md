@@ -71,7 +71,7 @@ nebula> MATCH (v) \
 `WITH`可以在聚合查询中作为过滤器使用。
 
 ```ngql
-# 查询所有 Tag 为 player 的路径，对所有目的点去重后根据 age 属性升序排列，返回 age 属性值小于 25 的目的点数据。
+# 查询所有起始点和目的点均有 player 点类型的边，并对所有目的点去重，再根据 age 属性升序排列，返回 age 属性值小于 25 的目的点数据。
 nebula> MATCH (v:player)-->(v2:player) \
         WITH DISTINCT v2 AS v2, v2.player.age AS Age \
         ORDER BY Age \
