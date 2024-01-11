@@ -439,9 +439,9 @@ sources:
 
 ## 社区用户实践
 
-* NebulaGraph Importer 数据导入实践和总结：[https://discuss.nebula-graph.com.cn/t/topic/8757](https://discuss.nebula-graph.com.cn/t/topic/8757)
-* 基于 Nebula-Importer 批量导入工具性能验证方案总结：[https://discuss.nebula-graph.com.cn/t/topic/3843](https://discuss.nebula-graph.com.cn/t/topic/3843)
-* 详解 nebula-importer 性能测试和数据导入调优：[https://discuss.nebula-graph.com.cn/t/topic/4159](https://discuss.nebula-graph.com.cn/t/topic/4159)
+* [NebulaGraph Importer 数据导入实践和总结](https://discuss.nebula-graph.com.cn/t/topic/8757)
+* [基于 Nebula-Importer 批量导入工具性能验证方案总结](https://discuss.nebula-graph.com.cn/t/topic/3843)
+* [详解 nebula-importer 性能测试和数据导入调优](https://discuss.nebula-graph.com.cn/t/topic/4159)
 
 !!! note
 
