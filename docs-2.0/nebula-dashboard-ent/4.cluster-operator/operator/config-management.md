@@ -2,6 +2,10 @@
 
 On **Config Management** page, you can view and update the service configuration files.
 
+!!! note
+
+    For the description of the configuration items, you can view them directly on the page, or see the {{nebula.name}} configuration description: [Meta Service configuration](../../../5.configurations-and-logs/1.configurations/2.meta-config.md), [Graph Service configuration](../../../5.configurations-and-logs/1.configurations/3.graph-config.md) and [Storage Service configuration](../../../5.configurations-and-logs/1.configurations/4.storage-config.md).
+
 ## Precautions
 
 You need to restart the corresponding service in the **Service** page after the configuration modification. For details, see [Service](service.md).

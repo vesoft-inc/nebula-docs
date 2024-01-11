@@ -206,6 +206,10 @@ The Dag Controller can perform complex graph computing with NebulaGraph Analytic
 
   In the same way, complete the SSH password-free configurations so that the user in machine A can log directly into machines B-2, B-3, etc. and all machines within the NebulaGraph Analytics cluster can connect directly to each other without passwords.
 
+  !!! note
+
+        If Analytics is a service with a single node and is on the same machine as the Dag Controller, there is no need to configure SSH password-free. Set the IP address to `127.0.0.1` when adding the Analytics node.
+
 2. Run `eval $(ssh-agent)` on the Dag Controller machine to start the ssh-agent, then run `ssh-add ~/.ssh/id_rsa` to give the private key to the ssh-agent to manage.
 
   !!! note
