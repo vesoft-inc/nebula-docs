@@ -1,8 +1,6 @@
-# Import tools
+# Import and export tools overview
 
-!!! enterpriseonly
-
-    The export tool is only provided in the Enterprise Edition. If you need the enterprise version, please [contact us](mailto:inquiry@vesoft.com).
+## Import tools
 
 There are many ways to write NebulaGraph {{ nebula.release }}:
 
@@ -16,3 +14,10 @@ There are many ways to write NebulaGraph {{ nebula.release }}:
 The following figure shows the positions of these ways:
 
  ![image](https://docs-cdn.nebula-graph.com.cn/figures/write-choice.png)
+
+
+## Export tools
+
+!!! enterpriseonly
+
+    The export tool is exclusively available in the Enterprise Edition. If you require access to this version, please [contact us](mailto:inquiry@vesoft.com).
