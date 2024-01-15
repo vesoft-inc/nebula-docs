@@ -1,5 +1,9 @@
 # Import tools
 
+!!! note
+
+    The export tool is only provided in the Enterprise Edition. If you need the enterprise version, please [contact us](mailto:inquiry@vesoft.com).
+
 There are many ways to write NebulaGraph {{ nebula.release }}:
 
 - Import with [the command -f](../2.quick-start/3.connect-to-nebula-graph.md): This method imports a small number of prepared nGQL files, which is suitable to prepare for a small amount of manual test data.
