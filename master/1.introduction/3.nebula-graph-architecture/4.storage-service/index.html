@@ -8040,7 +8040,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>Supports synchronizing with the third party systems, such as <a href="../../../4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/">Elasticsearch</a>.</li>
 </ul>
 <h2 id="the_architecture_of_the_storage_service">The architecture of the Storage Service<a class="headerlink" href="#the_architecture_of_the_storage_service" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png" /></a></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/nebula-reading-storage-architecture.png" /></a></p>
 <p>The Storage Service is run by the nebula-storaged process. Users can deploy nebula-storaged processes on different occasions. For example, users can deploy 1 nebula-storaged process in a test environment and deploy 3 nebula-storaged processes in a production environment.</p>
 <p>All the nebula-storaged processes consist of a Raft-based cluster. There are three layers in the Storage Service:</p>
 <ul>
@@ -8073,7 +8073,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </ul>
 <p>The following will describe some features of the Storage Service based on the above architecture.</p>
 <h2 id="storage_writing_process">Storage writing process<a class="headerlink" href="#storage_writing_process" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/storage_write_process.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/figures/storage_write_process.png" /></a></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/storage_write_process.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image" src="https://docs-cdn.nebula-graph.com.cn/figures/storage_write_process.png" /></a></p>
 <h2 id="kvstore">KVStore<a class="headerlink" href="#kvstore" title="Permanent link">&para;</a></h2>
 <p>NebulaGraph develops and customizes its built-in KVStore for the following reasons.</p>
 <ul>
@@ -8110,7 +8110,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>
 <p>The storage structure of vertices</p>
 <p>Different from NebulaGraph version 2.x, version 3.x added a new key for each vertex. Compared to the old key that still exists, the new key has no <code>TagID</code> field and no value. Vertices in NebulaGraph can now live without tags owing to the new key.</p>
-<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/3.0-vertex-key.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="The vertex structure of NebulaGraph" src="https://docs-cdn.nebula-graph.com.cn/figures/3.0-vertex-key.png" /></a></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/3.0-vertex-key.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The vertex structure of NebulaGraph" src="https://docs-cdn.nebula-graph.com.cn/figures/3.0-vertex-key.png" /></a></p>
 <table>
 <thead>
 <tr>
@@ -8144,7 +8144,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
 </ul>
 <ul>
-<li>The storage structure of edges<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/3.0-edge-key.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="The edge structure of NebulaGraph" src="https://docs-cdn.nebula-graph.com.cn/figures/3.0-edge-key.png" /></a></p>
+<li>The storage structure of edges<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/3.0-edge-key.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The edge structure of NebulaGraph" src="https://docs-cdn.nebula-graph.com.cn/figures/3.0-edge-key.png" /></a></p>
 <table>
 <thead>
 <tr>
@@ -8190,10 +8190,10 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p>NebulaGraph will store the properties of vertex and edges in order after encoding them. Since the length of fixed-length properties is fixed, queries can be made in no time according to offset. Before decoding, NebulaGraph needs to get (and cache) the schema information in the Meta Service. In addition, when encoding properties, NebulaGraph will add the corresponding schema version to support online schema change.</p>
 <h2 id="data_partitioning">Data partitioning<a class="headerlink" href="#data_partitioning" title="Permanent link">&para;</a></h2>
 <p>Since in an ultra-large-scale relational network, vertices can be as many as tens to hundreds of billions, and edges are even more than trillions. Even if only vertices and edges are stored, the storage capacity of both exceeds that of ordinary servers. Therefore, NebulaGraph uses hash to shard the graph elements and store them in different partitions.</p>
-<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="data partitioning" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" /></a></p>
+<p><a class="glightbox" href="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="data partitioning" src="https://www-cdn.nebula-graph.com.cn/nebula-blog/DataModel02.png" /></a></p>
 <h3 id="edge_partitioning_and_storage_amplification">Edge partitioning and storage amplification<a class="headerlink" href="#edge_partitioning_and_storage_amplification" title="Permanent link">&para;</a></h3>
 <p>In NebulaGraph, an edge corresponds to two key-value pairs on the hard disk. When there are lots of edges and each has many properties, storage amplification will be obvious. The storage format of edges is shown in the figure below.</p>
-<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/edge-division.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="partitioning by edge" src="https://docs-cdn.nebula-graph.com.cn/figures/edge-division.png" /></a></p>
+<p><a class="glightbox" href="https://docs-cdn.nebula-graph.com.cn/figures/edge-division.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="partitioning by edge" src="https://docs-cdn.nebula-graph.com.cn/figures/edge-division.png" /></a></p>
 <p>In this example, SrcVertex connects DstVertex via EdgeA, forming the path of <code>(SrcVertex)-[EdgeA]-&gt;(DstVertex)</code>. SrcVertex, DstVertex, and EdgeA will all be stored in Partition x and Partition y as four key-value pairs in the storage layer. Details are as follows:</p>
 <ul>
 <li>The key value of SrcVertex is stored in Partition x. Key fields include Type, PartID(x), VID(Src), and TagID. SerializedValue, namely Value, refers to serialized vertex properties.</li>
