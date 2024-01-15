@@ -1,6 +1,6 @@
 # Import tools
 
-!!! note
+!!! enterpriseonly
 
     The export tool is only provided in the Enterprise Edition. If you need the enterprise version, please [contact us](mailto:inquiry@vesoft.com).
 
