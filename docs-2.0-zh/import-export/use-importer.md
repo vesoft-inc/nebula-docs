@@ -436,3 +436,13 @@ sources:
 !!! note
 
     CSV 文件中列的序号从 0 开始，即第一列的序号为 0，第二列的序号为 1。
+
+## 社区用户实践
+
+* [NebulaGraph Importer 数据导入实践和总结](https://discuss.nebula-graph.com.cn/t/topic/8757)
+* [基于 Nebula-Importer 批量导入工具性能验证方案总结](https://discuss.nebula-graph.com.cn/t/topic/3843)
+* [详解 nebula-importer 性能测试和数据导入调优](https://discuss.nebula-graph.com.cn/t/topic/4159)
+
+!!! note
+
+    阅读他人实践后倘若想按原文实践，请留意原文所用的内核和周边工具版本号，请确保你的软件环境和原文兼容。

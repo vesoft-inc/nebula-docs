@@ -23,7 +23,7 @@
 - 在 nGQL 中，`YIELD`和 openCypher 中的`RETURN`类似。
 
 !!! note
-    下文示例中的`$$`、`$-`等是引用符号，详情请参见[引用符](../5.operators/5.property-reference.md)。
+    下文示例中的`$$`、`$-`等是引用符号，详情请参见[引用属性](../4.variable-and-composite-queries/3.property-reference.md)。
 
 ## YIELD 子句
 
