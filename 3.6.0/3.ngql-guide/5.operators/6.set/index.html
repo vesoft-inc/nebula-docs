@@ -8309,6 +8309,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
 | &quot;player125&quot; |
 +-------------+
 
+# 查询 Tag 为 player 的点，根据名称排序后获取前 3 条数据，并与数组合并返回，不包含重复的元素。
 nebula&gt; MATCH (v:player) \
         WITH v.player.name AS n \
         RETURN n ORDER BY n LIMIT 3 \
@@ -8337,6 +8338,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
 | &quot;player125&quot; |
 +-------------+
 
+# 查询 Tag 为 player 的点，根据名称排序后获取前 3 条数据，并与数组合并返回，包含重复的元素。
 nebula&gt; MATCH (v:player) \
         WITH v.player.name AS n \
         RETURN n ORDER BY n LIMIT 3 \
@@ -8389,6 +8391,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 +----+--------+-----+
 +----+--------+-----+
 
+# 返回 player102 的邻居和边数据与 player100 的邻居和边数据之间的交集。
 nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
         WHERE id(v) == &quot;player102&quot; \
         RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age \
@@ -8401,6 +8404,7 @@ nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
 +----+--------+-----+
 +----+--------+-----+
 
+# 返回 [1,2] 与 [1,2,3,4] 的交集。
 nebula&gt; UNWIND [1,2] AS a RETURN a \
         INTERSECT \
         UNWIND [1,2,3,4] AS a \
@@ -8427,6 +8431,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
 | &quot;player125&quot; |
 +-------------+
 
+# 返回在 player102 的邻居中，但不在 player100 的邻居中的元素。
 nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) AS id \
         MINUS \
         GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id;
@@ -8436,6 +8441,7 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) AS id \
 | &quot;player100&quot; |
 +-------------+
 
+# 返回在 player102 的邻居中，但不在 player100 的邻居中的元素。
 nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
         WHERE id(v) ==&quot;player102&quot; \
         RETURN id(v2) AS id\
@@ -8449,6 +8455,7 @@ nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
 | &quot;player100&quot; |
 +-------------+
 
+# 返回 [1,2,3] 中不与 4 相同的元素。
 nebula&gt; UNWIND [1,2,3] AS a RETURN a \
         MINUS \
         WITH 4 AS a \
@@ -8497,7 +8504,7 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 25, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 29, 2024</span>
       
     
   </small>
