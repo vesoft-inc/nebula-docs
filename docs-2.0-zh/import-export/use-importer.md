@@ -1,6 +1,6 @@
 # NebulaGraph Importer
 
-NebulaGraph Importer（简称 Importer）是一款{{nebula.name}}的 CSV 文件单机导入工具，可以读取并批量导入多种数据源的 CSV 文件数据，还支持批量更新和删除操作。
+NebulaGraph Importer（简称 Importer）是一款 {{nebula.name}} 的 CSV 文件单机导入工具，可以读取并批量导入多种数据源的 CSV 文件数据，还支持批量更新和删除操作。
 
 ## 功能
 
@@ -21,9 +21,9 @@ NebulaGraph Importer（简称 Importer）是一款{{nebula.name}}的 CSV 文件�
 
 ## 版本兼容性
 
-NebulaGraph Importer 版本和{{nebula.name}}内核的版本对应关系如下。
+NebulaGraph Importer 版本和 {{nebula.name}} 内核的版本对应关系如下。
 
-|{{nebula.name}}版本|NebulaGraph Importer 版本|
+| {{nebula.name}} 版本|NebulaGraph Importer 版本|
 |:---|:---|
 | 3.x.x      |  3.x.x、4.x.x        | 
 | 2.x.x      |  2.x.x、3.x.x        |
@@ -40,7 +40,7 @@ NebulaGraph Importer 版本和{{nebula.name}}内核的版本对应关系如下�
 
 在使用 NebulaGraph Importer 之前，请确保：
 
-- 已部署{{nebula.name}}服务。部署方式如下：
+- 已部署 {{nebula.name}} 服务。部署方式如下：
   
   - [RPM/DEB 包安装](../4.deployment-and-installation/2.compile-and-install-nebula-graph/2.install-nebula-graph-by-rpm-or-deb.md)
       
@@ -48,13 +48,13 @@ NebulaGraph Importer 版本和{{nebula.name}}内核的版本对应关系如下�
   
   - [源码编译安装](../4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code.md)
     
-- {{nebula.name}}中已创建 Schema，包括图空间、Tag 和 Edge type，或者通过参数`manager.hooks.before.statements`设置。
+-  {{nebula.name}} 中已创建 Schema，包括图空间、Tag 和 Edge type，或者通过参数`manager.hooks.before.statements`设置。
 
 ## 操作步骤
 
 ### 创建 CSV 文件
 
-准备好待导入的 CSV 文件并配置 YAML 文件，即可使用本工具向{{nebula.name}}批量导入数据。
+准备好待导入的 CSV 文件并配置 YAML 文件，即可使用本工具向 {{nebula.name}} 批量导入数据。
 
 !!! note
 
@@ -140,7 +140,7 @@ $ docker run --rm -ti \
 
 ## 配置文件说明
 
-NebulaGraph Importer 的 [Github](https://github.com/vesoft-inc/nebula-importer/tree/{{importer.branch}}/examples) 内提供多种示例配置文件。配置文件用来描述待导入文件信息、{{nebula.name}}服务器信息等。下文将分类介绍配置文件内的字段。
+NebulaGraph Importer 的 [Github](https://github.com/vesoft-inc/nebula-importer/tree/{{importer.branch}}/examples) 内提供多种示例配置文件。配置文件用来描述待导入文件信息、 {{nebula.name}} 服务器信息等。下文将分类介绍配置文件内的字段。
 
 !!! note
 
@@ -148,7 +148,7 @@ NebulaGraph Importer 的 [Github](https://github.com/vesoft-inc/nebula-importer/
 
 ### Client 配置
 
-Client 配置存储客户端连接{{nebula.name}}相关的配置。
+Client 配置存储客户端连接 {{nebula.name}} 相关的配置。
 
 示例配置如下：
 
@@ -172,10 +172,10 @@ client:
 
 |参数|默认值|是否必须|说明|
 |:---|:---|:---|:---|
-|`client.version`|`v3`|是|指定连接的{{nebula.name}}的大版本。当前仅支持`v3`。|
-|`client.address`|`"127.0.0.1:9669"`|是|指定连接的{{nebula.name}}地址。多个地址用英文逗号（,）分隔。|
-|`client.user`|`root`|否|{{nebula.name}}的用户名。|
-|`client.password`|`nebula`|否|{{nebula.name}}用户名对应的密码。|
+|`client.version`|`v3`|是|指定连接的 {{nebula.name}} 的大版本。当前仅支持`v3`。|
+|`client.address`|`"127.0.0.1:9669"`|是|指定连接的 {{nebula.name}} 地址。多个地址用英文逗号（,）分隔。|
+|`client.user`|`root`|否| {{nebula.name}} 的用户名。|
+|`client.password`|`nebula`|否| {{nebula.name}} 用户名对应的密码。|
 |`client.ssl.enable`|`false`|否|指定是否开启 SSL 认证。|
 |`client.ssl.certPath`|-|否|指定 SSL 公钥证书的存储路径。</br>开启 SSL 认证后该参数必填。|
 |`client.ssl.keyPath`|-|否|指定 SSL 密钥的存储路径。</br>开启 SSL 认证后该参数必填。|
@@ -436,3 +436,13 @@ sources:
 !!! note
 
     CSV 文件中列的序号从 0 开始，即第一列的序号为 0，第二列的序号为 1。
+
+## 社区用户实践
+
+* [NebulaGraph Importer 数据导入实践和总结](https://discuss.nebula-graph.com.cn/t/topic/8757)
+* [基于 Nebula-Importer 批量导入工具性能验证方案总结](https://discuss.nebula-graph.com.cn/t/topic/3843)
+* [详解 nebula-importer 性能测试和数据导入调优](https://discuss.nebula-graph.com.cn/t/topic/4159)
+
+!!! note
+
+    阅读他人实践后倘若想按原文实践，请留意原文所用的内核和周边工具版本号，请确保你的软件环境和原文兼容。

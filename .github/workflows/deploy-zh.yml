@@ -21,12 +21,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1 # fetch all commits/branches for gitversion
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
 
@@ -43,14 +43,13 @@ jobs:
           git fetch origin gh-pages-zh --depth=1 # fix mike's CI update
           mike list
           mike deploy ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
-      # The set-default command is only applicable to the latest version and must be commented in older versions.
-      #   mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
+        #  mike set-default ${{ env.ACTIONTEST }} -b gh-pages-zh -p --rebase
     
       - name: show Chinese git branches
         run: |
           git branch
           git checkout .
-          git checkout gh-pages-zh              
+          git checkout gh-pages-zh             
 
       - name: Compress
         run: |

@@ -1,4 +1,4 @@
-# 欢迎阅读{{nebula.name}} {{ nebula.release }} 文档
+# 欢迎阅读 {{nebula.name}} {{ nebula.release }} 文档
 
 !!! note
     
@@ -21,10 +21,11 @@ NebulaGraph 是一款开源的、分布式的、易扩展的原生图数据库�
 * [FAQ](20.appendix/0.FAQ.md)
 * [生态工具](20.appendix/6.eco-tool-version.md)
 * [Academy 课程](https://academic.nebula-graph.io/intro/)
+* [在线体验](https://www.nebula-graph.com.cn/demo)
 
 ## 最新发布
 
-- [{{nebula.name}} {{nebula.release}}](20.appendix/release-notes/nebula-comm-release-note.md)
+- [{{nebula.name}}  {{nebula.release}}](20.appendix/release-notes/nebula-comm-release-note.md)
 - [NebulaGraph Dashboard Community](20.appendix/release-notes/dashboard-comm-release-note.md)
 - [NebulaGraph Studio](20.appendix/release-notes/studio-release-note.md)
 
@@ -73,4 +74,4 @@ NebulaGraph 是一款开源的、分布式的、易扩展的原生图数据库�
 
 ## 修改文档中的错误
  
-{{nebula.name}}文档以 Markdown 语言编写。单击文档标题右上侧的铅笔图标即可提交修改建议。
+{{nebula.name}} 文档以 Markdown 语言编写。单击文档标题右上侧的铅笔图标即可提交修改建议。

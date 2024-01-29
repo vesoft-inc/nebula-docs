@@ -107,9 +107,9 @@ Check that the NebulaGraph service port is configured correctly.
 
 Check whether the version of Exchange is the same as that of NebulaGraph. For more information, see [Limitations](about-exchange/ex-ug-limitations.md).
 
-### Q: How to correct the messy code when importing Hive data into NebulaGraph?
+### Q: How to correct the encoding error when importing data in a Spark environment?
 
-It may happen if the property value of the data in Hive contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:
+It may happen if the property value of the data contains Chinese characters. The solution is to add the following options before the JAR package path in the import command:
 
 ```bash
 --conf spark.driver.extraJavaOptions=-Dfile.encoding=utf-8

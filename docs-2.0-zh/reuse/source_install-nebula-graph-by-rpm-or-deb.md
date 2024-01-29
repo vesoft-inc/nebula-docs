@@ -1,8 +1,8 @@
-RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如何使用 RPM 或 DEB 文件在一台机器上快速安装{{nebula.name}}。
+RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如何使用 RPM 或 DEB 文件在一台机器上快速安装 {{nebula.name}} 。
 
 !!! note
 
-    部署{{nebula.name}}集群的方式参见[使用 RPM/DEB 包部署集群](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/3.1add-storage-hosts/)。<!--这里用外链。-->
+    部署 {{nebula.name}} 集群的方式参见[使用 RPM/DEB 包部署集群](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/3.1add-storage-hosts/)。<!--这里用外链。-->
 
 
 ## 前提条件
@@ -17,9 +17,9 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
 
 !!! note
 
-    - 当前仅支持在 Linux 系统下安装{{nebula.name}}，且仅支持 CentOS 7.x、CentOS 8.x、Ubuntu 16.04、Ubuntu 18.04、Ubuntu 20.04 操作系统。
+    - 当前仅支持在 Linux 系统下安装 {{nebula.name}}，且仅支持 CentOS 7.x、CentOS 8.x、Ubuntu 16.04、Ubuntu 18.04、Ubuntu 20.04 操作系统。
   
-    - 如果用户使用的是国产化的 Linux 操作系统，请[安装企业版{{nebula.name}}](https://yueshu.com.cn/contact)。  
+    - 如果用户使用的是国产化的 Linux 操作系统，请[安装企业版 {{nebula.name}} ](https://yueshu.com.cn/contact)。  
 
 
 
@@ -101,7 +101,7 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
 
 
 
-## 安装{{nebula.name}}
+## 安装 {{nebula.name}} 
 
 - 安装 RPM 包
 
@@ -109,7 +109,7 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
   $ sudo rpm -ivh --prefix=<installation_path> <package_name>
   ```
   
-  `--prefix`为可选项，用于指定安装路径。如不设置，系统会将{{nebula.name}}安装到默认路径`/usr/local/nebula/`。
+  `--prefix`为可选项，用于指定安装路径。如不设置，系统会将 {{nebula.name}} 安装到默认路径`/usr/local/nebula/`。
 
   例如，要在默认路径下安装{{nebula.release}}版本的 RPM 包，运行如下命令：
 
@@ -128,7 +128,7 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
   ```
 
   !!! note
-        使用 DEB 包安装{{nebula.name}}时不支持自定义安装路径。默认安装路径为`/usr/local/nebula/`。
+        使用 DEB 包安装 {{nebula.name}} 时不支持自定义安装路径。默认安装路径为`/usr/local/nebula/`。
 
   例如安装{{nebula.release}}版本的 DEB 包：
 
@@ -136,14 +136,9 @@ RPM 和 DEB 是 Linux 系统下常见的两种安装包格式，本文介绍如�
   ```bash
   sudo dpkg -i nebula-graph-{{nebula.release}}.ubuntu1804.amd64.deb
   ```
-  
-
-  
-
-
 
 
 ## 后续操作
 
-- [启动{{nebula.name}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/5.start-stop-service/)<!--这里用外链。-->
-- [连接{{nebula.name}}](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/3.connect-to-nebula-graph/)<!--这里用外链。-->
+- [启动 {{nebula.name}} ](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/5.start-stop-service/)<!--这里用外链。-->
+- [连接 {{nebula.name}} ](https://docs.nebula-graph.com.cn/{{nebula.release}}/2.quick-start/3.quick-start-on-premise/3.connect-to-nebula-graph/)<!--这里用外链。-->
