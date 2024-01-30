@@ -44,7 +44,7 @@ NebulaGraph Spark Connector applies to the following scenarios:
 - Read data from {{nebula.name}} for analysis and computation.
 - Write data back to {{nebula.name}} after analysis and computation.
 - Migrate the data of {{nebula.name}}.
-- Graph computing with [NebulaGraph Algorithm](graph-computing/nebula-algorithm.md).
+- Graph computing with [NebulaGraph Algorithm](../graph-computing/nebula-algorithm.md).
 
 ## Benefits
 
