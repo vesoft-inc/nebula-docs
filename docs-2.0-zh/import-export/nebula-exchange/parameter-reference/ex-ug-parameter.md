@@ -17,6 +17,41 @@ java -cp <exchange_jar_package> com.vesoft.exchange.common.GenerateConfigTemplat
 java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
 ```
 
+## 使用加密密码
+
+用户在配置文件里设置连接 {{nebula.name}} 的密码时，可以使用明文密码，也可以使用 RSA 加密后的密码。
+
+如果需要使用 RSA 加密后的密码，需要在配置文件内进行如下设置：
+
+- `nebula.pswd`配置为 RSA 加密后的密码。
+- `nebula.privateKey`配置为 RSA 加密的密钥。
+- `nebula.enableRSA`配置为`true`。
+
+用户可以使用自己的工具加密，也可以使用 Exchange 的 JAR 包内提供的加密工具，例如：
+
+```bash
+spark-submit --master local --class com.vesoft.exchange.common.PasswordEncryption nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar -p nebula
+```
+
+返回结果如下：
+
+```bash
+=================== public key begin ===================
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLl7LaNSEXlZo2hYiJqzxgyFBQdkxbQXYU/xQthsBJwjOPhkiY37nokzKnjNlp6mv5ZUomqxLsoNQHEJ6BZD4VPiaiElFAkTD+gyul1v8f3A446Fr2rnVLogWHnz8ECPt7X8jwmpiKOXkOPIhqU5E0Cua+Kk0nnVosbos/VShfiQIDAQAB
+=================== public key end ===================
+
+
+=================== private key begin ===================
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIuXsto1IReVmjaFiImrPGDIUFB2TFtBdhT/FC2GwEnCM4+GSJjfueiTMqeM2Wnqa/llSiarEuyg1AcQnoFkPhU+JqISUUCRMP6DK6XW/x/cDjjoWvaudUuiBYefPwQI+3tfyPCamIo5eQ48iGpTkTQK5r4qTSedWixuiz9VKF+JAgMBAAECgYADWbfEPwQ1UbTq3Bej3kVLuWMcG0rH4fFYnaq5UQOqgYvFRR7W9H+80lOj6+CIB0ViLgkylmaU4WNVbBOx3VsUFFWSqIIIviKubg8m8ey7KAd9X2wMEcUHi4JyS2+/WSacaXYS5LOmMevvuaOwLEV0QmyM+nNGRIjUdzCLR1935QJBAM+IF8YD5GnoAPPjGIDS1Ljhu/u/Gj6/YBCQKSHQ5+HxHEKjQ/YxQZ/otchmMZanYelf1y+byuJX3NZ04/KSGT8CQQCsMaoFO2rF5M84HpAXPi6yH2chbtz0VTKZworwUnpmMVbNUojf4VwzAyOhT1U5o0PpFbpi+NqQhC63VUN5k003AkEArI8vnVGNMlZbvG7e5/bmM9hWs2viSbxdB0inOtv2g1M1OV+B2gp405ru0/PNVcRV0HQFfCuhVfTSxmspQoAihwJBAJW6EZa/FZbB4JVxreUoAr6Lo8dkeOhT9M3SZbGWZivaFxot/Cp/8QXCYwbuzrJxjqlsZUeOD6694Uk08JkURn0CQQC8V6aRa8ylMhLJFkGkMDHLqHcQCmY53Kd73mUu4+mjMJLZh14zQD9ydFtc0lbLXTeBAMWV3uEdeLhRvdAo3OwV
+=================== private key end ===================
+
+
+=================== encrypted  password begin ===================
+Io+3y3mLOMnZJJNUPHZ8pKb4VfTvg6wUh6jSu5xdmLAoX/59tK1HTwoN40aOOWJwa1a5io7S4JqcX/jEcAorw7pelITr+F4oB0AMCt71d+gJuu3/lw9bjUEl9tF4Raj82y2Dg39wYbagN84fZMgCD63TPiDIevSr6+MFKASpGrY=
+=================== encrypted  password end ===================
+check: the real password decrypted by private key and encrypted password is: nebula
+```
+
 ## 配置说明
 
 修改配置文件之前，建议根据数据源复制并修改文件名称，便于区分。例如数据源为 CSV 文件，可以复制为`csv_application.conf`。
@@ -27,7 +62,7 @@ java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.G
 
 - Hive 配置（可选）
 
--  {{nebula.name}} 相关配置
+- {{nebula.name}} 相关配置
 
 - 点配置
 
@@ -64,7 +99,9 @@ java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.G
 |`nebula.address.graph`|list\[string\]|`["127.0.0.1:9669"]`|是|所有 Graph 服务的地址，包括 IP 和端口，多个地址用英文逗号（,）分隔。格式为`["ip1:port1","ip2:port2","ip3:port3"]`。|
 |`nebula.address.meta`|list\[string\]|`["127.0.0.1:9559"]`|是|所有 Meta 服务的地址，包括 IP 和端口，多个地址用英文逗号（,）分隔。格式为`["ip1:port1","ip2:port2","ip3:port3"]`。|
 |`nebula.user`|string|-|是|拥有 {{nebula.name}} 写权限的用户名。|
-|`nebula.pswd`|string|-|是|用户名对应的密码。|
+|`nebula.pswd`|string|-|是|用户名对应的密码。密码支持明文或者 RSA 加密后的密码。如果使用 RSA 加密后的密码，需要设置`enableRSA`和`privateKey`。如何加密密码，参见上文**使用加密密码**。|
+|`nebula.enableRSA`|bool|`false`|否|是否使用 RSA 加密的密码。|
+|`nebula.privateKey`|string|-|否|RSA 加密的密钥。|
 |`nebula.space`|string|-|是|需要导入数据的的图空间名称。|
 |`nebula.ssl.enable.graph`|bool|`false`|是|开启 Exchange 与 Graph 服务之间的 [SSL 加密](https://en.wikipedia.org/wiki/Transport_Layer_Security)传输。当值为`true`时开启，下方的 SSL 相关参数生效。如果 Exchange 运行在多机集群上，在设置以下 SSL 相关路径时，需要在每台机器的相同路径都存储相应的文件。|
 |`nebula.ssl.enable.meta`|bool|`false`|是|开启 Exchange 与 Meta 服务之间的 SSL 加密传输。当值为`true`时开启，下方的 SSL 相关参数生效。如果 Exchange 运行在多机集群上，在设置以下 SSL 相关路径时，需要在每台机器的相同路径都存储相应的文件。|
@@ -232,6 +269,10 @@ java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.G
 |`tags.service`|string|-|是|Kafka 服务器地址。|
 |`tags.topic`|string|-|是|消息类别。|
 |`tags.interval.seconds`|int|`10`|是|读取消息的间隔。单位：秒。|
+|`tags.securityProtocol`|string|-|否| Kafka 安全协议。 |
+|`tags.mechanism`|string|-|否| Kafka SASL 安全认证机制。 |
+|`tags.kerberos`|bool|`false`|否| 是否启用 Kerberos 进行安全认证。如果`tags.mechanism`为`kerberos`，该参数必须设置为`true`。|
+|`tags.kerberosServiceName`|string|-|否| Kerberos 服务名称。如果`tags.kerberos`为`true`，该参数必填。  |
 
 #### 生成 SST 时的特有参数
 

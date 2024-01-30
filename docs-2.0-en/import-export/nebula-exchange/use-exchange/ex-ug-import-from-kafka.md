@@ -135,6 +135,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
+    # Whether to use a password encrypted with RSA.
+    # enableRSA: true
+    # The key used to encrypt the password using RSA.
+    # privateKey: ""
+
     # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection: {
@@ -170,6 +175,12 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       service: "127.0.0.1:9092"
       # Message category.
       topic: "topic_name1"
+
+      # If Kafka uses Kerberos for security certification, the following parameters need to be set. If Kafka uses SASL or SASL_PLAINTEXT for security certification, you do not need to set kerberos or kerberosServiceName.
+      #securityProtocol: SASL_PLAINTEXT
+      #mechanism: GASSAPI
+      #kerberos: true
+      #kerberosServiceName: kafka
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
@@ -232,6 +243,12 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
   #    service: "127.0.0.1:9092"
   #    # Message category.
   #    topic: "topic_name3"
+
+  #    # If Kafka uses Kerberos for security certification, the following parameters need to be set. If Kafka uses SASL or SASL_PLAINTEXT for security certification, you do not need to set kerberos or kerberosServiceName.
+  #    #securityProtocol: SASL_PLAINTEXT
+  #    #mechanism: GASSAPI
+  #    #kerberos: true
+  #    #kerberosServiceName: kafka
 
   #    # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
   #    # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
@@ -296,18 +313,45 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 Run the following command to import Kafka data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <kafka_application.conf_path>
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange.jar_path> -c <kafka_application.conf_path>
 ```
 
 !!! note
 
-    JAR packages are available in two ways: [compiled them yourself](../ex-ug-compile.md), or [download](https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/) the compiled `.jar` file directly.
+    - The JAR package needs to be obtained from the [NebulaGraph Enterprise Edition Package](https://nebula-graph.io/pricing).
+    - If Kafka's security certification is enabled, you need to configure the driver and executor when importing data. See the example below.
 
-For example:
+Example:
 
-```bash
-${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/kafka_application.conf
-```
+- No security certification
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
+
+- Enable Kerberos security certification
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf" \
+  --files /local/path/kafka_client_jaas.conf,/local/path/kafka.keytab,/local/path/krb5.conf \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
+
+- Enable SASL/SASL_PLAINTEXT security certification
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf" \
+  --files /local/path/kafka_client_jaas.conf \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
 
 You can search for `batchSuccess.<tag_name/edge_name>` in the command output to check the number of successes. For example, `batchSuccess.follow: 300`.
 
