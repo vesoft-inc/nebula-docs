@@ -98,7 +98,7 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`nebula.address.graph`|list\[string\]|`["127.0.0.1:9669"]`|Yes|The addresses of all Graph services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.address.meta`|list\[string\]|`["127.0.0.1:9559"]`|Yes|The addresses of all Meta services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.user`|string|-|Yes|The username with write permissions for NebulaGraph.|
-|`nebula.pswd`|string|-|Yes|The account password. The password can be plaintext or RSA encrypted. If using an RSA encrypted password you need to set `enableRSA` and `privateKey`. For how to encrypt a password, see **Using an encrypted password** above.|
+|`nebula.pswd`|string|-|Yes|The account password. The password can be plaintext or RSA encrypted. To use an RSA encrypted password, you need to set `enableRSA` and `privateKey`. For how to encrypt a password, see **Using an encrypted password** above.|
 |`nebula.enableRSA`|bool|`false`|No|Whether to use an RSA encrypted password.|
 |`nebula.privateKey`|string|-|No|The key used to encrypt the password using RSA.|
 |`nebula.space`|string|-|Yes|The name of the graph space where data needs to be imported.|
