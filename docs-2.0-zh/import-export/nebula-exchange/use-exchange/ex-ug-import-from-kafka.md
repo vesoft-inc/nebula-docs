@@ -130,6 +130,10 @@
     # 填写的账号必须拥有 {{nebula.name}} 相应图空间的写数据权限。
     user: root
     pswd: nebula
+    # 是否使用 RSA 加密的密码。
+    # enableRSA: true
+    # 使用 RSA 加密密码时的密钥。
+    # privateKey: ""
     # 填写 {{nebula.name}} 中需要写入数据的图空间名称。
     space: basketballplayer
     connection: {
@@ -164,6 +168,12 @@
       service: "127.0.0.1:9092"
       # 消息类别。
       topic: "topic_name1"
+
+      # 如果 Kafka 使用 Kerberos 进行安全认证，需要设置以下参数。如果 Kafka 使用 SASL 或 SASL_PLAINTEXT 进行安全认证，无需设置 kerberos 和 kerberosServiceName。
+      #securityProtocol: SASL_PLAINTEXT
+      #mechanism: GASSAPI
+      #kerberos: true
+      #kerberosServiceName: kafka
 
       # 在 fields 里指定 Kafka value 中的字段名称，多个字段用英文逗号（,）隔开。Spark Structured Streaming 读取 Kafka 数据后会将其以 JSON 格式存储于 value 字段中，而这里的 fields 要配置 JSON 的 key 名。示例如下：
       fields: [personName, personAge]
@@ -221,6 +231,12 @@
   #    service: "127.0.0.1:9092"
   #    # 消息类别。
   #    topic: "topic_name3"
+
+  #    # 如果 Kafka 启用 Kerberos 进行安全认证，需要设置以下参数。如果 Kafka 启用 SASL 或 SASL_PLAINTEXT 进行安全认证，无需设置 kerberos 和 kerberosServiceName。
+  #    #securityProtocol: SASL_PLAINTEXT
+  #    #mechanism: GASSAPI
+  #    #kerberos: true
+  #    #kerberosServiceName: kafka
 
   #    # 在 fields 里指定 Kafka value 中的字段名称，多个字段用英文逗号（,）隔开。Spark Structured Streaming 读取 Kafka 数据后会将其以 JSON 格式存储于 value 字段中，而这里的 fields 要配置 JSON 的 key 名。示例如下：
   #    fields: [degree]
@@ -283,18 +299,45 @@
 运行如下命令将 Kafka 数据导入到 {{nebula.name}} 中。关于参数的说明，请参见[导入命令参数](../parameter-reference/ex-ug-para-import-command.md)。
 
 ```bash
-${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <kafka_application.conf_path>
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange.jar_path> -c <kafka_application.conf_path>
 ```
 
 !!! note
 
-    JAR 包有两种获取方式：[自行编译](../ex-ug-compile.md)或者从 maven 仓库下载。
+    - JAR 包需要从[{{nebula.name}}套餐](https://nebula-graph.com.cn/pricing/)中获取。
+    - 如果 Kafka 启用了安全认证，导入数据时需要配置驱动程序和执行器，参见下方示例。
 
 示例：
 
-```bash
-${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/kafka_application.conf
-```
+- 无安全认证
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
+
+- 启用 Kerberos 安全认证
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf" \
+  --files /local/path/kafka_client_jaas.conf,/local/path/kafka.keytab,/local/path/krb5.conf \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
+
+- 启用 SASL/SASL_PLAINTEXT 安全认证
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit  --master "local" \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf" \
+  --files /local/path/kafka_client_jaas.conf \
+  --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  \
+  -c /root/nebula-exchange/target/classes/kafka_application.conf
+  ```
 
 用户可以在返回信息中搜索`batchSuccess.<tag_name/edge_name>`，确认成功的数量。例如`batchSuccess.follow: 300`。
 

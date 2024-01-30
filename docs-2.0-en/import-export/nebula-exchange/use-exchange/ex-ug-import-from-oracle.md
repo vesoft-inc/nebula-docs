@@ -156,6 +156,11 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
     # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
+    # Whether to use a password encrypted with RSA.
+    # enableRSA: true
+    # The key used to encrypt the password using RSA.
+    # privateKey: ""
+
     # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection: {
@@ -373,7 +378,7 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
 Run the following command to import Oracle data into NebulaGraph. For a description of the parameters, see [Options for import](../parameter-reference/ex-ug-para-import-command.md).
 
 ```bash
-${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <oracle_application.conf_path>
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange.jar_path> -c <oracle_application.conf_path>
 ```
 
 !!! note
@@ -383,7 +388,7 @@ ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchan
 For example:
 
 ```bash
-${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/oracle_application.conf
+${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/oracle_application.conf
 ```
 
 You can search for `batchSuccess.<tag_name/edge_name>` in the command output to check the number of successes. For example, `batchSuccess.follow: 300`.
