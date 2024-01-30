@@ -13,7 +13,7 @@ NebulaGraph is a distributed, scalable, and lightning-fast graph database. It is
 * [nGQL cheatsheet](2.quick-start/6.cheatsheet-for-ngql.md)
 * [FAQ](20.appendix/0.FAQ.md)
 * [Ecosystem Tools](20.appendix/6.eco-tool-version.md)
-  
+* [Live Demo](https://www.nebula-graph.io/demo)
 
 ## Release notes
 

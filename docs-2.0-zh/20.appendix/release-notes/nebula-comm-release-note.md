@@ -1,4 +1,4 @@
-# {{nebula.name}} release notes
+# {{nebula.name}} 更新说明
 
 ## v3.6.0
 
@@ -8,8 +8,8 @@
 
     涉及变更内容如下：
 
-      - 原有的全文索引功能由调用 Elasticsearch 的 Term-level queries 改为 Full text queries 方式。
-      - 变更后除了支持原有的通配符、正则、模糊匹配等方式（但语法发生变化），还增加了对分词的支持（依赖 Elasticsearch 自身使用的分词器），查询结果包含评分结果。更多语法请参见 [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html)。
+    - 原有的全文索引功能由调用 Elasticsearch 的 Term-level queries 改为 Full text queries 方式。
+    - 变更后除了支持原有的通配符、正则、模糊匹配等方式（但语法发生变化），还增加了对分词的支持（依赖 Elasticsearch 自身使用的分词器），查询结果包含评分结果。更多语法请参见 [Elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html)。
 
 - 增强
 

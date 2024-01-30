@@ -6,25 +6,23 @@
 
 You are welcome to contribute any code or files to the project. But firstly we suggest you raise an issue on the [github](https://github.com/vesoft-inc/nebula) or the [forum](https://github.com/vesoft-inc/nebula/discussions) to start a discussion with the community. Check through the topic for Github.
 
-### Sign the Contributor License Agreement (CLA)
+### Sign the Contributor License Agreement [CLA](https://www.apache.org/licenses/contributor-agreements.html)
 
-What is [CLA](https://www.apache.org/licenses/contributor-agreements.html)?
+1. Open the [CLA sign-in](https://cla-assistant.io/) page.
+2. Click the **Sign in with GitHub** button to sign in.
+3. Read and agree to the [vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/).
 
-Here is the [vesoft inc. Contributor License Agreement](https://cla-assistant.io/vesoft-inc/).
-
-Click the **Sign in with GitHub to agree** button to sign the CLA.
-
-If you have any questions, send an email to `info@vesoft.com`.
+If you have any questions, submit an [issue](https://github.com/vesoft-inc/nebula/issues).
 
 ## Modify a single document
 
 This manual is written in the Markdown language. Click the `pencil` icon on the right of the document title to commit the modification.
 
-This method applies to modify a single document only.
+This method applies to modifying a single document only.
 
 ## Batch modify or add files
 
-This method applies to contribute codes, modify multiple documents in batches, or add new documents.
+This method applies to contributing code, modifying multiple documents in batches, or adding new documents.
 
 ## Step 1: Fork in the github.com
 

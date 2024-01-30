@@ -5,7 +5,6 @@
 ## Examples
 
 ```ngql
-nebula> # 这行什么都不做并返回报错`StatementEmpty`。
 nebula> RETURN 1+1;     # 这条注释延续到行尾。
 nebula> RETURN 1+1;     // 这条注释延续到行尾。
 nebula> RETURN 1 /* 这是一条行内注释 */ + 1 == 2;
@@ -15,7 +14,10 @@ nebula> RETURN 11 +            \
 */ 12;
 ```
 
-nGQL 语句中的反斜线（\）代表换行。
+!!! note
+
+    - nGQL 语句中的反斜线（\）代表换行。
+    - 如果 nGQL 语句以`#`或者`//`开头，不会执行该行命令并且会返回提示`StatementEmpty`。
 
 ## openCypher 兼容性
 

@@ -1,4 +1,4 @@
-# NebulaGraph Studio 版本更新说明
+# NebulaGraph Studio 更新说明
 
 
 ## v3.8.0
@@ -36,4 +36,4 @@
   - 导入页面支持配置更多导入参数，如并发数、重试次数等。
   - 支持重跑任务。
   - 支持任务保存为草稿。
-  - 支持 ARM 架构。
+  - 支持在 ARM 架构的 Docker 容器内运行 Studio。

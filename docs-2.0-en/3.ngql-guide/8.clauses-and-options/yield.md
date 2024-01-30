@@ -23,7 +23,7 @@ This topic applies to native nGQL only. For the openCypher syntax, use [`RETURN`
 * In nGQL, `YIELD` works like `RETURN` in openCypher.
 
 !!! note
-    In the following examples, `$$` and `$-` are reference operators. For more information, see [Operators](../5.operators/5.property-reference.md).
+    In the following examples, `$$` and `$-` are property references. For more information, see [Reference to properties](../4.variable-and-composite-queries/3.property-reference.md).
 
 ## YIELD clauses
 
