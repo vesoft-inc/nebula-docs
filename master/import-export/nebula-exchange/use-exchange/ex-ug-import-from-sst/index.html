@@ -8547,6 +8547,11 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     }
     user: root
     pswd: nebula
+    # Whether to use a password encrypted with RSA.
+    # enableRSA: true
+    # The key used to encrypt the password using RSA.
+    # privateKey: &quot;&quot;
+
     space: basketballplayer
 
     # SST file configuration
@@ -8760,7 +8765,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="step_4_generate_the_sst_file">Step 4: Generate the SST file<a class="headerlink" href="#step_4_generate_the_sst_file" title="Permanent link">&para;</a></h3>
 <p>Run the following command to generate the SST file from the CSV source file. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt;<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.7.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;sst_application.conf_path&gt;<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt;<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;sst_application.conf_path&gt;<span class="w"> </span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -8771,7 +8776,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.7.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
 </code></pre></div>
 <p>After the task is complete, you can view the generated SST file in the <code>/sst</code> directory (specified by the <code>nebula.path.remote</code> parameter) on HDFS.</p>
 <div class="admonition note">
@@ -8835,7 +8840,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
       
     
   </small>

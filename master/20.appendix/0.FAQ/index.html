@@ -9074,8 +9074,10 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>The cluster scaling function has not been officially released in the community edition. The operations involving <code>SUBMIT JOB BALANCE DATA REMOVE</code> and <code>SUBMIT JOB BALANCE DATA</code> are experimental features in the community edition and the functionality is not stable. Before using it in the community edition, make sure to back up your data first and set <code>enable_experimental_feature</code> and <code>enable_data_balance</code> to <code>true</code> in the <a href="../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph configuration file</a>.</p>
 </div>
 <h4 id="increase_or_decrease_the_number_of_meta_graph_or_storage_nodes">Increase or decrease the number of Meta, Graph, or Storage nodes<a class="headerlink" href="#increase_or_decrease_the_number_of_meta_graph_or_storage_nodes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
 <p>NebulaGraph master does not provide any commands or tools to support automatic scale out/in. You can refer to the following steps:</p>
-<ol>
+<ul>
 <li>
 <p>Scale out and scale in metad: The metad process can not be scaled out or scale in. The process cannot be moved to a new machine. You cannot add a new metad process to the service.</p>
 <div class="admonition note">
@@ -9083,12 +9085,14 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 <p>You can use the <a href="https://github.com/vesoft-inc/nebula/blob/master/scripts/meta-transfer-tools.sh">Meta transfer script tool</a> to migrate Meta services. Note that the Meta-related settings in the configuration files of Storage and Graph services need to be modified correspondingly.</p>
 </div>
 </li>
-<li>
-<p>Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.</p>
-</li>
-<li>
-<p>Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.</p>
-</li>
+</ul>
+<ul>
+<li>Scale in graphd: Remove the IP of the graphd process from the code in the client. Close this graphd process.</li>
+</ul>
+<ul>
+<li>Scale out graphd: Prepare the binary and config files of the graphd process in the new host. Modify the config files and add all existing addresses of the metad processes. Then start the new graphd process.</li>
+</ul>
+<ul>
 <li>
 <p>Scale in storaged: See <a href="../../8.service-tuning/load-balance/">Balance remove command</a>. After the command is finished, stop this storaged process.</p>
 <div class="admonition caution">
@@ -9101,13 +9105,15 @@ nebula &gt; MATCH (s)&lt;-[e]-() WHERE id(s) == &quot;given&quot; RETURN count(e
 </ul>
 </div>
 </li>
+</ul>
+<ul>
 <li>
-<p>Scale out storaged: Prepare the binary and config files of the storaged process in the new host, Modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see <a href="../../2.quick-start/3.1add-storage-hosts/">Register storaged services</a>.</p>
-</li>
-</ol>
+<p>Scale out storaged: Prepare the binary and config files of the storaged process in the new host, modify the config files and add all existing addresses of the metad processes. Then register the storaged process to the metad, and then start the new storaged process. For details, see <a href="../../2.quick-start/3.1add-storage-hosts/">Register storaged services</a>.</p>
 <p>You also need to run <a href="../../8.service-tuning/load-balance/">Balance Data and Balance leader</a> after scaling in/out storaged.</p>
-<p>You can scale Graph and Storage services with Dashboard Enterprise Edition. For details, see <a href="../nebula-dashboard-ent/4.cluster-operator/operator/scale.md">Scale</a>. </p>
-<p>You can also use NebulaGraph Operator to scale Graph and Storage services. For details, see <a href="../../k8s-operator/4.cluster-administration/4.1.installation/4.1.1.cluster-install/">Deploy NebulaGraph clusters</a>.</p>
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="add_or_remove_disks_in_the_storage_nodes">Add or remove disks in the Storage nodes<a class="headerlink" href="#add_or_remove_disks_in_the_storage_nodes" title="Permanent link">&para;</a></h4>
 <p>Currently, Storage cannot dynamically recognize new added disks. You can add or remove disks in the Storage nodes of the distributed cluster by following these steps:</p>
 <ol>

@@ -8395,6 +8395,11 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     # The account entered must have write permission for the NebulaGraph space.
     user: root
     pswd: nebula
+    # Whether to use a password encrypted with RSA.
+    # enableRSA: true
+    # The key used to encrypt the password using RSA.
+    # privateKey: &quot;&quot;
+
     # Fill in the name of the graph space you want to write data to in the NebulaGraph.
     space: basketballplayer
     connection: {
@@ -8430,6 +8435,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       service: &quot;127.0.0.1:9092&quot;
       # Message category.
       topic: &quot;topic_name1&quot;
+
+      # If Kafka uses Kerberos for security certification, the following parameters need to be set. If Kafka uses SASL or SASL_PLAINTEXT for security certification, you do not need to set kerberos or kerberosServiceName.
+      #securityProtocol: SASL_PLAINTEXT
+      #mechanism: GASSAPI
+      #kerberos: true
+      #kerberosServiceName: kafka
 
       # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
       # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
@@ -8493,6 +8504,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   #    # Message category.
   #    topic: &quot;topic_name3&quot;
 
+  #    # If Kafka uses Kerberos for security certification, the following parameters need to be set. If Kafka uses SASL or SASL_PLAINTEXT for security certification, you do not need to set kerberos or kerberosServiceName.
+  #    #securityProtocol: SASL_PLAINTEXT
+  #    #mechanism: GASSAPI
+  #    #kerberos: true
+  #    #kerberosServiceName: kafka
+
   #    # Kafka data has a fixed domain name: key, value, topic, partition, offset, timestamp, timestampType.
   #    # If multiple fields need to be specified after Spark reads as DataFrame, separate them with commas.
   #    # Specify the field name in fields. For example, use key for degree in Nebula, as shown in the following.
@@ -8552,15 +8569,49 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="step_3_import_data_into_nebulagraph">Step 3: Import data into NebulaGraph<a class="headerlink" href="#step_3_import_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Run the following command to import Kafka data into NebulaGraph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.7.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;kafka_application.conf_path&gt;
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;kafka_application.conf_path&gt;
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
+<ul>
+<li>The JAR package needs to be obtained from the <a href="https://nebula-graph.io/pricing">NebulaGraph Enterprise Edition Package</a>.</li>
+<li>If Kafka's security certification is enabled, you need to configure the driver and executor when importing data. See the example below.</li>
+</ul>
 </div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.7.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/kafka_application.conf
+<p>Example:</p>
+<ul>
+<li>
+<p>No security certification</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
 </code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Enable Kerberos security certification</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>/local/path/kafka_client_jaas.conf,/local/path/kafka.keytab,/local/path/krb5.conf<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Enable SASL/SASL_PLAINTEXT security certification</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>/local/path/kafka_client_jaas.conf<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
+</code></pre></div>
+</li>
+</ul>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_4_optional_validate_data">Step 4: (optional) Validate data<a class="headerlink" href="#step_4_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
@@ -8575,7 +8626,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
       
     
   </small>

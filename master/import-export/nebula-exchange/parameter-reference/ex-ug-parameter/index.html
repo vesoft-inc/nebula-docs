@@ -5312,6 +5312,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
+  <a href="#using_an_encrypted_password" class="md-nav__link">
+    Using an encrypted password
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration_instructions" class="md-nav__link">
     Configuration instructions
   </a>
@@ -8243,6 +8250,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
       
         <li class="md-nav__item">
+  <a href="#using_an_encrypted_password" class="md-nav__link">
+    Using an encrypted password
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration_instructions" class="md-nav__link">
     Configuration instructions
   </a>
@@ -8439,6 +8453,33 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code>java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
 </code></pre></div>
+<h2 id="using_an_encrypted_password">Using an encrypted password<a class="headerlink" href="#using_an_encrypted_password" title="Permanent link">&para;</a></h2>
+<p>You can use either a plaintext password or an RSA encrypted password when setting the password for connecting to NebulaGraph in the configuration file.</p>
+<p>To use an RSA-encrypted password, you need to configure the following settings in the configuration file:</p>
+<ul>
+<li><code>nebula.pswd</code> is configured as the RSA encrypted password.</li>
+<li><code>nebula.privateKey</code> is configured as the key for RSA encryption.</li>
+<li><code>nebula.enableRSA</code> is configured as <code>true</code>.</li>
+</ul>
+<p>Users can use their own tools for encryption, or they can use the encryption tool provided in Exchange's JAR package, for example:</p>
+<div class="highlight"><pre><span></span><code>spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="nb">local</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.exchange.common.PasswordEncryption<span class="w"> </span>nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar<span class="w"> </span>-p<span class="w"> </span>nebula
+</code></pre></div>
+<p>The results returned are as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="o">===================</span><span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLl7LaNSEXlZo2hYiJqzxgyFBQdkxbQXYU/xQthsBJwjOPhkiY37nokzKnjNlp6mv5ZUomqxLsoNQHEJ6BZD4VPiaiElFAkTD+gyul1v8f3A446Fr2rnVLogWHnz8ECPt7X8jwmpiKOXkOPIhqU5E0Cua+Kk0nnVosbos/VShfiQIDAQAB
+<span class="o">===================</span><span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+
+
+<span class="o">===================</span><span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIuXsto1IReVmjaFiImrPGDIUFB2TFtBdhT/FC2GwEnCM4+GSJjfueiTMqeM2Wnqa/llSiarEuyg1AcQnoFkPhU+JqISUUCRMP6DK6XW/x/cDjjoWvaudUuiBYefPwQI+3tfyPCamIo5eQ48iGpTkTQK5r4qTSedWixuiz9VKF+JAgMBAAECgYADWbfEPwQ1UbTq3Bej3kVLuWMcG0rH4fFYnaq5UQOqgYvFRR7W9H+80lOj6+CIB0ViLgkylmaU4WNVbBOx3VsUFFWSqIIIviKubg8m8ey7KAd9X2wMEcUHi4JyS2+/WSacaXYS5LOmMevvuaOwLEV0QmyM+nNGRIjUdzCLR1935QJBAM+IF8YD5GnoAPPjGIDS1Ljhu/u/Gj6/YBCQKSHQ5+HxHEKjQ/YxQZ/otchmMZanYelf1y+byuJX3NZ04/KSGT8CQQCsMaoFO2rF5M84HpAXPi6yH2chbtz0VTKZworwUnpmMVbNUojf4VwzAyOhT1U5o0PpFbpi+NqQhC63VUN5k003AkEArI8vnVGNMlZbvG7e5/bmM9hWs2viSbxdB0inOtv2g1M1OV+B2gp405ru0/PNVcRV0HQFfCuhVfTSxmspQoAihwJBAJW6EZa/FZbB4JVxreUoAr6Lo8dkeOhT9M3SZbGWZivaFxot/Cp/8QXCYwbuzrJxjqlsZUeOD6694Uk08JkURn0CQQC8V6aRa8ylMhLJFkGkMDHLqHcQCmY53Kd73mUu4+mjMJLZh14zQD9ydFtc0lbLXTeBAMWV3uEdeLhRvdAo3OwV
+<span class="o">===================</span><span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+
+
+<span class="o">===================</span><span class="w"> </span>encrypted<span class="w">  </span>password<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+Io+3y3mLOMnZJJNUPHZ8pKb4VfTvg6wUh6jSu5xdmLAoX/59tK1HTwoN40aOOWJwa1a5io7S4JqcX/jEcAorw7pelITr+F4oB0AMCt71d+gJuu3/lw9bjUEl9tF4Raj82y2Dg39wYbagN84fZMgCD63TPiDIevSr6+MFKASpGrY<span class="o">=</span>
+<span class="o">===================</span><span class="w"> </span>encrypted<span class="w">  </span>password<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+check:<span class="w"> </span>the<span class="w"> </span>real<span class="w"> </span>password<span class="w"> </span>decrypted<span class="w"> </span>by<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span>and<span class="w"> </span>encrypted<span class="w"> </span>password<span class="w"> </span>is:<span class="w"> </span>nebula
+</code></pre></div>
 <h2 id="configuration_instructions">Configuration instructions<a class="headerlink" href="#configuration_instructions" title="Permanent link">&para;</a></h2>
 <p>Before configuring the <code>application.conf</code> file, it is recommended to copy the file name <code>application.conf</code> and then edit the file name according to the file type of a data source. For example, change the file name to <code>csv_application.conf</code> if the file type of the data source is CSV.</p>
 <p>The <code>application.conf</code> file contains the following content types:</p>
@@ -8595,7 +8636,21 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <td align="left">string</td>
 <td align="left">-</td>
 <td align="left">Yes</td>
-<td align="left">The account password.</td>
+<td align="left">The account password. The password can be plaintext or RSA encrypted. To use an RSA encrypted password, you need to set <code>enableRSA</code> and <code>privateKey</code>. For how to encrypt a password, see <strong>Using an encrypted password</strong> above.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.enableRSA</code></td>
+<td align="left">bool</td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">Whether to use an RSA encrypted password.</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.privateKey</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">The key used to encrypt the password using RSA.</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.space</code></td>
@@ -9357,6 +9412,34 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <td align="left"><code>10</code></td>
 <td align="left">Yes</td>
 <td align="left">The interval for reading messages. Unit: seconds.</td>
+</tr>
+<tr>
+<td align="left"><code>tags.securityProtocol</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Kafka security protocol.</td>
+</tr>
+<tr>
+<td align="left"><code>tags.mechanism</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">The security certification mechanism provided by SASL of Kafka.</td>
+</tr>
+<tr>
+<td align="left"><code>tags.kerberos</code></td>
+<td align="left">bool</td>
+<td align="left"><code>false</code></td>
+<td align="left">No</td>
+<td align="left">Whether to enable Kerberos for security certification. If <code>tags.mechanism</code> is <code>kerberos</code>, this parameter must be set to <code>true</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>tags.kerberosServiceName</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">No</td>
+<td align="left">Kerberos service name. If <code>tags.kerberos</code> is <code>true</code>, this parameter must be set.</td>
 </tr>
 </tbody>
 </table>
