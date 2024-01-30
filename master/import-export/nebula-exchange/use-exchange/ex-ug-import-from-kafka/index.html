@@ -8423,6 +8423,10 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     # 填写的账号必须拥有 NebulaGraph 相应图空间的写数据权限。
     user: root
     pswd: nebula
+    # 是否使用 RSA 加密的密码。
+    # enableRSA: true
+    # 使用 RSA 加密密码时的密钥。
+    # privateKey: &quot;&quot;
     # 填写 NebulaGraph 中需要写入数据的图空间名称。
     space: basketballplayer
     connection: {
@@ -8457,6 +8461,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       service: &quot;127.0.0.1:9092&quot;
       # 消息类别。
       topic: &quot;topic_name1&quot;
+
+      # 如果 Kafka 使用 Kerberos 进行安全认证，需要设置以下参数。如果 Kafka 使用 SASL 或 SASL_PLAINTEXT 进行安全认证，无需设置 kerberos 和 kerberosServiceName。
+      #securityProtocol: SASL_PLAINTEXT
+      #mechanism: GASSAPI
+      #kerberos: true
+      #kerberosServiceName: kafka
 
       # 在 fields 里指定 Kafka value 中的字段名称，多个字段用英文逗号（,）隔开。Spark Structured Streaming 读取 Kafka 数据后会将其以 JSON 格式存储于 value 字段中，而这里的 fields 要配置 JSON 的 key 名。示例如下：
       fields: [personName, personAge]
@@ -8515,6 +8525,12 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   #    # 消息类别。
   #    topic: &quot;topic_name3&quot;
 
+  #    # 如果 Kafka 启用 Kerberos 进行安全认证，需要设置以下参数。如果 Kafka 启用 SASL 或 SASL_PLAINTEXT 进行安全认证，无需设置 kerberos 和 kerberosServiceName。
+  #    #securityProtocol: SASL_PLAINTEXT
+  #    #mechanism: GASSAPI
+  #    #kerberos: true
+  #    #kerberosServiceName: kafka
+
   #    # 在 fields 里指定 Kafka value 中的字段名称，多个字段用英文逗号（,）隔开。Spark Structured Streaming 读取 Kafka 数据后会将其以 JSON 格式存储于 value 字段中，而这里的 fields 要配置 JSON 的 key 名。示例如下：
   #    fields: [degree]
   #    # 设置与 fields 中的 key 对应的 NebulaGraph 属性名，key 的 value 将保存为相应的属性值。下方设置会将 degree 的 value 保存到 NebulaGraph 中的 degree 属性。
@@ -8572,15 +8588,49 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="3_nebulagraph">步骤 3：向 NebulaGraph 导入数据<a class="headerlink" href="#3_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>运行如下命令将 Kafka 数据导入到 NebulaGraph 中。关于参数的说明，请参见<a href="../../parameter-reference/ex-ug-para-import-command/">导入命令参数</a>。</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.7.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;kafka_application.conf_path&gt;
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;kafka_application.conf_path&gt;
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>JAR 包有两种获取方式：<a href="../../ex-ug-compile/">自行编译</a>或者从 maven 仓库下载。</p>
+<ul>
+<li>JAR 包需要从<a href="https://nebula-graph.com.cn/pricing/">NebulaGraph套餐</a>中获取。</li>
+<li>如果 Kafka 启用了安全认证，导入数据时需要配置驱动程序和执行器，参见下方示例。</li>
+</ul>
 </div>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.7.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/kafka_application.conf
+<ul>
+<li>
+<p>无安全认证</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
 </code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>启用 Kerberos 安全认证</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf -Djava.security.krb5.conf=/path/krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>/local/path/kafka_client_jaas.conf,/local/path/kafka.keytab,/local/path/krb5.conf<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>启用 SASL/SASL_PLAINTEXT 安全认证</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.driver.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.executor.extraJavaOptions=-Djava.security.auth.login.config=/path/kafka_client_jaas.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>/local/path/kafka_client_jaas.conf<span class="w"> </span><span class="se">\</span>
+--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span><span class="se">\</span>
+-c<span class="w"> </span>/root/nebula-exchange/target/classes/kafka_application.conf
+</code></pre></div>
+</li>
+</ul>
 <p>用户可以在返回信息中搜索<code>batchSuccess.&lt;tag_name/edge_name&gt;</code>，确认成功的数量。例如<code>batchSuccess.follow: 300</code>。</p>
 <h3 id="4">步骤 4：（可选）验证数据<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>用户可以在 NebulaGraph 客户端（例如 NebulaGraph Studio）中执行查询语句，确认数据是否已导入。例如：</p>

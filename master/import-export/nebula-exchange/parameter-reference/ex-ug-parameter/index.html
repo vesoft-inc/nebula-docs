@@ -5326,6 +5326,13 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    使用加密密码
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     配置说明
   </a>
   
@@ -5354,7 +5361,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     点配置
   </a>
   
@@ -5362,7 +5369,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     通用参数
   </a>
   
@@ -5458,7 +5465,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     边配置
   </a>
   
@@ -5466,7 +5473,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     通用参数
   </a>
   
@@ -8277,6 +8284,13 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
+    使用加密密码
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     配置说明
   </a>
   
@@ -8305,7 +8319,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     点配置
   </a>
   
@@ -8313,7 +8327,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     通用参数
   </a>
   
@@ -8409,7 +8423,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     边配置
   </a>
   
@@ -8417,7 +8431,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     通用参数
   </a>
   
@@ -8473,7 +8487,34 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <p>例如：</p>
 <div class="highlight"><pre><span></span><code>java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
 </code></pre></div>
-<h2 id="_3">配置说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">使用加密密码<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>用户在配置文件里设置连接 NebulaGraph 的密码时，可以使用明文密码，也可以使用 RSA 加密后的密码。</p>
+<p>如果需要使用 RSA 加密后的密码，需要在配置文件内进行如下设置：</p>
+<ul>
+<li><code>nebula.pswd</code>配置为 RSA 加密后的密码。</li>
+<li><code>nebula.privateKey</code>配置为 RSA 加密的密钥。</li>
+<li><code>nebula.enableRSA</code>配置为<code>true</code>。</li>
+</ul>
+<p>用户可以使用自己的工具加密，也可以使用 Exchange 的 JAR 包内提供的加密工具，例如：</p>
+<div class="highlight"><pre><span></span><code>spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="nb">local</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.exchange.common.PasswordEncryption<span class="w"> </span>nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar<span class="w"> </span>-p<span class="w"> </span>nebula
+</code></pre></div>
+<p>返回结果如下：</p>
+<div class="highlight"><pre><span></span><code><span class="o">===================</span><span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLl7LaNSEXlZo2hYiJqzxgyFBQdkxbQXYU/xQthsBJwjOPhkiY37nokzKnjNlp6mv5ZUomqxLsoNQHEJ6BZD4VPiaiElFAkTD+gyul1v8f3A446Fr2rnVLogWHnz8ECPt7X8jwmpiKOXkOPIhqU5E0Cua+Kk0nnVosbos/VShfiQIDAQAB
+<span class="o">===================</span><span class="w"> </span>public<span class="w"> </span>key<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+
+
+<span class="o">===================</span><span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIuXsto1IReVmjaFiImrPGDIUFB2TFtBdhT/FC2GwEnCM4+GSJjfueiTMqeM2Wnqa/llSiarEuyg1AcQnoFkPhU+JqISUUCRMP6DK6XW/x/cDjjoWvaudUuiBYefPwQI+3tfyPCamIo5eQ48iGpTkTQK5r4qTSedWixuiz9VKF+JAgMBAAECgYADWbfEPwQ1UbTq3Bej3kVLuWMcG0rH4fFYnaq5UQOqgYvFRR7W9H+80lOj6+CIB0ViLgkylmaU4WNVbBOx3VsUFFWSqIIIviKubg8m8ey7KAd9X2wMEcUHi4JyS2+/WSacaXYS5LOmMevvuaOwLEV0QmyM+nNGRIjUdzCLR1935QJBAM+IF8YD5GnoAPPjGIDS1Ljhu/u/Gj6/YBCQKSHQ5+HxHEKjQ/YxQZ/otchmMZanYelf1y+byuJX3NZ04/KSGT8CQQCsMaoFO2rF5M84HpAXPi6yH2chbtz0VTKZworwUnpmMVbNUojf4VwzAyOhT1U5o0PpFbpi+NqQhC63VUN5k003AkEArI8vnVGNMlZbvG7e5/bmM9hWs2viSbxdB0inOtv2g1M1OV+B2gp405ru0/PNVcRV0HQFfCuhVfTSxmspQoAihwJBAJW6EZa/FZbB4JVxreUoAr6Lo8dkeOhT9M3SZbGWZivaFxot/Cp/8QXCYwbuzrJxjqlsZUeOD6694Uk08JkURn0CQQC8V6aRa8ylMhLJFkGkMDHLqHcQCmY53Kd73mUu4+mjMJLZh14zQD9ydFtc0lbLXTeBAMWV3uEdeLhRvdAo3OwV
+<span class="o">===================</span><span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+
+
+<span class="o">===================</span><span class="w"> </span>encrypted<span class="w">  </span>password<span class="w"> </span><span class="nv">begin</span><span class="w"> </span><span class="o">===================</span>
+Io+3y3mLOMnZJJNUPHZ8pKb4VfTvg6wUh6jSu5xdmLAoX/59tK1HTwoN40aOOWJwa1a5io7S4JqcX/jEcAorw7pelITr+F4oB0AMCt71d+gJuu3/lw9bjUEl9tF4Raj82y2Dg39wYbagN84fZMgCD63TPiDIevSr6+MFKASpGrY<span class="o">=</span>
+<span class="o">===================</span><span class="w"> </span>encrypted<span class="w">  </span>password<span class="w"> </span><span class="nv">end</span><span class="w"> </span><span class="o">===================</span>
+check:<span class="w"> </span>the<span class="w"> </span>real<span class="w"> </span>password<span class="w"> </span>decrypted<span class="w"> </span>by<span class="w"> </span>private<span class="w"> </span>key<span class="w"> </span>and<span class="w"> </span>encrypted<span class="w"> </span>password<span class="w"> </span>is:<span class="w"> </span>nebula
+</code></pre></div>
+<h2 id="_4">配置说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>修改配置文件之前，建议根据数据源复制并修改文件名称，便于区分。例如数据源为 CSV 文件，可以复制为<code>csv_application.conf</code>。</p>
 <p>配置文件的内容主要分为如下几类：</p>
 <ul>
@@ -8629,7 +8670,21 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <td align="left">string</td>
 <td align="left">-</td>
 <td align="left">是</td>
-<td align="left">用户名对应的密码。</td>
+<td align="left">用户名对应的密码。密码支持明文或者 RSA 加密后的密码。如果使用 RSA 加密后的密码，需要设置<code>enableRSA</code>和<code>privateKey</code>。如何加密密码，参见上文<strong>使用加密密码</strong>。</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.enableRSA</code></td>
+<td align="left">bool</td>
+<td align="left"><code>false</code></td>
+<td align="left">否</td>
+<td align="left">是否使用 RSA 加密的密码。</td>
+</tr>
+<tr>
+<td align="left"><code>nebula.privateKey</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">RSA 加密的密钥。</td>
 </tr>
 <tr>
 <td align="left"><code>nebula.space</code></td>
@@ -8790,9 +8845,9 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w"> </span><span class="o">}</span>
 </code></pre></div>
 </div>
-<h3 id="_4">点配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">点配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>对于不同的数据源，点的配置也有所不同，有很多通用参数，也有部分特有参数，配置时需要配置通用参数和不同数据源的特有参数。</p>
-<h4 id="_5">通用参数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<h4 id="_6">通用参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -9406,6 +9461,34 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <td align="left">是</td>
 <td align="left">读取消息的间隔。单位：秒。</td>
 </tr>
+<tr>
+<td align="left"><code>tags.securityProtocol</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">Kafka 安全协议。</td>
+</tr>
+<tr>
+<td align="left"><code>tags.mechanism</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">Kafka SASL 安全认证机制。</td>
+</tr>
+<tr>
+<td align="left"><code>tags.kerberos</code></td>
+<td align="left">bool</td>
+<td align="left"><code>false</code></td>
+<td align="left">否</td>
+<td align="left">是否启用 Kerberos 进行安全认证。如果<code>tags.mechanism</code>为<code>kerberos</code>，该参数必须设置为<code>true</code>。</td>
+</tr>
+<tr>
+<td align="left"><code>tags.kerberosServiceName</code></td>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">Kerberos 服务名称。如果<code>tags.kerberos</code>为<code>true</code>，该参数必填。</td>
+</tr>
 </tbody>
 </table>
 <h4 id="sst">生成 SST 时的特有参数<a class="headerlink" href="#sst" title="Permanent link">&para;</a></h4>
@@ -9436,10 +9519,10 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tr>
 </tbody>
 </table>
-<h3 id="_6">边配置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_7">边配置<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>对于不同的数据源，边的配置也有所不同，有很多通用参数，也有部分特有参数，配置时需要配置通用参数和不同数据源的特有参数。</p>
 <p>边配置的不同数据源特有参数请参见上方点配置内的特有参数介绍，注意区分 tags 和 edges 即可。</p>
-<h4 id="_7">通用参数<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<h4 id="_8">通用参数<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
