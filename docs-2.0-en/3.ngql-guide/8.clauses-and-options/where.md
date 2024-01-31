@@ -15,7 +15,7 @@ The `WHERE` clause usually works in the following queries:
 ## Basic usage
 
 !!! note
-    In the following examples, `$$` and `$^` are reference operators. For more information, see [Operators](../5.operators/5.property-reference.md).
+    In the following examples, `$$` and `$^` are reference operators. For more information, see [Operators](../4.variable-and-composite-queries/3.property-reference.md).
 
 ### Define conditions with boolean operators
 
