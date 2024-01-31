@@ -1,6 +1,6 @@
 # NebulaGraph Studio 更新说明
 
-## v3.9.0
+## v3.9.0（2024.1）
 
 - 功能
   - 支持[使用 AI 导入数据](../../nebula-studio/quick-start/st-ug-import-data.md)。
