@@ -2,6 +2,12 @@
 
 本文介绍 Studio 的控制台界面。
 
+## 入口
+
+在顶部导航栏里，单击**控制台**。
+
+## 页面介绍
+
 <img src="https://docs-cdn.nebula-graph.com.cn/figures/std_console_240131_cn.png" width="1200" alt="控制台界面截屏">
 
 下表列出了控制台界面上的各种功能。
