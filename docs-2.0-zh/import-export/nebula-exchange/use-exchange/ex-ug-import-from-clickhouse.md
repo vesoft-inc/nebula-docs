@@ -113,6 +113,10 @@
     # 填写的账号必须拥有 {{nebula.name}} 相应图空间的写数据权限。
     user: root
     pswd: nebula
+    # 是否使用 RSA 加密的密码。
+    # enableRSA: true
+    # 使用 RSA 加密密码时的密钥。
+    # privateKey: ""
     # 填写 {{nebula.name}} 中需要写入数据的图空间名称。
     space: basketballplayer
     connection: {
@@ -323,7 +327,7 @@
 运行如下命令将 ClickHouse 数据导入到 {{nebula.name}} 中。关于参数的说明，请参见[导入命令参数](../parameter-reference/ex-ug-para-import-command.md)。
 
 ```bash
-${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange-{{exchange.release}}.jar_path> -c <clickhouse_application.conf_path>
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange <nebula-exchange.jar_path> -c <clickhouse_application.conf_path>
 ```
 
 !!! note
@@ -333,7 +337,7 @@ ${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchan
 示例：
 
 ```bash
-${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/clickhouse_application.conf
+${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange_spark_2.4-{{exchange.release}}.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/clickhouse_application.conf
 ```
 
 用户可以在返回信息中搜索`batchSuccess.<tag_name/edge_name>`，确认成功的数量。例如`batchSuccess.follow: 300`。

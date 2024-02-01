@@ -16,6 +16,41 @@ Example:
 java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
 ```
 
+## Using an encrypted password
+
+You can use either a plaintext password or an RSA encrypted password when setting the password for connecting to {{nebula.name}} in the configuration file.
+
+To use an RSA-encrypted password, you need to configure the following settings in the configuration file:
+
+- `nebula.pswd` is configured as the RSA encrypted password.
+- `nebula.privateKey` is configured as the key for RSA encryption.
+- `nebula.enableRSA` is configured as `true`.
+
+Users can use their own tools for encryption, or they can use the encryption tool provided in Exchange's JAR package, for example:
+
+```bash
+spark-submit --master local --class com.vesoft.exchange.common.PasswordEncryption nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar -p nebula
+```
+
+The results returned are as follows:
+
+```bash
+=================== public key begin ===================
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLl7LaNSEXlZo2hYiJqzxgyFBQdkxbQXYU/xQthsBJwjOPhkiY37nokzKnjNlp6mv5ZUomqxLsoNQHEJ6BZD4VPiaiElFAkTD+gyul1v8f3A446Fr2rnVLogWHnz8ECPt7X8jwmpiKOXkOPIhqU5E0Cua+Kk0nnVosbos/VShfiQIDAQAB
+=================== public key end ===================
+
+
+=================== private key begin ===================
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAIuXsto1IReVmjaFiImrPGDIUFB2TFtBdhT/FC2GwEnCM4+GSJjfueiTMqeM2Wnqa/llSiarEuyg1AcQnoFkPhU+JqISUUCRMP6DK6XW/x/cDjjoWvaudUuiBYefPwQI+3tfyPCamIo5eQ48iGpTkTQK5r4qTSedWixuiz9VKF+JAgMBAAECgYADWbfEPwQ1UbTq3Bej3kVLuWMcG0rH4fFYnaq5UQOqgYvFRR7W9H+80lOj6+CIB0ViLgkylmaU4WNVbBOx3VsUFFWSqIIIviKubg8m8ey7KAd9X2wMEcUHi4JyS2+/WSacaXYS5LOmMevvuaOwLEV0QmyM+nNGRIjUdzCLR1935QJBAM+IF8YD5GnoAPPjGIDS1Ljhu/u/Gj6/YBCQKSHQ5+HxHEKjQ/YxQZ/otchmMZanYelf1y+byuJX3NZ04/KSGT8CQQCsMaoFO2rF5M84HpAXPi6yH2chbtz0VTKZworwUnpmMVbNUojf4VwzAyOhT1U5o0PpFbpi+NqQhC63VUN5k003AkEArI8vnVGNMlZbvG7e5/bmM9hWs2viSbxdB0inOtv2g1M1OV+B2gp405ru0/PNVcRV0HQFfCuhVfTSxmspQoAihwJBAJW6EZa/FZbB4JVxreUoAr6Lo8dkeOhT9M3SZbGWZivaFxot/Cp/8QXCYwbuzrJxjqlsZUeOD6694Uk08JkURn0CQQC8V6aRa8ylMhLJFkGkMDHLqHcQCmY53Kd73mUu4+mjMJLZh14zQD9ydFtc0lbLXTeBAMWV3uEdeLhRvdAo3OwV
+=================== private key end ===================
+
+
+=================== encrypted  password begin ===================
+Io+3y3mLOMnZJJNUPHZ8pKb4VfTvg6wUh6jSu5xdmLAoX/59tK1HTwoN40aOOWJwa1a5io7S4JqcX/jEcAorw7pelITr+F4oB0AMCt71d+gJuu3/lw9bjUEl9tF4Raj82y2Dg39wYbagN84fZMgCD63TPiDIevSr6+MFKASpGrY=
+=================== encrypted  password end ===================
+check: the real password decrypted by private key and encrypted password is: nebula
+```
+
 ## Configuration instructions
 
 Before configuring the `application.conf` file, it is recommended to copy the file name `application.conf` and then edit the file name according to the file type of a data source. For example, change the file name to `csv_application.conf` if the file type of the data source is CSV.
@@ -63,7 +98,9 @@ Users only need to configure parameters for connecting to Hive if Spark and Hive
 |`nebula.address.graph`|list\[string\]|`["127.0.0.1:9669"]`|Yes|The addresses of all Graph services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.address.meta`|list\[string\]|`["127.0.0.1:9559"]`|Yes|The addresses of all Meta services, including IPs and ports, separated by commas (,). Example: `["ip1:port1","ip2:port2","ip3:port3"]`.|
 |`nebula.user`|string|-|Yes|The username with write permissions for NebulaGraph.|
-|`nebula.pswd`|string|-|Yes|The account password.|
+|`nebula.pswd`|string|-|Yes|The account password. The password can be plaintext or RSA encrypted. To use an RSA encrypted password, you need to set `enableRSA` and `privateKey`. For how to encrypt a password, see **Using an encrypted password** above.|
+|`nebula.enableRSA`|bool|`false`|No|Whether to use an RSA encrypted password.|
+|`nebula.privateKey`|string|-|No|The key used to encrypt the password using RSA.|
 |`nebula.space`|string|-|Yes|The name of the graph space where data needs to be imported.|
 |`nebula.ssl.enable.graph`|bool|`false`|Yes|Enables the [SSL encryption](https://en.wikipedia.org/wiki/Transport_Layer_Security) between Exchange and Graph services. If the value is `true`, the SSL encryption is enabled and the following SSL parameters take effect. If Exchange is run on a multi-machine cluster, you need to store the corresponding files in the same path on each machine when setting the following SSL-related paths.|
 |`nebula.ssl.sign`|string|`ca`|Yes|Specifies the SSL sign. Optional values are `ca` and `self`.|
@@ -229,6 +266,10 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.service`|string|-|Yes|The Kafka server address.|
 |`tags.topic`|string|-|Yes|The message type.|
 |`tags.interval.seconds`|int|`10`|Yes|The interval for reading messages. Unit: seconds.|
+|`tags.securityProtocol`|string|-|No| Kafka security protocol. |
+|`tags.mechanism`|string|-|No| The security certification mechanism provided by SASL of Kafka. |
+|`tags.kerberos`|bool|`false`|No| Whether to enable Kerberos for security certification. If `tags.mechanism` is `kerberos`, this parameter must be set to `true`.|
+|`tags.kerberosServiceName`|string|-|No| Kerberos service name. If `tags.kerberos` is `true`, this parameter must be set.  |
 
 #### Specific parameters for generating SST files
 

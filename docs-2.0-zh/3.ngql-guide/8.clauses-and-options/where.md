@@ -15,7 +15,7 @@
 ## 基础用法
 
 !!! note
-    下文示例中的`$$`、`$^`等是引用符号，详情请参见[引用符](../5.operators/5.property-reference.md)。
+    下文示例中的`$$`、`$^`等是引用符号，详情请参见[引用符](../4.variable-and-composite-queries/3.property-reference.md)。
 
 ### 用布尔运算符定义条件
 
