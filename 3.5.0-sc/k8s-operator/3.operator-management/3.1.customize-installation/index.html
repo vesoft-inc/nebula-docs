@@ -11075,13 +11075,217 @@
 <span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <p>For more information about <code>helm install</code>, see <a href="https://helm.sh/docs/helm/helm_install/">Helm Install</a>.</p>
+<h1 id="customize_installation_defaults_1">Customize installation defaults<a class="headerlink" href="#customize_installation_defaults_1" title="Permanent link">&para;</a></h1>
+<p>This topic introduces how to customize the default configurations when installing NebulaGraph Operator.</p>
+<h2 id="customizable_parameters_1">Customizable parameters<a class="headerlink" href="#customizable_parameters_1" title="Permanent link">&para;</a></h2>
+<p>When executing the <code>helm install [NAME] [CHART] [flags]</code> command to install a chart, you can specify the chart configuration. For more information, see <a href="https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing">Customizing the Chart Before Installing</a>.</p>
+<p>You can view the configurable options in the <a href="https://github.com/vesoft-inc/nebula-operator/blob/v1.7.5/charts/nebula-operator/values.yaml">nebula-operator chart</a> configuration file. Alternatively, you can view the configurable options through the command <code>helm show values nebula-operator/nebula-operator</code>, as shown below.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">root@master ~</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">$ helm show values nebula-operator/nebula-operator</span><span class="w">   </span>
+<span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="nt">nebulaOperator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:v1.7.5</span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="nt">kubernetesClusterDomain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="nt">controllerManager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200m</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200Mi</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Mi</span>
+<span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="c1">## Additional InitContainers to initialize the pod</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#  extraInitContainers:</span>
+<span class="w">  </span><span class="c1">#  - name: init-auth-sidecar</span>
+<span class="w">  </span><span class="c1">#    command:</span>
+<span class="w">  </span><span class="c1">#    - /bin/sh</span>
+<span class="w">  </span><span class="c1">#    - -c</span>
+<span class="w">  </span><span class="c1">#    args:</span>
+<span class="w">  </span><span class="c1">#    - cp -R /certs/* /credentials/</span>
+<span class="w">  </span><span class="c1">#    imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#    image: reg.vesoft-inc.com/nebula-certs:latest</span>
+<span class="w">  </span><span class="c1">#    volumeMounts:</span>
+<span class="w">  </span><span class="c1">#    - name: credentials</span>
+<span class="w">  </span><span class="c1">#      mountPath: /credentials</span>
+<span class="w">  </span><span class="nt">extraInitContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1"># sidecarContainers - add more containers to controller-manager</span>
+<span class="w">  </span><span class="c1"># Key/Value where Key is the sidecar `- name: &lt;Key&gt;`</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#   sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#      webserver:</span>
+<span class="w">  </span><span class="c1">#        image: nginx</span>
+<span class="w">  </span><span class="c1"># OR for adding netshoot to controller manager</span>
+<span class="w">  </span><span class="c1">#  sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#    netshoot:</span>
+<span class="w">  </span><span class="c1">#      args:</span>
+<span class="w">  </span><span class="c1">#      - -c</span>
+<span class="w">  </span><span class="c1">#      - while true; do ping localhost; sleep 60;done</span>
+<span class="w">  </span><span class="c1">#      command:</span>
+<span class="w">  </span><span class="c1">#      - /bin/bash</span>
+<span class="w">  </span><span class="c1">#      image: nicolaka/netshoot</span>
+<span class="w">  </span><span class="c1">#      imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#      name: netshoot</span>
+<span class="w">  </span><span class="c1">#      resources: {}</span>
+<span class="w">  </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volumes</span>
+<span class="w">  </span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volume mounts</span>
+<span class="w">  </span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="c1">#  runAsNonRoot: true</span>
+
+<span class="nt">admissionWebhook</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="c1"># The TCP port the Webhook server binds to. (default 9443)</span>
+<span class="w">  </span><span class="nt">webhookBindPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9443</span>
+
+<span class="nt">scheduler</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula-scheduler</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200m</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200Mi</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Mi</span>
+<span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;NodeZone&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span><span class="c1"># Only in-tree plugins need to be defined here</span>
+<span class="nn">...</span>
+</code></pre></div>
+<p>Part of the above parameters are described as follows:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Default value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>image.nebulaOperator.image</code></td>
+<td align="left"><code>vesoft/nebula-operator:v1.7.5</code></td>
+<td align="left">The image of NebulaGraph Operator, version of which is 1.7.5.</td>
+</tr>
+<tr>
+<td align="left"><code>image.nebulaOperator.imagePullPolicy</code></td>
+<td align="left"><code>IfNotPresent</code></td>
+<td align="left">The image pull policy in Kubernetes.</td>
+</tr>
+<tr>
+<td align="left"><code>imagePullSecrets</code></td>
+<td align="left">-</td>
+<td align="left">The image pull secret in Kubernetes. For example <code>imagePullSecrets[0].name="vesoft"</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>kubernetesClusterDomain</code></td>
+<td align="left"><code>cluster.local</code></td>
+<td align="left">The cluster domain.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.create</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Whether to enable the controller-manager component.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.replicas</code></td>
+<td align="left"><code>2</code></td>
+<td align="left">The number of controller-manager replicas.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.env</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">The environment variables for the controller-manager component.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraInitContainers</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Runs an init container to generate encryption certificates. For details, see <a href="../../4.cluster-administration/4.7.security/4.7.1.enable-mtls/">Enable mTLS</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Runs a sidecar container to regularly monitor the expiration of the certificates and generate new ones as their expiration approaches.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumes</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Sets a storage volume to store and share certificate files.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumeMounts</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Sets the storage volume mount path.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.securityContext</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Configures the access and control settings for NebulaGraph Operator.</td>
+</tr>
+<tr>
+<td align="left"><code>admissionWebhook.create</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Whether to enable Admission Webhook. This option is disabled. To enable it, set the value to <code>true</code> and you will need to install <a href="https://cert-manager.io/docs/installation/helm/">cert-manager</a>. For details, see <a href="../../4.cluster-administration/4.7.security/4.7.2.enable-admission-control/">Enable admission control</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>admissionWebhook.webhookBindPort</code></td>
+<td align="left"><code>9443</code></td>
+<td align="left">The TCP port the Webhook server binds to. It is 9443 by default.</td>
+</tr>
+<tr>
+<td align="left"><code>shceduler.create</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Whether to enable Scheduler.</td>
+</tr>
+<tr>
+<td align="left"><code>shceduler.schedulerName</code></td>
+<td align="left"><code>nebula-scheduler</code></td>
+<td align="left">The name of the scheduler customized by NebulaGraph Operator. It is used to evenly distribute Storage Pods across different <a href="../../4.cluster-administration/4.8.ha-and-balancing/4.8.2.enable-zone/">zones</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>shceduler.replicas</code></td>
+<td align="left"><code>2</code></td>
+<td align="left">The number of nebula-scheduler replicas.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h2>
+<p>The following example shows how to enable AdmissionWebhook when you install NebulaGraph Operator (AdmissionWebhook is disabled by default):</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>nebula-operator<span class="w"> </span>nebula-operator/nebula-operator<span class="w"> </span>--namespace<span class="o">=</span>&lt;nebula-operator-system&gt;<span class="w"> </span>--set<span class="w"> </span>admissionWebhook.create<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>Check whether the specified configuration of NebulaGraph Operator is installed successfully:</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>get<span class="w"> </span>values<span class="w"> </span>nebula-operator<span class="w"> </span>-n<span class="w"> </span>&lt;nebula-operator-system&gt;
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">USER-SUPPLIED VALUES</span><span class="p">:</span>
+<span class="nt">admissionWebhook</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>For more information about <code>helm install</code>, see <a href="https://helm.sh/docs/helm/helm_install/">Helm Install</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2024</span>
       
     
   </small>
