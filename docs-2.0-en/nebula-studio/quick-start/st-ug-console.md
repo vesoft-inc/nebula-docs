@@ -16,7 +16,7 @@ The following table lists the functions on the console page.
 | :-- | :--|   :--   |
 |  1  |  View the schema | Display the schemas of the graph spaces. |
 |  2  |  Select a space  | Select a space in the graph space drop down list. The console does not support using the `USE <space_name>` statement to switch graph spaces. |
-|  3  | Favorites | Click the ![save](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-save.png) button to expand the favorites, click one of the statements, and the statement will be automatically entered in the input box. |
+|  3  | Favorites | Click the ![save](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-save.png) button to expand the favorites. Select a statement, and it automatically populates in the input box. |
 |  4  |  History list   |  Click the ![history](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-history.png) button to view the execution history. In the execution history list, click one of the statements, and the statement will be automatically entered in the input box. The list provides the record of the last 15 statements.</br>Type `/` in the input box to quickly select a historical query statement.  |
 |  5  |  Clean input box  | Click the ![clean](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-clear.png) button to clear the content entered in the input box.  |
 |  6  |  Run   |  After entering the nGQL statement in the input box, click the ![run](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-play.png) button to start running the statement.  |
