@@ -14,11 +14,17 @@ To batch import data, do a check of these:
 
 ## Entry
 
-In the top navigation bar, click ![download](https://docs-cdn.nebula-graph.com.cn/figures/studio-btn-download.png).
+In the top navigation bar, click **Import**.
+
+## Steps
 
 Importing data is divided into 2 parts, creating a new data source and creating an import task, which will be described in detail next.
 
-## Create a new data source
+!!! note
+
+    You can also import tasks via the AI Import feature, which is a beta feature that needs to be enabled and configured in the [system settings](../system-settings.md) before use.
+
+### Create a new data source
 
 Click **New Data Source** in the upper right corner of the page to set the data source and its related settings. Currently, 3 types of data sources are supported.
 
@@ -33,7 +39,7 @@ Click **New Data Source** in the upper right corner of the page to set the data 
     - When uploading a local CSV file, you can select more than one CSV file at one time.
     - After adding a data source, you can click **Data Source Management** at the top of the page and switch tabs to view the details of different types of data sources, and you can also edit or delete data sources.
 
-## Create an import task
+### Create an import task
 
 1. Click **New Import** at the top left corner of the page to complete the following settings:
 
@@ -61,6 +67,25 @@ Click **New Data Source** in the upper right corner of the page to set the data 
 2. After completing the settings, click **Import**, enter the password for the NebulaGraph account, and confirm.
 
 After the import task is created, you can view the progress of the import task in the **Import Data** tab, which supports operations such as filtering tasks based on graph space, editing the task, viewing logs, downloading logs, reimporting, downloading configuration files, and deleting tasks.
+
+### Import data using AI Import
+
+!!! note
+
+    After the import task is completed, check whether the data is imported successfully. If not, it is recommended that you check the task logs on the import page to see whether issues such as timeouts, privacy policy violations, service interruption, or encoding errors occurred.
+
+1. Click **AI Import** in the upper left corner of the page to complete the following settings:
+
+  - **File**: Select the files for import via AI import. Only local single file or local directory is currently supported. You can select only one local file or directory each time. The file needs to be a plain text file.
+  - **Import Graph Space**: The graph space where the data is to be imported. The schema of the graph space needs to be created in advance.
+  - **Export NGQL File Path**: The path to the exported nGQL file, which usually does not need to be modified.
+  - **Attach Prompt**: You can attach additional prompts to guide the data import process. The precision of the prompts directly influences the accuracy of the import results.
+
+  You can view the `LLM` parameters related to AI import in the configuration file.
+
+2. After completing the settings, click **Next** to confirm the file for import and the AI URL to be used, and then click **Start**.
+
+After the import task is created, you can view the progress of the import task on the **Import Data** tab, which supports operations such as viewing logs, downloading logs, reimporting, and deleting tasks.
 
 ## Next
 
