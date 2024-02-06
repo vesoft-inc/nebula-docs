@@ -10994,6 +10994,11 @@
 </thead>
 <tbody>
 <tr>
+<td align="left">3.6.x ~ 3.7.x</td>
+<td align="left">3.6.x ~ 3.7.0</td>
+<td align="left">3.6.x ~ 3.7.0</td>
+</tr>
+<tr>
 <td align="left">3.5.x</td>
 <td align="left">3.5.1</td>
 <td align="left">3.4.0</td>
@@ -11025,7 +11030,7 @@
 </ol>
 <p>In the BR Enterprise Edition installation directory, run <code>./br version</code> to view version information. The following information is returned:</p>
 <div class="highlight"><pre><span></span><code>[br-ent]$ ./br version
-Nebula Backup And Restore Utility Tool,V-3.5.1
+Nebula Backup And Restore Utility Tool,V-3.7.0
 </code></pre></div>
 <h2 id="install_agent">Install Agent<a class="headerlink" href="#install_agent" title="Permanent link">&para;</a></h2>
 <p>NebulaGraph Agent is installed as a binary file in each machine and serves the BR tool with the RPC protocol.</p>
@@ -11033,12 +11038,12 @@ Nebula Backup And Restore Utility Tool,V-3.5.1
 <ol>
 <li>
 <p>Install Agent.</p>
-<div class="highlight"><pre><span></span><code>wget https://github.com/vesoft-inc/nebula-agent/releases/download/v3.4.0/agent-3.4.0-linux-amd64
+<div class="highlight"><pre><span></span><code>wget https://github.com/vesoft-inc/nebula-agent/releases/download/v3.7.0/agent-3.7.0-linux-amd64
 </code></pre></div>
 </li>
 <li>
 <p>Rename the Agent file to <code>agent</code>.</p>
-<div class="highlight"><pre><span></span><code>sudo mv agent-3.4.0-linux-amd64 agent
+<div class="highlight"><pre><span></span><code>sudo mv agent-3.7.0-linux-amd64 agent
 </code></pre></div>
 </li>
 <li>
@@ -11058,10 +11063,20 @@ Nebula Backup And Restore Utility Tool,V-3.5.1
 <li><code>--agent</code>: The IP address and port number of Agent.</li>
 <li><code>--meta</code>: The IP address and access port of any Meta service in the cluster.</li>
 <li><code>--ratelimit</code>: (Optional) Limits the speed of file uploads and downloads to prevent bandwidth from being filled up and making other services unavailable. Unit: Bytes.</li>
+<li><code>&gt; nebula_agent.log 2&gt;&amp;1 &amp;</code>: Optional. Outputs the Agent log to the <code>nebula_agent.log</code> file.</li>
 </ul>
-<p>For example: </p>
-<div class="highlight"><pre><span></span><code>sudo nohup ./agent --agent=&quot;192.168.8.129:8888&quot; --meta=&quot;192.168.8.129:9559&quot; --ratelimit=1048576 &gt; nebula_agent.log 2&gt;&amp;1 &amp;
+<p>If <a href="../../../7.data-security/4.ssl/">mTLS authentication encryption</a> is enabled in the cluster, while executing the command to start the Agent, you need to add options such as <code>--enable_ssl</code>, <code>--ca_path</code>, <code>--cert_path</code>, <code>--key_path</code>, and <code>--insecure_skip_verify</code>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>sudo nohup ./agent --agent=&quot;192.168.8.xxx:8888&quot; --meta=&quot;192.168.8.xxx:9559&quot; --ratelimit=1048576 --enable_ssl --ca_path=&lt;ca_cert_path&gt; --cert_path=&lt;client_cert_path&gt; --key_path=&lt;client_key_path&gt; --insecure_skip_verify=true &gt; nebula_agent.log 2&gt;&amp;1 &amp;
 </code></pre></div>
+<ul>
+<li><code>--enable_ssl</code>: Enables mTLS (mutual Transport Layer Security) for connections to NebulaGraph for encrypted bidirectional authentication.</li>
+<li><code>--ca_path</code>: Specifies the storage path for the Certificate Authority (CA) root certificate. The default path is <code>/usr/local/certs/ca.crt</code>.</li>
+<li><code>--cert_path</code>: Specifies the storage path for the public key certificate. The default path is <code>/usr/local/certs/client.crt</code>.</li>
+<li><code>--key_path</code>: Specifies the storage path for the private key certificate. The default path is <code>/usr/local/certs/client.key</code>.</li>
+<li><code>--insecure_skip_verify</code>: Optional. Specifies whether to skip verification of the server's certificate chain and hostname. The default value is <code>false</code>, which means it verifies the server-provided certificate chain and hostname. If set to <code>true</code>, it skips verification.</li>
+</ul>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the CA root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca_path</code>, <code>--cert_path</code>, and <code>--key_path</code> options in the preceding example because the environment variables override the corresponding options.</p>
 </li>
 <li>
 <p>Log into NebulaGraph and then run the following command to view the status of Agent.</p>
@@ -11080,7 +11095,7 @@ Nebula Backup And Restore Utility Tool,V-3.5.1
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 6, 2024</span>
       
     
   </small>

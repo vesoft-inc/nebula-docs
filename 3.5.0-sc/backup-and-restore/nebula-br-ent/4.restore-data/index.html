@@ -11033,8 +11033,15 @@
 </ul>
 <ul>
 <li>
-<p>Lists backups in <code>/</code> under the <code>nebula-br-test</code> bucket of the S3 protocol-compliant object storage service.</p>
+<p>List backups in the <code>/</code> path under the <code>nebula-br-test</code> bucket of the S3 protocol-compliant object storage service.</p>
 <div class="highlight"><pre><span></span><code>./br<span class="w"> </span>show<span class="w"> </span>--s3.access_key<span class="w"> </span>QImbbGDjfQEYxxxx<span class="w"> </span>--s3.secret_key<span class="w"> </span>dVSJZfl7tnoFq7Z5zt6sfYnvi63bxxxx<span class="w">  </span>--s3.region<span class="w"> </span>us-east-1<span class="w"> </span>--storage<span class="w"> </span>s3://nebula-br-test/<span class="w"> </span>--s3.endpoint<span class="w"> </span>http://192.168.8.xxx:9000/
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>List backups in the <code>/</code> path under the <code>nebula-br-test</code> bucket of Google Cloud Storage.</p>
+<div class="highlight"><pre><span></span><code>./br<span class="w"> </span>show<span class="w"> </span>--gs.credentials<span class="o">=</span><span class="s1">&#39;{&quot;type&quot;:&quot;service_account&quot;,&quot;project_id&quot;:&quot;&lt;project_id&gt;&quot;,&quot;project_key&quot;:&quot;&lt;project_key&gt;&quot;,&quot;private_key&quot;:&quot;&lt;private_key&gt;&quot;,&quot;client_email&quot;:&quot;&lt;service_account_email&gt;&quot;,&quot;client_id&quot;:&quot;&lt;client_id&gt;&quot;,&quot;auth_uri&quot;:&quot;https://accounts.google.com/o/oauth2/auth&quot;,&quot;token_uri&quot;:&quot;https://oauth2.googleapis.com/token&quot;,&quot;auth_provider_x509_cert_url&quot;:&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,&quot;client_x509_cert_url&quot;:&quot;https://www.googleapis.com/robot/v1/metadata/x509/&lt;service_account_email&gt;&quot;,&quot;universe_domain&quot;:&quot;googleapis.com&quot;}&#39;</span><span class="w"> </span>--storage<span class="w"> </span>gs://nebula-br-test/
 </code></pre></div>
 </li>
 </ul>
@@ -11053,9 +11060,15 @@
 </ul>
 <ul>
 <li>
-<p>Restore data based on cloud backups.</p>
+<p>Restore data based on an S3 protocol-compliant object storage service.</p>
 <p>Restore the <code>BACKUP_2022_08_12_07_37_02</code> backup data from the <code>/</code> path under the <code>nebula-br-test</code> bucket of the S3-compliant object storage service to the cluster with the meta address <code>192.168.8.129:9559</code>, and specify the restoration log path.</p>
 <div class="highlight"><pre><span></span><code>./br<span class="w"> </span>restore<span class="w"> </span>full<span class="w"> </span>--meta<span class="w"> </span><span class="m">192</span>.168.8.129:9559<span class="w"> </span>--s3.accesskey<span class="w"> </span>QImbbGDjfQEYxxxx<span class="w"> </span>--s3.secretkey<span class="w"> </span>dVSJZfl7tnoFq7Z5zt6sfYnvi63bxxxx<span class="w">  </span>--s3.region<span class="w"> </span>us-east-1<span class="w"> </span>--storage<span class="w"> </span>s3://nebula-br-test/<span class="w"> </span>--s3.endpoint<span class="w"> </span>http://192.168.8.xxx:9000/<span class="w"> </span>--log<span class="w"> </span><span class="s2">&quot;3.log&quot;</span><span class="w"> </span>--name<span class="w"> </span>BACKUP_2022_08_12_07_37_02
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Restore data based on Google Cloud Storage.<p>Restore the <code>BACKUP_2022_08_12_07_37_02</code> backup data from the <code>/</code> path under the <code>nebula-br-test</code> bucket of Google Cloud Storage to the cluster with the meta address <code>168.8.xxx:9559</code>, and specify the restoration log path.</p>
+<div class="highlight"><pre><span></span><code>./br<span class="w"> </span>restore<span class="w"> </span>full<span class="w"> </span>--meta<span class="w"> </span><span class="m">168</span>.8.xxx:9559<span class="w"> </span>--gs.credentials<span class="o">=</span><span class="s1">&#39;{&quot;type&quot;:&quot;service_account&quot;,&quot;project_id&quot;:&quot;&lt;project_id&gt;&quot;,&quot;project_key&quot;:&quot;&lt;project_key&gt;&quot;,&quot;private_key&quot;:&quot;&lt;private_key&gt;&quot;,&quot;client_email&quot;:&quot;&lt;service_account_email&gt;&quot;,&quot;client_id&quot;:&quot;&lt;client_id&gt;&quot;,&quot;auth_uri&quot;:&quot;https://accounts.google.com/o/oauth2/auth&quot;,&quot;token_uri&quot;:&quot;https://oauth2.googleapis.com/token&quot;,&quot;auth_provider_x509_cert_url&quot;:&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,&quot;client_x509_cert_url&quot;:&quot;https://www.googleapis.com/robot/v1/metadata/x509/&lt;service_account_email&gt;&quot;,&quot;universe_domain&quot;:&quot;googleapis.com&quot;}&#39;</span><span class="w"> </span>--storage<span class="w"> </span>gs://nebula-br-test/<span class="w"> </span>--log<span class="w"> </span><span class="s2">&quot;3.log&quot;</span><span class="w"> </span>--name<span class="w"> </span>BACKUP_2022_08_12_07_37_02
 </code></pre></div>
 </li>
 </ul>
@@ -11066,6 +11079,31 @@
 <p class="admonition-title">Note</p>
 <p>If the data restoration fails, BR Enterprise Edition automatically performs a rollback and the cluster's data is automatically recovered back to the pre-restoration data.</p>
 </div>
+<p>If the cluster has <a href="../../../7.data-security/4.ssl/">mTLS authentication encryption enabled</a>, you need to add additional parameters <code>--enable-ssl</code>, <code>--ca-path</code>, <code>--cert-path</code>, <code>--key-path</code>, and <code>--insecure-skip-verify</code> when executing data restore commands. </p>
+<p>For example:</p>
+<ul>
+<li>
+<p>Restoring data based on local backups in a cluster with mTLS enabled:</p>
+<div class="highlight"><pre><span></span><code>./br<span class="w"> </span>restore<span class="w"> </span>full<span class="w"> </span>--meta<span class="w"> </span><span class="s2">&quot;192.168.8.xxx:9559&quot;</span><span class="w"> </span>--storage<span class="w"> </span><span class="s2">&quot;local:///backup/&quot;</span><span class="w"> </span>--name<span class="w"> </span>BACKUP_2022_08_11_09_11_07<span class="w"> </span>--enable-ssl<span class="w"> </span>--ca-path<span class="o">=</span>&lt;ca_cert_path&gt;<span class="w"> </span>--cert-path<span class="o">=</span>&lt;client_cert_path&gt;<span class="w"> </span>--key-path<span class="o">=</span>&lt;client_key_path&gt;<span class="w"> </span>--insecure-skip-verify<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Restoring data based on S3 protocol-compliant cloud storage backups in a cluster with mTLS enabled:</p>
+<p><code>bash
+./br restore full --meta 192.168.8.xxx:9559 --s3.accesskey QImbbGDjfQEYxxxx --s3.secretkey dVSJZfl7tnoFq7Z5zt6sfYnvi63bxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/ --log "3.log" --name BACKUP_2022_08_12_07_37_02 --enable-ssl --ca-path=&lt;ca_cert_path&gt; --cert-path=&lt;client_cert_path&gt; --key-path=&lt;client_key_path&gt; --insecure-skip-verify=true</code></p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Restoring data based on Google Cloud backups in a cluster with mTLS enabled:</p>
+<div class="highlight"><pre><span></span><code>./br<span class="w"> </span>restore<span class="w"> </span>full<span class="w"> </span>--meta<span class="w"> </span><span class="m">192</span>.168.8.xxx:9559<span class="w"> </span>--gs.credentials<span class="w"> </span><span class="s1">&#39;{&quot;type&quot;:&quot;service_account&quot;,&quot;project_id&quot;:&quot;&lt;project_id&gt;&quot;,&quot;project_key&quot;:&quot;&lt;project_key&gt;&quot;,&quot;private_key&quot;:&quot;&lt;private_key&gt;&quot;,&quot;client_email&quot;:&quot;&lt;service_account_email&gt;&quot;,&quot;client_id&quot;:&quot;&lt;client_id&gt;&quot;,&quot;auth_uri&quot;:&quot;https://accounts.google.com/o/oauth2/auth&quot;,&quot;token_uri&quot;:&quot;https://oauth2.googleapis.com/token&quot;,&quot;auth_provider_x509_cert_url&quot;:&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,&quot;client_x509_cert_url&quot;:&quot;https://www.googleapis.com/robot/v1/metadata/x509/&lt;service_account_email&gt;&quot;,&quot;universe_domain&quot;:&quot;googleapis.com&quot;}&#39;</span><span class="w"> </span>--storage<span class="w"> </span>gs://nebula-br-test/<span class="w"> </span>--log<span class="w"> </span><span class="s2">&quot;3.log&quot;</span><span class="w"> </span>--name<span class="w"> </span>BACKUP_2022_08_12_07_37_02<span class="w"> </span>--enable-ssl<span class="w"> </span>--ca-path<span class="o">=</span>&lt;ca_cert_path&gt;<span class="w"> </span>--cert-path<span class="o">=</span>&lt;client_cert_path&gt;<span class="w"> </span>--key-path<span class="o">=</span>&lt;client_key_path&gt;<span class="w"> </span>--insecure-skip-verify<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</li>
+</ul>
+<p>For descriptions about these parameters, see the section <strong>Options</strong> below.</p>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the CA root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca-path</code>, <code>--cert-path</code>, and <code>--key-path</code> parameters in the preceding examples because the environment variables override the corresponding parameters.</p>
 </li>
 <li>
 <p>Run the following command to clean temporary files. This command will clean up temporary files in the cluster or external storage, and you can also use this command to clean up old backup directories. The example is as follows.</p>
@@ -11082,8 +11120,15 @@
 </ul>
 <ul>
 <li>
-<p>Clear the backup directory in the cloud storage service.</p>
+<p>Clear the backup directory in a S3 protocol-compliant cloud storage service.</p>
 <div class="highlight"><pre><span></span><code>./br cleanup --meta 192.168.8.129:9559 --s3.accesskey QImbbGDjfQEYxxxx --s3.secretkey dVSJZfl7tnoFq7Z5zt6sfYnvi63bxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/ --name BACKUP_2022_08_12_07_37_02
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>Clear the backup directory in Google Cloud Storage:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>./br<span class="w"> </span>cleanup<span class="w"> </span>--meta<span class="w"> </span><span class="m">192</span>.168.8.xxx:9559<span class="w"> </span>--gs.credentials<span class="w"> </span><span class="s1">&#39;{&quot;type&quot;:&quot;service_account&quot;,&quot;project_id&quot;:&quot;&lt;project_id&gt;&quot;,&quot;project_key&quot;:&quot;&lt;project_key&gt;&quot;,&quot;private_key&quot;:&quot;&lt;private_key&gt;&quot;,&quot;client_email&quot;:&quot;&lt;service_account_email&gt;&quot;,&quot;client_id&quot;:&quot;&lt;client_id&gt;&quot;,&quot;auth_uri&quot;:&quot;https://accounts.google.com/o/oauth2/auth&quot;,&quot;token_uri&quot;:&quot;https://oauth2.googleapis.com/token&quot;,&quot;auth_provider_x509_cert_url&quot;:&quot;https://www.googleapis.com/oauth2/v1/certs&quot;,&quot;client_x509_cert_url&quot;:&quot;https://www.googleapis.com/robot/v1/metadata/x509/&lt;service_account_email&gt;&quot;,&quot;universe_domain&quot;:&quot;googleapis.com&quot;}&#39;</span><span class="w"> </span>--storage<span class="w"> </span>gs://nebula-br-test/<span class="w"> </span>--name<span class="w"> </span>BACKUP_2022_08_12_07_37_02<span class="w"> </span>
 </code></pre></div>
 </li>
 </ul>
@@ -11107,21 +11152,21 @@
 <td>-</td>
 <td>No</td>
 <td>-</td>
-<td>View more information about BR commands.</td>
+<td>View more information about {{ no such element: dict object['name'] }} commands.</td>
 </tr>
 <tr>
 <td><code>--debug</code></td>
 <td>-</td>
 <td>No</td>
 <td>None</td>
-<td>View more information for BR logs.</td>
+<td>View more information for {{ no such element: dict object['name'] }} logs.</td>
 </tr>
 <tr>
 <td><code>--log</code></td>
 <td>string</td>
 <td>No</td>
 <td>"br.log"</td>
-<td>The path of BR logs.</td>
+<td>The path of {{ no such element: dict object['name'] }} logs.</td>
 </tr>
 <tr>
 <td><code>--concurrency</code></td>
@@ -11149,7 +11194,7 @@
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
-<td>The storage URL of the backup is to be restored. The format is <code>&lt;schema&gt;://&lt;storage_path&gt;</code>.<br><code>schema</code>: Two options, <code>s3</code> and <code>local</code>.<br>When <code>schema</code> is <code>s3</code>, you still need to add options of <code>s3.access_key</code>、<code>s3.endpoint</code>、<code>s3.region</code>, and <code>s3.secret_key</code>.<br><code>&lt;storage_path&gt;</code>: The storage path of the backup to be restored.</td>
+<td>The storage URL of the backup is to be restored. The format is <code>&lt;schema&gt;://&lt;storage_path&gt;</code>.<br><code>schema</code>: Three options: <code>local</code>, <code>s3</code>, and <code>gs</code>.<br>When <code>schema</code> is <code>s3</code>, you need to add options of <code>--s3.access_key</code>、<code>--s3.endpoint</code>、<code>--s3.region</code>, and <code>--s3.secret_key</code>.<br>When <code>schema</code> is <code>gs</code>, you need to add the <code>--gs.credentials</code> option. <br><code>&lt;storage_path&gt;</code>: The storage path of the backup to be restored.</td>
 </tr>
 <tr>
 <td><code>--s3.access_key</code></td>
@@ -11179,6 +11224,48 @@
 <td>None</td>
 <td>The Access Key Secret that is used to verify the identity of the user.</td>
 </tr>
+<tr>
+<td><code>--enable-ssl</code></td>
+<td>-</td>
+<td>No</td>
+<td>None</td>
+<td>Enable mTLS encryption for mutual authentication with NebulaGraph.</td>
+</tr>
+<tr>
+<td><code>--ca-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the CA root certificate. The default path is <code>/usr/local/certs/ca.crt</code>.</td>
+</tr>
+<tr>
+<td><code>--cert-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the public key certificate. The default path is <code>/usr/local/certs/client.crt</code>.</td>
+</tr>
+<tr>
+<td><code>--key-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the private key certificate. The default path is <code>/usr/local/certs/client.key</code>.</td>
+</tr>
+<tr>
+<td><code>--insecure-skip-verify</code></td>
+<td>bool</td>
+<td>No</td>
+<td>False</td>
+<td>Specify whether to skip verifying the server's certificate chain and hostname. The default is <code>false</code>, meaning it verifies the server's provided certificate chain and hostname. If set to <code>true</code>, verification is skipped.</td>
+</tr>
+<tr>
+<td><code>--gs.credentials</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>The JSON string that represents your service account key provided by Google Cloud. For more information, see <a href="https://cloud.google.com/iam/docs/keys-create-delete">Create and delete service account keys</a>.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="view_restoration_progress">View restoration progress<a class="headerlink" href="#view_restoration_progress" title="Permanent link">&para;</a></h2>
@@ -11193,7 +11280,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 6, 2024</span>
       
     
   </small>

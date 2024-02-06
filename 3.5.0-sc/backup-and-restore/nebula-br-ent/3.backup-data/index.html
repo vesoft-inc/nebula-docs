@@ -11144,7 +11144,7 @@
 
 
 <h1 id="back_up_data_with_br_enterprise_edition">Back up data with BR (Enterprise Edition)<a class="headerlink" href="#back_up_data_with_br_enterprise_edition" title="Permanent link">&para;</a></h1>
-<p>You can use BR (Enterprise Edition) to back up NebulaGraph data. You can perform full backups and incremental backups. You can also back up data to your local disks and to cloud storage services compatible with the Amazon S3 interface. This topic introduces how to back up NebulaGraph data.</p>
+<p>You can use BR (Enterprise Edition) to back up NebulaGraph data. You can perform full backups and incremental backups. You can also back up data to your local disks, Google Cloud Storage, and cloud storage services compatible with the Amazon S3 interface. This topic introduces how to back up NebulaGraph data.</p>
 <h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
 <ul>
 <li>A full backup is a backup of your NebulaGraph database's entire.</li>
@@ -11179,7 +11179,8 @@
 <h3 id="to_a_cloud_storage_service">To a cloud storage service<a class="headerlink" href="#to_a_cloud_storage_service" title="Permanent link">&para;</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can back up data to the cloud storage services that are compatible with the Amazon S3 interface.</p>
+<p>The following sections use a cloud storage service compatible with the Amazon S3 interface as an example. </p>
+<p>You can also back up data to Google Cloud Storage, in which case, you need to replace the S3-related options with the <code>--gs.credentials</code> option and modify the <code>--storage</code> option accordingly. For more information, see the <strong>Options</strong> section below.</p>
 </div>
 <p>In the directory of the BR Enterprise Edition installation tool, run the following command to back up the entire data of your NebulaGraph database to a cloud storage service:</p>
 <div class="highlight"><pre><span></span><code>./br backup full --meta &lt;ip_address:port&gt; --s3.access_key &lt;access_key&gt; --s3.secret_key &lt;secret_key&gt;  --s3.region &lt;region_name&gt; --storage s3://&lt;storage_path&gt; --s3.endpoint &lt;endpoint_url&gt;
@@ -11187,9 +11188,14 @@
 <p>For example, perform a full backup of the entire cluster where one of the meta service addresses is <code>192.168.8.129:9559</code>, and back up data to the <code>/</code> directory in the <code>nebula-br-test</code> bucket of Amazon S3.</p>
 <div class="highlight"><pre><span></span><code>./br backup full --meta 192.168.8.129:9559 --s3.access_key QImbbGDjfQExxx --s3.secret_key dVSJZfl7tnoFq7Z5zt6sfxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/
 </code></pre></div>
+<p>If the cluster has mTLS (mutual Transport Layer Security) authentication encryption enabled and you want to perform a backup operation, you need to include the <code>--enable-ssl</code>, <code>--ca-path</code>, <code>--cert-path</code>, <code>--key-path</code>, and <code>--insecure-skip-verify</code> parameters.</p>
+<div class="highlight"><pre><span></span><code>./br backup full --meta 192.168.8.xxx:9559 --s3.access_key QImbbGDjfQExxx --s3.secret_key dVSJZfl7tnoFq7Z5zt6sfxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/ --enable-ssl --ca-path=&lt;ca_cert_path&gt; --cert-path=&lt;client_cert_path&gt; --key-path=&lt;client_key_path&gt; --insecure-skip-verify=true
+</code></pre></div>
+<p>For descriptions of the parameters, see the below section <strong>Options</strong>.</p>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the Certificate Authority (CA) root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca-path</code>, <code>--cert-path</code>, and <code>--key-path</code> options in the preceding example because the environment variables override the corresponding options.</p>
 <h3 id="to_a_local_disk">To a local disk<a class="headerlink" href="#to_a_local_disk" title="Permanent link">&para;</a></h3>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>In the production environment, we recommend that you mount NFS (Network File System) to the machines where the meta service, the storage service, and the BR Enterprise Edition tool are located for local backups, or use Alibaba Cloud OSS, and Amazon S3 for cloud backups. Otherwise, you must manually move these backup files to the specified directory before restoring the data.</p>
 <p>For local backups, only the data of the leader mated and the leader partitions are backed up. When the shared storage service is not used and there are multiple metads or the replica number of partitions is greater than 1, you need to manually copy the directory of the backed-up leader metad (<code>&lt;storage_path&gt;/meta</code>) and overwrite the corresponding directories of other follower metads, and copy the corresponding partition data from the directory of the leader partitions (<code>&lt;storage_path&gt;/&lt;partition_id&gt;</code>) to the corresponding directories of other follower partitions. It is not recommended for you to have the copy operation.</p>
 </div>
@@ -11203,6 +11209,11 @@
 <p>For example, perform a full backup of the entire cluster where one of the meta server addresses is <code>192.168.8.129:9559</code>, and back up data to the <code>/backup/</code> directory on the local disk.</p>
 <div class="highlight"><pre><span></span><code>./br backup full --meta &quot;192.168.8.129:9559&quot; --storage &quot;local:///backup/&quot;
 </code></pre></div>
+<p>If the cluster has mTLS (mutual Transport Layer Security) authentication encryption enabled and you want to perform a backup operation, you need to include the <code>--enable-ssl</code>, <code>--ca-path</code>, <code>--cert-path</code>, <code>--key-path</code>, and <code>--insecure-skip-verify</code> parameters.</p>
+<div class="highlight"><pre><span></span><code>./br backup full --meta &quot;192.168.8.xxx:9559&quot; --storage &quot;local:///backup/&quot; --enable-ssl --ca-path=&lt;ca_cert_path&gt; --cert-path=&lt;client_cert_path&gt; --key-path=&lt;client_key_path&gt; --insecure-skip-verify=true
+</code></pre></div>
+<p>For descriptions of the parameters, see the below section <strong>Options</strong>.</p>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the CA root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca-path</code>, <code>--cert-path</code>, and <code>--key-path</code> options in the preceding example because the environment variables override the corresponding options.</p>
 <h3 id="directory_structure">Directory structure<a class="headerlink" href="#directory_structure" title="Permanent link">&para;</a></h3>
 <p>Full backups back up all the data of the leader metad and leader partitions. The structure of a backed-up directory is as follows:</p>
 <div class="highlight"><pre><span></span><code>├── BACKUP_2022_08_12_08_41_19.meta（Backup of metadata, such as host information and the storage path of partitions）
@@ -11233,9 +11244,14 @@
 <p>Before performing an incremental backup, make sure that the data of the previous full backup or incremental backup is not changed. Otherwise, the incremental backup may fail. </p>
 </div>
 <h3 id="to_a_cloud_storage_service_1">To a cloud storage service<a class="headerlink" href="#to_a_cloud_storage_service_1" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before performing an incremental backup, make sure that the data of the previous full backup or incremental backup is not changed. Otherwise, the incremental backup may fail. </p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can back up data to the cloud storage services that are compatible with the Amazon S3 interface.</p>
+<p>The following sections use a cloud storage service compatible with the Amazon S3 interface as an example. </p>
+<p>You can also back up data to Google Cloud Storage, in which case, you need to replace the S3-related options with the <code>--gs.credentials</code> option and modify the <code>--storage</code> option accordingly. For more information, see the <strong>Options</strong> section below.</p>
 </div>
 <p>In the directory of the BR Enterprise Edition installation tool, run the following command to back up the incremental data of your NebulaGraph database to a cloud storage service:</p>
 <div class="highlight"><pre><span></span><code>./br backup incr --meta &lt;ip_address:port&gt; --s3.access_key &lt;access_key&gt; --s3.secret_key &lt;secret_key&gt;  --s3.region &lt;region_name&gt; --storage s3://&lt;storage_path&gt; --s3.endpoint &lt;endpoint_url&gt; --base &lt;backup_file_name&gt;
@@ -11243,6 +11259,11 @@
 <p>For example, based on the file <code>BACKUP_2022_08_11_09_11_07</code>, perform an incremental backup for the cluster where one of the meta server addresses is <code>192.168.8.129:9559</code>, and back up data to the <code>/</code> directory in the <code>nebula-br-test</code> bucket of Amazon S3.</p>
 <div class="highlight"><pre><span></span><code>./br backup incr --meta 192.168.8.129:9559 --s3.access_key QImbbGDjfQExxx --s3.secret_key dVSJZfl7tnoFq7Z5zt6sfxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/ --base BACKUP_2022_08_11_09_11_07
 </code></pre></div>
+<p>If the cluster has mTLS (mutual Transport Layer Security) authentication encryption enabled and you want to perform a backup operation, you need to include the <code>--enable-ssl</code>, <code>--ca-path</code>, <code>--cert-path</code>, <code>--key-path</code>, and <code>--insecure-skip-verify</code> parameters.</p>
+<div class="highlight"><pre><span></span><code>./br backup incr --meta 192.168.8.xxx:9559 --s3.access_key QImbbGDjfQExxx --s3.secret_key dVSJZfl7tnoFq7Z5zt6sfxxxx  --s3.region us-east-1 --storage s3://nebula-br-test/ --s3.endpoint http://192.168.8.xxx:9000/ --base BACKUP_2022_08_11_09_11_07 --enable-ssl --ca-path=&lt;ca_cert_path&gt; --cert-path=&lt;client_cert_path&gt; --key-path=&lt;client_key_path&gt; --insecure-skip-verify=true
+</code></pre></div>
+<p>For descriptions of the parameters, see the below section <strong>Options</strong>.</p>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the CA root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca-path</code>, <code>--cert-path</code>, and <code>--key-path</code> options in the preceding example because the environment variables override the corresponding options.</p>
 <h3 id="to_a_local_disk_1">To a local disk<a class="headerlink" href="#to_a_local_disk_1" title="Permanent link">&para;</a></h3>
 <p>In the directory of the BR Enterprise Edition installation tool, run the following command to back up the incremental data of your NebulaGraph database to a local disk:</p>
 <div class="admonition note">
@@ -11254,6 +11275,11 @@
 <p>For example, based on the file <code>BACKUP_2022_08_11_09_11_07</code>, perform an incremental backup for the cluster where one of the meta server addresses is <code>192.168.8.129:9559</code>, and back up data to the <code>/backup/</code> directory on the local disk.</p>
 <div class="highlight"><pre><span></span><code>./br backup incr --meta &quot;192.168.8.129:9559&quot; --storage &quot;local:///backup/&quot; --base BACKUP_2022_08_11_09_11_07
 </code></pre></div>
+<p>If the cluster has mTLS (mutual Transport Layer Security) authentication encryption enabled and you want to perform a backup operation, you need to include the <code>--enable-ssl</code>, <code>--ca-path</code>, <code>--cert-path</code>, <code>--key-path</code>, and <code>--insecure-skip-verify</code> parameters.
+<div class="highlight"><pre><span></span><code>./br backup incr --meta &quot;192.168.8.xxx:9559&quot; --storage &quot;local:///backup/&quot; --base BACKUP_2022_08_11_09_11_07 --enable-ssl --ca-path=&lt;ca_cert_path&gt; --cert-path=&lt;client_cert_path&gt; --key-path=&lt;client_key_path&gt; --insecure-skip-verify=true
+</code></pre></div></p>
+<p>For descriptions of the parameters, see the below section <strong>Options</strong>.</p>
+<p>Alternatively, you can configure environment variables <code>CA_CERT_PATH</code>, <code>CLIENT_CERT_PATH</code>, and <code>CLIENT_KEY_PATH</code> to specify the storage paths of the CA root certificate, public key certificate, and private key certificate respectively. After these environment variables are configured, you do not need to set the <code>--ca-path</code>, <code>--cert-path</code>, and <code>--key-path</code> options in the preceding example because the environment variables override the corresponding options.</p>
 <h3 id="directory_structure_1">Directory structure<a class="headerlink" href="#directory_structure_1" title="Permanent link">&para;</a></h3>
 <p>In addition to the leader meta data, for the leader partition data of an existing graph space (graph space ID <code>1</code> in the following code block), Incremental backups only back up the <code>wal</code> directory of the leader partition; for the leader partition data of the newly added graph space (graph space ID <code>4</code> in the following code block), the full <code>data</code> and <code>wal</code> directories are backed up. The incremental backup directory structure may be different compared to the full backup data structure.</p>
 <p>The structure of an incremental backup is as follows:</p>
@@ -11296,21 +11322,21 @@
 <td>-</td>
 <td>No</td>
 <td>None</td>
-<td>View more information about BR commands.</td>
+<td>View more information about {{ no such element: dict object['name'] }} commands.</td>
 </tr>
 <tr>
 <td><code>--debug</code></td>
 <td>-</td>
 <td>No</td>
 <td>None</td>
-<td>View more information for BR logs.</td>
+<td>View more information for {{ no such element: dict object['name'] }} logs.</td>
 </tr>
 <tr>
 <td><code>--log</code></td>
 <td>string</td>
 <td>No</td>
 <td><code>"br.log"</code></td>
-<td>The path of BR logs.</td>
+<td>The path of {{ no such element: dict object['name'] }} logs.</td>
 </tr>
 <tr>
 <td><code>--concurrency</code></td>
@@ -11331,7 +11357,7 @@
 <td>string</td>
 <td>Yes</td>
 <td>None</td>
-<td>The storage path of the data to be backed up in the form of <code>&lt;schema&gt;://&lt;storage_path&gt;</code>.<br><code>schema</code>: Two options, <code>s3</code> and <code>local</code>.<br>When <code>schema</code> is <code>s3</code>, you still need to add options of <code>s3.access_key</code>、<code>s3.endpoint</code>、<code>s3.region</code>, and <code>s3.secret_key</code>.<br><code>&lt;storage_path&gt;</code>: The storage path.</td>
+<td>The storage path of the data to be backed up in the form of <code>&lt;schema&gt;://&lt;storage_path&gt;</code>.<br><code>schema</code>: Three options: <code>local</code>, <code>s3</code>, and <code>gs</code>.<br>When <code>schema</code> is <code>s3</code>, you need to add options of <code>--s3.access_key</code>、<code>--s3.endpoint</code>、<code>--s3.region</code>, and <code>--s3.secret_key</code>.<br>When <code>schema</code> is <code>gs</code>, you need to add the <code>--gs.credentials</code> option. <br><code>&lt;storage_path&gt;</code>: The storage path.</td>
 </tr>
 <tr>
 <td><code>--s3.access_key</code></td>
@@ -11368,6 +11394,48 @@
 <td>None</td>
 <td>The name of the directory of any previous backup. Based on this backup, perform an incremental backup.</td>
 </tr>
+<tr>
+<td><code>--enable-ssl</code></td>
+<td>-</td>
+<td>No</td>
+<td>None</td>
+<td>Enable mTLS encryption for mutual authentication with NebulaGraph.</td>
+</tr>
+<tr>
+<td><code>--ca-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the CA root certificate. The default path is <code>/usr/local/certs/ca.crt</code>.</td>
+</tr>
+<tr>
+<td><code>--cert-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the public key certificate. The default path is <code>/usr/local/certs/client.crt</code>.</td>
+</tr>
+<tr>
+<td><code>--key-path</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>Storage path for the private key certificate. The default path is <code>/usr/local/certs/client.key</code>.</td>
+</tr>
+<tr>
+<td><code>--insecure-skip-verify</code></td>
+<td>bool</td>
+<td>No</td>
+<td>False</td>
+<td>Specify whether to skip verifying the server's certificate chain and hostname. The default is <code>false</code>, meaning it verifies the server's provided certificate chain and hostname. If set to <code>true</code>, verification is skipped.</td>
+</tr>
+<tr>
+<td><code>--gs.credentials</code></td>
+<td>string</td>
+<td>No</td>
+<td>None</td>
+<td>The JSON string that represents your service account key provided by Google Cloud. For more information, see <a href="https://cloud.google.com/iam/docs/keys-create-delete">Create and delete service account keys</a>. Example: <code>--gs.credentials='{"type":"service_account","project_id":"&lt;project_id&gt;","project_key":"&lt;project_key&gt;","private_key":"&lt;private_key&gt;","client_email":"&lt;service_account_email&gt;","client_id":"&lt;client_id&gt;","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"https://www.googleapis.com/robot/v1/metadata/x509/&lt;service_account_email&gt;","universe_domain":"googleapis.com"}'</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="view_backup_progress">View backup progress<a class="headerlink" href="#view_backup_progress" title="Permanent link">&para;</a></h2>
@@ -11388,7 +11456,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 6, 2024</span>
       
     
   </small>
