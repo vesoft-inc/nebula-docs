@@ -10,7 +10,7 @@
   
 - 使用 [Importer 导入](use-importer.md)：导入单机多个 CSV 文件，大小没有限制，格式灵活。适合十亿条数据以内的场景。
 - 使用 [Exchange 导入](nebula-exchange/about-exchange/ex-ug-what-is-exchange.md)：从 Neo4j、Hive、MySQL 等多种源分布式导入，需要有 Spark 集群。适合十亿条数据以上的场景。
-- 使用 [Spark-connector](nebula-spark-connector.md)/[Flink-connector](nebula-flink-connector.md) 读写 API：这种方式需要编写少量代码来使用 Spark/Flink 连接器提供的 API。
+- 使用 [Spark-connector](../connector/nebula-spark-connector.md)/[Flink-connector](../connector/nebula-flink-connector.md) 读写 API：这种方式需要编写少量代码来使用 Spark/Flink 连接器提供的 API。
 - 使用 [C++/GO/Java/Python SDK](../20.appendix/6.eco-tool-version.md)：编写程序的方式导入，需要有一定编程和调优能力。
 
 下图给出了几种方式的定位：
@@ -19,7 +19,7 @@
 
 ## 导出工具
 
-- 使用 [Spark-connector](nebula-spark-connector.md)/[Flink-connector](nebula-flink-connector.md) 读写 API：这种方式需要编写少量代码来使用 Spark/Flink 连接器提供的 API。
+- 使用 [Spark-connector](../connector/nebula-spark-connector.md)/[Flink-connector](../connector/nebula-flink-connector.md) 读写 API：这种方式需要编写少量代码来使用 Spark/Flink 连接器提供的 API。
 - 使用 Exchange 导出功能将数据导出至 CSV 文件或另一个图空间（支持不同 {{nebula.name}} 集群）中。
 
   !!! enterpriseonly
