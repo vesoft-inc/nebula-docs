@@ -446,3 +446,29 @@ sources:
 !!! note
 
     阅读他人实践后倘若想按原文实践，请留意原文所用的内核和周边工具版本号，请确保你的软件环境和原文兼容。
+
+## 常见问题
+
+### 日志输出的字段含义是什么？
+
+例如以下日志内容：
+
+```
+“msg”: “1m20s 1h2m3s 50.00%(32 GiB/64 GiB) Records{Finished: 123456789, Failed: 0, Rate: 12345.67/s}, Requests{Finished: 1234567, Failed: 0, Latency: 1.23456789s/1.32456789s, Rate: 12.34/s}, Processed{Finished: 23456789, Failed: 0, Rate: 345678.91/s}”
+```
+
+字段说明如下：
+
+- `Records`对应 CSV 文件的记录。
+  - `Finished`：完成的记录数。
+  - `Failed`：失败的记录数。
+  - `Rate`：每秒导入的记录数。
+- `Requests`对应请求。
+  - `Finished`：完成的请求数。
+  - `Failed`：失败的请求数。
+  - `Latency`：服务端请求耗时/客户端请求耗时。
+  - `Rate`：每秒处理的请求数。
+- `Processed`对应点边。
+  - `Finished`：处理完成的点边数量。
+  - `Failed`：处理失败的点边数量。
+  - `Rate`：每秒处理的点边数量。

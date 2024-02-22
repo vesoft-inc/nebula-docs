@@ -438,3 +438,29 @@ The configuration mainly includes the following parts:
 
 !!! note
     The sequence numbers of the columns in the CSV file start from 0, that is, the sequence numbers of the first column are 0, and the sequence numbers of the second column are 1.
+
+## FAQ
+
+### What are the descriptions of the fields in the log output?
+
+For example:
+
+```
+“msg”: “1m20s 1h2m3s 50.00%(32 GiB/64 GiB) Records{Finished: 123456789, Failed: 0, Rate: 12345.67/s}, Requests{Finished: 1234567, Failed: 0, Latency: 1.23456789s/1.32456789s, Rate: 12.34/s}, Processed{Finished: 23456789, Failed: 0, Rate: 345678.91/s}”
+```
+
+The fields are described below:
+
+- `Records` corresponds to the records of the CSV files.
+  - `Finished`: The number of the completed records.
+  - `Failed`: The number of the failed records.
+  - `Rate`: The number of records imported per second.
+- `Requests` corresponds to the requests.
+  - `Finished`: The number of the completed requests.
+  - `Failed`: The number of the failed requests.
+  - `Latency`: The time spent of the requests on server-side / The time spent of the requests on client-side.
+  - `Rate`: The number of requests processed per second.
+- `Processed` corresponds to nodes and edges.
+  - `Finished`: The number of the completed nodes and edges.
+  - `Failed`: The number of the failed nodes and edges.
+  - `Rate`: The number of nodes and edges processed per second.
