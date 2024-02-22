@@ -451,6 +451,12 @@ The following is an example of a log content:
 
 The fields are described below:
 
+- `44m20s 2h7m10s 25.85%(129 GiB/498 GiB)` corresponds to basic information without field names.
+  - The time spent.
+  - The expected remaining time.
+  - The percentage processed.
+  - The data size processed.
+  - The total data size.
 - `Records` corresponds to the records of the CSV files.
   - `Finished`: The number of the completed records.
   - `Failed`: The number of the failed records.
