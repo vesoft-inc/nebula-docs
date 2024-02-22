@@ -454,7 +454,7 @@ sources:
 例如以下日志内容：
 
 ```
-“msg”: “1m20s 1h2m3s 50.00%(32 GiB/64 GiB) Records{Finished: 123456789, Failed: 0, Rate: 12345.67/s}, Requests{Finished: 1234567, Failed: 0, Latency: 1.23456789s/1.32456789s, Rate: 12.34/s}, Processed{Finished: 23456789, Failed: 0, Rate: 345678.91/s}”
+“msg”: “44m20s 2h7m10s 25.85%(129 GiB/498 GiB) Records{Finished: 302016726, Failed: 0, Rate: 113538.13/s}, Requests{Finished: 181786, Failed: 0, Latency: 4.046496736s/4.06694393s, Rate: 68.34/s}, Processed{Finished: 908575178, Failed: 0, Rate: 341563.62/s}”
 ```
 
 字段说明如下：
