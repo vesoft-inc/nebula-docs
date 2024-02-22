@@ -443,7 +443,7 @@ The configuration mainly includes the following parts:
 
 ### What are the descriptions of the fields in the log output?
 
-For example:
+The following is an example of a log content:
 
 ```
 “msg”: “1m20s 1h2m3s 50.00%(32 GiB/64 GiB) Records{Finished: 123456789, Failed: 0, Rate: 12345.67/s}, Requests{Finished: 1234567, Failed: 0, Latency: 1.23456789s/1.32456789s, Rate: 12.34/s}, Processed{Finished: 23456789, Failed: 0, Rate: 345678.91/s}”
