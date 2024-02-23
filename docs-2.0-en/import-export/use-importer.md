@@ -443,7 +443,7 @@ The configuration mainly includes the following parts:
 
 ### What are the descriptions of the fields in the log output?
 
-The following is an example of a log content:
+The following is an example of a log entry:
 
 ```
 “msg”: “44m20s 2h7m10s 25.85%(129 GiB/498 GiB) Records{Finished: 302016726, Failed: 0, Rate: 113538.13/s}, Requests{Finished: 181786, Failed: 0, Latency: 4.046496736s/4.06694393s, Rate: 68.34/s}, Processed{Finished: 908575178, Failed: 0, Rate: 341563.62/s}”
@@ -451,11 +451,11 @@ The following is an example of a log content:
 
 The fields are described below:
 
-- `44m20s 2h7m10s 25.85%(129 GiB/498 GiB)` corresponds to basic information without field names.
-  - The time spent.
+- `44m20s 2h7m10s 25.85%(129 GiB/498 GiB)` corresponds to basic information about the importing process.
+  - The consumed time.
   - The expected remaining time.
-  - The percentage processed.
-  - The data size processed.
+  - The percentage of data processed.
+  - The size of data processed.
   - The total data size.
 - `Records` corresponds to the records of the CSV files.
   - `Finished`: The number of the completed records.
@@ -464,7 +464,7 @@ The fields are described below:
 - `Requests` corresponds to the requests.
   - `Finished`: The number of the completed requests.
   - `Failed`: The number of the failed requests.
-  - `Latency`: The time spent of the requests on server-side / The time spent of the requests on client-side.
+  - `Latency`: The time consumed by server-side requests / The time consumed by client-side requests.
   - `Rate`: The number of requests processed per second.
 - `Processed` corresponds to nodes and edges.
   - `Finished`: The number of the completed nodes and edges.
