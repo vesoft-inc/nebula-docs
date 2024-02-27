@@ -341,6 +341,34 @@ ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.excha
 
 You can search for `batchSuccess.<tag_name/edge_name>` in the command output to check the number of successes. For example, `batchSuccess.follow: 300`.
 
+#### Access HDFS data with Kerberos certification
+
+When using Kerberos for security certification, you can access the HDFS data in one of the following ways.
+
+- Configure the Kerberos configuration file in a command
+
+  Configure `--conf` and `--files` in the command, for example:
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit --master xxx  --num-executors 2 --executor-cores 2 --executor-memory 1g \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf" \
+  --files /local/path/to/xxx.keytab,/local/path/to/krb5.conf \
+  --class  com.vesoft.nebula.exchange.Exchange  \
+  exchange.jar -c xx.conf
+  ```
+
+  The file path in `--conf` can be configured in two ways as follows:
+
+  - Configure the absolute path to the file. All YARN or Spark machines are required to have the corresponding file in the same path.
+  - (Recommended in YARN mode) Configure the relative path to the file (e.g. `./krb5.conf`). The resource files uploaded via `--files` are located in the working directory of the Java virtual machine or JAR.
+
+  The files in `--files` must be stored on the machine where the `spark-submit` command is executed.
+
+- Without commands
+
+  Deploy the Spark and Kerberos-certified Hadoop in a same cluster to make them share HDFS and YARN, and then add the configuration `export HADOOP_HOME=<hadoop_home_path>` to `spark-env.sh` in Spark.
+
 ### Step 5: (optional) Validate data
 
 Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:
