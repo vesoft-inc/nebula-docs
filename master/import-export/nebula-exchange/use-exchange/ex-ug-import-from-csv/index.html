@@ -5423,6 +5423,19 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     Step 4: Import data into NebulaGraph
   </a>
   
+    <nav class="md-nav" aria-label="Step 4: Import data into NebulaGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access_hdfs_data_with_kerberos_certification" class="md-nav__link">
+    Access HDFS data with Kerberos certification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -8214,6 +8227,19 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     Step 4: Import data into NebulaGraph
   </a>
   
+    <nav class="md-nav" aria-label="Step 4: Import data into NebulaGraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access_hdfs_data_with_kerberos_certification" class="md-nav__link">
+    Access HDFS data with Kerberos certification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -8645,6 +8671,33 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange_spark_2.4-3.7.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/csv_application.conf
 </code></pre></div>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
+<h4 id="access_hdfs_data_with_kerberos_certification">Access HDFS data with Kerberos certification<a class="headerlink" href="#access_hdfs_data_with_kerberos_certification" title="Permanent link">&para;</a></h4>
+<p>When using Kerberos for security certification, you can access the HDFS data in one of the following ways.</p>
+<ul>
+<li>
+<p>Configure the Kerberos configuration file in a command</p>
+<p>Configure <code>--conf</code> and <code>--files</code> in the command, for example:</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span>xxx<span class="w">  </span>--num-executors<span class="w"> </span><span class="m">2</span><span class="w"> </span>--executor-cores<span class="w"> </span><span class="m">2</span><span class="w"> </span>--executor-memory<span class="w"> </span>1g<span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.driver.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--conf<span class="w"> </span><span class="s2">&quot;spark.executor.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf&quot;</span><span class="w"> </span><span class="se">\</span>
+--files<span class="w"> </span>/local/path/to/xxx.keytab,/local/path/to/krb5.conf<span class="w"> </span><span class="se">\</span>
+--class<span class="w">  </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span><span class="se">\</span>
+exchange.jar<span class="w"> </span>-c<span class="w"> </span>xx.conf
+</code></pre></div>
+<p>The file path in <code>--conf</code> can be configured in two ways as follows:</p>
+<ul>
+<li>Configure the absolute path to the file. All YARN or Spark machines are required to have the corresponding file in the same path.</li>
+<li>(Recommended in YARN mode) Configure the relative path to the file (e.g. <code>./krb5.conf</code>). The resource files uploaded via <code>--files</code> are located in the working directory of the Java virtual machine or JAR.</li>
+</ul>
+<p>The files in <code>--files</code> must be stored on the machine where the <code>spark-submit</code> command is executed.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Without commands</p>
+<p>Deploy the Spark and Kerberos-certified Hadoop in a same cluster to make them share HDFS and YARN, and then add the configuration <code>export HADOOP_HOME=&lt;hadoop_home_path&gt;</code> to <code>spark-env.sh</code> in Spark.</p>
+</li>
+</ul>
 <h3 id="step_5_optional_validate_data">Step 5: (optional) Validate data<a class="headerlink" href="#step_5_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
 <div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
@@ -8658,7 +8711,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 27, 2024</span>
       
     
   </small>
