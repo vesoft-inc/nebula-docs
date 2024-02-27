@@ -295,7 +295,7 @@ Before installing Studio, you need to install the following software and ensure 
 3. Assume using release name:`my-studio`, installed Studio in Helm Chart.
     
    ```bash
-   $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070deployment/helm
+   $ helm upgrade --install my-studio --set service.type=NodePort --set service.port=30070 deployment/helm
    ```
 
   The configuration parameters of the Helm Chart are described below.
