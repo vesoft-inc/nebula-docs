@@ -11655,7 +11655,7 @@
 <span class="w">    </span><span class="nt">clientCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tls.crt&quot;</span><span class="w">  </span><span class="c1"># The key name of the certificate in the client certificate Secret, default is &quot;tls.crt&quot;.</span>
 <span class="w">    </span><span class="nt">clientKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tls.key&quot;</span><span class="w">   </span><span class="c1"># The key name of the private key in the client certificate Secret, default is &quot;tls.key&quot;.</span>
 <span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w"> </span><span class="c1"># The name of the CA certificate Secret.</span>
-<span class="w">    </span><span class="nt">caCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tls.crt&quot;</span><span class="w">  </span><span class="c1"># The key name of the certificate in the CA certificate Secret, default is &quot;tls.crt&quot;.</span>
+<span class="w">    </span><span class="nt">caCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tls.crt&quot;</span><span class="w">  </span><span class="c1"># The key name of the certificate in the CA certificate Secret, default is &quot;ca.crt&quot;.</span>
 </code></pre></div>
 <p>Ensure that the keys for the certificates and private keys in the created Secret match the values of the <code>clientCert</code>, <code>clientKey</code>, and <code>caCert</code> fields in <code>spec.sslCerts</code>. If you've created a Secret of the TLS type, the default key names are <code>tls.crt</code> and <code>tls.key</code> for the certificate and private key. In this case, you'll need to manually configure <code>caCert</code> field with <code>ca.crt</code>.</p>
 </li>
@@ -11701,16 +11701,6 @@
 <span class="w">      </span><span class="nt">key_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/server.key</span>
 <span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 <span class="w">      </span><span class="nt">enable_storage_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</code></pre></div>
-<p>To enable mTLS between the client and the Graph service, add the following fields under the <code>spec.graphd.config</code> in the cluster configuration file. The paths specified in fields with <code>*_path</code> correspond to file paths relative to <code>/user/local/nebula</code>. <strong>It's important to avoid using absolute paths to prevent path recognition errors.</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">graph</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">ca_client_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/root.crt</span>
-<span class="w">      </span><span class="nt">ca_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/root.crt</span>
-<span class="w">      </span><span class="nt">cert_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/server.crt</span>
-<span class="w">      </span><span class="nt">key_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certs/server.key</span>
-<span class="w">      </span><span class="nt">enable_graph_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 </code></pre></div>
 <h4 id="initcontainers_sidecarcontainers_volumes_and_volumemounts"><code>initContainers</code>, <code>sidecarContainers</code>, <code>volumes</code>, and <code>volumeMounts</code><a class="headerlink" href="#initcontainers_sidecarcontainers_volumes_and_volumemounts" title="Permanent link">&para;</a></h4>
 <p><code>initContainers</code>, <code>sidecarContainers</code>, <code>volumes</code>, and <code>volumeMounts</code> fields are essential for implementing mTLS certificate online hot-reloading. </p>
@@ -12096,7 +12086,7 @@ spec:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 29, 2024</span>
       
     
   </small>
