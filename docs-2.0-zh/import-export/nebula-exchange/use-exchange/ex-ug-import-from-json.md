@@ -368,6 +368,34 @@ ${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.excha
 
 用户可以在返回信息中搜索`batchSuccess.<tag_name/edge_name>`，确认成功的数量。例如`batchSuccess.follow: 300`。
 
+#### 访问 Kerberos 认证的 HDFS
+
+使用 Kerberos 进行安全认证时，需使用以下两种方式之一访问 Kerberos 认证的 HDFS。
+
+- 在命令中设置 Kerberos 配置文件
+
+  在命令中配置`--conf`和`--files`，例如：
+
+  ```bash
+  ${SPARK_HOME}/bin/spark-submit --master xxx  --num-executors 2 --executor-cores 2 --executor-memory 1g \
+  --conf "spark.driver.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf" \
+  --conf "spark.executor.extraJavaOptions=-Djava.security.krb5.conf=./krb5.conf" \
+  --files /local/path/to/xxx.keytab,/local/path/to/krb5.conf \
+  --class  com.vesoft.nebula.exchange.Exchange  \
+  exchange.jar -c xx.conf
+  ```
+
+  `--conf`中的文件路径有如下两种配置方式：
+
+  - 配置文件的绝对路径。要求所有 YARN 或者 Spark 机器相同路径下都有对应文件。
+  - （YARN 模式下推荐）配置文件的相对路径（例如`./krb5.conf`）。通过`--files`上传的资源文件就在 Java 虚拟机或者 JAR 的工作目录下。
+
+  `--files`中的文件必须存储在执行`spark-submit`命令的机器上。
+
+- 不使用命令
+
+  将 Spark 和 Kerberos 认证的 Hadoop 部署在相同集群内，共用 HDFS 和 YARN，然后在 Spark 的`spark-env.sh`中增加配置`export HADOOP_HOME=<hadoop_home_path>`。
+
 ### 步骤 5：（可选）验证数据
 
 用户可以在 {{nebula.name}} 客户端（例如 NebulaGraph Studio）中执行查询语句，确认数据是否已导入。例如：
