@@ -8533,8 +8533,11 @@ nebula&gt; MATCH (v:player) \
 ...
 </code></pre></div>
 <p>需要匹配拥有多个 Tag 的点，可以用英文冒号（:）。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG actor (name string, age int);
+<div class="highlight"><pre><span></span><code># 创建包含 name 属性和 age 属性的 Tag actor。
+nebula&gt; CREATE TAG actor (name string, age int);
+# 插入 Tag actor 到点 player100。
 nebula&gt; INSERT VERTEX actor(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42);
+# 匹配 Tag 为 player 和 actor 的点。
 nebula&gt; MATCH (v:player:actor) \
         RETURN v;
 +----------------------------------------------------------------------------------------+
@@ -8570,7 +8573,8 @@ nebula&gt; MATCH (v:player) \
 <p>在 openCypher 9 中，<code>=</code>是相等运算符，在 nGQL 中，<code>==</code>是相等运算符，<code>=</code>是赋值运算符。</p>
 </div>
 <p>使用<code>WHERE</code>子句直接匹配点的属性。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v) \
+<div class="highlight"><pre><span></span><code># 匹配属性中值等于 Tim Duncan 的点。
+nebula&gt; MATCH (v) \
         WITH v, properties(v) as props, keys(properties(v)) as kk \
         WHERE [i in kk where props[i] == &quot;Tim Duncan&quot;] \
         RETURN v;
@@ -8580,6 +8584,7 @@ nebula&gt; MATCH (v:player) \
 | (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) |
 +----------------------------------------------------+
 
+# 匹配 name 属性值存在于 names 列表内的起点，并返回起点和终点的数据。
 nebula&gt; WITH [&#39;Tim Duncan&#39;, &#39;Yao Ming&#39;] AS names \
         MATCH (v1:player)--&gt;(v2:player) \
         WHERE v1.player.name in names \
@@ -8618,6 +8623,7 @@ nebula&gt; MATCH (v:player { name: &#39;Tim Duncan&#39; })--(v2) \
 | (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}) |
 +-----------------------------------------------------------+
 
+# 查找 ID 为 player100 和 player101 的点，并返回 name 属性。
 nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot;} \
         RETURN v.player.name AS name;
 +---------------+
@@ -8633,7 +8639,8 @@ nebula&gt; MATCH (v) WHERE id(v) IN {&quot;player100&quot;, &quot;player101&quot
 <p class="admonition-title">历史版本兼容性</p>
 <p>在 nGQL 1.x 中，<code>--</code>符号用于行内注释，从 nGQL 2.x 起，<code>--</code>符号表示出边或入边，不再用于注释。</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2:player) \
+<div class="highlight"><pre><span></span><code># name 属性值为 Tim Duncan 的点为 v，与 v 相连接的点为 v2，查找 v2 并返回其 name 属性值。
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2:player) \
         RETURN v2.player.name AS Name;
 +---------------------+
 | Name                |
@@ -8655,7 +8662,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 +-----------------+
 </code></pre></div>
 <p>如果需要判断目标点，可以使用<code>CASE</code>表达式。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) \
+<div class="highlight"><pre><span></span><code># name 属性值为 Tim Duncan 的点为 v，与 v 相连接的点为 v2，查找 v2 并判断，如果 v2.team.name 的值不为空则返回 v2.team.name 属性值，如果 v2.player.name 的值不为空则返回 v2.player.name 属性值。
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--(v2) \
         RETURN \
         CASE WHEN v2.team.name IS NOT NULL \
         THEN v2.team.name  \
@@ -8672,7 +8680,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 ...
 </code></pre></div>
 <p>如果需要扩展模式，可以增加更多点和边。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) \
+<div class="highlight"><pre><span></span><code># name 属性值为 Tim Duncan 的点为 v，指向点 v2，点 v3 也指向点 v2，返回 v3 的 name 属性值。
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2)&lt;--(v3) \
         RETURN v3.player.name AS Name;
 +---------------------+
 | Name                |
@@ -8683,7 +8692,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 ...
 </code></pre></div>
 <p>如果不需要引用点，可以省略括号中表示点的变量。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;()&lt;--(v3) \
+<div class="highlight"><pre><span></span><code># 查找 name 属性值为 Tim Duncan 的点 v， 点 v3 与 v 指向同一个点，返回 v3 的 name 属性值。
+nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;()&lt;--(v3) \
         RETURN v3.player.name AS Name;
 +---------------------+
 | Name                |
@@ -8695,7 +8705,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 </code></pre></div>
 <h3 id="_7">匹配路径<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>连接起来的点和边构成了路径。用户可以使用自定义变量命名路径。</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) \
+<div class="highlight"><pre><span></span><code># 设置路径 p，其模式为 name 属性值为 Tim Duncan 的点 v 指向相邻的点 v2。返回所有符合条件的路径。
+nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2) \
         RETURN p;
 +--------------------------------------------------------------------------------------------------------------------------------------+
 | p                                                                                                                                    |
@@ -8710,7 +8721,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 <p>在 nGQL 中，<code>@</code>符号表示边的 rank，在 openCypher 中，没有 rank 概念。</p>
 </div>
 <h3 id="_8">匹配边<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()&lt;-[e]-() \
+<div class="highlight"><pre><span></span><code># 匹配对应边并返回 3 条数据。
+nebula&gt; MATCH ()&lt;-[e]-() \
         RETURN e \
         LIMIT 3;
 +----------------------------------------------------+
@@ -8727,7 +8739,8 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;})--&gt;(v2:player) \
 <p class="admonition-title">历史版本兼容性</p>
 <p>在 NebulaGraph 3.0.0 之前，匹配 Edge Type 的前提是 Edge Type 本身有对应属性的索引，否则，用户无法基于 Edge Type 执行 <code>MATCH</code> 语句。从 NebulaGraph 3.0.0 开始，匹配 Edge Type 可以不创建索引，但需要使用 <code>LIMIT</code> 限制输出结果数量，并且必须指定边的方向。从 NebulaGraph 3.5.0 开始，无需为 Edge Type 创建索引或者使用<code>LIMIT</code>限制输出结果数量，即可使用<code>MATCH</code>语句匹配边。</p>
 </div>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH ()-[e:follow]-&gt;() \
+<div class="highlight"><pre><span></span><code># 匹配所有 edge type 为 follow 的边。
+nebula&gt; MATCH ()-[e:follow]-&gt;() \
         RETURN e;
 +----------------------------------------------------+
 | e                                                  |
@@ -8983,7 +8996,7 @@ nebula&gt; MATCH (v1:player{name:&quot;Tim Duncan&quot;}), (v2:team{name:&quot;S
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 27, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 4, 2024</span>
       
     
   </small>
