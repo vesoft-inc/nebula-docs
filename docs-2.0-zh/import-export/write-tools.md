@@ -24,4 +24,4 @@
 
   !!! enterpriseonly
 
-        仅企业版 Exchange 提供导出功能。如需企业版，请[联系我们](https://discuss-cdn.nebula-graph.com.cn/uploads/default/original/3X/d/1/d1e1b0e55e29776ee60e3f34c843474ec884393d.jpeg)。
+        仅企业版 Exchange 提供导出功能。如需企业版，请[联系我们](https://discuss.nebula-graph.com.cn/uploads/default/optimized/3X/7/6/76add3b56ce137be42ebf6e79027bef8a1a0de6b_2_648x1000.jpeg)。
