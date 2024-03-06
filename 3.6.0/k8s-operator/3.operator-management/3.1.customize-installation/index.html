@@ -8109,6 +8109,51 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
 <span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Mi</span>
+<span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="c1">## Additional InitContainers to initialize the pod</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#  extraInitContainers:</span>
+<span class="w">  </span><span class="c1">#  - name: init-auth-sidecar</span>
+<span class="w">  </span><span class="c1">#    command:</span>
+<span class="w">  </span><span class="c1">#    - /bin/sh</span>
+<span class="w">  </span><span class="c1">#    - -c</span>
+<span class="w">  </span><span class="c1">#    args:</span>
+<span class="w">  </span><span class="c1">#    - cp -R /certs/* /credentials/</span>
+<span class="w">  </span><span class="c1">#    imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#    image: reg.vesoft-inc.com/nebula-certs:latest</span>
+<span class="w">  </span><span class="c1">#    volumeMounts:</span>
+<span class="w">  </span><span class="c1">#    - name: credentials</span>
+<span class="w">  </span><span class="c1">#      mountPath: /credentials</span>
+<span class="w">  </span><span class="nt">extraInitContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1"># sidecarContainers - add more containers to controller-manager</span>
+<span class="w">  </span><span class="c1"># Key/Value where Key is the sidecar `- name: &lt;Key&gt;`</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#   sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#      webserver:</span>
+<span class="w">  </span><span class="c1">#        image: nginx</span>
+<span class="w">  </span><span class="c1"># OR for adding netshoot to controller manager</span>
+<span class="w">  </span><span class="c1">#  sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#    netshoot:</span>
+<span class="w">  </span><span class="c1">#      args:</span>
+<span class="w">  </span><span class="c1">#      - -c</span>
+<span class="w">  </span><span class="c1">#      - while true; do ping localhost; sleep 60;done</span>
+<span class="w">  </span><span class="c1">#      command:</span>
+<span class="w">  </span><span class="c1">#      - /bin/bash</span>
+<span class="w">  </span><span class="c1">#      image: nicolaka/netshoot</span>
+<span class="w">  </span><span class="c1">#      imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#      name: netshoot</span>
+<span class="w">  </span><span class="c1">#      resources: {}</span>
+<span class="w">  </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volumes</span>
+<span class="w">  </span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volume mounts</span>
+<span class="w">  </span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="c1">#  runAsNonRoot: true</span>
 
 <span class="nt">admissionWebhook</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -8130,7 +8175,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">  </span><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;NodeZone&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span><span class="c1"># Only in-tree plugins need to be defined here</span>
 <span class="nn">...</span>
 </code></pre></div>
 <p>Part of the above parameters are described as follows:</p>
@@ -8174,9 +8219,44 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <td align="left">The number of controller-manager replicas.</td>
 </tr>
 <tr>
+<td align="left"><code>controllerManager.env</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">The environment variables for the controller-manager component.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraInitContainers</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Runs an init container.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Runs a sidecar container.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumes</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Sets a storage volume.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumeMounts</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Sets the storage volume mount path.</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.securityContext</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">Configures the access and control settings for NebulaGraph Operator.</td>
+</tr>
+<tr>
 <td align="left"><code>admissionWebhook.create</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">Whether to enable Admission Webhook. This option is disabled. To enable it, set the value to <code>true</code> and you will need to install <a href="https://cert-manager.io/docs/installation/helm/">cert-manager</a>. For details, see <a href="../../4.cluster-administration/4.7.security/4.7.2.enable-admission-control/">Enable admission control</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>admissionWebhook.webhookBindPort</code></td>
+<td align="left"><code>9443</code></td>
+<td align="left">The TCP port the Webhook server binds to. It is 9443 by default.</td>
 </tr>
 <tr>
 <td align="left"><code>shceduler.create</code></td>
@@ -8186,7 +8266,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <tr>
 <td align="left"><code>shceduler.schedulerName</code></td>
 <td align="left"><code>nebula-scheduler</code></td>
-<td align="left">The name of the scheduler customized by NebulaGraph Operator. It is used to evenly distribute Storage Pods across different zones which are only available in the Enterprise Edition.</td>
+<td align="left">The name of the scheduler customized by NebulaGraph Operator.</td>
 </tr>
 <tr>
 <td align="left"><code>shceduler.replicas</code></td>
@@ -8214,7 +8294,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 28, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 6, 2024</span>
       
     
   </small>
