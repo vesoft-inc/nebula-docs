@@ -21,7 +21,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
         <link rel="prev" href="../../4.5.logging/">
       
       
-        <link rel="next" href="../../4.8.ha-and-balancing/4.8.1.self-healing/">
+        <link rel="next" href="../4.7.3.config-deletion-protection/">
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
@@ -7412,6 +7412,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   
     <li class="md-nav__item">
+      <a href="../../4.4.storage-management/4.4.1.use-local-pv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用本地持久化存储
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../4.4.storage-management/4.4.3.configure-pv-reclaim/" class="md-nav__link">
         
   
@@ -7580,6 +7600,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 
               
             
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.7.3.config-deletion-protection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置删除保护
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7699,6 +7739,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   <span class="md-ellipsis">
     优化滚动更新中的 Leader 分布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.9.advanced/4.9.2.restart-cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    重启集群
   </span>
   
 
@@ -8220,10 +8280,21 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <h2 id="_2">前提条件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>已使用 K8s 创建一个集群。具体步骤，参见<a href="../../4.1.installation/4.1.1.cluster-install/">创建 NebulaGraph 集群</a>。</p>
 <h2 id="_3">准入控制规则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>K8s 的准入控制允许用户在 Kubernetes API Server 处理请求之前，插入自定义的逻辑或策略。这种机制可以用于实现一些安全策略，比如限制 Pod 的资源使用量，或者限制 Pod 的访问权限等。NebulaGraph Operator 仅支持验证操作，即对请求进行验证和拦截，不支持对请求进行变更操作。NebulaGraph Operator 默认的准入验证控制规则包括：</p>
+<p>K8s 的准入控制允许用户在 Kubernetes API Server 处理请求之前，插入自定义的逻辑或策略。这种机制可以用于实现一些安全策略，比如限制 Pod 的资源使用量，或者限制 Pod 的访问权限等。NebulaGraph Operator 仅支持验证操作，即对请求进行验证和拦截，不支持对请求进行变更操作。</p>
+<p>开启准入控制后，NebulaGraph Operator 默认启用以下准入验证控制规则且不允许禁用：</p>
+<ul>
+<li>禁止通过<code>dataVolumeClaims</code>为 Storage 服务追加额外的 PV。</li>
+</ul>
+<ul>
+<li>禁止缩小所有服务的 PVC 的容量，但是可以扩容。</li>
+</ul>
+<ul>
+<li>禁止在 Storage 服务扩缩容期间，进行任何二次操作。</li>
+</ul>
+<p>开启准入控制后，NebulaGraph Operator 支持通过添加注解的方式自行配置以下准入验证控制规则：</p>
 <ul>
 <li>
-<p>满足高可用模式下的最小副本数：</p>
+<p>添加了<code>ha-mode</code>注解的集群需满足高可用模式下的最小副本数：</p>
 <ul>
 <li>Graph 服务：至少需要 2 个副本。</li>
 <li>Meta 服务：至少需要 3 个副本。</li>
@@ -8236,13 +8307,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </li>
 </ul>
 <ul>
-<li>禁止通过<code>dataVolumeClaims</code>为 Storage 服务追加额外的 PV。</li>
-</ul>
-<ul>
-<li>禁止缩小所有服务的 PVC 的容量，但是可以扩容。</li>
-</ul>
-<ul>
-<li>禁止在 Storage 服务扩缩容期间，进行任何二次操作。</li>
+<li>添加了<code>delete-protection</code>注解的集群将无法被删除。更多信息，请参见<a href="../4.7.3.config-deletion-protection/">配置删除保护</a>。</li>
 </ul>
 <h2 id="webhook">为准入 Webhook 创建证书<a class="headerlink" href="#webhook" title="Permanent link">&para;</a></h2>
 <p>为了确保通信的安全性和数据的完整性，K8s 的 API server 和准入 Webhook 之间的通信默认通过 HTTPS 协议进行，因此使用准入控制还需要为准入 Webhook 提供 TLS 证书。<a href="https://cert-manager.io/docs/">cert-manager</a> 是一个 K8s 的证书管理控制器，可以自动化证书的签发和更新。NebulaGraph Operator 使用 cert-manager 来管理证书。</p>
@@ -8279,17 +8344,6 @@ helm<span class="w"> </span>upgrade<span class="w"> </span>nebula-operator<span 
 <p>验证控制规则。</p>
 <ul>
 <li>
-<p>验证高可用模式下的最小副本数。</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 标注集群为高可用模式</span>
-$<span class="w"> </span>kubectl<span class="w"> </span>annotate<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>nebula-graph.io/ha-mode<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># 验证 Graph 服务的最小副本数</span>
-$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w">  </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;graphd&quot;: {&quot;replicas&quot;:1}}}&#39;</span>
-Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>denied<span class="w"> </span>the<span class="w"> </span>request:<span class="w"> </span>spec.graphd.replicas:<span class="w"> </span>Invalid<span class="w"> </span>value:<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>HA<span class="w"> </span>mode
-</code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
 <p>验证禁止通过<code>dataVolumeClaims</code>为 Storage 服务追加额外的 PV。</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w">  </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;storaged&quot;: {&quot;dataVolumeClaims&quot;:[{&quot;resources&quot;: {&quot;requests&quot;: {&quot;storage&quot;: &quot;2Gi&quot;}}, &quot;storageClassName&quot;: &quot;local-path&quot;},{&quot;resources&quot;: {&quot;requests&quot;: {&quot;storage&quot;: &quot;3Gi&quot;}}, &quot;storageClassName&quot;: &quot;fask-disks&quot;}]}}}&#39;</span>
 Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>denied<span class="w"> </span>the<span class="w"> </span>request:<span class="w"> </span>spec.storaged.dataVolumeClaims:<span class="w"> </span>Forbidden:<span class="w"> </span>storaged<span class="w"> </span>dataVolumeClaims<span class="w"> </span>is<span class="w"> </span>immutable
@@ -8314,6 +8368,20 @@ Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w">
 </code></pre></div>
 </li>
 </ul>
+<ul>
+<li>
+<p>验证高可用模式下的最小副本数。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 标注集群为高可用模式</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>annotate<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>nebula-graph.io/ha-mode<span class="o">=</span><span class="nb">true</span>
+<span class="c1"># 验证 Graph 服务的最小副本数</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w">  </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;graphd&quot;: {&quot;replicas&quot;:1}}}&#39;</span>
+Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>denied<span class="w"> </span>the<span class="w"> </span>request:<span class="w"> </span>spec.graphd.replicas:<span class="w"> </span>Invalid<span class="w"> </span>value:<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>HA<span class="w"> </span>mode
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>验证集群删除保护，具体请参见<a href="../4.7.3.config-deletion-protection/">配置删除保护</a>。  </li>
+</ul>
 </li>
 </ol>
 
@@ -8322,7 +8390,7 @@ Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 6, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2024</span>
       
     
   </small>
