@@ -20,7 +20,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
         <link rel="prev" href="../../4.5.logging/">
       
       
-        <link rel="next" href="../../4.8.ha-and-balancing/4.8.1.self-healing/">
+        <link rel="next" href="../4.7.3.config-deletion-protection/">
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
@@ -7113,6 +7113,26 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
   
     <li class="md-nav__item">
+      <a href="../../../3.operator-management/3.5.cluster-scope-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage specific clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../3.operator-management/3.3.upgrade-operator/" class="md-nav__link">
         
   
@@ -7379,6 +7399,26 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
   
     <li class="md-nav__item">
+      <a href="../../4.4.storage-management/4.4.1.use-local-pv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use local PV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../4.4.storage-management/4.4.3.configure-pv-reclaim/" class="md-nav__link">
         
   
@@ -7547,6 +7587,26 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 
               
             
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.7.3.config-deletion-protection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure deletion protection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7666,6 +7726,26 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
   <span class="md-ellipsis">
     Optimize leader transfer in rolling updates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.9.advanced/4.9.2.restart-cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restart clusters
   </span>
   
 
@@ -8167,10 +8247,21 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>A NebulaGraph cluster is created with NebulaGrpah Operator. For detailed steps, see <a href="../../4.1.installation/4.1.1.cluster-install/">Create a NebulaGraph cluster</a>.</p>
 <h2 id="admission_control_rules">Admission control rules<a class="headerlink" href="#admission_control_rules" title="Permanent link">&para;</a></h2>
-<p>Kubernetes admission control allows you to insert custom logic or policies before Kubernetes API Server processes requests. This mechanism can be used to implement various security policies, such as restricting a Pod's resource consumption or limiting its access permissions. NebulaGraph Operator supports validation operations, which means it validates and intercepts requests without making changes. NebulaGraph Operator's default admission validation control rules include:</p>
+<p>Kubernetes admission control allows you to insert custom logic or policies before Kubernetes API Server processes requests. This mechanism can be used to implement various security policies, such as restricting a Pod's resource consumption or limiting its access permissions. NebulaGraph Operator supports validation operations, which means it validates and intercepts requests without making changes. </p>
+<p>After admission control is enabled, NebulaGraph Operator implements the following admission validation control rules by default. You cannot disable these rules:</p>
+<ul>
+<li>Forbid adding additional PVs to Storage service via <code>dataVolumeClaims</code>.</li>
+</ul>
+<ul>
+<li>Forbid shrinking the capacity of all service's PVCs, but allow expansion.</li>
+</ul>
+<ul>
+<li>Forbid any secondary operation during Storage service scale-in/scale-out.</li>
+</ul>
+<p>After admission control is enabled, NebulaGraph Operator allows you to add annotations to implement the following admission validation control rules:</p>
 <ul>
 <li>
-<p>Ensuring the minimum number of replicas in high availability mode:</p>
+<p>Clusters with the <code>ha-mode</code> annotation must have the minimum number of replicas as required by high availability mode:</p>
 <ul>
 <li>For Graph service: At least 2 replicas are required.</li>
 <li>For Meta service: At least 3 replicas are required.</li>
@@ -8183,13 +8274,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </li>
 </ul>
 <ul>
-<li>Preventing additional PVs from being added to Storage service via <code>dataVolumeClaims</code>.</li>
-</ul>
-<ul>
-<li>Disallowing shrinking the capacity of all service's PVCs, but allowing expansion.</li>
-</ul>
-<ul>
-<li>Forbidding any secondary operation during Storage service scale-in/scale-out.</li>
+<li>Clusters with the <code>delete-protection</code> annotation cannot be deleted. For more information, see <a href="../4.7.3.config-deletion-protection/">Configure deletion protection</a>.        </li>
 </ul>
 <h2 id="tls_certificates_for_admission_webhooks">TLS certificates for admission webhooks<a class="headerlink" href="#tls_certificates_for_admission_webhooks" title="Permanent link">&para;</a></h2>
 <p>To ensure secure communication and data integrity between the K8s API server and the admission webhook, this communication is done over HTTPS by default. This means that TLS certificates are required for the admission webhook. <a href="https://cert-manager.io/docs/">cert-manager</a> is a Kubernetes certificate management controller that automates the issuance and renewal of certificates. NebulaGraph Operator uses cert-manager to manage certificates.</p>
@@ -8225,17 +8310,6 @@ helm<span class="w"> </span>upgrade<span class="w"> </span>nebula-operator<span 
 <p>Verify the control rules.</p>
 <ul>
 <li>
-<p>Verify the minimum number of replicas in high availability mode.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Annotate the cluster to enable high availability mode.</span>
-$<span class="w"> </span>kubectl<span class="w"> </span>annotate<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>nebula-graph.io/ha-mode<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># Verify the minimum number of the Graph service&#39;s replicas.</span>
-$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;graphd&quot;: {&quot;replicas&quot;:1}}}&#39;</span>
-Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>denied<span class="w"> </span>the<span class="w"> </span>request:<span class="w"> </span>spec.graphd.replicas:<span class="w"> </span>Invalid<span class="w"> </span>value:<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>HA<span class="w"> </span>mode
-</code></pre></div>
-</li>
-</ul>
-<ul>
-<li>
 <p>Verify preventing additional PVs from being added to Storage service.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;storaged&quot;: {&quot;dataVolumeClaims&quot;:[{&quot;resources&quot;: {&quot;requests&quot;: {&quot;storage&quot;: &quot;2Gi&quot;}}, &quot;storageClassName&quot;: &quot;local-path&quot;},{&quot;resources&quot;: {&quot;requests&quot;: {&quot;storage&quot;: &quot;3Gi&quot;}}, &quot;storageClassName&quot;: &quot;fask-disks&quot;}]}}}&#39;</span>
 Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>deniedthe<span class="w"> </span>request:<span class="w"> </span>spec.storaged.dataVolumeClaims:<span class="w"> </span>Forbidden:<span class="w"> </span>storaged<span class="w"> </span>dataVolumeClaims<span class="w"> </span>is<span class="w"> </span>immutable
@@ -8260,6 +8334,20 @@ Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w">
 </code></pre></div>
 </li>
 </ul>
+<ul>
+<li>
+<p>Verify the minimum number of replicas in high availability mode.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Annotate the cluster to enable high availability mode.</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>annotate<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>nebula-graph.io/ha-mode<span class="o">=</span><span class="nb">true</span>
+<span class="c1"># Verify the minimum number of the Graph service&#39;s replicas.</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>patch<span class="w"> </span>nc<span class="w"> </span>nebula<span class="w"> </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;: {&quot;graphd&quot;: {&quot;replicas&quot;:1}}}&#39;</span>
+Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w"> </span>admission<span class="w"> </span>webhook<span class="w"> </span><span class="s2">&quot;nebulaclustervalidating.nebula-graph.io&quot;</span><span class="w"> </span>denied<span class="w"> </span>the<span class="w"> </span>request:<span class="w"> </span>spec.graphd.replicas:<span class="w"> </span>Invalid<span class="w"> </span>value:<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>HA<span class="w"> </span>mode
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Verify deletion protection. For more information, see <a href="../4.7.3.config-deletion-protection/">Configure deletion protection</a>.</li>
+</ul>
 </li>
 </ol>
 
@@ -8268,7 +8356,7 @@ Error<span class="w"> </span>from<span class="w"> </span>server:<span class="w">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2024</span>
       
     
   </small>
