@@ -7202,6 +7202,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   
     <li class="md-nav__item">
+      <a href="../3.5.cluster-scope-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    管理指定集群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../3.3.upgrade-operator/" class="md-nav__link">
         
   
@@ -8271,10 +8291,55 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
 <span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Mi</span>
+<span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="c1">## Additional InitContainers to initialize the pod</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#  extraInitContainers:</span>
+<span class="w">  </span><span class="c1">#  - name: init-auth-sidecar</span>
+<span class="w">  </span><span class="c1">#    command:</span>
+<span class="w">  </span><span class="c1">#    - /bin/sh</span>
+<span class="w">  </span><span class="c1">#    - -c</span>
+<span class="w">  </span><span class="c1">#    args:</span>
+<span class="w">  </span><span class="c1">#    - cp -R /certs/* /credentials/</span>
+<span class="w">  </span><span class="c1">#    imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#    image: reg.vesoft-inc.com/nebula-certs:latest</span>
+<span class="w">  </span><span class="c1">#    volumeMounts:</span>
+<span class="w">  </span><span class="c1">#    - name: credentials</span>
+<span class="w">  </span><span class="c1">#      mountPath: /credentials</span>
+<span class="w">  </span><span class="nt">extraInitContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1"># sidecarContainers - add more containers to controller-manager</span>
+<span class="w">  </span><span class="c1"># Key/Value where Key is the sidecar `- name: &lt;Key&gt;`</span>
+<span class="w">  </span><span class="c1"># Example:</span>
+<span class="w">  </span><span class="c1">#   sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#      webserver:</span>
+<span class="w">  </span><span class="c1">#        image: nginx</span>
+<span class="w">  </span><span class="c1"># OR for adding netshoot to controller manager</span>
+<span class="w">  </span><span class="c1">#  sidecarContainers:</span>
+<span class="w">  </span><span class="c1">#    netshoot:</span>
+<span class="w">  </span><span class="c1">#      args:</span>
+<span class="w">  </span><span class="c1">#      - -c</span>
+<span class="w">  </span><span class="c1">#      - while true; do ping localhost; sleep 60;done</span>
+<span class="w">  </span><span class="c1">#      command:</span>
+<span class="w">  </span><span class="c1">#      - /bin/bash</span>
+<span class="w">  </span><span class="c1">#      image: nicolaka/netshoot</span>
+<span class="w">  </span><span class="c1">#      imagePullPolicy: Always</span>
+<span class="w">  </span><span class="c1">#      name: netshoot</span>
+<span class="w">  </span><span class="c1">#      resources: {}</span>
+<span class="w">  </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volumes</span>
+<span class="w">  </span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="c1">## Additional controller-manager Volume mounts</span>
+<span class="w">  </span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="c1">#  runAsNonRoot: true</span>
 
 <span class="nt">admissionWebhook</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="c1"># Webhook 服务器监听和接受传入请求的端口，默认 9443。</span>
+<span class="w">  </span><span class="c1"># The TCP port the Webhook server binds to. (default 9443)</span>
 <span class="w">  </span><span class="nt">webhookBindPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9443</span>
 
 <span class="nt">scheduler</span><span class="p">:</span>
@@ -8292,7 +8357,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <span class="w">  </span><span class="nt">verbosity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">  </span><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;NodeZone&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"> </span><span class="c1"># only in-tree plugins need to be defined here</span>
 <span class="nn">...</span>
 </code></pre></div>
 <p>部分参数描述如下：</p>
@@ -8336,9 +8401,44 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <td align="left">controller-manager 副本数。</td>
 </tr>
 <tr>
+<td align="left"><code>controllerManager.env</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">配置环境变量。</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraInitContainers</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">配置初始化容器。</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.sidecarContainers</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">配置 sidecar 容器。</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumes</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">配置存储卷。</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.extraVolumeMounts</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">配置存储卷挂载路径。</td>
+</tr>
+<tr>
+<td align="left"><code>controllerManager.securityContext</code></td>
+<td align="left"><code>{}</code></td>
+<td align="left">配置访问和控制 NebulaGraph Operator 的操作。</td>
+</tr>
+<tr>
 <td align="left"><code>admissionWebhook.create</code></td>
 <td align="left"><code>false</code></td>
 <td align="left">是否启用 Admission Webhook。默认关闭，如需开启，需设置为<code>true</code>并且需要安装 <a href="https://cert-manager.io/docs/installation/helm/">cert-manager</a>。详情参见<a href="../../4.cluster-administration/4.7.security/4.7.2.enable-admission-control/">开启准入控制</a>。</td>
+</tr>
+<tr>
+<td align="left"><code>admissionWebhook.webhookBindPort</code></td>
+<td align="left"><code>9443</code></td>
+<td align="left">Webhook 服务器监听和接受传入请求的端口，默认 9443。</td>
 </tr>
 <tr>
 <td align="left"><code>scheduler.create</code></td>
@@ -8348,7 +8448,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <tr>
 <td align="left"><code>scheduler.schedulerName</code></td>
 <td align="left"><code>nebula-scheduler</code></td>
-<td align="left">NebulaGraph Operator 自定义的调度器名称。用于开启 Zone 时，均匀调度 Storage Pods 到不同的 Zone 中。仅适用于企业版集群。</td>
+<td align="left">NebulaGraph Operator 自定义的调度器名称。</td>
 </tr>
 <tr>
 <td align="left"><code>scheduler.replicas</code></td>
@@ -8376,7 +8476,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 19, 2024</span>
       
     
   </small>
