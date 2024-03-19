@@ -7323,13 +7323,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#cluster_configuration_parameters" class="md-nav__link">
-    Cluster configuration parameters
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -8212,13 +8205,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#cluster_configuration_parameters" class="md-nav__link">
-    Cluster configuration parameters
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -8417,100 +8403,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span>
 </code></pre></div>
 </details>
-<p>For more detailed information about these parameters, see the <strong>Cluster configuration parameters</strong> section below.</p>
-</li>
-<li>
-<p>Create the NebulaGraph cluster.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>nebulacluster.yaml<span class="w"> </span>-n<span class="w"> </span>nebula
-</code></pre></div>
-<p>Output:</p>
-<div class="highlight"><pre><span></span><code>nebulacluster.apps.nebula-graph.io/nebula<span class="w"> </span>created
-</code></pre></div>
-<p>If you don't specify the namespace using <code>-n</code>, it will default to the <code>default</code> namespace.</p>
-</li>
-<li>
-<p>Check the status of the NebulaGraph cluster.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nebulaclusters<span class="w"> </span>nebula<span class="w"> </span>-n<span class="w"> </span>nebula
-</code></pre></div>
-<p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME<span class="w">      </span>READY<span class="w">   </span>GRAPHD-DESIRED<span class="w">   </span>GRAPHD-READY<span class="w">   </span>METAD-DESIRED<span class="w">   </span>METAD-READY<span class="w">   </span>STORAGED-DESIRED<span class="w">   </span>STORAGED-READY<span class="w">   </span>AGE
-nebula<span class="w">    </span>True<span class="w">    </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">1</span><span class="w">                  </span><span class="m">1</span><span class="w">                </span>86s
-</code></pre></div>
-</li>
-</ol>
-<h2 id="use_helm">Use <code>helm</code><a class="headerlink" href="#use_helm" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Add the NebulaGraph Operator Helm repository (if it's already added, run the next step directly).</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>nebula-operator<span class="w"> </span>https://vesoft-inc.github.io/nebula-operator/charts
-</code></pre></div>
-</li>
-<li>
-<p>Update the Helm repository to fetch the latest resources.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update<span class="w"> </span>nebula-operator
-</code></pre></div>
-</li>
-<li>
-<p>Set environment variables for the configuration parameters required for installing the cluster.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula<span class="w">         </span><span class="c1"># Name of the NebulaGraph cluster.</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula<span class="w">    </span><span class="c1"># Namespace for the NebulaGraph cluster.</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>local-sc<span class="w">       </span><span class="c1"># StorageClass for the NebulaGraph cluster.</span>
-</code></pre></div>
-</li>
-<li>
-<p>Create a namespace for the NebulaGraph cluster if it is not created.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-</li>
-<li>
-<p>Check the customizable configuration parameters for the <code>nebula-cluster</code> Helm chart of the <code>nebula-operator</code> when creating the cluster.</p>
-<ul>
-<li>
-<p>Run the following command to view all the configurable parameters.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>show<span class="w"> </span>values<span class="w"> </span>nebula-operator/nebula-cluster
-</code></pre></div>
-</li>
-</ul>
-<ul>
-<li>Visit <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.8/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see all the configuration parameters for the NebulaGraph cluster. Click on <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.8/doc/user/nebula_cluster_helm_guide.md#optional-chart-parameters">Chart parameters</a> to see the parameter descriptions and their default values.</li>
-</ul>
-</li>
-<li>
-<p>Create the NebulaGraph cluster.</p>
-<p>You can use the <code>--set</code> flag to customize the default values of the NebulaGraph cluster configuration. For example, <code>--set nebula.storaged.replicas=3</code> sets the number of replicas for the Storage service to 3.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\ </span>
-<span class="w">    </span><span class="c1"># Specify the version of the cluster chart. If not specified, it will install the latest version by default.</span>
-<span class="w">    </span><span class="c1"># You can check all chart versions by running the command: helm search repo -l nebula-operator/nebula-cluster</span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.8.0<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Specify the namespace for the NebulaGraph cluster.</span>
-<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Customize the cluster name.</span>
-<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Specify the version for the NebulaGraph cluster.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>vmaster
-</code></pre></div>
-</li>
-<li>
-<p>Check the status of NebulaGraph cluster pods.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/cluster=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-<p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME<span class="w">                               </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
-nebula-exporter-854c76989c-mp725<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-graphd-0<span class="w">                    </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-graphd-1<span class="w">                    </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-metad-0<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-metad-1<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-metad-2<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-storaged-0<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-storaged-1<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-nebula-storaged-2<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
-</code></pre></div>
-</li>
-</ol>
-<h2 id="cluster_configuration_parameters">Cluster configuration parameters<a class="headerlink" href="#cluster_configuration_parameters" title="Permanent link">&para;</a></h2>
-<p>The table below lists the configurable parameters and their descriptions for creating a NebulaGraph cluster using a YAML file.</p>
+<details class="info">
+<summary>Expand to view all configurable parameters and descriptions</summary>
 <table>
 <thead>
 <tr>
@@ -8650,15 +8544,606 @@ nebula-storaged-2<span class="w">                  </span><span class="m">1</spa
 <td align="left"><code>false</code></td>
 <td align="left">Defines whether to automatically delete PVCs after deleting the cluster to release data. For details, see <a href="../../4.4.storage-management/4.4.3.configure-pv-reclaim/">Reclaim PV</a>.</td>
 </tr>
+<tr>
+<td align="left"><code>spec.metad.licenseManagerURL</code></td>
+<td align="left">-</td>
+<td align="left">Configures the URL pointing to the License Manager (LM), consisting of the access address and port (default port <code>9119</code>). For example, <code>192.168.8.xxx:9119</code>. For creating the NebulaGraph Enterprise Edition only.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.storaged.enableAutoBalance</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Whether to enable automatic balancing. For details, see <a href="../4.8.ha-and-balancing/4.8.3.balance-data-after-scale-out.md">Balancing Storage Data After Scaling Out</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.enableBR</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">Defines whether to enable the BR tool. For details, see <a href="../4.6.backup-and-restore.md">Backup and Restore</a>.</td>
+</tr>
+<tr>
+<td align="left"><code>spec.imagePullSecrets</code></td>
+<td align="left"><code>[]</code></td>
+<td align="left">Defines the Secret required to pull images from a private repository.</td>
+</tr>
 </tbody>
 </table>
+</details>
+</li>
+<li>
+<p>Create the NebulaGraph cluster.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>nebulacluster.yaml<span class="w"> </span>-n<span class="w"> </span>nebula
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>nebulacluster.apps.nebula-graph.io/nebula<span class="w"> </span>created
+</code></pre></div>
+<p>If you don't specify the namespace using <code>-n</code>, it will default to the <code>default</code> namespace.</p>
+</li>
+<li>
+<p>Check the status of the NebulaGraph cluster.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>nebulaclusters<span class="w"> </span>nebula<span class="w"> </span>-n<span class="w"> </span>nebula
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">      </span>READY<span class="w">   </span>GRAPHD-DESIRED<span class="w">   </span>GRAPHD-READY<span class="w">   </span>METAD-DESIRED<span class="w">   </span>METAD-READY<span class="w">   </span>STORAGED-DESIRED<span class="w">   </span>STORAGED-READY<span class="w">   </span>AGE
+nebula<span class="w">    </span>True<span class="w">    </span><span class="m">1</span><span class="w">                </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">               </span><span class="m">1</span><span class="w">             </span><span class="m">1</span><span class="w">                  </span><span class="m">1</span><span class="w">                </span>86s
+</code></pre></div>
+</li>
+</ol>
+<h2 id="use_helm">Use <code>helm</code><a class="headerlink" href="#use_helm" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Add the NebulaGraph Operator Helm repository (if it's already added, run the next step directly).</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>nebula-operator<span class="w"> </span>https://vesoft-inc.github.io/nebula-operator/charts
+</code></pre></div>
+</li>
+<li>
+<p>Update the Helm repository to fetch the latest resources.</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update<span class="w"> </span>nebula-operator
+</code></pre></div>
+</li>
+<li>
+<p>Set environment variables for the configuration parameters required for installing the cluster.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula<span class="w">         </span><span class="c1"># Name of the NebulaGraph cluster.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula<span class="w">    </span><span class="c1"># Namespace for the NebulaGraph cluster.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>local-sc<span class="w">       </span><span class="c1"># StorageClass for the NebulaGraph cluster.</span>
+</code></pre></div>
+</li>
+<li>
+<p>Create a namespace for the NebulaGraph cluster if it is not created.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Check the customizable configuration parameters for the <code>nebula-cluster</code> Helm chart of the <code>nebula-operator</code> when creating the cluster.</p>
+<ul>
+<li>Visit <a href="https://github.com/vesoft-inc/nebula-operator/blob/release-1.8/charts/nebula-cluster/values.yaml">nebula-cluster/values.yaml</a> to see all the configuration parameters for the NebulaGraph cluster. </li>
+</ul>
+<ul>
+<li>
+<p>Run the following command to view all the configurable parameters.</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>show<span class="w"> </span>values<span class="w"> </span>nebula-operator/nebula-cluster
+</code></pre></div>
+<details class="info">
+<summary>Example to view all configurable parameters</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">nebula</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">enablePVReclaim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">enableBR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">enableForceUpdate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">topologySpreadConstraints</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kubernetes.io/hostname&quot;</span>
+<span class="w">    </span><span class="nt">whenUnsatisfiable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ScheduleAnyway&quot;</span>
+<span class="w">  </span><span class="nt">logRotate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="nt">reference</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulsets.apps</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">serviceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">    </span><span class="nt">logVolume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">    </span><span class="nt">podLabels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-metad</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">logVolume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">    </span><span class="nt">dataVolume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">    </span><span class="nt">licenseManagerURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">podLabels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-storaged</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">    </span><span class="nt">logVolume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
+<span class="w">    </span><span class="nt">dataVolumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10Gi&quot;</span>
+<span class="w">    </span><span class="nt">enableAutoBalance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">podLabels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">exporter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-stats-exporter</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.3.0</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;100m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;128Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;256Mi&quot;</span>
+<span class="w">    </span><span class="nt">podLabels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">sidecarContainers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">maxRequests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-agent</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;100m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;128Mi&quot;</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;256Mi&quot;</span>
+
+<span class="w">  </span><span class="nt">console</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-console</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+
+<span class="w">  </span><span class="nt">alpineImage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="nt">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span>
+</code></pre></div>
+</details>
+<details class="info">
+<summary>Expand to view parameter descriptions </summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nebula.version</code></td>
+<td>master</td>
+<td>Version of the cluster.</td>
+</tr>
+<tr>
+<td><code>nebula.imagePullPolicy</code></td>
+<td><code>Always</code></td>
+<td>Container image pull policy. <code>Always</code> means always attempting to pull the latest image from the remote.</td>
+</tr>
+<tr>
+<td><code>nebula.storageClassName</code></td>
+<td><code>""</code></td>
+<td>Name of the Kubernetes storage class for dynamic provisioning of persistent volumes.</td>
+</tr>
+<tr>
+<td><code>nebula.enablePVReclaim</code></td>
+<td><code>false</code></td>
+<td>Enable persistent volume reclaim. See <a href="../../4.4.storage-management/4.4.3.configure-pv-reclaim/">Reclaim PV</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.enableBR</code></td>
+<td><code>false</code></td>
+<td>Enable the backup and restore feature. See <a href="../4.6.backup-and-restore.md">Backup and Restore with NebulaGraph Operator</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.enableForceUpdate</code></td>
+<td><code>false</code></td>
+<td>Force update the Storage service without transferring the leader partition replicas. See <a href="../../4.9.advanced/4.9.1.rolling-update-strategy/">Optimize leader transfer in rolling updates</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.schedulerName</code></td>
+<td><code>default-scheduler</code></td>
+<td>Name of the Kubernetes scheduler. Must be configured as <code>nebula-scheduler</code> when using the <a href="../4.8.ha-and-balancing/4.8.2.enable-zone.md">Zone</a> feature.</td>
+</tr>
+<tr>
+<td><code>nebula.topologySpreadConstraints</code></td>
+<td><code>[]</code></td>
+<td>Control the distribution of pods in the cluster.</td>
+</tr>
+<tr>
+<td><code>nebula.logRotate</code></td>
+<td><code>{}</code></td>
+<td>Log rotation configuration. See <a href="../../4.5.logging/">Manage cluster logs</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.reference</code></td>
+<td><code>{"name": "statefulsets.apps", "version": "v1"}</code></td>
+<td>The workload referenced for a NebulaGraph cluster.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.image</code></td>
+<td><code>vesoft/nebula-graphd</code></td>
+<td>Container image for the Graph service.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.replicas</code></td>
+<td><code>2</code></td>
+<td>Number of replicas for the Graph service.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.serviceType</code></td>
+<td><code>NodePort</code></td>
+<td>Service type for the Graph service, defining how the Graph service is accessed. See <a href="../../../2.get-started/2.4.connect-to-cluster/">Connect to the Cluster</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.env</code></td>
+<td><code>[]</code></td>
+<td>Container environment variables for the Graph service.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.config</code></td>
+<td><code>{}</code></td>
+<td>Configuration for the Graph service. See <a href="../../4.2.configuration/">Customize the configuration of the NebulaGraph cluster</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.resources</code></td>
+<td><code>{"resources":{"requests":{"cpu":"500m","memory":"500Mi"},"limits":{"cpu":"1","memory":"500Mi"}}}</code></td>
+<td>Resource limits and requests for the Graph service.</td>
+</tr>
+<tr>
+<td><code>nebula.graphd.logVolume</code></td>
+<td><code>{"logVolume": {"enable": true,"storage": "500Mi"}}</code></td>
+<td>Log storage configuration for the Graph service. When <code>enable</code> is <code>false</code>, log volume is not used.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.image</code></td>
+<td><code>vesoft/nebula-metad</code></td>
+<td>Container image for the Meta service.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.replicas</code></td>
+<td><code>3</code></td>
+<td>Number of replicas for the Meta service.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.env</code></td>
+<td><code>[]</code></td>
+<td>Container environment variables for the Meta service.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.config</code></td>
+<td><code>{}</code></td>
+<td>Configuration for the Meta service. See <a href="../../4.2.configuration/">Customize the configuration of the NebulaGraph cluster</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.resources</code></td>
+<td><code>{"resources":{"requests":{"cpu":"500m","memory":"500Mi"},"limits":{"cpu":"1","memory":"1Gi"}}}</code></td>
+<td>Resource limits and requests for the Meta service.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.logVolume</code></td>
+<td><code>{"logVolume": {"enable": true,"storage": "500Mi"}}</code></td>
+<td>Log storage configuration for the Meta service. When <code>enable</code> is <code>false</code>, log volume is not used.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.dataVolume</code></td>
+<td><code>{"dataVolume": {"storage": "2Gi"}}</code></td>
+<td>Data storage configuration for the Meta service.</td>
+</tr>
+<tr>
+<td><code>nebula.metad.licenseManagerURL</code></td>
+<td><code>""</code></td>
+<td>URL for the license manager (LM) to obtain license information. For creating the NebulaGraph Enterprise Edition only.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.image</code></td>
+<td><code>vesoft/nebula-storaged</code></td>
+<td>Container image for the Storage service.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.replicas</code></td>
+<td><code>3</code></td>
+<td>Number of replicas for the Storage service.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.env</code></td>
+<td><code>[]</code></td>
+<td>Container environment variables for the Storage service.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.config</code></td>
+<td><code>{}</code></td>
+<td>Configuration for the Storage service. See <a href="../../4.2.configuration/">Customize the configuration of the NebulaGraph cluster</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.resources</code></td>
+<td><code>{"resources":{"requests":{"cpu":"500m","memory":"500Mi"},"limits":{"cpu":"1","memory":"1Gi"}}}</code></td>
+<td>Resource limits and requests for the Storage service.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.logVolume</code></td>
+<td><code>{"logVolume": {"enable": true,"storage": "500Mi"}}</code></td>
+<td>Log storage configuration for the Storage service. When <code>enable</code> is <code>false</code>, log volume is not used.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.dataVolumes</code></td>
+<td><code>{"dataVolumes": [{"storage": "10Gi"}]}</code></td>
+<td>Data storage configuration for the Storage service. Supports specifying multiple data volumes.</td>
+</tr>
+<tr>
+<td><code>nebula.storaged.enableAutoBalance</code></td>
+<td><code>false</code></td>
+<td>Enable automatic balancing. See <a href="../4.8.ha-and-balancing/4.8.3.balance-data-after-scale-out.md">Balance storage data after scaling out</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.exporter.image</code></td>
+<td><code>vesoft/nebula-stats-exporter</code></td>
+<td>Container image for the Exporter service.</td>
+</tr>
+<tr>
+<td><code>nebula.exporter.version</code></td>
+<td><code>v3.3.0</code></td>
+<td>Version of the Exporter service.</td>
+</tr>
+<tr>
+<td><code>nebula.exporter.replicas</code></td>
+<td><code>1</code></td>
+<td>Number of replicas for the Exporter service.</td>
+</tr>
+<tr>
+<td><code>nebula.exporter.env</code></td>
+<td><code>[]</code></td>
+<td>Environment variables for the Exporter service.</td>
+</tr>
+<tr>
+<td><code>nebula.exporter.resources</code></td>
+<td><code>{"resources":{"requests":{"cpu":"100m","memory":"128Mi"},"limits":{"cpu":"200m","memory":"256Mi"}}}</code></td>
+<td>Resource limits and requests for the Exporter service.</td>
+</tr>
+<tr>
+<td><code>nebula.agent.image</code></td>
+<td><code>vesoft/nebula-agent</code></td>
+<td>Container image for the agent service.</td>
+</tr>
+<tr>
+<td><code>nebula.agent.version</code></td>
+<td><code>latest</code></td>
+<td>Version of the agent service.</td>
+</tr>
+<tr>
+<td><code>nebula.agent.resources</code></td>
+<td><code>{"resources":{"requests":{"cpu":"100m","memory":"128Mi"},"limits":{"cpu":"200m","memory":"256Mi"}}}</code></td>
+<td>Resource limits and requests for the agent service.</td>
+</tr>
+<tr>
+<td><code>nebula.console.username</code></td>
+<td><code>root</code></td>
+<td>Username for accessing the NebulaGraph Console client. See <a href="../../../2.get-started/2.4.connect-to-cluster/">Connect to the cluster</a> for details.</td>
+</tr>
+<tr>
+<td><code>nebula.console.password</code></td>
+<td><code>nebula</code></td>
+<td>Password for accessing the NebulaGraph Console client.</td>
+</tr>
+<tr>
+<td><code>nebula.console.image</code></td>
+<td><code>vesoft/nebula-console</code></td>
+<td>Container image for the NebulaGraph Console client.</td>
+</tr>
+<tr>
+<td><code>nebula.console.version</code></td>
+<td><code>latest</code></td>
+<td>Version of the NebulaGraph Console client.</td>
+</tr>
+<tr>
+<td><code>nebula.alpineImage</code></td>
+<td><code>""</code></td>
+<td>Alpine Linux container image used to obtain zone information for nodes.</td>
+</tr>
+<tr>
+<td><code>imagePullSecrets</code></td>
+<td><code>[]</code></td>
+<td>Names of secrets to pull private images.</td>
+</tr>
+<tr>
+<td><code>nameOverride</code></td>
+<td><code>""</code></td>
+<td>Cluster name.</td>
+</tr>
+<tr>
+<td><code>fullnameOverride</code></td>
+<td><code>""</code></td>
+<td>Name of the released chart instance.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.podLabels</code></td>
+<td><code>{}</code></td>
+<td>Additional labels to be added to the pod.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.podAnnotations</code></td>
+<td><code>{}</code></td>
+<td>Additional annotations to be added to the pod.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.securityContext</code></td>
+<td><code>{}</code></td>
+<td>Security context for setting pod-level security attributes, including user ID, group ID, Linux Capabilities, etc.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.nodeSelector</code></td>
+<td><code>{}</code></td>
+<td>Label selectors for determining which nodes to run the pod on.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.tolerations</code></td>
+<td><code>[]</code></td>
+<td>Tolerations allow a pod to be scheduled to nodes with specific taints.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.affinity</code></td>
+<td><code>{}</code></td>
+<td>Affinity rules for the pod, including node affinity, pod affinity, and pod anti-affinity.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.readinessProbe</code></td>
+<td><code>{}</code></td>
+<td>Probe to check if a container is ready to accept service requests. When the probe returns success, traffic can be routed to the container.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.livenessProbe</code></td>
+<td><code>{}</code></td>
+<td>Probe to check if a container is still running. If the probe fails, Kubernetes will kill and restart the container.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.initContainers</code></td>
+<td><code>[]</code></td>
+<td>Special containers that run before the main application container starts, typically used for setting up the environment or initializing data.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.sidecarContainers</code></td>
+<td><code>[]</code></td>
+<td>Containers that run alongside the main application container, typically used for auxiliary tasks such as log processing, monitoring, etc.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.volumes</code></td>
+<td><code>[]</code></td>
+<td>Storage volumes to be attached to the service pod.</td>
+</tr>
+<tr>
+<td><code>nebula.&lt;graphd|metad|storaged|exporter&gt;.volumeMounts</code></td>
+<td><code>[]</code></td>
+<td>Specifies where to mount the storage volume inside the container.</td>
+</tr>
+</tbody>
+</table>
+</details>
+</li>
+</ul>
+</li>
+<li>
+<p>Create the NebulaGraph cluster.</p>
+<p>You can use the <code>--set</code> flag to customize the default values of the NebulaGraph cluster configuration. For example, <code>--set nebula.storaged.replicas=3</code> sets the number of replicas for the Storage service to 3.</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\ </span>
+<span class="w">    </span><span class="c1"># Specify the version of the cluster chart. If not specified, it will install the latest version by default.</span>
+<span class="w">    </span><span class="c1"># You can check all chart versions by running the command: helm search repo -l nebula-operator/nebula-cluster</span>
+<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.8.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Specify the namespace for the NebulaGraph cluster.</span>
+<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Customize the cluster name.</span>
+<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># Specify the version for the NebulaGraph cluster.</span>
+<span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>vmaster
+</code></pre></div>
+</li>
+<li>
+<p>Check the status of NebulaGraph cluster pods.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/cluster=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">                               </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+nebula-exporter-854c76989c-mp725<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-graphd-0<span class="w">                    </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-graphd-1<span class="w">                    </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-metad-0<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-metad-1<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-metad-2<span class="w">                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-storaged-0<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-storaged-1<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+nebula-storaged-2<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>14h
+</code></pre></div>
+</li>
+</ol>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2024</span>
       
     
   </small>

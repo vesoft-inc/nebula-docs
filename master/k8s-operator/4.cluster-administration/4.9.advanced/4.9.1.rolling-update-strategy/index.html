@@ -8216,8 +8216,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 
 <h1 id="optimize_leader_transfer_in_rolling_updates">Optimize leader transfer in rolling updates<a class="headerlink" href="#optimize_leader_transfer_in_rolling_updates" title="Permanent link">&para;</a></h1>
 <p>NebulaGraph clusters use a distributed architecture to divide data into multiple logical partitions, which are typically evenly distributed across different nodes. In distributed systems, there are usually multiple replicas of the same data. To ensure the consistency of data across multiple replicas, NebulaGraph clusters use the Raft protocol to synchronize multiple partition replicas. In the Raft protocol, each partition elects a leader replica, which is responsible for handling write requests, while follower replicas handle read requests.</p>
-<p>When a NebulaGraph cluster created by NebulaGraph Operator performs a rolling update, a storage node temporarily stops providing services for the update. For an overview of rolling updates, see <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/">Performing a Rolling Update</a>. If the node hosting the leader replica stops providing services, it will result in the unavailability of read and write operations for that partition. To avoid this situation, by default, Operator migrates the leader replicas to other unaffected nodes during the rolling update process of a NebulaGraph cluster. This way, when a storage node is being updated, the leader replicas on other nodes can continue processing client requests, ensuring the read and write availability of the cluster.</p>
-<p>The process of migrating all leader replicas from one storage node to the other nodes may take a long time. To better control the rolling update duration, Operator provides a field called <code>enableForceUpdate</code>. When it is confirmed that there is no external access traffic, you can set this field to <code>true</code>. This way, the leader replicas will not be migrated to other nodes, thereby speeding up the rolling update process.</p>
+<p>When a NebulaGraph cluster created by NebulaGraph Operator performs a rolling update, a storage node temporarily stops providing services for the update. For an overview of rolling updates, see <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/">Performing a Rolling Update</a>. If the node hosting the leader replica stops providing services, it will result in the unavailability of read and write operations for that partition. To avoid this situation, by default, NebulaGraph Operator transfers the leader replicas to other unaffected nodes during the rolling update process of a NebulaGraph cluster. This way, when a storage node is being updated, the leader replicas on other nodes can continue processing client requests, ensuring the read and write availability of the cluster.</p>
+<p>The process of migrating all leader replicas from one storage node to the other nodes may take a long time. To better control the rolling update duration, Operator provides a field called <code>enableForceUpdate</code>. When it is confirmed that there is no external access traffic, you can set this field to <code>true</code>. This way, the leader replicas will not be transferred to other nodes, thereby speeding up the rolling update process.</p>
 <h2 id="rolling_update_trigger_conditions">Rolling update trigger conditions<a class="headerlink" href="#rolling_update_trigger_conditions" title="Permanent link">&para;</a></h2>
 <p>Operator triggers a rolling update of the NebulaGraph cluster under the following circumstances:</p>
 <ul>
@@ -8227,7 +8227,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </ul>
 <h2 id="specify_a_rolling_update_strategy">Specify a rolling update strategy<a class="headerlink" href="#specify_a_rolling_update_strategy" title="Permanent link">&para;</a></h2>
 <p>In the YAML file for creating a cluster instance, add the <code>spec.storaged.enableForceUpdate</code> field and set it to <code>true</code> or <code>false</code> to control the rolling update speed.</p>
-<p>When <code>enableForceUpdate</code> is set to <code>true</code>, it means that the partition leader replicas will not be migrated, thus speeding up the rolling update process. Conversely, when set to <code>false</code>, it means that the leader replicas will be migrated to other nodes to ensure the read and write availability of the cluster. The default value is <code>false</code>.</p>
+<p>When <code>enableForceUpdate</code> is set to <code>true</code>, it means that the leader partition replicas are not transferred, thus speeding up the rolling update process. Conversely, when set to <code>false</code>, it means that the leader replicas are transferred to other nodes to ensure the read and write availability of the cluster. The default value is <code>false</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When setting <code>enableForceUpdate</code> to <code>true</code>, make sure there is no traffic entering the cluster for read and write operations. This is because this setting will force the cluster pods to be rebuilt, and during this process, data loss or client request failures may occur.</p>
@@ -8238,8 +8238,8 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <span class="nn">...</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># When set to true,</span>
-<span class="w">    </span><span class="c1"># it means that the partition leader replicas will not be migrated,</span>
-<span class="w">    </span><span class="c1"># but the cluster pods will be rebuilt directly.</span>
+<span class="w">    </span><span class="c1"># it means that the leader partition replicas are not transferred,</span>
+<span class="w">    </span><span class="c1"># but the cluster pods are rebuilt directly.</span>
 <span class="w">    </span><span class="nt">enableForceUpdate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
@@ -8249,7 +8249,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 7, 2024</span>
       
     
   </small>
