@@ -49,6 +49,15 @@ nebula> ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;
 
 # 插入点，插入后 5 秒过期。
 nebula> INSERT VERTEX t1(a) VALUES "101":(now());
+
+# 创建 Edge type。
+nebula> CREATE EDGE IF NOT EXISTS e1 (a timestamp);
+
+# ALTER 修改 Edge type，添加 TTL 选项。
+nebula> ALTER EDGE e1 TTL_COL = "a", TTL_DURATION = 5;
+
+# 插入边，插入后 5 秒过期。
+nebula> INSERT EDGE e1 (a) VALUES "10"->"11":(now());
 ```
 
 ### Tag 或 Edge type 不存在
