@@ -1,14 +1,10 @@
-# Error code
+# Error codes
 
-NebulaGraph returns an error code when an error occurs. This topic describes the details of the error code returned.  
-
+This topic describes the details of the error codes that may be returned when accessing NebulaGraph using a client.
 
 !!! note
 
-    - If an error occurs but no error code is returned, or if the error code description is unclear, we welcome your feedback or suggestions on the [forum](https://discuss.nebula-graph.com.cn/) or [GitHub](https://github.com/vesoft-inc/nebula/issues). 
-
-    - When the code returned is `0`, it means that the operation is successful.
-
+    When the code returned is `0`, it means that the operation is successful.
 
 |Error name|Error Code|Description|
 |:---|:---|:---|
@@ -25,15 +21,11 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_ROLE_NOT_FOUND`|`-11`| The current role does not exist|
 |`E_CONFIG_NOT_FOUND`|`-12`| The current configuration does not exist|
 |`E_MACHINE_NOT_FOUND`|`-13`| The current host does not exist|
+|`E_ZONE_NOT_FOUND`|`-14`| The current zone does not exist|
 |`E_LISTENER_NOT_FOUND`|`-15`| Listener does not exist|
 |`E_PART_NOT_FOUND`|`-16`| The current partition does not exist|
 |`E_KEY_NOT_FOUND`|`-17`| Key does not exist|
 |`E_USER_NOT_FOUND`|`-18`| User does not exist|
-|`E_STATS_NOT_FOUND`|`-19`| Statistics do not exist|
-|`E_SERVICE_NOT_FOUND`|`-20`| No current service found|
-|`E_DRAINER_NOT_FOUND`|`-21`| Drainer does not exist|
- |`E_DRAINER_CLIENT_NOT_FOUND`|`-22`| Drainer client does not exist|
- |`E_PART_STOPPED`|`-23`| The current partition has already been stopped|
 |`E_BACKUP_FAILED`|`-24`| Backup failed|
 |`E_BACKUP_EMPTY_TABLE`|`-25`| The backed-up table is empty|
 |`E_BACKUP_TABLE_FAILED`|`-26`| Table backup failure|
@@ -56,44 +48,51 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_INVALID_HOST`|`-2003`| Invalid host|
 |`E_UNSUPPORTED`|`-2004`| The current command, statement, or function is not supported|
 |`E_NOT_DROP`|`-2005`|Not allowed to drop|
+|`E_BALANCER_RUNNING`|`-2006`|The load balancing task is running|
 |`E_CONFIG_IMMUTABLE`|`-2007`| Configuration items cannot be changed|
 |`E_CONFLICT`|`-2008`| Parameters conflict with meta data|
 |`E_INVALID_PARM`|`-2009`| Invalid parameter|
 |`E_WRONGCLUSTER`|`-2010`| Wrong cluster|
-|`E_ZONE_NOT_ENOUGH`|`-2011`| Listener conflicts|
-|`E_ZONE_IS_EMPTY`|`-2012`| Host not exist|
-|`E_SCHEMA_NAME_EXISTS`|`-2013`| Schema name already exists|
-|`E_RELATED_INDEX_EXISTS`|`-2014`| There are still indexes related to tag or edge, cannot drop it|
-|`E_RELATED_SPACE_EXISTS`|`-2015`| There are still some space on the host, cannot drop it|
+|`E_LISTENER_CONFLICT`|`-2011`| Listener conflicts|
+|`E_ZONE_NOT_ENOUGH`|`-2012`| Insufficient number of hosts|
+|`E_ZONE_IS_EMPTY`|`-2013`| No hosts in zone|
+|`E_HISTORY_CONFLICT`|`-2018`| Conflict with former names |
 |`E_STORE_FAILURE`|`-2021`| Failed to store data|
 |`E_STORE_SEGMENT_ILLEGAL`|`-2022`| Illegal storage segment|
-|`E_BAD_BALANCE_PLAN`|`-2023`| Invalid data balancing plan|
-|`E_BALANCED`|`-2024`| The cluster is already in the data balancing status|
-|`E_NO_RUNNING_BALANCE_PLAN`|`-2025`| There is no running data balancing plan|
+|`E_BAD_BALANCE_PLAN`|`-2023`| Invalid load balancing plan|
+|`E_BALANCED`|`-2024`| The cluster is already in the load balancing status|
+|`E_NO_RUNNING_BALANCE_PLAN`|`-2025`| No load balancing plan is running.|
 |`E_NO_VALID_HOST`|`-2026`| Lack of valid hosts|
-|`E_CORRUPTED_BALANCE_PLAN`|`-2027`| A data balancing plan that has been corrupted|
+|`E_CORRUPTED_BALANCE_PLAN`|`-2027`| Corrupted load balancing plan|
+|`E_NO_INVALID_BALANCE_PLAN`|`-2028`| No invalid load balancing plan |
 |`E_IMPROPER_ROLE`|`-2030`| Failed to recover user role|
 |`E_INVALID_PARTITION_NUM`|`-2031`| Number of invalid partitions|
 |`E_INVALID_REPLICA_FACTOR`|`-2032`| Invalid replica factor|
 |`E_INVALID_CHARSET`|`-2033`| Invalid character set|
 |`E_INVALID_COLLATE`|`-2034`| Invalid character sorting rules|
 |`E_CHARSET_COLLATE_NOT_MATCH`|`-2035`| Character set and character sorting rule mismatch|
+|`E_PRIVILEGE_ALL_TAG_EDGE_SETTLED`|`-2036`| All tag or edge types need to be deleted before granting or revoking privileges |
+|`E_PRIVILEGE_NOT_EXIST`|`-2037`| Privilege does not exist |
+|`E_PRIVILEGE_NEED_BASIC_ROLE`|`-2038`| Basic role privileges required|
+|`E_PRIVILEGE_ACTION_INVALID`|`-2039`| Invalid privilege action|
 |`E_SNAPSHOT_FAILURE`|`-2040`| Failed to generate a snapshot|
 |`E_BLOCK_WRITE_FAILURE`|`-2041`| Failed to write block data|
+|`E_REBUILD_INDEX_FAILURE`|`-2042`| Failed to rebuild index|
+|`E_INDEX_WITH_TTL`|`-2043`| Failed to set TTL because the index already exists|
 |`E_ADD_JOB_FAILURE`|`-2044`| Failed to add new task|
 |`E_STOP_JOB_FAILURE`|`-2045`| Failed to stop task|
 |`E_SAVE_JOB_FAILURE`|`-2046`| Failed to save task information|
-|`E_BALANCER_FAILURE`|`-2047`| Data balancing failed|
+|`E_BALANCER_FAILURE`|`-2047`| Load balancing failed|
 |`E_JOB_NOT_FINISHED`|`-2048`| The current task has not been completed|
 |`E_TASK_REPORT_OUT_DATE`|`-2049`| Task report failed|
 |`E_JOB_NOT_IN_SPACE`|`-2050`| The current task is not in the graph space|
 |`E_JOB_NEED_RECOVER`|`-2051`| The current task needs to be resumed|
-|`E_JOB_ALREADY_FINISH`|`-2052`| The job status has already been failed or finished |
-|`E_JOB_SUBMITTED`|`-2053`| Job default status|
-|`E_JOB_NOT_STOPPABLE`|`-2054`| The given job do not support stop|
-|`E_JOB_HAS_NO_TARGET_STORAGE`|`-2055`| The leader distribution has not been reported, so can't send task to storage|
+|`E_JOB_NOT_STOPPABLE`|`-2052`| Task already failed or completed |
+|`E_JOB_SUBMITTED`|`-2053`| Task default status|
+|`E_SNAPSHOT_RUNNING_JOBS`|`-2056`| The snapshot task is running |
+|`E_SNAPSHOT_NOT_FOUND`|`-2057`| No snapshot found |
 |`E_INVALID_JOB`|`-2065`| Invalid task|
-|`E_BACKUP_BUILDING_INDEX`|`-2066`| Backup terminated (index being created)|
+|`E_BACKUP_RUNNING_JOBS`|`-2066`| Backup task is running|
 |`E_BACKUP_SPACE_NOT_FOUND`|`-2067`| Graph space does not exist at the time of backup|
 |`E_RESTORE_FAILURE`|`-2068`| Backup recovery failed|
 |`E_SESSION_NOT_FOUND`|`-2069`| Session does not exist|
@@ -102,9 +101,6 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_LIST_CLUSTER_NO_AGENT_FAILURE`|`-2072`| Unable to get an agent when getting cluster information|
 |`E_QUERY_NOT_FOUND`|`-2073`| Query not found|
 |`E_AGENT_HB_FAILUE`|`-2074`| Failed to receive heartbeat from agent|
-|`E_HOST_CAN_NOT_BE_ADDED`|`-2082`|The host can not be added for it's not a storage host|
-|`E_ACCESS_ES_FAILURE`|`-2090`|Failed to access elasticsearch|
-|`E_GRAPH_MEMORY_EXCEEDED`|`-2600`| Graph memory exceeded|
 |`E_CONSENSUS_ERROR`|`-3001`| Consensus cannot be reached during an election|
 |`E_KEY_HAS_EXISTS`|`-3002`| Key already exists|
 |`E_DATA_TYPE_MISMATCH`|`-3003`| Data type mismatch|
@@ -113,6 +109,7 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_NOT_NULLABLE`|`-3006`| Current value is not allowed to be empty|
 |`E_FIELD_UNSET`|`-3007`| Field value must be set if the field value is `NOT NULL` or has no default value|
 |`E_OUT_OF_RANGE`|`-3008`| The value is out of the range of the current type|
+|`E_ATOMIC_OP_FAILED`|`-3009`| Atomic operation failure|
 |`E_DATA_CONFLICT_ERROR`|`-3010`| Data conflict|
 |`E_WRITE_STALLED`|`-3011`| Writes are delayed|
 |`E_IMPROPER_DATA_TYPE`|`-3021`| Incorrect data type|
@@ -137,6 +134,22 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_USER_CANCEL`|`-3052`| The user canceled the task|
 |`E_TASK_EXECUTION_FAILED`|`-3053`| Task execution failed|
 |`E_PLAN_IS_KILLED`|`-3060`| Execution plan was cleared|
+|`E_CLIENT_SERVER_INCOMPATIBLE`|`-3061`| Client and server versions are not compatible|
+|`E_UNKNOWN`|`-8000`| Unknown error|
+
+<!--
+|`E_STATS_NOT_FOUND`|`-19`| Statistics do not exist|
+|`E_SERVICE_NOT_FOUND`|`-20`| No current service found|
+|`E_DRAINER_NOT_FOUND`|`-21`| Drainer does not exist|
+ |`E_DRAINER_CLIENT_NOT_FOUND`|`-22`| Drainer client does not exist|
+ |`E_PART_STOPPED`|`-23`| The current partition has already been stopped|
+ |`E_RELATED_INDEX_EXISTS`|`-2014`| There are still indexes related to tag or edge, cannot drop it|
+|`E_RELATED_SPACE_EXISTS`|`-2015`| There are still some space on the host, cannot drop it|
+|`E_JOB_NOT_STOPPABLE`|`-2054`| The given task cannot be stopped|
+|`E_JOB_HAS_NO_TARGET_STORAGE`|`-2055`| The leader distribution is unknown so the task cannot be sent to storage|
+|`E_HOST_CAN_NOT_BE_ADDED`|`-2082`|The host can not be added because it is not a storage host|
+|`E_ACCESS_ES_FAILURE`|`-2090`|Failed to access elasticsearch|
+|`E_GRAPH_MEMORY_EXCEEDED`|`-2600`| Graph memory exceeded|
 |`E_NO_TERM`|`-3070`| The heartbeat process was not completed when the request was received|
 |`E_OUTDATED_TERM`|`-3071`| Out-of-date heartbeat received from the old leader (the new leader has been elected)|
 |`E_WRITE_WRITE_CONFLICT`|`-3073`| Concurrent write conflicts with later requests|
@@ -178,9 +191,6 @@ NebulaGraph returns an error code when an error occurs. This topic describes the
 |`E_CACHE_WRITE_FAILURE`|`-5005`| Write cache failed|
 |`E_NODE_NUMBER_EXCEED_LIMIT`|`-7001`| Number of machines exceeded the limit|
 |`E_PARSING_LICENSE_FAILURE`|`-7002`| Failed to resolve certificate|
-|`E_UNKNOWN`|`-8000`| Unknown error|
-
-<!--
 |``|`-14`| Zone does not exist |
 |``|`-2012`| The number of zones is sufficient|
 |``|`-2013`| Zone is empty|
