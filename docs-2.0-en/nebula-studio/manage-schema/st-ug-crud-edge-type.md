@@ -75,7 +75,7 @@ When the edge type is created successfully, the **Define Properties** panel show
 
     !!! note
 
-        For information about the coexistence problem of TTL and index, see [TTL]((../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
+        For information about the coexistence problem of TTL and index, see [TTL](../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
 
 ## Delete an Edge type
 
