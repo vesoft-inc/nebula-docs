@@ -8376,6 +8376,15 @@ nebula&gt; ALTER TAG t1 TTL_COL = &quot;a&quot;, TTL_DURATION = 5;
 
 # Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
 nebula&gt; INSERT VERTEX t1(a) VALUES &quot;101&quot;:(now());
+
+# Create a edge type.
+nebula&gt; CREATE EDGE IF NOT EXISTS e1 (a timestamp);
+
+# Use ALTER to update the edge type and set the TTL options.
+nebula&gt; ALTER EDGE e1 TTL_COL = &quot;a&quot;, TTL_DURATION = 5;
+
+# Insert a dangling edge with edge type e1. The edge expires 5 seconds after the insertion.
+nebula&gt; INSERT EDGE e1 (a) VALUES &quot;10&quot;-&gt;&quot;11&quot;:(now());
 </code></pre></div>
 <h3 id="set_a_timeout_when_creating_a_tag_or_an_edge_type">Set a timeout when creating a tag or an edge type<a class="headerlink" href="#set_a_timeout_when_creating_a_tag_or_an_edge_type" title="Permanent link">&para;</a></h3>
 <p>Use TTL options in the <code>CREATE</code> statement to set a timeout when creating a tag or an edge type. For more information, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
@@ -8433,7 +8442,7 @@ nebula&gt; INSERT VERTEX t2(a, b, c) VALUES &quot;102&quot;:(1648197138, 30, &qu
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 3, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 8, 2024</span>
       
     
   </small>
