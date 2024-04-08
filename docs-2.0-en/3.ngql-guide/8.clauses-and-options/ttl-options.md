@@ -53,13 +53,13 @@ nebula> ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;
 # Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
 nebula> INSERT VERTEX t1(a) VALUES "101":(now());
 
-# Create a Edge type.
+# Create a edge type.
 nebula> CREATE EDGE IF NOT EXISTS e1 (a timestamp);
 
-# Use ALTER to update the Edge type and set the TTL options.
+# Use ALTER to update the edge type and set the TTL options.
 nebula> ALTER EDGE e1 TTL_COL = "a", TTL_DURATION = 5;
 
-# Insert a edge with Edge type e1. The edge expires 5 seconds after the insertion.
+# Insert a dangling edge with edge type e1. The edge expires 5 seconds after the insertion.
 nebula> INSERT EDGE e1 (a) VALUES "10"->"11":(now());
 ```
 
