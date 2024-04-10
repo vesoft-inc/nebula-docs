@@ -68,7 +68,7 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
 
 ## Get NebulaGraph Spark Connector
 
-### Compile package
+### Compile and package
 
 
 
@@ -77,9 +77,10 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
   ```bash
   $ git clone -b {{sparkconnector.branch}} https://github.com/vesoft-inc/nebula-spark-connector.git
   ```
+
 2. Enter the `nebula-spark-connector` directory.
 
-3. Compile package. The procedure varies with Spark versions.
+3. Compile and package. The procedure varies with Spark versions.
 
 !!! note
 
@@ -103,7 +104,7 @@ The features of NebulaGraph Spark Connector {{sparkconnector.release}} are as fo
     $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true -pl nebula-spark-connector_3.0 -am -Pscala-2.12 -Pspark-3.0
     ```
 
-After compilation, a similar file `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `target` of the folder.
+After compilation, a file similar to `nebula-spark-connector-{{sparkconnector.release}}-SHANPSHOT.jar` is generated in the directory `target` of the folder.
 
 ### Download maven remote repository
 
@@ -168,12 +169,12 @@ val nebulaReadEdgeConfig: ReadNebulaConfig = ReadNebulaConfig
 val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 ```
 
-- `NebulaConnectionConfig` is the configuration for connecting to the nebula graph, as described below.
+- `NebulaConnectionConfig` is the configuration for connecting to NebulaGraph, as described below.
 
   |Parameter|Required|Description|
   |:---|:---|:---|
   |`withMetaAddress`  |Yes| Specifies the IP addresses and ports of all Meta Services. Separate multiple addresses with commas. The format is `ip1:port1,ip2:port2,...`. Read data is no need to configure `withGraphAddress`.  |
-  |`withConnectionRetry`  |No| The number of retries that the NebulaGraph Java Client connected to the NebulaGraph. The default value is `1`.  |
+  |`withConnectionRetry`  |No| The number of retries that the NebulaGraph Java Client connected to NebulaGraph. The default value is `1`.  |
   |`withExecuteRetry`  |No| The number of retries that the NebulaGraph Java Client executed query statements. The default value is `1`.  |
   |`withTimeout`  |No| The timeout for the NebulaGraph Java Client request response. The default value is `6000`, Unit: ms.  |
 
@@ -192,7 +193,7 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
 !!! note
 
-    The values of columns in a dataframe are automatically written to the NebulaGraph as property values.
+    The values of columns in a dataframe are automatically written to NebulaGraph as property values.
 
 ```scala
 val config = NebulaConnectionConfig
@@ -260,7 +261,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |:---|:---|:---|
   |`withMetaAddress`  |Yes| Specifies the IP addresses and ports of all Meta Services. Separate multiple addresses with commas. The format is `ip1:port1,ip2:port2,...`. |
   |`withGraphAddress`  |Yes| Specifies the IP addresses and ports of Graph Services. Separate multiple addresses with commas. The format is `ip1:port1,ip2:port2,...`. |
-  |`withConnectionRetry`  |No| Number of retries that the NebulaGraph Java Client connected to the NebulaGraph. The default value is `1`.  |
+  |`withConnectionRetry`  |No| Number of retries that the NebulaGraph Java Client connected to NebulaGraph. The default value is `1`.  |
 
 - `WriteNebulaVertexConfig` is the configuration of the write vertex, as described below.
 
@@ -271,8 +272,8 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withVidField`  |Yes|  The column in the DataFrame as the vertex ID.  |
   |`withVidPolicy`  |No|  When writing the vertex ID, NebulaGraph use mapping function, supports HASH only. No mapping is performed by default.  |
   |`withVidAsProp`  |No|  Whether the column in the DataFrame that is the vertex ID is also written as an property. The default value is `false`. If set to `true`, make sure the Tag has the same property name as `VidField`.  |
-  |`withUser`  |No|  NebulaGraph user name. If [authentication](../7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.   |
-  |`withPasswd`  |No|  The password for the NebulaGraph user name.  |
+  |`withUser`  |No|  NebulaGraph username. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the username and password.   |
+  |`withPasswd`  |No|  The password for the NebulaGraph username.  |
   |`withBatch`  |Yes|  The number of rows of data written at a time. The default value is  `1000`.  |
   |`withWriteMode`|No|Write mode. The optional values are `insert`, `update` and `delete`. The default value is `insert`.|
   |`withDeleteEdge`|No|Whether to delete the related edges synchronously when deleting a vertex. The default value is `false`. It takes effect when `withWriteMode` is `delete`. |
@@ -291,7 +292,7 @@ df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()
   |`withSrcAsProperty`  |No| Whether the column in the DataFrame that is the starting vertex is also written as an property.  The default value is `false`. If set to `true`, make sure Edge type has the same property name as `SrcIdField`.   |
   |`withDstAsProperty`  |No| Whether column that are destination vertex in the DataFrame are also written as property. The default value is `false`. If set to `true`, make sure Edge type has the same property name as `DstIdField`.   |
   |`withRankAsProperty`  |No| Whether column in the DataFrame that is the rank is also written as property.The default value is `false`. If set to `true`, make sure Edge type has the same property name as `RankField`.   |
-  |`withUser`  |No|  NebulaGraph user name. If [authentication](../7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the user name and password.  |
-  |`withPasswd`  |No|  The password for the NebulaGraph user name.  |
+  |`withUser`  |No|  NebulaGraph username. If [authentication](7.data-security/1.authentication/1.authentication.md) is disabled, you do not need to configure the username and password.  |
+  |`withPasswd`  |No|  The password for the NebulaGraph username.  |
   |`withBatch`  |Yes|  The number of rows of data written at a time. The default value is  `1000`.  |
   |`withWriteMode`|No|Write mode. The optional values are `insert`, `update` and `delete`. The default value is `insert`.|
