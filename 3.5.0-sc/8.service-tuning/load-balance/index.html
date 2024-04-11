@@ -5648,8 +5648,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#balance_partitions_with_zone_disabled" class="md-nav__link">
+    Balance partitions with Zone disabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance_partitions_with_zone_enabled" class="md-nav__link">
+    Balance partitions with Zone enabled
   </a>
   
 </li>
@@ -5669,8 +5676,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#migrate_partition" class="md-nav__link">
-    Migrate partition
+  <a href="#migrate_partitions" class="md-nav__link">
+    Migrate partitions
   </a>
   
 </li>
@@ -5684,19 +5691,6 @@
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
-  
-    <nav class="md-nav" aria-label="Balance leader distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -11220,8 +11214,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#balance_partitions_with_zone_disabled" class="md-nav__link">
+    Balance partitions with Zone disabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance_partitions_with_zone_enabled" class="md-nav__link">
+    Balance partitions with Zone enabled
   </a>
   
 </li>
@@ -11241,8 +11242,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#migrate_partition" class="md-nav__link">
-    Migrate partition
+  <a href="#migrate_partitions" class="md-nav__link">
+    Migrate partitions
   </a>
   
 </li>
@@ -11256,19 +11257,6 @@
   <a href="#balance_leader_distribution" class="md-nav__link">
     Balance leader distribution
   </a>
-  
-    <nav class="md-nav" aria-label="Balance leader distribution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -11291,34 +11279,32 @@
 <p>You can use the <code>SUBMIT JOB BALANCE</code> statement to balance the distribution of partitions and Raft leaders, or clear some Storage servers for easy maintenance. For details, see <a href="../../synchronization-and-migration/2.balance-syntax/">SUBMIT JOB BALANCE</a>.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>The <code>BALANCE</code> commands migrate data and balance the distribution of partitions by creating and executing a set of subtasks. <strong>DO NOT</strong> stop any machine in the cluster or change its IP address until all the subtasks finish. Otherwise, the follow-up subtasks fail.</p>
+<p>The <code>BALANCE</code> commands migrate data and balance the distribution of partitions by creating and executing a set of subtasks. <strong>DO NOT</strong> stop any machine in the cluster or change its IP address until all the subtasks are finished. Otherwise, the follow-up subtasks fail.</p>
 </div>
 <!-- -->
+
 <h2 id="balance_partition_distribution">Balance partition distribution<a class="headerlink" href="#balance_partition_distribution" title="Permanent link">&para;</a></h2>
-<p>The <code>SUBMIT JOB BALANCE DATA</code> command starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks.</p>
+<p>The <code>SUBMIT JOB BALANCE DATA</code> command starts a job to balance the distribution of storage partitions in the current graph space by creating and executing a set of subtasks. If the <a href="../../4.deployment-and-installation/5.zone/">Zone</a> feature is enabled, you can balance the partitions within each Zone by adding the <code>IN ZONE</code> keywords to the command. For example, <code>SUBMIT JOB BALANCE DATA IN ZONE</code>.</p>
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
 <p>Only available for the NebulaGraph Enterprise Edition.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li>If the current graph space already has a <code>SUBMIT JOB BALANCE DATA</code> job in the <code>FAILED</code> status, you can restore the <code>FAILED</code> job, but cannot start a new <code>SUBMIT JOB BALANCE DATA</code> job. If the job continues to fail, manually stop it, and then you can start a new one.</li>
-<li>The following example introduces the methods of balanced partition distribution for storage nodes with the Zone feature disabled. When the Zone feature is enabled, balanced partition distribution is performed across zones by specifying the <code>IN ZONE</code> clause. For details, see <a href="../../4.deployment-and-installation/5.zone/">Manage Zones</a>.</li>
-</ul>
+<p>If the current graph space already has a <code>SUBMIT JOB BALANCE DATA</code> job in the <code>FAILED</code> status, you can restore the <code>FAILED</code> job, but cannot start a new <code>SUBMIT JOB BALANCE DATA</code> job. If the job continues to fail, manually stop it, and then you can start a new one.</p>
 </div>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p>After you add new storage hosts into the cluster, no partition is deployed on the new hosts.</p>
+<h3 id="balance_partitions_with_zone_disabled">Balance partitions with Zone disabled<a class="headerlink" href="#balance_partitions_with_zone_disabled" title="Permanent link">&para;</a></h3>
+<p>After you add new storage hosts to the cluster, no partition is deployed on the new hosts. For example, run the following steps to balance the partition distribution when the Zone feature is disabled.</p>
 <ol>
 <li>
 <p>Run <code>SHOW HOSTS</code> to check the partition distribution.</p>
 <div class="highlight"><pre><span></span><code>nebual&gt; SHOW HOSTS;
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
-| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
 | &quot;192.168.8.101&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;  | &quot;No valid partition&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 15           | &quot;basketballplayer:15&quot; | &quot;basketballplayer:15&quot;  | &quot;3.5.0&quot; |
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
 </code></pre></div>
 </li>
 <li>
@@ -11350,16 +11336,76 @@ nebula&gt; SUBMIT JOB BALANCE DATA;
 <p><code>SUBMIT JOB BALANCE DATA</code> does not balance the leader distribution. For more information, see <a href="#balance_leader_distribution">Balance leader distribution</a>.</p>
 </div>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
-| Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version              |
-+-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+----------------------+------------------------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Version     |
++-----------------+------+----------+--------------+----------------------+------------------------+-------------+
 | &quot;192.168.8.101&quot; | 9779 | &quot;ONLINE&quot; | 7            | &quot;basketballplayer:7&quot; | &quot;basketballplayer:7&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:8&quot; | &quot;basketballplayer:8&quot;   | &quot;3.5.0&quot; |
-+-----------------+------+----------+--------------+----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+----------------------+------------------------+-------------+
 </code></pre></div>
 </li>
 </ol>
 <p>If any subtask fails, run <code>RECOVER JOB &lt;job_id&gt;</code> to recover the failed jobs. If redoing load balancing does not solve the problem, ask for help in the <a href="https://github.com/vesoft-inc/nebula/discussions">NebulaGraph community</a>.</p>
+<h3 id="balance_partitions_with_zone_enabled">Balance partitions with Zone enabled<a class="headerlink" href="#balance_partitions_with_zone_enabled" title="Permanent link">&para;</a></h3>
+<p>For Zone-enabled clusters, you can balance the partitions within each Zone by adding the <code>IN ZONE</code> keywords to the <code>SUBMIT JOB BALANCE DATA</code> command. After you add a new storage host to the cluster, no partition is deployed on the new hosts. The following example adds a new storage host <code>192.168.8.158</code> and assigns the new host to <code>zone1</code> to show how to balance the partition distribution within the Zone <code>zone1</code>.</p>
+<ol>
+<li>
+<p>Run <code>SHOW HOSTS</code> to check the partition distribution.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
++-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Zone    | Version     |
++-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+| &quot;192.168.8.111&quot; | 7779 | &quot;ONLINE&quot; | 5            | &quot;my_space:5&quot;         | &quot;my_space:10&quot;          | &quot;zone1&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.113&quot; | 7779 | &quot;ONLINE&quot; | 5            | &quot;my_space:5&quot;         | &quot;my_space:10&quot;          | &quot;zone3&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.129&quot; | 7779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot; | &quot;my_space:10&quot;          | &quot;zone2&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.158&quot; | 7779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot; | &quot;No valid partition&quot;   | &quot;zone1&quot; | &quot;3.5.0&quot; |
++-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+</code></pre></div>
+</li>
+<li>
+<p>Enter the graph space <code>my_zoned_space</code>, and execute the command <code>SUBMIT JOB BALANCE DATA IN ZONE</code> to balance the distribution of storage partitions within each Zone.</p>
+<div class="highlight"><pre><span></span><code>nebula&gt; USE my_zoned_space;
+nebula&gt; SUBMIT JOB BALANCE DATA IN ZONE;
++------------+
+| New Job Id |
++------------+
+| 2          |
++------------+
+</code></pre></div>
+</li>
+<li>
+<p>Run <code>SHOW JOB &lt;job_id&gt;</code> to check the status of the data balancing job. You can obtain the job ID after running <code>SUBMIT JOB BALANCE DATA IN ZONE</code> in the previous step. </p>
+<div class="highlight"><pre><span></span><code>nebula&gt; SHOW JOB 2;
++------------------------+------------------------------------------+-------------+----------------------------+----------------------------+-------------+
+| Job Id(spaceId:partId) | Command(src-&gt;dst)                        | Status      | Start Time                 | Stop Time                  | State       |
++------------------------+------------------------------------------+-------------+----------------------------+----------------------------+-------------+
+| 2                      | &quot;DATA_BALANCE&quot;                           | &quot;FINISHED&quot;  | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:32.000000 | &quot;SUCCEEDED&quot; |
+| &quot;2, 1:1&quot;               | &quot;192.168.8.111:7779-&gt;192.168.8.158:7779&quot; | &quot;SUCCEEDED&quot; | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:27.000000 | &quot;SUCCEEDED&quot; |
+| &quot;2, 1:2&quot;               | &quot;192.168.8.111:7779-&gt;192.168.8.158:7779&quot; | &quot;SUCCEEDED&quot; | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:32.000000 | &quot;SUCCEEDED&quot; |
+| &quot;2, 1:3&quot;               | &quot;192.168.8.111:7779-&gt;192.168.8.158:7779&quot; | &quot;SUCCEEDED&quot; | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:27.000000 | &quot;SUCCEEDED&quot; |
+| &quot;2, 1:4&quot;               | &quot;192.168.8.111:7779-&gt;192.168.8.158:7779&quot; | &quot;SUCCEEDED&quot; | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:27.000000 | &quot;SUCCEEDED&quot; |
+| &quot;2, 1:5&quot;               | &quot;192.168.8.111:7779-&gt;192.168.8.158:7779&quot; | &quot;SUCCEEDED&quot; | 2024-04-11T02:41:27.000000 | 2024-04-11T02:41:32.000000 | &quot;SUCCEEDED&quot; |
+| &quot;Total:5&quot;              | &quot;Succeeded:5&quot;                            | &quot;Failed:0&quot;  | &quot;In Progress:0&quot;            | &quot;Invalid:0&quot;                | &quot;&quot;          |
++------------------------+------------------------------------------+-------------+----------------------------+----------------------------+-------------+
+</code></pre></div>
+</li>
+</ol>
+<p>The above result shows the process of balancing the partitions within the Zone <code>zone1</code>. When the job succeeds, the load balancing process finishes.</p>
+<ol>
+<li>
+<p>Run <code>SHOW HOSTS</code> again to make sure the partition distribution is balanced.</p>
+<div class="highlight"><pre><span></span><code>+-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution  | Partition distribution | Zone    | Version     |
++-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+| &quot;192.168.8.111&quot; | 7779 | &quot;ONLINE&quot; | 3            | &quot;my_space:3&quot;         | &quot;my_space:5&quot;           | &quot;zone1&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.113&quot; | 7779 | &quot;ONLINE&quot; | 7            | &quot;my_space:7&quot;         | &quot;my_space:10&quot;          | &quot;zone3&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.129&quot; | 7779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot; | &quot;my_space:10&quot;          | &quot;zone2&quot; | &quot;3.5.0&quot; |
+| &quot;192.168.8.158&quot; | 7779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot; | &quot;my_space:5&quot;           | &quot;zone1&quot; | &quot;3.5.0&quot; |
++-----------------+------+----------+--------------+----------------------+------------------------+---------+-------------+
+</code></pre></div>
+<p>From the result, you can see that the partition distribution is balanced on all the storage hosts within Zone <code>zone1</code>.</p>
+</li>
+</ol>
 <h3 id="stop_data_balancing">Stop data balancing<a class="headerlink" href="#stop_data_balancing" title="Permanent link">&para;</a></h3>
 <p>To stop a balance job, run <code>STOP JOB &lt;job_id&gt;</code>.</p>
 <ul>
@@ -11379,18 +11425,18 @@ nebula&gt; SUBMIT JOB BALANCE DATA;
 <p class="admonition-title">Note</p>
 <p>For a <code>STOPPED</code> <code>SUBMIT JOB BALANCE DATA</code> job, NebulaGraph detects whether the same type of <code>FAILED</code> jobs or <code>FINISHED</code> jobs have been created since the start time of the job. If so, the <code>STOPPED</code> job cannot be restored. For example, if chronologically there are STOPPED job1, FINISHED job2, and STOPPED Job3, only job3 can be restored, and job1 cannot.</p>
 </div>
-<h3 id="migrate_partition">Migrate partition<a class="headerlink" href="#migrate_partition" title="Permanent link">&para;</a></h3>
+<h3 id="migrate_partitions">Migrate partitions<a class="headerlink" href="#migrate_partitions" title="Permanent link">&para;</a></h3>
 <p>To migrate specified partitions and scale in the cluster, you can run <code>SUBMIT JOB BALANCE DATA REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code>.</p>
-<p>To migrate specified partitions for Zone-enabled clusters, you need to add the <code>IN ZONE</code> clause. For example, <code>SUBMIT JOB BALANCE DATA IN ZONE REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code>. For details, see <a href="../../4.deployment-and-installation/5.zone/">Manage Zones</a>.</p>
-<p>For example, to migrate the partitions in server <code>192.168.8.100:9779</code>, the command as following:</p>
+<p>To migrate specified partitions for Zone-enabled clusters, you need to add the <code>IN ZONE</code> keywords. For example, <code>SUBMIT JOB BALANCE DATA IN ZONE REMOVE &lt;ip:port&gt; [,&lt;ip&gt;:&lt;port&gt; ...]</code>. For details, see <a href="../../4.deployment-and-installation/5.zone/">Manage Zones</a>.</p>
+<p>For example, to migrate the partitions in server <code>192.168.8.100:9779</code>, the command is as following:</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB BALANCE DATA REMOVE 192.168.8.100:9779;
 nebula&gt; SHOW HOSTS;
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
-| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version              |
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
+| Host            | Port | Status   | Leader count | Leader distribution   | Partition distribution | Version     |
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
 | &quot;192.168.8.101&quot; | 9779 | &quot;ONLINE&quot; | 15           | &quot;basketballplayer:15&quot; | &quot;basketballplayer:15&quot;  | &quot;3.5.0&quot; |
 | &quot;192.168.8.100&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;No valid partition&quot;  | &quot;No valid partition&quot;   | &quot;3.5.0&quot; |
-+-----------------+------+----------+--------------+-----------------------+------------------------+----------------------+
++-----------------+------+----------+--------------+-----------------------+------------------------+-------------+
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11399,21 +11445,22 @@ nebula&gt; SHOW HOSTS;
 <!-- -->
 
 <h2 id="balance_leader_distribution">Balance leader distribution<a class="headerlink" href="#balance_leader_distribution" title="Permanent link">&para;</a></h2>
-<p>To balance the raft leaders, run <code>SUBMIT JOB BALANCE LEADER</code>. It will start a job to balance the distribution of all the storage leaders in all graph spaces.</p>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p>To balance the raft leaders, run <code>SUBMIT JOB BALANCE LEADER</code>. It starts a job to balance the distribution of all the storage leaders in all graph spaces.</p>
+<p>For example, to balance the leader distribution, run the following command.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB BALANCE LEADER;
 </code></pre></div>
 <p>Run <code>SHOW HOSTS</code> to check the balance result.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
-+------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
-| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version              |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+-------------+
+| Host             | Port | Status   | Leader count | Leader distribution               | Partition distribution | Version     |
++------------------+------+----------+--------------+-----------------------------------+------------------------+-------------+
+| &quot;192.168.10.100&quot; | 9779 | &quot;ONLINE&quot; | 4            | &quot;basketballplayer:4&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.10.101&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.10.102&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;              | &quot;basketballplayer:8&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.10.103&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.10.104&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.5.0&quot; |
 | &quot;192.168.10.105&quot; | 9779 | &quot;ONLINE&quot; | 0            | &quot;basketballplayer:2&quot;              | &quot;basketballplayer:7&quot;   | &quot;3.5.0&quot; |
-+------------------+------+----------+--------------+-----------------------------------+------------------------+----------------------+
++------------------+------+----------+--------------+-----------------------------------+------------------------+-------------+
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -11425,7 +11472,7 @@ nebula&gt; SHOW HOSTS;
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 19, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 11, 2024</span>
       
     
   </small>
