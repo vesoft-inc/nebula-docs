@@ -109,7 +109,7 @@ For Zone-enabled clusters, you can balance the partitions within each Zone by ad
   +------------+
   ```
 
-3. The job ID is returned after running `SUBMIT JOB BALANCE DATA IN ZONE`. Run `SHOW JOB <job_id>` to check the status of the job.
+3. Run `SHOW JOB <job_id>` to check the status of the data balancing job. You can obtain the job ID after running `SUBMIT JOB BALANCE DATA IN ZONE` in the previous step. 
 
   ```ngql
   nebula> SHOW JOB 2;
