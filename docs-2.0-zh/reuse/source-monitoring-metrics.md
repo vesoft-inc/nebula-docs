@@ -21,7 +21,7 @@
 | `num_rpc_sent_to_storaged`                       | Graphd 服务发给 Storaged 服务的 RPC 请求数量。        |
 | `num_sentences`                                  | Graphd 服务接收的语句数。                        |
 | `num_slow_queries`                               | 慢查询次数。                              |
-| `num_sort_executors`                             | 排序（Sort）算子执行时间。                    |
+| `num_sort_executors`                             | 排序（Sort）算子执行次数。                    |
 | `optimizer_latency_us`                           | 优化器阶段延迟时间。                          |
 | `query_latency_us`                               | 查询延迟时间。                            |
 | `slow_query_latency_us`                          | 慢查询延迟时间。                          |
@@ -139,7 +139,7 @@
 | `num_query_errors_leader_changes` | 因查询错误而导致的 Leader 变更的次数。      |
 | `num_killed_queries`           | 被终止的查询数量。                        |
 | `num_aggregate_executors`      | 聚合（Aggregate）算子执行时间。               |
-| `num_sort_executors`           | 排序（Sort）算子执行时间。                    |
+| `num_sort_executors`           | 排序（Sort）算子执行次数。                    |
 | `num_indexscan_executors`      | 索引扫描（IndexScan）算子执行时间。           |
 | `num_auth_failed_sessions_bad_username_password` |  因用户名密码错误导验证失败的会话数量。  |
 | `num_auth_failed_sessions`     | 登录验证失败的会话数量。                            |
