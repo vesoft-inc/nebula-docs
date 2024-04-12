@@ -76,7 +76,7 @@ When the tag is created successfully, the **Define Properties** panel shows all 
 
     !!! note
 
-        The problem of coexistence of TTL and index, see [TTL]((../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
+        For the problem of the coexistence of TTL and index, see [TTL](../../3.ngql-guide/8.clauses-and-options/ttl-options.md).
 
 ## Delete a tag
 
