@@ -8830,7 +8830,23 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tbody>
 </table>
 <h2 id="memory_tracker">memory tracker 配置<a class="headerlink" href="#memory_tracker" title="Permanent link">&para;</a></h2>
-<p>有关 Memory Tracker 的详细信息，请参见<a href="https://discuss.nebula-graph.com.cn/t/topic/13128">图数据库 NebulaGraph 的内存管理实践之 Memory Tracker</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Memory Tracker 是一个内存管理工具，用于监控和限制内存使用。对于大型查询，Memory Tracker 可以防止 OOM 问题。如果在容器环境中使用 Memory Tracker，需要在 Graph 服务的配置文件中添加相关配置。操作如下：</p>
+<ol>
+<li>创建目录<code>/sys/fs/cgroup/graphd/</code>，添加并配置<code>memory.max</code>。</li>
+<li>
+<p>在<code>etc/nebula-graphd.conf</code>添加以下配置。</p>
+<div class="highlight"><pre><span></span><code>--containerized<span class="o">=</span><span class="nb">true</span>
+--cgroup_v2_controllers<span class="o">=</span>/sys/fs/cgroup/graphd/cgroup.controllers
+--cgroup_v2_memory_stat_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.stat
+--cgroup_v2_memory_max_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.max
+--cgroup_v2_memory_current_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.current
+</code></pre></div>
+</li>
+</ol>
+<p>详细信息，请参见<a href="https://discuss.nebula-graph.com.cn/t/topic/13128">容器/cgroup 模式</a>。</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -8922,7 +8938,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 15, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
       
     
   </small>
