@@ -8773,6 +8773,23 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 </tbody>
 </table>
 <h2 id="memory_tracker_configurations">Memory tracker configurations<a class="headerlink" href="#memory_tracker_configurations" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Memory Tracker is a memory management tool designed to monitor and limit memory usage. For large-scale queries, Memory Tracker can prevent Out Of Memory (OOM) issues. If you're using Memory Tracker in a containerized environment, you need to add the relevant configurations to the configuration file of the Graph service.</p>
+<ol>
+<li>Create the directory <code>/sys/fs/cgroup/graphd/</code>, and then add and configure the <code>memory.max</code> file under the directory.</li>
+<li>
+<p>Add the following configurations to <code>etc/nebula-graphd.conf</code>.</p>
+<div class="highlight"><pre><span></span><code>--containerized<span class="o">=</span><span class="nb">true</span>
+--cgroup_v2_controllers<span class="o">=</span>/sys/fs/cgroup/graphd/cgroup.controllers
+--cgroup_v2_memory_stat_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.stat
+--cgroup_v2_memory_max_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.max
+--cgroup_v2_memory_current_path<span class="o">=</span>/sys/fs/cgroup/graphd/memory.current
+</code></pre></div>
+</li>
+</ol>
+<p>For more details, see <a href="https://www.nebula-graph.io/posts/memory-tracker-practices">Memory Tracker: Memory Management Practice in NebulaGraph Database</a>.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -8864,7 +8881,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 7, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
       
     
   </small>
