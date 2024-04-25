@@ -1,4 +1,4 @@
-# NebulaGraph Dashboard Community Edition {{ nebula.release }} release notes
+# NebulaGraph Dashboard Community Edition release notes
 
 ## Community Edition 3.4.0
 
