@@ -206,6 +206,9 @@
       # 如果 CSV 文件没有表头，请将 header 设置为 false。默认值为 false。
       header: false
 
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
+
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
 
@@ -304,6 +307,9 @@
       # 如果 CSV 文件有表头，请将 header 设置为 true。
       # 如果 CSV 文件没有表头，请将 header 设置为 false。默认值为 false。
       header: false
+
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
 
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT

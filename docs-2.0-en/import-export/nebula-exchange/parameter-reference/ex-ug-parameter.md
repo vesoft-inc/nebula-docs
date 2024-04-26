@@ -163,6 +163,8 @@ For different data sources, the vertex configurations are different. There are m
 |`tags.vertex.policy`|string|-|No|Supports only the value `hash`. Performs hashing operations on VIDs of type string.|
 |`tags.batch`|int|`256`|Yes|The maximum number of vertices written into NebulaGraph in a single batch.|
 |`tags.partition`|int|`32`|Yes|The number of partitions to be created when the data is written to {{nebula.name}}. If `tags.partition ≤ 1`, the number of partitions to be created in {{nebula.name}} is the same as that in the data source.|
+|`tags.filter`|string|-|No|The filtering rule. The data that matches the filter rule is imported into {{nebula.name}}. For information about filtering formats, see [Dataset](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/Dataset.html#filter(conditionExpr:String):org.apache.spark.sql.Dataset[T]).|
+
 
 #### Specific parameters of Parquet/JSON/ORC data sources
 
@@ -303,6 +305,7 @@ For the specific parameters of different data sources for edge configurations, p
 |`edges.ranking`|int|-|No|The column of rank values. If not specified, all rank values are `0` by default.|
 |`edges.batch`|int|`256`|Yes|The maximum number of edges written into NebulaGraph in a single batch.|
 |`edges.partition`|int|`32`|Yes|The number of partitions to be created when the data is written to {{nebula.name}}. If `edges.partition ≤ 1`, the number of partitions to be created in {{nebula.name}} is the same as that in the data source.|
+|`edges.filter`|string|-|No|The filtering rule. The data that matches the filter rule is imported into {{nebula.name}}. For information about filtering formats, see [Dataset](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/Dataset.html#filter(conditionExpr:String):org.apache.spark.sql.Dataset[T]).|
 
 #### Specific parameters for generating SST files
 

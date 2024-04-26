@@ -163,8 +163,10 @@ check: the real password decrypted by private key and encrypted password is: neb
 |`tags.vertex.udf.newColName`|string|-|否|通过自定义规则合并多列，该参数指定新列的列名。|
 |`tags.vertex.prefix`|string|-|否|为 VID 增加指定的前缀。例如 VID 为`12345`，增加前缀`tag1`后为`tag1_12345`。下划线无法修改。|
 |`tags.vertex.policy`|string|-|否|仅支持取值`hash`。对 string 类型的 VID 进行哈希化操作。|
-|`tags.batch`|int|`256`|是|单批次写入 {{nebula.name}} 的最大点数量。|
-|`tags.partition`|int|`32`|是|数据写入 {{nebula.name}} 时需要创建的分区数。如果`tags.partition ≤ 1`，在 {{nebula.name}} 中创建的分区数和数据源的分区数相同。|
+|`tags.batch`|int|`256`|是|单批次写入{{nebula.name}}的最大点数量。|
+|`tags.partition`|int|`32`|是|数据写入{{nebula.name}}时需要创建的分区数。如果`tags.partition ≤ 1`，在{{nebula.name}}中创建的分区数和数据源的分区数相同。|
+|`tags.filter`|string|-|否|过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。格式请参见[Dataset](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/Dataset.html#filter(conditionExpr:String):org.apache.spark.sql.Dataset[T])。|
+
 
 #### Parquet/JSON/ORC 源特有参数
 
@@ -304,8 +306,10 @@ check: the real password decrypted by private key and encrypted password is: neb
 |`edges.target.prefix`|string|-|否|为 VID 增加指定的前缀。例如 VID 为`12345`，增加前缀`tag1`后为`tag1_12345`。下划线无法修改。|
 |`edges.target.policy`|string|-|否|仅支持取值`hash`。对 string 类型的 VID 进行哈希化操作。|
 |`edges.ranking`|int|-|否|rank 值的列。没有指定时，默认所有 rank 值为`0`。|
-|`edges.batch`|int|`256`|是|单批次写入 {{nebula.name}} 的最大边数量。|
-|`edges.partition`|int|`32`|是|数据写入 {{nebula.name}} 时需要创建的分区数。如果`edges.partition ≤ 1`，在 {{nebula.name}} 中创建的分区数和数据源的分区数相同。|
+|`edges.batch`|int|`256`|是|单批次写入{{nebula.name}}的最大边数量。|
+|`edges.partition`|int|`32`|是|数据写入{{nebula.name}}时需要创建的分区数。如果`edges.partition ≤ 1`，在{{nebula.name}}中创建的分区数和数据源的分区数相同。|
+|`edges.filter`|string|-|否|过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。格式请参见[Dataset](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/Dataset.html#filter(conditionExpr:String):org.apache.spark.sql.Dataset[T])。|
+
 
 #### 生成 SST 时的特有参数
 
