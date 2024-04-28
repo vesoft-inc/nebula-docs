@@ -20,7 +20,8 @@ NebulaGraph Flink Connector 和{{nebula.name}}内核版本对应关系如下。
 
 | Flink Connector 版本 | {{nebula.name}}版本 |
 |:----------|:-----------|
-|     3.0-SNAPSHOT        |     nightly    |
+|     3.0-SNAPSHOT        |  nightly       |
+|       3.8.0             |  3.x.x         |
 |       3.5.0             |  3.x.x         |
 |       3.3.0             |  3.x.x         |
 |       3.0.0             |  3.x.x         |
