@@ -8380,7 +8380,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <p>Provides a Spark SQL interface. This interface can be used to write DataFrames into NebulaGraph in a row-by-row or batch-import way.</p>
 </li>
 </ul>
-<p>For more information, see <a href="https://github.com/vesoft-inc/nebula-spark-connector/blob/release-3.6/README_CN.md">NebulaGraph Spark Connector</a>.</p>
+<p>For more information, see <a href="https://github.com/vesoft-inc/nebula-spark-connector/blob/release-3.8/README_CN.md">NebulaGraph Spark Connector</a>.</p>
 <h2 id="version_compatibility">Version compatibility<a class="headerlink" href="#version_compatibility" title="Permanent link">&para;</a></h2>
 <p>The correspondence between the NebulaGraph Spark Connector version, the NebulaGraph core version and the Spark version is as follows.</p>
 <table>
@@ -8405,6 +8405,21 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <tr>
 <td align="left">nebula-spark-connector-3.0-SNAPSHOT.jar</td>
 <td align="left">nightly</td>
+<td align="left">2.4.x</td>
+</tr>
+<tr>
+<td align="left">nebula-spark-connector_3.0-3.8.0.jar</td>
+<td align="left">3.x</td>
+<td align="left">3.x</td>
+</tr>
+<tr>
+<td align="left">nebula-spark-connector_2.2-3.8.0.jar</td>
+<td align="left">3.x</td>
+<td align="left">2.2.x</td>
+</tr>
+<tr>
+<td align="left">nebula-spark-connector-3.8.0.jar</td>
+<td align="left">3.x</td>
 <td align="left">2.4.x</td>
 </tr>
 <tr>
@@ -8493,7 +8508,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>Graph computing with <a href="../../graph-computing/nebula-algorithm/">NebulaGraph Algorithm</a>.</li>
 </ul>
 <h2 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h2>
-<p>The features of NebulaGraph Spark Connector 3.6.0 are as follows:</p>
+<p>The features of NebulaGraph Spark Connector 3.8.0 are as follows:</p>
 <ul>
 <li>Supports multiple connection settings, such as timeout period, number of connection retries, number of execution retries, etc.</li>
 </ul>
@@ -8513,13 +8528,13 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 <li>Three write modes, <code>insert</code>, <code>update</code> and <code>delete</code>, are supported. <code>insert</code> mode will insert (overwrite) data, <code>update</code> mode will only update existing data, and <code>delete</code> mode will only delete data.</li>
 </ul>
 <h2 id="release_note">Release note<a class="headerlink" href="#release_note" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/vesoft-inc/nebula-spark-connector/releases/tag/v3.6.0">Release</a></p>
+<p><a href="https://github.com/vesoft-inc/nebula-spark-connector/releases/tag/v3.8.0">Release</a></p>
 <h2 id="get_nebulagraph_spark_connector">Get NebulaGraph Spark Connector<a class="headerlink" href="#get_nebulagraph_spark_connector" title="Permanent link">&para;</a></h2>
 <h3 id="compile_and_package">Compile and package<a class="headerlink" href="#compile_and_package" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Clone repository <code>nebula-spark-connector</code>.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-3.6<span class="w"> </span>https://github.com/vesoft-inc/nebula-spark-connector.git
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-3.8<span class="w"> </span>https://github.com/vesoft-inc/nebula-spark-connector.git
 </code></pre></div>
 </li>
 <li>
@@ -8551,7 +8566,7 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 ```
 </code></pre></div>
 
-<p>After compilation, a file similar to <code>nebula-spark-connector-3.6.0-SHANPSHOT.jar</code> is generated in the directory <code>target</code> of the folder.</p>
+<p>After compilation, a file similar to <code>nebula-spark-connector-3.8.0-SHANPSHOT.jar</code> is generated in the directory <code>target</code> of the folder.</p>
 <h3 id="download_maven_remote_repository">Download maven remote repository<a class="headerlink" href="#download_maven_remote_repository" title="Permanent link">&para;</a></h3>
 <p><a href="https://repo1.maven.org/maven2/com/vesoft/nebula-spark-connector/">Download</a></p>
 <h2 id="how_to_use">How to use<a class="headerlink" href="#how_to_use" title="Permanent link">&para;</a></h2>
@@ -8583,6 +8598,8 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 
 <span class="kd">val</span><span class="w"> </span><span class="n">nebulaReadVertexConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span>
 <span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
+<span class="w">  </span><span class="p">.</span><span class="n">withUser</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="n">withPasswd</span><span class="p">(</span><span class="s">&quot;nebula&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withLabel</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withNoColumn</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
@@ -8594,6 +8611,8 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 
 <span class="kd">val</span><span class="w"> </span><span class="n">nebulaReadEdgeConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span>
 <span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
+<span class="w">  </span><span class="p">.</span><span class="n">withUser</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="n">withPasswd</span><span class="p">(</span><span class="s">&quot;nebula&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withLabel</span><span class="p">(</span><span class="s">&quot;knows&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="n">withNoColumn</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
@@ -8651,6 +8670,16 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><code>withUser</code></td>
+<td align="left">No</td>
+<td align="left">NebulaGraph username. This parameter is required when the Storage services require authentication. This parameter is only supported in NebulaGraph Enterprise Edition.</td>
+</tr>
+<tr>
+<td align="left"><code>withPasswd</code></td>
+<td align="left">No</td>
+<td align="left">The password for the NebulaGraph username. This parameter is required when the Storage services require authentication. This parameter is only supported in NebulaGraph Enterprise Edition.</td>
+</tr>
 <tr>
 <td align="left"><code>withSpace</code></td>
 <td align="left">Yes</td>
@@ -8934,7 +8963,7 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 28, 2024</span>
       
     
   </small>
