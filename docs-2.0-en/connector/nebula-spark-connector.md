@@ -189,8 +189,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
   |Parameter|Required|Description|
   |:---|:---|:---|
-  |`withUser`  |No|  NebulaGraph username. This parameter is required when the Storage services require authentication.  |
-  |`withPasswd`  |No|  The password for the NebulaGraph username. This parameter is required when the Storage services require authentication.  |
+  |`withUser`  |No|  NebulaGraph username. This parameter is required when the Storage services require authentication. This parameter is only supported in NebulaGraph Enterprise Edition.  |
+  |`withPasswd`  |No|  The password for the NebulaGraph username. This parameter is required when the Storage services require authentication. This parameter is only supported in NebulaGraph Enterprise Edition.  |
   |`withSpace`  |Yes|  NebulaGraph space name.  |
   |`withLabel`  |Yes|   The Tag or Edge type name within the NebulaGraph space.  |
   |`withNoColumn`  |No|  Whether the property is not read. The default value is `false`, read property. If the value is `true`, the property is not read, the `withReturnCols` configuration is invalid.  |

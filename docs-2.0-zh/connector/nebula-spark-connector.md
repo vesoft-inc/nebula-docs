@@ -189,8 +189,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
   |参数|是否必须|说明|
   |:---|:---|:---|
-  |`withUser`  |否|  {{nebula.name}}用户名。Storage 服务要求身份认证时，需要填写该参数。  |
-  |`withPasswd`  |否|  {{nebula.name}}用户名对应的密码。Storage 服务要求身份认证时，需要填写该参数。  |
+  |`withUser`  |否|  {{nebula.name}}用户名。Storage 服务要求身份认证时，需要填写该参数。仅 {{nebula.name}} 企业版支持该参数。  |
+  |`withPasswd`  |否|  {{nebula.name}}用户名对应的密码。Storage 服务要求身份认证时，需要填写该参数。仅 {{nebula.name}} 企业版支持该参数。  |
   |`withSpace`  |是|   {{nebula.name}} 图空间名称。  |
   |`withLabel`  |是|   {{nebula.name}} 图空间内的 Tag 或 Edge type 名称。  |
   |`withNoColumn`  |否|  是否不读取属性。默认值为`false`，表示读取属性。取值为`true`时，表示不读取属性，此时`withReturnCols`配置无效。  |
