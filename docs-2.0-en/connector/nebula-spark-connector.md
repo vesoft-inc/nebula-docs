@@ -21,6 +21,9 @@ The correspondence between the NebulaGraph Spark Connector version, the NebulaGr
 |nebula-spark-connector_3.0-3.0-SNAPSHOT.jar|	nightly|	3.x|
 |nebula-spark-connector_2.2-3.0-SNAPSHOT.jar|	nightly|	2.2.x|
 |nebula-spark-connector-3.0-SNAPSHOT.jar|	nightly|	2.4.x|
+|nebula-spark-connector_3.0-3.8.0.jar| 3.x  | 3.x |
+|nebula-spark-connector_2.2-3.8.0.jar| 3.x  | 2.2.x |
+|nebula-spark-connector-3.8.0.jar    | 3.x  | 2.4.x |
 |nebula-spark-connector_3.0-3.6.0.jar| 3.x  | 3.x |
 |nebula-spark-connector_2.2-3.6.0.jar| 3.x  | 2.2.x |
 |nebula-spark-connector-3.6.0.jar    | 3.x  | 2.4.x |
@@ -148,6 +151,8 @@ val config = NebulaConnectionConfig
      
 val nebulaReadVertexConfig: ReadNebulaConfig = ReadNebulaConfig
   .builder()
+  .withUser("root")
+  .withPasswd("nebula")
   .withSpace("test")
   .withLabel("person")
   .withNoColumn(false)
@@ -159,6 +164,8 @@ val vertex = spark.read.nebula(config, nebulaReadVertexConfig).loadVerticesToDF(
   
 val nebulaReadEdgeConfig: ReadNebulaConfig = ReadNebulaConfig
   .builder()
+  .withUser("root")
+  .withPasswd("nebula")
   .withSpace("test")
   .withLabel("knows")
   .withNoColumn(false)
@@ -182,6 +189,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
   |Parameter|Required|Description|
   |:---|:---|:---|
+  |`withUser`  |No|  NebulaGraph username. This parameter is required when the Storage services require authentication.  |
+  |`withPasswd`  |No|  The password for the NebulaGraph username. This parameter is required when the Storage services require authentication.  |
   |`withSpace`  |Yes|  NebulaGraph space name.  |
   |`withLabel`  |Yes|   The Tag or Edge type name within the NebulaGraph space.  |
   |`withNoColumn`  |No|  Whether the property is not read. The default value is `false`, read property. If the value is `true`, the property is not read, the `withReturnCols` configuration is invalid.  |

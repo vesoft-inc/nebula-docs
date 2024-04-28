@@ -21,6 +21,9 @@ NebulaGraph Spark Connector、 {{nebula.name}} 内核版本和 Spark 版本对�
 |nebula-spark-connector_3.0-3.0-SNAPSHOT.jar|	nightly|	3.x|
 |nebula-spark-connector_2.2-3.0-SNAPSHOT.jar|	nightly|	2.2.x|
 |nebula-spark-connector-3.0-SNAPSHOT.jar|	nightly|	2.4.x|
+|nebula-spark-connector_3.0-3.8.0.jar| 3.x  | 3.x |
+|nebula-spark-connector_2.2-3.8.0.jar| 3.x  | 2.2.x |
+|nebula-spark-connector-3.8.0.jar    | 3.x  | 2.4.x |
 |nebula-spark-connector_3.0-3.6.0.jar| 3.x  | 3.x |
 |nebula-spark-connector_2.2-3.6.0.jar| 3.x  | 2.2.x |
 |nebula-spark-connector-3.6.0.jar    | 3.x  | 2.4.x |
@@ -148,6 +151,8 @@ val config = NebulaConnectionConfig
      
 val nebulaReadVertexConfig: ReadNebulaConfig = ReadNebulaConfig
   .builder()
+  .withUser("root")
+  .withPasswd("nebula")
   .withSpace("test")
   .withLabel("person")
   .withNoColumn(false)
@@ -159,6 +164,8 @@ val vertex = spark.read.nebula(config, nebulaReadVertexConfig).loadVerticesToDF(
   
 val nebulaReadEdgeConfig: ReadNebulaConfig = ReadNebulaConfig
   .builder()
+  .withUser("root")
+  .withPasswd("nebula")
   .withSpace("test")
   .withLabel("knows")
   .withNoColumn(false)
@@ -182,6 +189,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
   |参数|是否必须|说明|
   |:---|:---|:---|
+  |`withUser`  |否|  {{nebula.name}}用户名。Storage 服务要求身份认证时，需要填写该参数。  |
+  |`withPasswd`  |否|  {{nebula.name}}用户名对应的密码。Storage 服务要求身份认证时，需要填写该参数。  |
   |`withSpace`  |是|   {{nebula.name}} 图空间名称。  |
   |`withLabel`  |是|   {{nebula.name}} 图空间内的 Tag 或 Edge type 名称。  |
   |`withNoColumn`  |否|  是否不读取属性。默认值为`false`，表示读取属性。取值为`true`时，表示不读取属性，此时`withReturnCols`配置无效。  |
