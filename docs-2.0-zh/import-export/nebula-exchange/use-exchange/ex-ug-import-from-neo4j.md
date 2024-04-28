@@ -198,6 +198,9 @@ Exchange 读取 Neo4j 数据时需要完成以下工作：
       # policy:hash
       }
 
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
+
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
 
@@ -274,6 +277,10 @@ Exchange 读取 Neo4j 数据时需要完成以下工作：
       # policy:hash
       }
       #ranking: rank
+
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
+
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
       partition: 10

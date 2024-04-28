@@ -24,6 +24,7 @@ The correspondence between the NebulaGraph Flink Connector version and the Nebul
 | Flink Connector version | NebulaGraph version |
 |:----------|:-----------|
 |     3.0-SNAPSHOT        |     nightly    |
+|       3.8.0             |  3.x.x         |
 |       3.5.0             |  3.x.x         |
 |       3.3.0             |  3.x.x         |
 |       3.0.0             |  3.x.x         |

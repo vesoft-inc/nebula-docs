@@ -284,6 +284,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
 
+      # The filtering rule. The data that matches the filter rule is imported into {{nebula.name}}.
+      # filter: "name='Tom'"
+
       # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
       #writeMode: INSERT
 
@@ -372,6 +375,9 @@ After Exchange is compiled, copy the conf file `target/classes/application.conf`
       # If the CSV file has a header, set the header to true.
       # If the CSV file does not have a header, set the header to false. The default value is false.
       header: false
+
+      # The filtering rule. The data that matches the filter rule is imported into {{nebula.name}}.
+      # filter: "name='Tom'"
 
       # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
       #writeMode: INSERT

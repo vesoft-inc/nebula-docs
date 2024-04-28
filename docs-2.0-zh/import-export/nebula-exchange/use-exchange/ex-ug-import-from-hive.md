@@ -249,6 +249,9 @@ scala> sql("select playerid, teamid, start_year, end_year from basketball.serve"
       # policy:hash
       }
 
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
+
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
 
@@ -335,6 +338,9 @@ scala> sql("select playerid, teamid, start_year, end_year from basketball.serve"
 
       # 指定一个列作为 rank 的源（可选）。
       #ranking: rank
+
+      # 过滤规则。符合过滤规则的数据会被导入{{nebula.name}}。
+      # filter: "name='Tom'"
 
       # 批量操作类型，包括 INSERT、UPDATE 和 DELETE。默认为 INSERT。
       #writeMode: INSERT
