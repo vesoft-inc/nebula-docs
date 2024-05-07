@@ -15,7 +15,7 @@
 ## v3.9.1 (2024.2)
 
 - Bug fixes
-  - Fixed the bug where the parameter `NOT NULL` is used as property values in schema drafting. Replaced it with the default parameter `NULL`.
+  - Fixed the bug where the parameter `NOT NULL` was used as property values in schema drafting. Replaced it with the default parameter `NULL`.
 
 ## v3.9.0 (2024.1)
 
