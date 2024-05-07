@@ -8,7 +8,7 @@
   - Adjusted certain copywriting and styles in the UI.
 
 - Bug fixes
-  - Fixed the error in the example file that is provided in the Import Template section.
+  - Fixed the error in the example file that was provided in the Import Template section.
   - Fixed the bug where the default value was non-null when creating tags or edge types.
   - Fixed the page crash when editing a large number of properties on the import task page.
 
