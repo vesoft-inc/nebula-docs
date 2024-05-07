@@ -5,7 +5,7 @@
 - Enhancements
 
   - Adjusted the default maximum length of the context for AI Assistant.
-  - Adjusted certain copywriting and styles in the UI.
+  - Adjusted some UI copywriting and styles.
 
 - Bug fixes
   - Fixed the error in the example file that was provided in the Import Template section.
