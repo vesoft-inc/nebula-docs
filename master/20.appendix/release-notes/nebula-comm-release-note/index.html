@@ -7936,17 +7936,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    NebulaGraph Community
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -7956,46 +7945,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enhancements" class="md-nav__link">
-    Enhancements
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bug_fixes" class="md-nav__link">
-    Bug fixes
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -8196,35 +8145,6 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enhancements" class="md-nav__link">
-    Enhancements
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bug_fixes" class="md-nav__link">
-    Bug fixes
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -8247,46 +8167,115 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
 
 
 <h1 id="nebulagraph_master_release_notes">NebulaGraph master release notes<a class="headerlink" href="#nebulagraph_master_release_notes" title="Permanent link">&para;</a></h1>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Enhance the full-text index. <a href="https://github.com/vesoft-inc/nebula/pull/5567">#5567</a> <a href="https://github.com/vesoft-inc/nebula/pull/5575">#5575</a> <a href="https://github.com/vesoft-inc/nebula/pull/5577">#5577</a> <a href="https://github.com/vesoft-inc/nebula/pull/5580">#5580</a> <a href="https://github.com/vesoft-inc/nebula/pull/5584">#5584</a> <a href="https://github.com/vesoft-inc/nebula/pull/5587">#5587</a></p>
-<p>The changes involved are listed below:</p>
+<p>Features:</p>
 <ul>
-<li>The original full-text indexing function has been changed from calling Elasticsearch's Term-level queries to Full text queries.</li>
-<li>In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on Elasticsearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">official Elasticsearch documentation</a>.</li>
+<li>Introduced the SINGLE SHORTEST PATH statement. <a href="https://github.com/vesoft-inc/nebula/pull/5664">#5664</a></li>
+</ul>
+<ul>
+<li>Introduced the INNER JOIN statement. <a href="https://github.com/vesoft-inc/nebula/pull/5664">#5664</a></li>
+</ul>
+<ul>
+<li>The ROUND() function now supports various rounding modes. <a href="https://github.com/vesoft-inc/nebula/pull/5680">#5680</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="enhancements">Enhancements<a class="headerlink" href="#enhancements" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Support variables when querying vertex id or property index in a match clause. <a href="https://github.com/vesoft-inc/nebula/pull/5486">#5486</a> <a href="https://github.com/vesoft-inc/nebula/pull/5553">#5553</a></li>
-<li>Performance<ul>
-<li>Support parallel startup of RocksDB instances to speed up the startup of the Storage service. <a href="https://github.com/vesoft-inc/nebula/pull/5521">#5521</a></li>
-<li>Optimize the prefix search performance of the RocksDB iterator after the <code>DeleteRange</code> operation. <a href="https://github.com/vesoft-inc/nebula/pull/5525">#5525</a></li>
-<li>Optimize the appendLog sending logic to avoid impacting write performance when a follower is down. <a href="https://github.com/vesoft-inc/nebula/pull/5571">#5571</a></li>
-<li>Optimize the performance of the <code>MATCH</code> statement when querying for non-existent properties. <a href="https://github.com/vesoft-inc/nebula/pull/5634">#5634</a></li>
+<li>
+<p>Enhancements:</p>
+<ul>
+<li>
+<p>Performance:</p>
+<ul>
+<li>The SHORTEST PATH statement now supports LIMIT pushdown to improve performance. <a href="https://github.com/vesoft-inc/nebula/pull/5657">#5657</a></li>
+</ul>
+<ul>
+<li>Optimized certain logic to mitigate the impact on write performance after a follower crashes. <a href="https://github.com/vesoft-inc/nebula/pull/5673">#5673</a></li>
+</ul>
+<ul>
+<li>Optimized session management in the Meta service to reduce latency in high concurrency scenarios. <a href="https://github.com/vesoft-inc/nebula/pull/5762">#5762</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="bug_fixes">Bug fixes<a class="headerlink" href="#bug_fixes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>DQL<ul>
-<li>Fix the crash of the Graph service when executing a single big query. <a href="https://github.com/vesoft-inc/nebula/pull/5619">#5619</a></li>
-<li>Fix the crash of the Graph service when executing the <code>Find All Path</code> statement. <a href="https://github.com/vesoft-inc/nebula/pull/5621">#5621</a> <a href="https://github.com/vesoft-inc/nebula/pull/5640">#5640</a></li>
-<li>Fix the bug that some expired data is not recycled at the bottom level. <a href="https://github.com/vesoft-inc/nebula/pull/5447">#5447</a> <a href="https://github.com/vesoft-inc/nebula/pull/5622">#5622</a></li>
-<li>Fix the bug that adding a path variable in the <code>MATCH</code> statement causes the <code>all()</code> function push-down optimization to fail. <a href="https://github.com/vesoft-inc/nebula/pull/5631">#5631</a></li>
-<li>Fix the bug in the <code>MATCH</code> statement that returns incorrect results when querying the self-loop by the shortest path. <a href="https://github.com/vesoft-inc/nebula/pull/5636">#5636</a></li>
-<li>Fix the bug that deleting edges by pipe causes the Graph service to crash. <a href="https://github.com/vesoft-inc/nebula/pull/5645">#5645</a></li>
-<li>Fix the bug in the <code>MATCH</code> statement that returns missing properties of edges when matching multiple hops. <a href="https://github.com/vesoft-inc/nebula/pull/5646">#5646</a></li>
+<li>
+<p>Usability:</p>
+<ul>
+<li>Optimized the process of graph space deletion to reduce blocking time. <a href="https://github.com/vesoft-inc/nebula/pull/5754">#5754</a></li>
 </ul>
 </li>
-<li>Others<ul>
-<li>Fix the bug of meta data inconsistency. <a href="https://github.com/vesoft-inc/nebula/pull/5517">#5517</a></li>
-<li>Fix the bug that RocksDB ingest causes the leader lease to be invalid. <a href="https://github.com/vesoft-inc/nebula/pull/5534">#5534</a></li>
-<li>Fix the error in the statistics logic of storage. <a href="https://github.com/vesoft-inc/nebula/pull/5547">#5547</a></li>
-<li>Fix the bug that causes the web service to crash if a flag is set for an invalid request parameter. <a href="https://github.com/vesoft-inc/nebula/pull/5566">#5566</a></li>
-<li>Fix the bug that too many logs are printed when listing sessions. <a href="https://github.com/vesoft-inc/nebula/pull/5618">#5618</a></li>
+</ul>
+<ul>
+<li>
+<p>Stability:</p>
+<ul>
+<li>Optimized the LEADER BALANCE algorithm for a more balanced load distribution. <a href="https://github.com/vesoft-inc/nebula/pull/5670">#5670</a></li>
+</ul>
+<ul>
+<li>Introduced a limit on the maximum number of statements to enhance system protection mechanisms. <a href="https://github.com/vesoft-inc/nebula/pull/5790">#5790</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Bug Fixes:</p>
+<ul>
+<li>
+<p>DQL:</p>
+<ul>
+<li>Fixed inconsistent results when executing the LOOKUP statement multiple times. <a href="https://github.com/vesoft-inc/nebula/pull/5662">#5662</a></li>
+</ul>
+<ul>
+<li>Fixed the syntax error when UNION ALL was used. <a href="https://github.com/vesoft-inc/nebula/pull/5674">#5674</a></li>
+</ul>
+<ul>
+<li>Fixed incorrect LIMIT results and crashes in SHORTEST PATH, ALL PATH, and NOLOOP PATH scenarios. <a href="https://github.com/vesoft-inc/nebula/pull/5787">#5679</a>, <a href="https://github.com/vesoft-inc/nebula/pull/5699">#5699</a>, <a href="https://github.com/vesoft-inc/nebula/pull/5787">#5787</a>, <a href="https://github.com/vesoft-inc/nebula/pull/5789">#5789</a></li>
+</ul>
+<ul>
+<li>Fixed the crash issue when executing the SHORTEST PATH statement multiple times with a memory tracker set. <a href="https://github.com/vesoft-inc/nebula/pull/5720">#5720</a></li>
+</ul>
+<ul>
+<li>Fixed a filtering error to prevent the Graph service from crashing. <a href="https://github.com/vesoft-inc/nebula/pull/5740">#5740</a></li>
+</ul>
+<ul>
+<li>Fixed execution failure in multi-variable scenarios. <a href="https://github.com/vesoft-inc/nebula/pull/5734">#5734</a></li>
+</ul>
+<ul>
+<li>Fixed the issue that MATCH SHORTEST PATH did not support self-loop detection. <a href="https://github.com/vesoft-inc/nebula/pull/5738">#5738</a></li>
+</ul>
+<ul>
+<li>Fixed the crash issue in some scenarios when the filter condition is never met. <a href="https://github.com/vesoft-inc/nebula/pull/5740">#5740</a></li>
+</ul>
+<ul>
+<li>Fixed the crash issue with the ROUND function. <a href="https://github.com/vesoft-inc/nebula/pull/5773">#5773</a></li>
+</ul>
+<ul>
+<li>Fixed the incorrect result issue when executing FIND PATH WITH PROP in a one-hop query. <a href="https://github.com/vesoft-inc/nebula/pull/5759">#5759</a></li>
+</ul>
+<ul>
+<li>Fixed the performance degradation issue when the USE SPACE clause was included in a query statement. <a href="https://github.com/vesoft-inc/nebula/pull/5793">#5793</a></li>
+</ul>
+<ul>
+<li>Fixed the issue that FIND NOLOOP PATH did not exclude self-loops. <a href="https://github.com/vesoft-inc/nebula/pull/5805">#5805</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Others:</p>
+<ul>
+<li>Fixed errors when executing the CLONE SPACE statement. <a href="https://github.com/vesoft-inc/nebula/pull/3005">#3005</a>, <a href="https://github.com/vesoft-inc/nebula/pull/5781">#5781</a></li>
+</ul>
+<ul>
+<li>Fixed the issue that no data was collected by the num_vertices_inserted metric when an index existed. <a href="https://github.com/vesoft-inc/nebula/pull/5756">#5756</a></li>
+</ul>
+<ul>
+<li>Fixed a potential crash issue when queries and schema changes were performed simultaneously. <a href="https://github.com/vesoft-inc/nebula/pull/5855">#5855</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -8296,7 +8285,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 9, 2024</span>
       
     
   </small>
@@ -8539,5 +8528,7 @@ Document versions starting from 3.6.0 contain Community Edition features only. F
         <script src="https://www-cdn.nebula-graph.io/nebula-docs/nebula-docs.7e772ed81c779cacbefc.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
