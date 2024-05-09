@@ -37,7 +37,7 @@
 
     - Fixed the UNION ALL syntax error issue. [#5674](https://github.com/vesoft-inc/nebula/pull/5674)
 
-    - Fixed issues with incorrect LIMIT results and crashes in SHORTEST PATH, ALL PATH, and NOLOOP PATH scenarios. [#5679](https://github.com/vesoft-inc/nebula/pull/5787), [#5699](https://github.com/vesoft-inc/nebula/pull/5699), [#5787](https://github.com/vesoft-inc/nebula/pull/5787), [#5789](https://github.com/vesoft-inc/nebula/pull/5789)
+    - Fixed incorrect LIMIT results and crashes in SHORTEST PATH, ALL PATH, and NOLOOP PATH scenarios. [#5679](https://github.com/vesoft-inc/nebula/pull/5787), [#5699](https://github.com/vesoft-inc/nebula/pull/5699), [#5787](https://github.com/vesoft-inc/nebula/pull/5787), [#5789](https://github.com/vesoft-inc/nebula/pull/5789)
 
     - Fixed the crash issue when executing the SHORTEST PATH statement multiple times with a memory tracker set. [#5720](https://github.com/vesoft-inc/nebula/pull/5720)
 
