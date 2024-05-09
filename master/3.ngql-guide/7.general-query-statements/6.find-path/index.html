@@ -8346,7 +8346,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <p>用户可在配置文件<code>nebula-graphd.conf</code>中添加<code>num_operator_threads</code>参数提高<code>FIND PATH</code>的查询性能。<code>num_operator_threads</code>的取值为<code>2</code>~<code>10</code>，该值不能超过 Graph 服务所在机器的 CPU 核心个数，建议设置为 Graph 服务所在机器的 CPU 核心个数。关于配置文件的详细信息，参见 <a href="../../../5.configurations-and-logs/1.configurations/3.graph-config/">Graph 服务配置</a>。</p>
 </div>
 <h2 id="_1">语法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>FIND { SHORTEST | ALL | NOLOOP } PATH [WITH PROP] FROM &lt;vertex_id_list&gt; TO &lt;vertex_id_list&gt;
+<div class="highlight"><pre><span></span><code>FIND { SHORTEST | SINGLE SHORTEST | ALL | NOLOOP } PATH [WITH PROP] FROM &lt;vertex_id_list&gt; TO &lt;vertex_id_list&gt;
 OVER &lt;edge_type_list&gt; [REVERSELY | BIDIRECT] 
 [&lt;WHERE clause&gt;] [UPTO &lt;N&gt; {STEP|STEPS}] 
 YIELD path as &lt;alias&gt;
@@ -8357,6 +8357,9 @@ YIELD path as &lt;alias&gt;
 </code></pre></div>
 <ul>
 <li><code>SHORTEST</code>：查找所有最短路径。</li>
+</ul>
+<ul>
+<li><code>SINGLE SHORTEST</code>：查找所有最短路径，随机返回其中一条。</li>
 </ul>
 <ul>
 <li><code>ALL</code>：查找所有路径。</li>
@@ -8439,7 +8442,18 @@ nebula&gt; FIND SHORTEST PATH FROM &quot;player100&quot;, &quot;player130&quot; 
 | ...                                                                                                                                                                                            |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code></pre></div>
-<div class="highlight"><pre><span></span><code># 查找所有从 player100 到 team204,并且 degree 为空或者大于等于 0 的路径。
+<div class="highlight"><pre><span></span><code># 查找 player100 和 player130 分别与 player132 和 player133 之间跳数最长为 18 步的最短路径。
+nebula&gt; FIND SINGLE SHORTEST PATH FROM &quot;player100&quot;, &quot;player130&quot; TO &quot;player132&quot;, &quot;player133&quot; OVER * BIDIRECT UPTO 18 STEPS YIELD path as p;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                                                                       |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| &lt;(&quot;player100&quot;)&lt;-[:follow@0 {}]-(&quot;player144&quot;)&lt;-[:follow@0 {}]-(&quot;player133&quot;)&gt;                                                                                                             |
+| &lt;(&quot;player100&quot;)-[:serve@0 {}]-&gt;(&quot;team204&quot;)&lt;-[:serve@0 {}]-(&quot;player138&quot;)-[:serve@0 {}]-&gt;(&quot;team225&quot;)&lt;-[:serve@0 {}]-(&quot;player132&quot;)&gt;                                                         |
+| &lt;(&quot;player130&quot;)-[:serve@0 {}]-&gt;(&quot;team219&quot;)&lt;-[:serve@0 {}]-(&quot;player112&quot;)-[:serve@0 {}]-&gt;(&quot;team204&quot;)&lt;-[:serve@0 {}]-(&quot;player114&quot;)&lt;-[:follow@0 {}]-(&quot;player133&quot;)&gt;                           |
+| &lt;(&quot;player130&quot;)-[:serve@0 {}]-&gt;(&quot;team219&quot;)&lt;-[:serve@0 {}]-(&quot;player112&quot;)-[:serve@0 {}]-&gt;(&quot;team204&quot;)&lt;-[:serve@0 {}]-(&quot;player138&quot;)-[:serve@0 {}]-&gt;(&quot;team225&quot;)&lt;-[:serve@0 {}]-(&quot;player132&quot;)&gt; |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre></div>
+<div class="highlight"><pre><span></span><code># 查找所有从 player100 到 team204，并且 degree 为空或者大于等于 0 的路径。
 nebula&gt; FIND ALL PATH FROM &quot;player100&quot; TO &quot;team204&quot; OVER * WHERE follow.degree is EMPTY or follow.degree &gt;=0 YIELD path AS p;
 +------------------------------------------------------------------------------+
 | p                                                                            |
@@ -8473,7 +8487,7 @@ nebula&gt; FIND NOLOOP PATH FROM &quot;player100&quot; TO &quot;team204&quot; OV
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 28, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 9, 2024</span>
       
     
   </small>
@@ -8641,5 +8655,7 @@ nebula&gt; FIND NOLOOP PATH FROM &quot;player100&quot; TO &quot;team204&quot; OV
         <script src="https://www-cdn.nebula-graph.io/nebula-docs/nebula-docs.7e772ed81c779cacbefc.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
