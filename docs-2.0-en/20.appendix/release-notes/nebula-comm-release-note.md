@@ -45,7 +45,7 @@
 
     - Fixed execution failure in multi-variable scenarios. [#5734](https://github.com/vesoft-inc/nebula/pull/5734)
 
-    - Fixed the issue of MATCH SHORTEST PATH not supporting self-loop detection. [#5738](https://github.com/vesoft-inc/nebula/pull/5738)
+    - Fixed the issue that MATCH SHORTEST PATH did not support self-loop detection. [#5738](https://github.com/vesoft-inc/nebula/pull/5738)
 
     - Fixed the crash issue in some scenarios when the filter condition is never met. [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
 
