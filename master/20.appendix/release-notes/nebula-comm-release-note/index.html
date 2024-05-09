@@ -8006,8 +8006,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v360" class="md-nav__link">
-    v3.6.0
+  <a href="#v380" class="md-nav__link">
+    v3.8.0
   </a>
   
 </li>
@@ -8242,8 +8242,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v360" class="md-nav__link">
-    v3.6.0
+  <a href="#v380" class="md-nav__link">
+    v3.8.0
   </a>
   
 </li>
@@ -8272,17 +8272,54 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 
 
 <h1 id="nebulagraph">NebulaGraph 更新说明<a class="headerlink" href="#nebulagraph" title="Permanent link">&para;</a></h1>
-<h2 id="v360">v3.6.0<a class="headerlink" href="#v360" title="Permanent link">&para;</a></h2>
+<h2 id="v380">v3.8.0<a class="headerlink" href="#v380" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>功能</p>
+<p>功能：</p>
+<ul>
+<li>现已支持 SINGLE SHORTEST PATH 功能。 <a href="https://github.com/vesoft-inc/nebula/pull/5664">#5664</a></li>
+</ul>
+<ul>
+<li>已实现 INNER JOIN 功能。 <a href="https://github.com/vesoft-inc/nebula/pull/5664">#5664</a></li>
+</ul>
+<ul>
+<li>ROUND() 函数现已支持舍入模式。<a href="https://github.com/vesoft-inc/nebula/pull/5680">#5680</a></li>
+</ul>
+</li>
+</ul>
 <ul>
 <li>
-<p>增强全文索引功能。 <a href="https://github.com/vesoft-inc/nebula/pull/5567">#5567</a> <a href="https://github.com/vesoft-inc/nebula/pull/5575">#5575</a> <a href="https://github.com/vesoft-inc/nebula/pull/5577">#5577</a> <a href="https://github.com/vesoft-inc/nebula/pull/5580">#5580</a> <a href="https://github.com/vesoft-inc/nebula/pull/5584">#5584</a> <a href="https://github.com/vesoft-inc/nebula/pull/5587">#5587</a></p>
-<p>涉及变更内容如下：</p>
+<p>增强：</p>
 <ul>
-<li>原有的全文索引功能由调用 Elasticsearch 的 Term-level queries 改为 Full text queries 方式。</li>
-<li>变更后除了支持原有的通配符、正则、模糊匹配等方式（但语法发生变化），还增加了对分词的支持（依赖 Elasticsearch 自身使用的分词器），查询结果包含评分结果。更多语法请参见 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">Elasticsearch 官方文档</a>。</li>
+<li>
+<p>性能：</p>
+<ul>
+<li>SHORTEST PATH 现已支持 LIMIT 下推，以提升性能。 <a href="https://github.com/vesoft-inc/nebula/pull/5657">#5657</a></li>
+</ul>
+<ul>
+<li>优化了部分逻辑，以避免 follower 宕机后对写性能的影响。 <a href="https://github.com/vesoft-inc/nebula/pull/5673">#5673</a></li>
+</ul>
+<ul>
+<li>优化了 meta service 对 session 的管理，以减少高并发场景下的延迟。 <a href="https://github.com/vesoft-inc/nebula/pull/5762">#5762</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>易用性：</p>
+<ul>
+<li>优化了删除 graph space 的过程，减少了阻塞时间。 <a href="https://github.com/vesoft-inc/nebula/pull/5754">#5754</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>稳定性：</p>
+<ul>
+<li>优化了 LEADER BALANCE 算法，以实现更均衡的负载分配。 <a href="https://github.com/vesoft-inc/nebula/pull/5670">#5670</a></li>
+</ul>
+<ul>
+<li>增加了对最大语句条数的限制，以增强系统的保护机制。 <a href="https://github.com/vesoft-inc/nebula/pull/5790">#5790</a></li>
 </ul>
 </li>
 </ul>
@@ -8290,37 +8327,59 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </ul>
 <ul>
 <li>
-<p>增强</p>
+<p>缺陷修复：</p>
 <ul>
-<li>支持使用<code>MATCH</code>子句检索 VID 或属性索引时使用变量。 <a href="https://github.com/vesoft-inc/nebula/pull/5486">#5486</a> <a href="https://github.com/vesoft-inc/nebula/pull/5553">#5553</a></li>
-<li>性能<ul>
-<li>支持并行启动 RocksDB 实例以加快 Storage 服务的启动速度。 <a href="https://github.com/vesoft-inc/nebula/pull/5521">#5521</a></li>
-<li>优化 RocksDB 迭代器执行<code>DeleteRange</code>操作后的前缀搜索性能。 <a href="https://github.com/vesoft-inc/nebula/pull/5525">#5525</a></li>
-<li>优化 appendLog 发送逻辑以避免 follower 宕机后影响写性能。 <a href="https://github.com/vesoft-inc/nebula/pull/5571">#5571</a></li>
-<li>优化<code>MATCH</code>语句查询不存在的属性时的性能。 <a href="https://github.com/vesoft-inc/nebula/pull/5634">#5634</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li>
+<p>DQL：</p>
+<ul>
+<li>修复了多次执行 LOOKUP 语句时，结果不一致的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5662">#5662</a></li>
 </ul>
 <ul>
-<li>缺陷修复<ul>
-<li>DQL<ul>
-<li>修复单个大查询导致 Graph 服务崩溃的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5619">#5619</a></li>
-<li>修复执行<code>Find All Path</code>语句导致 Graph 服务崩溃的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5621">#5621</a> <a href="https://github.com/vesoft-inc/nebula/pull/5640">#5640</a></li>
-<li>修复部分过期数据在最底层不会被回收的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5447">#5447</a> <a href="https://github.com/vesoft-inc/nebula/pull/5622">#5622</a></li>
-<li>修复在<code>MATCH</code>语句中添加路径变量会导致<code>all()</code>函数下推优化失效的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5631">#5631</a></li>
-<li>修复<code>MATCH</code>语句中通过最短路径查询自环时返回结果错误的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5636">#5636</a></li>
-<li>修复通过管道符删除边导致 Graph 服务崩溃的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5645">#5645</a></li>
-<li>修复<code>MATCH</code>语句中匹配多跳时返回结果缺少边属性的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5646">#5646</a></li>
+<li>修复了 UNION ALL 报语法错误的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5674">#5674</a></li>
+</ul>
+<ul>
+<li>修复了在 SHORTEST PATH、ALL PATH、NOLOOP PATH 场景下 LIMIT 结果错误、崩溃等问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5787">#5679</a>、<a href="https://github.com/vesoft-inc/nebula/pull/5699">#5699</a>、<a href="https://github.com/vesoft-inc/nebula/pull/5787">#5787</a>、<a href="https://github.com/vesoft-inc/nebula/pull/5789">#5789</a></li>
+</ul>
+<ul>
+<li>修复了在设置 memory tracker 的情况下，多次重复执行 SHORTEST PATH 导致的崩溃问题。<a href="https://github.com/vesoft-inc/nebula/pull/5720">#5720</a></li>
+</ul>
+<ul>
+<li>修复了 Filter 错误，避免 Graph Service 崩溃。 <a href="https://github.com/vesoft-inc/nebula/pull/5740">#5740</a></li>
+</ul>
+<ul>
+<li>修复了多变量场景下执行失败的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5734">#5734</a></li>
+</ul>
+<ul>
+<li>修复了 MATCH SHORTEST PATH 不支持自环检测的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5738">#5738</a></li>
+</ul>
+<ul>
+<li>修复了在过滤条件永远不成立时，部分场景下的崩溃问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5740">#5740</a></li>
+</ul>
+<ul>
+<li>修复了 ROUND 函数的崩溃问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5773">#5773</a></li>
+</ul>
+<ul>
+<li>修复了 FIND PATH WITH PROP 在一跳查询时，结果错误的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5759">#5759</a></li>
+</ul>
+<ul>
+<li>修复了在执行 USE SPACE + 查询时，性能变慢的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5793">#5793</a></li>
+</ul>
+<ul>
+<li>修复了 FIND NOLOOP PATH 未排除自环的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5805">#5805</a></li>
 </ul>
 </li>
-<li>其他<ul>
-<li>修复 Meta 数据不一致的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5517">#5517</a></li>
-<li>修复 RocksDB 导入操作导致 leader 租约无效的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5534">#5534</a></li>
-<li>修复存储的统计逻辑错误的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5547">#5547</a></li>
-<li>修复设置无效请求参数的标志导致 Web 服务崩溃的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5566">#5566</a></li>
-<li>修复列出会话时打印过多日志的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5618">#5618</a></li>
+</ul>
+<ul>
+<li>
+<p>其他：</p>
+<ul>
+<li>修复了在执行 CLONE SPACE 时的错误。 <a href="https://github.com/vesoft-inc/nebula/pull/3005">#3005</a>、<a href="https://github.com/vesoft-inc/nebula/pull/5781">#5781</a></li>
+</ul>
+<ul>
+<li>修复了在存在索引时，num_vertices_inserted 监控指标无数据的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5756">#5756</a></li>
+</ul>
+<ul>
+<li>修复了在进行查询和 Schema 的变更同时进行时可能出现崩溃的问题。 <a href="https://github.com/vesoft-inc/nebula/pull/5855">#5855</a></li>
 </ul>
 </li>
 </ul>
