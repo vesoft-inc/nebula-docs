@@ -61,6 +61,6 @@
 
     - Fixed errors when executing the CLONE SPACE statement. [#3005](https://github.com/vesoft-inc/nebula/pull/3005), [#5781](https://github.com/vesoft-inc/nebula/pull/5781)
 
-    - Fixed the issue of no data for the num_vertices_inserted metric when an index exists. [#5756](https://github.com/vesoft-inc/nebula/pull/5756)
+    - Fixed the issue that no data was collected by the num_vertices_inserted metric when an index existed. [#5756](https://github.com/vesoft-inc/nebula/pull/5756)
 
     - Fixed a potential crash issue when queries and schema changes were performed simultaneously. [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
