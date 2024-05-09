@@ -27,7 +27,7 @@
 
     - Optimized the LEADER BALANCE algorithm for a more balanced load distribution. [#5670](https://github.com/vesoft-inc/nebula/pull/5670)
 
-    - Introduced a limit for the maximum number of statements to enhance system protection mechanisms. [#5790](https://github.com/vesoft-inc/nebula/pull/5790)
+    - Introduced a limit on the maximum number of statements to enhance system protection mechanisms. [#5790](https://github.com/vesoft-inc/nebula/pull/5790)
 
 - Bug Fixes:
 
