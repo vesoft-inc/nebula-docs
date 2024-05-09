@@ -15,7 +15,7 @@
 
   - 性能：
 
-    - SHORTEST PATH 现已支持 limit 下推，以提升性能。 [#5657](https://github.com/vesoft-inc/nebula/pull/5657)
+    - SHORTEST PATH 现已支持 LIMIT 下推，以提升性能。 [#5657](https://github.com/vesoft-inc/nebula/pull/5657)
 
     - 优化了部分逻辑，以避免 follower 宕机后对写性能的影响。 [#5673](https://github.com/vesoft-inc/nebula/pull/5673)
 
@@ -39,19 +39,19 @@
 
     - 修复了 UNION ALL 报语法错误的问题。 [#5674](https://github.com/vesoft-inc/nebula/pull/5674)
 
-    - 修复了在 SHORTEST PATH、ALL PATH、NOLOOP PATH 场景下 LIMIT 结果错误、Crash 等问题。 [#5679](https://github.com/vesoft-inc/nebula/pull/5787)、[#5699](https://github.com/vesoft-inc/nebula/pull/5699)、[#5787](https://github.com/vesoft-inc/nebula/pull/5787)、[#5789](https://github.com/vesoft-inc/nebula/pull/5789)
+    - 修复了在 SHORTEST PATH、ALL PATH、NOLOOP PATH 场景下 LIMIT 结果错误、崩溃等问题。 [#5679](https://github.com/vesoft-inc/nebula/pull/5787)、[#5699](https://github.com/vesoft-inc/nebula/pull/5699)、[#5787](https://github.com/vesoft-inc/nebula/pull/5787)、[#5789](https://github.com/vesoft-inc/nebula/pull/5789)
 
-    - 修复了在设置 memory tracker 的情况下，多次重复执行 SHORTEST PATH 导致的 crash 问题。[#5720](https://github.com/vesoft-inc/nebula/pull/5720)
+    - 修复了在设置 memory tracker 的情况下，多次重复执行 SHORTEST PATH 导致的崩溃问题。[#5720](https://github.com/vesoft-inc/nebula/pull/5720)
 
-    - 修复了 Filter 错误，避免 Graph Service crash。 [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
+    - 修复了 Filter 错误，避免 Graph Service 崩溃。 [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
 
     - 修复了多变量场景下执行失败的问题。 [#5734](https://github.com/vesoft-inc/nebula/pull/5734)
 
     - 修复了 MATCH SHORTEST PATH 不支持自环检测的问题。 [#5738](https://github.com/vesoft-inc/nebula/pull/5738)
 
-    - 修复了在过滤条件永远不成立时，部分场景下的 crash 问题。 [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
+    - 修复了在过滤条件永远不成立时，部分场景下的崩溃问题。 [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
 
-    - 修复了 ROUND 函数的 crash 问题。 [#5773](https://github.com/vesoft-inc/nebula/pull/5773)
+    - 修复了 ROUND 函数的崩溃问题。 [#5773](https://github.com/vesoft-inc/nebula/pull/5773)
 
     - 修复了 FIND PATH WITH PROP 在一跳查询时，结果错误的问题。 [#5759](https://github.com/vesoft-inc/nebula/pull/5759)
 
@@ -65,7 +65,7 @@
 
     - 修复了在存在索引时，num_vertices_inserted 监控指标无数据的问题。 [#5756](https://github.com/vesoft-inc/nebula/pull/5756)
 
-    - 修复了在进行查询和 Schema 的变更同时进行时可能出现 crash 的问题。 [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
+    - 修复了在进行查询和 Schema 的变更同时进行时可能出现崩溃的问题。 [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
 
 
 
