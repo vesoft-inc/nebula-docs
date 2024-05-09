@@ -17,7 +17,7 @@
 
     - Optimized certain logic to mitigate the impact on write performance after a follower crashes. [#5673](https://github.com/vesoft-inc/nebula/pull/5673)
 
-    - The session management of the meta service has been optimized to reduce latency in high concurrency scenarios. [#5762](https://github.com/vesoft-inc/nebula/pull/5762)
+    - Optimized session management in the Meta service to reduce latency in high concurrency scenarios. [#5762](https://github.com/vesoft-inc/nebula/pull/5762)
 
   - Usability:
 
