@@ -21,7 +21,7 @@
 
   - Usability:
 
-    - The process of deleting graph spaces has been optimized to reduce blockage time. [#5754](https://github.com/vesoft-inc/nebula/pull/5754)
+    - Optimized the process of graph space deletion to reduce blocking time. [#5754](https://github.com/vesoft-inc/nebula/pull/5754)
 
   - Stability:
 
