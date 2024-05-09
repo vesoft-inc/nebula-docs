@@ -55,7 +55,7 @@
 
     - Fixed the performance degradation issue when the USE SPACE clause was included in a query statement. [#5793](https://github.com/vesoft-inc/nebula/pull/5793)
 
-    - Fixed the issue of FIND NOLOOP PATH not excluding self-loops. [#5805](https://github.com/vesoft-inc/nebula/pull/5805)
+    - Fixed the issue that FIND NOLOOP PATH did not exclude self-loops. [#5805](https://github.com/vesoft-inc/nebula/pull/5805)
 
   - Others:
 
