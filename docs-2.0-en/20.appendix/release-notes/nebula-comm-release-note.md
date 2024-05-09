@@ -53,7 +53,7 @@
 
     - Fixed the incorrect result issue when executing FIND PATH WITH PROP in a one-hop query. [#5759](https://github.com/vesoft-inc/nebula/pull/5759)
 
-    - Fixed the performance degradation issue when the USE SPACE clause is included in a query statement. [#5793](https://github.com/vesoft-inc/nebula/pull/5793)
+    - Fixed the performance degradation issue when the USE SPACE clause was included in a query statement. [#5793](https://github.com/vesoft-inc/nebula/pull/5793)
 
     - Fixed the issue of FIND NOLOOP PATH not excluding self-loops. [#5805](https://github.com/vesoft-inc/nebula/pull/5805)
 
