@@ -4397,6 +4397,26 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
   
   
     <li class="md-nav__item">
+      <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/8.deploy-nebula-graph-with-lite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 NebulaGraph Lite 安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../4.deployment-and-installation/2.compile-and-install-nebula-graph/6.deploy-nebula-graph-with-peripherals/" class="md-nav__link">
         
   
@@ -8753,14 +8773,23 @@ nebula&gt; RETURN abs(5-6);
 </code></pre></div>
 <h2 id="round">round()<a class="headerlink" href="#round" title="Permanent link">&para;</a></h2>
 <p>round() 返回指定数字四舍五入后的值。极端情况下请注意浮点数的精度问题。</p>
-<p>语法：<code>round(&lt;expression&gt;, &lt;digit&gt;)</code></p>
+<p>语法：<code>round(&lt;expression&gt;, &lt;precision&gt;, &lt;mode&gt;)</code></p>
 <ul>
 <li><code>expression</code>：结果的数据类型为 double 的表达式。</li>
 </ul>
 <ul>
-<li><code>digit</code>：小数位数。小于 0 时 ，在小数点左侧做四舍五入。数据类型为 int。</li>
+<li><code>precision</code>：代表精度的整数。小于 0 时 ，在小数点左侧做四舍五入。</li>
 </ul>
 <ul>
+<li><code>mode</code>：代表舍入模式的字符串。可选参数。可选值如下：<ul>
+<li><code>DOWN</code>：向零舍入。</li>
+<li><code>CEILING</code>：向正无穷舍入。</li>
+<li><code>FLOOR</code>：向负无穷舍入。</li>
+<li><code>HALF_UP</code>：基于精度向最接近的值舍入，如果最接近的值有两个，则取远离零的值。</li>
+<li><code>HALF_DOWN</code>：基于精度向最接近的值舍入，如果最接近的值有两个，则取靠近零的值。</li>
+<li><code>HALF_EVEN</code>：基于精度向最接近的值舍入，如果最接近的值有两个，则取最接近的偶数值。</li>
+</ul>
+</li>
 <li>返回类型：double。</li>
 </ul>
 <p>示例：</p>
@@ -8777,6 +8806,48 @@ nebula&gt; RETURN round(314.15926, -1);
 +-----------------------+
 | 310.0                 |
 +-----------------------+
+
+nebula&gt; RETURN round(314.15926, 2, &quot;DOWN&quot;);
++---------------------------+
+| round(314.15926,2,&quot;DOWN&quot;) |
++---------------------------+
+| 314.15                    |
++---------------------------+
+
+nebula&gt; RETURN round(314.15926, 2, &quot;CEILING&quot;);
++------------------------------+
+| round(314.15926,2,&quot;CEILING&quot;) |
++------------------------------+
+| 314.16                       |
++------------------------------+
+
+nebula&gt; RETURN round(314.15926, 2, &quot;FLOOR&quot;);
++----------------------------+
+| round(314.15926,2,&quot;FLOOR&quot;) |
++----------------------------+
+| 314.15                     |
++----------------------------+
+
+nebula&gt; RETURN round(314.15, 1, &quot;HALF_UP&quot;);
++---------------------------+
+| round(314.15,1,&quot;HALF_UP&quot;) |
++---------------------------+
+| 314.2                     |
++---------------------------+
+
+nebula&gt; RETURN round(314.15, 1, &quot;HALF_DOWN&quot;);
++-----------------------------+
+| round(314.15,1,&quot;HALF_DOWN&quot;) |
++-----------------------------+
+| 314.1                       |
++-----------------------------+
+
+nebula&gt; RETURN round(314.15, 1, &quot;HALF_EVEN&quot;);    
++-----------------------------+
+| round(314.15,1,&quot;HALF_EVEN&quot;) |
++-----------------------------+
+| 314.2                       |
++-----------------------------+
 </code></pre></div>
 <h2 id="sqrt">sqrt()<a class="headerlink" href="#sqrt" title="Permanent link">&para;</a></h2>
 <p>sqrt() 返回指定数字的平方根。</p>
