@@ -1,36 +1,65 @@
 # NebulaGraph {{ nebula.release }} release notes
 
-## Features
+- Features:
 
-- Enhance the full-text index. [#5567](https://github.com/vesoft-inc/nebula/pull/5567) [#5575](https://github.com/vesoft-inc/nebula/pull/5575) [#5577](https://github.com/vesoft-inc/nebula/pull/5577) [#5580](https://github.com/vesoft-inc/nebula/pull/5580) [#5584](https://github.com/vesoft-inc/nebula/pull/5584) [#5587](https://github.com/vesoft-inc/nebula/pull/5587)
+  - Introduced SINGLE SHORTEST PATH functionality. [#5664](https://github.com/vesoft-inc/nebula/pull/5664)
 
-  The changes involved are listed below:
+  - Implemented INNER JOIN functionality. [#5664](https://github.com/vesoft-inc/nebula/pull/5664)
 
-  - The original full-text indexing function has been changed from calling Elasticsearch's Term-level queries to Full text queries.
-  - In addition to supporting wildcards, regulars, fuzzy matches, etc. (but the syntax has been changed), support for word splitting (relying on Elasticsearch's own word splitter) has been added, and the query results include scoring results. For more syntax, see [official Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html).
+  - ROUND() function now supports rounding modes. [#5680](https://github.com/vesoft-inc/nebula/pull/5680)
 
-## Enhancements
+- Enhancements:
 
-- Support variables when querying vertex id or property index in a match clause. [#5486](https://github.com/vesoft-inc/nebula/pull/5486) [#5553](https://github.com/vesoft-inc/nebula/pull/5553)
-- Performance
-  - Support parallel startup of RocksDB instances to speed up the startup of the Storage service. [#5521](https://github.com/vesoft-inc/nebula/pull/5521)
-  - Optimize the prefix search performance of the RocksDB iterator after the `DeleteRange` operation. [#5525](https://github.com/vesoft-inc/nebula/pull/5525)
-  - Optimize the appendLog sending logic to avoid impacting write performance when a follower is down. [#5571](https://github.com/vesoft-inc/nebula/pull/5571)
-  - Optimize the performance of the `MATCH` statement when querying for non-existent properties. [#5634](https://github.com/vesoft-inc/nebula/pull/5634)
+  - Performance:
 
-## Bug fixes
+    - SHORTEST PATH now supports limit pushdown for performance improvement. [#5657](https://github.com/vesoft-inc/nebula/pull/5657)
 
-- DQL
-  - Fix the crash of the Graph service when executing a single big query. [#5619](https://github.com/vesoft-inc/nebula/pull/5619)
-  - Fix the crash of the Graph service when executing the `Find All Path` statement. [#5621](https://github.com/vesoft-inc/nebula/pull/5621) [#5640](https://github.com/vesoft-inc/nebula/pull/5640)
-  - Fix the bug that some expired data is not recycled at the bottom level. [#5447](https://github.com/vesoft-inc/nebula/pull/5447) [#5622](https://github.com/vesoft-inc/nebula/pull/5622)
-  - Fix the bug that adding a path variable in the `MATCH` statement causes the `all()` function push-down optimization to fail. [#5631](https://github.com/vesoft-inc/nebula/pull/5631)
-  - Fix the bug in the `MATCH` statement that returns incorrect results when querying the self-loop by the shortest path. [#5636](https://github.com/vesoft-inc/nebula/pull/5636)
-  - Fix the bug that deleting edges by pipe causes the Graph service to crash. [#5645](https://github.com/vesoft-inc/nebula/pull/5645)
-  - Fix the bug in the `MATCH` statement that returns missing properties of edges when matching multiple hops. [#5646](https://github.com/vesoft-inc/nebula/pull/5646)
-- Others
-  - Fix the bug of meta data inconsistency. [#5517](https://github.com/vesoft-inc/nebula/pull/5517)
-  - Fix the bug that RocksDB ingest causes the leader lease to be invalid. [#5534](https://github.com/vesoft-inc/nebula/pull/5534)
-  - Fix the error in the statistics logic of storage. [#5547](https://github.com/vesoft-inc/nebula/pull/5547)
-  - Fix the bug that causes the web service to crash if a flag is set for an invalid request parameter. [#5566](https://github.com/vesoft-inc/nebula/pull/5566)
-  - Fix the bug that too many logs are printed when listing sessions. [#5618](https://github.com/vesoft-inc/nebula/pull/5618)
+    - Optimized some logic to mitigate the impact on write performance after a follower crashes. [#5673](https://github.com/vesoft-inc/nebula/pull/5673)
+
+    - Optimized meta service's session management to reduce latency in high concurrency scenarios. [#5762](https://github.com/vesoft-inc/nebula/pull/5762)
+
+  - Usability:
+
+    - Optimized the process of deleting graph spaces, reducing blockage time. [#5754](https://github.com/vesoft-inc/nebula/pull/5754)
+
+  - Stability:
+
+    - Optimized LEADER BALANCE algorithm for more balanced load distribution. [#5670](https://github.com/vesoft-inc/nebula/pull/5670)
+
+    - Added a limit for the maximum number of statements to enhance system protection mechanisms. [#5790](https://github.com/vesoft-inc/nebula/pull/5790)
+
+- Bug Fixes:
+
+  - DQL:
+
+    - Fixed inconsistent results when executing the LOOKUP statement multiple times. [#5662](https://github.com/vesoft-inc/nebula/pull/5662)
+
+    - Fixed UNION ALL syntax error issue. [#5674](https://github.com/vesoft-inc/nebula/pull/5674)
+
+    - Fixed issues with incorrect LIMIT results, crashes, etc., in SHORTEST PATH, ALL PATH, NOLOOP PATH scenarios. [#5679](https://github.com/vesoft-inc/nebula/pull/5787), [#5699](https://github.com/vesoft-inc/nebula/pull/5699), [#5787](https://github.com/vesoft-inc/nebula/pull/5787), [#5789](https://github.com/vesoft-inc/nebula/pull/5789)
+
+    - Fixed crash issue when executing SHORTEST PATH multiple times with memory tracker set. [#5720](https://github.com/vesoft-inc/nebula/pull/5720)
+
+    - Fixed Filter error to prevent Graph Service crash. [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
+
+    - Fixed execution failure in multi-variable scenarios. [#5734](https://github.com/vesoft-inc/nebula/pull/5734)
+
+    - Fixed MATCH SHORTEST PATH not supporting self-loop detection issue. [#5738](https://github.com/vesoft-inc/nebula/pull/5738)
+
+    - Fixed crash issue in some scenarios when filter condition is never met. [#5740](https://github.com/vesoft-inc/nebula/pull/5740)
+
+    - Fixed crash issue with ROUND function. [#5773](https://github.com/vesoft-inc/nebula/pull/5773)
+
+    - Fixed incorrect result issue when executing FIND PATH WITH PROP in one-hop query. [#5759](https://github.com/vesoft-inc/nebula/pull/5759)
+
+    - Fixed performance degradation issue when executing USE SPACE + query. [#5793](https://github.com/vesoft-inc/nebula/pull/5793)
+
+    - Fixed FIND NOLOOP PATH not excluding self-loop issue. [#5805](https://github.com/vesoft-inc/nebula/pull/5805)
+
+  - Others:
+
+    - Fixed errors when executing CLONE SPACE. [#3005](https://github.com/vesoft-inc/nebula/pull/3005), [#5781](https://github.com/vesoft-inc/nebula/pull/5781)
+
+    - Fixed issue with no data for num_vertices_inserted metric when index exists. [#5756](https://github.com/vesoft-inc/nebula/pull/5756)
+
+    - Fixed potential crash issue when query and Schema changes are performed simultaneously. [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
