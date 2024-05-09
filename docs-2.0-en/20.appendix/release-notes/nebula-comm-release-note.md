@@ -63,4 +63,4 @@
 
     - Fixed the issue of no data for the num_vertices_inserted metric when an index exists. [#5756](https://github.com/vesoft-inc/nebula/pull/5756)
 
-    - Fixed a potential crash issue when queries and schema changes are performed simultaneously. [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
+    - Fixed a potential crash issue when queries and schema changes were performed simultaneously. [#5855](https://github.com/vesoft-inc/nebula/pull/5855)
