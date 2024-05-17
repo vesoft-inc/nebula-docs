@@ -19,6 +19,8 @@
 
     - Optimized session management in the Meta service to reduce latency in high concurrency scenarios. [#5762](https://github.com/vesoft-inc/nebula/pull/5762)
 
+    - Optmized LIMIT pushdown rules to improve performance. [#5883](https://github.com/vesoft-inc/nebula/pull/5883)
+  
   - Usability:
 
     - Optimized the process of graph space deletion to reduce blocking time. [#5754](https://github.com/vesoft-inc/nebula/pull/5754)
