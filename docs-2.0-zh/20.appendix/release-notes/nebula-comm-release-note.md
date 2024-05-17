@@ -21,6 +21,8 @@
 
     - 优化了 meta service 对 session 的管理，以减少高并发场景下的延迟。 [#5762](https://github.com/vesoft-inc/nebula/pull/5762)
 
+    - 优化了 LIMIT 下推规则以提升性能。[#5883](https://github.com/vesoft-inc/nebula/pull/5883)
+
   - 易用性：
 
     - 优化了删除 graph space 的过程，减少了阻塞时间。 [#5754](https://github.com/vesoft-inc/nebula/pull/5754)
