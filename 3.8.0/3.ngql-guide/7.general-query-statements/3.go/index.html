@@ -8680,19 +8680,18 @@ nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == &#39;player100&#39; \
 </code></pre></div>
 <h3 id="_9">子查询作为起始点<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>场景：使用子查询的结果作为图遍历的起始点。</p>
-<div class="highlight"><pre><span></span><code># 查询 player100 的朋友和朋友所属队伍。
-nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
+<div class="highlight"><pre><span></span><code># 查询 player100 年龄大于 20 的朋友和这些朋友所属队伍。
+nebula&gt; GO FROM &quot;player100&quot; OVER follow \
         YIELD src(edge) AS id | \
         GO FROM $-.id OVER serve \
         WHERE properties($^).age &gt; 20 \
-        YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
+        YIELD properties($^).name AS Friend, properties($$).name AS Team;
 +---------------------+-----------------+
-| FriendOf            | Team            |
+| Friend              | Team            |
 +---------------------+-----------------+
-| &quot;Boris Diaw&quot;        | &quot;Spurs&quot;         |
-| &quot;Boris Diaw&quot;        | &quot;Jazz&quot;          |
-| &quot;Boris Diaw&quot;        | &quot;Suns&quot;          |
-...
+| &quot;Tim Duncan&quot;        | &quot;Spurs&quot;         |
+| &quot;Tim Duncan&quot;        | &quot;Spurs&quot;         |
++---------------------+-----------------+
 
 # 该 MATCH 查询与上一个 GO 查询具有相同的语义。
 nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  \
@@ -8750,7 +8749,7 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name I
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 17, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 21, 2024</span>
       
     
   </small>
