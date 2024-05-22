@@ -1,6 +1,6 @@
 # Deploy a NebulaGraph cluster with RPM/DEB package on multiple servers
 
-You can deploy a NebulaGraph cluster with RPM or DEB package manually. This topic provides an example of deploying a NebulaGraph cluster on multiple servers (machines).
+You can deploy a NebulaGraph cluster with RPM or DEB package manually. This topic provides an example of deploying a NebulaGraph cluster across multiple servers (machines).
 
 !!! note
 
