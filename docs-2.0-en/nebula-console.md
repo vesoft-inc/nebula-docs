@@ -31,16 +31,22 @@ To connect to NebulaGraph with the `nebula-console` file, use the following synt
 
 For example:
 
-- Direct link to NebulaGraph
+- Connect to NebulaGraph over HTTP/1.1
 
   ```bash
   ./nebula-console -addr 192.168.8.100 -port 9669 -u root -p nebula
   ```
 
-- Enable SSL encryption and require two-way authentication
+- Enable SSL encryption with a private CA certificate
 
   ```bash
   ./nebula-console -addr 192.168.8.100 -port 9669 -u root  -p nebula -enable_ssl -ssl_root_ca_path /home/xxx/cert/root.crt -ssl_cert_path /home/xxx/cert/client.crt -ssl_private_key_path /home/xxx/cert/client.key
+  ```
+
+- Enable SSL encryption with a trusted CA certificate
+
+  ```bash
+  ./nebula-console -addr nebula-graph-ncnj7ss1ssfnnb4eqq88g.aws.dev.cloud.nebula-graph.io -port 9669 -u root -p nebula -enable_ssl 
   ```
 
 Parameter descriptions are as follows:
@@ -51,14 +57,14 @@ Parameter descriptions are as follows:
 | `-addr/-address` | Sets the IP or hostname of the Graph service. The default address is 127.0.0.1. <!--If NebulaGraph is deployed on [NebulaGraph Cloud](https://docs.nebula-graph.io/3.1.0/nebula-cloud/1.what-is-cloud/), you need to create a Private Link and set the IP or hostname of the Private Endpoint as the parameter value.--> |
 | `-P/-port` | Sets the port number of the graphd service. The default port number is 9669. |
 | `-u/-user` | Sets the username of your NebulaGraph account. Before enabling authentication, you can use any existing username. The default username is `root`. |
-| `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. |
+| `-p/-password` | Sets the password of your NebulaGraph account. Before enabling authentication, you can use any characters as the password. If not specified, a prompt appears requesting the password.|
 | `-t/-timeout`  | Sets an integer-type timeout threshold of the connection. The unit is millisecond. The default value is 120. |
 | `-e/-eval` | Sets a string-type nGQL statement. The nGQL statement is executed once the connection succeeds. The connection stops after the result is returned. |
 | `-f/-file` | Sets the path of an nGQL file. The nGQL statements in the file are executed once the connection succeeds. The result will be returned and the connection stops then. |
 | `-enable_ssl` | Enables SSL encryption when connecting to NebulaGraph. |
-| `-ssl_root_ca_path` | Sets the storage path of the certification authority file. |
-| `-ssl_cert_path` | Sets the storage path of the certificate file. |
-| `-ssl_private_key_path` | Sets the storage path of the private key file. |
+| `-ssl_root_ca_path` | Sets the path to the root cerificate signed by a private Certifcate Authority (CA). |
+| `-ssl_cert_path` | Sets the path to the certificate of the client. |
+| `-ssl_private_key_path` | Sets the path to the private key of the client. |
 |`-ssl_insecure_skip_verify`| Specifies whether the client skips verifying the server's certificate chain and hostname. The default is `false`. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 
 For information on more parameters, see the [project repository](https://github.com/vesoft-inc/nebula-console/tree/{{console.branch}}).
