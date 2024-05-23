@@ -8430,7 +8430,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <h1 id="nebulagraph_console">NebulaGraph Console<a class="headerlink" href="#nebulagraph_console" title="Permanent link">&para;</a></h1>
 <p>NebulaGraph Console 是 NebulaGraph 的原生命令行客户端，用于连接 NebulaGraph 集群并执行查询，同时支持管理参数、导出命令的执行结果、导入测试数据集等功能。</p>
 <h2 id="_1">版本对照表<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>参见<a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.6">Github</a>。</p>
+<p>参见<a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.8">Github</a>。</p>
 <h2 id="nebulagraph_console_1">获取 NebulaGraph Console<a class="headerlink" href="#nebulagraph_console_1" title="Permanent link">&para;</a></h2>
 <p>NebulaGraph Console 的获取方式如下：</p>
 <!-- - 直接从 NebulaGraph 安装路径的 `bin` 目录中获取二进制文件 `nebula-console`。-->
@@ -8453,15 +8453,18 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 <p>示例如下：</p>
 <ul>
 <li>
-<p>直接连接 NebulaGraph </p>
+<p>通过 HTTP/1.1 连接 NebulaGraph </p>
 <div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.100<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>nebula
 </code></pre></div>
 </li>
 </ul>
 <ul>
 <li>
-<p>开启 SSL 加密且需要双向认证</p>
-<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.100<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w">  </span>-p<span class="w"> </span>nebula<span class="w"> </span>-enable_ssl<span class="w"> </span>-ssl_root_ca_path<span class="w"> </span>/home/xxx/cert/root.crt<span class="w"> </span>-ssl_cert_path<span class="w"> </span>/home/xxx/cert/client.crt<span class="w"> </span>-ssl_private_key_path<span class="w"> </span>/home/xxx/cert/client.key
+<p>开启 SSL 加密且使用私有 CA 证书连接</p>
+<p><div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.8.100<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w">  </span>-p<span class="w"> </span>nebula<span class="w"> </span>-enable_ssl<span class="w"> </span>-ssl_root_ca_path<span class="w"> </span>/home/xxx/cert/root.crt<span class="w"> </span>-ssl_cert_path<span class="w"> </span>/home/xxx/cert/client.crt<span class="w"> </span>-ssl_private_key_path<span class="w"> </span>/home/xxx/cert/client.key
+</code></pre></div>
+- 开启 SSL 加密且使用受信任的 CA 证书连接</p>
+<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span>nebula-graph-ncnj7ss1ssfnnb4eqq88g.aws.dev.cloud.nebula-graph.io<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>nebula<span class="w"> </span>-enable_ssl<span class="w"> </span>
 </code></pre></div>
 </li>
 </ul>
@@ -8492,7 +8495,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tr>
 <tr>
 <td><code>-p/-password</code></td>
-<td>设置用户名对应的密码。未启用身份认证时，密码可以填写任意字符。</td>
+<td>设置用户名对应的密码。未启用身份认证时，密码可以填写任意字符。若不指定，会弹出密码输入提醒。</td>
 </tr>
 <tr>
 <td><code>-t/-timeout</code></td>
@@ -8512,15 +8515,15 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tr>
 <tr>
 <td><code>-ssl_root_ca_path</code></td>
-<td>指定 CA 根证书的存储路径。</td>
+<td>指定私有 CA 颁布的根证书的存储路径。</td>
 </tr>
 <tr>
 <td><code>-ssl_cert_path</code></td>
-<td>指定 SSL 公钥证书的存储路径。</td>
+<td>指定 SSL 客户端证书存储路径。</td>
 </tr>
 <tr>
 <td><code>-ssl_private_key_path</code></td>
-<td>指定 SSL 密钥的存储路径。</td>
+<td>指定 SSL 客户端密钥的存储路径。</td>
 </tr>
 <tr>
 <td><code>-ssl_insecure_skip_verify</code></td>
@@ -8528,7 +8531,7 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html -->
 </tr>
 </tbody>
 </table>
-<p>更多参数参见<a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.6">项目仓库</a>。</p>
+<p>更多参数参见<a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.8">项目仓库</a>。</p>
 <h3 id="_3">管理参数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>NebulaGraph Console 可以保存参数，用于参数化查询。</p>
 <div class="admonition note">
@@ -8704,7 +8707,7 @@ Bye root!
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 22, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 23, 2024</span>
       
     
   </small>
