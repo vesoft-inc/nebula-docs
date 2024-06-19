@@ -202,7 +202,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
 !!! note
 
-    DataFrame 中的列会自动作为属性写入 {{nebula.name}} 。
+    - DataFrame 中的列会自动作为属性写入 {{nebula.name}} 。
+    - 请确保 DataFrame 中的列名和{{nebula.name}}中的属性名一致。若不一致，可通过`DataFrame.withColumnRenamed`方法修改列名。
 
 ```scala
 val config = NebulaConnectionConfig
