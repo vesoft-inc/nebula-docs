@@ -202,7 +202,8 @@ val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
 
 !!! note
 
-    The values of columns in a dataframe are automatically written to NebulaGraph as property values.
+    - The values of columns in a DataFrame are automatically written to NebulaGraph as property values.
+    - Make sure that the column names in the DataFrame are consistent with the property names in NebulaGraph. If they are inconsistent, you can use `DataFrame.withColumnRenamed` to rename the column names first.
 
 ```scala
 val config = NebulaConnectionConfig
