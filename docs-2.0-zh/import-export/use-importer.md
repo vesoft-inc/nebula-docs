@@ -182,7 +182,7 @@ client:
 |`client.ssl.caPath`|-|否|指定 CA 根证书的存储路径。</br>开启 SSL 认证后该参数必填。|
 |`client.ssl.insecureSkipVerify`|`false`|否|指定是否跳过验证服务端的证书链和主机名。如果设置为`true`，则接受服务端提供的任何证书链和主机名。|
 |`client.concurrencyPerAddress`|`10`|否|单个 Graph 服务的客户端并发连接数。|
-|`client.retryInitialInterval`|`1s`|否|重连间隔时间。|
+|`client.reconnectInitialInterval`|`1s`|否|重连间隔时间。|
 |`client.retry`|`3`|否|nGQL 语句执行失败的重试次数。|
 |`client.retryInitialInterval`|`1s`|否|重试间隔时间。|
 
