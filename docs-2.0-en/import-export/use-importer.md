@@ -181,7 +181,7 @@ client:
 |`client.ssl.caPath`|-|No| Specifies the storage path for the CA root certificate.</br>This parameter is required when SSL authentication is enabled.|
 |`client.ssl.insecureSkipVerify`|`false`|No|Specifies whether the client skips verifying the server's certificate chain and hostname. If set to `true`, any certificate chain and hostname provided by the server is accepted.|
 |`client.concurrencyPerAddress`|`10`|No| The number of concurrent client connections for a single graph service.|
-|`client.retryInitialInterval`|`1s`|No| Reconnect interval time.|
+|`client.reconnectInitialInterval`|`1s`|No| Reconnect interval time.|
 |`client.retry`|`3`|No| The number of retries for failed execution of the nGQL statement.|
 |`client.retryInitialInterval`|`1s`|No| Retry interval time.|
 
