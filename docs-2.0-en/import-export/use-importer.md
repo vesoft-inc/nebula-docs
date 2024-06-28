@@ -219,8 +219,7 @@ manager:
 |Parameter|Default value|Required|Description|
 |:---|:---|:---|:---|
 |`manager.spaceName`|-|Yes| Specifies the NebulaGraph space to import the data into. Do not support importing multiple map spaces at the same time.|
-|`manager.batch`|`128`|No| The batch size for executing statements (global configuration).
-</br>Setting the batch size individually for a data source can using the parameter `sources.batch` below.|
+|`manager.batch`|`128`|No| The batch size for executing statements (global configuration).</br>Setting the batch size individually for a data source can using the parameter `sources.batch` below.|
 |`manager.readerConcurrency`|`50`|No| The number of concurrent reads of the data source by the reader.|
 |`manager.importerConcurrency`|`512`|No| The number of concurrent nGQL statements generated to be executed, and then will call the client to execute these nGQL statements.|
 |`manager.statsInterval`|`10s`|No| The time interval for printing statistical information|
