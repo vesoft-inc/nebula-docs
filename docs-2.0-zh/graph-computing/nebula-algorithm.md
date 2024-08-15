@@ -85,8 +85,10 @@ NebulaGraph Algorithm 实现图计算的流程如下：
   ```bash
   $ git clone -b {{algorithm.branch}} https://github.com/vesoft-inc/nebula-algorithm.git
   ```
-如果是在 Spark 3.x 环境中运行 Algorithm，请使用 spark3 分支：
-   ```bash
+
+  如果是在 Spark 3.x 环境中运行 Algorithm，请使用 spark3 分支：
+
+  ```bash
   $ git clone -b spark3 https://github.com/vesoft-inc/nebula-algorithm.git
   ```
 
