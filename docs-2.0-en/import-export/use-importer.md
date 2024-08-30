@@ -405,7 +405,7 @@ The configuration mainly includes the following parts:
 |`sources.csv.withHeader`   |`false`| No | Whether to ignore the first record in the CSV file.          |  
 |`sources.csv.lazyQuotes`   |`false`| No | Whether to allow lazy quotes. If `lazyQuotes` is true, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field.    |  
 |`sources.tags.name`   |-| Yes | The tag name.         |  
-|`sources.tags.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE`.         |  
+|`sources.tags.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE` (The `DELETE` type is supported starting from NebulaGraph importer version 4.1.0).         |  
 |`sources.tags.filter.expr`   |-| No | Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are `==`, `! =`, `<`, `>`, `<=` and `>=`. </br>Logical operators supported are `not` (!) , `and` (&&) and `or` (\|\|). </br>For example `(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"`.         |  
 |`sources.tags.id.type`   |`STRING`| No |  The type of the VID.       |  
 |`sources.tags.id.function`   |-| No | Functions to generate the VID. Currently, only function `hash` are supported.         |  
@@ -420,7 +420,7 @@ The configuration mainly includes the following parts:
 |`sources.tags.props.alternativeIndices`   |-| No | Ignored when `nullable` is `false`. The property is fetched from records according to the indices in order until not equal to `nullValue`.         |  
 |`sources.tags.props.defaultValue`   |-| No | Ignored when `nullable` is `false`. The property default value, when all the values obtained by `index` and `alternativeIndices` are `nullValue`.         |  
 |`sources.edges.name`   |-| Yes | The edge type name.          |  
-|`sources.edges.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE`.       |  
+|`sources.edges.mode`   |`INSERT`| No | Batch operation types, including insert, update and delete. Optional values are `INSERT`, `UPDATE` and `DELETE` (The `DELETE` type is supported starting from NebulaGraph importer version 4.1.0).       |  
 |`sources.edges.filter.expr`   |-| No | Filter the data and only import if the filter conditions are met. </br>Supported comparison characters are `==`, `! =`, `<`, `>`, `<=` and `>=`. </br>Logical operators supported are `not` (!) , `and` (&&) and `or` (\|\|). </br>For example `(Record[0] == "Mahinda" or Record[0] == "Michael") and Record[3] == "male"`.          |  
 |`sources.edges.src.id.type`   |`STRING`| No |  The data type of the VID at the starting vertex on the edge.       |  
 |`sources.edges.src.id.index`   |-| Yes | The column number in the data file corresponding to the VID at the starting vertex on the edge.         |  
