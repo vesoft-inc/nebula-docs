@@ -8929,8 +8929,8 @@ You can adjust some of the kernel parameters to better accommodate the need for 
 <tr>
 <td align="left">Number of partitions for a graph space</td>
 <td align="left">-</td>
-<td align="left"><code>the_number_of_disks_in_the_cluster</code> * <code>disk_partition_num_multiplier</code></td>
-<td align="left"><code>disk_partition_num_multiplier</code> is an integer between 2 and 20 (both including). Its value depends on the disk performance. Use 20 for SSD and 2 for HDD.</td>
+<td align="left"><code>the_number_of_disks_in_the_cluster</code> * <code>multiplier</code></td>
+<td align="left"><code>multiplier</code> is an integer between 2 and 20 (both including). Its value depends on the disk performance. Use 20 for SSD and 2 for HDD.</td>
 </tr>
 </tbody>
 </table>
@@ -8946,8 +8946,7 @@ You can adjust some of the kernel parameters to better accommodate the need for 
 <ul>
 <li>
 <p>Question 3: How to get the number of RocksDB instances?</p>
-<p>Answer: Each graph space corresponds to one RocksDB instance and each directory in the <code>--data_path</code> item in the <code>etc/nebula-storaged.conf</code> file corresponds to one RocksDB instance. 
-  That is, the number of RocksDB instances = the number of directories * the number of graph spaces.</p>
+<p>Answer: The number of RocksDB instances = the number of graph spaces * the total number of directories specified by the <code>--data_path</code> parameter across all Storage services. Each graph space corresponds to one RocksDB instance and each directory in the <code>--data_path</code> parameter in the <code>etc/nebula-storaged.conf</code> file corresponds to one RocksDB instance.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Users can decrease the memory size occupied by the bloom filter by adding <code>--enable_partitioned_index_filter=true</code> in <code>etc/nebula-storaged.conf</code>. But it may decrease the read performance in some random-seek cases.</p>
@@ -8996,7 +8995,7 @@ NebulaGraph is intended for NVMe SSD, but if you don't have a choice, optimizing
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 26, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2024</span>
       
     
   </small>
