@@ -20,7 +20,8 @@ To ensure the healthy operation of Exchange, ensure that the following software 
 - Apache Spark. The requirements for Spark versions when using Exchange to export data from data sources are as follows. In the following table, Y means that the corresponding Spark version is supported, and N means not supported.
 
   !!! note
-        Use the correct Exchange JAR file based on the Spark version. For example, for Spark version 2.4, use nebula-exchange_spark_2.4-{{exchange.release}}.jar.
+
+        Use the correct Exchange JAR file based on the Spark version. For example, for Spark version 2.4, use nebula-exchange_spark_2.4-{{exchange.release}}.jar. For the JAR files corresponding to different Spark versions, see [Version Compatibility Matrix](https://github.com/vesoft-inc/nebula-exchange?tab=readme-ov-file#version-compatibility-matrix).
 
   | Data source | Spark 2.2 | Spark 2.4 | Spark 3 |
   | - | - | - | - |

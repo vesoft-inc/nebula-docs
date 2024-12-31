@@ -20,7 +20,8 @@ Exchange 3.x 支持以下操作系统：
 - Apache Spark。使用 Exchange 从不同数据源导出数据对 Spark 版本的要求如下：
   
   !!! note
-        使用 Exchange 时，需根据 Spark 版本选择相应的 JAR 文件。例如，当 Spark 版本为 2.4 时，选择 nebula-exchange_spark_2.4-{{exchange.release}}.jar。
+
+        使用 Exchange 时，需根据 Spark 版本选择相应的 JAR 文件。例如，当 Spark 版本为 2.4 时，选择 nebula-exchange_spark_2.4-{{exchange.release}}.jar。关于各版本 Spark 对应的 JAR 文件，请参见 [版本兼容性矩阵](https://github.com/vesoft-inc/nebula-exchange?tab=readme-ov-file#version-compatibility-matrix)。
 
   | 数据源 | Spark 2.2 | Spark 2.4 | Spark 3 |
   | - | - | - | - |
