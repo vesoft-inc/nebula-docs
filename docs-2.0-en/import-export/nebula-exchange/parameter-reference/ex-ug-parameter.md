@@ -13,7 +13,7 @@ java -cp <exchange_jar_package> com.vesoft.exchange.common.GenerateConfigTemplat
 Example:
 
 ```agsl
-java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula/csv_application.conf
+java -cp nebula-exchange_spark_2.4-3.0-SNAPSHOT.jar com.vesoft.exchange.common.GenerateConfigTemplate -s csv -p /home/nebula
 ```
 
 ## Using an encrypted password
