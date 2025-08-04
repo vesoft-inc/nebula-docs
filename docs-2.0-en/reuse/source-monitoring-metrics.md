@@ -12,7 +12,7 @@
 | `num_killed_queries`                             | The number of killed queries.                                |
 | `num_opened_sessions`                            | The number of sessions connected to the server.              |
 | `num_queries`                                    | The number of queries.                                       |
-| `num_query_errors_leader_changes`                | The number of the raft leader changes due to query errors.            |
+| `num_query_errors_leader_changes`                | The number of query errors due to the raft leader changes.            |
 | `num_query_errors`                               | The number of query errors.                                   |
 | `num_reclaimed_expired_sessions`                 | The number of expired sessions actively reclaimed by the server. |
 | `num_rpc_sent_to_metad_failed`                   | The number of failed RPC requests that the Graphd service sent to the Metad service. |
@@ -137,7 +137,7 @@
 | `query_latency_us`                               | The latency of queries.                             |
 | `num_slow_queries`                               | The number of slow queries.                              |
 | `num_query_errors`                               | The number of query errors.                            |
-| `num_query_errors_leader_changes`                | The number of raft leader changes due to query errors.      |
+| `num_query_errors_leader_changes`                | The number of query errors due to raft leader changes.      |
 | `num_killed_queries`                             | The number of killed queries.                        |
 | `num_aggregate_executors`                        | The number of executions for the Aggregation operator.               |
 | `num_sort_executors`                             | The number of executions for the Sort operator.                     |
