@@ -107,6 +107,8 @@ Exchange {{exchange.release}} supports converting data from the following format
 
 - [JDBC](../use-exchange/ex-ug-import-from-jdbc.md)
 
+- [Custom data sources](../use-exchange/ex-ug-import-from-custom.md)
+
 In addition to importing data as nGQL statements, Exchange supports generating SST files for data sources and then [importing SST](../use-exchange/ex-ug-import-from-sst.md) files via Console.
 
 ## Release note
