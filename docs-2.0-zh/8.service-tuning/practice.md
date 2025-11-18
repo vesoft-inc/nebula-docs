@@ -43,7 +43,7 @@
 - [logrotate 在 {{nebula.name}} 的日志滚动实践](https://discuss.nebula-graph.com.cn/t/topic/7803)
 
 
- ## 视频
+## 视频
 
  * [Nebula 高性能图 schema 设计 by 青藤云安全](https://www.bilibili.com/video/BV1r64y1R72i)（51 分 30 秒）
 

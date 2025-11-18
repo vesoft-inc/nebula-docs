@@ -12,7 +12,7 @@
 | `num_killed_queries`                             | 被终止的查询数量。                        |
 | `num_opened_sessions`                            | 服务端建立过的会话数量。                  |
 | `num_queries`                                    | 查询次数。                                |
-| `num_query_errors_leader_changes`                | 因查询错误而导致的 Leader 变更的次数。      |
+| `num_query_errors_leader_changes`                | 因 Leader 变更而导致的查询错误的次数。      |
 | `num_query_errors`                               | 查询错误次数。                            |
 | `num_reclaimed_expired_sessions`                 | 服务端主动回收的过期的会话数量。          |
 | `num_rpc_sent_to_metad_failed`                   | Graphd 服务发给 Metad 的 RPC 请求失败的数量。          |
@@ -136,7 +136,7 @@
 | `query_latency_us`             | 查询延迟时间。                            |
 | `num_slow_queries`             | 慢查询次数。                              |
 | `num_query_errors`             | 查询报错语句数量。|
-| `num_query_errors_leader_changes` | 因查询错误而导致的 Leader 变更的次数。      |
+| `num_query_errors_leader_changes` | 因 Leader 变更而导致的查询错误的次数。      |
 | `num_killed_queries`           | 被终止的查询数量。                        |
 | `num_aggregate_executors`      | 聚合（Aggregate）算子执行时间。               |
 | `num_sort_executors`           | 排序（Sort）算子执行次数。                    |
