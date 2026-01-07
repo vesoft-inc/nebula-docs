@@ -4,7 +4,7 @@ This topic introduces the limitations of Studio.
 
 ## Architecture
 
-For now, Studio v3.x supports x86_64 architecture only.
+For now, Studio v3.x supports x86_64 architecture; Studio v3.7.0 and later support ARM64 for Docker.
 
 ## Upload data
 

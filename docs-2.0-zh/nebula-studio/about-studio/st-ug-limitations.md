@@ -4,7 +4,7 @@
 
 ## 系统架构
 
-Studio 目前支持 x86_64 和 arm 架构。
+Studio 3.x 支持 x86_64 架构；Studio 3.7.0 及以上版本，支持 ARM64（Docker）。
 
 ## 数据上传
 
