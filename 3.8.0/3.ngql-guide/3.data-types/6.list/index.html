@@ -1170,8 +1170,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html --><
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#index_syntax" class="md-nav__link">
-    Index syntax
+  <a href="#subscript_expression_syntax" class="md-nav__link">
+    Subscript expression syntax
   </a>
   
 </li>
@@ -8275,8 +8275,8 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html --><
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#index_syntax" class="md-nav__link">
-    Index syntax
+  <a href="#subscript_expression_syntax" class="md-nav__link">
+    Subscript expression syntax
   </a>
   
 </li>
@@ -8330,25 +8330,48 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html --><
 <p>A composite data type (i.e. set, map, and list) <strong>CANNOT</strong> be stored as properties of vertices or edges.</p>
 <h2 id="list_operations">List operations<a class="headerlink" href="#list_operations" title="Permanent link">¶</a></h2>
 <p>You can use the preset <a href="../../6.functions-and-expressions/6.list/">list function</a> to operate the list, or use the index to filter the elements in the list.</p>
-<h3 id="index_syntax">Index syntax<a class="headerlink" href="#index_syntax" title="Permanent link">¶</a></h3>
+<h3 id="subscript_expression_syntax">Subscript expression syntax<a class="headerlink" href="#subscript_expression_syntax" title="Permanent link">¶</a></h3>
 <div class="highlight"><pre><span></span><code>[M]
 [M..N]
 [M..]
 [..N]
 </code></pre></div>
-<p>The index of nGQL supports queries from front to back, starting from 0. 0 means the first element, 1 means the second element, and so on. It also supports queries from back to front, starting from -1. -1 means the last element, -2 means the penultimate element, and so on.</p>
+<p>nGQL list indexes start from <code>0</code>:</p>
 <ul>
-<li>[M]: represents the element whose index is M.</li>
-<li>[M..N]: represents the elements whose indexes are <code>greater or equal to M but smaller than N</code>. Return empty when <code>N</code> is 0.</li>
-<li>[M..]: represents the elements whose indexes are <code>greater or equal to M</code>.</li>
-<li>[..N]: represents the elements whose indexes are <code>smaller than N</code>. Return empty when <code>N</code> is 0.</li>
+<li><code>0</code> refers to the first element, <code>1</code> to the second element, and so on.</li>
+<li>Negative indexes refer to positions relative to the end of the list. <code>-1</code> refers to the last element, <code>-2</code> to the second-to-last element, and so on.</li>
 </ul>
+<p>The expressions work as follows:</p>
+<ul>
+<li><code>[M]</code>: Returns the element at index <code>M</code>.</li>
+<li><code>[M..N]</code>: Returns the elements from position <code>M</code> up to, but not including, position <code>N</code>.</li>
+<li><code>[M..]</code>: Returns all elements from position <code>M</code> to the end of the list.</li>
+<li><code>[..N]</code>: Returns all elements from the beginning of the list up to, but not including, position <code>N</code>.</li>
+</ul>
+<p>For a range expression, if <code>M</code> or <code>N</code> is negative, it is first converted to the corresponding position relative to the end of the list. Given a list of length <code>L</code>, a negative index <code>i</code> corresponds to position <code>L + i</code>.</p>
+<p>For example, for the list <code>[1, 2, 3]</code>:</p>
+<div class="highlight"><pre><span></span><code>Index:           0    1    2
+Negative index: -3   -2   -1
+Element:         1    2    3
+</code></pre></div>
+<p>Therefore:</p>
+<div class="highlight"><pre><span></span><code>list[1, 2, 3][0..-1]
+</code></pre></div>
+<p>is equivalent to:</p>
+<div class="highlight"><pre><span></span><code>list[1, 2, 3][0..2]
+</code></pre></div>
+<p>Because the upper bound is exclusive, the result is:</p>
+<div class="highlight"><pre><span></span><code>[1, 2]
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li>Return empty if the index is out of bounds, while return normally if the index is within the bound.</li>
-<li>Return empty if <code>M</code>≥<code>N</code>.</li>
-<li>When querying a single element, if <code>M</code> is null, return <code>BAD_TYPE</code>. When conducting a range query, if <code>M</code> or <code>N</code> is null, return <code>null</code>.</li>
+<li>Range expressions use a half-open interval: the start position is included, while the end position is excluded.</li>
+<li>Negative range boundaries are converted to their corresponding positions relative to the end of the list before the range is evaluated.</li>
+<li>If part of a range is out of bounds, only elements at valid positions are returned.</li>
+<li>After negative indexes are converted and out-of-range boundaries are handled, an empty list is returned if the effective start position is greater than or equal to the effective end position.</li>
+<li>If the end position is <code>0</code>, expressions such as <code>[..0]</code> and <code>[0..0]</code> return an empty list.</li>
+<li>When accessing a single element, a <code>null</code> index results in a <code>BAD_TYPE</code> error. In a range expression, if <code>M</code> or <code>N</code> is <code>null</code>, the result is <code>null</code>.</li>
 </ul>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
@@ -8544,7 +8567,7 @@ nebula&gt; MATCH p = (n:player{name:"Tim Duncan"})-[:follow]-&gt;(m) \
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 24, 2023 03:48:25 UTC">October 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 16, 2026 02:14:14 UTC">July 16, 2026</span>
       
     
   </small>
