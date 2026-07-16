@@ -8378,19 +8378,42 @@ https://github.com/mkdocs/mkdocs/blob/master/mkdocs/themes/mkdocs/main.html --><
 [M..]
 [..N]
 </code></pre></div>
-<p>nGQL 的下标支持从前往后查询，从 0 开始，0 表示第一个元素，1 表示第二个元素，以此类推；也支持从后往前查询，从-1 开始，-1 表示最后一个元素，-2 表示倒数第二个元素，以此类推。</p>
+<p>nGQL 的列表下标从 <code>0</code> 开始：</p>
 <ul>
-<li>[M]：表示下标为 M 的元素。</li>
-<li>[M..N]：表示<code>M ≤ 下标 ＜ N</code>的元素。<code>N</code>为 0 时，返回为空。</li>
-<li>[M..]：表示<code>M ≤ 下标</code>的元素。</li>
-<li>[..N]：表示<code>下标 ＜ N</code>的元素。<code>N</code>为 0 时，返回为空。</li>
+<li><code>0</code> 表示第一个元素，<code>1</code> 表示第二个元素，以此类推。</li>
+<li>负数下标表示从列表末尾开始定位：<code>-1</code> 表示最后一个元素，<code>-2</code> 表示倒数第二个元素，以此类推。</li>
 </ul>
+<p>各表达式的含义如下：</p>
+<ul>
+<li><code>[M]</code>：返回下标 <code>M</code> 对应的单个元素。</li>
+<li><code>[M..N]</code>：返回从位置 <code>M</code> 开始、到位置 <code>N</code> 之前的元素，即包含起始位置，不包含结束位置。</li>
+<li><code>[M..]</code>：返回从位置 <code>M</code> 开始到列表末尾的所有元素。</li>
+<li><code>[..N]</code>：返回列表开头到位置 <code>N</code> 之前的所有元素。</li>
+</ul>
+<p>对于范围查询，如果 <code>M</code> 或 <code>N</code> 为负数，需要先根据列表长度将其转换为对应的实际位置。假设列表长度为 <code>L</code>，负数下标 <code>i</code> 对应的位置为 <code>L + i</code>。</p>
+<p>例如，对于长度为 <code>3</code> 的列表 <code>[1, 2, 3]</code>：</p>
+<div class="highlight"><pre><span></span><code>下标：     0    1    2
+负下标：  -3   -2   -1
+元素：     1    2    3
+</code></pre></div>
+<p>因此：</p>
+<div class="highlight"><pre><span></span><code>list[1, 2, 3][0..-1]
+</code></pre></div>
+<p>等同于：</p>
+<div class="highlight"><pre><span></span><code>list[1, 2, 3][0..2]
+</code></pre></div>
+<p>结束位置不包含在结果中，所以返回：</p>
+<div class="highlight"><pre><span></span><code>[1, 2]
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li>越界的下标返回为空，未越界的可以正常返回。</li>
-<li><code>M</code>≥<code>N</code>时，返回为空。</li>
-<li>查询单个元素时，如果<code>M</code>为 null，返回报错<code>BAD_TYPE</code>；范围查询时，<code>M</code>或<code>N</code>为 null，返回为<code>null</code>。</li>
+<li>范围查询采用左闭右开规则，即包含起始位置，不包含结束位置。</li>
+<li>如果范围边界为负数，会先将其转换为相对于列表末尾的实际位置，再判断范围。</li>
+<li>如果范围部分越界，仅返回范围内有效位置对应的元素。</li>
+<li>转换并处理越界后的起始位置大于或等于结束位置时，返回空列表。</li>
+<li>结束位置为 <code>0</code> 时，<code>[..0]</code> 和 <code>[0..0]</code> 均返回空列表。</li>
+<li>查询单个元素时，如果下标为 <code>null</code>，返回错误 <code>BAD_TYPE</code>；范围查询时，如果 <code>M</code> 或 <code>N</code> 为 <code>null</code>，返回 <code>null</code>。</li>
 </ul>
 </div>
 <h2 id="_4">示例<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
@@ -8588,7 +8611,7 @@ nebula&gt; MATCH p = (n:player{name:"Tim Duncan"})-[:follow]-&gt;(m) \
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月2日 09:35:29 UTC">2026年6月2日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年7月16日 02:14:57 UTC">2026年7月16日</span>
       
     
   </small>
