@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10554,8 +10554,8 @@
 </div>
 <!-- -->
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>CLEAR SPACE [IF EXISTS] &lt;space_name&gt;;
-</code></pre></div>
+<p><code>ngql
+CLEAR SPACE [IF EXISTS] &lt;space_name&gt;;</code></p>
 <table>
 <thead>
 <tr>
@@ -10575,8 +10575,8 @@
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>CLEAR SPACE basketballplayer;
-</code></pre></div>
+<p><code>ngql
+CLEAR SPACE basketballplayer;</code></p>
 <h2 id="data_reserved">Data reserved<a class="headerlink" href="#data_reserved" title="Permanent link">&para;</a></h2>
 <p><code>CLEAR SPACE</code> does not delete the following data in a graph space:</p>
 <ul>
@@ -10585,100 +10585,92 @@
 <li>The metadata of native indexes and full-text indexes.</li>
 </ul>
 <p>The following example shows what <code>CLEAR SPACE</code> deletes and reserves.</p>
-<div class="highlight"><pre><span></span><code># Enter the graph space basketballplayer.
-nebula [(none)]&gt; use basketballplayer;
-Execution succeeded
-
-# List tags and Edge types.
-nebula[basketballplayer]&gt; SHOW TAGS;
+<p>```ngql</p>
+<h1 id="enter_the_graph_space_basketballplayer">Enter the graph space basketballplayer.<a class="headerlink" href="#enter_the_graph_space_basketballplayer" title="Permanent link">&para;</a></h1>
+<p>nebula [(none)]&gt; use basketballplayer;
+Execution succeeded</p>
+<h1 id="list_tags_and_edge_types">List tags and Edge types.<a class="headerlink" href="#list_tags_and_edge_types" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SHOW TAGS;
 +----------+
 | Name     |
 +----------+
-| &quot;player&quot; |
-| &quot;team&quot;   |
+| "player" |
+| "team"   |
 +----------+
-Got 2 rows
-
-nebula[basketballplayer]&gt; SHOW EDGES;
+Got 2 rows</p>
+<p>nebula[basketballplayer]&gt; SHOW EDGES;
 +----------+
 | Name     |
 +----------+
-| &quot;follow&quot; |
-| &quot;serve&quot;  |
+| "follow" |
+| "serve"  |
 +----------+
-Got 2 rows
-
-# Submit a job to make statistics of the graph space.
-nebula[basketballplayer]&gt; SUBMIT JOB STATS;
+Got 2 rows</p>
+<h1 id="submit_a_job_to_make_statistics_of_the_graph_space">Submit a job to make statistics of the graph space.<a class="headerlink" href="#submit_a_job_to_make_statistics_of_the_graph_space" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SUBMIT JOB STATS;
 +------------+
 | New Job Id |
 +------------+
 | 4          |
 +------------+
-Got 1 rows
-
-# Check the statistics.
-nebula[basketballplayer]&gt; SHOW STATS;
+Got 1 rows</p>
+<h1 id="check_the_statistics">Check the statistics.<a class="headerlink" href="#check_the_statistics" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SHOW STATS;
 +---------+------------+-------+
 | Type    | Name       | Count |
 +---------+------------+-------+
-| &quot;Tag&quot;   | &quot;player&quot;   | 51    |
-| &quot;Tag&quot;   | &quot;team&quot;     | 30    |
-| &quot;Edge&quot;  | &quot;follow&quot;   | 81    |
-| &quot;Edge&quot;  | &quot;serve&quot;    | 152   |
-| &quot;Space&quot; | &quot;vertices&quot; | 81    |
-| &quot;Space&quot; | &quot;edges&quot;    | 233   |
+| "Tag"   | "player"   | 51    |
+| "Tag"   | "team"     | 30    |
+| "Edge"  | "follow"   | 81    |
+| "Edge"  | "serve"    | 152   |
+| "Space" | "vertices" | 81    |
+| "Space" | "edges"    | 233   |
 +---------+------------+-------+
-Got 6 rows
-
-# List tag indexes.
-nebula[basketballplayer]&gt; SHOW TAG INDEXES;
+Got 6 rows</p>
+<h1 id="list_tag_indexes">List tag indexes.<a class="headerlink" href="#list_tag_indexes" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SHOW TAG INDEXES;
 +------------------+----------+----------+
 | Index Name       | By Tag   | Columns  |
 +------------------+----------+----------+
-| &quot;player_index_0&quot; | &quot;player&quot; | []       |
-| &quot;player_index_1&quot; | &quot;player&quot; | [&quot;name&quot;] |
+| "player_index_0" | "player" | []       |
+| "player_index_1" | "player" | ["name"] |
 +------------------+----------+----------+
-Got 2 rows
-
-# ----------------------- Dividing line for CLEAR SPACE -----------------------
-# Run CLEAR SPACE to clear the graph space basketballplayer.
-nebula[basketballplayer]&gt; CLEAR SPACE basketballplayer;
-Execution succeeded
-
-# Update the statistics.
-nebula[basketballplayer]&gt; SUBMIT JOB STATS;
+Got 2 rows</p>
+<h1 id="-----------------------_dividing_line_for_clear_space_-----------------------">----------------------- Dividing line for CLEAR SPACE -----------------------<a class="headerlink" href="#-----------------------_dividing_line_for_clear_space_-----------------------" title="Permanent link">&para;</a></h1>
+<h1 id="run_clear_space_to_clear_the_graph_space_basketballplayer">Run CLEAR SPACE to clear the graph space basketballplayer.<a class="headerlink" href="#run_clear_space_to_clear_the_graph_space_basketballplayer" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; CLEAR SPACE basketballplayer;
+Execution succeeded</p>
+<h1 id="update_the_statistics">Update the statistics.<a class="headerlink" href="#update_the_statistics" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SUBMIT JOB STATS;
 +------------+
 | New Job Id |
 +------------+
 | 5          |
 +------------+
-Got 1 rows
-
-# Check the statistics. The tags and edge types still exist, but all the vertices and edges are gone.
-nebula[basketballplayer]&gt; SHOW STATS;
+Got 1 rows</p>
+<h1 id="check_the_statistics_the_tags_and_edge_types_still_exist_but_all_the_vertices_and_edges_are_gone">Check the statistics. The tags and edge types still exist, but all the vertices and edges are gone.<a class="headerlink" href="#check_the_statistics_the_tags_and_edge_types_still_exist_but_all_the_vertices_and_edges_are_gone" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SHOW STATS;
 +---------+------------+-------+
 | Type    | Name       | Count |
 +---------+------------+-------+
-| &quot;Tag&quot;   | &quot;player&quot;   | 0     |
-| &quot;Tag&quot;   | &quot;team&quot;     | 0     |
-| &quot;Edge&quot;  | &quot;follow&quot;   | 0     |
-| &quot;Edge&quot;  | &quot;serve&quot;    | 0     |
-| &quot;Space&quot; | &quot;vertices&quot; | 0     |
-| &quot;Space&quot; | &quot;edges&quot;    | 0     |
+| "Tag"   | "player"   | 0     |
+| "Tag"   | "team"     | 0     |
+| "Edge"  | "follow"   | 0     |
+| "Edge"  | "serve"    | 0     |
+| "Space" | "vertices" | 0     |
+| "Space" | "edges"    | 0     |
 +---------+------------+-------+
-Got 6 rows
-
-# Try to list the tag indexes. They still exist.
-nebula[basketballplayer]&gt; SHOW TAG INDEXES;
+Got 6 rows</p>
+<h1 id="try_to_list_the_tag_indexes_they_still_exist">Try to list the tag indexes. They still exist.<a class="headerlink" href="#try_to_list_the_tag_indexes_they_still_exist" title="Permanent link">&para;</a></h1>
+<p>nebula[basketballplayer]&gt; SHOW TAG INDEXES;
 +------------------+----------+----------+
 | Index Name       | By Tag   | Columns  |
 +------------------+----------+----------+
-| &quot;player_index_0&quot; | &quot;player&quot; | []       |
-| &quot;player_index_1&quot; | &quot;player&quot; | [&quot;name&quot;] |
+| "player_index_0" | "player" | []       |
+| "player_index_1" | "player" | ["name"] |
 +------------------+----------+----------+
 Got 2 rows (time spent 523/978 us)
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10767,10 +10759,6 @@ Got 2 rows (time spent 523/978 us)
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

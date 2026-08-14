@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -1926,48 +1926,6 @@
         <li class="md-nav__item">
   <a href="#count" class="md-nav__link">
     count()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#max" class="md-nav__link">
-    max()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#min" class="md-nav__link">
-    min()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#collect" class="md-nav__link">
-    collect()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#std" class="md-nav__link">
-    std()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sum" class="md-nav__link">
-    sum()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aggregating_example" class="md-nav__link">
-    Aggregating example
   </a>
   
 </li>
@@ -10518,48 +10476,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#max" class="md-nav__link">
-    max()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#min" class="md-nav__link">
-    min()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#collect" class="md-nav__link">
-    collect()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#std" class="md-nav__link">
-    std()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sum" class="md-nav__link">
-    sum()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aggregating_example" class="md-nav__link">
-    Aggregating example
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10592,13 +10508,13 @@
 <li>Result type: Double</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN avg(v.player.age);
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN avg(v.player.age);
 +--------------------+
 | avg(v.player.age)  |
 +--------------------+
 | 33.294117647058826 |
-+--------------------+
-</code></pre></div>
++--------------------+</code></p>
 <h2 id="count">count()<a class="headerlink" href="#count" title="Permanent link">&para;</a></h2>
 <p>count() returns the number of records.</p>
 <ul>
@@ -10615,45 +10531,45 @@
 <li>Result type: Int</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b \
+<p><code>ngql
+nebula&gt; WITH [NULL, 1, 1, 2, 2] As a UNWIND a AS b \
         RETURN count(b), count(*), count(DISTINCT b);
 +----------+----------+-------------------+
 | count(b) | count(*) | count(distinct b) |
 +----------+----------+-------------------+
 | 4        | 5        | 2                 |
-+----------+----------+-------------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code># The statement in the following example searches for the people whom `player101` follows and people who follow `player101`, i.e. a bidirectional query.
-# Group and count the number of parameters.
-nebula&gt; GO FROM &quot;player101&quot; OVER follow BIDIRECT \
++----------+----------+-------------------+</code></p>
+<p>```ngql</p>
+<h1 id="the_statement_in_the_following_example_searches_for_the_people_whom_player101_follows_and_people_who_follow_player101_ie_a_bidirectional_query">The statement in the following example searches for the people whom <code>player101</code> follows and people who follow <code>player101</code>, i.e. a bidirectional query.<a class="headerlink" href="#the_statement_in_the_following_example_searches_for_the_people_whom_player101_follows_and_people_who_follow_player101_ie_a_bidirectional_query" title="Permanent link">&para;</a></h1>
+<h1 id="group_and_count_the_number_of_parameters">Group and count the number of parameters.<a class="headerlink" href="#group_and_count_the_number_of_parameters" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player101" OVER follow BIDIRECT \
         YIELD properties($$).name AS Name \
-        | GROUP BY $-.Name YIELD $-.Name, count(*);
+        | GROUP BY $-.Name YIELD $-.Name, count(<em>);
 +---------------------+----------+
-| $-.Name             | count(*) |
+| $-.Name             | count(</em>) |
 +---------------------+----------+
-| &quot;LaMarcus Aldridge&quot; | 2        |
-| &quot;Tim Duncan&quot;        | 2        |
-| &quot;Marco Belinelli&quot;   | 1        |
-| &quot;Manu Ginobili&quot;     | 1        |
-| &quot;Boris Diaw&quot;        | 1        |
-| &quot;Dejounte Murray&quot;   | 1        |
-+---------------------+----------+
-
-# Count the number of parameters.
-nebula&gt; MATCH (v1:player)-[:follow]-(v2:player) \
-        WHERE id(v1)== &quot;player101&quot; \
+| "LaMarcus Aldridge" | 2        |
+| "Tim Duncan"        | 2        |
+| "Marco Belinelli"   | 1        |
+| "Manu Ginobili"     | 1        |
+| "Boris Diaw"        | 1        |
+| "Dejounte Murray"   | 1        |
++---------------------+----------+</p>
+<h1 id="count_the_number_of_parameters">Count the number of parameters.<a class="headerlink" href="#count_the_number_of_parameters" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v1:player)-[:follow]-(v2:player) \
+        WHERE id(v1)== "player101" \
         RETURN v2.player.name AS Name, count(*) as cnt ORDER BY cnt DESC;
 +---------------------+-----+
 | Name                | cnt |
 +---------------------+-----+
-| &quot;LaMarcus Aldridge&quot; | 2   |
-| &quot;Tim Duncan&quot;        | 2   |
-| &quot;Boris Diaw&quot;        | 1   |
-| &quot;Manu Ginobili&quot;     | 1   |
-| &quot;Dejounte Murray&quot;   | 1   |
-| &quot;Marco Belinelli&quot;   | 1   |
+| "LaMarcus Aldridge" | 2   |
+| "Tim Duncan"        | 2   |
+| "Boris Diaw"        | 1   |
+| "Manu Ginobili"     | 1   |
+| "Dejounte Murray"   | 1   |
+| "Marco Belinelli"   | 1   |
 +---------------------+-----+
-</code></pre></div>
+```</p>
 <p>The preceding example retrieves two columns:</p>
 <ul>
 <li><code>$-.Name</code>: the names of the people.</li>
@@ -10662,8 +10578,9 @@ nebula&gt; MATCH (v1:player)-[:follow]-(v2:player) \
 <li><code>count(*)</code>: how many times the names show up.</li>
 </ul>
 <p>Because there are no duplicate names in the <code>basketballplayer</code> dataset, the number <code>2</code> in the column <code>count(*)</code> shows that the person in that row and <code>player101</code> have followed each other.</p>
-<div class="highlight"><pre><span></span><code># a: The statement in the following example retrieves the age distribution of the players in the dataset.
-nebula&gt; LOOKUP ON player \
+<p>```ngql</p>
+<h1 id="a_the_statement_in_the_following_example_retrieves_the_age_distribution_of_the_players_in_the_dataset">a: The statement in the following example retrieves the age distribution of the players in the dataset.<a class="headerlink" href="#a_the_statement_in_the_following_example_retrieves_the_age_distribution_of_the_players_in_the_dataset" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; LOOKUP ON player \
         YIELD player.age As playerage \
         | GROUP BY $-.playerage \
         YIELD $-.playerage as age, count(*) AS number \
@@ -10677,9 +10594,9 @@ nebula&gt; LOOKUP ON player \
 | 29  | 4      |
 | 38  | 3      |
 +-----+--------+
-...
-# b: The statement in the following example retrieves the age distribution of the players in the dataset.
-nebula&gt; MATCH (n:player) \
+...</p>
+<h1 id="b_the_statement_in_the_following_example_retrieves_the_age_distribution_of_the_players_in_the_dataset">b: The statement in the following example retrieves the age distribution of the players in the dataset.<a class="headerlink" href="#b_the_statement_in_the_following_example_retrieves_the_age_distribution_of_the_players_in_the_dataset" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (n:player) \
         RETURN n.player.age as age, count(*) as number \
         ORDER BY number DESC, age DESC;
 +-----+--------+
@@ -10692,25 +10609,25 @@ nebula&gt; MATCH (n:player) \
 | 38  | 3      |
 +-----+--------+
 ...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code># The statement in the following example counts the number of edges that Tim Duncan relates.
-nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) -[e]- (v2) \
+```</p>
+<p>```ngql</p>
+<h1 id="the_statement_in_the_following_example_counts_the_number_of_edges_that_tim_duncan_relates">The statement in the following example counts the number of edges that Tim Duncan relates.<a class="headerlink" href="#the_statement_in_the_following_example_counts_the_number_of_edges_that_tim_duncan_relates" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) -[e]- (v2) \
         RETURN count(e);
 +----------+
 | count(e) |
 +----------+
 | 13       |
-+----------+
-
-# The statement in the following example counts the number of edges that Tim Duncan relates and returns two columns (no DISTINCT and DISTINCT) in multi-hop queries.
-nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:player)-[]-&gt;(fof:player) \
++----------+</p>
+<h1 id="the_statement_in_the_following_example_counts_the_number_of_edges_that_tim_duncan_relates_and_returns_two_columns_no_distinct_and_distinct_in_multi-hop_queries">The statement in the following example counts the number of edges that Tim Duncan relates and returns two columns (no DISTINCT and DISTINCT) in multi-hop queries.<a class="headerlink" href="#the_statement_in_the_following_example_counts_the_number_of_edges_that_tim_duncan_relates_and_returns_two_columns_no_distinct_and_distinct_in_multi-hop_queries" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (n:player {name : "Tim Duncan"})-[]-&gt;(friend:player)-[]-&gt;(fof:player) \
         RETURN count(fof), count(DISTINCT fof);
 +------------+---------------------+
 | count(fof) | count(distinct fof) |
 +------------+---------------------+
 | 4          | 3                   |
 +------------+---------------------+
-</code></pre></div>
+```</p>
 <h2 id="max">max()<a class="headerlink" href="#max" title="Permanent link">&para;</a></h2>
 <p>max() returns the maximum value.</p>
 <p>Syntax: <code>max(&lt;expression&gt;)</code></p>
@@ -10718,13 +10635,13 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>Result type: Same as the original argument.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN max(v.player.age);
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN max(v.player.age);
 +-------------------+
 | max(v.player.age) |
 +-------------------+
 | 47                |
-+-------------------+
-</code></pre></div>
++-------------------+</code></p>
 <h2 id="min">min()<a class="headerlink" href="#min" title="Permanent link">&para;</a></h2>
 <p>min() returns the minimum value.</p>
 <p>Syntax: <code>min(&lt;expression&gt;)</code></p>
@@ -10732,13 +10649,13 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>Result type: Same as the original argument.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN min(v.player.age);
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN min(v.player.age);
 +-------------------+
 | min(v.player.age) |
 +-------------------+
 | 20                |
-+-------------------+
-</code></pre></div>
++-------------------+</code></p>
 <h2 id="collect">collect()<a class="headerlink" href="#collect" title="Permanent link">&para;</a></h2>
 <p>collect() returns a list containing the values returned by an expression. Using this function aggregates data by merging multiple records or values into a single list.</p>
 <p>Syntax: <code>collect(&lt;expression&gt;)</code></p>
@@ -10746,7 +10663,8 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 <li>Result type: List</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1, 2, 1] AS a \
+<p>```ngql
+nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN a;
 +---+
 | a |
@@ -10754,37 +10672,33 @@ nebula&gt; MATCH (n:player {name : &quot;Tim Duncan&quot;})-[]-&gt;(friend:playe
 | 1 |
 | 2 |
 | 1 |
-+---+
-
-nebula&gt; UNWIND [1, 2, 1] AS a \
++---+</p>
+<p>nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN collect(a);
 +------------+
 | collect(a) |
 +------------+
 | [1, 2, 1]  |
-+------------+
-
-nebula&gt; UNWIND [1, 2, 1] AS a \
++------------+</p>
+<p>nebula&gt; UNWIND [1, 2, 1] AS a \
         RETURN a, collect(a), size(collect(a));
 +---+------------+------------------+
 | a | collect(a) | size(collect(a)) |
 +---+------------+------------------+
 | 2 | [2]        | 1                |
 | 1 | [1, 1]     | 2                |
-+---+------------+------------------+
-
-# The following examples sort the results in descending order, limit output rows to 3, and collect the output into a list.
-nebula&gt; UNWIND [&quot;c&quot;, &quot;b&quot;, &quot;a&quot;, &quot;d&quot; ] AS p \
++---+------------+------------------+</p>
+<h1 id="the_following_examples_sort_the_results_in_descending_order_limit_output_rows_to_3_and_collect_the_output_into_a_list">The following examples sort the results in descending order, limit output rows to 3, and collect the output into a list.<a class="headerlink" href="#the_following_examples_sort_the_results_in_descending_order_limit_output_rows_to_3_and_collect_the_output_into_a_list" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; UNWIND ["c", "b", "a", "d" ] AS p \
         WITH p AS q \
         ORDER BY q DESC LIMIT 3 \
         RETURN collect(q);
 +-----------------+
 | collect(q)      |
 +-----------------+
-| [&quot;d&quot;, &quot;c&quot;, &quot;b&quot;] |
-+-----------------+
-
-nebula&gt; WITH [1, 1, 2, 2] AS coll \
+| ["d", "c", "b"] |
++-----------------+</p>
+<p>nebula&gt; WITH [1, 1, 2, 2] AS coll \
         UNWIND coll AS x \
         WITH DISTINCT x \
         RETURN collect(x) AS ss;
@@ -10792,42 +10706,38 @@ nebula&gt; WITH [1, 1, 2, 2] AS coll \
 | ss     |
 +--------+
 | [1, 2] |
-+--------+
-
-nebula&gt; MATCH (n:player) \
++--------+</p>
+<p>nebula&gt; MATCH (n:player) \
         RETURN collect(n.player.age);
 +---------------------------------------------------------------+
 | collect(n.player.age)                                         |
 +---------------------------------------------------------------+
 | [32, 32, 34, 29, 41, 40, 33, 25, 40, 37, ...
-...
-
-# The following example aggregates all the players&#39; names by their ages.
-nebula&gt; MATCH (n:player) \
+...</p>
+<h1 id="the_following_example_aggregates_all_the_players_names_by_their_ages">The following example aggregates all the players' names by their ages.<a class="headerlink" href="#the_following_example_aggregates_all_the_players_names_by_their_ages" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (n:player) \
         RETURN n.player.age AS age, collect(n.player.name);
 +-----+--------------------------------------------------------------------------+
 | age | collect(n.player.name)                                                   |
 +-----+--------------------------------------------------------------------------+
-| 24  | [&quot;Giannis Antetokounmpo&quot;]                                                |
-| 20  | [&quot;Luka Doncic&quot;]                                                          |
-| 25  | [&quot;Joel Embiid&quot;, &quot;Kyle Anderson&quot;]                                         |
+| 24  | ["Giannis Antetokounmpo"]                                                |
+| 20  | ["Luka Doncic"]                                                          |
+| 25  | ["Joel Embiid", "Kyle Anderson"]                                         |
 +-----+--------------------------------------------------------------------------+
-...
-
-nebula&gt; GO FROM &quot;player100&quot; OVER serve \
+...</p>
+<p>nebula&gt; GO FROM "player100" OVER serve \
         YIELD properties($$).name AS name \
-        | GROUP BY $-.name \
-        YIELD collect($-.name) AS name;
+        | GROUP BY <span class="arithmatex">\(-.name \
+        YIELD collect(\)</span>-.name) AS name;
 +-----------+
 | name      |
 +-----------+
-| [&quot;Spurs&quot;] |
-+-----------+
-
-nebula&gt; LOOKUP ON player \
+| ["Spurs"] |
++-----------+</p>
+<p>nebula&gt; LOOKUP ON player \
         YIELD player.age As playerage \
-        | GROUP BY $-.playerage \
-        YIELD collect($-.playerage) AS playerage;
+        | GROUP BY <span class="arithmatex">\(-.playerage \
+        YIELD collect(\)</span>-.playerage) AS playerage;
 +------------------+
 | playerage        |
 +------------------+
@@ -10836,8 +10746,8 @@ nebula&gt; LOOKUP ON player \
 | [43]             |
 | [25, 25]         |
 +------------------+
-...
-</code></pre></div>
+...</p>
+<p>```</p>
 <h2 id="std">std()<a class="headerlink" href="#std" title="Permanent link">&para;</a></h2>
 <p>std() returns the population standard deviation.</p>
 <p>Syntax: <code>std(&lt;expression&gt;)</code></p>
@@ -10845,13 +10755,13 @@ nebula&gt; LOOKUP ON player \
 <li>Result type: Double</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN std(v.player.age);
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN std(v.player.age);
 +-------------------+
 | std(v.player.age) |
 +-------------------+
 | 6.423895701687502 |
-+-------------------+
-</code></pre></div>
++-------------------+</code></p>
 <h2 id="sum">sum()<a class="headerlink" href="#sum" title="Permanent link">&para;</a></h2>
 <p>sum() returns the sum value.</p>
 <p>Syntax: <code>sum(&lt;expression&gt;)</code></p>
@@ -10859,15 +10769,16 @@ nebula&gt; LOOKUP ON player \
 <li>Result type: Same as the original argument.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN sum(v.player.age);
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN sum(v.player.age);
 +-------------------+
 | sum(v.player.age) |
 +-------------------+
 | 1698              |
-+-------------------+
-</code></pre></div>
++-------------------+</code></p>
 <h2 id="aggregating_example">Aggregating example<a class="headerlink" href="#aggregating_example" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt;  GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS dst, properties($$).age AS age \
+<p><code>ngql
+nebula&gt;  GO FROM "player100" OVER follow YIELD dst(edge) AS dst, properties($$).age AS age \
          | GROUP BY $-.dst \
          YIELD \
          $-.dst AS dst, \
@@ -10875,10 +10786,9 @@ nebula&gt; LOOKUP ON player \
 +-------------+------------+
 | dst         | statistics |
 +-------------+------------+
-| &quot;player125&quot; | 84.0       |
-| &quot;player101&quot; | 74.0       |
-+-------------+------------+
-</code></pre></div>
+| "player125" | 84.0       |
+| "player101" | 74.0       |
++-------------+------------+</code></p>
 
   <hr>
 <div class="md-source-file">
@@ -10967,10 +10877,6 @@ nebula&gt; LOOKUP ON player \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

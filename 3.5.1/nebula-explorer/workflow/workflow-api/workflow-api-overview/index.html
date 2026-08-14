@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10569,8 +10569,8 @@
 <h2 id="request_method">Request method<a class="headerlink" href="#request_method" title="Permanent link">&para;</a></h2>
 <p>Users can use curl to call APIs to achieve corresponding functions.</p>
 <p>The format is as follows:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>&lt;options&gt;<span class="w"> </span>http://&lt;explorer_address&gt;:&lt;explorer_port&gt;/&lt;api_path&gt;?<span class="o">{</span>&lt;body&gt;<span class="o">}</span>
-</code></pre></div>
+<p><code>bash
+curl &lt;options&gt; http://&lt;explorer_address&gt;:&lt;explorer_port&gt;/&lt;api_path&gt;?{&lt;body&gt;}</code></p>
 <ul>
 <li><code>&lt;options&gt;</code>: Curl supports a large number of options. The most commonly used options for workflow are <code>-X</code>, <code>-H</code> and <code>-d</code>. For more information about options, see <a href="https://curl.se/docs/manpage.html">curl official documentation</a>.</li>
 </ul>
@@ -10588,8 +10588,8 @@
 </ul>
 <h2 id="get_authorization_token">Get authorization token<a class="headerlink" href="#get_authorization_token" title="Permanent link">&para;</a></h2>
 <p>Token information verification is required when calling an API. Run the following command to get the authorization token.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer &lt;account_base64_encode&gt;&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;address&quot;:&quot;&lt;nebula_address&gt;&quot;,&quot;port&quot;:&lt;nebula_port&gt;}&#39;</span><span class="w"> </span>http://&lt;explorer_address&gt;:&lt;explorer_port&gt;/api-open/v1/connect
-</code></pre></div>
+<p><code>bash
+curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer &lt;account_base64_encode&gt;" -d '{"address":"&lt;nebula_address&gt;","port":&lt;nebula_port&gt;}' http://&lt;explorer_address&gt;:&lt;explorer_port&gt;/api-open/v1/connect</code></p>
 <ul>
 <li><code>&lt;account_base64_encode&gt;</code>: The character string of the base64 encoded NebulaGraph account and password. Take the username <code>root</code> and password <code>123</code> as an example, the serialized string is <code>["root", "123"]</code>. After the encoding, the result is <code>WyJyb290IiwiMTIzIl0=</code>.</li>
 <li><code>&lt;nebula_address&gt;</code>: The access address of the NebulaGraph.</li>
@@ -10598,24 +10598,24 @@
 <li><code>&lt;explorer_port&gt;</code>: The access port of the NebulaGraph Explorer.</li>
 </ul>
 <p>Example: </p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer WyJyb290IiwiMTIzIl0=&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;address&quot;:&quot;192.168.8.111&quot;,&quot;port&quot;:9669}&#39;</span><span class="w"> </span>http://192.168.8.145:7002/api-open/v1/connect
-</code></pre></div>
+<p><code>bash
+curl -i -X POST -H "Content-Type: application/json" -H "Authorization: Bearer WyJyb290IiwiMTIzIl0=" -d '{"address":"192.168.8.111","port":9669}' http://192.168.8.145:7002/api-open/v1/connect</code></p>
 <p>Response:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">explorer_token=eyJhbxxx; Path=/; # Max-Age=259200; HttpOnly</span>
-<span class="na">Traceparent</span><span class="o">:</span> <span class="l">00-1c3f55cdbf81e13a2331ed88155ce0bf-2b97474943563f20-# 00</span>
-<span class="na">Date</span><span class="o">:</span> <span class="l">Thu, 14 Jul 2022 06:47:01 GMT</span>
-<span class="na">Content-Length</span><span class="o">:</span> <span class="l">54</span>
-
-<span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Success&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
+<p>```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Set-Cookie: explorer_token=eyJhbxxx; Path=/; # Max-Age=259200; HttpOnly
+Traceparent: 00-1c3f55cdbf81e13a2331ed88155ce0bf-2b97474943563f20-# 00
+Date: Thu, 14 Jul 2022 06:47:01 GMT
+Content-Length: 54</p>
+<p>{
+  "code": 0,
+  "data": {
+    "success": true
+  },
+  "message": "Success"
+}
+```</p>
 <p>Note the following parameters:</p>
 <ul>
 <li><code>explorer_token</code>: The authorization token.</li>
@@ -10627,22 +10627,22 @@
 <ul>
 <li>
 <p>If an API is called successfully, the system returns the following information:</p>
-<div class="highlight"><pre><span></span><code><span class="err">{</span>
-<span class="err">  code: 0,</span>
-<span class="err">  message: &#39;Success&#39;,</span>
-<span class="err">  data: &lt;ResponseData&gt;   //Return the results based on the API.</span>
-<span class="err">}</span>
-</code></pre></div>
+<p><code>http
+{
+  code: 0,
+  message: 'Success',
+  data: &lt;ResponseData&gt;   //Return the results based on the API.
+}</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>If an API is called failed, the system returns the corresponding common error code. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="err">{</span>
-<span class="err">  code: 40004000,</span>
-<span class="err">  message: &#39;&lt;ErrBadRequest&gt;&#39;,  //Display the error information.</span>
-<span class="err">}</span>
-</code></pre></div>
+<p><code>http
+{
+  code: 40004000,
+  message: '&lt;ErrBadRequest&gt;',  //Display the error information.
+}</code></p>
 <p>For descriptions of common error codes, see the following sections.</p>
 </li>
 </ul>
@@ -10836,10 +10836,6 @@
         <script src="../../../../js/search.js"></script>
       
         <script src="../../../../js/config.js"></script>
-      
-        <script src="../../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

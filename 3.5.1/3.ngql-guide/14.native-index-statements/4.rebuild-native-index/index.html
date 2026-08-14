@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10513,11 +10513,11 @@
 <p>The speed of rebuilding indexes can be optimized by modifying the <code>rebuild_index_part_rate_limit</code> and <code>snapshot_batch_size</code> parameters in the configuration file. In addition, greater parameter values may result in higher memory and network usage, see <a href="../../../5.configurations-and-logs/1.configurations/4.storage-config/#misc_configurations">Storage Service configurations</a> for details.</p>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>REBUILD {TAG | EDGE} INDEX [&lt;index_name_list&gt;];
-
-&lt;index_name_list&gt;::=
+<p>```ngql
+REBUILD {TAG | EDGE} INDEX [<index_name_list>];</p>
+<p><index_name_list>::=
     [index_name [, index_name] ...]
-</code></pre></div>
+```</p>
 <ul>
 <li>Multiple indexes are permitted in a single <code>REBUILD</code> statement, separated by commas. When the index name is not specified, all tag or edge indexes are rebuilt.</li>
 </ul>
@@ -10525,37 +10525,35 @@
 <li>After the rebuilding is complete, you can use the <code>SHOW {TAG | EDGE} INDEX STATUS</code> command to check if the index is successfully rebuilt. For details on index status, see <a href="../5.show-native-index-status/">SHOW INDEX STATUS</a>.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS person(name string, age int, gender string, email string);
-nebula&gt; CREATE TAG INDEX IF NOT EXISTS single_person_index ON person(name(10));
-
-# The following example rebuilds an index and returns the job ID.
-nebula&gt; REBUILD TAG INDEX single_person_index;
+<p>```ngql
+nebula&gt; CREATE TAG IF NOT EXISTS person(name string, age int, gender string, email string);
+nebula&gt; CREATE TAG INDEX IF NOT EXISTS single_person_index ON person(name(10));</p>
+<h1 id="the_following_example_rebuilds_an_index_and_returns_the_job_id">The following example rebuilds an index and returns the job ID.<a class="headerlink" href="#the_following_example_rebuilds_an_index_and_returns_the_job_id" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; REBUILD TAG INDEX single_person_index;
 +------------+
 | New Job Id |
 +------------+
 | 31         |
-+------------+
-
-# The following example checks the index status.
-nebula&gt; SHOW TAG INDEX STATUS;
++------------+</p>
+<h1 id="the_following_example_checks_the_index_status">The following example checks the index status.<a class="headerlink" href="#the_following_example_checks_the_index_status" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; SHOW TAG INDEX STATUS;
 +-----------------------+--------------+
 | Name                  | Index Status |
 +-----------------------+--------------+
-| &quot;single_person_index&quot; | &quot;FINISHED&quot;   |
-+-----------------------+--------------+
-
-# You can also use &quot;SHOW JOB &lt;job_id&gt;&quot; to check if the rebuilding process is complete.
-nebula&gt; SHOW JOB 31;
+| "single_person_index" | "FINISHED"   |
++-----------------------+--------------+</p>
+<h1 id="you_can_also_use_show_job_to_check_if_the_rebuilding_process_is_complete">You can also use "SHOW JOB <job_id>" to check if the rebuilding process is complete.<a class="headerlink" href="#you_can_also_use_show_job_to_check_if_the_rebuilding_process_is_complete" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; SHOW JOB 31;
 +----------------+---------------------+------------+-------------------------+-------------------------+-------------+
 | Job Id(TaskId) | Command(Dest)       | Status     | Start Time              | Stop Time               | Error Code  |
 +----------------+---------------------+------------+-------------------------+-------------------------+-------------+
-| 31             | &quot;REBUILD_TAG_INDEX&quot; | &quot;FINISHED&quot; | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:24.000 | &quot;SUCCEEDED&quot; |
-| 0              | &quot;storaged1&quot;         | &quot;FINISHED&quot; | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | &quot;SUCCEEDED&quot; |
-| 1              | &quot;storaged2&quot;         | &quot;FINISHED&quot; | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | &quot;SUCCEEDED&quot; |
-| 2              | &quot;storaged0&quot;         | &quot;FINISHED&quot; | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | &quot;SUCCEEDED&quot; |
-| &quot;Total:3&quot;      | &quot;Succeeded:3&quot;       | &quot;Failed:0&quot; | &quot;In Progress:0&quot;         | &quot;&quot;                      | &quot;&quot;          |
+| 31             | "REBUILD_TAG_INDEX" | "FINISHED" | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:24.000 | "SUCCEEDED" |
+| 0              | "storaged1"         | "FINISHED" | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | "SUCCEEDED" |
+| 1              | "storaged2"         | "FINISHED" | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | "SUCCEEDED" |
+| 2              | "storaged0"         | "FINISHED" | 2021-07-07T09:04:24.000 | 2021-07-07T09:04:28.000 | "SUCCEEDED" |
+| "Total:3"      | "Succeeded:3"       | "Failed:0" | "In Progress:0"         | ""                      | ""          |
 +----------------+---------------------+------------+-------------------------+-------------------------+-------------+
-</code></pre></div>
+```</p>
 <p>NebulaGraph creates a job to rebuild the index. The job ID is displayed in the preceding return message. To check if the rebuilding process is complete, use the <code>SHOW JOB &lt;job_id&gt;</code> statement. For more information, see <a href="../../4.job-statements/#show_job">SHOW JOB</a>.</p>
 
   <hr>
@@ -10645,10 +10643,6 @@ nebula&gt; SHOW JOB 31;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

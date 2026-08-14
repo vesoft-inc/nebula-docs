@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10564,35 +10564,35 @@
 <ol>
 <li>
 <p>Add the NebulaGraph Operator Helm repository.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>nebula-operator<span class="w"> </span>https://vesoft-inc.github.io/nebula-operator/charts
-</code></pre></div>
+<p><code>bash
+helm repo add nebula-operator https://vesoft-inc.github.io/nebula-operator/charts</code></p>
 </li>
 <li>
 <p>Update information of available charts locally from chart repositories.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update
-</code></pre></div>
+<p><code>bash
+helm repo update</code></p>
 </li>
 <li>
 <p>Set environment variables to your desired values.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="o">=</span>nebula<span class="w">         </span><span class="c1"># The desired NebulaGraph cluster name.</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="o">=</span>nebula<span class="w">    </span><span class="c1"># The desired namespace where your NebulaGraph cluster locates.</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">STORAGE_CLASS_NAME</span><span class="o">=</span>fast-disks<span class="w">             </span><span class="c1"># The name of the StorageClass that has been created.</span>
-</code></pre></div>
+<p><code>bash
+export NEBULA_CLUSTER_NAME=nebula         # The desired NebulaGraph cluster name.
+export NEBULA_CLUSTER_NAMESPACE=nebula    # The desired namespace where your NebulaGraph cluster locates.
+export STORAGE_CLASS_NAME=fast-disks             # The name of the StorageClass that has been created.</code></p>
 </li>
 <li>
 <p>Create a namespace for your NebulaGraph cluster (If you have created one, skip this step).</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
+<p><code>bash
+kubectl create namespace "${NEBULA_CLUSTER_NAMESPACE}"</code></p>
 <!-- -->
 
 </li>
 <li>
 <p>Create a Secret for pulling the NebulaGraph cluster image from a private repository (Enterprise only).</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
---docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER<span class="w"> </span><span class="se">\</span>
---docker-username<span class="o">=</span>DOCKER_USER<span class="w"> </span><span class="se">\</span>
---docker-password<span class="o">=</span>DOCKER_PASSWORD
-</code></pre></div>
+<p><code>bash
+kubectl -n "${NEBULA_CLUSTER_NAMESPACE}" create secret docker-registry &lt;image-pull-secret&gt; \
+--docker-server=DOCKER_REGISTRY_SERVER \
+--docker-username=DOCKER_USER \
+--docker-password=DOCKER_PASSWORD</code></p>
 <ul>
 <li><code>&lt;image-pull-secret&gt;</code>: Specify the name of the Secret.</li>
 <li><code>DOCKER_REGISTRY_SERVER</code>: Specify the server address of the private repository from which the image will be pulled, such as <code>reg.example-inc.com</code>.</li>
@@ -10602,38 +10602,38 @@
 </li>
 <li>
 <p>Apply the variables to the Helm chart to create a NebulaGraph cluster.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Specify the version of the NebulaGraph cluster. </span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.1<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
-<span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.  </span>
-<span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.   </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.2<span class="w"> </span>
-<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-</code></pre></div>
+<p><code>bash
+helm install "${NEBULA_CLUSTER_NAME}" nebula-operator/nebula-cluster \
+    --set nameOverride=${NEBULA_CLUSTER_NAME} \
+    --set nebula.storageClassName="${STORAGE_CLASS_NAME}" \
+    # Specify the version of the NebulaGraph cluster. 
+    --set nebula.version=v3.5.1 \  
+    # Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.  
+    # Run 'helm search repo nebula-operator/nebula-cluster' to view the available versions of the chart.   
+    --version=1.6.2 
+    --namespace="${NEBULA_CLUSTER_NAMESPACE}" \</code></p>
 <!-- -->
 <div class="admonition enterpriseonly">
 <p class="admonition-title">Enterpriseonly</p>
 <p>For NebulaGraph Enterprise, run the following command to create a NebulaGraph cluster:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the access address and port (default port is &#39;9119&#39;) that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.licenseManagerURL<span class="o">=</span><span class="sb">`</span><span class="m">192</span>.168.8.XXX:9119<span class="sb">`</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the image addresses for each service in the cluster.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.graphd.image<span class="o">=</span>&lt;reg.example-inc.com/test/graphd-ent&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.metad.image<span class="o">=</span>&lt;reg.example-inc.com/test/metad-ent&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.image<span class="o">=</span>&lt;reg.example-inc.com/test/storaged-ent&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Configure the Secret for pulling images from a private repository.</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.imagePullSecrets<span class="o">=</span>&lt;image-pull-secret&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="c1"># Specify the version of the NebulaGraph cluster. </span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.version<span class="o">=</span>v3.5.1<span class="w"> </span><span class="se">\ </span><span class="w"> </span>
-<span class="w">    </span><span class="c1"># Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.</span>
-<span class="w">    </span><span class="c1"># Run &#39;helm search repo nebula-operator/nebula-cluster&#39; to view the available versions of the chart.     </span>
-<span class="w">    </span>--version<span class="o">=</span><span class="m">1</span>.6.2<span class="w"> </span>
-<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-</code></pre></div>
+<p><code>bash
+  helm install "${NEBULA_CLUSTER_NAME}" nebula-operator/nebula-cluster \
+      # Configure the access address and port (default port is '9119') that points to the LM. You must configure this parameter in order to obtain the license information. Only for NebulaGraph Enterprise Edition clusters.
+      --set nebula.metad.licenseManagerURL=`192.168.8.XXX:9119` \
+      # Configure the image addresses for each service in the cluster.
+      --set nebula.graphd.image=&lt;reg.example-inc.com/test/graphd-ent&gt; \
+      --set nebula.metad.image=&lt;reg.example-inc.com/test/metad-ent&gt; \
+      --set nebula.storaged.image=&lt;reg.example-inc.com/test/storaged-ent&gt; \
+      # Configure the Secret for pulling images from a private repository.
+      --set nebula.imagePullSecrets=&lt;image-pull-secret&gt; \
+      --set nameOverride=${NEBULA_CLUSTER_NAME} \
+      --set nebula.storageClassName="${STORAGE_CLASS_NAME}" \
+      # Specify the version of the NebulaGraph cluster. 
+      --set nebula.version=v3.5.1 \  
+      # Specify the version of the nebula-cluster chart. If not specified, the latest version of the chart is installed by default.
+      # Run 'helm search repo nebula-operator/nebula-cluster' to view the available versions of the chart.     
+      --version=1.6.2 
+      --namespace="${NEBULA_CLUSTER_NAMESPACE}" \</code></p>
 </div>
 <!-- -->
 
@@ -10643,19 +10643,19 @@
 </li>
 <li>
 <p>Check the status of the NebulaGraph cluster you created.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/cluster=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
+<p><code>bash
+kubectl -n "${NEBULA_CLUSTER_NAMESPACE}" get pod -l "app.kubernetes.io/cluster=${NEBULA_CLUSTER_NAME}"</code></p>
 <p>Output:</p>
-<div class="highlight"><pre><span></span><code>NAME<span class="w">                </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
-nebula-graphd-0<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-graphd-1<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-metad-0<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-metad-1<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-metad-2<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-storaged-0<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-storaged-1<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>5m34s
-</code></pre></div>
+<p><code>bash
+NAME                READY   STATUS    RESTARTS   AGE
+nebula-graphd-0     1/1     Running   0          5m34s
+nebula-graphd-1     1/1     Running   0          5m34s
+nebula-metad-0      1/1     Running   0          5m34s
+nebula-metad-1      1/1     Running   0          5m34s
+nebula-metad-2      1/1     Running   0          5m34s
+nebula-storaged-0   1/1     Running   0          5m34s
+nebula-storaged-1   1/1     Running   0          5m34s
+nebula-storaged-2   1/1     Running   0          5m34s</code></p>
 </li>
 </ol>
 <h2 id="scaling_clusters">Scaling clusters<a class="headerlink" href="#scaling_clusters" title="Permanent link">&para;</a></h2>
@@ -10669,12 +10669,12 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 </ul>
 <p>You can scale a NebulaGraph cluster by defining the value of the <code>replicas</code> corresponding to the different services in the cluster.</p>
 <p>For example, run the following command to scale out a NebulaGraph cluster by changing the number of Storage services from 2 (the original value) to 5:  </p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>nebula-operator/nebula-cluster<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span><span class="nv">nameOverride</span><span class="o">=</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storageClassName<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">STORAGE_CLASS_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--set<span class="w"> </span>nebula.storaged.replicas<span class="o">=</span><span class="m">5</span>
-</code></pre></div>
+<p><code>bash
+helm upgrade "${NEBULA_CLUSTER_NAME}" nebula-operator/nebula-cluster \
+    --namespace="${NEBULA_CLUSTER_NAMESPACE}" \
+    --set nameOverride=${NEBULA_CLUSTER_NAME} \
+    --set nebula.storageClassName="${STORAGE_CLASS_NAME}" \
+    --set nebula.storaged.replicas=5</code></p>
 <p>Similarly, you can scale in a NebulaGraph cluster by setting the value of the <code>replicas</code> corresponding to the different services in the cluster smaller than the original value.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -10685,11 +10685,11 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
 
 <h2 id="delete_clusters">Delete clusters<a class="headerlink" href="#delete_clusters" title="Permanent link">&para;</a></h2>
 <p>Run the following command to delete a NebulaGraph cluster with Helm:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAME</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--namespace<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NEBULA_CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
+<p><code>bash
+helm uninstall "${NEBULA_CLUSTER_NAME}" --namespace="${NEBULA_CLUSTER_NAMESPACE}"</code></p>
 <p>Or use variable values to delete a NebulaGraph cluster with Helm:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span>nebula<span class="w"> </span>--namespace<span class="o">=</span>nebula
-</code></pre></div>
+<p><code>bash
+helm uninstall nebula --namespace=nebula</code></p>
 <h2 id="whats_next">What's next<a class="headerlink" href="#whats_next" title="Permanent link">&para;</a></h2>
 <p><a href="../../4.connect-to-nebula-graph-service/">Connect to NebulaGraph Databases</a></p>
 
@@ -10780,10 +10780,6 @@ nebula-storaged-2<span class="w">   </span><span class="m">1</span>/1<span class
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

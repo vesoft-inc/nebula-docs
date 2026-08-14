@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -9610,27 +9610,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#monitor_lm" class="md-nav__link">
-    Monitor LM
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use_lm_to_manage_the_license" class="md-nav__link">
-    Use LM to manage the license
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next_to_do" class="md-nav__link">
-    Next to do
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10551,27 +10530,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#monitor_lm" class="md-nav__link">
-    Monitor LM
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#use_lm_to_manage_the_license" class="md-nav__link">
-    Use LM to manage the license
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next_to_do" class="md-nav__link">
-    Next to do
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10620,17 +10578,17 @@
 <ol>
 <li>
 <p>Create a namespace.</p>
-<div class="highlight"><pre><span></span><code># Create the nebula-license-manager namespace.
-kubectl create namespace nebula-license-manager
-</code></pre></div>
+<p>```</p>
+<h1 id="create_the_nebula-license-manager_namespace">Create the nebula-license-manager namespace.<a class="headerlink" href="#create_the_nebula-license-manager_namespace" title="Permanent link">&para;</a></h1>
+<p>kubectl create namespace nebula-license-manager
+```</p>
 </li>
 <li>
 <p>Create a Secret for pulling the LM image from a private repository.</p>
-<div class="highlight"><pre><span></span><code>kubectl -n nebula-license-manager create secret docker-registry &lt;image-pull-secret&gt; \
+<p><code>kubectl -n nebula-license-manager create secret docker-registry &lt;image-pull-secret&gt; \
 --docker-server=DOCKER_REGISTRY_SERVER \
 --docker-username=DOCKER_USER \
---docker-password=DOCKER_PASSWORD
-</code></pre></div>
+--docker-password=DOCKER_PASSWORD</code></p>
 <ul>
 <li><code>&lt;image-pull-secret&gt;</code>: Specify the name of the Secret.</li>
 <li>DOCKER_REGISTRY_SERVER: Specify the address of the private repository server from which the image is pulled, for example, <code>reg.example-inc.com</code>.</li>
@@ -10640,7 +10598,8 @@ kubectl create namespace nebula-license-manager
 </li>
 <li>
 <p>Create a StatefulSet resource configuration file for LM. Here is an example:</p>
-<div class="highlight"><pre><span></span><code>apiVersion: v1
+<p>```yml
+apiVersion: v1
 kind: Service
 metadata:
   name: nebula-license-manager
@@ -10651,9 +10610,9 @@ spec:
   ports:
   - port: 9119
   selector:
-    app: nebula-license-manager
----
-apiVersion: apps/v1
+    app: nebula-license-manager</p>
+<hr />
+<p>apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: nebula-license-manager
@@ -10670,7 +10629,7 @@ spec:
         app: nebula-license-manager
     spec:
       containers:
-      - name: nebula-license-manager    
+      - name: nebula-license-manager  <br />
         image: # Fill in the corresponding LM image address.
         ports:
         - containerPort: 9119
@@ -10685,7 +10644,7 @@ spec:
           httpGet:
             path: /health
             port: 9119
-      # Used to specify one or more Secret names for pulling private images.      
+      # Used to specify one or more Secret names for pulling private images.    <br />
       imagePullSecrets:
         - name: image-pull-secret # The name of the Secret.
   volumeClaimTemplates:
@@ -10694,21 +10653,19 @@ spec:
     spec:
       accessModes:
       - ReadWriteOnce
-      storageClassName: &quot;local-path&quot; # Storage Class name.
+      storageClassName: "local-path" # Storage Class name.
       resources:
         requests:
-          storage: 2Gi  
-</code></pre></div>
+          storage: 2Gi<br />
+```</p>
 </li>
 <li>
 <p>Create LM.</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f nebula-license-manager.yaml
-</code></pre></div>
+<p><code>kubectl apply -f nebula-license-manager.yaml</code></p>
 </li>
 <li>
 <p>Verify that LM has been successfully deployed.</p>
-<div class="highlight"><pre><span></span><code>kubectl -n nebula-license-manager get pods
-</code></pre></div>
+<p><code>kubectl -n nebula-license-manager get pods</code></p>
 </li>
 </ol>
 <h2 id="monitor_lm">Monitor LM<a class="headerlink" href="#monitor_lm" title="Permanent link">&para;</a></h2>
@@ -10720,19 +10677,18 @@ spec:
 <ul>
 <li>
 <p>Commands for managing the license using LM deployed within the K8s cluster are as follows:</p>
-<div class="highlight"><pre><span></span><code># View license information.
-kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
-/usr/local/nebula-license-manager/nebula-license-manager-cli info
-
-# Load the License Key. 
-# You must load the License Key before starting the NebulaGraph database.
-kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
-/usr/local/nebula-license-manager/nebula-license-manager-cli load --key XXXXX-XXXXX-...
-
-# View license quota usage.
-kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
+<p>```</p>
+<h1 id="view_license_information">View license information.<a class="headerlink" href="#view_license_information" title="Permanent link">&para;</a></h1>
+<p>kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
+/usr/local/nebula-license-manager/nebula-license-manager-cli info</p>
+<h1 id="load_the_license_key">Load the License Key.<a class="headerlink" href="#load_the_license_key" title="Permanent link">&para;</a></h1>
+<h1 id="you_must_load_the_license_key_before_starting_the_nebulagraph_database">You must load the License Key before starting the NebulaGraph database.<a class="headerlink" href="#you_must_load_the_license_key_before_starting_the_nebulagraph_database" title="Permanent link">&para;</a></h1>
+<p>kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
+/usr/local/nebula-license-manager/nebula-license-manager-cli load --key XXXXX-XXXXX-...</p>
+<h1 id="view_license_quota_usage">View license quota usage.<a class="headerlink" href="#view_license_quota_usage" title="Permanent link">&para;</a></h1>
+<p>kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
   /usr/local/nebula-license-manager/nebula-license-manager-cli usage
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <h2 id="next_to_do">Next to do<a class="headerlink" href="#next_to_do" title="Permanent link">&para;</a></h2>
@@ -10826,10 +10782,6 @@ kubectl -n nebula-license-manager exec -it nebula-license-manager-0 -- \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

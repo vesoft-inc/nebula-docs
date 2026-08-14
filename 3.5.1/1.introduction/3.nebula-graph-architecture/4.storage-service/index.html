@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10929,7 +10929,7 @@
 <p>When inserting into NebulaGraph, vertices and edges are distributed across different partitions. And the partitions are located on different machines. The number of partitions is set in the CREATE SPACE statement and cannot be changed afterward.</p>
 <p>If certain vertices need to be placed on the same partition (i.e., on the same machine), see <a href="https://github.com/vesoft-inc/nebula-common/blob/master/src/common/clients/meta/MetaClient.cpp">Formula/code</a>.</p>
 <p>The following code will briefly describe the relationship between VID and partition.</p>
-<div class="highlight"><pre><span></span><code>// If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
+<p><code>// If VertexID occupies 8 bytes, it will be stored in int64 to be compatible with the version 1.0.
 uint64_t vid = 0;
 if (id.size() == 8) {
     memcpy(static_cast&lt;void*&gt;(&amp;vid), id.data(), 8);
@@ -10937,11 +10937,10 @@ if (id.size() == 8) {
     MurmurHash2 hash;
     vid = hash(id.data());
 }
-PartitionID pId = vid % numParts + 1;
-</code></pre></div>
+PartitionID pId = vid % numParts + 1;</code></p>
 <p>Roughly speaking, after hashing a fixed string to int64, (the hashing of int64 is the number itself), do modulo, and then plus one, namely:</p>
-<div class="highlight"><pre><span></span><code><span class="n">pId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vid</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">numParts</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</code></pre></div>
+<p><code>C++
+pId = vid % numParts + 1;</code></p>
 <p>Parameters and descriptions of the preceding formula are as follows:</p>
 <table>
 <thead>
@@ -11132,10 +11131,6 @@ You can query the cache stats through the cURL command `curl "http://[storaged I
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

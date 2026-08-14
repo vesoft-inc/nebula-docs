@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -4281,13 +4281,6 @@
         <li class="md-nav__item">
   <a href="#compilation_steps" class="md-nav__link">
     Compilation steps
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next_steps" class="md-nav__link">
-    Next Steps
   </a>
   
 </li>
@@ -10483,13 +10476,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#next_steps" class="md-nav__link">
-    Next Steps
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10523,8 +10509,8 @@
 </li>
 <li>
 <p><strong>Clone NebulaGraph's Source Code</strong>: Clone the repository locally using:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>release-3.5<span class="w"> </span>https://github.com/vesoft-inc/nebula.git
-</code></pre></div>
+<p><code>bash
+git clone --branch release-3.5 https://github.com/vesoft-inc/nebula.git</code></p>
 <p>This clones the NebulaGraph source code to a subdirectory named <code>nebula</code>.</p>
 </li>
 </ol>
@@ -10532,20 +10518,20 @@
 <ol>
 <li>
 <p>Pull the NebulaGraph compilation image.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-dev:ubuntu2004
-</code></pre></div>
+<p><code>bash
+docker pull vesoft/nebula-dev:ubuntu2004</code></p>
 <p>Here, we use the official NebulaGraph compilation image, <code>ubuntu2004</code>. For different versions, see <a href="https://github.com/vesoft-inc/nebula-dev-docker/#nebula-graph-development-docker-image">nebula-dev-docker</a>.</p>
 </li>
 <li>
 <p>Start the compilation container.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/home<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-w<span class="w"> </span>/home<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="w"> </span>nebula_dev<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>vesoft/nebula-dev:ubuntu2004<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>bash
-</code></pre></div>
+<p><code>bash
+docker run -ti \
+  --security-opt seccomp=unconfined \
+  -v "$PWD":/home \
+  -w /home \
+  --name nebula_dev \
+  vesoft/nebula-dev:ubuntu2004 \
+  bash</code></p>
 <ul>
 <li><code>--security-opt seccomp=unconfined</code>: Disables the seccomp security mechanism to avoid compilation errors.</li>
 </ul>
@@ -10571,26 +10557,27 @@
 <ol>
 <li>
 <p>Enter the NebulaGraph source code directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>nebula
-</code></pre></div>
+<p><code>docker
+cd nebula</code></p>
 </li>
 <li>
 <p>Create a build directory and enter it.</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-</code></pre></div>
+<p><code>docker
+mkdir build &amp;&amp; cd build</code></p>
 </li>
 <li>
 <p>Use CMake to generate the Makefile.</p>
-<p><div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span><span class="nv">$TOOLSET_CLANG_DIR</span>/bin/g++<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span><span class="nv">$TOOLSET_CLANG_DIR</span>/bin/gcc<span class="w"> </span>-DENABLE_WERROR<span class="o">=</span>OFF<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DENABLE_TESTING<span class="o">=</span>OFF<span class="w"> </span>..
-</code></pre></div>
+<p><code>docker
+cmake -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/g++ -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/gcc -DENABLE_WERROR=OFF -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTING=OFF ..</code>
 For more on CMake, see <a href="../1.install-nebula-graph-by-compiling-the-source-code/#cmake_variables">CMake Parameters</a>.</p>
 </li>
 <li>
 <p>Compile NebulaGraph.</p>
-<div class="highlight"><pre><span></span><code><span class="c"># The -j parameter specifies the number of threads to use.</span>
-<span class="c"># If you have a multi-core CPU, you can use more threads to speed up compilation.</span>
-make<span class="w"> </span>-j2
-</code></pre></div>
+<p>```docker</p>
+<h1 id="the_-j_parameter_specifies_the_number_of_threads_to_use">The -j parameter specifies the number of threads to use.<a class="headerlink" href="#the_-j_parameter_specifies_the_number_of_threads_to_use" title="Permanent link">&para;</a></h1>
+<h1 id="if_you_have_a_multi-core_cpu_you_can_use_more_threads_to_speed_up_compilation">If you have a multi-core CPU, you can use more threads to speed up compilation.<a class="headerlink" href="#if_you_have_a_multi-core_cpu_you_can_use_more_threads_to_speed_up_compilation" title="Permanent link">&para;</a></h1>
+<p>make -j2
+```</p>
 <p>Compilation might take some time based on your system performance. </p>
 </li>
 </ol>
@@ -10598,8 +10585,8 @@ make<span class="w"> </span>-j2
 <li>
 <p>Install the Executables and Libraries.</p>
 <p>Post successful compilation, NebulaGraph's binaries and libraries are located in <code>/home/nebula/build</code>. Install them to <code>/usr/local/nebula</code>:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>install
-</code></pre></div>
+<p><code>docker
+make install</code></p>
 </li>
 </ol>
 <p>Once completed, NebulaGraph is compiled and installed in the host directory <code>/usr/local/nebula</code>.</p>
@@ -10696,10 +10683,6 @@ make<span class="w"> </span>-j2
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

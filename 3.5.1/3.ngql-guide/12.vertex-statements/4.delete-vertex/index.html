@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -3434,13 +3434,6 @@
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#process_of_deleting_vertices" class="md-nav__link">
-    Process of deleting vertices
   </a>
   
 </li>
@@ -10483,13 +10476,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#process_of_deleting_vertices" class="md-nav__link">
-    Process of deleting vertices
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10535,22 +10521,22 @@
 </ul>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>DELETE VERTEX &lt;vid&gt; [, &lt;vid&gt; ...] [WITH EDGE];
-</code></pre></div>
+<p><code>ngql
+DELETE VERTEX &lt;vid&gt; [, &lt;vid&gt; ...] [WITH EDGE];</code></p>
 <ul>
 <li>WITH EDGE: deletes vertices and the related incoming and outgoing edges of the vertices.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>This query deletes the vertex whose ID is "team1".</p>
-<div class="highlight"><pre><span></span><code># Delete the vertex whose VID is `team1` but the related incoming and outgoing edges are not deleted.
-nebula&gt; DELETE VERTEX &quot;team1&quot;;
-
-# Delete the vertex whose VID is `team1` and the related incoming and outgoing edges.
-nebula&gt; DELETE VERTEX &quot;team1&quot; WITH EDGE;
-</code></pre></div>
+<p>```ngql</p>
+<h1 id="delete_the_vertex_whose_vid_is_team1_but_the_related_incoming_and_outgoing_edges_are_not_deleted">Delete the vertex whose VID is <code>team1</code> but the related incoming and outgoing edges are not deleted.<a class="headerlink" href="#delete_the_vertex_whose_vid_is_team1_but_the_related_incoming_and_outgoing_edges_are_not_deleted" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; DELETE VERTEX "team1";</p>
+<h1 id="delete_the_vertex_whose_vid_is_team1_and_the_related_incoming_and_outgoing_edges">Delete the vertex whose VID is <code>team1</code> and the related incoming and outgoing edges.<a class="headerlink" href="#delete_the_vertex_whose_vid_is_team1_and_the_related_incoming_and_outgoing_edges" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; DELETE VERTEX "team1" WITH EDGE;
+```</p>
 <p>This query shows that you can use <code>DELETE VERTEX</code> together with pipe to delete vertices.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER serve WHERE properties(edge).start_year == &quot;2021&quot; YIELD dst(edge) AS id | DELETE VERTEX $-.id;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; GO FROM "player100" OVER serve WHERE properties(edge).start_year == "2021" YIELD dst(edge) AS id | DELETE VERTEX $-.id;</code></p>
 <h2 id="process_of_deleting_vertices">Process of deleting vertices<a class="headerlink" href="#process_of_deleting_vertices" title="Permanent link">&para;</a></h2>
 <p>Once NebulaGraph deletes the vertices, all edges (incoming and outgoing edges) of the target vertex will become dangling edges. When NebulaGraph deletes the vertices <code>WITH EDGE</code>, NebulaGraph traverses the incoming and outgoing edges related to the vertices and deletes them all. Then NebulaGraph deletes the vertices.</p>
 <div class="admonition caution">
@@ -10648,10 +10634,6 @@ nebula&gt; DELETE VERTEX &quot;team1&quot; WITH EDGE;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

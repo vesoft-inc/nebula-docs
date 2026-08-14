@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10503,12 +10503,12 @@
 <p>The <code>UPDATE EDGE</code> statement updates properties on an edge.</p>
 <p>In NebulaGraph, <code>UPDATE EDGE</code> supports compare-and-swap (CAS).</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>UPDATE EDGE ON &lt;edge_type&gt;
+<p><code>ngql
+UPDATE EDGE ON &lt;edge_type&gt;
 &lt;src_vid&gt; -&gt; &lt;dst_vid&gt; [@&lt;rank&gt;]
 SET &lt;update_prop&gt;
 [WHEN &lt;condition&gt;]
-[YIELD &lt;output&gt;]
-</code></pre></div>
+[YIELD &lt;output&gt;]</code></p>
 <table>
 <thead>
 <tr>
@@ -10565,17 +10565,18 @@ SET &lt;update_prop&gt;
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>The following example checks the properties of the edge with the GO statement.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; \
+<p><code>ngql
+nebula&gt; GO FROM "player100" \
         OVER serve \
         YIELD properties(edge).start_year, properties(edge).end_year;
 +-----------------------------+---------------------------+
 | properties(EDGE).start_year | properties(EDGE).end_year |
 +-----------------------------+---------------------------+
 | 1997                        | 2016                      |
-+-----------------------------+---------------------------+
-</code></pre></div>
++-----------------------------+---------------------------+</code></p>
 <p>The following example updates the <code>start_year</code> property and returns the <code>end_year</code> and the new <code>start_year</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UPDATE EDGE on serve &quot;player100&quot; -&gt; &quot;team204&quot;@0 \
+<p><code>ngql
+nebula&gt; UPDATE EDGE on serve "player100" -&gt; "team204"@0 \
         SET start_year = start_year + 1 \
         WHEN end_year &gt; 2010 \
         YIELD start_year, end_year;
@@ -10583,8 +10584,7 @@ SET &lt;update_prop&gt;
 | start_year | end_year |
 +------------+----------+
 | 1998       | 2016     |
-+------------+----------+
-</code></pre></div>
++------------+----------+</code></p>
 
   <hr>
 <div class="md-source-file">
@@ -10673,10 +10673,6 @@ SET &lt;update_prop&gt;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

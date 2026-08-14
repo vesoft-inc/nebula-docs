@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -2838,22 +2838,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#set_a_timeout_when_creating_a_tag_or_an_edge_type" class="md-nav__link">
-    Set a timeout when creating a tag or an edge type
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remove_a_timeout" class="md-nav__link">
-    Remove a timeout
-  </a>
   
 </li>
       
@@ -10607,22 +10593,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#set_a_timeout_when_creating_a_tag_or_an_edge_type" class="md-nav__link">
-    Set a timeout when creating a tag or an edge type
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remove_a_timeout" class="md-nav__link">
-    Remove a timeout
-  </a>
   
 </li>
       
@@ -10726,38 +10698,37 @@
 <p>You must use the TTL options together to set a valid timeout on a property.</p>
 <h3 id="set_a_timeout_if_a_tag_or_an_edge_type_exists">Set a timeout if a tag or an edge type exists<a class="headerlink" href="#set_a_timeout_if_a_tag_or_an_edge_type_exists" title="Permanent link">&para;</a></h3>
 <p>If a tag or an edge type is already created, to set a timeout on a property bound to the tag or edge type, use <code>ALTER</code> to update the tag or edge type.</p>
-<div class="highlight"><pre><span></span><code># Create a tag.
-nebula&gt; CREATE TAG IF NOT EXISTS t1 (a timestamp);
-
-# Use ALTER to update the tag and set the TTL options.
-nebula&gt; ALTER TAG t1 TTL_COL = &quot;a&quot;, TTL_DURATION = 5;
-
-# Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.
-nebula&gt; INSERT VERTEX t1(a) VALUES &quot;101&quot;:(now());
-</code></pre></div>
+<p>```ngql</p>
+<h1 id="create_a_tag">Create a tag.<a class="headerlink" href="#create_a_tag" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE TAG IF NOT EXISTS t1 (a timestamp);</p>
+<h1 id="use_alter_to_update_the_tag_and_set_the_ttl_options">Use ALTER to update the tag and set the TTL options.<a class="headerlink" href="#use_alter_to_update_the_tag_and_set_the_ttl_options" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; ALTER TAG t1 TTL_COL = "a", TTL_DURATION = 5;</p>
+<h1 id="insert_a_vertex_with_tag_t1_the_vertex_expires_5_seconds_after_the_insertion">Insert a vertex with tag t1. The vertex expires 5 seconds after the insertion.<a class="headerlink" href="#insert_a_vertex_with_tag_t1_the_vertex_expires_5_seconds_after_the_insertion" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; INSERT VERTEX t1(a) VALUES "101":(now());
+```</p>
 <h3 id="set_a_timeout_when_creating_a_tag_or_an_edge_type">Set a timeout when creating a tag or an edge type<a class="headerlink" href="#set_a_timeout_when_creating_a_tag_or_an_edge_type" title="Permanent link">&para;</a></h3>
 <p>Use TTL options in the <code>CREATE</code> statement to set a timeout when creating a tag or an edge type. For more information, see <a href="../../10.tag-statements/1.create-tag/">CREATE TAG</a> and <a href="../../11.edge-type-statements/1.create-edge/">CREATE EDGE</a>.</p>
-<div class="highlight"><pre><span></span><code># Create a tag and set the TTL options.
-nebula&gt; CREATE TAG IF NOT EXISTS t2(a int, b int, c string) TTL_DURATION= 100, TTL_COL = &quot;a&quot;;
-
-# Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).
-nebula&gt; INSERT VERTEX t2(a, b, c) VALUES &quot;102&quot;:(1648197138, 30, &quot;Hello&quot;);
-</code></pre></div>
+<p>```ngql</p>
+<h1 id="create_a_tag_and_set_the_ttl_options">Create a tag and set the TTL options.<a class="headerlink" href="#create_a_tag_and_set_the_ttl_options" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE TAG IF NOT EXISTS t2(a int, b int, c string) TTL_DURATION= 100, TTL_COL = "a";</p>
+<h1 id="insert_a_vertex_with_tag_t2_the_timeout_timestamp_is_1648197238_1648197138_100">Insert a vertex with tag t2. The timeout timestamp is 1648197238 (1648197138 + 100).<a class="headerlink" href="#insert_a_vertex_with_tag_t2_the_timeout_timestamp_is_1648197238_1648197138_100" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; INSERT VERTEX t2(a, b, c) VALUES "102":(1648197138, 30, "Hello");
+```</p>
 <h2 id="remove_a_timeout">Remove a timeout<a class="headerlink" href="#remove_a_timeout" title="Permanent link">&para;</a></h2>
 <p>To disable TTL and remove the timeout on a property, you can use the following approaches.</p>
 <ul>
-<li>Drop the property with the timeout.<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 DROP (a);
-</code></pre></div>
+<li>Drop the property with the timeout.<p><code>ngql
+  nebula&gt; ALTER TAG t1 DROP (a);</code></p>
 </li>
 </ul>
 <ul>
-<li>Set <code>ttl_col</code> to an empty string.<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 TTL_COL = &quot;&quot;;
-</code></pre></div>
+<li>Set <code>ttl_col</code> to an empty string.<p><code>ngql
+  nebula&gt; ALTER TAG t1 TTL_COL = "";</code></p>
 </li>
 </ul>
 <ul>
-<li>Set <code>ttl_duration</code> to <code>0</code>. This operation keeps the TTL options and prevents the property from expiring and the property schema from being modified.<div class="highlight"><pre><span></span><code>nebula&gt; ALTER TAG t1 TTL_DURATION = 0;
-</code></pre></div>
+<li>Set <code>ttl_duration</code> to <code>0</code>. This operation keeps the TTL options and prevents the property from expiring and the property schema from being modified.<p><code>ngql
+  nebula&gt; ALTER TAG t1 TTL_DURATION = 0;</code></p>
 </li>
 </ul>
 
@@ -10848,10 +10819,6 @@ nebula&gt; INSERT VERTEX t2(a, b, c) VALUES &quot;102&quot;:(1648197138, 30, &qu
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

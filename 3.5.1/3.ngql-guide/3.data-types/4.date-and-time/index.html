@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -1415,27 +1415,6 @@
         <li class="md-nav__item">
   <a href="#datetime" class="md-nav__link">
     DATETIME
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timestamp" class="md-nav__link">
-    TIMESTAMP
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#duration" class="md-nav__link">
-    DURATION
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
   </a>
   
 </li>
@@ -10539,27 +10518,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#timestamp" class="md-nav__link">
-    TIMESTAMP
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#duration" class="md-nav__link">
-    DURATION
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10627,27 +10585,26 @@
 <h2 id="date">DATE<a class="headerlink" href="#date" title="Permanent link">&para;</a></h2>
 <p>The <code>DATE</code> type is used for values with a date part but no time part. Nebula Graph retrieves and displays <code>DATE</code> values in the <code>YYYY-MM-DD</code> format. The supported range is <code>-32768-01-01</code> to <code>32767-12-31</code>.</p>
 <p>The properties of <code>date()</code> include <code>year</code>, <code>month</code>, and <code>day</code>. <code>date()</code> supports the input of <code>YYYYY</code>, <code>YYYYY-MM</code> or <code>YYYYY-MM-DD</code>, and defaults to <code>01</code> for an untyped month or day.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN DATE({year:-123, month:12, day:3});
+<p>```ngql
+nebula&gt; RETURN DATE({year:-123, month:12, day:3});
 +------------------------------------+
 | date({year:-(123),month:12,day:3}) |
 +------------------------------------+
 | -123-12-03                         |
-+------------------------------------+
-
-nebula&gt; RETURN DATE(&quot;23333&quot;);
++------------------------------------+</p>
+<p>nebula&gt; RETURN DATE("23333");
 +---------------+
-| date(&quot;23333&quot;) |
+| date("23333") |
 +---------------+
 | 23333-01-01   |
-+---------------+
-
-nebula&gt; RETURN DATE(&quot;2023-12-12&quot;) - DATE(&quot;2023-12-11&quot;);
++---------------+</p>
+<p>nebula&gt; RETURN DATE("2023-12-12") - DATE("2023-12-11");
 +-----------------------------------------+
-| (date(&quot;2023-12-12&quot;)-date(&quot;2023-12-11&quot;)) |
+| (date("2023-12-12")-date("2023-12-11")) |
 +-----------------------------------------+
 | 1                                       |
 +-----------------------------------------+
-</code></pre></div>
+```</p>
 <h2 id="time">TIME<a class="headerlink" href="#time" title="Permanent link">&para;</a></h2>
 <p>The <code>TIME</code> type is used for values with a time part but no date part. Nebula Graph retrieves and displays <code>TIME</code> values in <code>hh:mm:ss.msmsmsususus</code> format. The supported range is <code>00:00:00.000000</code> to <code>23:59:59.999999</code>.</p>
 <p>The properties of <code>time()</code> include <code>hour</code>, <code>minute</code>, and <code>second</code>.</p>
@@ -10662,37 +10619,35 @@ nebula&gt; RETURN DATE(&quot;2023-12-12&quot;) - DATE(&quot;2023-12-11&quot;);
 <ul>
 <li><code>datetime()</code> supports an <code>int</code> argument. The <code>int</code> argument specifies a timestamp.</li>
 </ul>
-<div class="highlight"><pre><span></span><code># To get the current date and time.
-nebula&gt; RETURN datetime();
+<p>```ngql</p>
+<h1 id="to_get_the_current_date_and_time">To get the current date and time.<a class="headerlink" href="#to_get_the_current_date_and_time" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN datetime();
 +----------------------------+
 | datetime()                 |
 +----------------------------+
 | 2022-08-29T06:37:08.933000 |
-+----------------------------+
-
-# To get the current hour.
-nebula&gt; RETURN datetime().hour;
++----------------------------+</p>
+<h1 id="to_get_the_current_hour">To get the current hour.<a class="headerlink" href="#to_get_the_current_hour" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN datetime().hour;
 +-----------------+
 | datetime().hour |
 +-----------------+
 | 6               |
-+-----------------+
-
-# To get date time from a given timestamp.
-nebula&gt; RETURN datetime(timestamp(1625469277));
++-----------------+</p>
+<h1 id="to_get_date_time_from_a_given_timestamp">To get date time from a given timestamp.<a class="headerlink" href="#to_get_date_time_from_a_given_timestamp" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN datetime(timestamp(1625469277));
 +---------------------------------+
 | datetime(timestamp(1625469277)) |
 +---------------------------------+
 | 2021-07-05T07:14:37.000000      |
-+---------------------------------+
-
-nebula&gt; RETURN datetime(1625469277);
++---------------------------------+</p>
+<p>nebula&gt; RETURN datetime(1625469277);
 +----------------------------+
 | datetime(1625469277)       |
 +----------------------------+
 | 2021-07-05T07:14:37.000000 |
 +----------------------------+
-</code></pre></div>
+```</p>
 <h2 id="timestamp">TIMESTAMP<a class="headerlink" href="#timestamp" title="Permanent link">&para;</a></h2>
 <p>The <code>TIMESTAMP</code> data type is used for values that contain both date and time parts. It has a range of <code>1970-01-01T00:00:01</code> UTC to <code>2262-04-11T23:47:16</code> UTC.</p>
 <p><code>TIMESTAMP</code> has the following features:</p>
@@ -10714,30 +10669,29 @@ nebula&gt; RETURN datetime(1625469277);
 <ul>
 <li>The underlying storage data type is <strong>int64</strong>.</li>
 </ul>
-<div class="highlight"><pre><span></span><code># To get the current timestamp.
-nebula&gt; RETURN timestamp();
+<p>```ngql</p>
+<h1 id="to_get_the_current_timestamp">To get the current timestamp.<a class="headerlink" href="#to_get_the_current_timestamp" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN timestamp();
 +-------------+
 | timestamp() |
 +-------------+
 | 1625469277  |
-+-------------+
-
-# To get a timestamp from given date and time.
-nebula&gt; RETURN timestamp(&quot;2022-01-05T06:18:43&quot;);
++-------------+</p>
+<h1 id="to_get_a_timestamp_from_given_date_and_time">To get a timestamp from given date and time.<a class="headerlink" href="#to_get_a_timestamp_from_given_date_and_time" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN timestamp("2022-01-05T06:18:43");
 +----------------------------------+
-| timestamp(&quot;2022-01-05T06:18:43&quot;) |
+| timestamp("2022-01-05T06:18:43") |
 +----------------------------------+
 | 1641363523                       |
-+----------------------------------+
-
-# To get a timestamp using datetime().
-nebula&gt; RETURN timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;));
++----------------------------------+</p>
+<h1 id="to_get_a_timestamp_using_datetime">To get a timestamp using datetime().<a class="headerlink" href="#to_get_a_timestamp_using_datetime" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; RETURN timestamp(datetime("2022-08-29T07:53:10.939000"));
 +---------------------------------------------------+
-| timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;)) |
+| timestamp(datetime("2022-08-29T07:53:10.939000")) |
 +---------------------------------------------------+
 | 1661759590                                        |
-+---------------------------------------------------+    
-</code></pre></div>
++---------------------------------------------------+  <br />
+```</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The date and time format string passed into <code>timestamp()</code> cannot include any millisecond and microsecond, but the date and time format string passed into <code>timestamp(datetime())</code> can include a millisecond and a microsecond.</p>
@@ -10755,95 +10709,94 @@ nebula&gt; RETURN timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;));
 <ol>
 <li>
 <p>Create a tag named <code>date1</code> with three properties: <code>DATE</code>, <code>TIME</code>, and <code>DATETIME</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS date1(p1 date, p2 time, p3 datetime);
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; CREATE TAG IF NOT EXISTS date1(p1 date, p2 time, p3 datetime);</code></p>
 </li>
 <li>
 <p>Insert a vertex named <code>test1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES &quot;test1&quot;:(date(&quot;2021-03-17&quot;), time(&quot;17:53:59&quot;), datetime(&quot;2017-03-04T22:30:40.003000[Asia/Shanghai]&quot;));
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES "test1":(date("2021-03-17"), time("17:53:59"), datetime("2017-03-04T22:30:40.003000[Asia/Shanghai]"));</code></p>
 </li>
 <li>
 <p>Query whether the value of property <code>p1</code> on the <code>test1</code> tag is <code>2021-03-17</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  RETURN v.date1.p1 == date(&quot;2021-03-17&quot;);
-+----------------------------------+
-| (v.date1.p1==date(&quot;2021-03-17&quot;)) |
-+----------------------------------+
-| true                             |
-+----------------------------------+
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; MATCH (v:date1)  RETURN v.date1.p1 == date("2021-03-17");
+  +----------------------------------+
+  | (v.date1.p1==date("2021-03-17")) |
+  +----------------------------------+
+  | true                             |
+  +----------------------------------+</code></p>
 </li>
 <li>
 <p>Return the content of the property <code>p1</code> on <code>test1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG INDEX IF NOT EXISTS date1_index ON date1(p1);
-nebula&gt; REBUILD TAG INDEX date1_index;
-nebula&gt; MATCH (v:date1) RETURN v.date1.p1;
-+------------------+
-| v.date1.p1.month |
-+------------------+
-| 3                |
-+------------------+
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; CREATE TAG INDEX IF NOT EXISTS date1_index ON date1(p1);
+  nebula&gt; REBUILD TAG INDEX date1_index;
+  nebula&gt; MATCH (v:date1) RETURN v.date1.p1;
+  +------------------+
+  | v.date1.p1.month |
+  +------------------+
+  | 3                |
+  +------------------+</code></p>
 </li>
 <li>
 <p>Search for vertices with <code>p3</code> property values less than <code>2023-01-01T00:00:00.000000</code>, and return the <code>p3</code> values.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  \
-WHERE v.date1.p3 &lt; datetime(&quot;2023-01-01T00:00:00.000000&quot;) \
-RETURN v.date1.p3;
-+----------------------------+
-| v.date1.p3                 |
-+----------------------------+
-| 2017-03-04T14:30:40.003000 |
-+----------------------------+
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; MATCH (v:date1)  \
+  WHERE v.date1.p3 &lt; datetime("2023-01-01T00:00:00.000000") \
+  RETURN v.date1.p3;
+  +----------------------------+
+  | v.date1.p3                 |
+  +----------------------------+
+  | 2017-03-04T14:30:40.003000 |
+  +----------------------------+</code></p>
 </li>
 <li>
 <p>Create a tag named <code>school</code> with the property of <code>TIMESTAMP</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS school(name string , found_time timestamp);
-</code></pre></div>
+<p><code>ngql
+  nebula&gt; CREATE TAG IF NOT EXISTS school(name string , found_time timestamp);</code></p>
 </li>
 <li>
 <p>Insert a vertex named <code>DUT</code> with a found-time timestamp of <code>"1988-03-01T08:00:00"</code>.</p>
-<div class="highlight"><pre><span></span><code># Insert as a timestamp. The corresponding timestamp of 1988-03-01T08:00:00 is 573177600, or 573206400 UTC.
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;DUT&quot;:(&quot;DUT&quot;, 573206400);
-
-# Insert in the form of date and time.
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;DUT&quot;:(&quot;DUT&quot;, timestamp(&quot;1988-03-01T08:00:00&quot;));
-</code></pre></div>
+<p>```ngql
+  # Insert as a timestamp. The corresponding timestamp of 1988-03-01T08:00:00 is 573177600, or 573206400 UTC.
+  nebula&gt; INSERT VERTEX school(name, found_time) VALUES "DUT":("DUT", 573206400);</p>
+<p># Insert in the form of date and time.
+  nebula&gt; INSERT VERTEX school(name, found_time) VALUES "DUT":("DUT", timestamp("1988-03-01T08:00:00"));
+  ```</p>
 </li>
 <li>
 <p>Insert a vertex named <code>dut</code> and store time with <code>now()</code> or <code>timestamp()</code> functions.</p>
-<div class="highlight"><pre><span></span><code># Use now() function to store time
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;dut&quot;, now());
-
-# Use timestamp() function to store time
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;dut&quot;, timestamp());
-</code></pre></div>
+<p>```ngql
+  # Use now() function to store time
+  nebula&gt; INSERT VERTEX school(name, found_time) VALUES "dut":("dut", now());</p>
+<p># Use timestamp() function to store time
+  nebula&gt; INSERT VERTEX school(name, found_time) VALUES "dut":("dut", timestamp());
+  ```</p>
 </li>
 </ol>
 <p>You can also use <code>WITH</code> statement to set a specific date and time, or to perform calculations. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; WITH time({hour: 12, minute: 31, second: 14, millisecond:111, microsecond: 222}) AS d RETURN d;
+<p>```ngql
+nebula&gt; WITH time({hour: 12, minute: 31, second: 14, millisecond:111, microsecond: 222}) AS d RETURN d;
 +-----------------+
 | d               |
 +-----------------+
 | 12:31:14.111222 |
-+-----------------+
-
-nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
++-----------------+</p>
+<p>nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 +------------+
 | (x+1)      |
 +------------+
 | 1984-10-12 |
-+------------+
-
-nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, hours: 99, minutes: 12}) as d \
++------------+</p>
+<p>nebula&gt; WITH date('1984-10-11') as x, duration({years: 12, days: 14, hours: 99, minutes: 12}) as d \
         RETURN x + d AS sum, x - d AS diff;
 +------------+------------+
 | sum        | diff       |
 +------------+------------+
 | 1996-10-29 | 1972-09-23 |
 +------------+------------+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10932,10 +10885,6 @@ nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, 
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

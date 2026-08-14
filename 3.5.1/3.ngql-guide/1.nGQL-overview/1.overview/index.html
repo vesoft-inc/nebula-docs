@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10707,18 +10707,18 @@
 </tbody>
 </table>
 <p>For example, create vertices in nGQL syntax:</p>
-<div class="highlight"><pre><span></span><code>INSERT VERTEX [IF NOT EXISTS] [tag_props, [tag_props] ...]
+<p><code>ngql
+INSERT VERTEX [IF NOT EXISTS] [tag_props, [tag_props] ...]
 VALUES &lt;vid&gt;: ([prop_value_list])
 tag_props:
   tag_name ([prop_name_list])
 prop_name_list:
    [prop_name [, prop_name] ...]
 prop_value_list:
-   [prop_value [, prop_value] ...]  
-</code></pre></div>
+   [prop_value [, prop_value] ...]</code></p>
 <p>Example statement:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS player(name string, age int);
-</code></pre></div>
+<p><code>ngql
+nebula&gt; CREATE TAG IF NOT EXISTS player(name string, age int);</code></p>
 <h2 id="about_opencypher_compatibility">About openCypher compatibility<a class="headerlink" href="#about_opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <h3 id="native_ngql_and_opencypher">Native nGQL and openCypher<a class="headerlink" href="#native_ngql_and_opencypher" title="Permanent link">&para;</a></h3>
 <p>Native nGQL is the part of a graph query language designed and implemented by NebulaGraph. OpenCypher is a graph query language maintained by openCypher Implementers Group.</p>
@@ -10806,56 +10806,54 @@ prop_value_list:
 <h3 id="where_can_i_find_more_ngql_examples">Where can I find more nGQL examples?<a class="headerlink" href="#where_can_i_find_more_ngql_examples" title="Permanent link">&para;</a></h3>
 <p>Users can find more than 2500 nGQL examples in the <a href="https://github.com/vesoft-inc/nebula/tree/master/tests/tck/features">features</a> directory on the NebulaGraph GitHub page.</p>
 <p>The <code>features</code> directory consists of <code>.feature</code> files. Each file records scenarios that you can use as nGQL examples. Here is an example:</p>
-<div class="highlight"><pre><span></span><code>Feature: Basic match
-
-  Background:
-    Given a graph with space named &quot;basketballplayer&quot;
-
-  Scenario: Single node
+<p>```text
+Feature: Basic match</p>
+<p>Background:
+    Given a graph with space named "basketballplayer"</p>
+<p>Scenario: Single node
     When executing query:
-      &quot;&quot;&quot;
-      MATCH (v:player {name: &quot;Yao Ming&quot;}) RETURN v;
-      &quot;&quot;&quot;
+      """
+      MATCH (v:player {name: "Yao Ming"}) RETURN v;
+      """
     Then the result should be, in any order, with relax comparison:
       | v                                                |
-      | (&quot;player133&quot; :player{age: 38, name: &quot;Yao Ming&quot;}) |
-
-  Scenario: One step
+      | ("player133" :player{age: 38, name: "Yao Ming"}) |</p>
+<p>Scenario: One step
     When executing query:
-      &quot;&quot;&quot;
-      MATCH (v1:player{name: &quot;LeBron James&quot;}) -[r]-&gt; (v2)
+      """
+      MATCH (v1:player{name: "LeBron James"}) -[r]-&gt; (v2)
       RETURN type(r) AS Type, v2.player.name AS Name
-      &quot;&quot;&quot;
-    Then the result should be, in any order:
-
-      | Type     | Name        |
-      | &quot;follow&quot; | &quot;Ray Allen&quot; |
-      | &quot;serve&quot;  | &quot;Lakers&quot;    |
-      | &quot;serve&quot;  | &quot;Heat&quot;      |
-      | &quot;serve&quot;  | &quot;Cavaliers&quot; |
-
-Feature:  Comparison of where clause
-
-  Background:
-    Given a graph with space named &quot;basketballplayer&quot;
-
-    Scenario: push edge props filter down
-      When profiling query:
-        &quot;&quot;&quot;
-        GO FROM &quot;player100&quot; OVER follow 
-        WHERE properties(edge).degree IN [v IN [95,99] WHERE v &gt; 0] 
-        YIELD dst(edge), properties(edge).degree
-        &quot;&quot;&quot;
-      Then the result should be, in any order:
-        | follow._dst | follow.degree |
-        | &quot;player101&quot; | 95            |
-        | &quot;player125&quot; | 95            |
-      And the execution plan should be:
-        | id | name         | dependencies | operator info                                               |
-        | 0  | Project      | 1            |                                                             |
-        | 1  | GetNeighbors | 2            | {&quot;filter&quot;: &quot;(properties(edge).degree IN [v IN [95,99] WHERE (v&gt;0)])&quot;} |
-        | 2  | Start        |              |                                                             |
+      """
+    Then the result should be, in any order:</p>
+<div class="codehilite"><pre><span></span><code>  | Type     | Name        |
+  | &quot;follow&quot; | &quot;Ray Allen&quot; |
+  | &quot;serve&quot;  | &quot;Lakers&quot;    |
+  | &quot;serve&quot;  | &quot;Heat&quot;      |
+  | &quot;serve&quot;  | &quot;Cavaliers&quot; |
 </code></pre></div>
+
+<p>Feature:  Comparison of where clause</p>
+<p>Background:
+    Given a graph with space named "basketballplayer"</p>
+<div class="codehilite"><pre><span></span><code>Scenario: push edge props filter down
+  When profiling query:
+    &quot;&quot;&quot;
+    GO FROM &quot;player100&quot; OVER follow 
+    WHERE properties(edge).degree IN [v IN [95,99] WHERE v &gt; 0] 
+    YIELD dst(edge), properties(edge).degree
+    &quot;&quot;&quot;
+  Then the result should be, in any order:
+    | follow._dst | follow.degree |
+    | &quot;player101&quot; | 95            |
+    | &quot;player125&quot; | 95            |
+  And the execution plan should be:
+    | id | name         | dependencies | operator info                                               |
+    | 0  | Project      | 1            |                                                             |
+    | 1  | GetNeighbors | 2            | {&quot;filter&quot;: &quot;(properties(edge).degree IN [v IN [95,99] WHERE (v&gt;0)])&quot;} |
+    | 2  | Start        |              |                                                             |
+</code></pre></div>
+
+<p>```</p>
 <p>The keywords in the preceding example are described as follows.</p>
 <table>
 <thead>
@@ -10994,10 +10992,6 @@ Feature:  Comparison of where clause
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

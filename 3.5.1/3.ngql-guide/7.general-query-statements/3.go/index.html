@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -2239,55 +2239,6 @@
           <li class="md-nav__item">
   <a href="#to_query_all_vertices_within_a_specified_number_of_hops_from_a_starting_vertex" class="md-nav__link">
     To query all vertices within a specified number of hops from a starting vertex
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_add_filtering_conditions" class="md-nav__link">
-    To add filtering conditions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_query_multiple_edge_types" class="md-nav__link">
-    To query multiple edge types
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_query_incoming_vertices_using_the_reversely_keyword" class="md-nav__link">
-    To query incoming vertices using the REVERSELY keyword
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_subqueries_as_the_starting_vertice_of_a_graph_traversal" class="md-nav__link">
-    To use subqueries as the starting vertice of a graph traversal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_group_by_to_group_the_output" class="md-nav__link">
-    To use GROUP BY to group the output
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_order_by_and_limit_to_sort_and_limit_the_output" class="md-nav__link">
-    To use ORDER BY and LIMIT to sort and limit the output
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other_examples" class="md-nav__link">
-    Other examples
   </a>
   
 </li>
@@ -10588,55 +10539,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#to_add_filtering_conditions" class="md-nav__link">
-    To add filtering conditions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_query_multiple_edge_types" class="md-nav__link">
-    To query multiple edge types
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_query_incoming_vertices_using_the_reversely_keyword" class="md-nav__link">
-    To query incoming vertices using the REVERSELY keyword
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_subqueries_as_the_starting_vertice_of_a_graph_traversal" class="md-nav__link">
-    To use subqueries as the starting vertice of a graph traversal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_group_by_to_group_the_output" class="md-nav__link">
-    To use GROUP BY to group the output
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#to_use_order_by_and_limit_to_sort_and_limit_the_output" class="md-nav__link">
-    To use ORDER BY and LIMIT to sort and limit the output
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other_examples" class="md-nav__link">
-    Other examples
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -10670,25 +10572,23 @@
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>This topic applies to native nGQL only.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>GO [[&lt;M&gt; TO] &lt;N&gt; {STEP|STEPS}] FROM &lt;vertex_list&gt;
-OVER &lt;edge_type_list&gt; [{REVERSELY | BIDIRECT}]
-[ WHERE &lt;conditions&gt; ]
-YIELD [DISTINCT] &lt;return_list&gt;
-[{SAMPLE &lt;sample_list&gt; | &lt;limit_by_list_clause&gt;}]
-[| GROUP BY {col_name | expr | position} YIELD &lt;col_name&gt;]
-[| ORDER BY &lt;expression&gt; [{ASC | DESC}]]
-[| LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;];
-
-&lt;vertex_list&gt; ::=
-    &lt;vid&gt; [, &lt;vid&gt; ...]
-
-&lt;edge_type_list&gt; ::=
+<p>```ngql
+GO [[<M> TO] <N> {STEP|STEPS}] FROM <vertex_list>
+OVER <edge_type_list> [{REVERSELY | BIDIRECT}]
+[ WHERE <conditions> ]
+YIELD [DISTINCT] <return_list>
+[{SAMPLE <sample_list> | <limit_by_list_clause>}]
+[| GROUP BY {col_name | expr | position} YIELD <col_name>]
+[| ORDER BY <expression> [{ASC | DESC}]]
+[| LIMIT [<offset>,] <number_rows>];</p>
+<p><vertex_list> ::=
+    <vid> [, <vid> ...]</p>
+<p><edge_type_list> ::=
    edge_type [, edge_type ...]
-   | *
-
-&lt;return_list&gt; ::=
-    &lt;col_name&gt; [AS &lt;col_alias&gt;] [, &lt;col_name&gt; [AS &lt;col_alias&gt;] ...]
-</code></pre></div>
+   | *</p>
+<p><return_list> ::=
+    <col_name> [AS <col_alias>] [, <col_name> [AS <col_alias>] ...]
+```</p>
 <ul>
 <li>
 <p><code>&lt;N&gt; {STEP|STEPS}</code>: specifies the hop number. If not specified, the default value for <code>N</code> is <code>one</code>. When <code>N</code> is <code>zero</code>, NebulaGraph does not traverse any edges and returns nothing.</p>
@@ -10759,68 +10659,70 @@ YIELD [DISTINCT] &lt;return_list&gt;
 <h2 id="cases_and_examples">Cases and examples<a class="headerlink" href="#cases_and_examples" title="Permanent link">&para;</a></h2>
 <h3 id="to_query_the_immediate_neighbors_of_a_vertex">To query the immediate neighbors of a vertex<a class="headerlink" href="#to_query_the_immediate_neighbors_of_a_vertex" title="Permanent link">&para;</a></h3>
 <p>For example, to query the team that a person belongs to, assuming that the person is connected to the team by the <code>serve</code> edge and the person's ID is <code>player102</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER serve YIELD dst(edge);
+<p><code>ngql
+nebula&gt; GO FROM "player102" OVER serve YIELD dst(edge);
 +-----------+
 | dst(EDGE) |
 +-----------+
-| &quot;team203&quot; |
-| &quot;team204&quot; |
-+-----------+
-</code></pre></div>
+| "team203" |
+| "team204" |
++-----------+</code></p>
 <h3 id="to_query_all_vertices_within_a_specified_number_of_hops_from_a_starting_vertex">To query all vertices within a specified number of hops from a starting vertex<a class="headerlink" href="#to_query_all_vertices_within_a_specified_number_of_hops_from_a_starting_vertex" title="Permanent link">&para;</a></h3>
 <p>For example, to query all vertices within two hops of a person vertex, assuming that the person is connected to other people by the <code>follow</code> edge and the person's ID is <code>player102</code>.</p>
-<div class="highlight"><pre><span></span><code># Return all vertices that are 2 hops away from the player102 vertex.
-nebula&gt; GO 2 STEPS FROM &quot;player102&quot; OVER follow YIELD dst(edge);
+<p>```ngql</p>
+<h1 id="return_all_vertices_that_are_2_hops_away_from_the_player102_vertex">Return all vertices that are 2 hops away from the player102 vertex.<a class="headerlink" href="#return_all_vertices_that_are_2_hops_away_from_the_player102_vertex" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO 2 STEPS FROM "player102" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player125&quot; |
-| &quot;player100&quot; |
-| &quot;player102&quot; |
-| &quot;player125&quot; |
+| "player101" |
+| "player125" |
+| "player100" |
+| "player102" |
+| "player125" |
 +-------------+
-</code></pre></div>
-<div class="highlight"><pre><span></span><code># Return all vertices within 1 or 2 hops away from the player102 vertex.
-nebula&gt; GO 1 TO 2 STEPS FROM &quot;player100&quot; OVER follow \
+```</p>
+<p>```ngql</p>
+<h1 id="return_all_vertices_within_1_or_2_hops_away_from_the_player102_vertex">Return all vertices within 1 or 2 hops away from the player102 vertex.<a class="headerlink" href="#return_all_vertices_within_1_or_2_hops_away_from_the_player102_vertex" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO 1 TO 2 STEPS FROM "player100" OVER follow \
         YIELD dst(edge) AS destination;
 +-------------+
 | destination |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player125&quot; |
-...
-
-# The following MATCH query has the same semantics as the previous GO query.
-nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
-        WHERE id(v) == &quot;player100&quot; \
+| "player101" |
+| "player125" |
+...</p>
+<h1 id="the_following_match_query_has_the_same_semantics_as_the_previous_go_query">The following MATCH query has the same semantics as the previous GO query.<a class="headerlink" href="#the_following_match_query_has_the_same_semantics_as_the_previous_go_query" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
+        WHERE id(v) == "player100" \
         RETURN id(v2) AS destination;
 +-------------+
 | destination |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player102&quot; |
+| "player100" |
+| "player102" |
 ...
-</code></pre></div>
+```</p>
 <h3 id="to_add_filtering_conditions">To add filtering conditions<a class="headerlink" href="#to_add_filtering_conditions" title="Permanent link">&para;</a></h3>
 <p>Case: To query the vertices and edges that meet specific conditions.</p>
 <p>For example, use the <code>WHERE</code> clause to query the edges with specific properties between the starting vertex and the destination vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot;, &quot;player102&quot; OVER serve \
+<p>```ngql
+nebula&gt; GO FROM "player100", "player102" OVER serve \
         WHERE properties(edge).start_year &gt; 1995 \
-        YIELD DISTINCT properties($$).name AS team_name, properties(edge).start_year AS start_year, properties($^).name AS player_name;
-
-+-----------------+------------+---------------------+
+        YIELD DISTINCT properties($<span class="arithmatex">\().name AS team_name, properties(edge).start_year AS start_year, properties(\)</span>^).name AS player_name;</p>
+<p>+-----------------+------------+---------------------+
 | team_name       | start_year | player_name         |
 +-----------------+------------+---------------------+
-| &quot;Spurs&quot;         | 1997       | &quot;Tim Duncan&quot;        |
-| &quot;Trail Blazers&quot; | 2006       | &quot;LaMarcus Aldridge&quot; |
-| &quot;Spurs&quot;         | 2015       | &quot;LaMarcus Aldridge&quot; |
+| "Spurs"         | 1997       | "Tim Duncan"        |
+| "Trail Blazers" | 2006       | "LaMarcus Aldridge" |
+| "Spurs"         | 2015       | "LaMarcus Aldridge" |
 +-----------------+------------+---------------------+
-</code></pre></div>
+```</p>
 <h3 id="to_query_multiple_edge_types">To query multiple edge types<a class="headerlink" href="#to_query_multiple_edge_types" title="Permanent link">&para;</a></h3>
 <p>Case: To query multiple edge types that are connected to the starting vertex. You can specify multiple edge types or the <code>*</code> symbol to query multiple edge types.</p>
 <p>For example, to query the <code>follow</code> and <code>serve</code> edges that are connected to the starting vertex.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow, serve \
+<p><code>ngql
+nebula&gt; GO FROM "player100" OVER follow, serve \
         YIELD properties(edge).degree, properties(edge).start_year;
 +-------------------------+-----------------------------+
 | properties(EDGE).degree | properties(EDGE).start_year |
@@ -10828,94 +10730,96 @@ nebula&gt; MATCH (v) -[e:follow*1..2]-&gt;(v2) \
 | 95                      | __NULL__                    |
 | 95                      | __NULL__                    |
 | __NULL__                | 1997                        |
-+-------------------------+-----------------------------+
-</code></pre></div>
++-------------------------+-----------------------------+</code></p>
 <h3 id="to_query_incoming_vertices_using_the_reversely_keyword">To query incoming vertices using the REVERSELY keyword<a class="headerlink" href="#to_query_incoming_vertices_using_the_reversely_keyword" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Return the vertices that follow the player100 vertex.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
+<p>```ngql</p>
+<h1 id="return_the_vertices_that_follow_the_player100_vertex">Return the vertices that follow the player100 vertex.<a class="headerlink" href="#return_the_vertices_that_follow_the_player100_vertex" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player100" OVER follow REVERSELY \
         YIELD src(edge) AS destination;
 +-------------+
 | destination |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player102&quot; |
-...
-
-# The following MATCH query has the same semantics as the previous GO query.
-nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == &#39;player100&#39; \
+| "player101" |
+| "player102" |
+...</p>
+<h1 id="the_following_match_query_has_the_same_semantics_as_the_previous_go_query_1">The following MATCH query has the same semantics as the previous GO query.<a class="headerlink" href="#the_following_match_query_has_the_same_semantics_as_the_previous_go_query_1" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v)&lt;-[e:follow]- (v2) WHERE id(v) == 'player100' \
         RETURN id(v2) AS destination;
 +-------------+
 | destination |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player102&quot; |
+| "player101" |
+| "player102" |
 ...
-</code></pre></div>
+```</p>
 <h3 id="to_use_subqueries_as_the_starting_vertice_of_a_graph_traversal">To use subqueries as the starting vertice of a graph traversal<a class="headerlink" href="#to_use_subqueries_as_the_starting_vertice_of_a_graph_traversal" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Return the friends of the player100 vertex and the teams that the friends belong to.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
+<p>```ngql</p>
+<h1 id="return_the_friends_of_the_player100_vertex_and_the_teams_that_the_friends_belong_to">Return the friends of the player100 vertex and the teams that the friends belong to.<a class="headerlink" href="#return_the_friends_of_the_player100_vertex_and_the_teams_that_the_friends_belong_to" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player100" OVER follow REVERSELY \
         YIELD src(edge) AS id | \
-        GO FROM $-.id OVER serve \
-        WHERE properties($^).age &gt; 20 \
-        YIELD properties($^).name AS FriendOf, properties($$).name AS Team;
+        GO FROM <span class="arithmatex">\(-.id OVER serve \
+        WHERE properties(\)</span>^).age &gt; 20 \
+        YIELD properties(<span class="arithmatex">\(^).name AS FriendOf, properties(\)</span>$).name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
 +---------------------+-----------------+
-| &quot;Boris Diaw&quot;        | &quot;Spurs&quot;         |
-| &quot;Boris Diaw&quot;        | &quot;Jazz&quot;          |
-| &quot;Boris Diaw&quot;        | &quot;Suns&quot;          |
-...
-
-# The following MATCH query has the same semantics as the previous GO query.
-nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  \
-        WHERE id(v) == &#39;player100&#39; \
+| "Boris Diaw"        | "Spurs"         |
+| "Boris Diaw"        | "Jazz"          |
+| "Boris Diaw"        | "Suns"          |
+...</p>
+<h1 id="the_following_match_query_has_the_same_semantics_as_the_previous_go_query_2">The following MATCH query has the same semantics as the previous GO query.<a class="headerlink" href="#the_following_match_query_has_the_same_semantics_as_the_previous_go_query_2" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v)&lt;-[e:follow]- (v2)-[e2:serve]-&gt;(v3)  \
+        WHERE id(v) == 'player100' \
         RETURN v2.player.name AS FriendOf, v3.team.name AS Team;
 +---------------------+-----------------+
 | FriendOf            | Team            |
 +---------------------+-----------------+
-| &quot;Boris Diaw&quot;        | &quot;Spurs&quot;         |
-| &quot;Boris Diaw&quot;        | &quot;Jazz&quot;          |
-| &quot;Boris Diaw&quot;        | &quot;Suns&quot;          |
+| "Boris Diaw"        | "Spurs"         |
+| "Boris Diaw"        | "Jazz"          |
+| "Boris Diaw"        | "Suns"          |
 ...
-</code></pre></div>
+```</p>
 <h3 id="to_use_group_by_to_group_the_output">To use <code>GROUP BY</code> to group the output<a class="headerlink" href="#to_use_group_by_to_group_the_output" title="Permanent link">&para;</a></h3>
 <p>You need to use <code>YIELD</code> to define the output that needs to be returned after grouping.</p>
-<div class="highlight"><pre><span></span><code># The following example collects the outputs according to age.
-nebula&gt; GO 2 STEPS FROM &quot;player100&quot; OVER follow \
+<p>```ngql</p>
+<h1 id="the_following_example_collects_the_outputs_according_to_age">The following example collects the outputs according to age.<a class="headerlink" href="#the_following_example_collects_the_outputs_according_to_age" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO 2 STEPS FROM "player100" OVER follow \
         YIELD src(edge) AS src, dst(edge) AS dst, properties($$).age AS age \
-        | GROUP BY $-.dst \
-        YIELD $-.dst AS dst, collect_set($-.src) AS src, collect($-.age) AS age;
+        | GROUP BY <span class="arithmatex">\(-.dst \
+        YIELD <span class="arithmatex">\(-.dst AS dst, collect_set(\)</span>-.src) AS src, collect(\)</span>-.age) AS age;
 +-------------+----------------------------+----------+
 | dst         | src                        | age      |
 +-------------+----------------------------+----------+
-| &quot;player125&quot; | {&quot;player101&quot;}              | [41]     |
-| &quot;player100&quot; | {&quot;player125&quot;, &quot;player101&quot;} | [42, 42] |
-| &quot;player102&quot; | {&quot;player101&quot;}              | [33]     |
+| "player125" | {"player101"}              | [41]     |
+| "player100" | {"player125", "player101"} | [42, 42] |
+| "player102" | {"player101"}              | [33]     |
 +-------------+----------------------------+----------+
-</code></pre></div>
+```</p>
 <h3 id="to_use_order_by_and_limit_to_sort_and_limit_the_output">To use <code>ORDER BY</code> and <code>LIMIT</code> to sort and limit the output<a class="headerlink" href="#to_use_order_by_and_limit_to_sort_and_limit_the_output" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following example groups the outputs and restricts the number of rows of the outputs.
-nebula&gt; $a = GO FROM &quot;player100&quot; OVER follow YIELD src(edge) AS src, dst(edge) AS dst; \
+<p>```ngql</p>
+<h1 id="the_following_example_groups_the_outputs_and_restricts_the_number_of_rows_of_the_outputs">The following example groups the outputs and restricts the number of rows of the outputs.<a class="headerlink" href="#the_following_example_groups_the_outputs_and_restricts_the_number_of_rows_of_the_outputs" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; $a = GO FROM "player100" OVER follow YIELD src(edge) AS src, dst(edge) AS dst; \
         GO 2 STEPS FROM $a.dst OVER follow \
         YIELD $a.src AS src, $a.dst, src(edge), dst(edge) \
         | ORDER BY $-.src | OFFSET 1 LIMIT 2;
 +-------------+-------------+-------------+-------------+
 | src         | $a.dst      | src(EDGE)   | dst(EDGE)   |
 +-------------+-------------+-------------+-------------+
-| &quot;player100&quot; | &quot;player101&quot; | &quot;player100&quot; | &quot;player101&quot; |
-| &quot;player100&quot; | &quot;player125&quot; | &quot;player100&quot; | &quot;player125&quot; |
+| "player100" | "player101" | "player100" | "player101" |
+| "player100" | "player125" | "player100" | "player125" |
 +-------------+-------------+-------------+-------------+
-</code></pre></div>
+```</p>
 <h3 id="other_examples">Other examples<a class="headerlink" href="#other_examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following example determines if $$.player.name IS NOT EMPTY.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
+<p>```ngql</p>
+<h1 id="the_following_example_determines_if_playername_is_not_empty">The following example determines if $$.player.name IS NOT EMPTY.<a class="headerlink" href="#the_following_example_determines_if_playername_is_not_empty" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player100" OVER follow WHERE properties($$).name IS NOT EMPTY YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player125&quot; |
-| &quot;player101&quot; |
+| "player125" |
+| "player101" |
 +-------------+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -11004,10 +10908,6 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow WHERE properties($$).name I
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

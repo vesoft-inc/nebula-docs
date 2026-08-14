@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10744,13 +10744,11 @@
 <ol>
 <li>
 <p>Install the NebulaGraph Analytics. When installing a cluster of multiple NebulaGraph Analytics on multiple nodes, you need to install NebulaGraph Analytics to the same path and set up SSH-free login between nodes.</p>
-<div class="highlight"><pre><span></span><code>sudo rpm -ivh &lt;analytics_package_name&gt; --prefix &lt;install_path&gt;
-sudo chown &lt;user&gt;:&lt;user&gt; -R &lt;install path&gt;
-</code></pre></div>
+<p><code>sudo rpm -ivh &lt;analytics_package_name&gt; --prefix &lt;install_path&gt;
+sudo chown &lt;user&gt;:&lt;user&gt; -R &lt;install path&gt;</code></p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>sudo rpm -ivh nebula-analytics-3.5.0-centos.x86_64.rpm --prefix=/home/vesoft/nebula-analytics
-sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics
-</code></pre></div>
+<p><code>sudo rpm -ivh nebula-analytics-3.5.0-centos.x86_64.rpm --prefix=/home/vesoft/nebula-analytics
+sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics</code></p>
 </li>
 <li>
 <p>Configure the correct Hadoop path and JDK path in the file <code>set_env.sh</code>, the file path is <code>nebula-analytics/scripts/set_env.sh</code>. If there are multiple machines, ensure that the paths are the same.</p>
@@ -10758,9 +10756,8 @@ sudo chown vesoft:vesoft -R /home/vesoft/nebula-analytics
 <p class="admonition-title">Note</p>
 <p>The default TCP port range used by the MPICH process manager and MPICH library is 10000 to 10100. To adjust this, modify the value of the environment variable <code>MPIR_CVAR_CH3_PORT_RANGE</code> in the <code>set_env.sh</code> file.</p>
 </div>
-<div class="highlight"><pre><span></span><code>export HADOOP_HOME=&lt;hadoop_path&gt;
-export JAVA_HOME=&lt;java_path&gt;
-</code></pre></div>
+<p><code>export HADOOP_HOME=&lt;hadoop_path&gt;
+export JAVA_HOME=&lt;java_path&gt;</code></p>
 </li>
 <li>
 <p>Configure the <code>analytics.conf</code> file with the path <code>nebula-analytics/scripts/analytics.conf</code>. Set the value of <code>license_manager_url</code> to the host IP and port number <code>9119</code> where the license management tool is located, e.g. <code>192.168.8.100:9119</code>.</p>
@@ -10773,28 +10770,33 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 
 1. Clone the `analytics` repository.
 
-  <div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-3.5<span class="w"> </span>https://github.com/vesoft-inc/nebula-analytics.git
-</code></pre></div>
+  ```bash
+  $ git clone -b release-3.5 https://github.com/vesoft-inc/nebula-analytics.git
+  ```
 
 2. Access the `nebula-analytics` directory.
 
-  <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>nebula-analytics
-</code></pre></div>
+  ```bash
+  $ cd nebula-analytics
+  ```
 
 3. Execute the following script to install compile dependencies.
 
-  <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>./docker/install-dependencies.sh
-</code></pre></div>
+  ```bash
+  $ sudo ./docker/install-dependencies.sh
+  ```
 
 4. Download a static library and compile it.
 
-  <div class="highlight"><pre><span></span><code>$<span class="w"> </span>./3rdtools.sh<span class="w"> </span>distclean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./3rdtools.sh<span class="w"> </span>install
-</code></pre></div>
+  ```bash
+  $ ./3rdtools.sh distclean && ./3rdtools.sh install
+  ```
 
 5. Compile NebulaGraph Analytics.
 
-  <div class="highlight"><pre><span></span><code>$<span class="w"> </span>./build.sh
-</code></pre></div>
+  ```bash
+  $ ./build.sh
+  ```
 -->
 
 <h2 id="how_to_use_nebulagraph_analytics">How to use NebulaGraph Analytics<a class="headerlink" href="#how_to_use_nebulagraph_analytics" title="Permanent link">&para;</a></h2>
@@ -10802,8 +10804,8 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 <ol>
 <li>
 <p>Select one node from the NebulaGraph Analytics cluster and then access the <code>scripts</code> directory.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>scripts
-</code></pre></div>
+<p><code>bash
+$ cd scripts</code></p>
 </li>
 <li>
 <p>Confirm the data source and export path. Configuration steps are as follows.</p>
@@ -10813,78 +10815,75 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 <ol>
 <li>
 <p>Modify the configuration file <code>nebula.conf</code> to configure the NebulaGraph cluster. </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The number of retries connecting to NebulaGraph.</span>
---retry<span class="o">=</span><span class="m">3</span><span class="w">  </span>
-<span class="c1"># The name of the graph space where you read or write data.</span>
---space<span class="o">=</span>baskeyballplayer<span class="w">  </span>
-
-<span class="c1"># Read data from NebulaGraph.</span>
-<span class="c1"># The name of edges.</span>
---edges<span class="o">=</span>LIKES<span class="w">  </span>
-<span class="c1"># The name of the property to be read as the weight of the edge. Can be either the attribute name or _rank.</span>
-<span class="c1">#--edge_data_fields </span>
-<span class="c1"># The number of rows read per scan.</span>
---read_batch_size<span class="o">=</span><span class="m">10000</span><span class="w">  </span>
-
-<span class="c1"># Write data to NebulaGraph.</span>
-<span class="c1"># The graphd process address.</span>
---graph_server_addrs<span class="o">=</span><span class="m">192</span>.168.8.100:9669<span class="w">  </span>
-<span class="c1"># The account to log into NebulaGraph.</span>
---user<span class="o">=</span>root<span class="w">  </span>
-<span class="c1"># The password to log into NebulaGraph.</span>
---password<span class="o">=</span>nebula<span class="w">  </span>
-<span class="c1"># The pattern used to write data back to NebulaGraph: insert or update.</span>
---mode<span class="o">=</span>insert<span class="w">  </span>
-<span class="c1"># The tag name written back to NebulaGraph.</span>
---tag<span class="o">=</span>pagerank<span class="w">  </span>
-<span class="c1"># The property name corresponding to the tag.</span>
---prop<span class="o">=</span>pr<span class="w">  </span>
-<span class="c1"># The property type corresponding the the tag.</span>
---type<span class="o">=</span>double<span class="w"> </span>
-<span class="c1"># The number of rows per write. </span>
---write_batch_size<span class="o">=</span><span class="m">1000</span><span class="w"> </span>
-<span class="c1"># The file path where the data failed to be written back to NebulaGraph is stored.</span>
---err_file<span class="o">=</span>/home/xxx/analytics/err.txt<span class="w"> </span>
-
-<span class="c1"># other</span>
-<span class="c1"># The access timeout period of the service.</span>
---graphd_timeout<span class="o">=</span><span class="m">60000</span>
---metad_timeout<span class="o">=</span><span class="m">60000</span>
---storaged_timeout<span class="o">=</span><span class="m">60000</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="the_number_of_retries_connecting_to_nebulagraph">The number of retries connecting to NebulaGraph.<a class="headerlink" href="#the_number_of_retries_connecting_to_nebulagraph" title="Permanent link">&para;</a></h1>
+<p>--retry=3  </p>
+<h1 id="the_name_of_the_graph_space_where_you_read_or_write_data">The name of the graph space where you read or write data.<a class="headerlink" href="#the_name_of_the_graph_space_where_you_read_or_write_data" title="Permanent link">&para;</a></h1>
+<p>--space=baskeyballplayer  </p>
+<h1 id="read_data_from_nebulagraph">Read data from NebulaGraph.<a class="headerlink" href="#read_data_from_nebulagraph" title="Permanent link">&para;</a></h1>
+<h1 id="the_name_of_edges">The name of edges.<a class="headerlink" href="#the_name_of_edges" title="Permanent link">&para;</a></h1>
+<p>--edges=LIKES  </p>
+<h1 id="the_name_of_the_property_to_be_read_as_the_weight_of_the_edge_can_be_either_the_attribute_name_or_rank">The name of the property to be read as the weight of the edge. Can be either the attribute name or _rank.<a class="headerlink" href="#the_name_of_the_property_to_be_read_as_the_weight_of_the_edge_can_be_either_the_attribute_name_or_rank" title="Permanent link">&para;</a></h1>
+<h1 id="--edge_data_fields">--edge_data_fields<a class="headerlink" href="#--edge_data_fields" title="Permanent link">&para;</a></h1>
+<h1 id="the_number_of_rows_read_per_scan">The number of rows read per scan.<a class="headerlink" href="#the_number_of_rows_read_per_scan" title="Permanent link">&para;</a></h1>
+<p>--read_batch_size=10000  </p>
+<h1 id="write_data_to_nebulagraph">Write data to NebulaGraph.<a class="headerlink" href="#write_data_to_nebulagraph" title="Permanent link">&para;</a></h1>
+<h1 id="the_graphd_process_address">The graphd process address.<a class="headerlink" href="#the_graphd_process_address" title="Permanent link">&para;</a></h1>
+<p>--graph_server_addrs=192.168.8.100:9669  </p>
+<h1 id="the_account_to_log_into_nebulagraph">The account to log into NebulaGraph.<a class="headerlink" href="#the_account_to_log_into_nebulagraph" title="Permanent link">&para;</a></h1>
+<p>--user=root  </p>
+<h1 id="the_password_to_log_into_nebulagraph">The password to log into NebulaGraph.<a class="headerlink" href="#the_password_to_log_into_nebulagraph" title="Permanent link">&para;</a></h1>
+<p>--password=nebula  </p>
+<h1 id="the_pattern_used_to_write_data_back_to_nebulagraph_insert_or_update">The pattern used to write data back to NebulaGraph: insert or update.<a class="headerlink" href="#the_pattern_used_to_write_data_back_to_nebulagraph_insert_or_update" title="Permanent link">&para;</a></h1>
+<p>--mode=insert  </p>
+<h1 id="the_tag_name_written_back_to_nebulagraph">The tag name written back to NebulaGraph.<a class="headerlink" href="#the_tag_name_written_back_to_nebulagraph" title="Permanent link">&para;</a></h1>
+<p>--tag=pagerank  </p>
+<h1 id="the_property_name_corresponding_to_the_tag">The property name corresponding to the tag.<a class="headerlink" href="#the_property_name_corresponding_to_the_tag" title="Permanent link">&para;</a></h1>
+<p>--prop=pr  </p>
+<h1 id="the_property_type_corresponding_the_the_tag">The property type corresponding the the tag.<a class="headerlink" href="#the_property_type_corresponding_the_the_tag" title="Permanent link">&para;</a></h1>
+<p>--type=double </p>
+<h1 id="the_number_of_rows_per_write">The number of rows per write.<a class="headerlink" href="#the_number_of_rows_per_write" title="Permanent link">&para;</a></h1>
+<p>--write_batch_size=1000 </p>
+<h1 id="the_file_path_where_the_data_failed_to_be_written_back_to_nebulagraph_is_stored">The file path where the data failed to be written back to NebulaGraph is stored.<a class="headerlink" href="#the_file_path_where_the_data_failed_to_be_written_back_to_nebulagraph_is_stored" title="Permanent link">&para;</a></h1>
+<p>--err_file=/home/xxx/analytics/err.txt </p>
+<h1 id="other">other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h1>
+<h1 id="the_access_timeout_period_of_the_service">The access timeout period of the service.<a class="headerlink" href="#the_access_timeout_period_of_the_service" title="Permanent link">&para;</a></h1>
+<p>--graphd_timeout=60000
+--metad_timeout=60000
+--storaged_timeout=60000
+```</p>
 </li>
 <li>
 <p>Modify the related parameters in the script to be used, such as <code>run_pagerank.sh</code>. </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The sum of the number of processes running on all machines in the cluster. It is recommended to be the number of machines or the number of nodes in the NUMA architecture.</span>
-<span class="nv">WNUM</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>
-<span class="c1"># The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.</span>
-<span class="nv">WCORES</span><span class="o">=</span><span class="m">4</span><span class="w">  </span>
-<span class="c1"># The path to the data source.</span>
-<span class="c1"># Set to read data from NebulaGraph via the nebula.conf file.</span>
-<span class="nv">INPUT</span><span class="o">=</span><span class="si">${</span><span class="nv">INPUT</span><span class="p">:=</span><span class="s2">&quot;nebula:</span><span class="nv">$PROJECT</span><span class="s2">/scripts/nebula.conf&quot;</span><span class="si">}</span><span class="w">  </span>
-<span class="c1"># Set to read data from the CSV files on HDFS or on local directories.</span>
-<span class="c1"># #INPUT=${INPUT:=&quot;$PROJECT/data/graph/v100_e2150_ua_c3.csv&quot;}</span>
-
-<span class="c1"># The export path to the graph computation results.</span>
-<span class="c1"># Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.</span>
-<span class="nv">OUTPUT</span><span class="o">=</span><span class="si">${</span><span class="nv">OUTPUT</span><span class="p">:=</span><span class="s2">&quot;nebula:</span><span class="nv">$PROJECT</span><span class="s2">/scripts/nebula.conf&quot;</span><span class="si">}</span>
-<span class="c1"># Data can also be exported to the CSV files on HDFS or on local directories.</span>
-<span class="c1"># OUTPUT=${OUTPUT:=&#39;hdfs://192.168.8.100:9000/_test/output&#39;}</span>
-
-<span class="c1"># If the value is true, it is a directed graph, if false, it is an undirected graph.</span>
-<span class="nv">IS_DIRECTED</span><span class="o">=</span><span class="si">${</span><span class="nv">IS_DIRECTED</span><span class="p">:=true</span><span class="si">}</span>
-<span class="c1"># Set whether to encode ID or not.</span>
-<span class="nv">NEED_ENCODE</span><span class="o">=</span><span class="si">${</span><span class="nv">NEED_ENCODE</span><span class="p">:=true</span><span class="si">}</span>
-<span class="c1"># The ID type of the data source vertices. For example string, int32, and int64.</span>
-<span class="nv">VTYPE</span><span class="o">=</span><span class="si">${</span><span class="nv">VTYPE</span><span class="p">:=int32</span><span class="si">}</span>
-<span class="c1"># Encoding type. The value distributed specifies the distributed vertex ID encoding. The value single specifies the single-machine vertex ID encoding. </span>
-<span class="nv">ENCODER</span><span class="o">=</span><span class="si">${</span><span class="nv">ENCODER</span><span class="p">:=</span><span class="s2">&quot;distributed&quot;</span><span class="si">}</span>
-<span class="c1"># The parameter for the PageRank algorithm. Algorithms differ in parameters.</span>
-<span class="nv">EPS</span><span class="o">=</span><span class="si">${</span><span class="nv">EPS</span><span class="p">:=0.0001</span><span class="si">}</span>
-<span class="nv">DAMPING</span><span class="o">=</span><span class="si">${</span><span class="nv">DAMPING</span><span class="p">:=0.85</span><span class="si">}</span>
-<span class="c1"># The number of iterations.</span>
-<span class="nv">ITERATIONS</span><span class="o">=</span><span class="si">${</span><span class="nv">ITERATIONS</span><span class="p">:=100</span><span class="si">}</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="the_sum_of_the_number_of_processes_running_on_all_machines_in_the_cluster_it_is_recommended_to_be_the_number_of_machines_or_the_number_of_nodes_in_the_numa_architecture">The sum of the number of processes running on all machines in the cluster. It is recommended to be the number of machines or the number of nodes in the NUMA architecture.<a class="headerlink" href="#the_sum_of_the_number_of_processes_running_on_all_machines_in_the_cluster_it_is_recommended_to_be_the_number_of_machines_or_the_number_of_nodes_in_the_numa_architecture" title="Permanent link">&para;</a></h1>
+<p>WNUM=3 </p>
+<h1 id="the_number_of_threads_per_process_it_is_recommended_to_set_the_maximum_value_to_be_the_number_of_hardware_threads_of_the_machine">The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.<a class="headerlink" href="#the_number_of_threads_per_process_it_is_recommended_to_set_the_maximum_value_to_be_the_number_of_hardware_threads_of_the_machine" title="Permanent link">&para;</a></h1>
+<p>WCORES=4  </p>
+<h1 id="the_path_to_the_data_source">The path to the data source.<a class="headerlink" href="#the_path_to_the_data_source" title="Permanent link">&para;</a></h1>
+<h1 id="set_to_read_data_from_nebulagraph_via_the_nebulaconf_file">Set to read data from NebulaGraph via the nebula.conf file.<a class="headerlink" href="#set_to_read_data_from_nebulagraph_via_the_nebulaconf_file" title="Permanent link">&para;</a></h1>
+<p>INPUT=<span class="arithmatex">\({INPUT:="nebula:\)</span>PROJECT/scripts/nebula.conf"}  </p>
+<h1 id="set_to_read_data_from_the_csv_files_on_hdfs_or_on_local_directories">Set to read data from the CSV files on HDFS or on local directories.<a class="headerlink" href="#set_to_read_data_from_the_csv_files_on_hdfs_or_on_local_directories" title="Permanent link">&para;</a></h1>
+<h1 id="inputinputprojectdatagraphv100_e2150_ua_c3csv">#INPUT=<span class="arithmatex">\({INPUT:="\)</span>PROJECT/data/graph/v100_e2150_ua_c3.csv"}<a class="headerlink" href="#inputinputprojectdatagraphv100_e2150_ua_c3csv" title="Permanent link">&para;</a></h1>
+<h1 id="the_export_path_to_the_graph_computation_results">The export path to the graph computation results.<a class="headerlink" href="#the_export_path_to_the_graph_computation_results" title="Permanent link">&para;</a></h1>
+<h1 id="data_can_be_exported_to_a_nebulagraph_if_the_data_source_is_also_a_nebulagraph_the_results_will_be_exported_to_the_graph_space_specified_in_nebulaconf">Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.<a class="headerlink" href="#data_can_be_exported_to_a_nebulagraph_if_the_data_source_is_also_a_nebulagraph_the_results_will_be_exported_to_the_graph_space_specified_in_nebulaconf" title="Permanent link">&para;</a></h1>
+<p>OUTPUT=<span class="arithmatex">\({OUTPUT:="nebula:\)</span>PROJECT/scripts/nebula.conf"}</p>
+<h1 id="data_can_also_be_exported_to_the_csv_files_on_hdfs_or_on_local_directories">Data can also be exported to the CSV files on HDFS or on local directories.<a class="headerlink" href="#data_can_also_be_exported_to_the_csv_files_on_hdfs_or_on_local_directories" title="Permanent link">&para;</a></h1>
+<h1 id="outputoutputhdfs19216881009000_testoutput">OUTPUT=${OUTPUT:='hdfs://192.168.8.100:9000/_test/output'}<a class="headerlink" href="#outputoutputhdfs19216881009000_testoutput" title="Permanent link">&para;</a></h1>
+<h1 id="if_the_value_is_true_it_is_a_directed_graph_if_false_it_is_an_undirected_graph">If the value is true, it is a directed graph, if false, it is an undirected graph.<a class="headerlink" href="#if_the_value_is_true_it_is_a_directed_graph_if_false_it_is_an_undirected_graph" title="Permanent link">&para;</a></h1>
+<p>IS_DIRECTED=${IS_DIRECTED:=true}</p>
+<h1 id="set_whether_to_encode_id_or_not">Set whether to encode ID or not.<a class="headerlink" href="#set_whether_to_encode_id_or_not" title="Permanent link">&para;</a></h1>
+<p>NEED_ENCODE=${NEED_ENCODE:=true}</p>
+<h1 id="the_id_type_of_the_data_source_vertices_for_example_string_int32_and_int64">The ID type of the data source vertices. For example string, int32, and int64.<a class="headerlink" href="#the_id_type_of_the_data_source_vertices_for_example_string_int32_and_int64" title="Permanent link">&para;</a></h1>
+<p>VTYPE=${VTYPE:=int32}</p>
+<h1 id="encoding_type_the_value_distributed_specifies_the_distributed_vertex_id_encoding_the_value_single_specifies_the_single-machine_vertex_id_encoding">Encoding type. The value distributed specifies the distributed vertex ID encoding. The value single specifies the single-machine vertex ID encoding.<a class="headerlink" href="#encoding_type_the_value_distributed_specifies_the_distributed_vertex_id_encoding_the_value_single_specifies_the_single-machine_vertex_id_encoding" title="Permanent link">&para;</a></h1>
+<p>ENCODER=${ENCODER:="distributed"}</p>
+<h1 id="the_parameter_for_the_pagerank_algorithm_algorithms_differ_in_parameters">The parameter for the PageRank algorithm. Algorithms differ in parameters.<a class="headerlink" href="#the_parameter_for_the_pagerank_algorithm_algorithms_differ_in_parameters" title="Permanent link">&para;</a></h1>
+<p>EPS=<span class="arithmatex">\({EPS:=0.0001}
+DAMPING=\)</span>{DAMPING:=0.85}</p>
+<h1 id="the_number_of_iterations">The number of iterations.<a class="headerlink" href="#the_number_of_iterations" title="Permanent link">&para;</a></h1>
+<p>ITERATIONS=${ITERATIONS:=100}
+```</p>
 </li>
 </ol>
 </li>
@@ -10893,51 +10892,51 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
 <li>
 <p>Local or HDFS CSV files as the data source</p>
 <p>Modify parameters in the script to be used, such as <code>run_pagerank.sh</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># The sum of the number of processes running on all machines in the cluster. It is recommended to be the number of machines or the number of nodes in the NUMA architecture.</span>
-<span class="nv">WNUM</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>
-<span class="c1"># The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.</span>
-<span class="nv">WCORES</span><span class="o">=</span><span class="m">4</span><span class="w">  </span>
-<span class="c1"># The path to the data source.</span>
-<span class="c1"># Set to read data from NebulaGraph via the nebula.conf file.</span>
-<span class="c1"># INPUT=${INPUT:=&quot;nebula:$PROJECT/scripts/nebula.conf&quot;}  </span>
-<span class="c1"># Set to read data from the CSV files on HDFS or on local directories.</span>
-<span class="nv">INPUT</span><span class="o">=</span><span class="si">${</span><span class="nv">INPUT</span><span class="p">:=</span><span class="s2">&quot;</span><span class="nv">$PROJECT</span><span class="s2">/data/graph/v100_e2150_ua_c3.csv&quot;</span><span class="si">}</span>
-
-<span class="c1"># The export path to the graph computation results.</span>
-<span class="c1"># Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.</span>
-<span class="c1"># OUTPUT=${OUTPUT:=&quot;nebula:$PROJECT/scripts/nebula.conf&quot;}</span>
-<span class="c1"># Data can also be exported to the CSV files on HDFS or on local directories.</span>
-<span class="nv">OUTPUT</span><span class="o">=</span><span class="si">${</span><span class="nv">OUTPUT</span><span class="p">:=</span><span class="s1">&#39;hdfs://192.168.8.100:9000/_test/output&#39;</span><span class="si">}</span>
-
-<span class="c1"># If the value is true, it is a directed graph, if false, it is an undirected graph.</span>
-<span class="nv">IS_DIRECTED</span><span class="o">=</span><span class="si">${</span><span class="nv">IS_DIRECTED</span><span class="p">:=true</span><span class="si">}</span>
-<span class="c1"># Set whether to encode ID or not.</span>
-<span class="nv">NEED_ENCODE</span><span class="o">=</span><span class="si">${</span><span class="nv">NEED_ENCODE</span><span class="p">:=true</span><span class="si">}</span>
-<span class="c1"># The ID type of the data source vertices. For example string, int32, and int64.</span>
-<span class="nv">VTYPE</span><span class="o">=</span><span class="si">${</span><span class="nv">VTYPE</span><span class="p">:=int32</span><span class="si">}</span>
-<span class="c1"># The value distributed specifies the distributed vertex ID encoding. The value single specifies the single-machine vertex ID encoding. </span>
-<span class="nv">ENCODER</span><span class="o">=</span><span class="si">${</span><span class="nv">ENCODER</span><span class="p">:=</span><span class="s2">&quot;distributed&quot;</span><span class="si">}</span>
-<span class="c1"># The parameter for the PageRank algorithm. Algorithms differ in parameters.</span>
-<span class="nv">EPS</span><span class="o">=</span><span class="si">${</span><span class="nv">EPS</span><span class="p">:=0.0001</span><span class="si">}</span>
-<span class="nv">DAMPING</span><span class="o">=</span><span class="si">${</span><span class="nv">DAMPING</span><span class="p">:=0.85</span><span class="si">}</span>
-<span class="c1"># The number of iterations.</span>
-<span class="nv">ITERATIONS</span><span class="o">=</span><span class="si">${</span><span class="nv">ITERATIONS</span><span class="p">:=100</span><span class="si">}</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="the_sum_of_the_number_of_processes_running_on_all_machines_in_the_cluster_it_is_recommended_to_be_the_number_of_machines_or_the_number_of_nodes_in_the_numa_architecture_1">The sum of the number of processes running on all machines in the cluster. It is recommended to be the number of machines or the number of nodes in the NUMA architecture.<a class="headerlink" href="#the_sum_of_the_number_of_processes_running_on_all_machines_in_the_cluster_it_is_recommended_to_be_the_number_of_machines_or_the_number_of_nodes_in_the_numa_architecture_1" title="Permanent link">&para;</a></h1>
+<p>WNUM=3 </p>
+<h1 id="the_number_of_threads_per_process_it_is_recommended_to_set_the_maximum_value_to_be_the_number_of_hardware_threads_of_the_machine_1">The number of threads per process. It is recommended to set the maximum value to be the number of hardware threads of the machine.<a class="headerlink" href="#the_number_of_threads_per_process_it_is_recommended_to_set_the_maximum_value_to_be_the_number_of_hardware_threads_of_the_machine_1" title="Permanent link">&para;</a></h1>
+<p>WCORES=4  </p>
+<h1 id="the_path_to_the_data_source_1">The path to the data source.<a class="headerlink" href="#the_path_to_the_data_source_1" title="Permanent link">&para;</a></h1>
+<h1 id="set_to_read_data_from_nebulagraph_via_the_nebulaconf_file_1">Set to read data from NebulaGraph via the nebula.conf file.<a class="headerlink" href="#set_to_read_data_from_nebulagraph_via_the_nebulaconf_file_1" title="Permanent link">&para;</a></h1>
+<h1 id="inputinputnebulaprojectscriptsnebulaconf">INPUT=<span class="arithmatex">\({INPUT:="nebula:\)</span>PROJECT/scripts/nebula.conf"}<a class="headerlink" href="#inputinputnebulaprojectscriptsnebulaconf" title="Permanent link">&para;</a></h1>
+<h1 id="set_to_read_data_from_the_csv_files_on_hdfs_or_on_local_directories_1">Set to read data from the CSV files on HDFS or on local directories.<a class="headerlink" href="#set_to_read_data_from_the_csv_files_on_hdfs_or_on_local_directories_1" title="Permanent link">&para;</a></h1>
+<p>INPUT=<span class="arithmatex">\({INPUT:="\)</span>PROJECT/data/graph/v100_e2150_ua_c3.csv"}</p>
+<h1 id="the_export_path_to_the_graph_computation_results_1">The export path to the graph computation results.<a class="headerlink" href="#the_export_path_to_the_graph_computation_results_1" title="Permanent link">&para;</a></h1>
+<h1 id="data_can_be_exported_to_a_nebulagraph_if_the_data_source_is_also_a_nebulagraph_the_results_will_be_exported_to_the_graph_space_specified_in_nebulaconf_1">Data can be exported to a NebulaGraph. If the data source is also a NebulaGraph, the results will be exported to the graph space specified in nebula.conf.<a class="headerlink" href="#data_can_be_exported_to_a_nebulagraph_if_the_data_source_is_also_a_nebulagraph_the_results_will_be_exported_to_the_graph_space_specified_in_nebulaconf_1" title="Permanent link">&para;</a></h1>
+<h1 id="outputoutputnebulaprojectscriptsnebulaconf">OUTPUT=<span class="arithmatex">\({OUTPUT:="nebula:\)</span>PROJECT/scripts/nebula.conf"}<a class="headerlink" href="#outputoutputnebulaprojectscriptsnebulaconf" title="Permanent link">&para;</a></h1>
+<h1 id="data_can_also_be_exported_to_the_csv_files_on_hdfs_or_on_local_directories_1">Data can also be exported to the CSV files on HDFS or on local directories.<a class="headerlink" href="#data_can_also_be_exported_to_the_csv_files_on_hdfs_or_on_local_directories_1" title="Permanent link">&para;</a></h1>
+<p>OUTPUT=${OUTPUT:='hdfs://192.168.8.100:9000/_test/output'}</p>
+<h1 id="if_the_value_is_true_it_is_a_directed_graph_if_false_it_is_an_undirected_graph_1">If the value is true, it is a directed graph, if false, it is an undirected graph.<a class="headerlink" href="#if_the_value_is_true_it_is_a_directed_graph_if_false_it_is_an_undirected_graph_1" title="Permanent link">&para;</a></h1>
+<p>IS_DIRECTED=${IS_DIRECTED:=true}</p>
+<h1 id="set_whether_to_encode_id_or_not_1">Set whether to encode ID or not.<a class="headerlink" href="#set_whether_to_encode_id_or_not_1" title="Permanent link">&para;</a></h1>
+<p>NEED_ENCODE=${NEED_ENCODE:=true}</p>
+<h1 id="the_id_type_of_the_data_source_vertices_for_example_string_int32_and_int64_1">The ID type of the data source vertices. For example string, int32, and int64.<a class="headerlink" href="#the_id_type_of_the_data_source_vertices_for_example_string_int32_and_int64_1" title="Permanent link">&para;</a></h1>
+<p>VTYPE=${VTYPE:=int32}</p>
+<h1 id="the_value_distributed_specifies_the_distributed_vertex_id_encoding_the_value_single_specifies_the_single-machine_vertex_id_encoding">The value distributed specifies the distributed vertex ID encoding. The value single specifies the single-machine vertex ID encoding.<a class="headerlink" href="#the_value_distributed_specifies_the_distributed_vertex_id_encoding_the_value_single_specifies_the_single-machine_vertex_id_encoding" title="Permanent link">&para;</a></h1>
+<p>ENCODER=${ENCODER:="distributed"}</p>
+<h1 id="the_parameter_for_the_pagerank_algorithm_algorithms_differ_in_parameters_1">The parameter for the PageRank algorithm. Algorithms differ in parameters.<a class="headerlink" href="#the_parameter_for_the_pagerank_algorithm_algorithms_differ_in_parameters_1" title="Permanent link">&para;</a></h1>
+<p>EPS=<span class="arithmatex">\({EPS:=0.0001}
+DAMPING=\)</span>{DAMPING:=0.85}</p>
+<h1 id="the_number_of_iterations_1">The number of iterations.<a class="headerlink" href="#the_number_of_iterations_1" title="Permanent link">&para;</a></h1>
+<p>ITERATIONS=${ITERATIONS:=100}
+```</p>
 </li>
 </ul>
 </li>
 <li>
 <p>Modify the configuration file <code>cluster</code> to set the NebulaGraph Analytics cluster nodes and task assignment weights for executing the algorithm.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># NebulaGraph Analytics Cluster Node IP Addresses: Task Assignment Weights</span>
-<span class="m">192</span>.168.8.200:1
-<span class="m">192</span>.168.8.201:1
-<span class="m">192</span>.168.8.202:1
-</code></pre></div>
+<p>```bash</p>
+<h1 id="nebulagraph_analytics_cluster_node_ip_addresses_task_assignment_weights">NebulaGraph Analytics Cluster Node IP Addresses: Task Assignment Weights<a class="headerlink" href="#nebulagraph_analytics_cluster_node_ip_addresses_task_assignment_weights" title="Permanent link">&para;</a></h1>
+<p>192.168.8.200:1
+192.168.8.201:1
+192.168.8.202:1
+```</p>
 </li>
 <li>
 <p>Run the algorithm script. For example:</p>
-<div class="highlight"><pre><span></span><code>./run_pagerank.sh
-</code></pre></div>
+<p><code>bash
+./run_pagerank.sh</code></p>
 </li>
 <li>
 <p>View the graph computation results in the export path.</p>
@@ -11037,10 +11036,6 @@ The preparations for compiling NebulaGraph Analytics are similar to compiling Ne
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -2949,20 +2949,6 @@
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     Examples
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation_of_the_operation" class="md-nav__link">
-    Implementation of the operation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check_partition_distribution" class="md-nav__link">
-    Check partition distribution
   </a>
   
 </li>
@@ -10544,20 +10530,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#implementation_of_the_operation" class="md-nav__link">
-    Implementation of the operation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check_partition_distribution" class="md-nav__link">
-    Check partition distribution
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10587,13 +10559,13 @@
 <p>Only the God role can use the <code>CREATE SPACE</code> statement. For more information, see <a href="../../../7.data-security/1.authentication/1.authentication/">AUTHENTICATION</a>.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <h3 id="create_graph_spaces">Create graph spaces<a class="headerlink" href="#create_graph_spaces" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; (
+<p><code>ngql
+CREATE SPACE [IF NOT EXISTS] &lt;graph_space_name&gt; (
     [partition_num = &lt;partition_number&gt;,]
     [replica_factor = &lt;replica_number&gt;,]
     vid_type = {FIXED_STRING(&lt;N&gt;) | INT[64]}
     )
-    [COMMENT = &#39;&lt;comment&gt;&#39;];
-</code></pre></div>
+    [COMMENT = '&lt;comment&gt;'];</code></p>
 <table>
 <thead>
 <tr>
@@ -10672,8 +10644,8 @@
 <p><code>graph_space_name</code>, <code>partition_num</code>, <code>replica_factor</code>, <code>vid_type</code>, and <code>comment</code> cannot be modified once set. To modify them, drop the current working graph space with <a href="../5.drop-space/"><code>DROP SPACE</code></a> and create a new one with <code>CREATE SPACE</code>.</p>
 </div>
 <h3 id="clone_graph_spaces">Clone graph spaces<a class="headerlink" href="#clone_graph_spaces" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE SPACE [IF NOT EXISTS] &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;
-</code></pre></div>
+<p><code>ngql
+CREATE SPACE [IF NOT EXISTS] &lt;new_graph_space_name&gt; AS &lt;old_graph_space_name&gt;;</code></p>
 <table>
 <thead>
 <tr>
@@ -10697,24 +10669,22 @@
 </tbody>
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code># The following example creates a graph space with a specified VID type and the maximum length. Other fields still use the default values.
-nebula&gt; CREATE SPACE IF NOT EXISTS my_space_1 (vid_type=FIXED_STRING(30));
-
-# The following example creates a graph space with a specified partition number, replica number, and VID type.
-nebula&gt; CREATE SPACE IF NOT EXISTS my_space_2 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30));
-
-#  The following example creates a graph space with a specified partition number, replica number, and VID type, and adds a comment on it.
-nebula&gt; CREATE SPACE IF NOT EXISTS my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment=&quot;Test the graph space&quot;;
-
-# Clone a graph space.
-nebula&gt; CREATE SPACE IF NOT EXISTS my_space_4 as my_space_3;
+<p>```ngql</p>
+<h1 id="the_following_example_creates_a_graph_space_with_a_specified_vid_type_and_the_maximum_length_other_fields_still_use_the_default_values">The following example creates a graph space with a specified VID type and the maximum length. Other fields still use the default values.<a class="headerlink" href="#the_following_example_creates_a_graph_space_with_a_specified_vid_type_and_the_maximum_length_other_fields_still_use_the_default_values" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE SPACE IF NOT EXISTS my_space_1 (vid_type=FIXED_STRING(30));</p>
+<h1 id="the_following_example_creates_a_graph_space_with_a_specified_partition_number_replica_number_and_vid_type">The following example creates a graph space with a specified partition number, replica number, and VID type.<a class="headerlink" href="#the_following_example_creates_a_graph_space_with_a_specified_partition_number_replica_number_and_vid_type" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE SPACE IF NOT EXISTS my_space_2 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30));</p>
+<h1 id="the_following_example_creates_a_graph_space_with_a_specified_partition_number_replica_number_and_vid_type_and_adds_a_comment_on_it">The following example creates a graph space with a specified partition number, replica number, and VID type, and adds a comment on it.<a class="headerlink" href="#the_following_example_creates_a_graph_space_with_a_specified_partition_number_replica_number_and_vid_type_and_adds_a_comment_on_it" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE SPACE IF NOT EXISTS my_space_3 (partition_num=15, replica_factor=1, vid_type=FIXED_STRING(30)) comment="Test the graph space";</p>
+<h1 id="clone_a_graph_space">Clone a graph space.<a class="headerlink" href="#clone_a_graph_space" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE SPACE IF NOT EXISTS my_space_4 as my_space_3;
 nebula&gt; SHOW CREATE SPACE my_space_4;
 +--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Space        | Create Space                                                                                                                                                 |
 +--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| &quot;my_space_4&quot; | &quot;CREATE SPACE `my_space_4` (partition_num = 15, replica_factor = 1, charset = utf8, collate = utf8_bin, vid_type = FIXED_STRING(30)) comment = &#39;测试图空间&#39;&quot; |
+| "my_space_4" | "CREATE SPACE <code>my_space_4</code> (partition_num = 15, replica_factor = 1, charset = utf8, collate = utf8_bin, vid_type = FIXED_STRING(30)) comment = '测试图空间'" |
 +--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-</code></pre></div>
+```</p>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -10722,26 +10692,26 @@ nebula&gt; SHOW CREATE SPACE my_space_4;
 </div>
 <h2 id="check_partition_distribution">Check partition distribution<a class="headerlink" href="#check_partition_distribution" title="Permanent link">&para;</a></h2>
 <p>On some large clusters, the partition distribution is possibly unbalanced because of the different startup times. You can run the following command to do a check of the machine distribution.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW HOSTS;
+<p><code>ngql
+nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+
 | Host        | Port | Status   | Leader count | Leader distribution            | Partition distribution         | Version |
 +-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+
-| &quot;storaged0&quot; | 9779 | &quot;ONLINE&quot; | 8            | &quot;basketballplayer:3, test:5&quot;   | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-| &quot;storaged1&quot; | 9779 | &quot;ONLINE&quot; | 9            | &quot;basketballplayer:4, test:5&quot;   | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-| &quot;storaged2&quot; | 9779 | &quot;ONLINE&quot; | 3            | &quot;basketballplayer:3&quot;           | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-+-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+
-</code></pre></div>
+| "storaged0" | 9779 | "ONLINE" | 8            | "basketballplayer:3, test:5"   | "basketballplayer:10, test:10" | "3.5.1" |
+| "storaged1" | 9779 | "ONLINE" | 9            | "basketballplayer:4, test:5"   | "basketballplayer:10, test:10" | "3.5.1" |
+| "storaged2" | 9779 | "ONLINE" | 3            | "basketballplayer:3"           | "basketballplayer:10, test:10" | "3.5.1" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+</code></p>
 <p>To balance the request loads, use the following command.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; BALANCE LEADER;
+<p><code>ngql
+nebula&gt; BALANCE LEADER;
 nebula&gt; SHOW HOSTS;
 +-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+
 | Host        | Port | HTTP port | Status   | Leader count | Leader distribution            | Partition distribution         | Version |
 +-------------+------+-----------+----------+--------------+--------------------------------+--------------------------------+---------+
-| &quot;storaged0&quot; | 9779 | &quot;ONLINE&quot; | 7            | &quot;basketballplayer:3, test:4&quot;   | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-| &quot;storaged1&quot; | 9779 | &quot;ONLINE&quot; | 7            | &quot;basketballplayer:4, test:3&quot;   | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-| &quot;storaged2&quot; | 9779 | &quot;ONLINE&quot; | 6            | &quot;basketballplayer:3, test:3&quot;   | &quot;basketballplayer:10, test:10&quot; | &quot;3.5.1&quot; |
-+-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+
-</code></pre></div>
+| "storaged0" | 9779 | "ONLINE" | 7            | "basketballplayer:3, test:4"   | "basketballplayer:10, test:10" | "3.5.1" |
+| "storaged1" | 9779 | "ONLINE" | 7            | "basketballplayer:4, test:3"   | "basketballplayer:10, test:10" | "3.5.1" |
+| "storaged2" | 9779 | "ONLINE" | 6            | "basketballplayer:3, test:3"   | "basketballplayer:10, test:10" | "3.5.1" |
++-------------+------+----------+--------------+--------------------------------+--------------------------------+---------+</code></p>
 
   <hr>
 <div class="md-source-file">
@@ -10830,10 +10800,6 @@ nebula&gt; SHOW HOSTS;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

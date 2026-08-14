@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10585,9 +10585,9 @@
 <ol>
 <li>
 <p><a href="../../../4.deployment-and-installation/connect-to-nebula-graph/">Connect to NebulaGraph</a>, create and authorize the shadow account <code>test2</code> corresponding to OpenLDAP.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE USER test2 WITH PASSWORD &#39;&#39;;
-nebula&gt; GRANT ROLE ADMIN ON basketballplayer TO test2;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; CREATE USER test2 WITH PASSWORD '';
+nebula&gt; GRANT ROLE ADMIN ON basketballplayer TO test2;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When creating an account in NebulaGraph, the password can be set arbitrarily.</p>
@@ -10598,47 +10598,49 @@ nebula&gt; GRANT ROLE ADMIN ON basketballplayer TO test2;
 <ul>
 <li>
 <p>SimpleBindAuth (Recommended)</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Whether to get the configuration information from the configuration file.</span>
---local_config<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># Whether to enable authentication.</span>
---enable_authorize<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># Authentication methods include password, ldap, and cloud.</span>
---auth_type<span class="o">=</span>ldap
-<span class="c1"># The address of the OpenLDAP server.</span>
---ldap_server<span class="o">=</span><span class="m">192</span>.168.8.211
-<span class="c1"># The port of the OpenLDAP server.</span>
---ldap_port<span class="o">=</span><span class="m">389</span>
-<span class="c1"># The name of the Schema in OpenLDAP.</span>
---ldap_scheme<span class="o">=</span>ldap
-<span class="c1"># The prefix of DN.</span>
---ldap_prefix<span class="o">=</span><span class="nv">uid</span><span class="o">=</span>
-<span class="c1"># The suffix of DN.</span>
---ldap_suffix<span class="o">=</span>,ou<span class="o">=</span>it,dc<span class="o">=</span>sys,dc<span class="o">=</span>com
-</code></pre></div>
+<p>```bash</p>
+<h1 id="whether_to_get_the_configuration_information_from_the_configuration_file">Whether to get the configuration information from the configuration file.<a class="headerlink" href="#whether_to_get_the_configuration_information_from_the_configuration_file" title="Permanent link">&para;</a></h1>
+<p>--local_config=true</p>
+<h1 id="whether_to_enable_authentication">Whether to enable authentication.<a class="headerlink" href="#whether_to_enable_authentication" title="Permanent link">&para;</a></h1>
+<p>--enable_authorize=true</p>
+<h1 id="authentication_methods_include_password_ldap_and_cloud">Authentication methods include password, ldap, and cloud.<a class="headerlink" href="#authentication_methods_include_password_ldap_and_cloud" title="Permanent link">&para;</a></h1>
+<p>--auth_type=ldap</p>
+<h1 id="the_address_of_the_openldap_server">The address of the OpenLDAP server.<a class="headerlink" href="#the_address_of_the_openldap_server" title="Permanent link">&para;</a></h1>
+<p>--ldap_server=192.168.8.211</p>
+<h1 id="the_port_of_the_openldap_server">The port of the OpenLDAP server.<a class="headerlink" href="#the_port_of_the_openldap_server" title="Permanent link">&para;</a></h1>
+<p>--ldap_port=389</p>
+<h1 id="the_name_of_the_schema_in_openldap">The name of the Schema in OpenLDAP.<a class="headerlink" href="#the_name_of_the_schema_in_openldap" title="Permanent link">&para;</a></h1>
+<p>--ldap_scheme=ldap</p>
+<h1 id="the_prefix_of_dn">The prefix of DN.<a class="headerlink" href="#the_prefix_of_dn" title="Permanent link">&para;</a></h1>
+<p>--ldap_prefix=uid=</p>
+<h1 id="the_suffix_of_dn">The suffix of DN.<a class="headerlink" href="#the_suffix_of_dn" title="Permanent link">&para;</a></h1>
+<p>--ldap_suffix=,ou=it,dc=sys,dc=com
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>SearchBindAuth</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Whether to get the configuration information from the configuration file.</span>
---local_config<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># Whether to enable authentication.</span>
---enable_authorize<span class="o">=</span><span class="nb">true</span>
-<span class="c1"># Authentication methods include password, ldap, and cloud.</span>
---auth_type<span class="o">=</span>ldap
-<span class="c1"># The address of the OpenLDAP server.</span>
---ldap_server<span class="o">=</span><span class="m">192</span>.168.8.211
-<span class="c1"># The port of the OpenLDAP server.</span>
---ldap_port<span class="o">=</span><span class="m">389</span>
-<span class="c1"># The name of the Schema in OpenLDAP.</span>
---ldap_scheme<span class="o">=</span>ldap
-<span class="c1"># The DN that binds the target.</span>
---ldap_basedn<span class="o">=</span><span class="nv">ou</span><span class="o">=</span>it,dc<span class="o">=</span>sys,dc<span class="o">=</span>com
-<span class="c1"># The OpenLDAP login username. If anonymous access is supported, this parameter is optional. Otherwise, it is required.</span>
---ldap_binddn<span class="o">=</span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>example,dc<span class="o">=</span>org
-<span class="c1"># The OpenLDAP login password. If anonymous access is supported, this parameter is optional. Otherwise, it is required.</span>
---ldap_bindpasswd<span class="o">=</span>admin
-</code></pre></div>
+<p>```bash</p>
+<h1 id="whether_to_get_the_configuration_information_from_the_configuration_file_1">Whether to get the configuration information from the configuration file.<a class="headerlink" href="#whether_to_get_the_configuration_information_from_the_configuration_file_1" title="Permanent link">&para;</a></h1>
+<p>--local_config=true</p>
+<h1 id="whether_to_enable_authentication_1">Whether to enable authentication.<a class="headerlink" href="#whether_to_enable_authentication_1" title="Permanent link">&para;</a></h1>
+<p>--enable_authorize=true</p>
+<h1 id="authentication_methods_include_password_ldap_and_cloud_1">Authentication methods include password, ldap, and cloud.<a class="headerlink" href="#authentication_methods_include_password_ldap_and_cloud_1" title="Permanent link">&para;</a></h1>
+<p>--auth_type=ldap</p>
+<h1 id="the_address_of_the_openldap_server_1">The address of the OpenLDAP server.<a class="headerlink" href="#the_address_of_the_openldap_server_1" title="Permanent link">&para;</a></h1>
+<p>--ldap_server=192.168.8.211</p>
+<h1 id="the_port_of_the_openldap_server_1">The port of the OpenLDAP server.<a class="headerlink" href="#the_port_of_the_openldap_server_1" title="Permanent link">&para;</a></h1>
+<p>--ldap_port=389</p>
+<h1 id="the_name_of_the_schema_in_openldap_1">The name of the Schema in OpenLDAP.<a class="headerlink" href="#the_name_of_the_schema_in_openldap_1" title="Permanent link">&para;</a></h1>
+<p>--ldap_scheme=ldap</p>
+<h1 id="the_dn_that_binds_the_target">The DN that binds the target.<a class="headerlink" href="#the_dn_that_binds_the_target" title="Permanent link">&para;</a></h1>
+<p>--ldap_basedn=ou=it,dc=sys,dc=com</p>
+<h1 id="the_openldap_login_username_if_anonymous_access_is_supported_this_parameter_is_optional_otherwise_it_is_required">The OpenLDAP login username. If anonymous access is supported, this parameter is optional. Otherwise, it is required.<a class="headerlink" href="#the_openldap_login_username_if_anonymous_access_is_supported_this_parameter_is_optional_otherwise_it_is_required" title="Permanent link">&para;</a></h1>
+<p>--ldap_binddn=cn=admin,dc=example,dc=org</p>
+<h1 id="the_openldap_login_password_if_anonymous_access_is_supported_this_parameter_is_optional_otherwise_it_is_required">The OpenLDAP login password. If anonymous access is supported, this parameter is optional. Otherwise, it is required.<a class="headerlink" href="#the_openldap_login_password_if_anonymous_access_is_supported_this_parameter_is_optional_otherwise_it_is_required" title="Permanent link">&para;</a></h1>
+<p>--ldap_bindpasswd=admin
+```</p>
 </li>
 </ul>
 </li>
@@ -10647,11 +10649,11 @@ nebula&gt; GRANT ROLE ADMIN ON basketballplayer TO test2;
 </li>
 <li>
 <p>Run the login test.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./nebula-console<span class="w"> </span>--addr<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>test2<span class="w"> </span>-p<span class="w"> </span>passwdtest2
-<span class="m">2021</span>/09/08<span class="w"> </span><span class="m">03</span>:49:39<span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>connection<span class="w"> </span>pool<span class="w"> </span>is<span class="w"> </span>initialized<span class="w"> </span>successfully
-
-Welcome<span class="w"> </span>to<span class="w"> </span>NebulaGraph!
-</code></pre></div>
+<p>```bash
+$ ./nebula-console --addr 127.0.0.1 --port 9669 -u test2 -p passwdtest2
+2021/09/08 03:49:39 [INFO] connection pool is initialized successfully</p>
+<p>Welcome to NebulaGraph!
+```</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>After you turn on OpenLDAP for authentication, you can log in with the account and password set in OpenLDAP. However, you need to make sure that NebulaGraph has the same username in the local account.</p>
@@ -10746,10 +10748,6 @@ Welcome<span class="w"> </span>to<span class="w"> </span>NebulaGraph!
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

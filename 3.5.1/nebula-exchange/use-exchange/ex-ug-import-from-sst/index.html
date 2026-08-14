@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -9390,89 +9390,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#data_set" class="md-nav__link">
-    Data set
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment" class="md-nav__link">
-    Environment
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    Steps
-  </a>
-  
-    <nav class="md-nav" aria-label="Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step_1_create_the_schema_in_nebulagraph" class="md-nav__link">
-    Step 1: Create the Schema in NebulaGraph
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_2_process_csv_files" class="md-nav__link">
-    Step 2: Process CSV files
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_3_modify_configuration_files" class="md-nav__link">
-    Step 3: Modify configuration files
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_4_generate_the_sst_file" class="md-nav__link">
-    Step 4: Generate the SST file
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_5_import_the_sst_file" class="md-nav__link">
-    Step 5: Import the SST file
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_6_optional_validate_data" class="md-nav__link">
-    Step 6: (optional) Validate data
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_7_optional_rebuild_indexes_in_nebulagraph" class="md-nav__link">
-    Step 7: (optional) Rebuild indexes in NebulaGraph
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10587,89 +10504,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#data_set" class="md-nav__link">
-    Data set
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment" class="md-nav__link">
-    Environment
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    Steps
-  </a>
-  
-    <nav class="md-nav" aria-label="Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step_1_create_the_schema_in_nebulagraph" class="md-nav__link">
-    Step 1: Create the Schema in NebulaGraph
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_2_process_csv_files" class="md-nav__link">
-    Step 2: Process CSV files
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_3_modify_configuration_files" class="md-nav__link">
-    Step 3: Modify configuration files
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_4_generate_the_sst_file" class="md-nav__link">
-    Step 4: Generate the SST file
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_5_import_the_sst_file" class="md-nav__link">
-    Step 5: Import the SST file
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_6_optional_validate_data" class="md-nav__link">
-    Step 6: (optional) Validate data
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step_7_optional_rebuild_indexes_in_nebulagraph" class="md-nav__link">
-    Step 7: (optional) Rebuild indexes in NebulaGraph
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10739,15 +10573,16 @@
 </li>
 <li>
 <p>After the SST file is generated, RocksDB imports the SST file into NebulaGraph using the <code>IngestExternalFile()</code> method. For example:</p>
-<div class="highlight"><pre><span></span><code>IngestExternalFileOptions ifo;
-# Import two SST files
-Status s = db_-&gt;IngestExternalFile({&quot;/home/usr/file1.sst&quot;, &quot;/home/usr/file2.sst&quot;}, ifo);
+<p>```
+IngestExternalFileOptions ifo;</p>
+<h1 id="import_two_sst_files">Import two SST files<a class="headerlink" href="#import_two_sst_files" title="Permanent link">&para;</a></h1>
+<p>Status s = db_-&gt;IngestExternalFile({"/home/usr/file1.sst", "/home/usr/file2.sst"}, ifo);
 if (!s.ok()) {
-  printf(&quot;Error while adding file %s and %s, Error %s\n&quot;,
+  printf("Error while adding file %s and %s, Error %s\n",
          file_path1.c_str(), file_path2.c_str(), s.ToString().c_str());
   return 1;
 }
-</code></pre></div>
+```</p>
 <p>When the <code>IngestExternalFile()</code> method is called, RocksDB copies the file to the data directory by default and blocks the RocksDB write operation. If the key range in the SST file overwrites the Memtable key range, flush the Memtable to the hard disk. After placing the SST file in an optimal location in the LSM tree, assign a global serial number to the file and turn on the write operation.</p>
 </li>
 </ol>
@@ -10859,27 +10694,23 @@ if (!s.ok()) {
 </li>
 <li>
 <p>Create a graph space <strong>basketballplayer</strong> in the NebulaGraph and create a Schema as shown below.</p>
-<div class="highlight"><pre><span></span><code>## Create a graph space
-nebula&gt; CREATE SPACE basketballplayer \
-        (partition_num = 10, \
-        replica_factor = 1, \
-        vid_type = FIXED_STRING(30));
-
-## Use the graph space basketballplayer
-nebula&gt; USE basketballplayer;
-
-## Create the Tag player
-nebula&gt; CREATE TAG player(name string, age int);
-
-## Create the Tag team
-nebula&gt; CREATE TAG team(name string);
-
-## Create the Edge type follow
-nebula&gt; CREATE EDGE follow(degree int);
-
-## Create the Edge type serve
-nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-</code></pre></div>
+<p>```ngql
+  ## Create a graph space
+  nebula&gt; CREATE SPACE basketballplayer \
+          (partition_num = 10, \
+          replica_factor = 1, \
+          vid_type = FIXED_STRING(30));</p>
+<p>## Use the graph space basketballplayer
+  nebula&gt; USE basketballplayer;</p>
+<p>## Create the Tag player
+  nebula&gt; CREATE TAG player(name string, age int);</p>
+<p>## Create the Tag team
+  nebula&gt; CREATE TAG team(name string);</p>
+<p>## Create the Edge type follow
+  nebula&gt; CREATE EDGE follow(degree int);</p>
+<p>## Create the Edge type serve
+  nebula&gt; CREATE EDGE serve(start_year int, end_year int);
+  ```</p>
 </li>
 </ol>
 <p>For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Quick start workflow</a>.</p>
@@ -10899,78 +10730,78 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </ol>
 <h3 id="step_3_modify_configuration_files">Step 3: Modify configuration files<a class="headerlink" href="#step_3_modify_configuration_files" title="Permanent link">&para;</a></h3>
 <p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> to set SST data source configuration. In this example, the copied file is called <code>sst_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
-<div class="highlight"><pre><span></span><code>{
+<p>```conf
+{
   # Spark configuration
   spark: {
     app: {
       name: NebulaGraph Exchange 3.5.0
-    }
+    }</p>
+<div class="codehilite"><pre><span></span><code>master:local
 
-    master:local
+driver: {
+  cores: 1
+  maxResultSize: 1G
+}
 
-    driver: {
-      cores: 1
-      maxResultSize: 1G
-    }
+executor: {
+    memory:1G
+}
 
-    executor: {
-        memory:1G
-    }
+cores:{
+  max: 16
+}
+</code></pre></div>
 
-    cores:{
-      max: 16
-    }
-  }
-
-  # NebulaGraph configuration
+<p>}</p>
+<p># NebulaGraph configuration
   nebula: {
     address:{
-      graph:[&quot;192.8.168.XXX:9669&quot;]
+      graph:["192.8.168.XXX:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:[&quot;192.8.168.XXX:9559&quot;]
+      meta:["192.8.168.XXX:9559"]
     }
     user: root
     pswd: nebula
-    space: basketballplayer
+    space: basketballplayer</p>
+<div class="codehilite"><pre><span></span><code># SST file configuration
+path:{
+    # The local directory that temporarily stores generated SST files
+    local:&quot;/tmp&quot;
 
-    # SST file configuration
-    path:{
-        # The local directory that temporarily stores generated SST files
-        local:&quot;/tmp&quot;
+    # The path for storing the SST file in the HDFS
+    remote:&quot;/sst&quot;
 
-        # The path for storing the SST file in the HDFS
-        remote:&quot;/sst&quot;
+    # The NameNode address of HDFS, for example, &quot;hdfs://&lt;ip/hostname&gt;:&lt;port&gt;&quot;
+    hdfs.namenode: &quot;hdfs://*.*.*.*:9000&quot;
+}
 
-        # The NameNode address of HDFS, for example, &quot;hdfs://&lt;ip/hostname&gt;:&lt;port&gt;&quot;
-        hdfs.namenode: &quot;hdfs://*.*.*.*:9000&quot;
-    }
+# The connection parameters of clients
+connection: {
+  # The timeout duration of socket connection and execution. Unit: milliseconds.
+  timeout: 30000
+}
 
-    # The connection parameters of clients
-    connection: {
-      # The timeout duration of socket connection and execution. Unit: milliseconds.
-      timeout: 30000
-    }
+error: {
+  # The maximum number of failures that will exit the application.
+  max: 32
+  # Failed import jobs are logged in the output path.
+  output: /tmp/errors
+}
 
-    error: {
-      # The maximum number of failures that will exit the application.
-      max: 32
-      # Failed import jobs are logged in the output path.
-      output: /tmp/errors
-    }
+# Use Google&#39;s RateLimiter to limit requests to NebulaGraph.
+rate: {
+  # Steady throughput of RateLimiter.
+  limit: 1024
 
-    # Use Google&#39;s RateLimiter to limit requests to NebulaGraph.
-    rate: {
-      # Steady throughput of RateLimiter.
-      limit: 1024
+  # Get the allowed timeout duration from RateLimiter. Unit: milliseconds.
+  timeout: 1000
+}
+</code></pre></div>
 
-      # Get the allowed timeout duration from RateLimiter. Unit: milliseconds.
-      timeout: 1000
-    }
-  }
-
-
-  # Processing vertices
+<p>}</p>
+<p># Processing vertices
   tags: [
     # Set the information about the Tag player.
     {
@@ -10978,76 +10809,77 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       name: player
       type: {
         # Specify the data source file format to CSV.
-        source: csv
+        source: csv</p>
+<div class="codehilite"><pre><span></span><code>    # Specify how to import the data into NebulaGraph: Client or SST.
+    sink: sst
+  }
 
-        # Specify how to import the data into NebulaGraph: Client or SST.
-        sink: sst
-      }
+  # Specify the path to the CSV file.
+  # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
+  path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_player.csv&quot;
 
-      # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
-      path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_player.csv&quot;
+  # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
+  # If the CSV file has a header, use the actual column name.
+  fields: [_c1, _c2]
 
-      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has a header, use the actual column name.
-      fields: [_c1, _c2]
+  # Specify the property name defined in NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  nebula.fields: [age, name]
 
-      # Specify the property name defined in NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      nebula.fields: [age, name]
+  # Specify a column of data in the table as the source of VIDs in NebulaGraph.
+  # The value of vertex must be consistent with the column name in the above fields or csv.fields.
+  # Currently, NebulaGraph 3.5.1 supports only strings or integers of VID.
+  vertex: {
+    field:_c0
+    # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # Specify a column of data in the table as the source of VIDs in NebulaGraph.
-      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, NebulaGraph 3.5.1 supports only strings or integers of VID.
-      vertex: {
-        field:_c0
-        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # The delimiter specified. The default value is comma.
+  separator: &quot;,&quot;
 
-      # The delimiter specified. The default value is comma.
-      separator: &quot;,&quot;
+  # If the CSV file has a header, set the header to true.
+  # If the CSV file does not have a header, set the header to false. The default value is false.
+  header: false
 
-      # If the CSV file has a header, set the header to true.
-      # If the CSV file does not have a header, set the header to false. The default value is false.
-      header: false
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 256
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 256
+  # The number of Spark partitions.
+  partition: 32
 
-      # The number of Spark partitions.
-      partition: 32
+  # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
+  repartitionWithNebula: false
+}
 
-      # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
-      repartitionWithNebula: false
-    }
+# Set the information about the Tag Team.
+{
+  name: team
+  type: {
+    source: csv
+    sink: sst
+  }
+  path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_team.csv&quot;
+  fields: [_c1]
+  nebula.fields: [name]
+  vertex: {
+    field:_c0
+  }
+  separator: &quot;,&quot;
+  header: false
+  batch: 256
+  partition: 32
+  repartitionWithNebula: false
+}
+# If more vertices need to be added, refer to the previous configuration to add them.
+</code></pre></div>
 
-    # Set the information about the Tag Team.
-    {
-      name: team
-      type: {
-        source: csv
-        sink: sst
-      }
-      path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_team.csv&quot;
-      fields: [_c1]
-      nebula.fields: [name]
-      vertex: {
-        field:_c0
-      }
-      separator: &quot;,&quot;
-      header: false
-      batch: 256
-      partition: 32
-      repartitionWithNebula: false
-    }
-    # If more vertices need to be added, refer to the previous configuration to add them.
-  ]
+<p>]
   # Processing edges
   edges: [
     # Set the information about the Edge Type follow.
@@ -11056,97 +10888,97 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       name: follow
       type: {
         # Specify the data source file format to CSV.
-        source: csv
+        source: csv</p>
+<div class="codehilite"><pre><span></span><code>    # Specify how to import the data into NebulaGraph: Client or SST.
+    sink: sst
+  }
 
-        # Specify how to import the data into NebulaGraph: Client or SST.
-        sink: sst
-      }
+  # Specify the path to the CSV file.
+  # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
+  path: &quot;hdfs://*.*.*.*:9000/dataset/edge_follow.csv&quot;
 
-      # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
-      path: &quot;hdfs://*.*.*.*:9000/dataset/edge_follow.csv&quot;
+  # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
+  # If the CSV file has a header, use the actual column name.
+  fields: [_c2]
 
-      # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
-      # If the CSV file has a header, use the actual column name.
-      fields: [_c2]
+  # Specify the property name defined in NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  nebula.fields: [degree]
 
-      # Specify the property name defined in NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      nebula.fields: [degree]
+  # Specify a column as the source for the source and destination vertices.
+  # The value of vertex must be consistent with the column name in the above fields or csv.fields.
+  # Currently, NebulaGraph 3.5.1 supports only strings or integers of VID.
+  source: {
+    field: _c0
+    # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
+  target: {
+    field: _c1
+    # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # Specify a column as the source for the source and destination vertices.
-      # The value of vertex must be consistent with the column name in the above fields or csv.fields.
-      # Currently, NebulaGraph 3.5.1 supports only strings or integers of VID.
-      source: {
-        field: _c0
-        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
-      target: {
-        field: _c1
-        # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # The delimiter specified. The default value is comma.
+  separator: &quot;,&quot;
 
-      # The delimiter specified. The default value is comma.
-      separator: &quot;,&quot;
+  # (Optional) Specify a column as the source of the rank.
 
-      # (Optional) Specify a column as the source of the rank.
+  #ranking: rank
 
-      #ranking: rank
+  # If the CSV file has a header, set the header to true.
+  # If the CSV file does not have a header, set the header to false. The default value is false.
+  header: false
 
-      # If the CSV file has a header, set the header to true.
-      # If the CSV file does not have a header, set the header to false. The default value is false.
-      header: false
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 256
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 256
+  # The number of Spark partitions.
+  partition: 32
 
-      # The number of Spark partitions.
-      partition: 32
+  # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
+  repartitionWithNebula: false
+}
 
-      # Whether to repartition data based on the number of partitions of graph spaces in NebulaGraph when generating the SST file.
-      repartitionWithNebula: false
-    }
-
-    # Set the information about the Edge Type serve.
-    {
-      name: serve
-      type: {
-        source: csv
-        sink: sst
-      }
-      path: &quot;hdfs://*.*.*.*:9000/dataset/edge_serve.csv&quot;
-      fields: [_c2,_c3]
-      nebula.fields: [start_year, end_year]
-      source: {
-        field: _c0
-      }
-      target: {
-        field: _c1
-      }
-      separator: &quot;,&quot;
-      header: false
-      batch: 256
-      partition: 32
-      repartitionWithNebula: false
-    }
-
-  ]
-  # If more edges need to be added, refer to the previous configuration to add them.
+# Set the information about the Edge Type serve.
+{
+  name: serve
+  type: {
+    source: csv
+    sink: sst
+  }
+  path: &quot;hdfs://*.*.*.*:9000/dataset/edge_serve.csv&quot;
+  fields: [_c2,_c3]
+  nebula.fields: [start_year, end_year]
+  source: {
+    field: _c0
+  }
+  target: {
+    field: _c1
+  }
+  separator: &quot;,&quot;
+  header: false
+  batch: 256
+  partition: 32
+  repartitionWithNebula: false
 }
 </code></pre></div>
+
+<p>]
+  # If more edges need to be added, refer to the previous configuration to add them.
+}
+```</p>
 <h3 id="step_4_generate_the_sst_file">Step 4: Generate the SST file<a class="headerlink" href="#step_4_generate_the_sst_file" title="Permanent link">&para;</a></h3>
 <p>Run the following command to generate the SST file from the CSV source file. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt;<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;sst_application.conf_path&gt;<span class="w"> </span>
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit --master "local" --conf spark.sql.shuffle.partition=&lt;shuffle_concurrency&gt; --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-3.5.0.jar_path&gt; -c &lt;sst_application.conf_path&gt;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When generating SST files, the shuffle operation of Spark will be involved. Note that the configuration of <code>spark.sql.shuffle.partition</code> should be added when you submit the command.</p>
@@ -11156,8 +10988,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit  --master "local" --conf spark.sql.shuffle.partition=200 --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf</code></p>
 <p>After the task is complete, you can view the generated SST file in the <code>/sst</code> directory (specified by the <code>nebula.path.remote</code> parameter) on HDFS.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11181,21 +11013,21 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <ol>
 <li>
 <p>Run the following command to select the graph space you created earlier.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; USE basketballplayer;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; USE basketballplayer;</code></p>
 </li>
 <li>
 <p>Run the following command to download the SST file:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS &quot;hdfs://&lt;hadoop_address&gt;:&lt;hadoop_port&gt;/&lt;sst_file_path&gt;&quot;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; SUBMIT JOB DOWNLOAD HDFS "hdfs://&lt;hadoop_address&gt;:&lt;hadoop_port&gt;/&lt;sst_file_path&gt;";</code></p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS &quot;hdfs://*.*.*.*:9000/sst&quot;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; SUBMIT JOB DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";</code></p>
 </li>
 <li>
 <p>Run the following command to import the SST file:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB INGEST;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; SUBMIT JOB INGEST;</code></p>
 </li>
 </ol>
 <div class="admonition note">
@@ -11209,8 +11041,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </div>
 <h3 id="step_6_optional_validate_data">Step 6: (optional) Validate data<a class="headerlink" href="#step_6_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
-<div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
-</code></pre></div>
+<p><code>ngql
+LOOKUP ON player YIELD id(vertex);</code></p>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/"><code>SHOW STATS</code></a> command to view statistics.</p>
 <h3 id="step_7_optional_rebuild_indexes_in_nebulagraph">Step 7: (optional) Rebuild indexes in NebulaGraph<a class="headerlink" href="#step_7_optional_rebuild_indexes_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see <a href="../../../3.ngql-guide/14.native-index-statements/">Index overview</a>.</p>
@@ -11302,10 +11134,6 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

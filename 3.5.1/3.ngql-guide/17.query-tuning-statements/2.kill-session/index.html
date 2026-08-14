@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10513,8 +10513,7 @@
 <ul>
 <li>
 <p>To terminate one session</p>
-<div class="highlight"><pre><span></span><code>KILL {SESSION|SESSIONS} &lt;SessionId&gt;
-</code></pre></div>
+<p><code>KILL {SESSION|SESSIONS} &lt;SessionId&gt;</code></p>
 <ul>
 <li><code>{SESSION|SESSIONS}</code>: <code>SESSION</code> or <code>SESSIONS</code>, both are supported. </li>
 <li><code>&lt;SessionId&gt;</code>: Specifies the ID of one session. You can run the <a href="../../7.general-query-statements/6.show/17.show-sessions/">SHOW SESSIONS command</a> to view the IDs of sessions.</li>
@@ -10524,10 +10523,9 @@
 <ul>
 <li>
 <p>To terminate multiple sessions</p>
-<div class="highlight"><pre><span></span><code>SHOW SESSIONS 
+<p><code>SHOW SESSIONS 
 | YIELD $-.SessionId AS sid [WHERE &lt;filter_clause&gt;]
-| KILL {SESSION|SESSIONS} $-.sid
-</code></pre></div>
+| KILL {SESSION|SESSIONS} $-.sid</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>KILL SESSION</code> command supports the pipeline operation, combining the <code>SHOW SESSIONS</code> command with the <code>KILL SESSION</code> command to terminate multiple sessions.</p>
@@ -10552,8 +10550,7 @@
 <ul>
 <li>
 <p>To terminate one session</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; KILL SESSION 1672887983842984 
-</code></pre></div>
+<p><code>nebula&gt; KILL SESSION 1672887983842984</code></p>
 </li>
 </ul>
 <ul>
@@ -10562,32 +10559,29 @@
 <ul>
 <li>
 <p>Terminate all sessions whose creation time is less than <code>2023-01-05T18:00:00</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId AS sid WHERE $-.CreateTime &lt; datetime(&quot;2023-01-05T18:00:00&quot;) | KILL SESSIONS $-.sid
-</code></pre></div>
+<p><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId AS sid WHERE $-.CreateTime &lt; datetime("2023-01-05T18:00:00") | KILL SESSIONS $-.sid</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Terminates the two sessions with the earliest creation times.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId AS sid, $-.CreateTime as CreateTime | ORDER BY $-.CreateTime ASC | LIMIT 2 | KILL SESSIONS $-.sid
-</code></pre></div>
+<p><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId AS sid, $-.CreateTime as CreateTime | ORDER BY $-.CreateTime ASC | LIMIT 2 | KILL SESSIONS $-.sid</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Terminates all sessions created by the username <code>session_user1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId as sid WHERE $-.UserName == &quot;session_user1&quot; | KILL SESSIONS $-.sid
-</code></pre></div>
+<p><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId as sid WHERE $-.UserName == "session_user1" | KILL SESSIONS $-.sid</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Terminate all sessions.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SHOW SESSIONS | YIELD $-.SessionId as sid | KILL SESSION $-.sid
-
-// Or
+<p>```
+nebula&gt; SHOW SESSIONS | YIELD $-.SessionId as sid | KILL SESSION $-.sid</p>
+<p>// Or
 nebula&gt; SHOW SESSIONS | KILL SESSIONS $-.SessionId
-</code></pre></div>
+```</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>When you terminate all sessions, the current session is terminated. Please use it with caution.</p>
@@ -10684,10 +10678,6 @@ nebula&gt; SHOW SESSIONS | KILL SESSIONS $-.SessionId
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

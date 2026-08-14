@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10545,13 +10545,13 @@
 </ul>
 <p>For example:</p>
 <ul>
-<li>Define the data type of the property as a fixed-length string<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t1 (p1 FIXED_STRING(10)); 
-</code></pre></div>
+<li>Define the data type of the property as a fixed-length string<p><code>ngql
+  nebula&gt; CREATE TAG IF NOT EXISTS t1 (p1 FIXED_STRING(10));</code></p>
 </li>
 </ul>
 <ul>
-<li>Define the data type of the property as a variable-length string<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t2 (p2 STRING); 
-</code></pre></div>
+<li>Define the data type of the property as a variable-length string<p><code>ngql
+  nebula&gt; CREATE TAG IF NOT EXISTS t2 (p2 STRING);</code></p>
 </li>
 </ul>
 <p>When the fixed-length string you try to write exceeds the length limit:</p>
@@ -10569,29 +10569,29 @@
 </ul>
 <h2 id="opencypher_compatibility">OpenCypher compatibility<a class="headerlink" href="#opencypher_compatibility" title="Permanent link">&para;</a></h2>
 <p>There are some tiny differences between openCypher and Cypher, as well as nGQL. The following is what openCypher requires. Single quotes cannot be converted to double quotes.</p>
-<div class="highlight"><pre><span></span><code># File: Literals.feature
-Feature: Literals
-
-Background:
+<p>```ngql</p>
+<h1 id="file_literalsfeature">File: Literals.feature<a class="headerlink" href="#file_literalsfeature" title="Permanent link">&para;</a></h1>
+<p>Feature: Literals</p>
+<p>Background:
     Given any graph
  Scenario: Return a single-quoted string
     When executing query:
-      &quot;&quot;&quot;
-      RETURN &#39;&#39; AS literal
-      &quot;&quot;&quot;
+      """
+      RETURN '' AS literal
+      """
     Then the result should be, in any order:
       | literal |
-      | &#39;&#39;      |    # Note: it should return single-quotes as openCypher required.
+      | ''      |    # Note: it should return single-quotes as openCypher required.
     And no side effects
-</code></pre></div>
+```</p>
 <p>While Cypher accepts both single quotes and double quotes as the return results. nGQL follows the Cypher way.</p>
-<div class="highlight"><pre><span></span><code>nebula &gt; YIELD &#39;&#39; AS quote1, &quot;&quot; AS quote2, &quot;&#39;&quot; AS quote3, &#39;&quot;&#39; AS quote4
+<p><code>ngql
+nebula &gt; YIELD '' AS quote1, "" AS quote2, "'" AS quote3, '"' AS quote4
 +--------+--------+--------+--------+
 | quote1 | quote2 | quote3 | quote4 |
 +--------+--------+--------+--------+
-| &quot;&quot;     | &quot;&quot;     | &quot;&#39;&quot;    | &quot;&quot;&quot;    |
-+--------+--------+--------+--------+
-</code></pre></div>
+| ""     | ""     | "'"    | """    |
++--------+--------+--------+--------+</code></p>
 
   <hr>
 <div class="md-source-file">
@@ -10680,10 +10680,6 @@ Background:
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

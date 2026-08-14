@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10637,8 +10637,8 @@
 </div>
 <h2 id="yield_clauses">YIELD clauses<a class="headerlink" href="#yield_clauses" title="Permanent link">&para;</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...];
-</code></pre></div>
+<p><code>ngql
+YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...];</code></p>
 <table>
 <thead>
 <tr>
@@ -10663,44 +10663,44 @@
 </table>
 <h3 id="use_a_yield_clause_in_a_statement">Use a YIELD clause in a statement<a class="headerlink" href="#use_a_yield_clause_in_a_statement" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Use <code>YIELD</code> with <code>GO</code>:<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
-        YIELD properties($$).name AS Friend, properties($$).age AS Age;
-+-----------------+-----+
-| Friend          | Age |
-+-----------------+-----+
-| &quot;Tony Parker&quot;   | 36  |
-| &quot;Manu Ginobili&quot; | 41  |
-+-----------------+-----+
-</code></pre></div>
+<li>Use <code>YIELD</code> with <code>GO</code>:<p><code>ngql
+  nebula&gt; GO FROM "player100" OVER follow \
+          YIELD properties($$).name AS Friend, properties($$).age AS Age;
+  +-----------------+-----+
+  | Friend          | Age |
+  +-----------------+-----+
+  | "Tony Parker"   | 36  |
+  | "Manu Ginobili" | 41  |
+  +-----------------+-----+</code></p>
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; \
-        YIELD properties(vertex).name;
-+-------------------------+
-| properties(VERTEX).name |
-+-------------------------+
-| &quot;Tim Duncan&quot;            |
-+-------------------------+
-</code></pre></div>
+<li>Use <code>YIELD</code> with <code>FETCH</code>:<p><code>ngql
+  nebula&gt; FETCH PROP ON player "player100" \
+          YIELD properties(vertex).name;
+  +-------------------------+
+  | properties(VERTEX).name |
+  +-------------------------+
+  | "Tim Duncan"            |
+  +-------------------------+</code></p>
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
-        YIELD properties(vertex).name, properties(vertex).age;
-+-------------------------+------------------------+
-| properties(VERTEX).name | properties(VERTEX).age |
-+-------------------------+------------------------+
-| &quot;Tony Parker&quot;           | 36                     |
-+-------------------------+------------------------+
-</code></pre></div>
+<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<p><code>ngql
+  nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
+          YIELD properties(vertex).name, properties(vertex).age;
+  +-------------------------+------------------------+
+  | properties(VERTEX).name | properties(VERTEX).age |
+  +-------------------------+------------------------+
+  | "Tony Parker"           | 36                     |
+  +-------------------------+------------------------+</code></p>
 </li>
 </ul>
 <h2 id="yield_statements">YIELD statements<a class="headerlink" href="#yield_statements" title="Permanent link">&para;</a></h2>
 <h3 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
-[WHERE &lt;conditions&gt;];
-</code></pre></div>
+<p><code>ngql
+YIELD [DISTINCT] &lt;col&gt; [AS &lt;alias&gt;] [, &lt;col&gt; [AS &lt;alias&gt;] ...]
+[WHERE &lt;conditions&gt;];</code></p>
 <table>
 <thead>
 <tr>
@@ -10730,7 +10730,8 @@
 <h3 id="use_a_yield_statement_in_a_composite_query">Use a YIELD statement in a composite query<a class="headerlink" href="#use_a_yield_statement_in_a_composite_query" title="Permanent link">&para;</a></h3>
 <p>In a <a href="../../4.variable-and-composite-queries/1.composite-queries/">composite query</a>, a <code>YIELD</code> statement accepts, filters, and modifies the result set of the preceding statement, and then outputs it.</p>
 <p>The following query finds the players that "player100" follows and calculates their average age.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<p><code>ngql
+nebula&gt; GO FROM "player100" OVER follow \
         YIELD dst(edge) AS ID \
         | FETCH PROP ON player $-.ID \
         YIELD properties(vertex).age AS Age \
@@ -10739,53 +10740,50 @@
 | Avg_age | Num_friends |
 +---------+-------------+
 | 38.5    | 2           |
-+---------+-------------+
-</code></pre></div>
++---------+-------------+</code></p>
 <p>The following query finds the players that "player101" follows with the follow degrees greater than 90.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; $var1 = GO FROM &quot;player101&quot; OVER follow \
+<p><code>ngql
+nebula&gt; $var1 = GO FROM "player101" OVER follow \
         YIELD properties(edge).degree AS Degree, dst(edge) as ID; \
         YIELD $var1.ID AS ID WHERE $var1.Degree &gt; 90;
 +-------------+
 | ID          |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player125&quot; |
-+-------------+
-</code></pre></div>
+| "player100" |
+| "player125" |
++-------------+</code></p>
 <p>The following query finds the vertices in the player that are older than 30 and younger than 32, and returns the de-duplicate results.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player  \
+<p><code>ngql
+nebula&gt; LOOKUP ON player  \
         WHERE player.age &lt; 32 and player.age &gt;30  \
         YIELD DISTINCT properties(vertex).age as v;
 +--------+
 | v      |
 +--------+
 | 31     |
-+--------+
-</code></pre></div>
++--------+</code></p>
 <h3 id="use_a_standalone_yield_statement">Use a standalone YIELD statement<a class="headerlink" href="#use_a_standalone_yield_statement" title="Permanent link">&para;</a></h3>
 <p>A <code>YIELD</code> statement can calculate a valid expression and output the result.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; YIELD rand32(1, 6);
+<p>```ngql
+nebula&gt; YIELD rand32(1, 6);
 +-------------+
 | rand32(1,6) |
 +-------------+
 | 3           |
-+-------------+
-
-nebula&gt; YIELD &quot;Hel&quot; + &quot;\tlo&quot; AS string1, &quot;, World!&quot; AS string2;
++-------------+</p>
+<p>nebula&gt; YIELD "Hel" + "\tlo" AS string1, ", World!" AS string2;
 +-------------+------------+
 | string1     | string2    |
 +-------------+------------+
-| &quot;Hel    lo&quot; | &quot;, World!&quot; |
-+-------------+------------+
-
-nebula&gt; YIELD hash(&quot;Tim&quot;) % 100;
+| "Hel    lo" | ", World!" |
++-------------+------------+</p>
+<p>nebula&gt; YIELD hash("Tim") % 100;
 +-----------------+
 | (hash(Tim)%100) |
 +-----------------+
 | 42              |
-+-----------------+
-
-nebula&gt; YIELD \
++-----------------+</p>
+<p>nebula&gt; YIELD \
       CASE 2+3 \
       WHEN 4 THEN 0 \
       WHEN 5 THEN 1 \
@@ -10796,15 +10794,14 @@ nebula&gt; YIELD \
 | result |
 +--------+
 | 1      |
-+--------+
-
-nebula&gt; YIELD 1- -1;
++--------+</p>
+<p>nebula&gt; YIELD 1- -1;
 +----------+
 | (1--(1)) |
 +----------+
 | 2        |
 +----------+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10893,10 +10890,6 @@ nebula&gt; YIELD 1- -1;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

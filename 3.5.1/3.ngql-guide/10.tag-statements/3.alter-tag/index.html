@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10540,19 +10540,18 @@
 <li>The property name must be unique in a tag. If you add a property with the same name as an existing property or a dropped property, the operation fails.</li>
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>ALTER TAG &lt;tag_name&gt;
-    &lt;alter_definition&gt; [[, alter_definition] ...]
+<p>```ngql
+ALTER TAG <tag_name>
+    <alter_definition> [[, alter_definition] ...]
     [ttl_definition [, ttl_definition] ... ]
-    [COMMENT &#39;&lt;comment&gt;&#39;];
-
-alter_definition:
-| ADD    (prop_name data_type [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT &#39;&lt;comment&gt;&#39;])
+    [COMMENT '<comment>'];</p>
+<p>alter_definition:
+| ADD    (prop_name data_type [NULL | NOT NULL] [DEFAULT <default_value>] [COMMENT '<comment>'])
 | DROP   (prop_name)
-| CHANGE (prop_name data_type [NULL | NOT NULL] [DEFAULT &lt;default_value&gt;] [COMMENT &#39;&lt;comment&gt;&#39;])
-
-ttl_definition:
+| CHANGE (prop_name data_type [NULL | NOT NULL] [DEFAULT <default_value>] [COMMENT '<comment>'])</p>
+<p>ttl_definition:
     TTL_DURATION = ttl_duration, TTL_COL = prop_name
-</code></pre></div>
+```</p>
 <ul>
 <li><code>tag_name</code>: Specifies the tag name that you want to alter. You can alter only one tag in one statement. Before you alter a tag, make sure that the tag exists in the current working graph space. If the tag does not exist, an error will occur when you alter it.</li>
 </ul>
@@ -10574,15 +10573,15 @@ ttl_definition:
 </li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS t1 (p1 string, p2 int);
+<p>```ngql
+nebula&gt; CREATE TAG IF NOT EXISTS t1 (p1 string, p2 int);
 nebula&gt; ALTER TAG t1 ADD (p3 int32, fixed_string(10));
-nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = &quot;p2&quot;;
-nebula&gt; ALTER TAG t1 COMMENT = &#39;test1&#39;;
-nebula&gt; ALTER TAG t1 ADD (p5 double NOT NULL DEFAULT 0.4 COMMENT &#39;p5&#39;) COMMENT=&#39;test2&#39;;
+nebula&gt; ALTER TAG t1 TTL_DURATION = 2, TTL_COL = "p2";
+nebula&gt; ALTER TAG t1 COMMENT = 'test1';
+nebula&gt; ALTER TAG t1 ADD (p5 double NOT NULL DEFAULT 0.4 COMMENT 'p5') COMMENT='test2';
 // Change the data type of p3 in the TAG t1 from INT32 to INT64, and that of p4 from FIXED_STRING(10) to STRING.
-nebula&gt; ALTER TAG t1 CHANGE (p3 int64, p4 string);
-[ERROR(-1005)]: Unsupported!
-</code></pre></div>
+nebula&gt; ALTER TAG t1 CHANGE (p3 int64, p4 string);</p>
+<p>```</p>
 <h2 id="implementation_of_the_operation">Implementation of the operation<a class="headerlink" href="#implementation_of_the_operation" title="Permanent link">&para;</a></h2>
 <p>Trying to use a newly altered tag may fail because the alteration of the tag is implemented asynchronously. To make sure the follow-up operations work as expected, Wait for two heartbeat cycles, i.e., 20 seconds.</p>
 <p>To change the heartbeat interval, modify the <code>heartbeat_interval_secs</code> parameter in the <a href="../../../5.configurations-and-logs/1.configurations/1.configurations/">configuration files</a> for all services.</p>
@@ -10674,10 +10673,6 @@ nebula&gt; ALTER TAG t1 CHANGE (p3 int64, p4 string);
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

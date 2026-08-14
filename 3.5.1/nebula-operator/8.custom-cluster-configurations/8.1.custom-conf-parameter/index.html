@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10534,8 +10534,8 @@
 <p>It is not available to customize configuration parameters for NebulaGraph Clusters deployed with Helm.</p>
 </div>
 <p>The structure of <code>config</code> is as follows.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">Config</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;config,omitempty&quot;`</span>
-</code></pre></div>
+<p><code>go
+Config map[string]string `json:"config,omitempty"`</code></p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>You have created a NebulaGraph cluster. For how to create a cluster with Kubectl, see <a href="../../3.deploy-nebula-graph-cluster/3.1create-cluster-with-kubectl/">Create a cluster with Kubectl</a>. </p>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
@@ -10543,38 +10543,38 @@
 <ol>
 <li>
 <p>Run the following command to access the edit page of the <code>nebula</code> cluster.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>nebulaclusters.apps.nebula-graph.io<span class="w"> </span>nebula
-</code></pre></div>
+<p><code>bash
+kubectl edit nebulaclusters.apps.nebula-graph.io nebula</code></p>
 </li>
 <li>
 <p>Add <code>enable_authorize</code> and <code>auth_type</code> under <code>spec.graphd.config</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500Mi&quot;</span>
-<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
-<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
-<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-graphd</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.5.1</span>
-<span class="w">    </span><span class="nt">storageClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-<span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-disks</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">// Custom configuration parameters for the Graph service in a cluster.</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&quot;enable_authorize&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">      </span><span class="s">&quot;auth_type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
-<span class="nn">...</span>
-</code></pre></div>
+<p><code>yaml
+apiVersion: apps.nebula-graph.io/v1alpha1
+kind: NebulaCluster
+metadata:
+  name: nebula
+  namespace: default
+spec:
+  graphd:
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "500Mi"
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+    replicas: 1
+    image: vesoft/nebula-graphd
+    version: v3.5.1
+    storageClaim:
+      resources:
+        requests:
+          storage: 2Gi
+      storageClassName: fast-disks
+    config: // Custom configuration parameters for the Graph service in a cluster.
+      "enable_authorize": "true"
+      "auth_type": "password"
+...</code></p>
 <p>To add the <code>config</code> for the Meta and Storage services, add <code>spec.metad.config</code> and <code>spec.storaged.config</code> respectively.</p>
 </li>
 <li>
@@ -10676,10 +10676,6 @@
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

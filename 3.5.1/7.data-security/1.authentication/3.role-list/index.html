@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10811,20 +10811,20 @@
 <ul>
 <li>Grant <code>Basic</code> user Tag/Edge Permissions.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>GRANT { OPTION[,OPTION] } [ TAG {  * | &lt;tag&gt;[,...] } | EDGE {  * | &lt;edge_type&gt;[, ...] }] TO &lt;user_name&gt;;
-OPTION = { READ | WRITE }
-</code></pre></div>
+<p><code>ngql
+GRANT { OPTION[,OPTION] } [ TAG {  * | &lt;tag&gt;[,...] } | EDGE {  * | &lt;edge_type&gt;[, ...] }] TO &lt;user_name&gt;;
+OPTION = { READ | WRITE }</code></p>
 <ul>
 <li>Revoke <code>Basic</code> user Tag/Edge Permissions.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>REVOKE { OPTION[,OPTION] } [ TAG {  * | &lt;tag&gt;[,...] } | EDGE {  * | &lt;edge_type&gt;[, ...] }] TO &lt;user_name&gt;;
-OPTION = { READ | WRITE }
-</code></pre></div>
+<p><code>ngql
+REVOKE { OPTION[,OPTION] } [ TAG {  * | &lt;tag&gt;[,...] } | EDGE {  * | &lt;edge_type&gt;[, ...] }] TO &lt;user_name&gt;;
+OPTION = { READ | WRITE }</code></p>
 <ul>
 <li>Show <code>Basic</code> user Tag/Edge Permissions.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>SHOW GRANTS [&lt;user_name&gt;]
-</code></pre></div>
+<p><code>ngql
+SHOW GRANTS [&lt;user_name&gt;]</code></p>
 <h3 id="precautions">Precautions<a class="headerlink" href="#precautions" title="Permanent link">&para;</a></h3>
 <ul>
 <li>The default Basic role does not have any Tag/Edge read and write permissions.</li>
@@ -10834,42 +10834,36 @@ OPTION = { READ | WRITE }
 <li>Both read and write privileges are required when performing an <code>UPDATE</code> or <code>UPSERT</code> operation.</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Create `test` user
-nebula&gt; CREATE USER test WITH PASSWORD &#39;nebula&#39;;
-
-# Grant Basic role permissions for the `test` user
-nebula&gt; GRANT ROLE BASIC ON basketballplayer TO test;
-
-# Choose graph space `basketballplayer`
-nebula&gt; use basketballplayer;
-
-# Grant read and write permissions to `test` user Tag `player` and Edge Type `follow` and `serve`
-# Granting the user the read and write permissions of the specified Tag/Edge must be after specifying the graph space
-nebula&gt; GRANT READ, WRITE TAG player EDGE follow, serve TO test;
-
-# Show `test` user permissions
-nebula&gt; &gt; SHOW GRANTS test;
+<p>```ngql</p>
+<h1 id="create_test_user">Create <code>test</code> user<a class="headerlink" href="#create_test_user" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; CREATE USER test WITH PASSWORD 'nebula';</p>
+<h1 id="grant_basic_role_permissions_for_the_test_user">Grant Basic role permissions for the <code>test</code> user<a class="headerlink" href="#grant_basic_role_permissions_for_the_test_user" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GRANT ROLE BASIC ON basketballplayer TO test;</p>
+<h1 id="choose_graph_space_basketballplayer">Choose graph space <code>basketballplayer</code><a class="headerlink" href="#choose_graph_space_basketballplayer" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; use basketballplayer;</p>
+<h1 id="grant_read_and_write_permissions_to_test_user_tag_player_and_edge_type_follow_and_serve">Grant read and write permissions to <code>test</code> user Tag <code>player</code> and Edge Type <code>follow</code> and <code>serve</code><a class="headerlink" href="#grant_read_and_write_permissions_to_test_user_tag_player_and_edge_type_follow_and_serve" title="Permanent link">&para;</a></h1>
+<h1 id="granting_the_user_the_read_and_write_permissions_of_the_specified_tagedge_must_be_after_specifying_the_graph_space">Granting the user the read and write permissions of the specified Tag/Edge must be after specifying the graph space<a class="headerlink" href="#granting_the_user_the_read_and_write_permissions_of_the_specified_tagedge_must_be_after_specifying_the_graph_space" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GRANT READ, WRITE TAG player EDGE follow, serve TO test;</p>
+<h1 id="show_test_user_permissions">Show <code>test</code> user permissions<a class="headerlink" href="#show_test_user_permissions" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; &gt; SHOW GRANTS test;
 +--------+------------+---------------------+------------+---------------------+
 | user   | READ(TAG)  | READ(EDGE)          | WRITE(TAG) | WRITE(EDGE)         |
 +--------+------------+---------------------+------------+---------------------+
-| &quot;test&quot; | [&quot;player&quot;] | [&quot;follow&quot;, &quot;serve&quot;] | [&quot;player&quot;] | [&quot;follow&quot;, &quot;serve&quot;] |
-+--------+------------+---------------------+------------+---------------------+
-
-# Revoke `test` user all Edge Type read and write permissions
-nebula&gt; REVOKE READ,WRITE EDGE * FROM test;
-
-# Show `test` user permissions
-nebula&gt; SHOW GRANTS test;
+| "test" | ["player"] | ["follow", "serve"] | ["player"] | ["follow", "serve"] |
++--------+------------+---------------------+------------+---------------------+</p>
+<h1 id="revoke_test_user_all_edge_type_read_and_write_permissions">Revoke <code>test</code> user all Edge Type read and write permissions<a class="headerlink" href="#revoke_test_user_all_edge_type_read_and_write_permissions" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; REVOKE READ,WRITE EDGE * FROM test;</p>
+<h1 id="show_test_user_permissions_1">Show <code>test</code> user permissions<a class="headerlink" href="#show_test_user_permissions_1" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; SHOW GRANTS test;
 +--------+------------+------------+------------+-------------+
 | user   | READ(TAG)  | READ(EDGE) | WRITE(TAG) | WRITE(EDGE) |
 +--------+------------+------------+------------+-------------+
-| &quot;test&quot; | [&quot;player&quot;] | []         | [&quot;player&quot;] | []          |
-+--------+------------+------------+------------+-------------+
-
-# When Basic role users read data without permission, the following error will occur.
-nebula&gt;  MATCH (v:player)-[:likex]-() RETURN v;
-[ERROR (-1008)]: PermissionError: Edge `likex&#39; does not exist or is not readable.
-</code></pre></div>
+| "test" | ["player"] | []         | ["player"] | []          |
++--------+------------+------------+------------+-------------+</p>
+<h1 id="when_basic_role_users_read_data_without_permission_the_following_error_will_occur">When Basic role users read data without permission, the following error will occur.<a class="headerlink" href="#when_basic_role_users_read_data_without_permission_the_following_error_will_occur" title="Permanent link">&para;</a></h1>
+<p>nebula&gt;  MATCH (v:player)-[:likex]-() RETURN v;
+[ERROR (-1008)]: PermissionError: Edge `likex' does not exist or is not readable.
+```</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>For Basic role users, an error will be reported for Tag/Edge Type that explicitly specify no read permission, and no errors will be reported for Tag/Edge Types that do not explicitly specify no read permission. During the traverse process, all queries cannot read the unprivileged Tag/Edge Type and its properties. The read permission of the Edge Type can control the expansion behavior of the edge. During the traversal process, if the Edge Type has no permission, it will not be expanded; the read permission of the Tag does not control the expansion behavior of the vertex. Even if the Tag has no permission during the expansion process, also can be expanded.</p>
@@ -10963,10 +10957,6 @@ nebula&gt;  MATCH (v:player)-[:likex]-() RETURN v;
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

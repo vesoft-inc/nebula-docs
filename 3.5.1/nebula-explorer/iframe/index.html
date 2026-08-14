@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10524,22 +10524,22 @@
 <ol>
 <li>
 <p>Modify the configuration file <code>config/app-config.yaml</code> in the installation directory of Explorer. The following parameters need to be modified.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Uncomment the CertFile and KeyFile parameters.</span>
-CertFile:<span class="w"> </span><span class="s2">&quot;./config/NebulaGraphExplorer.crt&quot;</span>
-KeyFile:<span class="w"> </span><span class="s2">&quot;./config/NebulaGraphExplorer.key&quot;</span>
-
-<span class="c1"># Modify the value of IframeMode.Enable to true.</span>
-IframeMode:
-<span class="w">  </span>Enable:<span class="w"> </span><span class="nb">true</span>
-<span class="c1"># You can set the URI whitelist of the window. By default, no URI is restricted.</span>
-<span class="w">  </span><span class="c1"># Origins:</span>
-<span class="w">  </span><span class="c1">#  - &quot;http://192.168.8.8&quot;</span>
-</code></pre></div>
+<p>```bash</p>
+<h1 id="uncomment_the_certfile_and_keyfile_parameters">Uncomment the CertFile and KeyFile parameters.<a class="headerlink" href="#uncomment_the_certfile_and_keyfile_parameters" title="Permanent link">&para;</a></h1>
+<p>CertFile: "./config/NebulaGraphExplorer.crt"
+KeyFile: "./config/NebulaGraphExplorer.key"</p>
+<h1 id="modify_the_value_of_iframemodeenable_to_true">Modify the value of IframeMode.Enable to true.<a class="headerlink" href="#modify_the_value_of_iframemodeenable_to_true" title="Permanent link">&para;</a></h1>
+<p>IframeMode:
+  Enable: true</p>
+<h1 id="you_can_set_the_uri_whitelist_of_the_window_by_default_no_uri_is_restricted">You can set the URI whitelist of the window. By default, no URI is restricted.<a class="headerlink" href="#you_can_set_the_uri_whitelist_of_the_window_by_default_no_uri_is_restricted" title="Permanent link">&para;</a></h1>
+<p># Origins:
+  #  - "http://192.168.8.8"
+```</p>
 </li>
 <li>
 <p>Use the command <code>openssl</code> in the directory <code>config</code> to generate a self-signed certificate. The following is an example.</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:4096<span class="w"> </span>-x509<span class="w"> </span>-sha512<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-nodes<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=NebulaGraphExplorer.com&quot;</span><span class="w"> </span>-out<span class="w"> </span>NebulaGraphExplorer.crt<span class="w"> </span>-keyout<span class="w"> </span>NebulaGraphExplorer.key
-</code></pre></div>
+<p><code>bash
+openssl req -newkey rsa:4096 -x509 -sha512 -days 365 -nodes -subj "/CN=NebulaGraphExplorer.com" -out NebulaGraphExplorer.crt -keyout NebulaGraphExplorer.key</code></p>
 <ul>
 <li><code>-newkey</code>: The secret key is automatically generated when a certificate request or self-signed certificate is generated.</li>
 <li><code>-x509</code>: Generates a self-signed certificate.</li>
@@ -10556,13 +10556,13 @@ IframeMode:
 </li>
 <li>
 <p>On the parent page, pass the login message through the postMessage method in the following format:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;NebulaGraphExploreLogi</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="err">da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="err">au</span><span class="kc">t</span><span class="err">horiza</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;WyJyb</span><span class="mi">290</span><span class="err">IiwibmVidWxhIl</span><span class="mi">0</span><span class="err">=&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="err">hos</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">192.168.8.240</span><span class="p">:</span><span class="mi">9669</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="err">space</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;baske</span><span class="kc">t</span><span class="err">ballplayer&#39;</span><span class="w"> </span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
+<p><code>json
+{ type: 'NebulaGraphExploreLogin', 
+  data: { 
+    authorization: 'WyJyb290IiwibmVidWxhIl0=', 
+    host: '192.168.8.240:9669', 
+    space: 'basketballplayer' 
+    } }</code></p>
 <ul>
 <li>type: The method type must be <code>NebulaGraphExploreLogin</code>.</li>
 <li>data：<ul>
@@ -10579,8 +10579,8 @@ IframeMode:
 <p class="admonition-title">Note</p>
 <p>If the Explorer is installed by RPM/DEB package, run the command <code>sudo ./nebula-explorer-server &amp;</code>。</p>
 </div>
-<div class="highlight"><pre><span></span><code>./scripts/start.sh
-</code></pre></div>
+<p><code>bash
+./scripts/start.sh</code></p>
 </li>
 <li>
 <p>Check whether the embedded Explorer page is displayed on the third-party page. For example, the first page displays the graph space <code>basketballplayer</code>, and the second and third pages display other graph spaces.</p>
@@ -10675,10 +10675,6 @@ IframeMode:
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

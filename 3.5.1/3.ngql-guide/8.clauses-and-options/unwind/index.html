@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10584,21 +10584,21 @@
 <p><code>UNWIND</code> can be used as an individual statement or as a clause within a statement.</p>
 <h2 id="unwind_statement">UNWIND statement<a class="headerlink" href="#unwind_statement" title="Permanent link">&para;</a></h2>
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>UNWIND &lt;list&gt; AS &lt;alias&gt; &lt;RETURN clause&gt;;
-</code></pre></div>
+<p><code>ngql 
+UNWIND &lt;list&gt; AS &lt;alias&gt; &lt;RETURN clause&gt;;</code></p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>To transform a list.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [1,2,3] AS n RETURN n;
+<p><code>ngql
+nebula&gt; UNWIND [1,2,3] AS n RETURN n;
 +---+
 | n |
 +---+
 | 1 |
 | 2 |
 | 3 |
-+---+
-</code></pre></div>
++---+</code></p>
 </li>
 </ul>
 <h2 id="unwind_clause">UNWIND clause<a class="headerlink" href="#unwind_clause" title="Permanent link">&para;</a></h2>
@@ -10610,15 +10610,14 @@
 <p class="admonition-title">Note</p>
 <p>To use a <code>UNWIND</code> clause in a native nGQL statement, use it after the <code>|</code> operator and use the <code>$-</code> prefix for variables. If you use a statement or clause after the <code>UNWIND</code> clause, use the <code>|</code> operator and use the <code>$-</code> prefix for variables.</p>
 </div>
-<div class="highlight"><pre><span></span><code>&lt;statement&gt; | UNWIND $-.&lt;var&gt; AS &lt;alias&gt; &lt;|&gt; &lt;clause&gt;;
-</code></pre></div>
+<p><code>ngql
+&lt;statement&gt; | UNWIND $-.&lt;var&gt; AS &lt;alias&gt; &lt;|&gt; &lt;clause&gt;;</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The <code>UNWIND</code> clause in openCypher statements.</p>
-<div class="highlight"><pre><span></span><code>&lt;statement&gt; UNWIND &lt;list&gt; AS &lt;alias&gt; &lt;RETURN clause&gt;；
-</code></pre></div>
+<p><code>&lt;statement&gt; UNWIND &lt;list&gt; AS &lt;alias&gt; &lt;RETURN clause&gt;；</code></p>
 </li>
 </ul>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
@@ -10629,9 +10628,9 @@
 <p class="admonition-title">Note</p>
 <p><code>WITH DISTINCT</code> is not available in native nGQL statements.  </p>
 </div>
-<div class="highlight"><pre><span></span><code>// Transform the list `[1,1,2,2,3,3]` into a unique set of rows, sort the rows, and then transform the rows into a list of unique values.
-
-nebula&gt; WITH [1,1,2,2,3,3] AS n \
+<p><code>``ngql
+// Transform the list</code>[1,1,2,2,3,3]` into a unique set of rows, sort the rows, and then transform the rows into a list of unique values.</p>
+<p>nebula&gt; WITH [1,1,2,2,3,3] AS n \
         UNWIND n AS r \
         WITH DISTINCT r AS r \
         ORDER BY r \
@@ -10641,15 +10640,15 @@ nebula&gt; WITH [1,1,2,2,3,3] AS n \
 +------------+
 | [1, 2, 3]  |
 +------------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>MATCH</code> statement.</p>
-<div class="highlight"><pre><span></span><code>// Get a list of the vertices in the matched path, transform the list into a unique set of rows, and then transform the rows into a list. 
-
-nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--(v2) \
+<p>```ngql
+// Get a list of the vertices in the matched path, transform the list into a unique set of rows, and then transform the rows into a list. </p>
+<p>nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--(v2) \
         WITH nodes(p) AS n \
         UNWIND n AS r \
         WITH DISTINCT r AS r \
@@ -10657,115 +10656,115 @@ nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--(v2) \
 +----------------------------------------------------------------------------------------------------------------------+
 | collect(r)                                                                                                           |
 +----------------------------------------------------------------------------------------------------------------------+
-| [(&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}), (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;}),            |
-|(&quot;team204&quot; :team{name: &quot;Spurs&quot;}), (&quot;player102&quot; :player{age: 33, name: &quot;LaMarcus Aldridge&quot;}),                          |
-|(&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;}), (&quot;player104&quot; :player{age: 32, name: &quot;Marco Belinelli&quot;}),       |
-|(&quot;player144&quot; :player{age: 47, name: &quot;Shaquile O&#39;Neal&quot;}), (&quot;player105&quot; :player{age: 31, name: &quot;Danny Green&quot;}),         |
-|(&quot;player113&quot; :player{age: 29, name: &quot;Dejounte Murray&quot;}), (&quot;player107&quot; :player{age: 32, name: &quot;Aron Baynes&quot;}),         |
-|(&quot;player109&quot; :player{age: 34, name: &quot;Tiago Splitter&quot;}), (&quot;player108&quot; :player{age: 36, name: &quot;Boris Diaw&quot;})]           |  
+| [("player100" :player{age: 42, name: "Tim Duncan"}), ("player101" :player{age: 36, name: "Tony Parker"}),            |
+|("team204" :team{name: "Spurs"}), ("player102" :player{age: 33, name: "LaMarcus Aldridge"}),                          |
+|("player125" :player{age: 41, name: "Manu Ginobili"}), ("player104" :player{age: 32, name: "Marco Belinelli"}),       |
+|("player144" :player{age: 47, name: "Shaquile O'Neal"}), ("player105" :player{age: 31, name: "Danny Green"}),         |
+|("player113" :player{age: 29, name: "Dejounte Murray"}), ("player107" :player{age: 32, name: "Aron Baynes"}),         |
+|("player109" :player{age: 34, name: "Tiago Splitter"}), ("player108" :player{age: 36, name: "Boris Diaw"})]           |<br />
 +----------------------------------------------------------------------------------------------------------------------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>GO</code> statement.</p>
-<div class="highlight"><pre><span></span><code>// Query the vertices in a list for the corresponding edges with a specified statement.
-
-nebula&gt; YIELD [&#39;player101&#39;, &#39;player100&#39;] AS a | UNWIND $-.a AS  b | GO FROM $-.b OVER follow YIELD edge AS e;
+<p>```ngql 
+// Query the vertices in a list for the corresponding edges with a specified statement.</p>
+<p>nebula&gt; YIELD ['player101', 'player100'] AS a | UNWIND $-.a AS  b | GO FROM $-.b OVER follow YIELD edge AS e;
 +----------------------------------------------------+
 | e                                                  |
 +----------------------------------------------------+
-| [:follow &quot;player101&quot;-&gt;&quot;player100&quot; @0 {degree: 95}] |
-| [:follow &quot;player101&quot;-&gt;&quot;player102&quot; @0 {degree: 90}] |
-| [:follow &quot;player101&quot;-&gt;&quot;player125&quot; @0 {degree: 95}] |
-| [:follow &quot;player100&quot;-&gt;&quot;player101&quot; @0 {degree: 95}] |
-| [:follow &quot;player100&quot;-&gt;&quot;player125&quot; @0 {degree: 95}] |
+| [:follow "player101"-&gt;"player100" @0 {degree: 95}] |
+| [:follow "player101"-&gt;"player102" @0 {degree: 90}] |
+| [:follow "player101"-&gt;"player125" @0 {degree: 95}] |
+| [:follow "player100"-&gt;"player101" @0 {degree: 95}] |
+| [:follow "player100"-&gt;"player125" @0 {degree: 95}] |
 +----------------------------------------------------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>LOOKUP</code> statement.</p>
-<div class="highlight"><pre><span></span><code>// Find all the properties of players whose age is greater than 46, get a list of unique properties, and then transform the list into rows. 
-
-nebula&gt; LOOKUP ON player \
+<p>```ngql
+// Find all the properties of players whose age is greater than 46, get a list of unique properties, and then transform the list into rows. </p>
+<p>nebula&gt; LOOKUP ON player \
         WHERE player.age &gt; 46 \
         YIELD DISTINCT keys(vertex) as p | UNWIND $-.p as a | YIELD $-.a AS a;
 +--------+
 | a      |
 +--------+
-| &quot;age&quot;  |
-| &quot;name&quot; |
+| "age"  |
+| "name" |
 +--------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>FETCH</code> statement. </p>
-<div class="highlight"><pre><span></span><code>// Query player101 for all tags related to player101, get a list of the tags and then transform the list into rows.
-
-nebula&gt; CREATE TAG hero(like string, height int);
-        INSERT VERTEX hero(like, height) VALUES &quot;player101&quot;:(&quot;deep&quot;, 182);
-        FETCH PROP ON * &quot;player101&quot; \
+<p>```ngql
+// Query player101 for all tags related to player101, get a list of the tags and then transform the list into rows.</p>
+<p>nebula&gt; CREATE TAG hero(like string, height int);
+        INSERT VERTEX hero(like, height) VALUES "player101":("deep", 182);
+        FETCH PROP ON * "player101" \
         YIELD tags(vertex) as t | UNWIND $-.t as a | YIELD $-.a AS a;
 +----------+
 | a        |
 +----------+
-| &quot;hero&quot;   |
-| &quot;player&quot; |
+| "hero"   |
+| "player" |
 +----------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>GET SUBGRAPH</code> statement. </p>
-<div class="highlight"><pre><span></span><code>// Get the subgraph including outgoing and incoming serve edges within 0~2 hops from/to player100, and transform the result into rows.
-
-nebula&gt; GET SUBGRAPH 2 STEPS FROM &quot;player100&quot; BOTH serve \
+<p>```ngql
+// Get the subgraph including outgoing and incoming serve edges within 0~2 hops from/to player100, and transform the result into rows.</p>
+<p>nebula&gt; GET SUBGRAPH 2 STEPS FROM "player100" BOTH serve \
         YIELD edges as e | UNWIND $-.e as a | YIELD $-.a AS a;
 +----------------------------------------------+
 | a                                            |
 +----------------------------------------------+
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player101&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player102&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player103&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player105&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player106&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player107&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player108&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player109&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player110&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player111&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player112&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player113&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player114&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player125&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player138&quot;-&gt;&quot;team204&quot; @0 {}]        |
-| [:serve &quot;player104&quot;-&gt;&quot;team204&quot; @20132015 {}] |
-| [:serve &quot;player104&quot;-&gt;&quot;team204&quot; @20182019 {}] |
+| [:serve "player100"-&gt;"team204" @0 {}]        |
+| [:serve "player101"-&gt;"team204" @0 {}]        |
+| [:serve "player102"-&gt;"team204" @0 {}]        |
+| [:serve "player103"-&gt;"team204" @0 {}]        |
+| [:serve "player105"-&gt;"team204" @0 {}]        |
+| [:serve "player106"-&gt;"team204" @0 {}]        |
+| [:serve "player107"-&gt;"team204" @0 {}]        |
+| [:serve "player108"-&gt;"team204" @0 {}]        |
+| [:serve "player109"-&gt;"team204" @0 {}]        |
+| [:serve "player110"-&gt;"team204" @0 {}]        |
+| [:serve "player111"-&gt;"team204" @0 {}]        |
+| [:serve "player112"-&gt;"team204" @0 {}]        |
+| [:serve "player113"-&gt;"team204" @0 {}]        |
+| [:serve "player114"-&gt;"team204" @0 {}]        |
+| [:serve "player125"-&gt;"team204" @0 {}]        |
+| [:serve "player138"-&gt;"team204" @0 {}]        |
+| [:serve "player104"-&gt;"team204" @20132015 {}] |
+| [:serve "player104"-&gt;"team204" @20182019 {}] |
 +----------------------------------------------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 <ul>
 <li>
 <p>To use an <code>UNWIND</code> clause in a <code>FIND PATH</code> statement.</p>
-<div class="highlight"><pre><span></span><code>// Find all the vertices in the shortest path from player101 to team204 along the serve edge, and transform the result into rows. 
-
-nebula&gt; FIND SHORTEST PATH FROM &quot;player101&quot; TO &quot;team204&quot; OVER serve \
+<p>```ngql
+// Find all the vertices in the shortest path from player101 to team204 along the serve edge, and transform the result into rows. </p>
+<p>nebula&gt; FIND SHORTEST PATH FROM "player101" TO "team204" OVER serve \
         YIELD path as p | YIELD nodes($-.p) AS nodes | UNWIND $-.nodes AS a | YIELD $-.a AS a;
 +---------------+
 | a             |
 +---------------+
-| (&quot;player101&quot;) |
-| (&quot;team204&quot;)   |
+| ("player101") |
+| ("team204")   |
 +---------------+
-</code></pre></div>
+```</p>
 </li>
 </ul>
 
@@ -10856,10 +10855,6 @@ nebula&gt; FIND SHORTEST PATH FROM &quot;player101&quot; TO &quot;team204&quot; 
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

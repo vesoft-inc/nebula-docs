@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10528,20 +10528,20 @@
 <ol>
 <li>
 <p>Users can use the following command to list the existing backup information:</p>
-<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>./br<span class="w"> </span>show<span class="w"> </span>--storage<span class="w"> </span>&lt;storage_path&gt;
-</code></pre></div>
+<p><code>bash
+$ ./br show --storage &lt;storage_path&gt;</code>
 For example, run the following command to list the backup information in the local <code>/home/nebula/backup</code> path.
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./br<span class="w"> </span>show<span class="w"> </span>--storage<span class="w"> </span><span class="s2">&quot;local:///home/nebula/backup&quot;</span>
+<code>bash
+$ ./br show --storage "local:///home/nebula/backup"
 +----------------------------+---------------------+------------------------+-------------+------------+
-<span class="p">|</span><span class="w">            </span>NAME<span class="w">            </span><span class="p">|</span><span class="w">     </span>CREATE<span class="w"> </span>TIME<span class="w">     </span><span class="p">|</span><span class="w">         </span>SPACES<span class="w">         </span><span class="p">|</span><span class="w"> </span>FULL<span class="w"> </span>BACKUP<span class="w"> </span><span class="p">|</span><span class="w"> </span>ALL<span class="w"> </span>SPACES<span class="w"> </span><span class="p">|</span>
+|            NAME            |     CREATE TIME     |         SPACES         | FULL BACKUP | ALL SPACES |
 +----------------------------+---------------------+------------------------+-------------+------------+
-<span class="p">|</span><span class="w"> </span>BACKUP_2022_02_10_07_40_41<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2022</span>-02-10<span class="w"> </span><span class="m">07</span>:40:41<span class="w"> </span><span class="p">|</span><span class="w"> </span>basketballplayer<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="nb">true</span><span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nb">true</span><span class="w">       </span><span class="p">|</span>
-<span class="p">|</span><span class="w"> </span>BACKUP_2022_02_11_08_26_43<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2022</span>-02-11<span class="w"> </span><span class="m">08</span>:26:47<span class="w"> </span><span class="p">|</span><span class="w"> </span>basketballplayer,foesa<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">true</span><span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="nb">true</span><span class="w">       </span><span class="p">|</span>
-+----------------------------+---------------------+------------------------+-------------+------------+
-</code></pre></div></p>
+| BACKUP_2022_02_10_07_40_41 | 2022-02-10 07:40:41 | basketballplayer       | true        | true       |
+| BACKUP_2022_02_11_08_26_43 | 2022-02-11 08:26:47 | basketballplayer,foesa | true        | true       |
++----------------------------+---------------------+------------------------+-------------+------------+</code></p>
 <p>Or, you can run the following command to list the backup information stored in S3 URL <code>s3://192.168.8.129:9000/br-test/backup</code>.
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./br<span class="w"> </span>show<span class="w"> </span>--s3.endpoint<span class="w"> </span><span class="s2">&quot;http://192.168.8.129:9000&quot;</span><span class="w"> </span>--storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span><span class="w"> </span>--s3.access_key<span class="o">=</span>minioadmin<span class="w"> </span>--s3.secret_key<span class="o">=</span>minioadmin<span class="w"> </span>--s3.region<span class="o">=</span>default
-</code></pre></div></p>
+<code>bash
+$ ./br show --s3.endpoint "http://192.168.8.129:9000" --storage="s3://br-test/backup/" --s3.access_key=minioadmin --s3.secret_key=minioadmin --s3.region=default</code></p>
 <table>
 <thead>
 <tr>
@@ -10614,17 +10614,15 @@ For example, run the following command to list the backup information in the loc
 </li>
 <li>
 <p>Run the following command to restore data.</p>
-<div class="highlight"><pre><span></span><code>$ ./br restore full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;
-</code></pre></div>
+<p><code>$ ./br restore full --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;</code></p>
 <p>For example, run the following command to upload the backup files from the local <code>/home/nebula/backup/</code> to the cluster where the meta service's address is <code>192.168.8.129:9559</code>.</p>
-<div class="highlight"><pre><span></span><code>$ ./br restore full --meta &quot;192.168.8.129:9559&quot; --storage &quot;local:///home/nebula/backup/&quot; --name BACKUP_2021_12_08_18_38_08
-</code></pre></div>
+<p><code>$ ./br restore full --meta "192.168.8.129:9559" --storage "local:///home/nebula/backup/" --name BACKUP_2021_12_08_18_38_08</code></p>
 <p>Or, you can run the following command to upload the backup files from the S3 URL <code>s3://192.168.8.129:9000/br-test/backup</code>.
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./br<span class="w"> </span>restore<span class="w"> </span>full<span class="w"> </span>--meta<span class="w"> </span><span class="s2">&quot;192.168.8.129:9559&quot;</span><span class="w"> </span>--s3.endpoint<span class="w"> </span><span class="s2">&quot;http://192.168.8.129:9000&quot;</span><span class="w"> </span>--storage<span class="o">=</span><span class="s2">&quot;s3://br-test/backup/&quot;</span><span class="w"> </span>--s3.access_key<span class="o">=</span>minioadmin<span class="w"> </span>--s3.secret_key<span class="o">=</span>minioadmin<span class="w"> </span>--s3.region<span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="w"> </span>--name<span class="w"> </span>BACKUP_2021_12_08_18_38_08
-</code></pre></div></p>
+<code>bash
+$ ./br restore full --meta "192.168.8.129:9559" --s3.endpoint "http://192.168.8.129:9000" --storage="s3://br-test/backup/" --s3.access_key=minioadmin --s3.secret_key=minioadmin --s3.region="default" --name BACKUP_2021_12_08_18_38_08</code></p>
 <p>If the following information is returned, the data is restored successfully.
-<div class="highlight"><pre><span></span><code>Restore<span class="w"> </span>succeed.
-</code></pre></div></p>
+<code>bash
+Restore succeed.</code></p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>If your new cluster hosts' IPs are not all the same as the backup cluster, after restoration, you should run <code>add hosts</code> to add the Storage host IPs in the new cluster one by one.</p>
@@ -10716,8 +10714,8 @@ For example, run the following command to list the backup information in the loc
 </li>
 <li>
 <p>Run the following command to clean up temporary files if any error occurred during backup. It will clean the files in cluster and external storage. You could also use it to clean up old backups files in external storage.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./br<span class="w"> </span>cleanup<span class="w"> </span>--meta<span class="w"> </span>&lt;ip_address&gt;<span class="w"> </span>--storage<span class="w"> </span>&lt;storage_path&gt;<span class="w"> </span>--name<span class="w"> </span>&lt;backup_name&gt;
-</code></pre></div>
+<p><code>bash
+$ ./br cleanup --meta &lt;ip_address&gt; --storage &lt;storage_path&gt; --name &lt;backup_name&gt;</code></p>
 <p>The parameters are as follows.</p>
 <table>
 <thead>
@@ -10892,10 +10890,6 @@ For example, run the following command to list the backup information in the loc
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

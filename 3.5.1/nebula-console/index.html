@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10638,8 +10638,8 @@
 <h2 id="nebulagraph_console_functions">NebulaGraph Console functions<a class="headerlink" href="#nebulagraph_console_functions" title="Permanent link">&para;</a></h2>
 <h3 id="connect_to_nebulagraph">Connect to NebulaGraph<a class="headerlink" href="#connect_to_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>To connect to NebulaGraph with the <code>nebula-console</code> file, use the following syntax:</p>
-<div class="highlight"><pre><span></span><code>&lt;path_of_console&gt;<span class="w"> </span>-addr<span class="w"> </span>&lt;ip&gt;<span class="w"> </span>-port<span class="w"> </span>&lt;port&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
-</code></pre></div>
+<p><code>bash
+&lt;path_of_console&gt; -addr &lt;ip&gt; -port &lt;port&gt; -u &lt;username&gt; -p &lt;password&gt;</code></p>
 <p><code>path_of_console</code> indicates the storage path of the NebulaGraph Console binary file.</p>
 <p>Parameter descriptions are as follows:</p>
 <table>
@@ -10702,8 +10702,8 @@
 </table>
 <p>For information on more parameters, see the <a href="https://github.com/vesoft-inc/nebula-console/tree/release-3.5">project repository</a>.</p>
 <p>For example, to connect to the Graph Service deployed on 192.168.10.8, run the following command:</p>
-<div class="highlight"><pre><span></span><code>./nebula-console<span class="w"> </span>-addr<span class="w"> </span><span class="m">192</span>.168.10.8<span class="w"> </span>-port<span class="w"> </span><span class="m">9669</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>thisisapassword
-</code></pre></div>
+<p><code>bash
+./nebula-console -addr 192.168.10.8 -port 9669 -u root -p thisisapassword</code></p>
 <h3 id="manage_parameters">Manage parameters<a class="headerlink" href="#manage_parameters" title="Permanent link">&para;</a></h3>
 <p>You can save parameters for parameterized queries.</p>
 <div class="admonition note">
@@ -10721,46 +10721,46 @@
 <ul>
 <li>
 <p>The command to save a parameter is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :param &lt;param_name&gt; =&gt; &lt;param_value&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :param &lt;param_name&gt; =&gt; &lt;param_value&gt;;</code></p>
 <p>The example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :param p1 =&gt; &quot;Tim Duncan&quot;;
+<p><code>ngql
+nebula&gt; :param p1 =&gt; "Tim Duncan";
 nebula&gt; MATCH (v:player{name:$p1})-[:follow]-&gt;(n)  RETURN v,n;
 +----------------------------------------------------+-------------------------------------------------------+
 | v                                                  | n                                                     |
 +----------------------------------------------------+-------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) | (&quot;player125&quot; :player{age: 41, name: &quot;Manu Ginobili&quot;}) |
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;}) | (&quot;player101&quot; :player{age: 36, name: &quot;Tony Parker&quot;})   |
+| ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player125" :player{age: 41, name: "Manu Ginobili"}) |
+| ("player100" :player{age: 42, name: "Tim Duncan"}) | ("player101" :player{age: 36, name: "Tony Parker"})   |
 +----------------------------------------------------+-------------------------------------------------------+
-nebula&gt; :param p2 =&gt; {&quot;a&quot;:3,&quot;b&quot;:false,&quot;c&quot;:&quot;Tim Duncan&quot;};
+nebula&gt; :param p2 =&gt; {"a":3,"b":false,"c":"Tim Duncan"};
 nebula&gt; RETURN $p2.b AS b;
 +-------+
 | b     |
 +-------+
 | false |
-+-------+
-</code></pre></div>
++-------+</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The command to view the saved parameters is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :params;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :params;</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The command to view the specified parameters is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :params &lt;param_name&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :params &lt;param_name&gt;;</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The command to delete a specified parameter is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :param &lt;param_name&gt; =&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :param &lt;param_name&gt; =&gt;;</code></p>
 </li>
 </ul>
 <h3 id="export_query_results">Export query results<a class="headerlink" href="#export_query_results" title="Permanent link">&para;</a></h3>
@@ -10780,98 +10780,93 @@ nebula&gt; RETURN $p2.b AS b;
 <ul>
 <li>
 <p>The command to export a csv file is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :CSV &lt;file_name.csv&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :CSV &lt;file_name.csv&gt;;</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The command to export a DOT file is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :dot &lt;file_name.dot&gt;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :dot &lt;file_name.dot&gt;</code></p>
 <p>The example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :dot a.dot
-nebula&gt; PROFILE FORMAT=&quot;dot&quot; GO FROM &quot;player100&quot; OVER follow;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :dot a.dot
+nebula&gt; PROFILE FORMAT="dot" GO FROM "player100" OVER follow;</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>The command to export a PROFILE or EXPLAIN format is as follows: </p>
-<p><div class="highlight"><pre><span></span><code>nebula&gt; :profile &lt;file_name&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :profile &lt;file_name&gt;;</code>
 or</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :explain &lt;file_name&gt;;
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :explain &lt;file_name&gt;;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The text file output by the above command is the preferred way to report issues in GitHub and execution plans in forums, and for graph query tuning because it has more information and is more readable than a screenshot or CSV file in Studio.</p>
 </div>
 <p>The example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :profile profile.log
-nebula&gt; PROFILE GO FROM &quot;player102&quot; OVER serve YIELD dst(edge);
+<p><code>ngql
+nebula&gt; :profile profile.log
+nebula&gt; PROFILE GO FROM "player102" OVER serve YIELD dst(edge);
 nebula&gt; :profile profile.dot
-nebula&gt; PROFILE FORMAT=&quot;dot&quot; GO FROM &quot;player102&quot; OVER serve YIELD dst(edge);
+nebula&gt; PROFILE FORMAT="dot" GO FROM "player102" OVER serve YIELD dst(edge);
 nebula&gt; :explain explain.log
-nebula&gt; EXPLAIN GO FROM &quot;player102&quot; OVER serve YIELD dst(edge);
-</code></pre></div>
+nebula&gt; EXPLAIN GO FROM "player102" OVER serve YIELD dst(edge);</code></p>
 </li>
 </ul>
 <h3 id="import_a_testing_dataset">Import a testing dataset<a class="headerlink" href="#import_a_testing_dataset" title="Permanent link">&para;</a></h3>
 <p>The testing dataset is named <code>basketballplayer</code>. To view details about the schema and data, use the corresponding <code>SHOW</code> command.</p>
 <p>The command to import a testing dataset is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :play basketballplayer
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :play basketballplayer</code></p>
 <h3 id="run_a_command_multiple_times">Run a command multiple times<a class="headerlink" href="#run_a_command_multiple_times" title="Permanent link">&para;</a></h3>
 <p>To run a command multiple times, use the following command:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :repeat N
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :repeat N</code></p>
 <p>The example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :repeat 3
-nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+<p>```ngql
+nebula&gt; :repeat 3
+nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player125&quot; |
+| "player101" |
+| "player125" |
 +-------------+
-Got 2 rows (time spent 2602/3214 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-+-------------+
+Got 2 rows (time spent 2602/3214 us)</p>
+<p>Fri, 20 Aug 2021 06:36:05 UTC</p>
+<p>+-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player125&quot; |
+| "player101" |
+| "player125" |
 +-------------+
-Got 2 rows (time spent 583/849 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-+-------------+
+Got 2 rows (time spent 583/849 us)</p>
+<p>Fri, 20 Aug 2021 06:36:05 UTC</p>
+<p>+-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player101&quot; |
-| &quot;player125&quot; |
+| "player101" |
+| "player125" |
 +-------------+
-Got 2 rows (time spent 496/671 us)
-
-Fri, 20 Aug 2021 06:36:05 UTC
-
-Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578 us)
-</code></pre></div>
+Got 2 rows (time spent 496/671 us)</p>
+<p>Fri, 20 Aug 2021 06:36:05 UTC</p>
+<p>Executed 3 times, (total time spent 3681/4734 us), (average time spent 1227/1578 us)
+```</p>
 <h3 id="sleep">Sleep<a class="headerlink" href="#sleep" title="Permanent link">&para;</a></h3>
 <p>This command will make NebulaGraph Console sleep for N seconds. The schema is altered in an async way and takes effect in the next heartbeat cycle. Therefore, this command is usually used when altering schema. The command is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :sleep N
-</code></pre></div>
+<p><code>ngql
+nebula&gt; :sleep N</code></p>
 <h3 id="disconnect_nebulagraph_console_from_nebulagraph">Disconnect NebulaGraph Console from NebulaGraph<a class="headerlink" href="#disconnect_nebulagraph_console_from_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>You can use <code>:EXIT</code> or <code>:QUIT</code> to disconnect from NebulaGraph. For convenience, NebulaGraph Console supports using these commands in lower case without the colon (":"), such as <code>quit</code>.</p>
 <p>The example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; :QUIT
-
-Bye root!
-</code></pre></div>
+<p>```ngql
+nebula&gt; :QUIT</p>
+<p>Bye root!
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10960,10 +10955,6 @@ Bye root!
         <script src="../js/search.js"></script>
       
         <script src="../js/config.js"></script>
-      
-        <script src="../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

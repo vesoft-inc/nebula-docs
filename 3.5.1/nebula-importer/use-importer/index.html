@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10768,8 +10768,8 @@
 </li>
 <li>
 <p>Under the directory where the binary file is located, run the following command to start importing data.</p>
-<div class="highlight"><pre><span></span><code>./&lt;binary_file_name&gt;<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
-</code></pre></div>
+<p><code>bash
+./&lt;binary_file_name&gt; --config &lt;yaml_config_file_path&gt;</code></p>
 </li>
 </ol>
 <h3 id="source_code_compile_and_run">Source code compile and run<a class="headerlink" href="#source_code_compile_and_run" title="Permanent link">&para;</a></h3>
@@ -10777,8 +10777,8 @@
 <ol>
 <li>
 <p>Clone repository.</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-4.0<span class="w"> </span>https://github.com/vesoft-inc/nebula-importer.git
-</code></pre></div>
+<p><code>bash
+git clone -b release-4.0 https://github.com/vesoft-inc/nebula-importer.git</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Use the correct branch. Different branches have different RPC protocols.</p>
@@ -10786,30 +10786,30 @@
 </li>
 <li>
 <p>Access the directory <code>nebula-importer</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>nebula-importer
-</code></pre></div>
+<p><code>bash
+cd nebula-importer</code></p>
 </li>
 <li>
 <p>Compile the source code.</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>build
-</code></pre></div>
+<p><code>bash
+make build</code></p>
 </li>
 <li>
 <p>Start the service.</p>
-<div class="highlight"><pre><span></span><code>./bin/nebula-importer<span class="w"> </span>--config<span class="w"> </span>&lt;yaml_config_file_path&gt;
-</code></pre></div>
+<p><code>bash
+./bin/nebula-importer --config &lt;yaml_config_file_path&gt;</code></p>
 </li>
 </ol>
 <h3 id="run_in_docker_mode">Run in Docker mode<a class="headerlink" href="#run_in_docker_mode" title="Permanent link">&para;</a></h3>
 <p>Instead of installing the Go locale locally, you can use Docker to pull the <a href="https://hub.docker.com/r/vesoft/nebula-importer">image</a> of the NebulaGraph Importer and mount the local configuration file and CSV data file into the container. The command is as follows:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-importer:&lt;version&gt;
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-v<span class="w"> </span>&lt;config_file&gt;:&lt;config_file&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-v<span class="w"> </span>&lt;data_dir&gt;:&lt;data_dir&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>vesoft/nebula-importer:&lt;version&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--config<span class="w"> </span>&lt;config_file&gt;
-</code></pre></div>
+<p><code>bash
+docker pull vesoft/nebula-importer:&lt;version&gt;
+docker run --rm -ti \
+      --network=host \
+      -v &lt;config_file&gt;:&lt;config_file&gt; \
+      -v &lt;data_dir&gt;:&lt;data_dir&gt; \
+      vesoft/nebula-importer:&lt;version&gt; \
+      --config &lt;config_file&gt;</code></p>
 <ul>
 <li><code>&lt;config_file&gt;</code>: The absolute path to the YAML configuration file.</li>
 <li><code>&lt;data_dir&gt;</code>: The absolute path to the CSV data file. If the file is not local, ignore this parameter.</li>
@@ -10820,14 +10820,14 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <p>A relative path is recommended. If you use a local absolute path, check that the path maps to the path in the Docker.</p>
 </div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>vesoft/nebula-importer:v4
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-ti<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-v<span class="w"> </span>/home/user/config.yaml:/home/user/config.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-v<span class="w"> </span>/home/user/data:/home/user/data<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>vesoft/nebula-importer:v4<span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--config<span class="w"> </span>/home/user/config.yaml
-</code></pre></div>
+<p><code>bash
+docker pull vesoft/nebula-importer:v4
+docker run --rm -ti \
+      --network=host \
+      -v /home/user/config.yaml:/home/user/config.yaml \
+      -v /home/user/data:/home/user/data \
+      vesoft/nebula-importer:v4 \
+      --config /home/user/config.yaml</code></p>
 <h2 id="configuration_file_description">Configuration File Description<a class="headerlink" href="#configuration_file_description" title="Permanent link">&para;</a></h2>
 <p>Various example configuration files are available within the <a href="https://github.com/vesoft-inc/nebula-importer/tree/release-4.0/examples">Github</a> of the NebulaGraph Importer. The configuration files are used to describe information about the files to be imported, NebulaGraph server information, etc. The following section describes the fields within the configuration file in categories.</p>
 <div class="admonition note">
@@ -10837,16 +10837,16 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <h3 id="client_configuration">Client configuration<a class="headerlink" href="#client_configuration" title="Permanent link">&para;</a></h3>
 <p>Client configuration stores the configuration associated with the client's connection to the NebulaGraph.</p>
 <p>The example configuration is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">client</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3</span>
-<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.100:9669,192.168.1.101:9669&quot;</span>
-<span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
-<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">concurrencyPerAddress</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-<span class="w">  </span><span class="nt">reconnectInitialInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
-<span class="w">  </span><span class="nt">retry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">  </span><span class="nt">retryInitialInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
-</code></pre></div>
+<p><code>yaml
+client:
+  version: v3
+  address: "192.168.1.100:9669,192.168.1.101:9669"
+  user: root
+  password: nebula
+  concurrencyPerAddress: 10
+  reconnectInitialInterval: 1s
+  retry: 3
+  retryInitialInterval: 1s</code></p>
 <table>
 <thead>
 <tr>
@@ -10910,29 +10910,29 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <h3 id="manager_configuration">Manager configuration<a class="headerlink" href="#manager_configuration" title="Permanent link">&para;</a></h3>
 <p>Manager configuration is a human-controlled configuration after connecting to the database.</p>
 <p>The example configuration is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">manager</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">spaceName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic_string_examples</span>
-<span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
-<span class="w">  </span><span class="nt">readerConcurrency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="w">  </span><span class="nt">importerConcurrency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
-<span class="w">  </span><span class="nt">statsInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">before</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">statements</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UPDATE CONFIGS storage:wal_ttl=3600;</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = true };</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">statements</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">            </span><span class="no">DROP SPACE IF EXISTS basic_string_examples;</span>
-<span class="w">            </span><span class="no">CREATE SPACE IF NOT EXISTS basic_string_examples(partition_num=5, replica_factor=1, vid_type=int);</span>
-<span class="w">            </span><span class="no">USE basic_string_examples;</span>
-<span class="w">        </span><span class="nt">wait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">    </span><span class="nt">after</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">statements</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">            </span><span class="no">UPDATE CONFIGS storage:wal_ttl=86400;</span>
-<span class="w">            </span><span class="no">UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = false };</span>
-</code></pre></div>
+<p><code>yaml
+manager:
+  spaceName: basic_string_examples
+  batch: 128
+  readerConcurrency: 50
+  importerConcurrency: 512
+  statsInterval: 10s
+  hooks:
+    before:
+      - statements:
+        - UPDATE CONFIGS storage:wal_ttl=3600;
+        - UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = true };
+      - statements:
+        - |
+            DROP SPACE IF EXISTS basic_string_examples;
+            CREATE SPACE IF NOT EXISTS basic_string_examples(partition_num=5, replica_factor=1, vid_type=int);
+            USE basic_string_examples;
+        wait: 10s
+    after:
+      - statements:
+          - |
+            UPDATE CONFIGS storage:wal_ttl=86400;
+            UPDATE CONFIGS storage:rocksdb_column_family_options = { disable_auto_compactions = false };</code></p>
 <table>
 <thead>
 <tr>
@@ -11008,12 +11008,12 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <h3 id="log_configuration">Log configuration<a class="headerlink" href="#log_configuration" title="Permanent link">&para;</a></h3>
 <p>Log configuration is the logging-related configuration.</p>
 <p>The example configuration is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
-<span class="w">  </span><span class="nt">console</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">files</span><span class="p">:</span>
-<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logs/nebula-importer.log</span>
-</code></pre></div>
+<p><code>yaml
+log:
+  level: INFO
+  console: true
+  files:
+   - logs/nebula-importer.log</code></p>
 <table>
 <thead>
 <tr>
@@ -11047,107 +11047,112 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <h3 id="source_configuration">Source configuration<a class="headerlink" href="#source_configuration" title="Permanent link">&para;</a></h3>
 <p>The Source configuration requires the configuration of data source information, data processing methods, and Schema mapping.</p>
 <p>The example configuration is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">sources</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./person.csv</span><span class="w">  </span><span class="c1"># Required. Specifies the path where the data files are stored. If a relative path is used, the path and current configuration file directory are spliced. Wildcard filename is also supported, for example: ./follower-*.csv, please make sure that all matching files with the same schema.</span>
-<span class="c1">#  - s3: # AWS S3</span>
-<span class="c1">#      endpoint: endpoint    # Optional. The endpoint of S3 service, can be omitted if using AWS S3.</span>
-<span class="c1">#      region: us-east-1     # Required. The region of S3 service.</span>
-<span class="c1">#      bucket: gdelt-open-data    # Required. The bucket of file in S3 service.</span>
-<span class="c1">#      key: events/20190918.export.csv     # Required. The object key of file in S3 service.</span>
-<span class="c1">#      accessKeyID: &quot;&quot;    # Optional. The access key of S3 service. If it is public data, no need to configure.</span>
-<span class="c1">#      accessKeySecret: &quot;&quot;     # Optional. The secret key of S3 service. If it is public data, no need to configure.</span>
-<span class="c1">#  - oss:</span>
-<span class="c1">#      endpoint: https://oss-cn-hangzhou.aliyuncs.com    # Required. The endpoint of OSS service.</span>
-<span class="c1">#      bucket: bucketName    # Required. The bucket of file in OSS service.</span>
-<span class="c1">#      key: objectKey    # Required. The object key of file in OSS service.</span>
-<span class="c1">#      accessKeyID: accessKey    # Required. The access key of OSS service.</span>
-<span class="c1">#      accessKeySecret: secretKey    # Required. The secret key of OSS service.</span>
-<span class="c1">#  - ftp:</span>
-<span class="c1">#      host: 192.168.0.10    # Required. The host of FTP service.</span>
-<span class="c1">#      port: 21    # Required. The port of FTP service.</span>
-<span class="c1">#      user: user    # Required. The user of FTP service.</span>
-<span class="c1">#      password: password    # Required. The password of FTP service.</span>
-<span class="c1">#      path: &quot;/events/20190918.export.csv&quot;    # Required. The path of file in the FTP service.</span>
-<span class="c1">#  - sftp:</span>
-<span class="c1">#      host: 192.168.0.10    # Required. The host of SFTP service.</span>
-<span class="c1">#      port: 22    # Required. The port of SFTP service.</span>
-<span class="c1">#      user: user    # Required. The user of SFTP service.</span>
-<span class="c1">#      password: password    # Optional. The password of SFTP service.</span>
-<span class="c1">#      keyFile: keyFile    # Optional. The ssh key file path of SFTP service.</span>
-<span class="c1">#      keyData: keyData    $ Optional. The ssh key file content of SFTP service.</span>
-<span class="c1">#      passphrase: passphrase    # Optional. The ssh key passphrase of SFTP service.</span>
-<span class="c1">#      path: &quot;/events/20190918.export.csv&quot;    # Required. The path of file in the SFTP service.</span>
-<span class="c1">#  - hdfs:</span>
-<span class="c1">#      address: &quot;127.0.0.1:8020&quot;    # Required. The address of HDFS service.</span>
-<span class="c1">#      user: &quot;hdfs&quot;    # Optional. The user of HDFS service.</span>
-<span class="c1">#      path: &quot;/events/20190918.export.csv&quot;    # Required. The path of file in the HDFS service.</span>
-<span class="w">    </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
-<span class="w">    </span><span class="nt">csv</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;|&quot;</span>
-<span class="w">      </span><span class="nt">withHeader</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">      </span><span class="nt">lazyQuotes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Person</span>
-<span class="w">      </span><span class="nt">id</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">        </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hash&quot;</span>
-<span class="c1">#       index: 0        </span>
-<span class="w">        </span><span class="nt">concatItems</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">person_</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_id</span>
-<span class="w">      </span><span class="nt">props</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;firstName&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lastName&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gender&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">          </span><span class="nt">nullable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">female</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;birthday&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DATE&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-<span class="w">          </span><span class="nt">nullable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">nullValue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_NULL_</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;creationDate&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DATETIME&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;locationIP&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;browserUsed&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./knows.csv</span>
-<span class="w">    </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
-<span class="w">    </span><span class="nt">edges</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KNOWS</span><span class="w"> </span><span class="c1"># person_knows_person</span>
-<span class="w">      </span><span class="nt">src</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">concatItems</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">person_</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_id</span>
-<span class="w">      </span><span class="nt">dst</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STRING&quot;</span>
-<span class="w">          </span><span class="nt">concatItems</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">person_</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_id</span>
-<span class="w">      </span><span class="nt">props</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;creationDate&quot;</span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DATETIME&quot;</span>
-<span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">          </span><span class="nt">nullable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">nullValue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_NULL_</span>
-<span class="w">          </span><span class="nt">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0000-00-00T00:00:00</span>
+<p>```yaml
+sources:
+  - path: ./person.csv  # Required. Specifies the path where the data files are stored. If a relative path is used, the path and current configuration file directory are spliced. Wildcard filename is also supported, for example: ./follower-*.csv, please make sure that all matching files with the same schema.</p>
+<h1 id="-_s3_aws_s3">- s3: # AWS S3<a class="headerlink" href="#-_s3_aws_s3" title="Permanent link">&para;</a></h1>
+<h1 id="endpoint_endpoint_optional_the_endpoint_of_s3_service_can_be_omitted_if_using_aws_s3">endpoint: endpoint    # Optional. The endpoint of S3 service, can be omitted if using AWS S3.<a class="headerlink" href="#endpoint_endpoint_optional_the_endpoint_of_s3_service_can_be_omitted_if_using_aws_s3" title="Permanent link">&para;</a></h1>
+<h1 id="region_us-east-1_required_the_region_of_s3_service">region: us-east-1     # Required. The region of S3 service.<a class="headerlink" href="#region_us-east-1_required_the_region_of_s3_service" title="Permanent link">&para;</a></h1>
+<h1 id="bucket_gdelt-open-data_required_the_bucket_of_file_in_s3_service">bucket: gdelt-open-data    # Required. The bucket of file in S3 service.<a class="headerlink" href="#bucket_gdelt-open-data_required_the_bucket_of_file_in_s3_service" title="Permanent link">&para;</a></h1>
+<h1 id="key_events20190918exportcsv_required_the_object_key_of_file_in_s3_service">key: events/20190918.export.csv     # Required. The object key of file in S3 service.<a class="headerlink" href="#key_events20190918exportcsv_required_the_object_key_of_file_in_s3_service" title="Permanent link">&para;</a></h1>
+<h1 id="accesskeyid_optional_the_access_key_of_s3_service_if_it_is_public_data_no_need_to_configure">accessKeyID: ""    # Optional. The access key of S3 service. If it is public data, no need to configure.<a class="headerlink" href="#accesskeyid_optional_the_access_key_of_s3_service_if_it_is_public_data_no_need_to_configure" title="Permanent link">&para;</a></h1>
+<h1 id="accesskeysecret_optional_the_secret_key_of_s3_service_if_it_is_public_data_no_need_to_configure">accessKeySecret: ""     # Optional. The secret key of S3 service. If it is public data, no need to configure.<a class="headerlink" href="#accesskeysecret_optional_the_secret_key_of_s3_service_if_it_is_public_data_no_need_to_configure" title="Permanent link">&para;</a></h1>
+<h1 id="-_oss">- oss:<a class="headerlink" href="#-_oss" title="Permanent link">&para;</a></h1>
+<h1 id="endpoint_httpsoss-cn-hangzhoualiyuncscom_required_the_endpoint_of_oss_service">endpoint: https://oss-cn-hangzhou.aliyuncs.com    # Required. The endpoint of OSS service.<a class="headerlink" href="#endpoint_httpsoss-cn-hangzhoualiyuncscom_required_the_endpoint_of_oss_service" title="Permanent link">&para;</a></h1>
+<h1 id="bucket_bucketname_required_the_bucket_of_file_in_oss_service">bucket: bucketName    # Required. The bucket of file in OSS service.<a class="headerlink" href="#bucket_bucketname_required_the_bucket_of_file_in_oss_service" title="Permanent link">&para;</a></h1>
+<h1 id="key_objectkey_required_the_object_key_of_file_in_oss_service">key: objectKey    # Required. The object key of file in OSS service.<a class="headerlink" href="#key_objectkey_required_the_object_key_of_file_in_oss_service" title="Permanent link">&para;</a></h1>
+<h1 id="accesskeyid_accesskey_required_the_access_key_of_oss_service">accessKeyID: accessKey    # Required. The access key of OSS service.<a class="headerlink" href="#accesskeyid_accesskey_required_the_access_key_of_oss_service" title="Permanent link">&para;</a></h1>
+<h1 id="accesskeysecret_secretkey_required_the_secret_key_of_oss_service">accessKeySecret: secretKey    # Required. The secret key of OSS service.<a class="headerlink" href="#accesskeysecret_secretkey_required_the_secret_key_of_oss_service" title="Permanent link">&para;</a></h1>
+<h1 id="-_ftp">- ftp:<a class="headerlink" href="#-_ftp" title="Permanent link">&para;</a></h1>
+<h1 id="host_192168010_required_the_host_of_ftp_service">host: 192.168.0.10    # Required. The host of FTP service.<a class="headerlink" href="#host_192168010_required_the_host_of_ftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="port_21_required_the_port_of_ftp_service">port: 21    # Required. The port of FTP service.<a class="headerlink" href="#port_21_required_the_port_of_ftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="user_user_required_the_user_of_ftp_service">user: user    # Required. The user of FTP service.<a class="headerlink" href="#user_user_required_the_user_of_ftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="password_password_required_the_password_of_ftp_service">password: password    # Required. The password of FTP service.<a class="headerlink" href="#password_password_required_the_password_of_ftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="path_events20190918exportcsv_required_the_path_of_file_in_the_ftp_service">path: "/events/20190918.export.csv"    # Required. The path of file in the FTP service.<a class="headerlink" href="#path_events20190918exportcsv_required_the_path_of_file_in_the_ftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="-_sftp">- sftp:<a class="headerlink" href="#-_sftp" title="Permanent link">&para;</a></h1>
+<h1 id="host_192168010_required_the_host_of_sftp_service">host: 192.168.0.10    # Required. The host of SFTP service.<a class="headerlink" href="#host_192168010_required_the_host_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="port_22_required_the_port_of_sftp_service">port: 22    # Required. The port of SFTP service.<a class="headerlink" href="#port_22_required_the_port_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="user_user_required_the_user_of_sftp_service">user: user    # Required. The user of SFTP service.<a class="headerlink" href="#user_user_required_the_user_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="password_password_optional_the_password_of_sftp_service">password: password    # Optional. The password of SFTP service.<a class="headerlink" href="#password_password_optional_the_password_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="keyfile_keyfile_optional_the_ssh_key_file_path_of_sftp_service">keyFile: keyFile    # Optional. The ssh key file path of SFTP service.<a class="headerlink" href="#keyfile_keyfile_optional_the_ssh_key_file_path_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="keydata_keydata_optional_the_ssh_key_file_content_of_sftp_service">keyData: keyData    $ Optional. The ssh key file content of SFTP service.<a class="headerlink" href="#keydata_keydata_optional_the_ssh_key_file_content_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="passphrase_passphrase_optional_the_ssh_key_passphrase_of_sftp_service">passphrase: passphrase    # Optional. The ssh key passphrase of SFTP service.<a class="headerlink" href="#passphrase_passphrase_optional_the_ssh_key_passphrase_of_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="path_events20190918exportcsv_required_the_path_of_file_in_the_sftp_service">path: "/events/20190918.export.csv"    # Required. The path of file in the SFTP service.<a class="headerlink" href="#path_events20190918exportcsv_required_the_path_of_file_in_the_sftp_service" title="Permanent link">&para;</a></h1>
+<h1 id="-_hdfs">- hdfs:<a class="headerlink" href="#-_hdfs" title="Permanent link">&para;</a></h1>
+<h1 id="address_1270018020_required_the_address_of_hdfs_service">address: "127.0.0.1:8020"    # Required. The address of HDFS service.<a class="headerlink" href="#address_1270018020_required_the_address_of_hdfs_service" title="Permanent link">&para;</a></h1>
+<h1 id="user_hdfs_optional_the_user_of_hdfs_service">user: "hdfs"    # Optional. The user of HDFS service.<a class="headerlink" href="#user_hdfs_optional_the_user_of_hdfs_service" title="Permanent link">&para;</a></h1>
+<h1 id="path_events20190918exportcsv_required_the_path_of_file_in_the_hdfs_service">path: "/events/20190918.export.csv"    # Required. The path of file in the HDFS service.<a class="headerlink" href="#path_events20190918exportcsv_required_the_path_of_file_in_the_hdfs_service" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>batch: 256
+csv:
+  delimiter: &quot;|&quot;
+  withHeader: false
+  lazyQuotes: false
+tags:
+- name: Person
+  id:
+    type: &quot;STRING&quot;
+    function: &quot;hash&quot;
 </code></pre></div>
+
+<h1 id="index_0">index: 0<a class="headerlink" href="#index_0" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>    concatItems:
+      - person_
+      - 0
+      - _id
+  props:
+    - name: &quot;firstName&quot;
+      type: &quot;STRING&quot;
+      index: 1
+    - name: &quot;lastName&quot;
+      type: &quot;STRING&quot;
+      index: 2
+    - name: &quot;gender&quot;
+      type: &quot;STRING&quot;
+      index: 3
+      nullable: true
+      defaultValue: female
+    - name: &quot;birthday&quot;
+      type: &quot;DATE&quot;
+      index: 4
+      nullable: true
+      nullValue: _NULL_
+    - name: &quot;creationDate&quot;
+      type: &quot;DATETIME&quot;
+      index: 5
+    - name: &quot;locationIP&quot;
+      type: &quot;STRING&quot;
+      index: 6
+    - name: &quot;browserUsed&quot;
+      type: &quot;STRING&quot;
+      index: 7
+</code></pre></div>
+
+<p>- path: ./knows.csv
+    batch: 256
+    edges:
+    - name: KNOWS # person_knows_person
+      src:
+        id:
+          type: "STRING"
+          concatItems:
+            - person_
+            - 0
+            - <em>id
+      dst:
+        id:
+          type: "STRING"
+          concatItems:
+            - person</em>
+            - 1
+            - <em>id
+      props:
+        - name: "creationDate"
+          type: "DATETIME"
+          index: 2
+          nullable: true
+          nullValue: _NULL</em>
+          defaultValue: 0000-00-00T00:00:00
+```</p>
 <p>The configuration mainly includes the following parts:</p>
 <ul>
 <li>Specify the data source information.</li>
@@ -11446,10 +11451,6 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

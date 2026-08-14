@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -9874,13 +9874,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" class="md-nav__link">
-    How to resolve the host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local error?
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10523,13 +10516,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" class="md-nav__link">
-    How to resolve the host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local error?
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10565,41 +10551,39 @@
 <h2 id="how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster">How to view the logs of each service in the NebulaGraph cluster?<a class="headerlink" href="#how_to_view_the_logs_of_each_service_in_the_nebulagraph_cluster" title="Permanent link">&para;</a></h2>
 <p>The logs for the NebulaGraph cluster are not gathered in the K8s cluster, which also means that they cannot be retrieved through the <code>kubectl logs</code> command. To obtain the logs of each cluster service, you need to access the container and view the log files that are stored inside. This is the only option available for users to get the service logs individually in the NebulaGraph cluster.</p>
 <p>Steps to view the logs of each service in the NebulaGraph cluster:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># To view the name of the pod where the container you want to access is located. </span>
-<span class="c1"># Replace &lt;cluster-name&gt; with the name of the cluster.</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/cluster<span class="o">=</span>&lt;cluster-name&gt;
-
-<span class="c1"># To access the container within the pod, such as the nebula-graphd-0 container.</span>
-kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>nebula-graphd-0<span class="w"> </span>--<span class="w"> </span>/bin/bash
-
-<span class="c1"># To go to /usr/local/nebula/logs directory to view the logs.</span>
-<span class="nb">cd</span><span class="w"> </span>/usr/local/nebula/logs
-</code></pre></div>
+<p>```bash</p>
+<h1 id="to_view_the_name_of_the_pod_where_the_container_you_want_to_access_is_located">To view the name of the pod where the container you want to access is located.<a class="headerlink" href="#to_view_the_name_of_the_pod_where_the_container_you_want_to_access_is_located" title="Permanent link">&para;</a></h1>
+<h1 id="replace_with_the_name_of_the_cluster">Replace <cluster-name> with the name of the cluster.<a class="headerlink" href="#replace_with_the_name_of_the_cluster" title="Permanent link">&para;</a></h1>
+<p>kubectl get pods -l app.kubernetes.io/cluster=<cluster-name></p>
+<h1 id="to_access_the_container_within_the_pod_such_as_the_nebula-graphd-0_container">To access the container within the pod, such as the nebula-graphd-0 container.<a class="headerlink" href="#to_access_the_container_within_the_pod_such_as_the_nebula-graphd-0_container" title="Permanent link">&para;</a></h1>
+<p>kubectl exec -it nebula-graphd-0 -- /bin/bash</p>
+<h1 id="to_go_to_usrlocalnebulalogs_directory_to_view_the_logs">To go to /usr/local/nebula/logs directory to view the logs.<a class="headerlink" href="#to_go_to_usrlocalnebulalogs_directory_to_view_the_logs" title="Permanent link">&para;</a></h1>
+<p>cd /usr/local/nebula/logs
+```</p>
 <h2 id="how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error">How to resolve the <code>host not found:nebula-&lt;metad|storaged|graphd&gt;-0.nebula.&lt;metad|storaged|graphd&gt;-headless.default.svc.cluster.local</code> error?<a class="headerlink" href="#how_to_resolve_the_host_not_foundnebula-metadstoragedgraphd-0nebulametadstoragedgraphd-headlessdefaultsvcclusterlocal_error" title="Permanent link">&para;</a></h2>
 <p>This error is generally caused by a DNS resolution failure, and you need to check whether the cluster domain has been modified. If the cluster domain has been modified, you need to modify the <code>kubernetesClusterDomain</code> field in the NebulaGraph Operator configuration file accordingly. The steps for modifying the Operator configuration file are as follows:</p>
 <ol>
 <li>
 <p>View the Operator configuration file.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">abby@master ~</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">$ helm show values nebula-operator/nebula-operator</span><span class="w">   </span>
-<span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span>
-<span class="w">  </span><span class="nt">nebulaOperator</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vesoft/nebula-operator:v1.6.2</span>
-<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-<span class="w">  </span><span class="nt">kubeRBACProxy</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bitnami/kube-rbac-proxy:0.14.2</span>
-<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-<span class="w">  </span><span class="nt">kubeScheduler</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.k8s.io/kube-scheduler:v1.24.11</span>
-<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
-
-<span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-<span class="nt">kubernetesClusterDomain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># The cluster domain name, and the default is cluster.local.</span>
-</code></pre></div>
+<p>```yaml 
+[abby@master ~]$ helm show values nebula-operator/nebula-operator <br />
+image:
+  nebulaOperator:
+    image: vesoft/nebula-operator:v1.6.2
+    imagePullPolicy: Always
+  kubeRBACProxy:
+    image: bitnami/kube-rbac-proxy:0.14.2
+    imagePullPolicy: Always
+  kubeScheduler:
+    image: registry.k8s.io/kube-scheduler:v1.24.11
+    imagePullPolicy: Always</p>
+<p>imagePullSecrets: []
+kubernetesClusterDomain: ""  # The cluster domain name, and the default is cluster.local.
+```</p>
 </li>
 <li>
 <p>Modify the value of the <code>kubernetesClusterDomain</code> field to the updated cluster domain name.</p>
-<p><div class="highlight"><pre><span></span><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace=&lt;nebula-operator-system&gt; --version=1.6.2 --set kubernetesClusterDomain=&lt;cluster-domain&gt;
-</code></pre></div>
+<p><code>helm upgrade nebula-operator nebula-operator/nebula-operator --namespace=&lt;nebula-operator-system&gt; --version=1.6.2 --set kubernetesClusterDomain=&lt;cluster-domain&gt;</code>
 <nebula-operator-system> is the namespace where Operator is located and <cluster-domain> is the updated domain name.</p>
 </li>
 </ol>
@@ -10691,10 +10675,6 @@ kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </sp
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

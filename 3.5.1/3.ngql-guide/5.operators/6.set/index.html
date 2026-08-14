@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -1762,66 +1762,6 @@
         
           <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#intersect" class="md-nav__link">
-    INTERSECT
-  </a>
-  
-    <nav class="md-nav" aria-label="INTERSECT">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minus" class="md-nav__link">
-    MINUS
-  </a>
-  
-    <nav class="md-nav" aria-label="MINUS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example_1" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#precedence_of_the_set_operators_and_pipe_operators" class="md-nav__link">
-    Precedence of the set operators and pipe operators
-  </a>
-  
-    <nav class="md-nav" aria-label="Precedence of the set operators and pipe operators">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples_1" class="md-nav__link">
     Examples
   </a>
   
@@ -10548,66 +10488,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#intersect" class="md-nav__link">
-    INTERSECT
-  </a>
-  
-    <nav class="md-nav" aria-label="INTERSECT">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minus" class="md-nav__link">
-    MINUS
-  </a>
-  
-    <nav class="md-nav" aria-label="MINUS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example_1" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#precedence_of_the_set_operators_and_pipe_operators" class="md-nav__link">
-    Precedence of the set operators and pipe operators
-  </a>
-  
-    <nav class="md-nav" aria-label="Precedence of the set operators and pipe operators">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples_1" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10639,8 +10519,8 @@
 <p>The names and order of the variables defined in the query statements before and after the set operator must be consistent. For example, the names and order of <code>a,b,c</code> in <code>RETURN a,b,c UNION RETURN a,b,c</code> need to be consistent.</p>
 </div>
 <h2 id="union_union_distinct_and_union_all">UNION, UNION DISTINCT, and UNION ALL<a class="headerlink" href="#union_union_distinct_and_union_all" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]
-</code></pre></div>
+<p><code>ngql
+&lt;left&gt; UNION [DISTINCT | ALL] &lt;right&gt; [ UNION [DISTINCT | ALL] &lt;right&gt; ...]</code></p>
 <ul>
 <li>Operator <code>UNION DISTINCT</code> (or by short <code>UNION</code>) returns the union of two sets A and B without duplicated elements.</li>
 </ul>
@@ -10651,80 +10531,77 @@
 <li>The <code>&lt;left&gt;</code> and <code>&lt;right&gt;</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following statement returns the union of two query results without duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
+<p>```ngql</p>
+<h1 id="the_following_statement_returns_the_union_of_two_query_results_without_duplicated_elements">The following statement returns the union of two query results without duplicated elements.<a class="headerlink" href="#the_following_statement_returns_the_union_of_two_query_results_without_duplicated_elements" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) \
         UNION \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+        GO FROM "player100" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player125&quot; |
-+-------------+
-
-nebula&gt; MATCH (v:player) \
+| "player100" |
+| "player101" |
+| "player125" |
++-------------+</p>
+<p>nebula&gt; MATCH (v:player) \
         WITH v.player.name AS v \
         RETURN n ORDER BY n LIMIT 3 \
         UNION \
-        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        UNWIND ["Tony Parker", "Ben Simmons"] AS n \
         RETURN n;
 +---------------------+
 | n                   |
 +---------------------+
-| &quot;Amar&#39;e Stoudemire&quot; |
-| &quot;Aron Baynes&quot;       |
-| &quot;Ben Simmons&quot;       |
-| &quot;Tony Parker&quot;       |
-+---------------------+
-
-# The following statement returns the union of two query results with duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
+| "Amar'e Stoudemire" |
+| "Aron Baynes"       |
+| "Ben Simmons"       |
+| "Tony Parker"       |
++---------------------+</p>
+<h1 id="the_following_statement_returns_the_union_of_two_query_results_with_duplicated_elements">The following statement returns the union of two query results with duplicated elements.<a class="headerlink" href="#the_following_statement_returns_the_union_of_two_query_results_with_duplicated_elements" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) \
         UNION ALL \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+        GO FROM "player100" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player101&quot; |
-| &quot;player125&quot; |
-+-------------+
-
-nebula&gt; MATCH (v:player) \
+| "player100" |
+| "player101" |
+| "player101" |
+| "player125" |
++-------------+</p>
+<p>nebula&gt; MATCH (v:player) \
         WITH v.player.name AS n \
         RETURN n ORDER BY n LIMIT 3 \
         UNION ALL \
-        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        UNWIND ["Tony Parker", "Ben Simmons"] AS n \
         RETURN n;
 +---------------------+
 | n                   |
 +---------------------+
-| &quot;Amar&#39;e Stoudemire&quot; |
-| &quot;Aron Baynes&quot;       |
-| &quot;Ben Simmons&quot;       |
-| &quot;Tony Parker&quot;       |
-| &quot;Ben Simmons&quot;       |
-+---------------------+
-
-# UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
-        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
+| "Amar'e Stoudemire" |
+| "Aron Baynes"       |
+| "Ben Simmons"       |
+| "Tony Parker"       |
+| "Ben Simmons"       |
++---------------------+</p>
+<h1 id="union_can_also_work_with_the_yield_statement_the_distinct_keyword_will_check_duplication_by_all_the_columns_for_every_line_and_remove_duplicated_lines_if_every_column_is_the_same">UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.<a class="headerlink" href="#union_can_also_work_with_the_yield_statement_the_distinct_keyword_will_check_duplication_by_all_the_columns_for_every_line_and_remove_duplicated_lines_if_every_column_is_the_same" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player102" OVER follow \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties(<span class="arithmatex">\(<span class="arithmatex">\().age AS Age \
         UNION /* DISTINCT */ \
-        GO FROM &quot;player100&quot; OVER follow \
-        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
+        GO FROM "player100" OVER follow \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties(\)</span>\)</span>).age AS Age;
 +-------------+--------+-----+
 | id          | Degree | Age |
 +-------------+--------+-----+
-| &quot;player100&quot; | 75     | 42  |
-| &quot;player101&quot; | 75     | 36  |
-| &quot;player101&quot; | 95     | 36  |
-| &quot;player125&quot; | 95     | 41  |
+| "player100" | 75     | 42  |
+| "player101" | 75     | 36  |
+| "player101" | 95     | 36  |
+| "player125" | 95     | 41  |
 +-------------+--------+-----+
-</code></pre></div>
+```</p>
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>&lt;left&gt; INTERSECT &lt;right&gt;
-</code></pre></div>
+<p><code>ngql
+&lt;left&gt; INTERSECT &lt;right&gt;</code></p>
 <ul>
 <li>Operator <code>INTERSECT</code> returns the intersection of two sets A and B (denoted by A ⋂ B).</li>
 </ul>
@@ -10732,30 +10609,29 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 <li>Similar to <code>UNION</code>, the <code>left</code> and <code>right</code> must have the same number of columns and data types. Different data types are converted according to the <a href="../../3.data-types/9.type-conversion/">Type Conversion</a>.</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following statement returns the intersection of two query results.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
-        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
+<p>```ngql</p>
+<h1 id="the_following_statement_returns_the_intersection_of_two_query_results">The following statement returns the intersection of two query results.<a class="headerlink" href="#the_following_statement_returns_the_intersection_of_two_query_results" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player102" OVER follow \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties(<span class="arithmatex">\(<span class="arithmatex">\().age AS Age \
         INTERSECT \
-        GO FROM &quot;player100&quot; OVER follow \
-        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
+        GO FROM "player100" OVER follow \
+        YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties(\)</span>\)</span>).age AS Age;
 +----+--------+-----+
 | id | Degree | Age |
 +----+--------+-----+
-+----+--------+-----+
-
-nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) == &quot;player102&quot; \
++----+--------+-----+</p>
+<p>nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) == "player102" \
         RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age \
         INTERSECT \
         MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) == &quot;player100&quot; \
+        WHERE id(v) == "player100" \
         RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age;
 +----+--------+-----+
 | id | Degree | Age |
 +----+--------+-----+
-+----+--------+-----+
-
-nebula&gt; UNWIND [1,2] AS a RETURN a \
++----+--------+-----+</p>
+<p>nebula&gt; UNWIND [1,2] AS a RETURN a \
         INTERSECT \
         UNWIND [1,2,3,4] AS a \
         RETURN a;
@@ -10764,46 +10640,44 @@ nebula&gt; UNWIND [1,2] AS a RETURN a \
 +---+
 | 1 |
 | 2 |
-+---+
-</code></pre></div>
++---+</p>
+<p>```</p>
 <h2 id="minus">MINUS<a class="headerlink" href="#minus" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>&lt;left&gt; MINUS &lt;right&gt;
-</code></pre></div>
+<p><code>ngql
+&lt;left&gt; MINUS &lt;right&gt;</code></p>
 <p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by <code>A-B</code>). Always pay attention to the order of <code>left</code> and <code>right</code>. The set <code>A-B</code> consists of elements that are in A but not in B.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># The following statement returns the elements in the first query result but not in the second query result.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
+<p>```ngql</p>
+<h1 id="the_following_statement_returns_the_elements_in_the_first_query_result_but_not_in_the_second_query_result">The following statement returns the elements in the first query result but not in the second query result.<a class="headerlink" href="#the_following_statement_returns_the_elements_in_the_first_query_result_but_not_in_the_second_query_result" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) \
         MINUS \
-        GO FROM &quot;player102&quot; OVER follow YIELD dst(edge);
+        GO FROM "player102" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player125&quot; |
-+-------------+
-
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) AS id\
+| "player125" |
++-------------+</p>
+<p>nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) AS id\
         MINUS \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id;
+        GO FROM "player100" OVER follow YIELD dst(edge) AS id;
 +-------------+
 | id          |
 +-------------+
-| &quot;player100&quot; |
-+-------------+
-
-nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) ==&quot;player102&quot; \
+| "player100" |
++-------------+</p>
+<p>nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
+        WHERE id(v) =="player102" \
         RETURN id(v2) AS id\
         MINUS \
         MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) ==&quot;player100&quot; \
+        WHERE id(v) =="player100" \
         RETURN id(v2) AS id;
 +-------------+
 | id          |
 +-------------+
-| &quot;player100&quot; |
-+-------------+
-
-nebula&gt; UNWIND [1,2,3] AS a RETURN a \
+| "player100" |
++-------------+</p>
+<p>nebula&gt; UNWIND [1,2,3] AS a RETURN a \
         MINUS \
         WITH 4 AS a \
         RETURN a;
@@ -10814,36 +10688,36 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
 | 2 |
 | 3 |
 +---+
-</code></pre></div>
+```</p>
 <h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">&para;</a></h2>
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<p>```ngql
+nebula&gt; GO FROM "player102" OVER follow \
         YIELD dst(edge) AS play_dst  \
         UNION \
-        GO FROM &quot;team200&quot; OVER serve REVERSELY \
+        GO FROM "team200" OVER serve REVERSELY \
         YIELD src(edge) AS play_src \
-        | GO FROM $-.play_src OVER follow YIELD dst(edge) AS play_dst;
-
-+-------------+
+        | GO FROM $-.play_src OVER follow YIELD dst(edge) AS play_dst;</p>
+<p>+-------------+
 | play_dst    |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player117&quot; |
-| &quot;player105&quot; |
+| "player100" |
+| "player101" |
+| "player117" |
+| "player105" |
 +-------------+
-</code></pre></div>
+```</p>
 <p><img alt="image" src="https://user-images.githubusercontent.com/42762957/97955863-3a213000-1de2-11eb-8de3-2c78da30747c.png" /></p>
 <p>The above query executes the statements in the red bar first and then executes the statement in the green box.</p>
 <p>The parentheses can change the execution priority. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM &quot;player102&quot; OVER follow \
+<p><code>ngql
+nebula&gt; (GO FROM "player102" OVER follow \
         YIELD dst(edge) AS play_dst  \
         UNION \
-        GO FROM &quot;team200&quot; OVER serve REVERSELY \
+        GO FROM "team200" OVER serve REVERSELY \
         YIELD src(edge) AS play_dst) \
-        | GO FROM $-.play_dst OVER follow YIELD dst(edge) AS play_dst;
-</code></pre></div>
+        | GO FROM $-.play_dst OVER follow YIELD dst(edge) AS play_dst;</code></p>
 <p>In the above query, the statements within the parentheses take precedence. That is, the <code>UNION</code> operation will be executed first, and its output will be executed as the input of the next operation with pipes.</p>
 
   <hr>
@@ -10933,10 +10807,6 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

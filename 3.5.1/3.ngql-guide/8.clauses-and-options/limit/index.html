@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -2699,47 +2699,6 @@
           <li class="md-nav__item">
   <a href="#general_limit_syntax_in_native_ngql_statements" class="md-nav__link">
     General LIMIT syntax in native nGQL statements
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#limit_in_go_statements" class="md-nav__link">
-    LIMIT in GO statements
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limit_in_opencypher_compatible_statements" class="md-nav__link">
-    LIMIT in openCypher compatible statements
-  </a>
-  
-    <nav class="md-nav" aria-label="LIMIT in openCypher compatible statements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples_of_limit" class="md-nav__link">
-    Examples of LIMIT
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_of_skip" class="md-nav__link">
-    Examples of SKIP
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example_of_skip_and_limit" class="md-nav__link">
-    Example of SKIP and LIMIT
   </a>
   
 </li>
@@ -10524,47 +10483,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#limit_in_go_statements" class="md-nav__link">
-    LIMIT in GO statements
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limit_in_opencypher_compatible_statements" class="md-nav__link">
-    LIMIT in openCypher compatible statements
-  </a>
-  
-    <nav class="md-nav" aria-label="LIMIT in openCypher compatible statements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#examples_of_limit" class="md-nav__link">
-    Examples of LIMIT
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_of_skip" class="md-nav__link">
-    Examples of SKIP
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example_of_skip_and_limit" class="md-nav__link">
-    Example of SKIP and LIMIT
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -10609,8 +10527,8 @@
 <p>In native nGQL, <code>LIMIT</code> has general syntax and exclusive syntax in <code>GO</code> statements.</p>
 <h3 id="general_limit_syntax_in_native_ngql_statements">General LIMIT syntax in native nGQL statements<a class="headerlink" href="#general_limit_syntax_in_native_ngql_statements" title="Permanent link">&para;</a></h3>
 <p>In native nGQL,  the general <code>LIMIT</code> syntax works the same as in <code>SQL</code>. The <code>LIMIT</code> clause accepts one or two parameters. The values of both parameters must be non-negative integers and be used after a pipe. The syntax and description are as follows:</p>
-<div class="highlight"><pre><span></span><code>... | LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;;
-</code></pre></div>
+<p><code>ngql
+... | LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;;</code></p>
 <table>
 <thead>
 <tr>
@@ -10630,35 +10548,35 @@
 </tbody>
 </table>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code># The following example returns the top 3 rows of data from the result.
-nebula&gt; LOOKUP ON player YIELD id(vertex)|\
+<p>```ngql</p>
+<h1 id="the_following_example_returns_the_top_3_rows_of_data_from_the_result">The following example returns the top 3 rows of data from the result.<a class="headerlink" href="#the_following_example_returns_the_top_3_rows_of_data_from_the_result" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; LOOKUP ON player YIELD id(vertex)|\
         LIMIT 3;
 +-------------+
 | id(VERTEX)  |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player102&quot; |
-+-------------+
-
-# The following example returns the 3 rows of data starting from the second row of the sorted output.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
-        YIELD properties($$).name AS Friend, properties($$).age AS Age \
+| "player100" |
+| "player101" |
+| "player102" |
++-------------+</p>
+<h1 id="the_following_example_returns_the_3_rows_of_data_starting_from_the_second_row_of_the_sorted_output">The following example returns the 3 rows of data starting from the second row of the sorted output.<a class="headerlink" href="#the_following_example_returns_the_3_rows_of_data_starting_from_the_second_row_of_the_sorted_output" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; GO FROM "player100" OVER follow REVERSELY \
+        YIELD properties(<span class="arithmatex">\(<span class="arithmatex">\().name AS Friend, properties(\)</span>\)</span>).age AS Age \
         | ORDER BY $-.Age, $-.Friend \
         | LIMIT 1, 3;
 +-------------------+-----+
 | Friend            | Age |
 +-------------------+-----+
-| &quot;Danny Green&quot;     | 31  |
-| &quot;Aron Baynes&quot;     | 32  |
-| &quot;Marco Belinelli&quot; | 32  |
+| "Danny Green"     | 31  |
+| "Aron Baynes"     | 32  |
+| "Marco Belinelli" | 32  |
 +-------------------+-----+
-</code></pre></div>
+```</p>
 <h3 id="limit_in_go_statements">LIMIT in GO statements<a class="headerlink" href="#limit_in_go_statements" title="Permanent link">&para;</a></h3>
 <p>In addition to the general syntax in the native nGQL, the <code>LIMIT</code> in the <code>GO</code> statement also supports limiting the number of output results based on edges.</p>
 <p>Syntax:</p>
-<div class="highlight"><pre><span></span><code>&lt;go_statement&gt; LIMIT &lt;limit_list&gt;;
-</code></pre></div>
+<p><code>ngql
+&lt;go_statement&gt; LIMIT &lt;limit_list&gt;;</code></p>
 <p><code>limit_list</code> is a list. Elements in the list must be natural numbers, and the number of elements must be the same as the maximum number of <code>STEPS</code> in the <code>GO</code> statement. The following takes <code>GO 1 TO 3 STEPS FROM "A" OVER * LIMIT &lt;limit_list&gt;</code> as an example to introduce this usage of <code>LIMIT</code> in detail.</p>
 <ul>
 <li>The list <code>limit_list</code> must contain 3 natural numbers, such as <code>GO 1 TO 3 STEPS FROM "A" OVER * LIMIT [1,2,4]</code>.</li>
@@ -10667,32 +10585,32 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow REVERSELY \
 </ul>
 <p><img alt="LIMIT in GO" src="https://docs-cdn.nebula-graph.com.cn/figures/limit_in_go_1.png" /></p>
 <p>In the basketballplayer dataset, the example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO 3 STEPS FROM &quot;player100&quot; \
+<p>```ngql
+nebula&gt; GO 3 STEPS FROM "player100" \
         OVER * \
-        YIELD properties($$).name AS NAME, properties($$).age AS Age \
+        YIELD properties(<span class="arithmatex">\(<span class="arithmatex">\().name AS NAME, properties(\)</span>\)</span>).age AS Age \
         LIMIT [3,3,3];
 +-----------------+----------+
 | NAME            | Age      |
 +-----------------+----------+
-| &quot;Tony Parker&quot;   | 36       |
-| &quot;Manu Ginobili&quot; | 41       |
-| &quot;Spurs&quot;         | __NULL__ |
-+-----------------+----------+
-
-nebula&gt; GO 3 STEPS FROM &quot;player102&quot; OVER * BIDIRECT\
+| "Tony Parker"   | 36       |
+| "Manu Ginobili" | 41       |
+| "Spurs"         | <strong>NULL</strong> |
++-----------------+----------+</p>
+<p>nebula&gt; GO 3 STEPS FROM "player102" OVER * BIDIRECT\
         YIELD dst(edge) \
         LIMIT [rand32(5),rand32(5),rand32(5)];
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player100&quot; |
+| "player100" |
+| "player100" |
 +-------------+
-</code></pre></div>
+```</p>
 <h2 id="limit_in_opencypher_compatible_statements">LIMIT in openCypher compatible statements<a class="headerlink" href="#limit_in_opencypher_compatible_statements" title="Permanent link">&para;</a></h2>
 <p>In openCypher compatible statements such as <code>MATCH</code>, there is no need to use a pipe when <code>LIMIT</code> is used. The syntax and description are as follows:</p>
-<div class="highlight"><pre><span></span><code>... [SKIP &lt;offset&gt;] [LIMIT &lt;number_rows&gt;];
-</code></pre></div>
+<p><code>ngql
+... [SKIP &lt;offset&gt;] [LIMIT &lt;number_rows&gt;];</code></p>
 <table>
 <thead>
 <tr>
@@ -10718,50 +10636,50 @@ nebula&gt; GO 3 STEPS FROM &quot;player102&quot; OVER * BIDIRECT\
 </div>
 <h3 id="examples_of_limit">Examples of LIMIT<a class="headerlink" href="#examples_of_limit" title="Permanent link">&para;</a></h3>
 <p><code>LIMIT</code> can be used alone to return a specified number of results.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age \
+<p><code>ngql
+nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age \
         ORDER BY Age LIMIT 5;
 +-------------------------+-----+
 | Name                    | Age |
 +-------------------------+-----+
-| &quot;Luka Doncic&quot;           | 20  |
-| &quot;Ben Simmons&quot;           | 22  |
-| &quot;Kristaps Porzingis&quot;    | 23  |
-| &quot;Giannis Antetokounmpo&quot; | 24  |
-| &quot;Kyle Anderson&quot;         | 25  |
-+-------------------------+-----+
-</code></pre></div>
+| "Luka Doncic"           | 20  |
+| "Ben Simmons"           | 22  |
+| "Kristaps Porzingis"    | 23  |
+| "Giannis Antetokounmpo" | 24  |
+| "Kyle Anderson"         | 25  |
++-------------------------+-----+</code></p>
 <h3 id="examples_of_skip">Examples of SKIP<a class="headerlink" href="#examples_of_skip" title="Permanent link">&para;</a></h3>
 <p><code>SKIP</code> can be used alone to set the offset and return the data after the specified position.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+<p>```ngql
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
-| &quot;Manu Ginobili&quot; | 41  |
-| &quot;Tony Parker&quot;   | 36  |
-+-----------------+-----+
-
-nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+| "Manu Ginobili" | 41  |
+| "Tony Parker"   | 36  |
++-----------------+-----+</p>
+<p>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1+1;
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
-| &quot;Tony Parker&quot; | 36  |
+| "Tony Parker" | 36  |
 +---------------+-----+
-</code></pre></div>
+```</p>
 <h3 id="example_of_skip_and_limit">Example of SKIP and LIMIT<a class="headerlink" href="#example_of_skip_and_limit" title="Permanent link">&para;</a></h3>
 <p><code>SKIP</code> and <code>LIMIT</code> can be used together to return the specified amount of data starting from the specified position.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+<p><code>ngql
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age \
         ORDER BY Age DESC SKIP 1 LIMIT 1;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
-| &quot;Manu Ginobili&quot; | 41  |
-+-----------------+-----+
-</code></pre></div>
+| "Manu Ginobili" | 41  |
++-----------------+-----+</code></p>
 <!--
 ## Performance tip
 
@@ -10855,10 +10773,6 @@ NebulaGraph 3.5.1 does not implement the pushdown optimization of the storage la
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

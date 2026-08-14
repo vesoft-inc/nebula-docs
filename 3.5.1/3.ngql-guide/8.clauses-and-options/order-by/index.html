@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -2765,13 +2765,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#order_of_null_values" class="md-nav__link">
-    Order of NULL values
-  </a>
   
 </li>
       
@@ -10535,13 +10528,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#order_of_null_values" class="md-nav__link">
-    Order of NULL values
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10579,91 +10565,91 @@
 <li><code>DESC</code>: Descending.</li>
 </ul>
 <h2 id="native_ngql_syntax">Native nGQL Syntax<a class="headerlink" href="#native_ngql_syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>&lt;YIELD clause&gt;
-| ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
-</code></pre></div>
+<p><code>ngql
+&lt;YIELD clause&gt;
+| ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];</code></p>
 <div class="admonition compatibility">
 <p class="admonition-title">Compatibility</p>
 <p>In the native nGQL syntax, <code>$-.</code> must be used after <code>ORDER BY</code>. But it is not required in releases prior to 2.5.0.</p>
 </div>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot;, &quot;player101&quot;, &quot;player102&quot;, &quot;player103&quot; \
+<p>```ngql
+nebula&gt; FETCH PROP ON player "player100", "player101", "player102", "player103" \
         YIELD player.age AS age, player.name AS name \
         | ORDER BY $-.age ASC, $-.name DESC;
 +-----+---------------------+
 | age | name                |
 +-----+---------------------+
-| 32  | &quot;Rudy Gay&quot;          |
-| 33  | &quot;LaMarcus Aldridge&quot; |
-| 36  | &quot;Tony Parker&quot;       |
-| 42  | &quot;Tim Duncan&quot;        |
-+-----+---------------------+
-
-nebula&gt; $var = GO FROM &quot;player100&quot; OVER follow \
+| 32  | "Rudy Gay"          |
+| 33  | "LaMarcus Aldridge" |
+| 36  | "Tony Parker"       |
+| 42  | "Tim Duncan"        |
++-----+---------------------+</p>
+<p>nebula&gt; $var = GO FROM "player100" OVER follow \
         YIELD dst(edge) AS dst; \
         ORDER BY $var.dst DESC;
 +-------------+
 | dst         |
 +-------------+
-| &quot;player125&quot; |
-| &quot;player101&quot; |
+| "player125" |
+| "player101" |
 +-------------+
-</code></pre></div>
+```</p>
 <h2 id="opencypher_syntax">OpenCypher Syntax<a class="headerlink" href="#opencypher_syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>&lt;RETURN clause&gt;
-ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];
-</code></pre></div>
+<p><code>ngql
+&lt;RETURN clause&gt;
+ORDER BY &lt;expression&gt; [ASC | DESC] [, &lt;expression&gt; [ASC | DESC] ...];</code></p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age  \
+<p>```ngql
+nebula&gt; MATCH (v:player) RETURN v.player.name AS Name, v.player.age AS Age  \
         ORDER BY Name DESC;
 +-----------------+-----+
 | Name            | Age |
 +-----------------+-----+
-| &quot;Yao Ming&quot;      | 38  |
-| &quot;Vince Carter&quot;  | 42  |
-| &quot;Tracy McGrady&quot; | 39  |
-| &quot;Tony Parker&quot;   | 36  |
-| &quot;Tim Duncan&quot;    | 42  |
+| "Yao Ming"      | 38  |
+| "Vince Carter"  | 42  |
+| "Tracy McGrady" | 39  |
+| "Tony Parker"   | 36  |
+| "Tim Duncan"    | 42  |
 +-----------------+-----+
-...
-
-# In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.
-nebula&gt; MATCH (v:player) RETURN v.player.age AS Age, v.player.name AS Name  \
+...</p>
+<h1 id="in_the_following_example_ngql_sorts_the_rows_by_age_first_if_multiple_people_are_of_the_same_age_ngql_will_then_sort_them_by_name">In the following example, nGQL sorts the rows by age first. If multiple people are of the same age, nGQL will then sort them by name.<a class="headerlink" href="#in_the_following_example_ngql_sorts_the_rows_by_age_first_if_multiple_people_are_of_the_same_age_ngql_will_then_sort_them_by_name" title="Permanent link">&para;</a></h1>
+<p>nebula&gt; MATCH (v:player) RETURN v.player.age AS Age, v.player.name AS Name  \
         ORDER BY Age DESC, Name ASC;
 +-----+-------------------+
 | Age | Name              |
 +-----+-------------------+
-| 47  | &quot;Shaquille O&#39;Neal&quot; |
-| 46  | &quot;Grant Hill&quot;      |
-| 45  | &quot;Jason Kidd&quot;      |
-| 45  | &quot;Steve Nash&quot;      |
+| 47  | "Shaquille O'Neal" |
+| 46  | "Grant Hill"      |
+| 45  | "Jason Kidd"      |
+| 45  | "Steve Nash"      |
 +-----+-------------------+
 ...
-</code></pre></div>
+```</p>
 <h2 id="order_of_null_values">Order of NULL values<a class="headerlink" href="#order_of_null_values" title="Permanent link">&para;</a></h2>
 <p>nGQL lists NULL values at the end of the output for ascending sorting, and at the start for descending sorting.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+<p>```ngql
+nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age;
 +-----------------+----------+
 | Name            | Age      |
 +-----------------+----------+
-| &quot;Tony Parker&quot;   | 36       |
-| &quot;Manu Ginobili&quot; | 41       |
-| __NULL__        | __NULL__ |
-+-----------------+----------+
-
-nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
+| "Tony Parker"   | 36       |
+| "Manu Ginobili" | 41       |
+| <strong>NULL</strong>        | <strong>NULL</strong> |
++-----------------+----------+</p>
+<p>nebula&gt; MATCH (v:player{name:"Tim Duncan"}) --&gt; (v2) \
         RETURN v2.player.name AS Name, v2.player.age AS Age  \
         ORDER BY Age DESC;
 +-----------------+----------+
 | Name            | Age      |
 +-----------------+----------+
-| __NULL__        | __NULL__ |
-| &quot;Manu Ginobili&quot; | 41       |
-| &quot;Tony Parker&quot;   | 36       |
+| <strong>NULL</strong>        | <strong>NULL</strong> |
+| "Manu Ginobili" | 41       |
+| "Tony Parker"   | 36       |
 +-----------------+----------+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10752,10 +10738,6 @@ nebula&gt; MATCH (v:player{name:&quot;Tim Duncan&quot;}) --&gt; (v2) \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

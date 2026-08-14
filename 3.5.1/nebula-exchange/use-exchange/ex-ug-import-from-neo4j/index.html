@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10802,27 +10802,23 @@
 </li>
 <li>
 <p>Create a graph space <strong>basketballplayer</strong> in the NebulaGraph and create a Schema as shown below.</p>
-<div class="highlight"><pre><span></span><code>## Create a graph space
-nebula&gt; CREATE SPACE basketballplayer \
-        (partition_num = 10, \
-        replica_factor = 1, \
-        vid_type = FIXED_STRING(30));
-
-## Use the graph space basketballplayer
-nebula&gt; USE basketballplayer;
-
-## Create the Tag player
-nebula&gt; CREATE TAG player(name string, age int);
-
-## Create the Tag team
-nebula&gt; CREATE TAG team(name string);
-
-## Create the Edge type follow
-nebula&gt; CREATE EDGE follow(degree int);
-
-## Create the Edge type serve
-nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-</code></pre></div>
+<p>```ngql
+  ## Create a graph space
+  nebula&gt; CREATE SPACE basketballplayer \
+          (partition_num = 10, \
+          replica_factor = 1, \
+          vid_type = FIXED_STRING(30));</p>
+<p>## Use the graph space basketballplayer
+  nebula&gt; USE basketballplayer;</p>
+<p>## Create the Tag player
+  nebula&gt; CREATE TAG player(name string, age int);</p>
+<p>## Create the Tag team
+  nebula&gt; CREATE TAG team(name string);</p>
+<p>## Create the Edge type follow
+  nebula&gt; CREATE EDGE follow(degree int);</p>
+<p>## Create the Edge type serve
+  nebula&gt; CREATE EDGE serve(start_year int, end_year int);
+  ```</p>
 </li>
 </ol>
 <p>For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Quick start workflow</a>.</p>
@@ -10830,102 +10826,102 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>To speed up the export of Neo4j data, create indexes for the corresponding properties in the Neo4j database. For more information, refer to the <a href="https://neo4j.com/docs/cypher-manual/current/query-tuning/indexes/">Neo4j manual</a>.</p>
 <h3 id="step_3_modify_configuration_files">Step 3: Modify configuration files<a class="headerlink" href="#step_3_modify_configuration_files" title="Permanent link">&para;</a></h3>
 <p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> to set Neo4j data source configuration. In this example, the copied file is called <code>neo4j_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
-<div class="highlight"><pre><span></span><code>{
+<p>```conf
+{
   # Spark configuration
   spark: {
     app: {
       name: NebulaGraph Exchange 3.5.0
-    }
+    }</p>
+<div class="codehilite"><pre><span></span><code>driver: {
+  cores: 1
+  maxResultSize: 1G
+}
 
-    driver: {
-      cores: 1
-      maxResultSize: 1G
-    }
+executor: {
+    memory:1G
+}
 
-    executor: {
-        memory:1G
-    }
+cores: {
+  max: 16
+}
+</code></pre></div>
 
-    cores: {
-      max: 16
-    }
-  }
-
-
-  # NebulaGraph configuration
+<p>}</p>
+<p># NebulaGraph configuration
   nebula: {
     address:{
-      graph:[&quot;127.0.0.1:9669&quot;]
+      graph:["127.0.0.1:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:[&quot;127.0.0.1:9559&quot;]
+      meta:["127.0.0.1:9559"]
     }
     user: root
     pswd: nebula
-    space: basketballplayer
+    space: basketballplayer</p>
+<div class="codehilite"><pre><span></span><code>connection: {
+  timeout: 3000
+  retry: 3
+}
 
-    connection: {
-      timeout: 3000
-      retry: 3
-    }
+execution: {
+  retry: 3
+}
 
-    execution: {
-      retry: 3
-    }
+error: {
+  max: 32
+  output: /tmp/errors
+}
 
-    error: {
-      max: 32
-      output: /tmp/errors
-    }
+rate: {
+  limit: 1024
+  timeout: 1000
+}
+</code></pre></div>
 
-    rate: {
-      limit: 1024
-      timeout: 1000
-    }
+<p>}</p>
+<p># Processing vertexes
+  tags: [</p>
+<div class="codehilite"><pre><span></span><code># Set the information about the Tag player
+{
+  name: player
+  type: {
+    source: neo4j
+    sink: client
+  }
+  server: &quot;bolt://192.168.*.*:7687&quot;
+  user: neo4j
+  password:neo4j
+  # bolt 3 does not support multiple databases, do not configure database names. 4 and above can configure database names.
+  # database:neo4j
+  exec: &quot;match (n:player) return n.id as id, n.age as age, n.name as name&quot;
+  fields: [age,name]
+  nebula.fields: [age,name]
+  vertex: {
+    field:id
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
   }
 
-  # Processing vertexes
-  tags: [
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
+  # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+  #deleteEdge: false
 
-    # Set the information about the Tag player
-    {
-      name: player
-      type: {
-        source: neo4j
-        sink: client
-      }
-      server: &quot;bolt://192.168.*.*:7687&quot;
-      user: neo4j
-      password:neo4j
-      # bolt 3 does not support multiple databases, do not configure database names. 4 and above can configure database names.
-      # database:neo4j
-      exec: &quot;match (n:player) return n.id as id, n.age as age, n.name as name&quot;
-      fields: [age,name]
-      nebula.fields: [age,name]
-      vertex: {
-        field:id
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  partition: 10
+  batch: 1000
+  check_point_path: /tmp/test
+</code></pre></div>
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
-
-      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
-      #deleteEdge: false
-
-      partition: 10
-      batch: 1000
-      check_point_path: /tmp/test
-   }
+<p>}
   # Set the information about the Tag Team
   {
       name: team
@@ -10933,11 +10929,11 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         source: neo4j
         sink: client
       }
-      server: &quot;bolt://192.168.*.*:7687&quot;
+      server: "bolt://192.168.<em>.</em>:7687"
       user: neo4j
       password:neo4j
       database:neo4j
-      exec: &quot;match (n:team) return n.id as id,n.name as name&quot;
+      exec: "match (n:team) return n.id as id,n.name as name"
       fields: [name]
       nebula.fields: [name]
       vertex: {
@@ -10947,9 +10943,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       batch: 1000
       check_point_path: /tmp/test
    }
-  ]
-
-  # Processing edges
+  ]</p>
+<p># Processing edges
   edges: [
     # Set the information about the Edge Type follow
     {
@@ -10958,59 +10953,60 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         source: neo4j
         sink: client
       }
-      server: &quot;bolt://192.168.*.*:7687&quot;
+      server: "bolt://192.168.<em>.</em>:7687"
       user: neo4j
       password:neo4j
       # bolt 3 does not support multiple databases, do not configure database names. 4 and above can configure database names.
       # database:neo4j
-      exec: &quot;match (a:player)-[r:follow]-&gt;(b:player) return a.id as src, b.id as dst, r.degree as degree  order by id(r)&quot;
+      exec: "match (a:player)-[r:follow]-&gt;(b:player) return a.id as src, b.id as dst, r.degree as degree  order by id(r)"
       fields: [degree]
       nebula.fields: [degree]
       source: {
         field: src
       # udf:{
-      #            separator:&quot;_&quot;
+      #            separator:"<em>"
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
+      # Add the specified prefix to the VID. For example, if the VID is <code>12345</code>, adding the prefix <code>tag1</code> will result in <code>tag1_12345</code>. The underscore cannot be modified.
+      # prefix:"tag1"
       # Performs hashing operations on VIDs of type string.
       # policy:hash
       }
       target: {
         field: dst
       # udf:{
-      #            separator:&quot;_&quot;
+      #            separator:"</em>"
       #            oldColNames:[field-0,field-1,field-2]
       #            newColName:new-field
       #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
+      # Add the specified prefix to the VID. For example, if the VID is <code>12345</code>, adding the prefix <code>tag1</code> will result in <code>tag1_12345</code>. The underscore cannot be modified.
+      # prefix:"tag1"
       # Performs hashing operations on VIDs of type string.
       # policy:hash
       }
-      #ranking: rank
+      #ranking: rank</p>
+<div class="codehilite"><pre><span></span><code>  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  partition: 10
+  batch: 1000
+  check_point_path: /tmp/test
+}
+</code></pre></div>
 
-      partition: 10
-      batch: 1000
-      check_point_path: /tmp/test
-    }
-   # Set the information about the Edge Type serve
+<p># Set the information about the Edge Type serve
    {
       name: serve
       type: {
         source: neo4j
         sink: client
       }
-      server: &quot;bolt://192.168.*.*:7687&quot;
+      server: "bolt://192.168.<em>.</em>:7687"
       user: neo4j
       password:neo4j
       database:neo4j
-      exec: &quot;match (a:player)-[r:serve]-&gt;(b:team) return a.id as src, b.id as dst, r.start_year as start_year, r.end_year as end_year  order by id(r)&quot;
+      exec: "match (a:player)-[r:serve]-&gt;(b:team) return a.id as src, b.id as dst, r.start_year as start_year, r.end_year as end_year  order by id(r)"
       fields: [start_year,end_year]
       nebula.fields: [start_year,end_year]
       source: {
@@ -11026,7 +11022,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     }
    ]
 }
-</code></pre></div>
+```</p>
 <h4 id="exec_configuration">Exec configuration<a class="headerlink" href="#exec_configuration" title="Permanent link">&para;</a></h4>
 <p>When configuring either the <code>tags.exec</code> or <code>edges.exec</code> parameters, you need to fill in the Cypher query. To prevent loss of data during import, it is strongly recommended to include <code>ORDER BY</code> clause in Cypher queries. Meanwhile, in order to improve data import efficiency, it is better to select indexed properties for ordering. If there is no index, users can also observe the default order and select the appropriate properties for ordering to improve efficiency. If the pattern of the default order cannot be found, users can order them by the ID of the vertex or relationship and set the <code>partition</code> to a small value to reduce the ordering pressure of Neo4j.</p>
 <div class="admonition note">
@@ -11040,20 +11036,20 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>If breakpoint transfers are enabled, to avoid data loss, the state of the database should not change between the breakpoint and the transfer. For example, data cannot be added or deleted, and the <code>partition</code> quantity configuration should not be changed.</p>
 <h3 id="step_4_import_data_into_nebulagraph">Step 4: Import data into NebulaGraph<a class="headerlink" href="#step_4_import_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Run the following command to import Neo4j data into NebulaGraph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;neo4j_application.conf_path&gt;<span class="w"> </span>
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-3.5.0.jar_path&gt; -c &lt;neo4j_application.conf_path&gt;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/neo4j_application.conf
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/neo4j_application.conf</code></p>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_5_optional_validate_data">Step 5: (optional) Validate data<a class="headerlink" href="#step_5_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
-<div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
-</code></pre></div>
+<p><code>ngql
+LOOKUP ON player YIELD id(vertex);</code></p>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/"><code>SHOW STATS</code></a> command to view statistics.</p>
 <h3 id="step_6_optional_rebuild_indexes_in_nebulagraph">Step 6: (optional) Rebuild indexes in NebulaGraph<a class="headerlink" href="#step_6_optional_rebuild_indexes_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see <a href="../../../3.ngql-guide/14.native-index-statements/">Index overview</a>.</p>
@@ -11145,10 +11141,6 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

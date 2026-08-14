@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10047,26 +10047,6 @@
     How to use
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reading_data_from_nebulagraph" class="md-nav__link">
-    Reading data from NebulaGraph
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_data_into_nebulagraph" class="md-nav__link">
-    Write data into NebulaGraph
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -10586,26 +10566,6 @@
     How to use
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reading_data_from_nebulagraph" class="md-nav__link">
-    Reading data from NebulaGraph
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#write_data_into_nebulagraph" class="md-nav__link">
-    Write data into NebulaGraph
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -10775,8 +10735,8 @@
 <ol>
 <li>
 <p>Clone repository <code>nebula-spark-connector</code>.</p>
-<p><div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>release-3.4<span class="w"> </span>https://github.com/vesoft-inc/nebula-spark-connector.git
-</code></pre></div>
+<p><code>bash
+$ git clone -b release-3.4 https://github.com/vesoft-inc/nebula-spark-connector.git</code>
 2. Enter the <code>nebula-spark-connector</code> directory.</p>
 </li>
 <li>
@@ -10810,46 +10770,45 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 <p><a href="https://repo1.maven.org/maven2/com/vesoft/nebula-spark-connector/">Download</a></p>
 <h2 id="how_to_use">How to use<a class="headerlink" href="#how_to_use" title="Permanent link">&para;</a></h2>
 <p>When using NebulaGraph Spark Connector to reading and writing NebulaGraph data, You can refer to the following code.</p>
-<div class="highlight"><pre><span></span><code><span class="n">#</span><span class="w"> </span><span class="nc">Read</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="nc">NebulaGraph</span><span class="p">.</span>
-<span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">nebula</span><span class="p">().</span><span class="n">loadVerticesToDF</span><span class="p">()</span>
-<span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">nebula</span><span class="p">().</span><span class="n">loadEdgesToDF</span><span class="p">()</span>
-
-<span class="n">#</span><span class="w"> </span><span class="nc">Write</span><span class="w"> </span><span class="n">dataframe</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="nc">NebulaGraph</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">edges</span><span class="p">.</span>
-<span class="n">dataframe</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">nebula</span><span class="p">().</span><span class="n">writeVertices</span><span class="p">()</span>
-<span class="n">dataframe</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">nebula</span><span class="p">().</span><span class="n">writeEdges</span><span class="p">()</span>
-</code></pre></div>
+<p>```scala</p>
+<h1 id="read_vertex_and_edge_data_from_nebulagraph">Read vertex and edge data from NebulaGraph.<a class="headerlink" href="#read_vertex_and_edge_data_from_nebulagraph" title="Permanent link">&para;</a></h1>
+<p>spark.read.nebula().loadVerticesToDF()
+spark.read.nebula().loadEdgesToDF()</p>
+<h1 id="write_dataframe_data_into_nebulagraph_as_vertex_and_edges">Write dataframe data into NebulaGraph as vertex and edges.<a class="headerlink" href="#write_dataframe_data_into_nebulagraph_as_vertex_and_edges" title="Permanent link">&para;</a></h1>
+<p>dataframe.write.nebula().writeVertices()
+dataframe.write.nebula().writeEdges()
+```</p>
 <p><code>nebula()</code> receives two configuration parameters, including connection configuration and read-write configuration.</p>
 <h3 id="reading_data_from_nebulagraph">Reading data from NebulaGraph<a class="headerlink" href="#reading_data_from_nebulagraph" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">NebulaConnectionConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withMetaAddress</span><span class="p">(</span><span class="s">&quot;127.0.0.1:9559&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withConenctionRetry</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withExecuteRetry</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withTimeout</span><span class="p">(</span><span class="mi">6000</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-
-<span class="kd">val</span><span class="w"> </span><span class="n">nebulaReadVertexConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withLabel</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withNoColumn</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withReturnCols</span><span class="p">(</span><span class="nc">List</span><span class="p">(</span><span class="s">&quot;birthday&quot;</span><span class="p">))</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withLimit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withPartitionNum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">nebula</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">nebulaReadVertexConfig</span><span class="p">).</span><span class="n">loadVerticesToDF</span><span class="p">()</span>
-
-<span class="kd">val</span><span class="w"> </span><span class="n">nebulaReadEdgeConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ReadNebulaConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withLabel</span><span class="p">(</span><span class="s">&quot;knows&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withNoColumn</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withReturnCols</span><span class="p">(</span><span class="nc">List</span><span class="p">(</span><span class="s">&quot;degree&quot;</span><span class="p">))</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withLimit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withPartitionNum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spark</span><span class="p">.</span><span class="n">read</span><span class="p">.</span><span class="n">nebula</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">nebulaReadEdgeConfig</span><span class="p">).</span><span class="n">loadEdgesToDF</span><span class="p">()</span>
-</code></pre></div>
+<p>```scala
+val config = NebulaConnectionConfig
+  .builder()
+  .withMetaAddress("127.0.0.1:9559")
+  .withConenctionRetry(2)
+  .withExecuteRetry(2)
+  .withTimeout(6000)
+  .build()</p>
+<p>val nebulaReadVertexConfig: ReadNebulaConfig = ReadNebulaConfig
+  .builder()
+  .withSpace("test")
+  .withLabel("person")
+  .withNoColumn(false)
+  .withReturnCols(List("birthday"))
+  .withLimit(10)
+  .withPartitionNum(10)
+  .build()
+val vertex = spark.read.nebula(config, nebulaReadVertexConfig).loadVerticesToDF()</p>
+<p>val nebulaReadEdgeConfig: ReadNebulaConfig = ReadNebulaConfig
+  .builder()
+  .withSpace("test")
+  .withLabel("knows")
+  .withNoColumn(false)
+  .withReturnCols(List("degree"))
+  .withLimit(10)
+  .withPartitionNum(10)
+  .build()
+val edge = spark.read.nebula(config, nebulaReadEdgeConfig).loadEdgesToDF()
+```</p>
 <ul>
 <li>
 <p><code>NebulaConnectionConfig</code> is the configuration for connecting to the nebula graph, as described below.</p>
@@ -10937,61 +10896,60 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
 <p class="admonition-title">Note</p>
 <p>The values of columns in a dataframe are automatically written to the NebulaGraph as property values.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">NebulaConnectionConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withMetaAddress</span><span class="p">(</span><span class="s">&quot;127.0.0.1:9559&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withGraphAddress</span><span class="p">(</span><span class="s">&quot;127.0.0.1:9669&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withConenctionRetry</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-
-<span class="kd">val</span><span class="w"> </span><span class="n">nebulaWriteVertexConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">WriteNebulaVertexConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">WriteNebulaVertexConfig</span><span class="w">      </span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withTag</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withVidField</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withVidPolicy</span><span class="p">(</span><span class="s">&quot;hash&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withVidAsProp</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withUser</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withPasswd</span><span class="p">(</span><span class="s">&quot;nebula&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withBatch</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span><span class="w">    </span>
-<span class="n">df</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">nebula</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">nebulaWriteVertexConfig</span><span class="p">).</span><span class="n">writeVertices</span><span class="p">()</span>
-
-<span class="kd">val</span><span class="w"> </span><span class="n">nebulaWriteEdgeConfig</span><span class="p">:</span><span class="w"> </span><span class="nc">WriteNebulaEdgeConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">WriteNebulaEdgeConfig</span><span class="w">      </span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withEdge</span><span class="p">(</span><span class="s">&quot;friend&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSrcIdField</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSrcPolicy</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withDstIdField</span><span class="p">(</span><span class="s">&quot;dst&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withDstPolicy</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withRankField</span><span class="p">(</span><span class="s">&quot;degree&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSrcAsProperty</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withDstAsProperty</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withRankAsProperty</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withUser</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withPasswd</span><span class="p">(</span><span class="s">&quot;nebula&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withBatch</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="n">df</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">nebula</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">nebulaWriteEdgeConfig</span><span class="p">).</span><span class="n">writeEdges</span><span class="p">()</span>
-</code></pre></div>
+<p>```scala
+val config = NebulaConnectionConfig
+  .builder()
+  .withMetaAddress("127.0.0.1:9559")
+  .withGraphAddress("127.0.0.1:9669")
+  .withConenctionRetry(2)
+  .build()</p>
+<p>val nebulaWriteVertexConfig: WriteNebulaVertexConfig = WriteNebulaVertexConfig    <br />
+  .builder()
+  .withSpace("test")
+  .withTag("person")
+  .withVidField("id")
+  .withVidPolicy("hash")
+  .withVidAsProp(true)
+  .withUser("root")
+  .withPasswd("nebula")
+  .withBatch(1000)
+  .build()  <br />
+df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()</p>
+<p>val nebulaWriteEdgeConfig: WriteNebulaEdgeConfig = WriteNebulaEdgeConfig    <br />
+  .builder()
+  .withSpace("test")
+  .withEdge("friend")
+  .withSrcIdField("src")
+  .withSrcPolicy(null)
+  .withDstIdField("dst")
+  .withDstPolicy(null)
+  .withRankField("degree")
+  .withSrcAsProperty(true)
+  .withDstAsProperty(true)
+  .withRankAsProperty(true)
+  .withUser("root")
+  .withPasswd("nebula")
+  .withBatch(1000)
+  .build()
+df.write.nebula(config, nebulaWriteEdgeConfig).writeEdges()
+```</p>
 <p>The default write mode is <code>insert</code>, which can be changed to <code>update</code> or <code>delete</code> via <code>withWriteMode</code> configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">NebulaConnectionConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withMetaAddress</span><span class="p">(</span><span class="s">&quot;127.0.0.1:9559&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withGraphAddress</span><span class="p">(</span><span class="s">&quot;127.0.0.1:9669&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">nebulaWriteVertexConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">WriteNebulaVertexConfig</span>
-<span class="w">  </span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withSpace</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withTag</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withVidField</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withVidAsProp</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withBatch</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">withWriteMode</span><span class="p">(</span><span class="nc">WriteMode</span><span class="p">.</span><span class="nc">UPDATE</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="n">df</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">nebula</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">nebulaWriteVertexConfig</span><span class="p">).</span><span class="n">writeVertices</span><span class="p">()</span>
-</code></pre></div>
+<p><code>scala
+val config = NebulaConnectionConfig
+  .builder()
+  .withMetaAddress("127.0.0.1:9559")
+  .withGraphAddress("127.0.0.1:9669")
+  .build()
+val nebulaWriteVertexConfig = WriteNebulaVertexConfig
+  .builder()
+  .withSpace("test")
+  .withTag("person")
+  .withVidField("id")
+  .withVidAsProp(true)
+  .withBatch(1000)
+  .withWriteMode(WriteMode.UPDATE)
+  .build()
+df.write.nebula(config, nebulaWriteVertexConfig).writeVertices()</code></p>
 <ul>
 <li>
 <p><code>NebulaConnectionConfig</code> is the configuration for connecting to the nebula graph, as described below.</p>
@@ -11263,10 +11221,6 @@ $ mvn clean package -Dmaven.test.skip=true -Dgpg.skip -Dmaven.javadoc.skip=true 
         <script src="../js/search.js"></script>
       
         <script src="../js/config.js"></script>
-      
-        <script src="../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

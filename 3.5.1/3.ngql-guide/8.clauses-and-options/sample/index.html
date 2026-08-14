@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10436,8 +10436,8 @@
 <h1 id="sample">SAMPLE<a class="headerlink" href="#sample" title="Permanent link">&para;</a></h1>
 <p>The <code>SAMPLE</code> clause takes samples evenly in the result set and returns the specified amount of data.</p>
 <p><code>SAMPLE</code> can be used in <code>GO</code> statements only. The syntax is as follows:</p>
-<div class="highlight"><pre><span></span><code>&lt;go_statement&gt; SAMPLE &lt;sample_list&gt;;
-</code></pre></div>
+<p><code>ngql
+&lt;go_statement&gt; SAMPLE &lt;sample_list&gt;;</code></p>
 <p><code>sample_list</code> is a list. Elements in the list must be natural numbers, and the number of elements must be the same as the maximum number of <code>STEPS</code> in the <code>GO</code> statement. The following takes <code>GO 1 TO 3 STEPS FROM "A" OVER * SAMPLE &lt;sample_list&gt;</code> as an example to introduce this usage of <code>SAMPLE</code> in detail.</p>
 <ul>
 <li>The list <code>sample_list</code> must contain 3 natural numbers, such as <code>GO 1 TO 3 STEPS FROM "A" OVER * SAMPLE [1,2,4]</code>.</li>
@@ -10446,33 +10446,33 @@
 </ul>
 <p><img alt="SAMPLE in GO" src="https://docs-cdn.nebula-graph.com.cn/figures/sample_in_go.png" /></p>
 <p>In the basketballplayer dataset, the example is as follows:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO 3 STEPS FROM &quot;player100&quot; \
+<p>```ngql
+nebula&gt; GO 3 STEPS FROM "player100" \
         OVER * \
-        YIELD properties($$).name AS NAME, properties($$).age AS Age \
+        YIELD properties(<span class="arithmatex">\(<span class="arithmatex">\().name AS NAME, properties(\)</span>\)</span>).age AS Age \
         SAMPLE [1,2,3];
 +-----------------+----------+
 | NAME            | Age      |
 +-----------------+----------+
-| &quot;Tony Parker&quot;   | 36       |
-| &quot;Manu Ginobili&quot; | 41       |
-| &quot;Spurs&quot;         | __NULL__ |
-+-----------------+----------+
-
-nebula&gt; GO 1 TO 3 STEPS FROM &quot;player100&quot; \
+| "Tony Parker"   | 36       |
+| "Manu Ginobili" | 41       |
+| "Spurs"         | <strong>NULL</strong> |
++-----------------+----------+</p>
+<p>nebula&gt; GO 1 TO 3 STEPS FROM "player100" \
         OVER * \
-        YIELD properties($$).name AS NAME, properties($$).age AS Age \
+        YIELD properties(<span class="arithmatex">\(<span class="arithmatex">\().name AS NAME, properties(\)</span>\)</span>).age AS Age \
         SAMPLE [2,2,2];
 +-----------------+----------+
 | NAME            | Age      |
 +-----------------+----------+
-| &quot;Manu Ginobili&quot; | 41       |
-| &quot;Spurs&quot;         | __NULL__ |
-| &quot;Tim Duncan&quot;    | 42       |
-| &quot;Spurs&quot;         | __NULL__ |
-| &quot;Manu Ginobili&quot; | 41       |
-| &quot;Spurs&quot;         | __NULL__ |
+| "Manu Ginobili" | 41       |
+| "Spurs"         | <strong>NULL</strong> |
+| "Tim Duncan"    | 42       |
+| "Spurs"         | <strong>NULL</strong> |
+| "Manu Ginobili" | 41       |
+| "Spurs"         | <strong>NULL</strong> |
 +-----------------+----------+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10561,10 +10561,6 @@ nebula&gt; GO 1 TO 3 STEPS FROM &quot;player100&quot; \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

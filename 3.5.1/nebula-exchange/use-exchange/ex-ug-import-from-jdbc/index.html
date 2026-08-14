@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10628,42 +10628,40 @@
 <h2 id="data_set">Data set<a class="headerlink" href="#data_set" title="Permanent link">&para;</a></h2>
 <p>This topic takes the <a href="https://docs-cdn.nebula-graph.com.cn/dataset/dataset.zip">basketballplayer dataset</a> as an example.</p>
 <p>In this example, the data set has been stored in MySQL. All vertexes and edges are stored in the <code>player</code>, <code>team</code>, <code>follow</code>, and <code>serve</code> tables. The following are some of the data for each table.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="n">player</span><span class="p">;</span>
-<span class="o">+</span><span class="c1">----------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="k">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">----------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">playerid</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">age</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">name</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">----------+-------------+------+-----+---------+-------+</span>
-
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="n">team</span><span class="p">;</span>
-<span class="o">+</span><span class="c1">--------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="k">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">--------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">teamid</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">name</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">--------+-------------+------+-----+---------+-------+</span>
-
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="n">follow</span><span class="p">;</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="k">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">src_player</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">dst_player</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">degree</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-
-<span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="n">serve</span><span class="p">;</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="k">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-<span class="o">|</span><span class="w"> </span><span class="n">playerid</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">teamid</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">start_year</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="n">end_year</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="nb">int</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">YES</span><span class="w">  </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">------------+-------------+------+-----+---------+-------+</span>
-</code></pre></div>
+<p>```sql
+mysql&gt; desc player;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| playerid | int         | YES  |     | NULL    |       |
+| age      | int         | YES  |     | NULL    |       |
+| name     | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+</p>
+<p>mysql&gt; desc team;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| teamid | int         | YES  |     | NULL    |       |
+| name   | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+</p>
+<p>mysql&gt; desc follow;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| src_player | int         | YES  |     | NULL    |       |
+| dst_player | int         | YES  |     | NULL    |       |
+| degree     | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+</p>
+<p>mysql&gt; desc serve;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| playerid   | int         | YES  |     | NULL    |       |
+| teamid     | int         | YES  |     | NULL    |       |
+| start_year | int         | YES  |     | NULL    |       |
+| end_year   | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+```</p>
 <h2 id="environment">Environment<a class="headerlink" href="#environment" title="Permanent link">&para;</a></h2>
 <p>This example is done on MacOS. Here is the environment configuration information:</p>
 <ul>
@@ -10749,33 +10747,30 @@
 </li>
 <li>
 <p>Create a graph space <strong>basketballplayer</strong> in the NebulaGraph and create a Schema as shown below.</p>
-<div class="highlight"><pre><span></span><code>## Create a graph space.
-nebula&gt; CREATE SPACE basketballplayer \
-        (partition_num = 10, \
-        replica_factor = 1, \
-        vid_type = FIXED_STRING(30));
-
-## Use the graph space basketballplayer.
-nebula&gt; USE basketballplayer;
-
-## Create the Tag player.
-nebula&gt; CREATE TAG player(name string, age int);
-
-## Create the Tag team.
-nebula&gt; CREATE TAG team(name string);
-
-## Create the Edge type follow.
-nebula&gt; CREATE EDGE follow(degree int);
-
-## Create the Edge type serve.
-nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-</code></pre></div>
+<p>```ngql
+  ## Create a graph space.
+  nebula&gt; CREATE SPACE basketballplayer \
+          (partition_num = 10, \
+          replica_factor = 1, \
+          vid_type = FIXED_STRING(30));</p>
+<p>## Use the graph space basketballplayer.
+  nebula&gt; USE basketballplayer;</p>
+<p>## Create the Tag player.
+  nebula&gt; CREATE TAG player(name string, age int);</p>
+<p>## Create the Tag team.
+  nebula&gt; CREATE TAG team(name string);</p>
+<p>## Create the Edge type follow.
+  nebula&gt; CREATE EDGE follow(degree int);</p>
+<p>## Create the Edge type serve.
+  nebula&gt; CREATE EDGE serve(start_year int, end_year int);
+  ```</p>
 </li>
 </ol>
 <p>For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Quick start workflow</a>.</p>
 <h3 id="step_2_modify_configuration_files">Step 2: Modify configuration files<a class="headerlink" href="#step_2_modify_configuration_files" title="Permanent link">&para;</a></h3>
 <p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> to set JDBC data source configuration. In this case, the copied file is called <code>jdbc_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
-<div class="highlight"><pre><span></span><code>{
+<p>```conf
+{
   # Spark configuration
   spark: {
     app: {
@@ -10788,18 +10783,17 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     cores: {
       max: 16
     }
-  }
-
-  # NebulaGraph configuration
+  }</p>
+<p># NebulaGraph configuration
   nebula: {
     address:{
       # Specify the IP addresses and ports for Graph and Meta services.
-      # If there are multiple addresses, the format is &quot;ip1:port&quot;,&quot;ip2:port&quot;,&quot;ip3:port&quot;.
+      # If there are multiple addresses, the format is "ip1:port","ip2:port","ip3:port".
       # Addresses are separated by commas.
-      graph:[&quot;127.0.0.1:9669&quot;]
+      graph:["127.0.0.1:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:[&quot;127.0.0.1:9559&quot;]
+      meta:["127.0.0.1:9559"]
     }
     # The account entered must have write permission for the NebulaGraph space.
     user: root
@@ -10833,234 +10827,234 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         source: jdbc
         # Specify how to import the data into NebulaGraph: Client or SST.
         sink: client
-      }
+      }</p>
+<div class="codehilite"><pre><span></span><code>  # URL of the JDBC data source. The example is MySql database.
+  url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
 
-      # URL of the JDBC data source. The example is MySql database.
-      url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
+  # JDBC driver 
+  driver:&quot;com.mysql.cj.jdbc.Driver&quot;
 
-      # JDBC driver 
-      driver:&quot;com.mysql.cj.jdbc.Driver&quot;
+  # Database user name and password
+  user:&quot;root&quot;
+  password:&quot;12345&quot;
 
-      # Database user name and password
-      user:&quot;root&quot;
-      password:&quot;12345&quot;
+  # Scanning a single table to read data.
+  # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+  # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+  table:&quot;basketball.player&quot;
 
-      # Scanning a single table to read data.
-      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
-      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
-      table:&quot;basketball.player&quot;
+  # Use query statement to read data.
+  # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+  # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+  # sentence:&quot;select playerid, age, name from player, team order by playerid&quot;
 
-      # Use query statement to read data.
-      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
-      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
-      # sentence:&quot;select playerid, age, name from player, team order by playerid&quot;
-
-      # (optional)Multiple connections read parameters. See https://spark.apache.org/docs/latest/sql-data-sources-jdbc.html
-      partitionColumn:playerid    # optional. Must be a numeric, date, or timestamp column from the table in question.
-      lowerBound:1                # optional
-      upperBound:5                # optional
-      numPartitions:5             # optional
+  # (optional)Multiple connections read parameters. See https://spark.apache.org/docs/latest/sql-data-sources-jdbc.html
+  partitionColumn:playerid    # optional. Must be a numeric, date, or timestamp column from the table in question.
+  lowerBound:1                # optional
+  upperBound:5                # optional
+  numPartitions:5             # optional
 
 
-      fetchSize:2           # The JDBC fetch size, which determines how many rows to fetch per round trip.
+  fetchSize:2           # The JDBC fetch size, which determines how many rows to fetch per round trip.
 
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      # If multiple column names need to be specified, separate them by commas.
-      fields: [age,name]
-      nebula.fields: [age,name]
+  # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  # If multiple column names need to be specified, separate them by commas.
+  fields: [age,name]
+  nebula.fields: [age,name]
 
-      # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
-      vertex: {
-        field:playerid
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
+  vertex: {
+    field:playerid
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
-      #deleteEdge: false
+  # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+  #deleteEdge: false
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 256
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 256
 
-      # The number of Spark partitions.
-      partition: 32
-    }
-    # Set the information about the Tag Team.
-    {
-      name: team
-      type: {
-        source: jdbc
-        sink: client
-      }
+  # The number of Spark partitions.
+  partition: 32
+}
+# Set the information about the Tag Team.
+{
+  name: team
+  type: {
+    source: jdbc
+    sink: client
+  }
 
-      url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
-      driver:&quot;com.mysql.cj.jdbc.Driver&quot;
-      user:root
-      password:&quot;12345&quot;
-      table:team
-      sentence:&quot;select teamid, name from team order by teamid&quot;
-      partitionColumn:teamid    
-      lowerBound:1                
-      upperBound:5                
-      numPartitions:5             
-      fetchSize:2  
+  url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
+  driver:&quot;com.mysql.cj.jdbc.Driver&quot;
+  user:root
+  password:&quot;12345&quot;
+  table:team
+  sentence:&quot;select teamid, name from team order by teamid&quot;
+  partitionColumn:teamid    
+  lowerBound:1                
+  upperBound:5                
+  numPartitions:5             
+  fetchSize:2
 
-      fields: [name]
-      nebula.fields: [name]
-      vertex: {
-        field: teamid
-      }
-      batch: 256
-      partition: 32
-    }
+  fields: [name]
+  nebula.fields: [name]
+  vertex: {
+    field: teamid
+  }
+  batch: 256
+  partition: 32
+}
+</code></pre></div>
 
-  ]
-
-  # Processing edges
+<p>]</p>
+<p># Processing edges
   edges: [
     # Set the information about the Edge Type follow.
     {
       # The corresponding Edge Type name in NebulaGraph.
-      name: follow
+      name: follow</p>
+<div class="codehilite"><pre><span></span><code>  type: {
+    # Specify the data source file format to JDBC.
+    source: jdbc
 
-      type: {
-        # Specify the data source file format to JDBC.
-        source: jdbc
+    # Specify how to import the Edge type data into NebulaGraph.
+    # Specify how to import the data into NebulaGraph: Client or SST.
+    sink: client
+  }
 
-        # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph: Client or SST.
-        sink: client
-      }
+  url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
+  driver:&quot;com.mysql.cj.jdbc.Driver&quot;
+  user:root
+  password:&quot;12345&quot;
 
-      url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
-      driver:&quot;com.mysql.cj.jdbc.Driver&quot;
-      user:root
-      password:&quot;12345&quot;
+  # Scanning a single table to read data.
+  # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
+  # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
+  table:&quot;basketball.follow&quot;
 
-      # Scanning a single table to read data.
-      # nebula-exchange_spark_2.2 must configure this parameter, and can additionally configure sentence.
-      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as sentence.
-      table:&quot;basketball.follow&quot;
+  # Use query statement to read data.
+  # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
+  # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
+  # sentence:&quot;select src_player,dst_player,degree from follow order by src_player&quot;
 
-      # Use query statement to read data.
-      # nebula-exchange_spark_2.2 can configure this parameter. Multi-table queries are not supported. Only the table name needs to be written after from. The form `db.table` is not supported.
-      # nebula-exchange_spark_2.4 and nebula-exchange_spark_3.0 can configure this parameter, but not at the same time as table. Multi-table queries are supported.
-      # sentence:&quot;select src_player,dst_player,degree from follow order by src_player&quot;
+  partitionColumn:src_player    
+  lowerBound:1                
+  upperBound:5                
+  numPartitions:5             
+  fetchSize:2
 
-      partitionColumn:src_player    
-      lowerBound:1                
-      upperBound:5                
-      numPartitions:5             
-      fetchSize:2  
+  # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  # If multiple column names need to be specified, separate them by commas.
+  fields: [degree]
+  nebula.fields: [degree]
 
-      # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      # If multiple column names need to be specified, separate them by commas.
-      fields: [degree]
-      nebula.fields: [degree]
+  # In source, use a column in the follow table as the source of the edge&#39;s source vertex.
+  # In target, use a column in the follow table as the source of the edge&#39;s destination vertex.
+  source: {
+    field: src_player
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # In source, use a column in the follow table as the source of the edge&#39;s source vertex.
-      # In target, use a column in the follow table as the source of the edge&#39;s destination vertex.
-      source: {
-        field: src_player
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  target: {
+    field: dst_player
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      target: {
-        field: dst_player
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # (Optional) Specify a column as the source of the rank.
+  #ranking: rank
 
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: rank
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 256
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 256
+  # The number of Spark partitions.
+  partition: 32
+}
 
-      # The number of Spark partitions.
-      partition: 32
-    }
+# Set the information about the Edge Type serve.
+{
+  name: serve
+  type: {
+    source: jdbc
+    sink: client
+  }
 
-    # Set the information about the Edge Type serve.
-    {
-      name: serve
-      type: {
-        source: jdbc
-        sink: client
-      }
+  url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
+  driver:&quot;com.mysql.cj.jdbc.Driver&quot;
+  user:root
+  password:&quot;12345&quot;
+  table:serve
+  sentence:&quot;select playerid,teamid,start_year,end_year from serve order by playerid&quot;
+  partitionColumn:playerid    
+  lowerBound:1                
+  upperBound:5                
+  numPartitions:5             
+  fetchSize:2
 
-      url:&quot;jdbc:mysql://127.0.0.1:3306/basketball?useUnicode=true&amp;characterEncoding=utf-8&quot;
-      driver:&quot;com.mysql.cj.jdbc.Driver&quot;
-      user:root
-      password:&quot;12345&quot;
-      table:serve
-      sentence:&quot;select playerid,teamid,start_year,end_year from serve order by playerid&quot;
-      partitionColumn:playerid    
-      lowerBound:1                
-      upperBound:5                
-      numPartitions:5             
-      fetchSize:2
-
-      fields: [start_year,end_year]
-      nebula.fields: [start_year,end_year]
-      source: {
-        field: playerid
-      }
-      target: {
-        field: teamid
-      }
-      batch: 256
-      partition: 32
-    }
-  ]
+  fields: [start_year,end_year]
+  nebula.fields: [start_year,end_year]
+  source: {
+    field: playerid
+  }
+  target: {
+    field: teamid
+  }
+  batch: 256
+  partition: 32
 }
 </code></pre></div>
+
+<p>]
+}
+```</p>
 <h3 id="step_3_import_data_into_nebulagraph">Step 3: Import data into NebulaGraph<a class="headerlink" href="#step_3_import_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Run the following command to import general JDBC data into NebulaGraph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;jdbc_application.conf_path&gt;
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-3.5.0.jar_path&gt; -c &lt;jdbc_application.conf_path&gt;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/jdbc_application.conf
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/jdbc_application.conf</code></p>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_4_optional_validate_data">Step 4: (optional) Validate data<a class="headerlink" href="#step_4_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
-<div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
-</code></pre></div>
+<p><code>ngql
+LOOKUP ON player YIELD id(vertex);</code></p>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/">SHOW STATS</a> command to view statistics.</p>
 <h3 id="step_5_optional_rebuild_indexes_in_nebulagraph">Step 5: (optional) Rebuild indexes in NebulaGraph<a class="headerlink" href="#step_5_optional_rebuild_indexes_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see <a href="../../../3.ngql-guide/14.native-index-statements/">Index overview</a>.</p>
@@ -11152,10 +11146,6 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

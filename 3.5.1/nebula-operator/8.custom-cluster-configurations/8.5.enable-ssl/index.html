@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10476,8 +10476,8 @@
 <h2 id="create_a_tls-type_secret">Create a TLS-type Secret<a class="headerlink" href="#create_a_tls-type_secret" title="Permanent link">&para;</a></h2>
 <p>In a K8s cluster, you can create Secrets to store sensitive information, such as passwords, OAuth tokens, and TLS certificates. In NebulaGraph, you can create a Secret to store TLS certificates and private keys. When creating a Secret, the type <code>tls</code> should be specified. A <code>tls</code> Secret is used to store TLS certificates.</p>
 <p>For example, to create a Secret for storing server certificates and private keys:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>tls<span class="w"> </span>&lt;server-cert&gt;<span class="w"> </span>--key<span class="o">=</span>&lt;path/to/tls.key&gt;<span class="w"> </span>--cert<span class="o">=</span>&lt;path/to/tls.cert&gt;<span class="w"> </span>--namespace<span class="o">=</span>&lt;namespace&gt;
-</code></pre></div>
+<p><code>bash
+kubectl create secret tls &lt;server-cert&gt; --key=&lt;path/to/tls.key&gt; --cert=&lt;path/to/tls.cert&gt; --namespace=&lt;namespace&gt;</code></p>
 <ul>
 <li><code>&lt;server-cert&gt;</code>: The name of the Secret storing the server certificate and private key.</li>
 <li><code>&lt;path/to/tls.key&gt;</code>: The path to the server private key file.</li>
@@ -10486,26 +10486,26 @@
 </ul>
 <p>You can follow the above steps to create Secrets for the client certificate and private key, and the CA certificate.</p>
 <p>To view the created Secrets:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>--namespace<span class="o">=</span>&lt;namespace&gt;<span class="w"> </span>
-</code></pre></div>
+<p><code>bash
+kubectl get secret --namespace=&lt;namespace&gt;</code></p>
 <h2 id="configure_certifications">Configure certifications<a class="headerlink" href="#configure_certifications" title="Permanent link">&para;</a></h2>
 <p>Operator provides the <code>sslCerts</code> field to specify the encrypted certificates. The <code>sslCerts</code> field contains three subfields: <code>serverSecret</code>, <code>clientSecret</code>, and <code>caSecret</code>. These three fields are used to specify the Secret names of the NebulaGraph server certificate, client certificate, and CA certificate, respectively. When you specify these three fields, Operator reads the certificate content from the corresponding Secret and mounts it into the cluster's Pod.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">     </span><span class="c1"># The name of the server certificate Secret.</span>
-<span class="w">  </span><span class="nt">serverCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the server certificate Secret, default is tls.crt.</span>
-<span class="w">  </span><span class="nt">serverKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                   </span><span class="c1"># The key name of the private key in the server certificate Secret, default is tls.key.</span>
-<span class="w">  </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">     </span><span class="c1"># The name of the client certificate Secret.</span>
-<span class="w">  </span><span class="nt">clientCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the client certificate Secret, default is tls.crt.</span>
-<span class="w">  </span><span class="nt">clientKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                   </span><span class="c1"># The key name of the private key in the client certificate Secret, default is tls.key.</span>
-<span class="w">  </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">             </span><span class="c1"># The name of the CA certificate Secret.</span>
-<span class="w">  </span><span class="nt">caCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                      </span><span class="c1"># The key name of the certificate in the CA certificate Secret, default is ca.crt.</span>
-</code></pre></div>
+<p><code>yaml
+sslCerts:
+  serverSecret: "server-cert"     # The name of the server certificate Secret.
+  serverCert: ""                  # The key name of the certificate in the server certificate Secret, default is tls.crt.
+  serverKey: ""                   # The key name of the private key in the server certificate Secret, default is tls.key.
+  clientSecret: "client-cert"     # The name of the client certificate Secret.
+  clientCert: ""                  # The key name of the certificate in the client certificate Secret, default is tls.crt.
+  clientKey: ""                   # The key name of the private key in the client certificate Secret, default is tls.key.
+  caSecret: "ca-cert"             # The name of the CA certificate Secret.
+  caCert: ""                      # The key name of the certificate in the CA certificate Secret, default is ca.crt.</code></p>
 <p>The <code>serverCert</code> and <code>serverKey</code>, <code>clientCert</code> and <code>clientKey</code>, and <code>caCert</code> are used to specify the key names of the certificate and private key of the server Secret, the key names of the certificate and private key of the client Secret, and the key name of the CA Secret certificate. If you do not customize these field values, Operator defaults <code>serverCert</code> and <code>clientCert</code> to <code>tls.crt</code>, <code>serverKey</code> and <code>clientKey</code> to <code>tls.key</code>, and <code>caCert</code> to <code>ca.crt</code>. However, in the K8s cluster, the TLS type Secret uses <code>tls.crt</code> and <code>tls.key</code> as the default key names for the certificate and private key. Therefore, after creating the NebulaGraph cluster, you need to manually change the <code>caCert</code> field from <code>ca.crt</code> to <code>tls.crt</code> in the cluster configuration, so that the Operator can correctly read the content of the CA certificate. Before you customize these field values, you need to specify the key names of the certificate and private key in the Secret when creating it. For how to create a Secret with the key name specified, run the <code>kubectl create secret generic -h</code> command for help.</p>
 <p>You can use the <code>insecureSkipVerify</code> field to decide whether the client will verify the server's certificate chain and hostname. In production environments, it is recommended to set this to <code>false</code> to ensure the security of communication. If set to <code>true</code>, the client will not verify the server's certificate chain and hostname.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Determines whether the client needs to verify the server&#39;s certificate chain and hostname when establishing an SSL connection. It defaults to true.</span>
-<span class="w">  </span><span class="nt">insecureSkipVerify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span>
-</code></pre></div>
+<p><code>yaml
+sslCerts:
+  # Determines whether the client needs to verify the server's certificate chain and hostname when establishing an SSL connection. It defaults to true.
+  insecureSkipVerify: false</code></p>
 <p>When the certificates are approaching expiration, they can be automatically updated by installing <a href="https://cert-manager.io/docs/installation/supported-releases/">cert-manager</a>. NebulaGraph will monitor changes to the certificate directory files, and once a change is detected, it will load the new certificate content into memory. </p>
 <h2 id="encryption_strategies">Encryption strategies<a class="headerlink" href="#encryption_strategies" title="Permanent link">&para;</a></h2>
 <p>NebulaGraph offers three encryption strategies that you can choose and configure according to your needs.</p>
@@ -10514,26 +10514,26 @@
 <p>Encryption of client-graph and all inter-service communications</p>
 <p>If you want to encrypt all data transmission between the client, Graph service, Meta service, and Storage service, you need to add the <code>enable_ssl = true</code> field to each service.</p>
 <p>Here is an example configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">   </span><span class="c1"># The Secret name of the server certificate and private key.</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">   </span><span class="c1"># The Secret name of the client certificate and private key.</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">           </span><span class="c1"># The Secret name of the CA certificate.</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</code></pre></div>
+<p><code>yaml
+apiVersion: apps.nebula-graph.io/v1alpha1
+kind: NebulaCluster
+metadata:
+  name: nebula
+  namespace: default
+spec:
+  sslCerts:
+    serverSecret: "server-cert"   # The Secret name of the server certificate and private key.
+    clientSecret: "client-cert"   # The Secret name of the client certificate and private key.
+    caSecret: "ca-cert"           # The Secret name of the CA certificate.
+  graphd:
+    config:
+      enable_ssl: "true"
+  metad:
+    config:
+      enable_ssl: "true"
+  storaged:
+    config:
+      enable_ssl: "true"</code></p>
 </li>
 </ul>
 <ul>
@@ -10541,19 +10541,19 @@
 <p>Encryption of only Graph service communication</p>
 <p>If the K8s cluster is deployed in the same data center and only the port of the Graph service is exposed externally, you can choose to encrypt only data transmission between the client and the Graph service. In this case, other services can communicate internally without encryption. Just add the <code>enable_graph_ssl = true</code> field to the Graph service.</p>
 <p>Here is an example configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_graph_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</code></pre></div>
+<p><code>yaml
+apiVersion: apps.nebula-graph.io/v1alpha1
+kind: NebulaCluster
+metadata:
+  name: nebula
+  namespace: default
+spec:
+  sslCerts:
+    serverSecret: "server-cert"
+    caSecret: "ca-cert"
+  graphd:
+    config:
+      enable_graph_ssl: "true"</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Because Operator doesn't need to call the Graph service through an interface, it's not necessary to set <code>clientSecret</code> in <code>sslCerts</code>.</p>
@@ -10565,26 +10565,26 @@
 <p>Encryption of only Meta service communication</p>
 <p>If you need to transmit confidential information to the Meta service, you can choose to encrypt data transmission related to the Meta service. In this case, you need to add the <code>enable_meta_ssl = true</code> configuration to each component.</p>
 <p>Here is an example configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</code></pre></div>
+<p><code>yaml
+apiVersion: apps.nebula-graph.io/v1alpha1
+kind: NebulaCluster
+metadata:
+  name: nebula
+  namespace: default
+spec:
+  sslCerts:
+    serverSecret: "server-cert"
+    clientSecret: "client-cert"
+    caSecret: "ca-cert"
+  graphd:
+    config:
+      enable_meta_ssl: "true"
+  metad:
+    config:
+      enable_meta_ssl: "true"
+  storaged:
+    config:
+      enable_meta_ssl: "true"</code></p>
 </li>
 </ul>
 <p>After setting up the encryption policy, when an external <a href="../../../14.client/1.nebula-client/">client</a> needs to connect to the Graph service with mutual TLS, you still need to set the relevant TLS parameters according to the different clients. See the Use NebulaGraph Console to connect to Graph service section below for examples.</p>
@@ -10592,8 +10592,8 @@
 <ol>
 <li>
 <p>Use the pre-generated server and client certificates and private keys, and the CA certificate to create a Secret for each.</p>
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">kubectl create secret tls &lt;client/server/ca-cert-secret&gt; --key=&lt;client/server/ca.key&gt; --cert=&lt;client/server/ca.crt&gt;</span>
-</code></pre></div>
+<p><code>yaml
+kubectl create secret tls &lt;client/server/ca-cert-secret&gt; --key=&lt;client/server/ca.key&gt; --cert=&lt;client/server/ca.crt&gt;</code></p>
 <ul>
 <li><code>tls</code>: Indicates that the type of secret being created is TLS, which is used to store TLS certificates.</li>
 <li><code>&lt;client/server/ca-cert-secret&gt;</code>: Specifies the name of the new secret being created, which can be customized.</li>
@@ -10604,40 +10604,42 @@
 <li>
 <p>Add server certificate, client certificate, CA certificate configuration, and encryption policy configuration in the corresponding cluster instance YAML file. For details, see <a href="#encryption_strategies">Encryption strategies</a>.</p>
 <p>For example, add encryption configuration for transmission data between client, Graph service, Meta service, and Storage service.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.nebula-graph.io/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NebulaCluster</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nebula</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the server Certificate Secret.</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the client Certificate Secret.</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">// The name of the CA Certificate Secret.</span>
-<span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-<span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</code></pre></div>
+<p><code>yaml
+apiVersion: apps.nebula-graph.io/v1alpha1
+kind: NebulaCluster
+metadata:
+  name: nebula
+  namespace: default
+spec:
+  sslCerts:
+    serverSecret: "server-cert"  // The name of the server Certificate Secret.
+    clientSecret: "client-cert"  // The name of the client Certificate Secret.
+    caSecret: "ca-cert"          // The name of the CA Certificate Secret.
+  graphd:
+    config:
+      enable_ssl: "true"
+  metad:
+    config:
+      enable_ssl: "true"
+  storaged:
+    config:
+      enable_ssl: "true"</code></p>
 </li>
 <li>
 <p>Use <code>kubectl apply -f</code> to apply the file to the Kubernetes cluster.</p>
 </li>
 <li>
 <p>Verify that the values of <code>serverCert</code>, <code>serverKey</code>, <code>clientCert</code>, <code>clientKey</code>, <code>caCert</code> under the <code>sslCerts</code> field in the cluster configuration match the key names of the certificates and private keys stored in the created Secret.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check the key names of the certificate and private key stored in the Secret. For example, check the key name of the CA certificate stored in the Secret.</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>ca-cert<span class="w"> </span>-o<span class="w"> </span>yaml
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check the cluster configuration file.</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nebulacluster<span class="w"> </span>nebula<span class="w"> </span>-o<span class="w"> </span>yaml
-</code></pre></div>
+<p>```bash</p>
+<h1 id="check_the_key_names_of_the_certificate_and_private_key_stored_in_the_secret_for_example_check_the_key_name_of_the_ca_certificate_stored_in_the_secret">Check the key names of the certificate and private key stored in the Secret. For example, check the key name of the CA certificate stored in the Secret.<a class="headerlink" href="#check_the_key_names_of_the_certificate_and_private_key_stored_in_the_secret_for_example_check_the_key_name_of_the_ca_certificate_stored_in_the_secret" title="Permanent link">&para;</a></h1>
+<p>kubectl get secret ca-cert -o yaml
+```</p>
+<p>```bash</p>
+<h1 id="check_the_cluster_configuration_file">Check the cluster configuration file.<a class="headerlink" href="#check_the_cluster_configuration_file" title="Permanent link">&para;</a></h1>
+<p>kubectl get nebulacluster nebula -o yaml
+```</p>
 <p>Example output:</p>
-<div class="highlight"><pre><span></span><code>...
+<p><code>...
 spec:
   sslCerts:
     serverSecret: server-cert
@@ -10648,16 +10650,14 @@ spec:
     clientKey: tls.key
     caSecret: ca-cert
     caCert: ca.crt    
-...
-</code></pre></div>
+...</code></p>
 <p>If the key names of the certificates and private keys stored in the Secret are different from the values of <code>serverCert</code>, <code>serverKey</code>, <code>clientCert</code>, <code>clientKey</code>, <code>caCert</code> under the <code>sslCerts</code> field in the cluster configuration, you need to execute <code>kubectl edit nebulacluster &lt;cluster_name&gt;</code> to manually modify the cluster configuration file.</p>
 <p>In the example output, the key name of the CA certificate in the TLS-type Secret is <code>tls.crt</code>, so you need to change the value of caCert from <code>ca.crt</code> to <code>tls.crt</code>.</p>
 </li>
 <li>
 <p>Use NebulaGraph Console to connect to the Graph service and establish a secure TLS connection.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>kubectl run -ti --image vesoft/nebula-console:v3.5.0 --restart=Never -- nebula-console -addr 10.98.xxx.xx  -port 9669 -u root -p nebula -enable_ssl -ssl_root_ca_path /path/to/cert/root.crt -ssl_cert_path /path/to/cert/client.crt -ssl_private_key_path /path/to/cert/client.key
-</code></pre></div>
+<p><code>kubectl run -ti --image vesoft/nebula-console:v3.5.0 --restart=Never -- nebula-console -addr 10.98.xxx.xx  -port 9669 -u root -p nebula -enable_ssl -ssl_root_ca_path /path/to/cert/root.crt -ssl_cert_path /path/to/cert/client.crt -ssl_private_key_path /path/to/cert/client.key</code></p>
 <ul>
 <li><code>-enable_ssl</code>: Use mTLS when connecting to NebulaGraph.</li>
 <li><code>-ssl_root_ca_path</code>: Specify the storage path of the CA root certificate.</li>
@@ -10756,10 +10756,6 @@ spec:
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

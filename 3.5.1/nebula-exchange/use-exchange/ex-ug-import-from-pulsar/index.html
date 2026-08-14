@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10698,33 +10698,30 @@
 </li>
 <li>
 <p>Create a graph space <strong>basketballplayer</strong> in the NebulaGraph and create a Schema as shown below.</p>
-<div class="highlight"><pre><span></span><code>## Create a graph space
-nebula&gt; CREATE SPACE basketballplayer \
-        (partition_num = 10, \
-        replica_factor = 1, \
-        vid_type = FIXED_STRING(30));
-
-## Use the graph space basketballplayer
-nebula&gt; USE basketballplayer;
-
-## Create the Tag player
-nebula&gt; CREATE TAG player(name string, age int);
-
-## Create the Tag team
-nebula&gt; CREATE TAG team(name string);
-
-## Create the Edge type follow
-nebula&gt; CREATE EDGE follow(degree int);
-
-## Create the Edge type serve
-nebula&gt; CREATE EDGE serve(start_year int, end_year int);
-</code></pre></div>
+<p>```ngql
+  ## Create a graph space
+  nebula&gt; CREATE SPACE basketballplayer \
+          (partition_num = 10, \
+          replica_factor = 1, \
+          vid_type = FIXED_STRING(30));</p>
+<p>## Use the graph space basketballplayer
+  nebula&gt; USE basketballplayer;</p>
+<p>## Create the Tag player
+  nebula&gt; CREATE TAG player(name string, age int);</p>
+<p>## Create the Tag team
+  nebula&gt; CREATE TAG team(name string);</p>
+<p>## Create the Edge type follow
+  nebula&gt; CREATE EDGE follow(degree int);</p>
+<p>## Create the Edge type serve
+  nebula&gt; CREATE EDGE serve(start_year int, end_year int);
+  ```</p>
 </li>
 </ol>
 <p>For more information, see <a href="../../../2.quick-start/1.quick-start-workflow/">Quick start workflow</a>.</p>
 <h3 id="step_2_modify_configuration_files">Step 2: Modify configuration files<a class="headerlink" href="#step_2_modify_configuration_files" title="Permanent link">&para;</a></h3>
 <p>After Exchange is compiled, copy the conf file <code>target/classes/application.conf</code> to set Pulsar data source configuration. In this example, the copied file is called <code>pulsar_application.conf</code>. For details on each configuration item, see <a href="../../parameter-reference/ex-ug-parameter/">Parameters in the configuration file</a>.</p>
-<div class="highlight"><pre><span></span><code>{
+<p>```conf
+{
   # Spark configuration
   spark: {
     app: {
@@ -10737,43 +10734,42 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     cores: {
       max: 16
     }
-  }
-
-
-  # NebulaGraph configuration
+  }</p>
+<p># NebulaGraph configuration
   nebula: {
     address:{
       # Specify the IP addresses and ports for Graph and all Meta services.
-      # If there are multiple addresses, the format is &quot;ip1:port&quot;,&quot;ip2:port&quot;,&quot;ip3:port&quot;.
+      # If there are multiple addresses, the format is "ip1:port","ip2:port","ip3:port".
       # Addresses are separated by commas.
-      graph:[&quot;127.0.0.1:9669&quot;]
+      graph:["127.0.0.1:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:[&quot;127.0.0.1:9559&quot;]
-    }
+      meta:["127.0.0.1:9559"]
+    }</p>
+<div class="codehilite"><pre><span></span><code># The account entered must have write permission for the NebulaGraph space.
+user: root
+pswd: nebula
 
-    # The account entered must have write permission for the NebulaGraph space.
-    user: root
-    pswd: nebula
+# Fill in the name of the graph space you want to write data to in the NebulaGraph.
+space: basketballplayer
+connection: {
+  timeout: 3000
+  retry: 3
+}
+execution: {
+  retry: 3
+}
+error: {
+  max: 32
+  output: /tmp/errors
+}
+rate: {
+  limit: 1024
+  timeout: 1000
+}
+</code></pre></div>
 
-    # Fill in the name of the graph space you want to write data to in the NebulaGraph.
-    space: basketballplayer
-    connection: {
-      timeout: 3000
-      retry: 3
-    }
-    execution: {
-      retry: 3
-    }
-    error: {
-      max: 32
-      output: /tmp/errors
-    }
-    rate: {
-      limit: 1024
-      timeout: 1000
-    }
-  }
+<p>}
   # Processing vertices
   tags: [
     # Set the information about the Tag player.
@@ -10787,196 +10783,196 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         sink: client
       }
       # The address of the Pulsar server.
-      service: &quot;pulsar://127.0.0.1:6650&quot;
+      service: "pulsar://127.0.0.1:6650"
       # admin.url of pulsar.
-      admin: &quot;http://127.0.0.1:8081&quot;
+      admin: "http://127.0.0.1:8081"
       # The Pulsar option can be configured from topic, topics or topicsPattern.
       options: {
-        topics: &quot;topic1,topic2&quot;
-      }
+        topics: "topic1,topic2"
+      }</p>
+<div class="codehilite"><pre><span></span><code>  # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  # If multiple column names need to be specified, separate them by commas.
+  fields: [age,name]
+  nebula.fields: [age,name]
 
-      # Specify the column names in the player table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      # If multiple column names need to be specified, separate them by commas.
-      fields: [age,name]
-      nebula.fields: [age,name]
+  # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
+  vertex:{
+      field:playerid
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # Specify a column of data in the table as the source of VIDs in the NebulaGraph.
-      vertex:{
-          field:playerid
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
+  #deleteEdge: false
 
-      # Whether or not to delete the related incoming and outgoing edges of the vertices when performing a batch delete operation. This parameter takes effect when `writeMode` is `DELETE`.
-      #deleteEdge: false
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 10
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 10
+  # The number of Spark partitions.
+  partition: 10
+  # The interval for message reading. Unit: second.
+  interval.seconds: 10
+}
+# Set the information about the Tag Team.
+{
+  name: team
+  type: {
+    source: pulsar
+    sink: client
+  }
+  service: &quot;pulsar://127.0.0.1:6650&quot;
+  admin: &quot;http://127.0.0.1:8081&quot;
+  options: {
+    topics: &quot;topic1,topic2&quot;
+  }
+  fields: [name]
+  nebula.fields: [name]
+  vertex:{
+      field:teamid
+  }
+  batch: 10
+  partition: 10
+  interval.seconds: 10
+}
+</code></pre></div>
 
-      # The number of Spark partitions.
-      partition: 10
-      # The interval for message reading. Unit: second.
-      interval.seconds: 10
-    }
-    # Set the information about the Tag Team.
-    {
-      name: team
-      type: {
-        source: pulsar
-        sink: client
-      }
-      service: &quot;pulsar://127.0.0.1:6650&quot;
-      admin: &quot;http://127.0.0.1:8081&quot;
-      options: {
-        topics: &quot;topic1,topic2&quot;
-      }
-      fields: [name]
-      nebula.fields: [name]
-      vertex:{
-          field:teamid
-      }
-      batch: 10
-      partition: 10
-      interval.seconds: 10
-    }
-
-  ]
-
-  # Processing edges
+<p>]</p>
+<p># Processing edges
   edges: [
     # Set the information about Edge Type follow
     {
       # The corresponding Edge Type name in NebulaGraph.
-      name: follow
+      name: follow</p>
+<div class="codehilite"><pre><span></span><code>  type: {
+    # Specify the data source file format to Pulsar.
+    source: pulsar
 
-      type: {
-        # Specify the data source file format to Pulsar.
-        source: pulsar
+    # Specify how to import the Edge type data into NebulaGraph.
+    # Specify how to import the data into NebulaGraph. Only client is supported.
+    sink: client
+  }
 
-        # Specify how to import the Edge type data into NebulaGraph.
-        # Specify how to import the data into NebulaGraph. Only client is supported.
-        sink: client
-      }
+  # The address of the Pulsar server.
+  service: &quot;pulsar://127.0.0.1:6650&quot;
+  # admin.url of pulsar.
+  admin: &quot;http://127.0.0.1:8081&quot;
+  # The Pulsar option can be configured from topic, topics or topicsPattern.
+  options: {
+    topics: &quot;topic1,topic2&quot;
+  }
 
-      # The address of the Pulsar server.
-      service: &quot;pulsar://127.0.0.1:6650&quot;
-      # admin.url of pulsar.
-      admin: &quot;http://127.0.0.1:8081&quot;
-      # The Pulsar option can be configured from topic, topics or topicsPattern.
-      options: {
-        topics: &quot;topic1,topic2&quot;
-      }
+  # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
+  # The sequence of fields and nebula.fields must correspond to each other.
+  # If multiple column names need to be specified, separate them by commas.
+  fields: [degree]
+  nebula.fields: [degree]
 
-      # Specify the column names in the follow table in fields, and their corresponding values are specified as properties in the NebulaGraph.
-      # The sequence of fields and nebula.fields must correspond to each other.
-      # If multiple column names need to be specified, separate them by commas.
-      fields: [degree]
-      nebula.fields: [degree]
+  # In source, use a column in the follow table as the source of the edge&#39;s source vertex.
+  # In target, use a column in the follow table as the source of the edge&#39;s destination vertex.
+  source:{
+      field:src_player
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      # In source, use a column in the follow table as the source of the edge&#39;s source vertex.
-      # In target, use a column in the follow table as the source of the edge&#39;s destination vertex.
-      source:{
-          field:src_player
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  target:{
+      field:dst_player
+  # udf:{
+  #            separator:&quot;_&quot;
+  #            oldColNames:[field-0,field-1,field-2]
+  #            newColName:new-field
+  #        }
+  # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
+  # prefix:&quot;tag1&quot;
+  # Performs hashing operations on VIDs of type string.
+  # policy:hash
+  }
 
-      target:{
-          field:dst_player
-      # udf:{
-      #            separator:&quot;_&quot;
-      #            oldColNames:[field-0,field-1,field-2]
-      #            newColName:new-field
-      #        }
-      # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
-      # Performs hashing operations on VIDs of type string.
-      # policy:hash
-      }
+  # (Optional) Specify a column as the source of the rank.
+  #ranking: rank
 
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: rank
+  # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
+  #writeMode: INSERT
 
-      # Batch operation types, including INSERT, UPDATE, and DELETE. defaults to INSERT.
-      #writeMode: INSERT
+  # The number of data written to NebulaGraph in a single batch.
+  batch: 10
 
-      # The number of data written to NebulaGraph in a single batch.
-      batch: 10
+  # The number of Spark partitions.
+  partition: 10
 
-      # The number of Spark partitions.
-      partition: 10
+  # The interval for message reading. Unit: second.
+  interval.seconds: 10
+}
 
-      # The interval for message reading. Unit: second.
-      interval.seconds: 10
-    }
+# Set the information about the Edge Type serve
+{
+  name: serve
+  type: {
+    source: Pulsar
+    sink: client
+  }
+  service: &quot;pulsar://127.0.0.1:6650&quot;
+  admin: &quot;http://127.0.0.1:8081&quot;
+  options: {
+    topics: &quot;topic1,topic2&quot;
+  }
 
-    # Set the information about the Edge Type serve
-    {
-      name: serve
-      type: {
-        source: Pulsar
-        sink: client
-      }
-      service: &quot;pulsar://127.0.0.1:6650&quot;
-      admin: &quot;http://127.0.0.1:8081&quot;
-      options: {
-        topics: &quot;topic1,topic2&quot;
-      }
+  fields: [start_year,end_year]
+  nebula.fields: [start_year,end_year]
+  source:{
+      field:playerid
+  }
 
-      fields: [start_year,end_year]
-      nebula.fields: [start_year,end_year]
-      source:{
-          field:playerid
-      }
+  target:{
+      field:teamid
+  }
 
-      target:{
-          field:teamid
-      }
+  # (Optional) Specify a column as the source of the rank.
+  #ranking: rank
 
-      # (Optional) Specify a column as the source of the rank.
-      #ranking: rank
-
-      batch: 10
-      partition: 10
-      interval.seconds: 10
-    }
-  ]
+  batch: 10
+  partition: 10
+  interval.seconds: 10
 }
 </code></pre></div>
+
+<p>]
+}
+```</p>
 <h3 id="step_3_import_data_into_nebulagraph">Step 3: Import data into NebulaGraph<a class="headerlink" href="#step_3_import_data_into_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>Run the following command to import Pulsar data into NebulaGraph. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;pulsar_application.conf_path&gt;
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit --master "local" --class com.vesoft.nebula.exchange.Exchange &lt;nebula-exchange-3.5.0.jar_path&gt; -c &lt;pulsar_application.conf_path&gt;</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/pulsar_application.conf
-</code></pre></div>
+<p><code>bash
+${SPARK_HOME}/bin/spark-submit  --master "local" --class com.vesoft.nebula.exchange.Exchange  /root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar  -c /root/nebula-exchange/nebula-exchange/target/classes/pulsar_application.conf</code></p>
 <p>You can search for <code>batchSuccess.&lt;tag_name/edge_name&gt;</code> in the command output to check the number of successes. For example, <code>batchSuccess.follow: 300</code>.</p>
 <h3 id="step_4_optional_validate_data">Step 4: (optional) Validate data<a class="headerlink" href="#step_4_optional_validate_data" title="Permanent link">&para;</a></h3>
 <p>Users can verify that data has been imported by executing a query in the NebulaGraph client (for example, NebulaGraph Studio). For example:</p>
-<div class="highlight"><pre><span></span><code>LOOKUP ON player YIELD id(vertex);
-</code></pre></div>
+<p><code>ngql
+LOOKUP ON player YIELD id(vertex);</code></p>
 <p>Users can also run the <a href="../../../3.ngql-guide/7.general-query-statements/6.show/14.show-stats/"><code>SHOW STATS</code></a> command to view statistics.</p>
 <h3 id="step_5_optional_rebuild_indexes_in_nebulagraph">Step 5: (optional) Rebuild indexes in NebulaGraph<a class="headerlink" href="#step_5_optional_rebuild_indexes_in_nebulagraph" title="Permanent link">&para;</a></h3>
 <p>With the data imported, users can recreate and rebuild indexes in NebulaGraph. For details, see <a href="../../../3.ngql-guide/14.native-index-statements/">Index overview</a>.</p>
@@ -11068,10 +11064,6 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

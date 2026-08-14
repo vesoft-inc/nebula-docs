@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10681,27 +10681,27 @@
 <ul>
 <li>
 <p>Install perf</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>linux-tools-common<span class="w"> </span><span class="se">\</span>
-linux-tools-generic<span class="w"> </span><span class="se">\</span>
-linux-tools-<span class="sb">`</span>uname<span class="w"> </span>-r<span class="sb">`</span>
-</code></pre></div>
+<p><code>bash
+sudo apt-get update
+sudo apt-get install -y linux-tools-common \
+linux-tools-generic \
+linux-tools-`uname -r`</code></p>
 </li>
 </ul>
 <ul>
 <li>
 <p>Install autofdo tool</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>autofdo
-</code></pre></div>
+<p><code>bash
+sudo apt-get update
+sudo apt-get install -y autofdo</code></p>
 <p>Or you can compile the <strong><em>autofdo tool</em></strong> from <a href="https://github.com/google/autofdo.git">source</a>.</p>
 </li>
 </ul>
 <h3 id="nebulagraph_binary_with_debug_version">NebulaGraph Binary with Debug Version<a class="headerlink" href="#nebulagraph_binary_with_debug_version" title="Permanent link">&para;</a></h3>
 <p>For how to build NebulaGraph from source, please refer to the official document: <a href="https://docs.nebula-graph.io/3.3.0/4.deployment-and-installation/2.compile-and-install-nebula-graph/1.install-nebula-graph-by-compiling-the-source-code/">Install NebulaGraph by compiling the source code</a>.
 In the configure step, replace <code>CMAKE_BUILD_TYPE=Release</code> with <code>CMAKE_BUILD_TYPE=RelWithDebInfo</code> as below:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr/local/nebula<span class="w"> </span>-DENABLE_TESTING<span class="o">=</span>OFF<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>RelWithDebInfo<span class="w"> </span>..
-</code></pre></div>
+<p><code>bash
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/nebula -DENABLE_TESTING=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo ..</code></p>
 <h2 id="prepare_test_data">Prepare Test Data<a class="headerlink" href="#prepare_test_data" title="Permanent link">&para;</a></h2>
 <p>In our test environment, we use <a href="https://github.com/nebula-contrib/NebulaGraph-Bench">NebulaGraph Bench</a> to prepare the test data and collect the profile data by running the <strong><em>FindShortestPath</em></strong>, <strong><em>Go1Step</em></strong>, <strong><em>Go2Step</em></strong>, <strong><em>Go3Step</em></strong>, <strong><em>InsertPersonScenario</em></strong> 5 scenarios. </p>
 <div class="admonition note">
@@ -10714,16 +10714,16 @@ In the configure step, replace <code>CMAKE_BUILD_TYPE=Release</code> with <code>
 <li>
 <p>After the test data preparation work done. Collect the perf data for different scenarios.
 Get the pid of <code>storaged</code>, <code>graphd</code>, <code>metad</code>.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nebula.service<span class="w"> </span>status<span class="w"> </span>all
-<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>nebula-metad:<span class="w"> </span>Running<span class="w"> </span>as<span class="w"> </span><span class="m">305422</span>,<span class="w"> </span>Listening<span class="w"> </span>on<span class="w"> </span><span class="m">9559</span>
-<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>nebula-graphd:<span class="w"> </span>Running<span class="w"> </span>as<span class="w"> </span><span class="m">305516</span>,<span class="w"> </span>Listening<span class="w"> </span>on<span class="w"> </span><span class="m">9669</span>
-<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>nebula-storaged:<span class="w"> </span>Running<span class="w"> </span>as<span class="w"> </span><span class="m">305707</span>,<span class="w"> </span>Listening<span class="w"> </span>on<span class="w"> </span><span class="m">9779</span>
-</code></pre></div>
+<p><code>bash
+$ nebula.service status all
+[INFO] nebula-metad: Running as 305422, Listening on 9559
+[INFO] nebula-graphd: Running as 305516, Listening on 9669
+[INFO] nebula-storaged: Running as 305707, Listening on 9779</code></p>
 </li>
 <li>
 <p>Start the <strong><em>perf record</em></strong> for <em>nebula-graphd</em> and <em>nebula-storaged</em>. </p>
-<div class="highlight"><pre><span></span><code>perf<span class="w"> </span>record<span class="w"> </span>-p<span class="w"> </span><span class="m">305516</span>,305707<span class="w"> </span>-b<span class="w"> </span>-e<span class="w"> </span>br_inst_retired.near_taken:pp<span class="w"> </span>-o<span class="w"> </span>~/FindShortestPath.data
-</code></pre></div>
+<p><code>bash
+perf record -p 305516,305707 -b -e br_inst_retired.near_taken:pp -o ~/FindShortestPath.data</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Because the <code>nebula-metad</code> service contribution percent is small compared with <code>nebula-graphd</code> and <code>nebula-storaged</code> services. To reduce effort, we didn't collect the perf data for <code>nebula-metad</code> service.</p>
@@ -10731,9 +10731,9 @@ Get the pid of <code>storaged</code>, <code>graphd</code>, <code>metad</code>.</
 </li>
 <li>
 <p>Start the benchmark test for <strong><em>FindShortestPath</em></strong> scenario.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>NebulaGraph-Bench<span class="w"> </span>
-python3<span class="w"> </span>run.py<span class="w"> </span>stress<span class="w"> </span>run<span class="w"> </span>-s<span class="w"> </span>benchmark<span class="w"> </span>-scenario<span class="w"> </span>find_path.FindShortestPath<span class="w"> </span>-a<span class="w"> </span>localhost:9669<span class="w"> </span>--args<span class="o">=</span><span class="s1">&#39;-u 100 -i 100000&#39;</span>
-</code></pre></div>
+<p><code>bash
+cd NebulaGraph-Bench 
+python3 run.py stress run -s benchmark -scenario find_path.FindShortestPath -a localhost:9669 --args='-u 100 -i 100000'</code></p>
 </li>
 <li>
 <p>After the benchmark finished, end the <strong><em>perf record</em></strong> by <strong><em>Ctrl + c</em></strong>.</p>
@@ -10743,39 +10743,39 @@ python3<span class="w"> </span>run.py<span class="w"> </span>stress<span class="
 </li>
 </ol>
 <h3 id="create_gcov_file">Create Gcov File<a class="headerlink" href="#create_gcov_file" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="nv">$NEBULA_HOME</span>/bin/nebula-storaged<span class="w"> </span><span class="se">\</span>
---profile<span class="o">=</span>~/FindShortestPath.data<span class="w"> </span><span class="se">\</span>
---gcov<span class="o">=</span>~/FindShortestPath-storaged.gcov<span class="w"> </span><span class="se">\</span>
--gcov_version<span class="o">=</span><span class="m">1</span>
-
-create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="nv">$NEBULA_HOME</span>/bin/nebula-graphd<span class="w"> </span><span class="se">\</span>
---profile<span class="o">=</span>~/FindShortestPath.data<span class="w"> </span><span class="se">\</span>
---gcov<span class="o">=</span>~/FindShortestPath-graphd.gcov<span class="w"> </span><span class="se">\</span>
--gcov_version<span class="o">=</span><span class="m">1</span>
-</code></pre></div>
+<p>```bash
+create_gcov --binary=$NEBULA_HOME/bin/nebula-storaged \
+--profile=~/FindShortestPath.data \
+--gcov=~/FindShortestPath-storaged.gcov \
+-gcov_version=1</p>
+<p>create_gcov --binary=$NEBULA_HOME/bin/nebula-graphd \
+--profile=~/FindShortestPath.data \
+--gcov=~/FindShortestPath-graphd.gcov \
+-gcov_version=1
+```</p>
 <p>Repeat for <strong><em>Go1Step</em></strong>, <strong><em>Go2Step</em></strong>, <strong><em>Go3Step</em></strong> and <strong><em>InsertPersonScenario</em></strong> scenarios.</p>
 <h3 id="merge_the_profile_data">Merge the Profile Data<a class="headerlink" href="#merge_the_profile_data" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>profile_merger<span class="w"> </span>~/FindShortestPath-graphd.gcov<span class="w"> </span><span class="se">\</span>
-~/FindShortestPath-storaged.gcov<span class="w"> </span><span class="se">\</span>
-~/go1step-storaged.gcov<span class="w"> </span><span class="se">\</span>
-~/go1step-graphd.gcov<span class="w"> </span><span class="se">\</span>
-~/go2step-storaged.gcov<span class="w"> </span><span class="se">\</span>
-~/go2step-graphd.gcov<span class="w"> </span><span class="se">\</span>
-~/go3step-storaged.gcov<span class="w"> </span><span class="se">\</span>
-~/go3step-master-graphd.gcov<span class="w"> </span><span class="se">\</span>
-~/InsertPersonScenario-storaged.gcov<span class="w"> </span><span class="se">\</span>
-~/InsertPersonScenario-graphd.gcov
-</code></pre></div>
+<p><code>bash
+profile_merger ~/FindShortestPath-graphd.gcov \
+~/FindShortestPath-storaged.gcov \
+~/go1step-storaged.gcov \
+~/go1step-graphd.gcov \
+~/go2step-storaged.gcov \
+~/go2step-graphd.gcov \
+~/go3step-storaged.gcov \
+~/go3step-master-graphd.gcov \
+~/InsertPersonScenario-storaged.gcov \
+~/InsertPersonScenario-graphd.gcov</code></p>
 <p>You will get a merged profile which is named <code>fbdata.afdo</code> after that.</p>
 <h2 id="recompile_graphnebula_binary_with_the_merged_profile">Recompile GraphNebula Binary with the Merged Profile<a class="headerlink" href="#recompile_graphnebula_binary_with_the_merged_profile" title="Permanent link">&para;</a></h2>
 <p>Recompile the GraphNebula Binary by passing the profile with compile option <code>-fauto-profile</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralCompilerConfig.cmake</span>
-<span class="gu">@@ -20,6 +20,8 @@ add_compile_options(-Wshadow)</span>
-<span class="w"> </span>add_compile_options(-Wnon-virtual-dtor)
-<span class="w"> </span>add_compile_options(-Woverloaded-virtual)
-<span class="w"> </span>add_compile_options(-Wignored-qualifiers)
-<span class="gi">+add_compile_options(-fauto-profile=~/fbdata.afdo)</span>
-</code></pre></div>
+<p><code>diff
+diff --git a/cmake/nebula/GeneralCompilerConfig.cmake b/cmake/nebula/GeneralCompilerConfig.cmake
+@@ -20,6 +20,8 @@ add_compile_options(-Wshadow)
+ add_compile_options(-Wnon-virtual-dtor)
+ add_compile_options(-Woverloaded-virtual)
+ add_compile_options(-Wignored-qualifiers)
++add_compile_options(-fauto-profile=~/fbdata.afdo)</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When you use multiple fbdata.afdo to compile multiple times, please remember to <code>make clean</code> before re-compile, baucase only change the fbdata.afdo will not trigger re-compile.</p>
@@ -11345,10 +11345,6 @@ create_gcov<span class="w"> </span>--binary<span class="o">=</span><span class="
         <script src="../../js/search.js"></script>
       
         <script src="../../js/config.js"></script>
-      
-        <script src="../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

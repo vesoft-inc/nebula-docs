@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10525,11 +10525,11 @@
 <p>Don't use <code>UPSERT</code> for scenarios with highly concurrent writes. You can use <code>UPDATE</code> or <code>INSERT</code> instead.</p>
 </div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>UPSERT VERTEX ON &lt;tag&gt; &lt;vid&gt;
+<p><code>ngql
+UPSERT VERTEX ON &lt;tag&gt; &lt;vid&gt;
 SET &lt;update_prop&gt;
 [WHEN &lt;condition&gt;]
-[YIELD &lt;output&gt;]
-</code></pre></div>
+[YIELD &lt;output&gt;]</code></p>
 <table>
 <thead>
 <tr>
@@ -10625,103 +10625,99 @@ SET &lt;update_prop&gt;
 </tbody>
 </table>
 <p>Here are some examples:</p>
-<div class="highlight"><pre><span></span><code>// This query checks if the following three vertices exist. The result &quot;Empty set&quot; indicates that the vertices do not exist.
-nebula&gt; FETCH PROP ON * &quot;player666&quot;, &quot;player667&quot;, &quot;player668&quot; YIELD properties(vertex);
+<p>```ngql
+// This query checks if the following three vertices exist. The result "Empty set" indicates that the vertices do not exist.
+nebula&gt; FETCH PROP ON * "player666", "player667", "player668" YIELD properties(vertex);
 +--------------------+
 | properties(VERTEX) |
 +--------------------+
 +--------------------+
-Empty set
-
-nebula&gt; UPSERT VERTEX ON player &quot;player666&quot; \
+Empty set</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player666" \
         SET age = 30 \
-        WHEN name == &quot;Joe&quot; \
+        WHEN name == "Joe" \
         YIELD name AS Name, age AS Age;
 +----------+----------+
 | Name     | Age      |
 +----------+----------+
-| __NULL__ | 30       |
-+----------+----------+
-
-nebula&gt; UPSERT VERTEX ON player &quot;player666&quot; \
+| <strong>NULL</strong> | 30       |
++----------+----------+</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player666" \
         SET age = 31 \
-        WHEN name == &quot;Joe&quot; \
+        WHEN name == "Joe" \
         YIELD name AS Name, age AS Age;
 +----------+-----+
 | Name     | Age |
 +----------+-----+
-| __NULL__ | 30  |
-+----------+-----+
-
-nebula&gt; UPSERT VERTEX ON player &quot;player667&quot; \
+| <strong>NULL</strong> | 30  |
++----------+-----+</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player667" \
         SET age = 31 \
         YIELD name AS Name, age AS Age;
 +----------+-----+
 | Name     | Age |
 +----------+-----+
-| __NULL__ | 31  |
-+----------+-----+
-
-nebula&gt; UPSERT VERTEX ON player &quot;player668&quot; \
-        SET name = &quot;Amber&quot;, age = age + 1 \
+| <strong>NULL</strong> | 31  |
++----------+-----+</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player668" \
+        SET name = "Amber", age = age + 1 \
         YIELD name AS Name, age AS Age;
 +---------+----------+
 | Name    | Age      |
 +---------+----------+
-| &quot;Amber&quot; | __NULL__ |
+| "Amber" | <strong>NULL</strong> |
 +---------+----------+
-</code></pre></div>
+```</p>
 <p>In the last query of the preceding examples, since <code>age</code> has no default value, when the vertex is created, <code>age</code> is <code>NULL</code>, and <code>age = age + 1</code> does not take effect. But if <code>age</code> has a default value, <code>age = age + 1</code> will take effect. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; CREATE TAG IF NOT EXISTS player_with_default(name string, age int DEFAULT 20);
-Execution succeeded
-
-nebula&gt; UPSERT VERTEX ON player_with_default &quot;player101&quot; \
+<p>```ngql
+nebula&gt; CREATE TAG IF NOT EXISTS player_with_default(name string, age int DEFAULT 20);
+Execution succeeded</p>
+<p>nebula&gt; UPSERT VERTEX ON player_with_default "player101" \
         SET age = age + 1 \
-        YIELD name AS Name, age AS Age;
-
-+----------+-----+
+        YIELD name AS Name, age AS Age;</p>
+<p>+----------+-----+
 | Name     | Age |
 +----------+-----+
-| __NULL__ | 21  |
+| <strong>NULL</strong> | 21  |
 +----------+-----+
-</code></pre></div>
+```</p>
 <h2 id="update_a_vertex_if_it_exists">Update a vertex if it exists<a class="headerlink" href="#update_a_vertex_if_it_exists" title="Permanent link">&para;</a></h2>
 <p>If the vertex exists and the <code>WHEN</code> conditions are met, the vertex is updated.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot; YIELD properties(vertex);
+<p>```ngql
+nebula&gt; FETCH PROP ON player "player101" YIELD properties(vertex);
 +--------------------------------+
 | properties(VERTEX)             |
 +--------------------------------+
-| {age: 36, name: &quot;Tony Parker&quot;} |
-+--------------------------------+
-
-nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
+| {age: 36, name: "Tony Parker"} |
++--------------------------------+</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player101" \
         SET age = age + 2 \
-        WHEN name == &quot;Tony Parker&quot; \
+        WHEN name == "Tony Parker" \
         YIELD name AS Name, age AS Age;
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
-| &quot;Tony Parker&quot; | 38  |
+| "Tony Parker" | 38  |
 +---------------+-----+
-</code></pre></div>
+```</p>
 <p>If the vertex exists and the <code>WHEN</code> conditions are not met, the update does not take effect.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot; YIELD properties(vertex);
+<p>```ngql
+nebula&gt; FETCH PROP ON player "player101" YIELD properties(vertex);
 +--------------------------------+
 | properties(VERTEX)             |
 +--------------------------------+
-| {age: 38, name: &quot;Tony Parker&quot;} |
-+--------------------------------+
-
-nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
+| {age: 38, name: "Tony Parker"} |
++--------------------------------+</p>
+<p>nebula&gt; UPSERT VERTEX ON player "player101" \
         SET age = age + 2 \
-        WHEN name == &quot;Someone else&quot; \
+        WHEN name == "Someone else" \
         YIELD name AS Name, age AS Age;
 +---------------+-----+
 | Name          | Age |
 +---------------+-----+
-| &quot;Tony Parker&quot; | 38  |
+| "Tony Parker" | 38  |
 +---------------+-----+
-</code></pre></div>
+```</p>
 
   <hr>
 <div class="md-source-file">
@@ -10810,10 +10806,6 @@ nebula&gt; UPSERT VERTEX ON player &quot;player101&quot; \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10541,38 +10541,38 @@
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <ul>
-<li>OpenCypher compatibility statement<div class="highlight"><pre><span></span><code># Connect multiple queries with clauses.
-nebula&gt; MATCH p=(v:player{name:&quot;Tim Duncan&quot;})--() \
-        WITH nodes(p) AS n \
-        UNWIND n AS n1 \
-        RETURN DISTINCT n1;
-</code></pre></div>
+<li>OpenCypher compatibility statement<p><code>ngql
+  # Connect multiple queries with clauses.
+  nebula&gt; MATCH p=(v:player{name:"Tim Duncan"})--() \
+          WITH nodes(p) AS n \
+          UNWIND n AS n1 \
+          RETURN DISTINCT n1;</code></p>
 </li>
 </ul>
 <ul>
-<li>Native nGQL (Semicolon queries)<div class="highlight"><pre><span></span><code># Only return edges.
-nebula&gt; SHOW TAGS; SHOW EDGES;
-
-# Insert multiple vertices.
-nebula&gt; INSERT VERTEX player(name, age) VALUES &quot;player100&quot;:(&quot;Tim Duncan&quot;, 42); \
-        INSERT VERTEX player(name, age) VALUES &quot;player101&quot;:(&quot;Tony Parker&quot;, 36); \
-        INSERT VERTEX player(name, age) VALUES &quot;player102&quot;:(&quot;LaMarcus Aldridge&quot;, 33);
-</code></pre></div>
+<li>Native nGQL (Semicolon queries)<p>```ngql
+  # Only return edges.
+  nebula&gt; SHOW TAGS; SHOW EDGES;</p>
+<p># Insert multiple vertices.
+  nebula&gt; INSERT VERTEX player(name, age) VALUES "player100":("Tim Duncan", 42); \
+          INSERT VERTEX player(name, age) VALUES "player101":("Tony Parker", 36); \
+          INSERT VERTEX player(name, age) VALUES "player102":("LaMarcus Aldridge", 33);
+  ```</p>
 </li>
 </ul>
 <ul>
-<li>Native nGQL (Pipe queries)<div class="highlight"><pre><span></span><code># Connect multiple queries with pipes.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id | \
-        GO FROM $-.id OVER serve YIELD properties($$).name AS Team, \
-        properties($^).name AS Player;
-+-----------+-----------------+
-| Team      | Player          |
-+-----------+-----------------+
-| &quot;Spurs&quot;   | &quot;Tony Parker&quot;   |
-| &quot;Hornets&quot; | &quot;Tony Parker&quot;   |
-| &quot;Spurs&quot;   | &quot;Manu Ginobili&quot; |
-+-----------+-----------------+
-</code></pre></div>
+<li>Native nGQL (Pipe queries)<p><code>ngql
+  # Connect multiple queries with pipes.
+  nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) AS id | \
+          GO FROM $-.id OVER serve YIELD properties($$).name AS Team, \
+          properties($^).name AS Player;
+  +-----------+-----------------+
+  | Team      | Player          |
+  +-----------+-----------------+
+  | "Spurs"   | "Tony Parker"   |
+  | "Hornets" | "Tony Parker"   |
+  | "Spurs"   | "Manu Ginobili" |
+  +-----------+-----------------+</code></p>
 </li>
 </ul>
 
@@ -10663,10 +10663,6 @@ nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id | \
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

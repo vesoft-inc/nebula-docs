@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10557,8 +10557,8 @@
 <p>The default severity level for the metad, graphd, and storaged logs can be found in their respective configuration files. The default path is <code>/usr/local/nebula/etc/</code>.</p>
 <h2 id="check_the_severity_level">Check the severity level<a class="headerlink" href="#check_the_severity_level" title="Permanent link">&para;</a></h2>
 <p>Check all the flag values (log values included) of the current gflags with the following command.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>&lt;ws_ip&gt;:&lt;ws_port&gt;/flags
-</code></pre></div>
+<p><code>bash
+$ curl &lt;ws_ip&gt;:&lt;ws_port&gt;/flags</code></p>
 <table>
 <thead>
 <tr>
@@ -10579,19 +10579,19 @@
 </table>
 <p>Examples are as follows:</p>
 <ul>
-<li>Check the current <code>minloglevel</code> in the Meta service:<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="m">127</span>.0.0.1:19559/flags<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;minloglevel&#39;</span>
-</code></pre></div>
+<li>Check the current <code>minloglevel</code> in the Meta service:<p><code>bash
+  $ curl 127.0.0.1:19559/flags | grep 'minloglevel'</code></p>
 </li>
 </ul>
 <ul>
-<li>Check the current <code>v</code> in the Storage service:<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="m">127</span>.0.0.1:19779/flags<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-w<span class="w"> </span><span class="s1">&#39;v&#39;</span>
-</code></pre></div>
+<li>Check the current <code>v</code> in the Storage service:<p><code>bash
+  $ curl 127.0.0.1:19779/flags | grep -w 'v'</code></p>
 </li>
 </ul>
 <h2 id="change_the_severity_level">Change the severity level<a class="headerlink" href="#change_the_severity_level" title="Permanent link">&para;</a></h2>
 <p>Change the severity level of the log with the following command.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;&lt;key&gt;&quot;:&lt;value&gt;[,&quot;&lt;key&gt;&quot;:&lt;value&gt;]}&#39;</span><span class="w"> </span><span class="s2">&quot;&lt;ws_ip&gt;:&lt;ws_port&gt;/flags&quot;</span>
-</code></pre></div>
+<p><code>bash
+$ curl -X PUT -H "Content-Type: application/json" -d '{"&lt;key&gt;":&lt;value&gt;[,"&lt;key&gt;":&lt;value&gt;]}' "&lt;ws_ip&gt;:&lt;ws_port&gt;/flags"</code></p>
 <table>
 <thead>
 <tr>
@@ -10619,10 +10619,11 @@
 </tbody>
 </table>
 <p>Examples are as follows:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;minloglevel&quot;:0,&quot;v&quot;:3}&#39;</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:19779/flags&quot;</span><span class="w"> </span><span class="c1"># storaged</span>
-$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;minloglevel&quot;:0,&quot;v&quot;:3}&#39;</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:19669/flags&quot;</span><span class="w"> </span><span class="c1"># graphd</span>
-$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;minloglevel&quot;:0,&quot;v&quot;:3}&#39;</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:19559/flags&quot;</span><span class="w"> </span><span class="c1"># metad</span>
-</code></pre></div>
+<p>```bash
+$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19779/flags" # storaged
+$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19669/flags" # graphd
+$ curl -X PUT -H "Content-Type: application/json" -d '{"minloglevel":0,"v":3}' "127.0.0.1:19559/flags" # metad</p>
+<p>```</p>
 <p>If the log level is changed while NebulaGraph is running, it will be restored to the level set in the configuration file after restarting the service. To permanently modify it, see <a href="../../1.configurations/1.configurations/">Configuration files</a>.</p>
 <h2 id="rocksdb_runtime_logs">RocksDB runtime logs<a class="headerlink" href="#rocksdb_runtime_logs" title="Permanent link">&para;</a></h2>
 <p>RocksDB runtime logs are usually used to debug RocksDB parameters and stored in <code>/usr/local/nebula/data/storage/nebula/$id/data/LOG</code>. <code>$id</code> is the ID of the example.</p>
@@ -10714,10 +10715,6 @@ $<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>P
         <script src="../../../js/search.js"></script>
       
         <script src="../../../js/config.js"></script>
-      
-        <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
