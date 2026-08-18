@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10861,7 +10861,7 @@ nebula&gt; SHOW LISTENER;
 // This example creates the tag.
 nebula&gt; CREATE TAG IF NOT EXISTS player(name string, age int);
 
-// This example creates the full-text index. The index name starts with &quot;nebula_&quot;.
+// This example creates the full-text index. The index name starts with "nebula_".
 nebula&gt; CREATE FULLTEXT TAG INDEX nebula_index_1 ON player(name);
 
 // This example rebuilds the full-text index.
@@ -10872,69 +10872,69 @@ nebula&gt; SHOW FULLTEXT INDEXES;
 +------------------+-------------+-------------+--------+
 | Name             | Schema Type | Schema Name | Fields |
 +------------------+-------------+-------------+--------+
-| &quot;nebula_index_1&quot; | &quot;Tag&quot;       | &quot;player&quot;    | &quot;name&quot; |
+| "nebula_index_1" | "Tag"       | "player"    | "name" |
 +------------------+-------------+-------------+--------+
 
 // This example inserts the test data.
 nebula&gt; INSERT VERTEX player(name, age) VALUES \
-  &quot;Russell Westbrook&quot;: (&quot;Russell Westbrook&quot;, 30), \
-  &quot;Chris Paul&quot;: (&quot;Chris Paul&quot;, 33),\
-  &quot;Boris Diaw&quot;: (&quot;Boris Diaw&quot;, 36),\
-  &quot;David West&quot;: (&quot;David West&quot;, 38),\
-  &quot;Danny Green&quot;: (&quot;Danny Green&quot;, 31),\
-  &quot;Tim Duncan&quot;: (&quot;Tim Duncan&quot;, 42),\
-  &quot;James Harden&quot;: (&quot;James Harden&quot;, 29),\
-  &quot;Tony Parker&quot;: (&quot;Tony Parker&quot;, 36),\
-  &quot;Aron Baynes&quot;: (&quot;Aron Baynes&quot;, 32),\
-  &quot;Ben Simmons&quot;: (&quot;Ben Simmons&quot;, 22),\
-  &quot;Blake Griffin&quot;: (&quot;Blake Griffin&quot;, 30);
+  "Russell Westbrook": ("Russell Westbrook", 30), \
+  "Chris Paul": ("Chris Paul", 33),\
+  "Boris Diaw": ("Boris Diaw", 36),\
+  "David West": ("David West", 38),\
+  "Danny Green": ("Danny Green", 31),\
+  "Tim Duncan": ("Tim Duncan", 42),\
+  "James Harden": ("James Harden", 29),\
+  "Tony Parker": ("Tony Parker", 36),\
+  "Aron Baynes": ("Aron Baynes", 32),\
+  "Ben Simmons": ("Ben Simmons", 22),\
+  "Blake Griffin": ("Blake Griffin", 30);
 
 // These examples run test queries.
-nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, &quot;B&quot;) YIELD id(vertex);
+nebula&gt; LOOKUP ON player WHERE PREFIX(player.name, "B") YIELD id(vertex);
 +-----------------+
 | id(VERTEX)      |
 +-----------------+
-| &quot;Boris Diaw&quot;    |
-| &quot;Ben Simmons&quot;   |
-| &quot;Blake Griffin&quot; |
+| "Boris Diaw"    |
+| "Ben Simmons"   |
+| "Blake Griffin" |
 +-----------------+
 
-nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, &quot;*ri*&quot;) YIELD player.name, player.age;
+nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, "*ri*") YIELD player.name, player.age;
 +-----------------+-----+
 | name            | age |
 +-----------------+-----+
-| &quot;Chris Paul&quot;    | 33  |
-| &quot;Boris Diaw&quot;    | 36  |
-| &quot;Blake Griffin&quot; | 30  |
+| "Chris Paul"    | 33  |
+| "Boris Diaw"    | 36  |
+| "Blake Griffin" | 30  |
 +-----------------+-----+
 
-nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, &quot;*ri*&quot;) YIELD player.name, player.age | YIELD count(*);
+nebula&gt; LOOKUP ON player WHERE WILDCARD(player.name, "*ri*") YIELD player.name, player.age | YIELD count(*);
 +----------+
 | count(*) |
 +----------+
 | 3        |
 +----------+
 
-nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, &quot;R.*&quot;) YIELD player.name, player.age;
+nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, "R.*") YIELD player.name, player.age;
 +---------------------+-----+
 | name                | age |
 +---------------------+-----+
-| &quot;Russell Westbrook&quot; | 30  |
+| "Russell Westbrook" | 30  |
 +---------------------+-----+
 
-nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, &quot;.*&quot;) YIELD id(vertex);
+nebula&gt; LOOKUP ON player WHERE REGEXP(player.name, ".*") YIELD id(vertex);
 +---------------------+
 | id(VERTEX)          |
 +---------------------+
-| &quot;Danny Green&quot;       |
-| &quot;David West&quot;        |
+| "Danny Green"       |
+| "David West"        |
 ...
 
-nebula&gt; LOOKUP ON player WHERE FUZZY(player.name, &quot;Tim Dunncan&quot;, AUTO, OR) YIELD player.name;
+nebula&gt; LOOKUP ON player WHERE FUZZY(player.name, "Tim Dunncan", AUTO, OR) YIELD player.name;
 +--------------+
 | name         |
 +--------------+
-| &quot;Tim Duncan&quot; |
+| "Tim Duncan" |
 +--------------+
 
 // This example drops the full-text index.
@@ -10952,7 +10952,7 @@ nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
 <p>Full-text queries enable you to search for parsed text fields, using a parser with strict syntax to return content based on the query string provided. For details, see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query">Query string query</a>.</p>
 <h2 id="syntax_1">Syntax<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h2>
 <h3 id="create_full-text_indexes_1">Create full-text indexes<a class="headerlink" href="#create_full-text_indexes_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (&lt;prop_name&gt; [,&lt;prop_name&gt;]...) [ANALYZER=&quot;&lt;analyzer_name&gt;&quot;];
+<div class="highlight"><pre><span></span><code>CREATE FULLTEXT {TAG | EDGE} INDEX &lt;index_name&gt; ON {&lt;tag_name&gt; | &lt;edge_name&gt;} (&lt;prop_name&gt; [,&lt;prop_name&gt;]...) [ANALYZER="&lt;analyzer_name&gt;"];
 </code></pre></div>
 <ul>
 <li>Composite indexes with multiple properties are supported when creating full-text indexes.</li>
@@ -10972,7 +10972,7 @@ nebula&gt; DROP FULLTEXT INDEX nebula_index_1;
 <div class="highlight"><pre><span></span><code>DROP FULLTEXT INDEX &lt;index_name&gt;;
 </code></pre></div>
 <h3 id="use_query_options_1">Use query options<a class="headerlink" href="#use_query_options_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE ES_QUERY(&lt;index_name&gt;, &quot;&lt;text&gt;&quot;) YIELD &lt;return_list&gt; [| LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;];
+<div class="highlight"><pre><span></span><code>LOOKUP ON {&lt;tag&gt; | &lt;edge_type&gt;} WHERE ES_QUERY(&lt;index_name&gt;, "&lt;text&gt;") YIELD &lt;return_list&gt; [| LIMIT [&lt;offset&gt;,] &lt;number_rows&gt;];
 
 &lt;return_list&gt;
     &lt;prop_name&gt; [AS &lt;prop_alias&gt;] [, &lt;prop_name&gt; [AS &lt;prop_alias&gt;] ...] [, id(vertex)  [AS &lt;prop_alias&gt;]] [, score() AS &lt;score_alias&gt;]
@@ -10998,7 +10998,7 @@ nebula&gt; SHOW TEXT SEARCH CLIENTS;
 +-----------------+-----------------+------+
 | Type            | Host            | Port |
 +-----------------+-----------------+------+
-| &quot;ELASTICSEARCH&quot; | &quot;192.168.8.100&quot; | 9200 |
+| "ELASTICSEARCH" | "192.168.8.100" | 9200 |
 +-----------------+-----------------+------+
 
 // This example switches the graph space.
@@ -11012,19 +11012,19 @@ nebula&gt; SHOW LISTENER;
 +--------+-----------------+------------------------+-------------+
 | PartId | Type            | Host                   | Host Status |
 +--------+-----------------+------------------------+-------------+
-| 1      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
-| 2      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
-| 3      | &quot;ELASTICSEARCH&quot; | &quot;&quot;192.168.8.100&quot;:9789&quot; | &quot;ONLINE&quot;    |
+| 1      | "ELASTICSEARCH" | ""192.168.8.100":9789" | "ONLINE"    |
+| 2      | "ELASTICSEARCH" | ""192.168.8.100":9789" | "ONLINE"    |
+| 3      | "ELASTICSEARCH" | ""192.168.8.100":9789" | "ONLINE"    |
 +--------+-----------------+------------------------+-------------+
 
 // This example creates the tag.
 nebula&gt; CREATE TAG IF NOT EXISTS player(name string, city string);
 
 // This example creates a single-attribute full-text index.
-nebula&gt; CREATE FULLTEXT TAG INDEX fulltext_index_1 ON player(name) ANALYZER=&quot;standard&quot;;
+nebula&gt; CREATE FULLTEXT TAG INDEX fulltext_index_1 ON player(name) ANALYZER="standard";
 
 // This example creates a multi-attribute full-text indexe.
-nebula&gt; CREATE FULLTEXT TAG INDEX fulltext_index_2 ON player(name,city) ANALYZER=&quot;standard&quot;;
+nebula&gt; CREATE FULLTEXT TAG INDEX fulltext_index_2 ON player(name,city) ANALYZER="standard";
 
 // This example rebuilds the full-text index.
 nebula&gt; REBUILD FULLTEXT INDEX;
@@ -11034,121 +11034,121 @@ nebula&gt; SHOW FULLTEXT INDEXES;
 +--------------------+-------------+-------------+--------------+------------+
 | Name               | Schema Type | Schema Name | Fields       | Analyzer   |
 +--------------------+-------------+-------------+--------------+------------+
-| &quot;fulltext_index_1&quot; | &quot;Tag&quot;       | &quot;player&quot;    | &quot;name&quot;       | &quot;standard&quot; |
-| &quot;fulltext_index_2&quot; | &quot;Tag&quot;       | &quot;player&quot;    | &quot;name, city&quot; | &quot;standard&quot; |
+| "fulltext_index_1" | "Tag"       | "player"    | "name"       | "standard" |
+| "fulltext_index_2" | "Tag"       | "player"    | "name, city" | "standard" |
 +--------------------+-------------+-------------+--------------+------------+
 
 // This example inserts the test data.
 nebula&gt; INSERT VERTEX player(name, city) VALUES \
-  &quot;Russell Westbrook&quot;: (&quot;Russell Westbrook&quot;, &quot;Los Angeles&quot;), \
-  &quot;Chris Paul&quot;: (&quot;Chris Paul&quot;, &quot;Houston&quot;),\
-  &quot;Boris Diaw&quot;: (&quot;Boris Diaw&quot;, &quot;Houston&quot;),\
-  &quot;David West&quot;: (&quot;David West&quot;, &quot;Philadelphia&quot;),\
-  &quot;Danny Green&quot;: (&quot;Danny Green&quot;, &quot;Philadelphia&quot;),\
-  &quot;Tim Duncan&quot;: (&quot;Tim Duncan&quot;, &quot;New York&quot;),\
-  &quot;James Harden&quot;: (&quot;James Harden&quot;, &quot;New York&quot;),\
-  &quot;Tony Parker&quot;: (&quot;Tony Parker&quot;, &quot;Chicago&quot;),\
-  &quot;Aron Baynes&quot;: (&quot;Aron Baynes&quot;, &quot;Chicago&quot;),\
-  &quot;Ben Simmons&quot;: (&quot;Ben Simmons&quot;, &quot;Phoenix&quot;),\
-  &quot;Blake Griffin&quot;: (&quot;Blake Griffin&quot;, &quot;Phoenix&quot;);
+  "Russell Westbrook": ("Russell Westbrook", "Los Angeles"), \
+  "Chris Paul": ("Chris Paul", "Houston"),\
+  "Boris Diaw": ("Boris Diaw", "Houston"),\
+  "David West": ("David West", "Philadelphia"),\
+  "Danny Green": ("Danny Green", "Philadelphia"),\
+  "Tim Duncan": ("Tim Duncan", "New York"),\
+  "James Harden": ("James Harden", "New York"),\
+  "Tony Parker": ("Tony Parker", "Chicago"),\
+  "Aron Baynes": ("Aron Baynes", "Chicago"),\
+  "Ben Simmons": ("Ben Simmons", "Phoenix"),\
+  "Blake Griffin": ("Blake Griffin", "Phoenix");
 
 // These examples run test queries.
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;Chris&quot;) YIELD id(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"Chris") YIELD id(vertex);
 +--------------+
 | id(VERTEX)   |
 +--------------+
-| &quot;Chris Paul&quot; |
+| "Chris Paul" |
 +--------------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;Harden&quot;) YIELD properties(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"Harden") YIELD properties(vertex);
 +----------------------------------------------------------------+
 | properties(VERTEX)                                             |
 +----------------------------------------------------------------+
-| {_vid: &quot;James Harden&quot;, city: &quot;New York&quot;, name: &quot;James Harden&quot;} |
+| {_vid: "James Harden", city: "New York", name: "James Harden"} |
 +----------------------------------------------------------------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;Da*&quot;) YIELD properties(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"Da*") YIELD properties(vertex);
 +------------------------------------------------------------------+
 | properties(VERTEX)                                               |
 +------------------------------------------------------------------+
-| {_vid: &quot;David West&quot;, city: &quot;Philadelphia&quot;, name: &quot;David West&quot;}   |
-| {_vid: &quot;Danny Green&quot;, city: &quot;Philadelphia&quot;, name: &quot;Danny Green&quot;} |
+| {_vid: "David West", city: "Philadelphia", name: "David West"}   |
+| {_vid: "Danny Green", city: "Philadelphia", name: "Danny Green"} |
 +------------------------------------------------------------------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;*b*&quot;) YIELD id(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"*b*") YIELD id(vertex);
 +---------------------+
 | id(VERTEX)          |
 +---------------------+
-| &quot;Russell Westbrook&quot; |
-| &quot;Boris Diaw&quot;        |
-| &quot;Aron Baynes&quot;       |
-| &quot;Ben Simmons&quot;       |
-| &quot;Blake Griffin&quot;     |
+| "Russell Westbrook" |
+| "Boris Diaw"        |
+| "Aron Baynes"       |
+| "Ben Simmons"       |
+| "Blake Griffin"     |
 +---------------------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;*b*&quot;) YIELD id(vertex) | LIMIT 2,3;
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"*b*") YIELD id(vertex) | LIMIT 2,3;
 +-----------------+
 | id(VERTEX)      |
 +-----------------+
-| &quot;Aron Baynes&quot;   |
-| &quot;Ben Simmons&quot;   |
-| &quot;Blake Griffin&quot; |
+| "Aron Baynes"   |
+| "Ben Simmons"   |
+| "Blake Griffin" |
 +-----------------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;*b*&quot;) YIELD id(vertex) | YIELD count(*);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"*b*") YIELD id(vertex) | YIELD count(*);
 +----------+
 | count(*) |
 +----------+
 | 5        |
 +----------+
 
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;*b*&quot;) YIELD id(vertex), score() AS score;
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"*b*") YIELD id(vertex), score() AS score;
 +---------------------+-------+
 | id(VERTEX)          | score |
 +---------------------+-------+
-| &quot;Russell Westbrook&quot; | 1.0   |
-| &quot;Boris Diaw&quot;        | 1.0   |
-| &quot;Aron Baynes&quot;       | 1.0   |
-| &quot;Ben Simmons&quot;       | 1.0   |
-| &quot;Blake Griffin&quot;     | 1.0   |
+| "Russell Westbrook" | 1.0   |
+| "Boris Diaw"        | 1.0   |
+| "Aron Baynes"       | 1.0   |
+| "Ben Simmons"       | 1.0   |
+| "Blake Griffin"     | 1.0   |
 +---------------------+-------+
 
 // For documents containing a word `b`, its score will be multiplied by a weighting factor of 4, while for documents containing a word `c`, the default weighting factor of 1 is used.
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,&quot;*b*^4 OR *c*&quot;) YIELD id(vertex), score() AS score;
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_1,"*b*^4 OR *c*") YIELD id(vertex), score() AS score;
 +---------------------+-------+
 | id(VERTEX)          | score |
 +---------------------+-------+
-| &quot;Russell Westbrook&quot; | 4.0   |
-| &quot;Boris Diaw&quot;        | 4.0   |
-| &quot;Aron Baynes&quot;       | 4.0   |
-| &quot;Ben Simmons&quot;       | 4.0   |
-| &quot;Blake Griffin&quot;     | 4.0   |
-| &quot;Chris Paul&quot;        | 1.0   |
-| &quot;Tim Duncan&quot;        | 1.0   |
+| "Russell Westbrook" | 4.0   |
+| "Boris Diaw"        | 4.0   |
+| "Aron Baynes"       | 4.0   |
+| "Ben Simmons"       | 4.0   |
+| "Blake Griffin"     | 4.0   |
+| "Chris Paul"        | 1.0   |
+| "Tim Duncan"        | 1.0   |
 +---------------------+-------+
 
 // When using a multi-attribute full-text index query, the conditions are matched within all properties of the index.
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_2,&quot;*h*&quot;) YIELD properties(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_2,"*h*") YIELD properties(vertex);
 +------------------------------------------------------------------+
 | properties(VERTEX)                                               |
 +------------------------------------------------------------------+
-| {_vid: &quot;Chris Paul&quot;, city: &quot;Houston&quot;, name: &quot;Chris Paul&quot;}        |
-| {_vid: &quot;Boris Diaw&quot;, city: &quot;Houston&quot;, name: &quot;Boris Diaw&quot;}        |
-| {_vid: &quot;David West&quot;, city: &quot;Philadelphia&quot;, name: &quot;David West&quot;}   |
-| {_vid: &quot;James Harden&quot;, city: &quot;New York&quot;, name: &quot;James Harden&quot;}   |
-| {_vid: &quot;Tony Parker&quot;, city: &quot;Chicago&quot;, name: &quot;Tony Parker&quot;}      |
-| {_vid: &quot;Aron Baynes&quot;, city: &quot;Chicago&quot;, name: &quot;Aron Baynes&quot;}      |
-| {_vid: &quot;Ben Simmons&quot;, city: &quot;Phoenix&quot;, name: &quot;Ben Simmons&quot;}      |
-| {_vid: &quot;Blake Griffin&quot;, city: &quot;Phoenix&quot;, name: &quot;Blake Griffin&quot;}  |
-| {_vid: &quot;Danny Green&quot;, city: &quot;Philadelphia&quot;, name: &quot;Danny Green&quot;} |
+| {_vid: "Chris Paul", city: "Houston", name: "Chris Paul"}        |
+| {_vid: "Boris Diaw", city: "Houston", name: "Boris Diaw"}        |
+| {_vid: "David West", city: "Philadelphia", name: "David West"}   |
+| {_vid: "James Harden", city: "New York", name: "James Harden"}   |
+| {_vid: "Tony Parker", city: "Chicago", name: "Tony Parker"}      |
+| {_vid: "Aron Baynes", city: "Chicago", name: "Aron Baynes"}      |
+| {_vid: "Ben Simmons", city: "Phoenix", name: "Ben Simmons"}      |
+| {_vid: "Blake Griffin", city: "Phoenix", name: "Blake Griffin"}  |
+| {_vid: "Danny Green", city: "Philadelphia", name: "Danny Green"} |
 +------------------------------------------------------------------+
 
 // When using multi-attribute full-text index queries, you can specify different text for different properties for the query.
-nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_2,&quot;name:*b* AND city:Houston&quot;) YIELD properties(vertex);
+nebula&gt; LOOKUP ON player WHERE ES_QUERY(fulltext_index_2,"name:*b* AND city:Houston") YIELD properties(vertex);
 +-----------------------------------------------------------+
 | properties(VERTEX)                                        |
 +-----------------------------------------------------------+
-| {_vid: &quot;Boris Diaw&quot;, city: &quot;Houston&quot;, name: &quot;Boris Diaw&quot;} |
+| {_vid: "Boris Diaw", city: "Houston", name: "Boris Diaw"} |
 +-----------------------------------------------------------+
 
 // Delete single-attribute full-text index.
@@ -11247,8 +11247,6 @@ nebula&gt; DROP FULLTEXT INDEX fulltext_index_1;
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

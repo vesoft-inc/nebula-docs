@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10652,74 +10652,74 @@
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># The following statement returns the union of two query results without duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
+nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) \
         UNION \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+        GO FROM "player100" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player125&quot; |
+| "player100" |
+| "player101" |
+| "player125" |
 +-------------+
 
 nebula&gt; MATCH (v:player) \
         WITH v.player.name AS v \
         RETURN n ORDER BY n LIMIT 3 \
         UNION \
-        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        UNWIND ["Tony Parker", "Ben Simmons"] AS n \
         RETURN n;
 +---------------------+
 | n                   |
 +---------------------+
-| &quot;Amar&#39;e Stoudemire&quot; |
-| &quot;Aron Baynes&quot;       |
-| &quot;Ben Simmons&quot;       |
-| &quot;Tony Parker&quot;       |
+| "Amar'e Stoudemire" |
+| "Aron Baynes"       |
+| "Ben Simmons"       |
+| "Tony Parker"       |
 +---------------------+
 
 # The following statement returns the union of two query results with duplicated elements.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) \
+nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) \
         UNION ALL \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge);
+        GO FROM "player100" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player101&quot; |
-| &quot;player125&quot; |
+| "player100" |
+| "player101" |
+| "player101" |
+| "player125" |
 +-------------+
 
 nebula&gt; MATCH (v:player) \
         WITH v.player.name AS n \
         RETURN n ORDER BY n LIMIT 3 \
         UNION ALL \
-        UNWIND [&quot;Tony Parker&quot;, &quot;Ben Simmons&quot;] AS n \
+        UNWIND ["Tony Parker", "Ben Simmons"] AS n \
         RETURN n;
 +---------------------+
 | n                   |
 +---------------------+
-| &quot;Amar&#39;e Stoudemire&quot; |
-| &quot;Aron Baynes&quot;       |
-| &quot;Ben Simmons&quot;       |
-| &quot;Tony Parker&quot;       |
-| &quot;Ben Simmons&quot;       |
+| "Amar'e Stoudemire" |
+| "Aron Baynes"       |
+| "Ben Simmons"       |
+| "Tony Parker"       |
+| "Ben Simmons"       |
 +---------------------+
 
 # UNION can also work with the YIELD statement. The DISTINCT keyword will check duplication by all the columns for every line, and remove duplicated lines if every column is the same.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+nebula&gt; GO FROM "player102" OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
         UNION /* DISTINCT */ \
-        GO FROM &quot;player100&quot; OVER follow \
+        GO FROM "player100" OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
 +-------------+--------+-----+
 | id          | Degree | Age |
 +-------------+--------+-----+
-| &quot;player100&quot; | 75     | 42  |
-| &quot;player101&quot; | 75     | 36  |
-| &quot;player101&quot; | 95     | 36  |
-| &quot;player125&quot; | 95     | 41  |
+| "player100" | 75     | 42  |
+| "player101" | 75     | 36  |
+| "player101" | 95     | 36  |
+| "player125" | 95     | 41  |
 +-------------+--------+-----+
 </code></pre></div>
 <h2 id="intersect">INTERSECT<a class="headerlink" href="#intersect" title="Permanent link">&para;</a></h2>
@@ -10733,10 +10733,10 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># The following statement returns the intersection of two query results.
-nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+nebula&gt; GO FROM "player102" OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age \
         INTERSECT \
-        GO FROM &quot;player100&quot; OVER follow \
+        GO FROM "player100" OVER follow \
         YIELD dst(edge) AS id, properties(edge).degree AS Degree, properties($$).age AS Age;
 +----+--------+-----+
 | id | Degree | Age |
@@ -10744,11 +10744,11 @@ nebula&gt; GO FROM &quot;player102&quot; OVER follow \
 +----+--------+-----+
 
 nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) == &quot;player102&quot; \
+        WHERE id(v) == "player102" \
         RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age \
         INTERSECT \
         MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) == &quot;player100&quot; \
+        WHERE id(v) == "player100" \
         RETURN id(v2) As id, e.degree As Degree, v2.player.age AS Age;
 +----+--------+-----+
 | id | Degree | Age |
@@ -10772,35 +10772,35 @@ nebula&gt; UNWIND [1,2] AS a RETURN a \
 <p>Operator <code>MINUS</code> returns the subtraction (or difference) of two sets A and B (denoted by <code>A-B</code>). Always pay attention to the order of <code>left</code> and <code>right</code>. The set <code>A-B</code> consists of elements that are in A but not in B.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code># The following statement returns the elements in the first query result but not in the second query result.
-nebula&gt; GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) \
+nebula&gt; GO FROM "player100" OVER follow YIELD dst(edge) \
         MINUS \
-        GO FROM &quot;player102&quot; OVER follow YIELD dst(edge);
+        GO FROM "player102" OVER follow YIELD dst(edge);
 +-------------+
 | dst(EDGE)   |
 +-------------+
-| &quot;player125&quot; |
+| "player125" |
 +-------------+
 
-nebula&gt; GO FROM &quot;player102&quot; OVER follow YIELD dst(edge) AS id\
+nebula&gt; GO FROM "player102" OVER follow YIELD dst(edge) AS id\
         MINUS \
-        GO FROM &quot;player100&quot; OVER follow YIELD dst(edge) AS id;
+        GO FROM "player100" OVER follow YIELD dst(edge) AS id;
 +-------------+
 | id          |
 +-------------+
-| &quot;player100&quot; |
+| "player100" |
 +-------------+
 
 nebula&gt; MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) ==&quot;player102&quot; \
+        WHERE id(v) =="player102" \
         RETURN id(v2) AS id\
         MINUS \
         MATCH (v:player)-[e:follow]-&gt;(v2) \
-        WHERE id(v) ==&quot;player100&quot; \
+        WHERE id(v) =="player100" \
         RETURN id(v2) AS id;
 +-------------+
 | id          |
 +-------------+
-| &quot;player100&quot; |
+| "player100" |
 +-------------+
 
 nebula&gt; UNWIND [1,2,3] AS a RETURN a \
@@ -10818,29 +10818,29 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
 <h2 id="precedence_of_the_set_operators_and_pipe_operators">Precedence of the set operators and pipe operators<a class="headerlink" href="#precedence_of_the_set_operators_and_pipe_operators" title="Permanent link">&para;</a></h2>
 <p>Please note that when a query contains a pipe <code>|</code> and a set operator, the pipe takes precedence. Refer to <a href="../4.pipe/">Pipe</a> for details. The query <code>GO FROM 1 UNION GO FROM 2 | GO FROM 3</code> is the same as the query <code>GO FROM 1 UNION (GO FROM 2 | GO FROM 3)</code>.</p>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player102&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player102" OVER follow \
         YIELD dst(edge) AS play_dst  \
         UNION \
-        GO FROM &quot;team200&quot; OVER serve REVERSELY \
+        GO FROM "team200" OVER serve REVERSELY \
         YIELD src(edge) AS play_src \
         | GO FROM $-.play_src OVER follow YIELD dst(edge) AS play_dst;
 
 +-------------+
 | play_dst    |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player101&quot; |
-| &quot;player117&quot; |
-| &quot;player105&quot; |
+| "player100" |
+| "player101" |
+| "player117" |
+| "player105" |
 +-------------+
 </code></pre></div>
 <p><img alt="image" src="https://user-images.githubusercontent.com/42762957/97955863-3a213000-1de2-11eb-8de3-2c78da30747c.png" /></p>
 <p>The above query executes the statements in the red bar first and then executes the statement in the green box.</p>
 <p>The parentheses can change the execution priority. For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM &quot;player102&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; (GO FROM "player102" OVER follow \
         YIELD dst(edge) AS play_dst  \
         UNION \
-        GO FROM &quot;team200&quot; OVER serve REVERSELY \
+        GO FROM "team200" OVER serve REVERSELY \
         YIELD src(edge) AS play_dst) \
         | GO FROM $-.play_dst OVER follow YIELD dst(edge) AS play_dst;
 </code></pre></div>
@@ -10935,8 +10935,6 @@ nebula&gt; UNWIND [1,2,3] AS a RETURN a \
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

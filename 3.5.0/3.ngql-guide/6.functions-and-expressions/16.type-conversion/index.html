@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10564,7 +10564,7 @@
 <li>Result type: Bool</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, &#39;true&#39;, &#39;false&#39;, NULL] AS b \
+<div class="highlight"><pre><span></span><code>nebula&gt; UNWIND [true, false, 'true', 'false', NULL] AS b \
         RETURN toBoolean(b) AS b;
 +----------+
 | b        |
@@ -10583,9 +10583,9 @@
 <li>Result type: Float</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toFloat(1), toFloat(&#39;1.3&#39;), toFloat(&#39;1e3&#39;), toFloat(&#39;not a number&#39;);
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toFloat(1), toFloat('1.3'), toFloat('1e3'), toFloat('not a number');
 +------------+----------------+----------------+-------------------------+
-| toFloat(1) | toFloat(&quot;1.3&quot;) | toFloat(&quot;1e3&quot;) | toFloat(&quot;not a number&quot;) |
+| toFloat(1) | toFloat("1.3") | toFloat("1e3") | toFloat("not a number") |
 +------------+----------------+----------------+-------------------------+
 | 1.0        | 1.3            | 1000.0         | __NULL__                |
 +------------+----------------+----------------+-------------------------+
@@ -10601,7 +10601,7 @@
 +---------+----------+
 | int2str | null2str |
 +---------+----------+
-| &quot;9669&quot;  | __NULL__ |
+| "9669"  | __NULL__ |
 +---------+----------+
 </code></pre></div>
 <h2 id="tointeger">toInteger()<a class="headerlink" href="#tointeger" title="Permanent link">&para;</a></h2>
@@ -10611,9 +10611,9 @@
 <li>Result type: Int</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toInteger(1), toInteger(&#39;1&#39;), toInteger(&#39;1e3&#39;), toInteger(&#39;not a number&#39;);
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN toInteger(1), toInteger('1'), toInteger('1e3'), toInteger('not a number');
 +--------------+----------------+------------------+---------------------------+
-| toInteger(1) | toInteger(&quot;1&quot;) | toInteger(&quot;1e3&quot;) | toInteger(&quot;not a number&quot;) |
+| toInteger(1) | toInteger("1") | toInteger("1e3") | toInteger("not a number") |
 +--------------+----------------+------------------+---------------------------+
 | 1            | 1              | 1000             | __NULL__                  |
 +--------------+----------------+------------------+---------------------------+
@@ -10636,16 +10636,16 @@
 <p>hash() returns the hash value of the argument. The argument can be a number, a string, a list, a boolean, null, or an expression that evaluates to a value of the preceding data types.</p>
 <p>The source code of the <code>hash()</code> function (MurmurHash2), seed (<code>0xc70f6907UL</code>), and other parameters can be found in <a href="https://github.com/vesoft-inc/nebula/blob/master/src/common/base/MurmurHash2.h"><code>MurmurHash2.h</code></a>.</p>
 <p>For Java, the hash function operates as follows.</p>
-<div class="highlight"><pre><span></span><code><span class="n">MurmurHash2</span><span class="p">.</span><span class="na">hash64</span><span class="p">(</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="s">&quot;to_be_hashed&quot;</span><span class="p">.</span><span class="na">getBytes</span><span class="p">().</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="mh">0xc70f6907</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">MurmurHash2</span><span class="p">.</span><span class="na">hash64</span><span class="p">(</span><span class="s">"to_be_hashed"</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="s">"to_be_hashed"</span><span class="p">.</span><span class="na">getBytes</span><span class="p">().</span><span class="na">length</span><span class="p">,</span><span class="w"> </span><span class="mh">0xc70f6907</span><span class="p">)</span>
 </code></pre></div>
 <p>Syntax: <code>hash(&lt;string&gt;)</code></p>
 <ul>
 <li>Result type: Int</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; RETURN hash(&quot;abcde&quot;);
+<div class="highlight"><pre><span></span><code>nebula&gt; RETURN hash("abcde");
 +--------------------+
-| hash(&quot;abcde&quot;)      |
+| hash("abcde")      |
 +--------------------+
 | 811036730794841393 |
 +--------------------+
@@ -10661,9 +10661,9 @@ nebula&gt; YIELD hash(NULL);
 +------------+
 | -1         |
 +------------+
-nebula&gt; YIELD hash(toLower(&quot;HELLO NEBULA&quot;));
+nebula&gt; YIELD hash(toLower("HELLO NEBULA"));
 +-------------------------------+
-| hash(toLower(&quot;HELLO NEBULA&quot;)) |
+| hash(toLower("HELLO NEBULA")) |
 +-------------------------------+
 | -8481157362655072082          |
 +-------------------------------+
@@ -10758,8 +10758,6 @@ nebula&gt; YIELD hash(toLower(&quot;HELLO NEBULA&quot;));
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

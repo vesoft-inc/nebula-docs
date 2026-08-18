@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10749,32 +10749,32 @@ YIELD [DISTINCT] &lt;return_list&gt; [AS &lt;alias&gt;];
 </table>
 <h3 id="fetch_vertex_properties_by_one_tag">Fetch vertex properties by one tag<a class="headerlink" href="#fetch_vertex_properties_by_one_tag" title="Permanent link">&para;</a></h3>
 <p>Specify a tag in the <code>FETCH</code> statement to fetch the vertex properties by that tag.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; YIELD properties(vertex);
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" YIELD properties(vertex);
 +-------------------------------+
 | properties(VERTEX)            |
 +-------------------------------+
-| {age: 42, name: &quot;Tim Duncan&quot;} |
+| {age: 42, name: "Tim Duncan"} |
 +-------------------------------+
 </code></pre></div>
 <h3 id="fetch_specific_properties_of_a_vertex">Fetch specific properties of a vertex<a class="headerlink" href="#fetch_specific_properties_of_a_vertex" title="Permanent link">&para;</a></h3>
 <p>Use a <code>YIELD</code> clause to specify the properties to be returned.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; \
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" \
         YIELD properties(vertex).name AS name;
 +--------------+
 | name         |
 +--------------+
-| &quot;Tim Duncan&quot; |
+| "Tim Duncan" |
 +--------------+
 </code></pre></div>
 <h3 id="fetch_properties_of_multiple_vertices">Fetch properties of multiple vertices<a class="headerlink" href="#fetch_properties_of_multiple_vertices" title="Permanent link">&para;</a></h3>
 <p>Specify multiple VIDs (vertex IDs) to fetch properties of multiple vertices. Separate the VIDs with commas.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player101&quot;, &quot;player102&quot;, &quot;player103&quot; YIELD properties(vertex);
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player101", "player102", "player103" YIELD properties(vertex);
 +--------------------------------------+
 | properties(VERTEX)                   |
 +--------------------------------------+
-| {age: 33, name: &quot;LaMarcus Aldridge&quot;} |
-| {age: 36, name: &quot;Tony Parker&quot;}       |
-| {age: 32, name: &quot;Rudy Gay&quot;}          |
+| {age: 33, name: "LaMarcus Aldridge"} |
+| {age: 36, name: "Tony Parker"}       |
+| {age: 32, name: "Rudy Gay"}          |
 +--------------------------------------+
 </code></pre></div>
 <h3 id="fetch_vertex_properties_by_multiple_tags">Fetch vertex properties by multiple tags<a class="headerlink" href="#fetch_vertex_properties_by_multiple_tags" title="Permanent link">&para;</a></h3>
@@ -10782,35 +10782,35 @@ YIELD [DISTINCT] &lt;return_list&gt; [AS &lt;alias&gt;];
 <div class="highlight"><pre><span></span><code># The following example creates a new tag t1.
 nebula&gt; CREATE TAG IF NOT EXISTS t1(a string, b int);
 
-# The following example attaches t1 to the vertex &quot;player100&quot;.
-nebula&gt; INSERT VERTEX t1(a, b) VALUES &quot;player100&quot;:(&quot;Hello&quot;, 100);
+# The following example attaches t1 to the vertex "player100".
+nebula&gt; INSERT VERTEX t1(a, b) VALUES "player100":("Hello", 100);
 
-# The following example fetches the properties of vertex &quot;player100&quot; by the tags player and t1.
-nebula&gt; FETCH PROP ON player, t1 &quot;player100&quot; YIELD vertex AS v;
+# The following example fetches the properties of vertex "player100" by the tags player and t1.
+nebula&gt; FETCH PROP ON player, t1 "player100" YIELD vertex AS v;
 +----------------------------------------------------------------------------+
 | v                                                                          |
 +----------------------------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;} :t1{a: &quot;Hello&quot;, b: 100}) |
+| ("player100" :player{age: 42, name: "Tim Duncan"} :t1{a: "Hello", b: 100}) |
 +----------------------------------------------------------------------------+
 </code></pre></div>
 <p>You can combine multiple tags with multiple VIDs in a <code>FETCH</code> statement.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player, t1 &quot;player100&quot;, &quot;player103&quot; YIELD vertex AS v;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player, t1 "player100", "player103" YIELD vertex AS v;
 +----------------------------------------------------------------------------+
 | v                                                                          |
 +----------------------------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;} :t1{a: &quot;Hello&quot;, b: 100}) |
-| (&quot;player103&quot; :player{age: 32, name: &quot;Rudy Gay&quot;})                           |
+| ("player100" :player{age: 42, name: "Tim Duncan"} :t1{a: "Hello", b: 100}) |
+| ("player103" :player{age: 32, name: "Rudy Gay"})                           |
 +----------------------------------------------------------------------------+
 </code></pre></div>
 <h3 id="fetch_vertex_properties_by_all_tags">Fetch vertex properties by all tags<a class="headerlink" href="#fetch_vertex_properties_by_all_tags" title="Permanent link">&para;</a></h3>
 <p>Set an asterisk symbol <code>*</code> to fetch properties by all tags in the current graph space.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * &quot;player100&quot;, &quot;player106&quot;, &quot;team200&quot; YIELD vertex AS v;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON * "player100", "player106", "team200" YIELD vertex AS v;
 +----------------------------------------------------------------------------+
 | v                                                                          |
 +----------------------------------------------------------------------------+
-| (&quot;player100&quot; :player{age: 42, name: &quot;Tim Duncan&quot;} :t1{a: &quot;Hello&quot;, b: 100}) |
-| (&quot;player106&quot; :player{age: 25, name: &quot;Kyle Anderson&quot;})                      |
-| (&quot;team200&quot; :team{name: &quot;Warriors&quot;})                                        |
+| ("player100" :player{age: 42, name: "Tim Duncan"} :t1{a: "Hello", b: 100}) |
+| ("player106" :player{age: 25, name: "Kyle Anderson"})                      |
+| ("team200" :team{name: "Warriors"})                                        |
 +----------------------------------------------------------------------------+
 </code></pre></div>
 <h2 id="fetch_edge_properties">Fetch edge properties<a class="headerlink" href="#fetch_edge_properties" title="Permanent link">&para;</a></h2>
@@ -10850,7 +10850,7 @@ YIELD &lt;output&gt;;
 </table>
 <h3 id="fetch_all_properties_of_an_edge">Fetch all properties of an edge<a class="headerlink" href="#fetch_all_properties_of_an_edge" title="Permanent link">&para;</a></h3>
 <p>The following statement fetches all the properties of the <code>serve</code> edge that connects vertex <code>"player100"</code> and vertex <code>"team204"</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot; YIELD properties(edge);
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204" YIELD properties(edge);
 +------------------------------------+
 | properties(EDGE)                   |
 +------------------------------------+
@@ -10859,7 +10859,7 @@ YIELD &lt;output&gt;;
 </code></pre></div>
 <h3 id="fetch_specific_properties_of_an_edge">Fetch specific properties of an edge<a class="headerlink" href="#fetch_specific_properties_of_an_edge" title="Permanent link">&para;</a></h3>
 <p>Use a <code>YIELD</code> clause to fetch specific properties of an edge.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot;    \
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"    \
         YIELD properties(edge).start_year;
 +-----------------------------+
 | properties(EDGE).start_year |
@@ -10869,43 +10869,43 @@ YIELD &lt;output&gt;;
 </code></pre></div>
 <h3 id="fetch_properties_of_multiple_edges">Fetch properties of multiple edges<a class="headerlink" href="#fetch_properties_of_multiple_edges" title="Permanent link">&para;</a></h3>
 <p>Specify multiple edge patterns (<code>&lt;src_vid&gt; -&gt; &lt;dst_vid&gt;[@&lt;rank&gt;]</code>) to fetch properties of multiple edges. Separate the edge patterns with commas.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot;, &quot;player133&quot; -&gt; &quot;team202&quot; YIELD edge AS e;
+<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204", "player133" -&gt; "team202" YIELD edge AS e;
 +-----------------------------------------------------------------------+
 | e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}] |
-| [:serve &quot;player133&quot;-&gt;&quot;team202&quot; @0 {end_year: 2011, start_year: 2002}] |
+| [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}] |
+| [:serve "player133"-&gt;"team202" @0 {end_year: 2011, start_year: 2002}] |
 +-----------------------------------------------------------------------+
 </code></pre></div>
 <h2 id="fetch_properties_based_on_edge_rank">Fetch properties based on edge rank<a class="headerlink" href="#fetch_properties_based_on_edge_rank" title="Permanent link">&para;</a></h2>
 <p>If there are multiple edges with the same edge type, source vertex, and destination vertex, you can specify the rank to fetch the properties on the correct edge.</p>
 <div class="highlight"><pre><span></span><code># The following example inserts edges with different ranks and property values.
 nebula&gt; insert edge serve(start_year,end_year) \
-        values &quot;player100&quot;-&gt;&quot;team204&quot;@1:(1998, 2017);
+        values "player100"-&gt;"team204"@1:(1998, 2017);
 
 nebula&gt; insert edge serve(start_year,end_year) \
-        values &quot;player100&quot;-&gt;&quot;team204&quot;@2:(1990, 2018);
+        values "player100"-&gt;"team204"@2:(1990, 2018);
 
 # By default, the FETCH statement returns the edge whose rank is 0.
-nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot; YIELD edge AS e;
+nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204" YIELD edge AS e;
 +-----------------------------------------------------------------------+
 | e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @0 {end_year: 2016, start_year: 1997}] |
+| [:serve "player100"-&gt;"team204" @0 {end_year: 2016, start_year: 1997}] |
 +-----------------------------------------------------------------------+
 
 # To fetch on an edge whose rank is not 0, set its rank in the FETCH statement.
-nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot;@1 YIELD edge AS e;
+nebula&gt; FETCH PROP ON serve "player100" -&gt; "team204"@1 YIELD edge AS e;
 +-----------------------------------------------------------------------+
 | e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve &quot;player100&quot;-&gt;&quot;team204&quot; @1 {end_year: 2017, start_year: 1998}] |
+| [:serve "player100"-&gt;"team204" @1 {end_year: 2017, start_year: 1998}] |
 +-----------------------------------------------------------------------+
 </code></pre></div>
 <h2 id="use_fetch_in_composite_queries">Use FETCH in composite queries<a class="headerlink" href="#use_fetch_in_composite_queries" title="Permanent link">&para;</a></h2>
 <p>A common way to use <code>FETCH</code> is to combine it with native nGQL such as <code>GO</code>.</p>
 <p>The following statement returns the <code>degree</code> values of the <code>follow</code> edges that start from vertex <code>"player101"</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player101&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player101" OVER follow \
         YIELD src(edge) AS s, dst(edge) AS d \
         | FETCH PROP ON follow $-.s -&gt; $-.d \
         YIELD properties(edge).degree;
@@ -10918,7 +10918,7 @@ nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot;@1
 +-------------------------+
 </code></pre></div>
 <p>Or you can use user-defined variables to construct similar queries.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM &quot;player101&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var = GO FROM "player101" OVER follow \
         YIELD src(edge) AS s, dst(edge) AS d; \
         FETCH PROP ON follow $var.s -&gt; $var.d \
         YIELD properties(edge).degree;
@@ -11021,8 +11021,6 @@ nebula&gt; FETCH PROP ON serve &quot;player100&quot; -&gt; &quot;team204&quot;@1
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

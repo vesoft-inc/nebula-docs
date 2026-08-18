@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10663,35 +10663,35 @@
 </table>
 <h3 id="use_a_yield_clause_in_a_statement">Use a YIELD clause in a statement<a class="headerlink" href="#use_a_yield_clause_in_a_statement" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Use <code>YIELD</code> with <code>GO</code>:<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<li>Use <code>YIELD</code> with <code>GO</code>:<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
         YIELD properties($$).name AS Friend, properties($$).age AS Age;
 +-----------------+-----+
 | Friend          | Age |
 +-----------------+-----+
-| &quot;Tony Parker&quot;   | 36  |
-| &quot;Manu Ginobili&quot; | 41  |
+| "Tony Parker"   | 36  |
+| "Manu Ginobili" | 41  |
 +-----------------+-----+
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player &quot;player100&quot; \
+<li>Use <code>YIELD</code> with <code>FETCH</code>:<div class="highlight"><pre><span></span><code>nebula&gt; FETCH PROP ON player "player100" \
         YIELD properties(vertex).name;
 +-------------------------+
 | properties(VERTEX).name |
 +-------------------------+
-| &quot;Tim Duncan&quot;            |
+| "Tim Duncan"            |
 +-------------------------+
 </code></pre></div>
 </li>
 </ul>
 <ul>
-<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == &quot;Tony Parker&quot; \
+<li>Use <code>YIELD</code> with <code>LOOKUP</code>:<div class="highlight"><pre><span></span><code>nebula&gt; LOOKUP ON player WHERE player.name == "Tony Parker" \
         YIELD properties(vertex).name, properties(vertex).age;
 +-------------------------+------------------------+
 | properties(VERTEX).name | properties(VERTEX).age |
 +-------------------------+------------------------+
-| &quot;Tony Parker&quot;           | 36                     |
+| "Tony Parker"           | 36                     |
 +-------------------------+------------------------+
 </code></pre></div>
 </li>
@@ -10730,7 +10730,7 @@
 <h3 id="use_a_yield_statement_in_a_composite_query">Use a YIELD statement in a composite query<a class="headerlink" href="#use_a_yield_statement_in_a_composite_query" title="Permanent link">&para;</a></h3>
 <p>In a <a href="../../4.variable-and-composite-queries/1.composite-queries/">composite query</a>, a <code>YIELD</code> statement accepts, filters, and modifies the result set of the preceding statement, and then outputs it.</p>
 <p>The following query finds the players that "player100" follows and calculates their average age.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM &quot;player100&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; GO FROM "player100" OVER follow \
         YIELD dst(edge) AS ID \
         | FETCH PROP ON player $-.ID \
         YIELD properties(vertex).age AS Age \
@@ -10742,14 +10742,14 @@
 +---------+-------------+
 </code></pre></div>
 <p>The following query finds the players that "player101" follows with the follow degrees greater than 90.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; $var1 = GO FROM &quot;player101&quot; OVER follow \
+<div class="highlight"><pre><span></span><code>nebula&gt; $var1 = GO FROM "player101" OVER follow \
         YIELD properties(edge).degree AS Degree, dst(edge) as ID; \
         YIELD $var1.ID AS ID WHERE $var1.Degree &gt; 90;
 +-------------+
 | ID          |
 +-------------+
-| &quot;player100&quot; |
-| &quot;player125&quot; |
+| "player100" |
+| "player125" |
 +-------------+
 </code></pre></div>
 <p>The following query finds the vertices in the player that are older than 30 and younger than 32, and returns the de-duplicate results.</p>
@@ -10771,14 +10771,14 @@
 | 3           |
 +-------------+
 
-nebula&gt; YIELD &quot;Hel&quot; + &quot;\tlo&quot; AS string1, &quot;, World!&quot; AS string2;
+nebula&gt; YIELD "Hel" + "\tlo" AS string1, ", World!" AS string2;
 +-------------+------------+
 | string1     | string2    |
 +-------------+------------+
-| &quot;Hel    lo&quot; | &quot;, World!&quot; |
+| "Hel    lo" | ", World!" |
 +-------------+------------+
 
-nebula&gt; YIELD hash(&quot;Tim&quot;) % 100;
+nebula&gt; YIELD hash("Tim") % 100;
 +-----------------+
 | (hash(Tim)%100) |
 +-----------------+
@@ -10895,8 +10895,6 @@ nebula&gt; YIELD 1- -1;
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

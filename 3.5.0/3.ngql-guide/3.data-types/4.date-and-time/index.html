@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10634,16 +10634,16 @@
 | -123-12-03                         |
 +------------------------------------+
 
-nebula&gt; RETURN DATE(&quot;23333&quot;);
+nebula&gt; RETURN DATE("23333");
 +---------------+
-| date(&quot;23333&quot;) |
+| date("23333") |
 +---------------+
 | 23333-01-01   |
 +---------------+
 
-nebula&gt; RETURN DATE(&quot;2023-12-12&quot;) - DATE(&quot;2023-12-11&quot;);
+nebula&gt; RETURN DATE("2023-12-12") - DATE("2023-12-11");
 +-----------------------------------------+
-| (date(&quot;2023-12-12&quot;)-date(&quot;2023-12-11&quot;)) |
+| (date("2023-12-12")-date("2023-12-11")) |
 +-----------------------------------------+
 | 1                                       |
 +-----------------------------------------+
@@ -10723,17 +10723,17 @@ nebula&gt; RETURN timestamp();
 +-------------+
 
 # To get a timestamp from given date and time.
-nebula&gt; RETURN timestamp(&quot;2022-01-05T06:18:43&quot;);
+nebula&gt; RETURN timestamp("2022-01-05T06:18:43");
 +----------------------------------+
-| timestamp(&quot;2022-01-05T06:18:43&quot;) |
+| timestamp("2022-01-05T06:18:43") |
 +----------------------------------+
 | 1641363523                       |
 +----------------------------------+
 
 # To get a timestamp using datetime().
-nebula&gt; RETURN timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;));
+nebula&gt; RETURN timestamp(datetime("2022-08-29T07:53:10.939000"));
 +---------------------------------------------------+
-| timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;)) |
+| timestamp(datetime("2022-08-29T07:53:10.939000")) |
 +---------------------------------------------------+
 | 1661759590                                        |
 +---------------------------------------------------+    
@@ -10760,14 +10760,14 @@ nebula&gt; RETURN timestamp(datetime(&quot;2022-08-29T07:53:10.939000&quot;));
 </li>
 <li>
 <p>Insert a vertex named <code>test1</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES &quot;test1&quot;:(date(&quot;2021-03-17&quot;), time(&quot;17:53:59&quot;), datetime(&quot;2017-03-04T22:30:40.003000[Asia/Shanghai]&quot;));
+<div class="highlight"><pre><span></span><code>nebula&gt; INSERT VERTEX date1(p1, p2, p3) VALUES "test1":(date("2021-03-17"), time("17:53:59"), datetime("2017-03-04T22:30:40.003000[Asia/Shanghai]"));
 </code></pre></div>
 </li>
 <li>
 <p>Query whether the value of property <code>p1</code> on the <code>test1</code> tag is <code>2021-03-17</code>.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  RETURN v.date1.p1 == date(&quot;2021-03-17&quot;);
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  RETURN v.date1.p1 == date("2021-03-17");
 +----------------------------------+
-| (v.date1.p1==date(&quot;2021-03-17&quot;)) |
+| (v.date1.p1==date("2021-03-17")) |
 +----------------------------------+
 | true                             |
 +----------------------------------+
@@ -10788,7 +10788,7 @@ nebula&gt; MATCH (v:date1) RETURN v.date1.p1;
 <li>
 <p>Search for vertices with <code>p3</code> property values less than <code>2023-01-01T00:00:00.000000</code>, and return the <code>p3</code> values.</p>
 <div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:date1)  \
-WHERE v.date1.p3 &lt; datetime(&quot;2023-01-01T00:00:00.000000&quot;) \
+WHERE v.date1.p3 &lt; datetime("2023-01-01T00:00:00.000000") \
 RETURN v.date1.p3;
 +----------------------------+
 | v.date1.p3                 |
@@ -10805,19 +10805,19 @@ RETURN v.date1.p3;
 <li>
 <p>Insert a vertex named <code>DUT</code> with a found-time timestamp of <code>"1988-03-01T08:00:00"</code>.</p>
 <div class="highlight"><pre><span></span><code># Insert as a timestamp. The corresponding timestamp of 1988-03-01T08:00:00 is 573177600, or 573206400 UTC.
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;DUT&quot;:(&quot;DUT&quot;, 573206400);
+nebula&gt; INSERT VERTEX school(name, found_time) VALUES "DUT":("DUT", 573206400);
 
 # Insert in the form of date and time.
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;DUT&quot;:(&quot;DUT&quot;, timestamp(&quot;1988-03-01T08:00:00&quot;));
+nebula&gt; INSERT VERTEX school(name, found_time) VALUES "DUT":("DUT", timestamp("1988-03-01T08:00:00"));
 </code></pre></div>
 </li>
 <li>
 <p>Insert a vertex named <code>dut</code> and store time with <code>now()</code> or <code>timestamp()</code> functions.</p>
 <div class="highlight"><pre><span></span><code># Use now() function to store time
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;dut&quot;, now());
+nebula&gt; INSERT VERTEX school(name, found_time) VALUES "dut":("dut", now());
 
 # Use timestamp() function to store time
-nebula&gt; INSERT VERTEX school(name, found_time) VALUES &quot;dut&quot;:(&quot;dut&quot;, timestamp());
+nebula&gt; INSERT VERTEX school(name, found_time) VALUES "dut":("dut", timestamp());
 </code></pre></div>
 </li>
 </ol>
@@ -10836,7 +10836,7 @@ nebula&gt; WITH date({year: 1984, month: 10, day: 11}) AS x RETURN x + 1;
 | 1984-10-12 |
 +------------+
 
-nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, hours: 99, minutes: 12}) as d \
+nebula&gt; WITH date('1984-10-11') as x, duration({years: 12, days: 14, hours: 99, minutes: 12}) as d \
         RETURN x + d AS sum, x - d AS diff;
 +------------+------------+
 | sum        | diff       |
@@ -10934,8 +10934,6 @@ nebula&gt; WITH date(&#39;1984-10-11&#39;) as x, duration({years: 12, days: 14, 
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

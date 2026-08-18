@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10741,9 +10741,9 @@
 <p>After the SST file is generated, RocksDB imports the SST file into NebulaGraph using the <code>IngestExternalFile()</code> method. For example:</p>
 <div class="highlight"><pre><span></span><code>IngestExternalFileOptions ifo;
 # Import two SST files
-Status s = db_-&gt;IngestExternalFile({&quot;/home/usr/file1.sst&quot;, &quot;/home/usr/file2.sst&quot;}, ifo);
+Status s = db_-&gt;IngestExternalFile({"/home/usr/file1.sst", "/home/usr/file2.sst"}, ifo);
 if (!s.ok()) {
-  printf(&quot;Error while adding file %s and %s, Error %s\n&quot;,
+  printf("Error while adding file %s and %s, Error %s\n",
          file_path1.c_str(), file_path2.c_str(), s.ToString().c_str());
   return 1;
 }
@@ -10925,10 +10925,10 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
   # NebulaGraph configuration
   nebula: {
     address:{
-      graph:[&quot;192.8.168.XXX:9669&quot;]
+      graph:["192.8.168.XXX:9669"]
       # the address of any of the meta services.
       # if your NebulaGraph server is in virtual network like k8s, please config the leader address of meta.
-      meta:[&quot;192.8.168.XXX:9559&quot;]
+      meta:["192.8.168.XXX:9559"]
     }
     user: root
     pswd: nebula
@@ -10937,13 +10937,13 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
     # SST file configuration
     path:{
         # The local directory that temporarily stores generated SST files
-        local:&quot;/tmp&quot;
+        local:"/tmp"
 
         # The path for storing the SST file in the HDFS
-        remote:&quot;/sst&quot;
+        remote:"/sst"
 
-        # The NameNode address of HDFS, for example, &quot;hdfs://&lt;ip/hostname&gt;:&lt;port&gt;&quot;
-        hdfs.namenode: &quot;hdfs://*.*.*.*:9000&quot;
+        # The NameNode address of HDFS, for example, "hdfs://&lt;ip/hostname&gt;:&lt;port&gt;"
+        hdfs.namenode: "hdfs://*.*.*.*:9000"
     }
 
     # The connection parameters of clients
@@ -10959,7 +10959,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       output: /tmp/errors
     }
 
-    # Use Google&#39;s RateLimiter to limit requests to NebulaGraph.
+    # Use Google's RateLimiter to limit requests to NebulaGraph.
     rate: {
       # Steady throughput of RateLimiter.
       limit: 1024
@@ -10985,8 +10985,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
-      path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_player.csv&quot;
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv".
+      path: "hdfs://*.*.*.*:9000/dataset/vertex_player.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
       # If the CSV file has a header, use the actual column name.
@@ -11002,13 +11002,13 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       vertex: {
         field:_c0
         # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
+      # prefix:"tag1"
       # Performs hashing operations on VIDs of type string.
       # policy:hash
       }
 
       # The delimiter specified. The default value is comma.
-      separator: &quot;,&quot;
+      separator: ","
 
       # If the CSV file has a header, set the header to true.
       # If the CSV file does not have a header, set the header to false. The default value is false.
@@ -11034,13 +11034,13 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         source: csv
         sink: sst
       }
-      path: &quot;hdfs://*.*.*.*:9000/dataset/vertex_team.csv&quot;
+      path: "hdfs://*.*.*.*:9000/dataset/vertex_team.csv"
       fields: [_c1]
       nebula.fields: [name]
       vertex: {
         field:_c0
       }
-      separator: &quot;,&quot;
+      separator: ","
       header: false
       batch: 256
       partition: 32
@@ -11063,8 +11063,8 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       }
 
       # Specify the path to the CSV file.
-      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, &quot;hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv&quot;.
-      path: &quot;hdfs://*.*.*.*:9000/dataset/edge_follow.csv&quot;
+      # If the file is stored in HDFS, use double quotation marks to enclose the file path, starting with hdfs://. For example, "hdfs://&lt;ip/hostname&gt;:port/xx/xx.csv".
+      path: "hdfs://*.*.*.*:9000/dataset/edge_follow.csv"
 
       # If the CSV file does not have a header, use [_c0, _c1, _c2, ..., _cn] to represent its header and indicate the columns as the source of the property values.
       # If the CSV file has a header, use the actual column name.
@@ -11080,20 +11080,20 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       source: {
         field: _c0
         # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
+      # prefix:"tag1"
       # Performs hashing operations on VIDs of type string.
       # policy:hash
       }
       target: {
         field: _c1
         # Add the specified prefix to the VID. For example, if the VID is `12345`, adding the prefix `tag1` will result in `tag1_12345`. The underscore cannot be modified.
-      # prefix:&quot;tag1&quot;
+      # prefix:"tag1"
       # Performs hashing operations on VIDs of type string.
       # policy:hash
       }
 
       # The delimiter specified. The default value is comma.
-      separator: &quot;,&quot;
+      separator: ","
 
       # (Optional) Specify a column as the source of the rank.
 
@@ -11123,7 +11123,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         source: csv
         sink: sst
       }
-      path: &quot;hdfs://*.*.*.*:9000/dataset/edge_serve.csv&quot;
+      path: "hdfs://*.*.*.*:9000/dataset/edge_serve.csv"
       fields: [_c2,_c3]
       nebula.fields: [start_year, end_year]
       source: {
@@ -11132,7 +11132,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
       target: {
         field: _c1
       }
-      separator: &quot;,&quot;
+      separator: ","
       header: false
       batch: 256
       partition: 32
@@ -11145,7 +11145,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </code></pre></div>
 <h3 id="step_4_generate_the_sst_file">Step 4: Generate the SST file<a class="headerlink" href="#step_4_generate_the_sst_file" title="Permanent link">&para;</a></h3>
 <p>Run the following command to generate the SST file from the CSV source file. For a description of the parameters, see <a href="../../parameter-reference/ex-ug-para-import-command/">Options for import</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt;<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;sst_application.conf_path&gt;<span class="w"> </span>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w"> </span>--master<span class="w"> </span><span class="s2">"local"</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span>&lt;shuffle_concurrency&gt;<span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w"> </span>&lt;nebula-exchange-3.5.0.jar_path&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;sst_application.conf_path&gt;<span class="w"> </span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11156,7 +11156,7 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 <p>JAR packages are available in two ways: <a href="../../ex-ug-compile/">compiled them yourself</a>, or <a href="https://repo1.maven.org/maven2/com/vesoft/nebula-exchange/">download</a> the compiled <code>.jar</code> file directly.</p>
 </div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">SPARK_HOME</span><span class="si">}</span>/bin/spark-submit<span class="w">  </span>--master<span class="w"> </span><span class="s2">"local"</span><span class="w"> </span>--conf<span class="w"> </span>spark.sql.shuffle.partition<span class="o">=</span><span class="m">200</span><span class="w"> </span>--class<span class="w"> </span>com.vesoft.nebula.exchange.Exchange<span class="w">  </span>/root/nebula-exchange/nebula-exchange/target/nebula-exchange-3.5.0.jar<span class="w">  </span>-c<span class="w"> </span>/root/nebula-exchange/nebula-exchange/target/classes/sst_application.conf
 </code></pre></div>
 <p>After the task is complete, you can view the generated SST file in the <code>/sst</code> directory (specified by the <code>nebula.path.remote</code> parameter) on HDFS.</p>
 <div class="admonition note">
@@ -11186,10 +11186,10 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
 </li>
 <li>
 <p>Run the following command to download the SST file:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS &quot;hdfs://&lt;hadoop_address&gt;:&lt;hadoop_port&gt;/&lt;sst_file_path&gt;&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS "hdfs://&lt;hadoop_address&gt;:&lt;hadoop_port&gt;/&lt;sst_file_path&gt;";
 </code></pre></div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS &quot;hdfs://*.*.*.*:9000/sst&quot;;
+<div class="highlight"><pre><span></span><code>nebula&gt; SUBMIT JOB DOWNLOAD HDFS "hdfs://*.*.*.*:9000/sst";
 </code></pre></div>
 </li>
 <li>
@@ -11304,8 +11304,6 @@ nebula&gt; CREATE EDGE serve(start_year int, end_year int);
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

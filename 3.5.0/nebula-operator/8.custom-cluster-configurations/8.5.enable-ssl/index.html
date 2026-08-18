@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10491,19 +10491,19 @@
 <h2 id="configure_certifications">Configure certifications<a class="headerlink" href="#configure_certifications" title="Permanent link">&para;</a></h2>
 <p>Operator provides the <code>sslCerts</code> field to specify the encrypted certificates. The <code>sslCerts</code> field contains three subfields: <code>serverSecret</code>, <code>clientSecret</code>, and <code>caSecret</code>. These three fields are used to specify the Secret names of the NebulaGraph server certificate, client certificate, and CA certificate, respectively. When you specify these three fields, Operator reads the certificate content from the corresponding Secret and mounts it into the cluster's Pod.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">     </span><span class="c1"># The name of the server certificate Secret.</span>
-<span class="w">  </span><span class="nt">serverCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the server certificate Secret, default is tls.crt.</span>
-<span class="w">  </span><span class="nt">serverKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                   </span><span class="c1"># The key name of the private key in the server certificate Secret, default is tls.key.</span>
-<span class="w">  </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">     </span><span class="c1"># The name of the client certificate Secret.</span>
-<span class="w">  </span><span class="nt">clientCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the client certificate Secret, default is tls.crt.</span>
-<span class="w">  </span><span class="nt">clientKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                   </span><span class="c1"># The key name of the private key in the client certificate Secret, default is tls.key.</span>
-<span class="w">  </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">             </span><span class="c1"># The name of the CA certificate Secret.</span>
-<span class="w">  </span><span class="nt">caCert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">                      </span><span class="c1"># The key name of the certificate in the CA certificate Secret, default is ca.crt.</span>
+<span class="w">  </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"server-cert"</span><span class="w">     </span><span class="c1"># The name of the server certificate Secret.</span>
+<span class="w">  </span><span class="nt">serverCert</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the server certificate Secret, default is tls.crt.</span>
+<span class="w">  </span><span class="nt">serverKey</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">                   </span><span class="c1"># The key name of the private key in the server certificate Secret, default is tls.key.</span>
+<span class="w">  </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"client-cert"</span><span class="w">     </span><span class="c1"># The name of the client certificate Secret.</span>
+<span class="w">  </span><span class="nt">clientCert</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">                  </span><span class="c1"># The key name of the certificate in the client certificate Secret, default is tls.crt.</span>
+<span class="w">  </span><span class="nt">clientKey</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">                   </span><span class="c1"># The key name of the private key in the client certificate Secret, default is tls.key.</span>
+<span class="w">  </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"ca-cert"</span><span class="w">             </span><span class="c1"># The name of the CA certificate Secret.</span>
+<span class="w">  </span><span class="nt">caCert</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">                      </span><span class="c1"># The key name of the certificate in the CA certificate Secret, default is ca.crt.</span>
 </code></pre></div>
 <p>The <code>serverCert</code> and <code>serverKey</code>, <code>clientCert</code> and <code>clientKey</code>, and <code>caCert</code> are used to specify the key names of the certificate and private key of the server Secret, the key names of the certificate and private key of the client Secret, and the key name of the CA Secret certificate. If you do not customize these field values, Operator defaults <code>serverCert</code> and <code>clientCert</code> to <code>tls.crt</code>, <code>serverKey</code> and <code>clientKey</code> to <code>tls.key</code>, and <code>caCert</code> to <code>ca.crt</code>. However, in the K8s cluster, the TLS type Secret uses <code>tls.crt</code> and <code>tls.key</code> as the default key names for the certificate and private key. Therefore, after creating the NebulaGraph cluster, you need to manually change the <code>caCert</code> field from <code>ca.crt</code> to <code>tls.crt</code> in the cluster configuration, so that the Operator can correctly read the content of the CA certificate. Before you customize these field values, you need to specify the key names of the certificate and private key in the Secret when creating it. For how to create a Secret with the key name specified, run the <code>kubectl create secret generic -h</code> command for help.</p>
 <p>You can use the <code>insecureSkipVerify</code> field to decide whether the client will verify the server's certificate chain and hostname. In production environments, it is recommended to set this to <code>false</code> to ensure the security of communication. If set to <code>true</code>, the client will not verify the server's certificate chain and hostname.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Determines whether the client needs to verify the server&#39;s certificate chain and hostname when establishing an SSL connection. It defaults to true.</span>
+<span class="w">  </span><span class="c1"># Determines whether the client needs to verify the server's certificate chain and hostname when establishing an SSL connection. It defaults to true.</span>
 <span class="w">  </span><span class="nt">insecureSkipVerify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span>
 </code></pre></div>
 <p>When the certificates are approaching expiration, they can be automatically updated by installing <a href="https://cert-manager.io/docs/installation/supported-releases/">cert-manager</a>. NebulaGraph will monitor changes to the certificate directory files, and once a change is detected, it will load the new certificate content into memory. </p>
@@ -10521,18 +10521,18 @@
 <span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">   </span><span class="c1"># The Secret name of the server certificate and private key.</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">   </span><span class="c1"># The Secret name of the client certificate and private key.</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">           </span><span class="c1"># The Secret name of the CA certificate.</span>
+<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"server-cert"</span><span class="w">   </span><span class="c1"># The Secret name of the server certificate and private key.</span>
+<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"client-cert"</span><span class="w">   </span><span class="c1"># The Secret name of the client certificate and private key.</span>
+<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"ca-cert"</span><span class="w">           </span><span class="c1"># The Secret name of the CA certificate.</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </li>
 </ul>
@@ -10548,11 +10548,11 @@
 <span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span>
+<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"server-cert"</span>
+<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"ca-cert"</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_graph_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_graph_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10572,18 +10572,18 @@
 <span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span>
+<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"server-cert"</span>
+<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"client-cert"</span>
+<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"ca-cert"</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_meta_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </li>
 </ul>
@@ -10611,18 +10611,18 @@
 <span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sslCerts</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;server-cert&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the server Certificate Secret.</span>
-<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-cert&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the client Certificate Secret.</span>
-<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ca-cert&quot;</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">// The name of the CA Certificate Secret.</span>
+<span class="w">    </span><span class="nt">serverSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"server-cert"</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the server Certificate Secret.</span>
+<span class="w">    </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"client-cert"</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// The name of the client Certificate Secret.</span>
+<span class="w">    </span><span class="nt">caSecret</span><span class="p">:</span><span class="w"> </span><span class="s">"ca-cert"</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">// The name of the CA Certificate Secret.</span>
 <span class="w">  </span><span class="nt">graphd</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">metad</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">  </span><span class="nt">storaged</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">      </span><span class="nt">enable_ssl</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </li>
 <li>
@@ -10758,8 +10758,6 @@ spec:
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

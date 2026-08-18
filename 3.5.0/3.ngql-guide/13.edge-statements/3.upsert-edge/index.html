@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="https://docs-cdn.nebula-graph.com.cn/figures/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.4.6">
     
     
       
@@ -10634,8 +10634,8 @@ SET &lt;update_prop&gt;
 </tbody>
 </table>
 <p>Here are some examples:</p>
-<div class="highlight"><pre><span></span><code>// This example checks if the following three vertices have any outgoing serve edge. The result &quot;Empty set&quot; indicates that such an edge does not exist.
-nebula&gt; GO FROM &quot;player666&quot;, &quot;player667&quot;, &quot;player668&quot; \
+<div class="highlight"><pre><span></span><code>// This example checks if the following three vertices have any outgoing serve edge. The result "Empty set" indicates that such an edge does not exist.
+nebula&gt; GO FROM "player666", "player667", "player668" \
         OVER serve \
         YIELD properties(edge).start_year, properties(edge).end_year;
 +-----------------------------+---------------------------+
@@ -10645,7 +10645,7 @@ nebula&gt; GO FROM &quot;player666&quot;, &quot;player667&quot;, &quot;player668
 Empty set
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player666&quot; -&gt; &quot;team200&quot;@0 \
+        "player666" -&gt; "team200"@0 \
         SET end_year = 2021 \
         WHEN end_year == 2010 \
         YIELD start_year, end_year;
@@ -10656,7 +10656,7 @@ nebula&gt; UPSERT EDGE on serve \
 +------------+----------+
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player666&quot; -&gt; &quot;team200&quot;@0 \
+        "player666" -&gt; "team200"@0 \
         SET end_year = 2022 \
         WHEN end_year == 2010 \
         YIELD start_year, end_year;
@@ -10667,7 +10667,7 @@ nebula&gt; UPSERT EDGE on serve \
 +------------+----------+
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player667&quot; -&gt; &quot;team200&quot;@0 \
+        "player667" -&gt; "team200"@0 \
         SET end_year = 2022 \
         YIELD start_year, end_year;
 +------------+----------+
@@ -10677,7 +10677,7 @@ nebula&gt; UPSERT EDGE on serve \
 +------------+----------+
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player668&quot; -&gt; &quot;team200&quot;@0 \
+        "player668" -&gt; "team200"@0 \
         SET start_year = 2000, end_year = end_year + 1 \
         YIELD start_year, end_year;
 +------------+----------+
@@ -10691,7 +10691,7 @@ nebula&gt; UPSERT EDGE on serve \
 Execution succeeded
 
 nebula&gt; UPSERT EDGE on serve_with_default \
-        &quot;player668&quot; -&gt; &quot;team200&quot; \
+        "player668" -&gt; "team200" \
         SET end_year = end_year + 1 \
         YIELD start_year, end_year;
 +------------+----------+
@@ -10702,16 +10702,16 @@ nebula&gt; UPSERT EDGE on serve_with_default \
 </code></pre></div>
 <h2 id="update_an_edge_if_it_exists">Update an edge if it exists<a class="headerlink" href="#update_an_edge_if_it_exists" title="Permanent link">&para;</a></h2>
 <p>If the edge exists and the <code>WHEN</code> conditions are met, the edge is updated.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Ben Simmons&quot;})-[e:serve]-(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Ben Simmons"})-[e:serve]-(v2) \
         RETURN e;
 +-----------------------------------------------------------------------+
 | e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve &quot;player149&quot;-&gt;&quot;team219&quot; @0 {end_year: 2019, start_year: 2016}] |
+| [:serve "player149"-&gt;"team219" @0 {end_year: 2019, start_year: 2016}] |
 +-----------------------------------------------------------------------+
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player149&quot; -&gt; &quot;team219&quot; \
+        "player149" -&gt; "team219" \
         SET end_year = end_year + 1 \
         WHEN start_year == 2016 \
         YIELD start_year, end_year;
@@ -10722,17 +10722,17 @@ nebula&gt; UPSERT EDGE on serve \
 +------------+----------+
 </code></pre></div>
 <p>If the edge exists and the <code>WHEN</code> conditions are not met, the update does not take effect.</p>
-<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:&quot;Ben Simmons&quot;})-[e:serve]-(v2) \
+<div class="highlight"><pre><span></span><code>nebula&gt; MATCH (v:player{name:"Ben Simmons"})-[e:serve]-(v2) \
         RETURN e;
 +-----------------------------------------------------------------------+
 | e                                                                     |
 +-----------------------------------------------------------------------+
-| [:serve &quot;player149&quot;-&gt;&quot;team219&quot; @0 {end_year: 2020, start_year: 2016}] |
+| [:serve "player149"-&gt;"team219" @0 {end_year: 2020, start_year: 2016}] |
 +-----------------------------------------------------------------------+
 
 
 nebula&gt; UPSERT EDGE on serve \
-        &quot;player149&quot; -&gt; &quot;team219&quot; \
+        "player149" -&gt; "team219" \
         SET end_year = end_year + 1 \
         WHEN start_year != 2016 \
         YIELD start_year, end_year;
@@ -10832,8 +10832,6 @@ nebula&gt; UPSERT EDGE on serve \
         <script src="../../../js/config.js"></script>
       
         <script src="../../../js/version-select.js"></script>
-      
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
