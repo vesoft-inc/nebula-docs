@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1 # fetch all commits/branches for gitversion
+          fetch-depth: 0 # fetch all commits/branches for gitversion
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -25,12 +25,22 @@ jobs:
       - name: Git Config
         run: git config user.name whitewum && git config user.email min.wu@vesoft.com
           
-      - name: Mike Deploy master
+      - name: Mike Deploy 3.4.4
         run: |
-          # mike delete master -p
-          git fetch origin gh-pages --depth=1 # fix mike's CI update
-          mike deploy 3.4.4 -p 
-          mike list
+          # mike delete 3.4.4 -p
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            if mike deploy 3.4.4 --rebase -p; then
+              mike list
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+
+            sleep $((attempt * 30))
+          done
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
