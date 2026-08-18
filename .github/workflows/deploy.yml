@@ -38,10 +38,19 @@ jobs:
       - name: Mike Deploy 3.0.2
         run: |
           # mike delete v3.0.2 -p
-          git fetch origin gh-pages --depth=1 # fix mike's CI update
-          mkdocs build -v # this is a test
-          mike deploy 3.0.2 -p 
-          mike list
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            if mike deploy 3.0.2 --rebase -p; then
+              mike list
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+
+            sleep $((attempt * 30))
+          done
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
