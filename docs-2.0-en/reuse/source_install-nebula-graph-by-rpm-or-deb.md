@@ -20,33 +20,33 @@ RPM and DEB are common package formats on Linux systems. This topic shows how to
 
     ```bash
     //Centos 7
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el7.x86_64.rpm
+    https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.el7.x86_64.rpm
 
     //Centos 8
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el8.x86_64.rpm
+    https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.el8.x86_64.rpm
 
     //Ubuntu 1604
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1604.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.ubuntu1604.amd64.deb
 
     //Ubuntu 1804
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1804.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.ubuntu1804.amd64.deb
 
     //Ubuntu 2004
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu2004.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.ubuntu2004.amd64.deb
     ```
 
     For example, download the release package `{{ nebula.release }}` for `Centos 7.5`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm.sha256sum.txt
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.el7.x86_64.rpm
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.el7.x86_64.rpm.sha256sum.txt
     ```
 
     Download the release package `{{ nebula.release }}` for `Ubuntu 1804`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.ubuntu1804.amd64.deb
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.6.0/nebula-graph-3.6.0.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
 * Download the nightly version.
