@@ -16,41 +16,7 @@ Wget installed.
 
 * Download the released version.
 
-    URL:
-
-    ```bash
-    //Centos 6
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el6.x86_64.rpm
-
-    //Centos 7
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el7.x86_64.rpm
-
-    //Centos 8
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el8.x86_64.rpm
-
-    //Ubuntu 1604
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1604.amd64.deb
-
-    //Ubuntu 1804
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1804.amd64.deb
-
-    //Ubuntu 2004
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu2004.amd64.deb
-    ```
-
-    For example, download the release package `{{ nebula.release }}` for `Centos 7.5`:
-
-    ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm.sha256sum.txt
-    ```
-
-    Download the release package `{{ nebula.release }}` for `Ubuntu 1804`:
-
-    ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb.sha256sum.txt
-    ```
+    NebulaGraph 3.1.3 has no server installation packages on [GitHub Releases](https://github.com/vesoft-inc/nebula/releases). The previous OSS download links are no longer available. To install a published version, choose a version with packages on that page.
 
 * Download the nightly version.
 
