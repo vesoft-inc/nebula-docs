@@ -20,36 +20,36 @@ Prepare the right [resources](https://docs.nebula-graph.io/{{nebula.release}}/4.
 
     ```bash
     //Centos 6
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el6.x86_64.rpm
+    # CentOS 6 package is not available on GitHub Releases
 
     //Centos 7
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el7.x86_64.rpm
+    https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.el7.x86_64.rpm
 
     //Centos 8
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.el8.x86_64.rpm
+    https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.el8.x86_64.rpm
 
     //Ubuntu 1604
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1604.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.ubuntu1604.amd64.deb
 
     //Ubuntu 1804
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu1804.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.ubuntu1804.amd64.deb
 
     //Ubuntu 2004
-    https://oss-cdn.nebula-graph.io/package/<release_version>/nebula-graph-<release_version>.ubuntu2004.amd64.deb
+    https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.ubuntu2004.amd64.deb
     ```
 
     For example, download the release package `{{ nebula.release }}` for `Centos 7.5`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.el7.x86_64.rpm.sha256sum.txt
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.el7.x86_64.rpm
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.el7.x86_64.rpm.sha256sum.txt
     ```
 
     Download the release package `{{ nebula.release }}` for `Ubuntu 1804`:
 
     ```bash
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb
-    wget https://oss-cdn.nebula-graph.io/package/{{ nebula.release }}/nebula-graph-{{ nebula.release }}.ubuntu1804.amd64.deb.sha256sum.txt
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.ubuntu1804.amd64.deb
+    wget https://github.com/vesoft-inc/nebula/releases/download/v3.0.2/nebula-graph-3.0.2.ubuntu1804.amd64.deb.sha256sum.txt
     ```
 
 * Download the nightly version.
